@@ -1,0 +1,13 @@
+---
+default: true
+line-length: false
+
+ol-prefix:
+  style: "one"
+ul-style:
+  style: "dash"
+
+ol-indent:
+  indent: 4
+ul-indent:
+  indent: 4

@@ -1,0 +1,93 @@
+---
+site_name: Maia OSS版
+site_url: https://example.com/
+docs_dir: contents
+copyright: !ENV [COPYRIGHT, 'Test Version Copyright &copy; 2021 Nihon Unisys, Ltd. All rights reserved.']
+site_author: '生産技術イノベーション部'
+site_description: 'Maia OSS版のポータルサイトです。'
+site_dir: build-artifacts
+
+nav:
+  - index.md
+  - アプリケーションアーキテクチャ: 
+      - 概要編:
+          - 目次: application-architecture/overview/index.md
+          - 構築できるアプリケーション: application-architecture/overview/application-kind.md
+          - Maia OSS 版を構成するもの: application-architecture/overview/compositions.md
+          - 推奨するリポジトリ構造: application-architecture/overview/repository-structure.md
+      - クライアントサイドレンダリング編:
+          - 目次: application-architecture/client-side-rendering/index.md
+      # - クックブック:
+      #     - 目次: cook-book/index.md
+      #     - 帳票印刷: cook-book/~~~
+  - アプリケーション開発手順:
+      - Java 編: how-to-develop/java/index.md
+      - Vue.js 編: how-to-develop/vue-js/index.md
+      - ローカル開発環境の構築: how-to-develop/local-environment/index.md
+  - サンプル解説:
+      - 目次: samples/index.md
+  - 利用規約: terms/index.md
+
+theme:
+  name: material
+  language: ja
+  locale: ja
+  favicon: assets/images/favicon.png
+  logo: assets/maia-logo.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+      primary: teal
+      accent: green
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+      primary: teal
+      accent: green
+  font:
+    text: Noto Sans JP
+    code: Source Code Pro
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - toc.integrate
+    - navigation.indexes
+  plugins:
+    - search:
+        lang: ja
+        prebuild_index: true
+    - minify:
+        minify_html: true
+        minify_js: true
+        htmlmin_opts:
+          remove_comments: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - toc:
+      permalink: ⚓︎
+      toc_depth: 2
+
+extra_css:
+  - stylesheets/overrides.css
