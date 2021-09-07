@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"extensions": {
+        "recommendations": [
+            "hediet.vscode-drawio",
+			"yzhang.markdown-all-in-one",
+			"davidanson.vscode-markdownlint"			
+        ]
+    }
+}
