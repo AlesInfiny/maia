@@ -4,19 +4,4 @@
 
 ## クイックスタート
 
-Some text
-
-```java
-public class Hoge
-{
-    public int DoAsync(string hoge)
-    {
-        // Task を返す。
-        return Task.Completed;
-    }
-}
-```
-
-:new:
-
 --8<-- "includes/abbreviations.md"
