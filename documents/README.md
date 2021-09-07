@@ -102,6 +102,11 @@ main ブランチをチェックアウトしたら、 pull を実行して最新
 
 ディレクトリ構成に従って Markdown ファイルを作成してください。
 
+Markdown の作成にあたっては、 Material for MkDocs の Web サイトを参考にしてください。
+素の Markdown とは異なる表現パターンがあるので、参考にしてください。
+
+<https://squidfunk.github.io/mkdocs-material/reference/abbreviations/>
+
 ### 動作確認
 
 記事をある程度作成したら、 mkdocs を用いて確認を行います。
