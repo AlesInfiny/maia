@@ -1,0 +1,68 @@
+name: ドキュメントのビルドとリリース
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'documents/**'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ドキュメントのビルド
+    runs-on: ubuntu-latest
+    steps:
+      - name: ブランチのチェックアウト 
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Python のセットアップ
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: mkdocs のインストール
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install mkdocs
+          python -m pip install mkdocs-material
+          python -m pip install pymdown-extensions
+          python -m pip install mkdocs-minify-plugin
+
+      - name: ドキュメントのビルド
+        run: |
+          if [ -n "${{ github.event.release.name }}" ]; then
+            export COPYRIGHT="${{ github.event.release.name }} Copyright &copy; 2021 Nihon Unisys, Ltd. All rights reserved."
+          fi          
+          mkdocs build --config-file documents/mkdocs.yml --verbose --clean --strict
+          cd documents/build-artifacts
+          zip -r ../docs.zip *
+
+      - name: ビルドアーティファクトのアップロード
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: documents
+          path: documents/docs.zip
+
+  release:
+    name: ドキュメントのリリース
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: ビルドアーティファクトのダウンロード
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: documents
+
+#      - name: ステージング環境へのデプロイ
+#        uses: azure/webapps-deploy@v2
+#        with: 
+#          app-name: <App Serviceの名前>
+#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
+#          package: 'docs.zip'
