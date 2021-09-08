@@ -43,32 +43,6 @@ Feature ブランチの名前は「feature/<更新内容を表す名前>」と�
 
 ## ドキュメントの作成方法（詳細版）
 
-### リポジトリのクローン（最初に 1 回だけ行う）
-
-ローカルマシン内の適当なディレクトリで、このリポジトリをクローンします。
-詳細な手順は以下を参照してください。
-
-<https://docs.github.com/ja/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository>
-
-### ユーザー名、メールアドレスの設定（最初に 1 回だけ行う）
-
-クローンした Git リポジトリに対して、自分のユーザー名、メールアドレスを設定します。
-コマンドプロンプトでクローンしたリポジトリのあるディレクトリに移動して、現在設定されているユーザー名、メールアドレスを確認します。
-
-```plane
-c:\hogehoge\maia>git config user.name
-XXXXXXXXXXX
-
-c:\hogehoge\maia>git config user.email
-YYYYY@hoge.com
-```
-
-グローバルの設定が生きている場合は、以下を参照し、メールアドレスとユーザー名の上書き設定を推奨します。
-メールアドレスは `GitHub が提供する no-reply メールアドレス` を設定することをおすすめします。
-また GitHub 上の設定変更もあわせて行うことをおすすめします。
-
-<https://docs.github.com/ja/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address>
-
 ### ローカルの main ブランチを最新にする
 
 Visual Studio Code を起動して、 [ファイル] メニューから [ワークスペースを開く] を選択します。
@@ -209,19 +183,52 @@ TODO: 記載の修正が必要
 
 <https://code.visualstudio.com/download>
 
+### リポジトリのクローン
+
+ローカルマシン内の適当なディレクトリで、このリポジトリをクローンします。
+詳細な手順は以下を参照してください。
+
+<https://docs.github.com/ja/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository>
+
+### ユーザー名、メールアドレスの設定
+
+クローンした Git リポジトリに対して、自分のユーザー名、メールアドレスを設定します。
+コマンドプロンプトでクローンしたリポジトリのあるディレクトリに移動して、現在設定されているユーザー名、メールアドレスを確認します。
+
+```plane
+c:\hogehoge\maia>git config user.name
+XXXXXXXXXXX
+
+c:\hogehoge\maia>git config user.email
+YYYYY@hoge.com
+```
+
+グローバルの設定が生きている場合は、以下を参照し、メールアドレスとユーザー名の上書き設定を推奨します。
+メールアドレスは `GitHub が提供する no-reply メールアドレス` を設定することをおすすめします。
+また GitHub 上の設定変更もあわせて行うことをおすすめします。
+
+<https://docs.github.com/ja/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address>
+
 ### Visual Studio Code 拡張機能のインストール
 
-Visual Studio Code で、以下の拡張機能をインストールします。
+Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
+クローンしたディレクトリ内にある maia.code-workspace ファイルを選択して開きます。
+
+はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
+
+![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
+
+このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
 
 - Markdown All in One
 - markdownlint
+
+![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
 また必要に応じて以下の拡張機能をインストールします。
 
 - Japanese Language Pack for Visual Studio Code
 - Draw.io integration
-
-この文書では、この拡張機能がインストールされている前提で解説します。
 
 ### Pythonのインストール
 
