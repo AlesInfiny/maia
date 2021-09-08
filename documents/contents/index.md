@@ -1,7 +1,7 @@
 # Maia OSS版 にようこそ
 
-## Maia OSS 版とは
+## Maia OSS 版とは ## {: #what-is-maia-oss-version }
 
-## クイックスタート
+## クイックスタート ## {: #quick-start }
 
 --8<-- "includes/abbreviations.md"
