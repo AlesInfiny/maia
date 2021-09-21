@@ -12,6 +12,10 @@ on:
     types: [published]
   workflow_dispatch:
 
+env:
+  APP_OSS_MAIA_WEBAPP_NAME: app-oss-maia
+  DOCUMENT_ARTIFACTS_FILENAME: docs.zip
+
 jobs:
   build:
     name: ドキュメントのビルド
@@ -54,13 +58,13 @@ jobs:
           fi
           mkdocs build --config-file documents/mkdocs.yml --verbose --clean --strict
           cd documents/build-artifacts
-          zip -r ../docs.zip *
+          zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
 
       - name: ビルドアーティファクトのアップロード
         uses: actions/upload-artifact@v2.2.4
         with:
           name: documents
-          path: documents/docs.zip
+          path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
 
   release:
     name: ドキュメントのリリース
@@ -76,6 +80,7 @@ jobs:
       - name: ステージング環境へのデプロイ
         uses: azure/webapps-deploy@v2
         with:
-          app-name: rg-oss-maia-staging
+          app-name: ${{ env.OSS_MAIA_WEBAPP_NAME }}
+          slot-name: staging
           publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
-          package: 'docs.zip'
+          package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
