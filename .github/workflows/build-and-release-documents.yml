@@ -21,6 +21,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Linter の実行
+        uses: github/super-linter/slim@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MARKDOWN_CONFIG_FILE: '.markdownlint.yaml'
+          VALIDATE_MARKDOWN: true
+          VALIDATE_YAML: true
+          YAML_CONFIG_FILE: '.yaml-lint.yml'
+
       - name: Python のセットアップ
         uses: actions/setup-python@v2
         with:
@@ -60,9 +70,9 @@ jobs:
         with:
           name: documents
 
-#      - name: ステージング環境へのデプロイ
-#        uses: azure/webapps-deploy@v2
-#        with: 
-#          app-name: <App Serviceの名前>
-#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
-#          package: 'docs.zip'
+      - name: ステージング環境へのデプロイ
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: rg-oss-maia-staging
+          publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
+          package: 'docs.zip'
