@@ -57,9 +57,8 @@ jobs:
             export COPYRIGHT="${{ github.event.release.name }} Copyright &copy; 2021 Nihon Unisys, Ltd. All rights reserved."
           fi
           mkdocs build --config-file documents/mkdocs.yml --verbose --clean --strict
-          cd iis-files
-          cp -v -f file* documents/build-artifacts/
-          cd ../documents/build-artifacts
+          cp -T -v -f -r iis-files documents/build-artifacts/
+          cd documents/build-artifacts
           zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
 
       - name: ビルドアーティファクトのアップロード
