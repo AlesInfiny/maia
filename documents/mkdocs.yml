@@ -9,7 +9,7 @@ site_dir: build-artifacts
 
 nav:
   - index.md
-  - アプリケーションアーキテクチャ: 
+  - アプリケーションアーキテクチャ:
       - 概要編:
           - 目次: application-architecture/overview/index.md
           - 構築できるアプリケーション: application-architecture/overview/application-kind.md
@@ -17,9 +17,9 @@ nav:
           - 推奨するリポジトリ構造: application-architecture/overview/repository-structure.md
       - クライアントサイドレンダリング編:
           - 目次: application-architecture/client-side-rendering/index.md
-      # - クックブック:
-      #     - 目次: cook-book/index.md
-      #     - 帳票印刷: cook-book/~~~
+#       - クックブック:
+#           - 目次: cook-book/index.md
+#           - 帳票印刷: cook-book/~~~
   - アプリケーション開発手順:
       - Java 編: how-to-develop/java/index.md
       - Vue.js 編: how-to-develop/vue-js/index.md

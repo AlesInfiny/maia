@@ -1,10 +1,11 @@
+---
 name: ドキュメントのビルドとリリース
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'documents/**'
   release:
@@ -16,7 +17,7 @@ jobs:
     name: ドキュメントのビルド
     runs-on: ubuntu-latest
     steps:
-      - name: ブランチのチェックアウト 
+      - name: ブランチのチェックアウト
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -50,7 +51,7 @@ jobs:
         run: |
           if [ -n "${{ github.event.release.name }}" ]; then
             export COPYRIGHT="${{ github.event.release.name }} Copyright &copy; 2021 Nihon Unisys, Ltd. All rights reserved."
-          fi          
+          fi
           mkdocs build --config-file documents/mkdocs.yml --verbose --clean --strict
           cd documents/build-artifacts
           zip -r ../docs.zip *
@@ -74,7 +75,7 @@ jobs:
 
       - name: ステージング環境へのデプロイ
         uses: azure/webapps-deploy@v2
-        with: 
+        with:
           app-name: rg-oss-maia-staging
           publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
           package: 'docs.zip'
