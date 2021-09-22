@@ -86,6 +86,14 @@ jobs:
           publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
           package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
 
+      - name: Teams への通知
+        uses: fjogeleit/http-request-action@v1.8.1
+        with:
+          url: ${{ secrets.POST_MESSAGE_TO_TEAMS_URL  }}
+          method: POST
+          contentType: application/json
+          data: '{"messageType": 0,"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
+
   swap:
     name: 本番環境への反映承認
     needs: release
