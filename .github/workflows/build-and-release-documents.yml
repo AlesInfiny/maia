@@ -107,3 +107,4 @@ jobs:
           method: POST
           contentType: application/json
           data: '{"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
+          preventFailureOnNoResponse: true
