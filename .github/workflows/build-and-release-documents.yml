@@ -93,6 +93,7 @@ jobs:
           method: POST
           contentType: application/json
           data: '{"messageType": 0,"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
+          timeout: 30000
 
   swap:
     name: 本番環境への反映承認
