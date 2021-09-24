@@ -100,13 +100,10 @@ jobs:
     if: ${{ !github.event.release.prerelease && github.event.action == 'published' }}
     runs-on: ubuntu-latest
     steps:
-      - name: dummy
-        run: |
-          echo "call swap approver"
-#      - name: 本番環境への反映承認
-#        uses: fjogeleit/http-request-action@v1.8.1
-#        with:
-#          url: ${{ secrets.SWAP_APPROVER_URL  }}
-#          method: POST
-#          contentType: application/json
-#          data: '{"name":"${{ github.event.release.name }}"}'
+      - name: 本番環境への反映承認
+        uses: fjogeleit/http-request-action@v1.8.1
+        with:
+          url: ${{ secrets.APPROVE_REQUEST_TO_TEAMS_URL  }}
+          method: POST
+          contentType: application/json
+          data: '{"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
