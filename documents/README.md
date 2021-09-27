@@ -235,7 +235,7 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 以下のサイトから、 Windows 用の最新版 Python をインストールします。
 インストール時に [Add Python 3.x to PATH] にチェックを入れてからインストールしてください。
 
-<https://code.visualstudio.com/download>
+<https://www.python.org/downloads/>
 
 コマンドプロンプトを管理者権限で起動します。
 以下のコマンドを実行して pip を更新します。
