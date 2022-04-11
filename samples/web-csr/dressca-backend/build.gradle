@@ -4,3 +4,25 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.4.2/samples
  */
+buildscript {
+ 	configurations {
+		all {
+			exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+		}
+	}
+}
+
+subprojects {
+  apply plugin: "java"
+  
+  dependencies {
+		implementation 'org.apache.commons:commons-lang3:3.12.0'
+    
+		// Lombokの設定
+	  // annotationProcessorの設定を加えないとcompileJavaでエラーが発生する
+	  annotationProcessor("org.projectlombok:lombok")
+	  testAnnotationProcessor("org.projectlombok:lombok")
+	  compileOnly('org.projectlombok:lombok')
+	  testCompileOnly('org.projectlombok:lombok')
+  }
+}
