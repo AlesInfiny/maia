@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'Dressca-backend'
-include 'application-core', 'system-common', 'infrastructure', 'web'
+include 'application-core', 'system-common', 'infrastructure', 'web', 'batch'

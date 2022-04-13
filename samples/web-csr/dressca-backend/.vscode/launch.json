@@ -10,6 +10,17 @@
       "projectName": "web",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring BatchApplication",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "org.springframework.batch.core.launch.support.CommandLineJobRunner",
+      "projectName": "batch",
+      "args": "com.dressca.batch.conf.BatchConfiguration asset_job",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
