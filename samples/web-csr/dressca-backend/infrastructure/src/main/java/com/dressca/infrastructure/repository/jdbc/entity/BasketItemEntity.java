@@ -5,11 +5,13 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("assets")
+@Table("basket_items")
 @Data
-public class AssetEntity {
+public class BasketItemEntity {
   @Id
   private long id;
-  private String assetCode;
-  private String assetType;
+  private long basketId;
+  private long catalogItemId;
+  private double unitPrice;
+  private int quantity;
 }
