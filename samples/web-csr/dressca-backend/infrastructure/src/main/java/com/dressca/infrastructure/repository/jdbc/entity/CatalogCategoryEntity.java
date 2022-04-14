@@ -5,11 +5,10 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("assets")
+@Table("catalog_categories")
 @Data
-public class AssetEntity {
+public class CatalogCategoryEntity {
   @Id
   private long id;
-  private String assetCode;
-  private String assetType;
+  private String name;
 }
