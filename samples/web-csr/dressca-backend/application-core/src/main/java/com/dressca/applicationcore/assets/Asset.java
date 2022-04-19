@@ -4,12 +4,12 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * アセットのエンティティ
+ * アセットのドメインモデル
  */
 @Data
 public class Asset {
 
-  private long id;
+  // private long id;
 
   @NonNull
   private String assetCode;

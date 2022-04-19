@@ -11,7 +11,11 @@ public class MessageIdConstant {
     public static final String E_SHAR0000_LOG = "F_SHAR0000.log";
 
     // 業務エラーメッセージ用
-    /** "アセットコード: {0} のアセットが見つかりませんでした。" */
+    /** アセットコード: {0} のアセットが見つかりませんでした。 */
     public static final String E_ASSET0001_FRONT = "E_ASSET0001.front";
     public static final String E_ASSET0001_LOG = "E_ASSET0001.log";
+
+    /** 買い物かごID: {0} の買い物かごが見つかりませんでした。 */
+    public static final String E_BASKET0001_FRONT = "E_BASKET0001.front";
+    public static final String E_BASKET0001_LOG = "E_BASKET0001.log";
 }

@@ -38,7 +38,7 @@ public class AssetsController {
 
     try {
       AssetResourceInfo assetResourceInfo = this.service.getAssetResourceInfo(assetCode);
-      MediaType contentType = getContetType(assetResourceInfo.getAsset());
+      MediaType contentType = getContentType(assetResourceInfo.getAsset());
 
       return ResponseEntity.ok()
         .contentType(contentType)
@@ -53,7 +53,7 @@ public class AssetsController {
    * @param asset アセット
    * @return Content-Type の名称
    */
-  private MediaType getContetType(Asset asset) {
+  private MediaType getContentType(Asset asset) {
     switch(asset.getAssetType()) {
       case AssetTypes.png: 
         return MediaType.IMAGE_PNG;

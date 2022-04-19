@@ -1,5 +1,7 @@
 package com.dressca.infrastructure.repository.jdbc.entity;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -12,6 +14,6 @@ public class BasketItemEntity {
   private long id;
   private long basketId;
   private long catalogItemId;
-  private double unitPrice;
+  private BigDecimal unitPrice;
   private int quantity;
 }
