@@ -1,5 +1,7 @@
 package com.dressca.infrastructure.repository.jdbc.entity;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,7 +15,7 @@ public class OrderItemEntity {
   private long orderedCatalogItemId;
   private String orderedProductName;
   private String orderedProductCode;
-  private double unitPrice;
+  private BigDecimal unitPrice;
   private int quantity;
   private long orderId;
 }

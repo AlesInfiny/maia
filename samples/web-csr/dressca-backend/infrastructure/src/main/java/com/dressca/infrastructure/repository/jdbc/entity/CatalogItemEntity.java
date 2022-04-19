@@ -1,5 +1,7 @@
 package com.dressca.infrastructure.repository.jdbc.entity;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
@@ -9,7 +11,7 @@ import lombok.Data;
 public class CatalogItemEntity {
   private long id;
   private String name;
-  private double price;
+  private BigDecimal price;
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;

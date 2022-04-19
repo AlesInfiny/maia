@@ -1,5 +1,6 @@
 package com.dressca.infrastructure.repository.jdbc.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
@@ -19,9 +20,9 @@ public class OrderEntity {
   private String shipToTodofuken;
   private String shipToShikuchoson;
   private String shipToAzanaAndOthers;
-  private double consumptionTaxRate;
-  private double totalItemsPrice;
-  private double deliveryCharge;
-  private double consumptionTax;
-  private double totalPrice;
+  private BigDecimal consumptionTaxRate;
+  private BigDecimal totalItemsPrice;
+  private BigDecimal deliveryCharge;
+  private BigDecimal consumptionTax;
+  private BigDecimal totalPrice;
 }

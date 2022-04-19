@@ -10,10 +10,10 @@ import com.dressca.infrastructure.repository.jdbc.entity.AssetEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AssetRepositoryImpl implements AssetRepository {
 
   @Autowired
