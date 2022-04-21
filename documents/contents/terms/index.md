@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # 利用規約
 
 ## Maia OSS 版 の提供物について ## {: #maia-oss-version-license }
