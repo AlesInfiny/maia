@@ -8,32 +8,32 @@ T.B.D.
 
 documents ディレクトリ配下のディレクトリ、ファイルの配置は以下の通りです。
 
-|             |                        |                        |                                            |
-|-------------|------------------------|------------------------|--------------------------------------------|
-|contents     |                        |                        |ドキュメント本体                            |
-|             |application-architecture|                        |アプリケーションアーキテクチャ              |
-|             |                        |client-side-rendering   |CSR編                                       |
-|             |                        |overview                |概要編                                      |
-|             |assets                  |                        |共通資材（ロゴなど）                        |
-|             |                        |images                  |                                            |
-|             |how-to-develop          |                        |アプリケーション開発手順                    |
-|             |                        |java                    |Java 編                                     |
-|             |                        |local-environment       |ローカル開発環境の構築                      |
-|             |                        |vue-js                  |Vue.js 編                                   |
-|             |images                  |                        |ページ固有の画像ファイル置き場              |
-|             |                        |application-architecture|mdファイルの配置ディレクトリと構造をそろえる|
-|             |                        |how-to-develop          |                                            |
-|             |                        |samples                 |                                            |
-|             |                        |terms                   |                                            |
-|             |samples                 |                        |サンプルアプリケーション解説                |
-|             |stylesheets             |                        |既定のスタイルシートの上書き設定            |
-|             |terms                   |                        |利用規約                                    |
-|includes     |                        |                        |Snippets の置き場                           |
-|             |abbreviations.md        |                        |略語用語集                                  |
-|readme-images|                        |                        |README.md 内の画像ファイル置き場            |
-|.gitignore   |                        |                        |mkdocs 用の gitignore                       |
-|mkdocs.yml   |                        |                        |mkdocs の設定ファイル                       |
-|README.md    |                        |                        |このドキュメント                            |
+|               |                  |                          |                                              |
+| ------------- | ---------------- | ------------------------ | -------------------------------------------- |
+| contents      |                  |                          | ドキュメント本体                             |
+|               | app-architecture |                          | アプリケーションアーキテクチャ               |
+|               |                  | client-side-rendering    | CSR編                                        |
+|               |                  | overview                 | 概要編                                       |
+|               | assets           |                          | 共通資材（ロゴなど）                         |
+|               |                  | images                   |                                              |
+|               | how-to-develop   |                          | アプリケーション開発手順                     |
+|               |                  | java                     | Java 編                                      |
+|               |                  | local-environment        | ローカル開発環境の構築                       |
+|               |                  | vue-js                   | Vue.js 編                                    |
+|               | images           |                          | ページ固有の画像ファイル置き場               |
+|               |                  | application-architecture | mdファイルの配置ディレクトリと構造をそろえる |
+|               |                  | how-to-develop           |                                              |
+|               |                  | samples                  |                                              |
+|               |                  | terms                    |                                              |
+|               | samples          |                          | サンプルアプリケーション解説                 |
+|               | stylesheets      |                          | 既定のスタイルシートの上書き設定             |
+|               | terms            |                          | 利用規約                                     |
+| includes      |                  |                          | Snippets の置き場                            |
+|               | abbreviations.md |                          | 略語用語集                                   |
+| readme-images |                  |                          | README.md 内の画像ファイル置き場             |
+| .gitignore    |                  |                          | mkdocs 用の gitignore                        |
+| mkdocs.yml    |                  |                          | mkdocs の設定ファイル                        |
+| README.md     |                  |                          | このドキュメント                             |
 
 ## ドキュメントの作成方法（わかっている人向けの大雑把な手順）
 
