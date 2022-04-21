@@ -26,7 +26,7 @@ nav:
       - guidebooks/index.md
       - アプリケーション開発手順:
           - guidebooks/how-to-develop/index.md
-          - Java 編: 
+          - Java 編:
               - guidebooks/how-to-develop/java/index.md
           - Vue.js 編:
               - guidebooks/how-to-develop/vue-js/index.md
