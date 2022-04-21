@@ -10,14 +10,18 @@ import com.dressca.infrastructure.repository.jdbc.JdbcCatalogItemRepository;
 import com.dressca.infrastructure.repository.jdbc.entity.CatalogItemEntity;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+import lombok.AllArgsConstructor;
 
+@Repository
+@AllArgsConstructor
 public class CatalogRepositoryImpl implements CatalogRepository {
 
     private JdbcCatalogItemRepository repository;
 
     @Override
     public List<CatalogItem> findByCategoryIdIn(List<Long> categoryIds) {
-        List<CatalogItemEntity> entities = repository.findByCategoryIdIn(categoryIds);
+        List<CatalogItemEntity> entities = repository.findByCatalogCategoryIdIn(categoryIds);
         List<CatalogItem> catalogItems = StreamSupport.stream(entities.spliterator(), false)
             .map(this::toCatalogItem)
             .collect(Collectors.toList());
@@ -28,7 +32,7 @@ public class CatalogRepositoryImpl implements CatalogRepository {
     @Override
     public List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page, int pageSize) {
         Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
-        List<CatalogItemEntity> entities = repository.findByBrandIdAndCategoryId(brandId, categoryId, pageable);
+        List<CatalogItemEntity> entities = repository.findByCatalogBrandIdAndCatalogCategoryId(brandId, categoryId, pageable);
         List<CatalogItem> catalogItems = StreamSupport.stream(entities.spliterator(), false)
             .map(this::toCatalogItem)
             .collect(Collectors.toList());
@@ -48,7 +52,7 @@ public class CatalogRepositoryImpl implements CatalogRepository {
 
     @Override
     public int countByBrandIdAndCategoryId(long brandId, long categoryId) {
-        return repository.countByBrandIdAndCategoryId(brandId, categoryId);
+        return repository.countByCatalogBrandIdAndCatalogCategoryId(brandId, categoryId);
     }
 
     // TODO: descriptionの引継ぎが未実装

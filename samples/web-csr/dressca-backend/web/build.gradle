@@ -16,9 +16,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'com.h2database:h2:2.1.210'
+
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
+	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
 	implementation project(':system-common')
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
