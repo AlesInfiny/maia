@@ -10,6 +10,10 @@ documents ディレクトリ配下のディレクトリ、ファイルの配置�
 
 |               |                  |                       |                   |                                              |
 | ------------- | ---------------- | --------------------- | ----------------- | -------------------------------------------- |
+| _materials    |                  |                       |                   | ドキュメント内で利用する素材                 |
+|               | images           |                       |                   | 画像素材（画像を作るための元ファイル）       |
+|               |                  | app-architecture      |                   | contents/imagesディレクトリと構造をそろえる  |
+|               |                  |                       | hoge.drawio       | ファイル名は生成後の画像ファイルと同じにする |
 | contents      |                  |                       |                   | ドキュメント本体                             |
 |               | app-architecture |                       |                   | アプリケーションアーキテクチャ               |
 |               |                  | client-side-rendering |                   | CSR編                                        |
@@ -24,6 +28,8 @@ documents ディレクトリ配下のディレクトリ、ファイルの配置�
 |               |                  |                       | vue-js            | Vue.js 編                                    |
 |               | images           |                       |                   | ページ固有の画像ファイル置き場               |
 |               |                  | app-architecture      |                   | mdファイルの配置ディレクトリと構造をそろえる |
+|               |                  |                       | hoge.png          | 画像ファイルはsvgかpngにする                 |
+|               |                  |                       | animation.gif     | gifアニメも利用可                            |
 |               |                  | guidebooks            |                   |                                              |
 |               |                  |                       | how-to-develop    |                                              |
 |               |                  |                       | samples           |                                              |
