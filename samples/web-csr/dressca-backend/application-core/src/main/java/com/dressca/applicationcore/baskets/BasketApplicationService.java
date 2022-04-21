@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 
+@Service
+@AllArgsConstructor
 public class BasketApplicationService {
     private BasketRepository basketRepository;
 

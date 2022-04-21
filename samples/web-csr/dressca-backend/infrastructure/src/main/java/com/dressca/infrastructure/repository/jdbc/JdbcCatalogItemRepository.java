@@ -11,9 +11,9 @@ public interface JdbcCatalogItemRepository extends CrudRepository<CatalogItemEnt
 
   List<CatalogItemEntity> findByIdIn(List<Long> Ids);
 
-  List<CatalogItemEntity> findByCategoryIdIn(List<Long> categoryIds);
+  List<CatalogItemEntity> findByCatalogCategoryIdIn(List<Long> categoryIds);
 
-  List<CatalogItemEntity> findByBrandIdAndCategoryId(long brandId, long categoryId, Pageable pageable);
+  List<CatalogItemEntity> findByCatalogBrandIdAndCatalogCategoryId(long brandId, long categoryId, Pageable pageable);
 
-  int countByBrandIdAndCategoryId(long brandId, long categoryId);
+  int countByCatalogBrandIdAndCatalogCategoryId(long brandId, long categoryId);
 }

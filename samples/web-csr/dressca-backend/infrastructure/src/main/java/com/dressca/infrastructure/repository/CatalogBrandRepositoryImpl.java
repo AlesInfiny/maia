@@ -8,7 +8,11 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.infrastructure.repository.jdbc.JdbcCatalogBrandRepository;
 import com.dressca.infrastructure.repository.jdbc.entity.CatalogBrandEntity;
+import org.springframework.stereotype.Repository;
+import lombok.AllArgsConstructor;
 
+@Repository
+@AllArgsConstructor
 public class CatalogBrandRepositoryImpl implements CatalogBrandRepository{
 
     private JdbcCatalogBrandRepository repository;
