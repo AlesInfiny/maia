@@ -8,25 +8,34 @@ site_description: 'Maia OSS版のポータルサイトです。'
 site_dir: build-artifacts
 
 nav:
-  - index.md
+  - Maia OSS版 にようこそ:
+      - index.md
   - アプリケーションアーキテクチャ:
+      - app-architecture/index.md
       - 概要編:
-          - 目次: application-architecture/overview/index.md
-          - 構築できるアプリケーション: application-architecture/overview/application-kind.md
-          - Maia OSS 版を構成するもの: application-architecture/overview/compositions.md
-          - 推奨するリポジトリ構造: application-architecture/overview/repository-structure.md
+          - app-architecture/overview/index.md
+          - 構築できるアプリケーション: app-architecture/overview/application-kind.md
+          - Maia OSS 版を構成するもの: app-architecture/overview/compositions.md
+          - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
       - クライアントサイドレンダリング編:
-          - 目次: application-architecture/client-side-rendering/index.md
+          - app-architecture/client-side-rendering/index.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
 #           - 帳票印刷: cook-book/~~~
-  - アプリケーション開発手順:
-      - Java 編: how-to-develop/java/index.md
-      - Vue.js 編: how-to-develop/vue-js/index.md
-      - ローカル開発環境の構築: how-to-develop/local-environment/index.md
+  - ガイド:
+      - guidebooks/index.md
+      - アプリケーション開発手順:
+          - guidebooks/how-to-develop/index.md
+          - Java 編:
+              - guidebooks/how-to-develop/java/index.md
+          - Vue.js 編:
+              - guidebooks/how-to-develop/vue-js/index.md
+          - ローカル開発環境の構築:
+              - guidebooks/how-to-develop/local-environment/index.md
   - サンプル解説:
-      - 目次: samples/index.md
-  - 利用規約: terms/index.md
+      - samples/index.md
+  - 利用規約:
+      - terms/index.md
 
 theme:
   name: material
@@ -53,12 +62,12 @@ theme:
     text: Noto Sans JP
     code: Source Code Pro
   features:
+    - content.code.annotate
+    - navigation.indexes
     - navigation.instant
     - navigation.tabs
     - navigation.top
-    - navigation.sections
-    - toc.integrate
-    - navigation.indexes
+    - navigation.tracking
   plugins:
     - search:
         lang: ja
@@ -87,7 +96,7 @@ markdown_extensions:
   - pymdownx.tabbed
   - toc:
       permalink: ⚓︎
-      toc_depth: 2
+      toc_depth: 3
 
 extra_css:
   - stylesheets/overrides.css

@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # Maia OSS版 にようこそ
 
 ## Maia OSS 版とは ## {: #what-is-maia-oss-version }
