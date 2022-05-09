@@ -21,8 +21,11 @@ public class AssetRepositoryImpl implements AssetRepository {
 
   @Override
   public Optional<Asset> findByAssetCode(String assetCode) {
-    AssetEntity entity = jdbcAssetRepository.findByAssetCode(assetCode);
-    return Optional.of(new Asset(entity.getAssetCode(), entity.getAssetType()));
+    Optional<AssetEntity> entity = jdbcAssetRepository.findByAssetCode(assetCode);
+    if (entity.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(new Asset(entity.get().getAssetCode(), entity.get().getAssetType()));
   }
 
 }

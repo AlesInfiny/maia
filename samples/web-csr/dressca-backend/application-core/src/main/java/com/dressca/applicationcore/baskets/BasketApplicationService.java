@@ -23,14 +23,14 @@ public class BasketApplicationService {
     }
 
     public void deleteBasket(long basketId) throws BasketNotFoundException {
-        Basket basket = this.basketRepository.getWithBasketItems(basketId)
+        Basket basket = this.basketRepository.findById(basketId)
             .orElseThrow(() -> new BasketNotFoundException(basketId));
         
         this.basketRepository.remove(basket);
     }
 
     public void setQuantities(long basketId, Map<Long, Integer> quantities) throws BasketNotFoundException {
-        Basket basket = this.basketRepository.getWithBasketItems(basketId)
+        Basket basket = this.basketRepository.findById(basketId)
             .orElseThrow(() -> new BasketNotFoundException(basketId));
         
         for (BasketItem item : basket.getItems()) {
@@ -49,7 +49,7 @@ public class BasketApplicationService {
             throw new IllegalArgumentException("buyerIdがnull");
         }
 
-        return this.basketRepository.getWithBasketItems(buyerId)
+        return this.basketRepository.findByBuyerId(buyerId)
             .orElseGet(() -> this.createBasket(buyerId));
     }
 

@@ -13,4 +13,10 @@ public class ExceptionIdConstant {
 
     /** 買い物かごが見つからなかった際の例外 */
     public static final String E_BASKET0001 = "E_BASKET0001";
+
+    /** 注文のチェックアウト処理開始時に買い物かごが空だった際の例外 */
+    public static final String E_ORDER0001 = "E_ORDER0001";
+
+    /** 注文情報が存在しなかった際の例外 */
+    public static final String E_ORDER0002 = "E_ORDER0002";
 }

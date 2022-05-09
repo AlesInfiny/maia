@@ -13,6 +13,7 @@ import lombok.NonNull;
 
 @Data
 public class Basket {
+    private long id;
     private List<BasketItem> items = List.of();
     @NonNull
     private String buyerId;
@@ -24,7 +25,7 @@ public class Basket {
         
         existingItem.ifPresentOrElse(
             item -> item.addQuantity(quantity), 
-            () -> this.items.add(new BasketItem(0, catalogItemId, unitPrice, quantity))
+            () -> this.items.add(new BasketItem(0, id, catalogItemId, unitPrice, quantity))
         );
     }
 

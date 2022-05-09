@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
 /**
- * アセット情報に関するビジネスユースケースを実現するサービスです
+ * アセット情報に関するビジネスユースケースを実現するサービスです.
  */
 @Service
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public class AssetApplicationService {
   private AssetStore store;
 
   /**
-   * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
+   * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します.
    * @param assetCode アセットコード
    * @return アセット情報とそのリソースオブジェクト
    * @throws AssetNotFoundException アセット情報が見つからなかった場合
