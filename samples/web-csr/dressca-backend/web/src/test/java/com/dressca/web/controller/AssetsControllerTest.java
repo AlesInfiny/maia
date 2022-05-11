@@ -1,68 +1,58 @@
 package com.dressca.web.controller;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetApplicationService;
-import com.dressca.applicationcore.assets.AssetNotFoundException;
-import com.dressca.applicationcore.assets.AssetResourceInfo;
-
+import com.dressca.web.WebApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(AssetsController.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = WebApplication.class)
+@AutoConfigureMockMvc
 public class AssetsControllerTest {
 
-  // @Autowired
-  // private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  // @MockBean
-  // private AssetApplicationService service;
+  @Test
+  @DisplayName("testGet_01_正常系_存在するアセットコード")
+  void testGet_01() {
+    // テスト用の入力データ
+    String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
 
-  // @Test
-  // @DisplayName("testGet_01_正常系_存在するアセットコード")
-  // void testGet_01_正常系_存在するアセットコード() {
-  //   // テスト用の入力データ
-  //   String assetCode = "ExistAssetCode";
+    // 期待する戻り値
+    try {
+      this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-  //   // 期待する戻り値
-  //   AssetResourceInfo assetResourceInfo = new AssetResourceInfo(new Asset(assetCode, "png"), new FileSystemResource("test"));
-  //   try {
-  //     when(service.getAssetResourceInfo(assetCode)).thenReturn(assetResourceInfo);
-  //     this.mockMvc.perform(get("/api/assets/" + assetCode))
-  //       .andDo(print())
-  //       .andExpect(status().isOk())
-  //       .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
-  //   } catch (Exception e) {
-  //     e.printStackTrace();
-  //     fail();
-  //   }
-  // }
+  @Test
+  @DisplayName("testGet_02_異常系_存在しないアセットコード")
+  void testGet_02() {
+    // テスト用の入力データ
+    String assetCode = "NotExistAssetCode";
 
-  // @Test
-  // @DisplayName("testGet_02_異常系_存在しないアセットコード")
-  // void testGet_02_異常系_存在しないアセットコード() {
-  //   // テスト用の入力データ
-  //   String assetCode = "NotExistAssetCode";
-
-  //   try {
-  //     when(service.getAssetResourceInfo(assetCode)).thenThrow(new AssetNotFoundException(assetCode));
-  //     this.mockMvc.perform(get("/api/assets/" + assetCode))
-  //       .andExpect(status().isNotFound());
-  //   } catch (Exception e) {
-  //     e.printStackTrace();
-  //     fail();
-  //   }
-  // }
+    try {
+      this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isNotFound());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 }

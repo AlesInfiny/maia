@@ -1,0 +1,16 @@
+INSERT INTO assets (asset_code, asset_type)
+VALUES ('b52dc7f712d94ca5812dd995bf926c04', 'png'),
+('80bc8e167ccb4543b2f9d51913073492', 'png'),
+('05d38fad5693422c8a27dd5b14070ec8', 'png'),
+('45c22ba3da064391baac91341067ffe9', 'png'),
+('4aed07c4ed5d45a5b97f11acedfbb601', 'png'),
+('082b37439ecc44919626ba00fc60ee85', 'png'),
+('f5f89954281747fa878129c29e1e0f83', 'png'),
+('a8291ef2e8e14869a7048e272915f33c', 'png'),
+('66237018c769478a90037bd877f5fba1', 'png'),
+('d136d4c81b86478990984dcafbf08244', 'png'),
+('47183f32f6584d7fb661f9216e11318b', 'png'),
+('cf151206efd344e1b86854f4aa49fdef', 'png'),
+('ab2e78eb7fe3408aadbf1e17a9945a8c', 'png'),
+('0e557e96bc054f10bc91c27405a83e85', 'png'),
+('e622b0098808492cb883831c05486b58', 'png');

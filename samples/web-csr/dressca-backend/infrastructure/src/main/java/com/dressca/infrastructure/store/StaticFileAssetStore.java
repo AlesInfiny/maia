@@ -22,7 +22,7 @@ import lombok.Setter;
 public class StaticFileAssetStore implements AssetStore {
 
   @Setter
-  private String basePath = ".";
+  private String basePath = "../static-files";
 
   @Override
   public Optional<Resource> getResource(Asset asset) {

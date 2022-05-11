@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BasketItem {
-    // private Basket basket;
+    private long id;
     private long basketId;
     private long catalogItemId;
     private BigDecimal unitPrice;

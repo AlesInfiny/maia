@@ -55,10 +55,9 @@ public class CatalogRepositoryImpl implements CatalogRepository {
         return repository.countByCatalogBrandIdAndCatalogCategoryId(brandId, categoryId);
     }
 
-    // TODO: descriptionの引継ぎが未実装
     private CatalogItem toCatalogItem(CatalogItemEntity entity) {
         return new CatalogItem(entity.getName(), 
-            null, 
+            entity.getDescription(), 
             entity.getPrice(), 
             entity.getProductCode(),
             entity.getCatalogCategoryId(),

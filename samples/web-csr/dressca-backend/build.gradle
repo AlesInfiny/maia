@@ -18,6 +18,7 @@ plugins {
 
 subprojects {
   apply plugin: 'java'
+  apply plugin: 'jacoco'
   apply plugin: 'checkstyle'
   apply plugin: 'com.github.spotbugs'
 
@@ -36,6 +37,9 @@ subprojects {
     testCompileOnly 'org.projectlombok:lombok'
   }
 
+  jacoco {
+    toolVersion = '0.8.8'
+  }
   checkstyle {
     toolVersion = '8.18'
   } 
@@ -44,6 +48,16 @@ subprojects {
     ignoreFailures = true
   }
 
+  // testタスクの後にjacocoTestReportタスクを実施する
+  test.finalizedBy jacocoTestReport
+
+  // JaCoCoのレポート出力の際に上述のクラスを除外する
+  jacocoTestReport {
+    reports {
+      html.enabled = true
+    }
+  }
+  
   // SpotBugs実施後、HTMLレポート出力も同時に行う
   spotbugsMain {
     reports {

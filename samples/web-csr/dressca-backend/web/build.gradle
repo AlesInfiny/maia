@@ -24,6 +24,8 @@ dependencies {
 	implementation project(':system-common')
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 configurations {

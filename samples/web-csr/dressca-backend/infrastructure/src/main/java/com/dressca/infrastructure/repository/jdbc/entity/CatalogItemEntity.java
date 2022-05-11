@@ -11,6 +11,7 @@ import lombok.Data;
 public class CatalogItemEntity {
   private long id;
   private String name;
+  private String description;
   private BigDecimal price;
   private String productCode;
   private long catalogCategoryId;

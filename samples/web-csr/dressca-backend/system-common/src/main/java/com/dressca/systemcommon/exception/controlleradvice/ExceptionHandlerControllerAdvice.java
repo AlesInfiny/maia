@@ -41,6 +41,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ErrorResponse> handleException(SystemException e, HttpServletRequest req) {
+    e.printStackTrace();
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
       .contentType(MediaType.APPLICATION_JSON)
       .body(createErrorResponse(e, req));
@@ -55,6 +56,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest req) {
+    e.printStackTrace();
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
       .contentType(MediaType.APPLICATION_JSON)
       .body(createErrorResponse(new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null), req));
