@@ -30,6 +30,6 @@ jobs:
 
       - name: gradlewに実行権限付与
         run: chmod +x samples/web-csr/dressca-backend/gradlew
-        
+
       - name: JUnite実行
         run: samples/web-csr/dressca-backend/gradlew test
