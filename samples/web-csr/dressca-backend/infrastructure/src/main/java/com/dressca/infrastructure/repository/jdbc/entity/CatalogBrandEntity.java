@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("catalog_brands")
+@Table("CATALOG_BRANDS")
 @Data
 public class CatalogBrandEntity {
   @Id

@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("basket_items")
+@Table("BASKET_ITEMS")
 @Data
 public class BasketItemEntity {
   @Id

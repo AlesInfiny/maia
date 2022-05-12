@@ -6,6 +6,7 @@ import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,9 +36,9 @@ public class CatalogCategoriesController {
      * @return カタログカテゴリの一覧。
      */
     @Operation(summary = "カタログカテゴリの一覧を取得します.", description = "カタログカテゴリの一覧を取得します.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功",
-            content = @Content(mediaType = "application/json", array = @ArraySchema(
-                    schema = @Schema(implementation = CatalogCategory.class))))})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategory.class)))) })
+    @GetMapping()
     public ResponseEntity<List<CatalogCategory>> getCatalogCategories() {
         List<CatalogCategory> categories = this.service.getCategories();
         return ResponseEntity.ok().body(categories);

@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("catalog_items")
+@Table("CATALOG_ITEMS")
 @Data
 public class CatalogItemEntity {
   private long id;

@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("orders")
+@Table("ORDERS")
 @Data
 public class OrderEntity {
   @Id

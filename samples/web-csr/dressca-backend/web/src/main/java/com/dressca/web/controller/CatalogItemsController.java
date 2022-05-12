@@ -36,23 +36,21 @@ public class CatalogItemsController {
   /**
    * カタログアイテムを検索して返します.
    * 
-   * @param brandId ブランドID
+   * @param brandId    ブランドID
    * @param categoryId カテゴリID
-   * @param page ページ番号。未指定の場合は1。
-   * @param pageSize ページサイズ。未指定の場合は20。
+   * @param page       ページ番号。未指定の場合は1。
+   * @param pageSize   ページサイズ。未指定の場合は20。
    * @return カタログアイテムの一覧
    */
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = PagedCatalogItemDto.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)})
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedCatalogItemDto.class))),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
   @GetMapping()
   public ResponseEntity<PagedCatalogItemDto> getByQuery(
       @RequestParam(name = "brandId", required = false) long brandId,
       @RequestParam(name = "categoryId", required = false) long categoryId,
-      @RequestParam(name = "page", defaultValue = "1") int page,
+      @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
     List<CatalogItemDto> items = service.getCatalogItems(brandId, categoryId, page, pageSize)
         .stream().map(this::convertCatalogItemDto).collect(Collectors.toList());
@@ -63,7 +61,9 @@ public class CatalogItemsController {
   }
 
   private CatalogItemDto convertCatalogItemDto(CatalogItem item) {
-    return new CatalogItemDto(item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
+    // TODO: assetCodeは仮でnull
+    return new CatalogItemDto(item.getId(), item.getName(), item.getProductCode(), null, item.getDescription(),
+        item.getPrice(), item.getCatalogCategoryId(),
         item.getCatalogBrandId());
   }
 }

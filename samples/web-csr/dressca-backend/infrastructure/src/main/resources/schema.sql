@@ -84,6 +84,6 @@ CREATE TABLE catalog_item_assets
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
   asset_code NVARCHAR(32) NOT NULL,
-  order_item_id BIGINT NOT NULL,
-  CONSTRAINT FK_order_item_assets_order_items FOREIGN KEY (order_item_id) REFERENCES order_items(id) ON DELETE CASCADE
+  catalog_item_id BIGINT NOT NULL,
+  CONSTRAINT FK_catalog_item_assets_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
 );

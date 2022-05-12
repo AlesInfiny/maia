@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Table("assets")
+@Table("ASSETS")
 @Data
 public class AssetEntity {
   @Id
