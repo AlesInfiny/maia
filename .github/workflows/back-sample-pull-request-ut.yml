@@ -38,7 +38,7 @@ jobs:
       - name: JUnitレポート
         uses: mikepenz/action-junit-report@v3
         with:
-          report_paths: ./samples/web-csr/dressca-backend/*/build/test-results/test/TEST-*.xml
+          report_paths: '**/build/test-results/test/TEST-*.xml'
       - name: Report
         uses: dorny/test-reporter@v1
         if: always()
