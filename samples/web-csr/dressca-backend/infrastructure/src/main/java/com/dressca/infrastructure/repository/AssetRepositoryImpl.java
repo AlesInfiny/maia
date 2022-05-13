@@ -27,5 +27,4 @@ public class AssetRepositoryImpl implements AssetRepository {
     }
     return Optional.of(new Asset(entity.get().getAssetCode(), entity.get().getAssetType()));
   }
-
 }

@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.baskets;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ import lombok.NonNull;
 @Data
 public class Basket {
     private long id;
-    private List<BasketItem> items = List.of();
+    private List<BasketItem> items = new ArrayList<>();
     @NonNull
     private String buyerId;
     
@@ -30,7 +31,7 @@ public class Basket {
     }
 
     public void removeEmptyItems() {
-        this.items.removeIf(item -> item.getBasketId() == 0);
+        this.items.removeIf(item -> item.getQuantity() == 0);
     }
 
     public boolean isInCatalogItem(long catalogItemId) {

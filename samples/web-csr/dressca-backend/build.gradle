@@ -49,7 +49,10 @@ subprojects {
   }
 
   // testタスクの後にjacocoTestReportタスクを実施する
-  test.finalizedBy jacocoTestReport
+  test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+  }
 
   // JaCoCoのレポート出力の際に上述のクラスを除外する
   jacocoTestReport {

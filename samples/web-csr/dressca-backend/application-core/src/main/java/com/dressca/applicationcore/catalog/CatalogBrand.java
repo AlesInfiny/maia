@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -13,5 +14,5 @@ import lombok.NonNull;
 public class CatalogBrand {
   @NonNull
   private String name;
-  private List<CatalogItem> items = List.of();
+  private List<CatalogItem> items = new ArrayList<>();
 }

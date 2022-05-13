@@ -8,7 +8,6 @@ import lombok.NonNull;
  */
 @Data
 public class CatalogItemAsset {
-  @NonNull
   private CatalogItem catalogItem;
   @NonNull
   private String assetCode;
