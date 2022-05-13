@@ -31,6 +31,11 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x samples/web-csr/dressca-backend/gradlew
 
-      - name: JUnite実行
+      - name: JUnit実行
         run: ./gradlew test
         working-directory: ./samples/web-csr/dressca-backend
+
+      - name: JUnitレポート
+        uses: mikepenz/action-junit-report@v3
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
