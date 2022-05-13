@@ -32,5 +32,5 @@ jobs:
         run: chmod +x samples/web-csr/dressca-backend/gradlew
 
       - name: JUnite実行
-        run: gradlew test
+        run: ./gradlew test
         working-directory: ./samples/web-csr/dressca-backend
