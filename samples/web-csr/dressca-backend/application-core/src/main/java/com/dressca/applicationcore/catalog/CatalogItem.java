@@ -28,4 +28,18 @@ public class CatalogItem {
   private long catalogCategoryId;
   @NonNull
   private long catalogBrandId;
+  
+  public CatalogItem(long id, @NonNull String name, @NonNull String description,
+      @NonNull BigDecimal price, @NonNull String productCode, @NonNull long catalogCategoryId,
+      @NonNull long catalogBrandId) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.productCode = productCode;
+    this.catalogCategoryId = catalogCategoryId;
+    this.catalogBrandId = catalogBrandId;
+  }
+
+  
 }

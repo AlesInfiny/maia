@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
 /**
- * 注文に関連するビジネスユースケースを実現する Applicaiton Service です.
+ * 注文に関連するビジネスユースケースを実現する Application Service です.
  */
 @Service
 @AllArgsConstructor
 public class OrderApplicationService {
   private OrderRepository orderRepository;
   private BasketRepository basketRepository;
-  private CatalogRepository CatalogRepository;
+  private CatalogRepository catalogRepository;
 
   /**
    * 注文を作成します.
@@ -42,7 +42,7 @@ public class OrderApplicationService {
 
     List<Long> catalogItemIds =
         basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.CatalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
         .collect(Collectors.toList());

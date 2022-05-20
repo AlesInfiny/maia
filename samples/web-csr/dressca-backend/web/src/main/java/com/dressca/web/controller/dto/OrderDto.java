@@ -5,11 +5,13 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderDto {
-  private long Id;
+  private long id;
   private String buyerId;
   private LocalDateTime orderDate;
   private String fullName;
