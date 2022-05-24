@@ -2,6 +2,7 @@
   "recommendations": [
     "vscjava.vscode-java-pack",
     "pivotal.vscode-boot-dev-pack",
-    "gabrielbb.vscode-lombok"
+    "gabrielbb.vscode-lombok",
+    "redhat.java"
   ]
 }
