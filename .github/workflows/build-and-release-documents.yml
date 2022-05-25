@@ -56,6 +56,9 @@ jobs:
           if [ -n "${{ github.event.release.name }}" ]; then
             export COPYRIGHT="${{ github.event.release.name }} Copyright &copy; 2022 BIPROGY Inc. All rights reserved."
           fi
+          cd samples
+          zip -r ../documents/contents/samples/dressca.zip *
+          cd ../
           mkdocs build --config-file documents/mkdocs.yml --verbose --clean --strict
           cp -T -v -f -r iis-files documents/build-artifacts/
           cd documents/build-artifacts
