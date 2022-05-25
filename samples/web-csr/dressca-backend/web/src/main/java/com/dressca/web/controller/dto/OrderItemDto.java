@@ -13,5 +13,6 @@ public class OrderItemDto {
   public long id;
   public CatalogItemSummaryDto itemOrdered;
   public int quantity;
+  public BigDecimal unitPrice;
   public BigDecimal subTotal;
 }

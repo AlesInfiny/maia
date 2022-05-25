@@ -17,4 +17,5 @@ public interface CatalogItemsMapper {
 
   int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
       @Param("categoryId") long categoryId);
+
 }

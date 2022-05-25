@@ -12,7 +12,7 @@ import com.dressca.infrastructure.repository.jdbc.internal.entity.OrderItemEntit
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
-@Repository
+// @Repository
 @AllArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
   

@@ -1,9 +1,9 @@
 package com.dressca.applicationcore.order;
 
+import com.dressca.applicationcore.accounting.AccountItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import com.dressca.applicationcore.accounting.AccountItem;
 import lombok.Data;
 import lombok.NonNull;
 

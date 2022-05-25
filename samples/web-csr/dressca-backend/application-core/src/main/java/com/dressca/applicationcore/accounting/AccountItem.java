@@ -14,4 +14,5 @@ public class AccountItem {
     public BigDecimal getSubTotal() {
         return unitPrice.multiply(BigDecimal.valueOf(this.quantity));
     }
+
 }

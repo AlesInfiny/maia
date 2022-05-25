@@ -17,7 +17,7 @@ public class OrderEntity {
   private String buyerId;
   private LocalDateTime orderDate;
   private String shipToAddress;
-  private BigDecimal consumptionTaxRate;
+  private double consumptionTaxRate;
   private BigDecimal totalItemsPrice;
   private BigDecimal deliveryCharge;
   private BigDecimal consumptionTax;

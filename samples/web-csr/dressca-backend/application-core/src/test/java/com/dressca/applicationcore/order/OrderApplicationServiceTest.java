@@ -44,8 +44,7 @@ public class OrderApplicationServiceTest {
     basket.addItem(10L, BigDecimal.valueOf(100_000_000), 1);
     ShipTo shipToAddress = createDefaultShipTo();
     List<CatalogItem> catalogItems = List.of(createCatalogItem(10L));
-    Order order = new Order(buyerId, shipToAddress);
-    order.setOrderItems(createDefaultOrderItems());
+    Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
 
     when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(10L))).thenReturn(catalogItems);
@@ -98,8 +97,7 @@ public class OrderApplicationServiceTest {
     long orderId = 1L;
     String buyerId = UUID.randomUUID().toString();
     ShipTo shipToAddress = createDefaultShipTo();
-    Order order = new Order(buyerId, shipToAddress);
-    order.setOrderItems(createDefaultOrderItems());
+    Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
@@ -121,8 +119,7 @@ public class OrderApplicationServiceTest {
     long orderId = 1L;
     String buyerId = UUID.randomUUID().toString();
     ShipTo shipToAddress = createDefaultShipTo();
-    Order order = new Order(buyerId, shipToAddress);
-    order.setOrderItems(createDefaultOrderItems());
+    Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
