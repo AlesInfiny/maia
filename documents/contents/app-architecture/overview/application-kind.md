@@ -22,5 +22,4 @@ Maia OSS 版を利用することで構築できるアプリケーションの�
 
     ![バッチアプリケーション](../../images/app-architecture/overview/batch-application.png)
 
-
 --8<-- "includes/abbreviations.md"
