@@ -28,6 +28,7 @@ subprojects {
   
   dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
   
     // Lombokの設定
     // annotationProcessorの設定を加えないとcompileJavaでエラーが発生する
@@ -49,7 +50,10 @@ subprojects {
   }
 
   // testタスクの後にjacocoTestReportタスクを実施する
-  test.finalizedBy jacocoTestReport
+  test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+  }
 
   // JaCoCoのレポート出力の際に上述のクラスを除外する
   jacocoTestReport {

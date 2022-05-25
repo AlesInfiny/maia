@@ -101,10 +101,10 @@ public class BasketItemController {
   public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemInputDto> putBasketItems,
       HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
-      return ResponseEntity.noContent().build();
+      return ResponseEntity.badRequest().build();
     }
     Map<Long, Integer> quantities = putBasketItems.stream().collect(Collectors
-        .toMap(PutBasketItemInputDto::getCatalogItemId, PutBasketItemInputDto::getQuentity));
+        .toMap(PutBasketItemInputDto::getCatalogItemId, PutBasketItemInputDto::getQuantity));
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
@@ -184,7 +184,8 @@ public class BasketItemController {
   @Operation(summary = "買い物かごから指定したカタログアイテム Id の商品を削除します.",
       description = "買い物かごから指定したカタログアイテム Id の商品を削除します.<br>"
           + "catalogItemId には買い物かご内に存在するカタログアイテム Id を指定してください. カタログアイテム Id は 1 以上の整数です."
-          + "0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.")
+          + "0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. "
+          + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功.", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),

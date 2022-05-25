@@ -1,8 +1,9 @@
 package com.dressca.applicationcore.order;
 
-import java.math.BigDecimal;
-import java.util.List;
 import com.dressca.applicationcore.accounting.AccountItem;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -18,19 +19,19 @@ public class OrderItem {
   private BigDecimal unitPrice;
   private int quantity;
   private long orderId;
-  private List<OrderItemAsset> assets = List.of();
+  private List<OrderItemAsset> assets = new ArrayList<>();
   private Order order;
 
   /**
    * コンストラクタ.
    * 
    * @param itemOrdered 注文されたカタログアイテム.
-   * @param unitPrice 単価.
+   * @param bigDecimal 単価.
    * @param quantity 数量.
    */
-  public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal unitPrice, int quantity) {
+  public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
     this.itemOrdered = itemOrdered;
-    this.unitPrice = unitPrice;
+    this.unitPrice = bigDecimal;
     this.quantity = quantity;
   }
 

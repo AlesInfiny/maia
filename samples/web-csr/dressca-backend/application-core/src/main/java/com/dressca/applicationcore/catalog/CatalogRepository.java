@@ -10,20 +10,22 @@ public interface CatalogRepository {
   /**
    * カテゴリIDのリストに一致するカタログのリストを取得します。
    * 
-   * @param categoryIds　検索対象のカタログIDのリスト
+   * @param categoryIds 検索対象のカタログIDのリスト
    * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
    */
   List<CatalogItem> findByCategoryIdIn(List<Long> categoryIds);
-  
+
   /**
    * ブランドIDとカテゴリIDに一致するカタログのリストを取得します。
    * 
    * @param brandId ブランドID
    * @param categoryId カテゴリID
-   * @param pageable ページング情報
+   * @param page ページ
+   * @param pageSize ページサイズ
    * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
    */
-  List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page, int pageSize);
+  List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page,
+      int pageSize);
 
   /**
    * カタログアイテムIDのリストに一致するカタログのリストを取得します。
@@ -35,6 +37,7 @@ public interface CatalogRepository {
 
   /**
    * ブランドIDとカテゴリIDに一致するカタログの件数を取得します。
+   * 
    * @param brandId ブランドID
    * @param categoryId カテゴリID
    * @return 条件に一致するカタログの件数。

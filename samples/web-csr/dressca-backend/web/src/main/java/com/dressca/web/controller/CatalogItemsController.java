@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.catalog.CatalogItemAsset;
 import com.dressca.web.controller.dto.CatalogItemDto;
 import com.dressca.web.controller.dto.PagedCatalogItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,11 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)})
   @GetMapping()
   public ResponseEntity<PagedCatalogItemDto> getByQuery(
-      @RequestParam(name = "brandId", required = false) long brandId,
-      @RequestParam(name = "categoryId", required = false) long categoryId,
-      @RequestParam(name = "page", defaultValue = "1") int page,
+      // @RequestParam(name = "brandId", required = false) long brandId,
+      @RequestParam(name = "brandId", defaultValue = "0") long brandId,
+      // @RequestParam(name = "categoryId", required = false) long categoryId,
+      @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
+      @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
     List<CatalogItemDto> items = service.getCatalogItems(brandId, categoryId, page, pageSize)
         .stream().map(this::convertCatalogItemDto).collect(Collectors.toList());
@@ -63,7 +66,10 @@ public class CatalogItemsController {
   }
 
   private CatalogItemDto convertCatalogItemDto(CatalogItem item) {
-    return new CatalogItemDto(item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
+    List<String> assetCodes =
+        item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
+    return new CatalogItemDto(item.getId(), item.getName(), item.getProductCode(), assetCodes,
+        item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
         item.getCatalogBrandId());
   }
 }

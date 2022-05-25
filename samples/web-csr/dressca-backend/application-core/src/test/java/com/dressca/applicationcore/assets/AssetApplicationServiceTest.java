@@ -50,7 +50,7 @@ public class AssetApplicationServiceTest {
       verify(this.store, times(1)).getResource(asset);
     } catch (AssetNotFoundException e) {
       e.printStackTrace();
-      fail();
+      fail(e);
     }
   }
 

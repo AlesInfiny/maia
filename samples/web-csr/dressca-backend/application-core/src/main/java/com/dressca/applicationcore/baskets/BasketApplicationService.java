@@ -46,7 +46,7 @@ public class BasketApplicationService {
 
     public Basket getOrCreateBasketForUser(String buyerId) {
         if(StringUtils.isBlank(buyerId)) {
-            throw new IllegalArgumentException("buyerIdがnull");
+            throw new IllegalArgumentException("buyerIdがnullまたは空文字");
         }
 
         return this.basketRepository.findByBuyerId(buyerId)

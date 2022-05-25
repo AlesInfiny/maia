@@ -1,7 +1,5 @@
 package com.dressca.applicationcore.order;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -10,18 +8,20 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.SystemException;
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
- * 注文に関連するビジネスユースケースを実現する Applicaiton Service です.
+ * 注文に関連するビジネスユースケースを実現する Application Service です.
  */
 @Service
 @AllArgsConstructor
 public class OrderApplicationService {
   private OrderRepository orderRepository;
   private BasketRepository basketRepository;
-  private CatalogRepository CatalogRepository;
+  private CatalogRepository catalogRepository;
 
   /**
    * 注文を作成します.
@@ -42,12 +42,11 @@ public class OrderApplicationService {
 
     List<Long> catalogItemIds =
         basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.CatalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
         .collect(Collectors.toList());
-    Order order = new Order(basket.getBuyerId(), shipToAddress);
-    order.setOrderItems(orderItems);
+    Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
     
     return this.orderRepository.add(order);
   }
