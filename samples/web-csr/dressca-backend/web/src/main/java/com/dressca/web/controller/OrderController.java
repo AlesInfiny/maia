@@ -1,8 +1,5 @@
 package com.dressca.web.controller;
 
-import java.net.URI;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketApplicationService;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -14,6 +11,8 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderItemAsset;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.controller.dto.AccountDto;
 import com.dressca.web.controller.dto.CatalogItemSummaryDto;
 import com.dressca.web.controller.dto.OrderDto;
@@ -26,6 +25,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.net.URI;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +86,6 @@ public class OrderController {
    * 
    * @param postOrderInput 注文に必要な配送先などの情報
    * @return なし
-   * @throws EmptyBasketOnCheckoutException
-   * @throws BasketNotFoundException
    */
   @Operation(summary = "買い物かごに登録されている商品を注文します.", description = "買い物かごに登録されている商品を注文します.")
   @ApiResponses(
@@ -93,18 +94,25 @@ public class OrderController {
           @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content)})
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody PostOrderInputDto postOrderInput,
-      HttpServletRequest req) throws BasketNotFoundException, EmptyBasketOnCheckoutException {
+      HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
 
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
-    Order order = orderApplicationService.createOrder(basket.getId(), shipToAddress);
+    Order order;
+    try {
+      order = orderApplicationService.createOrder(basket.getId(), shipToAddress);
+      // 買い物かごを削除
+      basketApplicationService.deleteBasket(basket.getId());
+    } catch (BasketNotFoundException | EmptyBasketOnCheckoutException e) {
+      // ここでは発生しえないので、システムエラーとする
+      throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
+    }
 
-    // 買い物かごを削除
-    basketApplicationService.deleteBasket(basket.getId());
-    return ResponseEntity.created(URI.create("/api/orders/" + order.getId())).build();
+    String requestUri = req.getRequestURL().toString();
+    return ResponseEntity.created(URI.create(requestUri + "/" + order.getId())).build();
   }
 
   private OrderDto toOrderDto(Order order) {

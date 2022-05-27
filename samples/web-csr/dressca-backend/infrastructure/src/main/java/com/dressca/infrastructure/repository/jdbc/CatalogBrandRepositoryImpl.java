@@ -1,19 +1,16 @@
 package com.dressca.infrastructure.repository.jdbc;
 
+import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationcore.catalog.CatalogBrandRepository;
+import com.dressca.infrastructure.repository.jdbc.internal.JdbcCatalogBrandRepository;
+import com.dressca.infrastructure.repository.jdbc.internal.entity.CatalogBrandEntity;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.dressca.applicationcore.catalog.CatalogBrand;
-import com.dressca.applicationcore.catalog.CatalogBrandRepository;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.infrastructure.repository.jdbc.internal.JdbcCatalogBrandRepository;
-import com.dressca.infrastructure.repository.jdbc.internal.entity.CatalogBrandEntity;
-import com.dressca.infrastructure.repository.jdbc.internal.entity.CatalogItemAssetEntity;
-import com.dressca.infrastructure.repository.jdbc.internal.entity.CatalogItemEntity;
-import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 @Repository
 @AllArgsConstructor
@@ -30,6 +27,8 @@ public class CatalogBrandRepositoryImpl implements CatalogBrandRepository {
   }
 
   private CatalogBrand toCatalogBrand(CatalogBrandEntity entity) {
-    return new CatalogBrand(entity.getName());
+    CatalogBrand catalogBrand = new CatalogBrand(entity.getName());
+    catalogBrand.setId(entity.getId());
+    return catalogBrand;
   }
 }

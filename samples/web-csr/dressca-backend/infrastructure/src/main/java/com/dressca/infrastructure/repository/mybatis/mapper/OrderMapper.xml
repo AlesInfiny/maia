@@ -2,51 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dressca.infrastructure.repository.mybatis.mapper.OrderMapper">
 
-  <!-- <sql id="selectCatalogItems">
-    SELECT
-      ID,
-      NAME,
-      DESCRIPTION,
-      PRICE,
-      PRODUCT_CODE,
-      CATALOG_CATEGORY_ID,
-      CATALOG_BRAND_ID
-    FROM CATALOG_ITEMS
-  </sql> -->
-
   <sql id="selectOrdersIncludeItemAndAsset">
     SELECT
       ORDERS.ID,
       ORDERS.BUYER_ID,
       ORDERS.ORDER_DATE,
-      ORDERS.SHIP_TO_ADDRESS,
+      ORDERS.SHIP_TO_FULL_NAME,
+      ORDERS.SHIP_TO_POSTAL_CODE,
+      ORDERS.SHIP_TO_TODOFUKEN,
+      ORDERS.SHIP_TO_SHIKUCHOSON,
+      ORDERS.SHIP_TO_AZANA_AND_OTHERS,
       ORDERS.CONSUMPTION_TAX_RATE,
       ORDERS.TOTAL_ITEMS_PRICE,
       ORDERS.DELIVERY_CHARGE,
       ORDERS.CONSUMPTION_TAX,
       ORDERS.TOTAL_PRICE,
-      ORDER_ITEMS.ID,
-      ORDER_ITEMS.ORDERED_CATALOG_ITEM_ID,
-      ORDER_ITEMS.ORDERED_PRODUCT_NAME,
-      ORDER_ITEMS.ORDERED_PRODUCT_CODE,
-      ORDER_ITEMS.UNIT_PRICE,
-      ORDER_ITEMS.QUANTITY,
-      ORDER_ITEMS.ORDER_ID
+      ORDER_ITEMS.ID AS ORDER_ITEMS_ID,
+      ORDER_ITEMS.ORDERED_CATALOG_ITEM_ID AS ORDER_ITEMS_ORDERED_CATALOG_ITEM_ID,
+      ORDER_ITEMS.ORDERED_PRODUCT_NAME AS ORDER_ITEMS_ORDERED_PRODUCT_NAME,
+      ORDER_ITEMS.ORDERED_PRODUCT_CODE AS ORDER_ITEMS_ORDERED_PRODUCT_CODE,
+      ORDER_ITEMS.UNIT_PRICE AS ORDER_ITEMS_UNIT_PRICE,
+      ORDER_ITEMS.QUANTITY AS ORDER_ITEMS_QUANTITY,
+      ASSETS.ID AS ORDER_ITEMS_ASSET_ID,
+      ASSETS.ASSET_CODE AS ORDER_ITEMS_ASSET_CODE
     FROM ORDERS
     INNER JOIN ORDER_ITEMS AS ORDER_ITEMS ON (
       ORDERS.ID = ORDER_ITEMS.ORDER_ID
     )
+    INNER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
+      ORDER_ITEMS.ORDERED_CATALOG_ITEM_ID = ASSETS.CATALOG_ITEM_ID
+    )
   </sql>
 
   <resultMap id="ordersIncludeItemResultMap" type="com.dressca.applicationcore.order.Order">
-    <collection property="orderItems" ofType="com.dressca.applicationcore.order.OrderItem" resultMap="orderItemsResultMap"/>
+    <id property="id" column="ID"/>
+    <result property="buyerId" column="BUYER_ID"/>
+    <result property="orderDate" column="ORDER_DATE"/>
+    <result property="consumptionTaxRate" column="CONSUMPTION_TAX_RATE"/>
+    <result property="totalItemsPrice" column="TOTAL_ITEMS_PRICE"/>
+    <result property="deliveryCharge" column="DELIVERY_CHARGE"/>
+    <result property="consumptionTax" column="CONSUMPTION_TAX"/>
+    <result property="totalPrice" column="TOTAL_PRICE"/>
+    <association property="shipToAddress" javaType="com.dressca.applicationcore.order.ShipTo" resultMap="shipToResultMap"/>
+    <collection property="orderItems" ofType="com.dressca.applicationcore.order.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
+  </resultMap>
+
+  <resultMap id="shipToResultMap" type="com.dressca.applicationcore.order.ShipTo">
+    <result property="fullName" column="SHIP_TO_FULL_NAME"/>
+    <association property="address" javaType="com.dressca.applicationcore.order.Address" resultMap="addressResultMap"/>
+  </resultMap>
+
+  <resultMap id="addressResultMap" type="com.dressca.applicationcore.order.Address">
+    <result property="postalCode" column="SHIP_TO_POSTAL_CODE"/>
+    <result property="todofuken" column="SHIP_TO_TODOFUKEN"/>
+    <result property="shikuchoson" column="SHIP_TO_SHIKUCHOSON"/>
+    <result property="azanaAndOthers" column="SHIP_TO_AZANA_AND_OTHERS"/>
   </resultMap>
 
   <resultMap id="orderItemsResultMap" type="com.dressca.applicationcore.order.OrderItem">
     <id property="id" column="ID"/>
-    <result property="unit_price" column="UNIT_PRICE"/>
+    <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
     <association property="itemOrdered" javaType="com.dressca.applicationcore.order.CatalogItemOrdered" resultMap="catalogItemOrderedResultMap"/>
+    <collection property="assets" ofType="com.dressca.applicationcore.order.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
   </resultMap>
 
   <resultMap id="catalogItemOrderedResultMap" type="com.dressca.applicationcore.order.CatalogItemOrdered">
@@ -55,7 +73,12 @@
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
-  <select id="findById" resultType="com.dressca.applicationcore.order.Order">
+  <resultMap id="orderItemAssetsResultMap" type="com.dressca.applicationcore.order.OrderItemAsset">
+    <id property="id" column="ASSET_ID"/>
+    <result property="assetCode" column="ASSET_CODE"/>
+  </resultMap>
+
+  <select id="findById" resultMap="ordersIncludeItemResultMap">
     <include refid="selectOrdersIncludeItemAndAsset"/>
     WHERE ORDERS.ID = #{id}
   </select>
@@ -65,7 +88,11 @@
     (
       BUYER_ID, 
       ORDER_DATE, 
-      SHIP_TO_ADDRESS, 
+      SHIP_TO_FULL_NAME,
+      SHIP_TO_POSTAL_CODE,
+      SHIP_TO_TODOFUKEN,
+      SHIP_TO_SHIKUCHOSON,
+      SHIP_TO_AZANA_AND_OTHERS,
       CONSUMPTION_TAX_RATE,
       TOTAL_ITEMS_PRICE,
       DELIVERY_CHARGE,
@@ -77,6 +104,10 @@
       #{order.buyerId},
       #{order.orderDate},
       #{order.shipToAddress.fullName},
+      #{order.shipToAddress.address.postalCode},
+      #{order.shipToAddress.address.todofuken},
+      #{order.shipToAddress.address.shikuchoson},
+      #{order.shipToAddress.address.azanaAndOthers},
       #{order.consumptionTaxRate},
       #{order.totalItemsPrice},
       #{order.deliveryCharge},
@@ -107,38 +138,4 @@
     )
     </foreach>
   </insert>
-  <!-- <select id="findByBrandIdAndCategoryId" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
-    <where>
-      <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
-      </if>
-      <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
-      </if>
-    </where>
-    LIMIT #{limit} OFFSET #{offset}
-  </select>
-
-  <select id="findByCatalogItemIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
-    <include refid="selectCatalogItems"/>
-    <if test="catalogItemIds.size != 0">
-      WHERE ID IN 
-      <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
-        #{catalogItemId}
-      </foreach>
-    </if>
-  </select>
-
-  <select id="countByBrandIdAndCategoryId" resultType="Integer">
-    SELECT COUNT(*) FROM CATALOG_ITEMS
-    <where>
-      <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
-      </if>
-      <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
-      </if>
-    </where>
-  </select> -->
 </mapper>

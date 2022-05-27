@@ -1,10 +1,5 @@
 package com.dressca.web.controller;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketApplicationService;
@@ -22,6 +17,21 @@ import com.dressca.web.controller.dto.BasketItemDto;
 import com.dressca.web.controller.dto.CatalogItemDto;
 import com.dressca.web.controller.dto.PostBasketItemsInputDto;
 import com.dressca.web.controller.dto.PutBasketItemInputDto;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,13 +42,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 
 /**
  * {@link BasketItem} の情報にアクセスする API コントローラーです.
@@ -89,6 +92,7 @@ public class BasketItemController {
    * 
    * @param putBasketItems 変更する買い物かごアイテムのデータリスト
    * @return なし
+   * @throws BasketNotFoundException
    */
   @Operation(summary = "買い物かごアイテム内の数量を変更します.",
       description = "買い物かごアイテム内の数量を変更します. 買い物かご内に存在しないカタログアイテム ID は指定できません.<br>"
@@ -99,7 +103,7 @@ public class BasketItemController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)})
   @PutMapping()
   public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemInputDto> putBasketItems,
-      HttpServletRequest req) {
+      HttpServletRequest req) throws BasketNotFoundException {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
@@ -121,11 +125,12 @@ public class BasketItemController {
       return ResponseEntity.badRequest().build();
     }
 
+    basketApplicationService.setQuantities(basket.getId(), quantities);
     return ResponseEntity.noContent().build();
   }
 
   /**
-   * 買い物かごに商品を追加します。
+   * 買い物かごに商品を追加します.
    * <p>
    * この API では、システムに登録されていないカタログアイテム Id を指定した場合 HTTP 400 を返却します。
    * また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。
@@ -172,7 +177,7 @@ public class BasketItemController {
   }
 
   /**
-   * 買い物かごから指定したカタログアイテム Id の商品を削除します。
+   * 買い物かごから指定したカタログアイテム Id の商品を削除します.
    * <p>
    * catalogItemId には買い物かご内に存在するカタログアイテム Id を指定してください。 カタログアイテム Id は 1 以上の整数です。
    * 0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
@@ -217,7 +222,7 @@ public class BasketItemController {
     }
     Account account = basket.getAccount();
 
-    AccountDto accountDto = new AccountDto(Account.CONSUMPTION_TAX_RATE, account.getTotalPrice(),
+    AccountDto accountDto = new AccountDto(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
         account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
     List<BasketItemDto> basketItems =
         basket.getItems().stream().map(this::convertBasketItemDto).collect(Collectors.toList());

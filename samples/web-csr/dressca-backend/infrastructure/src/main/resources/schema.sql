@@ -33,7 +33,11 @@ CREATE TABLE orders
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
   buyer_id NVARCHAR(64) NOT NULL,
   order_date TIMESTAMP NOT NULL,
-  ship_to_address NVARCHAR(MAX) NOT NULL,
+  ship_to_full_name NVARCHAR(64) NOT NULL,
+  ship_to_postal_code NVARCHAR(16) NOT NULL,
+  ship_to_todofuken NVARCHAR(16) NOT NULL,
+  ship_to_shikuchoson NVARCHAR(32) NOT NULL,
+  ship_to_azana_and_others NVARCHAR(128) NOT NULL,
   consumption_tax_rate NUMERIC(18,6) NOT NULL,
   total_items_price NUMERIC(18,6) NOT NULL,
   delivery_charge NUMERIC(18,6) NOT NULL,

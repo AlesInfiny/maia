@@ -4,17 +4,19 @@ import com.dressca.applicationcore.accounting.AccountItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 /**
  * 注文アイテムのドメインモデル.
  * 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
   private long id;
-  @NonNull
   private CatalogItemOrdered itemOrdered;
   private BigDecimal unitPrice;
   private int quantity;

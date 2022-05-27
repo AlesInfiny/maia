@@ -12,6 +12,7 @@ import lombok.NonNull;
  */
 @Data
 public class CatalogBrand {
+  private long id;
   @NonNull
   private String name;
   private List<CatalogItem> items = new ArrayList<>();
