@@ -62,7 +62,7 @@ public class OrderApplicationService {
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
     Order order = this.orderRepository.findById(orderId)
         .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));
-    if (order.getBuyerId() != buyerId) {
+    if (!order.getBuyerId().equals(buyerId)) {
       throw new OrderNotFoundException(null, orderId, buyerId);
     }
 

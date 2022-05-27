@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccountDto {
   private double consumptionTaxRate;
-  private BigDecimal totalItemPrice;
+  private BigDecimal totalItemsPrice;
   private BigDecimal deliveryCharge;
   private BigDecimal consumptionTax;
   private BigDecimal totalPrice;

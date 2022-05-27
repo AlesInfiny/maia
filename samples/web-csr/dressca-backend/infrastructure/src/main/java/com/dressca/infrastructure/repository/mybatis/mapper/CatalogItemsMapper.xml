@@ -62,10 +62,10 @@
     LIMIT #{limit} OFFSET #{offset}
   </select>
 
-  <select id="findByCatalogItemIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
-    <include refid="selectCatalogItems"/>
+  <select id="findByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectCatalogItemsIncludeAsset"/>
     <if test="catalogItemIds.size != 0">
-      WHERE ID IN 
+      WHERE CATALOG_ITEMS.ID IN 
       <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
         #{catalogItemId}
       </foreach>

@@ -10,6 +10,7 @@ import lombok.NonNull;
  */
 @Data
 public class CatalogCategory {
+  private long id;
   @NonNull
   private String name;
   private List<CatalogItem> items = List.of();
