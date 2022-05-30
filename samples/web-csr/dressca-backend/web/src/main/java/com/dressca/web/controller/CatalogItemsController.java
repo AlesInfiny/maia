@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.web.controller.dto.CatalogItemDto;
-import com.dressca.web.controller.dto.PagedCatalogItemDto;
+import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
+import com.dressca.web.controller.dto.catalog.PagedCatalogItemResponse;
+import com.dressca.web.mapper.CatalogItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ public class CatalogItemsController {
   private CatalogApplicationService service;
 
   /**
-   * カタログアイテムを検索して返します.
+   * カタログアイテムを検索して返します。
    * 
    * @param brandId ブランドID
    * @param categoryId カテゴリID
@@ -47,29 +47,26 @@ public class CatalogItemsController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = PagedCatalogItemDto.class))),
+              schema = @Schema(implementation = PagedCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)})
   @GetMapping()
-  public ResponseEntity<PagedCatalogItemDto> getByQuery(
-      // @RequestParam(name = "brandId", required = false) long brandId,
+  public ResponseEntity<PagedCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
-      // @RequestParam(name = "categoryId", required = false) long categoryId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<CatalogItemDto> items = service.getCatalogItems(brandId, categoryId, page, pageSize)
-        .stream().map(this::convertCatalogItemDto).collect(Collectors.toList());
+    List<CatalogItemResponse> items = 
+        service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
+            .map(CatalogItemMapper::convert)
+            .collect(Collectors.toList());
     int totalCount = service.countCatalogItems(brandId, categoryId);
 
-    PagedCatalogItemDto returnValue = new PagedCatalogItemDto(items, totalCount, page, pageSize);
+    PagedCatalogItemResponse returnValue = new PagedCatalogItemResponse(
+        items, 
+        totalCount,
+        page,
+        pageSize
+    );
     return ResponseEntity.ok().body(returnValue);
-  }
-
-  private CatalogItemDto convertCatalogItemDto(CatalogItem item) {
-    List<String> assetCodes =
-        item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
-    return new CatalogItemDto(item.getId(), item.getName(), item.getProductCode(), assetCodes,
-        item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
-        item.getCatalogBrandId());
   }
 }

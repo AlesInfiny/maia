@@ -2,7 +2,7 @@ package com.dressca.infrastructure.repository.mybatis;
 
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderRepository;
-import com.dressca.infrastructure.repository.mybatis.mapper.OrderMapper;
+import com.dressca.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class MybatisOrderRepository implements OrderRepository {
 
   @Autowired
-  OrderMapper mapper;
+  JoinedOrderMapper mapper;
 
   @Override
   public Order add(Order order) {
@@ -26,9 +26,6 @@ public class MybatisOrderRepository implements OrderRepository {
   @Override
   public Optional<Order> findById(long id) {
     Order order = mapper.findById(id);
-    if (order == null) {
-      return Optional.empty();
-    }
-    return Optional.of(order);
+    return Optional.ofNullable(order);
   }
 }

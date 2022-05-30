@@ -32,13 +32,14 @@ public class CatalogDomainService {
   public boolean existAll(List<Long> catalogItemIds) {
     List<CatalogItem> items = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<Long> notExistCatalogItemIds = catalogItemIds.stream()
-      .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
-      .collect(Collectors.toList());
+        .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
+        .collect(Collectors.toList());
     
     return notExistCatalogItemIds.isEmpty();
   }
 
   private boolean existCatalogItemIdInItems(List<CatalogItem> items, long catalogItemId) {
-    return items.stream().anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
+    return items.stream()
+        .anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
   }
 }

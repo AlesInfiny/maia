@@ -2,7 +2,7 @@ package com.dressca.infrastructure.repository.mybatis;
 
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.infrastructure.repository.mybatis.mapper.CatalogItemsMapper;
+import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class MybatisCatalogRepository implements CatalogRepository {
 
   @Autowired
-  private CatalogItemsMapper mapper;
+  private JoinedCatalogItemMapper mapper;
 
   @Override
   public List<CatalogItem> findByCategoryIdIn(List<Long> categoryIds) {

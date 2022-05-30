@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 /**
- * {@link Asset} の情報にアクセスするAPIコントローラーです.
+ * {@link Asset} の情報にアクセスするAPIコントローラーです。
  */
 @RestController
 @Tag(name = "Asset", description = "アセットの情報にアクセスするAPI")
@@ -36,7 +36,7 @@ public class AssetsController {
   private AssetApplicationService service;
 
   /**
-   * アセットを取得します.
+   * アセットを取得します。
    * 
    * @param assetCode アセットコード
    * @return アセット
@@ -62,7 +62,7 @@ public class AssetsController {
   }
 
   /**
-   * アセットタイプから Content-Type に変換します.
+   * アセットタイプから Content-Type に変換します。
    * 
    * @param asset アセット
    * @return Content-Type の名称

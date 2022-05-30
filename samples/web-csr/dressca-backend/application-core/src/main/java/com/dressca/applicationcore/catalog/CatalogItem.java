@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
  * カタログアイテムのドメインモデルです。
  */
 @Data
+@NoArgsConstructor
 public class CatalogItem {
   private long id;
   private List<CatalogItemAsset> assets = new ArrayList<>();
@@ -24,14 +26,12 @@ public class CatalogItem {
   private BigDecimal price;
   @NonNull
   private String productCode;
-  @NonNull
   private long catalogCategoryId;
-  @NonNull
   private long catalogBrandId;
   
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, @NonNull long catalogCategoryId,
-      @NonNull long catalogBrandId) {
+      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
+      long catalogBrandId) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -40,6 +40,4 @@ public class CatalogItem {
     this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
   }
-
-  
 }

@@ -9,8 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文アイテムのドメインモデル.
- * 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します.
+ * 注文アイテムのドメインモデル。
+ * 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します。
  */
 @Data
 @NoArgsConstructor
@@ -25,11 +25,11 @@ public class OrderItem {
   private Order order;
 
   /**
-   * コンストラクタ.
+   * コンストラクタ。
    * 
-   * @param itemOrdered 注文されたカタログアイテム.
-   * @param bigDecimal 単価.
-   * @param quantity 数量.
+   * @param itemOrdered 注文されたカタログアイテム
+   * @param bigDecimal 単価
+   * @param quantity 数量
    */
   public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
     this.itemOrdered = itemOrdered;
@@ -38,9 +38,9 @@ public class OrderItem {
   }
 
   /**
-   * 注文アイテムのアセットリストを追加します.
+   * 注文アイテムのアセットリストを追加します。
    * 
-   * @param orderItemAssets 注文アイテムのアセットリスト.
+   * @param orderItemAssets 注文アイテムのアセットリスト
    * @throws IllegalArgumentException orderItemAssetsにnullが設定された場合
    */
   public void addAsset(List<OrderItemAsset> orderItemAssets) {
@@ -51,9 +51,9 @@ public class OrderItem {
   }
 
   /**
-   * 注文アイテムの小計を計算して金額を返却します.
+   * 注文アイテムの小計を計算して金額を返却します。
    * 
-   * @return 注文アイテムの小計額.
+   * @return 注文アイテムの小計額
    */
   public BigDecimal getSubTotal() {
     return new AccountItem(this.quantity, this.unitPrice).getSubTotal();

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- JDBCドライバまでのパス -->
+    <classPathEntry location="/Users/syamada36/Desktop/mybatis-generator-core-1.4.1-bundle/mybatis-generator-core-1.4.1/lib/h2-2.1.212.jar"/>
+    <context id="local"  targetRuntime="MyBatis3">
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:file:~/stapler;"
+                        userId=""
+                        password="" />
+        <!-- Model(Entity)作成先 -->
+        <javaModelGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.entity"
+                        targetProject="/Users/syamada36/git/oss-maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="/Users/syamada36/git/oss-maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/resources" />
+        <!-- Mapper.java作成先 -->
+        <javaClientGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="/Users/syamada36/git/oss-maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table schema="" tableName="ASSETS" domainObjectName="AssetEntity" mapperName="AssetMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="AssetDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="assets" /> -->
+        </table>
+        <table schema="" tableName="BASKETS" domainObjectName="BasketEntity" mapperName="BasketMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="BasketDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="baskets" /> -->
+        </table>
+        <table schema="" tableName="CATALOG_BRANDS" domainObjectName="CatalogBrandEntity" mapperName="CatalogBrandMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="CatalogBrandDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="catalogBrands" /> -->
+        </table>
+        <table schema="" tableName="CATALOG_CATEGORIES" domainObjectName="CatalogCategoryEntity" mapperName="CatalogCategoryMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="CatalogCategoryDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="catalogCategories" /> -->
+        </table>
+        <table schema="" tableName="ORDERS" domainObjectName="OrderEntity" mapperName="OrderMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="OrderDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="orders" /> -->
+        </table>
+        <table schema="" tableName="BASKET_ITEMS" domainObjectName="BasketItemEntity" mapperName="BasketItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="BasketItemDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="basketItems" /> -->
+        </table>
+        <table schema="" tableName="CATALOG_ITEMS" domainObjectName="CatalogItemEntity" mapperName="CatalogItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="catalogItems" /> -->
+        </table>
+        <table schema="" tableName="ORDER_ITEMS" domainObjectName="OrderItemEntity" mapperName="OrderItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="OrderItemDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="orderItems" /> -->
+        </table>
+        <table schema="" tableName="CATALOG_ITEM_ASSETS" domainObjectName="CatalogItemAssetEntity" mapperName="CatalogItemAssetMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemAssetDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="catalogItemAssets" /> -->
+        </table>
+    </context>
+</generatorConfiguration>
