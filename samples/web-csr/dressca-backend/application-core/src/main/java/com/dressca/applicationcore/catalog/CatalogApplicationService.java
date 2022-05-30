@@ -18,7 +18,8 @@ public class CatalogApplicationService {
    * 
    * @param brandId ブランドID
    * @param categoryId カテゴリID
-   * @param pageable ページング情報
+   * @param page ページ
+   * @param pageSize ページサイズ
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    */
   public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {

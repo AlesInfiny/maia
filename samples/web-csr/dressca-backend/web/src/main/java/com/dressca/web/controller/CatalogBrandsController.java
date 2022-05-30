@@ -1,9 +1,11 @@
 package com.dressca.web.controller;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.web.controller.dto.catalog.CatalogBrandResponse;
+import com.dressca.web.mapper.CatalogBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 /**
- * {@link CatalogBrand} の情報にアクセスする API コントローラーです.
+ * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
 @Tag(name = "CatalogBrand", description = "カタログブランドの情報にアクセスするAPI")
@@ -27,21 +29,24 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CatalogBrandsController {
 
-    @Autowired
-    private CatalogApplicationService service;
+  @Autowired
+  private CatalogApplicationService service;
 
-    /**
-     * カタログブランドの一覧を取得します.
-     * 
-     * @return カタログブランドの一覧
-     */
-    @Operation(summary = "カタログブランドの一覧を取得する.", description = "カタログブランドの一覧を取得する.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = CatalogBrand.class))))})
-    @GetMapping()
-    public ResponseEntity<List<CatalogBrand>> getCatalogBrand() {
-        List<CatalogBrand> brands = this.service.getBrands();
-        return ResponseEntity.ok().body(brands);
-    }
+  /**
+   * カタログブランドの一覧を取得します。
+   * 
+   * @return カタログブランドの一覧
+   */
+  @Operation(summary = "カタログブランドの一覧を取得する.", description = "カタログブランドの一覧を取得する.")
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功",
+      content = @Content(mediaType = "application/json",
+          array = @ArraySchema(schema = @Schema(implementation = CatalogBrand.class))))})
+  @GetMapping()
+  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrand() {
+    List<CatalogBrandResponse> brands = this.service.getBrands().stream()
+        .map(CatalogBrandMapper::convert)
+        .collect(Collectors.toList());
+    
+    return ResponseEntity.ok().body(brands);
+  }
 }

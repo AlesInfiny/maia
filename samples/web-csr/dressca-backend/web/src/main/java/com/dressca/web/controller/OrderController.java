@@ -7,18 +7,13 @@ import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderApplicationService;
-import com.dressca.applicationcore.order.OrderItem;
-import com.dressca.applicationcore.order.OrderItemAsset;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.web.controller.dto.AccountDto;
-import com.dressca.web.controller.dto.CatalogItemSummaryDto;
-import com.dressca.web.controller.dto.OrderDto;
-import com.dressca.web.controller.dto.OrderItemDto;
-import com.dressca.web.controller.dto.PostOrderInputDto;
-
+import com.dressca.web.controller.dto.order.OrderResponse;
+import com.dressca.web.controller.dto.order.PostOrderRequest;
+import com.dressca.web.mapper.OrderMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +22,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.net.URI;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * {@link Order} の情報にアクセスするAPIコントローラーです.
+ * {@link Order} の情報にアクセスするAPIコントローラーです。
  */
 @RestController
 @Tag(name = "Order", description = "注文の情報にアクセスするAPI")
@@ -55,7 +49,7 @@ public class OrderController {
   private BasketApplicationService basketApplicationService;
 
   /**
-   * 注文情報を取得します.
+   * 注文情報を取得します。
    * 
    * @param orderId 注文 Id
    * @return 注文情報
@@ -64,16 +58,16 @@ public class OrderController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = OrderDto.class))),
+              schema = @Schema(implementation = OrderResponse.class))),
       @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content)})
   @GetMapping("{orderId}")
-  public ResponseEntity<OrderDto> getById(@PathVariable("orderId") long orderId,
+  public ResponseEntity<OrderResponse> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
 
     try {
       Order order = orderApplicationService.getOrder(orderId, buyerId);
-      OrderDto orderDto = toOrderDto(order);
+      OrderResponse orderDto = OrderMapper.convert(order);
       return ResponseEntity.ok().body(orderDto);
     } catch (OrderNotFoundException e) {
       // TODO 警告ログの出力
@@ -82,7 +76,7 @@ public class OrderController {
   }
 
   /**
-   * 買い物かごに登録されている商品を注文します.
+   * 買い物かごに登録されている商品を注文します。
    * 
    * @param postOrderInput 注文に必要な配送先などの情報
    * @return なし
@@ -93,7 +87,7 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content)})
   @PostMapping
-  public ResponseEntity<?> postOrder(@RequestBody PostOrderInputDto postOrderInput,
+  public ResponseEntity<?> postOrder(@RequestBody PostOrderRequest postOrderInput,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
@@ -113,41 +107,5 @@ public class OrderController {
 
     String requestUri = req.getRequestURL().toString();
     return ResponseEntity.created(URI.create(requestUri + "/" + order.getId())).build();
-  }
-
-  private OrderDto toOrderDto(Order order) {
-    return new OrderDto(
-      order.getId(), 
-      order.getBuyerId(), 
-      order.getOrderDate(), 
-      order.getShipToAddress().getFullName(), 
-      order.getShipToAddress().getAddress().getPostalCode(), 
-      order.getShipToAddress().getAddress().getTodofuken(), 
-      order.getShipToAddress().getAddress().getShikuchoson(),
-      order.getShipToAddress().getAddress().getAzanaAndOthers(), 
-      new AccountDto(
-        order.getConsumptionTaxRate(), 
-        order.getTotalItemsPrice(), 
-        order.getDeliveryCharge(), 
-        order.getConsumptionTax(), 
-        order.getTotalPrice()),
-      order.getOrderItems().stream()
-        .map(this::toOrderItemDto)
-        .collect(Collectors.toList()));
-  }
-
-  private OrderItemDto toOrderItemDto(OrderItem item) {
-    return new OrderItemDto(
-      item.getId(), 
-      new CatalogItemSummaryDto(
-        item.getItemOrdered().getCatalogItemId(), 
-        item.getItemOrdered().getProductName(), 
-        item.getItemOrdered().getProductCode(),
-        item.getAssets().stream()
-          .map(OrderItemAsset::getAssetCode)
-          .collect(Collectors.toList())), 
-      item.getQuantity(),
-      item.getUnitPrice(), 
-      item.getSubTotal());
   }
 }
