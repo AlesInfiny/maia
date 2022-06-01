@@ -48,5 +48,3 @@ Spring Framework/Spring Batch をベースとするバッチアプリケーシ�
 - Pinia
 
       Vue.js 向けの状態管理ライブラリです。各コンポーネントから操作可能なデータ格納領域を提供し、アプリケーション内での利用するデータの整合性を保つ役割を持ちます。
-
---8<-- "includes/abbreviations.md"
