@@ -96,11 +96,11 @@ JDKの取得先は実行環境に合わせて選択します。
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
     - Adoptium
-    
+
         <https://adoptium.net/>
 
     - Oracle JDK
-    
+
         <https://www.oracle.com/java/>
 
 本ドキュメントは Adoptium OpenJDK を前提に記載しています。
