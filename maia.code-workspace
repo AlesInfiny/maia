@@ -5,7 +5,23 @@
 		}
 	],
 	"settings": {
-		"tableformatter.common.centerAlignedHeader": false
+		"tableformatter.common.centerAlignedHeader": false,
+		"cSpell.words": [
+			"Adoptium",
+			"BIPROGY",
+			"Corretto",
+			"drawio",
+			"dressca",
+			"gradlew",
+			"IntelliJ",
+			"JDBC",
+			"mkdocs",
+			"MyBatis",
+			"Noto",
+			"Pinia",
+			"Pymarkdown",
+			"winbatch"
+		]
 	},
 	"extensions": {
         "recommendations": [
