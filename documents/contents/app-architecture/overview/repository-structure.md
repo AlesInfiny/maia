@@ -15,5 +15,3 @@
 
 Maia OSS 版では mono-repo 構造を推奨します。
 マイクロサービス開発など、各プロジェクトの独立性が高く、開発効率が求められる場合については poly-repo を検討してください。
-
---8<-- "includes/abbreviations.md"
