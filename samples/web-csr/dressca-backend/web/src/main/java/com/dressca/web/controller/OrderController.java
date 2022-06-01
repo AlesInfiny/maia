@@ -70,7 +70,6 @@ public class OrderController {
       OrderResponse orderDto = OrderMapper.convert(order);
       return ResponseEntity.ok().body(orderDto);
     } catch (OrderNotFoundException e) {
-      // TODO 警告ログの出力
       return ResponseEntity.notFound().build();
     }
   }

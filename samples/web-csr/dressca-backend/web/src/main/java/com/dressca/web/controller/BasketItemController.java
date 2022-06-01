@@ -212,14 +212,12 @@ public class BasketItemController {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
     if (!basket.isInCatalogItem(catalogItemId)) {
-      // TODO: 警告ログの出力
       return ResponseEntity.notFound().build();
     }
 
     try {
       this.basketApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
     } catch (BasketNotFoundException e) {
-      // TODO: 警告ログの出力
       return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.noContent().build();

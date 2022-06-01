@@ -9,9 +9,7 @@ import lombok.NonNull;
 @Data
 public class CatalogItemAsset {
   private long id;
-  // private CatalogItem catalogItem;
   private long catalogItemId;
-  // @NonNull
   private String assetCode;
   
   public CatalogItemAsset() {
@@ -22,6 +20,13 @@ public class CatalogItemAsset {
     this.assetCode = assetCode;
   }
 
+  /**
+   * コンストラクタ。
+   * 
+   * @param id ID
+   * @param catalogItemId カタログ商品ID
+   * @param assetCode アセットコード
+   */
   public CatalogItemAsset(long id, long catalogItemId, @NonNull String assetCode) {
     this.id = id;
     this.catalogItemId = catalogItemId;

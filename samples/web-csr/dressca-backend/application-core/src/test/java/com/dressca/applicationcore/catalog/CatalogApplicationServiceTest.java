@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
@@ -29,13 +30,16 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
-    when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt())).thenReturn(catalogItems);
+    when(
+        this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
+            .thenReturn(catalogItems);
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt());
+    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(),
+        anyInt(), anyInt());
   }
 
   @Test

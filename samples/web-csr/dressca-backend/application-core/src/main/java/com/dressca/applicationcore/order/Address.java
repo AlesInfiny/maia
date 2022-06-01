@@ -6,7 +6,7 @@ import lombok.NonNull;
 import lombok.Value;
 
 /**
- * 日本の住所を表現する値オブジェクトです.
+ * 日本の住所を表現する値オブジェクトです。
  */
 @Value
 @AllArgsConstructor
@@ -20,6 +20,9 @@ public class Address {
   @NonNull
   private String azanaAndOthers;
 
+  /**
+   * コンストラクタ。
+   */
   public Address() {
     postalCode = StringUtils.EMPTY;
     todofuken = StringUtils.EMPTY;

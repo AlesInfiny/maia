@@ -7,6 +7,13 @@ import com.dressca.web.controller.dto.baskets.BasketItemResponse;
  * {@link BasketItem} と {@link BasketItemResponse} のマッパーです。
  */
 public class BasketItemMapper {
+
+  /**
+   * {@link BasketItem} オブジェクトを {@link BasketItemResponse} に変換します。
+   * 
+   * @param basketItem {@link BasketItem} オブジェクト
+   * @return {@link BasketItemResponse} オブジェクト
+   */
   public static BasketItemResponse convert(BasketItem basketItem) {
     if (basketItem == null) {
       return null;

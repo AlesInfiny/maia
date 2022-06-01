@@ -27,6 +27,13 @@
     <property name="eachLine" value="true"/>
   </module>
 
+  <!-- チェック除外対象を示したファイルがあればそれを参照する -->
+  <module name="SuppressionFilter">
+    <!-- <property name="file" value="config/checkstyle/suppressions.xml"/> -->
+    <property name="file" value="${config_loc}/suppressions.xml"/>
+    <property name="optional" value="true"/>
+  </module>
+
   <module name="TreeWalker">
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">

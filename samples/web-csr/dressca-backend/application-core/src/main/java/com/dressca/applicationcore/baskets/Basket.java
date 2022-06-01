@@ -30,6 +30,13 @@ public class Basket {
     this.buyerId = buyerId;
   }
 
+  /**
+   * 商品を追加します。
+   * 
+   * @param catalogItemId カタログアイテムID
+   * @param unitPrice 単価
+   * @param quantity 数量
+   */
   public void addItem(long catalogItemId, BigDecimal unitPrice, int quantity) {
     Optional<BasketItem> existingItem =
         this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId).findFirst();
@@ -46,6 +53,11 @@ public class Basket {
     return this.items.stream().anyMatch(item -> item.getCatalogItemId() == catalogItemId);
   }
 
+  /**
+   * 会計情報を取得します。
+   * 
+   * @return 会計情報
+   */
   public Account getAccount() {
     List<AccountItem> accountItems = this.items.stream()
         .map(basketItem -> new AccountItem(basketItem.getQuantity(), basketItem.getUnitPrice()))
