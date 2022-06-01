@@ -9,48 +9,49 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class CatalogApplicationService {
-    private CatalogRepository catalogRepository;
-    private CatalogBrandRepository brandRepository;
-    private CatalogCategoryRepository catalogCategoryRepository;
-    
-    /**
-     * 条件に一致するカタログ情報を取得します。
-     * 
-     * @param brandId ブランドID
-     * @param categoryId カテゴリID
-     * @param pageable ページング情報
-     * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
-     */
-    public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {
-        return  this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
-    }
+  private CatalogRepository catalogRepository;
+  private CatalogBrandRepository brandRepository;
+  private CatalogCategoryRepository catalogCategoryRepository;
 
-    /**
-     * 条件に一致するカテゴリの件数を取得します。
-     * 
-     * @param brandId ブランドID
-     * @param categoryId カテゴリID
-     * @return 条件に一致するカタログ情報の件数。
-     */
-    public int countCatalogItems(long brandId, long categoryId) {
-        return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
-    }
+  /**
+   * 条件に一致するカタログ情報を取得します。
+   * 
+   * @param brandId ブランドID
+   * @param categoryId カテゴリID
+   * @param page ページ
+   * @param pageSize ページサイズ
+   * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
+   */
+  public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {
+    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+  }
 
-    /**
-     * フィルタリング用のカタログブランドリストを取得します。
-     * 
-     * @return カタログブランドのリスト。
-     */
-    public List<CatalogBrand> getBrands() {
-        return this.brandRepository.getAll();
-    }
+  /**
+   * 条件に一致するカテゴリの件数を取得します。
+   * 
+   * @param brandId ブランドID
+   * @param categoryId カテゴリID
+   * @return 条件に一致するカタログ情報の件数。
+   */
+  public int countCatalogItems(long brandId, long categoryId) {
+    return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
+  }
 
-    /**
-     * フィルタリング用のカタログカテゴリリストを取得します。
-     * 
-     * @return カタログカテゴリのリスト。
-     */
-    public List<CatalogCategory> getCategories() {
-        return this.catalogCategoryRepository.getAll();
-    }
+  /**
+   * フィルタリング用のカタログブランドリストを取得します。
+   * 
+   * @return カタログブランドのリスト。
+   */
+  public List<CatalogBrand> getBrands() {
+    return this.brandRepository.getAll();
+  }
+
+  /**
+   * フィルタリング用のカタログカテゴリリストを取得します。
+   * 
+   * @return カタログカテゴリのリスト。
+   */
+  public List<CatalogCategory> getCategories() {
+    return this.catalogCategoryRepository.getAll();
+  }
 }

@@ -1,43 +1,41 @@
 package com.dressca.applicationcore.assets;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * アセットのドメインモデル
+ * アセットのドメインモデル。
  */
 @Data
+@NoArgsConstructor
 public class Asset {
 
-  // private long id;
-
+  private long id;
   @NonNull
   private String assetCode;
-
   @NonNull
   private String assetType;
 
-  // public String getAssetCode() {
-  //   if (this.assetCode == null || this.assetCode.isEmpty()) {
-  //     throw new IllegalArgumentException("AssetCodeが設定されていません");
-  //   }
-  //   return this.assetCode;
-  // }
+  /**
+   * コンストラクタ。
+   * 
+   * @param assetCode アセットコード
+   * @param assetType アセットタイプ
+   */
+  public Asset(@NonNull String assetCode, @NonNull String assetType) {
+    this.assetCode = assetCode;
+    if (!AssetTypes.isSupportedAssetTypes(assetType)) {
+      throw new IllegalArgumentException("サポートされていないアセットタイプが指定されました。");
+    }
+    this.assetType = assetType;
+  }
 
-  // public void setAssetCode(String assetCode) {
-  //   if (assetCode == null || this.assetCode.isEmpty()) {
-  //     throw new IllegalArgumentException("AssetCodeが設定されていません");
-  //   }
-  //   this.assetCode = assetCode;
-  // }
-
-  // public String getAssetType() {
-  //   if (this.assetType == null || this.assetType.isEmpty()) {
-  //     throw new IllegalArgumentException("assetTypeが設定されていません");
-  //   }
-  //   return this.assetType;
-  // }
-
+  /**
+   * コンストラクタ。
+   * 
+   * @param assetType アセットタイプ
+   */
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       throw new IllegalArgumentException("サポートされていないアセットタイプが指定されました。");

@@ -27,6 +27,13 @@
     <property name="eachLine" value="true"/>
   </module>
 
+  <!-- チェック除外対象を示したファイルがあればそれを参照する -->
+  <module name="SuppressionFilter">
+    <!-- <property name="file" value="config/checkstyle/suppressions.xml"/> -->
+    <property name="file" value="${config_loc}/suppressions.xml"/>
+    <property name="optional" value="true"/>
+  </module>
+
   <module name="TreeWalker">
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">
@@ -191,7 +198,8 @@
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
-      <property name="sortImportsInGroupAlphabetically" value="true"/>
+      <!-- VSCodeの自動Import順と一致しないのでルールから除外 -->
+      <!-- <property name="sortImportsInGroupAlphabetically" value="true"/> -->
       <property name="separateLineBetweenGroups" value="true"/>
       <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
     </module>
@@ -223,6 +231,8 @@
     <module name="SummaryJavadoc">
       <property name="forbiddenSummaryFragments"
        value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
+      <!-- JavaDocの文末は読点にする -->
+      <property name="period" value="。"/>
     </module>
     <module name="JavadocParagraph"/>
     <module name="AtclauseOrder">

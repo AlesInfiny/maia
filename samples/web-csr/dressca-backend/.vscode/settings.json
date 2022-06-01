@@ -1,5 +1,13 @@
 {
   "java.dependency.packagePresentation": "hierarchical",
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml"
+  "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
+  "cSpell.words": [
+    "Batis",
+    "Dressca",
+    "Mybatis",
+    "Servlet",
+    "shikuchoson",
+    "todofuken"
+  ]
 }

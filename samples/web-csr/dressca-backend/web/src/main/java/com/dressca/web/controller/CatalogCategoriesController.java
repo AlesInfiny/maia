@@ -1,11 +1,14 @@
 package com.dressca.web.controller;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.web.controller.dto.catalog.CatalogCategoryResponse;
+import com.dressca.web.mapper.CatalogCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,20 +29,24 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CatalogCategoriesController {
 
-    @Autowired
-    private CatalogApplicationService service;
+  @Autowired
+  private CatalogApplicationService service;
 
-    /**
-     * カタログカテゴリの一覧を取得します。
-     * 
-     * @return カタログカテゴリの一覧。
-     */
-    @Operation(summary = "カタログカテゴリの一覧を取得します.", description = "カタログカテゴリの一覧を取得します.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功",
-            content = @Content(mediaType = "application/json", array = @ArraySchema(
-                    schema = @Schema(implementation = CatalogCategory.class))))})
-    public ResponseEntity<List<CatalogCategory>> getCatalogCategories() {
-        List<CatalogCategory> categories = this.service.getCategories();
-        return ResponseEntity.ok().body(categories);
-    }
+  /**
+   * カタログカテゴリの一覧を取得します。
+   * 
+   * @return カタログカテゴリの一覧。
+   */
+  @Operation(summary = "カタログカテゴリの一覧を取得します.", description = "カタログカテゴリの一覧を取得します.")
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功",
+      content = @Content(mediaType = "application/json",
+          array = @ArraySchema(schema = @Schema(implementation = CatalogCategory.class))))})
+  @GetMapping()
+  public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
+    List<CatalogCategoryResponse> categories = this.service.getCategories().stream()
+        .map(CatalogCategoryMapper::convert)
+        .collect(Collectors.toList());
+    
+    return ResponseEntity.ok().body(categories);
+  }
 }

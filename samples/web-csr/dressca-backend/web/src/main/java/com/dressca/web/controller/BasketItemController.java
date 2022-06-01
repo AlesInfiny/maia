@@ -1,11 +1,5 @@
 package com.dressca.web.controller;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
-import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketApplicationService;
 import com.dressca.applicationcore.baskets.BasketItem;
@@ -16,12 +10,26 @@ import com.dressca.applicationcore.catalog.CatalogItemAsset;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.web.controller.dto.AccountDto;
-import com.dressca.web.controller.dto.BasketDto;
-import com.dressca.web.controller.dto.BasketItemDto;
-import com.dressca.web.controller.dto.CatalogItemDto;
-import com.dressca.web.controller.dto.PostBasketItemsInputDto;
-import com.dressca.web.controller.dto.PutBasketItemInputDto;
+import com.dressca.web.controller.dto.baskets.BasketItemResponse;
+import com.dressca.web.controller.dto.baskets.BasketResponse;
+import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
+import com.dressca.web.controller.dto.baskets.PutBasketItemRequest;
+import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
+import com.dressca.web.mapper.BasketMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,16 +40,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 
 /**
- * {@link BasketItem} の情報にアクセスする API コントローラーです.
+ * {@link BasketItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
 @Tag(name = "BasketItem", description = "買い物かごアイテムの情報にアクセスするAPI")
@@ -57,34 +58,35 @@ public class BasketItemController {
   private CatalogRepository catalogRepository;
 
   /**
-   * 買い物かごアイテムの一覧を取得します.
+   * 買い物かごアイテムの一覧を取得します。
    * 
    * @return 買い物かごアイテムの一覧
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得する.", description = "買い物かごアイテムの一覧を返却する.")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功.",
       content = @Content(mediaType = "application/json",
-          schema = @Schema(implementation = BasketDto.class)))})
+          schema = @Schema(implementation = BasketResponse.class)))})
   @GetMapping
-  public ResponseEntity<BasketDto> getBasketItems(HttpServletRequest req) {
+  public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
-        .map(basketItem -> basketItem.getCatalogItemId()).collect(Collectors.toList());
+        .map(basketItem -> basketItem.getCatalogItemId())
+        .collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-    BasketDto basketDto = convertBasketDto(basket);
+    BasketResponse basketDto = BasketMapper.convert(basket);
 
-    for (BasketItemDto item : basketDto.getBasketItems()) {
-      item.setCatalogItem(this.getCatalogItemDto(item.getCatalogItemId(), catalogItems));
+    for (BasketItemResponse item : basketDto.getBasketItems()) {
+      item.setCatalogItem(this.getCatalogItemResponse(item.getCatalogItemId(), catalogItems));
     }
     return ResponseEntity.ok().body(basketDto);
   }
 
   /**
-   * 買い物かごアイテム内の数量を変更します. 買い物かご内に存在しないカタログアイテム ID は指定できません.
+   * 買い物かごアイテム内の数量を変更します. 買い物かご内に存在しないカタログアイテム ID は指定できません。
    * <p>
-   * この API では、買い物かご内に存在する商品の数量を変更できます. 買い物かご内に存在しないカタログアイテム Id を指定すると HTTP 400 を返却します.
-   * またシステムに登録されていないカタログアイテム Id を指定した場合も HTTP 400 を返却します.
+   * この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム Id を指定すると HTTP 400 を返却します。
+   * またシステムに登録されていないカタログアイテム Id を指定した場合も HTTP 400 を返却します。
    * </p>
    * 
    * @param putBasketItems 変更する買い物かごアイテムのデータリスト
@@ -98,19 +100,22 @@ public class BasketItemController {
       value = {@ApiResponse(responseCode = "204", description = "成功.", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)})
   @PutMapping()
-  public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemInputDto> putBasketItems,
+  public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemRequest> putBasketItems,
       HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
-      return ResponseEntity.noContent().build();
+      return ResponseEntity.badRequest().build();
     }
-    Map<Long, Integer> quantities = putBasketItems.stream().collect(Collectors
-        .toMap(PutBasketItemInputDto::getCatalogItemId, PutBasketItemInputDto::getQuentity));
+    Map<Long, Integer> quantities = putBasketItems.stream()
+        .collect(Collectors.toMap(
+            PutBasketItemRequest::getCatalogItemId, 
+            PutBasketItemRequest::getQuantity
+        ));
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
-    List<Long> notExistsInBasketCatalogIds =
-        quantities.keySet().stream().filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
+    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
+            .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
             .collect(Collectors.toList());
     if (!notExistsInBasketCatalogIds.isEmpty()) {
       return ResponseEntity.badRequest().build();
@@ -121,6 +126,12 @@ public class BasketItemController {
       return ResponseEntity.badRequest().build();
     }
 
+    try {
+      basketApplicationService.setQuantities(basket.getId(), quantities);
+    } catch (BasketNotFoundException e) {
+      // ここでは発生しえないのでシステム例外をスロー
+      throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
+    }
     return ResponseEntity.noContent().build();
   }
 
@@ -149,7 +160,7 @@ public class BasketItemController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー", content = @Content)})
   @PostMapping
-  public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsInputDto postBasketItem,
+  public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
@@ -162,9 +173,12 @@ public class BasketItemController {
 
     CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(catalogItemIds).get(0);
     try {
-      this.basketApplicationService.addItemToBasket(basket.getId(),
-          postBasketItem.getCatalogItemId(), catalogItem.getPrice(),
-          postBasketItem.getAddedQuantity());
+      this.basketApplicationService.addItemToBasket(
+          basket.getId(),
+          postBasketItem.getCatalogItemId(), 
+          catalogItem.getPrice(),
+          postBasketItem.getAddedQuantity()
+      );
     } catch (BasketNotFoundException e) {
       throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
     }
@@ -184,7 +198,8 @@ public class BasketItemController {
   @Operation(summary = "買い物かごから指定したカタログアイテム Id の商品を削除します.",
       description = "買い物かごから指定したカタログアイテム Id の商品を削除します.<br>"
           + "catalogItemId には買い物かご内に存在するカタログアイテム Id を指定してください. カタログアイテム Id は 1 以上の整数です."
-          + "0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.")
+          + "0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. "
+          + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功.", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
@@ -197,49 +212,28 @@ public class BasketItemController {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
     if (!basket.isInCatalogItem(catalogItemId)) {
-      // TODO: 警告ログの出力
       return ResponseEntity.notFound().build();
     }
 
     try {
       this.basketApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
     } catch (BasketNotFoundException e) {
-      // TODO: 警告ログの出力
       return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.noContent().build();
   }
 
-  private BasketDto convertBasketDto(Basket basket) {
-    if (basket == null) {
-      return null;
-    }
-    Account account = basket.getAccount();
-
-    AccountDto accountDto = new AccountDto(Account.CONSUMPTION_TAX_RATE, account.getTotalPrice(),
-        account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
-    List<BasketItemDto> basketItems =
-        basket.getItems().stream().map(this::convertBasketItemDto).collect(Collectors.toList());
-    return new BasketDto(basket.getBuyerId(), accountDto, basketItems);
-  }
-
-  private BasketItemDto convertBasketItemDto(BasketItem basketItem) {
-    if (basketItem == null) {
-      return null;
-    }
-
-    return new BasketItemDto(basketItem.getCatalogItemId(), basketItem.getUnitPrice(),
-        basketItem.getQuantity(), basketItem.getSubtotal(), null);
-  }
-
-  private CatalogItemDto getCatalogItemDto(long catalogItemId, List<CatalogItem> catalogItems) {
-    CatalogItem catalogItem = catalogItems.stream().filter(item -> item.getId() == catalogItemId)
-        .findFirst().orElse(null);
+  private CatalogItemResponse getCatalogItemResponse(
+      long catalogItemId, List<CatalogItem> catalogItems) {
+    CatalogItem catalogItem = catalogItems.stream()
+        .filter(item -> item.getId() == catalogItemId)
+        .findFirst()
+        .orElse(null);
 
     return convertCatalogItemDto(catalogItem);
   }
 
-  private CatalogItemDto convertCatalogItemDto(CatalogItem catalogItem) {
+  private CatalogItemResponse convertCatalogItemDto(CatalogItem catalogItem) {
     if (catalogItem == null) {
       return null;
     }
@@ -247,7 +241,7 @@ public class BasketItemController {
     List<String> assetCodes = catalogItem.getAssets().stream().map(CatalogItemAsset::getAssetCode)
         .collect(Collectors.toList());
 
-    return new CatalogItemDto(catalogItem.getId(), catalogItem.getName(),
+    return new CatalogItemResponse(catalogItem.getId(), catalogItem.getName(),
         catalogItem.getProductCode(), assetCodes, catalogItem.getDescription(),
         catalogItem.getPrice(), catalogItem.getCatalogCategoryId(),
         catalogItem.getCatalogBrandId());

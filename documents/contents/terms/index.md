@@ -41,12 +41,13 @@ Maia OSS 版（以下、本サイト）は、以下を提供します。
 - 「Maia」は、BIPROGY株式会社の登録商標です。
 - 「Spring」「Spring Framework」「Spring Boot」「Spring Cloud」はPivotal Software, Inc.の商標です。
 - 「Java」は、オラクルおよびその関連会社の登録商標です。
-- 「Microsoft」「Windows」「Visual Studio Code」「VS Code」は米国Microsoft Corporationの米国およびその他の国における登録商標または商標です。
+- 「Microsoft」「Windows」「Visual Studio Code」「VS Code」「Azure」は米国Microsoft Corporationの米国およびその他の国における登録商標または商標です。
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
+- Copyright © 2022 JetBrains s.r.o. [IntelliJ IDEA] and the [IntelliJ IDEA] logo are registered trademarks of JetBrains s.r.o.
+- 'Eclipse' and 'Adoptium' are trademarks of Eclipse Foundation, Inc.
+- Amazon Web Services、AWS、Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、Amazon.com, Inc. またはその関連会社の商標です。
 - その他記載されている会社名・商品名などは、各社の商標および登録商標です。
 - 本サイトに記載の商品名、製品名、社名などには、必ずしも商標表示（ (R)、TM ）を付記していません。
 
 本サイトに記載されている内容の著作権や肖像権等は、各権利所有者に帰属します。
-
---8<-- "includes/abbreviations.md"

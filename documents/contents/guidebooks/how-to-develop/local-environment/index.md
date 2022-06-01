@@ -28,12 +28,12 @@ Maia OSS 版のアプリケーション開発を行うコンピューターが�
 Maia OSS 版のアプリケーション開発には、
 Web API アプリケーションやバッチアプリケーションなどの Java アプリケーションと、
 Vue.js を含む SPA アプリケーションの両方の開発が行うことができる Visual Studio Code（以下 VS Code） を推奨します。
-Java アプリケーションの開発のみを行う場合には Eclipe や IntelliJ といった IDE も利用可能です。また、IntelliJ でVue.js の開発を行う場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
+Java アプリケーションの開発のみを行う場合には Eclipse や IntelliJ といった IDE も利用可能です。また、IntelliJ でVue.js の開発を行う場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
 
 | 開発するアプリケーション | VS Code | Eclipse | IntelliJ IDEA |
-| ----------------------- | ------- | ------- | ---|
-| Vue.js アプリケーション  | 〇  | ×  | △ |
-| Java アプリケーション    | 〇  | 〇  | 〇 |
+| ------------------------ | ------- | ------- | ------------- |
+| Vue.js アプリケーション  | 〇      | ×      | △            |
+| Java アプリケーション    | 〇      | 〇      | 〇            |
 
 ## ローカル開発環境の構築手順 ## {: #setup-development-environment }
 
@@ -103,7 +103,7 @@ JDKの取得先は実行環境に合わせて選択します。
 
         <https://www.oracle.com/java/>
 
-本ドキュメントは Adoptium OpenJDK を前提に記載しています。
+本ドキュメントは Adoptium を前提に記載しています。
 
 1. 上記のサイトから選択したJDKを取得します。
 
@@ -119,5 +119,3 @@ JDKのインストール時のカスタムセットアップで設定済みで�
     <https://nodejs.org/ja/>
 
 1. インストーラを実行します。カスタムセットアップにて、npm のインストールと PATH の設定を実施するよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます )
-
---8<-- "includes/abbreviations.md"

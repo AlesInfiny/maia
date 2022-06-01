@@ -103,5 +103,3 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
     <http://localhost:8080>
 
     フロントエンドアプリケーションや API クライアントツールを利用してアクセスしてください。
-
---8<-- "includes/abbreviations.md"

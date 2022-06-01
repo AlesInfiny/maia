@@ -3,5 +3,3 @@
 1. [構築できるアプリケーション](application-kind.md)
 1. [Maia OSS 版を構成するもの](compositions.md)
 1. [推奨するリポジトリ構造](repository-structure.md)
-
---8<-- "includes/abbreviations.md"

@@ -11,6 +11,12 @@ public class AssetTypes {
   public static final String png = "png";
   private static final Set<String> supportedAssetTypes = Set.of(png);
 
+  /**
+   * アセットタイプが対応しているかどうかを判定します。
+   * 
+   * @param assetType アセットタイプ
+   * @return 対応していれ true、そうでなければ false
+   */
   public static boolean isSupportedAssetTypes(String assetType) {
     if (StringUtils.isEmpty(assetType)) {
       return false;

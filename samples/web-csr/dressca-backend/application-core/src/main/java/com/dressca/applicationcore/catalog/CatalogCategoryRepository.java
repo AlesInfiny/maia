@@ -6,7 +6,7 @@ import java.util.List;
  * カタログカテゴリリポジトリ。
  */
 public interface CatalogCategoryRepository {
-    /**
+  /**
    * すべてのカタログカテゴリを取得します。
    * @return カタログカテゴリのリスト
    */

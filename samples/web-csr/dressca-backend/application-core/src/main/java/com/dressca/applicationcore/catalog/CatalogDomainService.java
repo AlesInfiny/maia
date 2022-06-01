@@ -21,7 +21,7 @@ public class CatalogDomainService {
    * @return 存在するカタログアイテムの一覧
    */
   public List<CatalogItem> getExistCatalogItems(List<Long> catalogItemIds) {
-    return this.catalogRepository.findByCategoryIdIn(catalogItemIds);
+    return this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
   }
 
   /**
@@ -30,15 +30,16 @@ public class CatalogDomainService {
    * @return すべて存在する場合は true、一部でも不在の場合は false。
    */
   public boolean existAll(List<Long> catalogItemIds) {
-    List<CatalogItem> items = this.catalogRepository.findByCategoryIdIn(catalogItemIds);
+    List<CatalogItem> items = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<Long> notExistCatalogItemIds = catalogItemIds.stream()
-      .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
-      .collect(Collectors.toList());
+        .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
+        .collect(Collectors.toList());
     
     return notExistCatalogItemIds.isEmpty();
   }
 
   private boolean existCatalogItemIdInItems(List<CatalogItem> items, long catalogItemId) {
-    return items.stream().anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
+    return items.stream()
+        .anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
   }
 }

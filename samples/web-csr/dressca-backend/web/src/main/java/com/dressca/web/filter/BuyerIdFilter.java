@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 
 public class BuyerIdFilter implements Filter {
 
@@ -19,25 +20,27 @@ public class BuyerIdFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    
+
     Cookie[] cookies = ((HttpServletRequest) request).getCookies();
     String buyerId = null;
-    for (Cookie cookie : cookies) {
-      if (cookie.getName().equals(DEFAULT_BUYER_COOKIE_NAME)) {
-        buyerId = cookie.getValue();
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (cookie.getName().equals(DEFAULT_BUYER_COOKIE_NAME)) {
+          buyerId = cookie.getValue();
+        }
       }
     }
-    if (buyerId == null) {
+    if (StringUtils.isBlank(buyerId)) {
       buyerId = UUID.randomUUID().toString();
     }
     request.setAttribute(BUYER_ID_ATTRIBUTE_KEY, buyerId);
-    
+
     chain.doFilter(request, response);
-    
+
     buyerId = request.getAttribute(BUYER_ID_ATTRIBUTE_KEY).toString();
     Cookie cookie = new Cookie(DEFAULT_BUYER_COOKIE_NAME, buyerId);
     cookie.setMaxAge(60 * 60);
     ((HttpServletResponse) response).addCookie(cookie);
   }
-    
+
 }

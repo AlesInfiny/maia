@@ -3,7 +3,7 @@ package com.dressca.applicationcore.assets;
 import java.util.Optional;
 
 /**
- * アセットリポジトリ
+ * アセットリポジトリ。
  */
 public interface AssetRepository {
   

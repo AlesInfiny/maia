@@ -1,21 +1,23 @@
 package com.dressca.applicationcore.order;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 /**
- * 注文アイテムアセットのドメインモデルです.
+ * 注文アイテムアセットのドメインモデルです。
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItemAsset {
   private long id;
-  @NonNull
   private String assetCode;
   private long orderItemId;
   private OrderItem orderItem;
 
   /**
-   * コンストラクタ.
+   * コンストラクタ。
    * 
    * @param assetCode アセットコード.
    * @param orderItemId 注文アイテムId.
