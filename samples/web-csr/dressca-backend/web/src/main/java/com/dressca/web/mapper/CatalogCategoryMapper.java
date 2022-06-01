@@ -7,6 +7,13 @@ import com.dressca.web.controller.dto.catalog.CatalogCategoryResponse;
  * {@link CatalogCategory} と {@link CatalogCategoryResponse} のマッパーです。 
  */
 public class CatalogCategoryMapper {
+
+  /**
+   * {@link CatalogCategory} オブジェクトを {@link CatalogCategoryResponse} に変換します。
+   * 
+   * @param catalogCategory {@link CatalogCategory} オブジェクト
+   * @return {@link CatalogCategoryResponse} オブジェクト
+   */
   public static CatalogCategoryResponse convert(CatalogCategory catalogCategory) {
     if (catalogCategory == null) {
       return null;

@@ -14,6 +14,7 @@ public class AssetNotFoundException extends LogicException {
    * @param assetCode 見つからなかった買い物かご Id
    */
   public AssetNotFoundException(String assetCode) {
-    super(null, ExceptionIdConstant.E_ASSET0001, new String[] {assetCode}, new String[] {assetCode});
+    super(null, ExceptionIdConstant.E_ASSET0001, new String[] {assetCode},
+        new String[] {assetCode});
   }
 }

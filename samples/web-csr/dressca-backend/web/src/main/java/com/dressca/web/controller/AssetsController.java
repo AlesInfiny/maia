@@ -56,7 +56,6 @@ public class AssetsController {
 
       return ResponseEntity.ok().contentType(contentType).body(assetResourceInfo.getResource());
     } catch (AssetNotFoundException e) {
-      // TODO: 警告ログの出力
       return ResponseEntity.notFound().build();
     }
   }

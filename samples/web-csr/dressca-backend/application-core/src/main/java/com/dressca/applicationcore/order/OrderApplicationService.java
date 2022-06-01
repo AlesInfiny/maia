@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * 注文に関連するビジネスユースケースを実現する Application Service です.
+ * 注文に関連するビジネスユースケースを実現する Application Service です。
  */
 @Service
 @AllArgsConstructor
@@ -24,7 +24,7 @@ public class OrderApplicationService {
   private CatalogRepository catalogRepository;
 
   /**
-   * 注文を作成します.
+   * 注文を作成します。
    * 
    * @param basketId 買い物かご Id.
    * @param shipToAddress お届け先.
@@ -52,7 +52,7 @@ public class OrderApplicationService {
   }
 
   /**
-   * 指定した注文 Id 、購入者 Id の注文情報を取得します.
+   * 指定した注文 Id 、購入者 Id の注文情報を取得します。
    * 
    * @param orderId 注文 Id.
    * @param buyerId 購入者 Id.

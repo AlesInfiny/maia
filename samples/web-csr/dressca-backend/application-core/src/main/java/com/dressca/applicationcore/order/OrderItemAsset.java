@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文アイテムアセットのドメインモデルです.
+ * 注文アイテムアセットのドメインモデルです。
  */
 @Data
 @AllArgsConstructor
@@ -17,7 +17,7 @@ public class OrderItemAsset {
   private OrderItem orderItem;
 
   /**
-   * コンストラクタ.
+   * コンストラクタ。
    * 
    * @param assetCode アセットコード.
    * @param orderItemId 注文アイテムId.

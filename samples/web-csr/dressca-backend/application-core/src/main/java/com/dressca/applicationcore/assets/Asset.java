@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * アセットのドメインモデル
+ * アセットのドメインモデル。
  */
 @Data
 @NoArgsConstructor
@@ -17,6 +17,12 @@ public class Asset {
   @NonNull
   private String assetType;
 
+  /**
+   * コンストラクタ。
+   * 
+   * @param assetCode アセットコード
+   * @param assetType アセットタイプ
+   */
   public Asset(@NonNull String assetCode, @NonNull String assetType) {
     this.assetCode = assetCode;
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
@@ -25,6 +31,11 @@ public class Asset {
     this.assetType = assetType;
   }
 
+  /**
+   * コンストラクタ。
+   * 
+   * @param assetType アセットタイプ
+   */
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       throw new IllegalArgumentException("サポートされていないアセットタイプが指定されました。");

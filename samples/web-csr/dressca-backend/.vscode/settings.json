@@ -3,7 +3,11 @@
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
   "cSpell.words": [
+    "Batis",
     "Dressca",
-    "Servlet"
+    "Mybatis",
+    "Servlet",
+    "shikuchoson",
+    "todofuken"
   ]
 }

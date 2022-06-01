@@ -10,6 +10,12 @@ import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
  * {@link CatalogItem} と {@link CatalogItemResponse} のマッパーです。 
  */
 public class CatalogItemMapper {
+
+  /**
+   * {@link CatalogItem} オブジェクトを {@link CatalogItemResponse} に変換します。
+   * @param item {@link CatalogItem} オブジェクト
+   * @return {@link CatalogItemResponse} オブジェクト
+   */
   public static CatalogItemResponse convert(CatalogItem item) {
     if (item == null) {
       return null;

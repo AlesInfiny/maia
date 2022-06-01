@@ -9,6 +9,13 @@ import com.dressca.web.controller.dto.order.OrderResponse;
  * {@link Order} と {@link OrderResponse} のマッパーです。
  */
 public class OrderMapper {
+
+  /**
+   * {@link Order} オブジェクトを {@link OrderResponse} に変換します。
+   * 
+   * @param order {@link Order} オブジェクト
+   * @return {@link OrderResponse} オブジェクト
+   */
   public static OrderResponse convert(Order order) {
     return new OrderResponse(
         order.getId(), 
