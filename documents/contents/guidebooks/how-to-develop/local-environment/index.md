@@ -25,7 +25,7 @@ Maia OSS 版のアプリケーション開発を行うコンピューターが�
 
 ### ソフトウェア要件 ### {: #software-requirements }
 
-Maia OSS 版のアプリケーション開発には、 
+Maia OSS 版のアプリケーション開発には、
 Web API アプリケーションやバッチアプリケーションなどの Java アプリケーションと、
 Vue.js を含む SPA アプリケーションの両方の開発が行うことができる Visual Studio Code（以下 VS Code） を推奨します。
 Java アプリケーションの開発のみを行う場合には Eclipe や IntelliJ といった IDE も利用可能です。また、IntelliJ でVue.js の開発を行う場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
@@ -55,7 +55,6 @@ Maia OSS 版の各ドキュメントは、本節に記載されている環境�
 
     - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
 
-
 ### Git for Windows のインストール ## {: #install-git-for-windows }
 
 !!!warning "Git for Windows インストールの前に"
@@ -76,14 +75,18 @@ Maia OSS 版の各ドキュメントは、本節に記載されている環境�
     ```ps1 title="Git for Windows のバージョン確認"
     git --version
     ```
+
 ### JDK のインストール ## {: #install-jdk }
 
 JDKの取得先は実行環境に合わせて選択します。
+
 - Azure：Microsoft Build for OpenJDK <https://www.microsoft.com/openjdk/>
+
 - AWS：Amazon Corretto <https://aws.amazon.com/jp/corretto/>
+
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
-    Adoptium OpenJDK  <https://adoptium.net/> 
+    Adoptium OpenJDK  <https://adoptium.net/>
 
     Oracle JDK <https://www.oracle.com/java/>
 
@@ -98,9 +101,9 @@ JDKのインストール時のカスタムセットアップで設定済みで�
 
 ### Node.js のインストール ##{: install-node}
 
- 1. 以下のサイトからインストーラを取得します。
- <https://nodejs.org/ja/>
- 
- 1.  インストーラを実行します。カスタムセットアップにて、npm のインストールと PATH の設定を実施するよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます )  
+1. 以下のサイトからインストーラを取得します。
+<https://nodejs.org/ja/>
+
+1.  インストーラを実行します。カスタムセットアップにて、npm のインストールと PATH の設定を実施するよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます )
 
 --8<-- "includes/abbreviations.md"
