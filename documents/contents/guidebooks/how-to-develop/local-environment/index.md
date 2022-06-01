@@ -40,20 +40,25 @@ Java アプリケーションの開発のみを行う場合には Eclipe や Int
 本節では開発に最低限必要なソフトウェアのインストール方法について解説します。
 Maia OSS 版の各ドキュメントは、本節に記載されている環境が整っていることを前提に記載されています。
 
+!!! info "Windows Defender ファイアウォールの警告が表示される場合"
+    後述の各種ソフトウェアをインストールして起動した際に、
+    「このアプリのいくつかが Windows Defender ファイアウォールでブロックされています」という警告が出た場合には、ご利用の環境に合わせて通信の許可設定を行ってください。
+
 ### Visual Studio Code のインストール ## {: #install-vscode }
 
-1. 以下のサイトから、コンピューターの環境にあった Visual Studio Code(以下VSCode) のインストーラーをダウンロードします。
+1. 以下のサイトから、コンピューターの環境にあった Visual Studio Code(以下VS Code) のインストーラーをダウンロードします。
+
     <https://code.visualstudio.com/>
 
 1. ダウンロードしたインストーラーを実行します。
 
 1. オプション設定は、ご利用の環境に応じて設定してインストールしてください。
 
-1. インストールが完了したら VSCode を起動します。
+1. インストールが完了したら VS Code を起動します。
 
 1. 以下の拡張機能をインストールします。
 
-    - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+    [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
 
 ### Git for Windows のインストール ## {: #install-git-for-windows }
 
@@ -80,15 +85,23 @@ Maia OSS 版の各ドキュメントは、本節に記載されている環境�
 
 JDKの取得先は実行環境に合わせて選択します。
 
-- Azure：Microsoft Build for OpenJDK <https://www.microsoft.com/openjdk/>
+- Azure：Microsoft Build for OpenJDK
 
-- AWS：Amazon Corretto <https://aws.amazon.com/jp/corretto/>
+    <https://www.microsoft.com/openjdk/>
+
+- AWS：Amazon Corretto
+
+    <https://aws.amazon.com/jp/corretto/>
 
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
-    Adoptium OpenJDK  <https://adoptium.net/>
+    - Adoptium
 
-    Oracle JDK <https://www.oracle.com/java/>
+        <https://adoptium.net/>
+
+    - Oracle JDK
+
+        <https://www.oracle.com/java/>
 
 本ドキュメントは Adoptium OpenJDK を前提に記載しています。
 
@@ -102,7 +115,8 @@ JDKのインストール時のカスタムセットアップで設定済みで�
 ### Node.js のインストール ## {: #install-node}
 
 1. 以下のサイトからインストーラを取得します。
-<https://nodejs.org/ja/>
+
+    <https://nodejs.org/ja/>
 
 1. インストーラを実行します。カスタムセットアップにて、npm のインストールと PATH の設定を実施するよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます )
 
