@@ -44,7 +44,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
 1. VSCode で「dressca\\dressca-frontend」フォルダを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
 
-    !!! info "拡張機能のインストールが失敗する場合"
+!!! info "拡張機能のインストールが失敗する場合"
     拡張機能のインストール時にエラーが発生する場合には、
     VSCode の再起動やローカルキャッシュのクリアを試してください。
 
@@ -77,8 +77,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
 
     <http://localhost:3000>
 
-    [![Dressca トップページ](images/dressca-top.png){
-        width="600" loading=lazy }](images/dressca-top.png)
+    [![Dressca トップページ](images/dressca-top.png){ width="600" loading=lazy }](images/dressca-top.png)
 
 ### バックエンドエンドアプリケーションの実行手順 ### {: #backend-operation }
 
@@ -94,6 +93,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
 1. VSCode のエクスプローラーの「SPRING BOOT DASHBOARD」から「web」という名前のアプリケーションを実行します
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
+
     <http://localhost:8080>
 
     フロントエンドアプリケーションや API クライアントツールを利用してアクセスしてください。
