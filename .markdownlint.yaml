@@ -12,4 +12,5 @@ ol-indent:
 ul-indent:
   indent: 4
 
-style: fenced
+MD046:
+  style: fenced
