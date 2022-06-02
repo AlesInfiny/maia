@@ -11,3 +11,5 @@ ol-indent:
   indent: 4
 ul-indent:
   indent: 4
+
+style: fenced
