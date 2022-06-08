@@ -18,10 +18,10 @@ public interface CatalogRepository {
   /**
    * ブランドIDとカテゴリIDに一致するカタログのリストを取得します。
    * 
-   * @param brandId ブランドID
+   * @param brandId    ブランドID
    * @param categoryId カテゴリID
-   * @param page ページ
-   * @param pageSize ページサイズ
+   * @param page       ページ
+   * @param pageSize   ページサイズ
    * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
    */
   List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page,
@@ -38,9 +38,17 @@ public interface CatalogRepository {
   /**
    * ブランドIDとカテゴリIDに一致するカタログの件数を取得します。
    * 
-   * @param brandId ブランドID
+   * @param brandId    ブランドID
    * @param categoryId カテゴリID
    * @return 条件に一致するカタログの件数。
    */
   int countByBrandIdAndCategoryId(long brandId, long categoryId);
+
+  /**
+   * バッチ向けにページングを考慮して全件データを取得します。
+   * 
+   * @param skipRows データ取得をスキップする行数
+   * @param pageSize データ取得行数の最大値
+   */
+  List<CatalogItem> findAllForBatch(int skipRows, int pageSize);
 }
