@@ -28,7 +28,7 @@ Maia OSS 版のアプリケーション開発を行うコンピューターが�
 Maia OSS 版のアプリケーション開発には、
 Web API アプリケーションやバッチアプリケーションなどの Java アプリケーションと、
 Vue.js を含む SPA アプリケーションの両方の開発が行うことができる Visual Studio Code（以下 VS Code） を推奨します。
-Java アプリケーションの開発のみを行う場合には Eclipse や IntelliJ といった IDE も利用可能です。また、IntelliJ でVue.js の開発を行う場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
+Java アプリケーションの開発のみを行う場合には Eclipse や IntelliJ IDEA といった IDE も利用可能です。また、IntelliJ IDEA で Vue.js の開発を行う場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
 
 | 開発するアプリケーション | VS Code | Eclipse | IntelliJ IDEA |
 | ------------------------ | ------- | ------- | ------------- |
