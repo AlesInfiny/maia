@@ -31,8 +31,8 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x samples/web-csr/dressca-backend/gradlew
 
-      - name: JUnit実行
-        run: ./gradlew test
+      - name: ビルド（コンパイル, 静的テスト, JUnit）実行
+        run: ./gradlew build
         working-directory: ./samples/web-csr/dressca-backend
 
       - name: JUnitレポート
