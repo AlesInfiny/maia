@@ -130,7 +130,7 @@ public class BasketItemController {
       basketApplicationService.setQuantities(basket.getId(), quantities);
     } catch (BasketNotFoundException e) {
       // ここでは発生しえないのでシステム例外をスロー
-      throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
+      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     }
     return ResponseEntity.noContent().build();
   }
@@ -180,7 +180,7 @@ public class BasketItemController {
           postBasketItem.getAddedQuantity()
       );
     } catch (BasketNotFoundException e) {
-      throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
+      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
   }

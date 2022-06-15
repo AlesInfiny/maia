@@ -14,17 +14,18 @@ public class SystemException extends RuntimeException {
   private String[] logMessageValue = null;
 
   /**
-   * コンストラクタ
+   * コンストラクタ。
    *
    * @param cause 原因例外
    * @param exceptionId 例外ID
    * @param frontMessageValue メッセージ用プレースフォルダ（フロント用）
    * @param logMessageValue メッセージ用プレースフォルダ（ログ用）
    */
-  public SystemException(Throwable cause, String exceptionId, String[] frontMessageValue, String[] logMessageValue) {
-      super(cause);
-      this.exceptionId = exceptionId;
-      this.frontMessageValue = frontMessageValue;
-      this.logMessageValue = logMessageValue;
-  }  
+  public SystemException(Throwable cause, String exceptionId, 
+      String[] frontMessageValue, String[] logMessageValue) {
+    super(cause);
+    this.exceptionId = exceptionId;
+    this.frontMessageValue = frontMessageValue;
+    this.logMessageValue = logMessageValue;
+  }
 }
