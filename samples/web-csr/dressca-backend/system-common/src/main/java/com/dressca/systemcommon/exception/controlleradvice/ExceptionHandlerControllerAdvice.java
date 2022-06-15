@@ -26,7 +26,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    * @return ステータースコード422のレスポンス
    */
   @ExceptionHandler(LogicException.class)
-  public ResponseEntity<ErrorResponse> handleLogicException(LogicException e, HttpServletRequest req) {
+  public ResponseEntity<ErrorResponse> 
+      handleLogicException(LogicException e, HttpServletRequest req) {
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
       .contentType(MediaType.APPLICATION_JSON)
       .body(createErrorResponse(e, req));
@@ -59,13 +60,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     e.printStackTrace();
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
       .contentType(MediaType.APPLICATION_JSON)
-      .body(createErrorResponse(new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null), req));
+      .body(createErrorResponse(
+        new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null), req));
   }
 
   private ErrorResponse createErrorResponse(LogicException e, HttpServletRequest request) {
     String urlPath = request.getPathInfo();
     if (StringUtils.isEmpty(urlPath)) {
-        urlPath = request.getServletPath();
+      urlPath = request.getServletPath();
     }
     return new ErrorResponse(e, urlPath);
   }
@@ -73,7 +75,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ErrorResponse createErrorResponse(SystemException e, HttpServletRequest request) {
     String urlPath = request.getPathInfo();
     if (StringUtils.isEmpty(urlPath)) {
-        urlPath = request.getServletPath();
+      urlPath = request.getServletPath();
     }
     return new ErrorResponse(e, urlPath);
   }

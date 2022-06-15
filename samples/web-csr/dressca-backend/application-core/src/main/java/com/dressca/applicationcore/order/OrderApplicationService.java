@@ -72,7 +72,7 @@ public class OrderApplicationService {
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
         .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst()
-        .orElseThrow(() -> new SystemException(null, ExceptionIdConstant.E_SHAR0000, null, null));
+        .orElseThrow(() -> new SystemException(null, ExceptionIdConstant.E_SHARE0000, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
     OrderItem orderItem =

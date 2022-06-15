@@ -101,7 +101,7 @@ public class OrderController {
       basketApplicationService.deleteBasket(basket.getId());
     } catch (BasketNotFoundException | EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
-      throw new SystemException(e, ExceptionIdConstant.E_SHAR0000, null, null);
+      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     }
 
     String requestUri = req.getRequestURL().toString();
