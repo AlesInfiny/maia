@@ -18,4 +18,5 @@ public interface JoinedCatalogItemMapper {
   int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
       @Param("categoryId") long categoryId);
 
+  List<CatalogItem> findWithPaging(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 }

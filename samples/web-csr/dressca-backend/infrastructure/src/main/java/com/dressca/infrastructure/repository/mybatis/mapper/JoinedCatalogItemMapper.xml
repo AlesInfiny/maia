@@ -90,4 +90,10 @@
       </if>
     </where>
   </select>
+  
+  <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    LIMIT #{_skiprows}, #{_pagesize}
+  </select>
+
 </mapper>

@@ -37,4 +37,8 @@ public class MybatisCatalogRepository implements CatalogRepository {
     return mapper.countByBrandIdAndCategoryId(brandId, categoryId);
   }
 
+  @Override
+  public List<CatalogItem> findWithPaging(int skipRows, int pageSize) {
+    return mapper.findWithPaging(skipRows, pageSize);
+  }
 }
