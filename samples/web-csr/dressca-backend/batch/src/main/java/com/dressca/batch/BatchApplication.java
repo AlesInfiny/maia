@@ -11,17 +11,17 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
 
 /**
- * バッチアプリケーションのメインクラス
+ * バッチアプリケーションのメインクラス。
  */
 public class BatchApplication {
 
-    /**
-     * バッチアプリケーションのメインメソッド
-     */
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(BatchApplication.class);
-        app.setWebApplicationType(WebApplicationType.NONE);
-        System.exit(SpringApplication.exit(app.run(args)));
-    }
+  /**
+   * バッチアプリケーションのメインメソッド。
+   */
+  public static void main(String[] args) {
+    SpringApplication app = new SpringApplication(BatchApplication.class);
+    app.setWebApplicationType(WebApplicationType.NONE);
+    System.exit(SpringApplication.exit(app.run(args)));
+  }
 
 }

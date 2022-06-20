@@ -50,5 +50,5 @@ public interface CatalogRepository {
    * @param skipRows データ取得をスキップする行数
    * @param pageSize データ取得行数の最大値
    */
-  List<CatalogItem> findAllForBatch(int skipRows, int pageSize);
+  List<CatalogItem> findWithPaging(int skipRows, int pageSize);
 }

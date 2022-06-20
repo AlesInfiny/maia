@@ -91,7 +91,7 @@
     </where>
   </select>
   
-  <select id="findAllForBatch" resultMap="catalogItemsIncludeAssetResultMap">
+  <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
     LIMIT #{_skiprows}, #{_pagesize}
   </select>

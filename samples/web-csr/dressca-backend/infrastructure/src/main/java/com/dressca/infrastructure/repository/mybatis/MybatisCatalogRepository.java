@@ -38,7 +38,7 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public List<CatalogItem> findAllForBatch(int skipRows, int pageSize) {
-    return mapper.findAllForBatch(skipRows, pageSize);
+  public List<CatalogItem> findWithPaging(int skipRows, int pageSize) {
+    return mapper.findWithPaging(skipRows, pageSize);
   }
 }

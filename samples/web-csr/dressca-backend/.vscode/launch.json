@@ -21,7 +21,6 @@
       "projectName": "batch",
       "args": "output=item_list_chunk.csv",
       "env":{"spring.batch.job.names":"catalogItem_job"}
-
     },
     {
       "type": "java",

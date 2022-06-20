@@ -8,15 +8,15 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface JoinedCatalogItemMapper {
 
-    List<CatalogItem> findByCategoryIdIn(@Param("categoryIds") List<Long> categoryIds);
+  List<CatalogItem> findByCategoryIdIn(@Param("categoryIds") List<Long> categoryIds);
 
-    List<CatalogItem> findByBrandIdAndCategoryId(@Param("brandId") long brandId,
-            @Param("categoryId") long categoryId, @Param("limit") int limit, @Param("offset") int offset);
+  List<CatalogItem> findByBrandIdAndCategoryId(@Param("brandId") long brandId,
+      @Param("categoryId") long categoryId, @Param("limit") int limit, @Param("offset") int offset);
 
-    List<CatalogItem> findByCatalogItemIdIn(@Param("catalogItemIds") List<Long> catalogItemIds);
+  List<CatalogItem> findByCatalogItemIdIn(@Param("catalogItemIds") List<Long> catalogItemIds);
 
-    int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
-            @Param("categoryId") long categoryId);
+  int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
+      @Param("categoryId") long categoryId);
 
-    List<CatalogItem> findAllForBatch(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
+  List<CatalogItem> findWithPaging(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 }

@@ -1,0 +1,52 @@
+package com.dressca.batch.job.catalog;
+
+import com.dressca.applicationcore.catalog.CatalogItem;
+
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
+import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+
+/**
+ * CatalogItemの情報をローカルのCSVに出力するWriterの設定。
+ */
+@Configuration
+public class CatalogItemWriterConf {
+  /**
+   * CatalogItemデータをCSVに出力するWriter。
+   * 
+   * @param output 出力ファイル名.Jobパラメータから取得される.
+   * @throws Exception ジョブ実行時の例外
+   */
+  @Bean
+  @StepScope
+  public FlatFileItemWriter<CatalogItem> csvFileItemWriter(@Value("#{jobParameters['output']}") String output)
+      throws Exception {
+    FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
+    Resource outputResource;
+    if (output == null || "".equals(output)) {
+      // 出力ファイル名がJobパラメータで設定されていない場合
+      outputResource = new FileSystemResource("output/outputData.csv");
+    } else {
+      outputResource = new FileSystemResource("output/" + output);
+    }
+    writer.setResource(outputResource);
+    writer.setAppendAllowed(true);
+    writer.setLineAggregator(new DelimitedLineAggregator<CatalogItem>() {
+      {
+        setDelimiter(",");
+        setFieldExtractor(new BeanWrapperFieldExtractor<CatalogItem>() {
+          {
+            setNames(new String[] { "name", "price", "productCode" });
+          }
+        });
+      }
+    });
+    return writer;
+  }
+}
