@@ -13,7 +13,8 @@ Vue.js を用いた SPA の構成をとります。
 データアクセスは、 JDBC / JPA / MyBatis から選択可能です。
 サンプルアプリケーションでは MyBatis を採用しています。
 
-![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia.png){ loading=lazy }
+![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading=lazy }
+![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading=lazy }
 
 ### Web アプリケーション ( サーバーサイドレンダリング ) ### {: #server-side-rendering }
 
