@@ -14,9 +14,9 @@ nav:
       - app-architecture/index.md
       - 概要編:
           - app-architecture/overview/index.md
-          - 構築できるアプリケーション: app-architecture/overview/application-kind.md
-          - Maia OSS 版を構成するもの: app-architecture/overview/compositions.md
-          - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
+          - app-architecture/overview/application-kind.md
+          - app-architecture/overview/compositions.md
+          - app-architecture/overview/repository-structure.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
 #       - クックブック:
