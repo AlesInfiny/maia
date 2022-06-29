@@ -28,8 +28,8 @@ nav:
           - guidebooks/how-to-develop/index.md
           - Java 編:
               - guidebooks/how-to-develop/java/index.md
-          - Vue.js 編:
-              - guidebooks/how-to-develop/vue-js/index.md
+#         - Vue.js 編:
+#             - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
   - サンプル解説:
