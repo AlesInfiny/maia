@@ -32,8 +32,8 @@ nav:
 #             - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
-  - サンプル解説:
-      - samples/index.md
+# - サンプル解説:
+#     - samples/index.md
   - 利用規約:
       - terms/index.md
 
