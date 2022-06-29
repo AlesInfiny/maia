@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="uEXJJrO0DhDbDHVcbahO" name="ページ1">
-        <mxGraphModel dx="1642" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1556" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#FFFFFF;fontColor=#000000;strokeColor=#000000;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" parent="1" vertex="1">
+                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=none;fontColor=#000000;strokeColor=#000000;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" parent="1" vertex="1">
                     <mxGeometry x="280" y="183" width="240" height="240" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="Spring Boot" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#006EAF;fontColor=#ffffff;strokeColor=#FFFFFF;strokeWidth=2;verticalAlign=bottom;spacingBottom=8;spacingLeft=29;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" parent="1" vertex="1">
