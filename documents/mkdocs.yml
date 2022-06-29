@@ -1,14 +1,14 @@
 ---
-site_name: Maia OSS版
-site_url: https://example.com/
+site_name: Maia OSS 版
+site_url: https://www.maiaossedition.org/
 docs_dir: contents
 copyright: !ENV [COPYRIGHT, 'Test Version Copyright &copy; 2022 BIPROGY Inc. All rights reserved.']
 site_author: 'アドバンスド開発技術部'
-site_description: 'Maia OSS版のポータルサイトです。'
+site_description: 'Maia OSS 版のポータルサイトです。'
 site_dir: build-artifacts
 
 nav:
-  - Maia OSS版 にようこそ:
+  - Maia OSS 版 にようこそ:
       - index.md
   - アプリケーションアーキテクチャ:
       - app-architecture/index.md
