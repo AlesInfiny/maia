@@ -18,8 +18,10 @@
 			"mkdocs",
 			"MyBatis",
 			"Noto",
+			"openapi",
 			"Pinia",
 			"Pymarkdown",
+			"Springdoc",
 			"winbatch"
 		]
 	},
