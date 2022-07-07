@@ -1,22 +1,22 @@
 ---
-site_name: Maia OSS版
-site_url: https://example.com/
+site_name: Maia OSS 版
+site_url: https://www.maiaossedition.org/
 docs_dir: contents
 copyright: !ENV [COPYRIGHT, 'Test Version Copyright &copy; 2022 BIPROGY Inc. All rights reserved.']
 site_author: 'アドバンスド開発技術部'
-site_description: 'Maia OSS版のポータルサイトです。'
+site_description: 'Maia OSS 版のポータルサイトです。'
 site_dir: build-artifacts
 
 nav:
-  - Maia OSS版 にようこそ:
+  - Maia OSS 版 にようこそ:
       - index.md
   - アプリケーションアーキテクチャ:
       - app-architecture/index.md
       - 概要編:
           - app-architecture/overview/index.md
-          - 構築できるアプリケーション: app-architecture/overview/application-kind.md
-          - Maia OSS 版を構成するもの: app-architecture/overview/compositions.md
-          - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
+          - app-architecture/overview/application-kind.md
+          - app-architecture/overview/compositions.md
+          - app-architecture/overview/repository-structure.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
 #       - クックブック:
@@ -28,12 +28,12 @@ nav:
           - guidebooks/how-to-develop/index.md
           - Java 編:
               - guidebooks/how-to-develop/java/index.md
-          - Vue.js 編:
-              - guidebooks/how-to-develop/vue-js/index.md
+#         - Vue.js 編:
+#             - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
-  - サンプル解説:
-      - samples/index.md
+# - サンプル解説:
+#     - samples/index.md
   - 利用規約:
       - terms/index.md
 
