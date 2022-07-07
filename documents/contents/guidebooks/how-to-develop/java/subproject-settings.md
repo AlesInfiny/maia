@@ -13,13 +13,13 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- spring-boot-starter-web：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-web`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
 
-- h2：テストやローカル実行で利用する組み込みのデータベース
+- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
 
-- springdoc-openapi-ui：OpenAPI形式のAPIドキュメントを生成するためのライブラリ
+- `springdoc-openapi-ui`：OpenAPI形式のAPIドキュメントを生成するためのライブラリ
 
-- spring-boot-starter-test：Spring Boot アプリケーションをテストするためのスターター
+- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
 上記のライブラリを依存ライブラリとして、build.gradle の dependencies ブロックに追加します。
 
@@ -61,8 +61,8 @@ infrastructure プロジェクトで必要な設定を解説します。
 
 ### infrastructure プロジェクトの依存ライブラリの設定 ### {: #config-infrastructure-dependencies }
 
-infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス層の実装に必要なライブラリです。
-DB アクセスの実装に Maia OSS 版で推奨する MyBatis を利用する場合には、mybatis-spring-boot-starter
+infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
+データアクセス処理の実装に Maia OSS 版で推奨する MyBatis を利用する場合には、`mybatis-spring-boot-starter`
 を利用することを推奨します。
 
 ```groovy title="build.gradle"
@@ -71,7 +71,7 @@ dependencies {
 }
 ```
 
-DB アクセスの実装に MyBatis 以外を利用する場合、適切なライブラリに切り替えてください。
+データアクセス処理の実装に MyBatis 以外を利用する場合、適切なライブラリに切り替えてください。
 
 ### infrastructure プロジェクトの依存プロジェクトの設定 ### {: #config-infrastructure-projects }
 
@@ -91,9 +91,8 @@ application-core プロジェクトで必要な設定を解説します。
 
 ### application-core プロジェクトの依存ライブラリの設定 ### {: #config-application-core-dependencies }
 
-application-core プロジェクトの依存ライブラリについては、
-特に必須や推奨するライブラリはありません。
-開発するシステム共通部品で必要なライブラリを適宜追加します。
+外部ライブラリの脆弱性などの影響を受けて、アプリケーションコア層が変更されるような事態を避けるため、
+application-core プロジェクトはできる限り外部のライブラリに依存しないようにしておくことを推奨します。
 
 ### application-core プロジェクトの依存プロジェクトの設定 ### {: #config-application-core-projects }
 
