@@ -1,15 +1,16 @@
 # サブプロジェクトの個別設定
+<!-- cSpell:ignore springdoc datasource -->
 
 サブプロジェクト単位で個別に設定が必要な内容について解説します。
 
 ここで解説する設定はあくまで推奨設定であり、検討した上で変更することは問題ありません。
 また、依存ライブラリについて、プロジェクトで必要なライブラリを適宜追加することも問題ありません。
 
-## web プロジェクトの設定 ## {: #config-web }
+## web プロジェクトの設定 {: #config-web }
 
 web プロジェクトで必要な設定を解説します。
 
-### web プロジェクトの依存ライブラリの設定 ### {: #config-web-dependencies }
+### web プロジェクトの依存ライブラリの設定 {: #config-web-dependencies }
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
@@ -17,16 +18,16 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `h2`：テストやローカル実行で利用する組み込みの H2 データベース
 
-- `springdoc-openapi-ui`：OpenAPI形式のAPIドキュメントを生成するためのライブラリ
+- `springdoc-openapi-ui`：OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
-上記のライブラリを依存ライブラリとして、build.gradle の dependencies ブロックに追加します。
+上記のライブラリを依存ライブラリとして、 `build.gradle` の `dependencies` ブロックに追加します。
 
-### web プロジェクトの依存プロジェクトの設定 ### {: #config-web-projects }
+### web プロジェクトの依存プロジェクトの設定 {: #config-web-projects }
 
-web プロジェクトは application-core、 infrastructure、system-common を参照しています。
-そのため、build.gradle で以下のように他のプロジェクトを依存関係に含めます。
+web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="build.gradle"
 dependencies {
@@ -36,11 +37,10 @@ dependencies {
 }
 ```
 
-### spring の設定 ### {: #config-web-spring }
+### spring の設定 {: #config-web-spring }
 
-Spring Boot に関する主な設定は、web プロジェクトのsrc/main/resource 以下にapplication.properties、もしくはapplication.yaml というファイルを作成し、そのファイルに記述します。
-設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html)
-を参照してください。
+Spring Boot に関する主な設定は、 web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` というファイルを作成し、そのファイルに記述します。
+設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html)を参照してください。
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
@@ -53,17 +53,16 @@ Spring Boot に関する主な設定は、web プロジェクトのsrc/main/reso
 - ロギング
     - logging.xxx でロギングの各種設定が可能
 - MyBatis の設定
-    - mybatis.configuration.XXX でMyBatisの設定を記述可能
+    - mybatis.configuration.XXX で MyBatis の設定を記述可能
 
-## infrastructure プロジェクトの設定 ## {: #config-infrastructure }
+## infrastructure プロジェクトの設定 {: #config-infrastructure }
 
 infrastructure プロジェクトで必要な設定を解説します。
 
-### infrastructure プロジェクトの依存ライブラリの設定 ### {: #config-infrastructure-dependencies }
+### infrastructure プロジェクトの依存ライブラリの設定 {: #config-infrastructure-dependencies }
 
 infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
-データアクセス処理の実装に Maia OSS 版で推奨する MyBatis を利用する場合には、`mybatis-spring-boot-starter`
-を利用することを推奨します。
+データアクセス処理の実装に Maia OSS 版で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 
 ```groovy title="build.gradle"
 dependencies {
@@ -73,10 +72,10 @@ dependencies {
 
 データアクセス処理の実装に MyBatis 以外を利用する場合、適切なライブラリに切り替えてください。
 
-### infrastructure プロジェクトの依存プロジェクトの設定 ### {: #config-infrastructure-projects }
+### infrastructure プロジェクトの依存プロジェクトの設定 {: #config-infrastructure-projects }
 
-infrastructure プロジェクトは application-core、system-common を参照しています。
-そのため、build.gradle で以下のように他のプロジェクトを依存関係に含めます。
+infrastructure プロジェクトは application-core 、 system-common を参照しています。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="build.gradle"
 dependencies {
@@ -85,19 +84,18 @@ dependencies {
 }
 ```
 
-## application-core プロジェクトの設定 ## {: #config-application-core }
+## application-core プロジェクトの設定 {: #config-application-core }
 
 application-core プロジェクトで必要な設定を解説します。
 
-### application-core プロジェクトの依存ライブラリの設定 ### {: #config-application-core-dependencies }
+### application-core プロジェクトの依存ライブラリの設定 {: #config-application-core-dependencies }
 
-外部ライブラリの脆弱性などの影響を受けて、アプリケーションコア層が変更されるような事態を避けるため、
-application-core プロジェクトはできる限り外部のライブラリに依存しないようにしておくことを推奨します。
+外部ライブラリの脆弱性などの影響を受けて、アプリケーションコア層が変更されるような事態を避けるため、 application-core プロジェクトはできる限り外部のライブラリに依存しないようにしておくことを推奨します。
 
-### application-core プロジェクトの依存プロジェクトの設定 ### {: #config-application-core-projects }
+### application-core プロジェクトの依存プロジェクトの設定 {: #config-application-core-projects }
 
 application-core プロジェクトは system-common を参照しています。
-そのため、build.gradle で以下のように他のプロジェクトを依存関係に含めます。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="build.gradle"
 dependencies {
@@ -105,11 +103,9 @@ dependencies {
 }
 ```
 
-## システム共通プロジェクトの設定 ## {: #config-system-common }
+## システム共通プロジェクトの設定 {: #config-system-common }
 
-システム共通プロジェクトの依存ライブラリについては、
-特に必須や推奨するライブラリはありません。
+システム共通プロジェクトの依存ライブラリについては、特に必須や推奨するライブラリはありません。
 開発するシステム共通部品で必要なライブラリを適宜追加します。
 
-また、システム共通プロジェクトは他のプロジェクトを参照する想定はないので、
-他のプロジェクトを依存関係に含める必要はありません。
+また、システム共通プロジェクトは他のプロジェクトを参照する想定はないので、他のプロジェクトを依存関係に含める必要はありません。
