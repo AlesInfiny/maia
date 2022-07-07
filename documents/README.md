@@ -1,3 +1,4 @@
+<!-- cSpell:ignore hoge hogehoge pymdown -->
 # Maia OSS 版 ドキュメントについて
 
 ## 本番環境
@@ -134,12 +135,30 @@ Markdown ファイルを追加した場合、ほとんどのケースで mkdocs.
 
 ### 体裁の修正
 
+#### markdownlint
+
 markdownlint の拡張機能をインストールしていると、 [問題] ウィンドウに以下のような Markdown の体裁誤りを指摘するコメントが出ることがあります。
 
 ![markdownlint の警告メッセージ](readme-images/markdownlint-result.png)
 
 本リポジトリでは Markdown の体裁に誤りがあると、 Web サイトの発行が行えないようになっています。
 警告が出ている場合は、メッセージを読んで必ず解消しましょう。
+
+#### cSpell
+
+cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ることがあります。
+この拡張機能は、英単語のスペルミスを検出するために導入するものであり、コメントの多くはスペルミスに起因しています。
+必ず対応を行うようにしてください。
+
+複合語や技術用語は、辞書登録を行わないと誤検知されることがあります。
+その場合はワークスペースの辞書に、単語を登録するようにしてください。
+[maia.code-workspace] ファイルの `settings` / `cSpell.words` に単語を登録できます。
+
+コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参考にして、各ページで抑制してください。
+cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
+このページの上部にも設定を行ってあります。
+
+<https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
 
 ### 修正内容のコミット
 
