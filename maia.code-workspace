@@ -9,18 +9,23 @@
 		"cSpell.words": [
 			"Adoptium",
 			"BIPROGY",
+			"Checkstyle",
 			"Corretto",
 			"drawio",
 			"dressca",
 			"Gradlephant",
 			"gradlew",
+			"Initializr",
 			"IntelliJ",
+			"JaCoCo",
 			"JDBC",
 			"mkdocs",
 			"MyBatis",
 			"Noto",
+			"OpenAPI",
 			"Pinia",
 			"Pymarkdown",
+			"SpotBugs",
 			"winbatch"
 		]
 	},
