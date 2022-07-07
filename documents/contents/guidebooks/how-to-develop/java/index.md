@@ -6,7 +6,7 @@ Maia OSS 版として推奨する設定や、共通的に使用する実装コ�
 
 1. 事前準備
 
-    「[ローカル開発環境の構築](../../how-to-develop/local-environment/index.md)」を参照し、Java アプリケーションの開発に必要なローカル開発環境を構築してください。
+    「[ローカル開発環境の構築](../../how-to-develop/local-environment/index.md)」を参照し、 Java アプリケーションの開発に必要なローカル開発環境を構築してください。
 
 1. [アプリケーションの全体構造](./application-structure.md)
 
