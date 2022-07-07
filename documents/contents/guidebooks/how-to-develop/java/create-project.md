@@ -3,9 +3,9 @@
 ## Spring Initializr の利用 ## {: #use-spring-initializr }
 
 各gradleプロジェクトの雛型は、Spring Initializr を利用して作成します。
-Spring Initializr はSpring Boot を利用するプロジェクトの雛型を簡潔に作成することができるツールです。
+Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成することができるツールです。
 [webサービス](https://start.spring.io/)を利用する方法や、
-各種IDEにプラグインや拡張機能を導入することでIDE上で利用することもできます。
+各種 IDE にプラグインや拡張機能を導入することで IDE 上で利用することもできます。
 VS Code の場合、[Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack) が導入済みであれば利用することが可能です。
 
 ここではwebサービスでの作成を前提に説明します。
@@ -74,7 +74,7 @@ web画面上の各種設定項目は以下の通りです。
 ## ルートプロジェクトとサブプロジェクトの配置 ## {: #put-projects }
 
 ルートプロジェクトと各サブプロジェクトの雛型を作成したら、
-これらを適切に展開配置します。
+これらを展開し適切に配置します。
 
 各雛型は zip 形式で生成されるため、まずは全ての雛型を展開します。
 その後、ルートプロジェクトのフォルダ直下に各サブプロジェクトのフォルダを配置します。
