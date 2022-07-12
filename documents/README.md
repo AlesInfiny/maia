@@ -210,6 +210,8 @@ Web サイトの更新が完了したら、以下にアクセスして問題な�
 
 ## 画像の作成方法
 
+### 画像の作成ルール
+
 図を作成する場合は \*.drawio で作成してください。
 \*.drawio ファイルは、 _materials/images ディレクトリの配下に作成してください。
 画像ファイルは svg 形式または png 形式で出力し、出力した画像ファイルを contents/images ディレクトリの配下に配置してください。
@@ -226,6 +228,42 @@ _materials/images ディレクトリ、 contents/images ディレクトリの配
 | フォントファミリー | [カスタム] > [Google Fonts] > 「Noto Sans JP」を設定 |
 
 ![フォントファミリーの設定例](readme-images/drawio-font-family.png)
+
+### ライトモード/ダークモードに関する設定
+
+本ドキュメントでは、ライトモード/ダークモードの切り替えができるように設定されています。
+各モードに対応するために、ライトモード用/ダークモード用の 2 通りの画像を作成します。
+また、モードによる切り替わりが行われるよう、マークダウンを実装します。
+
+ライトモード用/ダークモード用の画像作成やマークダウンの実装方法は以下の通りです。
+
+1. 画像原本の \*.drawio ファイルについて、ライトモード用、ダークモード用の 2 通りのファイルを作成します。  
+以下の命名規則に従い、どちらのモード用のファイルかを \*.drawio ファイル名末尾の文字列で表現します。
+
+    | 対象モード               | \*.drawio ファイル名末尾の文字列                                    |
+    | ------------------ | ---------------------------------------------------- |
+    | ライトモード     | -light.drawio                                              |
+    | ダークモード | -dark.drawio                                              |
+
+1. コンテンツとして配置する png ファイルも、ライトモード用、ダークモード用の 2 通り用意します。  
+ファイル名の命名規則については \*.drawio ファイルと同様の規則を適用します。
+
+1. マークダウンの実装は以下のように「#only-light」または「#only-dark」を付加して配置します。  
+   詳細は以下の公式ドキュメントを参照してください。  
+   <https://squidfunk.github.io/mkdocs-material/reference/images/#light-and-dark-mode>
+
+    - 「align=right」は画像の配置に関する属性であり、画面デザインにあわせて任意で付加します。  
+    詳細は以下の公式ドキュメントを参照してください。  
+    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-alignment>
+
+    - 「loading=lazy」は画像の遅延読込に関する属性であり、必須で付加します。  
+    詳細は以下の公式ドキュメントを参照してください。  
+    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-lazy-loading>
+
+    ```plain
+    ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-light.png#only-light){ align=right loading=lazy }
+    ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
+    ```
 
 ## ドキュメント執筆環境の構築方法
 
