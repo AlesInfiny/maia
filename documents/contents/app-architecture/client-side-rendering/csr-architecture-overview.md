@@ -11,7 +11,7 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 
 本アーキテクチャを構成する主なライブラリを以下に示します。
 
-[ライブラリ一覧の図]
+![構成ライブラリ一覧](../../../images/app-architecture/client-side-rendering/csr-architecture-overview/csr-library-light.png#only-light){ loading=lazy }
 
 ### 利用ライブラリ
 <!--
@@ -21,9 +21,6 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 -->
 
 クライアントサイドレンダリング方式のWebアプリケーションに必要なライブラリについて説明します。
-
-`spring-boot-starter-*`で記述されるライブラリは、Spring Boot が提供するスターターで、ライブラリの依存関係が規定されています。
-Spring Boot の関連ライブラリの多くはこのスターターによるライブラリ群として提供されるので、以降の説明でもスターター単位で説明します。
 
 - Spring Core
   
@@ -137,10 +134,10 @@ Spring Boot の関連ライブラリの多くはこのスターターによる�
     - システム共通機能は、ここには出てこなくてよい（役割としては単なる部品であり、アーキテクチャ図に含めると説明しにくい。）
 - クリーンアーキテクチャ、レイヤードアーキテクチャ、ＤＤＤの知識は前提にしてよい（リンク先だけ提示）
 -->
+Maia OSS 版のアプリケーションアーキテクチャは、クリーンアーキテクチャを基本としています。
+アーキテクチャの全体概要は以下の通りです。
 
-本アーキテクチャの全体概要図は以下の通りです。
-
-[アーキテクチャ図]
+![アーキテクチャ概要図](../../../images/app-architecture/client-side-rendering/csr-architecture-overview/csr-architecture-light.png#only-light){ loading=lazy }
 
 ## レイヤー構造詳細
 <!--
@@ -229,5 +226,4 @@ Maia OSS 版では Java のプロジェクト構成として、複数のサブ�
 
 各サブプロジェクトの内部構成については、以下のような構成を推奨します。
 
-[フォルダ構成図]
-
+![フォルダ構成図](../../../images/app-architecture/client-side-rendering/csr-architecture-overview/csr-folder-structure-light.png#only-light){ loading=lazy }
