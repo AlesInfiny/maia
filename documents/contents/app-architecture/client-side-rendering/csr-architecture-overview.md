@@ -19,7 +19,68 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 - Spring系ライブラリ、という書き方ではなく、実際にサンプルAPに組み込むものを具体的に書く。
     - 基本的には簡易な機能説明でよいが、プロジェクト側で設定が必要なものなどはある程度具体的な使い方まで説明。（今回は書かないが、Spring Securityなど）
 -->
+
 クライアントサイドレンダリング方式のWebアプリケーションに必要なライブラリについて説明します。
+
+`spring-boot-starter-*`で記述されるライブラリは、Spring Boot が提供するスターターで、ライブラリの依存関係が規定されています。
+Spring Boot の関連ライブラリの多くはこのスターターによるライブラリ群として提供されるので、以降の説明でもスターター単位で説明します。
+
+- Spring Core
+  
+    DI コンテナや AOP の機能を提供する Spring Framework の コアライブラリです。
+    ベースとなるSpring Framework のコアライブラリや、Spring Framework の自動設定サポートを含む Spring Boot の基本的な機能を提供します。
+    [Spring Core](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core)
+
+- Spring Boot
+  
+    Spring Framework をベースとするアプリケーション開発を効率的に行うための仕組みを提供するフレームワークです。
+    Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、
+    実装するコード量を軽減するアノテーションを提供する。
+    [Spring Boot](https://spring.pleiades.io/projects/spring-boot)
+
+- Spring MVC
+
+    Spring MVC は Spring Framework をベースとする Front Controllerパターンの Web MVC フレームワークです。
+    [Spring MVC](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc)
+
+- Spring Validation
+
+    Bean に対するデータの値チェック機能を提供するライブラリです。
+    アノテーションベースで汎用的に利用できる値チェックが提供され、入力値チェック等が簡潔に実現できます。
+
+- Spring Test
+
+    Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
+    Unit Jupiter、Hamcrest、Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
+    [Spring Test](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html)
+
+- Apache Log4j 2
+
+    Apache Log4j 2 は Java のロギングフレームワークです。
+    複数のロガーに対して、フィルターやローテーションやログレベルなどの細やかな管理ができます。
+    [Apache Log4j 2](https://logging.apache.org/log4j/2.x/)
+
+- MyBatis
+  
+    MyBatis はデータベースアクセスの実装に利用する OR-Mapper で、XML ファイルまたはアノテーションに SQL や レコードとオブジェクトのマッピングを定義することができます。
+    [MyBatis](https://mybatis.org/mybatis-3/ja/index.html)
+
+- H2 Database
+  
+    H2 Database は Java 上で動作するリレーショナルデータベースで、
+    単体テストやローカル環境でのアプリケーション実行など、
+    ローカル環境でデータベースアクセスを含む動的テストを簡易に実施するために利用できます。
+    [H2 Database](https://www.h2database.com/html/main.html)
+
+- springdoc-openapi
+
+    OpenAPI 形式の API ドキュメントを生成するためのライブラリです。
+    Controller の実装から API ドキュメントを自動的に生成することができます。
+    API ドキュメントの生成にあたり、Controller の実装だけでは不十分な情報に関しては、アノテーションを利用して情報を付与することもできます。
+    [springdoc-openapi](https://springdoc.org/)
+
+<!--
+### 利用ライブラリ（旧：削除予定）
 
 `spring-boot-starter-*`で記述されるライブラリは、Spring Boot が提供するスターターで、ライブラリの依存関係が規定されています。
 Spring Boot の関連ライブラリの多くはこのスターターによるライブラリ群として提供されるので、以降の説明でもスターター単位で説明します。
@@ -33,7 +94,7 @@ Spring Boot の関連ライブラリの多くはこのスターターによる�
 
     Spring MVC を使用して、RESTful を含む Web アプリケーションを構築するためのスターターです。
     Spring MVC は Spring Framework をベースとする Front Controllerパターンの Web MVC フレームワークです。
-    デフォルトの埋め込みコンテナーとして Tomcat も提供します。
+    デフォルトの埋め込みコンテナーとして Apache Tomcat も提供します。
 
 - `spring-boot-starter-validation`
 
@@ -45,12 +106,27 @@ Spring Boot の関連ライブラリの多くはこのスターターによる�
     JUnit Jupiter、Hamcrest、Mockito などのライブラリを使用して Spring Boot アプリケーションをテストするためのスターターです。
 
 - `spring-boot-starter-log4j2`
-    ロギングに Log4j2 を使用するためのスターターです。
+    ロギングに Apache Log4j 2 を使用するためのスターターです。
+    Apache Log4j 2 は Java のロギングフレームワークのデファクトスタンダードの1つで、
+    複数のロガーに対して、フィルターやローテーションやログレベルなどの細やかな管理ができます。
 
-- MyBatis
-- H2 Database
-- Apache Commons Lang
-- Springdoc-openapi
+- `mybatis-spring-boot-starter`
+  
+    MyBatis を Spring Boot 上で利用するためのスターターです。
+    MyBatis はデータベースアクセスの実装に利用する OR-Mapper で、XML ファイルまたはアノテーションに SQL や レコードとオブジェクトのマッピングを定義することができます。
+
+- `h2`
+  
+    H2 Database を利用するためのライブラリです。
+    H2 Database は Java 上で動作するリレーショナルデータベースで、
+    単体テストやローカル環境でのアプリケーション実行など、
+    ローカル環境でデータベースアクセスを含む動的テストを簡易に実施するために利用できます。
+
+- `springdoc-openapi-ui`
+    OpenAPI 形式の API ドキュメントを生成するためのライブラリです。
+    Controller の実装から API ドキュメントを自動的に生成することができます。
+    API ドキュメントの生成にあたり、Controller の実装だけでは不十分な情報に関しては、アノテーションを利用して情報を付与することもできます。
+-->
 
 ## アプリケーションアーキテクチャ
 <!--
