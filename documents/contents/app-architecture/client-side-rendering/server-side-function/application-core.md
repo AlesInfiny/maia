@@ -9,4 +9,3 @@
 
 - Bean Validation についての解説。
     - Bean Validationを用いて、ドメインモデルが持つ制約を実装する。
-
