@@ -25,7 +25,8 @@
 			"OpenAPI",
 			"Pinia",
 			"Pymarkdown",
-			"SpotBugs",
+			"Springdoc",
+      "SpotBugs",
 			"winbatch"
 		]
 	},

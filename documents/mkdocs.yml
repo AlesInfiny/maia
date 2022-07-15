@@ -20,6 +20,9 @@ nav:
           - app-architecture/overview/repository-structure.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
+          - app-architecture/client-side-rendering/csr-architecture-overview.md
+          - app-architecture/client-side-rendering/server-side-function.md
+          - app-architecture/client-side-rendering/test.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
 #           - 帳票印刷: cook-book/~~~
