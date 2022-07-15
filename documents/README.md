@@ -1,8 +1,9 @@
+<!-- cSpell:ignore hoge hogehoge pymdown -->
 # Maia OSS 版 ドキュメントについて
 
 ## 本番環境
 
-T.B.D.
+<https://www.maiaossedition.org/>
 
 ## ディレクトリ構造
 
@@ -134,12 +135,30 @@ Markdown ファイルを追加した場合、ほとんどのケースで mkdocs.
 
 ### 体裁の修正
 
+#### markdownlint
+
 markdownlint の拡張機能をインストールしていると、 [問題] ウィンドウに以下のような Markdown の体裁誤りを指摘するコメントが出ることがあります。
 
 ![markdownlint の警告メッセージ](readme-images/markdownlint-result.png)
 
 本リポジトリでは Markdown の体裁に誤りがあると、 Web サイトの発行が行えないようになっています。
 警告が出ている場合は、メッセージを読んで必ず解消しましょう。
+
+#### cSpell
+
+cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ることがあります。
+この拡張機能は、英単語のスペルミスを検出するために導入するものであり、コメントの多くはスペルミスに起因しています。
+必ず対応を行うようにしてください。
+
+複合語や技術用語は、辞書登録を行わないと誤検知されることがあります。
+その場合はワークスペースの辞書に、単語を登録するようにしてください。
+[maia.code-workspace] ファイルの `settings` / `cSpell.words` に単語を登録できます。
+
+コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参考にして、各ページで抑制してください。
+cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
+このページの上部にも設定を行ってあります。
+
+<https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
 
 ### 修正内容のコミット
 
@@ -191,6 +210,8 @@ Web サイトの更新が完了したら、以下にアクセスして問題な�
 
 ## 画像の作成方法
 
+### 画像の作成ルール
+
 図を作成する場合は \*.drawio で作成してください。
 \*.drawio ファイルは、 _materials/images ディレクトリの配下に作成してください。
 画像ファイルは svg 形式または png 形式で出力し、出力した画像ファイルを contents/images ディレクトリの配下に配置してください。
@@ -207,6 +228,42 @@ _materials/images ディレクトリ、 contents/images ディレクトリの配
 | フォントファミリー | [カスタム] > [Google Fonts] > 「Noto Sans JP」を設定 |
 
 ![フォントファミリーの設定例](readme-images/drawio-font-family.png)
+
+### ライトモード/ダークモードに関する設定
+
+本ドキュメントでは、ライトモード/ダークモードの切り替えができるように設定されています。
+各モードに対応するために、ライトモード用/ダークモード用の 2 通りの画像を作成します。
+また、モードによる切り替わりが行われるよう、マークダウンを実装します。
+
+ライトモード用/ダークモード用の画像作成やマークダウンの実装方法は以下の通りです。
+
+1. 画像原本の \*.drawio ファイルについて、ライトモード用、ダークモード用の 2 通りのファイルを作成します。  
+   以下の命名規則に従い、どちらのモード用のファイルかを \*.drawio ファイル名末尾の文字列で表現します。
+
+    | 対象モード   | \*.drawio ファイル名末尾の文字列 |
+    | ------------ | -------------------------------- |
+    | ライトモード | -light.drawio                    |
+    | ダークモード | -dark.drawio                     |
+
+1. コンテンツとして配置する png ファイルも、ライトモード用、ダークモード用の 2 通り用意します。  
+   ファイル名の命名規則については \*.drawio ファイルと同様の規則を適用します。
+
+1. マークダウンの実装は以下のように「#only-light」または「#only-dark」を付加して配置します。  
+   詳細は以下の公式ドキュメントを参照してください。  
+   <https://squidfunk.github.io/mkdocs-material/reference/images/#light-and-dark-mode>
+
+    - 「align=right」は画像の配置に関する属性であり、画面デザインにあわせて任意で付加します。  
+    詳細は以下の公式ドキュメントを参照してください。  
+    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-alignment>
+
+    - 「loading=lazy」は画像の遅延読込に関する属性であり、必須で付加します。  
+    詳細は以下の公式ドキュメントを参照してください。  
+    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-lazy-loading>
+
+    ```md
+    ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-light.png#only-light){ align=right loading=lazy }
+    ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
+    ```
 
 ## ドキュメント執筆環境の構築方法
 

@@ -1,4 +1,5 @@
 ---
+# cSpell:ignore htmlmin inlinehilite linenums materialx prebuild pymdownx superfences twemoji
 site_name: Maia OSS 版
 site_url: https://www.maiaossedition.org/
 docs_dir: contents
@@ -31,6 +32,10 @@ nav:
           - guidebooks/how-to-develop/index.md
           - Java 編:
               - guidebooks/how-to-develop/java/index.md
+              - guidebooks/how-to-develop/java/application-structure.md
+              - guidebooks/how-to-develop/java/create-project.md
+              - guidebooks/how-to-develop/java/common-project-settings.md
+              - guidebooks/how-to-develop/java/sub-project-settings.md
 #         - Vue.js 編:
 #             - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
