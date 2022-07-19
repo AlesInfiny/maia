@@ -12,67 +12,51 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 
 クライアントサイドレンダリング方式のWebアプリケーションに必要なライブラリについて説明します。
 
-- Spring Core
+- [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core){ target=_blank }
   
     DI コンテナや AOP の機能を提供する Spring Framework の コアライブラリです。
     ベースとなるSpring Framework のコアライブラリや、Spring Framework の自動設定サポートを含む Spring Boot の基本的な機能を提供します。
 
-    [Spring Core](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core)
-
-- Spring Boot
+- [Spring Boot :material-open-in-new:](https://spring.pleiades.io/projects/spring-boot){ target=_blank }
   
     Spring Framework をベースとするアプリケーション開発を効率的に行うための仕組みを提供するフレームワークです。
     Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、
     実装するコード量を軽減するアノテーションを提供する。
 
-    [Spring Boot](https://spring.pleiades.io/projects/spring-boot)
-
-- Spring MVC
+- [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc){ target=_blank }
 
     Spring MVC は Spring Framework をベースとする Front Controllerパターンの Web MVC フレームワークです。
-
-    [Spring MVC](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc)
 
 - Spring Validation
 
     Bean に対するデータの値チェック機能を提供するライブラリです。
     アノテーションベースで汎用的に利用できる値チェックが提供され、入力値チェック等が簡潔に実現できます。
 
-- Spring Test
+- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
 
     Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
     Unit Jupiter、Hamcrest、Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
 
-    [Spring Test](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html)
-
-- Apache Log4j 2
+- [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank }
 
     Apache Log4j 2 は Java のロギングフレームワークです。
     複数のロガーに対して、フィルターやローテーションやログレベルなどの細やかな管理ができます。
 
-    [Apache Log4j 2](https://logging.apache.org/log4j/2.x/)
-
-- MyBatis
+- [MyBatis :material-open-in-new:](https://mybatis.org/mybatis-3/ja/index.html){ target=_blank }
   
     MyBatis はデータベースアクセスの実装に利用する OR-Mapper で、XML ファイルまたはアノテーションに SQL や レコードとオブジェクトのマッピングを定義することができます。
 
-    [MyBatis](https://mybatis.org/mybatis-3/ja/index.html)
-
-- H2 Database
+- [H2 Database :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
   
     H2 Database は Java 上で動作するリレーショナルデータベースで、
     単体テストやローカル環境でのアプリケーション実行など、
     ローカル環境でデータベースアクセスを含む動的テストを簡易に実施するために利用できます。
 
-    [H2 Database](https://www.h2database.com/html/main.html)
-
-- springdoc-openapi
+- [springdoc-openapi :material-open-in-new:](https://springdoc.org/){ target=_blank }
 
     OpenAPI 形式の API ドキュメントを生成するためのライブラリです。
     Controller の実装から API ドキュメントを自動的に生成することができます。
     API ドキュメントの生成にあたり、Controller の実装だけでは不十分な情報に関しては、アノテーションを利用して情報を付与することもできます。
-
-    [springdoc-openapi](https://springdoc.org/)
 
 ## アプリケーションアーキテクチャ {: #application-architecture }
 
