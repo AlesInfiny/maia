@@ -1,7 +1,8 @@
 <!-- markdownlint-disable-file MD041 -->
 <!-- 省略語の用語集として使用します。 -->
-*[AOP]: Aspect Oriented Programming：アスペクト指向プログラミング
+*[AOP]: Aspect Oriented Programming：アスペクト指向プログラミング。
 *[API]: Application Programming Interface
+*[CRUD]: Create Read Update Delete：永続性の4つの基本機能のイニシャルを並べた用語。
 *[CSR]: Client Side Rendering
 *[DI]: Dependency Injection：依存性の注入。
 *[GA]: General Availability：正式版、製品版、一般公開版。
@@ -11,6 +12,7 @@
 *[JDK]: Java Development Kit：Java アプリケーションを構築するためのソフトウェア開発キット。
 *[JRE]: Java Runtime Environment：Java アプリケーションの実行環境。
 *[IDE]: Integrated Development Environment：統合開発環境。
+*[MVC]: Model-View-Controller
 *[O/R]: Object / Relational
 *[OS]: Operating System
 *[OSS]: Open Source Software
