@@ -7,6 +7,7 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 本アーキテクチャを構成する主なライブラリを以下に示します。
 
 ![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-light.png#only-light){ loading=lazy }
+![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-dark.png#only-dark){ loading=lazy }
 
 ### 利用ライブラリ {: #used-libraries }
 
@@ -63,6 +64,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 アーキテクチャの全体概要は以下の通りです。
 
 ![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-light.png#only-light){ loading=lazy }
+![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-dark.png#only-dark){ loading=lazy }
 
 ## レイヤー構造詳細 {: #layer-structure }
 
@@ -142,6 +144,7 @@ Maia OSS 版では Java のプロジェクト構成として、複数のサブ�
 各サブプロジェクトの内部構成については、以下のような構成を推奨します。
 
 ![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-light.png#only-light){ loading=lazy }
+![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-dark.png#only-dark){ loading=lazy }
 
 プロジェクト構造全体としては、 Spring Initializr で生成された基本的な Gradle プロジェクトの構造と変わりはありません。
 パッケージの構成としては、システムで一意のフォルダ ( aa.bb.cc ) をベースに、各層に対応するパッケージ ( application-core など ) を作成します。
