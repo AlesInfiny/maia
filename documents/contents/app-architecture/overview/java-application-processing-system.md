@@ -78,30 +78,30 @@ Maia OSS 版で定義するログの種類は以下の通りです。
 
 ### ログレベル {: #log-level }
 
-出力するログにはログレベルを定義します。
+出力するログには、ログを出力する業務処理内で指定したログレベルを付与します。
+ログに出力する情報によって、適切なログレベルを選択します。
 ログレベルの定義は以下の通りです。
 
-- Critical
+- FATAL
 
-    ？？あるの？？
     業務の即時停止につながる可能性のあるログを出力するときに使用するログレベルです。
 
-- Error
+- ERROR
 
     一部の業務が停止する可能性のあるログを出力するときに使用するログレベルです。
     マスターデータの不整合や、原因の不明なエラー発生など、システム運用担当者による確認や対処が必要となる状態を通知する目的に使用します。
 
-- Warning
+- WARN
 
     業務は継続できるものの、一時的に発生したエラー状態を出力するときに使用するログレベルです。
     業務エラーの記録など、システム運用担当者による対応は不要なものの、システムとして不安定な状態を記録する際使用します。
 
-- Information
+- INFO
 
     システム運用にあたって必要となる情報を出力するときに使用するログレベルです。
     バッチ処理の開始／終了の記録など、システムの状態を記録する際使用します。
 
-- Debug
+- DEBUG
 
     開発者がアプリケーションの開発のために使用するログレベルです。
     各メソッドの入出力データなど、開発目的の情報を記録する際使用します。
@@ -110,13 +110,13 @@ Maia OSS 版で定義するログの種類は以下の通りです。
 
 システムの実行環境にあわせて、適切なレベルのログを出力するように構成します。
 
-| ログレベル  |      本番環境      |     テスト環境     |  ローカル開発環境  |
-| ----------- | :----------------: | :----------------: | :----------------: |
-| Critical    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Error       | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Warning     | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Information | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Debug       |                    |                    | :white_check_mark: |
+| ログレベル |      本番環境      |     テスト環境     |  ローカル開発環境  |
+| ---------- | :----------------: | :----------------: | :----------------: |
+| FATAL      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| ERROR      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WARN       | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| INFO       | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| DEBUG      |                    |                    | :white_check_mark: |
 
 ### ログに含める標準データ {: #standard-log-data }
 
@@ -124,11 +124,9 @@ Maia OSS 版で定義するログの種類は以下の通りです。
 
 - ログ出力日時
 - ログレベル
-- エラーコード？
 - メッセージ
-- スタックトレース ( 例外を記録するログのみ )
-
-？？？Log4jで勝手に出せるものって他に何がある？？？
+- スレッド名
+- 例外メッセージとスタックトレース ( 例外を記録するログのみ )
 
 ### ロギングライブラリ {: #logging-libraries }
 
