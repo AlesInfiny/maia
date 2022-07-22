@@ -14,3 +14,7 @@ Maia OSS 版のアプリケーションアーキテクチャ概要を解説し�
 1. [推奨するリポジトリ構造](repository-structure.md)
 
     Maia OSS 版の推奨する Git リポジトリの構造を解説します。
+
+1. [Java アプリケーションの処理方式](java-application-processing-system.md)
+
+    Maia OSS 版で構築する Java アプリケーションの共通的な処理方式を解説します。
