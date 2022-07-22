@@ -40,7 +40,7 @@ Maia OSS 版（以下、本サイト）は、以下を提供します。
 
 - 「Maia」は、BIPROGY株式会社の登録商標です。
 - Amazon Web Services、AWS、Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、Amazon.com, Inc. またはその関連会社の商標です。
-- Apache, [Apache Commons Lang](http://commons.apache.org/lang/), [Apache Groovy](http://groovy.apache.org/), [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and [Apache Maven](https://maven.apache.org/) are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/) in the United States and/or other countries.
+- Apache, [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/), [Apache Groovy](https://groovy.apache.org/), [Apache Log4j 2](https://logging.apache.org/log4j/2.x/), [Apache Maven](https://maven.apache.org/) and [Apache Tomcat](https://tomcat.apache.org/) are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/) in the United States and/or other countries.
 - 'Eclipse' and 'Adoptium' are trademarks of Eclipse Foundation, Inc.
 - Gradle and the Gradlephant logo are registered trademark of Gradle, Inc. and its subsidiaries in the United States and/or other countries.
 - Google、Androidは、Google LLC の商標または登録商標です。
