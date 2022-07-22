@@ -18,10 +18,17 @@ nav:
           - app-architecture/overview/application-kind.md
           - app-architecture/overview/compositions.md
           - app-architecture/overview/repository-structure.md
+          - app-architecture/overview/java-application-processing-system.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - app-architecture/client-side-rendering/csr-architecture-overview.md
-          - app-architecture/client-side-rendering/server-side-function.md
+          - app-architecture/client-side-rendering/global-function.md
+          - バックエンドアプリケーションのアーキテクチャ:
+              - app-architecture/client-side-rendering/server-side-function/index.md
+              - app-architecture/client-side-rendering/server-side-function/application-core.md
+              - app-architecture/client-side-rendering/server-side-function/presentation.md
+              - app-architecture/client-side-rendering/server-side-function/infrastructure.md
+              - app-architecture/client-side-rendering/server-side-function/system-common.md
           - app-architecture/client-side-rendering/test.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
