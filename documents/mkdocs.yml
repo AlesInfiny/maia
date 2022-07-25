@@ -28,7 +28,12 @@ nav:
               - app-architecture/client-side-rendering/server-side-function/application-core.md
               - app-architecture/client-side-rendering/server-side-function/presentation.md
               - app-architecture/client-side-rendering/server-side-function/infrastructure.md
-          - app-architecture/client-side-rendering/test.md
+          - テスト方針:
+              - app-architecture/client-side-rendering/test/index.md
+              - バックエンドアプリケーションのテスト:
+                  - app-architecture/client-side-rendering/test/backend-application/index.md
+                  - app-architecture/client-side-rendering/test/backend-application/unit-test.md
+                  - app-architecture/client-side-rendering/test/backend-application/integration-test.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
 #           - 帳票印刷: cook-book/~~~
