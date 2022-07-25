@@ -19,16 +19,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
   
   /**
-   * その他の業務エラーをステータースコード422で返却する。
+   * その他の業務エラーをステータースコード400で返却する。
    * 
    * @param e 業務例外
    * @param req リクエスト
-   * @return ステータースコード422のレスポンス
+   * @return ステータースコード400のレスポンス
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ErrorResponse> 
       handleLogicException(LogicException e, HttpServletRequest req) {
-    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
       .contentType(MediaType.APPLICATION_JSON)
       .body(createErrorResponse(e, req));
   }
