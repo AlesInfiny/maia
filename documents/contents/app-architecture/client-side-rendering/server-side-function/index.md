@@ -7,5 +7,3 @@
 1. [プレゼンテーション層](presentation.md)
 
 1. [インフラストラクチャ層](infrastructure.md)
-
-1. [システム共通機能](system-common.md)

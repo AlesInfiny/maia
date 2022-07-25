@@ -28,7 +28,6 @@ nav:
               - app-architecture/client-side-rendering/server-side-function/application-core.md
               - app-architecture/client-side-rendering/server-side-function/presentation.md
               - app-architecture/client-side-rendering/server-side-function/infrastructure.md
-              - app-architecture/client-side-rendering/server-side-function/system-common.md
           - app-architecture/client-side-rendering/test.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
