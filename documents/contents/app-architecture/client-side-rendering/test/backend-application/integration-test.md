@@ -34,11 +34,12 @@
 ## 結合テストの実施方法 {: #testing-method }
 
 Maia OSS 版の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
-結合テストでは、 Web API のリクエストとレスポンスを用いて、アプリケーションの実行と検証を行います。
-Web API の実行は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework){ target=_blank } を活用し JUnit 上でテストを行います。
+結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証を行います。
+Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework){ target=_blank } を活用します。
+テストフレームワークは JUnit を利用します。
 
 テストが実行環境に依存しないように、データベースはインメモリの H2 を利用します。
-テストの開始時にテスト用のデータベースを構築します。
+各テストケースの処理開始時に、そのテストで利用するデータベースを構築します。
 
-単体テストで実施済みの仕様確認は、原則結合テストで改めて実施しません。
+単体テストで実施済みの仕様確認は、結合テストで改めて実施しません。
 レイヤー間の結合を行ったときのアプリケーションの動作を重点的に確認するようにします。
