@@ -13,6 +13,7 @@
 *[jar]: Java ARchive
 *[JDBC]: Java Database Connectivity
 *[JDK]: Java Development Kit：Java アプリケーションを構築するためのソフトウェア開発キット。
+*[JPA]: Java Persistence API
 *[JRE]: Java Runtime Environment：Java アプリケーションの実行環境。
 *[IDE]: Integrated Development Environment：統合開発環境。
 *[MVC]: Model-View-Controller
