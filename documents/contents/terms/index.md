@@ -49,6 +49,7 @@ Maia OSS 版（以下、本サイト）は、以下を提供します。
 - 「Microsoft」「Windows」「Visual Studio Code」「VS Code」「Azure」は米国Microsoft Corporationの米国およびその他の国における登録商標または商標です。
 - 「Java」は、オラクルおよびその関連会社の登録商標です。
 - 「Spring」「Spring Framework」「Spring Boot」「Spring Cloud」「Spring IO」はPivotal Software, Inc.の商標です。
+- HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.
 - その他記載されている会社名・商品名などは、各社の商標および登録商標です。
