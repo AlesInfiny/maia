@@ -3,7 +3,7 @@
 site_name: Maia OSS 版
 site_url: https://www.maiaossedition.org/
 docs_dir: contents
-copyright: !ENV [COPYRIGHT, 'Test Version Copyright &copy; 2022 BIPROGY Inc. All rights reserved.']
+copyright: 'Copyright &copy; 2022 BIPROGY Inc. All rights reserved.'
 site_author: 'アドバンスド開発技術部'
 site_description: 'Maia OSS 版のポータルサイトです。'
 site_dir: build-artifacts
@@ -127,6 +127,7 @@ extra:
     license: terms/#license
     disclaimer: terms/#disclaimer
     other_company_trademarks: terms/#trademarks-owned-by-other-companies
+  version: !ENV [VERSION, "Local Version"]
 
 extra_css:
   - stylesheets/overrides.css

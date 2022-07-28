@@ -2,6 +2,9 @@
 <div class="md-copyright">
     {% if config.copyright %}
       <div class="md-copyright__highlight">
+        {{ config.site_name }}
+        {{ config.extra.version }}
+        |
         {{ config.copyright }}
       </div>
     {% endif %}

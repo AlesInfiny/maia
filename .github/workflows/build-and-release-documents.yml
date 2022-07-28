@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'documents/**'
+      - '.github/workflows/build-and-release-documents.yml'
   release:
     types: [published]
   workflow_dispatch:
@@ -53,8 +54,11 @@ jobs:
 
       - name: ドキュメントのビルド
         run: |
-          if [ -n "${{ github.event.release.name }}" ]; then
-            export COPYRIGHT="${{ github.event.release.name }} Copyright &copy; 2022 BIPROGY Inc. All rights reserved."
+          if [ -n "${{ github.event.release.name }}" ];
+          then
+            export VERSION="${{ github.event.release.name }}"
+          else
+            export VERSION="Test Version"
           fi
           cd samples/web-csr
           zip -r ../../documents/contents/samples/downloads/dressca.zip *
