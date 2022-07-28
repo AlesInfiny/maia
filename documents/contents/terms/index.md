@@ -5,36 +5,42 @@ hide:
 
 # 利用規約
 
-## Maia OSS 版 の提供物について ## {: #maia-oss-version-license }
+## Maia OSS 版 の提供物について {: #maia-oss-version-license }
 
 Maia OSS 版（以下、本サイト）は、以下を提供します。
 
 - 各種ドキュメント
 - サンプルアプリケーション
 
-いずれも Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
+## ライセンス {: #license }
 
-!!! quote ""
-    Copyright © 2022 BIPROGY Inc. All rights reserved.
+Maia OSS 版は Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
+本ライセンスは、 Maia OSS 版のドキュメントとサンプルアプリケーションに対するライセンスであり、サンプルアプリケーションが依存するパッケージのライセンスではありません。
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+### Apache License, Version 2.0 {: #apache-license-v2.0 }
 
-    <http://www.apache.org/licenses/LICENSE-2.0>
+```plane linenums="0"
+Copyright © 2022 BIPROGY Inc. All rights reserved.
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-## 免責事項 ## {: #disclaimer }
+<http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+## 免責事項 {: #disclaimer }
 
 本サイトのコンテンツや情報において、可能な限り正確な情報を掲載するよう努めておりますが、 誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性を保証するものではございません。
 当該情報に基づいて被ったいかなる損害について、一切責任を負うものではございませんのであらかじめご了承ください。
 
-## 他社所有商標について ## {: #trademarks-owned-by-other-companies }
+## 他社所有商標について {: #trademarks-owned-by-other-companies }
 
 本サイトに記載の商品名、製品名、社名などは、各社が商標として使用している場合があります。
 
