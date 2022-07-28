@@ -9,43 +9,45 @@
 
 documents ディレクトリ配下のディレクトリ、ファイルの配置は以下の通りです。
 
-|               |                  |                       |                   |                                              |
-| ------------- | ---------------- | --------------------- | ----------------- | -------------------------------------------- |
-| _materials    |                  |                       |                   | ドキュメント内で利用する素材                 |
-|               | images           |                       |                   | 画像素材（画像を作るための元ファイル）       |
-|               |                  | app-architecture      |                   | contents/imagesディレクトリと構造をそろえる  |
-|               |                  |                       | hoge.drawio       | ファイル名は生成後の画像ファイルと同じにする |
-| contents      |                  |                       |                   | ドキュメント本体                             |
-|               | app-architecture |                       |                   | アプリケーションアーキテクチャ               |
-|               |                  | client-side-rendering |                   | CSR編                                        |
-|               |                  | overview              |                   | 概要編                                       |
-|               | assets           |                       |                   | 共通資材（ロゴなど）                         |
-|               |                  | images                |                   |                                              |
-|               | guidebooks       |                       |                   | ガイドライン系ドキュメント                   |
-|               |                  | app-testing           |                   | アプリケーションテスト（*）                  |
-|               |                  | how-to-develop        |                   | アプリケーション開発手順                     |
-|               |                  |                       | java              | Java 編                                      |
-|               |                  |                       | local-environment | ローカル開発環境の構築                       |
-|               |                  |                       | vue-js            | Vue.js 編                                    |
-|               | images           |                       |                   | ページ固有の画像ファイル置き場               |
-|               |                  | app-architecture      |                   | mdファイルの配置ディレクトリと構造をそろえる |
-|               |                  |                       | hoge.png          | 画像ファイルはsvgかpngにする                 |
-|               |                  |                       | animation.gif     | gifアニメも利用可                            |
-|               |                  | guidebooks            |                   |                                              |
-|               |                  |                       | how-to-develop    |                                              |
-|               |                  |                       | samples           |                                              |
-|               |                  |                       | terms             |                                              |
-|               | samples          |                       |                   | サンプルアプリケーション解説                 |
-|               | stylesheets      |                       |                   | 既定のスタイルシートの上書き設定             |
-|               | terms            |                       |                   | 利用規約                                     |
-| includes      |                  |                       |                   | Snippets の置き場                            |
-|               | abbreviations.md |                       |                   | 略語用語集                                   |
-| readme-images |                  |                       |                   | README.md 内の画像ファイル置き場             |
-| .gitignore    |                  |                       |                   | mkdocs 用の gitignore                        |
-| mkdocs.yml    |                  |                       |                   | mkdocs の設定ファイル                        |
-| README.md     |                  |                       |                   | このドキュメント                             |
+|               |                  |                       |                   |                                               |
+| ------------- | ---------------- | --------------------- | ----------------- | --------------------------------------------- |
+| _materials    |                  |                       |                   | ドキュメント内で利用する素材                  |
+|               | images           |                       |                   | 画像素材（画像を作るための元ファイル）        |
+|               |                  | app-architecture      |                   | contents/imagesディレクトリと構造をそろえる   |
+|               |                  |                       | hoge.drawio       | ファイル名は生成後の画像ファイルと同じにする  |
+| contents      |                  |                       |                   | ドキュメント本体                              |
+|               | app-architecture |                       |                   | アプリケーションアーキテクチャ                |
+|               |                  | client-side-rendering |                   | CSR編                                         |
+|               |                  | overview              |                   | 概要編                                        |
+|               | assets           |                       |                   | 共通資材（ロゴなど）                          |
+|               |                  | images                |                   |                                               |
+|               | guidebooks       |                       |                   | ガイドライン系ドキュメント                    |
+|               |                  | app-testing           |                   | アプリケーションテスト                        |
+|               |                  | how-to-develop        |                   | アプリケーション開発手順                      |
+|               |                  |                       | java              | Java 編                                       |
+|               |                  |                       | local-environment | ローカル開発環境の構築                        |
+|               |                  |                       | vue-js            | Vue.js 編                                     |
+|               | images           |                       |                   | ページ固有の画像ファイル置き場                |
+|               |                  | app-architecture      |                   | mdファイルの配置ディレクトリと構造をそろえる  |
+|               |                  |                       | hoge.png          | 画像ファイルはsvgかpngにする                  |
+|               |                  |                       | animation.gif     | gifアニメも利用可                             |
+|               |                  | guidebooks            |                   |                                               |
+|               |                  |                       | how-to-develop    |                                               |
+|               |                  |                       | samples           |                                               |
+|               |                  |                       | terms             |                                               |
+|               | samples          |                       |                   | サンプルアプリケーション解説                  |
+|               |                  | downloads             |                   | サンプルアプリケーションコード置き場(zip圧縮) |
+|               | stylesheets      |                       |                   | 既定のスタイルシートの上書き設定              |
+|               | terms            |                       |                   | 利用規約                                      |
+| overrides     |                  |                       |                   | Mkdocs Materialの拡張ファイル置き場（\*）     |
+| includes      |                  |                       |                   | Snippets の置き場                             |
+|               | abbreviations.md |                       |                   | 略語用語集                                    |
+| readme-images |                  |                       |                   | README.md 内の画像ファイル置き場              |
+| .gitignore    |                  |                       |                   | mkdocs 用の gitignore                         |
+| mkdocs.yml    |                  |                       |                   | mkdocs の設定ファイル                         |
+| README.md     |                  |                       |                   | このドキュメント                              |
 
-\*：v0.1では対象外
+\*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme)と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides)を参照
 
 ## ドキュメントの作成方法（わかっている人向けの大雑把な手順）
 

@@ -5,7 +5,7 @@ hide:
 
 # Maia OSS 版 にようこそ
 
-## Maia OSS 版とは ## {: #what-is-maia-oss-version }
+## Maia OSS 版とは {: #what-is-maia-oss-version }
 
 現代のシステム開発において標準的なベンダー中立の Java アプリケーションアーキテクチャや方式設計のための基礎資料を提供します。
 Maia OSS 版の提供物は以下の通りです。
@@ -16,12 +16,13 @@ Maia OSS 版の提供物は以下の通りです。
 - 実現したい要件別のサンプルコード、および実現方式の解説
 
 Maia OSS 版は、商用のエンタープライズシステム開発から個人開発の小規模なシステムまで、 Apache License, Version 2.0 にて無償で利用可能です。
+ライセンスについての詳細は「[利用規約 - ライセンス](terms/index.md#license)」を参照してください。
 
-## クイックスタート ## {: #quick-start }
+## クイックスタート {: #quick-start }
 
 Maia OSS 版で構築した Web アプリケーションのサンプルを手元で動かしながら確認いただけます。
 
-### 共通手順 ### {: #common-operation }
+### 共通手順 {: #common-operation }
 
 フロントエンドアプリケーションとバックエンドアプリケーションの実行手順として、後述の個別手順の前に実施すべき共通の手順を説明します。
 
@@ -39,7 +40,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
     !!! info "展開先のディレクトリについて"
         展開先のディレクトリは、浅い階層にすることを推奨します。
 
-### フロントエンドアプリケーションの実行手順 ### {: #frontend-operation }
+### フロントエンドアプリケーションの実行手順 {: #frontend-operation }
 
 1. VS Code で「dressca\\dressca-frontend」フォルダーを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
@@ -85,7 +86,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
 
     [![Dressca トップページ](images/dressca-top.png){ width="600" loading=lazy }](images/dressca-top.png)
 
-### バックエンドエンドアプリケーションの実行手順 ### {: #backend-operation }
+### バックエンドエンドアプリケーションの実行手順 {: #backend-operation }
 
 1. VS Code で「dressca\\dressca-backend」フォルダーを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。

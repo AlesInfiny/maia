@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore htmlmin inlinehilite linenums materialx prebuild pymdownx superfences twemoji
+# cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
 site_name: Maia OSS 版
 site_url: https://www.maiaossedition.org/
 docs_dir: contents
@@ -58,9 +58,20 @@ nav:
 
 theme:
   name: material
+  custom_dir: overrides
+  favicon: assets/images/favicon.png
+  features:
+    - content.code.annotate
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+  font:
+    text: Noto Sans JP
+    code: Source Code Pro
   language: ja
   locale: ja
-  favicon: assets/images/favicon.png
   logo: assets/maia-logo.png
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -77,16 +88,6 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: green
-  font:
-    text: Noto Sans JP
-    code: Source Code Pro
-  features:
-    - content.code.annotate
-    - navigation.indexes
-    - navigation.instant
-    - navigation.tabs
-    - navigation.top
-    - navigation.tracking
   plugins:
     - search:
         lang: ja
@@ -119,6 +120,13 @@ markdown_extensions:
   - toc:
       permalink: ⚓︎
       toc_depth: 3
+
+extra:
+  footer_urls:
+    terms: terms/
+    license: terms/#license
+    disclaimer: terms/#disclaimer
+    other_company_trademarks: terms/#trademarks-owned-by-other-companies
 
 extra_css:
   - stylesheets/overrides.css
