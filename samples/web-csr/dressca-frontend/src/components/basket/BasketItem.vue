@@ -34,7 +34,6 @@ const isUpdateDisabled = computed(
 );
 
 const update = () => {
-  console.log('update: ');
   emit('update', props.item.catalogItemId, quantity.value);
 };
 
