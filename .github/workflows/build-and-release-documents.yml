@@ -45,6 +45,7 @@ jobs:
 
       - name: textlint の実行
         run: |
+          mkdir test-results
           npm run textlint-all > test-results/textlint.txt
 
       - name: Python のセットアップ
