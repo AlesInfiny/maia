@@ -47,6 +47,10 @@ jobs:
         run: |
           mkdir test-results
           npm run textlint-all > test-results/textlint.txt
+          echo '=== test-results/textlint.txt ================'
+          cat test-results/textlint.txt
+          echo '=============================================='
+          echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
 
       - name: Python のセットアップ
         uses: actions/setup-python@v2
