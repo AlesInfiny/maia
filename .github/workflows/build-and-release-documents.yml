@@ -45,12 +45,12 @@ jobs:
 
       - name: textlint の実行
         run: |
-          mkdir test-results
-          npm run textlint-all > test-results/textlint.txt
-          echo '=== test-results/textlint.txt ================'
-          cat test-results/textlint.txt
-          echo '=============================================='
+          npm run textlint-all > textlint-result.txt
+          echo '=== textlint-result.txt ================'
+          cat textlint-result.txt
+          echo '========================================'
           echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Python のセットアップ
         uses: actions/setup-python@v2
