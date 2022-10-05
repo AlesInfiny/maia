@@ -44,8 +44,28 @@ jobs:
           npm install
 
       - name: textlint の実行
+        id: execute_textlint
+        continue-on-error: true
         run: |
-          npm run textlint-all >> $GITHUB_STEP_SUMMARY
+          npm run textlint-all > textlint-result.txt
+          echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
+          if [ ! -s textlint-result.txt ]; then
+            echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+          else
+            echo '=== textlint-result.txt ================'
+            cat textlint-result.txt
+            echo '========================================'
+            echo '```plane' >> $GITHUB_STEP_SUMMARY
+            cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: textlint の結果確認
+        if: ${{ steps.execute_textlint.outcome == 'failure' }}
+        run: |
+          echo "textlint に失敗しました"
+          echo ${{ steps.execute_textlint.outcome }}
+          exit 1
 
       - name: Python のセットアップ
         uses: actions/setup-python@v2
