@@ -45,7 +45,7 @@ jobs:
 
       - name: textlint の実行
         run: |
-          npm run textlint-all
+          npm run textlint-all >> $GITHUB_STEP_SUMMARY
 
       - name: Python のセットアップ
         uses: actions/setup-python@v2
