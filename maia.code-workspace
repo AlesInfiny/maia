@@ -30,6 +30,7 @@
 			"Pymarkdown",
 			"SpotBugs",
 			"Springdoc",
+			"textlint",
 			"winbatch"
 		]
 	},
