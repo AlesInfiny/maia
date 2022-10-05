@@ -47,20 +47,20 @@ jobs:
         id: execute_textlint
         continue-on-error: true
         run: |
-          npm run textlint-all > textlint-result.txt
           echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
+          npm run textlint-all > textlint-result.txt
           echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
 
-      - name: textlint の結果確認
+      - name: textlint 失敗時の結果表示
         if: ${{ steps.execute_textlint.outcome == 'failure' }}
         run: |
           echo '=== textlint-result.txt ================'
           cat textlint-result.txt
           echo '========================================'
+          echo 'textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
           echo '```plane' >> $GITHUB_STEP_SUMMARY
-          cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt | sed -n -e '/problems/p' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          echo "textlint に失敗しました"
           echo ${{ steps.execute_textlint.outcome }}
           exit 1
 
