@@ -12,6 +12,8 @@ ol-indent:
 ul-indent:
   indent: 4
 
+MD025:
+  front_matter_title: ""
 
 MD046: false
 MD051: false
