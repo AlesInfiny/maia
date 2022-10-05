@@ -39,6 +39,14 @@ jobs:
           VALIDATE_YAML: true
           YAML_CONFIG_FILE: '.yaml-lint.yml'
 
+      - name: npm パッケージのインストール
+        run: |
+          npm install
+
+      - name: textlint の実行
+        run: |
+          npm run textlint-all > test-results/textlint.txt
+
       - name: Python のセットアップ
         uses: actions/setup-python@v2
         with:
