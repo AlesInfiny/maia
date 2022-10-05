@@ -49,20 +49,17 @@ jobs:
         run: |
           npm run textlint-all > textlint-result.txt
           echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
-          if [ ! -s textlint-result.txt ]; then
-            echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
-          else
-            echo '=== textlint-result.txt ================'
-            cat textlint-result.txt
-            echo '========================================'
-            echo '```plane' >> $GITHUB_STEP_SUMMARY
-            cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
+          echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: textlint の結果確認
         if: ${{ steps.execute_textlint.outcome == 'failure' }}
         run: |
+          echo '=== textlint-result.txt ================'
+          cat textlint-result.txt
+          echo '========================================'
+          echo '```plane' >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           echo "textlint に失敗しました"
           echo ${{ steps.execute_textlint.outcome }}
           exit 1
