@@ -34,9 +34,9 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - app-architecture/client-side-rendering/test/backend-application/integration-test.md
-#       - クックブック:
-#           - 目次: cook-book/index.md
-#           - 帳票印刷: cook-book/~~~
+      # - クックブック:
+          # - 目次: cook-book/index.md
+          # - 帳票印刷: cook-book/~~~
   - ガイド:
       - guidebooks/index.md
       - アプリケーション開発手順:
@@ -47,12 +47,12 @@ nav:
               - guidebooks/how-to-develop/java/create-project.md
               - guidebooks/how-to-develop/java/common-project-settings.md
               - guidebooks/how-to-develop/java/sub-project-settings.md
-#         - Vue.js 編:
-#             - guidebooks/how-to-develop/vue-js/index.md
+          # - Vue.js 編:
+              # - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
-# - サンプル解説:
-#     - samples/index.md
+  # - サンプル解説:
+      # - samples/index.md
   - 利用規約:
       - terms/index.md
 
