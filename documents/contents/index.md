@@ -28,7 +28,7 @@ Maia OSS 版で構築した Web アプリケーションのサンプルを手元
 
 1. 以下を参照し、開発環境の構築を行ってください
 
-  - 「[ローカル開発環境の構築](guidebooks/how-to-develop/local-environment/index.md)」
+    - 「[ローカル開発環境の構築](guidebooks/how-to-develop/local-environment/index.md)」
 
 1. 以下のリンクから、サンプルアプリケーションをダウンロードしてください。
 
