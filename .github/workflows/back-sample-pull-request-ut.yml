@@ -1,6 +1,7 @@
+---
 name: バックエンドサンプルAPに対するプルリクエスト時の単体テスト実行
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
     paths:
