@@ -28,6 +28,7 @@
 			"OpenAPI",
 			"Pinia",
 			"Pymarkdown",
+			"pymdown",
 			"SpotBugs",
 			"Springdoc",
 			"textlint",
