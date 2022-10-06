@@ -1,21 +1,26 @@
-# CSR アーキテクチャ概要
+---
+title: CSR アーキテクチャ概要
+description: クライアントサイドレンダリング方式の Web アプリケーションを構築する際に想定しているアーキテクチャの概要について説明します。
+---
+
+# CSR アーキテクチャ概要 {#top}
 
 Maia OSS 版において、クライアントサイドレンダリング方式の Web アプリケーションを構築する際に想定しているアーキテクチャの概要について説明します。
 
-## 技術スタック {: #technology-stack }
+## 技術スタック {#technology-stack}
 
 本アーキテクチャを構成する主なライブラリを以下に示します。
 
 ![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-light.png#only-light){ loading=lazy }
 ![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-dark.png#only-dark){ loading=lazy }
 
-### 利用ライブラリ {: #used-libraries }
+### 利用ライブラリ {#used-libraries}
 
 クライアントサイドレンダリング方式の Web アプリケーションに必要なライブラリについて説明します。
 
 - [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core){ target=_blank }
   
-    DI コンテナや AOP の機能を提供する Spring Framework の コアライブラリです。
+    DI コンテナや AOP の機能を提供する Spring Framework のコアライブラリです。
     ベースとなる Spring Framework のコアライブラリや、 Spring Framework の自動設定サポートを含む Spring Boot の基本的な機能を提供します。
 
 - [Spring Boot :material-open-in-new:](https://spring.pleiades.io/projects/spring-boot){ target=_blank }
@@ -25,7 +30,7 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 
 - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc){ target=_blank }
 
-    Spring MVC は Spring Framework をベースとする Front Controllerパターンの Web MVC フレームワークです。
+    Spring MVC は Spring Framework をベースとする Front Controller パターンの Web MVC フレームワークです。
 
 - Spring Validation
 
@@ -45,7 +50,7 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 - [MyBatis :material-open-in-new:](https://mybatis.org/mybatis-3/ja/index.html){ target=_blank }
   
     MyBatis はデータベースアクセスの実装に利用する O/R Mapper です。
-    XML ファイルまたはアノテーションに、 SQL やレコードとオブジェクトのマッピングを定義することができます。
+    XML ファイルまたはアノテーションに、 SQL やレコードとオブジェクトのマッピングを定義できます。
 
 - [H2 Database :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
   
@@ -55,10 +60,10 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 - [springdoc-openapi :material-open-in-new:](https://springdoc.org/){ target=_blank }
 
     OpenAPI 形式の Web API ドキュメントを生成するためのライブラリです。
-    Controller の実装から Web API ドキュメントを自動的に生成することができます。
-    Web API ドキュメントの生成にあたり、 Controller の実装だけでは不十分な情報に関しては、アノテーションを利用して情報を付与することもできます。
+    Controller の実装から Web API ドキュメントを自動的に生成できます。
+    Web API ドキュメントの生成にあたり、 Controller の実装だけでは不十分な情報に関しては、アノテーションを利用して情報を付与できます。
 
-## アプリケーションアーキテクチャ {: #application-architecture }
+## アプリケーションアーキテクチャ {#application-architecture}
 
 Maia OSS 版のアプリケーションアーキテクチャは、クリーンアーキテクチャを基本としています。
 アーキテクチャの全体概要は以下の通りです。
@@ -66,11 +71,11 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 ![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-light.png#only-light){ loading=lazy }
 ![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-dark.png#only-dark){ loading=lazy }
 
-## レイヤー構造詳細 {: #layer-structure }
+## レイヤー構造詳細 {#layer-structure}
 
 クライアントサイドレンダリング方式の Web アプリケーションにおける、各層とそれを構成するコンポーネントの役割について、それぞれ説明します。
 
-### アプリケーションコア層 {: #application-core }
+### アプリケーションコア層 {#application-core}
 
 アプリケーションコア層は、ドメインモデルの定義と業務処理を実装する業務中心の層です。
 
@@ -84,7 +89,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
     ドメインサービスは、エンティティや値オブジェクトに含めることが適当ではないドメイン固有の処理を実装するコンポーネントです。
     ドメイン単位でクラスにまとめ、ドメインに対する処理毎にメソッドとして実装します。
     必要に応じてリポジトリを利用して、データベースなどの外部リソースにアクセスします。
-    アプリケーションコア層のリポジトリインターフェースを利用し、インフラストラクチャ層のリポジトリ実装に依存しないことに注意してください。
+    アプリケーションコア層のリポジトリインターフェースを利用し、インフラストラクチャ層のリポジトリ実装に依存しないよう注意してください。
 
 - アプリケーションサービス
 
@@ -98,7 +103,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
     アプリケーションコア層のリポジトリはインターフェースであり、インフラストラクチャ層のリポジトリで実装されます。
     依存関係逆転の法則に従い、アプリケーションコア層の実装がインフラストラクチャ層に依存しないようするためのインターフェースです。
 
-### プレゼンテーション層 {: #presentation }
+### プレゼンテーション層 {#presentation}
 
 プレゼンテーション層は、主にシステムの利用者とのやり取りを担う層です。
 画面を構成するフロントエンドアプリケーションと、バックエンドアプリケーションのインターフェースとなる Web API を配置します。
@@ -106,7 +111,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 - コントローラー
   
     コントローラーは Spring MVC のコントローラーに対応し、各 Web API の定義と実装を担います。
-    業務処理であるアプリケーションサービスを呼び出し、その結果からレスポンスデータの生成を行います。
+    業務処理であるアプリケーションサービスを呼び出し、その結果からレスポンスデータを生成します。
 
 - API モデル
 
@@ -117,7 +122,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 
     ビューは Vue.js の JavaScript アプリケーションとして実装します。
 
-### インフラストラクチャ層 {: #infrastructure }
+### インフラストラクチャ層 {#infrastructure}
 
 インフラストラクチャ層は、データベースを中心とする外部リソースにアクセスする処理を実現する層です。
 
@@ -130,10 +135,10 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 
 - テーブルエンティティ
 
-    テーブルエンティティはデータベースのテーブルに対応するデータ構造を表現するクラスですです。
+    テーブルエンティティはデータベースのテーブルに対応するデータ構造を表現するクラスです。
     1 つのテーブルエンティティオブジェクトがテーブルの 1 レコードに対応します。
 
-### プロジェクト構成と各レイヤーとのマッピング {: #project-layer-mapping }
+### プロジェクト構成と各レイヤーとのマッピング {#project-layer-mapping}
 
 Maia OSS 版では Java のプロジェクト構成として、複数のサブプロジェクトに分割し、それらをルートプロジェクトでまとめて管理するマルチプロジェクト構成を採用します。
 サブプロジェクトの分割については、これまでに説明したアプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層を 1 つのサブプロジェクトとして対応させることを推奨します。

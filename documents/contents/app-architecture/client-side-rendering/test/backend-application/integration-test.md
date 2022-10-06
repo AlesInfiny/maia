@@ -1,13 +1,18 @@
-# 結合テスト ( ITa )
+---
+title: 結合テスト
+description: 結合テストの方針について解説します。
+---
+
+# 結合テスト ( ITa ) {#top}
 
 結合テスト ( ITa ) は、プレゼンテーション層からデータベースまでを一気通貫にテストします。
 
-## 結合テストの目的 {: #purpose }
+## 結合テストの目的 {#purpose}
 
 - [UT0](unit-test.md) でテストしたクラスやメソッドを組み合わせて、単一の業務機能が仕様通りに動作することを確認します
 - プレゼンテーション層からデータベースまでを結合し、 Web API ごとの動作を検証します。
 
-## 結合テストで利用するツール {: #testing-tools }
+## 結合テストで利用するツール {#testing-tools}
 
 上記の目的を達成するため、 Maia OSS 版では以下のテストフレームワークを用いて結合テストを実施します。
 
@@ -15,14 +20,14 @@
     - Java のテストフレームワークです。
 - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実施するためのツールセットです。
-    - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化する目的に使用します。
+    - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
 - [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }
     - テスト用のデータベースエンジンとして使用します。
     - インメモリデータベースであり、高速に動作する特徴があります。
 
-## 結合テストのテスト対象 {: #testing-targets }
+## 結合テストのテスト対象 {#testing-targets}
 
-結合テストでは、プレゼンテーション層からデータベースまで、すべてのレイヤーを対象とした機能性の確認を行います。
+結合テストでは、プレゼンテーション層からデータベースまで、すべてのレイヤーを対象とした機能性を確認します。
 開発したアプリケーションは原則モック化せず、完成済みのものを使用してテストします。
 
 !!! note "結合テストでモックを利用するケース"
@@ -31,10 +36,10 @@
     - テストモードの存在しない外部のサービスを呼び出す個所
     - メールサービスや帳票の紙出力など、繰り返し何度も実行することがコスト上・運用上の問題となる箇所
 
-## 結合テストの実施方法 {: #testing-method }
+## 結合テストの実施方法 {#testing-method}
 
 Maia OSS 版の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
-結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証を行います。
+結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証します。
 Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework){ target=_blank } を活用します。
 テストフレームワークは JUnit を利用します。
 
@@ -42,4 +47,4 @@ Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-i
 各テストケースの処理開始時に、そのテストで利用するデータベースを構築します。
 
 単体テストで実施済みの仕様確認は、結合テストで改めて実施しません。
-レイヤー間の結合を行ったときのアプリケーションの動作を重点的に確認するようにします。
+レイヤー間の結合をしたときのアプリケーションの動作を重点的に確認するようにします。

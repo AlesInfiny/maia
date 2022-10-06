@@ -1,4 +1,9 @@
-# ガイド
+---
+title: ガイド
+description: 各種ガイドラインを提供します。
+---
+
+# ガイド {#top}
 
 - [アプリケーション開発手順](how-to-develop/index.md)
 

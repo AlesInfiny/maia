@@ -1,15 +1,20 @@
-# プロジェクトの雛型作成
+---
+title: 雛形の作成
+description: バックエンドアプリケーションの雛形の作成方法について解説します。
+---
 
-## Spring Initializr の利用 {: #use-spring-initializr }
+# プロジェクトの雛型作成 {#top}
+
+## Spring Initializr の利用 {#use-spring-initializr}
 
 各 Gradle プロジェクトの雛型は、 Spring Initializr を利用して作成します。
-Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成することができるツールです。
-[Web サービス](https://start.spring.io/)を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上で利用することもできます。
-VS Code の場合、 [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack) が導入済みであれば利用することが可能です。
+Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
+[Web サービス](https://start.spring.io/)を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
+VS Code の場合、 [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack) が導入済みであれば利用できます。
 
 ここでは Web サービスでの作成を前提に説明します。
 
-## ルートプロジェクトの作成 {: #create-root-project }
+## ルートプロジェクトの作成 {#create-root-project}
 
 ルートプロジェクトの雛型を Spring Initializr を利用して作成します。
 Web 画面上の各種設定項目は以下の通りです。
@@ -17,7 +22,7 @@ Web 画面上の各種設定項目は以下の通りです。
 - Project
 
     プロジェクトのビルドツールを Gradle と Apache Maven から選択します。
-    Maia OSS 版では Gradle をビルドツールとして選択することをデフォルトとしており、以降の説明でも Gradle でビルドすることを前提として解説していますが、Apache Maven を選択することも可能です。
+    Maia OSS 版では Gradle をビルドツールとして選択することをデフォルトとしており、以降の説明でも Gradle でビルドすることを前提として解説していますが、 Apache Maven も選択できます。
 
 - Language
 
@@ -41,10 +46,10 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     各サブプロジェクト全体で利用するパッケージがあれば登録します。
-    後続手順の[プロジェクトの共通設定](./common-project-settings.md)にて、後から追加することもできます。
+    後続手順の[プロジェクトの共通設定](./common-project-settings.md)にて、後から追加できます。
     登録すべき依存ライブラリについては、[プロジェクトの共通設定](./common-project-settings.md)を参照してください。
 
-## サブプロジェクトの作成 {: #create-sub-projects }
+## サブプロジェクトの作成 {#create-sub-projects}
 
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
 以下、サブプロジェクト毎に異なる設定項目について説明します。
@@ -59,7 +64,7 @@ Web 画面上の各種設定項目は以下の通りです。
 - Project Meta Data：Artifact
 
     サブプロジェクトの基点のフォルダ名となるプロジェクト名を設定します。
-    また、グループ名に続くパッケージ名としても利用されますので、グループ名と同様にパッケージ名の命名規則に合った名前にすることが望ましいです。
+    また、グループ名に続くパッケージ名としても利用されますので、グループ名と同様、パッケージ名の命名規則と合致する名前にすることが望ましいです。
 
 - Project Meta Data：Name
 
@@ -69,10 +74,10 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     プロジェクトで利用するパッケージがあれば設定します。
-    後続手順の[サブプロジェクトの個別設定](./sub-project-settings.md)にて、後から追加することもできます。
+    後続手順の[サブプロジェクトの個別設定](./sub-project-settings.md)にて、後から追加できます。
     各プロジェクトの依存ライブラリについては、[サブプロジェクトの個別設定](./sub-project-settings.md)を参照してください。
 
-## ルートプロジェクトとサブプロジェクトの配置 {: #put-projects }
+## ルートプロジェクトとサブプロジェクトの配置 {#put-projects}
 
 ルートプロジェクトと各サブプロジェクトの雛型を作成したら、
 これらを展開し適切に配置します。
