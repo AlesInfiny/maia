@@ -52,7 +52,7 @@ jobs:
           cat super-linter.log
           echo '====================================='
           echo '```plane' >> $GITHUB_STEP_SUMMARY
-          cat super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' >> $GITHUB_STEP_SUMMARY
+          sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: GitHub Super Linter の処理結果確認
