@@ -1,4 +1,5 @@
 ---
+# cSpell:ignore markdownlint webapps fjogeleit endgroup
 name: ドキュメントのビルドとリリース
 
 on:  # yamllint disable-line rule:truthy
@@ -48,10 +49,10 @@ jobs:
       - name: GitHub Super Linter の結果表示
         run: |
           echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
-          echo '=== super-linter.log ================'
+          echo '::group::super-linter.log'
           cat super-linter.log
-          echo '====================================='
-          echo '```plane' >> $GITHUB_STEP_SUMMARY
+          echo '::endgroup::'
+          echo '```' >> $GITHUB_STEP_SUMMARY
           sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
@@ -75,11 +76,11 @@ jobs:
       - name: textlint 失敗時の結果表示
         if: ${{ steps.execute_textlint.outcome == 'failure' }}
         run: |
-          echo '=== textlint-result.txt ================'
+          echo '::group::textlint-result.txt'
           cat textlint-result.txt
-          echo '========================================'
+          echo '::endgroup::'
           echo 'textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-          echo '```plane' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo ${{ steps.execute_textlint.outcome }}
