@@ -1,6 +1,6 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 
-<!-- cSpell:ignore hoge hogehoge pymdown -->
+<!-- cSpell:ignore hoge hogehoge -->
 # Maia OSS 版 ドキュメントについて
 
 ## 本番環境
