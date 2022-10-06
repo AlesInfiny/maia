@@ -1,3 +1,6 @@
+<!-- textlint-disable @textlint-rule/require-header-id -->
+
+<!-- cSpell:ignore Vetur -->
 # dressca-frontend
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -8,9 +11,13 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+TypeScript cannot handle type information for `.vue` imports by default.
+So we replace the `tsc` CLI with `vue-tsc` for type checking.
+In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant.
+If the standalone TypeScript plugin doesn't feel fast enough to you use it.
+You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
@@ -62,3 +69,5 @@ npm run lint
 
 - favicon: <https://sozai.cman.jp/>
 - content: <https://www.canva.com/>
+
+<!-- textlint-enable @textlint-rule/require-header-id -->

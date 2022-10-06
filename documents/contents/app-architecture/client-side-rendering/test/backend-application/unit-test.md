@@ -1,44 +1,49 @@
-# 単体テスト ( UT0 )
+---
+title: 単体テスト
+description: 単体テストの方針について解説します。
+---
+
+# 単体テスト ( UT0 ) {#top}
 
 単体テスト ( UT0 ) は、静的テストと動的テストで構成します。
 
-## 静的テスト ( UT0 ) {: #ut0-static-testing }
+## 静的テスト ( UT0 ) {#ut0-static-testing}
 
-### 静的テスト ( UT0 ) の目的 {: #ut0-static-testing-purpose }
+### 静的テスト ( UT0 ) の目的 {#ut0-static-testing-purpose}
 
 - コーディング規約に準拠したソースコードであるか検証し、開発者間でのバラツキを抑制する
 - ソースコード内の潜在的なバグを自動検出し、品質の向上に役立てる
 
-### 静的テスト ( UT0 ) で利用するツール {: #ut0-static-testing-tools }
+### 静的テスト ( UT0 ) で利用するツール {#ut0-static-testing-tools}
 
 上記の目的を達成するため、 Maia OSS 版では以下のツールを用いて静的テストを実施します。
 
 - [Checkstyle :material-open-in-new:](https://checkstyle.org/){ target=_blank }
-    - コーディング規約に準拠した Java コードになっているか自動的に検査するツールです。
+    - コーディング規約に準拠した Java コードとなっているか自動的に検査するツールです。
     - 分析ルールは、 Google が提供している「[Google Java Style Guide :material-open-in-new:](https://checkstyle.sourceforge.io/styleguides/google-java-style-20180523/javaguide.html){ target=_blank }」をベースにし、警告がなくなるまでコードを修正します。
     - 日本語コメントや IDE とミスマッチするルールは修正して使用します。
 - [SpotBugs :material-open-in-new:](https://spotbugs.github.io/){ target=_blank }
     - Java コード内の潜在的なバグを自動検出するツールです。
     - SpotBugs の既定の分析ルールを使用し、警告がなくなるまでコードを修正します。
 
-### 静的テスト ( UT0 ) のテスト対象 {: #ut0-static-testing-targets }
+### 静的テスト ( UT0 ) のテスト対象 {#ut0-static-testing-targets}
 
 静的テストは、すべての Java コードを対象に行います。
 
-### 静的テスト ( UT0 ) の実施方法 {: #ut0-static-testing-method }
+### 静的テスト ( UT0 ) の実施方法 {#ut0-static-testing-method}
 
 IDE および CI ツールを利用して、自動的に各ツールによるテストを実施します。
 各ツールの報告する警告は、原則コードを修正して対応します。
 
-## 動的テスト ( UT0 ) {: #ut0-dynamic-testing }
+## 動的テスト ( UT0 ) {#ut0-dynamic-testing}
 
-### 動的テスト ( UT0 ) の目的 {: #ut0-dynamic-testing-purpose }
+### 動的テスト ( UT0 ) の目的 {#ut0-dynamic-testing-purpose}
 
 - 業務機能が仕様通り実装されていることを確認する
 - 機能の追加・修正によってデグレードが発生しないことを短時間で確認できる
 - 特に業務機能の中核部分を手厚くテストし、重大障害の発生率を下げる
 
-### 動的テスト ( UT0 ) で利用するツール {: #ut0-dynamic-testing-tools }
+### 動的テスト ( UT0 ) で利用するツール {#ut0-dynamic-testing-tools}
 
 上記の目的を達成するため、 Maia OSS 版では以下のテストフレームワークを用いて UT0 を実施します。
 
@@ -48,7 +53,7 @@ IDE および CI ツールを利用して、自動的に各ツールによるテ
     - Spring で構築したアプリケーションのテストを実施するためのツールセットです。
     - 主にモックの作成に使用します。
 
-### 動的テスト ( UT0 ) のテスト対象 {: #ut0-dynamic-testing-targets }
+### 動的テスト ( UT0 ) のテスト対象 {#ut0-dynamic-testing-targets}
 
 動的テスト ( UT0 ) のテスト対象は以下の通りです。
 
@@ -65,7 +70,7 @@ IDE および CI ツールを利用して、自動的に各ツールによるテ
     プレゼンテーション層やインフラストラクチャ層のテストは、依存するミドルウェアの初期化に時間を要することが多く、日常的な繰り返しには不向きとも言えます。
     UT0 で他のレイヤーのテストを実施する場合は、モック化やテストケースの絞り込みなど、短時間でテストを完了できる工夫を施すようにしてください。
 
-### 動的テスト ( UT0 ) の実施方法 {: #ut0-dynamic-testing-method }
+### 動的テスト ( UT0 ) の実施方法 {#ut0-dynamic-testing-method}
 
 動的テストは JUnit 上にテストコードを作成し、 IDE および CI ツールを利用してテストを実行します。
 テストは業務ロジックの機能性を担保することを目的にします。

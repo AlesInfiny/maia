@@ -1,7 +1,8 @@
 ---
+# cSpell:ignore markdownlint webapps fjogeleit endgroup
 name: ドキュメントのビルドとリリース
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
   pull_request:
@@ -27,7 +28,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Linter の実行
+      - name: Linter の処理開始
+        run: |
+          echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
+
+      - name: GitHub Super Linter の実行
+        id: execute_super_linter
+        continue-on-error: true
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
@@ -38,6 +45,45 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_YAML: true
           YAML_CONFIG_FILE: '.yaml-lint.yml'
+
+      - name: GitHub Super Linter の結果表示
+        run: |
+          echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
+          echo '::group::super-linter.log'
+          cat super-linter.log
+          echo '::endgroup::'
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: GitHub Super Linter の処理結果確認
+        if: ${{ steps.execute_super_linter.outcome == 'failure' }}
+        run: |
+          exit 1
+
+      - name: npm パッケージのインストール
+        run: |
+          npm install
+
+      - name: textlint の実行
+        id: execute_textlint
+        continue-on-error: true
+        run: |
+          echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
+          npm run textlint-all > textlint-result.txt
+          echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: textlint 失敗時の結果表示
+        if: ${{ steps.execute_textlint.outcome == 'failure' }}
+        run: |
+          echo '::group::textlint-result.txt'
+          cat textlint-result.txt
+          echo '::endgroup::'
+          echo 'textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          exit 1
 
       - name: Python のセットアップ
         uses: actions/setup-python@v2
@@ -53,6 +99,8 @@ jobs:
           python -m pip install mkdocs-minify-plugin
 
       - name: ドキュメントのビルド
+        id: build_documents
+        continue-on-error: true
         run: |
           if [ -n "${{ github.event.release.name }}" ];
           then
@@ -63,9 +111,29 @@ jobs:
           cd samples/web-csr
           zip -r ../../documents/contents/samples/downloads/dressca.zip *
           cd ../../documents
-          mkdocs build --verbose --clean --strict
-          cp -T -v -f -r ../iis-files build-artifacts/
-          cd build-artifacts
+          mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
+          echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
+          if [ $? = 0 ]; then
+            echo 'mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+          else
+            echo 'mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -s mkdocs_build_log.txt ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: ドキュメントビルドのエラー表示
+        if: ${{ steps.build_documents.outcome == 'failure' }}
+        run: |
+          echo 'ドキュメントのビルドに失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+      - name: IIS 用のファイル配置とパッケージング
+        run: |
+          cp -T -v -f -r iis-files documents/build-artifacts/
+          cd documents/build-artifacts
           zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
 
       - name: ビルドアーティファクトのアップロード

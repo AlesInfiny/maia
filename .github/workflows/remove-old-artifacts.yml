@@ -1,7 +1,7 @@
 ---
 name: 古いアーティファクトの削除
 
-on:
+on:  # yamllint disable-line rule:truthy
   schedule:
     - cron: '0 14,22 * * *'
   workflow_dispatch:

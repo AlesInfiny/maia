@@ -1,4 +1,6 @@
-<!-- cSpell:ignore hoge hogehoge pymdown -->
+<!-- textlint-disable @textlint-rule/require-header-id -->
+
+<!-- cSpell:ignore hoge hogehoge -->
 # Maia OSS 版 ドキュメントについて
 
 ## 本番環境
@@ -47,12 +49,12 @@ documents ディレクトリ配下のディレクトリ、ファイルの配置�
 | mkdocs.yml    |                  |                       |                   | mkdocs の設定ファイル                         |
 | README.md     |                  |                       |                   | このドキュメント                              |
 
-\*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme)と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides)を参照
+\*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme)と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides)を参照。
 
 ## ドキュメントの作成方法（わかっている人向けの大雑把な手順）
 
-このリポジトリは GitHub-flow で開発を行います。
-Feature ブランチの名前は「feature/<更新内容を表す名前>」として開発を行ってください。
+このリポジトリは GitHub-flow で開発します。
+Feature ブランチの名前は「feature/<更新内容を表す名前>」として開発してください。
 記事の作成後は main ブランチへのマージを行う Pull Request を投げてください。
 
 ## ドキュメントの作成方法（詳細版）
@@ -97,7 +99,7 @@ Markdown の作成にあたっては、 Material for MkDocs の Web サイトを
 
 ### 動作確認
 
-記事をある程度作成したら、 mkdocs を用いて確認を行います。
+記事をある程度作成したら、 mkdocs を用いて確認します。
 
 Visual Studio Code で [ターミナル] を開きます。
 ターミナルが開いていない場合は、以下の通り新たに開いてください。
@@ -139,7 +141,7 @@ Markdown ファイルを追加した場合、ほとんどのケースで mkdocs.
 
 #### markdownlint
 
-markdownlint の拡張機能をインストールしていると、 [問題] ウィンドウに以下のような Markdown の体裁誤りを指摘するコメントが出ることがあります。
+markdownlint の拡張機能をインストールしていると、 [問題] ウィンドウに以下のような Markdown の体裁誤りを指摘するコメントが出ます。
 
 ![markdownlint の警告メッセージ](readme-images/markdownlint-result.png)
 
@@ -148,19 +150,58 @@ markdownlint の拡張機能をインストールしていると、 [問題] ウ
 
 #### cSpell
 
-cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ることがあります。
+cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ます。
 この拡張機能は、英単語のスペルミスを検出するために導入するものであり、コメントの多くはスペルミスに起因しています。
-必ず対応を行うようにしてください。
+必ず対応するようにしてください。
 
-複合語や技術用語は、辞書登録を行わないと誤検知されることがあります。
+複合語や技術用語は、辞書登録しないと誤検知されることがあります。
 その場合はワークスペースの辞書に、単語を登録するようにしてください。
 [maia.code-workspace] ファイルの `settings` / `cSpell.words` に単語を登録できます。
 
 コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参考にして、各ページで抑制してください。
 cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
-このページの上部にも設定を行ってあります。
+このページの上部にも設定してあります。
 
 <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
+
+#### textlint
+
+vscode-textlint の拡張機能をインストールしていると、 [問題] ウィンドウに文書校正に関するコメントが出ます。
+この拡張機能は、技術文書を書く際の冗長な表現を排除したり、表記ゆれの検出したりする自動校正ツールです。
+多くの場合、文章の見直しによってエラーを回避できます。
+必ず対応するようにしてください。
+
+一部の機能については、誤検知をしてしまう場合や、ルールの適用が不適切なケースもあります。
+その場合は、文書内に以下のようなコメントを記述することで、一部の解析ルールを無視するよう設定できます。
+
+```markdown
+<!-- textlint-disable @textlint-rule/require-header-id -->
+
+# 解析ルールが無効になる場所
+
+<!-- textlint-enabled @textlint-rule/require-header-id -->
+```
+
+詳細は以下を参照してください。
+
+<https://github.com/textlint/textlint-filter-rule-comments#usage>
+
+### 用語集の整理
+
+cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに上記と同じような用語誤りやスペルミスを指摘するコメントが出ます。
+ドキュメントに関連する部分で警告が出る場合は対策を講じてください。
+対応方法は以下の通りです。
+
+1. 一般的な用語 / 技術用語である場合
+
+    ワークスペース ( maris.code-workspace ) の用語集に単語を追加してください。
+
+1. 特定のページでのみ使用する特殊な用語や略語の場合
+
+    以下を参考にして、ページ内に `cSpell:ignore` を追加して、警告を除外する用語を追加してください。
+    設定はページ最上部に記述します。
+
+    <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
 
 ### 修正内容のコミット
 
@@ -182,22 +223,15 @@ cSpell が実行されないようにするのではなく、そのページ内�
 GitHub でプッシュした Feature ブランチを main ブランチにマージするプルリクエストを作成してください。
 プルリクエストを作成すると、 Markdown と YAML の Lint と、ビルド可否のチェックが行われます。
 
-Lint の結果、警告がある場合はGitHub Actionsが失敗します。
+Lint の結果、警告がある場合は GitHub Actions が失敗します。
 
 ![linter の警告による GitHub Actions の失敗](readme-images/linter-error.png)
 
-mkdocs のビルドがエラーとなった場合もGitHub Actionsは失敗します。
+mkdocs のビルドがエラーとなった場合も GitHub Actions は失敗します。
 いずれの場合も GitHub Actions のログからエラー情報を確認できます。
 右側の詳細ログからエラーとなっている箇所を開くことで、ログメッセージを確認できます。
 
 ![mkdocs の実行エラー](readme-images/mkdocs-error.png)
-
-続いて mkdocs の実行ログを参照し、警告が出ていないことを確認してください。
-警告が出ている場合は解消するようにします。
-mkdocs で警告が出ても、 GitHub Actions は正常に終了してしまいます。
-必ずログを確認するようにしましょう。
-
-なお mkdocs の警告は、ローカル PC で `mkdocs serve` コマンドを実行しても確認できます。
 
 プルリクエストをマージすると、継続的デプロイメントが走り、自動的にステージング環境の Web サイトが更新されます。
 
@@ -234,10 +268,10 @@ _materials/images ディレクトリ、 contents/images ディレクトリの配
 ### ライトモード/ダークモードに関する設定
 
 本ドキュメントでは、ライトモード/ダークモードの切り替えができるように設定されています。
-各モードに対応するために、ライトモード用/ダークモード用の 2 通りの画像を作成します。
+各モードへ対応するために、ライトモード向け / ダークモード向けの 2 通りの画像を作成します。
 また、モードによる切り替わりが行われるよう、マークダウンを実装します。
 
-ライトモード用/ダークモード用の画像作成やマークダウンの実装方法は以下の通りです。
+ライトモード用 / ダークモード用の画像作成やマークダウンの実装方法は以下の通りです。
 
 1. 画像原本の \*.drawio ファイルについて、ライトモード用、ダークモード用の 2 通りのファイルを作成します。  
    以下の命名規則に従い、どちらのモード用のファイルかを \*.drawio ファイル名末尾の文字列で表現します。
@@ -314,7 +348,8 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 
 - Markdown All in One
 - markdownlint
-- Table Formatter
+- Code Spell Checker
+- vscode-textlint
 
 ![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
@@ -322,11 +357,18 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 
 - Japanese Language Pack for Visual Studio Code
 - Draw.io integration
+- Table Formatter
+
+### Node.js のインストール
+
+以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
+
+<https://nodejs.org/ja/>
 
 ### Pythonのインストール
 
 以下のサイトから、 Windows 用の最新版 Python をインストールします。
-インストール時に [Add Python 3.x to PATH] にチェックを入れてからインストールしてください。
+インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
 
 <https://www.python.org/downloads/>
 
@@ -339,7 +381,7 @@ pip install --upgrade pip
 
 ### MkDocs と拡張機能のインストール
 
-以下のコマンドを実行して、 Mkdocs と Mkdocs Material 拡張機能、Pymarkdown 拡張機能、 MkDocs Minify 拡張機能をインストールします。
+以下のコマンドを実行して、 Mkdocs と Mkdocs Material 拡張機能、 Pymarkdown 拡張機能、 MkDocs Minify 拡張機能をインストールします。
 
 ```plain
 pip install mkdocs
@@ -347,3 +389,14 @@ pip install mkdocs-material
 pip install pymdown-extensions
 pip install mkdocs-minify-plugin
 ```
+
+### Node モジュールのインストール
+
+本リポジトリでは textlint を使用して、校正を自動化します。
+以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
+
+```plane
+npm install
+```
+
+<!-- textlint-enable @textlint-rule/require-header-id -->

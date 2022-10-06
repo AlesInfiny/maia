@@ -1,8 +1,13 @@
-# インフラストラクチャ層
+---
+title: インフラストラクチャ層
+description: インフラストラクチャ層の実装方針について説明します。
+---
+
+# インフラストラクチャ層 {#top}
 
 インフラストラクチャ層の実装方針について説明します。
 
-## データベースアクセスのフレームワーク {: #database-access-framework }
+## データベースアクセスのフレームワーク {#database-access-framework}
 
 Spring Boot のアプリケーションにおけるデータベースアクセスの代表的なフレームワークには、以下の 3 つがあります。
 
@@ -12,7 +17,7 @@ Spring Boot のアプリケーションにおけるデータベースアクセ�
 
 ここではそれぞれの特徴を説明します。
 
-### MyBatis-Spring {: #mybatis-spring }
+### MyBatis-Spring {#mybatis-spring}
 
 MyBatis は、ストアドプロシージャの呼び出しや、高度なマッピング処理を提供する O/R マッパーです。
 他の O/R マッパーのようにテーブルとオブジェクトをマッピングするのではなく、 SQL の実行結果に対してオブジェクトをマッピングします。
@@ -26,14 +31,14 @@ Spring Data でサポートされているような基本的な CRUD 処理は�
 MyBatis-Spring は MyBatis を Spring Framework 上で利用しやすいように、連携機能を提供するパッケージです。
 MyBatis のコンポーネントを DI コンテナーで管理可能にし、 Spring の汎用的な例外への変換も実現できます。
 
-### Spring Data JDBC {: #spring-data-jdbc }
+### Spring Data JDBC {#spring-data-jdbc}
 
 JDBC でのデータベースアクセス実装をサポートするフレームワークです。
-基本的な CRUD 処理の実装や Bean へのマッピング機能などが提供されるため、通常の JDBC による実装と比較して少量のコードで実装することができます。
+基本的な CRUD 処理の実装や Bean へのマッピング機能などが提供されるため、通常の JDBC による実装と比較して少量のコードで実装できます。
 
 Spring Data JDBC の詳細については[こちら](https://spring.pleiades.io/projects/spring-data-jdbc)を参照してください。
 
-### Spring Data JPA {: #spring-data-jpa }
+### Spring Data JPA {#spring-data-jpa}
 
 JPA は、データベースレコードとテーブルエンティティ間のマッピング、およびテーブルエンティティへの変更をデータベースへ反映する仕組みを API 仕様として定めたものです。
 Spring Data JPA は JPA の参照実装である Hibernate をベースに、データベースアクセスの実装をサポートするフレームワークです。
@@ -48,18 +53,18 @@ JPA を用いた開発経験がある理解度の高いメンバーを揃える�
 
 Spring Data JPA の詳細については[こちら](https://spring.pleiades.io/projects/spring-data-jpa)を参照してください。
 
-### 各フレームワークの比較 {: #framework-comparison }
+### 各フレームワークの比較 {#framework-comparison}
 
-データベースのテーブル構造やクエリがシンプルで、より軽量な実装を行いたい場合は Spring Data JDBC や Spring Data JPA の採用を推奨します。
+データベースのテーブル構造やクエリがシンプルで、より軽量な実装をしたい場合は Spring Data JDBC や Spring Data JPA の採用を推奨します。
 テーブルの関連が複雑で、結合を含む複雑なクエリが多く発生する場合は MyBatis-Spring の採用を推奨します。
 
 Maia OSS 版では、一定以上の規模であればテーブルの関連は複雑になりがちであることと、軽量なデータベースアクセス実装にも対応できることから、 MyBatis ( MyBatis-Spring ) を標準として採用します。
 
-## MyBatis を用いたデータベースアクセス実装 {: #mybatis-implementation }
+## MyBatis を用いたデータベースアクセス実装 {#mybatis-implementation}
 
 MyBatis を利用した実装方針を説明します。
 
-### MyBatis Generator による自動生成 {: #mybatis-generator }
+### MyBatis Generator による自動生成 {#mybatis-generator}
 
 「 [MyBatis Generator](https://mybatis.org/generator/) 」 はデータベースのテーブル構造を読み取り、テーブル単位の基本的な CRUD を実現するクエリとマッピングを自動で生成するツールです。
 基本的な CRUD 処理は、自動生成するコードのみで実現できます。
@@ -71,12 +76,12 @@ MyBatis を利用した実装方針を説明します。
 
 - 各クエリに対応する Java のインターフェース
 
-### 自動生成以外のクエリの個別実装 {: #mybatis-original-implementation }
+### 自動生成以外のクエリの個別実装 {#mybatis-original-implementation}
 
 テーブル結合を含む場合など、自動生成するクエリで実現できないデータアクセス処理は個別に実装します。
 MyBatis Generator が生成するファイルと同等のファイルを、個別のクエリに合わせて実装します。
 
-### リポジトリの実装 {: #repository-implementation }
+### リポジトリの実装 {#repository-implementation}
 
 [アプリケーションコア層のリポジトリ ( インターフェース )](../csr-architecture-overview.md#application-core) を実装する具象クラスを作成します。
 アプリケーションサービスやドメインサービスからリポジトリ ( インターフェース ) を介して呼び出されます。
