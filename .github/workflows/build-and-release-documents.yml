@@ -27,6 +27,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Linter の処理開始
+        run: |
+          echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
+
       - name: GitHub Super Linter の実行
         id: execute_super_linter
         continue-on-error: true
@@ -43,7 +47,6 @@ jobs:
 
       - name: GitHub Super Linter の結果表示
         run: |
-          echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
           echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
           echo '=== super-linter.log ================'
           cat super-linter.log
