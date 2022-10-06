@@ -27,7 +27,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Linter の実行
+      - name: GitHub Super Linter の実行
+        id: execute_super_linter
+        continue-on-error: true
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
@@ -39,6 +41,22 @@ jobs:
           VALIDATE_YAML: true
           YAML_CONFIG_FILE: '.yaml-lint.yml'
 
+      - name: GitHub Super Linter の結果表示
+        run: |
+          echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
+          echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
+          echo '=== super-linter.log ================'
+          cat super-linter.log
+          echo '====================================='
+          echo '```plane' >> $GITHUB_STEP_SUMMARY
+          cat super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: GitHub Super Linter の処理結果確認
+        if: ${{ steps.execute_super_linter.outcome == 'failure' }}
+        run: |
+          exit 1
+
       - name: npm パッケージのインストール
         run: |
           npm install
@@ -47,7 +65,7 @@ jobs:
         id: execute_textlint
         continue-on-error: true
         run: |
-          echo '# textlint Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
           npm run textlint-all > textlint-result.txt
           echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
 
@@ -59,7 +77,7 @@ jobs:
           echo '========================================'
           echo 'textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
           echo '```plane' >> $GITHUB_STEP_SUMMARY
-          cat textlint-result.txt | sed -n -e '/problems/p' >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo ${{ steps.execute_textlint.outcome }}
           exit 1
