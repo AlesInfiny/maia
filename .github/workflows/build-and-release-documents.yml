@@ -113,9 +113,16 @@ jobs:
           cd ../../documents
           mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
           echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          if [ $? = 0 ]; then
+            echo 'mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+          else
+            echo 'mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -s mkdocs_build_log.txt ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: ドキュメントビルドのエラー表示
         if: ${{ steps.build_documents.outcome == 'failure' }}
@@ -125,8 +132,8 @@ jobs:
 
       - name: IIS 用のファイル配置とパッケージング
         run: |
-          cp -T -v -f -r ../iis-files build-artifacts/
-          cd build-artifacts
+          cp -T -v -f -r iis-files documents/build-artifacts/
+          cd documents/build-artifacts
           zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
 
       - name: ビルドアーティファクトのアップロード
