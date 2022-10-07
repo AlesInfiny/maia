@@ -1,4 +1,5 @@
 ---
+# cSpell:ignore mikepenz dorny
 name: バックエンドサンプルAPに対するプルリクエスト時の単体テスト実行
 
 on:  # yamllint disable-line rule:truthy
