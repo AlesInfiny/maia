@@ -52,9 +52,15 @@ jobs:
           echo '::group::super-linter.log'
           cat super-linter.log
           echo '::endgroup::'
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          LINT_MSG=$(sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}')
+          if [ -n "$LINT_MSG" ]; then
+            echo ':warning sign: エラーまたは警告が見つかりました。' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$LINT_MSG" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo ':heavy check mark: 成功しました。' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: GitHub Super Linter の処理結果確認
         if: ${{ steps.execute_super_linter.outcome == 'failure' }}
