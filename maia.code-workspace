@@ -39,6 +39,8 @@
 			"pymdown",
 			"SpotBugs",
 			"Springdoc",
+			"stylelint",
+			"tailwindcss",
 			"textlint",
 			"winbatch"
 		],
