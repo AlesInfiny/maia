@@ -52,9 +52,15 @@ jobs:
           echo '::group::super-linter.log'
           cat super-linter.log
           echo '::endgroup::'
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          LINT_MSG=$(sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}')
+          if [ -n "$LINT_MSG" ]; then
+            echo ':warning: エラーまたは警告が見つかりました。' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$LINT_MSG" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo ':heavy_check_mark: 成功しました。' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: GitHub Super Linter の処理結果確認
         if: ${{ steps.execute_super_linter.outcome == 'failure' }}
@@ -71,7 +77,7 @@ jobs:
         run: |
           echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
           npm run textlint-all > textlint-result.txt
-          echo 'textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: textlint 失敗時の結果表示
         if: ${{ steps.execute_textlint.outcome == 'failure' }}
@@ -79,7 +85,7 @@ jobs:
           echo '::group::textlint-result.txt'
           cat textlint-result.txt
           echo '::endgroup::'
-          echo 'textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
@@ -114,9 +120,9 @@ jobs:
           mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
           echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
           if [ $? = 0 ]; then
-            echo 'mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+            echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
           else
-            echo 'mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+            echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
           fi
           if [ -s mkdocs_build_log.txt ]; then
             echo '```' >> $GITHUB_STEP_SUMMARY
