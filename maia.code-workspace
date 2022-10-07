@@ -10,8 +10,8 @@
 			"maia.code-workspace",
 			"package.json",
 			"package-lock.json",
-			"node_modules",
-			"build-artifacts",
+			"**/node_modules/**",
+			"**/build-artifacts/**",
 			".vscode",
 		],
 		"cSpell.words": [
