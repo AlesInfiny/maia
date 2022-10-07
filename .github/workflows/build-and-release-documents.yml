@@ -130,7 +130,7 @@ jobs:
             echo '```' >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: ドキュメントビルドのエラー表示
+      - name: ドキュメントビルドのの処理結果確認
         if: ${{ steps.build_documents.outcome == 'failure' }}
         run: |
           exit 1
