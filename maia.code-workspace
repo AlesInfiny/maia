@@ -33,6 +33,9 @@
 			"Springdoc",
 			"textlint",
 			"winbatch"
+		],
+		"markdownlint.ignore": [
+			"LICENSE"
 		]
 	},
 	"extensions": {
