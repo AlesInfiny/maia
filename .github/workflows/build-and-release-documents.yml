@@ -117,8 +117,8 @@ jobs:
           cd samples/web-csr
           zip -r ../../documents/contents/samples/downloads/dressca.zip *
           cd ../../documents
-          mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
           echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
+          mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
           if [ $? = 0 ]; then
             echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
           else
@@ -130,10 +130,9 @@ jobs:
             echo '```' >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: ドキュメントビルドのエラー表示
+      - name: ドキュメントビルドのの処理結果確認
         if: ${{ steps.build_documents.outcome == 'failure' }}
         run: |
-          echo 'ドキュメントのビルドに失敗しました。  ' >> $GITHUB_STEP_SUMMARY
           exit 1
 
       - name: IIS 用のファイル配置とパッケージング
