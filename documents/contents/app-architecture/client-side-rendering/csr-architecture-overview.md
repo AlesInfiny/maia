@@ -1,6 +1,6 @@
 ---
-title: CSR アーキテクチャ概要
-description: クライアントサイドレンダリング方式の Web アプリケーションを構築する際に想定しているアーキテクチャの概要について説明します。
+title: CSR 編
+description: クライアントサイドレンダリングを行う Web アプリケーションのアーキテクチャについて解説します。
 ---
 
 # CSR アーキテクチャ概要 {#top}
@@ -21,11 +21,11 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 - [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core){ target=_blank }
   
     DI コンテナや AOP の機能を提供する Spring Framework のコアライブラリです。
-    ベースとなる Spring Framework のコアライブラリや、 Spring Framework の自動設定サポートを含む Spring Boot の基本的な機能を提供します。
+    ベースとなる Spring Framework のコアライブラリや、 Spring Framework の自動設定サポートを含む Spring Boot の機能を提供します。
 
 - [Spring Boot :material-open-in-new:](https://spring.pleiades.io/projects/spring-boot){ target=_blank }
   
-    Spring Framework をベースとするアプリケーション開発を効率的に行うための仕組みを提供するフレームワークです。
+    Spring Framework をベースとするアプリケーション開発を効率的に行うためのフレームワークです。
     Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、実装するコード量を軽減するアノテーションを提供します。
 
 - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc){ target=_blank }
@@ -55,7 +55,7 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 - [H2 Database :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
   
     H2 Database は Java 上で動作するリレーショナルデータベースです。
-    単体テストやローカル環境でのアプリケーション実行など、ローカル環境でデータベースアクセスを含む動的テストを簡易に実施するために利用できます。
+    単体テストやローカル環境でのアプリケーション実行など、ローカル環境でデータベースアクセスを含む動的テストを行うのに利用します。
 
 - [springdoc-openapi :material-open-in-new:](https://springdoc.org/){ target=_blank }
 
@@ -65,13 +65,13 @@ Maia OSS 版において、クライアントサイドレンダリング方式�
 
 ## アプリケーションアーキテクチャ {#application-architecture}
 
-Maia OSS 版のアプリケーションアーキテクチャは、クリーンアーキテクチャを基本としています。
+Maia OSS 版のアプリケーションアーキテクチャは、クリーンアーキテクチャに基づいています。
 アーキテクチャの全体概要は以下の通りです。
 
 ![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-light.png#only-light){ loading=lazy }
 ![アーキテクチャ概要図](../../images/app-architecture/client-side-rendering/csr-architecture-dark.png#only-dark){ loading=lazy }
 
-## レイヤー構造詳細 {#layer-structure}
+## 層の構造詳細 {#layer-structure}
 
 クライアントサイドレンダリング方式の Web アプリケーションにおける、各層とそれを構成するコンポーネントの役割について、それぞれ説明します。
 
@@ -93,9 +93,9 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 
 - アプリケーションサービス
 
-    アプリケーションサービスは、システムの要求機能を実装するクラスです。
-    基本的に 1 つの Web API の業務処理がアプリケーションサービスの 1 メソッドに対応します。
-    エンティティや値オブジェクト、リポジトリ ( インターフェース ) を組み合わせて、要求される機能を実現します。
+    アプリケーションサービスは、システムに必要な機能を実装するクラスです。
+    1 つの Web API の業務処理がアプリケーションサービスの 1 メソッドに対応します。
+    エンティティや値オブジェクト、リポジトリ ( インターフェース ) を組み合わせて、必要な機能を実現します。
     必要に応じてドメインサービスも利用します。
 
 - リポジトリ ( インターフェース )
@@ -116,7 +116,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
 - API モデル
 
     Web API のリクエスト／レスポンスの形式を定義するクラスです。
-    コントローラーが受け取る引数や応答の型を Java のクラスで表現します。
+    コントローラーが受け取る引数やレスポンスの型を Java のクラスで表現します。
 
 - ビュー
 
@@ -138,7 +138,7 @@ Maia OSS 版のアプリケーションアーキテクチャは、クリーン�
     テーブルエンティティはデータベースのテーブルに対応するデータ構造を表現するクラスです。
     1 つのテーブルエンティティオブジェクトがテーブルの 1 レコードに対応します。
 
-### プロジェクト構成と各レイヤーとのマッピング {#project-layer-mapping}
+### プロジェクト構成と各層とのマッピング {#project-layer-mapping}
 
 Maia OSS 版では Java のプロジェクト構成として、複数のサブプロジェクトに分割し、それらをルートプロジェクトでまとめて管理するマルチプロジェクト構成を採用します。
 サブプロジェクトの分割については、これまでに説明したアプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層を 1 つのサブプロジェクトとして対応させることを推奨します。
@@ -151,7 +151,7 @@ Maia OSS 版では Java のプロジェクト構成として、複数のサブ�
 ![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-light.png#only-light){ loading=lazy }
 ![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-dark.png#only-dark){ loading=lazy }
 
-プロジェクト構造全体としては、 Spring Initializr で生成された基本的な Gradle プロジェクトの構造と変わりはありません。
-パッケージの構成としては、システムで一意のフォルダ ( aa.bb.cc ) をベースに、各層に対応するパッケージ ( application-core など ) を作成します。
+プロジェクト構造全体は、 Spring Initializr で生成した Gradle プロジェクトの構造と変わりはありません。
+パッケージの構成としては、システムで 1 つのフォルダー ( aa.bb.cc ) をベースに、各層に対応するパッケージ ( application-core など ) を作成します。
 アプリケーションコア層については、ドメインの単位でパッケージを作成し、それ以外の層については、構成するコンポーネント単位でパッケージを作成することを想定しています。
 以降の階層については、管理や機能面を考慮し、必要に応じてサブパッケージを作成してください。
