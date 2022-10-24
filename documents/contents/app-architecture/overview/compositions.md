@@ -1,6 +1,6 @@
 ---
-title: 構成物
-description: Maia OSS 版を構成するものについて解説します。
+title: 概要編
+description: Maia OSS 版のアプリケーションアーキテクチャ概要を解説します。
 ---
 
 # Maia OSS 版を構成するもの {#top}

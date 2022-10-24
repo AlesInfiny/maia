@@ -1,5 +1,5 @@
 ---
-title: テスト方針
+title: CSR 編 - テスト
 description: CSR の Web アプリケーションにおけるテストのあり方を示します。
 ---
 

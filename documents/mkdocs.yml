@@ -15,25 +15,25 @@ nav:
       - app-architecture/index.md
       - 概要編:
           - app-architecture/overview/index.md
-          - app-architecture/overview/application-kind.md
-          - app-architecture/overview/compositions.md
-          - app-architecture/overview/repository-structure.md
-          - app-architecture/overview/java-application-processing-system.md
+          - 構築できるアプリケーション形態: app-architecture/overview/application-kind.md
+          - Maia OSS 版を構成するもの: app-architecture/overview/compositions.md
+          - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
+          - Java アプリケーションの処理方式: app-architecture/overview/java-application-processing-system.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
-          - app-architecture/client-side-rendering/csr-architecture-overview.md
-          - app-architecture/client-side-rendering/global-function.md
+          - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
+          - 全体処理方式: app-architecture/client-side-rendering/global-function.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
-              - app-architecture/client-side-rendering/backend-application/application-core.md
-              - app-architecture/client-side-rendering/backend-application/presentation.md
-              - app-architecture/client-side-rendering/backend-application/infrastructure.md
+              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
+              - プレゼンテーション層: app-architecture/client-side-rendering/backend-application/presentation.md
+              - インフラストラクチャ層: app-architecture/client-side-rendering/backend-application/infrastructure.md
           - テスト方針:
               - app-architecture/client-side-rendering/test/index.md
               - バックエンドアプリケーションのテスト:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
-                  - app-architecture/client-side-rendering/test/backend-application/unit-test.md
-                  - app-architecture/client-side-rendering/test/backend-application/integration-test.md
+                  - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
+                  - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
 #       - クックブック:
 #           - 目次: cook-book/index.md
 #           - 帳票印刷: cook-book/~~~
@@ -43,10 +43,10 @@ nav:
           - guidebooks/how-to-develop/index.md
           - Java 編:
               - guidebooks/how-to-develop/java/index.md
-              - guidebooks/how-to-develop/java/application-structure.md
-              - guidebooks/how-to-develop/java/create-project.md
-              - guidebooks/how-to-develop/java/common-project-settings.md
-              - guidebooks/how-to-develop/java/sub-project-settings.md
+              - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
+              - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
+              - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
+              - サブプロジェクトの個別設定: guidebooks/how-to-develop/java/sub-project-settings.md
 #           - Vue.js 編:
 #               - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
