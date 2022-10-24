@@ -41,7 +41,7 @@ Spring Data JDBC の詳細については[こちら](https://spring.pleiades.io/
 ### Spring Data JPA {#spring-data-jpa}
 
 JPA は、データベースレコードとテーブルエンティティ間のマッピング、およびテーブルエンティティへの変更をデータベースへ反映する仕組みを API 仕様として定めたものです。
-Spring Data JPA は JPA の参照実装である Hibernate をベースに、データベースアクセスの実装をサポートするフレームワークです。
+Spring Data JPA は JPA の参照実装である Hibernate を基に、データベースアクセスの実装をサポートするフレームワークです。
 Spring Data JDBC と同様、基本的な CRUD の実装はフレームワークが提供してくれます。
 シンプルなデータベースアクセスの場合、少量のコードで実装できます。
 

@@ -20,7 +20,7 @@ API モデルに対してアノテーションを付与し、チェックルー�
 
 Hibernate Validator であらかじめ実装されているチェックルールは[こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints)を参照してください。
 単項目チェックの多くは、これらの実装済みチェックルールを利用するだけで検証を行えます。
-既存のチェックルールでは実現できない場合は、[こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple)を参考にカスタムルールを実装します。
+既存のチェックルールでは実現できない場合は、[こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple)を参照してカスタムルールを実装します。
 
 単項目チェックは、コントローラーの引数である API モデルに対して一律実行されるように実装します。
 
@@ -43,8 +43,8 @@ Bean Validation のカスタムルールで実装すると処理方式の統一�
 
 ## 例外ハンドリング {#exception-handling}
 
-業務例外は、業務ロジックに従って適切なレイヤーでハンドリングします。
-どのレイヤーでハンドリングするかは業務ロジックに依存し、統一した取り扱いは行いません。
+業務例外は、業務ロジックに従って適切な層でハンドリングします。
+どの層でハンドリングするかは業務ロジックに依存し、統一した取り扱いは行いません。
 
 プレゼンテーション層まででハンドリングされなかった業務例外やシステム例外は、集約例外ハンドラーで処理します。
 
