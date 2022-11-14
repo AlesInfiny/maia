@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+    "title": "Dressca",
+    "description": "ECサイトDressca",
+    "version": "v1"
   },
   "servers": [
     {
@@ -10,12 +11,151 @@
       "description": "Generated server url"
     }
   ],
+  "tags": [
+    {
+      "name": "Asset",
+      "description": "アセットの情報にアクセスするAPI"
+    },
+    {
+      "name": "CatalogCategory",
+      "description": "カタログカテゴリの情報にアクセスするAPI"
+    },
+    {
+      "name": "BasketItem",
+      "description": "買い物かごアイテムの情報にアクセスするAPI"
+    },
+    {
+      "name": "CatalogBrand",
+      "description": "カタログブランドの情報にアクセスするAPI"
+    },
+    {
+      "name": "CatalogItem",
+      "description": "カタログアイテムの情報にアクセスする API コントローラーです."
+    },
+    {
+      "name": "Order",
+      "description": "注文の情報にアクセスするAPI"
+    }
+  ],
   "paths": {
+    "/api/basket-items": {
+      "get": {
+        "tags": [
+          "BasketItem"
+        ],
+        "summary": "買い物かごアイテムの一覧を取得する.",
+        "description": "買い物かごアイテムの一覧を返却する.",
+        "operationId": "getBasketItems",
+        "responses": {
+          "200": {
+            "description": "成功.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasketResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BasketItem"
+        ],
+        "summary": "買い物かごアイテム内の数量を変更します.",
+        "description": "買い物かごアイテム内の数量を変更します. 買い物かご内に存在しないカタログアイテム ID は指定できません.\u003cbr\u003eこの API では、買い物かご内に存在する商品の数量を変更できます. 買い物かご内に存在しないカタログアイテム Id を指定すると HTTP 400 を返却します.\u003cbr\u003eまたシステムに登録されていないカタログアイテム Id を指定した場合も HTTP 400 を返却します.",
+        "operationId": "putBasketItem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PutBasketItemRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "成功."
+          },
+          "400": {
+            "description": "リクエストエラー"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BasketItem"
+        ],
+        "summary": "買い物かごに商品を追加します.",
+        "description": "買い物かごに商品を追加します.\u003cbr\u003eこの API では、システムに登録されていないカタログアイテム Id を指定した場合 HTTP 400 を返却します.また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します.すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します.\u003cbr\u003e買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません. 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します.",
+        "operationId": "postBasketItem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostBasketItemsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "作成完了"
+          },
+          "400": {
+            "description": "リクエストエラー"
+          },
+          "500": {
+            "description": "サーバーエラー"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "買い物かごに登録されている商品を注文します.",
+        "description": "買い物かごに登録されている商品を注文します.",
+        "operationId": "postOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "サーバーエラー."
+          },
+          "400": {
+            "description": "リクエストエラー."
+          },
+          "201": {
+            "description": "成功."
+          }
+        }
+      }
+    },
     "/api/orders/{orderId}": {
       "get": {
         "tags": [
-          "order-controller"
+          "Order"
         ],
+        "summary": "注文情報を取得します.",
+        "description": "注文情報を取得します.",
         "operationId": "getById",
         "parameters": [
           {
@@ -29,12 +169,15 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "注文IDが存在しない."
+          },
           "200": {
-            "description": "OK",
+            "description": "成功.",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderDto"
+                  "$ref": "#/components/schemas/OrderResponse"
                 }
               }
             }
@@ -45,8 +188,10 @@
     "/api/catalog-items": {
       "get": {
         "tags": [
-          "catalog-items-controller"
+          "CatalogItem"
         ],
+        "summary": "カタログアイテムを検索して返します.",
+        "description": "カタログアイテムを検索して返します.",
         "operationId": "getByQuery",
         "parameters": [
           {
@@ -55,7 +200,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "default": 0
             }
           },
           {
@@ -64,7 +210,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "default": 0
             }
           },
           {
@@ -74,7 +221,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 1
+              "default": 0
             }
           },
           {
@@ -90,11 +237,39 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "成功",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedCatalogItemDto"
+                  "$ref": "#/components/schemas/PagedCatalogItemResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "リクエストエラー"
+          }
+        }
+      }
+    },
+    "/api/catalog-categories": {
+      "get": {
+        "tags": [
+          "CatalogCategory"
+        ],
+        "summary": "カタログカテゴリの一覧を取得します.",
+        "description": "カタログカテゴリの一覧を取得します.",
+        "operationId": "getCatalogCategories",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogCategory"
+                  }
                 }
               }
             }
@@ -105,14 +280,16 @@
     "/api/catalog-brands": {
       "get": {
         "tags": [
-          "catalog-brands-controller"
+          "CatalogBrand"
         ],
+        "summary": "カタログブランドの一覧を取得する.",
+        "description": "カタログブランドの一覧を取得する.",
         "operationId": "getCatalogBrand",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "成功",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
@@ -125,36 +302,19 @@
         }
       }
     },
-    "/api/basket-items": {
-      "get": {
-        "tags": [
-          "basket-item-controller"
-        ],
-        "operationId": "getBasketItems",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/BasketDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/assets/{assetCode}": {
       "get": {
         "tags": [
-          "assets-controller"
+          "Asset"
         ],
+        "summary": "アセットを取得する.",
+        "description": "与えられたアセットコードに対応するアセットを返却する.",
         "operationId": "get",
         "parameters": [
           {
             "name": "assetCode",
             "in": "path",
+            "description": "アセットコード",
             "required": true,
             "schema": {
               "type": "string"
@@ -162,15 +322,13 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
+          },
           "200": {
-            "description": "OK",
+            "description": "成功.",
             "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
+              "image/*": {}
             }
           }
         }
@@ -179,8 +337,10 @@
     "/api/basket-items/{catalogItemId}": {
       "delete": {
         "tags": [
-          "basket-item-controller"
+          "BasketItem"
         ],
+        "summary": "買い物かごから指定したカタログアイテム Id の商品を削除します.",
+        "description": "買い物かごから指定したカタログアイテム Id の商品を削除します.\u003cbr\u003ecatalogItemId には買い物かご内に存在するカタログアイテム Id を指定してください. カタログアイテム Id は 1 以上の整数です.0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.",
         "operationId": "deleteBasketItemAsync",
         "parameters": [
           {
@@ -194,15 +354,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "成功."
+          },
+          "400": {
+            "description": "リクエストエラー."
+          },
+          "404": {
+            "description": "買い物かご内に指定したカタログアイテム Id がない."
           }
         }
       }
@@ -210,14 +369,60 @@
   },
   "components": {
     "schemas": {
-      "AccountDto": {
+      "PutBasketItemRequest": {
+        "type": "object",
+        "properties": {
+          "catalogItemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PostOrderRequest": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "todofuken": {
+            "type": "string"
+          },
+          "shikuchoson": {
+            "type": "string"
+          },
+          "azanaAndOthers": {
+            "type": "string"
+          }
+        }
+      },
+      "PostBasketItemsRequest": {
+        "type": "object",
+        "properties": {
+          "catalogItemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "addedQuantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AccountResponse": {
         "type": "object",
         "properties": {
           "consumptionTaxRate": {
             "type": "number",
             "format": "double"
           },
-          "totalItemPrice": {
+          "totalItemsPrice": {
             "type": "number"
           },
           "deliveryCharge": {
@@ -231,7 +436,7 @@
           }
         }
       },
-      "CatalogItemSummaryDto": {
+      "CatalogItemSummaryResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -252,9 +457,35 @@
           }
         }
       },
-      "OrderDto": {
+      "OrderItemResponse": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemOrdered": {
+            "$ref": "#/components/schemas/CatalogItemSummaryResponse"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitPrice": {
+            "type": "number"
+          },
+          "subTotal": {
+            "type": "number"
+          }
+        }
+      },
+      "OrderResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "buyerId": {
             "type": "string"
           },
@@ -278,44 +509,17 @@
             "type": "string"
           },
           "account": {
-            "$ref": "#/components/schemas/AccountDto"
+            "$ref": "#/components/schemas/AccountResponse"
           },
           "orderItems": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OrderItemDto"
+              "$ref": "#/components/schemas/OrderItemResponse"
             }
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },
-      "OrderItemDto": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "itemOrdered": {
-            "$ref": "#/components/schemas/CatalogItemSummaryDto"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "subTotal": {
-            "type": "number"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "CatalogItemDto": {
+      "CatalogItemResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -350,13 +554,13 @@
           }
         }
       },
-      "PagedCatalogItemDto": {
+      "PagedCatalogItemResponse": {
         "type": "object",
         "properties": {
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CatalogItemDto"
+              "$ref": "#/components/schemas/CatalogItemResponse"
             }
           },
           "totalCount": {
@@ -376,6 +580,10 @@
       "CatalogBrand": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "name": {
             "type": "string"
           },
@@ -390,6 +598,10 @@
       "CatalogCategory": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "name": {
             "type": "string"
           }
@@ -439,32 +651,20 @@
       "CatalogItemAsset": {
         "type": "object",
         "properties": {
-          "catalogItem": {
-            "$ref": "#/components/schemas/CatalogItem"
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "catalogItemId": {
+            "type": "integer",
+            "format": "int64"
           },
           "assetCode": {
             "type": "string"
           }
         }
       },
-      "BasketDto": {
-        "type": "object",
-        "properties": {
-          "buyerId": {
-            "type": "string"
-          },
-          "account": {
-            "$ref": "#/components/schemas/AccountDto"
-          },
-          "basketItems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BasketItemDto"
-            }
-          }
-        }
-      },
-      "BasketItemDto": {
+      "BasketItemResponse": {
         "type": "object",
         "properties": {
           "catalogItemId": {
@@ -482,7 +682,24 @@
             "type": "number"
           },
           "catalogItem": {
-            "$ref": "#/components/schemas/CatalogItemSummaryDto"
+            "$ref": "#/components/schemas/CatalogItemSummaryResponse"
+          }
+        }
+      },
+      "BasketResponse": {
+        "type": "object",
+        "properties": {
+          "buyerId": {
+            "type": "string"
+          },
+          "account": {
+            "$ref": "#/components/schemas/AccountResponse"
+          },
+          "basketItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BasketItemResponse"
+            }
           }
         }
       }
