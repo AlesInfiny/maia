@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'org.springdoc.openapi-gradle-plugin' version '1.4.0'
 }
 
 group = 'com.dressca'
@@ -34,6 +35,11 @@ configurations {
 	}
 }
 
+openApi {
+    apiDocsUrl.set("http://localhost:8080/api-docs")
+    outputDir.set(file("$buildDir/docs"))
+    outputFileName.set("api-specification.json")
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }
