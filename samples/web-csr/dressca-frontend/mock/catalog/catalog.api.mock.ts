@@ -178,7 +178,8 @@ export const catalogApiMock = (middlewares) => {
     if (!!query && !!query.categoryId) {
       filterdItems = filterdItems.filter(
         // 文字列で比較
-        (item) => item.catalogCategoryId == parseInt(query.categoryId as string),
+        (item) =>
+          item.catalogCategoryId == parseInt(query.categoryId as string),
       );
     }
 
