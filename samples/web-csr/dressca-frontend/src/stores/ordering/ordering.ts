@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import type { OrderDto } from '@/api-client/models/order-dto';
-import type { PostOrderInputDto } from '@/api-client/models/post-order-input-dto';
+import type { PostOrderRequest } from '@/api-client/models/post-order-request';
 
 export const useOrderingStore = defineStore({
   id: 'ordering',
@@ -16,7 +16,7 @@ export const useOrderingStore = defineStore({
       shikuchoson: string,
       azanaAndOthers: string,
     ) {
-      const postOrderInput: PostOrderInputDto = {
+      const postOrderInput: PostOrderRequest = {
         fullName: fullName,
         postalCode: postalCode,
         todofuken: todofuken,
