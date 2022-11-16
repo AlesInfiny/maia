@@ -23,11 +23,11 @@ const { selectedCategory, selectedBrand } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl, getAssetUrl } = assetHelper();
 
-const getBrandName = (catalogBrandId: number) => {
+const getBrandName = (catalogBrandId?: number) => {
   return getBrands.value.find((brand) => brand.id === catalogBrandId)?.name;
 };
 
-const addBasket = (catalogItemId: number) => {
+const addBasket = (catalogItemId?: number) => {
   router.push({ name: 'basket', params: { catalogItemId: catalogItemId } });
 };
 

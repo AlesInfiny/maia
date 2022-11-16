@@ -67,7 +67,8 @@ onMounted(async () => {
   ) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     state.added = basketStore.getBasket.basketItems.find(
-      (item) => item.catalogItemId === props.catalogItemId,
+      (item: { catalogItemId: number | undefined }) =>
+        item.catalogItemId === props.catalogItemId,
     )!;
   }
 });
