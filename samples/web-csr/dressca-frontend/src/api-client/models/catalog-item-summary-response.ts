@@ -17,26 +17,32 @@
 /**
  * 
  * @export
- * @interface CatalogItemAsset
+ * @interface CatalogItemSummaryResponse
  */
-export interface CatalogItemAsset {
+export interface CatalogItemSummaryResponse {
     /**
      * 
      * @type {number}
-     * @memberof CatalogItemAsset
+     * @memberof CatalogItemSummaryResponse
      */
     'id'?: number;
     /**
      * 
-     * @type {number}
-     * @memberof CatalogItemAsset
+     * @type {string}
+     * @memberof CatalogItemSummaryResponse
      */
-    'catalogItemId'?: number;
+    'name'?: string;
     /**
      * 
      * @type {string}
-     * @memberof CatalogItemAsset
+     * @memberof CatalogItemSummaryResponse
      */
-    'assetCode'?: string;
+    'productCode'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CatalogItemSummaryResponse
+     */
+    'assetCodes'?: Array<string>;
 }
 
