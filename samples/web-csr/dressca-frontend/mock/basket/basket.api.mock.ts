@@ -1,10 +1,10 @@
 const base = 'api';
-import type { BasketDto } from '../../src/api-client/models/basket-dto';
-import type { BasketItemDto } from '../../src/api-client/models/basket-item-dto';
-import type { PostBasketItemsInputDto } from '../../src/api-client/models/post-basket-items-input-dto';
-import type { PutBasketItemsInputDto } from '../../src/api-client/models/put-basket-items-input-dto';
+import type { BasketResponse } from '../../src/api-client/models/basket-response';
+import type { BasketItemResponse } from '../../src/api-client/models/basket-item-response';
+import type { PostBasketItemsRequest } from '../../src/api-client/models/post-basket-items-request';
+import type { PutBasketItemRequest } from '../../src/api-client/models/put-basket-item-request';
 
-const basket: BasketDto = {
+const basket: BasketResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
   account: {
     consumptionTaxRate: 0.1,
@@ -16,7 +16,7 @@ const basket: BasketDto = {
   basketItems: [],
 };
 
-const mockBasketItems: BasketItemDto[] = [
+const mockBasketItems: BasketItemResponse[] = [
   {
     catalogItemId: 1,
     quantity: 0,
@@ -176,7 +176,7 @@ export const basketApiMock = (middlewares) => {
     _.on('data', (chunk) => (body += chunk));
     _.on('end', () => {
       if (_.method === 'POST') {
-        const dto: PostBasketItemsInputDto = JSON.parse(body);
+        const dto: PostBasketItemsRequest = JSON.parse(body);
         const target = basket.basketItems?.filter(
           (item) => item.catalogItemId === dto.catalogItemId,
         );
@@ -198,7 +198,7 @@ export const basketApiMock = (middlewares) => {
       }
 
       if (_.method === 'PUT') {
-        const dto: PutBasketItemsInputDto[] = JSON.parse(body);
+        const dto: PutBasketItemRequest[] = JSON.parse(body);
         dto.forEach((putBasketItem) => {
           const target = basket.basketItems?.filter(
             (item) => item.catalogItemId === putBasketItem.catalogItemId,
