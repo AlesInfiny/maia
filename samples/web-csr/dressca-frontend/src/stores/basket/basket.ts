@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import type { BasketDto } from '@/api-client/models/basket-dto';
+import type { BasketResponse } from '@/api-client/models/basket-response';
 import type { PutBasketItemRequest } from '@/api-client/models/put-basket-item-request';
 import type { PostBasketItemsRequest } from '@/api-client/models/post-basket-items-request';
 
 export const useBasketStore = defineStore({
   id: 'basket',
   state: () => ({
-    basket: {} as BasketDto,
+    basket: {} as BasketResponse,
   }),
   actions: {
     async add(catalogItemId: number) {
@@ -35,7 +35,7 @@ export const useBasketStore = defineStore({
     },
   },
   getters: {
-    getBasket(state): BasketDto {
+    getBasket(state): BasketResponse {
       return state.basket;
     },
   },
