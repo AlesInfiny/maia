@@ -11,6 +11,7 @@ export const authenticationGuard = (router: Router) => {
       'account/login',
       'catalog',
       'basket',
+      'error',
     ];
     if (ignoreAuthPaths.includes(to.name)) {
       return true;
