@@ -3,7 +3,7 @@ import { accountRoutes } from '@/router/account/account';
 import { catalogRoutes } from '@/router/catalog/catalog';
 import { basketRoutes } from '@/router/basket/basket';
 import { orderingRoutes } from '@/router/ordering/ordering';
-import { errorRoutes } from './error/error';
+import { errorRoutes } from '@/router/error/error';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
