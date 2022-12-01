@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -86,7 +86,7 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content)})
   @PostMapping
-  public ResponseEntity<?> postOrder(@RequestBody PostOrderRequest postOrderInput,
+  public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
