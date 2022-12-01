@@ -2,6 +2,7 @@ package com.dressca.web.controller.dto.catalog;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CatalogItemResponse extends CatalogItemSummaryResponse {
+  @NotNull
   private String description;
+  @NotNull
   private BigDecimal price;
+  @NotNull
   private long catalogCategoryId;
+  @NotNull
   private long catalogBrandId;
 
   /**
