@@ -25,12 +25,12 @@ export interface PutBasketItemRequest {
      * @type {number}
      * @memberof PutBasketItemRequest
      */
-    'catalogItemId'?: number;
+    'catalogItemId': number;
     /**
      * 
      * @type {number}
      * @memberof PutBasketItemRequest
      */
-    'quantity'?: number;
+    'quantity': number;
 }
 

@@ -26,7 +26,7 @@ export interface OrderItemResponse {
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'id'?: number;
+    'id': number;
     /**
      * 
      * @type {CatalogItemSummaryResponse}
@@ -38,18 +38,18 @@ export interface OrderItemResponse {
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'quantity'?: number;
+    'quantity': number;
     /**
      * 
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'unitPrice'?: number;
+    'unitPrice': number;
     /**
      * 
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'subTotal'?: number;
+    'subTotal': number;
 }
 

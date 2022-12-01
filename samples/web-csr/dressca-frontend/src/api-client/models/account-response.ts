@@ -25,30 +25,30 @@ export interface AccountResponse {
      * @type {number}
      * @memberof AccountResponse
      */
-    'consumptionTaxRate'?: number;
+    'consumptionTaxRate': number;
     /**
      * 
      * @type {number}
      * @memberof AccountResponse
      */
-    'totalItemsPrice'?: number;
+    'totalItemsPrice': number;
     /**
      * 
      * @type {number}
      * @memberof AccountResponse
      */
-    'deliveryCharge'?: number;
+    'deliveryCharge': number;
     /**
      * 
      * @type {number}
      * @memberof AccountResponse
      */
-    'consumptionTax'?: number;
+    'consumptionTax': number;
     /**
      * 
      * @type {number}
      * @memberof AccountResponse
      */
-    'totalPrice'?: number;
+    'totalPrice': number;
 }
 

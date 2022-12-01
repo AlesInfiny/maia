@@ -27,49 +27,49 @@ export interface OrderResponse {
      * @type {number}
      * @memberof OrderResponse
      */
-    'id'?: number;
+    'id': number;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'buyerId'?: string;
+    'buyerId': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'orderDate'?: string;
+    'orderDate': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'fullName'?: string;
+    'fullName': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'postalCode'?: string;
+    'postalCode': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'todofuken'?: string;
+    'todofuken': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'shikuchoson'?: string;
+    'shikuchoson': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'azanaAndOthers'?: string;
+    'azanaAndOthers': string;
     /**
      * 
      * @type {AccountResponse}

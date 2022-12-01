@@ -25,19 +25,19 @@ export interface CatalogItemResponse {
      * @type {number}
      * @memberof CatalogItemResponse
      */
-    'id'?: number;
+    'id': number;
     /**
      * 
      * @type {string}
      * @memberof CatalogItemResponse
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof CatalogItemResponse
      */
-    'productCode'?: string;
+    'productCode': string;
     /**
      * 
      * @type {Array<string>}
@@ -49,24 +49,24 @@ export interface CatalogItemResponse {
      * @type {string}
      * @memberof CatalogItemResponse
      */
-    'description'?: string;
+    'description': string;
     /**
      * 
      * @type {number}
      * @memberof CatalogItemResponse
      */
-    'price'?: number;
+    'price': number;
     /**
      * 
      * @type {number}
      * @memberof CatalogItemResponse
      */
-    'catalogCategoryId'?: number;
+    'catalogCategoryId': number;
     /**
      * 
      * @type {number}
      * @memberof CatalogItemResponse
      */
-    'catalogBrandId'?: number;
+    'catalogBrandId': number;
 }
 

@@ -25,7 +25,7 @@ export interface PostBasketItemsRequest {
      * @type {number}
      * @memberof PostBasketItemsRequest
      */
-    'catalogItemId'?: number;
+    'catalogItemId': number;
     /**
      * 
      * @type {number}

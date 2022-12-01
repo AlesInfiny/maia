@@ -26,25 +26,25 @@ export interface BasketItemResponse {
      * @type {number}
      * @memberof BasketItemResponse
      */
-    'catalogItemId'?: number;
+    'catalogItemId': number;
     /**
      * 
      * @type {number}
      * @memberof BasketItemResponse
      */
-    'unitPrice'?: number;
+    'unitPrice': number;
     /**
      * 
      * @type {number}
      * @memberof BasketItemResponse
      */
-    'quantity'?: number;
+    'quantity': number;
     /**
      * 
      * @type {number}
      * @memberof BasketItemResponse
      */
-    'subTotal'?: number;
+    'subTotal': number;
     /**
      * 
      * @type {CatalogItemSummaryResponse}

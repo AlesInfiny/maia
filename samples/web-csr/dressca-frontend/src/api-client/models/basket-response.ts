@@ -27,7 +27,7 @@ export interface BasketResponse {
      * @type {string}
      * @memberof BasketResponse
      */
-    'buyerId'?: string;
+    'buyerId': string;
     /**
      * 
      * @type {AccountResponse}

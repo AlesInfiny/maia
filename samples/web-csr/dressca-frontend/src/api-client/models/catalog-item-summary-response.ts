@@ -25,19 +25,19 @@ export interface CatalogItemSummaryResponse {
      * @type {number}
      * @memberof CatalogItemSummaryResponse
      */
-    'id'?: number;
+    'id': number;
     /**
      * 
      * @type {string}
      * @memberof CatalogItemSummaryResponse
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof CatalogItemSummaryResponse
      */
-    'productCode'?: string;
+    'productCode': string;
     /**
      * 
      * @type {Array<string>}

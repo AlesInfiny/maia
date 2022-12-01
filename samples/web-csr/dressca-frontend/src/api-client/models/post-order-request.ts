@@ -25,30 +25,30 @@ export interface PostOrderRequest {
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'fullName'?: string;
+    'fullName': string;
     /**
      * 
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'postalCode'?: string;
+    'postalCode': string;
     /**
      * 
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'todofuken'?: string;
+    'todofuken': string;
     /**
      * 
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'shikuchoson'?: string;
+    'shikuchoson': string;
     /**
      * 
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'azanaAndOthers'?: string;
+    'azanaAndOthers': string;
 }
 
