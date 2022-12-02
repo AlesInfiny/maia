@@ -1,0 +1,38 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: dressca-frontend CI
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'samples/web-csr/dressca-frontend/**'
+      - '.github/workflows/samples-dressca-frontend.ci.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: samples/web-csr/dressca-frontend
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: node パッケージのインストール
+      run: npm install
+    - name: TypeScript の型チェック
+      run: npm run typecheck
+    - name: 単体テストの実行
+      run: npm run test:unit
