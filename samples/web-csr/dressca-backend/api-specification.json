@@ -109,11 +109,11 @@
           "201": {
             "description": "作成完了"
           },
-          "400": {
-            "description": "リクエストエラー"
-          },
           "500": {
             "description": "サーバーエラー"
+          },
+          "400": {
+            "description": "リクエストエラー"
           }
         }
       }
@@ -140,11 +140,11 @@
           "500": {
             "description": "サーバーエラー."
           },
-          "400": {
-            "description": "リクエストエラー."
-          },
           "201": {
             "description": "成功."
+          },
+          "400": {
+            "description": "リクエストエラー."
           }
         }
       }
@@ -357,11 +357,11 @@
           "204": {
             "description": "成功."
           },
-          "400": {
-            "description": "リクエストエラー."
-          },
           "404": {
             "description": "買い物かご内に指定したカタログアイテム Id がない."
+          },
+          "400": {
+            "description": "リクエストエラー."
           }
         }
       }
@@ -370,6 +370,10 @@
   "components": {
     "schemas": {
       "PutBasketItemRequest": {
+        "required": [
+          "catalogItemId",
+          "quantity"
+        ],
         "type": "object",
         "properties": {
           "catalogItemId": {
@@ -383,6 +387,13 @@
         }
       },
       "PostOrderRequest": {
+        "required": [
+          "azanaAndOthers",
+          "fullName",
+          "postalCode",
+          "shikuchoson",
+          "todofuken"
+        ],
         "type": "object",
         "properties": {
           "fullName": {
@@ -403,6 +414,9 @@
         }
       },
       "PostBasketItemsRequest": {
+        "required": [
+          "catalogItemId"
+        ],
         "type": "object",
         "properties": {
           "catalogItemId": {
@@ -416,6 +430,13 @@
         }
       },
       "AccountResponse": {
+        "required": [
+          "consumptionTax",
+          "consumptionTaxRate",
+          "deliveryCharge",
+          "totalItemsPrice",
+          "totalPrice"
+        ],
         "type": "object",
         "properties": {
           "consumptionTaxRate": {
@@ -437,6 +458,11 @@
         }
       },
       "CatalogItemSummaryResponse": {
+        "required": [
+          "id",
+          "name",
+          "productCode"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -458,6 +484,12 @@
         }
       },
       "OrderItemResponse": {
+        "required": [
+          "id",
+          "quantity",
+          "subTotal",
+          "unitPrice"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -480,6 +512,16 @@
         }
       },
       "OrderResponse": {
+        "required": [
+          "azanaAndOthers",
+          "buyerId",
+          "fullName",
+          "id",
+          "orderDate",
+          "postalCode",
+          "shikuchoson",
+          "todofuken"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -520,6 +562,15 @@
         }
       },
       "CatalogItemResponse": {
+        "required": [
+          "catalogBrandId",
+          "catalogCategoryId",
+          "description",
+          "id",
+          "name",
+          "price",
+          "productCode"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -665,6 +716,12 @@
         }
       },
       "BasketItemResponse": {
+        "required": [
+          "catalogItemId",
+          "quantity",
+          "subTotal",
+          "unitPrice"
+        ],
         "type": "object",
         "properties": {
           "catalogItemId": {
@@ -687,6 +744,9 @@
         }
       },
       "BasketResponse": {
+        "required": [
+          "buyerId"
+        ],
         "type": "object",
         "properties": {
           "buyerId": {

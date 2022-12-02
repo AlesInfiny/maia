@@ -1,5 +1,6 @@
 package com.dressca.web.controller.dto.catalog;
 
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CatalogCategoryResponse {
+  @NotNull
   private long id;
+  @NotNull
   private String name;
 }

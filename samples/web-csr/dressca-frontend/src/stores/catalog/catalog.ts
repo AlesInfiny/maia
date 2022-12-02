@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import type { CatalogCategoryDto } from '@/api-client/models/catalog-category-dto';
-import type { CatalogBrandDto } from '@/api-client/models/catalog-brand-dto';
-import type { PagedListOfCatalogItemDto } from '@/api-client/models/paged-list-of-catalog-item-dto';
+import type { CatalogCategory } from '@/api-client/models/catalog-category';
+import type { CatalogBrand } from '@/api-client/models/catalog-brand';
+import type { PagedCatalogItemResponse } from '@/api-client/models/paged-catalog-item-response';
 
 export const useCatalogStore = defineStore({
   id: 'catalog',
   state: () => ({
-    categories: [] as CatalogCategoryDto[],
-    brands: [] as CatalogBrandDto[],
-    catalogItemPage: {} as PagedListOfCatalogItemDto,
+    categories: [] as CatalogCategory[],
+    brands: [] as CatalogBrand[],
+    catalogItemPage: {} as PagedCatalogItemResponse,
   }),
   actions: {
     async fetchCategories() {

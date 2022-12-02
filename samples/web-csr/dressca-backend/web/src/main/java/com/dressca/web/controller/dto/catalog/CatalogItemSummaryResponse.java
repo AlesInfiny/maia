@@ -1,7 +1,7 @@
 package com.dressca.web.controller.dto.catalog;
 
 import java.util.List;
-
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CatalogItemSummaryResponse {
+  @NotNull
   private long id;
+  @NotNull
   private String name;
+  @NotNull
   private String productCode;
   private List<String> assetCodes;
 }

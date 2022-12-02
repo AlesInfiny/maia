@@ -1,14 +1,12 @@
 import { describe, it, expect } from 'vitest';
 
 import { mount } from '@vue/test-utils';
-import BasketItem from '@/components/basket/BasketItem.vue';
-import type { BasketItemDto } from '@/api-client/models/basket-item-dto';
+import BasketItem from '../basket/BasketItem.vue';
+import type { BasketItemResponse } from '../../api-client/models/basket-item-response';
 
 describe('HelloWorld', () => {
   it('小計が日本円形式で表示できる', () => {
-    const basketItemDto: BasketItemDto = {
-      catalogItemId: 10,
-      quantity: 2,
+    const basketItemDto: BasketItemResponse = {
       subTotal: 100000,
       unitPrice: 50000,
     };
@@ -17,10 +15,7 @@ describe('HelloWorld', () => {
   });
 
   it('単価が日本円形式で表示できる', () => {
-    const basketItemDto: BasketItemDto = {
-      catalogItemId: 11,
-      quantity: 3,
-      subTotal: 150000,
+    const basketItemDto: BasketItemResponse = {
       unitPrice: 50000,
     };
     const wrapper = mount(BasketItem, { props: { item: basketItemDto } });
