@@ -5,7 +5,7 @@ name: dressca-frontend CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'samples/web-csr/dressca-frontend/**'
       - '.github/workflows/samples-dressca-frontend.ci.yml'
@@ -25,14 +25,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: node パッケージのインストール
-      run: npm install
-    - name: TypeScript の型チェック
-      run: npm run typecheck
-    - name: 単体テストの実行
-      run: npm run test:unit
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: node パッケージのインストール
+        run: npm install
+      - name: TypeScript の型チェック
+        run: npm run typecheck
+      - name: 単体テストの実行
+        run: npm run test:unit
