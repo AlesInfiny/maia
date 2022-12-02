@@ -2,7 +2,7 @@
 import { onMounted, reactive, toRefs } from 'vue';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useAccountStore } from '@/stores/account/account';
-import type { BasketDto } from '@/api-client/models/basket-dto';
+import type { BasketResponse } from '@/api-client/models/basket-response';
 
 import { useOrderingStore } from '@/stores/ordering/ordering';
 import { useRouter } from 'vue-router';
@@ -12,7 +12,7 @@ import assetHelper from '@/shared/helpers/assetHelper';
 const accountStore = useAccountStore();
 
 const state = reactive({
-  basket: {} as BasketDto,
+  basket: {} as BasketResponse,
   address: accountStore.getAddress,
 });
 

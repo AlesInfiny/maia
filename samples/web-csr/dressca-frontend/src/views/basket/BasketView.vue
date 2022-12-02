@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from 'vue';
 import { useBasketStore } from '@/stores/basket/basket';
-import type { BasketDto } from '@/api-client/models/basket-dto';
-import type { BasketItemDto } from '@/api-client/models/basket-item-dto';
+import type { BasketResponse } from '@/api-client/models/basket-response';
+import type { BasketItemResponse } from '@/api-client/models/basket-item-response';
 import { useRouter } from 'vue-router';
 import BasketItem from '@/components/basket/BasketItem.vue';
 import currencyHelper from '@/shared/helpers/currencyHelper';
@@ -13,8 +13,8 @@ const props = defineProps<{
 }>();
 
 const state = reactive({
-  basket: {} as BasketDto,
-  added: null as BasketItemDto | null,
+  basket: {} as BasketResponse,
+  added: null as BasketItemResponse | null,
 });
 
 const { basket, added } = toRefs(state);

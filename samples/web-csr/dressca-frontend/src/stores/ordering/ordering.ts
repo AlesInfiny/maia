@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import type { OrderDto } from '@/api-client/models/order-dto';
-import type { PostOrderInputDto } from '@/api-client/models/post-order-input-dto';
+import type { OrderResponse } from '@/api-client/models/order-response';
+import type { PostOrderRequest } from '@/api-client/models/post-order-request';
 
 export const useOrderingStore = defineStore({
   id: 'ordering',
   state: () => ({
-    lastOrder: undefined as OrderDto | undefined,
+    lastOrder: undefined as OrderResponse | undefined,
   }),
   actions: {
     async order(
@@ -16,7 +16,7 @@ export const useOrderingStore = defineStore({
       shikuchoson: string,
       azanaAndOthers: string,
     ) {
-      const postOrderInput: PostOrderInputDto = {
+      const postOrderInput: PostOrderRequest = {
         fullName: fullName,
         postalCode: postalCode,
         todofuken: todofuken,
