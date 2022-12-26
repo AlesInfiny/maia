@@ -154,10 +154,15 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
+      - name: ビルドアーティファクトのダウンロード
+        uses: actions/download-artifact@v3
+        with:
+          name: documents
+
       - name: Githubのリリース
         uses: softprops/action-gh-release@v1
         with:
-          files: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
 
   release-documents:
