@@ -1,7 +1,7 @@
 ---
 name: 古いアーティファクトの削除
 
-on:
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       target:
