@@ -147,7 +147,7 @@ jobs:
           name: documents
           path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           retention-days: 7
-          
+
   release-github:
     name: Githubのリリース
     needs: build
