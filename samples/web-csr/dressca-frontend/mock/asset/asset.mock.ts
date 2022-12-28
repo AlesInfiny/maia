@@ -1,14 +1,15 @@
 const base = 'api/assets';
 import * as fs from 'fs';
 import * as path from 'path';
+import type { Express, Response } from 'express-serve-static-core';
 
-const readFile = (file, response) => {
+const readFile = (file: string, response: Response) => {
   fs.readFile(path.resolve(__dirname, file), (errors, data) => {
     response.end(data);
   });
 };
 
-export const assetMock = (middlewares) => {
+export const assetMock = (middlewares: Express) => {
   middlewares.use(`/${base}/b52dc7f712d94ca5812dd995bf926c04`, (_, res) => {
     res.writeHead(200, { 'Content-Type': 'image/png' });
     readFile(`b52dc7f712d94ca5812dd995bf926c04`, res);
