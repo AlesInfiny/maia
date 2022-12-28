@@ -4,7 +4,8 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "src/api-client/models/*"
+    "src/api-client/models/*",
+    "mock/**/*"
   ],
   "exclude": ["src/**/__tests__/*", "src/api-client/**/*"],
   "compilerOptions": {
