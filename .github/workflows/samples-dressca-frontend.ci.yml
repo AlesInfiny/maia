@@ -4,7 +4,7 @@
 
 name: dressca-frontend CI
 
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   pull_request:
     branches: [main]
     paths:
@@ -38,7 +38,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'    
+      - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
       - name: node パッケージのインストール
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm install
