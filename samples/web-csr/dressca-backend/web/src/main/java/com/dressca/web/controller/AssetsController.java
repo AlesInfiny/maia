@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,7 +45,7 @@ public class AssetsController {
   @Operation(summary = "アセットを取得する.", description = "与えられたアセットコードに対応するアセットを返却する.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.",
-          content = @Content(mediaType = "image/*")),
+          content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content)})
   @GetMapping("{assetCode}")
   public ResponseEntity<Resource> get(
