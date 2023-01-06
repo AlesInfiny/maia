@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-import type { OrderResponse } from '@/api-client/models/order-response';
-import type { PostOrderRequest } from '@/api-client/models/post-order-request';
+import type { OrderResponse, PostOrderRequest } from '@/generated/api-client';
+import { orderApi } from '@/api-client';
 
 export const useOrderingStore = defineStore({
   id: 'ordering',
@@ -23,10 +22,10 @@ export const useOrderingStore = defineStore({
         shikuchoson: shikuchoson,
         azanaAndOthers: azanaAndOthers,
       };
-      const orderResponse = await axios.post('orders', postOrderInput);
+      const orderResponse = await orderApi.postOrder(postOrderInput);
       const url = new URL(orderResponse.headers.location);
-      const getPath = url.pathname.substring('/api'.length);
-      const orderResultResponse = await axios.get(getPath);
+      const orderId = Number(url.pathname.split('/').pop());
+      const orderResultResponse = await orderApi.getById(orderId);
       this.lastOrder = orderResultResponse.data;
     },
     clearLastOrder() {

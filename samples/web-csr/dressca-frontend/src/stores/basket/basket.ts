@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-import type { BasketResponse } from '@/api-client/models/basket-response';
-import type { PutBasketItemRequest } from '@/api-client/models/put-basket-item-request';
-import type { PostBasketItemsRequest } from '@/api-client/models/post-basket-items-request';
+import type {
+  BasketResponse,
+  PutBasketItemRequest,
+  PostBasketItemsRequest,
+} from '@/generated/api-client';
+import { basketItemApi } from '@/api-client';
 
 export const useBasketStore = defineStore({
   id: 'basket',
@@ -15,7 +17,7 @@ export const useBasketStore = defineStore({
         catalogItemId: catalogItemId,
         addedQuantity: 1,
       };
-      await axios.post('basket-items', params);
+      await basketItemApi.postBasketItem(params);
     },
     async update(catalogItemId: number, newQuantity: number) {
       const params: PutBasketItemRequest[] = [
@@ -24,13 +26,13 @@ export const useBasketStore = defineStore({
           quantity: newQuantity,
         },
       ];
-      await axios.put('basket-items', params);
+      await basketItemApi.putBasketItem(params);
     },
     async remove(catalogItemId: number) {
-      await axios.delete(`/basket-items/${catalogItemId}`);
+      await basketItemApi.deleteBasketItemAsync(catalogItemId);
     },
     async fetch() {
-      const response = await axios.get('basket-items');
+      const response = await basketItemApi.getBasketItems();
       this.basket = response.data;
     },
   },
