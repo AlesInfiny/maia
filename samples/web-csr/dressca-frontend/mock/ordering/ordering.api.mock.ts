@@ -1,6 +1,8 @@
 const base = 'api';
-import type { OrderResponse } from '../../src/api-client/models/order-response';
-import type { PostOrderRequest } from '../../src/api-client/models/post-order-request';
+import type {
+  OrderResponse,
+  PostOrderRequest,
+} from '../../src/generated/api-client';
 import type { Express } from 'express-serve-static-core';
 
 // mock のため、注文データはidとorderDate以外固定値を返却する

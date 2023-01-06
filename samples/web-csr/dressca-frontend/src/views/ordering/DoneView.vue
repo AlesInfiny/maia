@@ -2,7 +2,7 @@
 import { onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useOrderingStore } from '@/stores/ordering/ordering';
-import type { OrderResponse } from '@/api-client/models/order-response';
+import type { OrderResponse } from '@/generated/api-client/models/order-response';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';
 

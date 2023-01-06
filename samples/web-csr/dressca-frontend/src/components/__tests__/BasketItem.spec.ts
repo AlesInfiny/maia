@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 import BasketItem from '../basket/BasketItem.vue';
-import type { BasketItemResponse } from '../../api-client/models/basket-item-response';
+import type { BasketItemResponse } from '../../generated/api-client/models/basket-item-response';
 
 describe('HelloWorld', () => {
   it('小計が日本円形式で表示できる', () => {

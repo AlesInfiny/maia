@@ -1,13 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "src/api-client/models/*",
-    "mock/**/*"
-  ],
-  "exclude": ["src/**/__tests__/*", "src/api-client/**/*"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*"],
+  "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
