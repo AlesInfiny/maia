@@ -5,7 +5,7 @@ import type {
   PostBasketItemsRequest,
   PutBasketItemRequest,
 } from '../../src/generated/api-client';
-import type { Express } from 'express-serve-static-core';
+import type { Connect } from 'vite';
 
 const basket: BasketResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -154,17 +154,17 @@ const mockBasketItems: BasketItemResponse[] = [
   },
 ];
 
-export const basketApiMock = (middlewares: Express) => {
-  middlewares.use(`/${base}/basket-items`, (_, res) => {
-    if (_.method === 'GET') {
+export const basketApiMock = (middlewares: Connect.Server) => {
+  middlewares.use(`/${base}/basket-items`, (req, res) => {
+    if (req.method === 'GET') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.write(JSON.stringify(basket));
       res.end();
       return;
     }
 
-    if (_.method === 'DELETE') {
-      const catalogItemId = Number(_.url.substring(1));
+    if (req.method === 'DELETE') {
+      const catalogItemId = Number(req.url?.substring(1));
       res.writeHead(204, { 'Content-Type': 'application/json' });
       basket.basketItems = basket.basketItems?.filter(
         (item) => item.catalogItemId !== catalogItemId,
@@ -176,9 +176,9 @@ export const basketApiMock = (middlewares: Express) => {
     }
 
     let body = '';
-    _.on('data', (chunk) => (body += chunk));
-    _.on('end', () => {
-      if (_.method === 'POST') {
+    req.on('data', (chunk) => (body += chunk));
+    req.on('end', () => {
+      if (req.method === 'POST') {
         const dto: PostBasketItemsRequest = JSON.parse(body);
         const target = basket.basketItems?.filter(
           (item) => item.catalogItemId === dto.catalogItemId,
@@ -202,7 +202,7 @@ export const basketApiMock = (middlewares: Express) => {
         return;
       }
 
-      if (_.method === 'PUT') {
+      if (req.method === 'PUT') {
         const dto: PutBasketItemRequest[] = JSON.parse(body);
         dto.forEach((putBasketItem) => {
           const target = basket.basketItems?.filter(

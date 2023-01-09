@@ -1,15 +1,16 @@
 const base = 'api/assets';
 import * as fs from 'fs';
 import * as path from 'path';
-import type { Express, Response } from 'express-serve-static-core';
+import type { Connect } from 'vite';
+import * as http from 'http';
 
-const readFile = (file: string, response: Response) => {
+const readFile = (file: string, response: http.ServerResponse) => {
   fs.readFile(path.resolve(__dirname, file), (errors, data) => {
     response.end(data);
   });
 };
 
-export const assetMock = (middlewares: Express) => {
+export const assetMock = (middlewares: Connect.Server) => {
   middlewares.use(`/${base}/b52dc7f712d94ca5812dd995bf926c04`, (_, res) => {
     res.writeHead(200, { 'Content-Type': 'image/png' });
     readFile(`b52dc7f712d94ca5812dd995bf926c04`, res);

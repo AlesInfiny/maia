@@ -5,7 +5,7 @@ import type {
   CatalogBrand,
   PagedCatalogItemResponse,
 } from '../../src/generated/api-client';
-import type { Express } from 'express-serve-static-core';
+import type { Connect } from 'vite';
 
 const categories: CatalogCategory[] = [
   {
@@ -157,20 +157,20 @@ const catalogItemPage: PagedCatalogItemResponse = {
   ],
 };
 
-export const catalogApiMock = (middlewares: Express) => {
-  middlewares.use(`/${base}/catalog-categories`, (_, res) => {
+export const catalogApiMock = (middlewares: Connect.Server) => {
+  middlewares.use(`/${base}/catalog-categories`, (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.write(JSON.stringify(categories));
     res.end();
   });
-  middlewares.use(`/${base}/catalog-brands`, (_, res) => {
+  middlewares.use(`/${base}/catalog-brands`, (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.write(JSON.stringify(brands));
     res.end();
   });
-  middlewares.use(`/${base}/catalog-items`, (_, res) => {
+  middlewares.use(`/${base}/catalog-items`, (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    const query = url.parse(_.url, true).query;
+    const query = req.url && url.parse(req.url, true).query;
     const page: PagedCatalogItemResponse = {
       page: catalogItemPage.page,
       pageSize: catalogItemPage.pageSize,

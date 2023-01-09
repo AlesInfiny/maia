@@ -3,7 +3,7 @@ import type {
   OrderResponse,
   PostOrderRequest,
 } from '../../src/generated/api-client';
-import type { Express } from 'express-serve-static-core';
+import type { Connect } from 'vite';
 
 // mock のため、注文データはidとorderDate以外固定値を返却する
 const order: OrderResponse = {
@@ -50,10 +50,10 @@ const order: OrderResponse = {
   },
 };
 
-export const orderingApiMock = (middlewares: Express) => {
-  middlewares.use(`/${base}/orders`, (_, res) => {
-    if (_.method === 'GET') {
-      const orderId = Number(_.url.substring(1));
+export const orderingApiMock = (middlewares: Connect.Server) => {
+  middlewares.use(`/${base}/orders`, (req, res) => {
+    if (req.method === 'GET') {
+      const orderId = Number(req.url?.substring(1));
       order.id = orderId;
       order.orderDate = new Date().toISOString();
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -63,9 +63,9 @@ export const orderingApiMock = (middlewares: Express) => {
     }
 
     let body = '';
-    _.on('data', (chunk) => (body += chunk));
-    _.on('end', () => {
-      if (_.method === 'POST') {
+    req.on('data', (chunk) => (body += chunk));
+    req.on('end', () => {
+      if (req.method === 'POST') {
         const dto: PostOrderRequest = JSON.parse(body);
         order.fullName = dto.fullName;
         order.postalCode = dto.postalCode;
@@ -75,7 +75,7 @@ export const orderingApiMock = (middlewares: Express) => {
         const id = Math.floor(Math.random() * 1000) + 1;
         res.writeHead(201, {
           'Content-Type': 'application/json',
-          Location: `${_.headers.origin}${_.originalUrl}/${id}`,
+          Location: `${req.headers.origin}${req.originalUrl}/${id}`,
         });
         res.end();
         return;
