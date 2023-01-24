@@ -7,10 +7,12 @@ on:  # yamllint disable-line rule:truthy
     branches: [main]
     paths:
       - 'samples/web-csr/dressca-backend/**'
+      - '.github/workflows/back-sample-pull-request-ut.yml'
   pull_request:
     branches: [main]
     paths:
       - 'samples/web-csr/dressca-backend/**'
+      - '.github/workflows/back-sample-pull-request-ut.yml'
   workflow_dispatch:
 
 jobs:
