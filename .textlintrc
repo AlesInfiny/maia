@@ -5,8 +5,7 @@
   "rules": {
     "preset-ja-spacing": {
       "ja-space-between-half-and-full-width": {
-        "space": "always",
-        "exceptPunctuation": false
+        "space": ["alphabets", "numbers", "punctuation"]
       },
       "ja-no-space-around-parentheses": false  
     },
