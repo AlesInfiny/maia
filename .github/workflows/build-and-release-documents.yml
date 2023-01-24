@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore endgroup fjogeleit markdownlint softprops webapps
+# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
 name: ドキュメントのビルドとリリース
 
 on:  # yamllint disable-line rule:truthy
@@ -11,7 +11,14 @@ on:  # yamllint disable-line rule:truthy
     branches: [main]
     paths:
       - 'documents/**'
+      - 'iis-files/**'
+      - 'samples/**'
       - '.github/workflows/build-and-release-documents.yml'
+      - '.markdownlint.yaml'
+      - '.textlintrc'
+      - '.yaml-lint.yml'
+      - 'package-lock.json'
+      - 'package.json'
   workflow_dispatch:
 
 env:
