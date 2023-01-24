@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore markdownlint webapps fjogeleit endgroup
+# cSpell:ignore endgroup fjogeleit markdownlint softprops webapps
 name: ドキュメントのビルドとリリース
 
 on:  # yamllint disable-line rule:truthy
