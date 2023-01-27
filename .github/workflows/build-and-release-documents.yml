@@ -186,7 +186,7 @@ jobs:
       - name: ステージング環境へのデプロイ
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.OSS_MAIA_WEBAPP_NAME }}
+          app-name: ${{ env.APP_OSS_MAIA_WEBAPP_NAME }}
           slot-name: staging
           publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
           package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
