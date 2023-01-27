@@ -15,7 +15,7 @@ AlesInfiny Maia（以下、本サイト）は、以下を提供します。
 
 ## ライセンス {#license}
 
-AlesInfiny Maiaは Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
+AlesInfiny Maia は Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
 本ライセンスは、 AlesInfiny Maia のドキュメントとサンプルアプリケーションに対するライセンスであり、サンプルアプリケーションが依存するパッケージのライセンスではありません。
 
 ### Apache License, Version 2.0 {#apache-license-v2.0}
