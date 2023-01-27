@@ -1,28 +1,28 @@
 ---
 hide:
   - navigation
-title: Maia OSS 版
-description: Maia OSS 版では、 Java アプリケーションアーキテクチャや方式設計の基礎資料を提供します。
+title: AlesInfiny Maia
+description: AlesInfiny Maia では、 Java アプリケーションアーキテクチャや方式設計の基礎資料を提供します。
 ---
 
-# Maia OSS 版 にようこそ {#top}
+# AlesInfiny Maia にようこそ {#top}
 
-## Maia OSS 版とは {#what-is-maia-oss-version}
+## AlesInfiny Maia とは {#what-is-alesinfiny-maia}
 
 現代のシステム開発において標準的なベンダー中立の Java アプリケーションアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
-Maia OSS 版の提供物は以下の通りです。
+AlesInfiny Maia の提供物は以下の通りです。
 
 - システム形態別の標準的なアプリケーションアーキテクチャ
 - 利用頻度の高い有用な OSS ライブラリ／フレームワークを基盤としたサンプルアプリケーションおよびその解説
 - アプリケーション開発環境／プロジェクト初期構築までのチュートリアル
 - 実現したい要件別のサンプルコード、および実現方式の解説
 
-Maia OSS 版は、商用のエンタープライズシステム開発から個人開発の小規模なシステムまで、 Apache License, Version 2.0 にて無償で利用可能です。
+AlesInfiny Maia は、商用のエンタープライズシステム開発から個人開発の小規模なシステムまで、 Apache License, Version 2.0 にて無償で利用可能です。
 ライセンスについての詳細は「[利用規約 - ライセンス](terms/index.md#license)」を参照してください。
 
 ## クイックスタート {#quick-start}
 
-Maia OSS 版で構築した Web アプリケーションのサンプルを手元で動かしながら確認いただけます。
+AlesInfiny Maia で構築した Web アプリケーションのサンプルを手元で動かしながら確認いただけます。
 
 ### 共通手順 {#common-operation}
 

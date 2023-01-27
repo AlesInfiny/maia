@@ -1,13 +1,13 @@
 ---
 title: アプリケーションアーキテクチャ
-description: Maia OSS 版の考えるアプリケーションアーキテクチャについて解説します。
+description: AlesInfiny Maia の考えるアプリケーションアーキテクチャについて解説します。
 ---
 
 # アプリケーションアーキテクチャ {#top}
 
 - [概要編](overview/index.md)
 
-    Maia OSS 版で構築できるアプリケーション形態や、 Maia OSS 版の構成物、リポジトリ構造について解説します。
+    AlesInfiny Maia で構築できるアプリケーション形態や、 AlesInfiny Maia の構成物、リポジトリ構造について解説します。
 
 - [クライアントサイドレンダリング編](client-side-rendering/index.md)
 

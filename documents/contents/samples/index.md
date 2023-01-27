@@ -1,6 +1,6 @@
 ---
 title: サンプル解説
-description: Maia OSS 版の提供するサンプルの解説です。
+description: AlesInfiny Maia 版の提供するサンプルの解説です。
 ---
 
 # サンプル解説 {#top}

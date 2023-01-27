@@ -1,13 +1,13 @@
 ---
 title: 概要編
-description: Maia OSS 版のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
 ---
 
-# Maia OSS 版を構成するもの {#top}
+# AlesInfiny Maia を構成するもの {#top}
 
 ## アプリケーション構成 {#application-composition}
 
-Maia OSS 版として、アプリケーション形態ごとに標準的なアプリケーション構成を定義しています。
+AlesInfiny Maia として、アプリケーション形態ごとに標準的なアプリケーション構成を定義しています。
 ここでは主要な構成要素を示します。
 詳細はアプリケーション種別ごとの詳細ページ、および、サンプルプリケーションを参照してください。
 
