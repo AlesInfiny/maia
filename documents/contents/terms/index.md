@@ -6,17 +6,17 @@ title: 利用規約
 
 # 利用規約 {#top}
 
-## Maia OSS 版 の提供物について {#maia-oss-version-license}
+## AlesInfiny Maia の提供物について {#alesinfiny-maia-license}
 
-Maia OSS 版（以下、本サイト）は、以下を提供します。
+AlesInfiny Maia（以下、本サイト）は、以下を提供します。
 
 - 各種ドキュメント
 - サンプルアプリケーション
 
 ## ライセンス {#license}
 
-Maia OSS 版は Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
-本ライセンスは、 Maia OSS 版のドキュメントとサンプルアプリケーションに対するライセンスであり、サンプルアプリケーションが依存するパッケージのライセンスではありません。
+AlesInfiny Maia は Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
+本ライセンスは、 AlesInfiny Maia のドキュメントとサンプルアプリケーションに対するライセンスであり、サンプルアプリケーションが依存するパッケージのライセンスではありません。
 
 ### Apache License, Version 2.0 {#apache-license-v2.0}
 

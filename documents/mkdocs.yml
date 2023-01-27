@@ -1,22 +1,22 @@
 ---
 # cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
-site_name: Maia OSS 版
+site_name: AlesInfiny Maia
 site_url: https://www.maiaossedition.org/
 docs_dir: contents
 copyright: 'Copyright &copy; 2022 BIPROGY Inc. All rights reserved.'
 site_author: 'アドバンスド開発技術部'
-site_description: 'Maia OSS 版のポータルサイトです。'
+site_description: 'AlesInfiny Maia のポータルサイトです。'
 site_dir: build-artifacts
 
 nav:
-  - Maia OSS 版 にようこそ:
+  - AlesInfiny Maia にようこそ:
       - index.md
   - アプリケーションアーキテクチャ:
       - app-architecture/index.md
       - 概要編:
           - app-architecture/overview/index.md
           - 構築できるアプリケーション形態: app-architecture/overview/application-kind.md
-          - Maia OSS 版を構成するもの: app-architecture/overview/compositions.md
+          - AlesInfiny Maia を構成するもの: app-architecture/overview/compositions.md
           - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
           - Java アプリケーションの処理方式: app-architecture/overview/java-application-processing-system.md
       - クライアントサイドレンダリング編:

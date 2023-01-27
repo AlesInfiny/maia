@@ -1,6 +1,6 @@
 ---
 title: 概要編
-description: Maia OSS 版のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
 ---
 
 # Java アプリケーションの処理方式 {#top}
@@ -13,7 +13,7 @@ description: Maia OSS 版のアプリケーションアーキテクチャ概要�
 
 ### 例外の種類 {#exception-pattern}
 
-Maia OSS 版では、アプリケーションで発生する例外を[業務例外](#business-exception)と[システム例外](#system-exception)の 2 つに分類します。
+AlesInfiny Maia では、アプリケーションで発生する例外を[業務例外](#business-exception)と[システム例外](#system-exception)の 2 つに分類します。
 それぞれの例外の意味や処理方針を以下に示します。
 
 #### 業務例外 {#business-exception}
@@ -53,7 +53,7 @@ Maia OSS 版では、アプリケーションで発生する例外を[業務例�
 
 ただし利用するライブラリによっては、本来システムエラーとして扱うべきエラーを、検査例外としてスローするケースがあります。
 このようなケースでは、すべての検査例外に対応する業務ロジックを設計したり、ユーザーの再操作によってエラー状態を回復したりすることは困難です。
-Maia OSS 版では、業務フロー内で検査例外が発生した際の処理として、システム例外に付け替えてリスローすることを許可します。
+AlesInfiny Maia では、業務フロー内で検査例外が発生した際の処理として、システム例外に付け替えてリスローすることを許可します。
 
 ## ログ出力方針 {#logging-policy}
 
@@ -63,7 +63,7 @@ Maia OSS 版では、業務フロー内で検査例外が発生した際の処�
 
 ### ログの種類 {#log-pattern}
 
-Maia OSS 版で定義するログの種類は以下の通りです。
+AlesInfiny Maia で定義するログの種類は以下の通りです。
 
 - 操作ログ
 
@@ -141,7 +141,7 @@ Maia OSS 版で定義するログの種類は以下の通りです。
 
 ### ロギングライブラリ {#logging-libraries}
 
-Maia OSS 版では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) を使用します。
+AlesInfiny Maia では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) を使用します。
 またロギングファサードとして [SLF4J](https://www.slf4j.org/) を使用します。
 
 ## メッセージ管理方針 {#message-management-policy}

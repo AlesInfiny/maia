@@ -1,15 +1,15 @@
 ---
 title: 開発環境構築
-description: Maia OSS 版のアプリケーション開発で最低限必要な環境の構築方法を解説します。
+description: AlesInfiny Maia のアプリケーション開発で最低限必要な環境の構築方法を解説します。
 ---
 
 # ローカル開発環境の構築手順 {#top}
 
-Maia OSS 版のアプリケーション開発で最低限必要な環境の構築方法を解説します。
+AlesInfiny Maia のアプリケーション開発で最低限必要な環境の構築方法を解説します。
 
 ## システム要件 {#system-requirements}
 
-Maia OSS 版のアプリケーションを開発するコンピューターが満たすべき要件について解説します。
+AlesInfiny Maia のアプリケーションを開発するコンピューターが満たすべき要件について解説します。
 ここに記載のない環境でも開発できることがありますが、動作確認は行われていません。
 
 ### OS 要件 {#os-requirements}
@@ -30,7 +30,7 @@ Maia OSS 版のアプリケーションを開発するコンピューターが�
 
 ### ソフトウェア要件 {#software-requirements}
 
-Maia OSS 版のアプリケーション開発には、 Visual Studio Code（以下 VS Code） の利用を推奨します。
+AlesInfiny Maia のアプリケーション開発には、 Visual Studio Code（以下 VS Code） の利用を推奨します。
 VS Code では、 Web API アプリケーションやバッチアプリケーションなどの Java アプリケーションと、 Vue.js を含む SPA アプリケーションの両方を開発できます。
 Java アプリケーションの開発のみを行う場合には Eclipse や IntelliJ IDEA といった IDE も利用可能です。
 また、 IntelliJ IDEA で Vue.js の開発をする場合は有償版（IntelliJ IDEA Ultimate）の利用が推奨されます。
@@ -43,7 +43,7 @@ Java アプリケーションの開発のみを行う場合には Eclipse や In
 ## ローカル開発環境の構築手順 {#setup-development-environment}
 
 本節では開発に最低限必要なソフトウェアのインストール方法について解説します。
-Maia OSS 版の各ドキュメントは、本節に記載されている環境が整っていることを前提に記載されています。
+AlesInfiny Maia の各ドキュメントは、本節に記載されている環境が整っていることを前提に記載されています。
 
 !!! info "Windows Defender ファイアウォールの警告が表示される場合"
     後述の各種ソフトウェアをインストールして起動した際、以下のような警告の出ることがあります。

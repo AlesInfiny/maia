@@ -16,7 +16,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 ### 静的テスト ( UT0 ) で利用するツール {#ut0-static-testing-tools}
 
-上記の目的を達成するため、 Maia OSS 版では以下のツールを用いて静的テストを行います。
+上記の目的を達成するため、 AlesInfiny Maia では以下のツールを用いて静的テストを行います。
 
 - [Checkstyle :material-open-in-new:](https://checkstyle.org/){ target=_blank }
     - コーディング規約に準拠した Java コードとなっているか自動的にテストするツールです。
@@ -45,7 +45,7 @@ IDE および CI ツールを利用して、自動的に各ツールによるテ
 
 ### 動的テスト ( UT0 ) で利用するツール {#ut0-dynamic-testing-tools}
 
-上記の目的を達成するため、 Maia OSS 版では以下のテストフレームワークを用いて UT0 を行います。
+上記の目的を達成するため、 AlesInfiny Maia では以下のテストフレームワークを用いて UT0 を行います。
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。

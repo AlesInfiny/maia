@@ -1,7 +1,7 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 
 <!-- cSpell:ignore hoge hogehoge -->
-# Maia OSS 版 ドキュメントについて
+# AlesInfiny Maia ドキュメントについて
 
 ## 本番環境
 

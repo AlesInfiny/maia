@@ -67,7 +67,7 @@ infrastructure プロジェクトで必要な設定を解説します。
 ### infrastructure プロジェクトの依存ライブラリの設定 {#config-infrastructure-dependencies}
 
 infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
-データアクセス処理の実装に Maia OSS 版で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
+データアクセス処理の実装に AlesInfiny Maia で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 
 ```groovy title="build.gradle"
 dependencies {

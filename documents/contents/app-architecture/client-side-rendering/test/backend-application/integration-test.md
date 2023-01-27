@@ -14,7 +14,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 ## 結合テストで利用するツール {#testing-tools}
 
-上記の目的を達成するため、 Maia OSS 版では以下のテストフレームワークを用いて結合テストを行います。
+上記の目的を達成するため、 AlesInfiny Maia では以下のテストフレームワークを用いて結合テストを行います。
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。
@@ -38,7 +38,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 ## 結合テストの実行方法 {#testing-method}
 
-Maia OSS 版の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
+AlesInfiny Maia の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
 結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証します。
 Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework){ target=_blank } を活用します。
 テストフレームワークは JUnit を利用します。
