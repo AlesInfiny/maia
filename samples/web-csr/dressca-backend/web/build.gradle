@@ -37,9 +37,11 @@ configurations {
 
 openApi {
     apiDocsUrl.set("http://localhost:8080/api-docs")
-    outputDir.set(file("$buildDir/docs"))
+	outputDir.set(file("$rootDir"))
     outputFileName.set("api-specification.json")
 }
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+build.dependsOn("generateOpenApiDocs")
