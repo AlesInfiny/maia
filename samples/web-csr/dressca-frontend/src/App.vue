@@ -38,7 +38,7 @@ const isAuthenticated = () => {
     <footer
       class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
     >
-      <p>&copy; 2022 - Dressca - Privacy</p>
+      <p>&copy; 2023 - Dressca - Privacy</p>
     </footer>
   </div>
 </template>
