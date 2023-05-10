@@ -1,4 +1,4 @@
-package com.dressca.systemcommon.exception.controlleradvice;
+package com.dressca.web.exception.controlleradvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,11 +32,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private static final String PROPERTY_DELIMITER = ".";
 
   /**
-   * その他の業務エラーをステータースコード400で返却する。
+   * その他の業務エラーをステータースコード500で返却する。
    * 
    * @param e 業務例外
    * @param req リクエスト
-   * @return ステータースコード400のレスポンス
+   * @return ステータースコード500のレスポンス
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ErrorResponse> 
