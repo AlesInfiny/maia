@@ -42,7 +42,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ErrorResponse> 
       handleLogicException(LogicException e, HttpServletRequest req) {
     aplog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
       .contentType(MediaType.APPLICATION_JSON)
       .body(createErrorResponse(e, req));
   }
