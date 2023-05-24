@@ -1,4 +1,4 @@
-package com.dressca.web.exception.controlleradvice;
+package com.dressca.web.controlleradvice;
 
 import javax.servlet.http.HttpServletRequest;
 
