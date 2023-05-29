@@ -2,42 +2,42 @@ DROP TABLE IF EXISTS assets CASCADE;
 CREATE TABLE assets
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  asset_code NVARCHAR(32) NOT NULL,
-  asset_type NVARCHAR(128) NOT NULL
+  asset_code VARCHAR(32) NOT NULL,
+  asset_type VARCHAR(128) NOT NULL
 );
 
 DROP TABLE IF EXISTS baskets CASCADE;
 CREATE TABLE baskets
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  buyer_id NVARCHAR(64) NOT NULL
+  buyer_id VARCHAR(64) NOT NULL
 );
 
 DROP TABLE IF EXISTS catalog_brands CASCADE;
 CREATE TABLE catalog_brands
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  name NVARCHAR(128) NOT NULL
+  name VARCHAR(128) NOT NULL
 );
 
 DROP TABLE IF EXISTS catalog_categories CASCADE;
 CREATE TABLE catalog_categories
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  name NVARCHAR(128) NOT NULL
+  name VARCHAR(128) NOT NULL
 );
 
 DROP TABLE IF EXISTS orders CASCADE;
 CREATE TABLE orders
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  buyer_id NVARCHAR(64) NOT NULL,
+  buyer_id VARCHAR(64) NOT NULL,
   order_date TIMESTAMP NOT NULL,
-  ship_to_full_name NVARCHAR(64) NOT NULL,
-  ship_to_postal_code NVARCHAR(16) NOT NULL,
-  ship_to_todofuken NVARCHAR(16) NOT NULL,
-  ship_to_shikuchoson NVARCHAR(32) NOT NULL,
-  ship_to_azana_and_others NVARCHAR(128) NOT NULL,
+  ship_to_full_name VARCHAR(64) NOT NULL,
+  ship_to_postal_code VARCHAR(16) NOT NULL,
+  ship_to_todofuken VARCHAR(16) NOT NULL,
+  ship_to_shikuchoson VARCHAR(32) NOT NULL,
+  ship_to_azana_and_others VARCHAR(128) NOT NULL,
   consumption_tax_rate NUMERIC(18,6) NOT NULL,
   total_items_price NUMERIC(18,6) NOT NULL,
   delivery_charge NUMERIC(18,6) NOT NULL,
@@ -60,10 +60,10 @@ DROP TABLE IF EXISTS catalog_items CASCADE;
 CREATE TABLE catalog_items
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  name NVARCHAR(512) NOT NULL,
-  description NVARCHAR(MAX) NOT NULL,
+  name VARCHAR(512) NOT NULL,
+  description VARCHAR NOT NULL,
   price NUMERIC(18,6) NOT NULL,
-  product_code NVARCHAR(128) NOT NULL,
+  product_code VARCHAR(128) NOT NULL,
   catalog_category_id BIGINT NOT NULL,
   catalog_brand_id BIGINT NOT NULL,
   CONSTRAINT FK_catalog_items_catalog_brands FOREIGN KEY (catalog_brand_id) REFERENCES catalog_brands(id) ON DELETE CASCADE,
@@ -75,8 +75,8 @@ CREATE TABLE order_items
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
   ordered_catalog_item_id BIGINT NOT NULL,
-  ordered_product_name NVARCHAR(512) NOT NULL,
-  ordered_product_code NVARCHAR(128) NOT NULL,
+  ordered_product_name VARCHAR(512) NOT NULL,
+  ordered_product_code VARCHAR(128) NOT NULL,
   unit_price NUMERIC(18,6) NOT NULL,
   quantity INT NOT NULL,
   order_id BIGINT NOT NULL,
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS catalog_item_assets CASCADE;
 CREATE TABLE catalog_item_assets
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  asset_code NVARCHAR(32) NOT NULL,
+  asset_code VARCHAR(32) NOT NULL,
   catalog_item_id BIGINT NOT NULL,
   CONSTRAINT FK_catalog_item_assets_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
 );
