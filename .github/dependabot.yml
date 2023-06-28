@@ -11,3 +11,14 @@ updates:
       - "ドキュメント改善"
       - "npm"
       - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-root"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
