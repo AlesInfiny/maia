@@ -13,11 +13,66 @@ updates:
       - "dependencies"
 
   - package-ecosystem: "gradle"
-    directory: "/"
+    directory: "/samples/web-csr/dressca-backend"
     schedule:
       interval: "daily"
     commit-message:
       prefix: "gradle-root"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/web-csr/dressca-backend/application-core"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-application-core"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/web-csr/dressca-backend/batch"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-batch"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/web-csr/dressca-backend/infrastructure"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-infrastructure"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/web-csr/dressca-backend/system-common"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-system-common"
+    labels:
+      - "ドキュメント改善"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/web-csr/dressca-backend/web"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-web"
     labels:
       - "ドキュメント改善"
       - "gradle"
