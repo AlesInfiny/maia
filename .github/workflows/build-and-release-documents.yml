@@ -23,7 +23,6 @@ on:  # yamllint disable-line rule:truthy
 
 env:
   APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
-  APP_OSS_MAIA_WEBAPP_NAME: app-oss-maia
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
@@ -157,27 +156,27 @@ jobs:
           path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           retention-days: 7
 
-  # release-github:
-  #   name: Githubのリリース
-  #   needs: build
-  #   if: startsWith(github.ref, 'refs/tags/v')
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: ビルドアーティファクトのダウンロード
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: documents
+  release-github:
+    name: Githubのリリース
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: ビルドアーティファクトのダウンロード
+        uses: actions/download-artifact@v3
+        with:
+          name: documents
 
-  #     - name: Githubのリリース
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
-  #         generate_release_notes: true
+      - name: Githubのリリース
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          generate_release_notes: true
 
   release-documents:
     name: ドキュメントのリリース
     needs: build
-  #  if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
@@ -202,17 +201,17 @@ jobs:
           data: '{"messageType": 0,"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
           timeout: 30000
 
-  # swap:
-  #   name: 本番環境への反映承認
-  #   needs: [release-github, release-documents]
-  #   if: startsWith(github.ref, 'refs/tags/v')
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: 本番環境への反映承認
-  #       uses: fjogeleit/http-request-action@v1
-  #       with:
-  #         url: ${{ secrets.APPROVE_REQUEST_TO_TEAMS_URL  }}
-  #         method: POST
-  #         contentType: application/json
-  #         data: '{"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
-  #         preventFailureOnNoResponse: true
+  swap:
+    name: 本番環境への反映承認
+    needs: [release-github, release-documents]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 本番環境への反映承認
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ secrets.APPROVE_REQUEST_TO_TEAMS_URL  }}
+          method: POST
+          contentType: application/json
+          data: '{"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
+          preventFailureOnNoResponse: true
