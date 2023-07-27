@@ -1,0 +1,35 @@
+.v-data-table {
+  width: 100%;
+}
+
+.v-data-table th {
+  font-size: 20px !important;
+}
+
+.v-data-table td {
+  background: #eee;
+}
+
+.v-data-table tr:nth-child(odd) td {
+  background: #fff;
+}
+
+.v-data-table tr:hover td {
+  background-color: #ccc;
+}
+
+.omit {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  z-index: 9999;
+}

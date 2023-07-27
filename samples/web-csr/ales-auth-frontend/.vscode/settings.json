@@ -1,0 +1,23 @@
+{
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "vetur.format.defaultFormatterOptions": {
+      "js-beautify-html": {
+          "wrap_attributes": "force-expand-multiline"
+      },
+      "prettyhtml": {
+          "printWidth": 100,
+          "singleQuote": false,
+          "wrapAttributes": false,
+          "sortAttributes": false
+      }
+  },
+  // https://vuejs.github.io/vetur/guide/linting-error.html#linting
+  "vetur.validation.template": false,
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  "html.format.enable": false,
+  "sass.format.enabled": false,
+}
