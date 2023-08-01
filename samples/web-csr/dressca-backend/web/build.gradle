@@ -19,7 +19,7 @@ dependencies {
 	implementation 'com.h2database:h2:2.1.210'
 	implementation 'org.postgresql:postgresql:42.3.4'
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
