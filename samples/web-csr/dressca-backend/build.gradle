@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-  id 'com.github.spotbugs' version '5.0.6' apply false
+  id 'com.github.spotbugs' version '5.1.0' apply false
 }
 
 subprojects {
