@@ -17,7 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation 'com.h2database:h2:2.1.210'
-	implementation 'org.postgresql:postgresql:42.3.4'
+	implementation 'org.postgresql:postgresql:42.6.0'
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
 	
