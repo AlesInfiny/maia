@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
 	implementation project(':application-core')
 	implementation project(':system-common')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
