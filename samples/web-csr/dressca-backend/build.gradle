@@ -56,6 +56,9 @@ subprojects {
 
   // testタスクの後にjacocoTestReportタスクを実施する
   test {
+    // UTテスト時はtestプロファイルを利用
+    jvmArgs=['-Dspring.profiles.active=test']
+
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
