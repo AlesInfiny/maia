@@ -126,6 +126,7 @@ extra:
     terms: terms/
     license: terms/#license
     disclaimer: terms/#disclaimer
+    trademarks: terms/#trademarks
     other_company_trademarks: terms/#trademarks-owned-by-other-companies
   version: !ENV [VERSION, "Local Version"]
 
