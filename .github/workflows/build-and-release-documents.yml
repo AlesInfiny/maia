@@ -214,6 +214,7 @@ jobs:
   swap:
     name: 本番環境への反映承認
     # needs: [release-github, release-documents]
+    needs: [release-documents]
     # if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
