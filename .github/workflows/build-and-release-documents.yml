@@ -160,27 +160,27 @@ jobs:
           path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           retention-days: 7
 
-  # release-github:
-  #   name: Githubのリリース
-  #   needs: build
-  #   if: startsWith(github.ref, 'refs/tags/v')
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: ビルドアーティファクトのダウンロード
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: documents
+  release-github:
+    name: Githubのリリース
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: ビルドアーティファクトのダウンロード
+        uses: actions/download-artifact@v3
+        with:
+          name: documents
 
-  #     - name: Githubのリリース
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
-  #         generate_release_notes: true
+      - name: Githubのリリース
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          generate_release_notes: true
 
   release-documents:
     name: ドキュメントのリリース
     needs: build
-    # if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
@@ -213,9 +213,8 @@ jobs:
 
   swap:
     name: 本番環境への反映承認
-    # needs: [release-github, release-documents]
-    needs: [release-documents]
-    # if: startsWith(github.ref, 'refs/tags/v')
+    needs: [release-github, release-documents]
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
