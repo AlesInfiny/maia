@@ -1,7 +1,7 @@
 package com.dressca.web.config;
 
 import com.dressca.web.filter.BuyerIdFilter;
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

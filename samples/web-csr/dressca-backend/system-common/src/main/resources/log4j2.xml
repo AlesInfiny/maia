@@ -6,7 +6,7 @@
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %c %-5p %t %m%n" />
     </Console>
     
-    <Console name="application.log.appender" fTarget="SYSTEM_OUT">
+    <Console name="application.log.appender" Target="SYSTEM_OUT">
         <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %t %m%n"/>
     </Console>
   </Appenders>

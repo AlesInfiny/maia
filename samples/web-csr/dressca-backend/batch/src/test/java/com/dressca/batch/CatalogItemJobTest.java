@@ -1,10 +1,12 @@
 package com.dressca.batch;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.sql.DataSource;
-import org.junit.Assert;
+// import org.junit.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.test.AssertFile;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +71,12 @@ public class CatalogItemJobTest {
     // ジョブを実行
     JobExecution jobExecution = this.jobLauncherTestUtils.launchJob();
     // 正常終了を確認
-    Assert.assertEquals("COMPLETED", jobExecution.getExitStatus().getExitCode());
+    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
-    AssertFile.assertFileEquals(new FileSystemResource(expectedFile),
-        new FileSystemResource(OUTPUT_FILE));
+    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    assertThat(outputStr).isEqualTo(expectedStr);
   }
 
   /*
@@ -87,11 +89,12 @@ public class CatalogItemJobTest {
     // ジョブを実行
     JobExecution jobExecution = this.jobLauncherTestUtils.launchJob();
     // 正常終了を確認
-    Assert.assertEquals("COMPLETED", jobExecution.getExitStatus().getExitCode());
+    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
-    AssertFile.assertFileEquals(new FileSystemResource(expectedFile),
-        new FileSystemResource(OUTPUT_FILE));
+    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    assertThat(outputStr).isEqualTo(expectedStr);
   }
 
 
@@ -105,11 +108,12 @@ public class CatalogItemJobTest {
     // ステップを実行
     JobExecution jobExecution = this.jobLauncherTestUtils.launchStep("catalogItem_step1");
     // 正常終了を確認
-    Assert.assertEquals("COMPLETED", jobExecution.getExitStatus().getExitCode());
+    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
-    AssertFile.assertFileEquals(new FileSystemResource(expectedFile),
-        new FileSystemResource(OUTPUT_FILE));
+    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    assertThat(outputStr).isEqualTo(expectedStr);
   }
 
   private void insertTestData() {
