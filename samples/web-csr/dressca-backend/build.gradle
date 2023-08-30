@@ -46,7 +46,7 @@ subprojects {
     toolVersion = '0.8.10'
   }
   checkstyle {
-    toolVersion = '8.18'
+    toolVersion = '10.12.2'
     configDirectory = rootProject.file('config/checkstyle')
   } 
   spotbugs {
