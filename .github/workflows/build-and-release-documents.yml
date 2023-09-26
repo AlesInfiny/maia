@@ -21,8 +21,12 @@ on:  # yamllint disable-line rule:truthy
       - 'package.json'
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
-  APP_OSS_MAIA_WEBAPP_NAME: app-oss-maia
+  APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
@@ -108,7 +112,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install mkdocs
-          python -m pip install mkdocs-material
+          python -m pip install mkdocs-material==9.1.21
           python -m pip install pymdown-extensions
           python -m pip install mkdocs-minify-plugin
 
@@ -183,19 +187,25 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: documents
+      
+      - name: Azure に OIDC Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
 
       - name: ステージング環境へのデプロイ
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.APP_OSS_MAIA_WEBAPP_NAME }}
+          app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
           slot-name: staging
-          publish-profile: ${{ secrets.APP_OSS_MAIA_STAGING_PUBLISH_PROFILE  }}
           package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ secrets.POST_MESSAGE_TO_TEAMS_URL  }}
+          url: ${{ secrets.ALESINFINY_POST_MESSAGE_TO_TEAMS_URL  }}
           method: POST
           contentType: application/json
           data: '{"messageType": 0,"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
@@ -210,7 +220,7 @@ jobs:
       - name: 本番環境への反映承認
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ secrets.APPROVE_REQUEST_TO_TEAMS_URL  }}
+          url: ${{ secrets.ALESINFINY_APPROVE_REQUEST_TO_TEAMS_URL  }}
           method: POST
           contentType: application/json
           data: '{"branchName": "${{ github.ref }}","actor": "${{ github.actor }}","sha": "${{ github.sha }}","eventName": "${{ github.event_name }}"}'
