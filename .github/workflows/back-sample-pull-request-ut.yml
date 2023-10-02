@@ -35,6 +35,9 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x samples/web-csr/dressca-backend/gradlew
 
+      - name: apiDocs出力作業用のディレクトリの作成
+        run: mkdir samples/web-csr/dressca-backend/web/api-docs
+
       - name: ビルド（コンパイル, 静的テスト, JUnit）実行
         run: ./gradlew build
         working-directory: ./samples/web-csr/dressca-backend
