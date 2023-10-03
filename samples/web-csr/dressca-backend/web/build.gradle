@@ -41,7 +41,7 @@ configurations {
 }
 afterEvaluate {
     tasks.named("forkedSpringBootRun") {
-		workingDir("api-docs")
+		workingDir("$rootDir/api-docs")
 	}
 }
 openApi {
