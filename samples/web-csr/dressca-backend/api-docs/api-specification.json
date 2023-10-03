@@ -137,14 +137,14 @@
           "required": true
         },
         "responses": {
+          "400": {
+            "description": "リクエストエラー."
+          },
           "201": {
             "description": "成功."
           },
           "500": {
             "description": "サーバーエラー."
-          },
-          "400": {
-            "description": "リクエストエラー."
           }
         }
       }
@@ -236,6 +236,9 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "リクエストエラー"
+          },
           "200": {
             "description": "成功",
             "content": {
@@ -245,9 +248,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "リクエストエラー"
           }
         }
       }
@@ -322,6 +322,9 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
+          },
           "200": {
             "description": "成功.",
             "content": {
@@ -332,9 +335,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "アセットコードに対応するアセットがない."
           }
         }
       }
@@ -359,14 +359,14 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "リクエストエラー."
+          },
           "204": {
             "description": "成功."
           },
           "404": {
             "description": "買い物かご内に指定したカタログアイテム Id がない."
-          },
-          "400": {
-            "description": "リクエストエラー."
           }
         }
       }
