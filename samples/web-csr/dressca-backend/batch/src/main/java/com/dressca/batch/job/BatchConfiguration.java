@@ -6,11 +6,12 @@ import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,20 +31,14 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 
 public class BatchConfiguration {
 
-  @Autowired
-  public JobBuilderFactory jobBuilderFactory;
-
-  @Autowired
-  public StepBuilderFactory stepBuilderFactory;
-
   /**
    * catalogItem_tasklet_job用のstepの設定。
    *
    * @param catalogItemTasklet ステップで実行するTasklet
    */
   @Bean
-  public Step catalogItem_tasklet_step1(CatalogItemTasklet catalogItemTasklet) {
-    return stepBuilderFactory.get("catalogItem_tasklet_step1").tasklet(catalogItemTasklet).build();
+  public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, CatalogItemTasklet catalogItemTasklet) {
+    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet, transactionManager).build();
   }
 
   /**
@@ -52,8 +47,8 @@ public class BatchConfiguration {
    * @param step1 ジョブで実行するstep
    */
   @Bean
-  public Job catalogItem_tasklet_job(@Qualifier("catalogItem_tasklet_step1") Step step1) {
-    return jobBuilderFactory.get("catalogItem_tasklet_job").incrementer(new RunIdIncrementer())
+  public Job catalogItem_tasklet_job(JobRepository jobRepository, @Qualifier("catalogItem_tasklet_step1") Step step1) {
+    return new JobBuilder("catalogItem_tasklet_job", jobRepository).incrementer(new RunIdIncrementer())
         .start(step1).build();
   }
 
@@ -65,7 +60,8 @@ public class BatchConfiguration {
    * @param catalogItemWriter ステップで実行するWriter
    */
   @Bean
-  public Step catalogItem_step1(MyBatisPagingItemReader<CatalogItem> catalogItemReader,
+  public Step catalogItem_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+      MyBatisPagingItemReader<CatalogItem> catalogItemReader,
       CatalogItemProcessor catalogItemProcessor,
       FlatFileItemWriter<CatalogItem> catalogItemWriter) {
     // 複数のProcessorを連結する場合は下記のようにCompositeItemProcessorを利用する
@@ -75,7 +71,7 @@ public class BatchConfiguration {
     // itemProcessors.add(catalogItemProcessor);
     // itemProcessors.add(nextProcessor);
     // compositeProcessor.setDelegates(itemProcessors);
-    return stepBuilderFactory.get("catalogItem_step1").<CatalogItem, CatalogItem>chunk(2)
+    return new StepBuilder("catalogItem_step1", jobRepository).<CatalogItem, CatalogItem>chunk(2, transactionManager)
         .reader(catalogItemReader)
         // .processor(compositeProcessor)
         .processor(catalogItemProcessor).writer(catalogItemWriter)
@@ -97,10 +93,10 @@ public class BatchConfiguration {
   @Primary
   @Bean
   public Job catalogItem_job(JobCompletionNotificationListener listener,
-      @Qualifier("catalogItem_step1") Step step1) {
+      JobRepository jobRepository, @Qualifier("catalogItem_step1") Step step1) {
     // ジョブパラメータにrun.idを自動的に付与、未指定時自動でrun.idがインクリメントされる
     // ジョブパラメータの衝突を自動回避する設定
-    return jobBuilderFactory.get("catalogItem_job").incrementer(new RunIdIncrementer())
+    return new JobBuilder("catalogItem_job", jobRepository).incrementer(new RunIdIncrementer())
         .listener(listener).flow(step1).end().build();
   }
 

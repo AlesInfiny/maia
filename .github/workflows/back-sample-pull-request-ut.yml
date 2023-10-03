@@ -25,11 +25,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: JDK11のセットアップ
+      - name: JDK17のセットアップ
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '11'
+          java-version: '17'
           cache: 'gradle'
 
       - name: gradlewに実行権限付与
