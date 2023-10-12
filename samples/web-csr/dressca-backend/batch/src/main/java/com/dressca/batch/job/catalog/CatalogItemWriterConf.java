@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 
 /**
  * CatalogItemの情報をローカルのCSVに出力するWriterの設定。
@@ -28,7 +27,7 @@ public class CatalogItemWriterConf {
   public FlatFileItemWriter<CatalogItem> csvFileItemWriter(@Value("#{jobParameters['output']}") String output)
       throws Exception {
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
-    Resource outputResource;
+    FileSystemResource outputResource;
     if (output == null || "".equals(output)) {
       // 出力ファイル名がJobパラメータで設定されていない場合
       outputResource = new FileSystemResource("output/outputData.csv");

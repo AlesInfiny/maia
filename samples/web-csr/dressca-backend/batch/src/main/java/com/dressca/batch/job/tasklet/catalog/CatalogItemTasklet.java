@@ -7,6 +7,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
@@ -15,7 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.dressca.applicationcore.catalog.CatalogItem;
@@ -51,7 +51,7 @@ public class CatalogItemTasklet implements Tasklet {
 
     // CSVへ出力するwriterの準備
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
-    Resource outputResource;
+    FileSystemResource outputResource;
     if (output == null || "".equals(output)) {
       outputResource = new FileSystemResource("output/catalogItem_tasklet.csv");
     } else {
@@ -71,7 +71,7 @@ public class CatalogItemTasklet implements Tasklet {
     });
     // CSV出力
     writer.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());
-    writer.write(convertedList);
+    writer.write(new Chunk<>(convertedList));
     writer.close();
     return RepeatStatus.FINISHED;
   }
