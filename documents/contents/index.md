@@ -99,7 +99,7 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
     ./gradlew build
     ```
 
-1. VS Code のエクスプローラーの「SPRING BOOT DASHBOARD」から「web」という名前のアプリケーションを実行します。
+1. VS Code のアクティビティーバーにある「Spring Boot Dashboard」をクリックし、サイドバーの「APPS」タブにある「web」という名前のアプリケーションを実行します。
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 

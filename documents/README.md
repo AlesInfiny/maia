@@ -5,7 +5,7 @@
 
 ## 本番環境
 
-<https://www.maiaossedition.org/>
+<https://maia.alesinfiny.org/>
 
 ## フォルダー構造
 

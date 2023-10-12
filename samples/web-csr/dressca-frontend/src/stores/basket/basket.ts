@@ -10,6 +10,7 @@ export const useBasketStore = defineStore({
   id: 'basket',
   state: () => ({
     basket: {} as BasketResponse,
+    addedItemId: undefined as number | undefined,
   }),
   actions: {
     async add(catalogItemId: number) {
@@ -18,6 +19,7 @@ export const useBasketStore = defineStore({
         addedQuantity: 1,
       };
       await basketItemApi.postBasketItem(params);
+      this.addedItemId = catalogItemId;
     },
     async update(catalogItemId: number, newQuantity: number) {
       const params: PutBasketItemRequest[] = [
@@ -35,10 +37,16 @@ export const useBasketStore = defineStore({
       const response = await basketItemApi.getBasketItems();
       this.basket = response.data;
     },
+    async deleteAddedItemId() {
+      this.addedItemId = undefined;
+    },
   },
   getters: {
     getBasket(state): BasketResponse {
       return state.basket;
+    },
+    getAddedItemId(state): number | undefined {
+      return state.addedItemId;
     },
   },
 });

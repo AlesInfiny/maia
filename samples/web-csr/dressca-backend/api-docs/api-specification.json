@@ -80,11 +80,11 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "リクエストエラー"
-          },
           "204": {
             "description": "成功."
+          },
+          "400": {
+            "description": "リクエストエラー"
           }
         }
       },
@@ -106,14 +106,14 @@
           "required": true
         },
         "responses": {
+          "201": {
+            "description": "作成完了"
+          },
           "500": {
             "description": "サーバーエラー"
           },
           "400": {
             "description": "リクエストエラー"
-          },
-          "201": {
-            "description": "作成完了"
           }
         }
       }
@@ -140,11 +140,11 @@
           "400": {
             "description": "リクエストエラー."
           },
-          "500": {
-            "description": "サーバーエラー."
-          },
           "201": {
             "description": "成功."
+          },
+          "500": {
+            "description": "サーバーエラー."
           }
         }
       }
