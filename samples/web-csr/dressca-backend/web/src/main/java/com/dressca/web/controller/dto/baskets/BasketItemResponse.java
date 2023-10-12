@@ -1,7 +1,7 @@
 package com.dressca.web.controller.dto.baskets;
 
 import java.math.BigDecimal;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import com.dressca.web.controller.dto.catalog.CatalogItemSummaryResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;

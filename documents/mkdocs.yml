@@ -1,7 +1,7 @@
 ---
 # cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
 site_name: AlesInfiny Maia
-site_url: https://www.maiaossedition.org/
+site_url: https://maia.alesinfiny.org/
 docs_dir: contents
 copyright: 'Copyright &copy; 2023 BIPROGY Inc. All rights reserved.'
 site_author: 'アドバンスド開発技術部'

@@ -2,7 +2,7 @@ package com.dressca.web.controller.dto.order;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import com.dressca.web.controller.dto.accounting.AccountResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
