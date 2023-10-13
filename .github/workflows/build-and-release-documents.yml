@@ -23,7 +23,7 @@ on:  # yamllint disable-line rule:truthy
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 env:
   APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
