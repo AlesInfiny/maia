@@ -123,3 +123,29 @@ ID の重複チェック、注文数が在庫数以内であるかのチェッ�
 また入力エラーのあった個所とエラーメッセージを、エラーレスポンスの本文を使用して通知します。
 
 <!-- ### セキュリティ対策 -->
+
+## ヘルスチェック機能の実装 {#health-check-implementation}
+
+AlesInfiny Maiaにおいて定義しているヘルスチェックの実装例について説明します。
+
+ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity)を参照してください。
+
+### 実装方針 {#implementation-policy}
+
+Spring Bootを用いたWebアプリケーションにおいて、アプリケーションレベルでサーバの監視および管理を行う追加機能である[Spring Boot Actuator](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) モジュールを適用することができます。
+
+Spring Boot Actuatorモジュールの中にはヘルスチェック機能が含まれており、プレゼンテーション層のapplication.propertiesでSpring Boot Actuatorの環境設定を記述することで、比較的容易にヘルスチェックの機能を実現することができます。
+AlesInfiny Maiaにおける設定内容の詳細に関しては、サンプルアプリケーションを参照してください。
+
+AlesInfiny Maiaのサンプルアプリケーションにおいて、ヘルスチェックの内容は以下のアドレスで確認できます。
+
+<http://localhost:8080/actuator/health>
+
+本ドキュメントにおける[ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response)に基づき、アクセスしたアドレスからのHTTPレスポンスは以下のように定義します。これにより、簡潔な形でサーバの状態を把握することができます。
+
+| ステータス      | ステータスコード | レスポンスボディ                | 詳細                                       |
+| -------------- | --------------- | ----------------------------- | ------------------------------------------ |
+| UP             | 200             | { "status": "UP"}             | サーバが正常に起動している                   |
+| DOWN           | 503             | { "status": "DOWN"}           | サーバが異常を起こし停止している              |
+| OUT_OF_SERVICE | 503             | { "status": "OUT_OF_SERVICE"} | サーバが意図的にシャットダウンしている        |
+| UNKNOWN        | 200             | { "status": "UNKNOWN"}        | サーバが定義していないステータスとなっている   |
