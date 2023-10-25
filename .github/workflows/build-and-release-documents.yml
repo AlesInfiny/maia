@@ -116,6 +116,11 @@ jobs:
           python -m pip install pymdown-extensions
           python -m pip install mkdocs-minify-plugin
 
+      - name: dressca.zip の作成
+        run: |
+          cd samples/web-csr
+          zip -r ../../documents/contents/samples/downloads/dressca.zip *
+
       - name: ドキュメントのビルド
         id: build_documents
         continue-on-error: true
@@ -126,9 +131,7 @@ jobs:
           else
             export VERSION="Test Version"
           fi
-          cd samples/web-csr
-          zip -r ../../documents/contents/samples/downloads/dressca.zip *
-          cd ../../documents
+          cd documents
           echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
           mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
           if [ $? = 0 ]; then
