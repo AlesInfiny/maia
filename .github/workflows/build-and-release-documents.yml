@@ -134,20 +134,28 @@ jobs:
           cd documents
           echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
           mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
-          if [ $? = 0 ]; then
-            echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
-          else
-            echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
-          fi
+
+      - name: ドキュメントビルドの結果表示(成功)
+        if: ${{ steps.build_documents.outcome == 'success' }}
+        run: |
+          echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+          cd documents
           if [ -s mkdocs_build_log.txt ]; then
             echo '```' >> $GITHUB_STEP_SUMMARY
             cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: ドキュメントビルドのの処理結果確認
+      - name: ドキュメントビルドの結果表示(失敗)
         if: ${{ steps.build_documents.outcome == 'failure' }}
         run: |
+          echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+          cd documents
+          if [ -s mkdocs_build_log.txt ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
           exit 1
 
       - name: IIS 用のファイル配置とパッケージング
