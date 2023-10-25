@@ -71,7 +71,6 @@ theme:
     text: Noto Sans JP
     code: Source Code Pro
   language: ja
-  locale: ja
   logo: assets/maia-logo.png
   palette:
     - media: "(prefers-color-scheme: light)"
