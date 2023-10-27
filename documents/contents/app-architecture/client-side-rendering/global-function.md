@@ -126,22 +126,22 @@ ID の重複チェック、注文数が在庫数以内であるかのチェッ�
 
 ## ヘルスチェック機能の実装 {#health-check-implementation}
 
-AlesInfiny Maiaにおいて定義しているヘルスチェックの実装例について説明します。
+AlesInfiny Maia において定義しているヘルスチェックの実装例について説明します。
 
 ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity)を参照してください。
 
 ### 実装方針 {#implementation-policy}
 
-Spring Bootを用いたWebアプリケーションにおいて、アプリケーションレベルでサーバの監視および管理を行う追加機能である[Spring Boot Actuator](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) モジュールを適用することができます。
+Spring Boot を用いた Web アプリケーションにおいて、アプリケーションレベルでサーバの監視および管理を行う追加機能である[Spring Boot Actuator](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) モジュールを適用することができます。
 
-Spring Boot Actuatorモジュールの中にはヘルスチェック機能が含まれており、プレゼンテーション層のapplication.propertiesでSpring Boot Actuatorの環境設定を記述することで、比較的容易にヘルスチェックの機能を実現することができます。
-AlesInfiny Maiaにおける設定内容の詳細に関しては、サンプルアプリケーションを参照してください。
+Spring Boot Actuator モジュールの中にはヘルスチェック機能が含まれており、プレゼンテーション層の application.properties で Spring Boot Actuator の環境設定を記述することで、比較的容易にヘルスチェックの機能を実現できます。
+AlesInfiny Maia における設定内容の詳細に関しては、サンプルアプリケーションを参照してください。
 
-AlesInfiny Maiaのサンプルアプリケーションにおいて、ヘルスチェックの内容は以下のアドレスで確認できます。
+AlesInfiny Maia のサンプルアプリケーションにおいて、ヘルスチェックの内容は以下のアドレスで確認できます。
 
 <http://localhost:8080/actuator/health>
 
-本ドキュメントにおける[ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response)に基づき、アクセスしたアドレスからのHTTPレスポンスは以下のように定義します。これにより、簡潔な形でサーバの状態を把握することができます。
+本ドキュメントにおける[ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response)に基づき、アクセスしたアドレスからの HTTP レスポンスは以下のように定義します。これにより、簡潔な形でサーバの状態を把握することができます。
 
 | ステータス      | ステータスコード | レスポンスボディ                | 詳細                                       |
 | -------------- | --------------- | ----------------------------- | ------------------------------------------ |
