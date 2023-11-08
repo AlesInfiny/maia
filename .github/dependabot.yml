@@ -30,7 +30,7 @@ updates:
     commit-message:
       prefix: "gradle-root"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -41,7 +41,7 @@ updates:
     commit-message:
       prefix: "gradle-application-core"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -52,7 +52,7 @@ updates:
     commit-message:
       prefix: "gradle-batch"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -63,7 +63,7 @@ updates:
     commit-message:
       prefix: "gradle-infrastructure"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -74,7 +74,7 @@ updates:
     commit-message:
       prefix: "gradle-system-common"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -85,6 +85,6 @@ updates:
     commit-message:
       prefix: "gradle-web"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
