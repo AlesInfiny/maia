@@ -12,6 +12,17 @@ updates:
       - "npm"
       - "dependencies"
 
+  - package-ecosystem: "npm"
+    directory: "/samples/web-csr/dressca-frontend"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "npm-dressca-frontend"
+    labels:
+      - "target: Dressca"
+      - "npm"
+      - "dependencies"
+
   - package-ecosystem: "gradle"
     directory: "/samples/web-csr/dressca-backend"
     schedule:
