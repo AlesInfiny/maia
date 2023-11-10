@@ -21,6 +21,7 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
 	implementation 'com.h2database:h2:2.2.220'
 	implementation 'org.postgresql:postgresql:42.6.0'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 	
