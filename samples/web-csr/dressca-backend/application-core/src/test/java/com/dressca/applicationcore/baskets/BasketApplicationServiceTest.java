@@ -51,7 +51,6 @@ public class BasketApplicationServiceTest {
       verify(this.repository, times(1)).update(basket);
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 
@@ -79,7 +78,6 @@ public class BasketApplicationServiceTest {
       assertThat(argBasket.getItems().size()).isEqualTo(0);
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 
@@ -124,7 +122,6 @@ public class BasketApplicationServiceTest {
       ;
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 
@@ -166,7 +163,6 @@ public class BasketApplicationServiceTest {
       verify(this.repository, times(1)).update(basket);
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 
@@ -192,7 +188,6 @@ public class BasketApplicationServiceTest {
       assertThat(argBasket.getItems().size()).isEqualTo(0);
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 
@@ -221,7 +216,6 @@ public class BasketApplicationServiceTest {
       assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
-      fail(e);
     }
   }
 

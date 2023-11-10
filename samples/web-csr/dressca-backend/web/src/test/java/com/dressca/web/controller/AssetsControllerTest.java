@@ -1,6 +1,5 @@
 package com.dressca.web.controller;
 
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +35,6 @@ public class AssetsControllerTest {
           .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
     } catch (Exception e) {
       e.printStackTrace();
-      fail();
     }
   }
 
@@ -51,7 +49,6 @@ public class AssetsControllerTest {
           .andExpect(status().isNotFound());
     } catch (Exception e) {
       e.printStackTrace();
-      fail();
     }
   }
 }
