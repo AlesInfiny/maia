@@ -33,8 +33,8 @@ public class AssetsControllerTest {
     // 期待する戻り値
     try {
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
+          .andExpect(status().isOk())
+          .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -49,7 +49,7 @@ public class AssetsControllerTest {
 
     try {
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isNotFound());
+          .andExpect(status().isNotFound());
     } catch (Exception e) {
       e.printStackTrace();
       fail();

@@ -8,6 +8,7 @@ import java.util.List;
 public interface CatalogCategoryRepository {
   /**
    * すべてのカタログカテゴリを取得します。
+   * 
    * @return カタログカテゴリのリスト
    */
   List<CatalogCategory> getAll();

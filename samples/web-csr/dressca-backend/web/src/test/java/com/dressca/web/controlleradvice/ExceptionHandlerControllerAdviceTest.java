@@ -97,19 +97,20 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_ASSET0001;
-    String logMessageValue[] = {assetCode};
+    String logMessageValue[] = { assetCode };
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new AssetNotFoundException(assetCode));
-      try {
+        .thenThrow(new AssetNotFoundException(assetCode));
+    try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -127,16 +128,18 @@ public class ExceptionHandlerControllerAdviceTest {
     String logMessageValue[] = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
+        .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
+            logMessageValue));
     try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -153,16 +156,17 @@ public class ExceptionHandlerControllerAdviceTest {
     String logMessageValue[] = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new RuntimeException());
+        .thenThrow(new RuntimeException());
     try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -177,6 +181,3 @@ public class ExceptionHandlerControllerAdviceTest {
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 }
-
-
-

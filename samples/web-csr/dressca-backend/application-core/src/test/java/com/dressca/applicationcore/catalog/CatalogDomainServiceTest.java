@@ -26,8 +26,7 @@ public class CatalogDomainServiceTest {
   void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
     List<Long> catalogItemIds = List.of(1L, 2L);
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
 
     // Act
@@ -41,8 +40,7 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_リポジトリ内に存在するアイテムのリストを返す() {
     // Arrange
     List<Long> catalogItemIds = List.of(2L);
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
@@ -57,23 +55,21 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
     List<Long> catalogItemIds = List.of(1L, 2L);
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
 
     // Act
     service.existAll(catalogItemIds);
 
     // Assert
-    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIds);   
+    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIds);
   }
 
   @Test
   void testExistAll_正常系_カタログアイテムIdがすべて存在する場合trueを返す() {
     // Arrange
     List<Long> catalogItemIds = List.of(1L, 2L);
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
 
     // Act
@@ -87,8 +83,7 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_カタログアイテムIdが一部だけ存在する場合falseを返す() {
     // Arrange
     List<Long> catalogItemIds = List.of(2L);
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
@@ -102,8 +97,7 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_カタログアイテムIdが1件も存在しない場合falseを返す() {
     // Arrange
     List<Long> catalogItemIds = List.of();
-    List<CatalogItem> catalogItems =
-        catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
+    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act

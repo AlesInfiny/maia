@@ -28,17 +28,17 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
-  
+
   /**
    * コンストラクタ。
    * 
-   * @param id ID
-   * @param name 商品名
-   * @param description 商品紹介
-   * @param price 単価
-   * @param productCode プロダクトコード
+   * @param id                ID
+   * @param name              商品名
+   * @param description       商品紹介
+   * @param price             単価
+   * @param productCode       プロダクトコード
    * @param catalogCategoryId カタログ商品ID
-   * @param catalogBrandId カタログブランドID
+   * @param catalogBrandId    カタログブランドID
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
       @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,

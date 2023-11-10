@@ -26,10 +26,10 @@ public class OrderApplicationService {
   /**
    * 注文を作成します。
    * 
-   * @param basketId 買い物かご Id.
+   * @param basketId      買い物かご Id.
    * @param shipToAddress お届け先.
    * @return 作成した注文情報.
-   * @throws BasketNotFoundException basketId に該当する買い物かごが存在しない場合.
+   * @throws BasketNotFoundException        basketId に該当する買い物かごが存在しない場合.
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合.
    */
   public Order createOrder(long basketId, ShipTo shipToAddress)
@@ -40,14 +40,14 @@ public class OrderApplicationService {
       throw new EmptyBasketOnCheckoutException(null);
     }
 
-    List<Long> catalogItemIds =
-        basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
+    List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+        .collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
         .collect(Collectors.toList());
     Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
-    
+
     return this.orderRepository.add(order);
   }
 
@@ -75,8 +75,7 @@ public class OrderApplicationService {
         .orElseThrow(() -> new SystemException(null, ExceptionIdConstant.E_SHARE0000, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
-    OrderItem orderItem =
-        new OrderItem(itemOrdered, basketItem.getUnitPrice(), basketItem.getQuantity());
+    OrderItem orderItem = new OrderItem(itemOrdered, basketItem.getUnitPrice(), basketItem.getQuantity());
     List<OrderItemAsset> orderItemAssets = catalogItem.getAssets().stream()
         .map(asset -> new OrderItemAsset(asset.getAssetCode(), orderItem.getId()))
         .collect(Collectors.toList());

@@ -19,7 +19,7 @@ public class OrderItemAsset {
   /**
    * コンストラクタ。
    * 
-   * @param assetCode アセットコード.
+   * @param assetCode   アセットコード.
    * @param orderItemId 注文アイテムId.
    */
   public OrderItemAsset(String assetCode, long orderItemId) {

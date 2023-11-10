@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class AssetApplicationService {
-  
+
   @Autowired
   private AssetRepository repository;
   @Autowired
@@ -30,7 +30,7 @@ public class AssetApplicationService {
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
     Resource resource = this.store.getResource(asset)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
-    
+
     return new AssetResourceInfo(asset, resource);
   }
 }

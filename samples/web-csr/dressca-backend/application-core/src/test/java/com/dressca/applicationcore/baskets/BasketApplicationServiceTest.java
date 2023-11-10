@@ -120,7 +120,8 @@ public class BasketApplicationServiceTest {
       service.deleteBasket(basketId);
       // モックが想定通り呼び出されていることの確認
       verify(this.repository, times(1)).findById(basketId);
-      verify(this.repository, times(1)).remove(basket);;
+      verify(this.repository, times(1)).remove(basket);
+      ;
     } catch (BasketNotFoundException e) {
       e.printStackTrace();
       fail(e);

@@ -32,7 +32,7 @@ public class CatalogApplicationServiceTest {
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
     when(
         this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
-            .thenReturn(catalogItems);
+        .thenReturn(catalogItems);
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);

@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class AssetApplicationServiceTest {
-  
+
   @Mock
   private AssetRepository repository;
   @Mock
@@ -41,7 +41,7 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
-    
+
     try {
       // 戻り値の検証
       assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
@@ -62,7 +62,7 @@ public class AssetApplicationServiceTest {
 
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.empty());
-    
+
     try {
       // 戻り値の検証
       service.getAssetResourceInfo(assetCode);
@@ -81,11 +81,11 @@ public class AssetApplicationServiceTest {
 
     // 期待する戻り値
     Asset asset = new Asset(assetCode, "png");
-    
+
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.empty());
-    
+
     try {
       // 戻り値の検証
       service.getAssetResourceInfo(assetCode);

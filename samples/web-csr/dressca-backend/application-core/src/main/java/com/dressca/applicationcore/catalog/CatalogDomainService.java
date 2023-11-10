@@ -17,7 +17,8 @@ public class CatalogDomainService {
 
   /**
    * 指定したカタログアイテム Id のうち、存在するカタログアイテムの一覧を返却します。
-   * @param catalogItemIds カタログアイテム Id のリスト 
+   * 
+   * @param catalogItemIds カタログアイテム Id のリスト
    * @return 存在するカタログアイテムの一覧
    */
   public List<CatalogItem> getExistCatalogItems(List<Long> catalogItemIds) {
@@ -26,6 +27,7 @@ public class CatalogDomainService {
 
   /**
    * 指定したカタログアイテム Id がリポジトリ内にすべて存在するかを取得します。
+   * 
    * @param catalogItemIds カタログアイテム Id のリスト
    * @return すべて存在する場合は true、一部でも不在の場合は false。
    */
@@ -34,7 +36,7 @@ public class CatalogDomainService {
     List<Long> notExistCatalogItemIds = catalogItemIds.stream()
         .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
         .collect(Collectors.toList());
-    
+
     return notExistCatalogItemIds.isEmpty();
   }
 

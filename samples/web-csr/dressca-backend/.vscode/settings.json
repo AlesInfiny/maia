@@ -4,14 +4,20 @@
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
   "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
   "cSpell.words": [
+    "Appender",
     "applicationcore",
+    "assertj",
     "Batis",
     "controlleradvice",
     "Dressca",
+    "Incrementer",
+    "jdbc",
     "Mybatis",
     "Servlet",
     "shikuchoson",
+    "springframework",
     "systemcommon",
+    "tasklet",
     "todofuken"
   ],
   "[java]" : {

@@ -24,7 +24,7 @@ public class Basket {
   public Basket(@NonNull String buyerId) {
     this.buyerId = buyerId;
   }
-  
+
   public Basket(long id, @NonNull String buyerId) {
     this.id = id;
     this.buyerId = buyerId;
@@ -34,12 +34,12 @@ public class Basket {
    * 商品を追加します。
    * 
    * @param catalogItemId カタログアイテムID
-   * @param unitPrice 単価
-   * @param quantity 数量
+   * @param unitPrice     単価
+   * @param quantity      数量
    */
   public void addItem(long catalogItemId, BigDecimal unitPrice, int quantity) {
-    Optional<BasketItem> existingItem =
-        this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId).findFirst();
+    Optional<BasketItem> existingItem = this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId)
+        .findFirst();
 
     existingItem.ifPresentOrElse(item -> item.addQuantity(quantity),
         () -> this.items.add(new BasketItem(0, id, catalogItemId, unitPrice, quantity)));
