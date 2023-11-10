@@ -25,14 +25,14 @@ public class CatalogItemResponse extends CatalogItemSummaryResponse {
   /**
    * コンストラクタ。
    * 
-   * @param id ID
-   * @param name 名前
-   * @param productCode プロダクトコード
-   * @param assetCodes アセットコード
-   * @param description 商品説明
-   * @param price 価格
+   * @param id                ID
+   * @param name              名前
+   * @param productCode       プロダクトコード
+   * @param assetCodes        アセットコード
+   * @param description       商品説明
+   * @param price             価格
    * @param catalogCategoryId カタログカテゴリーID
-   * @param catalogBrandId カタログブランドID
+   * @param catalogBrandId    カタログブランドID
    */
   public CatalogItemResponse(long id, String name, String productCode, List<String> assetCodes,
       String description, BigDecimal price, long catalogCategoryId, long catalogBrandId) {

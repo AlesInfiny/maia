@@ -22,4 +22,3 @@ public class PostOrderRequest {
   @NotNull
   private String azanaAndOthers;
 }
-

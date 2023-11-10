@@ -34,23 +34,22 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   /**
    * その他の業務エラーをステータースコード500で返却する。
    * 
-   * @param e 業務例外
+   * @param e   業務例外
    * @param req リクエスト
    * @return ステータースコード500のレスポンス
    */
   @ExceptionHandler(LogicException.class)
-  public ResponseEntity<ErrorResponse> 
-      handleLogicException(LogicException e, HttpServletRequest req) {
+  public ResponseEntity<ErrorResponse> handleLogicException(LogicException e, HttpServletRequest req) {
     aplog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .contentType(MediaType.APPLICATION_JSON)
-      .body(createErrorResponse(e, req));
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(createErrorResponse(e, req));
   }
 
   /**
    * その他のシステムエラーをステータースコード500で返却する。
    * 
-   * @param e その他の例外
+   * @param e   その他の例外
    * @param req リクエスト
    * @return ステータースコード500のレスポンス
    */
@@ -58,14 +57,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ErrorResponse> handleException(SystemException e, HttpServletRequest req) {
     aplog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .contentType(MediaType.APPLICATION_JSON)
-      .body(createErrorResponse(e, req));
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(createErrorResponse(e, req));
   }
 
   /**
    * 上記のいずれにも当てはまらない例外をステータースコード500で返却する。
    * 
-   * @param e その他の例外
+   * @param e   その他の例外
    * @param req リクエスト
    * @return ステータースコード500のレスポンス
    */
@@ -73,9 +72,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest req) {
     aplog.error(createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .contentType(MediaType.APPLICATION_JSON)
-      .body(createErrorResponse(
-        new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null), req));
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(createErrorResponse(
+            new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null), req));
   }
 
   private ErrorResponse createErrorResponse(LogicException e, HttpServletRequest request) {
@@ -100,7 +99,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
     String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
     builder.append(exceptionId).append(" ").append(exceptionMessage)
-      .append(SystemPropertyConstants.LINE_SEPARATOR);
+        .append(SystemPropertyConstants.LINE_SEPARATOR);
     StringWriter writer = new StringWriter();
     e.printStackTrace(new PrintWriter(writer));
     builder.append(writer.getBuffer().toString());

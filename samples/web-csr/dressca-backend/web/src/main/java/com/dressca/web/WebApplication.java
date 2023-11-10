@@ -9,8 +9,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))
-@ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
+@ComponentScan(basePackages = { "com.dressca" })
+@MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
 public class WebApplication {
 
   public static void main(String[] args) {
