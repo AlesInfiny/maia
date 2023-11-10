@@ -35,8 +35,7 @@ public class ErrorResponse {
   private String instance;
 
   /** メッセージソース。 */
-  private static MessageSource messageSource =
-      (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+  private static MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
 
   private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
   private static final String PROPERTY_DELIMITER = ".";
