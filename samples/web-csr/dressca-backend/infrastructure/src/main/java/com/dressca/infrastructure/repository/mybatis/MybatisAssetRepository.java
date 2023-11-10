@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @Repository
 @AllArgsConstructor
 public class MybatisAssetRepository implements AssetRepository {
-  
+
   @Autowired
   private AssetMapper assetMapper;
 

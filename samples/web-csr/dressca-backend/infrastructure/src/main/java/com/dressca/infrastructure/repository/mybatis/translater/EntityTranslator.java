@@ -87,7 +87,7 @@ public class EntityTranslator {
    * 
    * @param entity {@link CatalogBrandEntity} オブジェクト
    * @return {@link CatalogBrand} オブジェクト
-   */  
+   */
   public static CatalogBrand catalogBrandEntityTranslate(CatalogBrandEntity entity) {
     CatalogBrand catalogBrand = new CatalogBrand();
     BeanUtils.copyProperties(entity, catalogBrand);
@@ -129,7 +129,7 @@ public class EntityTranslator {
     BeanUtils.copyProperties(entity, catalogItemAsset);
     return catalogItemAsset;
   }
-  
+
   /**
    * {@link OrderEntity} をドメインオブジェクトに変換します。
    * 
