@@ -38,14 +38,26 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x samples/web-csr/dressca-backend/gradlew
 
-      - name: ビルド（コンパイル, 静的テスト, JUnit）実行
+      - id: run-build-and-tests
+        name: ビルド（コンパイル, 静的テスト, JUnit）実行
         run: ./gradlew build
         working-directory: ./samples/web-csr/dressca-backend
+        continue-on-error: true
 
-      - name: JUnitレポート
+      - id: create-test-result-report
+        name: JUnitレポート
         uses: mikepenz/action-junit-report@v3
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
+
+      - name: テスト結果のサマリー表示
+        shell: bash
+        if: ${{ success() || (failure() && steps.run-build-and-tests.conclusion == 'failure') }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo 'Test was a **${{ steps.run-build-and-tests.conclusion }}**.' >> $GITHUB_STEP_SUMMARY
+          echo '${{ steps.create-test-result-report.outputs.total }} tests run, **${{ steps.create-test-result-report.outputs.passed }}** passed, **${{ steps.create-test-result-report.outputs.failed }}** failed and ${{ steps.create-test-result-report.outputs.skipped }} skipped.' >> $GITHUB_STEP_SUMMARY
+
       - name: Report
         uses: dorny/test-reporter@v1
         if: always()
