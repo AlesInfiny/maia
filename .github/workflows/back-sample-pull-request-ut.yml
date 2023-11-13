@@ -48,7 +48,7 @@ jobs:
         if: ${{ steps.run-build-and-tests.outcome == 'success' }}
         run: |
           echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
-          echo ':heavy_check_mark: ビルドまたはテストに成功しました。' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: ビルドとテストに成功しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
         if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
