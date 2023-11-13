@@ -44,7 +44,7 @@ jobs:
         working-directory: ./samples/web-csr/dressca-backend
         continue-on-error: true
 
-     - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
         if: ${{ steps.run-build-and-tests.outcome == 'success' }}
         run: |
           echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
