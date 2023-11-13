@@ -44,13 +44,6 @@ jobs:
         working-directory: ./samples/web-csr/dressca-backend
         continue-on-error: true
 
-      - name: ビルドログのアップロード
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-result
-          path: ./samples/web-csr/dressca-backend/build-result.txt
-          retention-days: 7
-
       - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
         shell: bash
         working-directory: ./samples/web-csr/dressca-backend
