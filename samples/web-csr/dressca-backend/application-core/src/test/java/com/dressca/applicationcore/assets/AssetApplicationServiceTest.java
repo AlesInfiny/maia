@@ -29,7 +29,7 @@ public class AssetApplicationServiceTest {
 
   @Test
   @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
-  void testGetAssetResourceInfo_01_正常系_存在するアセットコード() {
+  void testGetAssetResourceInfo_01_正常系_存在するアセットコード() throws AssetNotFoundException {
     // テスト用の入力データ
     String assetCode = "ExistAssetCode";
 
@@ -41,16 +41,12 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
-    
-    try {
-      // 戻り値の検証
-      assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findByAssetCode(assetCode);
-      verify(this.store, times(1)).getResource(asset);
-    } catch (AssetNotFoundException e) {
-      e.printStackTrace();
-    }
+
+    // 戻り値の検証
+    assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
+    verify(this.store, times(1)).getResource(asset);
   }
 
   @Test
