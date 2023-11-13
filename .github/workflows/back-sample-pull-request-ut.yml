@@ -53,6 +53,7 @@ jobs:
 
       - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
         shell: bash
+        working-directory: ./samples/web-csr/dressca-backend
         if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
         run: |
           echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
