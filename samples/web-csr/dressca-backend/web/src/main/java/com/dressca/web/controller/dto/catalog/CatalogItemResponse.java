@@ -40,7 +40,7 @@ public class CatalogItemResponse extends CatalogItemSummaryResponse {
     super(id, name, productCode, assetCodes);
     this.description = description;
     this.price = price;
-    this.catalogBrandId = catalogCategoryId;
+    this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
   }
 }
