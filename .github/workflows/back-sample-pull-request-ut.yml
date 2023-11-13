@@ -40,9 +40,25 @@ jobs:
 
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
-        run: ./gradlew build
+        run: ./gradlew build > build-result.txt
         working-directory: ./samples/web-csr/dressca-backend
         continue-on-error: true
+
+      - name: ビルドログのアップロード
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-result
+          path: ./samples/web-csr/dressca-backend/build-result.txt
+          retention-days: 7
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+        shell: bash
+        if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+        run: |
+          echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: ビルド（コンパイル, 静的テスト, JUnit）成功
         if: ${{ steps.run-build-and-tests.outcome == 'success' }}
