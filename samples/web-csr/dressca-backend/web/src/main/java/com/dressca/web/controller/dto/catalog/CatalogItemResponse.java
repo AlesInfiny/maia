@@ -4,19 +4,15 @@ import java.math.BigDecimal;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * カタログアイテムを取得する際に用いるdtoクラスです。
  */
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = false)
-@ToString
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class CatalogItemResponse extends CatalogItemSummaryResponse {
