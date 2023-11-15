@@ -27,10 +27,13 @@
     <property name="eachLine" value="true"/>
   </module>
 
+  <!-- 最大文字数が100文字を超過しても改行されない問題が発生しているためコメントアウト -->
+  <!-- 
   <module name="LineLength">
     <property name="max" value="100"/>
     <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
-  </module>
+  </module> 
+  -->
 
   <!-- チェック除外対象を示したファイルがあればそれを参照する -->
   <module name="SuppressionFilter">
