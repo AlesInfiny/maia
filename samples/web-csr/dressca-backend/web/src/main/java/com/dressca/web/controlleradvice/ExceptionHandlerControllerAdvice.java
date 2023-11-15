@@ -1,18 +1,15 @@
 package com.dressca.web.controlleradvice;
 
 import jakarta.servlet.http.HttpServletRequest;
-
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.exception.response.ErrorResponse;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
-
 import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +21,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.context.MessageSource;
 
+/**
+ * サーバーエラーのハンドリングを行うクラスです。
+ */
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 

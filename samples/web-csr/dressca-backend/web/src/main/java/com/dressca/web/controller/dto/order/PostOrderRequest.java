@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 注文情報における個人データを追加・変更する際に用いるdtoクラスです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

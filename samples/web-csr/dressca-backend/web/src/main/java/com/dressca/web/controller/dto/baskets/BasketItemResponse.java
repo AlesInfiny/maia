@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 買い物かごに格納された単一の商品情報を格納するレスポンスクラスです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

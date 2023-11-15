@@ -2,7 +2,6 @@ package com.dressca.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.dressca.applicationcore.catalog.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
@@ -31,38 +30,38 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CatalogItemsController {
 
-    @Autowired
-    private CatalogApplicationService service;
+  @Autowired
+  private CatalogApplicationService service;
 
-    /**
-     * カタログアイテムを検索して返します。
-     * 
-     * @param brandId    ブランドID
-     * @param categoryId カテゴリID
-     * @param page       ページ番号。未指定の場合は1。
-     * @param pageSize   ページサイズ。未指定の場合は20。
-     * @return カタログアイテムの一覧
-     */
-    @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedCatalogItemResponse.class))),
-            @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
-    @GetMapping()
-    public ResponseEntity<PagedCatalogItemResponse> getByQuery(
-            @RequestParam(name = "brandId", defaultValue = "0") long brandId,
-            @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-        List<CatalogItemResponse> items = service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
-                .map(CatalogItemMapper::convert)
-                .collect(Collectors.toList());
-        int totalCount = service.countCatalogItems(brandId, categoryId);
+  /**
+   * カタログアイテムを検索して返します。
+   * 
+   * @param brandId    ブランドID
+   * @param categoryId カテゴリID
+   * @param page       ページ番号。未指定の場合は1。
+   * @param pageSize   ページサイズ。未指定の場合は20。
+   * @return カタログアイテムの一覧
+   */
+  @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
+  @GetMapping()
+  public ResponseEntity<PagedCatalogItemResponse> getByQuery(
+      @RequestParam(name = "brandId", defaultValue = "0") long brandId,
+      @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
+      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
+    List<CatalogItemResponse> items = service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
+        .map(CatalogItemMapper::convert)
+        .collect(Collectors.toList());
+    int totalCount = service.countCatalogItems(brandId, categoryId);
 
-        PagedCatalogItemResponse returnValue = new PagedCatalogItemResponse(
-                items,
-                totalCount,
-                page,
-                pageSize);
-        return ResponseEntity.ok().body(returnValue);
-    }
+    PagedCatalogItemResponse returnValue = new PagedCatalogItemResponse(
+        items,
+        totalCount,
+        page,
+        pageSize);
+    return ResponseEntity.ok().body(returnValue);
+  }
 }
