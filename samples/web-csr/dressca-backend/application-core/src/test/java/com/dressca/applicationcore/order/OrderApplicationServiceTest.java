@@ -2,7 +2,6 @@ package com.dressca.applicationcore.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,7 +36,7 @@ public class OrderApplicationServiceTest {
   private OrderApplicationService service;
 
   @Test
-  void testCreateOrder_正常系_注文リポジトリのAddを1回呼出す() {
+  void testCreateOrder_正常系_注文リポジトリのAddを1回呼出す() throws Exception {
     // Arrange
     long basketId = 1L;
     String buyerId = UUID.randomUUID().toString();
@@ -52,11 +51,7 @@ public class OrderApplicationServiceTest {
     when(this.orderRepository.add(any())).thenReturn(order);
 
     // Act
-    try {
-      service.createOrder(basketId, shipToAddress);
-    } catch (Exception e) {
-      fail("例外は発生しないはず", e);
-    }
+    service.createOrder(basketId, shipToAddress);
 
     // Assert
     verify(this.orderRepository, times(1)).add(any());
@@ -93,7 +88,7 @@ public class OrderApplicationServiceTest {
   }
 
   @Test
-  void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() {
+  void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
     // Arrange
     long orderId = 1L;
     String buyerId = UUID.randomUUID().toString();
@@ -104,11 +99,7 @@ public class OrderApplicationServiceTest {
 
     // Act
     Order actual = null;
-    try {
-      actual = service.getOrder(orderId, buyerId);
-    } catch (Exception e) {
-      fail("例外は発生しないはず", e);
-    }
+    actual = service.getOrder(orderId, buyerId);
 
     // Assert
     assertThat(actual).isEqualTo(order);

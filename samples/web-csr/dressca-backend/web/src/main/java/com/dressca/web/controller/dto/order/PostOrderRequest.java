@@ -1,7 +1,6 @@
 package com.dressca.web.controller.dto.order;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import lombok.AllArgsConstructor;
 import lombok.Data;

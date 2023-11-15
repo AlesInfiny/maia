@@ -1,13 +1,16 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.6'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.springdoc.openapi-gradle-plugin' version '1.4.0'
+	id 'org.springframework.boot' version '3.1.2'
+	id 'io.spring.dependency-management' version '1.1.2'
+	id 'org.springdoc.openapi-gradle-plugin' version '1.7.0'
 }
 
 group = 'com.dressca'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+
+java {
+	sourceCompatibility = '17'
+}
 
 repositories {
 	mavenCentral()
@@ -15,11 +18,12 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-	implementation 'com.h2database:h2:2.1.210'
-	implementation 'org.postgresql:postgresql:42.3.4'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+	implementation 'com.h2database:h2:2.2.220'
+	implementation 'org.postgresql:postgresql:42.6.0'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
@@ -28,7 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+	compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
 }
 
 configurations {
@@ -36,10 +40,14 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
-
+afterEvaluate {
+    tasks.named("forkedSpringBootRun") {
+		workingDir("$rootDir/api-docs")
+	}
+}
 openApi {
     apiDocsUrl.set("http://localhost:8080/api-docs")
-	outputDir.set(file("$rootDir"))
+    outputDir.set(file("$rootDir/api-docs"))
     outputFileName.set("api-specification.json")
 }
 tasks.named('test') {

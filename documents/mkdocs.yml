@@ -1,7 +1,7 @@
 ---
 # cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
 site_name: AlesInfiny Maia
-site_url: https://www.maiaossedition.org/
+site_url: https://maia.alesinfiny.org/
 docs_dir: contents
 copyright: 'Copyright &copy; 2023 BIPROGY Inc. All rights reserved.'
 site_author: 'アドバンスド開発技術部'
@@ -71,7 +71,6 @@ theme:
     text: Noto Sans JP
     code: Source Code Pro
   language: ja
-  locale: ja
   logo: assets/maia-logo.png
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -105,8 +104,8 @@ markdown_extensions:
   - def_list
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       linenums: true
   - pymdownx.inlinehilite
