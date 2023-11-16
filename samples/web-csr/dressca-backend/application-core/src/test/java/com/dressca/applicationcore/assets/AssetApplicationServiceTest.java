@@ -16,6 +16,9 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link AssetApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class AssetApplicationServiceTest {
 

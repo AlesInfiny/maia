@@ -15,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link CatalogDomainService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class CatalogDomainServiceTest {
   @Mock

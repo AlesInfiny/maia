@@ -24,6 +24,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link OrderApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class OrderApplicationServiceTest {
   @Mock

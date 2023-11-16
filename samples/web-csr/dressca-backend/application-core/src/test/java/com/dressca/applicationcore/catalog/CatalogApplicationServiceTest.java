@@ -15,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link CatalogApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class CatalogApplicationServiceTest {
   @Mock
