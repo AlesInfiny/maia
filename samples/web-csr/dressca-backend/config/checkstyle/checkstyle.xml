@@ -15,6 +15,9 @@
   Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
 
+<!-- UPDATE状況などを確認するURLは以下を参照 -->
+<!-- https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml -->
+
 <module name = "Checker">
   <property name="charset" value="UTF-8"/>
 
