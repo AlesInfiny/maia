@@ -1,12 +1,12 @@
 package com.dressca.batch;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.sql.DataSource;
-// import org.junit.Assert;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.dressca.batch.job.BatchConfiguration;
 
-/*
- * CatalogItemJobのテスト
+/**
+ * CatalogItemJobのテストです。
  */
 @SpringBatchTest
 @SpringJUnitConfig(BatchConfiguration.class)
@@ -42,8 +42,8 @@ public class CatalogItemJobTest {
   @Autowired
   JobRepository jobRepository;
   private JdbcTemplate jdbcTemplate;
-  private final String OUTPUT_FILE = "output/outputData.csv";
-  private final String EXPECTED_FOLDER = "src/test/resources/expected/";
+  private final String outputFile = "output/outputData.csv";
+  private final String expectedFolder = "src/test/resources/expected/";
 
   @Autowired
   public void setDataSource(DataSource dataSource) {
@@ -55,12 +55,17 @@ public class CatalogItemJobTest {
     jobLauncherTestUtils.setJob(catalogItemJob);
   }
 
+  /**
+   * 各テストを実施する前のセットアップメソッド。
+   * 
+   * @throws IOException 例外エラー
+   */
   @BeforeEach
   /* DBのテストデータと出力ファイルのクリーンアップ */
   public void clearData() throws IOException {
     jdbcTemplate.update("delete from catalog_items");
     jdbcTemplate.update("delete from catalog_item_assets");
-    Files.deleteIfExists(Paths.get(OUTPUT_FILE));
+    Files.deleteIfExists(Paths.get(outputFile));
   }
 
   /*
@@ -73,8 +78,8 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedFile = expectedFolder + "output_jobTest_empty.csv";
+    String outputStr = (new FileSystemResource(outputFile)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
@@ -92,8 +97,8 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedFile = expectedFolder + "output_jobTest_10data.csv";
+    String outputStr = (new FileSystemResource(outputFile)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
@@ -111,8 +116,8 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedFile = expectedFolder + "output_stepTest_10data.csv";
+    String outputStr = (new FileSystemResource(outputFile)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
