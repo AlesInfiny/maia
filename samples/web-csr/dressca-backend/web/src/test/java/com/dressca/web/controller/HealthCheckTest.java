@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * ヘルスチェックAPIの動作をテストするクラスです。
+ */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc

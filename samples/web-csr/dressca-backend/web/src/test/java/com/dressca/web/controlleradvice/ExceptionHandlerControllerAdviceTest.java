@@ -39,6 +39,9 @@ import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 
+/**
+ * {@link ExceptionHandlerControllerAdvice }の動作をテストするクラスです。
+ */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
@@ -60,6 +63,9 @@ public class ExceptionHandlerControllerAdviceTest {
   @Captor
   private ArgumentCaptor<LogEvent> logCaptor;
 
+  /**
+   * 各テスト実施前のセットアップを行うメソッド。
+   */
   @BeforeEach
   public void setup() {
     // アプリケーションログメッセージを取得する設定
@@ -95,7 +101,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_ASSET0001;
-    String logMessageValue[] = { assetCode };
+    String[] logMessageValue = { assetCode };
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new AssetNotFoundException(assetCode));
@@ -122,8 +128,8 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
-    String frontMessageValue[] = null;
-    String logMessageValue[] = null;
+    String[] frontMessageValue = null;
+    String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
@@ -151,7 +157,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
-    String logMessageValue[] = null;
+    String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new RuntimeException());
