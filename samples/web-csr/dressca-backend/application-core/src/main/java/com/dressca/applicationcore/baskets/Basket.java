@@ -11,6 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+/**
+ * 買い物かごの情報を表現するドメインモデルです。
+ */
 @Data
 @NoArgsConstructor
 public class Basket {

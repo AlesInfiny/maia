@@ -4,6 +4,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
+/**
+ * カタログ情報に関するビジネスユースケースを実現するサービスです。
+ */
 @Service
 @AllArgsConstructor
 public class CatalogApplicationService {

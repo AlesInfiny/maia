@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 買い物かごアイテムのドメインモデルです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

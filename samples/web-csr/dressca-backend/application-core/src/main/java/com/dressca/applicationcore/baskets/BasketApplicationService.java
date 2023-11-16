@@ -6,6 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
+/**
+ * 買い物かご情報に関するビジネスユースケースを実現するサービスです。
+ */
 @Service
 @AllArgsConstructor
 public class BasketApplicationService {
