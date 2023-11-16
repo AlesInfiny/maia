@@ -3,6 +3,9 @@ package com.dressca.systemcommon.exception;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * システム例外を表す例外クラスです。
+ */
 @Getter
 @Setter
 public class SystemException extends RuntimeException {
