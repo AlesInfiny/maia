@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.baskets;
 
 import java.math.BigDecimal;
-
 import com.dressca.applicationcore.accounting.AccountItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;

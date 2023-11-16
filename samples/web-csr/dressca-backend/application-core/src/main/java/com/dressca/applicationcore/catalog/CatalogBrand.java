@@ -2,7 +2,6 @@ package com.dressca.applicationcore.catalog;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

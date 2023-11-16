@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.accounting.AccountItem;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
