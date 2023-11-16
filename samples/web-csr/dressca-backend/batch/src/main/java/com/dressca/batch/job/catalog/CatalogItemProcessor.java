@@ -3,7 +3,6 @@ package com.dressca.batch.job.catalog;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-
 import com.dressca.applicationcore.catalog.CatalogItem;
 
 /**
