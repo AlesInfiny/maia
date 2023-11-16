@@ -2,6 +2,7 @@ package com.dressca.batch.job.catalog;
 
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.catalog.CatalogItem;
 
@@ -12,7 +13,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 public class CatalogItemProcessor implements ItemProcessor<CatalogItem, CatalogItem> {
 
   @Override
-  public CatalogItem process(final CatalogItem catalogItem) throws Exception {
+  public CatalogItem process(@NonNull final CatalogItem catalogItem) throws Exception {
     String name = catalogItem.getName();
     // 商品名が10文字超える場合、先頭10文字にする
     if (name.length() > 10) {

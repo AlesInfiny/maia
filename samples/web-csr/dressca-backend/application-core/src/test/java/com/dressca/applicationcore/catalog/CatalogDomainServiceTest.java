@@ -110,7 +110,7 @@ public class CatalogDomainServiceTest {
     assertThat(existAll).isFalse();
   }
 
-  private CatalogItem createCatalogItem(long id) {
+  private CatalogItem createCatalogItem(Long id) {
     Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
