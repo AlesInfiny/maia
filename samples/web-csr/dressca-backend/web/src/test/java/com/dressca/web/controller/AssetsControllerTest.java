@@ -24,31 +24,23 @@ public class AssetsControllerTest {
 
   @Test
   @DisplayName("testGet_01_正常系_存在するアセットコード")
-  void testGet_01() {
+  void testGet_01() throws Exception {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
 
     // 期待する戻り値
-    try {
-      this.mockMvc.perform(get("/api/assets/" + assetCode))
-          .andExpect(status().isOk())
-          .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
   }
 
   @Test
   @DisplayName("testGet_02_異常系_存在しないアセットコード")
-  void testGet_02() {
+  void testGet_02() throws Exception {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
-    try {
-      this.mockMvc.perform(get("/api/assets/" + assetCode))
-          .andExpect(status().isNotFound());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isNotFound());
   }
 }
