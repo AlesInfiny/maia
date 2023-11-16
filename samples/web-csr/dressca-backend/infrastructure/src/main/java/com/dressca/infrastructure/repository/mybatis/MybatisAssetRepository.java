@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
+/**
+ * アセットリポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisAssetRepository implements AssetRepository {

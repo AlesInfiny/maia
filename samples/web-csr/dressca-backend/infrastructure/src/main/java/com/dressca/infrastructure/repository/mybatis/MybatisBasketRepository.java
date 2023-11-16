@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
+/**
+ * 買い物かごリポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisBasketRepository implements BasketRepository {

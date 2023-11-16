@@ -20,6 +20,9 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntit
 import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
 import org.springframework.beans.BeanUtils;
 
+/**
+ * エンティティとドメインオブジェクトを相互に変換するクラスです。
+ */
 public class EntityTranslator {
 
   /**
