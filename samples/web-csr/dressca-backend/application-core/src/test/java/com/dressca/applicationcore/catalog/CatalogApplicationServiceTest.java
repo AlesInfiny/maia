@@ -33,8 +33,7 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
-    when(
-        this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
+    when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
         .thenReturn(catalogItems);
 
     // Act
