@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
+  <!-- 
+    Lombokによる自動作成された各メソッドで発生している警告であるが
+    spotBugsとの整合性が取れない警告であるため警告を無視する設定としている。
+  -->
   <Match>
     <Or>
       <Bug code="EI, EI2" />
