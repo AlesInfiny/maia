@@ -4,7 +4,6 @@
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
   "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
   "cSpell.words": [
-    "aplog",
     "Appender",
     "applicationcore",
     "assertj",
@@ -21,7 +20,6 @@
     "systemcommon",
     "tasklet",
     "todofuken",
-    "translater"
   ],
   "[java]" : {
     "editor.formatOnSave": true,

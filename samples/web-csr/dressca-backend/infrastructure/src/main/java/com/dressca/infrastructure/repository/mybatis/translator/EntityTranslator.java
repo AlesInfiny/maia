@@ -1,4 +1,4 @@
-package com.dressca.infrastructure.repository.mybatis.translater;
+package com.dressca.infrastructure.repository.mybatis.translator;
 
 import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.baskets.Basket;

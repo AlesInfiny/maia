@@ -27,7 +27,7 @@ import org.springframework.context.MessageSource;
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
-  private static final Logger aplog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
   private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
   private static final String PROPERTY_DELIMITER = ".";
 
@@ -40,7 +40,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ErrorResponse> handleLogicException(LogicException e, HttpServletRequest req) {
-    aplog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
+    apLog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(createErrorResponse(e, req));
@@ -55,7 +55,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ErrorResponse> handleException(SystemException e, HttpServletRequest req) {
-    aplog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
+    apLog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(createErrorResponse(e, req));
@@ -70,7 +70,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest req) {
-    aplog.error(createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
+    apLog.error(createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(createErrorResponse(
