@@ -509,7 +509,7 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 - Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
 - 「Microsoft」「Windows」「Visual Studio Code」「VS Code」「Azure」は米国 Microsoft Corporation の米国およびその他の国における登録商標または商標です。
 - 「Java」は、オラクルおよびその関連会社の登録商標です。
-- 「Spring」「Spring Framework」「Spring Boot」「Spring Cloud」「Spring IO」は Pivotal Software, Inc.の商標です。
+- Spring, Spring Framework, Spring Boot, Spring Cloud, Spring IO are trademarks of Pivotal Software, Inc. in the U.S. and other countries.
 - HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.
