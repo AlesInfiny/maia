@@ -50,6 +50,7 @@ subprojects {
     configDirectory = rootProject.file('config/checkstyle')
   } 
   spotbugs {
+    excludeFilter.set(rootProject.file('config/spotbugs/exclude-filter.xml'))
     toolVersion = '4.7.3'
     ignoreFailures = true
   }

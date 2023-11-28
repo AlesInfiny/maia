@@ -1,12 +1,12 @@
 package com.dressca.batch;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.sql.DataSource;
-// import org.junit.Assert;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.dressca.batch.job.BatchConfiguration;
 
-/*
- * CatalogItemJobのテスト
+/**
+ * CatalogItemJobのテストです。
  */
 @SpringBatchTest
 @SpringJUnitConfig(BatchConfiguration.class)
@@ -42,8 +42,8 @@ public class CatalogItemJobTest {
   @Autowired
   JobRepository jobRepository;
   private JdbcTemplate jdbcTemplate;
-  private final String OUTPUT_FILE = "output/outputData.csv";
-  private final String EXPECTED_FOLDER = "src/test/resources/expected/";
+  private static final String OUTPUT_FILE = "output/outputData.csv";
+  private static final String EXPECTED_FOLDER = "src/test/resources/expected/";
 
   @Autowired
   public void setDataSource(DataSource dataSource) {
@@ -55,6 +55,11 @@ public class CatalogItemJobTest {
     jobLauncherTestUtils.setJob(catalogItemJob);
   }
 
+  /**
+   * 各テストを実施する前のセットアップメソッド。
+   * 
+   * @throws IOException 例外エラー
+   */
   @BeforeEach
   /* DBのテストデータと出力ファイルのクリーンアップ */
   public void clearData() throws IOException {
@@ -77,7 +82,7 @@ public class CatalogItemJobTest {
     String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n",System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
   }
 
   /*
@@ -96,9 +101,8 @@ public class CatalogItemJobTest {
     String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n",System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
   }
-
 
   /*
    * ステップ単位でのテスト：データ10件
@@ -116,15 +120,13 @@ public class CatalogItemJobTest {
     String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n",System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
   }
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
-      String insertItem =
-          "insert into catalog_items (id,name,description,price,product_code,catalog_category_id,catalog_brand_id) values (?,?,?,1000,'C000000001',1,1)";
-      String insertItemAsset =
-          "insert into catalog_item_assets (id,asset_code,catalog_item_id) values (?,'dummy',?)";
+      String insertItem = "insert into catalog_items (id,name,description,price,product_code,catalog_category_id,catalog_brand_id) values (?,?,?,1000,'C000000001',1,1)";
+      String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id) values (?,'dummy',?)";
       jdbcTemplate.update(insertItem, 101 + i, "sample" + i, "商品説明" + i);
       jdbcTemplate.update(insertItemAsset, 101 + i, 101 + i);
     }

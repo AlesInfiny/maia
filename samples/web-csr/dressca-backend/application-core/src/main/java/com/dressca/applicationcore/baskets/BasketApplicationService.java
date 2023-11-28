@@ -2,11 +2,13 @@ package com.dressca.applicationcore.baskets;
 
 import java.math.BigDecimal;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
+/**
+ * 買い物かご情報に関するビジネスユースケースを実現するサービスです。
+ */
 @Service
 @AllArgsConstructor
 public class BasketApplicationService {
@@ -15,10 +17,10 @@ public class BasketApplicationService {
   /**
    * 買い物かごに商品を追加します。
    * 
-   * @param basketId 買い物かごID
+   * @param basketId      買い物かごID
    * @param catalogItemId カタログ商品ID
-   * @param price 単価
-   * @param quantity 数量
+   * @param price         単価
+   * @param quantity      数量
    * @throws BasketNotFoundException 買い物かごが見つからなかった場合
    */
   public void addItemToBasket(long basketId, long catalogItemId, BigDecimal price, int quantity)
@@ -47,7 +49,7 @@ public class BasketApplicationService {
   /**
    * 買い物かご内の商品の数量を設定します。
    * 
-   * @param basketId 買い物かごID
+   * @param basketId   買い物かごID
    * @param quantities キーにカタログ商品ID、値に数量を設定したMap
    * @throws BasketNotFoundException 買い物かごが見つからなかった場合
    */

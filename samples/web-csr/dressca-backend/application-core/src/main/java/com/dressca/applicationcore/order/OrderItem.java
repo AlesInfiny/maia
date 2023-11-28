@@ -28,8 +28,8 @@ public class OrderItem {
    * コンストラクタ。
    * 
    * @param itemOrdered 注文されたカタログアイテム
-   * @param bigDecimal 単価
-   * @param quantity 数量
+   * @param bigDecimal  単価
+   * @param quantity    数量
    */
   public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
     this.itemOrdered = itemOrdered;

@@ -20,6 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link BasketApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class BasketApplicationServiceTest {
   @Mock
@@ -256,13 +259,13 @@ public class BasketApplicationServiceTest {
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
-  void testGetOrCreateBasketForUser_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException{
+  void testGetOrCreateBasketForUser_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
     // テストメソッドの実行
     try {
       service.getOrCreateBasketForUser(buyerId);
     } catch (IllegalArgumentException e) {
       assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
-    }    
+    }
     // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(0)).findByBuyerId(any());
     verify(this.repository, times(0)).add(any());

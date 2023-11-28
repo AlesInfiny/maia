@@ -6,7 +6,6 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.systemcommon.exception.LogicException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -44,9 +43,8 @@ public class AssetsController {
    */
   @Operation(summary = "アセットを取得する.", description = "与えられたアセットコードに対応するアセットを返却する.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.",
-          content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content)})
+      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
   @GetMapping("{assetCode}")
   public ResponseEntity<Resource> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)

@@ -7,15 +7,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.dressca.web.WebApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith(SpringExtension.class)
+/**
+ * {@link AssetsController}の動作をテストするクラスです。
+ */
+@SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 public class AssetsControllerTest {
@@ -31,8 +33,8 @@ public class AssetsControllerTest {
 
     // 期待する戻り値
     this.mockMvc.perform(get("/api/assets/" + assetCode))
-      .andExpect(status().isOk())
-      .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
   }
 
   @Test
@@ -42,6 +44,6 @@ public class AssetsControllerTest {
     String assetCode = "NotExistAssetCode";
 
     this.mockMvc.perform(get("/api/assets/" + assetCode))
-      .andExpect(status().isNotFound());
+        .andExpect(status().isNotFound());
   }
 }

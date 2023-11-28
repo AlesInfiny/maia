@@ -1,13 +1,10 @@
 package com.dressca.systemcommon.exception.response;
 
 import java.util.Locale;
-
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
-
 import org.springframework.context.MessageSource;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +32,7 @@ public class ErrorResponse {
   private String instance;
 
   /** メッセージソース。 */
-  private static MessageSource messageSource =
-      (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+  private static MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
 
   private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
   private static final String PROPERTY_DELIMITER = ".";

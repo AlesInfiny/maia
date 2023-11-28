@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 買い物かごの会計情報を格納するdtoクラスです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

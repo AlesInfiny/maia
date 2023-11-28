@@ -6,7 +6,7 @@ import java.util.Optional;
  * アセットリポジトリ。
  */
 public interface AssetRepository {
-  
+
   /**
    * 指定したアセットコードの情報を取得します。
    * 存在しない場合は 空のOptional を返します。
