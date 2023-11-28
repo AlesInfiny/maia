@@ -93,7 +93,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testExistAll_正常系_カタログアイテムIdが一部だけ存在する場合falseを返す() {
     // Arrange
-    long[] catalogItemIds = {};
+    long[] catalogItemIds = { 2L };
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
