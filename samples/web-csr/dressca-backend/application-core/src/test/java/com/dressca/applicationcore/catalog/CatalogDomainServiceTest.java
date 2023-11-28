@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,7 +32,7 @@ public class CatalogDomainServiceTest {
   void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
     long[] catalogItemIds = { 1L, 2L };
-    List<Long> catalogItemIdsList = Arrays.asList(Arrays.stream(catalogItemIds).boxed().toArray(Long[]::new));
+    List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
@@ -62,7 +64,7 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
     long[] catalogItemIds = { 1L, 2L };
-    List<Long> catalogItemIdsList = Arrays.asList(Arrays.stream(catalogItemIds).boxed().toArray(Long[]::new));
+    List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
@@ -78,7 +80,7 @@ public class CatalogDomainServiceTest {
   void testExistAll_正常系_カタログアイテムIdがすべて存在する場合trueを返す() {
     // Arrange
     long[] catalogItemIds = { 1L, 2L };
-    List<Long> catalogItemIdsList = Arrays.asList(Arrays.stream(catalogItemIds).boxed().toArray(Long[]::new));
+    List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
