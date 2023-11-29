@@ -12,11 +12,15 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItem
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketItemMapper;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
-import com.dressca.infrastructure.repository.mybatis.translater.EntityTranslator;
+import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
+/**
+ * 買い物かごリポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisBasketRepository implements BasketRepository {
@@ -44,7 +48,7 @@ public class MybatisBasketRepository implements BasketRepository {
   public Basket add(Basket basket) {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.insert(row);
-    
+
     // 子要素（BasketItem）の追加
     List<BasketItemEntity> itemRows = basket.getItems().stream()
         .map(EntityTranslator::createBasketItemEntity)
@@ -52,7 +56,7 @@ public class MybatisBasketRepository implements BasketRepository {
     for (BasketItemEntity itemRow : itemRows) {
       basketItemMapper.insert(itemRow);
     }
-    
+
     return joinedBasketMapper.findById(row.getId());
   }
 
@@ -67,7 +71,7 @@ public class MybatisBasketRepository implements BasketRepository {
         .mapToLong(BasketEntity::getId)
         .distinct()
         .forEach(id -> removeBasketItem(id));
-      
+
     basketMapper.deleteByExample(basketExample);
   }
 
@@ -75,7 +79,7 @@ public class MybatisBasketRepository implements BasketRepository {
   public void update(Basket basket) {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.updateByPrimaryKey(row);
-    
+
     // 子要素（BasketItem）の更新
     // 削除されたBasketItemにも対応できるようにDELETE-INSERTする
     removeBasketItem(basket.getId());

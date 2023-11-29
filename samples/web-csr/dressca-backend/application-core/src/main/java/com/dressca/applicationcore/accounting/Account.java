@@ -3,7 +3,6 @@ package com.dressca.applicationcore.accounting;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-
 import lombok.Value;
 
 /**
@@ -25,8 +24,8 @@ public class Account {
   }
 
   /**
-   * 税抜きの送料を取得します。 送料は会計アイテムの合計金額が 5,000 円以上で無料になります。 それ以外の場合 500 円です。 ただし、会計アイテムが登録されていない場合は 0
-   * 円を返します。
+   * 税抜きの送料を取得します。 送料は会計アイテムの合計金額が 5,000 円以上で無料になります。 それ以外の場合 500 円です。
+   * ただし、会計アイテムが登録されていない場合は 0 円を返します。
    * 
    * @return 送料
    */

@@ -6,6 +6,9 @@ import com.dressca.applicationcore.order.OrderItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 注文情報のテーブルにアクセスするためのマッパークラスです。
+ */
 @Mapper
 public interface JoinedOrderMapper {
 

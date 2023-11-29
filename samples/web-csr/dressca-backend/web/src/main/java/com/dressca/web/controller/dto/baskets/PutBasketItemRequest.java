@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 買い物かごアイテム内の数量を変更する際に用いるdtoクラスです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

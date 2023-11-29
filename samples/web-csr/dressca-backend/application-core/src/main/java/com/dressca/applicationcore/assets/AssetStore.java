@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.assets;
 
 import java.util.Optional;
-
 import org.springframework.core.io.Resource;
 
 /**

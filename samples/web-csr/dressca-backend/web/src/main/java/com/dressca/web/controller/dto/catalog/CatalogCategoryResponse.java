@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * カタログカテゴリの情報を取得する際に用いるdtoクラスです。
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

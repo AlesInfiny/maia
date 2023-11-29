@@ -20,6 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link BasketApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class BasketApplicationServiceTest {
   @Mock
@@ -28,7 +31,7 @@ public class BasketApplicationServiceTest {
   private BasketApplicationService service;
 
   @Test
-  void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() {
+  void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException {
 
     // テスト用の入力データ
     long basketId = 1L;
@@ -43,20 +46,15 @@ public class BasketApplicationServiceTest {
     Basket basket = new Basket("dummy");
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.addItemToBasket(basketId, catalogItemId, price, quantity);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      verify(this.repository, times(1)).update(basket);
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.addItemToBasket(basketId, catalogItemId, price, quantity);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    verify(this.repository, times(1)).update(basket);
   }
 
   @Test
-  void testAddItemToBasket_正常系_商品追加処理後に数量が0となる場合買い物かごアイテムは削除される() {
+  void testAddItemToBasket_正常系_商品追加処理後に数量が0となる場合買い物かごアイテムは削除される() throws BasketNotFoundException {
     // テスト用の入力データ
     long basketId = 1L;
     long catalogItemId = 1L;
@@ -68,19 +66,14 @@ public class BasketApplicationServiceTest {
     basket.addItem(catalogItemId, price, 1);
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.addItemToBasket(basketId, catalogItemId, price, quantity);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
-      verify(this.repository, times(1)).update(captor.capture());
-      Basket argBasket = captor.getValue();
-      assertThat(argBasket.getItems().size()).isEqualTo(0);
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.addItemToBasket(basketId, catalogItemId, price, quantity);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
+    verify(this.repository, times(1)).update(captor.capture());
+    Basket argBasket = captor.getValue();
+    assertThat(argBasket.getItems().size()).isEqualTo(0);
   }
 
   @Test
@@ -106,7 +99,7 @@ public class BasketApplicationServiceTest {
   }
 
   @Test
-  void testDeleteBasket_正常系_リポジトリのremoveを1度だけ呼出す() {
+  void testDeleteBasket_正常系_リポジトリのremoveを1度だけ呼出す() throws BasketNotFoundException {
 
     // テスト用の入力データ
     long basketId = 1L;
@@ -115,16 +108,11 @@ public class BasketApplicationServiceTest {
     Basket basket = new Basket("dummy");
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.deleteBasket(basketId);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      verify(this.repository, times(1)).remove(basket);;
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.deleteBasket(basketId);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    verify(this.repository, times(1)).remove(basket);
   }
 
   @Test
@@ -147,7 +135,7 @@ public class BasketApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() {
+  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException {
 
     // テスト用の入力データ
     long basketId = 1L;
@@ -157,20 +145,15 @@ public class BasketApplicationServiceTest {
     Basket basket = new Basket("dummy");
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.setQuantities(basketId, quantities);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      verify(this.repository, times(1)).update(basket);
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.setQuantities(basketId, quantities);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    verify(this.repository, times(1)).update(basket);
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在しない商品を指定しても買い物かごには追加されない() {
+  void testSetQuantities_正常系_買い物かごに存在しない商品を指定しても買い物かごには追加されない() throws BasketNotFoundException {
 
     // テスト用の入力データ
     long basketId = 1L;
@@ -180,23 +163,18 @@ public class BasketApplicationServiceTest {
     Basket basket = new Basket("dummy");
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.setQuantities(basketId, quantities);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
-      verify(this.repository, times(1)).update(captor.capture());
-      Basket argBasket = captor.getValue();
-      assertThat(argBasket.getItems().size()).isEqualTo(0);
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.setQuantities(basketId, quantities);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
+    verify(this.repository, times(1)).update(captor.capture());
+    Basket argBasket = captor.getValue();
+    assertThat(argBasket.getItems().size()).isEqualTo(0);
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() {
+  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException {
 
     // テスト用の入力データ
     long basketId = 1L;
@@ -209,19 +187,14 @@ public class BasketApplicationServiceTest {
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.repository.findById(basketId)).thenReturn(Optional.of(basket));
 
-    try {
-      // テストメソッドの実行
-      service.setQuantities(basketId, quantities);
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findById(basketId);
-      ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
-      verify(this.repository, times(1)).update(captor.capture());
-      Basket argBasket = captor.getValue();
-      assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
-    } catch (BasketNotFoundException e) {
-      e.printStackTrace();
-      fail(e);
-    }
+    // テストメソッドの実行
+    service.setQuantities(basketId, quantities);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findById(basketId);
+    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
+    verify(this.repository, times(1)).update(captor.capture());
+    Basket argBasket = captor.getValue();
+    assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
   }
 
   @Test
@@ -245,7 +218,7 @@ public class BasketApplicationServiceTest {
   }
 
   @Test
-  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在しない場合は新規作成する() {
+  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在しない場合は新規作成する() throws BasketNotFoundException {
 
     // テスト用の入力データ
     String dummyBuyerId = "dummyId";
@@ -263,7 +236,7 @@ public class BasketApplicationServiceTest {
   }
 
   @Test
-  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在する場合はその情報を返す() {
+  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在する場合はその情報を返す() throws BasketNotFoundException {
 
     // テスト用の入力データ
     String dummyBuyerId = "dummyId";
@@ -286,14 +259,14 @@ public class BasketApplicationServiceTest {
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
-  void testGetOrCreateBasketForUser_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) {
+  void testGetOrCreateBasketForUser_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
     // テストメソッドの実行
     try {
       service.getOrCreateBasketForUser(buyerId);
     } catch (IllegalArgumentException e) {
       assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
     }
-    // // モックが想定通り呼び出されていることの確認
+    // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(0)).findByBuyerId(any());
     verify(this.repository, times(0)).add(any());
   }

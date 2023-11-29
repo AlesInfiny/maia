@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.2'
-	id 'io.spring.dependency-management' version '1.1.2'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.dressca'
@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
-	implementation 'com.h2database:h2:2.2.220'
+	implementation 'com.h2database:h2:2.2.224'
 	implementation 'org.postgresql:postgresql:42.6.0'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
 	implementation project(':application-core')
