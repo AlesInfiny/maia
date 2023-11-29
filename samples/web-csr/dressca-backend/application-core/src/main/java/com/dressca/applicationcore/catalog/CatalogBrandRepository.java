@@ -8,6 +8,7 @@ import java.util.List;
 public interface CatalogBrandRepository {
   /**
    * すべてのカタログブランドを取得します。
+   * 
    * @return カタログブランドのリスト
    */
   List<CatalogBrand> getAll();

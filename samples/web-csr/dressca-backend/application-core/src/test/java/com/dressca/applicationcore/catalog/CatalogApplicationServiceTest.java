@@ -15,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * {@link CatalogApplicationService}の動作をテストするクラスです。
+ */
 @ExtendWith(SpringExtension.class)
 public class CatalogApplicationServiceTest {
   @Mock
@@ -30,9 +33,8 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
-    when(
-        this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
-            .thenReturn(catalogItems);
+    when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
+        .thenReturn(catalogItems);
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);

@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.assets;
 
 import org.springframework.core.io.Resource;
-
 import lombok.Data;
 import lombok.NonNull;
 

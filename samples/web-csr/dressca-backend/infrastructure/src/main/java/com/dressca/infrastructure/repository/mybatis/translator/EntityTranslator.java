@@ -1,4 +1,4 @@
-package com.dressca.infrastructure.repository.mybatis.translater;
+package com.dressca.infrastructure.repository.mybatis.translator;
 
 import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.baskets.Basket;
@@ -20,6 +20,9 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntit
 import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
 import org.springframework.beans.BeanUtils;
 
+/**
+ * エンティティとドメインオブジェクトを相互に変換するクラスです。
+ */
 public class EntityTranslator {
 
   /**
@@ -87,7 +90,7 @@ public class EntityTranslator {
    * 
    * @param entity {@link CatalogBrandEntity} オブジェクト
    * @return {@link CatalogBrand} オブジェクト
-   */  
+   */
   public static CatalogBrand catalogBrandEntityTranslate(CatalogBrandEntity entity) {
     CatalogBrand catalogBrand = new CatalogBrand();
     BeanUtils.copyProperties(entity, catalogBrand);
@@ -129,7 +132,7 @@ public class EntityTranslator {
     BeanUtils.copyProperties(entity, catalogItemAsset);
     return catalogItemAsset;
   }
-  
+
   /**
    * {@link OrderEntity} をドメインオブジェクトに変換します。
    * 

@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * 購入者IDにフィルターをかけるクラスです。
+ */
 public class BuyerIdFilter implements Filter {
 
   private static final String DEFAULT_BUYER_COOKIE_NAME = "Dressca-Bid";

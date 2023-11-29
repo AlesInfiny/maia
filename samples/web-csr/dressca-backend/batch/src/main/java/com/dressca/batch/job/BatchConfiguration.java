@@ -26,8 +26,8 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
  */
 @Configuration
 @EnableBatchProcessing
-@ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
+@ComponentScan(basePackages = { "com.dressca" })
+@MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
 
 public class BatchConfiguration {
 
@@ -37,8 +37,10 @@ public class BatchConfiguration {
    * @param catalogItemTasklet ステップで実行するTasklet
    */
   @Bean
-  public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, CatalogItemTasklet catalogItemTasklet) {
-    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet, transactionManager).build();
+  public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+      CatalogItemTasklet catalogItemTasklet) {
+    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet, transactionManager)
+        .build();
   }
 
   /**
@@ -55,9 +57,9 @@ public class BatchConfiguration {
   /**
    * catalogItem_job用のstepの設定。
    * 
-   * @param catalogItemReader ステップで実行するReader
+   * @param catalogItemReader    ステップで実行するReader
    * @param catalogItemProcessor ステップで実行するProcessor
-   * @param catalogItemWriter ステップで実行するWriter
+   * @param catalogItemWriter    ステップで実行するWriter
    */
   @Bean
   public Step catalogItem_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
@@ -87,8 +89,8 @@ public class BatchConfiguration {
   /**
    * catalogItem_job用の設定。
    * 
-   * @param listener 設定するLitener
-   * @param step1 ジョブで実行するstep
+   * @param listener 設定するListener
+   * @param step1    ジョブで実行するstep
    */
   @Primary
   @Bean

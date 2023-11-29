@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 注文情報リポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisOrderRepository implements OrderRepository {

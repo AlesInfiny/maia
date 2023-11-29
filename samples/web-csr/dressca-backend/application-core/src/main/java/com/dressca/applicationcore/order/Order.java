@@ -33,9 +33,9 @@ public class Order {
   /**
    * コンストラクタ。
    * 
-   * @param buyerId 顧客ID
+   * @param buyerId       顧客ID
    * @param shipToAddress 宛先住所
-   * @param orderItems 商品リスト
+   * @param orderItems    商品リスト
    */
   public Order(String buyerId, ShipTo shipToAddress, List<OrderItem> orderItems) {
     this.buyerId = buyerId;
@@ -54,19 +54,19 @@ public class Order {
   /**
    * コンストラクタ。
    * 
-   * @param id ID
-   * @param buyerId 顧客ID
-   * @param orderDate 注文日付
-   * @param shipToAddress 宛先住所
+   * @param id                 ID
+   * @param buyerId            顧客ID
+   * @param orderDate          注文日付
+   * @param shipToAddress      宛先住所
    * @param consumptionTaxRate 消費税率
-   * @param totalItemsPrice 商品価格合計
-   * @param deliveryCharge 送料
-   * @param consumptionTax 消費税額
-   * @param totalPrice 合計料金
-   * @param orderItems 商品リスト
+   * @param totalItemsPrice    商品価格合計
+   * @param deliveryCharge     送料
+   * @param consumptionTax     消費税額
+   * @param totalPrice         合計料金
+   * @param orderItems         商品リスト
    */
   public Order(long id, String buyerId, LocalDateTime orderDate, ShipTo shipToAddress,
-      BigDecimal consumptionTaxRate, BigDecimal totalItemsPrice, BigDecimal deliveryCharge, 
+      BigDecimal consumptionTaxRate, BigDecimal totalItemsPrice, BigDecimal deliveryCharge,
       BigDecimal consumptionTax, BigDecimal totalPrice, List<OrderItem> orderItems) {
     this.id = id;
     this.buyerId = buyerId;
