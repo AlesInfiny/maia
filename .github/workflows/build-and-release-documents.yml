@@ -2,7 +2,7 @@
 # cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
 name: ドキュメントのビルドとリリース
 
-on:  # yamllint disable-line rule:truthy
+on:
   push:
     branches: [main]
     tags:
@@ -35,82 +35,85 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ブランチのチェックアウト
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Linter の処理開始
-        run: |
-          echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
-
-      - name: GitHub Super Linter の実行
-        id: execute_super_linter
-        continue-on-error: true
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_INCLUDE: "documents/.*"
-          LINTER_RULES_PATH: /
-          MARKDOWN_CONFIG_FILE: '.markdownlint.yaml'
-          VALIDATE_MARKDOWN: true
-          VALIDATE_YAML: true
-          YAML_CONFIG_FILE: '.yaml-lint.yml'
-
-      - name: GitHub Super Linter の結果表示
-        run: |
-          echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
-          echo '::group::super-linter.log'
-          cat super-linter.log
-          echo '::endgroup::'
-          LINT_MSG=$(sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}')
-          if [ -n "$LINT_MSG" ]; then
-            echo ':warning: エラーまたは警告が見つかりました。' >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            echo "$LINT_MSG" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          else
-            echo ':heavy_check_mark: 成功しました。' >> $GITHUB_STEP_SUMMARY
-          fi
-
-      - name: GitHub Super Linter の処理結果確認
-        if: ${{ steps.execute_super_linter.outcome == 'failure' }}
-        run: |
-          exit 1
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
       - name: npm パッケージのインストール
-        run: |
-          npm install
-
-      - name: textlint の実行
-        id: execute_textlint
-        continue-on-error: true
-        run: |
-          echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
-          npm run textlint-all > textlint-result.txt
-          echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
-
-      - name: textlint 失敗時の結果表示
-        if: ${{ steps.execute_textlint.outcome == 'failure' }}
-        run: |
-          echo '::group::textlint-result.txt'
-          cat textlint-result.txt
-          echo '::endgroup::'
-          echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          exit 1
+        run: npm ci
 
       - name: Python のセットアップ
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: mkdocs のインストール
+      - name: pip パッケージのインストール
         run: |
           python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Linter の処理開始
+        run: echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
+
+      - name: Markdownlint の実行
+        id: run-markdownlint
+        continue-on-error: true
+        run: |
+          echo '## Markdownlint Result' >> $GITHUB_STEP_SUMMARY
+          npx markdownlint --config .markdownlint.yaml --ignore **/node_modules/** --output markdownlint-result.txt .
+          echo ':heavy_check_mark: Markdownlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: Markdownlint 失敗時の結果表示
+        if: ${{ steps.run-markdownlint.outcome == 'failure' }}
+        run: |
+          echo ':x: Markdownlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat markdownlint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
+      - name: yamllint の実行
+        id: run-yamllint
+        continue-on-error: true
+        run: |
+          echo '## yamllint Result' >> $GITHUB_STEP_SUMMARY
+          yamllint --config-file .yaml-lint.yml --format standard . > yamllint-result.txt
+          echo ':heavy_check_mark: yamllint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: yamllint 失敗時の結果表示
+        if: ${{ steps.run-yamllint.outcome == 'failure' }}
+        run: |
+          echo ':x: yamllint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat yamllint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
+      - name: textlint の実行
+        run: |
+          echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
+          npx textlint documents samples --output-file textlint-result.txt --format compact
+          if [ -f textlint-result.txt ]; then
+            echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+          else
+            echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Lint 結果の確認
+        if: ${{ env.LINT_STATUS == 'Error' }}
+        run: exit 1
+
+      - name: mkdocs のインストール
+        run: |
           python -m pip install mkdocs
           python -m pip install mkdocs-material
           python -m pip install pymdown-extensions
@@ -198,13 +201,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: documents
-      
+
       - name: Azure に OIDC Login
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: ステージング環境へのデプロイ
         uses: azure/webapps-deploy@v2

@@ -5,7 +5,7 @@
 
 name: dressca-frontend CI
 
-on:  # yamllint disable-line rule:truthy
+on:
   pull_request:
     branches: [main]
     paths:
