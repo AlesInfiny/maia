@@ -27,7 +27,7 @@ subprojects {
   javadoc.options.encoding = 'UTF-8'
   
   dependencies {
-    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
   
     // Lombokの設定
