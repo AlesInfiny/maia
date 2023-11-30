@@ -84,24 +84,22 @@ jobs:
           npm install
 
       - name: textlint の実行
-        id: execute_textlint
-        continue-on-error: true
         run: |
           echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
-          npm run textlint-all > textlint-result.txt
-          echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+          npx textlint documents samples --output-file textlint-result.txt --format compact
+          if [ -f textlint-result.txt ]; then
+            echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+          else
+            echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+          fi
 
-      - name: textlint 失敗時の結果表示
-        if: ${{ steps.execute_textlint.outcome == 'failure' }}
-        run: |
-          echo '::group::textlint-result.txt'
-          cat textlint-result.txt
-          echo '::endgroup::'
-          echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat textlint-result.txt | sed -n -e '/problems\?/p' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          exit 1
+      - name: Lint 結果の確認
+        if: ${{ env.LINT_STATUS == 'Error' }}
+        run: exit 1
 
       - name: Python のセットアップ
         uses: actions/setup-python@v4
