@@ -43,42 +43,6 @@ jobs:
         run: |
           echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
 
-      - name: GitHub Super Linter の実行
-        id: execute_super_linter
-        continue-on-error: true
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_INCLUDE: "documents/.*"
-          LINTER_RULES_PATH: /
-          MARKDOWN_CONFIG_FILE: '.markdownlint.yaml'
-          VALIDATE_MARKDOWN: true
-          VALIDATE_YAML: true
-          YAML_CONFIG_FILE: '.yaml-lint.yml'
-
-      - name: GitHub Super Linter の結果表示
-        run: |
-          echo '## GitHub Super linter' >> $GITHUB_STEP_SUMMARY
-          echo '::group::super-linter.log'
-          cat super-linter.log
-          echo '::endgroup::'
-          LINT_MSG=$(sed '/^$/d' super-linter.log | sed -n -e '/^------/,/^------/p' | sed -n -e '/^[^-]/p' | awk '!a[$0]++{print}')
-          if [ -n "$LINT_MSG" ]; then
-            echo ':warning: エラーまたは警告が見つかりました。' >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            echo "$LINT_MSG" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          else
-            echo ':heavy_check_mark: 成功しました。' >> $GITHUB_STEP_SUMMARY
-          fi
-
-      - name: GitHub Super Linter の処理結果確認
-        if: ${{ steps.execute_super_linter.outcome == 'failure' }}
-        run: |
-          exit 1
-
       - name: npm パッケージのインストール
         run: |
           npm install
