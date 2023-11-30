@@ -43,6 +43,11 @@ jobs:
         run: |
           echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
 
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
       - name: npm パッケージのインストール
         run: |
           npm install
