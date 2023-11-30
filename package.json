@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "textlint-all": "npx textlint documents samples"
+    "lint:textlint-all": "npx textlint documents samples"
   },
   "devDependencies": {
     "@textlint-ja/textlint-rule-no-synonyms": "^1.3.0",
