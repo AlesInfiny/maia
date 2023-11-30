@@ -49,8 +49,7 @@ jobs:
           node-version: 18
 
       - name: npm パッケージのインストール
-        run: |
-          npm install
+        run: npm ci
 
       - name: Python のセットアップ
         uses: actions/setup-python@v4
