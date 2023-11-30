@@ -83,6 +83,23 @@ jobs:
         run: |
           npm install
 
+      - name: Markdownlint の実行
+        id: run-markdownlint
+        continue-on-error: true
+        run: |
+          echo '## Markdownlint Result' >> $GITHUB_STEP_SUMMARY
+          npx markdownlint --config .markdownlint.yaml --ignore **/node_modules/** --output markdownlint-result.txt .
+          echo ':heavy_check_mark: Markdownlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: Markdownlint 失敗時の結果表示
+        if: ${{ steps.run-markdownlint.outcome == 'failure' }}
+        run: |
+          echo ':x: Markdownlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat markdownlint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
       - name: textlint の実行
         run: |
           echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
