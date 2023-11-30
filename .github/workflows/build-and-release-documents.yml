@@ -83,6 +83,16 @@ jobs:
         run: |
           npm install
 
+      - name: Python のセットアップ
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: pip パッケージのインストール
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
       - name: Markdownlint の実行
         id: run-markdownlint
         continue-on-error: true
@@ -97,6 +107,23 @@ jobs:
           echo ':x: Markdownlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat markdownlint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
+      - name: yamllint の実行
+        id: run-yamllint
+        continue-on-error: true
+        run: |
+          echo '## yamllint Result' >> $GITHUB_STEP_SUMMARY
+          yamllint --config-file .yaml-lint.yml --format standard . > yamllint-result.txt
+          echo ':heavy_check_mark: yamllint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: yamllint 失敗時の結果表示
+        if: ${{ steps.run-yamllint.outcome == 'failure' }}
+        run: |
+          echo ':x: yamllint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat yamllint-result.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo 'LINT_STATUS=Error' >> $GITHUB_ENV
 
@@ -118,14 +145,8 @@ jobs:
         if: ${{ env.LINT_STATUS == 'Error' }}
         run: exit 1
 
-      - name: Python のセットアップ
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
       - name: mkdocs のインストール
         run: |
-          python -m pip install --upgrade pip
           python -m pip install mkdocs
           python -m pip install mkdocs-material
           python -m pip install pymdown-extensions
