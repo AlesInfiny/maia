@@ -1,0 +1,5 @@
+yamllint==1.33.0
+mkdocs==1.5.3
+mkdocs-material==9.4.14
+pymdown-extensions==10.5
+mkdocs-minify-plugin==0.7.1
