@@ -16,7 +16,7 @@
   "dependencies": {
     "@heroicons/vue": "^1.0.5",
     "axios": "^1.6.2",
-    "pinia": "^2.0.11",
+    "pinia": "^2.1.7",
     "vee-validate": "^4.5.8",
     "vue": "^3.2.29",
     "vue-router": "^4.2.5",
