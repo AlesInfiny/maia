@@ -365,6 +365,16 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 
 <https://nodejs.org/ja/>
 
+### Node モジュールのインストール
+
+本リポジトリでは textlint を使用して、校正を自動化します。
+以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
+モジュールの更新も同じコマンドで実行できます。
+
+```plane
+npm install
+```
+
 ### Pythonのインストール
 
 以下のサイトから、 Windows 用の最新版 Python をインストールします。
@@ -379,24 +389,15 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 pip install --upgrade pip
 ```
 
-### MkDocs と拡張機能のインストール
+### Python モジュールのインストール
 
-以下のコマンドを実行して、 Mkdocs と Mkdocs Material 拡張機能、 Pymarkdown 拡張機能、 MkDocs Minify 拡張機能をインストールします。
+本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
+また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
+以下のコマンドを実行して、必要なモジュールを一括でインストールします。
+モジュールの更新も同じコマンドで実行できます。
 
 ```plain
-pip install mkdocs
-pip install mkdocs-material
-pip install pymdown-extensions
-pip install mkdocs-minify-plugin
-```
-
-### Node モジュールのインストール
-
-本リポジトリでは textlint を使用して、校正を自動化します。
-以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
-
-```plane
-npm install
+pip install -r requirements.txt
 ```
 
 <!-- textlint-enable @textlint-rule/require-header-id -->
