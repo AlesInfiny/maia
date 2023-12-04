@@ -346,9 +346,10 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 
 このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
 
+- Code Spell Checker
+- Draw.io integration
 - Markdown All in One
 - markdownlint
-- Code Spell Checker
 - vscode-textlint
 
 ![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
@@ -356,7 +357,6 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 また必要に応じて以下の拡張機能をインストールします。
 
 - Japanese Language Pack for Visual Studio Code
-- Draw.io integration
 - Table Formatter
 
 ### Node.js のインストール
