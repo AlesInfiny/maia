@@ -23,7 +23,7 @@ dependencies {
 	implementation 'org.postgresql:postgresql:42.7.0'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
