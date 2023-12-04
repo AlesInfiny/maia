@@ -19,6 +19,7 @@ on:  # yamllint disable-line rule:truthy
       - '.yaml-lint.yml'
       - 'package-lock.json'
       - 'package.json'
+      - 'requirements.txt'
   workflow_dispatch:
 
 permissions:
