@@ -1,6 +1,17 @@
 ---
 version: 2
 updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule: 
+      interval: "daily"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "python"
+    labels:
+      - "pip"
+      - "dependencies"
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
