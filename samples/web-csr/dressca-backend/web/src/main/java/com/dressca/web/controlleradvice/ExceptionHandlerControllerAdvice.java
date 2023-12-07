@@ -6,10 +6,7 @@ import com.dressca.systemcommon.constant.ProblemDetailConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.util.ApplicationContextWrapper;
-import java.io.StringWriter;
-import java.io.PrintWriter;
-import java.util.Locale;
+import com.dressca.web.log.CreateErrorMessage;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Profile;
 
 /**
@@ -31,8 +27,6 @@ import org.springframework.context.annotation.Profile;
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
-  private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
-  private static final String PROPERTY_DELIMITER = ".";
 
   /**
    * その他の業務エラーをステータースコード500で返却する（本番環境、テスト環境用）。
@@ -43,9 +37,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    apLog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
+    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        createErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
+        CreateErrorMessage.createFrontErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(ProblemDetailConstant.LOGIC_ERROR_TITLE);
     problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
@@ -63,9 +57,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleException(SystemException e, HttpServletRequest req) {
-    apLog.error(createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
+    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
     Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        createErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
+        CreateErrorMessage.createFrontErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
@@ -83,35 +77,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    apLog.error(createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000,
+    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000,
         null));
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     problemDetail.setProperty(ExceptionIdConstant.E_SHARE0000,
-        createErrorValue(ExceptionIdConstant.E_SHARE0000, null));
+        CreateErrorMessage.createFrontErrorValue(ExceptionIdConstant.E_SHARE0000, null));
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
-  }
-
-  private String createLogMessageStackTrace(Exception e, String exceptionId, String[] logMessageValue) {
-    StringBuilder builder = new StringBuilder();
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String code = String.join(PROPERTY_DELIMITER, exceptionId,
-        EXCEPTION_MESSAGE_SUFFIX_LOG);
-    String exceptionMessage = messageSource.getMessage(code, logMessageValue,
-        Locale.getDefault());
-    builder.append(exceptionId).append(" ").append(exceptionMessage)
-        .append(SystemPropertyConstants.LINE_SEPARATOR);
-    StringWriter writer = new StringWriter();
-    e.printStackTrace(new PrintWriter(writer));
-    builder.append(writer.getBuffer().toString());
-    return builder.toString();
-  }
-
-  private String createErrorValue(String exceptionId, String[] frontMessageValue) {
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
   }
 }
