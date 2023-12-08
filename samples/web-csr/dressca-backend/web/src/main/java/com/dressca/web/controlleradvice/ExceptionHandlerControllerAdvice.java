@@ -77,12 +77,12 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000,
-        null));
+    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
+    Map<String, String> errorProperty = Map.of(ExceptionIdConstant.E_SHARE0000,
+        CreateErrorMessage.createFrontErrorValue(ExceptionIdConstant.E_SHARE0000, null));
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
-    problemDetail.setProperty(ExceptionIdConstant.E_SHARE0000,
-        CreateErrorMessage.createFrontErrorValue(ExceptionIdConstant.E_SHARE0000, null));
+    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
