@@ -116,7 +116,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
@@ -147,7 +147,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -177,7 +177,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
