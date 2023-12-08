@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.springframework.context.annotation.Profile;
 
 /**
- * サーバーエラーのハンドリングを行うクラスです。
+ * サーバーエラーのハンドリングを行うクラスです（本番環境用）。
  */
 @ControllerAdvice
 @Profile("production | test")

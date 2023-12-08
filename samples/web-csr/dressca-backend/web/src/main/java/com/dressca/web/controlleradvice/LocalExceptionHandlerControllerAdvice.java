@@ -19,6 +19,9 @@ import com.dressca.web.log.CreateErrorMessage;
 import com.dressca.systemcommon.constant.ProblemDetailConstant;
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * サーバーエラーのハンドリングを行うクラスです（開発環境用）。
+ */
 @ControllerAdvice
 @Profile("local")
 public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
