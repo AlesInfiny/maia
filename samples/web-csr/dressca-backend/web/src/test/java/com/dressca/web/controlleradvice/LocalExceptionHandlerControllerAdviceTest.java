@@ -49,8 +49,8 @@ import java.util.Locale;
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
-@ActiveProfiles("production")
-public class ExceptionHandlerControllerAdviceTest {
+@ActiveProfiles("local")
+public class LocalExceptionHandlerControllerAdviceTest {
 
   private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
   private static final String PROPERTY_DELIMITER = ".";
@@ -100,13 +100,12 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
-  @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(本番環境)。")
+  @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(開発環境)。")
   void testException_01() throws LogicException {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_ASSET0001;
-    String[] frontMessageValue = { assetCode };
     String[] logMessageValue = { assetCode };
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
@@ -117,9 +116,8 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
-      // アプリケーションログのメッセージの確認
+              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+          .andExpect(jsonPath("$.detail").exists());
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
       assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
@@ -131,7 +129,7 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
-  @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(本番環境)。")
+  @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(開発環境)。")
   void testException_02() throws LogicException {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
@@ -149,8 +147,8 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
+              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+          .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
@@ -163,13 +161,12 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
-  @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(本番環境)。")
+  @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
   void testException_03() throws LogicException {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
-    String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
@@ -180,8 +177,8 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
+              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, logMessageValue)))
+          .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
