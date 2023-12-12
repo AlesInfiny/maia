@@ -15,8 +15,9 @@ import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.web.constant.ProblemDetailConstant;
 import com.dressca.web.log.CreateErrorMessage;
-import com.dressca.systemcommon.constant.ProblemDetailConstant;
+import com.dressca.web.log.CreateErrorMessage.ErrorMessageBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -37,8 +38,10 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> localHandleLogicException(LogicException e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    ProblemDetail problemDetail = createLogicProblemDetail(e);
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.LOGIC_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
@@ -53,8 +56,10 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> localHandleException(SystemException e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    ProblemDetail problemDetail = createSystemProblemDetail(e);
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
@@ -69,33 +74,21 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> localHandleException(Exception e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
-    ProblemDetail problemDetail = createSystemProblemDetail(
-        new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null));
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
   }
 
-  private ProblemDetail createLogicProblemDetail(LogicException e) {
-    Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        CreateErrorMessage.createLogErrorValue(e.getExceptionId(), e.getLogMessageValue()));
+  private ProblemDetail createProblemDetail(CreateErrorMessage errorBuilder, String title) {
+    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createLogErrorValue());
     ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
-        CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    problemDetail.setTitle(ProblemDetailConstant.LOGIC_ERROR_TITLE);
+        errorBuilder.createLogMessageStackTrace());
+    problemDetail.setTitle(title);
     problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
-
-    return problemDetail;
-  }
-
-  private ProblemDetail createSystemProblemDetail(SystemException e) {
-    Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        CreateErrorMessage.createLogErrorValue(e.getExceptionId(), e.getLogMessageValue()));
-    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
-        CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
-    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
-
     return problemDetail;
   }
 }

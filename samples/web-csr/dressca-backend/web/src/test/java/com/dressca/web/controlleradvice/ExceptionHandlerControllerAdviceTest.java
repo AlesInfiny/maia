@@ -10,15 +10,14 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.controller.AssetsController;
-import com.dressca.web.log.CreateErrorMessage;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
-import com.dressca.systemcommon.constant.ProblemDetailConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
+import com.dressca.web.constant.ProblemDetailConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,6 +52,7 @@ import java.util.Locale;
 public class ExceptionHandlerControllerAdviceTest {
 
   private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
+  private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
   private static final String PROPERTY_DELIMITER = ".";
   private static final String MOCK_APPENDER_NAME = "MockAppender";
 
@@ -117,7 +117,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -149,7 +149,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -180,7 +180,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -199,5 +199,11 @@ public class ExceptionHandlerControllerAdviceTest {
     String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
     String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
+  }
+
+  private String createFrontErrorValue(String exceptionId, String[] frontMessageValue) {
+    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
+    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
   }
 }

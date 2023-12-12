@@ -2,11 +2,12 @@ package com.dressca.web.controlleradvice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
-import com.dressca.systemcommon.constant.ProblemDetailConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.web.constant.ProblemDetailConstant;
 import com.dressca.web.log.CreateErrorMessage;
+import com.dressca.web.log.CreateErrorMessage.ErrorMessageBuilder;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,12 +38,10 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        CreateErrorMessage.createFrontErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    problemDetail.setTitle(ProblemDetailConstant.LOGIC_ERROR_TITLE);
-    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.LOGIC_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
@@ -57,12 +56,10 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleException(SystemException e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, e.getExceptionId(), e.getLogMessageValue()));
-    Map<String, String> errorProperty = Map.of(e.getExceptionId(),
-        CreateErrorMessage.createFrontErrorValue(e.getExceptionId(), e.getFrontMessageValue()));
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
-    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
@@ -77,14 +74,20 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    apLog.error(CreateErrorMessage.createLogMessageStackTrace(e, ExceptionIdConstant.E_SHARE0000, null));
-    Map<String, String> errorProperty = Map.of(ExceptionIdConstant.E_SHARE0000,
-        CreateErrorMessage.createFrontErrorValue(ExceptionIdConstant.E_SHARE0000, null));
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    problemDetail.setTitle(ProblemDetailConstant.SYSTEM_ERROR_TITLE);
-    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
+    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
+        .errorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null).build();
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
+  }
+
+  private ProblemDetail createProblemDetail(CreateErrorMessage errorBuilder, String title) {
+    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorValue());
+    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+    problemDetail.setTitle(title);
+    problemDetail.setProperty(ProblemDetailConstant.ERROR_KEY, errorProperty);
+    return problemDetail;
   }
 }

@@ -10,15 +10,14 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.controller.AssetsController;
-import com.dressca.web.log.CreateErrorMessage;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
-import com.dressca.systemcommon.constant.ProblemDetailConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
+import com.dressca.web.constant.ProblemDetailConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -116,7 +115,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
@@ -147,7 +146,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -177,7 +176,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(CreateErrorMessage.createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -196,5 +195,11 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
     String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
+  }
+
+  private String createLogErrorValue(String exceptionId, String[] logMessageValue) {
+    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
+    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+    return messageSource.getMessage(code, logMessageValue, Locale.getDefault());
   }
 }

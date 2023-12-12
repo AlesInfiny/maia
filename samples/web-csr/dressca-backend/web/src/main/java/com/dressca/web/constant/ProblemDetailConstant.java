@@ -1,4 +1,4 @@
-package com.dressca.systemcommon.constant;
+package com.dressca.web.constant;
 
 /**
  * ProblemDetail用の定数クラス。
