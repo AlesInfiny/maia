@@ -1,5 +1,13 @@
 package com.dressca.web.controlleradvice;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+
 import com.dressca.web.controller.AssetsController;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
@@ -7,16 +15,14 @@ import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -29,19 +35,14 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.mockito.Mockito.*;
-
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 
-@ExtendWith(SpringExtension.class)
+/**
+ * {@link ExceptionHandlerControllerAdvice }の動作をテストするクラスです。
+ */
+@SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 public class ExceptionHandlerControllerAdviceTest {
@@ -62,6 +63,9 @@ public class ExceptionHandlerControllerAdviceTest {
   @Captor
   private ArgumentCaptor<LogEvent> logCaptor;
 
+  /**
+   * 各テスト実施前のセットアップを行うメソッド。
+   */
   @BeforeEach
   public void setup() {
     // アプリケーションログメッセージを取得する設定
@@ -97,19 +101,20 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_ASSET0001;
-    String logMessageValue[] = {assetCode};
+    String[] logMessageValue = { assetCode };
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new AssetNotFoundException(assetCode));
-      try {
+        .thenThrow(new AssetNotFoundException(assetCode));
+    try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -123,20 +128,22 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
-    String frontMessageValue[] = null;
-    String logMessageValue[] = null;
+    String[] frontMessageValue = null;
+    String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
+        .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
+            logMessageValue));
     try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -150,19 +157,20 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
-    String logMessageValue[] = null;
+    String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-      .thenThrow(new RuntimeException());
+        .thenThrow(new RuntimeException());
     try {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
+          .andExpect(status().isInternalServerError())
+          .andExpect(content().json("{\"type\":\"" + exceptionId + "\"}"));
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage()).startsWith(createLogMessage(exceptionId, logMessageValue));
+      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+          .startsWith(createLogMessage(exceptionId, logMessageValue));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -177,6 +185,3 @@ public class ExceptionHandlerControllerAdviceTest {
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 }
-
-
-

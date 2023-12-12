@@ -3,7 +3,6 @@ package com.dressca.applicationcore.assets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
 import lombok.AllArgsConstructor;
 
 /**
@@ -12,7 +11,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class AssetApplicationService {
-  
+
   @Autowired
   private AssetRepository repository;
   @Autowired
@@ -30,7 +29,7 @@ public class AssetApplicationService {
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
     Resource resource = this.store.getResource(asset)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
-    
+
     return new AssetResourceInfo(asset, resource);
   }
 }

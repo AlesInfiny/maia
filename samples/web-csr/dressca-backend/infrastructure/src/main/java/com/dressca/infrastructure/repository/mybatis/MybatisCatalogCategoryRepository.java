@@ -6,11 +6,15 @@ import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;
-import com.dressca.infrastructure.repository.mybatis.translater.EntityTranslator;
+import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
+/**
+ * カタログカテゴリリポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisCatalogCategoryRepository implements CatalogCategoryRepository {

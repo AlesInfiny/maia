@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
 import java.util.List;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -16,7 +15,7 @@ public class CatalogCategory {
   @NonNull
   private String name;
   private List<CatalogItem> items = List.of();
-  
+
   public CatalogCategory(@NonNull String name) {
     this.name = name;
   }

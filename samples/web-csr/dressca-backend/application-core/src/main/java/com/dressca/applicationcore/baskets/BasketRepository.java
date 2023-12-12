@@ -2,6 +2,9 @@ package com.dressca.applicationcore.baskets;
 
 import java.util.Optional;
 
+/**
+ * 買い物かごリポジトリ。
+ */
 public interface BasketRepository {
   Optional<Basket> findById(long id);
 

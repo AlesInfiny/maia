@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * カタログリポジトリ。
+ */
 @Repository
 @AllArgsConstructor
 public class MybatisCatalogRepository implements CatalogRepository {

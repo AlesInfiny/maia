@@ -6,7 +6,6 @@ import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import com.dressca.applicationcore.catalog.CatalogItem;
 
 /**

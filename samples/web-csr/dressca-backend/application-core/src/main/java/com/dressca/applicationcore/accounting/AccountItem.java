@@ -1,10 +1,12 @@
 package com.dressca.applicationcore.accounting;
 
 import java.math.BigDecimal;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * 会計情報のドメインモデルです。
+ */
 @Data
 @AllArgsConstructor
 public class AccountItem {

@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.net.URI;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -56,10 +55,8 @@ public class OrderController {
    */
   @Operation(summary = "注文情報を取得します.", description = "注文情報を取得します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = OrderResponse.class))),
-      @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content)})
+      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
+      @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content) })
   @GetMapping("{orderId}")
   public ResponseEntity<OrderResponse> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
@@ -81,10 +78,9 @@ public class OrderController {
    * @return なし
    */
   @Operation(summary = "買い物かごに登録されている商品を注文します.", description = "買い物かごに登録されている商品を注文します.")
-  @ApiResponses(
-      value = {@ApiResponse(responseCode = "201", description = "成功.", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content)})
+  @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功.", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content) })
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {

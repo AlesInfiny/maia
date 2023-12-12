@@ -1,6 +1,17 @@
 ---
 version: 2
 updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "python"
+    labels:
+      - "pip"
+      - "dependencies"
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -12,6 +23,17 @@ updates:
       - "npm"
       - "dependencies"
 
+  - package-ecosystem: "npm"
+    directory: "/samples/web-csr/dressca-frontend"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "npm-dressca-frontend"
+    labels:
+      - "target: Dressca"
+      - "npm"
+      - "dependencies"
+
   - package-ecosystem: "gradle"
     directory: "/samples/web-csr/dressca-backend"
     schedule:
@@ -19,7 +41,7 @@ updates:
     commit-message:
       prefix: "gradle-root"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -30,7 +52,7 @@ updates:
     commit-message:
       prefix: "gradle-application-core"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -41,7 +63,7 @@ updates:
     commit-message:
       prefix: "gradle-batch"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -52,7 +74,7 @@ updates:
     commit-message:
       prefix: "gradle-infrastructure"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -63,7 +85,7 @@ updates:
     commit-message:
       prefix: "gradle-system-common"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
 
@@ -74,6 +96,6 @@ updates:
     commit-message:
       prefix: "gradle-web"
     labels:
-      - "ドキュメント改善"
+      - "target: Dressca"
       - "gradle"
       - "dependencies"
