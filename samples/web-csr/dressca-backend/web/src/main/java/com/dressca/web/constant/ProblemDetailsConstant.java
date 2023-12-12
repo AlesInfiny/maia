@@ -3,7 +3,7 @@ package com.dressca.web.constant;
 /**
  * ProblemDetail用の定数クラス。
  */
-public class ProblemDetailConstant {
+public class ProblemDetailsConstant {
 
   /** 業務エラーのタイトル。 */
   public static final String LOGIC_ERROR_TITLE = "業務エラー";

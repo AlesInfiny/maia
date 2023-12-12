@@ -17,7 +17,7 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
-import com.dressca.web.constant.ProblemDetailConstant;
+import com.dressca.web.constant.ProblemDetailsConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -113,7 +113,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
           .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.LOGIC_ERROR_TITLE + "\"}"))
+          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
               .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
@@ -144,7 +144,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
           .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
+          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
               .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
@@ -174,7 +174,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
       // APIの呼び出しとエラー時のレスポンスであることの確認
       this.mockMvc.perform(get("/api/assets/" + assetCode))
           .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailConstant.SYSTEM_ERROR_TITLE + "\"}"))
+          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
               .value(createLogErrorValue(exceptionId, logMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
