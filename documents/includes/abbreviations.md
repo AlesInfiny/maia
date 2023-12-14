@@ -18,7 +18,7 @@
 *[JPA]: Java Persistence API
 *[JRE]: Java Runtime Environment：Java アプリケーションの実行環境。
 *[IDE]: Integrated Development Environment：統合開発環境。
-*[LB]: Load Balancer
+*[LB]: Load Balancer.
 *[MVC]: Model-View-Controller
 *[O/R]: Object / Relational
 *[OS]: Operating System
