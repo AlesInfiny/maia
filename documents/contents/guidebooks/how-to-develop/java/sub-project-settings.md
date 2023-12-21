@@ -73,7 +73,7 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
     - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - ヘルスチェック機能を含む Spring Boot Actuator に関する設定
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
-    - management.endpoint.health.group.xxx.include: 目的ごとに使用できるヘルスインジケーターグループの作成
+    - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
 
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 
