@@ -2,4 +2,4 @@ yamllint==1.33.0
 mkdocs==1.5.3
 mkdocs-material==9.5.2
 pymdown-extensions==10.5
-mkdocs-minify-plugin==0.7.1
+mkdocs-minify-plugin==0.7.2
