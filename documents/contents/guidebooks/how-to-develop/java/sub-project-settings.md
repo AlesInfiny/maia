@@ -25,9 +25,21 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `springdoc-openapi-ui`：OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 
+- `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
+
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
-上記のライブラリを依存ライブラリとして、 `build.gradle` の `dependencies` ブロックに追加します。
+上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
+
+```groovy title="build.gradle"
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'com.h2database:h2:x.x.x'
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
 
 ### web プロジェクトの依存プロジェクトの設定 {#config-web-projects}
 
@@ -45,7 +57,7 @@ dependencies {
 ### spring の設定 {#config-web-spring}
 
 Spring Boot に関する主な設定は、 web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
-設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html)を参照してください。
+設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html)や[本番対応機能](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html)を参照してください。
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
@@ -58,7 +70,10 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
 - ロギング
     - logging.xxx でロギングの各種設定が可能
 - MyBatis の設定
-    - mybatis.configuration.XXX で MyBatis の設定を記述可能
+    - mybatis.configuration.xxx で MyBatis の設定を記述可能
+- Spring Boot Actuator によるヘルスチェック機能の設定
+    - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
+    - management.endpoint.health.group.xxx.include: 目的ごとに使用できるヘルスインジケーターグループの作成
 
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 

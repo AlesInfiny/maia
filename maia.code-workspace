@@ -42,9 +42,11 @@
 			"pymdown",
 			"SpotBugs",
 			"Springdoc",
+			"springframework",
 			"stylelint",
 			"tailwindcss",
 			"textlint",
+			"webmvc",
 			"winbatch"
 		],
 		"markdownlint.ignore": [
