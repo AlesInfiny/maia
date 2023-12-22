@@ -123,11 +123,8 @@ markdown_extensions:
 
 extra:
   footer_urls:
-    terms: terms/
-    license: terms/#license
-    disclaimer: terms/#disclaimer
-    trademarks: terms/#trademarks
-    other_company_trademarks: terms/#trademarks-owned-by-other-companies
+    terms: about-maia/terms/
+    trademarks: about-maia/trademarks/
   version: !ENV [VERSION, "Local Version"]
 
 extra_css:
