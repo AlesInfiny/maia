@@ -51,7 +51,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
 
 ![クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://i.creativecommons.org/l/by/4.0/88x31.png)
 
-[クリエイティブ・コモンズ表示 4.0 国際ライセンス](http://creativecommons.org/licenses/by/4.0/)の日本語訳を以下に示します。
+[クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/)の日本語訳を以下に示します。
 
 ??? quote "クリエイティブ・コモンズ表示 4.0 国際ライセンス本文(日本語訳版)"
 
