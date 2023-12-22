@@ -55,6 +55,7 @@ nav:
       # - samples/index.md
   - AlesInfiny Maia について:
       - 利用規約: about-maia/terms.md
+      - 商標: about-maia/trademarks.md
 
 theme:
   name: material
