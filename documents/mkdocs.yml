@@ -53,8 +53,8 @@ nav:
               - guidebooks/how-to-develop/local-environment/index.md
   # - サンプル解説:
       # - samples/index.md
-  - 利用規約:
-      - terms/index.md
+  - AlesInfiny Maia について:
+      - 利用規約: about-maia/terms.md
 
 theme:
   name: material
