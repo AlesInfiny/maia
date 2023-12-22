@@ -2,15 +2,28 @@
   "java.dependency.packagePresentation": "hierarchical",
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
+  "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
   "cSpell.words": [
+    "Appender",
     "applicationcore",
+    "assertj",
     "Batis",
     "controlleradvice",
     "Dressca",
+    "Incrementer",
+    "jdbc",
     "Mybatis",
     "Servlet",
     "shikuchoson",
+    "skiprows",
+    "springframework",
     "systemcommon",
-    "todofuken"
-  ]
+    "tasklet",
+    "todofuken",
+  ],
+  "[java]" : {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true
+  }
 }

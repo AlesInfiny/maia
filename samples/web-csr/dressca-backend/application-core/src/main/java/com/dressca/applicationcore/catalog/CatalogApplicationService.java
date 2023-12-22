@@ -1,11 +1,12 @@
 package com.dressca.applicationcore.catalog;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import lombok.AllArgsConstructor;
 
+/**
+ * カタログ情報に関するビジネスユースケースを実現するサービスです。
+ */
 @Service
 @AllArgsConstructor
 public class CatalogApplicationService {
@@ -16,10 +17,10 @@ public class CatalogApplicationService {
   /**
    * 条件に一致するカタログ情報を取得します。
    * 
-   * @param brandId ブランドID
+   * @param brandId    ブランドID
    * @param categoryId カテゴリID
-   * @param page ページ
-   * @param pageSize ページサイズ
+   * @param page       ページ
+   * @param pageSize   ページサイズ
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    */
   public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {
@@ -29,7 +30,7 @@ public class CatalogApplicationService {
   /**
    * 条件に一致するカテゴリの件数を取得します。
    * 
-   * @param brandId ブランドID
+   * @param brandId    ブランドID
    * @param categoryId カテゴリID
    * @return 条件に一致するカタログ情報の件数。
    */

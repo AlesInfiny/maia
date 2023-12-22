@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.assets;
 
 import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**

@@ -1,7 +1,6 @@
 package com.dressca.batch.job.catalog;
 
 import com.dressca.applicationcore.catalog.CatalogItem;
-
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
