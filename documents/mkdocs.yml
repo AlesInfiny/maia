@@ -53,8 +53,9 @@ nav:
               - guidebooks/how-to-develop/local-environment/index.md
   # - サンプル解説:
       # - samples/index.md
-  - 利用規約:
-      - terms/index.md
+  - AlesInfiny Maia について:
+      - 利用規約: about-maia/terms.md
+      - 商標: about-maia/trademarks.md
 
 theme:
   name: material
@@ -122,10 +123,8 @@ markdown_extensions:
 
 extra:
   footer_urls:
-    terms: terms/
-    license: terms/#license
-    disclaimer: terms/#disclaimer
-    other_company_trademarks: terms/#trademarks-owned-by-other-companies
+    terms: about-maia/terms/
+    trademarks: about-maia/trademarks/
   version: !ENV [VERSION, "Local Version"]
 
 extra_css:
