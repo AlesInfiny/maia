@@ -52,6 +52,7 @@ import java.util.Locale;
 public class LocalExceptionHandlerControllerAdviceTest {
 
   private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
+  private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
   private static final String PROPERTY_DELIMITER = ".";
   private static final String MOCK_APPENDER_NAME = "MockAppender";
 
@@ -105,6 +106,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_ASSET0001;
+    String[] frontMessageValue = { assetCode };
     String[] logMessageValue = { assetCode };
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
@@ -115,7 +117,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
       assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
@@ -146,7 +148,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -166,6 +168,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = ExceptionIdConstant.E_SHARE0000;
+    String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
@@ -176,7 +179,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createLogErrorValue(exceptionId, logMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").exists());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -197,9 +200,10 @@ public class LocalExceptionHandlerControllerAdviceTest {
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 
-  private String createLogErrorValue(String exceptionId, String[] logMessageValue) {
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
+  // エラー時のフロントに出力するメッセージを返す
+  private String createFrontErrorMessage(String exceptionId, String[] frontMessageValue) {
+    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    return messageSource.getMessage(code, logMessageValue, Locale.getDefault());
+    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
   }
 }

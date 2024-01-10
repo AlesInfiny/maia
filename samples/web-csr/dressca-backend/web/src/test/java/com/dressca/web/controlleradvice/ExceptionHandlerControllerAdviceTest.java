@@ -117,7 +117,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -149,7 +149,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -180,7 +180,7 @@ public class ExceptionHandlerControllerAdviceTest {
           .andExpect(status().isInternalServerError())
           .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
           .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorValue(exceptionId, frontMessageValue)))
+              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
           .andExpect(jsonPath("$.detail").doesNotExist());
       // アプリケーションログのメッセージの確認
       Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -201,7 +201,8 @@ public class ExceptionHandlerControllerAdviceTest {
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 
-  private String createFrontErrorValue(String exceptionId, String[] frontMessageValue) {
+  // エラー時のフロントに出力するメッセージを返す
+  private String createFrontErrorMessage(String exceptionId, String[] frontMessageValue) {
     String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
     return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());

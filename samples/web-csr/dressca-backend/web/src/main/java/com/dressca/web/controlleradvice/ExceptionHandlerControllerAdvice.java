@@ -6,8 +6,7 @@ import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
-import com.dressca.web.log.CreateErrorMessage;
-import com.dressca.web.log.CreateErrorMessage.ErrorMessageBuilder;
+import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +37,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
-        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
+        e.getFrontMessageValue());
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.LOGIC_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -56,8 +55,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleException(SystemException e, HttpServletRequest req) {
-    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
-        .errorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue()).build();
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
+        e.getFrontMessageValue());
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -74,8 +73,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    CreateErrorMessage errorBuilder = new ErrorMessageBuilder()
-        .errorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null).build();
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -83,8 +81,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         .body(problemDetail);
   }
 
-  private ProblemDetail createProblemDetail(CreateErrorMessage errorBuilder, String title) {
-    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorValue());
+  private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
+    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(title);
     problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
