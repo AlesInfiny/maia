@@ -1,7 +1,6 @@
 package com.dressca.web.controlleradvice;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -12,7 +11,6 @@ import static org.mockito.Mockito.times;
 import com.dressca.web.controller.AssetsController;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
@@ -101,7 +99,7 @@ public class ExceptionHandlerControllerAdviceTest {
 
   @Test
   @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(本番環境)。")
-  void testException_01() throws LogicException {
+  void testException_01() throws Exception {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -111,28 +109,23 @@ public class ExceptionHandlerControllerAdviceTest {
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new AssetNotFoundException(assetCode));
-    try {
-      // APIの呼び出しとエラー時のレスポンスであることの確認
-      this.mockMvc.perform(get("/api/assets/" + assetCode))
-          .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
-          .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
-      // アプリケーションログのメッセージの確認
-      Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
-      assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
-          .startsWith(createLogMessage(exceptionId, logMessageValue));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    // APIの呼び出しとエラー時のレスポンスであることの確認
+    this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
+        .andExpect(jsonPath("$.error." + exceptionId)
+            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(jsonPath("$.detail").doesNotExist());
+    // アプリケーションログのメッセージの確認
+    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
+    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+        .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
   @Test
   @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(本番環境)。")
-  void testException_02() throws LogicException {
+  void testException_02() throws Exception {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -143,28 +136,23 @@ public class ExceptionHandlerControllerAdviceTest {
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
             logMessageValue));
-    try {
-      // APIの呼び出しとエラー時のレスポンスであることの確認
-      this.mockMvc.perform(get("/api/assets/" + assetCode))
-          .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
-          .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
-      // アプリケーションログのメッセージの確認
-      Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
-      assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
-          .startsWith(createLogMessage(exceptionId, logMessageValue));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    // APIの呼び出しとエラー時のレスポンスであることの確認
+    this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
+        .andExpect(jsonPath("$.error." + exceptionId)
+            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(jsonPath("$.detail").doesNotExist());
+    // アプリケーションログのメッセージの確認
+    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
+    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+        .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
   @Test
   @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(本番環境)。")
-  void testException_03() throws LogicException {
+  void testException_03() throws Exception {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -174,23 +162,18 @@ public class ExceptionHandlerControllerAdviceTest {
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new RuntimeException());
-    try {
-      // APIの呼び出しとエラー時のレスポンスであることの確認
-      this.mockMvc.perform(get("/api/assets/" + assetCode))
-          .andExpect(status().isInternalServerError())
-          .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
-          .andExpect(jsonPath("$.error." + exceptionId)
-              .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
-          .andExpect(jsonPath("$.detail").doesNotExist());
-      // アプリケーションログのメッセージの確認
-      Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
-      assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-      assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
-          .startsWith(createLogMessage(exceptionId, logMessageValue));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    // APIの呼び出しとエラー時のレスポンスであることの確認
+    this.mockMvc.perform(get("/api/assets/" + assetCode))
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
+        .andExpect(jsonPath("$.error." + exceptionId)
+            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(jsonPath("$.detail").doesNotExist());
+    // アプリケーションログのメッセージの確認
+    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
+    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+        .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（2行目以降はエラーのスタックトレースのため可変）
