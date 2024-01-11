@@ -147,11 +147,11 @@ AlesInfiny Maia において定義しているヘルスチェックの実装例�
 
 ### 実装方針 {#implementation-policy}
 
-Spring Boot を用いた Web アプリケーションにおいて、アプリケーションレベルでサーバーの監視、管理する追加機能である[Spring Boot Actuator](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) モジュールを適用できます。
+Spring Boot を用いた Web アプリケーションでは、 [Spring Boot Actuator](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) を利用することで比較適容易にヘルスチェック機能を実装可能です。
+Spring Boot Actuator はアプリケーションレベルでサーバーを監視、管理する追加機能を提供するモジュールです。
 
-Spring Boot Actuator モジュールの中にはヘルスチェック機能が含まれています。
-プレゼンテーション層の application.properties で Spring Boot Actuator の環境設定によって、比較的容易にヘルスチェックの機能を実現できます。
- AlesInfiny Maia における設定内容の詳細に関しては、サンプルアプリケーションを参照してください。
+AlesInfiny Maia ではこのモジュールを利用してヘルスチェック用のエンドポイントを作成することを推奨しています。
+設定内容の詳細に関しては、サンプルアプリケーション内のプレゼンテーション層の application.properties を参照してください。
 
 AlesInfiny Maia のサンプルアプリケーションでは、[前節](#health-check-probe)で述べた通り活動性と対応性をそれぞれ満たす 2 つのプローブを実装しており、
 以下のアドレスでヘルスチェックの状態を確認できます。
