@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response';
-import { TrashIcon } from '@heroicons/vue/outline';
+import { TrashIcon } from '@heroicons/vue/24/outline';
 import * as yup from 'yup';
 import { useField, useForm } from 'vee-validate';
 import currencyHelper from '@/shared/helpers/currencyHelper';

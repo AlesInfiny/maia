@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ShoppingCartIcon } from '@heroicons/vue/solid';
+import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
 const authenticationStore = useAuthenticationStore();
