@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.0'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 group = 'com.dressca'
@@ -16,9 +16,11 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation supportDependencies.spring_boot_starter
+	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.commons_lang3
 	implementation project(':system-common')
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation supportDependencies.spring_boot_starter_test
 }
 
 configurations {
