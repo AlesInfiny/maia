@@ -22,7 +22,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.mybatis_spring_boot_starter
-    implementation supportDependencies.commons_lang3
+	implementation supportDependencies.commons_lang3
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
