@@ -4,7 +4,7 @@ import type {
   PutBasketItemRequest,
   PostBasketItemsRequest,
 } from '@/generated/api-client';
-import { basketItemApi } from '@/api-client';
+import { basketItemsApi } from '@/api-client';
 
 export const useBasketStore = defineStore({
   id: 'basket',
@@ -18,7 +18,7 @@ export const useBasketStore = defineStore({
         catalogItemId: catalogItemId,
         addedQuantity: 1,
       };
-      await basketItemApi.postBasketItem(params);
+      await basketItemsApi.postBasketItem(params);
       this.addedItemId = catalogItemId;
     },
     async update(catalogItemId: number, newQuantity: number) {
@@ -28,13 +28,13 @@ export const useBasketStore = defineStore({
           quantity: newQuantity,
         },
       ];
-      await basketItemApi.putBasketItem(params);
+      await basketItemsApi.putBasketItem(params);
     },
     async remove(catalogItemId: number) {
-      await basketItemApi.deleteBasketItemAsync(catalogItemId);
+      await basketItemsApi.deleteBasketItemAsync(catalogItemId);
     },
     async fetch() {
-      const response = await basketItemApi.getBasketItems();
+      const response = await basketItemsApi.getBasketItems();
       this.basket = response.data;
     },
     async deleteAddedItemId() {
