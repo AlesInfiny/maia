@@ -9,7 +9,7 @@ description: AlesInfiny Maia では、 Java アプリケーションアーキテ
 
 ## AlesInfiny Maia とは {#what-is-alesinfiny-maia}
 
-現代のシステム開発において標準的なベンダー中立の Java アプリケーションアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
+AlesInfiny Maia では、 Java アプリケーションの一般的なアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
 AlesInfiny Maia の提供物は以下の通りです。
 
 - システム形態別の標準的なアプリケーションアーキテクチャ
