@@ -24,7 +24,7 @@ ext {
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
 
-        spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchVersion",
+        spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
         mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
