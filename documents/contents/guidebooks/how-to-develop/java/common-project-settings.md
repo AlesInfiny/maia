@@ -84,7 +84,7 @@ AlesInfiny Maia として推奨する各プラグインの設定については�
 
 また、必要であれば独自のタスクを定義できます。
 
-## プラグイン、依存ライブラリのバージョン定義一元化
+## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
@@ -112,23 +112,23 @@ buildscript {
 }
 ```
 
-`dependencies.gradle` にはバージョン部分のみを定義することも可能ですが、AlesInfiny Maiaのサンプルアプリケーションでは
+`dependencies.gradle` にはバージョン部分のみを定義してもかまいませんが、 AlesInfiny Maia のサンプルアプリケーションでは
 ライブラリ定義文字列全体を変数として共通化しています。
-このようにすることで、GitHubが提供する依存関係監視ツール[Dependabot](https://docs.github.com/ja/code-security/dependabot)の通知も
-一元化することが可能です。
+このようにすることで、 GitHub が提供する依存関係監視ツール [Dependabot](https://docs.github.com/ja/code-security/dependabot) の通知も
+一元化することが出来ます。
 
 各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
 
 ```groovy title="{サブプロジェクト}/build.gradle"
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version "${springBootVersion}"
-	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+  id 'java'
+  id 'org.springframework.boot' version "${springBootVersion}"
+  id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter
-	implementation supportDependencies.commons_lang3
-	testImplementation supportDependencies.spring_boot_starter_test
+  implementation supportDependencies.spring_boot_starter
+  implementation supportDependencies.commons_lang3
+  testImplementation supportDependencies.spring_boot_starter_test
 }
 ```
