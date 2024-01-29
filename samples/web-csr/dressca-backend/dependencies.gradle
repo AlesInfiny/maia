@@ -6,8 +6,9 @@ ext {
     spotbugsVersion = "5.2.3"
 
     // -- DEPENDENCIES
-    springBatchVersion = "5.1.0"
-    mybatisSpringBootVersion = "3.0.3"
+    springBatchTestVersion = "5.1.0"
+    mybatisSpringBootStarterVersion = "3.0.3"
+    mybatisSpringBootStarterTestVersion = "3.0.3"
     h2Version = "2.2.224"
     postgresqlVersion = "42.7.1"
     springdocOpenapiVersion = "2.2.0"
@@ -25,8 +26,8 @@ ext {
 
         spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootVersion",
-        mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootVersion",
+        mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
+        mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
         h2database : "com.h2database:h2:$h2Version",
         postgresql : "org.postgresql:postgresql:$postgresqlVersion",
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
