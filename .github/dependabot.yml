@@ -1,6 +1,16 @@
 ---
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "github-actions"
+    labels:
+      - "CI/CD"
+      - "dependencies"
+
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
