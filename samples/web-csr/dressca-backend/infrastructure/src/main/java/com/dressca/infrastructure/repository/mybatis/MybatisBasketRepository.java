@@ -13,7 +13,6 @@ import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketItem
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;

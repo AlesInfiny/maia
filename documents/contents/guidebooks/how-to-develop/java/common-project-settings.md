@@ -48,9 +48,9 @@ subprojects {
 ```
 
 ### 依存ライブラリの設定 {#common-dependencies}
-  
+
 サブプロジェクト毎の役割に関わらず、システム全体で利用され得るライブラリについては、共通の依存ライブラリとして定義します。
-例えば、ボイラープレートコードを削減するためのライブラリである Lombok や、各種ユーティリティ用のライブラリなどが共通の依存ライブラリとして定義する候補になります。
+例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
 
 Spring Initializr でルートプロジェクトの雛型を作成した際に、共通の依存ライブラリを設定した場合には、既に `dependencies` ブロックが記述されています。
 まずはこの `dependencies` ブロックを `subprojects` ブロック内に移動させます。
@@ -83,3 +83,51 @@ AlesInfiny Maia として推奨する各プラグインの設定については�
 - [JaCoCo プラグイン](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
 
 また、必要であれば独自のタスクを定義できます。
+
+## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
+
+アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
+
+上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
+
+```groovy title="dependencies.gradle"
+ext {
+    // -- PLUGINS
+    springBootVersion = "X.X.X"
+    springDependencyManagementVersion = "X.X.X"
+
+    // -- DEPENDENCIES
+    commonsLangVersion = "X.X.X"
+    supportDependencies = [
+        spring_boot_starter : "org.springframework.boot:spring-boot-starter",
+        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
+        commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
+    ]
+}
+```
+
+```groovy title="build.gradle"
+buildscript {
+  apply from: 'dependencies.gradle'
+}
+```
+
+!!! tip "dependencies.gradle に記載する情報の範囲について"
+    `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
+    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot](https://docs.github.com/ja/code-security/dependabot) による通知が受けられます。
+
+各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
+
+```groovy title="{サブプロジェクト}/build.gradle"
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version "${springBootVersion}"
+  id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+dependencies {
+  implementation supportDependencies.spring_boot_starter
+  implementation supportDependencies.commons_lang3
+  testImplementation supportDependencies.spring_boot_starter_test
+}
+```

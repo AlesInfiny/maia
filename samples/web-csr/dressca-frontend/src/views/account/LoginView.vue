@@ -3,7 +3,7 @@ import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { validationItems } from '@/validation/validation-items';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { MailIcon, KeyIcon } from '@heroicons/vue/solid';
+import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
 import { useRoutingStore } from '@/stores/routing/routing';
 
 // フォーム固有のバリデーション定義
@@ -34,7 +34,7 @@ const signIn = () => {
     <form class="mt-8">
       <div class="form-group">
         <div class="flex justify-between">
-          <MailIcon class="h-8 w-8 text-blue-500 opacity-50" />
+          <EnvelopeIcon class="h-8 w-8 text-blue-500 opacity-50" />
           <input
             id="email"
             v-model="email"

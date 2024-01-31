@@ -9,6 +9,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
@@ -28,6 +29,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,6 +58,8 @@ public class BasketItemController {
   private CatalogDomainService catalogDomainService;
   @Autowired
   private CatalogRepository catalogRepository;
+
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 買い物かごアイテムの一覧を取得します。
@@ -175,6 +181,8 @@ public class BasketItemController {
           catalogItem.getPrice(),
           postBasketItem.getAddedQuantity());
     } catch (BasketNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
@@ -212,6 +220,8 @@ public class BasketItemController {
     try {
       this.basketApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
     } catch (BasketNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.noContent().build();

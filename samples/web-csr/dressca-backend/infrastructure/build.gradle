@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.0'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 group = 'com.dressca'
@@ -23,11 +23,13 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.h2database
+	implementation supportDependencies.postgresql
 	implementation project(':application-core')
 	implementation project(':system-common')
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 }
 
 tasks.named('test') {

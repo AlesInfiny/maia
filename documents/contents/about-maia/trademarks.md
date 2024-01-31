@@ -1,46 +1,32 @@
 ---
-hide:
-  - navigation
-title: 利用規約
+title: 商標
 ---
 
-# 利用規約 {#top}
+# 商標 {#top}
 
-## AlesInfiny Maia の提供物について {#alesinfiny-maia-license}
+## 商標の利用について {#trademarks}
 
-AlesInfiny Maia（以下、本サイト）は、以下を提供します。
+「AlesInfiny」「Maia」および Maia ロゴは、 BIPROGY 株式会社の登録商標です。
+これらの商標は、以下の場合に限り使用できます。
 
-- 各種ドキュメント
-- サンプルアプリケーション
+- :ok: 本サイト、および本サイトの提供物への参照を示す場合。
+- :ok: ニュース記事、ブログ等のメディアのタイトルおよび本文で、本サイトに関する真実であって誤解を招く表現ではない場合。
+- :ok: ご自分のブランド名や会社名よりも目立たないようにされている場合。
 
-## ライセンス {#license}
+本サイトを示す場合は、「AlesInfiny Maia」と商標を組み合わせ、半角スペースで区切って使用してください。
 
-AlesInfiny Maia は Apache License, Version 2.0 にて、個人、商用とも無料でご利用いただけます。
-本ライセンスは、 AlesInfiny Maia のドキュメントとサンプルアプリケーションに対するライセンスであり、サンプルアプリケーションが依存するパッケージのライセンスではありません。
+商標を使用する場合は、 BIPROGY 株式会社の商標であることを通知するために、以下の文をわかりやすい場所に記述してください。
+記述場所は本文の最後、脚注など、 BIPROGY 株式会社の商標であることを簡単に理解できる任意の場所とします。
 
-### Apache License, Version 2.0 {#apache-license-v2.0}
+例: 「AlesInfiny」「Maia」および Maia ロゴは、 BIPROGY 株式会社の登録商標です。
 
-```plane linenums="0"
-Copyright © 2023 BIPROGY Inc. All rights reserved.
+BIPROGY 株式会社からの許可がない場合、以下のように使用しないでください。
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-<http://www.apache.org/licenses/LICENSE-2.0>
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-## 免責事項 {#disclaimer}
-
-当サイトのコンテンツや情報は、可能な限り正確な情報を掲載するよう努めております。
-しかし、誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性を保証するものではございません。
-当該情報に基づいて被ったいかなる損害について、一切責任を負うものではございませんのであらかじめご了承ください。
+- :ng: 当社の商標をドメイン名、ソーシャルメディアアカウント、製品名、サービス名、アプリ名に使用する場合。
+- :ng: 本サイトとの提携、許可、スポンサーシップを示す場合。
+- :ng: 商標を他の用語と組み合わせたり、大文字小文字、スペースの有無を含むスペルミスのある状態で使用する場合。
+- :ng: ロゴの配色、形状を加工して使用する場合。
+- :ng: ロゴの背景に、ロゴの視認性を阻害する色を使用する場合。
 
 ## 他社所有商標について {#trademarks-owned-by-other-companies}
 
@@ -48,7 +34,6 @@ limitations under the License.
 
 <!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length -->
 
-- 「Maia」は、 BIPROGY 株式会社の登録商標です。
 - Amazon Web Services 、 AWS 、 Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関連会社の商標です。
 - Apache, [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/), [Apache Groovy](https://groovy.apache.org/), [Apache Log4j 2](https://logging.apache.org/log4j/2.x/), [Apache Maven](https://maven.apache.org/) and [Apache Tomcat](https://tomcat.apache.org/) are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/) in the United States and/or other countries.
 - 'Eclipse' and 'Adoptium' are trademarks of Eclipse Foundation, Inc.
@@ -58,7 +43,7 @@ limitations under the License.
 - Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
 - 「Microsoft」「Windows」「Visual Studio Code」「VS Code」「Azure」は米国 Microsoft Corporation の米国およびその他の国における登録商標または商標です。
 - 「Java」は、オラクルおよびその関連会社の登録商標です。
-- 「Spring」「Spring Framework」「Spring Boot」「Spring Cloud」「Spring IO」は Pivotal Software, Inc.の商標です。
+- Spring, Spring Framework, Spring Boot, Spring Cloud, Spring IO are trademarks of Pivotal Software, Inc. in the U.S. and other countries.
 - HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.

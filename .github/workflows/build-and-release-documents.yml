@@ -19,6 +19,7 @@ on:
       - '.yaml-lint.yml'
       - 'package-lock.json'
       - 'package.json'
+      - 'requirements.txt'
   workflow_dispatch:
 
 permissions:
@@ -48,7 +49,7 @@ jobs:
         run: npm ci
 
       - name: Python のセットアップ
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -112,13 +113,6 @@ jobs:
         if: ${{ env.LINT_STATUS == 'Error' }}
         run: exit 1
 
-      - name: mkdocs のインストール
-        run: |
-          python -m pip install mkdocs
-          python -m pip install mkdocs-material
-          python -m pip install pymdown-extensions
-          python -m pip install mkdocs-minify-plugin
-
       - name: dressca.zip の作成
         run: |
           cd samples/web-csr
@@ -168,7 +162,7 @@ jobs:
           zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
 
       - name: ビルドアーティファクトのアップロード
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documents
           path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
@@ -181,7 +175,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: documents
 
@@ -198,7 +192,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: documents
 
