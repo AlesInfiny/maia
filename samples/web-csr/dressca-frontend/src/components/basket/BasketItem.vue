@@ -34,6 +34,7 @@ const isUpdateDisabled = computed(
 );
 
 const update = () => {
+  resetForm({ values: { quantity: quantity.value } });
   emit('update', props.item.catalogItemId, quantity.value);
 };
 
