@@ -3,8 +3,8 @@ import { onBeforeUnmount, onMounted, reactive } from 'vue';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  MinusSmIcon,
-} from '@heroicons/vue/solid';
+  MinusSmallIcon,
+} from '@heroicons/vue/24/solid';
 
 const props = defineProps<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -118,14 +118,14 @@ onBeforeUnmount(() => {
       <div class="flex justify-center">
         <template v-for="index in props.items.length" :key="index">
           <template v-if="index == state.currentIndex + 1">
-            <MinusSmIcon class="h-10 w-10 text-gray-500"></MinusSmIcon>
+            <MinusSmallIcon class="h-10 w-10 text-gray-500"></MinusSmallIcon>
           </template>
           <template v-if="index != state.currentIndex + 1">
-            <MinusSmIcon
+            <MinusSmallIcon
               class="h-10 w-10 text-gray-300"
               data-test="page-indicator"
               @click="selectSlide(index - 1)"
-            ></MinusSmIcon>
+            ></MinusSmallIcon>
           </template>
         </template>
       </div>

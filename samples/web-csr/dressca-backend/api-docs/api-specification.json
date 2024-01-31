@@ -25,6 +25,14 @@
       "description": "買い物かごアイテムの情報にアクセスするAPI"
     },
     {
+      "name": "Actuator",
+      "description": "Monitor and interact",
+      "externalDocs": {
+        "description": "Spring Boot Actuator Web API Documentation",
+        "url": "https://docs.spring.io/spring-boot/docs/current/actuator-api/html/"
+      }
+    },
+    {
       "name": "CatalogBrand",
       "description": "カタログブランドの情報にアクセスするAPI"
     },
@@ -109,11 +117,11 @@
           "201": {
             "description": "作成完了"
           },
-          "500": {
-            "description": "サーバーエラー"
-          },
           "400": {
             "description": "リクエストエラー"
+          },
+          "500": {
+            "description": "サーバーエラー"
           }
         }
       }
@@ -137,14 +145,63 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "リクエストエラー."
-          },
           "201": {
             "description": "成功."
           },
+          "400": {
+            "description": "リクエストエラー."
+          },
           "500": {
             "description": "サーバーエラー."
+          }
+        }
+      }
+    },
+    "/api": {
+      "get": {
+        "tags": [
+          "Actuator"
+        ],
+        "summary": "Actuator root web endpoint",
+        "operationId": "links",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.spring-boot.actuator.v3+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              },
+              "application/vnd.spring-boot.actuator.v2+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -169,15 +226,77 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "注文IDが存在しない."
-          },
           "200": {
             "description": "成功.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "注文IDが存在しない."
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Actuator"
+        ],
+        "summary": "Actuator web endpoint \u0027health\u0027",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.spring-boot.actuator.v3+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/vnd.spring-boot.actuator.v2+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health/**": {
+      "get": {
+        "tags": [
+          "Actuator"
+        ],
+        "summary": "Actuator web endpoint \u0027health-path\u0027",
+        "operationId": "health-path",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.spring-boot.actuator.v3+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/vnd.spring-boot.actuator.v2+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
@@ -236,9 +355,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "リクエストエラー"
-          },
           "200": {
             "description": "成功",
             "content": {
@@ -248,6 +364,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "リクエストエラー"
           }
         }
       }
@@ -431,6 +550,17 @@
           "addedQuantity": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
           }
         }
       },

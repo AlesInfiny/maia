@@ -11,6 +11,11 @@
     },
     "preset-ja-technical-writing": {
       "no-exclamation-question-mark": false,
+      "no-mix-dearu-desumasu": {
+        "preferInHeader": "ですます",
+        "preferInBody": "ですます",
+        "preferInList": "ですます"
+      },
       "sentence-length": {
         "max": 120
       },
@@ -67,7 +72,8 @@
         "層",
         "パラメーター",
         "フォルダー",
-        "ユーザー"
+        "ユーザー",
+        "ロードバランサー"
       ],
       "allowAlphabet": true,
       "allowNumber": false,

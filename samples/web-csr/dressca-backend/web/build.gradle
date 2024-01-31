@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.0'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id 'org.springdoc.openapi-gradle-plugin' version '1.8.0'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+	id 'org.springdoc.openapi-gradle-plugin' version "${springdocOpenapiGradlePluginVersion}"
 }
 
 group = 'com.dressca'
@@ -17,22 +17,21 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	implementation 'com.h2database:h2:2.2.224'
-	implementation 'org.postgresql:postgresql:42.7.0'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	implementation supportDependencies.spring_boot_starter_web
+	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.spring_boot_starter_actuator
+	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.commons_lang3
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
 	implementation project(':system-common')
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.spring_boot_starter_log4j2
 
-	compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	compileOnly supportDependencies.servlet_api
 }
 
 configurations {

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { OrderResponse, PostOrderRequest } from '@/generated/api-client';
-import { orderApi } from '@/api-client';
+import { ordersApi } from '@/api-client';
 
 export const useOrderingStore = defineStore({
   id: 'ordering',
@@ -22,10 +22,10 @@ export const useOrderingStore = defineStore({
         shikuchoson: shikuchoson,
         azanaAndOthers: azanaAndOthers,
       };
-      const orderResponse = await orderApi.postOrder(postOrderInput);
+      const orderResponse = await ordersApi.postOrder(postOrderInput);
       const url = new URL(orderResponse.headers.location);
       const orderId = Number(url.pathname.split('/').pop());
-      const orderResultResponse = await orderApi.getById(orderId);
+      const orderResultResponse = await ordersApi.getById(orderId);
       this.lastOrder = orderResultResponse.data;
     },
     clearLastOrder() {
