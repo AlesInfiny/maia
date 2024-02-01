@@ -1,0 +1,40 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'com.dressca'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+sourceSets {
+    main {
+        // mybatis SQL map XML ファイルを java 以下でも検知する
+        resources.srcDirs = ["src/main/java", "src/main/resources"]
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.h2database
+	implementation supportDependencies.postgresql
+	implementation project(':application-core')
+	implementation project(':system-common')
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.mybatis_spring_boot_starter_test
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar.enabled = false
+jar.enabled = true

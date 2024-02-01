@@ -1,0 +1,39 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'com.dressca'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation supportDependencies.spring_boot_starter_batch
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.commons_lang3
+	
+	implementation project(':application-core')
+	implementation project(':infrastructure')
+	implementation project(':system-common')
+
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.spring_batch_test
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
