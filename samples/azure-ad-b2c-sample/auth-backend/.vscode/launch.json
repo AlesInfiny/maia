@@ -10,28 +10,6 @@
       "projectName": "web",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
-    },
-    {
-      "type": "java",
-      "name": "Spring Batch chunk",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
-      "mainClass": "com.dressca.batch.BatchApplication",
-      "projectName": "batch",
-      "args": "output=item_list_chunk.csv",
-      "env":{"spring.batch.job.names":"catalogItem_job"}
-    },
-    {
-      "type": "java",
-      "name": "Spring Batch tasklet",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
-      "mainClass": "com.dressca.batch.BatchApplication",
-      "projectName": "batch",
-      "args": "output=item_list_tasklet.csv",
-      "env":{"spring.batch.job.names":"catalogItem_tasklet_job"}
     }
   ]
 }
