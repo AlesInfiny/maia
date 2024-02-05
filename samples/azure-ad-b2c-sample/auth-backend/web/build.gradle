@@ -23,6 +23,10 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.commons_lang3
+	implementation supportDependencies.auth0_jwt
+	implementation supportDependencies.jackson_databind
+	implementation supportDependencies.spring_cloud_azure_starter
+	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
@@ -32,6 +36,12 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_log4j2
 
 	compileOnly supportDependencies.servlet_api
+}
+
+dependencyManagement {
+	imports {
+		mavenBom supportDependencies.spring_cloud_azure_dependencies
+	}
 }
 
 configurations {

@@ -14,6 +14,9 @@ ext {
     springdocOpenapiVersion = "2.3.0"
     servletApiVersion = "6.0.0"
     commonsLangVersion = "3.14.0"
+    auth0JwtVersion = "4.4.0"
+    activeDirectoryVersion = "6.0.0-beta.4"
+    springCloudAzureVersion = "5.1.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
@@ -32,6 +35,12 @@ ext {
         postgresql : "org.postgresql:postgresql:$postgresqlVersion",
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
         servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
+        auth0_jwt : "com.auth0:java-jwt:$auth0JwtVersion",
+        jackson_databind : "com.fasterxml.jackson.core:jackson-databind",
+
+        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
+        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
+        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
 
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple"
