@@ -32,7 +32,7 @@ public class AuthController {
   @Autowired
   private RestTemplate restTemplate;
 
-  private AzureAccessProperty azureAccessConstant = new AzureAccessProperty();
+  private AzureAccessProperty azureAccessProperty = new AzureAccessProperty();
 
   /**
    * ログイン時のメッセージ取得。
@@ -49,7 +49,7 @@ public class AuthController {
     HttpHeaders httpHeaders = new HttpHeaders();
     String bearerToken = "Bearer " + getTokenFromAzure();
     httpHeaders.add("Authorization", bearerToken);
-    String userUrl = azureAccessConstant.getUserEndpoint() + userId;
+    String userUrl = azureAccessProperty.getUserEndpoint() + userId;
     ResponseEntity<LoginUser> response = restTemplate.exchange(userUrl, HttpMethod.GET, new HttpEntity<>(httpHeaders),
         LoginUser.class);
 
@@ -71,7 +71,7 @@ public class AuthController {
     HttpHeaders httpHeaders = new HttpHeaders();
     String bearerToken = "Bearer " + getTokenFromAzure();
     httpHeaders.add("Authorization", bearerToken);
-    String userUrl = azureAccessConstant.getUserEndpoint() + userId;
+    String userUrl = azureAccessProperty.getUserEndpoint() + userId;
     ResponseEntity<String> response = restTemplate.exchange(userUrl, HttpMethod.DELETE, new HttpEntity<>(httpHeaders),
         String.class);
     return response;
@@ -79,13 +79,13 @@ public class AuthController {
 
   private String getTokenFromAzure() throws JsonProcessingException {
     MultiValueMap<String, String> tokenMap = new LinkedMultiValueMap<>();
-    tokenMap.add("client_id", azureAccessConstant.getClientId());
-    tokenMap.add("scope", azureAccessConstant.getScope());
-    tokenMap.add("client_secret", azureAccessConstant.getClientSecret());
-    tokenMap.add("grant_type", azureAccessConstant.getClientCredentials());
+    tokenMap.add("client_id", azureAccessProperty.getClientId());
+    tokenMap.add("scope", azureAccessProperty.getScope());
+    tokenMap.add("client_secret", azureAccessProperty.getClientSecret());
+    tokenMap.add("grant_type", azureAccessProperty.getClientCredentials());
 
     RequestEntity<MultiValueMap<String, String>> request = RequestEntity
-        .post(URI.create(azureAccessConstant.getTokenEndpoint()))
+        .post(URI.create(azureAccessProperty.getTokenEndpoint()))
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .accept(MediaType.APPLICATION_FORM_URLENCODED)
         .body(tokenMap);
