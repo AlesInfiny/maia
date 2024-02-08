@@ -15,8 +15,8 @@ ext {
     servletApiVersion = "6.0.0"
     commonsLangVersion = "3.14.0"
     auth0JwtVersion = "4.4.0"
-    activeDirectoryVersion = "6.0.0-beta.4"
-    springCloudAzureVersion = "5.1.0"
+    activeDirectoryVersion = "5.8.0"
+    springCloudAzureVersion = "5.8.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",

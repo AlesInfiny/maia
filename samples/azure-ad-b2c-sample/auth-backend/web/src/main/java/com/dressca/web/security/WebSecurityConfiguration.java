@@ -16,7 +16,7 @@ import java.util.List;
  * セキュリティ関連の実行クラス。
  */
 @Configuration(proxyBeanMethods = false)
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
@@ -30,7 +30,7 @@ public class WebSecurityConfiguration {
 
   /**
    * CORS設定、JWTトークン検証を実行。
-   * 
+   *
    * @param http httpリクエスト
    * @return フィルターチェーン
    * @throws Exception 例外
@@ -46,7 +46,9 @@ public class WebSecurityConfiguration {
       conf.setAllowedHeaders(List.of("*"));
       return conf;
     }));
-    http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
+    http.authorizeHttpRequests((requests) -> requests
+        .requestMatchers("/api/auth/get").authenticated()
+        .anyRequest().permitAll())
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)));
     return http.build();
   }
