@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import com.dressca.web.controller.dto.auth.AuthResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,12 +34,13 @@ public class AuthController {
    */
   @Operation(summary = "ログインの成功を取得します.", description = "ログインの成功を取得します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))) })
+      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthResponse.class))) })
   @GetMapping("/get")
   @CrossOrigin
-  public ResponseEntity<String> getConnection() throws Exception {
-
-    return ResponseEntity.ok().body("Login Success");
+  public ResponseEntity<AuthResponse> getConnection() throws Exception {
+    String status = "login success";
+    AuthResponse response = new AuthResponse(status);
+    return ResponseEntity.ok().body(response);
   }
 
 }

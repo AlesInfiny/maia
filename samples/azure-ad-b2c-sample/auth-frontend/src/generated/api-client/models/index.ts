@@ -1,4 +1,5 @@
 export * from './account-response';
+export * from './auth-response';
 export * from './basket-item-response';
 export * from './basket-response';
 export * from './catalog-brand';

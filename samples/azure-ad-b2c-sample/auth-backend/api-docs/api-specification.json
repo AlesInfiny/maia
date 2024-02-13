@@ -118,14 +118,14 @@
           "required": true
         },
         "responses": {
-          "500": {
-            "description": "サーバーエラー"
-          },
           "201": {
             "description": "作成完了"
           },
           "400": {
             "description": "リクエストエラー"
+          },
+          "500": {
+            "description": "サーバーエラー"
           }
         }
       }
@@ -149,14 +149,14 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "成功."
+          "500": {
+            "description": "サーバーエラー."
           },
           "400": {
             "description": "リクエストエラー."
           },
-          "500": {
-            "description": "サーバーエラー."
+          "201": {
+            "description": "成功."
           }
         }
       }
@@ -356,6 +356,9 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "リクエストエラー"
+          },
           "200": {
             "description": "成功",
             "content": {
@@ -365,9 +368,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "リクエストエラー"
           }
         }
       }
@@ -436,7 +436,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               }
             }
@@ -464,6 +464,9 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
+          },
           "200": {
             "description": "成功.",
             "content": {
@@ -474,9 +477,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "アセットコードに対応するアセットがない."
           }
         }
       }
@@ -504,11 +504,11 @@
           "204": {
             "description": "成功."
           },
-          "404": {
-            "description": "買い物かご内に指定したカタログアイテム Id がない."
-          },
           "400": {
             "description": "リクエストエラー."
+          },
+          "404": {
+            "description": "買い物かご内に指定したカタログアイテム Id がない."
           }
         }
       }
@@ -918,6 +918,17 @@
             "items": {
               "$ref": "#/components/schemas/BasketItemResponse"
             }
+          }
+        }
+      },
+      "AuthResponse": {
+        "required": [
+          "loginStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "loginStatus": {
+            "type": "string"
           }
         }
       }
