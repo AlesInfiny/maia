@@ -14,12 +14,23 @@
 
 
 
-export * from './api/actuator-api';
-export * from './api/asset-api';
-export * from './api/auth-api';
-export * from './api/basket-item-api';
-export * from './api/catalog-brand-api';
-export * from './api/catalog-category-api';
-export * from './api/catalog-item-api';
-export * from './api/order-api';
+/**
+ * 
+ * @export
+ * @interface Link
+ */
+export interface Link {
+    /**
+     * 
+     * @type {string}
+     * @memberof Link
+     */
+    'href'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Link
+     */
+    'templated'?: boolean;
+}
 

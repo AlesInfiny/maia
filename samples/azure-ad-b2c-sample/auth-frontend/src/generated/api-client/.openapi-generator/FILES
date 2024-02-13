@@ -1,8 +1,9 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
+api/actuator-api.ts
 api/asset-api.ts
+api/auth-api.ts
 api/basket-item-api.ts
 api/catalog-brand-api.ts
 api/catalog-category-api.ts
@@ -23,6 +24,7 @@ models/catalog-item-response.ts
 models/catalog-item-summary-response.ts
 models/catalog-item.ts
 models/index.ts
+models/link.ts
 models/order-item-response.ts
 models/order-response.ts
 models/paged-catalog-item-response.ts
