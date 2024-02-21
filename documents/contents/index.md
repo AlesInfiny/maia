@@ -100,10 +100,15 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
     ./gradlew build
     ```
 
-1. VS Code のアクティビティーバーにある「Spring Boot Dashboard」をクリックし、サイドバーの「APPS」タブにある「web」という名前のアプリケーションを実行します。
+1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「GRADLE PROJECTS」タブから以下のタスクを実行します。
+
+    web > Tasks > application > bootRun
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 
     <http://localhost:8080>
 
     フロントエンドアプリケーションや API クライアントツールを利用してアクセスしてください。
+    サンプルアプリケーションが提供する API の仕様については、以下のアドレスから参照できます。
+
+    <http://localhost:8080/swagger-ui>
