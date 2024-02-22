@@ -8,7 +8,7 @@ const config = new apiClient.Configuration({});
 const axiosInstance = axios.create({});
 
 const assetsApi = new apiClient.AssetApi(config, '', axiosInstance);
-const authApi = new apiClient.AuthApi(config, '', axiosInstance);
+const userApi = new apiClient.UserApi(config, '', axiosInstance);
 const basketItemsApi = new apiClient.BasketItemApi(config, '', axiosInstance);
 const catalogBrandsApi = new apiClient.CatalogBrandApi(
   config,
@@ -25,7 +25,7 @@ const ordersApi = new apiClient.OrderApi(config, '', axiosInstance);
 
 export {
   assetsApi,
-  authApi,
+  userApi,
   basketItemsApi,
   catalogBrandsApi,
   catalogCategoriesApi,

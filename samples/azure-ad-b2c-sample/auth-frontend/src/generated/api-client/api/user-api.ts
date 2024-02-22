@@ -23,10 +23,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { UserResponse } from '../models';
 /**
- * AuthApi - axios parameter creator
+ * UserApi - axios parameter creator
  * @export
  */
-export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -35,9 +35,9 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnection: async (authorization: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUser: async (authorization: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
-            assertParamExists('getConnection', 'authorization', authorization)
+            assertParamExists('getUser', 'authorization', authorization)
             const localVarPath = `/api/auth/get`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -69,11 +69,11 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
 };
 
 /**
- * AuthApi - functional programming interface
+ * UserApi - functional programming interface
  * @export
  */
-export const AuthApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
+export const UserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -82,19 +82,19 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConnection(authorization: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnection(authorization, options);
+        async getUser(authorization: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(authorization, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * AuthApi - factory interface
+ * UserApi - factory interface
  * @export
  */
-export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AuthApiFp(configuration)
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -103,28 +103,28 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnection(authorization: string, options?: any): AxiosPromise<UserResponse> {
-            return localVarFp.getConnection(authorization, options).then((request) => request(axios, basePath));
+        getUser(authorization: string, options?: any): AxiosPromise<UserResponse> {
+            return localVarFp.getUser(authorization, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * AuthApi - object-oriented interface
+ * UserApi - object-oriented interface
  * @export
- * @class AuthApi
+ * @class UserApi
  * @extends {BaseAPI}
  */
-export class AuthApi extends BaseAPI {
+export class UserApi extends BaseAPI {
     /**
      * ログインに成功したユーザIDを取得します.
      * @summary ログインに成功したユーザIDを取得します.
      * @param {string} authorization 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AuthApi
+     * @memberof UserApi
      */
-    public getConnection(authorization: string, options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).getConnection(authorization, options).then((request) => request(this.axios, this.basePath));
+    public getUser(authorization: string, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).getUser(authorization, options).then((request) => request(this.axios, this.basePath));
     }
 }

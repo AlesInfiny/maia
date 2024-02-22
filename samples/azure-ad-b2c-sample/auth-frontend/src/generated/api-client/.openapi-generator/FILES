@@ -3,12 +3,12 @@
 api.ts
 api/actuator-api.ts
 api/asset-api.ts
-api/auth-api.ts
 api/basket-item-api.ts
 api/catalog-brand-api.ts
 api/catalog-category-api.ts
 api/catalog-item-api.ts
 api/order-api.ts
+api/user-api.ts
 base.ts
 common.ts
 configuration.ts

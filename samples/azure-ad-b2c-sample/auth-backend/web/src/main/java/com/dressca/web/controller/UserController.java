@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * Azure AD B2Cに接続するためのコントローラークラス。
  */
 @RestController
-@Tag(name = "Auth", description = "認証済みユーザのユーザIDを取得するAPI")
+@Tag(name = "User", description = "認証済みユーザのユーザIDを取得するAPI")
 @RequestMapping("/api/auth")
 public class UserController {
 
@@ -34,7 +34,7 @@ public class UserController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))) })
   @GetMapping("/get")
   @CrossOrigin
-  public ResponseEntity<UserResponse> getConnection(
+  public ResponseEntity<UserResponse> getUser(
       @RequestHeader(name = "Authorization", required = true) String accessToken) throws Exception {
 
     String userId = TokenDecoder.getObjectIdByAccessToken(accessToken);
