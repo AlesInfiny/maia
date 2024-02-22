@@ -1,4 +1,4 @@
-package com.dressca.web.util;
+package com.dressca.web.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -6,7 +6,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 /**
  * トークン共通処理。
  */
-public class TokenUtil {
+public class TokenDecoder {
   /**
    * クライアントから渡されたアクセストークンからobjectIdを取得。
    *

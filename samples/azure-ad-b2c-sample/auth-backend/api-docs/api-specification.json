@@ -18,7 +18,7 @@
     },
     {
       "name": "Auth",
-      "description": "アカウントのログイン情報にアクセスするAPI"
+      "description": "認証済みユーザのユーザIDを取得するAPI"
     },
     {
       "name": "CatalogCategory",
@@ -92,11 +92,11 @@
           "required": true
         },
         "responses": {
-          "204": {
-            "description": "成功."
-          },
           "400": {
             "description": "リクエストエラー"
+          },
+          "204": {
+            "description": "成功."
           }
         }
       },
@@ -118,14 +118,14 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "作成完了"
-          },
           "400": {
             "description": "リクエストエラー"
           },
           "500": {
             "description": "サーバーエラー"
+          },
+          "201": {
+            "description": "作成完了"
           }
         }
       }
@@ -149,14 +149,14 @@
           "required": true
         },
         "responses": {
-          "500": {
-            "description": "サーバーエラー."
+          "201": {
+            "description": "成功."
           },
           "400": {
             "description": "リクエストエラー."
           },
-          "201": {
-            "description": "成功."
+          "500": {
+            "description": "サーバーエラー."
           }
         }
       }
@@ -229,9 +229,6 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "注文IDが存在しない."
-          },
           "200": {
             "description": "成功.",
             "content": {
@@ -241,6 +238,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "注文IDが存在しない."
           }
         }
       }
@@ -427,16 +427,26 @@
         "tags": [
           "Auth"
         ],
-        "summary": "ログインの成功を取得します.",
-        "description": "ログインの成功を取得します.",
+        "summary": "ログインに成功したユーザIDを取得します.",
+        "description": "ログインに成功したユーザIDを取得します.",
         "operationId": "getConnection",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "成功.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthResponse"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             }
@@ -464,9 +474,6 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "アセットコードに対応するアセットがない."
-          },
           "200": {
             "description": "成功.",
             "content": {
@@ -477,6 +484,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
           }
         }
       }
@@ -921,13 +931,13 @@
           }
         }
       },
-      "AuthResponse": {
+      "UserResponse": {
         "required": [
-          "loginStatus"
+          "userId"
         ],
         "type": "object",
         "properties": {
-          "loginStatus": {
+          "userId": {
             "type": "string"
           }
         }
