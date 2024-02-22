@@ -17,13 +17,13 @@
 /**
  * 
  * @export
- * @interface AuthResponse
+ * @interface UserResponse
  */
-export interface AuthResponse {
+export interface UserResponse {
     /**
      * 
      * @type {string}
-     * @memberof AuthResponse
+     * @memberof UserResponse
      */
     'userId': string;
 }

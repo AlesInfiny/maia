@@ -15,7 +15,6 @@ configuration.ts
 git_push.sh
 index.ts
 models/account-response.ts
-models/auth-response.ts
 models/basket-item-response.ts
 models/basket-response.ts
 models/catalog-brand.ts
@@ -32,3 +31,4 @@ models/paged-catalog-item-response.ts
 models/post-basket-items-request.ts
 models/post-order-request.ts
 models/put-basket-item-request.ts
+models/user-response.ts
