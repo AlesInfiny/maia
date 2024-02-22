@@ -1,6 +1,6 @@
-import { useAccountHomeIdStore } from './../../stores/login/account-home-id';
+import { useHomeAccountIdStore } from '@/stores/login/home-account-id';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
-import { useUserStore } from '@/stores/login';
+import { useUserStore } from '@/stores/login/user-id';
 import {
   msalConfig,
   loginRequest,
@@ -10,11 +10,11 @@ import {
 const myMSALObj = new PublicClientApplication(msalConfig);
 
 async function setAccount(account: AccountInfo) {
-  const accountHomeIdStore = useAccountHomeIdStore();
-  accountHomeIdStore.setAccountHomeId(account.homeAccountId);
+  const homeAccountIdStore = useHomeAccountIdStore();
+  homeAccountIdStore.setHomeAccountId(account.homeAccountId);
 }
 
-async function signIn() {
+export async function signIn() {
   const loginRes = await myMSALObj.loginPopup(loginRequest);
   if (loginRes !== null && loginRes.account) {
     setAccount(loginRes.account.homeAccountId);
@@ -23,14 +23,14 @@ async function signIn() {
   }
 }
 
-async function getUserId() {
+export async function getUserId() {
   const loginElem = document.getElementById('login');
   if (loginElem) {
     try {
       const resGetToken = await getTokenPopup(tokenRequest);
       const bearer = `Bearer ${resGetToken.accessToken}`;
       const userStore = useUserStore(bearer);
-      await userStore.fetchAuthResponse();
+      await userStore.fetchUserResponse();
       const userIdRes = userStore.response?.userId;
       loginElem.innerText = userIdRes ?? 'No UserID';
     } catch (err) {
@@ -75,8 +75,3 @@ async function getTokenPopup(request: unknown) {
       }
     });
 }
-
-export default {
-  signIn,
-  getUserId,
-};

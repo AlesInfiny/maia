@@ -9,7 +9,7 @@ export const useUserStore = defineStore({
     response: undefined as UserResponse | undefined,
   }),
   actions: {
-    async fetchAuthResponse() {
+    async fetchUserResponse() {
       const response = await userApi.getUser(this.accessToken);
       this.response = response.data;
     },

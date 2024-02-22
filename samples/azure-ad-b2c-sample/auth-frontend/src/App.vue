@@ -2,7 +2,6 @@
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { signIn } from '@/shared/authentication/authentication-adb2c';
-import { sign } from 'crypto';
 
 const authenticationStore = useAuthenticationStore();
 const isAuthenticated = () => {
@@ -25,15 +24,13 @@ const isAuthenticated = () => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <button v-if="!isAuthenticated()" @click="signIn">ログイン</button>
+            <button v-if="!isAuthenticated()" @click="signIn()">
+              ログイン
+            </button>
           </div>
         </div>
       </nav>
     </header>
-
-    <main class="mb-auto">
-      <router-view />
-    </main>
 
     <footer
       class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
