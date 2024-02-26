@@ -15,6 +15,7 @@ async function setAccount(account: AccountInfo) {
 }
 
 export async function signIn() {
+  await myMSALObj.initialize();
   const loginRes = await myMSALObj.loginPopup(loginRequest);
   if (loginRes !== null && loginRes.account) {
     setAccount(loginRes.account.homeAccountId);
