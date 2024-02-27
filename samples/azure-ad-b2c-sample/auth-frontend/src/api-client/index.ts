@@ -1,11 +1,19 @@
 import axios from 'axios';
 import * as apiClient from '@/generated/api-client';
+import { getTokenPopup } from '@/shared/authentication/authentication-adb2c';
+import { tokenRequest } from '@/shared/authentication/authentication-config';
 
 /** api-client の共通の Configuration があればここに定義します。 */
 const config = new apiClient.Configuration({});
 
 /** axios の共通の設定があればここに定義します。 */
 const axiosInstance = axios.create({});
+axiosInstance.interceptors.request.use((request) => {
+  const tokenResponse = getTokenPopup(tokenRequest);
+  axiosInstance.defaults.headers.common['Authorization'] =
+    'Bearer ' + tokenResponse.accessToken;
+  return request;
+});
 
 const assetsApi = new apiClient.AssetApi(config, '', axiosInstance);
 const userApi = new apiClient.UserApi(config, '', axiosInstance);

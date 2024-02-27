@@ -7,9 +7,7 @@ export const useHomeAccountIdStore = defineStore('home-account-id', {
   }),
   getters: {
     isEmpty: (state) => state.homeAccountId === '',
-    getHomeAccountId(state) {
-      state.homeAccountId;
-    },
+    getHomeAccountId: (state) => state.homeAccountId,
   },
   actions: {
     setHomeAccountId(homeAccountId: string) {

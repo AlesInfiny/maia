@@ -4,19 +4,16 @@ import { userApi } from '@/api-client';
 
 export const useUserStore = defineStore({
   id: 'user-id',
-  state: (token: string) => ({
-    accessToken: token,
+  state: () => ({
     response: undefined as UserResponse | undefined,
   }),
   actions: {
     async fetchUserResponse() {
-      const response = await userApi.getUser(this.accessToken);
+      const response = await userApi.getUser();
       this.response = response.data;
     },
   },
   getters: {
-    getLoginStatus(state) {
-      return state.response;
-    },
+    getUserId: (state) => state.response,
   },
 });

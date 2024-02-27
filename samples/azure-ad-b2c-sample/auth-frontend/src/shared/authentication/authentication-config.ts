@@ -2,34 +2,36 @@ import { LogLevel } from '@azure/msal-browser';
 
 export const b2cPolicies = {
   names: {
-    signUpSignIn: import.meta.env.USER_FLOW_SIGN_IN
-      ? import.meta.env.dev.USER_FLOW_SIGN_IN
+    signUpSignIn: import.meta.env.VITE_USER_FLOW_SIGN_IN
+      ? import.meta.env.VITE_USER_FLOW_SIGN_IN
       : '',
   },
   authorities: {
     signUpSignIn: {
-      authority: import.meta.env.ADB2C_SIGN_IN_URI,
+      authority: import.meta.env.VITE_ADB2C_SIGN_IN_URI,
     },
   },
-  authorityDomain: import.meta.env.ADB2C_AUTHORITY_DOMAIN
-    ? import.meta.env.ADB2C_AUTHORITY_DOMAIN
+  authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN
+    ? import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN
     : '',
 };
 
 export const apiConfig = {
   b2cScopes: [
-    import.meta.env.ADB2C_TASKS_SCOPE ? import.meta.env.ADB2C_TASKS_SCOPE : '',
+    import.meta.env.VITE_ADB2C_TASKS_SCOPE
+      ? import.meta.env.VITE_ADB2C_TASKS_SCOPE
+      : '',
   ],
 };
 
 export const msalConfig = {
   auth: {
-    clientId: import.meta.env.ADB2C_APP_CLIENT_ID
-      ? import.meta.env.ADB2C_APP_CLIENT_ID
+    clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID
+      ? import.meta.env.VITE_ADB2C_APP_CLIENT_ID
       : '',
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: import.meta.env.APP_URI,
+    redirectUri: import.meta.env.VITE_APP_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -67,6 +69,6 @@ export const loginRequest = {
   scopes: ['openId', ...apiConfig.b2cScopes],
 };
 export const tokenRequest = {
-  scopes: [...apiConfig.b2cScopes],
+  scopes: ['openId', ...apiConfig.b2cScopes],
   forceRefresh: false,
 };

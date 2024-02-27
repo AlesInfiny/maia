@@ -1,11 +1,7 @@
-import { useHomeAccountIdStore } from '@/stores/login/home-account-id';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
-import { useUserStore } from '@/stores/login/user-id';
-import {
-  msalConfig,
-  loginRequest,
-  tokenRequest,
-} from './authentication-config';
+import { useUserStore } from '@/stores/user/user';
+import { useHomeAccountIdStore } from '@/stores/user/home-account-id';
+import { msalConfig, loginRequest } from './authentication-config';
 
 const myMSALObj = new PublicClientApplication(msalConfig);
 
@@ -18,7 +14,7 @@ export async function signIn() {
   await myMSALObj.initialize();
   const loginRes = await myMSALObj.loginPopup(loginRequest);
   if (loginRes !== null && loginRes.account) {
-    setAccount(loginRes.account.homeAccountId);
+    setAccount(loginRes.account);
   } else {
     setAccount();
   }
@@ -28,11 +24,9 @@ export async function getUserId() {
   const loginElem = document.getElementById('login');
   if (loginElem) {
     try {
-      const resGetToken = await getTokenPopup(tokenRequest);
-      const bearer = `Bearer ${resGetToken.accessToken}`;
-      const userStore = useUserStore(bearer);
+      const userStore = useUserStore();
       await userStore.fetchUserResponse();
-      const userIdRes = userStore.response?.userId;
+      const userIdRes = userStore.getUserId;
       loginElem.innerText = userIdRes ?? 'No UserID';
     } catch (err) {
       loginElem.innerText = 'error occurred';
@@ -41,10 +35,10 @@ export async function getUserId() {
   }
 }
 
-async function getTokenPopup(request: unknown) {
-  const accountHomeIdStore = useAccountHomeIdStore();
-  const accountHomeId = accountHomeIdStore.getAccountHomeId();
-  request.account = myMSALObj.getAccountByHomeId(accountHomeId);
+export async function getTokenPopup(request: unknown) {
+  const homeAccountIdStore = useHomeAccountIdStore();
+  const homeAccountId = homeAccountIdStore.getHomeAccountId;
+  request.account = myMSALObj.getAccountByHomeId(homeAccountId);
 
   return myMSALObj
     .acquireTokenSilent(request)
