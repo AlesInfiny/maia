@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import {
-  getUserId,
-  signIn,
-} from '@/shared/authentication/authentication-adb2c';
+import { signIn } from '@/shared/authentication/authentication-adb2c';
 
 const authenticationStore = useAuthenticationStore();
 const isAuthenticated = () => {
@@ -12,7 +9,7 @@ const isAuthenticated = () => {
 };
 const signInAction = async () => {
   await signIn();
-  await getUserId();
+  await authenticationStore.getUserId();
 };
 </script>
 

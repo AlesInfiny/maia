@@ -1,13 +1,12 @@
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
-import { useUserStore } from '@/stores/user/user';
-import { useHomeAccountIdStore } from '@/stores/user/home-account-id';
+import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { msalConfig, loginRequest } from './authentication-config';
 
 const myMSALObj = new PublicClientApplication(msalConfig);
 
 async function setAccount(account: AccountInfo) {
-  const homeAccountIdStore = useHomeAccountIdStore();
-  homeAccountIdStore.setHomeAccountId(account.homeAccountId);
+  const authenticationStore = useAuthenticationStore();
+  authenticationStore.setHomeAccountId(account.homeAccountId);
 }
 
 export async function signIn() {
@@ -20,24 +19,9 @@ export async function signIn() {
   }
 }
 
-export async function getUserId() {
-  const loginElem = document.getElementById('login');
-  if (loginElem) {
-    try {
-      const userStore = useUserStore();
-      await userStore.fetchUserResponse();
-      const userIdRes = userStore.getUserId;
-      loginElem.innerText = userIdRes ?? 'No UserID';
-    } catch (err) {
-      loginElem.innerText = 'error occurred';
-      throw err;
-    }
-  }
-}
-
 export async function getTokenPopup(request: unknown) {
-  const homeAccountIdStore = useHomeAccountIdStore();
-  const homeAccountId = homeAccountIdStore.getHomeAccountId;
+  const authenticationStore = useAuthenticationStore();
+  const homeAccountId = authenticationStore.getHomeAccountId;
   request.account = myMSALObj.getAccountByHomeId(homeAccountId);
 
   return myMSALObj
