@@ -19,7 +19,7 @@ export async function signIn() {
   }
 }
 
-export async function getTokenPopup(request: unknown) {
+export async function getToken(request: unknown) {
   const authenticationStore = useAuthenticationStore();
   const homeAccountId = authenticationStore.getHomeAccountId;
   request.account = myMSALObj.getAccountByHomeId(homeAccountId);
