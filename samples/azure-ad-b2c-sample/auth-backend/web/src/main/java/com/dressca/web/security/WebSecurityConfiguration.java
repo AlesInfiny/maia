@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import java.util.List;
 
@@ -20,13 +19,10 @@ import java.util.List;
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
-
   @Value("${cors.allowed.origins}")
   private String allowedOrigins;
+
+  public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
   /**
    * CORS設定、JWTトークン検証を実行。
@@ -50,6 +46,7 @@ public class WebSecurityConfiguration {
         .requestMatchers("/api/auth/get").authenticated()
         .anyRequest().permitAll())
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)));
+
     return http.build();
   }
 }

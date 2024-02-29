@@ -9,7 +9,7 @@ export const useUserStore = defineStore({
   }),
   actions: {
     async fetchUserResponse() {
-      const response = await userApi.getUser('');
+      const response = await userApi.getUser();
       this.response = response.data;
     },
   },

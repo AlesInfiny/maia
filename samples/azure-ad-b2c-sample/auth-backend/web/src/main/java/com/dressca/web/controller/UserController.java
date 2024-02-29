@@ -3,11 +3,10 @@ package com.dressca.web.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dressca.web.controller.dto.auth.UserResponse;
-import com.dressca.web.security.TokenDecoder;
+import com.dressca.web.security.WebSecurityConfiguration;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,13 +30,15 @@ public class UserController {
    */
   @Operation(summary = "ログインに成功したユーザIDを取得します.", description = "ログインに成功したユーザIDを取得します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))) })
+      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
+      @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content)
+  })
+
   @GetMapping("/get")
   @CrossOrigin
-  public ResponseEntity<UserResponse> getUser(
-      @RequestHeader(name = "Authorization", required = true) String accessToken) throws Exception {
+  public ResponseEntity<UserResponse> getUser() throws Exception {
 
-    String userId = TokenDecoder.getObjectIdByAccessToken(accessToken);
+    String userId = WebSecurityConfiguration.threadLocalUserId.get();
     UserResponse response = new UserResponse(userId);
     return ResponseEntity.ok().body(response);
   }

@@ -356,6 +356,9 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "リクエストエラー"
+          },
           "200": {
             "description": "成功",
             "content": {
@@ -365,9 +368,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "リクエストエラー"
           }
         }
       }
@@ -430,16 +430,6 @@
         "summary": "ログインに成功したユーザIDを取得します.",
         "description": "ログインに成功したユーザIDを取得します.",
         "operationId": "getUser",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "成功.",
@@ -450,6 +440,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "未認証エラー"
           }
         }
       }
