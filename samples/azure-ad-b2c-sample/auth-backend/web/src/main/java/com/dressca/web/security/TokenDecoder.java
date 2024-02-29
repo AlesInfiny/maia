@@ -13,8 +13,7 @@ public class TokenDecoder {
    * @param bearerToken アクセストークン
    * @return objectId
    */
-  public static String getObjectIdByAccessToken(String bearerToken) {
-    String jwtToken = bearerToken.substring(7);
+  public static String getObjectIdByAccessToken(String jwtToken) {
     DecodedJWT jwt = JWT.decode(jwtToken);
     String objectId = jwt.getSubject();
 

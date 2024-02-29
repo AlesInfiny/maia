@@ -92,11 +92,11 @@
           "required": true
         },
         "responses": {
-          "204": {
-            "description": "成功."
-          },
           "400": {
             "description": "リクエストエラー"
+          },
+          "204": {
+            "description": "成功."
           }
         }
       },
@@ -149,14 +149,14 @@
           "required": true
         },
         "responses": {
-          "500": {
-            "description": "サーバーエラー."
+          "201": {
+            "description": "成功."
           },
           "400": {
             "description": "リクエストエラー."
           },
-          "201": {
-            "description": "成功."
+          "500": {
+            "description": "サーバーエラー."
           }
         }
       }
@@ -442,7 +442,7 @@
             }
           },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証エラー."
           }
         }
       }
@@ -504,14 +504,14 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "買い物かご内に指定したカタログアイテム Id がない."
-          },
           "204": {
             "description": "成功."
           },
           "400": {
             "description": "リクエストエラー."
+          },
+          "404": {
+            "description": "買い物かご内に指定したカタログアイテム Id がない."
           }
         }
       }

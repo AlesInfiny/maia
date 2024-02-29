@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import com.dressca.web.filter.UserIdThreadContextFilter;
 import java.util.List;
 
 /**
@@ -21,8 +23,6 @@ public class WebSecurityConfiguration {
 
   @Value("${cors.allowed.origins}")
   private String allowedOrigins;
-
-  public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
   /**
    * CORS設定、JWTトークン検証を実行。
@@ -43,9 +43,10 @@ public class WebSecurityConfiguration {
       return conf;
     }));
     http.authorizeHttpRequests((requests) -> requests
-        .requestMatchers("/api/auth/get").authenticated()
+        .requestMatchers("/api/auth/get", "/api/order/**").authenticated()
         .anyRequest().permitAll())
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)));
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+        .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
 
     return http.build();
   }

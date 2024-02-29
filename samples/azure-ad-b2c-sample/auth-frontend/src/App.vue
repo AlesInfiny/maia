@@ -38,6 +38,7 @@ const signInAction = async () => {
 
     <main class="mb-auto">
       <div id="login"></div>
+      <router-view />
     </main>
 
     <footer

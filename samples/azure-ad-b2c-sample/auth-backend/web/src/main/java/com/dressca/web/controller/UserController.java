@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dressca.web.controller.dto.auth.UserResponse;
-import com.dressca.web.security.WebSecurityConfiguration;
+import com.dressca.web.filter.UserIdThreadContextFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +38,7 @@ public class UserController {
   @CrossOrigin
   public ResponseEntity<UserResponse> getUser() throws Exception {
 
-    String userId = WebSecurityConfiguration.threadLocalUserId.get();
+    String userId = UserIdThreadContextFilter.threadLocalUserId.get();
     UserResponse response = new UserResponse(userId);
     return ResponseEntity.ok().body(response);
   }
