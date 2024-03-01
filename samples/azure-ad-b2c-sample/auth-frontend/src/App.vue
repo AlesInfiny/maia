@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { signIn } from '@/shared/authentication/authentication-adb2c';
+import { useUserStore } from './stores/user/user';
 
 const authenticationStore = useAuthenticationStore();
+const userStore = useUserStore();
 const isAuthenticated = () => {
   return authenticationStore.isAuthenticated;
 };
-const signInAction = async () => {
-  await signIn();
-  await authenticationStore.getUserId();
+const signIn = async () => {
+  await authenticationStore.signIn();
+  await userStore.fetchUserResponse();
+};
+
+const getUserId = () => {
+  return userStore.getUserId;
 };
 </script>
 
@@ -28,16 +33,16 @@ const signInAction = async () => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <button v-if="!isAuthenticated()" @click="signInAction()">
+            <button v-if="!isAuthenticated()" @click="signIn()">
               ログイン
             </button>
+            <span v-if="isAuthenticated()">{{ getUserId() }} でログイン中</span>
           </div>
         </div>
       </nav>
     </header>
 
     <main class="mb-auto">
-      <div id="login"></div>
       <router-view />
     </main>
 

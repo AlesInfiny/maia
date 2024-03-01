@@ -1,56 +1,64 @@
-import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { msalConfig, loginRequest } from './authentication-config';
+import { InteractionRequiredAuthError } from '@azure/msal-browser';
+import {
+  msalInstance,
+  loginRequest,
+  tokenRequest,
+} from './authentication-config';
 
-const myMSALObj = new PublicClientApplication(msalConfig);
+msalInstance.initialize();
 
-async function setAccount(account: AccountInfo) {
-  const authenticationStore = useAuthenticationStore();
-  authenticationStore.setHomeAccountId(account.homeAccountId);
-}
-
-export async function signIn() {
-  await myMSALObj.initialize();
-  const loginRes = await myMSALObj.loginPopup(loginRequest);
-  if (loginRes !== null && loginRes.account) {
-    setAccount(loginRes.account);
-  } else {
-    setAccount();
+export async function signInAzureADB2C(): Promise<AuthenticationResult> {
+  const result = new AuthenticationResult();
+  try {
+    const loginResponse = await msalInstance.loginPopup(loginRequest);
+    result.homeAccountId = loginResponse.account.homeAccountId;
+    result.idToken = loginResponse.idToken;
+    result.isAuthenticated = true;
+    return result;
+  } catch (error) {
+    result.isAuthenticated = false;
+    return result;
   }
 }
 
-export async function getToken(request: unknown) {
-  const authenticationStore = useAuthenticationStore();
-  const homeAccountId = authenticationStore.getHomeAccountId;
-  request.account = myMSALObj.getAccountByHomeId(homeAccountId);
+export async function getTokenAzureADB2C(
+  homeAccountId: string,
+): Promise<AuthenticationResult> {
+  const account = msalInstance.getAccountByHomeId(homeAccountId);
+  tokenRequest.account = account;
 
-  return myMSALObj
-    .acquireTokenSilent(request)
-    .then((response) => {
-      if (!response.accessToken || response.accessToken === '') {
-        throw new InteractionRequiredAuthError();
-      }
-      return response;
-    })
-    .catch((error) => {
-      console.log(
-        'Silent token acquisition fails. Acquiring token using popup. \n',
-        error,
-      );
+  const result = new AuthenticationResult();
 
-      if (error instanceof InteractionRequiredAuthError) {
-        return myMSALObj
-          .acquireTokenPopup(request)
-          .then((response) => {
-            return response;
-          })
-          .catch((error) => {
-            console.log(error);
-            throw error;
-          });
-      } else {
-        console.log(error);
-        throw error;
-      }
-    });
+  try {
+    const tokenResponse = await msalInstance.acquireTokenSilent(tokenRequest);
+
+    if (!tokenResponse.accessToken || tokenResponse.accessToken === '') {
+      throw new InteractionRequiredAuthError('accessToken is null or empty.');
+    }
+
+    result.homeAccountId = tokenResponse.account.homeAccountId;
+    result.accessToken = tokenResponse.accessToken;
+    result.idToken = tokenResponse.idToken;
+    result.isAuthenticated = true;
+    return result;
+  } catch (error) {
+    if (error instanceof InteractionRequiredAuthError) {
+      // ユーザーによる操作が必要な場合にスローされるエラーがスローされた場合、トークン呼び出しポップアップ画面を表示する。
+      const tokenResponse = await msalInstance.acquireTokenPopup(tokenRequest);
+      result.homeAccountId = tokenResponse.account.homeAccountId;
+      result.accessToken = tokenResponse.accessToken;
+      result.idToken = tokenResponse.idToken;
+      result.isAuthenticated = true;
+      return result;
+    }
+    console.log(error);
+    throw error;
+  }
+}
+
+export class AuthenticationResult {
+  homeAccountId: string;
+  accessToken: string;
+  idToken: string;
+  isAuthenticated: boolean;
 }

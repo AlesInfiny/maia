@@ -1,34 +1,24 @@
-import { LogLevel } from '@azure/msal-browser';
+import { LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
 export const b2cPolicies = {
   names: {
-    signUpSignIn: import.meta.env.VITE_USER_FLOW_SIGN_IN
-      ? import.meta.env.VITE_USER_FLOW_SIGN_IN
-      : '',
+    signUpSignIn: import.meta.env.VITE_USER_FLOW_SIGN_IN,
   },
   authorities: {
     signUpSignIn: {
       authority: import.meta.env.VITE_ADB2C_SIGN_IN_URI,
     },
   },
-  authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN
-    ? import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN
-    : '',
+  authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
 };
 
 export const apiConfig = {
-  b2cScopes: [
-    import.meta.env.VITE_ADB2C_TASKS_SCOPE
-      ? import.meta.env.VITE_ADB2C_TASKS_SCOPE
-      : '',
-  ],
+  b2cScopes: [import.meta.env.VITE_ADB2C_TASKS_SCOPE],
 };
 
 export const msalConfig = {
   auth: {
-    clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID
-      ? import.meta.env.VITE_ADB2C_APP_CLIENT_ID
-      : '',
+    clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
     redirectUri: import.meta.env.VITE_APP_URI,
@@ -40,9 +30,9 @@ export const msalConfig = {
   system: {
     loggerOptions: {
       loggerCallback: (
-        level: unknown,
-        message: unknown,
-        containsPii: unknown,
+        level: LogLevel,
+        message: string,
+        containsPii: boolean,
       ) => {
         if (containsPii) {
           return;
@@ -60,15 +50,21 @@ export const msalConfig = {
           case LogLevel.Warning:
             console.warn(message);
             return;
+          default:
+            return;
         }
       },
+      logLevel: LogLevel.Verbose,
     },
   },
 };
+
+export const msalInstance = new PublicClientApplication(msalConfig);
+
 export const loginRequest = {
   scopes: ['openId', ...apiConfig.b2cScopes],
 };
+
 export const tokenRequest = {
-  scopes: ['openId', ...apiConfig.b2cScopes],
-  forceRefresh: false,
+  scopes: [...apiConfig.b2cScopes],
 };
