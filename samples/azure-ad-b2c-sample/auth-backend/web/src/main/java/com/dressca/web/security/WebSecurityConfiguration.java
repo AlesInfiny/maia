@@ -10,7 +10,6 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import com.dressca.web.filter.UserIdThreadContextFilter;
 import java.util.List;
 
 /**
