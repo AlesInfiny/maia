@@ -19,17 +19,12 @@ repositories {
 dependencies {
 	implementation supportDependencies.spring_boot_starter_web
 	implementation supportDependencies.spring_boot_starter_validation
-	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
-	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.auth0_jwt
-	implementation supportDependencies.jackson_databind
 	implementation supportDependencies.spring_cloud_azure_starter
 	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
-	
-	implementation project(':application-core')
-	implementation project(':infrastructure')
+
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test

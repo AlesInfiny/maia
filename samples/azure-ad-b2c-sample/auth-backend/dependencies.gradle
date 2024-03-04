@@ -7,10 +7,6 @@ ext {
 
     // -- DEPENDENCIES
     springBatchTestVersion = "5.1.0"
-    mybatisSpringBootStarterVersion = "3.0.3"
-    mybatisSpringBootStarterTestVersion = "3.0.3"
-    h2Version = "2.2.224"
-    postgresqlVersion = "42.7.1"
     springdocOpenapiVersion = "2.3.0"
     servletApiVersion = "6.0.0"
     commonsLangVersion = "3.14.0"
@@ -25,18 +21,12 @@ ext {
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
-        spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
 
         spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
-        mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
-        h2database : "com.h2database:h2:$h2Version",
-        postgresql : "org.postgresql:postgresql:$postgresqlVersion",
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
         servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
         auth0_jwt : "com.auth0:java-jwt:$auth0JwtVersion",
-        jackson_databind : "com.fasterxml.jackson.core:jackson-databind",
 
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
