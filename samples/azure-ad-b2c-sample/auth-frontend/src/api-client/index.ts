@@ -19,34 +19,11 @@ axiosInstance.interceptors.request.use(async (request) => {
   if (store.isAuthenticated) {
     await store.getToken();
     const token = store.getAccessToken;
-    console.log(`token value: ${token}`);
     request.headers['Authorization'] = `Bearer ${token}`;
   }
   return request;
 });
 
-const assetsApi = new apiClient.AssetApi(config, '', axiosInstance);
-const basketItemsApi = new apiClient.BasketItemApi(config, '', axiosInstance);
-const catalogBrandsApi = new apiClient.CatalogBrandApi(
-  config,
-  '',
-  axiosInstance,
-);
-const catalogCategoriesApi = new apiClient.CatalogCategoryApi(
-  config,
-  '',
-  axiosInstance,
-);
-const catalogItemsApi = new apiClient.CatalogItemApi(config, '', axiosInstance);
-const ordersApi = new apiClient.OrderApi(config, '', axiosInstance);
 const userApi = new apiClient.UserApi(config, '', axiosInstance);
 
-export {
-  assetsApi,
-  basketItemsApi,
-  catalogBrandsApi,
-  catalogCategoriesApi,
-  catalogItemsApi,
-  ordersApi,
-  userApi,
-};
+export { userApi };
