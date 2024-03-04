@@ -7,6 +7,7 @@ import '@/assets/base.css';
 import '@/config/yup.config';
 
 import { authenticationGuard } from '@/shared/authentication/authentication-guard';
+import { msalInstance } from '@/shared/authentication/authentication-config';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -24,6 +25,7 @@ pinia.use(({ store }) => {
 
 app.use(pinia);
 app.use(router);
+app.use(msalInstance);
 
 authenticationGuard(router);
 

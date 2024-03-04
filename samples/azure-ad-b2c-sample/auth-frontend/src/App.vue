@@ -10,7 +10,9 @@ const isAuthenticated = () => {
 };
 const signIn = async () => {
   await authenticationStore.signIn();
-  await userStore.fetchUserResponse();
+  if (authenticationStore.isAuthenticated) {
+    await userStore.fetchUserResponse();
+  }
 };
 
 const getUserId = () => {
@@ -36,7 +38,9 @@ const getUserId = () => {
             <button v-if="!isAuthenticated()" @click="signIn()">
               ログイン
             </button>
-            <span v-if="isAuthenticated()">{{ getUserId() }} でログイン中</span>
+            <span v-if="isAuthenticated()" id="loginState">
+              {{ getUserId() }} でログイン中
+            </span>
           </div>
         </div>
       </nav>

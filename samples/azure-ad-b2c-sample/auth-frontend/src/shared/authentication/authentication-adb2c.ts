@@ -1,4 +1,7 @@
-import { InteractionRequiredAuthError } from '@azure/msal-browser';
+import {
+  BrowserAuthError,
+  InteractionRequiredAuthError,
+} from '@azure/msal-browser';
 import {
   msalInstance,
   loginRequest,
@@ -16,8 +19,11 @@ export async function signInAzureADB2C(): Promise<AuthenticationResult> {
     result.isAuthenticated = true;
     return result;
   } catch (error) {
-    result.isAuthenticated = false;
-    return result;
+    if (error instanceof BrowserAuthError) {
+      result.isAuthenticated = false;
+      return result;
+    }
+    throw error;
   }
 }
 
