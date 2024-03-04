@@ -29,26 +29,19 @@ const getUserId = () => {
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
-            <router-link class="text-2xl" to="/">Dressca</router-link>
+            <span class="text-2xl">Dressca（Azure AD B2C 認証サンプル）</span>
           </div>
           <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
-            <router-link to="/basket">
-              <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
-            </router-link>
             <button v-if="!isAuthenticated()" @click="signIn()">
               ログイン
             </button>
-            <span v-if="isAuthenticated()" id="loginState">
-              {{ getUserId() }} でログイン中
+            <span v-if="isAuthenticated()">
+              ユーザーID: {{ getUserId() }}
             </span>
           </div>
         </div>
       </nav>
     </header>
-
-    <main class="mb-auto">
-      <router-view />
-    </main>
 
     <footer
       class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
