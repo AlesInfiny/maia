@@ -54,8 +54,9 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-    - [Microsoft.Identity.Web](https://www.nuget.org/packages/Microsoft.Identity.Web)
-    - [Microsoft.IdentityModel.JsonWebTokens](https://www.nuget.org/packages/Microsoft.IdentityModel.JsonWebTokens)
+    - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
+    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
+    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
 - フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
