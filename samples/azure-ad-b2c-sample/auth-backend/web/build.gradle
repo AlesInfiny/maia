@@ -21,7 +21,6 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_validation
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
-	implementation supportDependencies.auth0_jwt
 	implementation supportDependencies.spring_cloud_azure_starter
 	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
 

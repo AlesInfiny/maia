@@ -10,23 +10,19 @@ ext {
     springdocOpenapiVersion = "2.3.0"
     servletApiVersion = "6.0.0"
     commonsLangVersion = "3.14.0"
-    auth0JwtVersion = "4.4.0"
     activeDirectoryVersion = "5.8.0"
     springCloudAzureVersion = "5.8.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
-        spring_boot_starter_batch : "org.springframework.boot:spring-boot-starter-batch",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
 
-        spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
         servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
-        auth0_jwt : "com.auth0:java-jwt:$auth0JwtVersion",
 
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
