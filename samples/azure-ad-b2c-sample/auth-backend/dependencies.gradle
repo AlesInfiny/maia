@@ -10,8 +10,8 @@ ext {
     springdocOpenapiVersion = "2.3.0"
     servletApiVersion = "6.0.0"
     commonsLangVersion = "3.14.0"
-    activeDirectoryVersion = "5.8.0"
-    springCloudAzureVersion = "5.8.0"
+    activeDirectoryVersion = "5.10.0"
+    springCloudAzureVersion = "5.10.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
