@@ -31,20 +31,6 @@ export const useAuthenticationStore = defineStore({
       this.idToken = result.idToken;
       this.authenticated = result.isAuthenticated;
     },
-    async getUserId() {
-      const loginElem = document.getElementById('login');
-      if (loginElem) {
-        try {
-          const userStore = useUserStore();
-          await userStore.fetchUserResponse();
-          const userIdRes = userStore.getUserId;
-          loginElem.innerText = userIdRes?.userId ?? 'No UserID';
-        } catch (err) {
-          loginElem.innerText = 'error occurred';
-          throw err;
-        }
-      }
-    },
   },
   getters: {
     getHomeAccountId(state) {
