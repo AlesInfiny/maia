@@ -29,7 +29,7 @@ const getUserId = () => {
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
-            <span class="text-2xl">Dressca（Azure AD B2C 認証サンプル）</span>
+            <span class="text-2xl">Azure AD B2C 認証サンプル</span>
           </div>
           <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
             <button v-if="!isAuthenticated()" @click="signIn()">

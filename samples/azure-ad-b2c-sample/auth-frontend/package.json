@@ -6,11 +6,8 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
-    "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open --e2e --browser chrome'",
-    "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && stylelint **/*.{vue,css} --fix",
-    "mock": "vite --mode mock",
     "generate-client": "openapi-generator-cli generate -g typescript-axios -i ./../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
@@ -35,7 +32,6 @@
     "@vue/test-utils": "^2.0.0-rc.21",
     "@vue/tsconfig": "^0.1.3",
     "autoprefixer": "^10.4.16",
-    "cypress": "^13.6.1",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.20.1",
@@ -48,7 +44,6 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-prettier": "^5.0.0",
-    "tailwindcss": "^3.4.0",
     "typescript": "~4.5.5",
     "vite": "^4.5.2",
     "vitest": "^0.34.6",
