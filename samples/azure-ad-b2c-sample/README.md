@@ -75,7 +75,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 ### Azure AD B2C テナントを利用するアプリの登録（バックエンドアプリケーション）
 
-1. [Microsoft のチュートリアル「Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従って、バックエンドアプリケーション用のアプリを Azure AD B2C に登録します。
+1. [Microsoft のチュートリアル「Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーション用のアプリを Azure AD B2C に登録します。
    - 登録したアプリの名前を、ここでは「 `AlesInfinyMarisWebAPI` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes)に従って、アプリにスコープを追加します。
@@ -105,16 +105,48 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 #### バックエンドアプリケーションの設定
 
-1. `auth-backend\src\Dressca.Web\appsettings.json` を開きます。
+1. `auth-backend\src\web\main\resources\application.properties` を開きます。
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
-```json
-{
-  "AzureAdB2C": {
-    "Instance": "https://[初期ドメイン名].b2clogin.com",
-    "ClientId": "[AlesInfinyMarisWebAPI のクライアント ID]",
-    "Domain": "[初期ドメイン名].onmicrosoft.com",
-    "SignUpSignInPolicyId": "B2C_1_signupsignin1"
+```properties
+spring.cloud.azure.active-directory.b2c.enabled=true
+spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
+spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
+spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
+spring.cloud.azure.active-directory.b2c.login-flow=sign-up-or-sign-in
+spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
+spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_signupsignin1
+cors.allowed.origins=http://localhost:5173
+```
+
+1. `auth-backend\dependencies.gradle`を開きます。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+
+  ```gradle
+  ext {
+    activeDirectoryVersion = "[ライブラリバージョン]"
+    springCloudAzureVersion = "[ライブラリバージョン]"
+
+    supportDependencies = [
+      spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
+      spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
+      spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+    ]
+  }
+  ```
+
+1. `auth-backend\web\build.gradle`を開きます。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+
+```gradle
+dependencies {
+  implementation supportDependencies.spring_cloud_azure_starter
+  implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
+}
+
+dependencyManagement {
+  imports {
+    mavenBom supportDependencies.spring_cloud_azure_dependencies
   }
 }
 ```
@@ -125,26 +157,34 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
 ```properties
-VITE_ADB2C_B2CPOLICIES_NAMES_SIGNUP_SIGNIN=B2C_1_signupsignin1
-VITE_ADB2C_AUTHORITIES_SIGNUP_SIGNIN_AUTHORITY=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
-VITE_ADB2C_B2CPOLICIES_AUTHORITYDOMAIN=[初期ドメイン名].b2clogin.com
-VITE_ADB2C_SCOPE=[AlesInfinyMarisWebAPI のアプリケーション ID の URI]/api.read
-VITE_ADB2C_APP_CLIENT_ID=[AlesInfinyMarisSPA のクライアント ID]
-VITE_ADB2C_APP_URI=http://localhost:5173
+VITE_USER_FLOW_SIGN_IN=B2C_1_signupsignin1
+VITE_ADB2C_SIGN_IN_URI=https://[テナント名].b2clogin.com/[テナント名].onmicrosoft.com/B2C_1_signupsignin1
+VITE_ADB2C_AUTHORITY_DOMAIN=[テナント名].b2clogin.com
+VITE_ADB2C_TASKS_SCOPE=https://[テナント名].onmicrosoft.com/api/api.read
+VITE_ADB2C_APP_CLIENT_ID=[AlesInfinyMarisSPA のクライアントID]
+VITE_APP_URI=http://localhost:5173
 ```
 
 ### 動作確認
 
-1. ターミナルで `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
-1. Visual Studio で `auth-backend\Dressca.sln` を開きます。
-1. `Dressca.Web` を右クリックし「スタートアッププロジェクトに設定」を選択します。
-1. ソリューションをデバッグなしで開始します。ブラウザーが起動し、しばらく待つと SPA の初期画面が表示されます。
-1. 画面右上の「ログイン」をクリックします。 Azure AD B2C のログイン画面がポップアップで表示されます。
+#### バックエンドアプリケーションの実行
+
+1. VS Code で `auth-backend` のフォルダーへ移動します。
+1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
+    - web > Tasks > application > bootRun
+
+#### フロントエンドアプリケーションの実行
+
+1. VS Code で `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
+1. ターミナルで `npm run dev` を実行します。
+1. ブラウザーを開き、以下のアドレスにアクセスします。
+    - <http://localhost:5173>
+1. 画面の「ログイン」をクリックします。 Azure AD B2C のログイン画面がポップアップで表示されます。
 1. 「 Sign up now 」リンクをクリックします。
 1. 使用可能なメールアドレスを入力し、「 Send verification code 」をクリックします。
-1. 上の手順で入力したメールアドレス宛に Verification code が送信されるので、画面に入力して「 Verfiy code 」をクリックします。
+1. 上の手順で入力したメールアドレス宛に Verification code が送信されるので、画面に入力して「 Verify code 」をクリックします。
 1. 画面に新しいパスワード等の必要事項を入力し、「 Create 」をクリックします。
-1. ログインが成功し、画面右上に「ユーザー ID 」が表示されれば成功です。以降はサインアップしたメールアドレスとパスワードでログインできるようになります。
+1. ログインが成功し、画面に「ユーザー ID 」が表示されれば成功です。以降はサインアップしたメールアドレスとパスワードでログインできるようになります。
 
 Azure AD B2C にサインアップしたユーザーは、以下の手順で削除できます。
 
@@ -155,52 +195,39 @@ Azure AD B2C にサインアップしたユーザーは、以下の手順で削�
 ## アプリケーションへの認証機能の組み込み
 
 本サンプルのコードを既存のアプリケーションへコピーすることで、 Azure AD B2C の認証機能を組み込むことができます。
-なお、対象のアプリケーションは AlesInfiny Maris のクライアントサイドレンダリングアプリケーションです。
+なお、対象のアプリケーションは AlesInfiny Maia のクライアントサイドレンダリングアプリケーションです。
 
 ### バックエンドアプリケーション
 
-1. ASP.NET Core Web API プロジェクトに対して以下の NuGet パッケージをインストールします。
-   - [Microsoft.Identity.Web](https://www.nuget.org/packages/Microsoft.Identity.Web)
-2. ASP.NET Core Web API プロジェクトの Program.cs に Azure AD B2C の設定を追加します。
+1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定)を参照し、 `application.properties` を設定、ライブラリを追加します。
+1. `\web\src\main\java\com\[プロジェクト名]\web\security` フォルダーを作成し、サンプルの以下のコードをコピーします。
+   - UserIdTHreadContextFilter.java
+   - WebSecurityConfiguration.java
+1. `WebSecurityConfiguration.java` で、 認証を必要とする Web API を設定します。
 
-```cs
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-
-var builder = WebApplication.CreateBuilder(args); // （既存のコード）
-
-// Azure AD B2C 認証に必要な設定をインジェクション
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(
-    options =>
-    {
-        builder.Configuration.Bind("AzureAdB2C", options);
-        options.TokenValidationParameters.NameClaimType = "name";
-    },
-    options => { builder.Configuration.Bind("AzureAdB2C", options); });
-
-var app = builder.Build(); // （既存のコード）
-
-// 認証を有効化
-app.UseAuthentication();
+```java
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+    http.csrf(csrf -> csrf.disable());
+    http.cors(cors -> cors.configurationSource(request -> {
+      var conf = new CorsConfiguration();
+      conf.setAllowedOrigins(List.of(allowedOrigins));
+      conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+      conf.setAllowedHeaders(List.of("*"));
+      return conf;
+    }));
+    http.authorizeHttpRequests((requests) -> requests
+        // 認証を必要とする Web API を指定する。
+        .requestMatchers("/api/auth/**").authenticated()
+        .anyRequest().permitAll())
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+        .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
+    return http.build();
+  }
 ```
 
-※ `app.UseAuthentication` の呼び出し位置は、[Middleware order](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-8.0#middleware-order) に示す順序の通り従ってください。
-
-3. `auth-backend\src\Dressca.Web\appsettings.json` に記述した Azure AD B2C の設定を Spring Boot プロジェクトの `application.properties` へコピーします。
-4. 認証を必要とする Web API に `[Authorize]` 属性を付与します。
-
-```cs
-using Microsoft.AspNetCore.Authorization;
-
-[Authorize] // Authorize 属性は Web API Controller クラスに付与することも、 Controller メソッド個別に付与することもできます。
-public class OrdersController : ControllerBase
-{
-   // 省略
-}
-```
-
-5. ソリューションをビルドします。
+1. ソリューションをビルドします。
 
 ### フロントエンドアプリケーション
 
@@ -212,21 +239,20 @@ public class OrdersController : ControllerBase
 ```ts
 interface ImportMetaEnv {
   // 認証に関係のないプロパティは省略
-  readonly VITE_ADB2C_B2CPOLICIES_NAMES_SIGNUP_SIGNIN: string;
-  readonly VITE_ADB2C_AUTHORITIES_SIGNUP_SIGNIN_AUTHORITY: string;
-  readonly VITE_ADB2C_B2CPOLICIES_AUTHORITYDOMAIN: string;
-  readonly VITE_ADB2C_SCOPE: string;
+  readonly VITE_USER_FLOW_SIGN_IN: string;
+  readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
+  readonly VITE_ADB2C_TASKS_SCOPE: string;
   readonly VITE_ADB2C_APP_CLIENT_ID: string;
-  readonly VITE_ADB2C_APP_URI: string;
+  readonly VITE_APP_URI: string;
 }
 ```
 
-5. `src\shared\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
+1. `src\shared\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - authentication-adb2c.ts
    - authentication-config.ts
-6. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
+1. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - authentication.ts
-7. `src\api-client\index.ts` を編集します。
+1. `src\api-client\index.ts` を編集します。
 
 ```ts
 import { useAuthenticationStore } from "@/stores/authentication/authentication";
@@ -253,7 +279,7 @@ axiosInstance.interceptors.request.use(
 );
 ```
 
-8. ログイン画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
+1. ログイン画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
 ```ts
 <script setup lang="ts">
@@ -273,10 +299,10 @@ const signIn = async () => {
 </script>
 ```
 
-9. ログイン画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
+1. ログイン画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
 
 ```html
 <button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
 ```
 
-10. `npm install` を実行し、その他のパッケージをインストールします。
+1. `npm install` を実行し、その他のパッケージをインストールします。
