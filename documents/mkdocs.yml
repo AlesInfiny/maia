@@ -52,9 +52,9 @@ nav:
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
   - サンプル解説:
-    - samples/index.md
-    - 要件別サンプル:
-      - Azure AD B2Cの認証機能追加: samples/azure-ad-b2c/index.md
+      - samples/index.md
+      - 要件別サンプル:
+          - Azure AD B2Cの認証機能追加: samples/azure-ad-b2c/index.md
   - AlesInfiny Maia について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
