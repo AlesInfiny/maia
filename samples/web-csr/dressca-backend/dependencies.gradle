@@ -4,6 +4,7 @@ ext {
     springDependencyManagementVersion = "1.1.4"
     springdocOpenapiGradlePluginVersion = "1.8.0"
     spotbugsVersion = "6.0.7"
+    graalvmVersion = "0.9.28"
 
     // -- DEPENDENCIES
     springBatchTestVersion = "5.1.0"

@@ -9,4 +9,6 @@
   <suppress checks=".*" files="com[\\/]dressca[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
   <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
   <suppress checks="MethodName" files=".*Test.java$"/>
+  <!-- GraalVMの自動生成クラスはチェックしない -->
+  <suppress checks=".*" files="web-csr[\\/]dressca-backend[\\/]batch[\\/]build[\\/]generated[\\/]"/>
 </suppressions>

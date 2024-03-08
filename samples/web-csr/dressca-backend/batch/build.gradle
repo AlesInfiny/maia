@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+  	id 'org.graalvm.buildtools.native' version "${graalvmVersion}"
 }
 
 group = 'com.dressca'
@@ -36,4 +37,16 @@ configurations {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+graalvmNative {
+  binaries {
+    main {
+      javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(17)
+        vendor = JvmVendorSpec.matching("Oracle Corporation")
+      }
+      mainClass = 'com.dressca.batch.BatchApplication'
+    }
+  }
 }
