@@ -38,7 +38,7 @@ Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供�
 
 - フロントエンド
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
-    - バックエンド
+- バックエンド
     - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
     - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
     - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
