@@ -1,0 +1,118 @@
+# cSpell:ignore mikepenz dorny
+name: Azure AD B2C 要件別サンプルのCI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'samples/azure-ad-b2c/auth-backend/**'
+      - '.github/workflows/samples-azure-ad-b2c-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/azure-ad-b2c/auth-frontend/**'
+      - 'samples/azure-ad-b2c/auth-backend/**'
+      - '.github/workflows/samples-azure-ad-b2c-ci.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+  
+    steps:
+    # common processes
+    - name: ブランチのチェックアウト
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    # backend processes
+    - name: JDK17のセットアップ
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: gradlewに実行権限付与
+      run: chmod +x samples/azure-ad-b2c/auth-backend/gradlew
+
+    - id: backend-run-build-and-tests
+      name: ビルド（コンパイル, 静的テスト, JUnit）実行
+      run: ./gradlew build > build-result.txt
+      working-directory: ./samples/azure-ad-b2c/auth-backend
+      continue-on-error: true
+
+    - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+      shell: bash
+      working-directory: ./samples/azure-ad-b2c/auth-backend
+      if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+      run: |
+        echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat build-result.txt >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+
+    - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+      if: ${{ steps.run-build-and-tests.outcome == 'success' }}
+      run: |
+        echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+        echo ':heavy_check_mark: ビルドとテストに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+    - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+      if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
+      run: |
+        echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+        echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
+
+    - name: JUnitレポート
+      uses: mikepenz/action-junit-report@v4
+      with:
+        report_paths: '**/build/test-results/test/TEST-*.xml'
+
+    - name: Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Maven Tests
+        path: '**/build/test-results/test/TEST-*.xml'
+        reporter: java-junit
+        fail-on-error: true
+    
+    # frontend processes
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - uses: actions/cache@v4
+      id: node_modules_cache_id
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+    - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+
+    - name: node パッケージのインストール
+      working-directory: ./samples/azure-ad-b2c/auth-frontend
+      if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+      run: npm install
+
+    - name: TypeScript の型チェック
+      working-directory: ./samples/azure-ad-b2c/auth-frontend
+      run: npm run typecheck
+      
+    - name: 単体テストの実行
+      working-directory: ./samples/azure-ad-b2c/auth-frontend
+      run: npm run test:unit
+

@@ -109,3 +109,38 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
+
+  # Azure AD B2C
+  
+  - package-ecosystem: "npm"
+    directory: "/samples/azure-ad-b2c/auth-frontend"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "npm-auth-frontend"
+    labels:
+      - "target: Azure AD B2C"
+      - "npm"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/azure-ad-b2c/auth-backend"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-root"
+    labels:
+      - "target: Azure AD B2C"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/azure-ad-b2c/auth-backend/web"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "gradle-web"
+    labels:
+      - "target: Azure AD B2C"
+      - "gradle"
+      - "dependencies"
