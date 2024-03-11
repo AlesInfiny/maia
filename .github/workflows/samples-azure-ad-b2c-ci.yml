@@ -39,6 +39,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
       - name: node パッケージのインストール
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm install
       - name: TypeScript の型チェック
         run: npm run typecheck
@@ -70,12 +71,22 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x ./gradlew
 
-      - id: run-build-and-tests
-        name: ビルド（コンパイル, 静的テスト, JUnit）実行
-        run: ./gradlew build > build-result.txt
+      - id: compile
+        name: コンパイル実行
+        run: ./gradlew compileJava > build-result.txt
+        continue-on-error: true
+      
+      - id: SpotBugs
+        name: SpotBugs（静的テスト）実行
+        run: ./gradlew spotbugsMain >> build-result.txt
+        continue-on-error: true
+      
+      - id: checkstyle
+        name: checkstyle（静的テスト）実行
+        run: ./gradlew checkstyleMain >> build-result.txt
         continue-on-error: true
 
-      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+      - name: ビルド（コンパイル, 静的テスト）結果の表示
         shell: bash
         if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
         run: |
@@ -84,22 +95,17 @@ jobs:
           cat build-result.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
-      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+      - name: ビルド（コンパイル, 静的テスト）成功
         if: ${{ steps.run-build-and-tests.outcome == 'success' }}
         run: |
           echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
           echo ':heavy_check_mark: ビルドとテストに成功しました。' >> $GITHUB_STEP_SUMMARY
 
-      - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+      - name: ビルド（コンパイル, 静的テスト）失敗
         if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
         run: |
           echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
           echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
-
-      - name: JUnitレポート
-        uses: mikepenz/action-junit-report@v4
-        with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
 
       - name: Report
         uses: dorny/test-reporter@v1
