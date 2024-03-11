@@ -23,27 +23,27 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.FRONTEND_WORKING_DIRECTORY }}
-    
+
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-            node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
       - uses: actions/cache@v4
         id: node_modules_cache_id
         env:
-            cache-name: cache-node-modules
+          cache-name: cache-node-modules
         with:
-            path: '**/node_modules'
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
       - name: node パッケージのインストール
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm install
       - name: TypeScript の型チェック
         run: npm run typecheck
-  
+
   build-backend:
     name: 'バックエンドアプリケーションのビルド'
     runs-on: ubuntu-latest
@@ -110,4 +110,3 @@ jobs:
           path: '**/build/test-results/test/TEST-*.xml'
           reporter: java-junit
           fail-on-error: true
-
