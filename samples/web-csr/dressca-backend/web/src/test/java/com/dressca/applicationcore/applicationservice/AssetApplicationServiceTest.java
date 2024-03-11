@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.assets;
+package com.dressca.applicationcore.applicationservice;
 
 import org.junit.jupiter.api.Test;
 

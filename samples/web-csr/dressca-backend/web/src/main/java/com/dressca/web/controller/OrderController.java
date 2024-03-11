@@ -1,12 +1,12 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
+import com.dressca.applicationcore.applicationservice.OrderApplicationService;
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketApplicationService;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderApplicationService;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
@@ -49,7 +49,7 @@ public class OrderController {
   @Autowired
   private OrderApplicationService orderApplicationService;
   @Autowired
-  private BasketApplicationService basketApplicationService;
+  private ShoppingApplicationService shoppingApplicationService;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -93,16 +93,16 @@ public class OrderController {
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
+    Basket basket = shoppingApplicationService.getOrCreateBasketForUser(buyerId);
 
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
     Order order;
     try {
-      order = orderApplicationService.createOrder(basket.getId(), shipToAddress);
+      order = shoppingApplicationService.checkout(basket.getId(), shipToAddress);
       // 買い物かごを削除
-      basketApplicationService.deleteBasket(basket.getId());
+      shoppingApplicationService.deleteBasket(basket.getId());
     } catch (BasketNotFoundException | EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);

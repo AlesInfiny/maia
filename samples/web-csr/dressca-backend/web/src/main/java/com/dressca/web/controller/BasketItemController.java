@@ -1,7 +1,7 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketApplicationService;
 import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogDomainService;
@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BasketItemController {
 
   @Autowired
-  private BasketApplicationService basketApplicationService;
+  private ShoppingApplicationService shoppingApplicationService;
   @Autowired
   private CatalogDomainService catalogDomainService;
   @Autowired
@@ -72,7 +72,7 @@ public class BasketItemController {
   @GetMapping
   public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
+    Basket basket = shoppingApplicationService.getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
         .map(basketItem -> basketItem.getCatalogItemId())
         .collect(Collectors.toList());
@@ -115,7 +115,7 @@ public class BasketItemController {
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
+    Basket basket = this.shoppingApplicationService.getOrCreateBasketForUser(buyerId);
     List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
         .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
         .collect(Collectors.toList());
@@ -129,7 +129,7 @@ public class BasketItemController {
     }
 
     try {
-      basketApplicationService.setQuantities(basket.getId(), quantities);
+      shoppingApplicationService.setQuantities(basket.getId(), quantities);
     } catch (BasketNotFoundException e) {
       // ここでは発生しえないのでシステム例外をスロー
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
@@ -165,7 +165,7 @@ public class BasketItemController {
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
+    Basket basket = this.shoppingApplicationService.getOrCreateBasketForUser(buyerId);
 
     // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
     List<Long> catalogItemIds = List.of(postBasketItem.getCatalogItemId());
@@ -175,7 +175,7 @@ public class BasketItemController {
 
     CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(catalogItemIds).get(0);
     try {
-      this.basketApplicationService.addItemToBasket(
+      this.shoppingApplicationService.addItemToBasket(
           basket.getId(),
           postBasketItem.getCatalogItemId(),
           catalogItem.getPrice(),
@@ -212,13 +212,13 @@ public class BasketItemController {
       HttpServletRequest req) {
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
+    Basket basket = this.shoppingApplicationService.getOrCreateBasketForUser(buyerId);
     if (!basket.isInCatalogItem(catalogItemId)) {
       return ResponseEntity.notFound().build();
     }
 
     try {
-      this.basketApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
+      this.shoppingApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
     } catch (BasketNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
