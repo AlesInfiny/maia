@@ -1,4 +1,8 @@
-import { LogLevel, PublicClientApplication } from '@azure/msal-browser';
+import {
+  LogLevel,
+  PublicClientApplication,
+  SilentRequest,
+} from '@azure/msal-browser';
 
 export const b2cPolicies = {
   names: {
@@ -61,10 +65,10 @@ export const msalConfig = {
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
-export const loginRequest = {
+export const loginRequest: SilentRequest = {
   scopes: ['openId', ...apiConfig.b2cScopes],
 };
 
-export const tokenRequest = {
+export const tokenRequest: SilentRequest = {
   scopes: [...apiConfig.b2cScopes],
 };

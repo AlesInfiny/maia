@@ -13,17 +13,16 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-axiosInstance.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
-    const store = useAuthenticationStore();
-    if (store.isAuthenticated) {
-      await store.getToken();
-      const token = store.accessToken;
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-);
+axiosInstance.interceptors.request.use(async (request) => {
+  const store = useAuthenticationStore();
+
+  if (store.isAuthenticated) {
+    await store.getToken();
+    const token = store.getAccessToken;
+    request.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return request;
+});
 
 const userApi = new apiClient.UserApi(config, '', axiosInstance);
 
