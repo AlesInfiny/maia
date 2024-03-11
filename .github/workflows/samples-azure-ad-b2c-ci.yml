@@ -53,7 +53,7 @@ jobs:
       pull-requests: write
     defaults:
       run:
-        working-directory: ${{ samples/azure-ad-b2c-sample/auth-backend }}
+        working-directory: ${{ env.BACKEND_WORKING_DIRECTORY }}
 
     steps:
       - name: ブランチのチェックアウト
