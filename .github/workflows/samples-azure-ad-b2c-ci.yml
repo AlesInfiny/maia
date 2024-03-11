@@ -69,7 +69,7 @@ jobs:
           cache: 'gradle'
 
       - name: gradlewに実行権限付与
-        run: chmod +x samples/azure-ad-b2c-sample/auth-backend/gradlew
+        run: chmod +x ./gradlew
 
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
