@@ -39,7 +39,6 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
       - name: node パッケージのインストール
-        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm install
       - name: TypeScript の型チェック
         run: npm run typecheck
@@ -75,12 +74,12 @@ jobs:
         name: コンパイル実行
         run: ./gradlew compileJava > build-result.txt
         continue-on-error: true
-      
+
       - id: SpotBugs
         name: SpotBugs（静的テスト）実行
         run: ./gradlew spotbugsMain >> build-result.txt
         continue-on-error: true
-      
+
       - id: checkstyle
         name: checkstyle（静的テスト）実行
         run: ./gradlew checkstyleMain >> build-result.txt
