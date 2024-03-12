@@ -9,6 +9,6 @@ AlesInfiny Maia で提供するサンプルの解説ドキュメント集です�
 
 ## 要件別のサンプル {#samples}
 
-細かな機能要件・非機能要件別に、 AlesInfiny Maris として推奨する OSS ライブラリを用いたサンプルアプリケーションと、その解説を入手できます。
+細かな機能要件・非機能要件別に、 AlesInfiny Maia として推奨する OSS ライブラリを用いたサンプルアプリケーションと、その解説を入手できます。
 
-- [Azure AD B2C の認証機能を追加する](azure-ad-b2c/index.md)
+- [Azure AD B2C を利用してユーザーを認証する](azure-ad-b2c/index.md)

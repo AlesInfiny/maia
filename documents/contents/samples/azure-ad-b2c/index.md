@@ -1,5 +1,5 @@
 ---
-title: Azure AD B2C での認証の利用
+title: Azure AD B2C を利用してユーザーを認証する
 description: Azure AD B2C による認証を利用するためのサンプルと、その使い方を解説します。
 ---
 
@@ -7,10 +7,10 @@ description: Azure AD B2C による認証を利用するためのサンプルと
 
 ## 概要 {#about-this-sample}
 
-Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
+Azure AD B2C を利用したユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 [AlesInfiny Maris のサンプルアプリケーション](../downloads/dressca.zip) に本サンプルのファイルやコードをコピーすることで、 Azure AD B2C による認証機能を組み込むことができます。
+また、 [AlesInfiny Maia のサンプルアプリケーション](../downloads/dressca.zip) に本サンプルのファイルやコードをコピーすることで、 Azure AD B2C を利用したユーザー認証機能を組み込むことができます。
 
 ## 本サンプルを利用するための前提 {#prerequisites}
 

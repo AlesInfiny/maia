@@ -9,7 +9,7 @@
 Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 AlesInfiny Maris のサンプルアプリケーションに本サンプルのファイルやコードをコピーすることで、 Azure AD B2C による認証機能を組み込むことができます。
+また、 AlesInfiny Maia のサンプルアプリケーションに本サンプルのファイルやコードをコピーすることで、 Azure AD B2C による認証機能を組み込むことができます。
 
 ## 前提
 
@@ -60,7 +60,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 - フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
-その他の使用 OSS は、 AlesInfiny Maris のサンプルアプリケーションに準じます。
+その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
 
 ## サンプルの動作方法
 
@@ -76,25 +76,25 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 ### Azure AD B2C テナントを利用するアプリの登録（バックエンドアプリケーション）
 
 1. [Microsoft のチュートリアル「Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーション用のアプリを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `AlesInfinyMarisWebAPI` 」とします。
+   - 登録したアプリの名前を、ここでは「 `AlesInfinyMaiaWebAPI` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes)に従って、アプリにスコープを追加します。
    - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、作成するスコープは 1 つで良いです。
    - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
-1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMarisWebAPI 」を選択します。
+1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMaiaWebAPI 」を選択します。
 1. 「概要」ブレードに表示された「 `アプリケーション ID の URI` 」をメモします。
 
 ### Azure AD B2C テナントを利用するアプリの登録（フロントエンドアプリケーション）
 
 1. [Microsoft のチュートリアル「SPA アプリケーションの登録」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-register-spa#register-the-spa-application) に従って、フロントエンドアプリケーション用のアプリを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `AlesInfinyMarisSPA` 」とします。
+   - 登録したアプリの名前を、ここでは「 `AlesInfinyMaiaSPA` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
    - 「暗黙的フロー」に関する設定は無視してください。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
-1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMarisSPA 」を選択します。
+1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMaiaSPA 」を選択します。
 1. 「認証」ブレードを選択し、「シングルページアプリケーション」の「リダイレクト URI」に `http://localhost` を追加します。
-1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 AlesInfinyMarisSPA に AlesInfinyMarisWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
+1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 AlesInfinyMaiaSPA に AlesInfinyMaiaWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
 
 ### ユーザーフローの作成
 
@@ -158,10 +158,10 @@ dependencyManagement {
 
 ```properties
 VITE_USER_FLOW_SIGN_IN=B2C_1_signupsignin1
-VITE_ADB2C_SIGN_IN_URI=https://[テナント名].b2clogin.com/[テナント名].onmicrosoft.com/B2C_1_signupsignin1
-VITE_ADB2C_AUTHORITY_DOMAIN=[テナント名].b2clogin.com
-VITE_ADB2C_TASKS_SCOPE=https://[テナント名].onmicrosoft.com/api/api.read
-VITE_ADB2C_APP_CLIENT_ID=[AlesInfinyMarisSPA のクライアントID]
+VITE_ADB2C_SIGN_IN_URI=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
+VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
+VITE_ADB2C_TASKS_SCOPE=https://[初期ドメイン名].onmicrosoft.com/api/api.read
+VITE_ADB2C_APP_CLIENT_ID=[AlesInfinyMaiaSPA のクライアントID]
 VITE_APP_URI=http://localhost:5173
 ```
 
