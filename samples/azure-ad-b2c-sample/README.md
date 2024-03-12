@@ -9,7 +9,7 @@
 Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 AlesInfiny Maia のサンプルアプリケーションに本サンプルのファイルやコードをコピーすることで、 Azure AD B2C による認証機能を組み込むことができます。
+また、 SPA アプリケーション（ AlesInfiny Maia のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーすることで、 Azure AD B2C を利用したユーザー認証機能を組み込めます。
 
 ## 前提
 
@@ -41,13 +41,63 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 ```
 
 バックエンドアプリケーションは Spring Boot 、フロントエンドアプリケーションは Vue.js (TypeScript) で作成されています。
-また、サンプルアプリケーション Dressca をベースとしており、フォルダー構造や参照する OSS は Dressca に準拠しています。
+また、 AlesInfiny Maia のサンプルアプリケーション Dressca をベースとしており、フォルダー構造、参照する OSS 、名前空間等は Dressca に準拠しています。
+
+## バックエンドアプリケーションの構成
+
+バックエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
+
+```text
+auth-backend
+├ build.gradle................................... バックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
+├ dependencies.gradle............................ ライブラリのバージョン管理を行う設定ファイル
+└ web
+　 ├ src\main
+　 |  ├ java\com\dressca\web 
+　 |  |  ├ controller
+　 |  |  |  ├ dto\auth
+　 |  |  |  |  └ UserResponse.java............... Web API の戻り値の型
+　 |  |  |  └ UserController.java................ 認証が必要な Web API を配置するコントローラー
+　 |  |  ├ security
+　 |  |  |  ├ UserIdThreadContextFilter.java..... JWT Token のユーザー情報を Thread Context に格納するフィルター
+　 |  |  |  └ WebSecurityConfiguration.java...... リクエストヘッダーから認証情報を取得するためのフィルター
+　 |  |  └ WebApplication.java................... アプリケーションの起動クラス
+　 |  └ resources
+　 |     └ application.properties................ Azure AD B2C への接続情報を記載する設定ファイル
+　 └ build.gradle................................ web 層で利用するライブラリの依存関係を記載する設定ファイル
+```
+
+## フロントエンドアプリケーションの構成
+
+フロントエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
+
+```text
+auth-frontend
+├ .env.dev ............................. Azure AD B2C への接続情報を記載する設定ファイル
+├ env.d.ts ............................. 上の設定ファイルを読み込む TypeScript ファイル
+└ src
+　 ├ api-client
+　 │ └ index.ts ....................... Web API 呼び出し時の共通処理を記述する TypeScript ファイル
+　 ├ generated ......................... 自動生成された Axios のコードが配置されるフォルダー
+　 ├ shared
+　 │ └ authentication
+　 │ 　 ├ authentication-adb2c.ts ..... Azure AD B2C による認証（サインイン、トークン取得）を行う TypeScript ファイル
+　 │ 　 └ authentication-config.ts .... 上のコードが使用する設定ファイル
+　 ├ stores
+　 │ ├ authentication
+　 │ 　 └ authentication.ts ........... 認証の結果を保持するストア
+　 │ └ users
+　 │ 　 └ users.ts .................... Web API 呼び出しの結果を保持するストア
+　 └ views
+```
 
 ## サンプルのシナリオ
 
 1. サンプルを起動すると、ブラウザーに SPA のトップ画面が表示されます。
-1. トップ画面の「ログイン」をクリックすると、 Azure AD B2C のログイン画面がポップアップで表示されます。
-1. ログインまたはサインアップが成功すると、ポップアップが閉じ、ユーザー固有の ID （JWT における sub の値）が表示されます。
+1. トップ画面の「 `ログイン` 」をクリックすると、 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
+1. `サインイン` または `サインアップ` が成功すると、ポップアップが閉じ、ユーザー固有の ID （JWT における sub の値）が表示されます。
+
+※本サンプルでは `サインイン` と `サインアップ` のシナリオのみ提供しており、 `サインアウト` は存在しません。
 
 ## 前提となる OSS ライブラリ
 
@@ -68,38 +118,38 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 ### Azure AD B2C テナントの作成
 
-1. [Microsoft のチュートリアル「Azure AD B2C テナントを作成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#create-an-azure-ad-b2c-tenant) に従って、 [Azure ポータル](https://portal.azure.com/) にサインインし、 Azure AD B2C テナントを作成します。
+1. [Microsoft のチュートリアル「 Azure AD B2C テナントを作成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#create-an-azure-ad-b2c-tenant) に従って、 [Azure ポータル](https://portal.azure.com/) にサインインし、 Azure AD B2C テナントを作成します。
    - 「`初期ドメイン名`」をメモします。
-1. [Microsoft のチュートリアル「B2C テナント ディレクトリを選択する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#select-your-b2c-tenant-directory) に従って、 B2C テナントディレクトリに切り替えます。
-1. [Microsoft のチュートリアル「Azure AD B2C をお気に入りとして追加する (省略可能)」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#add-azure-ad-b2c-as-a-favorite-optional) に従って、 Azure ポータル上で「 Azure サービス」から「 Azure AD B2C 」を選択しお気に入りに登録します。
+1. [Microsoft のチュートリアル「 B2C テナント ディレクトリを選択する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#select-your-b2c-tenant-directory) に従って、 B2C テナントディレクトリに切り替えます。
+1. [Microsoft のチュートリアル「 Azure AD B2C をお気に入りとして追加する (省略可能)」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#add-azure-ad-b2c-as-a-favorite-optional) に従って、 Azure ポータル上で「 Azure サービス」から「 Azure AD B2C 」を選択しお気に入りに登録します。
 
 ### Azure AD B2C テナントを利用するアプリの登録（バックエンドアプリケーション）
 
-1. [Microsoft のチュートリアル「Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーション用のアプリを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `AlesInfinyMaiaWebAPI` 」とします。
+1. [Microsoft のチュートリアル「 Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーションを Azure AD B2C に登録します。
+   - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes)に従って、アプリにスコープを追加します。
    - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、作成するスコープは 1 つで良いです。
    - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
-1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMaiaWebAPI 」を選択します。
+1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleWebAPI 」を選択します。
 1. 「概要」ブレードに表示された「 `アプリケーション ID の URI` 」をメモします。
 
 ### Azure AD B2C テナントを利用するアプリの登録（フロントエンドアプリケーション）
 
-1. [Microsoft のチュートリアル「SPA アプリケーションの登録」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-register-spa#register-the-spa-application) に従って、フロントエンドアプリケーション用のアプリを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `AlesInfinyMaiaSPA` 」とします。
+1. [Microsoft のチュートリアル「 SPA アプリケーションの登録」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-register-spa#register-the-spa-application) に従って、フロントエンドアプリケーションを Azure AD B2C に登録します。
+   - 登録したアプリの名前を、ここでは「 `SampleSPA` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
    - 「暗黙的フロー」に関する設定は無視してください。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
-1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 AlesInfinyMaiaSPA 」を選択します。
+1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleSPA 」を選択します。
 1. 「認証」ブレードを選択し、「シングルページアプリケーション」の「リダイレクト URI」に `http://localhost` を追加します。
-1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 AlesInfinyMaiaSPA に AlesInfinyMaiaWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
+1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に SampleWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
 
 ### ユーザーフローの作成
 
-1. [Microsoft のチュートリアル「Azure Active Directory B2C でサインアップおよびサインイン フローを設定する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-sign-up-and-sign-in-policy?pivots=b2c-user-flow) に従って、サインアップとサインインユーザーフローを作成します。
-   - ここでは追加したサインアップとサインインユーザーフローの名前を「 `signupsignin1` 」とします（ユーザーフローの名前には自動的に『`B2C_1_`』プレフィックスが付与されます）。
+1. [Microsoft のチュートリアル「Azure Active Directory B2C でサインアップおよびサインイン フローを設定する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-sign-up-and-sign-in-policy?pivots=b2c-user-flow) に従って、`サインアップとサインイン`ユーザーフローを作成します。
+   - ここでは追加した`サインアップとサインイン`ユーザーフローの名前を「 `signupsignin1` 」とします（ユーザーフローの名前には自動的に『`B2C_1_`』プレフィックスが付与されます）。
 
 ### 設定情報の記入
 
@@ -157,36 +207,31 @@ dependencyManagement {
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
 ```properties
-VITE_USER_FLOW_SIGN_IN=B2C_1_signupsignin1
-VITE_ADB2C_SIGN_IN_URI=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
-VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
-VITE_ADB2C_TASKS_SCOPE=https://[初期ドメイン名].onmicrosoft.com/api/api.read
-VITE_ADB2C_APP_CLIENT_ID=[AlesInfinyMaiaSPA のクライアントID]
-VITE_APP_URI=http://localhost:5173
+VITE_ADB2C_B2CPOLICIES_NAMES_SIGNUP_SIGNIN=B2C_1_signupsignin1
+VITE_ADB2C_AUTHORITIES_SIGNUP_SIGNIN_AUTHORITY=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
+VITE_ADB2C_B2CPOLICIES_AUTHORITYDOMAIN=[初期ドメイン名].b2clogin.com
+VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/api.read
+VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
+VITE_ADB2C_APP_URI=http://localhost:5173
 ```
 
 ### 動作確認
 
-#### バックエンドアプリケーションの実行
-
 1. VS Code で `auth-backend` のフォルダーへ移動します。
 1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
     - web > Tasks > application > bootRun
-
-#### フロントエンドアプリケーションの実行
-
 1. VS Code で `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
 1. ターミナルで `npm run dev` を実行します。
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
-1. 画面の「ログイン」をクリックします。 Azure AD B2C のログイン画面がポップアップで表示されます。
+1. 画面の「`ログイン`」をクリックします。 Azure AD B2C の`サインイン`画面がポップアップで表示されます。
 1. 「 Sign up now 」リンクをクリックします。
 1. 使用可能なメールアドレスを入力し、「 Send verification code 」をクリックします。
 1. 上の手順で入力したメールアドレス宛に Verification code が送信されるので、画面に入力して「 Verify code 」をクリックします。
 1. 画面に新しいパスワード等の必要事項を入力し、「 Create 」をクリックします。
-1. ログインが成功し、画面に「ユーザー ID 」が表示されれば成功です。以降はサインアップしたメールアドレスとパスワードでログインできるようになります。
+1. `サインイン`が成功し、画面に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードで`サインイン`できるようになります。
 
-Azure AD B2C にサインアップしたユーザーは、以下の手順で削除できます。
+Azure AD B2C に追加したユーザーは、以下の手順で削除できます。
 
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
 1. 「ユーザー」ブレードを選択します。
@@ -279,7 +324,7 @@ axiosInstance.interceptors.request.use(
 );
 ```
 
-1. ログイン画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
+1. `ログイン`画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
 ```ts
 <script setup lang="ts">
@@ -299,7 +344,7 @@ const signIn = async () => {
 </script>
 ```
 
-1. ログイン画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
+1. `ログイン`画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
 
 ```html
 <button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
