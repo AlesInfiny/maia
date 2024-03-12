@@ -47,7 +47,8 @@
 			"tailwindcss",
 			"textlint",
 			"webmvc",
-			"winbatch"
+			"winbatch",
+			"Vetur",
 		],
 		"markdownlint.ignore": [
 			"LICENSE"

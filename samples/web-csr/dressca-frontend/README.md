@@ -1,6 +1,5 @@
-<!-- textlint-disable @textlint-rule/require-header-id -->
+<!-- textlint-disable @textlint-rule/require-header-id,ja-technical-writing/sentence-length -->
 
-<!-- cSpell:ignore Vetur -->
 # dressca-frontend
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -59,4 +58,4 @@ npm run lint
 - favicon: <https://sozai.cman.jp/>
 - content: <https://www.canva.com/>
 
-<!-- textlint-enable @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id,ja-technical-writing/sentence-length -->
