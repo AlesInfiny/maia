@@ -112,34 +112,34 @@ updates:
 
   # Azure AD B2C
   - package-ecosystem: "npm"
-    directory: "/samples/azure-ad-b2c/auth-frontend"
+    directory: "/samples/azure-ad-b2c-sample/auth-frontend"
     schedule:
       interval: "daily"
     commit-message:
       prefix: "npm-auth-frontend"
     labels:
-      - "target: Azure AD B2C"
+      - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
 
   - package-ecosystem: "gradle"
-    directory: "/samples/azure-ad-b2c/auth-backend"
+    directory: "/samples/azure-ad-b2c-sample/auth-backend"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: "gradle-root"
+      prefix: "gradle-auth-root"
     labels:
-      - "target: Azure AD B2C"
+      - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
 
   - package-ecosystem: "gradle"
-    directory: "/samples/azure-ad-b2c/auth-backend/web"
+    directory: "/samples/azure-ad-b2c-sample/auth-backend/web"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: "gradle-web"
+      prefix: "gradle-auth-web"
     labels:
-      - "target: Azure AD B2C"
+      - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
