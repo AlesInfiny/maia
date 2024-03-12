@@ -6,18 +6,18 @@ import {
 
 export const b2cPolicies = {
   names: {
-    signUpSignIn: import.meta.env.VITE_USER_FLOW_SIGN_IN,
+    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN,
   },
   authorities: {
     signUpSignIn: {
-      authority: import.meta.env.VITE_ADB2C_SIGN_IN_URI,
+      authority: import.meta.env.VITE_ADB2C_URI_SIGNUP_SIGNIN,
     },
   },
   authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
 };
 
 export const apiConfig = {
-  b2cScopes: [import.meta.env.VITE_ADB2C_TASKS_SCOPE],
+  b2cScopes: [import.meta.env.VITE_ADB2C_SCOPE],
 };
 
 export const msalConfig = {
@@ -25,7 +25,7 @@ export const msalConfig = {
     clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: import.meta.env.VITE_APP_URI,
+    redirectUri: import.meta.env.VITE_ADB2C_APP_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
