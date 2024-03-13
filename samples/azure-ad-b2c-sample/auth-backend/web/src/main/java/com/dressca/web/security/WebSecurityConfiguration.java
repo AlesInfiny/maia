@@ -42,7 +42,7 @@ public class WebSecurityConfiguration {
       return conf;
     }));
     http.authorizeHttpRequests((requests) -> requests
-        .requestMatchers("/api/auth/get", "/api/order/**").authenticated()
+        .requestMatchers("/api/auth/get").authenticated()
         .anyRequest().permitAll())
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
         .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);

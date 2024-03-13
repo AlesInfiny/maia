@@ -17,14 +17,14 @@
 /**
  * 
  * @export
- * @interface UserResponse
+ * @interface TimeResponse
  */
-export interface UserResponse {
+export interface TimeResponse {
     /**
      * 
      * @type {string}
-     * @memberof UserResponse
+     * @memberof TimeResponse
      */
-    'userId': string;
+    'time': string;
 }
 

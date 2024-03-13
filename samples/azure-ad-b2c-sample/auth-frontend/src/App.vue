@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useUserStore } from './stores/user/user';
+import { useTimeStore } from './stores/time/time';
+import { onMounted } from 'vue';
 
 const authenticationStore = useAuthenticationStore();
 const userStore = useUserStore();
+const timeStore = useTimeStore();
+
 const isAuthenticated = () => {
   return authenticationStore.isAuthenticated;
 };
@@ -14,9 +18,17 @@ const signIn = async () => {
   }
 };
 
+const getTime = () => {
+  return timeStore.getTime;
+};
+
 const getUserId = () => {
   return userStore.getUserId;
 };
+
+onMounted(async () => {
+  await timeStore.fetchTimeResponse();
+});
 </script>
 
 <template>
@@ -31,6 +43,8 @@ const getUserId = () => {
             <span class="text-2xl">Azure AD B2C 認証サンプル</span>
           </div>
           <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
+            <span> 現在時刻: {{ getTime() }}</span>
+            <br />
             <button v-if="!isAuthenticated()" @click="signIn()">
               ログイン
             </button>

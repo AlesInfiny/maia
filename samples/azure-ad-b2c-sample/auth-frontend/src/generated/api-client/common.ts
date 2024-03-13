@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Dressca
- * ECサイトDressca
+ * Azure AD B2C ユーザー認証
+ * Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 

@@ -15,9 +15,35 @@
     {
       "name": "User",
       "description": "認証済みユーザのユーザIDを取得するAPI"
+    },
+    {
+      "name": "Time",
+      "description": "認証不要でサーバーの現在時刻を取得する"
     }
   ],
   "paths": {
+    "/api/time/get": {
+      "get": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "サーバーの現在時刻を取得します.",
+        "description": "サーバーの現在時刻を取得します.",
+        "operationId": "getTime",
+        "responses": {
+          "200": {
+            "description": "成功.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/get": {
       "get": {
         "tags": [
@@ -46,6 +72,17 @@
   },
   "components": {
     "schemas": {
+      "TimeResponse": {
+        "required": [
+          "time"
+        ],
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string"
+          }
+        }
+      },
       "UserResponse": {
         "required": [
           "userId"

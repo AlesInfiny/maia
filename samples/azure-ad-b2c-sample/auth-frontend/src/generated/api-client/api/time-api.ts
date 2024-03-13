@@ -21,21 +21,21 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { UserResponse } from '../models';
+import { TimeResponse } from '../models';
 /**
- * UserApi - axios parameter creator
+ * TimeApi - axios parameter creator
  * @export
  */
-export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+export const TimeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * サーバーの現在時刻を取得します.
+         * @summary サーバーの現在時刻を取得します.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/auth/get`;
+        getTime: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/time/get`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -62,59 +62,59 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
 };
 
 /**
- * UserApi - functional programming interface
+ * TimeApi - functional programming interface
  * @export
  */
-export const UserApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+export const TimeApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TimeApiAxiosParamCreator(configuration)
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * サーバーの現在時刻を取得します.
+         * @summary サーバーの現在時刻を取得します.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
+        async getTime(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTime(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * UserApi - factory interface
+ * TimeApi - factory interface
  * @export
  */
-export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UserApiFp(configuration)
+export const TimeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TimeApiFp(configuration)
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * サーバーの現在時刻を取得します.
+         * @summary サーバーの現在時刻を取得します.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(options?: any): AxiosPromise<UserResponse> {
-            return localVarFp.getUser(options).then((request) => request(axios, basePath));
+        getTime(options?: any): AxiosPromise<TimeResponse> {
+            return localVarFp.getTime(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * UserApi - object-oriented interface
+ * TimeApi - object-oriented interface
  * @export
- * @class UserApi
+ * @class TimeApi
  * @extends {BaseAPI}
  */
-export class UserApi extends BaseAPI {
+export class TimeApi extends BaseAPI {
     /**
-     * ログインに成功したユーザIDを取得します.
-     * @summary ログインに成功したユーザIDを取得します.
+     * サーバーの現在時刻を取得します.
+     * @summary サーバーの現在時刻を取得します.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
+     * @memberof TimeApi
      */
-    public getUser(options?: AxiosRequestConfig) {
-        return UserApiFp(this.configuration).getUser(options).then((request) => request(this.axios, this.basePath));
+    public getTime(options?: AxiosRequestConfig) {
+        return TimeApiFp(this.configuration).getTime(options).then((request) => request(this.axios, this.basePath));
     }
 }
