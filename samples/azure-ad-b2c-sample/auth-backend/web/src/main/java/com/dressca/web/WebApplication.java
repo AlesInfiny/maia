@@ -7,10 +7,10 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 
 /**
- * Dresscaアプリケーションを起動するためのmainクラスです。
+ * Azure AD B2Cを利用した認証機能を提供するアプリケーションを起動するためのmainクラスです。
  */
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Azure AD B2C ユーザー認証", description = "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。", version = "v1"))
 @ComponentScan(basePackages = { "com.dressca" })
 public class WebApplication {
 

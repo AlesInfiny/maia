@@ -1,5 +1,5 @@
 {
-  "name": "dressca-frontend",
+  "name": "auth-frontend",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --mode dev",
@@ -15,10 +15,7 @@
     "@heroicons/vue": "^2.1.1",
     "axios": "^1.6.2",
     "pinia": "^2.1.7",
-    "vee-validate": "^4.5.8",
-    "vue": "^3.3.0",
-    "vue-router": "^4.2.5",
-    "yup": "^1.3.3"
+    "vue": "^3.3.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.9.0",

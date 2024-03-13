@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Dressca",
-    "description": "ECサイトDressca",
+    "title": "Azure AD B2C ユーザー認証",
+    "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
     "version": "v1"
   },
   "servers": [
