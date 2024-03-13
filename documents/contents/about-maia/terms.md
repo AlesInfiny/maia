@@ -19,8 +19,8 @@ AlesInfiny Maia（以下、本サイト）は、以下を提供します。
 ### 定義 {#definitions}
 <!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 
-本利用規約における用語の定義は、以下に記載のあるものを除き、[Apache License, Version 2.0](#apache-license-v2.0)の定義に従います。
-ただし、[クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0)の条文は、当該ライセンス内の用語定義に従います。
+本利用規約における用語の定義は、以下に記載のあるものを除き、[Apache License, Version 2.0](#apache-license-v2.0) の定義に従います。
+ただし、[クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) の条文は、当該ライセンス内の用語定義に従います。
 
 `各種ドキュメント`
 
@@ -39,7 +39,7 @@ AlesInfiny Maia（以下、本サイト）は、以下を提供します。
 <!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 ### ライセンスの付与 {#license-grant}
 
-BIPROGY 株式会社およびすべてのコントリビューターは、本サイトの「各種ドキュメント」に[クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0)のライセンスを付与します。
+BIPROGY 株式会社およびすべてのコントリビューターは、本サイトの「各種ドキュメント」に [クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) のライセンスを付与します。
 また本サイトの「サンプルアプリケーション」と「ドキュメント内に記載されたソースコード」に、 [Apache License, Version 2.0](#apache-license-v2.0) のライセンスを付与します。
 本利用規約、および各ライセンスの条項に従う限り私的利用、商用利用とも無料で使用できます。
 各ライセンスの本文は、次節を参照してください。
@@ -51,7 +51,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
 
 ![クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://i.creativecommons.org/l/by/4.0/88x31.png)
 
-[クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/)の日本語訳を以下に示します。
+[クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/) の日本語訳を以下に示します。
 
 ??? quote "クリエイティブ・コモンズ表示 4.0 国際ライセンス本文(日本語訳版)"
 

@@ -7,7 +7,11 @@
       "ja-space-between-half-and-full-width": {
         "space": ["alphabets", "numbers", "punctuation"]
       },
-      "ja-no-space-around-parentheses": false  
+      "ja-no-space-around-parentheses": false,
+      "ja-space-around-link": {
+        "before": true,
+        "after": true
+      }
     },
     "preset-ja-technical-writing": {
       "no-exclamation-question-mark": false,
