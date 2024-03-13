@@ -6,10 +6,7 @@ ext {
     spotbugsVersion = "6.0.7"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "5.1.0"
     springdocOpenapiVersion = "2.3.0"
-    servletApiVersion = "6.0.0"
-    commonsLangVersion = "3.14.0"
     activeDirectoryVersion = "5.10.0"
     springCloudAzureVersion = "5.10.0"
 
@@ -17,12 +14,9 @@ ext {
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
-        spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
 
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
-        servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
 
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",

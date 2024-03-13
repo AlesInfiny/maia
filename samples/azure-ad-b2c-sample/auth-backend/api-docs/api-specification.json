@@ -27,9 +27,6 @@
         "description": "ログインに成功したユーザIDを取得します.",
         "operationId": "getUser",
         "responses": {
-          "401": {
-            "description": "未認証エラー."
-          },
           "200": {
             "description": "成功.",
             "content": {
@@ -39,6 +36,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "未認証エラー."
           }
         }
       }
