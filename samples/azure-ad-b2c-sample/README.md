@@ -141,7 +141,7 @@ auth-frontend
 1. [Microsoft のチュートリアル「 Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーションを Azure AD B2C に登録します。
    - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
-1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes)に従って、アプリにスコープを追加します。
+1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes) に従って、アプリにスコープを追加します。
    - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、作成するスコープは 1 つで良いです。
    - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
@@ -257,7 +257,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 ### バックエンドアプリケーション
 
-1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定)を参照し、 `application.properties` を設定、ライブラリを追加します。
+1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `application.properties` を設定、ライブラリを追加します。
 1. `\web\src\main\java\com\[プロジェクト名]\web\security` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - UserIdTHreadContextFilter.java
    - WebSecurityConfiguration.java
