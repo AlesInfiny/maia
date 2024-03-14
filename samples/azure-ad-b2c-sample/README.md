@@ -178,8 +178,8 @@ spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI の�
 spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
 spring.cloud.azure.active-directory.b2c.login-flow=sign-up-or-sign-in
 spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
-spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_signupsignin1
-cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
+spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
+cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
 ```
 
 1. `auth-backend\dependencies.gradle`を開きます。
@@ -225,7 +225,7 @@ VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初�
 VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
 VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/api.read
 VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
-VITE_ADB2C_APP_URI=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
+VITE_ADB2C_APP_URI=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
 ```
 
 ### 動作確認
