@@ -1,28 +1,16 @@
-<!-- textlint-disable @textlint-rule/require-header-id -->
+<!-- textlint-disable @textlint-rule/require-header-id,ja-technical-writing/sentence-length -->
 
-<!-- cSpell:ignore Vetur -->
 # dressca-frontend
 
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
 ## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default.
-So we replace the `tsc` CLI with `vue-tsc` for type checking.
-In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant.
-If the standalone TypeScript plugin doesn't feel fast enough to you use it.
-You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   1. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-1. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
 ## Customize configuration
 
@@ -70,4 +58,4 @@ npm run lint
 - favicon: <https://sozai.cman.jp/>
 - content: <https://www.canva.com/>
 
-<!-- textlint-enable @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id,ja-technical-writing/sentence-length -->
