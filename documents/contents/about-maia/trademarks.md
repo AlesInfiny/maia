@@ -47,6 +47,8 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 - HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.
+- 「ESLint」およびそのロゴは OpenJS Foundation の商標または登録商標です。
+- 「Cypress」およびそのロゴは Cypress.io, Inc. の商標または登録商標です。
 - その他記載されている会社名・商品名などは、各社の商標および登録商標です。
 - 本サイトに記載の商品名、製品名、社名などには、必ずしも商標表示（ (R)、 TM ）を付記していません。
 

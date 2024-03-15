@@ -128,7 +128,7 @@ ID の重複チェック、注文数が在庫数以内であるかのチェッ�
 
 AlesInfiny Maia において定義しているヘルスチェックの実装例について説明します。
 
-ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity)を参照してください。
+ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity) を参照してください。
 
 ### ヘルスチェック機能の 2 種類のプローブ {#health-check-probe}
 
@@ -143,7 +143,7 @@ AlesInfiny Maia において定義しているヘルスチェックの実装例�
     アプリが正常に動作していて、かつリクエストを受信する準備ができていること。
 
 これら 2 つの要素を満たすため、 AlesInfiny Maia のサンプルアプリケーションでは活動性と対応性の状態をユーザーに渡す 2 種類のプローブを定義します。
-詳細については[実装方針](#implementation-policy)に示します。
+詳細については [実装方針](#implementation-policy) に示します。
 
 ### 実装方針 {#implementation-policy}
 
@@ -153,7 +153,7 @@ Spring Boot Actuator はアプリケーションレベルでサーバーを監�
 AlesInfiny Maia ではこのモジュールを利用してヘルスチェック用のエンドポイントを作成することを推奨しています。
 設定内容の詳細に関しては、サンプルアプリケーション内のプレゼンテーション層の application.properties を参照してください。
 
-AlesInfiny Maia のサンプルアプリケーションでは、[前節](#health-check-probe)で述べた通り活動性と対応性をそれぞれ満たす 2 つのプローブを実装しており、
+AlesInfiny Maia のサンプルアプリケーションでは、[前節](#health-check-probe) で述べた通り活動性と対応性をそれぞれ満たす 2 つのプローブを実装しており、
 以下のアドレスでヘルスチェックの状態を確認できます。
 
 - 活動性のプローブ（<http://localhost:8080/api/health/check>）
@@ -164,7 +164,7 @@ AlesInfiny Maia のサンプルアプリケーションでは、[前節](#health
 
     データベースの正常動作によって、リクエストを受信する準備ができていることを確認するためのプローブ。
 
-本ドキュメントにおける[ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response)に基づき、アクセスしたアドレスからの HTTP レスポンスは以下のように定義します。これにより、簡潔な形でサーバーの状態を把握できます。
+本ドキュメントにおける [ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response) に基づき、アクセスしたアドレスからの HTTP レスポンスは以下のように定義します。これにより、簡潔な形でサーバーの状態を把握できます。
 
 | ステータス      | ステータスコード | レスポンスボディ                | 詳細                                       |
 | -------------- | --------------- | ----------------------------- | ------------------------------------------ |

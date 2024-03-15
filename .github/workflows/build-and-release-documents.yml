@@ -180,7 +180,7 @@ jobs:
           name: documents
 
       - name: Githubのリリース
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
