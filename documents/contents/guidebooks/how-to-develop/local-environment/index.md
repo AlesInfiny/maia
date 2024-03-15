@@ -66,7 +66,9 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 1. 以下の拡張機能をインストールします。
 
-    [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+    - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+
+    - [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)[^1]
 
 ### Git for Windows のインストール {#install-git-for-windows}
 
@@ -127,3 +129,6 @@ JDK のインストール時のカスタムセットアップで設定済みで�
     <https://nodejs.org/en/>
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
+
+[^1]:
+    Vue.js アプリケーションの開発に推奨されている拡張機能です。詳細は [公式ドキュメント :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/tooling#ide-support){ target=_blank }を参照してください。
