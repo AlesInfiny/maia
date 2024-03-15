@@ -171,62 +171,62 @@ auth-frontend
 1. `auth-backend\src\web\main\resources\application.properties` を開きます。
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
-```properties
-spring.cloud.azure.active-directory.b2c.enabled=true
-spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
-spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
-spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
-spring.cloud.azure.active-directory.b2c.login-flow=sign-up-or-sign-in
-spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
-spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
-cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
-```
+    ```properties
+    spring.cloud.azure.active-directory.b2c.enabled=true
+    spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
+    spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
+    spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
+    spring.cloud.azure.active-directory.b2c.login-flow=sign-up-or-sign-in
+    spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
+    spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
+    cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
+    ```
 
 1. `auth-backend\dependencies.gradle`を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
-  ```gradle
-  ext {
-    activeDirectoryVersion = "[ライブラリバージョン]"
-    springCloudAzureVersion = "[ライブラリバージョン]"
+    ```gradle
+    ext {
+      activeDirectoryVersion = "[ライブラリバージョン]"
+      springCloudAzureVersion = "[ライブラリバージョン]"
 
-    supportDependencies = [
-      spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
-      spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
-      spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
-    ]
-  }
-  ```
+      supportDependencies = [
+        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
+        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
+        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+      ]
+    }
+    ```
 
 1. `auth-backend\web\build.gradle`を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
-```gradle
-dependencies {
-  implementation supportDependencies.spring_cloud_azure_starter
-  implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
-}
+    ```gradle
+    dependencies {
+      implementation supportDependencies.spring_cloud_azure_starter
+      implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
+    }
 
-dependencyManagement {
-  imports {
-    mavenBom supportDependencies.spring_cloud_azure_dependencies
-  }
-}
-```
+    dependencyManagement {
+      imports {
+        mavenBom supportDependencies.spring_cloud_azure_dependencies
+      }
+    }
+    ```
 
 #### フロントエンドアプリケーションの設定
 
 1. `auth-frontend\.env.dev` を開きます。
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
-```properties
-VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN=B2C_1_signupsignin1
-VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
-VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
-VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/api.read
-VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
-VITE_ADB2C_APP_URI=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
-```
+    ```properties
+    VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN=B2C_1_signupsignin1
+    VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
+    VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
+    VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/api.read
+    VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
+    VITE_ADB2C_APP_URI=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
+    ```
 
 ### 動作確認
 
@@ -263,27 +263,27 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
    - WebSecurityConfiguration.java
 1. `WebSecurityConfiguration.java` で、 認証を必要とする Web API を設定します。
 
-```java
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-    http.csrf(csrf -> csrf.disable());
-    http.cors(cors -> cors.configurationSource(request -> {
-      var conf = new CorsConfiguration();
-      conf.setAllowedOrigins(List.of(allowedOrigins));
-      conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-      conf.setAllowedHeaders(List.of("*"));
-      return conf;
-    }));
-    http.authorizeHttpRequests((requests) -> requests
-        // 認証を必要とする Web API を指定する。
-        .requestMatchers("/api/auth/get").authenticated()
-        .anyRequest().permitAll())
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
-        .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
-    return http.build();
-  }
-```
+    ```java
+      @Bean
+      public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        http.csrf(csrf -> csrf.disable());
+        http.cors(cors -> cors.configurationSource(request -> {
+          var conf = new CorsConfiguration();
+          conf.setAllowedOrigins(List.of(allowedOrigins));
+          conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+          conf.setAllowedHeaders(List.of("*"));
+          return conf;
+        }));
+        http.authorizeHttpRequests((requests) -> requests
+            // 認証を必要とする Web API を指定する。
+            .requestMatchers("/api/auth/get").authenticated()
+            .anyRequest().permitAll())
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+            .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
+        return http.build();
+      }
+    ```
 
 1. ソリューションをビルドします。
 
@@ -294,17 +294,17 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `auth-frontend\.env.dev` に記述した Azure AD B2C の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに `.env.dev` で追加したプロパティを追加します。
 
-```ts
-interface ImportMetaEnv {
-  // 認証に関係のないプロパティは省略
-  readonly VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN: string;
-  readonly VITE_ADB2C_URI_SIGNUP_SIGNIN: string;
-  readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
-  readonly VITE_ADB2C_SCOPE: string;
-  readonly VITE_ADB2C_APP_CLIENT_ID: string;
-  readonly VITE_ADB2C_APP_URI: string;
-}
-```
+    ```ts
+    interface ImportMetaEnv {
+      // 認証に関係のないプロパティは省略
+      readonly VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN: string;
+      readonly VITE_ADB2C_URI_SIGNUP_SIGNIN: string;
+      readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
+      readonly VITE_ADB2C_SCOPE: string;
+      readonly VITE_ADB2C_APP_CLIENT_ID: string;
+      readonly VITE_ADB2C_APP_URI: string;
+    }
+    ```
 
 1. `src\shared\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - authentication-adb2c.ts
@@ -313,55 +313,68 @@ interface ImportMetaEnv {
    - authentication.ts
 1. `src\api-client\index.ts` を編集します。
 
-```ts
-import { useAuthenticationStore } from "@/stores/authentication/authentication";
+    ```ts
+    import { useAuthenticationStore } from "@/stores/authentication/authentication";
 
-// その他のコードは省略
+    // その他のコードは省略
 
-/** axios の共通の設定があればここに定義します。 */
-const axiosInstance = axios.create({
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+    /** axios の共通の設定があればここに定義します。 */
+    const axiosInstance = axios.create({
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-axiosInstance.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
-    const store = useAuthenticationStore();
-    if (store.isAuthenticated) {
-      await store.getToken();
-      const token = store.accessToken;
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  }
-);
-```
+    axiosInstance.interceptors.request.use(
+      async (config: InternalAxiosRequestConfig) => {
+        const store = useAuthenticationStore();
+        if (store.isAuthenticated) {
+          await store.getToken();
+          const token = store.accessToken;
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      }
+    );
+    ```
 
 1. `ログイン`画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
-```ts
-<script setup lang="ts">
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
+    ```ts
+    <script setup lang="ts">
+    import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
-const authenticationStore = useAuthenticationStore();
-const isAuthenticated = () => {
-  return authenticationStore.isAuthenticated;
-};
-const signIn = async () => {
-  await authenticationStore.signIn();
+    const authenticationStore = useAuthenticationStore();
+    const isAuthenticated = () => {
+      return authenticationStore.isAuthenticated;
+    };
+    const signIn = async () => {
+      await authenticationStore.signIn();
 
-  if (authenticationStore.isAuthenticated) {
-    // ログインが成功した場合の処理をここに記述します。
-  }
-};
-</script>
-```
+      if (authenticationStore.isAuthenticated) {
+        // ログインが成功した場合の処理をここに記述します。
+      }
+    };
+    </script>
+    ```
 
 1. `ログイン`画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
 
-```html
-<button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
-```
+    ```html
+    <button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
+    ```
 
 1. `npm install` を実行し、その他のパッケージをインストールします。
+
+## 参照記事
+
+本サンプルは、以下の記事に基づき作成しました。
+
+### フロントエンドアプリケーションの参照記事
+
+- [Azure AD B2C を利用した SPA アプリケーションサンプル](https://github.com/Azure-Samples/ms-identity-b2c-javascript-spa/tree/main)
+
+### バックエンドアプリケーションの参照記事
+
+- [Spring Security における SecurityFilterChain のアーキテクチャー](https://spring.pleiades.io/spring-security/reference/servlet/architecture.html)
+- [Spring Security の Spring Cloud Azure サポート](https://learn.microsoft.com/ja-jp/azure/developer/java/spring-framework/spring-security-support?tabs=SpringCloudAzure5x)
