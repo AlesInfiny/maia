@@ -126,7 +126,7 @@ ID の重複チェック、注文数が在庫数以内であるかのチェッ�
 
 ## ヘルスチェック機能の実装 {#health-check-implementation}
 
-AlesInfiny Maia において定義しているヘルスチェックの実装例について説明します。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において定義しているヘルスチェックの実装例について説明します。
 
 ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity) を参照してください。
 

@@ -22,7 +22,7 @@ Web 画面上の各種設定項目は以下の通りです。
 - Project
 
     プロジェクトのビルドツールを Gradle と Apache Maven から選択します。
-    AlesInfiny Maia 版では Gradle をビルドツールとして選択することをデフォルトとしており、以降の説明でも Gradle でビルドすることを前提として解説していますが、 Apache Maven も選択できます。
+    AlesInfiny Maia OSS Edition ではデフォルトのビルドツールを Gradle としており、以降の説明でも Gradle でビルドすることを前提として解説していますが、 Apache Maven も選択できます。
 
 - Language
 
