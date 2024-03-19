@@ -4,9 +4,9 @@ title: 利用規約
 
 # 利用規約 {#top}
 
-## AlesInfiny Maia の提供物について {#alesinfiny-maia-license}
+## AlesInfiny Maia OSS Edition の提供物について {#alesinfiny-maia-license}
 
-AlesInfiny Maia（以下、本サイト）は、以下を提供します。
+AlesInfiny Maia OSS Edition （以下、本サイト）は、以下を提供します。
 
 - 各種ドキュメント
 - サンプルアプリケーション

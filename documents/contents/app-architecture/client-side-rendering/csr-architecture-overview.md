@@ -5,7 +5,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 # CSR アーキテクチャ概要 {#top}
 
-AlesInfiny Maia において、クライアントサイドレンダリング方式の Web アプリケーションを構築する際に想定しているアーキテクチャの概要について説明します。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クライアントサイドレンダリング方式の Web アプリケーションを構築する際に想定しているアーキテクチャの概要について説明します。
 
 ## 技術スタック {#technology-stack}
 

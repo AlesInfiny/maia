@@ -1,15 +1,15 @@
 ---
 hide:
   - navigation
-title: AlesInfiny Maia
-description: AlesInfiny Maia では、 Java アプリケーションアーキテクチャや方式設計の基礎資料を提供します。
+title: AlesInfiny Maia OSS Edition
+description: AlesInfiny Maia OSS Edition では、 Java アプリケーションアーキテクチャや方式設計の基礎資料を提供します。
 ---
 
-# AlesInfiny Maia にようこそ {#top}
+# AlesInfiny Maia OSS Edition にようこそ {#top}
 
-## AlesInfiny Maia とは {#what-is-alesinfiny-maia}
+## AlesInfiny Maia OSS Edition とは {#what-is-alesinfiny-maia}
 
-AlesInfiny Maia では、 Java アプリケーションの一般的なアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 Java アプリケーションの一般的なアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
 AlesInfiny Maia の提供物は以下の通りです。
 
 - システム形態別の標準的なアプリケーションアーキテクチャ

@@ -32,7 +32,7 @@ Java アプリケーションのログ出力方針については、以下を参
 
 ### ログの種類 {#log-pattern}
 
-AlesInfiny Maia で定義するフロントエンドアプリケーションのログの種類は以下の通りです。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）で定義するフロントエンドアプリケーションのログの種類は以下の通りです。
 
 - アプリケーションログ
 
