@@ -58,7 +58,7 @@ Spring Data JPA の詳細については [こちら](https://spring.pleiades.io/
 データベースのテーブル構造やクエリがシンプルで、より軽量な実装をしたい場合は Spring Data JDBC や Spring Data JPA の採用を推奨します。
 テーブルの関連が複雑で、結合を含む複雑なクエリが多く発生する場合は MyBatis-Spring の採用を推奨します。
 
-AlesInfiny Maia では、一定以上の規模であればテーブルの関連は複雑になりがちであることと、軽量なデータベースアクセス実装にも対応できることから、 MyBatis ( MyBatis-Spring ) を標準として採用します。
+AlesInfiny Maia OSS Edition では、 MyBatis ( MyBatis-Spring ) を標準として採用します。一定以上の規模のテーブルの関連は複雑になりがちであり、 MyBatis は軽量なデータベースアクセス実装にも対応できるためです。
 
 ## MyBatis を用いたデータベースアクセス実装 {#mybatis-implementation}
 

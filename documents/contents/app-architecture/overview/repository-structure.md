@@ -1,6 +1,6 @@
 ---
 title: 概要編
-description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition のアプリケーションアーキテクチャ概要を解説します。
 ---
 
 # 推奨するリポジトリ構造 {#top}
@@ -16,5 +16,5 @@ description: AlesInfiny Maia のアプリケーションアーキテクチャ概
     - 開発者自身が作業するリポジトリに集中できるため開発効率が向上  
     - リポジトリの肥大化の防止
 
-AlesInfiny Maia では mono-repo 構造を推奨します。
+AlesInfiny Maia OSS Edition では mono-repo 構造を推奨します。
 マイクロサービス開発など、各プロジェクトの独立性が高く、プロジェクトごとに採用する技術要素が全く異なる場合は、 poly-repo を検討してください。
