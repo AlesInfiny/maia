@@ -33,7 +33,7 @@ public class ServerTimeController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TimeResponse.class)))
   })
 
-  @GetMapping("/get")
+  @GetMapping
   public ResponseEntity<TimeResponse> getServerTime() throws Exception {
 
     LocalDateTime nowDate = LocalDateTime.now();

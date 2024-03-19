@@ -38,7 +38,7 @@ public class UserController {
       @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content)
   })
 
-  @GetMapping("/get")
+  @GetMapping
   @CrossOrigin
   @PreAuthorize(value = "isAuthenticated()")
   public ResponseEntity<UserResponse> getUser() throws Exception {

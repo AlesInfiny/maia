@@ -35,7 +35,7 @@ export const ServerTimeApiAxiosParamCreator = function (configuration?: Configur
          * @throws {RequiredError}
          */
         getServerTime: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/servertime/get`;
+            const localVarPath = `/api/servertime`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
