@@ -41,7 +41,7 @@ public class UserController {
   @GetMapping("/get")
   @CrossOrigin
   @PreAuthorize(value = "isAuthenticated()")
-  public ResponseEntity<UserResponse> getUser() throws AccessDeniedException, Exception {
+  public ResponseEntity<UserResponse> getUser() throws Exception {
 
     String userId = UserIdThreadContextFilter.threadLocalUserId.get();
     UserResponse response = new UserResponse(userId);
