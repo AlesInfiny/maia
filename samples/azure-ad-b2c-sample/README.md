@@ -49,26 +49,28 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 ```text
 auth-backend
-├ build.gradle ................................... バックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
-├ dependencies.gradle ............................ ライブラリのバージョン管理を行う設定ファイル
+├ build.gradle .......................................... バックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
+├ dependencies.gradle ................................... ライブラリのバージョン管理を行う設定ファイル
 └ web
 　 ├ src\main
 　 |  ├ java\com\dressca\web 
 　 |  |  ├ controller
 　 |  |  |  ├ dto
 　 |  |  |  |  ├ time
-　 |  |  |  |  |  └ TimeResponse.java ............ 認証を必要としない現在時刻を取得する Web API の戻り値の型
+　 |  |  |  |  |  └ ServerTimeResponse.java ............. 認証を必要としない現在時刻を取得する Web API の戻り値の型
 　 |  |  |  |  ├ auth
-　 |  |  |  |  └  └ UserResponse.java ............ 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
-　 |  |  |  ├ TimeController.java ................ 認証を必要としない Web API を配置するコントローラー
-　 |  |  |  └ UserController.java ................ 認証を必要とする Web API を配置するコントローラー
+　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
+　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
+　 |  |  |  └ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
+　 |  |  ├ controlleradvice
+　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
-　 |  |  |  ├ UserIdThreadContextFilter.java ..... JWT Token のユーザー情報を Thread Context に格納するフィルター
-　 |  |  |  └ WebSecurityConfiguration.java ...... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
-　 |  |  └ WebApplication.java ................... アプリケーションの起動クラス
+　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
+　 |  |  |  └ WebSecurityConfiguration.java ............. 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
+　 |  |  └ WebApplication.java .......................... アプリケーションの起動クラス
 　 |  └ resources
-　 |     └ application.properties ................ Azure AD B2C への接続情報を記載する設定ファイル
-　 └ build.gradle ................................ web 層で利用するライブラリの依存関係を記載する設定ファイル
+　 |     └ application.properties ....................... Azure AD B2C への接続情報を記載する設定ファイル
+　 └ build.gradle ....................................... web 層で利用するライブラリの依存関係を記載する設定ファイル
 ```
 
 ## フロントエンドアプリケーションの構成
@@ -92,8 +94,8 @@ auth-frontend
 　 │ │  └ authentication.ts ............ 認証の結果を保持するストア
 　 │ ├ user
 　 │ │  └ user.ts ...................... 認証を必要とする Web API 呼び出しの結果を保持するストア
-　 │ ├ time
-　 │ └  └ time.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
+　 │ ├ servertime
+　 │ └  └ servertime.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
 　 └ views
 ```
 
@@ -109,6 +111,7 @@ auth-frontend
 1. トップ画面の「 `ログイン` 」をクリックすると、 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
 1. `サインイン` または `サインアップ` が成功すると、ポップアップが閉じます。
 1. 成功した認証情報に基づき、ユーザー固有の ID （JWT における sub の値）を取得する Web API が呼び出され、トップ画面に結果が表示されます。
+1. トップ画面の「`更新`」をクリックすると、現在時刻を再度取得します。本 Web API は、引き続き認証機能なしで呼び出されます。
 
 ※本サンプルでは `サインイン` と `サインアップ` のシナリオのみ提供しており、 `サインアウト` は存在しません。
 
@@ -261,28 +264,30 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `\web\src\main\java\com\[プロジェクト名]\web\security` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - UserIdTHreadContextFilter.java
    - WebSecurityConfiguration.java
-1. `WebSecurityConfiguration.java` で、 認証を必要とする Web API を設定します。
+1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
 
     ```java
-      @Bean
-      public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        http.csrf(csrf -> csrf.disable());
-        http.cors(cors -> cors.configurationSource(request -> {
-          var conf = new CorsConfiguration();
-          conf.setAllowedOrigins(List.of(allowedOrigins));
-          conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-          conf.setAllowedHeaders(List.of("*"));
-          return conf;
-        }));
-        http.authorizeHttpRequests((requests) -> requests
-            // 認証を必要とする Web API を指定する。
-            .requestMatchers("/api/auth/get").authenticated()
-            .anyRequest().permitAll())
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
-            .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
-        return http.build();
+    @RestController
+    public class ExampleController {
+      // 認証が必要な Web API に対し、PreAuthorizeアノテーションを付与
+      @PreAuthorize(value = "isAuthenticated()")
+      public ResponseEntity<ExampleResponse> get() throws Exception {
+        // 以下に、コントローラーの詳細を実装
       }
+    }
+    ```
+
+1. 未認証の場合の場合の例外ハンドラを実装します。
+
+    ```java
+    @ControllerAdvice
+    public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
+      // 未認証の場合に発生する AccessDeniedException に対し、例外ハンドラを指定
+      @ExceptionHandler(AccessDeniedException.class)
+      public ResponseEntity<?> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
+        // 以下に、例外ハンドラの詳細を実装
+      }
+    }
     ```
 
 1. ソリューションをビルドします。
@@ -318,24 +323,41 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     // その他のコードは省略
 
-    /** axios の共通の設定があればここに定義します。 */
+    /** axios の共通の設定があればここに定義 */
     const axiosInstance = axios.create({
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    axiosInstance.interceptors.request.use(
-      async (config: InternalAxiosRequestConfig) => {
-        const store = useAuthenticationStore();
-        if (store.isAuthenticated) {
-          await store.getToken();
-          const token = store.accessToken;
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
+    /** api-client の共通の Configuration があればここに定義。 */
+    function createConfig(): apiClient.Configuration {
+      const config = new apiClient.Configuration({
+      basePath: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
+      });
+
+      return config;
+    }
+
+    async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
+      const store = useAuthenticationStore();
+
+      // 認証済みの場合、アクセストークンを取得して Configuration に設定
+      if (store.isAuthenticated) {
+        await store.getToken();
+        const token = store.getAccessToken;
+        config.accessToken = token;
       }
-    );
+    }
+
+    export async function getExampleApi(): Promise<apiClient.ExampleApi> {
+      const config = createConfig();
+
+      // 認証が必要な API は、 addTokenAsync を呼び出すよう設定
+      await addTokenAsync(config);
+      const exampleApi = new apiClient.ExampleApi(config, '', axiosInstance);
+      return exampleApi;
+    }
     ```
 
 1. `ログイン`画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
@@ -352,7 +374,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
       await authenticationStore.signIn();
 
       if (authenticationStore.isAuthenticated) {
-        // ログインが成功した場合の処理をここに記述します。
+        // ログインが成功した場合の処理をここに記述
       }
     };
     </script>
