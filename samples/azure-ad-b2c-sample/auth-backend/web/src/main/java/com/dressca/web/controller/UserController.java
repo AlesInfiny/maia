@@ -1,6 +1,8 @@
 package com.dressca.web.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -28,7 +31,8 @@ public class UserController {
    * @return レスポンス
    * @throws Exception 例外
    */
-  @Operation(summary = "ログインに成功したユーザIDを取得します.", description = "ログインに成功したユーザIDを取得します.")
+  @Operation(summary = "ログインに成功したユーザIDを取得します.", description = "ログインに成功したユーザIDを取得します.", security = {
+      @SecurityRequirement(name = "Bearer") })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
       @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content)
@@ -36,7 +40,8 @@ public class UserController {
 
   @GetMapping("/get")
   @CrossOrigin
-  public ResponseEntity<UserResponse> getUser() throws Exception {
+  @PreAuthorize(value = "isAuthenticated()")
+  public ResponseEntity<UserResponse> getUser() throws AccessDeniedException, Exception {
 
     String userId = UserIdThreadContextFilter.threadLocalUserId.get();
     UserResponse response = new UserResponse(userId);

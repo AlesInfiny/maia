@@ -10,6 +10,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity(debug = false)
 @EnableMethodSecurity
+@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class WebSecurityConfiguration {
 
   @Value("${cors.allowed.origins}")
@@ -33,6 +36,7 @@ public class WebSecurityConfiguration {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+
     http.csrf(csrf -> csrf.disable());
     http.cors(cors -> cors.configurationSource(request -> {
       var conf = new CorsConfiguration();
@@ -41,12 +45,8 @@ public class WebSecurityConfiguration {
       conf.setAllowedHeaders(List.of("*"));
       return conf;
     }));
-    http.authorizeHttpRequests((requests) -> requests
-        .requestMatchers("/api/auth/get").authenticated()
-        .anyRequest().permitAll())
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
         .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
-
     return http.build();
   }
 }

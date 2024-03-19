@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -23,6 +24,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+
+  /**
+   * 例外をステータースコード401で返却する。
+   *
+   * @param e   未認証の例外
+   * @param req リクエスト
+   * @return ステータースコード401のレスポンス
+   */
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_AUTH0001, null, null);
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = createAuthProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(problemDetail);
+  }
 
   /**
    * 例外をステータースコード500で返却する。
@@ -39,6 +57,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
+  }
+
+  private ProblemDetail createAuthProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
+    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
+    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+    problemDetail.setTitle(title);
+    problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
+    return problemDetail;
   }
 
   private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
