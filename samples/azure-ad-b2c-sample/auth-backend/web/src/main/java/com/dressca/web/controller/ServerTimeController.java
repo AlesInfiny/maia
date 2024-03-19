@@ -18,9 +18,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * Azure AD B2Cに接続するためのコントローラークラス。
  */
 @RestController
-@Tag(name = "Time", description = "認証不要でサーバーの現在時刻を取得する")
-@RequestMapping("/api/time")
-public class TimeController {
+@Tag(name = "ServerTime", description = "認証不要でサーバーの現在時刻を取得する")
+@RequestMapping("/api/servertime")
+public class ServerTimeController {
 
   /**
    * サーバーの現在時刻取得。
@@ -34,7 +34,7 @@ public class TimeController {
   })
 
   @GetMapping("/get")
-  public ResponseEntity<TimeResponse> getTime() throws Exception {
+  public ResponseEntity<TimeResponse> getServerTime() throws Exception {
 
     LocalDateTime nowDate = LocalDateTime.now();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");

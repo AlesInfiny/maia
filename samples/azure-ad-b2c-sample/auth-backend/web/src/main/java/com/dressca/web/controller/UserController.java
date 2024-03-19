@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @RestController
 @Tag(name = "User", description = "認証済みユーザのユーザIDを取得するAPI")
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
 public class UserController {
 
   /**

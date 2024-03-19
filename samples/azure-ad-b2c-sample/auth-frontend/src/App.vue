@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useUserStore } from './stores/user/user';
-import { useTimeStore } from './stores/time/time';
+import { useServerTimeStore } from './stores/serverTime/serverTime';
 import { onMounted } from 'vue';
 
 const authenticationStore = useAuthenticationStore();
 const userStore = useUserStore();
-const timeStore = useTimeStore();
+const serverTimeStore = useServerTimeStore();
 
 const isAuthenticated = () => {
   return authenticationStore.isAuthenticated;
@@ -17,49 +17,31 @@ const signIn = async () => {
     await userStore.fetchUserResponse();
   }
 };
-
-const getTime = () => {
-  return timeStore.getTime;
+const getServerTime = () => {
+  return serverTimeStore.getServerTime;
 };
 
 const getUserId = () => {
   return userStore.getUserId;
 };
 
+const updateServerTime = async () => {
+  await serverTimeStore.fetchServerTimeResponse();
+};
+
 onMounted(async () => {
-  await timeStore.fetchTimeResponse();
+  await serverTimeStore.fetchServerTimeResponse();
 });
 </script>
 
 <template>
-  <div class="flex flex-col h-screen justify-between">
-    <header>
-      <nav
-        aria-label="Jump links"
-        class="text-lg font-medium text-gray-900 py-5 ring-1 ring-gray-900 ring-opacity-5 shadow-sm"
-      >
-        <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
-          <div>
-            <span class="text-2xl">Azure AD B2C 認証サンプル</span>
-          </div>
-          <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
-            <span> 現在時刻: {{ getTime() }}</span>
-            <br />
-            <button v-if="!isAuthenticated()" @click="signIn()">
-              ログイン
-            </button>
-            <span v-if="isAuthenticated()">
-              ユーザーID: {{ getUserId() }}
-            </span>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <footer
-      class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
-    >
-      <p>&copy; 2023 - Dressca - Privacy</p>
-    </footer>
+  <header><h1>Azure AD B2C 認証サンプル</h1></header>
+  <div>
+    <span>現在時刻: {{ getServerTime() }}</span>
+    <button @click="updateServerTime()">更新</button>
+  </div>
+  <div>
+    <button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
+    <span v-if="isAuthenticated()">ユーザーID: {{ getUserId() }}</span>
   </div>
 </template>

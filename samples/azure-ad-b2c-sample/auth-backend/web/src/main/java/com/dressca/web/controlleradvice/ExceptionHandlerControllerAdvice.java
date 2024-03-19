@@ -33,13 +33,12 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    * @return ステータースコード401のレスポンス
    */
   @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
+  public ResponseEntity<?> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_AUTH0001, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = createAuthProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(problemDetail);
+        .body(null);
   }
 
   /**
@@ -57,14 +56,6 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
         .body(problemDetail);
-  }
-
-  private ProblemDetail createAuthProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
-    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
-    problemDetail.setTitle(title);
-    problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
-    return problemDetail;
   }
 
   private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {

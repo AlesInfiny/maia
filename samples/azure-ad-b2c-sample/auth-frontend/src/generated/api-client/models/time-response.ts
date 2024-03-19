@@ -25,6 +25,6 @@ export interface TimeResponse {
      * @type {string}
      * @memberof TimeResponse
      */
-    'time': string;
+    'serverTime': string;
 }
 

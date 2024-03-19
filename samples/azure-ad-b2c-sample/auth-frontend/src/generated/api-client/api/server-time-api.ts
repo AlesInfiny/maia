@@ -23,10 +23,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { TimeResponse } from '../models';
 /**
- * TimeApi - axios parameter creator
+ * ServerTimeApi - axios parameter creator
  * @export
  */
-export const TimeApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ServerTimeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * サーバーの現在時刻を取得します.
@@ -34,8 +34,8 @@ export const TimeApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTime: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/time/get`;
+        getServerTime: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/servertime/get`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -62,11 +62,11 @@ export const TimeApiAxiosParamCreator = function (configuration?: Configuration)
 };
 
 /**
- * TimeApi - functional programming interface
+ * ServerTimeApi - functional programming interface
  * @export
  */
-export const TimeApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TimeApiAxiosParamCreator(configuration)
+export const ServerTimeApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ServerTimeApiAxiosParamCreator(configuration)
     return {
         /**
          * サーバーの現在時刻を取得します.
@@ -74,19 +74,19 @@ export const TimeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTime(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTime(options);
+        async getServerTime(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getServerTime(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * TimeApi - factory interface
+ * ServerTimeApi - factory interface
  * @export
  */
-export const TimeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TimeApiFp(configuration)
+export const ServerTimeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ServerTimeApiFp(configuration)
     return {
         /**
          * サーバーの現在時刻を取得します.
@@ -94,27 +94,27 @@ export const TimeApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTime(options?: any): AxiosPromise<TimeResponse> {
-            return localVarFp.getTime(options).then((request) => request(axios, basePath));
+        getServerTime(options?: any): AxiosPromise<TimeResponse> {
+            return localVarFp.getServerTime(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * TimeApi - object-oriented interface
+ * ServerTimeApi - object-oriented interface
  * @export
- * @class TimeApi
+ * @class ServerTimeApi
  * @extends {BaseAPI}
  */
-export class TimeApi extends BaseAPI {
+export class ServerTimeApi extends BaseAPI {
     /**
      * サーバーの現在時刻を取得します.
      * @summary サーバーの現在時刻を取得します.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TimeApi
+     * @memberof ServerTimeApi
      */
-    public getTime(options?: AxiosRequestConfig) {
-        return TimeApiFp(this.configuration).getTime(options).then((request) => request(this.axios, this.basePath));
+    public getServerTime(options?: AxiosRequestConfig) {
+        return ServerTimeApiFp(this.configuration).getServerTime(options).then((request) => request(this.axios, this.basePath));
     }
 }

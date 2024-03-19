@@ -26,7 +26,7 @@ public class UserControllerTest {
   @Test
   @DisplayName("testAuth_01_異常系_Headerが設定されていない場合エラー")
   void testAuth_01() throws Exception {
-    this.mockMvc.perform(get("/api/auth/get"))
+    this.mockMvc.perform(get("/api/user/get"))
         .andExpect(status().isUnauthorized());
   }
 }

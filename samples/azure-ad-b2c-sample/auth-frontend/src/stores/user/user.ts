@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { userApi } from '@/api-client';
+import { getUserApi } from '@/api-client';
 
 export const useUserStore = defineStore({
   id: 'user-id',
@@ -8,6 +8,7 @@ export const useUserStore = defineStore({
   }),
   actions: {
     async fetchUserResponse() {
+      const userApi = await getUserApi();
       const response = await userApi.getUser();
       this.userId = response.data.userId;
     },

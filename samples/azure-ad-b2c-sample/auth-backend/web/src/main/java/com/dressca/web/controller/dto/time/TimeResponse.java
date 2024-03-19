@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TimeResponse {
   @NotNull
-  private String time;
+  private String serverTime;
 }

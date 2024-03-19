@@ -7,7 +7,7 @@
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && stylelint **/*.{vue,css} --fix",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "generate-client": "openapi-generator-cli generate -g typescript-axios -i ./../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
@@ -33,14 +33,7 @@
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.20.1",
     "jsdom": "^23.0.1",
-    "postcss": "^8.4.6",
-    "postcss-nesting": "^12.0.2",
     "prettier": "^3.2.2",
-    "start-server-and-test": "^2.0.3",
-    "stylelint": "^16.2.0",
-    "stylelint-config-recommended-vue": "^1.5.0",
-    "stylelint-config-standard": "^36.0.0",
-    "stylelint-prettier": "^5.0.0",
     "typescript": "~4.5.5",
     "vite": "^4.5.2",
     "vitest": "^0.34.6",

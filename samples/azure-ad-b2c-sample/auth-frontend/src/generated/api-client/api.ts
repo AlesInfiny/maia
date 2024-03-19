@@ -14,6 +14,6 @@
 
 
 
-export * from './api/time-api';
+export * from './api/server-time-api';
 export * from './api/user-api';
 

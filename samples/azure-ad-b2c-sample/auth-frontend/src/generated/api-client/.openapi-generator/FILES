@@ -1,7 +1,7 @@
 .gitignore
 .npmignore
 api.ts
-api/time-api.ts
+api/server-time-api.ts
 api/user-api.ts
 base.ts
 common.ts

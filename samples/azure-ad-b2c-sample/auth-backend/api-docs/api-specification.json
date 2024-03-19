@@ -13,23 +13,53 @@
   ],
   "tags": [
     {
-      "name": "User",
-      "description": "認証済みユーザのユーザIDを取得するAPI"
+      "name": "ServerTime",
+      "description": "認証不要でサーバーの現在時刻を取得する"
     },
     {
-      "name": "Time",
-      "description": "認証不要でサーバーの現在時刻を取得する"
+      "name": "User",
+      "description": "認証済みユーザのユーザIDを取得するAPI"
     }
   ],
   "paths": {
-    "/api/time/get": {
+    "/api/user/get": {
       "get": {
         "tags": [
-          "Time"
+          "User"
+        ],
+        "summary": "ログインに成功したユーザIDを取得します.",
+        "description": "ログインに成功したユーザIDを取得します.",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "成功.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未認証エラー."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/servertime/get": {
+      "get": {
+        "tags": [
+          "ServerTime"
         ],
         "summary": "サーバーの現在時刻を取得します.",
         "description": "サーバーの現在時刻を取得します.",
-        "operationId": "getTime",
+        "operationId": "getServerTime",
         "responses": {
           "200": {
             "description": "成功.",
@@ -43,51 +73,10 @@
           }
         }
       }
-    },
-    "/api/auth/get": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "ログインに成功したユーザIDを取得します.",
-        "description": "ログインに成功したユーザIDを取得します.",
-        "operationId": "getUser",
-        "responses": {
-          "401": {
-            "description": "未認証エラー."
-          },
-          "200": {
-            "description": "成功.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      }
     }
   },
   "components": {
     "schemas": {
-      "TimeResponse": {
-        "required": [
-          "time"
-        ],
-        "type": "object",
-        "properties": {
-          "time": {
-            "type": "string"
-          }
-        }
-      },
       "UserResponse": {
         "required": [
           "userId"
@@ -95,6 +84,17 @@
         "type": "object",
         "properties": {
           "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "TimeResponse": {
+        "required": [
+          "serverTime"
+        ],
+        "type": "object",
+        "properties": {
+          "serverTime": {
             "type": "string"
           }
         }

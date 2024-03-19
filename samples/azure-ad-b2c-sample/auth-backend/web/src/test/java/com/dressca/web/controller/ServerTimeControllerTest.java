@@ -14,12 +14,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.dressca.web.WebApplication;
 
 /**
- * {@link TimeController}の動作をテストするクラスです。
+ * {@link ServerTimeController}の動作をテストするクラスです。
  */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
-public class TimeControllerTest {
+public class ServerTimeControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -27,9 +27,9 @@ public class TimeControllerTest {
   @Test
   @DisplayName("testTime_01_正常系_現在時刻を取得")
   void testAuth_01() throws Exception {
-    this.mockMvc.perform(get("/api/time/get"))
+    this.mockMvc.perform(get("/api/servertime/get"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.time").exists());
+        .andExpect(jsonPath("$.serverTime").exists());
   }
 
 }
