@@ -114,14 +114,14 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "作成完了"
-          },
           "400": {
             "description": "リクエストエラー"
           },
           "500": {
             "description": "サーバーエラー"
+          },
+          "201": {
+            "description": "作成完了"
           }
         }
       }
@@ -145,11 +145,11 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "成功."
-          },
           "400": {
             "description": "リクエストエラー."
+          },
+          "201": {
+            "description": "成功."
           },
           "500": {
             "description": "サーバーエラー."
@@ -162,7 +162,6 @@
         "tags": [
           "Actuator"
         ],
-        "summary": "Actuator root web endpoint",
         "operationId": "links",
         "responses": {
           "200": {
@@ -247,8 +246,7 @@
         "tags": [
           "Actuator"
         ],
-        "summary": "Actuator web endpoint \u0027health\u0027",
-        "operationId": "health",
+        "operationId": "handle",
         "responses": {
           "200": {
             "description": "OK",
@@ -278,8 +276,7 @@
         "tags": [
           "Actuator"
         ],
-        "summary": "Actuator web endpoint \u0027health-path\u0027",
-        "operationId": "health-path",
+        "operationId": "handle_1",
         "responses": {
           "200": {
             "description": "OK",
@@ -441,9 +438,6 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "アセットコードに対応するアセットがない."
-          },
           "200": {
             "description": "成功.",
             "content": {
@@ -454,6 +448,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
           }
         }
       }
@@ -478,11 +475,11 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "リクエストエラー."
-          },
           "204": {
             "description": "成功."
+          },
+          "400": {
+            "description": "リクエストエラー."
           },
           "404": {
             "description": "買い物かご内に指定したカタログアイテム Id がない."
