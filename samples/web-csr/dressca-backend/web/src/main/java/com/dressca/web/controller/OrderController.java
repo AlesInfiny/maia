@@ -93,16 +93,12 @@ public class OrderController {
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = shoppingApplicationService.getOrCreateBasketForUser(buyerId);
-
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
     Order order;
     try {
-      order = shoppingApplicationService.checkout(basket.getId(), shipToAddress);
-      // 買い物かごを削除
-      shoppingApplicationService.deleteBasket(basket.getId());
+      order = shoppingApplicationService.checkout(buyerId, shipToAddress);
     } catch (BasketNotFoundException | EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);

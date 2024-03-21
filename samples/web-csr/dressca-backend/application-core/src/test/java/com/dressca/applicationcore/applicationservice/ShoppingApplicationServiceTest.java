@@ -121,42 +121,6 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testDeleteBasket_正常系_リポジトリのremoveを1度だけ呼出す() throws BasketNotFoundException {
-
-    // テスト用の入力データ
-    long basketId = 1L;
-
-    // モックの設定
-    Basket basket = new Basket("dummy");
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
-
-    // テストメソッドの実行
-    service.deleteBasket(basketId);
-    // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
-    verify(this.basketRepository, times(1)).remove(basket);
-  }
-
-  @Test
-  void testDeleteToBasket_異常系_買い物かごが見つからない場合は例外が発生する() {
-    // テスト用の入力データ
-    long basketId = 1L;
-
-    // モックの設定
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.empty());
-
-    try {
-      // テストメソッドの実行
-      service.deleteBasket(basketId);
-      fail("BasketNotFoundException が発生しなければ失敗");
-    } catch (BasketNotFoundException e) {
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findById(basketId);
-      verify(this.basketRepository, times(0)).remove(any());
-    }
-  }
-
-  @Test
   void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException {
 
     // テスト用の入力データ
@@ -294,9 +258,46 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
+  void testGetBasketDetail_正常系_カタログIDに対応するカタログ情報が取得されること() throws BasketNotFoundException {
+
+    // テスト用の入力データ
+    String dummyBuyerId = "dummyId";
+    List<Long> catalogItemIds = List.of(1L, 2L);
+    // モックの設定
+    Basket basket = new Basket(dummyBuyerId);
+    basket.addItem(1L, BigDecimal.valueOf(1000), 1);
+    basket.addItem(2L, BigDecimal.valueOf(2000), 1);
+    when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.of(basket));
+    List<CatalogItem> items = List.of(new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L),
+        new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L));
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
+
+    // テストメソッドの実行
+    BasketDetail actual = service.getBasketDetail(dummyBuyerId);
+    assertThat(actual.catalogItems.size()).isEqualTo(2);
+    assertThat(actual.catalogItems.get(0).getId()).isEqualTo(1L);
+    assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
+  }
+
+  @ParameterizedTest
+  @MethodSource("blankStringSource")
+  void testGetBasketDetail_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
+    // テストメソッドの実行
+    try {
+      service.getBasketDetail(buyerId);
+    } catch (IllegalArgumentException e) {
+      assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
+    }
+    // モックが想定通り呼び出されていることの確認
+    verify(this.catalogRepository, times(0)).findByCatalogItemIdIn(any());
+
+  }
+
+  @Test
   void testCheckout_正常系_注文リポジトリのAddを1回呼出す() throws Exception {
     // Arrange
-    long basketId = 1L;
     String buyerId = UUID.randomUUID().toString();
     Basket basket = new Basket(buyerId);
     basket.addItem(10L, BigDecimal.valueOf(100_000_000), 1);
@@ -304,42 +305,30 @@ public class ShoppingApplicationServiceTest {
     List<CatalogItem> catalogItems = List.of(createCatalogItem(10L));
     Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
 
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(10L))).thenReturn(catalogItems);
     when(this.orderRepository.add(any())).thenReturn(order);
 
     // Act
-    service.checkout(basketId, shipToAddress);
+    service.checkout(buyerId, shipToAddress);
 
     // Assert
     verify(this.orderRepository, times(1)).add(any());
-  }
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.basketRepository, times(1)).remove(basket);
 
-  @Test
-  void testCheckout_異常系_指定した買い物かごが存在しない場合は業務例外が発生する() {
-    // Arrange
-    long basketId = 999L;
-    ShipTo shipToAddress = createDefaultShipTo();
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.empty());
-
-    // Act
-    Executable action = () -> service.checkout(basketId, shipToAddress);
-
-    // Assert
-    assertThrows(BasketNotFoundException.class, action);
   }
 
   @Test
   void testCheckout_異常系_指定した買い物かごが空の場合は業務例外が発生する() {
     // Arrange
-    long basketId = 1L;
     String buyerId = UUID.randomUUID().toString();
     Basket basket = new Basket(buyerId);
     ShipTo shipToAddress = createDefaultShipTo();
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
 
     // Act
-    Executable action = () -> service.checkout(basketId, shipToAddress);
+    Executable action = () -> service.checkout(buyerId, shipToAddress);
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);

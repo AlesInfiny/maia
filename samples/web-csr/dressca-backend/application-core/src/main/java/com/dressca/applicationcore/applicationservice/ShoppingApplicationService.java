@@ -55,19 +55,6 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 買い物かごを削除します。
-   * 
-   * @param basketId 買い物かごID
-   * @throws BasketNotFoundException 買い物かごが見つからなかった場合
-   */
-  public void deleteBasket(long basketId) throws BasketNotFoundException {
-    Basket basket = this.basketRepository.findById(basketId)
-        .orElseThrow(() -> new BasketNotFoundException(basketId));
-
-    this.basketRepository.remove(basket);
-  }
-
-  /**
    * 買い物かご内の商品の数量を設定します。
    * 
    * @param basketId   買い物かごID
@@ -104,6 +91,21 @@ public class ShoppingApplicationService {
     return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
   }
 
+  /**
+   * 顧客IDに対応する買い物かごと情報とその商品一覧を取得します。
+   * 
+   * @param buyerId 顧客ID
+   * @return 買い物かごとその商品一覧
+   */
+  public BasketDetail getBasketDetail(String buyerId) {
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    List<Long> catalogItemIds = basket.getItems().stream()
+        .map(basketItem -> basketItem.getCatalogItemId())
+        .collect(Collectors.toList());
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    return new BasketDetail(basket, catalogItems);
+  }
+
   private Basket createBasket(String buyerId) {
     Basket basket = new Basket(buyerId);
     return this.basketRepository.add(basket);
@@ -118,10 +120,10 @@ public class ShoppingApplicationService {
    * @throws BasketNotFoundException        basketId に該当する買い物かごが存在しない場合.
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合.
    */
-  public Order checkout(long basketId, ShipTo shipToAddress)
+  public Order checkout(String buyerId, ShipTo shipToAddress)
       throws BasketNotFoundException, EmptyBasketOnCheckoutException {
-    Basket basket = this.basketRepository.findById(basketId)
-        .orElseThrow(() -> new BasketNotFoundException(basketId));
+
+    Basket basket = getOrCreateBasketForUser(buyerId);
     if (basket.getItems() == null || basket.getItems().isEmpty()) {
       throw new EmptyBasketOnCheckoutException(null);
     }
@@ -133,8 +135,9 @@ public class ShoppingApplicationService {
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
         .collect(Collectors.toList());
     Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
-
-    return this.orderRepository.add(order);
+    order = this.orderRepository.add(order);
+    this.basketRepository.remove(basket);
+    return order;
   }
 
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {

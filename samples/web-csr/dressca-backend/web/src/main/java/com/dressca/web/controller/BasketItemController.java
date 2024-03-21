@@ -1,5 +1,6 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.BasketDetail;
 import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
@@ -56,8 +57,6 @@ public class BasketItemController {
   private ShoppingApplicationService shoppingApplicationService;
   @Autowired
   private CatalogDomainService catalogDomainService;
-  @Autowired
-  private CatalogRepository catalogRepository;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -72,11 +71,9 @@ public class BasketItemController {
   @GetMapping
   public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = shoppingApplicationService.getOrCreateBasketForUser(buyerId);
-    List<Long> catalogItemIds = basket.getItems().stream()
-        .map(basketItem -> basketItem.getCatalogItemId())
-        .collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
+    Basket basket = basketItemsForUser.getBasket();
+    List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
     BasketResponse basketDto = BasketMapper.convert(basket);
 
     for (BasketItemResponse item : basketDto.getBasketItems()) {
