@@ -5,7 +5,7 @@ import { useSpecialContentStore } from '@/stores/special-content/special-content
 import { useCatalogStore } from '@/stores/catalog/catalog';
 import { useBasketStore } from '@/stores/basket/basket';
 import CarouselSlider from '@/components/common/CarouselSlider.vue';
-import Loading from '@/components/common/Loading.vue';
+import Loading from '@/components/common/LoadingSpinner.vue';
 import { useRouter } from 'vue-router';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';

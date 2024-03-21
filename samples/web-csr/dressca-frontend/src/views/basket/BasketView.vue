@@ -5,7 +5,7 @@ import type { BasketResponse } from '@/generated/api-client/models/basket-respon
 import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response';
 import { useRouter } from 'vue-router';
 import BasketItem from '@/components/basket/BasketItem.vue';
-import Loading from '@/components/common/Loading.vue';
+import Loading from '@/components/common/LoadingSpinner.vue';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';
 

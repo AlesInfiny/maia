@@ -11,7 +11,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 1. [CSR アーキテクチャ概要](csr-architecture-overview.md)
 
-    AlesInfiny Maia の定義するクライアントサイドレンダリング方式の Web アプリケーションのアーキテクチャの概要について説明します。
+    AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）の定義するクライアントサイドレンダリング方式の Web アプリケーションのアーキテクチャの概要について説明します。
     アプリケーションの層の構造や、主に利用する OSS ライブラリを解説します。
 
 1. [全体処理方式](global-function.md)

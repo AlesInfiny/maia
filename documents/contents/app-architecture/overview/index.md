@@ -1,11 +1,11 @@
 ---
 title: 概要編
-description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition のアプリケーションアーキテクチャ概要を解説します。
 ---
 
 # アプリケーションアーキテクチャ概要編 {#top}
 
-AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーションアーキテクチャ概要を解説します。
 
 1. [構築できるアプリケーション形態](application-kind.md)
 

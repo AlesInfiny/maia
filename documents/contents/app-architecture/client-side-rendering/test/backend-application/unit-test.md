@@ -16,7 +16,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 ### 静的テスト ( UT0 ) で利用するツール {#ut0-static-testing-tools}
 
-上記の目的を達成するため、 AlesInfiny Maia では以下のツールを用いて静的テストを行います。
+上記の目的を達成するため、 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では以下のツールを用いて静的テストを行います。
 
 - [Checkstyle :material-open-in-new:](https://checkstyle.org/){ target=_blank }
     - コーディング規約に準拠した Java コードとなっているか自動的にテストするツールです。

@@ -1,11 +1,11 @@
 ---
 title: アプリケーション開発手順
-description: AlesInfiny Maia で開発可能なアプリケーションの開発手順を示すガイドラインです。
+description: AlesInfiny Maia OSS Edition で開発可能なアプリケーションの開発手順を示すガイドラインです。
 ---
 
 # アプリケーション開発手順 {#top}
 
-AlesInfiny Maia で開発可能なアプリケーションの開発手順を示すガイドラインです。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）で開発可能なアプリケーションの開発手順を示すガイドラインです。
 
 - [Java 編](java/index.md)
 
