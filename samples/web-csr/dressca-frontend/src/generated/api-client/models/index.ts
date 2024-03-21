@@ -7,6 +7,7 @@ export * from './catalog-item';
 export * from './catalog-item-asset';
 export * from './catalog-item-response';
 export * from './catalog-item-summary-response';
+export * from './link';
 export * from './order-item-response';
 export * from './order-response';
 export * from './paged-catalog-item-response';
