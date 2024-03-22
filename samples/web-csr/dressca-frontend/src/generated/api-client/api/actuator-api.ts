@@ -30,10 +30,11 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Actuator web endpoint \'health\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        handle: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        health: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/health`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -59,10 +60,11 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary Actuator web endpoint \'health-path\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        handle1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        healthPath: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/health/**`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -88,6 +90,7 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary Actuator root web endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -127,24 +130,27 @@ export const ActuatorApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Actuator web endpoint \'health\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async handle(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.handle(options);
+        async health(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.health(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @summary Actuator web endpoint \'health-path\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async handle1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.handle1(options);
+        async healthPath(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.healthPath(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @summary Actuator root web endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -164,22 +170,25 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary Actuator web endpoint \'health\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        handle(options?: any): AxiosPromise<object> {
-            return localVarFp.handle(options).then((request) => request(axios, basePath));
+        health(options?: any): AxiosPromise<object> {
+            return localVarFp.health(options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Actuator web endpoint \'health-path\'
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        handle1(options?: any): AxiosPromise<object> {
-            return localVarFp.handle1(options).then((request) => request(axios, basePath));
+        healthPath(options?: any): AxiosPromise<object> {
+            return localVarFp.healthPath(options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Actuator root web endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -198,26 +207,29 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
 export class ActuatorApi extends BaseAPI {
     /**
      * 
+     * @summary Actuator web endpoint \'health\'
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ActuatorApi
      */
-    public handle(options?: AxiosRequestConfig) {
-        return ActuatorApiFp(this.configuration).handle(options).then((request) => request(this.axios, this.basePath));
+    public health(options?: AxiosRequestConfig) {
+        return ActuatorApiFp(this.configuration).health(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @summary Actuator web endpoint \'health-path\'
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ActuatorApi
      */
-    public handle1(options?: AxiosRequestConfig) {
-        return ActuatorApiFp(this.configuration).handle1(options).then((request) => request(this.axios, this.basePath));
+    public healthPath(options?: AxiosRequestConfig) {
+        return ActuatorApiFp(this.configuration).healthPath(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @summary Actuator root web endpoint
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ActuatorApi

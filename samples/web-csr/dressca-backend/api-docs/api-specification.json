@@ -114,14 +114,14 @@
           "required": true
         },
         "responses": {
+          "201": {
+            "description": "作成完了"
+          },
           "400": {
             "description": "リクエストエラー"
           },
           "500": {
             "description": "サーバーエラー"
-          },
-          "201": {
-            "description": "作成完了"
           }
         }
       }
@@ -148,11 +148,11 @@
           "400": {
             "description": "リクエストエラー."
           },
-          "201": {
-            "description": "成功."
-          },
           "500": {
             "description": "サーバーエラー."
+          },
+          "201": {
+            "description": "成功."
           }
         }
       }
@@ -162,6 +162,7 @@
         "tags": [
           "Actuator"
         ],
+        "summary": "Actuator root web endpoint",
         "operationId": "links",
         "responses": {
           "200": {
@@ -246,7 +247,8 @@
         "tags": [
           "Actuator"
         ],
-        "operationId": "handle",
+        "summary": "Actuator web endpoint \u0027health\u0027",
+        "operationId": "health",
         "responses": {
           "200": {
             "description": "OK",
@@ -276,7 +278,8 @@
         "tags": [
           "Actuator"
         ],
-        "operationId": "handle_1",
+        "summary": "Actuator web endpoint \u0027health-path\u0027",
+        "operationId": "health-path",
         "responses": {
           "200": {
             "description": "OK",
@@ -352,6 +355,9 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "リクエストエラー"
+          },
           "200": {
             "description": "成功",
             "content": {
@@ -361,9 +367,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "リクエストエラー"
           }
         }
       }
@@ -438,6 +441,9 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "アセットコードに対応するアセットがない."
+          },
           "200": {
             "description": "成功.",
             "content": {
@@ -448,9 +454,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "アセットコードに対応するアセットがない."
           }
         }
       }
