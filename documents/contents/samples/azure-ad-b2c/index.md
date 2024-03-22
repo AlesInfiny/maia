@@ -10,7 +10,8 @@ description: Azure AD B2C による認証を利用するためのサンプルと
 Azure AD B2C を利用したユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーすることで、 Azure AD B2C を利用したユーザー認証機能を組み込めます。
+また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
+これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
 
 ## 本サンプルを利用するための前提 {#prerequisites}
 
