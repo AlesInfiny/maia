@@ -27,7 +27,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.baskets.BasketRepository;
+import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.CatalogItemOrdered;
@@ -48,50 +51,65 @@ public class ShoppingApplicationServiceTest {
   private BasketRepository basketRepository;
   @Mock
   private CatalogRepository catalogRepository;
+  @Mock
+  private CatalogDomainService catalogDomainService;
 
   @InjectMocks
   private ShoppingApplicationService service;
 
   @Test
-  void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException {
+  void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws CatalogNotFoundException {
 
     // テスト用の入力データ
-    long basketId = 1L;
+    String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
-    BigDecimal price = BigDecimal.valueOf(1000);
     int quantity = 1;
 
     // 期待する戻り値
     // なし
 
     // モックの設定
-    Basket basket = new Basket("dummy");
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
-
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    CatalogItem catalogItem = createCatalogItem(catalogItemId);
+    List<Long> catalogItemIds = List.of(catalogItemId);
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
     // テストメソッドの実行
-    service.addItemToBasket(basketId, catalogItemId, price, quantity);
+    service.addItemToBasket(buyerId, catalogItemId, quantity);
+
     // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
+    verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
   @Test
-  void testAddItemToBasket_正常系_商品追加処理後に数量が0となる場合買い物かごアイテムは削除される() throws BasketNotFoundException {
+  void testAddItemToBasket_正常系_商品追加処理後に数量が0となる場合買い物かごアイテムは削除される() throws CatalogNotFoundException {
     // テスト用の入力データ
-    long basketId = 1L;
+    String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
     BigDecimal price = BigDecimal.valueOf(1000);
     int quantity = -1;
 
     // モックの設定
-    Basket basket = new Basket("dummy");
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, price, 1);
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    CatalogItem catalogItem = createCatalogItem(catalogItemId);
+    List<Long> catalogItemIds = List.of(catalogItemId);
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
 
     // テストメソッドの実行
-    service.addItemToBasket(basketId, catalogItemId, price, quantity);
+    service.addItemToBasket(buyerId, catalogItemId, quantity);
     // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
+    verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -101,82 +119,77 @@ public class ShoppingApplicationServiceTest {
   @Test
   void testAddItemToBasket_異常系_買い物かごが見つからない場合は例外が発生する() {
     // テスト用の入力データ
-    long basketId = 1L;
+    String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
-    BigDecimal price = BigDecimal.valueOf(1000);
     int quantity = 1;
 
     // モックの設定
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.empty());
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    List<Long> catalogItemIds = List.of(catalogItemId);
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
 
     try {
       // テストメソッドの実行
-      service.addItemToBasket(basketId, catalogItemId, price, quantity);
-      fail("BasketNotFoundException が発生しなければ失敗");
-    } catch (BasketNotFoundException e) {
+      service.addItemToBasket(buyerId, catalogItemId, quantity);
+      fail("CatalogNotFoundException が発生しなければ失敗");
+    } catch (CatalogNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findById(basketId);
+      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
+      verify(this.catalogDomainService, times(0)).getExistCatalogItems(any());
       verify(this.basketRepository, times(0)).update(any());
+    } catch (Exception e) {
+      fail("CatalogNotFoundException が発生しなければ失敗");
     }
   }
 
   @Test
-  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException {
+  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す()
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
-    long basketId = 1L;
-    Map<Long, Integer> quantities = Map.of(1L, 5);
+    String buyerId = UUID.randomUUID().toString();
+    List<Long> catalogItemIds = List.of(1L);
+    int newQuantity = 5;
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
-    Basket basket = new Basket("dummy");
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
     // テストメソッドの実行
-    service.setQuantities(basketId, quantities);
+    service.setQuantities(buyerId, quantities);
     // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在しない商品を指定しても買い物かごには追加されない() throws BasketNotFoundException {
+  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される()
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
-    long basketId = 1L;
-    Map<Long, Integer> quantities = Map.of(1L, 5);
-
-    // モックの設定
-    Basket basket = new Basket("dummy");
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
-
-    // テストメソッドの実行
-    service.setQuantities(basketId, quantities);
-    // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
-    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
-    verify(this.basketRepository, times(1)).update(captor.capture());
-    Basket argBasket = captor.getValue();
-    assertThat(argBasket.getItems().size()).isEqualTo(0);
-  }
-
-  @Test
-  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException {
-
-    // テスト用の入力データ
-    long basketId = 1L;
-    long catalogItemId = 1L;
+    String buyerId = UUID.randomUUID().toString();
+    List<Long> catalogItemIds = List.of(1L);
     int newQuantity = 5;
-    Map<Long, Integer> quantities = Map.of(catalogItemId, newQuantity);
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
-    Basket basket = new Basket("dummy");
-    basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.of(basket));
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
     // テストメソッドの実行
-    service.setQuantities(basketId, quantities);
+    service.setQuantities(buyerId, quantities);
     // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findById(basketId);
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -184,22 +197,55 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_異常系_買い物かごが見つからない場合は例外が発生する() {
+  void testSetQuantities_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
     // テスト用の入力データ
-    long basketId = 1L;
-    Map<Long, Integer> quantities = Map.of(1L, 5);
+    String buyerId = UUID.randomUUID().toString();
+    List<Long> catalogItemIds = List.of(1L);
+    int newQuantity = 5;
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
-    when(this.basketRepository.findById(basketId)).thenReturn(Optional.empty());
-
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
     try {
       // テストメソッドの実行
-      service.setQuantities(basketId, quantities);
-      fail("BasketNotFoundException が発生しなければ失敗");
-    } catch (BasketNotFoundException e) {
+      service.setQuantities(buyerId, quantities);
+      fail("CatalogNotFoundException が発生しなければ失敗");
+    } catch (CatalogNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findById(basketId);
+      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.basketRepository, times(0)).update(any());
+    } catch (Exception e) {
+      fail("CatalogNotFoundException が発生しなければ失敗");
+    }
+  }
+
+  @Test
+  void testSetQuantities_異常系_買い物かごに入っていない商品が指定された場合は例外が発生する() {
+    // テスト用の入力データ
+    String buyerId = UUID.randomUUID().toString();
+    List<Long> catalogItemIds = List.of(1L);
+    int newQuantity = 5;
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
+
+    // モックの設定
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    basket.addItem(2L, BigDecimal.valueOf(1000), 100);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    try {
+      // テストメソッドの実行
+      service.setQuantities(buyerId, quantities);
+      fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
+    } catch (CatalogItemInBasketNotFoundException e) {
+      // モックが想定通り呼び出されていることの確認
+      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.basketRepository, times(0)).update(any());
+    } catch (Exception e) {
+      fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     }
   }
 

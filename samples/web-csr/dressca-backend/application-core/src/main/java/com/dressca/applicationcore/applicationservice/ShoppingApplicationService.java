@@ -1,6 +1,5 @@
 package com.dressca.applicationcore.applicationservice;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
-import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.baskets.BasketRepository;
+import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.order.CatalogItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -34,22 +35,26 @@ public class ShoppingApplicationService {
   private BasketRepository basketRepository;
   private CatalogRepository catalogRepository;
   private OrderRepository orderRepository;
+  private CatalogDomainService catalogDomainService;
 
   /**
    * 買い物かごに商品を追加します。
    * 
-   * @param basketId      買い物かごID
+   * @param buyerId       顧客ID
    * @param catalogItemId カタログ商品ID
-   * @param price         単価
    * @param quantity      数量
-   * @throws BasketNotFoundException 買い物かごが見つからなかった場合
+   * @throws CatalogNotFoundException 存在しないカタログ商品が指定された場合
    */
-  public void addItemToBasket(long basketId, long catalogItemId, BigDecimal price, int quantity)
-      throws BasketNotFoundException {
-    Basket basket = this.basketRepository.findById(basketId)
-        .orElseThrow(() -> new BasketNotFoundException(basketId));
+  public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
+      throws CatalogNotFoundException {
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
+    if (!this.catalogDomainService.existAll(List.of(catalogItemId))) {
+      throw new CatalogNotFoundException(catalogItemId);
+    }
+    CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(List.of(catalogItemId)).get(0);
 
-    basket.addItem(catalogItemId, price, quantity);
+    basket.addItem(catalogItemId, catalogItem.getPrice(), quantity);
     basket.removeEmptyItems();
     this.basketRepository.update(basket);
   }
@@ -57,14 +62,26 @@ public class ShoppingApplicationService {
   /**
    * 買い物かご内の商品の数量を設定します。
    * 
-   * @param basketId   買い物かごID
+   * @param buyerId    顧客ID
    * @param quantities キーにカタログ商品ID、値に数量を設定したMap
-   * @throws BasketNotFoundException 買い物かごが見つからなかった場合
+   * @throws CatalogNotFoundException             存在しないカタログ商品が指定された場合
+   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合
    */
-  public void setQuantities(long basketId, Map<Long, Integer> quantities)
-      throws BasketNotFoundException {
-    Basket basket = this.basketRepository.findById(basketId)
-        .orElseThrow(() -> new BasketNotFoundException(basketId));
+  public void setQuantities(String buyerId, Map<Long, Integer> quantities)
+      throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
+    if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
+      throw new CatalogNotFoundException();
+    }
+
+    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
+    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
+        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
+        .collect(Collectors.toList());
+    if (!notExistsInBasketCatalogIds.isEmpty()) {
+      throw new CatalogItemInBasketNotFoundException(notExistsInBasketCatalogIds, basket.getId());
+    }
 
     for (BasketItem item : basket.getItems()) {
       Integer quantity = quantities.get(item.getCatalogItemId());
@@ -114,14 +131,13 @@ public class ShoppingApplicationService {
   /**
    * 注文を確定します。
    * 
-   * @param basketId      買い物かご Id.
-   * @param shipToAddress お届け先.
-   * @return 作成した注文情報.
-   * @throws BasketNotFoundException        basketId に該当する買い物かごが存在しない場合.
-   * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合.
+   * @param buyerId       顧客ID
+   * @param shipToAddress お届け先
+   * @return 作成した注文情報
+   * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
-      throws BasketNotFoundException, EmptyBasketOnCheckoutException {
+      throws EmptyBasketOnCheckoutException {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     if (basket.getItems() == null || basket.getItems().isEmpty()) {
