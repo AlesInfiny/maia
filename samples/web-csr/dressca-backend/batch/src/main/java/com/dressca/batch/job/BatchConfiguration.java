@@ -1,7 +1,5 @@
-
 package com.dressca.batch.job;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -27,8 +25,6 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 @Configuration
 @EnableBatchProcessing
 @ComponentScan(basePackages = { "com.dressca" })
-@MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
-
 public class BatchConfiguration {
 
   /**

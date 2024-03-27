@@ -28,16 +28,10 @@ dependencies {
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_boot_starter_log4j2
 
 	compileOnly supportDependencies.servlet_api
 }
 
-configurations {
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	}
-}
 afterEvaluate {
     tasks.named("forkedSpringBootRun") {
 		workingDir("$rootDir/api-docs")

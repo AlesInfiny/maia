@@ -1,0 +1,20 @@
+[
+{
+  "name":"java.io.File"
+},
+{
+  "name":"java.io.FileOutputStream"
+},
+{
+  "name":"java.lang.Boolean",
+  "methods":[{"name":"getBoolean","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.System",
+  "methods":[{"name":"getProperty","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.panw.PanwHooks",
+  "fields":[{"name":"Enabled"}]
+}
+]

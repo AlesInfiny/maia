@@ -14,12 +14,22 @@ java {
 
 repositories {
 	mavenCentral()
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java', 'C:/Maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java']
+		}
+	}
 }
 
 dependencies {
 	implementation supportDependencies.spring_boot_starter_batch
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.commons_lang3
+	implementation supportDependencies.mybatis_spring_native
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
@@ -27,12 +37,6 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.spring_batch_test
-}
-
-configurations {
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	}
 }
 
 tasks.named('test') {

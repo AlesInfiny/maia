@@ -9,6 +9,11 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.controller.AssetsController;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.Appender;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
@@ -31,13 +36,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.apache.logging.log4j.core.Appender;
-import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.slf4j.LoggerFactory;
 import java.util.Locale;
 
 /**
@@ -61,14 +60,15 @@ public class LocalExceptionHandlerControllerAdviceTest {
   AssetsController assetsController;
 
   @Mock
-  private Appender mockAppender;
+  private Appender<ILoggingEvent> mockAppender;
 
   @Captor
-  private ArgumentCaptor<LogEvent> logCaptor;
+  private ArgumentCaptor<ILoggingEvent> logCaptor;
 
   /**
    * 各テスト実施前のセットアップを行うメソッド。
    */
+  @SuppressWarnings("unchecked")
   @BeforeEach
   public void setup() {
     // アプリケーションログメッセージを取得する設定
@@ -78,23 +78,21 @@ public class LocalExceptionHandlerControllerAdviceTest {
     Mockito.when(mockAppender.getName()).thenReturn(MOCK_APPENDER_NAME);
     // Appenderとして利用できる準備ができていることを設定（下2行）
     Mockito.when(mockAppender.isStarted()).thenReturn(true);
-    Mockito.when(mockAppender.isStopped()).thenReturn(false);
 
     this.setLogLevel(Level.INFO);
   }
 
   private void setLogLevel(Level level) {
     // application.logのロガーを取り出し、Appenderの設定（mockAppenderにログを出力させる）を行う。
-    LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-    Configuration config = ctx.getConfiguration();
-    LoggerConfig loggerConfig = config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+    Logger logger = (Logger) LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
     // テスト毎にAppenderを設定するため、一度初期化する。
-    loggerConfig.removeAppender(MOCK_APPENDER_NAME);
+    logger.detachAppender(mockAppender);
+    logger.setLevel(level);
+    logger.addAppender(mockAppender);
 
-    loggerConfig.setLevel(level);
-    loggerConfig.addAppender(mockAppender, level, null);
-    ctx.updateLoggers();
+    LoggerContext loggerContext = logger.getLoggerContext();
+    loggerContext.start();
   }
 
   @Test
@@ -116,9 +114,9 @@ public class LocalExceptionHandlerControllerAdviceTest {
         .andExpect(jsonPath("$.error." + exceptionId)
             .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
         .andExpect(jsonPath("$.detail").exists());
-    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    Mockito.verify(mockAppender, times(1)).doAppend(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+    assertThat(logCaptor.getValue().getFormattedMessage())
         .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
@@ -133,7 +131,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
+        .thenThrow(new SystemException(new AssetNotFoundException(assetCode),
+            exceptionId, frontMessageValue,
             logMessageValue));
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
@@ -143,9 +142,9 @@ public class LocalExceptionHandlerControllerAdviceTest {
             .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
         .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
-    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    Mockito.verify(mockAppender, times(1)).doAppend(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+    assertThat(logCaptor.getValue().getFormattedMessage())
         .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
@@ -169,24 +168,28 @@ public class LocalExceptionHandlerControllerAdviceTest {
             .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
         .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
-    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+    Mockito.verify(mockAppender, times(1)).doAppend(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+    assertThat(logCaptor.getValue().getFormattedMessage())
         .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（2行目以降はエラーのスタックトレースのため可変）
   private String createLogMessage(String exceptionId, String[] logMessageValue) {
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
-    String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
+    String code = String.join(PROPERTY_DELIMITER, exceptionId,
+        EXCEPTION_MESSAGE_SUFFIX_LOG);
+    String exceptionMessage = messageSource.getMessage(code, logMessageValue,
+        Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 
   // エラー時のフロントに出力するメッセージを返す
   private String createFrontErrorMessage(String exceptionId, String[] frontMessageValue) {
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
+    String code = String.join(PROPERTY_DELIMITER, exceptionId,
+        EXCEPTION_MESSAGE_SUFFIX_FRONT);
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
+    return messageSource.getMessage(code, frontMessageValue,
+        Locale.getDefault());
   }
 }
