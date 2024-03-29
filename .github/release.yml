@@ -8,11 +8,9 @@ changelog:
           - dependencies
     - title: ':label: :green_circle: Gradle package dependencies'
       labels:
-        - dependencies
         - gradle
     - title: ':label: :white_circle: npm package dependencies'
       labels:
-        - dependencies
         - npm
     - title: ':label: Other dependencies'
       labels:
