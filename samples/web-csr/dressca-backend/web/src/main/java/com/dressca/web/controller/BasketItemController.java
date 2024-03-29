@@ -98,8 +98,6 @@ public class BasketItemController {
         .collect(Collectors.toMap(
             PutBasketItemRequest::getCatalogItemId,
             PutBasketItemRequest::getQuantity));
-
-    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
 
     try {
