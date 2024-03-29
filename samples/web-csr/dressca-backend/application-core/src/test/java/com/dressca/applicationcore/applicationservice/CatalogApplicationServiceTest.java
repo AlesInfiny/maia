@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.catalog;
+package com.dressca.applicationcore.applicationservice;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -14,6 +14,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationcore.catalog.CatalogBrandRepository;
+import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.catalog.CatalogRepository;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。

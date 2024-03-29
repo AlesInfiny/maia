@@ -1,7 +1,14 @@
-package com.dressca.applicationcore.catalog;
+package com.dressca.applicationcore.applicationservice;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationcore.catalog.CatalogBrandRepository;
+import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.catalog.CatalogRepository;
 import lombok.AllArgsConstructor;
 
 /**
@@ -9,6 +16,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
+@Transactional(rollbackFor = Exception.class)
 public class CatalogApplicationService {
   private CatalogRepository catalogRepository;
   private CatalogBrandRepository brandRepository;
