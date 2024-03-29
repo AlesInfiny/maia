@@ -95,20 +95,6 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 顧客IDに対応する買い物かご情報を取得するか、無ければ新規作成します。
-   * 
-   * @param buyerId 顧客ID
-   * @return 買い物かご情報
-   */
-  public Basket getOrCreateBasketForUser(String buyerId) {
-    if (StringUtils.isBlank(buyerId)) {
-      throw new IllegalArgumentException("buyerIdがnullまたは空文字");
-    }
-
-    return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
-  }
-
-  /**
    * 顧客IDに対応する買い物かごと情報とその商品一覧を取得します。
    * 
    * @param buyerId 顧客ID
@@ -121,11 +107,6 @@ public class ShoppingApplicationService {
         .collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     return new BasketDetail(basket, catalogItems);
-  }
-
-  private Basket createBasket(String buyerId) {
-    Basket basket = new Basket(buyerId);
-    return this.basketRepository.add(basket);
   }
 
   /**
@@ -154,6 +135,25 @@ public class ShoppingApplicationService {
     order = this.orderRepository.add(order);
     this.basketRepository.remove(basket);
     return order;
+  }
+
+  /**
+   * 顧客IDに対応する買い物かご情報を取得するか、無ければ新規作成します。
+   * 
+   * @param buyerId 顧客ID
+   * @return 買い物かご情報
+   */
+  private Basket getOrCreateBasketForUser(String buyerId) {
+    if (StringUtils.isBlank(buyerId)) {
+      throw new IllegalArgumentException("buyerIdがnullまたは空文字");
+    }
+
+    return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
+  }
+
+  private Basket createBasket(String buyerId) {
+    Basket basket = new Basket(buyerId);
+    return this.basketRepository.add(basket);
   }
 
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {

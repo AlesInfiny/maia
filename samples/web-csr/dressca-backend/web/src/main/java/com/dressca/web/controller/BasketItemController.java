@@ -101,13 +101,6 @@ public class BasketItemController {
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.shoppingApplicationService.getOrCreateBasketForUser(buyerId);
-    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
-        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
-        .collect(Collectors.toList());
-    if (!notExistsInBasketCatalogIds.isEmpty()) {
-      return ResponseEntity.badRequest().build();
-    }
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);

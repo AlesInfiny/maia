@@ -250,60 +250,6 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在しない場合は新規作成する() throws BasketNotFoundException {
-
-    // テスト用の入力データ
-    String dummyBuyerId = "dummyId";
-
-    // モックの設定
-    when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.empty());
-    when(this.basketRepository.add(any())).thenReturn(new Basket(dummyBuyerId));
-
-    // テストメソッドの実行
-    Basket basket = service.getOrCreateBasketForUser(dummyBuyerId);
-    assertThat(basket.getBuyerId()).isEqualTo(dummyBuyerId);
-    // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findByBuyerId(dummyBuyerId);
-    verify(this.basketRepository, times(1)).add(basket);
-  }
-
-  @Test
-  void testGetOrCreateBasketForUser_正常系_購入者Idに対応する買い物かご情報が存在する場合はその情報を返す() throws BasketNotFoundException {
-
-    // テスト用の入力データ
-    String dummyBuyerId = "dummyId";
-
-    // モックの設定
-    Basket basket = new Basket(dummyBuyerId);
-    basket.addItem(1L, BigDecimal.valueOf(1000), 1);
-    basket.addItem(2L, BigDecimal.valueOf(2000), 1);
-    when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.of(basket));
-
-    // テストメソッドの実行
-    Basket actual = service.getOrCreateBasketForUser(dummyBuyerId);
-    assertThat(actual.getBuyerId()).isEqualTo(dummyBuyerId);
-    assertThat(actual.getItems().get(0).getCatalogItemId()).isEqualTo(1L);
-    assertThat(actual.getItems().get(1).getCatalogItemId()).isEqualTo(2L);
-    // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(1)).findByBuyerId(dummyBuyerId);
-    verify(this.basketRepository, times(0)).add(any());
-  }
-
-  @ParameterizedTest
-  @MethodSource("blankStringSource")
-  void testGetOrCreateBasketForUser_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
-    // テストメソッドの実行
-    try {
-      service.getOrCreateBasketForUser(buyerId);
-    } catch (IllegalArgumentException e) {
-      assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
-    }
-    // モックが想定通り呼び出されていることの確認
-    verify(this.basketRepository, times(0)).findByBuyerId(any());
-    verify(this.basketRepository, times(0)).add(any());
-  }
-
-  @Test
   void testGetBasketDetail_正常系_カタログIDに対応するカタログ情報が取得されること() throws BasketNotFoundException {
 
     // テスト用の入力データ
