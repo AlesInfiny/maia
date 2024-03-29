@@ -237,7 +237,7 @@ jobs:
   swap:
     name: 本番環境への反映承認
     needs: [release-github, release-documents]
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: needs.build.outputs.is_pre_release == 'false' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
