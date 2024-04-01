@@ -6,6 +6,7 @@ changelog:
       exclude:
         labels:
           - dependencies
+          - 内部の改善
     - title: ':label: :green_circle: Gradle package dependencies'
       labels:
         - gradle
@@ -19,3 +20,6 @@ changelog:
         labels:
           - gradle
           - npm
+    - title: ':lollipop: improvements in development'
+      labels:
+        - 内部の改善
