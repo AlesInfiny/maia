@@ -1,12 +1,12 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.2.2"
+    springBootVersion = "3.2.4"
     springDependencyManagementVersion = "1.1.4"
     springdocOpenapiGradlePluginVersion = "1.8.0"
-    spotbugsVersion = "6.0.7"
+    spotbugsVersion = "6.0.9"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "2.3.0"
+    springdocOpenapiVersion = "2.4.0"
     activeDirectoryVersion = "5.10.0"
     springCloudAzureVersion = "5.10.0"
 
