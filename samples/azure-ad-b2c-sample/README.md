@@ -117,9 +117,10 @@ auth-frontend
 
 ## サンプルで実現している認証フロー
 
-本サンプルでは、 Microsoft 認証ライブラリ（ MSAL ）の使用によって、 [OAuth 2.0 承認コードフロー](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/authorization-code-flow) を実現しています。ただし、以下の処理は含まれていません。
+本サンプルでは、 Microsoft 認証ライブラリ（ MSAL ）の使用によって、 [OAuth 2.0 承認コードフロー](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/authorization-code-flow) を実現しています。
+なお、以下の処理は MSAL.js (JavaScript 用 Microsoft Authentication Library) によって行われます。
 
-- state の検証 : `/authorize` エンドポイントへのリクエストに `state` パラメーターを設定する（この処理は MSAL によって実現されます）と、レスポンスに同じ値の `state` が設定されます。 `state` の値がリクエストとレスポンスで同じであることをクライアントアプリケーション上で確認する必要があります。
+- state の検証
 
 ## 前提となる OSS ライブラリ
 
