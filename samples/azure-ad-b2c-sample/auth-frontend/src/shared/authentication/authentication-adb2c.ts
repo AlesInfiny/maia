@@ -7,6 +7,7 @@ import {
   loginRequest,
   tokenRequest,
 } from './authentication-config';
+import { AccountFilter } from '@azure/msal-common';
 
 msalInstance.initialize();
 
@@ -29,7 +30,11 @@ export async function signInAzureADB2C(): Promise<AuthenticationResult> {
 export async function getTokenAzureADB2C(
   homeAccountId: string,
 ): Promise<AuthenticationResult> {
-  const account = msalInstance.getAccountByHomeId(homeAccountId);
+  const accountFilter = {} as AccountFilter;
+  accountFilter.homeAccountId = homeAccountId;
+
+  const account = msalInstance.getAccount(accountFilter);
+
   tokenRequest.account = account ?? undefined;
 
   const result = {} as AuthenticationResult;
