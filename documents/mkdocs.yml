@@ -56,6 +56,7 @@ nav:
   - AlesInfiny Maia OSS Edition について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
+      - クレジット表記: about-maia/credits.md
 
 theme:
   name: material
@@ -126,6 +127,7 @@ extra:
   footer_urls:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
+    credits: about-maia/credits/
   version: !ENV [VERSION, "Local Version"]
 
 extra_css:

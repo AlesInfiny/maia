@@ -17,6 +17,8 @@ repositories {
 
 dependencies {
 	implementation supportDependencies.spring_boot_starter
+	implementation supportDependencies.mybatis_spring_boot_starter
+
 	implementation supportDependencies.spring_boot_starter_validation
 	implementation supportDependencies.commons_lang3
 	implementation project(':system-common')

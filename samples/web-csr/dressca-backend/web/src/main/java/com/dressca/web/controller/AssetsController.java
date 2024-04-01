@@ -1,7 +1,7 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.AssetApplicationService;
 import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetApplicationService;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
