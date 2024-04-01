@@ -14,6 +14,7 @@
 
 
 
+export * from './api/actuator-api';
 export * from './api/asset-api';
 export * from './api/basket-item-api';
 export * from './api/catalog-brand-api';

@@ -2,7 +2,7 @@ package com.dressca.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogApplicationService;
+import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.web.controller.dto.catalog.CatalogBrandResponse;
 import com.dressca.web.mapper.CatalogBrandMapper;

@@ -1,8 +1,14 @@
-package com.dressca.applicationcore.assets;
+package com.dressca.applicationcore.applicationservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.dressca.applicationcore.assets.Asset;
+import com.dressca.applicationcore.assets.AssetNotFoundException;
+import com.dressca.applicationcore.assets.AssetRepository;
+import com.dressca.applicationcore.assets.AssetResourceInfo;
+import com.dressca.applicationcore.assets.AssetStore;
 import lombok.AllArgsConstructor;
 
 /**
@@ -10,6 +16,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
+@Transactional(rollbackFor = Exception.class)
 public class AssetApplicationService {
 
   @Autowired
