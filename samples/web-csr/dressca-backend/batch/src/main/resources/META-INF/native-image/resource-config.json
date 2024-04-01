@@ -1,0 +1,13 @@
+{
+    "resources": [
+        {
+            "pattern":"\\Qsrc/test/resources/expected/output_jobTest_10data.csv\\E"
+        },
+        {
+            "pattern":"\\Qsrc/test/resources/expected/output_jobTest_empty.csv\\E"
+        },
+        {
+            "pattern":"\\Qsrc/test/resources/expected/output_stepTest_10data.csv\\E"
+        }
+    ]
+}
