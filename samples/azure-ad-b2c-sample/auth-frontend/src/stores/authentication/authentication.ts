@@ -10,14 +10,12 @@ export const useAuthenticationStore = defineStore({
   state: () => ({
     homeAccountId: '' as string,
     accessToken: '' as string,
-    idToken: '' as string,
     authenticated: false,
   }),
   actions: {
     async signIn() {
       const result = (await signInAzureADB2C()) as AuthenticationResult;
       this.homeAccountId = result.homeAccountId;
-      this.idToken = result.idToken;
       this.authenticated = result.isAuthenticated;
     },
     async getToken() {
@@ -26,7 +24,6 @@ export const useAuthenticationStore = defineStore({
       )) as AuthenticationResult;
       this.accessToken = result.accessToken;
       this.homeAccountId = result.homeAccountId;
-      this.idToken = result.idToken;
       this.authenticated = result.isAuthenticated;
     },
   },
@@ -36,9 +33,6 @@ export const useAuthenticationStore = defineStore({
     },
     getAccessToken(state) {
       return state.accessToken;
-    },
-    getIdToken(state) {
-      return state.idToken;
     },
     isAuthenticated(state) {
       return state.authenticated;

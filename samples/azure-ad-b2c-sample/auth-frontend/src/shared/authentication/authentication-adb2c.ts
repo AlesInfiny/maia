@@ -15,7 +15,6 @@ export async function signInAzureADB2C(): Promise<AuthenticationResult> {
   try {
     const loginResponse = await msalInstance.loginPopup(loginRequest);
     result.homeAccountId = loginResponse.account.homeAccountId;
-    result.idToken = loginResponse.idToken;
     result.isAuthenticated = true;
     return result;
   } catch (error) {
@@ -44,7 +43,6 @@ export async function getTokenAzureADB2C(
 
     result.homeAccountId = tokenResponse.account.homeAccountId;
     result.accessToken = tokenResponse.accessToken;
-    result.idToken = tokenResponse.idToken;
     result.isAuthenticated = true;
     return result;
   } catch (error) {
@@ -53,7 +51,6 @@ export async function getTokenAzureADB2C(
       const tokenResponse = await msalInstance.acquireTokenPopup(tokenRequest);
       result.homeAccountId = tokenResponse.account.homeAccountId;
       result.accessToken = tokenResponse.accessToken;
-      result.idToken = tokenResponse.idToken;
       result.isAuthenticated = true;
       return result;
     }
@@ -65,6 +62,5 @@ export async function getTokenAzureADB2C(
 export interface AuthenticationResult {
   homeAccountId: string;
   accessToken: string;
-  idToken: string;
   isAuthenticated: boolean;
 }
