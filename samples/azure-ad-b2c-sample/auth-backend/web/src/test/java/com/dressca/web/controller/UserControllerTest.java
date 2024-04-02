@@ -1,13 +1,16 @@
 package com.dressca.web.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import com.dressca.web.WebApplication;
@@ -24,9 +27,20 @@ public class UserControllerTest {
   private MockMvc mockMvc;
 
   @Test
-  @DisplayName("testAuth_01_異常系_Headerが設定されていない場合エラー")
+  @DisplayName("testAuth_01_正常系")
   void testAuth_01() throws Exception {
-    this.mockMvc.perform(get("/api/user"))
+    mockMvc.perform(get("/api/user")
+        .with(jwt())
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.userId").value("user"));
+  }
+
+  @Test
+  @DisplayName("testAuth_02_異常系_Headerが設定されていない場合エラー")
+  void testAuth_02() throws Exception {
+    this.mockMvc.perform(get("/api/user")
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isUnauthorized());
   }
 }
