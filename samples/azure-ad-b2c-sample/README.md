@@ -191,38 +191,6 @@ auth-frontend
     cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
     ```
 
-1. `auth-backend\dependencies.gradle` を開きます。
-1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
-
-    ```gradle
-    ext {
-      activeDirectoryVersion = "[ライブラリバージョン]"
-      springCloudAzureVersion = "[ライブラリバージョン]"
-
-      supportDependencies = [
-        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
-        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
-        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
-      ]
-    }
-    ```
-
-1. `auth-backend\web\build.gradle`を開きます。
-1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
-
-    ```gradle
-    dependencies {
-      implementation supportDependencies.spring_cloud_azure_starter
-      implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
-    }
-
-    dependencyManagement {
-      imports {
-        mavenBom supportDependencies.spring_cloud_azure_dependencies
-      }
-    }
-    ```
-
 #### フロントエンドアプリケーションの設定
 
 1. `auth-frontend\.env.dev` を開きます。
@@ -267,6 +235,38 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 ### バックエンドアプリケーション
 
 1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `application.properties` を設定、ライブラリを追加します。
+1. `dependencies.gradle`を開きます。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+
+    ```gradle
+    ext {
+      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
+
+      supportDependencies = [
+        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
+        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
+        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+      ]
+    }
+    ```
+
+1. `\web\build.gradle`を開きます。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+
+    ```gradle
+    dependencies {
+      implementation supportDependencies.spring_cloud_azure_starter
+      implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
+    }
+
+    dependencyManagement {
+      imports {
+        mavenBom supportDependencies.spring_cloud_azure_dependencies
+      }
+    }
+    ```
+
 1. `\web\src\main\java\com\[プロジェクト名]\web\security` フォルダーを作成し、サンプルの以下のコードをコピーします。
    - UserIdTHreadContextFilter.java
    - WebSecurityConfiguration.java
