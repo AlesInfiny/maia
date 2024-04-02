@@ -6,7 +6,7 @@ ext {
     spotbugsVersion = "6.0.9"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "2.4.0"
+    springdocOpenapiVersion = "2.5.0"
     activeDirectoryVersion = "5.11.0"
     springCloudAzureVersion = "5.11.0"
 
