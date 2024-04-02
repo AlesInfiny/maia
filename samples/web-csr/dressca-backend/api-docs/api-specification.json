@@ -215,7 +215,7 @@
     "/api/basket-items/{catalogItemId}": {
       "delete": {
         "description": "買い物かごから指定したカタログアイテム Id の商品を削除します.\u003cbr\u003ecatalogItemId には買い物かご内に存在するカタログアイテム Id を指定してください. カタログアイテム Id は 1 以上の整数です.0以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します. 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.",
-        "operationId": "deleteBasketItemAsync",
+        "operationId": "deleteBasketItem",
         "parameters": [
           {
             "in": "path",
