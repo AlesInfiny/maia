@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Azure AD B2C ユーザー認証",
+    "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "ServerTime",
+      "description": "認証不要でサーバーの現在時刻を取得する"
+    },
+    {
+      "name": "User",
+      "description": "認証済みユーザのユーザIDを取得するAPI"
+    }
+  ],
+  "paths": {
+    "/api/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "ログインに成功したユーザIDを取得します.",
+        "description": "ログインに成功したユーザIDを取得します.",
+        "operationId": "getUser",
+        "responses": {
+          "401": {
+            "description": "未認証エラー."
+          },
+          "200": {
+            "description": "成功.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/servertime": {
+      "get": {
+        "tags": [
+          "ServerTime"
+        ],
+        "summary": "サーバーの現在時刻を取得します.",
+        "description": "サーバーの現在時刻を取得します.",
+        "operationId": "getServerTime",
+        "responses": {
+          "200": {
+            "description": "成功.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserResponse": {
+        "required": [
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "TimeResponse": {
+        "required": [
+          "serverTime"
+        ],
+        "type": "object",
+        "properties": {
+          "serverTime": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -132,6 +132,11 @@ jobs:
           cd samples/web-csr
           zip -r ../../documents/contents/samples/downloads/dressca.zip *
 
+      - name: azure-ad-b2c.zipの作成
+        run: |
+          cd samples/azure-ad-b2c-sample
+          zip -r ../../documents/contents/samples/downloads/azure-ad-b2c.zip *
+
       - name: ドキュメントのビルド
         id: build_documents
         continue-on-error: true
