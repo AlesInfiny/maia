@@ -9,7 +9,8 @@
 Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 SPA アプリケーション（ AlesInfiny Maia のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーすることで、 Azure AD B2C を利用したユーザー認証機能を組み込めます。
+また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
+これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
 
 ## 前提
 
@@ -18,7 +19,7 @@ Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供�
 - Azure サブスクリプション
 - サブスクリプション内、またはサブスクリプション内のリソース グループ内で共同作成者以上のロールが割り当てられている Azure アカウント
 
-Azure サブスクリプションを持っていない場合、 [無料アカウントを作成](https://azure.microsoft.com/ja-jp/free/?WT.mc_id=A261C142F) できます。
+Azure サブスクリプションを持っていない場合、 [無料アカウントを作成](https://azure.microsoft.com/ja-jp/free) できます。
 
 ## 動作環境
 
@@ -79,8 +80,8 @@ auth-backend
 
 ```text
 auth-frontend
-├ .env.dev ............................. Azure AD B2C への接続情報を記載する設定ファイル
-├ env.d.ts ............................. 上の設定ファイルを読み込む TypeScript ファイル
+├ .env.dev ............................. Azure AD B2C への接続情報といった環境変数を記載する設定ファイル
+├ env.d.ts ............................. 上の環境変数の型定義を行う TypeScript ファイル
 └ src
 　 ├ api-client
 　 │ └ index.ts ........................ Web API 呼び出し時の共通処理を記述する TypeScript ファイル
@@ -118,9 +119,9 @@ auth-frontend
 ## サンプルで実現している認証フロー
 
 本サンプルでは、 Microsoft 認証ライブラリ（ MSAL ）の使用によって、 [OAuth 2.0 承認コードフロー](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/authorization-code-flow) を実現しています。
-なお、以下の処理は MSAL.js (JavaScript 用 Microsoft Authentication Library) によって行われます。
+なお、以下の処理は [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser) (JavaScript 用 Microsoft Authentication Library) によって行われます。
 
-- state の検証
+- state のリクエストへの設定、およびレスポンスの設定値の検証
 
 ## 前提となる OSS ライブラリ
 
@@ -137,7 +138,7 @@ auth-frontend
 
 ## サンプルの動作方法
 
-本サンプルを動作させるには、事前作業として Azure AD B2C のテナントを作成し、アプリケーションを登録する作業が必要です。
+本サンプルをローカルマシンで動作させるには、事前に Azure AD B2C のテナントを作成し、アプリケーションを登録する作業が必要です。
 
 ### Azure AD B2C テナントの作成
 
@@ -152,7 +153,7 @@ auth-frontend
    - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes) に従って、アプリにスコープを追加します。
-   - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、作成するスコープは 1 つで良いです。
+   - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
    - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleWebAPI 」を選択します。
@@ -167,7 +168,7 @@ auth-frontend
 1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleSPA 」を選択します。
 1. 「認証」ブレードを選択し、「シングルページアプリケーション」の「リダイレクト URI」に `http://localhost` を追加します。
-1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に SampleWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
+1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
 
 ### ユーザーフローの作成
 
@@ -186,7 +187,6 @@ auth-frontend
     spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
     spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
     spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
-    spring.cloud.azure.active-directory.b2c.login-flow=sign-up-or-sign-in
     spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
     spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
     cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
@@ -284,7 +284,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     }
     ```
 
-1. 未認証の場合の場合の例外ハンドラを実装します。
+1. 未認証の場合の例外ハンドラを実装します。
 
     ```java
     @ControllerAdvice
@@ -297,7 +297,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     }
     ```
 
-1. ソリューションをビルドします。
+1. バックエンドアプリケーションをビルドします。
 
 ### フロントエンドアプリケーション
 
