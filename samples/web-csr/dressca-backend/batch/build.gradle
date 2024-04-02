@@ -22,6 +22,7 @@ dependencies {
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.mybatis_spring_native
+	implementation 'org.springframework.boot:spring-boot-starter-parent:3.2.4'
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
