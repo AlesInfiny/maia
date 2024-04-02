@@ -21,6 +21,7 @@ ext {
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c:$activeDirectoryVersion",
         spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+        spring_security_test : 'org.springframework.security:spring-security-test',
 
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple"
