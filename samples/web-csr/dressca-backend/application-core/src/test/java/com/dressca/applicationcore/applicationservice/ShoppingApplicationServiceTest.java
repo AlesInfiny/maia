@@ -63,7 +63,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
-    int quantity = 1;
 
     // 期待する戻り値
     // なし
@@ -76,7 +75,9 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
+
     // テストメソッドの実行
+    int quantity = 1;
     service.addItemToBasket(buyerId, catalogItemId, quantity);
 
     // モックが想定通り呼び出されていることの確認
@@ -92,7 +93,6 @@ public class ShoppingApplicationServiceTest {
     String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
     BigDecimal price = BigDecimal.valueOf(1000);
-    int quantity = -1;
 
     // モックの設定
     Long basketId = 1L;
@@ -105,7 +105,9 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
 
     // テストメソッドの実行
+    int quantity = -1;
     service.addItemToBasket(buyerId, catalogItemId, quantity);
+
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -121,7 +123,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     long catalogItemId = 1L;
-    int quantity = 1;
 
     // モックの設定
     Long basketId = 1L;
@@ -132,6 +133,7 @@ public class ShoppingApplicationServiceTest {
 
     try {
       // テストメソッドの実行
+      int quantity = 1;
       service.addItemToBasket(buyerId, catalogItemId, quantity);
       fail("CatalogNotFoundException が発生しなければ失敗");
     } catch (CatalogNotFoundException e) {
@@ -152,8 +154,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     List<Long> catalogItemIds = List.of(1L);
-    int newQuantity = 5;
-    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
     Long basketId = 1L;
@@ -163,7 +163,10 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
     // テストメソッドの実行
+    int newQuantity = 5;
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
     service.setQuantities(buyerId, quantities);
+
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
@@ -176,8 +179,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     List<Long> catalogItemIds = List.of(1L);
-    int newQuantity = 5;
-    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
     Long basketId = 1L;
@@ -187,7 +188,10 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
     // テストメソッドの実行
+    int newQuantity = 5;
+    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
     service.setQuantities(buyerId, quantities);
+
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
@@ -201,8 +205,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     List<Long> catalogItemIds = List.of(1L);
-    int newQuantity = 5;
-    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
     Long basketId = 1L;
@@ -211,6 +213,8 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
     try {
       // テストメソッドの実行
+      int newQuantity = 5;
+      Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
       service.setQuantities(buyerId, quantities);
       fail("CatalogNotFoundException が発生しなければ失敗");
     } catch (CatalogNotFoundException e) {
@@ -227,8 +231,6 @@ public class ShoppingApplicationServiceTest {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
     List<Long> catalogItemIds = List.of(1L);
-    int newQuantity = 5;
-    Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
 
     // モックの設定
     Long basketId = 1L;
@@ -238,6 +240,8 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     try {
       // テストメソッドの実行
+      int newQuantity = 5;
+      Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
       service.setQuantities(buyerId, quantities);
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     } catch (CatalogItemInBasketNotFoundException e) {
@@ -254,7 +258,7 @@ public class ShoppingApplicationServiceTest {
 
     // テスト用の入力データ
     String dummyBuyerId = "dummyId";
-    List<Long> catalogItemIds = List.of(1L, 2L);
+
     // モックの設定
     Basket basket = new Basket(dummyBuyerId);
     basket.addItem(1L, BigDecimal.valueOf(1000), 1);
@@ -262,6 +266,7 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.of(basket));
     List<CatalogItem> items = List.of(new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L),
         new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L));
+    List<Long> catalogItemIds = List.of(1L, 2L);
     when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
 
     // テストメソッドの実行
