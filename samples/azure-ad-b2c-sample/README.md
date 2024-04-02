@@ -179,20 +179,19 @@ auth-frontend
 
 #### バックエンドアプリケーションの設定
 
-1. `auth-backend\src\web\main\resources\application.properties` を開きます。
+1. `auth-backend\web\src\main\resources\application.properties` を開きます。
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```properties
     spring.cloud.azure.active-directory.b2c.enabled=true
     spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
     spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
-    spring.cloud.azure.active-directory.b2c.credential.client-secret=[SampleWebAPI のクライアントシークレット]
     spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
     spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
     cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
     ```
 
-1. `auth-backend\dependencies.gradle`を開きます。
+1. `auth-backend\dependencies.gradle` を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```gradle
@@ -230,10 +229,10 @@ auth-frontend
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```properties
-    VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN=B2C_1_signupsignin1
-    VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_signupsignin1
+    VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN=[追加した「サインアップとサインインのユーザーフロー」の名前。本サンプルでは B2C_1_signupsignin1]
+    VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_[『サインアップとサインイン』のユーザフロー名]
     VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
-    VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/api.read
+    VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
     VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
     VITE_ADB2C_APP_URI=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
     ```
@@ -247,12 +246,12 @@ auth-frontend
 1. ターミナルで `npm run dev` を実行します。
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
-1. 画面の「`ログイン`」をクリックします。 Azure AD B2C の`サインイン`画面がポップアップで表示されます。
+1. 画面の「 `ログイン` 」をクリックします。 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
 1. 「 Sign up now 」リンクをクリックします。
 1. 使用可能なメールアドレスを入力し、「 Send verification code 」をクリックします。
 1. 上の手順で入力したメールアドレス宛に Verification code が送信されるので、画面に入力して「 Verify code 」をクリックします。
 1. 画面に新しいパスワード等の必要事項を入力し、「 Create 」をクリックします。
-1. `サインイン`が成功し、画面に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードで`サインイン`できるようになります。
+1. `サインイン` が成功し、画面に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードで `サインイン` できるようになります。
 
 Azure AD B2C に追加したユーザーは、以下の手順で削除できます。
 
