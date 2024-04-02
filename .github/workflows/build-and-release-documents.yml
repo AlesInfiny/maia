@@ -7,6 +7,7 @@ on:
     branches: [main]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-Beta[0-9]+'
   pull_request:
     branches: [main]
     paths:
@@ -34,7 +35,20 @@ jobs:
   build:
     name: ドキュメントのビルド
     runs-on: ubuntu-latest
+    outputs:
+      is_pre_release: ${{ steps.setup-variables.outputs.is_pre_release }}
     steps:
+      - id: setup-variables
+        name: 変数の初期化
+        run: |
+          pre_release=false
+          if [[ "${{ github.ref_name }}" == *"Beta"* ]]; then
+            pre_release=true
+          fi
+          echo "is_pre_release:$pre_release"
+          echo "is_pre_release=$pre_release" >> $GITHUB_ENV
+          echo "is_pre_release=$pre_release" >> $GITHUB_OUTPUT
+
       - name: ブランチのチェックアウト
         uses: actions/checkout@v4
         with:
@@ -118,6 +132,11 @@ jobs:
           cd samples/web-csr
           zip -r ../../documents/contents/samples/downloads/dressca.zip *
 
+      - name: azure-ad-b2c.zipの作成
+        run: |
+          cd samples/azure-ad-b2c-sample
+          zip -r ../../documents/contents/samples/downloads/azure-ad-b2c.zip *
+
       - name: ドキュメントのビルド
         id: build_documents
         continue-on-error: true
@@ -184,6 +203,7 @@ jobs:
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
+          prerelease: ${{ needs.build.outputs.is_pre_release }}
 
   release-documents:
     name: ドキュメントのリリース
@@ -222,7 +242,7 @@ jobs:
   swap:
     name: 本番環境への反映承認
     needs: [release-github, release-documents]
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: needs.build.outputs.is_pre_release == 'false' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認

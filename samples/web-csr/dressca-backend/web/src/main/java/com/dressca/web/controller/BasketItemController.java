@@ -1,16 +1,13 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.BasketDetail;
+import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketApplicationService;
 import com.dressca.applicationcore.baskets.BasketItem;
-import com.dressca.applicationcore.baskets.BasketNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogDomainService;
+import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
 import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
@@ -29,9 +26,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,13 +47,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BasketItemController {
 
   @Autowired
-  private BasketApplicationService basketApplicationService;
-  @Autowired
-  private CatalogDomainService catalogDomainService;
-  @Autowired
-  private CatalogRepository catalogRepository;
-
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private ShoppingApplicationService shoppingApplicationService;
 
   /**
    * 買い物かごアイテムの一覧を取得します。
@@ -72,11 +60,9 @@ public class BasketItemController {
   @GetMapping
   public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = basketApplicationService.getOrCreateBasketForUser(buyerId);
-    List<Long> catalogItemIds = basket.getItems().stream()
-        .map(basketItem -> basketItem.getCatalogItemId())
-        .collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
+    Basket basket = basketItemsForUser.getBasket();
+    List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
     BasketResponse basketDto = BasketMapper.convert(basket);
 
     for (BasketItemResponse item : basketDto.getBasketItems()) {
@@ -112,27 +98,12 @@ public class BasketItemController {
         .collect(Collectors.toMap(
             PutBasketItemRequest::getCatalogItemId,
             PutBasketItemRequest::getQuantity));
-
-    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
-    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
-        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
-        .collect(Collectors.toList());
-    if (!notExistsInBasketCatalogIds.isEmpty()) {
-      return ResponseEntity.badRequest().build();
-    }
-
-    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-    if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
-      return ResponseEntity.badRequest().build();
-    }
 
     try {
-      basketApplicationService.setQuantities(basket.getId(), quantities);
-    } catch (BasketNotFoundException e) {
-      // ここでは発生しえないのでシステム例外をスロー
-      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+      shoppingApplicationService.setQuantities(buyerId, quantities);
+    } catch (CatalogNotFoundException | CatalogItemInBasketNotFoundException e) {
+      return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.noContent().build();
   }
@@ -165,25 +136,13 @@ public class BasketItemController {
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
-
-    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-    List<Long> catalogItemIds = List.of(postBasketItem.getCatalogItemId());
-    if (!this.catalogDomainService.existAll(catalogItemIds)) {
-      return ResponseEntity.badRequest().build();
-    }
-
-    CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(catalogItemIds).get(0);
     try {
-      this.basketApplicationService.addItemToBasket(
-          basket.getId(),
+      this.shoppingApplicationService.addItemToBasket(
+          buyerId,
           postBasketItem.getCatalogItemId(),
-          catalogItem.getPrice(),
           postBasketItem.getAddedQuantity());
-    } catch (BasketNotFoundException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+    } catch (CatalogNotFoundException e) {
+      return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
   }
@@ -208,21 +167,16 @@ public class BasketItemController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
       @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム Id がない.", content = @Content) })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteBasketItemAsync(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
       HttpServletRequest req) {
-    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
     String buyerId = req.getAttribute("buyerId").toString();
-    Basket basket = this.basketApplicationService.getOrCreateBasketForUser(buyerId);
-    if (!basket.isInCatalogItem(catalogItemId)) {
-      return ResponseEntity.notFound().build();
-    }
 
     try {
-      this.basketApplicationService.setQuantities(basket.getId(), Map.of(catalogItemId, 0));
-    } catch (BasketNotFoundException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
+      this.shoppingApplicationService.setQuantities(buyerId, Map.of(catalogItemId, 0));
+    } catch (CatalogNotFoundException e) {
       return ResponseEntity.badRequest().build();
+    } catch (CatalogItemInBasketNotFoundException e) {
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.noContent().build();
   }

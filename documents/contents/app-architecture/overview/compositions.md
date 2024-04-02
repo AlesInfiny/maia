@@ -21,6 +21,10 @@ Vue.js を用いた SPA の構成をとります。
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading=lazy }
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading=lazy }
 
+!!! note ""
+
+    上の図で使用している OSS 製品名およびロゴのクレジット情報は [こちら](../../about-maia/credits.md) を参照してください。
+
 ### Web アプリケーション ( サーバーサイドレンダリング ) {#server-side-rendering}
 
 ( 今後追加予定 )
