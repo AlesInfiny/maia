@@ -25,22 +25,10 @@ import { CatalogItemAsset } from './catalog-item-asset';
 export interface CatalogItem {
     /**
      * 
-     * @type {number}
-     * @memberof CatalogItem
-     */
-    'id'?: number;
-    /**
-     * 
      * @type {Array<CatalogItemAsset>}
      * @memberof CatalogItem
      */
     'assets'?: Array<CatalogItemAsset>;
-    /**
-     * 
-     * @type {CatalogCategory}
-     * @memberof CatalogItem
-     */
-    'catalogCategory'?: CatalogCategory;
     /**
      * 
      * @type {CatalogBrand}
@@ -49,16 +37,40 @@ export interface CatalogItem {
     'catalogBrand'?: CatalogBrand;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof CatalogItem
      */
-    'name'?: string;
+    'catalogBrandId'?: number;
+    /**
+     * 
+     * @type {CatalogCategory}
+     * @memberof CatalogItem
+     */
+    'catalogCategory'?: CatalogCategory;
+    /**
+     * 
+     * @type {number}
+     * @memberof CatalogItem
+     */
+    'catalogCategoryId'?: number;
     /**
      * 
      * @type {string}
      * @memberof CatalogItem
      */
     'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CatalogItem
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogItem
+     */
+    'name'?: string;
     /**
      * 
      * @type {number}
@@ -71,17 +83,5 @@ export interface CatalogItem {
      * @memberof CatalogItem
      */
     'productCode'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItem
-     */
-    'catalogCategoryId'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItem
-     */
-    'catalogBrandId'?: number;
 }
 

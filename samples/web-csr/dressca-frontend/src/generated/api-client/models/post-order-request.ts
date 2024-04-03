@@ -25,6 +25,12 @@ export interface PostOrderRequest {
      * @type {string}
      * @memberof PostOrderRequest
      */
+    'azanaAndOthers': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostOrderRequest
+     */
     'fullName': string;
     /**
      * 
@@ -37,18 +43,12 @@ export interface PostOrderRequest {
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'todofuken': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'shikuchoson': string;
     /**
      * 
      * @type {string}
      * @memberof PostOrderRequest
      */
-    'azanaAndOthers': string;
+    'todofuken': string;
 }
 

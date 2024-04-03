@@ -25,12 +25,12 @@ export interface PostBasketItemsRequest {
      * @type {number}
      * @memberof PostBasketItemsRequest
      */
-    'catalogItemId': number;
+    'addedQuantity'?: number;
     /**
      * 
      * @type {number}
      * @memberof PostBasketItemsRequest
      */
-    'addedQuantity'?: number;
+    'catalogItemId': number;
 }
 

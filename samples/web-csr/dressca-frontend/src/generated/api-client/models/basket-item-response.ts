@@ -23,16 +23,16 @@ import { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 export interface BasketItemResponse {
     /**
      * 
-     * @type {number}
+     * @type {CatalogItemSummaryResponse}
      * @memberof BasketItemResponse
      */
-    'catalogItemId': number;
+    'catalogItem'?: CatalogItemSummaryResponse;
     /**
      * 
      * @type {number}
      * @memberof BasketItemResponse
      */
-    'unitPrice': number;
+    'catalogItemId': number;
     /**
      * 
      * @type {number}
@@ -47,9 +47,9 @@ export interface BasketItemResponse {
     'subTotal': number;
     /**
      * 
-     * @type {CatalogItemSummaryResponse}
+     * @type {number}
      * @memberof BasketItemResponse
      */
-    'catalogItem'?: CatalogItemSummaryResponse;
+    'unitPrice': number;
 }
 
