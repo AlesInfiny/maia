@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Azure AD B2C ユーザー認証",
     "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
+    "title": "Azure AD B2C ユーザー認証",
     "version": "v1"
   },
   "servers": [
@@ -13,98 +13,98 @@
   ],
   "tags": [
     {
-      "name": "ServerTime",
-      "description": "認証不要でサーバーの現在時刻を取得する"
+      "description": "認証不要でサーバーの現在時刻を取得する",
+      "name": "ServerTime"
     },
     {
-      "name": "User",
-      "description": "認証済みユーザのユーザIDを取得するAPI"
+      "description": "認証済みユーザのユーザIDを取得するAPI",
+      "name": "User"
     }
   ],
   "paths": {
-    "/api/user": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "ログインに成功したユーザIDを取得します.",
-        "description": "ログインに成功したユーザIDを取得します.",
-        "operationId": "getUser",
-        "responses": {
-          "401": {
-            "description": "未認証エラー."
-          },
-          "200": {
-            "description": "成功.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      }
-    },
     "/api/servertime": {
       "get": {
-        "tags": [
-          "ServerTime"
-        ],
-        "summary": "サーバーの現在時刻を取得します.",
         "description": "サーバーの現在時刻を取得します.",
         "operationId": "getServerTime",
         "responses": {
           "200": {
-            "description": "成功.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TimeResponse"
                 }
               }
-            }
+            },
+            "description": "成功."
           }
-        }
+        },
+        "summary": "サーバーの現在時刻を取得します.",
+        "tags": [
+          "ServerTime"
+        ]
+      }
+    },
+    "/api/user": {
+      "get": {
+        "description": "ログインに成功したユーザIDを取得します.",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            },
+            "description": "成功."
+          },
+          "401": {
+            "description": "未認証エラー."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "ログインに成功したユーザIDを取得します.",
+        "tags": [
+          "User"
+        ]
       }
     }
   },
   "components": {
     "schemas": {
-      "UserResponse": {
-        "required": [
-          "userId"
-        ],
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          }
-        }
-      },
       "TimeResponse": {
-        "required": [
-          "serverTime"
-        ],
         "type": "object",
         "properties": {
           "serverTime": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "serverTime"
+        ]
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ]
       }
     },
     "securitySchemes": {
       "Bearer": {
-        "type": "http",
+        "bearerFormat": "JWT",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "type": "http"
       }
     }
   }
