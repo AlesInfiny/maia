@@ -61,7 +61,7 @@ Bean Validation のカスタムルールで実装すると処理方式の統一�
 
 - エラーレスポンスの生成
 
-    Web API のエラーレスポンスは、 [RFC7807](https://datatracker.ietf.org/doc/html/rfc7807) に準拠した形式で返却します。
+    Web API のエラーレスポンスは、 [9457](https://datatracker.ietf.org/doc/html/rfc9457) に準拠した形式で返却します。
 
     HTTP ステータスコードは発生したエラーの種類に応じて使い分けます。
     エラーレスポンスに使用する代表的な HTTP ステータスコードは以下の通りです。
