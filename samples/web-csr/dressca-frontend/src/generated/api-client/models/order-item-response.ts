@@ -44,12 +44,12 @@ export interface OrderItemResponse {
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'unitPrice': number;
+    'subTotal': number;
     /**
      * 
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'subTotal': number;
+    'unitPrice': number;
 }
 

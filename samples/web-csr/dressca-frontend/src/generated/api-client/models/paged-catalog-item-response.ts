@@ -32,12 +32,6 @@ export interface PagedCatalogItemResponse {
      * @type {number}
      * @memberof PagedCatalogItemResponse
      */
-    'totalCount'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PagedCatalogItemResponse
-     */
     'page'?: number;
     /**
      * 
@@ -45,5 +39,11 @@ export interface PagedCatalogItemResponse {
      * @memberof PagedCatalogItemResponse
      */
     'pageSize'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PagedCatalogItemResponse
+     */
+    'totalCount'?: number;
 }
 

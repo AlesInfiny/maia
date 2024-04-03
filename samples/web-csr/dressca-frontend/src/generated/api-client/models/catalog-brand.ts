@@ -29,15 +29,15 @@ export interface CatalogBrand {
     'id'?: number;
     /**
      * 
-     * @type {string}
-     * @memberof CatalogBrand
-     */
-    'name'?: string;
-    /**
-     * 
      * @type {Array<CatalogItem>}
      * @memberof CatalogBrand
      */
     'items'?: Array<CatalogItem>;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogBrand
+     */
+    'name'?: string;
 }
 

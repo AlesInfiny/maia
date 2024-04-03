@@ -24,12 +24,6 @@ import { BasketItemResponse } from './basket-item-response';
 export interface BasketResponse {
     /**
      * 
-     * @type {string}
-     * @memberof BasketResponse
-     */
-    'buyerId': string;
-    /**
-     * 
      * @type {AccountResponse}
      * @memberof BasketResponse
      */
@@ -40,5 +34,11 @@ export interface BasketResponse {
      * @memberof BasketResponse
      */
     'basketItems'?: Array<BasketItemResponse>;
+    /**
+     * 
+     * @type {string}
+     * @memberof BasketResponse
+     */
+    'buyerId': string;
 }
 
