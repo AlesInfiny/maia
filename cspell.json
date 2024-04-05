@@ -1,9 +1,17 @@
 {
     "ignorePaths": [
         "maia.code-workspace",
+        "cspell.json",
         "package.json",
         "package-lock.json",
         "requirements.txt",
+        "mkdocs.yml",
+        "LICENSE",
+        "LICENSE-CODE",
+        "**/.eslintrc.cjs",
+        "**/.prettierrc.json",
+        "**/openapitools.json",
+        "**/iis-files/**",
         "**/node_modules/**",
         "**/build-artifacts/**",
         ".vscode"
