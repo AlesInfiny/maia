@@ -31,7 +31,7 @@ export const useBasketStore = defineStore({
       await basketItemsApi.putBasketItem(params);
     },
     async remove(catalogItemId: number) {
-      await basketItemsApi.deleteBasketItemAsync(catalogItemId);
+      await basketItemsApi.deleteBasketItem(catalogItemId);
     },
     async fetch() {
       const response = await basketItemsApi.getBasketItems();

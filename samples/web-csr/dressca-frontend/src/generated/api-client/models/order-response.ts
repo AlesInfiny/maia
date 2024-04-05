@@ -24,10 +24,16 @@ import { OrderItemResponse } from './order-item-response';
 export interface OrderResponse {
     /**
      * 
-     * @type {number}
+     * @type {AccountResponse}
      * @memberof OrderResponse
      */
-    'id': number;
+    'account'?: AccountResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderResponse
+     */
+    'azanaAndOthers': string;
     /**
      * 
      * @type {string}
@@ -39,13 +45,25 @@ export interface OrderResponse {
      * @type {string}
      * @memberof OrderResponse
      */
-    'orderDate': string;
+    'fullName': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderResponse
+     */
+    'id': number;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'fullName': string;
+    'orderDate': string;
+    /**
+     * 
+     * @type {Array<OrderItemResponse>}
+     * @memberof OrderResponse
+     */
+    'orderItems'?: Array<OrderItemResponse>;
     /**
      * 
      * @type {string}
@@ -57,30 +75,12 @@ export interface OrderResponse {
      * @type {string}
      * @memberof OrderResponse
      */
-    'todofuken': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'shikuchoson': string;
     /**
      * 
      * @type {string}
      * @memberof OrderResponse
      */
-    'azanaAndOthers': string;
-    /**
-     * 
-     * @type {AccountResponse}
-     * @memberof OrderResponse
-     */
-    'account'?: AccountResponse;
-    /**
-     * 
-     * @type {Array<OrderItemResponse>}
-     * @memberof OrderResponse
-     */
-    'orderItems'?: Array<OrderItemResponse>;
+    'todofuken': string;
 }
 

@@ -37,6 +37,7 @@
     "@textlint-rule/require-header-id": true,
     "@textlint-ja/no-synonyms": {
       "allows": [
+        "=",
         "アプリ",
         "アプリケーション",
         "以降",
@@ -68,6 +69,7 @@
         "利用",
         "ルール",
         "ログ"
+
       ],
       "preferWords": [
         "インターフェース",

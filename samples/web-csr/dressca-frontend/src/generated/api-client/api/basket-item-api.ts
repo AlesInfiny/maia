@@ -39,9 +39,9 @@ export const BasketItemApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteBasketItemAsync: async (catalogItemId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteBasketItem: async (catalogItemId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogItemId' is not null or undefined
-            assertParamExists('deleteBasketItemAsync', 'catalogItemId', catalogItemId)
+            assertParamExists('deleteBasketItem', 'catalogItemId', catalogItemId)
             const localVarPath = `/api/basket-items/{catalogItemId}`
                 .replace(`{${"catalogItemId"}}`, encodeURIComponent(String(catalogItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -185,8 +185,8 @@ export const BasketItemApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteBasketItemAsync(catalogItemId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBasketItemAsync(catalogItemId, options);
+        async deleteBasketItem(catalogItemId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBasketItem(catalogItemId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -238,8 +238,8 @@ export const BasketItemApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteBasketItemAsync(catalogItemId: number, options?: any): AxiosPromise<void> {
-            return localVarFp.deleteBasketItemAsync(catalogItemId, options).then((request) => request(axios, basePath));
+        deleteBasketItem(catalogItemId: number, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteBasketItem(catalogItemId, options).then((request) => request(axios, basePath));
         },
         /**
          * 買い物かごアイテムの一覧を返却する.
@@ -288,8 +288,8 @@ export class BasketItemApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BasketItemApi
      */
-    public deleteBasketItemAsync(catalogItemId: number, options?: AxiosRequestConfig) {
-        return BasketItemApiFp(this.configuration).deleteBasketItemAsync(catalogItemId, options).then((request) => request(this.axios, this.basePath));
+    public deleteBasketItem(catalogItemId: number, options?: AxiosRequestConfig) {
+        return BasketItemApiFp(this.configuration).deleteBasketItem(catalogItemId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -22,10 +22,10 @@
 export interface CatalogItemAsset {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CatalogItemAsset
      */
-    'id'?: number;
+    'assetCode'?: string;
     /**
      * 
      * @type {number}
@@ -34,9 +34,9 @@ export interface CatalogItemAsset {
     'catalogItemId'?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof CatalogItemAsset
      */
-    'assetCode'?: string;
+    'id'?: number;
 }
 

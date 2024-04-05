@@ -51,9 +51,11 @@ nav:
               # - guidebooks/how-to-develop/vue-js/index.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
-  # - サンプル解説:
-      # - samples/index.md
-  - AlesInfiny Maia OSS Edition について:
+  - サンプル解説:
+      - samples/index.md
+      - Azure AD B2C を利用したユーザー認証:
+          - samples/azure-ad-b2c/index.md
+  - AlesInfiny Maia について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md

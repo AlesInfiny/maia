@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
+    "title": "Azure AD B2C ユーザー認証",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "description": "認証不要でサーバーの現在時刻を取得する",
+      "name": "ServerTime"
+    },
+    {
+      "description": "認証済みユーザのユーザIDを取得するAPI",
+      "name": "User"
+    }
+  ],
+  "paths": {
+    "/api/servertime": {
+      "get": {
+        "description": "サーバーの現在時刻を取得します.",
+        "operationId": "getServerTime",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeResponse"
+                }
+              }
+            },
+            "description": "成功."
+          }
+        },
+        "summary": "サーバーの現在時刻を取得します.",
+        "tags": [
+          "ServerTime"
+        ]
+      }
+    },
+    "/api/user": {
+      "get": {
+        "description": "ログインに成功したユーザIDを取得します.",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            },
+            "description": "成功."
+          },
+          "401": {
+            "description": "未認証エラー."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "ログインに成功したユーザIDを取得します.",
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TimeResponse": {
+        "type": "object",
+        "properties": {
+          "serverTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "serverTime"
+        ]
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  }
+}
