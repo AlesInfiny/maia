@@ -1,6 +1,6 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 
-<!-- cSpell:ignore Validatable -->
+<!-- cSpell:ignore Validatable signupsignin b2clogin -->
 
 # Azure AD B2C による認証サンプル
 
