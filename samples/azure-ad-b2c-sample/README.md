@@ -63,7 +63,7 @@ auth-backend
 　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
 　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
 　 |  |  |  └ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
-　 |  |  ├ controlleradvice
+　 |  |  ├ controllerAdvice
 　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
 　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
@@ -95,8 +95,8 @@ auth-frontend
 　 │ │  └ authentication.ts ............ 認証の結果を保持するストア
 　 │ ├ user
 　 │ │  └ user.ts ...................... 認証を必要とする Web API 呼び出しの結果を保持するストア
-　 │ ├ servertime
-　 │ └  └ servertime.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
+　 │ ├ serverTime
+　 │ └  └ serverTime.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
 　 └ views
 ```
 

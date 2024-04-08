@@ -1,4 +1,4 @@
-package com.dressca.web.controlleradvice;
+package com.dressca.web.controllerAdvice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
@@ -66,3 +66,4 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     return problemDetail;
   }
 }
+
