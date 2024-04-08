@@ -26,6 +26,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 10
     commit-message:
       prefix: "npm-root"
     labels:
@@ -37,6 +38,7 @@ updates:
     directory: "/samples/web-csr/dressca-frontend"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "npm-dressca-frontend"
     labels:
@@ -48,6 +50,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-root"
     labels:
@@ -59,6 +62,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend/application-core"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-application-core"
     labels:
@@ -70,6 +74,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend/batch"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-batch"
     labels:
@@ -81,6 +86,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend/infrastructure"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-infrastructure"
     labels:
@@ -92,6 +98,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend/system-common"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-system-common"
     labels:
@@ -103,6 +110,7 @@ updates:
     directory: "/samples/web-csr/dressca-backend/web"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-web"
     labels:
@@ -115,6 +123,7 @@ updates:
     directory: "/samples/azure-ad-b2c-sample/auth-frontend"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "npm-auth-frontend"
     labels:
@@ -126,6 +135,7 @@ updates:
     directory: "/samples/azure-ad-b2c-sample/auth-backend"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-auth-root"
     labels:
@@ -137,6 +147,7 @@ updates:
     directory: "/samples/azure-ad-b2c-sample/auth-backend/web"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-auth-web"
     labels:
