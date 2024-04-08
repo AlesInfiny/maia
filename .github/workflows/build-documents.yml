@@ -23,10 +23,6 @@ on:
       - 'requirements.txt'
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: write
-
 env:
   APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
@@ -35,20 +31,9 @@ jobs:
   build:
     name: ドキュメントのビルド
     runs-on: ubuntu-latest
-    outputs:
-      is_pre_release: ${{ steps.setup-variables.outputs.is_pre_release }}
+    permissions:
+      contents: write
     steps:
-      - id: setup-variables
-        name: 変数の初期化
-        run: |
-          pre_release=false
-          if [[ "${{ github.ref_name }}" == *"Beta"* ]]; then
-            pre_release=true
-          fi
-          echo "is_pre_release:$pre_release"
-          echo "is_pre_release=$pre_release" >> $GITHUB_ENV
-          echo "is_pre_release=$pre_release" >> $GITHUB_OUTPUT
-
       - name: ブランチのチェックアウト
         uses: actions/checkout@v4
         with:
