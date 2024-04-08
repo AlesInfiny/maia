@@ -197,8 +197,8 @@ auth-frontend
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```properties
-    VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN=[追加した「サインアップとサインインのユーザーフロー」の名前。本サンプルでは B2C_1_signupsignin1]
-    VITE_ADB2C_URI_SIGNUP_SIGNIN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_[『サインアップとサインイン』のユーザフロー名]
+    VITE_ADB2C_USER_FLOW_SIGN_UP_SIGN_IN=[追加した「サインアップとサインインのユーザーフロー」の名前。本サンプルでは B2C_1_signupsignin1]
+    VITE_ADB2C_URI_SIGN_UP_SIGN_IN=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_[『サインアップとサインイン』のユーザフロー名]
     VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
     VITE_ADB2C_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
     VITE_ADB2C_APP_CLIENT_ID=[SampleSPA のクライアント ID]
@@ -308,8 +308,8 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     ```ts
     interface ImportMetaEnv {
       // 認証に関係のないプロパティは省略
-      readonly VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN: string;
-      readonly VITE_ADB2C_URI_SIGNUP_SIGNIN: string;
+      readonly VITE_ADB2C_USER_FLOW_SIGN_UP_SIGN_IN: string;
+      readonly VITE_ADB2C_URI_SIGN_UP_SIGN_IN: string;
       readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
       readonly VITE_ADB2C_SCOPE: string;
       readonly VITE_ADB2C_APP_CLIENT_ID: string;
