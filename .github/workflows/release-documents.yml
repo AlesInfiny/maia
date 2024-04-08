@@ -1,22 +1,11 @@
+# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+name: ドキュメントのリリース
+
 on:
-  push:
-    branches: [main]
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-Beta[0-9]+'
   pull_request:
     branches: [main]
     paths:
-      - 'documents/**'
-      - 'iis-files/**'
-      - 'samples/**'
       - '.github/workflows/release-documents.yml'
-      - '.markdownlint.yaml'
-      - '.textlintrc'
-      - '.yaml-lint.yml'
-      - 'package-lock.json'
-      - 'package.json'
-      - 'requirements.txt'
   workflow_dispatch:
 
 permissions:

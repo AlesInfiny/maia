@@ -1,6 +1,6 @@
 ---
 # cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
-name: ドキュメントのビルドとリリース
+name: ドキュメントのビルド
 
 on:
   push:
@@ -24,7 +24,6 @@ on:
   workflow_dispatch:
 
 env:
-  APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
