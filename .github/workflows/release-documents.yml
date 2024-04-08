@@ -33,7 +33,7 @@ jobs:
           echo "is_pre_release:$pre_release"
           echo "is_pre_release=$pre_release" >> $GITHUB_ENV
           echo "is_pre_release=$pre_release" >> $GITHUB_OUTPUT
-  
+
   release-github:
     name: Githubのリリース
     needs: check-version
