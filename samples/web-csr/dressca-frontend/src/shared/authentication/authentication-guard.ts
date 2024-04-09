@@ -8,7 +8,7 @@ export const authenticationGuard = (router: Router) => {
 
   router.beforeEach((to, from) => {
     const ignoreAuthPaths: (RouteRecordName | null | undefined)[] = [
-      'account/login',
+      'authentication/login',
       'catalog',
       'basket',
       'error',
@@ -31,6 +31,6 @@ export const authenticationGuard = (router: Router) => {
 
     const redirectFromPath: string = to.name?.toString() ?? '';
     routingStore.setRedirectFrom(redirectFromPath);
-    return { name: 'account/login' };
+    return { name: 'authentication/login' };
   });
 };
