@@ -32,6 +32,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      
+
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
