@@ -4,7 +4,6 @@ runs:
   using: "composite"
   steps:
     - name: Node.js のセットアップ
-      shell: bash
       uses: actions/setup-node@v4
       with:
         node-version: 18
@@ -14,7 +13,6 @@ runs:
       run: npm ci
 
     - name: Python のセットアップ
-      shell: bash
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
