@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-export const accountRoutes: RouteRecordRaw[] = [
+export const authenticationRoutes: RouteRecordRaw[] = [
   {
     path: '/authentication/login',
     name: 'authentication/login',
