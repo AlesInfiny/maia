@@ -6,11 +6,11 @@ import {
 
 export const b2cPolicies = {
   names: {
-    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGNUP_SIGNIN,
+    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGN_UP_SIGN_IN,
   },
   authorities: {
     signUpSignIn: {
-      authority: import.meta.env.VITE_ADB2C_URI_SIGNUP_SIGNIN,
+      authority: import.meta.env.VITE_ADB2C_URI_SIGN_UP_SIGN_IN,
     },
   },
   authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
