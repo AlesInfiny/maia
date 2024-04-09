@@ -3,12 +3,6 @@ description: "ドキュメントをビルドします。"
 runs:
   using: "composite"
   steps:
-    - name: ブランチのチェックアウト
-      shell: bash
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-
     - name: Node.js のセットアップ
       shell: bash
       uses: actions/setup-node@v4
