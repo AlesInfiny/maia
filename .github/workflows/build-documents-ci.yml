@@ -1,0 +1,37 @@
+---
+# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+name: ドキュメントのビルド (CI用)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'documents/**'
+      - 'iis-files/**'
+      - 'samples/**'
+      - '.github/workflows/build-documents-ci.yml'
+      - ".github/workflows/build-and-release-documents.yml"
+      - ".github/workflows/build-documents/action.yml"
+      - '.markdownlint.yaml'
+      - '.textlintrc'
+      - '.yaml-lint.yml'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'requirements.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ドキュメントのビルド
+    runs-on: ubuntu-latest
+    steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: ドキュメントのビルド
+        uses: ./.github/workflows/build-documents

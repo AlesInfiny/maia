@@ -2,8 +2,23 @@
 name: ドキュメントのリリース
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-Beta[0-9]+'
+    paths:
+      - "documents/**"
+      - "iis-files/**"
+      - "samples/**"
+      - ".github/workflows/build-and-release-documents.yml"
+      - ".markdownlint.yaml"
+      - ".textlintignore"
+      - ".textlintrc"
+      - ".yaml-lint.yml"
+      - "package-lock.json"
+      - "package.json"
+      - "requirements.txt"
   workflow_dispatch:
 
 permissions:
@@ -15,12 +30,17 @@ env:
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
-  check-version:
-    name: バージョンチェック
+  build:
+    name: ドキュメントのビルド
     runs-on: ubuntu-latest
     outputs:
       is_pre_release: ${{ steps.setup-variables.outputs.is_pre_release }}
     steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - id: setup-variables
         name: 変数の初期化
         run: |
@@ -32,9 +52,25 @@ jobs:
           echo "is_pre_release=$pre_release" >> $GITHUB_ENV
           echo "is_pre_release=$pre_release" >> $GITHUB_OUTPUT
 
+      - name: ドキュメントのビルド
+        uses: ./.github/workflows/build-documents
+
+      - name: IIS 用のファイル配置とパッケージング
+        run: |
+          cp -T -v -f -r iis-files documents/build-artifacts/
+          cd documents/build-artifacts
+          zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
+
+      - name: ビルドアーティファクトのアップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: documents
+          path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          retention-days: 7
+
   release-github:
     name: Githubのリリース
-    needs: check-version
+    needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
@@ -48,11 +84,11 @@ jobs:
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
-          prerelease: ${{ needs.check-version.outputs.is_pre_release }}
+          prerelease: ${{ needs.build.outputs.is_pre_release }}
 
   release-documents:
     name: ドキュメントのリリース
-    needs: check-version
+    needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
@@ -86,8 +122,8 @@ jobs:
 
   swap:
     name: 本番環境への反映承認
-    needs: [check-version, release-github, release-documents]
-    if: needs.check-version.outputs.is_pre_release == 'false' && startsWith(github.ref, 'refs/tags/v')
+    needs: [build, release-github, release-documents]
+    if: needs.build.outputs.is_pre_release == 'false' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
