@@ -11,7 +11,7 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
 import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
-import com.dressca.web.controller.dto.baskets.PutBasketItemRequest;
+import com.dressca.web.controller.dto.baskets.PutBasketItemsRequest;
 import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.mapper.BasketMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
  * {@link BasketItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "BasketItem", description = "買い物かごアイテムの情報にアクセスするAPI")
+@Tag(name = "BasketItems", description = "買い物かごアイテムの情報にアクセスするAPI")
 @RequestMapping("/api/basket-items")
 @AllArgsConstructor
 public class BasketItemController {
@@ -89,15 +89,15 @@ public class BasketItemController {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
   @PutMapping()
-  public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemRequest> putBasketItems,
+  public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemsRequest> putBasketItems,
       HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
     Map<Long, Integer> quantities = putBasketItems.stream()
         .collect(Collectors.toMap(
-            PutBasketItemRequest::getCatalogItemId,
-            PutBasketItemRequest::getQuantity));
+            PutBasketItemsRequest::getCatalogItemId,
+            PutBasketItemsRequest::getQuantity));
     String buyerId = req.getAttribute("buyerId").toString();
 
     try {
