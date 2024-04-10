@@ -41,6 +41,10 @@ dependencies {
 }
 ```
 
+### Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
+
+`springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書の出力について設定する必要があります。
+
 ### web プロジェクトの依存プロジェクトの設定 {#config-web-projects}
 
 web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
