@@ -3,7 +3,7 @@ import type {
   BasketResponse,
   BasketItemResponse,
   PostBasketItemsRequest,
-  PutBasketItemRequest,
+  PutBasketItemsRequest,
 } from '../../src/generated/api-client';
 import type { Connect } from 'vite';
 
@@ -203,7 +203,7 @@ export const basketApiMock = (middlewares: Connect.Server) => {
       }
 
       if (req.method === 'PUT') {
-        const dto: PutBasketItemRequest[] = JSON.parse(body);
+        const dto: PutBasketItemsRequest[] = JSON.parse(body);
         dto.forEach((putBasketItem) => {
           const target = basket.basketItems?.filter(
             (item) => item.catalogItemId === putBasketItem.catalogItemId,
