@@ -12,6 +12,8 @@ on:
       - "iis-files/**"
       - "samples/**"
       - ".github/workflows/build-and-release-documents.yml"
+      - ".github/workflows/build-documents/action.yml"
+      - ".github/workflows/pack-and-upload/action.yml"
       - ".markdownlint.yaml"
       - ".textlintignore"
       - ".textlintrc"
@@ -55,18 +57,10 @@ jobs:
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
 
-      - name: IIS 用のファイル配置とパッケージング
-        run: |
-          cp -T -v -f -r iis-files documents/build-artifacts/
-          cd documents/build-artifacts
-          zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
-
-      - name: ビルドアーティファクトのアップロード
-        uses: actions/upload-artifact@v4
+      - name: ビルドアーティファクトのパッケージングとアップロード
+        uses: ./.github/workflows/pack-and-upload
         with:
-          name: documents
-          path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
-          retention-days: 7
+          document_artifact_filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
 
   release-github:
     name: Githubのリリース

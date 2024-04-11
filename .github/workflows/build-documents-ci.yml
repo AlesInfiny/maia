@@ -12,6 +12,7 @@ on:
       - '.github/workflows/build-documents-ci.yml'
       - ".github/workflows/build-and-release-documents.yml"
       - ".github/workflows/build-documents/action.yml"
+      - ".github/workflows/pack-and-upload/action.yml"
       - '.markdownlint.yaml'
       - '.textlintrc'
       - '.yaml-lint.yml'
@@ -22,6 +23,9 @@ on:
 
 permissions:
   contents: read
+
+env:
+  DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
   build:
@@ -35,3 +39,9 @@ jobs:
 
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
+
+      - name: ビルドアーティファクトのパッケージングとアップロード
+        if: github.event_name == 'workflow_dispatch'
+        uses: ./.github/workflows/pack-and-upload
+        with:
+          document_artifact_filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
