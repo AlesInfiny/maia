@@ -13,36 +13,38 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { CatalogItemResponse } from './catalog-item-response';
 
 /**
  * 
  * @export
- * @interface PagedCatalogItemResponse
+ * @interface PagedListOfCatalogItemResponse
  */
-export interface PagedCatalogItemResponse {
+export interface PagedListOfCatalogItemResponse {
     /**
      * 
      * @type {Array<CatalogItemResponse>}
-     * @memberof PagedCatalogItemResponse
+     * @memberof PagedListOfCatalogItemResponse
      */
     'items'?: Array<CatalogItemResponse>;
     /**
      * 
      * @type {number}
-     * @memberof PagedCatalogItemResponse
+     * @memberof PagedListOfCatalogItemResponse
      */
     'page'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PagedCatalogItemResponse
+     * @memberof PagedListOfCatalogItemResponse
      */
     'pageSize'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PagedCatalogItemResponse
+     * @memberof PagedListOfCatalogItemResponse
      */
     'totalCount'?: number;
 }

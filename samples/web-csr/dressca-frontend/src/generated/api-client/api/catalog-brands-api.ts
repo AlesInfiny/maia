@@ -13,20 +13,21 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CatalogBrand } from '../models';
+import { CatalogBrandResponse } from '../models';
 /**
- * CatalogBrandApi - axios parameter creator
+ * CatalogBrandsApi - axios parameter creator
  * @export
  */
-export const CatalogBrandApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CatalogBrandsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * カタログブランドの一覧を取得する.
@@ -34,7 +35,7 @@ export const CatalogBrandApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrand: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCatalogBrand: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/catalog-brands`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -62,11 +63,11 @@ export const CatalogBrandApiAxiosParamCreator = function (configuration?: Config
 };
 
 /**
- * CatalogBrandApi - functional programming interface
+ * CatalogBrandsApi - functional programming interface
  * @export
  */
-export const CatalogBrandApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CatalogBrandApiAxiosParamCreator(configuration)
+export const CatalogBrandsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CatalogBrandsApiAxiosParamCreator(configuration)
     return {
         /**
          * カタログブランドの一覧を取得する.
@@ -74,19 +75,21 @@ export const CatalogBrandApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogBrand(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogBrand>>> {
+        async getCatalogBrand(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogBrandResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogBrand(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CatalogBrandsApi.getCatalogBrand']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * CatalogBrandApi - factory interface
+ * CatalogBrandsApi - factory interface
  * @export
  */
-export const CatalogBrandApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CatalogBrandApiFp(configuration)
+export const CatalogBrandsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CatalogBrandsApiFp(configuration)
     return {
         /**
          * カタログブランドの一覧を取得する.
@@ -94,27 +97,28 @@ export const CatalogBrandApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrand(options?: any): AxiosPromise<Array<CatalogBrand>> {
+        getCatalogBrand(options?: any): AxiosPromise<Array<CatalogBrandResponse>> {
             return localVarFp.getCatalogBrand(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * CatalogBrandApi - object-oriented interface
+ * CatalogBrandsApi - object-oriented interface
  * @export
- * @class CatalogBrandApi
+ * @class CatalogBrandsApi
  * @extends {BaseAPI}
  */
-export class CatalogBrandApi extends BaseAPI {
+export class CatalogBrandsApi extends BaseAPI {
     /**
      * カタログブランドの一覧を取得する.
      * @summary カタログブランドの一覧を取得する.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogBrandApi
+     * @memberof CatalogBrandsApi
      */
-    public getCatalogBrand(options?: AxiosRequestConfig) {
-        return CatalogBrandApiFp(this.configuration).getCatalogBrand(options).then((request) => request(this.axios, this.basePath));
+    public getCatalogBrand(options?: RawAxiosRequestConfig) {
+        return CatalogBrandsApiFp(this.configuration).getCatalogBrand(options).then((request) => request(this.axios, this.basePath));
     }
 }
+
