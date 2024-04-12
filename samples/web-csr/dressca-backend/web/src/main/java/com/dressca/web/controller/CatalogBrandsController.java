@@ -41,7 +41,7 @@ public class CatalogBrandsController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
   @GetMapping()
-  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrand() {
+  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
         .map(CatalogBrandMapper::convert)
         .collect(Collectors.toList());

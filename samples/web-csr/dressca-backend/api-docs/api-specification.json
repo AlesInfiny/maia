@@ -247,7 +247,7 @@
     "/api/catalog-brands": {
       "get": {
         "description": "カタログブランドの一覧を取得する.",
-        "operationId": "getCatalogBrand",
+        "operationId": "getCatalogBrands",
         "responses": {
           "200": {
             "content": {

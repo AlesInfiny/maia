@@ -35,7 +35,7 @@ export const CatalogBrandsApiAxiosParamCreator = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrand: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCatalogBrands: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/catalog-brands`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -75,10 +75,10 @@ export const CatalogBrandsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogBrand(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogBrandResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogBrand(options);
+        async getCatalogBrands(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogBrandResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogBrands(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CatalogBrandsApi.getCatalogBrand']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CatalogBrandsApi.getCatalogBrands']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -97,8 +97,8 @@ export const CatalogBrandsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrand(options?: any): AxiosPromise<Array<CatalogBrandResponse>> {
-            return localVarFp.getCatalogBrand(options).then((request) => request(axios, basePath));
+        getCatalogBrands(options?: any): AxiosPromise<Array<CatalogBrandResponse>> {
+            return localVarFp.getCatalogBrands(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -117,8 +117,8 @@ export class CatalogBrandsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CatalogBrandsApi
      */
-    public getCatalogBrand(options?: RawAxiosRequestConfig) {
-        return CatalogBrandsApiFp(this.configuration).getCatalogBrand(options).then((request) => request(this.axios, this.basePath));
+    public getCatalogBrands(options?: RawAxiosRequestConfig) {
+        return CatalogBrandsApiFp(this.configuration).getCatalogBrands(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
