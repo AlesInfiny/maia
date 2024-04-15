@@ -1,0 +1,21 @@
+name: file-to-summary
+description: テキストファイルの内容をジョブサマリに出力する複合アクション
+inputs:
+  header:
+    description: ジョブサマリに出力するヘッダー
+    required: true
+  body:
+    description: ジョブサマリに出力するファイルのパス
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const body = await fs.readFileSync("${{ inputs.body }}");
+          await core.summary
+            .addHeading("${{ inputs.header }}", 2)
+            .addCodeBlock(body)
+            .write();
