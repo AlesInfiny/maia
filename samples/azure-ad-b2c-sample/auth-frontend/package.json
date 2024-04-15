@@ -1,6 +1,7 @@
 {
   "name": "auth-frontend",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "run-p typecheck build-only --print-label",
