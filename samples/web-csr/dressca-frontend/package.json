@@ -12,6 +12,7 @@
     "test:e2e:ci": "start-server-and-test dev http://localhost:5173/ 'cypress run'",
     "typecheck": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && stylelint **/*.{vue,css} --fix",
+    "lint:ci": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore && stylelint **/*.{vue,css} --fix",
     "mock": "vite --mode mock",
     "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
