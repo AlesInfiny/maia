@@ -89,7 +89,7 @@ public class BasketItemController {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
   @PutMapping()
-  public ResponseEntity<?> putBasketItem(@RequestBody List<PutBasketItemsRequest> putBasketItems,
+  public ResponseEntity<?> putBasketItems(@RequestBody List<PutBasketItemsRequest> putBasketItems,
       HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();

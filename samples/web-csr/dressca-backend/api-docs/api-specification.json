@@ -184,7 +184,7 @@
       },
       "put": {
         "description": "買い物かごアイテム内の数量を変更します. 買い物かご内に存在しないカタログアイテム ID は指定できません.\u003cbr\u003eこの API では、買い物かご内に存在する商品の数量を変更できます. 買い物かご内に存在しないカタログアイテム Id を指定すると HTTP 400 を返却します.\u003cbr\u003eまたシステムに登録されていないカタログアイテム Id を指定した場合も HTTP 400 を返却します.",
-        "operationId": "putBasketItem",
+        "operationId": "putBasketItems",
         "requestBody": {
           "content": {
             "application/json": {

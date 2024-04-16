@@ -28,7 +28,7 @@ export const useBasketStore = defineStore({
           quantity: newQuantity,
         },
       ];
-      await basketItemsApi.putBasketItem(params);
+      await basketItemsApi.putBasketItems(params);
     },
     async remove(catalogItemId: number) {
       await basketItemsApi.deleteBasketItem(catalogItemId);
