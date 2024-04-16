@@ -23,3 +23,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーシ
 1. [Java アプリケーションの処理方式](java-application-processing-system.md)
 
     AlesInfiny Maia で構築する Java アプリケーションの共通的な処理方式を解説します。
+
+1. [トランザクション管理方針](transaction-management.md)
+
+    AlesInfiny Maia で構築する Java アプリケーションのトランザクション管理方針を解説します。
