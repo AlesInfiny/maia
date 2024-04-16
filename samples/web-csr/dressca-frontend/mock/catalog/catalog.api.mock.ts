@@ -1,13 +1,13 @@
 const base = 'api';
 import * as url from 'url';
 import type {
-  CatalogCategory,
-  CatalogBrand,
+  CatalogCategoryResponse,
+  CatalogBrandResponse,
   PagedListOfCatalogItemResponse,
 } from '../../src/generated/api-client';
 import type { Connect } from 'vite';
 
-const categories: CatalogCategory[] = [
+const categories: CatalogCategoryResponse[] = [
   {
     id: 1,
     name: '服',
@@ -22,7 +22,7 @@ const categories: CatalogCategory[] = [
   },
 ];
 
-const brands: CatalogBrand[] = [
+const brands: CatalogBrandResponse[] = [
   {
     id: 1,
     name: '高級なブランド',
