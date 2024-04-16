@@ -29,20 +29,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-            fetch-depth: 1
+          fetch-depth: 1
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-            node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - uses: actions/cache@v4
         id: node_modules_cache_id
         env:
-            cache-name: cache-node-modules-azure-ad-b2c-auth-frontend
+          cache-name: cache-node-modules-azure-ad-b2c-auth-frontend
         with:
-            path: '**/node_modules'
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: node パッケージのキャッシュ確認
         run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
@@ -67,22 +67,22 @@ jobs:
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-            body: /var/tmp/lint-result.txt
-            header: 'lintの結果 :pen:'
+          body: /var/tmp/lint-result.txt
+          header: 'lintの結果 :pen:'
 
       - name: 型チェックの結果出力
         if: ${{ success() || (failure() && steps.run-typecheck.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-            body: /var/tmp/typecheck-result.txt
-            header: '型チェックの結果 :pencil2:'
+          body: /var/tmp/typecheck-result.txt
+          header: '型チェックの結果 :pencil2:'
 
       - name: ビルドの結果出力
         if: ${{ success() || (failure() && steps.application-build.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-            body: /var/tmp/build-result.txt
-            header: 'ビルドの結果 :gear:'
+          body: /var/tmp/build-result.txt
+          header: 'ビルドの結果 :gear:'
 
   build-backend:
     name: 'バックエンドアプリケーションのビルド'
