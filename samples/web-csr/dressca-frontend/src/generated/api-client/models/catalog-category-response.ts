@@ -17,20 +17,20 @@
 /**
  * 
  * @export
- * @interface PutBasketItemRequest
+ * @interface CatalogCategoryResponse
  */
-export interface PutBasketItemRequest {
+export interface CatalogCategoryResponse {
     /**
      * 
      * @type {number}
-     * @memberof PutBasketItemRequest
+     * @memberof CatalogCategoryResponse
      */
-    'catalogItemId': number;
+    'id': number;
     /**
      * 
-     * @type {number}
-     * @memberof PutBasketItemRequest
+     * @type {string}
+     * @memberof CatalogCategoryResponse
      */
-    'quantity': number;
+    'name': string;
 }
 

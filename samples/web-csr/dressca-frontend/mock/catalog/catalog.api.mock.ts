@@ -1,13 +1,13 @@
 const base = 'api';
 import * as url from 'url';
 import type {
-  CatalogCategory,
-  CatalogBrand,
-  PagedCatalogItemResponse,
+  CatalogCategoryResponse,
+  CatalogBrandResponse,
+  PagedListOfCatalogItemResponse,
 } from '../../src/generated/api-client';
 import type { Connect } from 'vite';
 
-const categories: CatalogCategory[] = [
+const categories: CatalogCategoryResponse[] = [
   {
     id: 1,
     name: '服',
@@ -22,7 +22,7 @@ const categories: CatalogCategory[] = [
   },
 ];
 
-const brands: CatalogBrand[] = [
+const brands: CatalogBrandResponse[] = [
   {
     id: 1,
     name: '高級なブランド',
@@ -37,7 +37,7 @@ const brands: CatalogBrand[] = [
   },
 ];
 
-const catalogItemPage: PagedCatalogItemResponse = {
+const catalogItemPage: PagedListOfCatalogItemResponse = {
   page: 1,
   pageSize: 20,
   totalCount: 3,
@@ -171,7 +171,7 @@ export const catalogApiMock = (middlewares: Connect.Server) => {
   middlewares.use(`/${base}/catalog-items`, (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     const query = req.url && url.parse(req.url, true).query;
-    const page: PagedCatalogItemResponse = {
+    const page: PagedListOfCatalogItemResponse = {
       page: catalogItemPage.page,
       pageSize: catalogItemPage.pageSize,
       totalCount: catalogItemPage.totalCount,

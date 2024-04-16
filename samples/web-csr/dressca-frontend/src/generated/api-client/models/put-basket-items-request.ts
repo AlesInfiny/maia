@@ -17,26 +17,20 @@
 /**
  * 
  * @export
- * @interface CatalogItemAsset
+ * @interface PutBasketItemsRequest
  */
-export interface CatalogItemAsset {
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemAsset
-     */
-    'assetCode'?: string;
+export interface PutBasketItemsRequest {
     /**
      * 
      * @type {number}
-     * @memberof CatalogItemAsset
+     * @memberof PutBasketItemsRequest
      */
-    'catalogItemId'?: number;
+    'catalogItemId': number;
     /**
      * 
      * @type {number}
-     * @memberof CatalogItemAsset
+     * @memberof PutBasketItemsRequest
      */
-    'id'?: number;
+    'quantity': number;
 }
 

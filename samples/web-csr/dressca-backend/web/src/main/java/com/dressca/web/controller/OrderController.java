@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  * {@link Order} の情報にアクセスするAPIコントローラーです。
  */
 @RestController
-@Tag(name = "Order", description = "注文の情報にアクセスするAPI")
+@Tag(name = "Orders", description = "注文の情報にアクセスするAPI")
 @AllArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {

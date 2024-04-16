@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PagedCatalogItemResponse {
+public class PagedListOfCatalogItemResponse {
   private List<CatalogItemResponse> items;
   private int totalCount;
   private int page;
