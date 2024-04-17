@@ -1,6 +1,7 @@
 {
   "name": "auth-frontend",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "run-p typecheck build-only --print-label",
@@ -9,6 +10,7 @@
     "test:unit": "vitest",
     "typecheck": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint:ci": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
@@ -16,32 +18,35 @@
   "dependencies": {
     "@azure/msal-browser": "^3.11.1",
     "@heroicons/vue": "^2.1.1",
-    "axios": "^1.6.2",
+    "axios": "^1.6.8",
     "pinia": "^2.1.7",
-    "vue": "^3.3.0"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.9.0",
-    "@rushstack/eslint-patch": "^1.7.2",
+    "@openapitools/openapi-generator-cli": "^2.13.1",
+    "@rushstack/eslint-patch": "^1.10.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.10.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.5",
-    "@vue/tsconfig": "^0.1.3",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.56.0",
+    "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.24.0",
-    "jsdom": "^23.0.1",
+    "jsdom": "^24.0.0",
     "npm-run-all2": "^6.1.2",
-    "prettier": "^3.2.2",
-    "typescript": "~4.5.5",
-    "vite": "^5.1.6",
-    "vitest": "^1.3.1",
-    "vue-tsc": "^2.0.7"
+    "prettier": "^3.2.5",
+    "typescript": "~5.3.3",
+    "vite": "^5.2.6",
+    "vitest": "^1.4.0",
+    "vue-tsc": "^2.0.11"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.13.0"
   }
 }
