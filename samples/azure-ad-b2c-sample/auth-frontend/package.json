@@ -20,7 +20,7 @@
     "@heroicons/vue": "^2.1.1",
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
-    "vue": "^3.4.21"
+    "vue": "^3.4.23"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.1",
