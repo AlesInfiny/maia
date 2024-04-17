@@ -31,7 +31,7 @@ import lombok.AllArgsConstructor;
  * {@link Asset} の情報にアクセスするAPIコントローラーです。
  */
 @RestController
-@Tag(name = "Asset", description = "アセットの情報にアクセスするAPI")
+@Tag(name = "Assets", description = "アセットの情報にアクセスするAPI")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
 public class AssetsController {

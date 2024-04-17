@@ -13,31 +13,24 @@
  */
 
 
-import { CatalogItem } from './catalog-item';
 
 /**
  * 
  * @export
- * @interface CatalogBrand
+ * @interface CatalogBrandResponse
  */
-export interface CatalogBrand {
+export interface CatalogBrandResponse {
     /**
      * 
      * @type {number}
-     * @memberof CatalogBrand
+     * @memberof CatalogBrandResponse
      */
-    'id'?: number;
-    /**
-     * 
-     * @type {Array<CatalogItem>}
-     * @memberof CatalogBrand
-     */
-    'items'?: Array<CatalogItem>;
+    'id': number;
     /**
      * 
      * @type {string}
-     * @memberof CatalogBrand
+     * @memberof CatalogBrandResponse
      */
-    'name'?: string;
+    'name': string;
 }
 
