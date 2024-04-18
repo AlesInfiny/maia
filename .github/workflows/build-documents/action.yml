@@ -1,5 +1,9 @@
 name: "ドキュメントのビルド"
 description: "ドキュメントをビルドします。"
+inputs:
+  output-folder-name:
+    desctiption: "ビルドしたドキュメントの出力先フォルダ名"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -15,7 +19,7 @@ runs:
     - name: Python のセットアップ
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: "3.x"
 
     - name: pip パッケージのインストール
       shell: bash
@@ -47,7 +51,6 @@ runs:
         echo 'LINT_STATUS=Error' >> $GITHUB_ENV
 
     - name: yamllint の実行
-      shell: bash
       id: run-yamllint
       continue-on-error: true
       run: |
@@ -110,7 +113,7 @@ runs:
         fi
         cd documents
         echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
-        mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
+        mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
 
     - name: ドキュメントビルドの結果表示(成功)
       shell: bash

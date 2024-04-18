@@ -1,5 +1,5 @@
 # cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
-name: ドキュメントのリリース
+name: ドキュメントのビルドとリリース
 
 on:
   push:
@@ -7,28 +7,11 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+-Beta[0-9]+'
-    paths:
-      - "documents/**"
-      - "iis-files/**"
-      - "samples/**"
-      - ".github/workflows/build-and-release-documents.yml"
-      - ".github/workflows/build-documents/action.yml"
-      - ".github/workflows/pack-and-upload/action.yml"
-      - ".markdownlint.yaml"
-      - ".textlintignore"
-      - ".textlintrc"
-      - ".yaml-lint.yml"
-      - "package-lock.json"
-      - "package.json"
-      - "requirements.txt"
   workflow_dispatch:
-
-permissions:
-  id-token: write
-  contents: write
 
 env:
   APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
+  DOCUMENT_FOLDER_PATH: documents/build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
@@ -56,11 +39,14 @@ jobs:
 
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
+        with:
+          output-folder-name: build-artifacts
 
       - name: ビルドアーティファクトのパッケージングとアップロード
         uses: ./.github/workflows/pack-and-upload
         with:
-          document_artifact_filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          packaging-folder-path: ${{ env.DOCUMENT_FOLDER_PATH }}
+          document-artifact-filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
 
   release-github:
     name: Githubのリリース
@@ -103,7 +89,7 @@ jobs:
         with:
           app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
           slot-name: staging
-          package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
+          package: "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}"
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@v1

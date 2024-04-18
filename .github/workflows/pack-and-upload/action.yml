@@ -1,7 +1,10 @@
 name: "ビルドアーティファクトのパッケージングとアップロード"
 description: "ドキュメントをzip化してアップロードします。"
 inputs:
-  document_artifact_filename:
+  packaging-folder-path:
+    desctiption: "パッケージングする対象のディレクトリパス"
+    required: true
+  document-artifact-filename:
     description: "zipファイル名"
     required: true
 
@@ -9,14 +12,15 @@ runs:
   using: "composite"
   steps:
     - name: IIS 用のファイル配置とパッケージング
+      shell: bash
       run: |
-        cp -T -v -f -r iis-files documents/build-artifacts/
-        cd documents/build-artifacts
-        zip -r ../${{ inputs.document_artifact_filename }} *
+        cp -T -v -f -r iis-files ${{ inputs.packaging-folder-path }}
+        cd ${{ inputs.packaging-folder-path }}
+        zip -r ../${{ inputs.document-artifact-filename }} *
 
     - name: ビルドアーティファクトのアップロード
       uses: actions/upload-artifact@v4
       with:
         name: documents
-        path: documents/${{ inputs.document_artifact_filename }}
+        path: documents/${{ inputs.document-artifact-filename }}
         retention-days: 7
