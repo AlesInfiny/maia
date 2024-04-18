@@ -104,7 +104,6 @@ runs:
     - name: ドキュメントのバージョン設定
       shell: bash
       id: setup-version
-      continue-on-error: true
       run: |
         if [ ${{ startsWith(github.ref, 'refs/tags/v') }} ];
         then
