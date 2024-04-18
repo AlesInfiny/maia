@@ -51,6 +51,7 @@ runs:
         echo 'LINT_STATUS=Error' >> $GITHUB_ENV
 
     - name: yamllint の実行
+      shell: bash
       id: run-yamllint
       continue-on-error: true
       run: |
