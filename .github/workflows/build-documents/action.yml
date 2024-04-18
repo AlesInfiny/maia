@@ -101,9 +101,9 @@ runs:
         cd samples/azure-ad-b2c-sample
         zip -r ../../documents/contents/samples/downloads/azure-ad-b2c.zip *
 
-    - name: ドキュメントのビルド
+    - name: ドキュメントのバージョン設定
       shell: bash
-      id: build_documents
+      id: setup-version
       continue-on-error: true
       run: |
         if [ ${{ startsWith(github.ref, 'refs/tags/v') }} ];
@@ -112,6 +112,12 @@ runs:
         else
           export VERSION="Test Version"
         fi
+
+    - name: ドキュメントのビルド
+      shell: bash
+      id: build_documents
+      continue-on-error: true
+      run: |
         cd documents
         echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
         mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
