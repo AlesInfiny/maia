@@ -114,11 +114,15 @@ npm run generate-client
 import axios from 'axios';
 import * as apiClient from '@/generated/api-client';
 
-const config = new apiClient.Configuration({});
+function createConfig(): apiClient.Configuration {
+  const config = new apiClient.Configuration({
+  });
+  return config;
+}
 
 const axiosInstance = axios.create({});
 
-const defaultApi = new apiClient.DefaultApi(config, '', axiosInstance);
+const defaultApi = new apiClient.DefaultApi(createConfig(), '', axiosInstance);
 
 export { defaultApi };
 ```
@@ -129,7 +133,7 @@ export { defaultApi };
 このファイルでは、 api-client や axios 共通の設定をします。
 
 1. `src/generated/api-client/api` に自動生成された API を `import` します。
-1. 上記の例の `DefaultApi` と同様に `apiClient.XxxApi(config, '', axiosInstance)` コンストラクターでインスタンスを生成します。
+1. 上記の例の `DefaultApi` と同様に `apiClient.XxxApi(createConfig(), '', axiosInstance)` コンストラクターでインスタンスを生成します。
 1. 生成したインスタンスを `export` します。
 
 ??? info "BaseAPI のコンストラクター"

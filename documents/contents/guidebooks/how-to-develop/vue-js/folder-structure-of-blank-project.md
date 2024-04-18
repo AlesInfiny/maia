@@ -27,10 +27,11 @@ description: Vue.js を用いたクライアントサイドアプリケーショ
 ├ package.json ------------ パッケージのメタデータ（依存するパッケージなど）を定義するファイル
 ├ README.md --------------- ブランクプロジェクト作成時点ではテンプレートの説明が記述されたファイル
 ├ tsconfig.app.json ------- アプリケーションの TypeScript として読み込む対象を定義する設定ファイル
-├ tsconfig.config.json ---- TypeScript の設定ファイルとして読み込む対象を定義する設定ファイル
+├ tsconfig.node.json ------ TypeScript の設定ファイルとして読み込む対象を定義する設定ファイル
 ├ tsconfig.json ----------- TypeScript の設定ファイル
 ├ tsconfig.vitest.json ---- 単体テストの TypeScript として読み込む対象を定義する設定ファイル
-└ vite.config.ts ---------- 単体テストの設定ファイル
+├ vite.config.ts ---------- Vite の設定ファイル
+└ vitest.config.ts -------- 単体テストの設定ファイル
 ```
 
 各フォルダーの内部にどのようなサブフォルダーを作成するかは、[アーキテクチャ解説](./../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
