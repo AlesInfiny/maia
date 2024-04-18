@@ -10,7 +10,7 @@ description: Vue.js を用いたクライアントサイドアプリケーショ
 以下のコマンドを実行して Vue.js をインストールします。
 
 ```terminal
-npm init vue@3
+npm create vue@latest
 ```
 
 create-vue パッケージをインストールする必要があり、続行するかどうかを確認するメッセージが表示されるので、「y」を選択します。
@@ -32,7 +32,7 @@ create-vue パッケージをインストールする必要があり、続行す
 √ Add an End-to-End Testing Solution? » Cypress
 √ Add ESLint for code quality? ... Yes
 √ Add Prettier for code formatting? ... Yes
-√ Add Vue DevTools 7 extension for debugging (experimental) ... No
+√ Add Vue DevTools 7 extension for debugging? (experimental) ... No
 ```
 
 ## ブランクプロジェクトのビルドと実行 {#build-and-serve-blank-project}
