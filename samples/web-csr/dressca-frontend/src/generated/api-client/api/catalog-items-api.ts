@@ -13,20 +13,21 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { PagedCatalogItemResponse } from '../models';
+import { PagedListOfCatalogItemResponse } from '../models';
 /**
- * CatalogItemApi - axios parameter creator
+ * CatalogItemsApi - axios parameter creator
  * @export
  */
-export const CatalogItemApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CatalogItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * カタログアイテムを検索して返します.
@@ -38,7 +39,7 @@ export const CatalogItemApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getByQuery: async (brandId?: number, categoryId?: number, page?: number, pageSize?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getByQuery: async (brandId?: number, categoryId?: number, page?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/catalog-items`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -82,11 +83,11 @@ export const CatalogItemApiAxiosParamCreator = function (configuration?: Configu
 };
 
 /**
- * CatalogItemApi - functional programming interface
+ * CatalogItemsApi - functional programming interface
  * @export
  */
-export const CatalogItemApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CatalogItemApiAxiosParamCreator(configuration)
+export const CatalogItemsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CatalogItemsApiAxiosParamCreator(configuration)
     return {
         /**
          * カタログアイテムを検索して返します.
@@ -98,19 +99,21 @@ export const CatalogItemApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedCatalogItemResponse>> {
+        async getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedListOfCatalogItemResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getByQuery(brandId, categoryId, page, pageSize, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CatalogItemsApi.getByQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * CatalogItemApi - factory interface
+ * CatalogItemsApi - factory interface
  * @export
  */
-export const CatalogItemApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CatalogItemApiFp(configuration)
+export const CatalogItemsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CatalogItemsApiFp(configuration)
     return {
         /**
          * カタログアイテムを検索して返します.
@@ -122,19 +125,19 @@ export const CatalogItemApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: any): AxiosPromise<PagedCatalogItemResponse> {
+        getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: any): AxiosPromise<PagedListOfCatalogItemResponse> {
             return localVarFp.getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * CatalogItemApi - object-oriented interface
+ * CatalogItemsApi - object-oriented interface
  * @export
- * @class CatalogItemApi
+ * @class CatalogItemsApi
  * @extends {BaseAPI}
  */
-export class CatalogItemApi extends BaseAPI {
+export class CatalogItemsApi extends BaseAPI {
     /**
      * カタログアイテムを検索して返します.
      * @summary カタログアイテムを検索して返します.
@@ -144,9 +147,10 @@ export class CatalogItemApi extends BaseAPI {
      * @param {number} [pageSize] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogItemApi
+     * @memberof CatalogItemsApi
      */
-    public getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: AxiosRequestConfig) {
-        return CatalogItemApiFp(this.configuration).getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return CatalogItemsApiFp(this.configuration).getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 }
+

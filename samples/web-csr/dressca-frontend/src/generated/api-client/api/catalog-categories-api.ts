@@ -13,20 +13,21 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CatalogCategory } from '../models';
+import { CatalogCategoryResponse } from '../models';
 /**
- * CatalogCategoryApi - axios parameter creator
+ * CatalogCategoriesApi - axios parameter creator
  * @export
  */
-export const CatalogCategoryApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CatalogCategoriesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * カタログカテゴリの一覧を取得します.
@@ -34,7 +35,7 @@ export const CatalogCategoryApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogCategories: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCatalogCategories: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/catalog-categories`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -62,11 +63,11 @@ export const CatalogCategoryApiAxiosParamCreator = function (configuration?: Con
 };
 
 /**
- * CatalogCategoryApi - functional programming interface
+ * CatalogCategoriesApi - functional programming interface
  * @export
  */
-export const CatalogCategoryApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CatalogCategoryApiAxiosParamCreator(configuration)
+export const CatalogCategoriesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CatalogCategoriesApiAxiosParamCreator(configuration)
     return {
         /**
          * カタログカテゴリの一覧を取得します.
@@ -74,19 +75,21 @@ export const CatalogCategoryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogCategories(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogCategory>>> {
+        async getCatalogCategories(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogCategoryResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogCategories(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CatalogCategoriesApi.getCatalogCategories']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * CatalogCategoryApi - factory interface
+ * CatalogCategoriesApi - factory interface
  * @export
  */
-export const CatalogCategoryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CatalogCategoryApiFp(configuration)
+export const CatalogCategoriesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CatalogCategoriesApiFp(configuration)
     return {
         /**
          * カタログカテゴリの一覧を取得します.
@@ -94,27 +97,28 @@ export const CatalogCategoryApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogCategories(options?: any): AxiosPromise<Array<CatalogCategory>> {
+        getCatalogCategories(options?: any): AxiosPromise<Array<CatalogCategoryResponse>> {
             return localVarFp.getCatalogCategories(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * CatalogCategoryApi - object-oriented interface
+ * CatalogCategoriesApi - object-oriented interface
  * @export
- * @class CatalogCategoryApi
+ * @class CatalogCategoriesApi
  * @extends {BaseAPI}
  */
-export class CatalogCategoryApi extends BaseAPI {
+export class CatalogCategoriesApi extends BaseAPI {
     /**
      * カタログカテゴリの一覧を取得します.
      * @summary カタログカテゴリの一覧を取得します.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogCategoryApi
+     * @memberof CatalogCategoriesApi
      */
-    public getCatalogCategories(options?: AxiosRequestConfig) {
-        return CatalogCategoryApiFp(this.configuration).getCatalogCategories(options).then((request) => request(this.axios, this.basePath));
+    public getCatalogCategories(options?: RawAxiosRequestConfig) {
+        return CatalogCategoriesApiFp(this.configuration).getCatalogCategories(options).then((request) => request(this.axios, this.basePath));
     }
 }
+

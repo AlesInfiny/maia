@@ -13,18 +13,19 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 /**
- * AssetApi - axios parameter creator
+ * AssetsApi - axios parameter creator
  * @export
  */
-export const AssetApiAxiosParamCreator = function (configuration?: Configuration) {
+export const AssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 与えられたアセットコードに対応するアセットを返却する.
@@ -33,7 +34,7 @@ export const AssetApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get: async (assetCode: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        get: async (assetCode: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'assetCode' is not null or undefined
             assertParamExists('get', 'assetCode', assetCode)
             const localVarPath = `/api/assets/{assetCode}`
@@ -64,11 +65,11 @@ export const AssetApiAxiosParamCreator = function (configuration?: Configuration
 };
 
 /**
- * AssetApi - functional programming interface
+ * AssetsApi - functional programming interface
  * @export
  */
-export const AssetApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AssetApiAxiosParamCreator(configuration)
+export const AssetsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
     return {
         /**
          * 与えられたアセットコードに対応するアセットを返却する.
@@ -77,19 +78,21 @@ export const AssetApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async get(assetCode: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async get(assetCode: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.get(assetCode, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AssetsApi.get']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * AssetApi - factory interface
+ * AssetsApi - factory interface
  * @export
  */
-export const AssetApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AssetApiFp(configuration)
+export const AssetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AssetsApiFp(configuration)
     return {
         /**
          * 与えられたアセットコードに対応するアセットを返却する.
@@ -98,28 +101,29 @@ export const AssetApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(assetCode: string, options?: any): AxiosPromise<any> {
+        get(assetCode: string, options?: any): AxiosPromise<File> {
             return localVarFp.get(assetCode, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * AssetApi - object-oriented interface
+ * AssetsApi - object-oriented interface
  * @export
- * @class AssetApi
+ * @class AssetsApi
  * @extends {BaseAPI}
  */
-export class AssetApi extends BaseAPI {
+export class AssetsApi extends BaseAPI {
     /**
      * 与えられたアセットコードに対応するアセットを返却する.
      * @summary アセットを取得する.
      * @param {string} assetCode アセットコード
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AssetApi
+     * @memberof AssetsApi
      */
-    public get(assetCode: string, options?: AxiosRequestConfig) {
-        return AssetApiFp(this.configuration).get(assetCode, options).then((request) => request(this.axios, this.basePath));
+    public get(assetCode: string, options?: RawAxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).get(assetCode, options).then((request) => request(this.axios, this.basePath));
     }
 }
+

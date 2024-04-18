@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PutBasketItemRequest {
+public class PutBasketItemsRequest {
   @NotNull
   private long catalogItemId;
   @NotNull
