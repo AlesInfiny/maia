@@ -25,6 +25,7 @@ permissions:
   contents: read
 
 env:
+  DOCUMENT_FOLDER_PATH: documents/build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
@@ -44,4 +45,5 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         uses: ./.github/workflows/pack-and-upload
         with:
+          packaging-folder-path: ${{ env.DOCUMENT_FOLDER_PATH }}
           document_artifact_filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
