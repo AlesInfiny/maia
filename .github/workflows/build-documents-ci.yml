@@ -21,9 +21,6 @@ on:
       - 'requirements.txt'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 env:
   DOCUMENT_FOLDER_PATH: documents/build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
