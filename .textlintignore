@@ -1,1 +1,3 @@
+# SpotBugsで自動生成されるテキストファイルをテスト対象から除外
+
 samples/**/spotbugs*.txt
