@@ -22,7 +22,8 @@ on:
   workflow_dispatch:
 
 env:
-  DOCUMENT_FOLDER_PATH: documents/build-artifacts
+  DOCUMENT_BASE_PATH: documents
+  DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
 
 jobs:
@@ -38,11 +39,12 @@ jobs:
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
         with:
-          output-folder-name: build-artifacts
+          document-base-path: ${{ env.DOCUMENT_BASE_PATH }}
+          output-folder-name: ${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
 
       - name: ビルドアーティファクトのパッケージングとアップロード
         if: github.event_name == 'workflow_dispatch'
         uses: ./.github/workflows/pack-and-upload
         with:
-          packaging-folder-path: ${{ env.DOCUMENT_FOLDER_PATH }}
-          document-artifact-filename: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
+          packaging-folder-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
+          document-artifact-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}

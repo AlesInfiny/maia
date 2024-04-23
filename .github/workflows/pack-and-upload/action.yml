@@ -4,9 +4,13 @@ inputs:
   packaging-folder-path:
     desctiption: "パッケージングする対象のディレクトリパス"
     required: true
-  document-artifact-filename:
-    description: "zipファイル名"
+  document-artifact-path:
+    description: "zipファイルのパス"
     required: true
+  iis-files-path:
+    description: "IIS用ファイルのパス"
+    required: false
+    default: iis-files
 
 runs:
   using: "composite"
@@ -14,13 +18,12 @@ runs:
     - name: IIS 用のファイル配置とパッケージング
       shell: bash
       run: |
-        cp -T -v -f -r iis-files ${{ inputs.packaging-folder-path }}
-        cd ${{ inputs.packaging-folder-path }}
-        zip -r ../${{ inputs.document-artifact-filename }} *
+        cp -T -v -f -r ${{ inputs.iis-files-path }} ${{ inputs.packaging-folder-path }}
+        zip -r ${{ inputs.document-artifact-path }} ${{ inputs.packaging-folder-path }}
 
     - name: ビルドアーティファクトのアップロード
       uses: actions/upload-artifact@v4
       with:
         name: documents
-        path: documents/${{ inputs.document-artifact-filename }}
+        path: ${{ inputs.document-artifact-path }}
         retention-days: 7

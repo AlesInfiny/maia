@@ -1,8 +1,11 @@
 name: "ドキュメントのビルド"
 description: "ドキュメントをビルドします。"
 inputs:
+  document-base-path:
+    description: "ドキュメントのベースフォルダパス"
+    required: true
   output-folder-name:
-    desctiption: "ビルドしたドキュメントの出力先フォルダ名"
+    description: "ビルドしたドキュメントの出力先フォルダ名"
     required: true
 runs:
   using: "composite"
@@ -92,14 +95,12 @@ runs:
     - name: dressca.zip の作成
       shell: bash
       run: |
-        cd samples/web-csr
-        zip -r ../../documents/contents/samples/downloads/dressca.zip *
+        zip -r ${{ inputs.document-base-path }}/contents/samples/downloads/dressca.zip samples/web-csr/*
 
     - name: azure-ad-b2c.zipの作成
       shell: bash
       run: |
-        cd samples/azure-ad-b2c-sample
-        zip -r ../../documents/contents/samples/downloads/azure-ad-b2c.zip *
+        zip -r ${{ inputs.document-base-path }}/contents/samples/downloads/azure-ad-b2c.zip samples/azure-ad-b2c-sample/*
 
     - name: ドキュメントのバージョン設定
       shell: bash
@@ -117,7 +118,7 @@ runs:
       id: build_documents
       continue-on-error: true
       run: |
-        cd documents
+        cd "${{ inputs.document-base-path }}"
         echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
         mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
 
@@ -126,7 +127,7 @@ runs:
       if: ${{ steps.build_documents.outcome == 'success' }}
       run: |
         echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
-        cd documents
+        cd "${{ inputs.document-base-path }}"
         if [ -s mkdocs_build_log.txt ]; then
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
@@ -138,7 +139,7 @@ runs:
       if: ${{ steps.build_documents.outcome == 'failure' }}
       run: |
         echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
-        cd documents
+        cd "${{ inputs.document-base-path }}"
         if [ -s mkdocs_build_log.txt ]; then
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
