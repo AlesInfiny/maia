@@ -1,0 +1,21 @@
+name: "サンプルアプリケーションのソースコード圧縮"
+description: "サンプルアプリケーションのソースコードを圧縮します。"
+inputs:
+  compressed-source-path:
+    description: "圧縮したソースコードを配置するフォルダのGITHUB_WORKSPACEからの相対パス"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: dressca.zip の作成
+      shell: bash
+      run: |
+        cd samples/Dressca
+        zip -r ${GITHUB_WORKSPACE}/${{ inputs.compressed-source-path }}/dressca.zip *
+
+    - name: azure-ad-b2c.zip の作成
+      shell: bash
+      run: |
+        cd samples/azure-ad-b2c-sample
+        zip -r ${GITHUB_WORKSPACE}/${{ inputs.compressed-source-path }}/azure-ad-b2c.zip *

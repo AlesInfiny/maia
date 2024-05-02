@@ -6,25 +6,28 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'documents/**'
-      - 'iis-files/**'
-      - 'samples/**'
-      - '.github/workflows/build-documents-ci.yml'
+      - "documents/**"
+      - "iis-files/**"
+      - "samples/**"
+      - ".github/workflows/build-documents-ci.yml"
       - ".github/workflows/build-and-release-documents.yml"
+      - ".github/workflows/lint-documents/action.yml"
+      - ".github/workflows/compress-sample-source/action.yml"
       - ".github/workflows/build-documents/action.yml"
       - ".github/workflows/pack-and-upload/action.yml"
-      - '.markdownlint.yaml'
-      - '.textlintrc'
-      - '.yaml-lint.yml'
-      - 'package-lock.json'
-      - 'package.json'
-      - 'requirements.txt'
+      - ".markdownlint.yaml"
+      - ".textlintrc"
+      - ".yaml-lint.yml"
+      - "package-lock.json"
+      - "package.json"
+      - "requirements.txt"
   workflow_dispatch:
 
 env:
   DOCUMENT_BASE_PATH: documents
   DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
+  COMPRESSED_SOURCE_PATH: contents/samples/downloads
 
 jobs:
   build:
@@ -35,6 +38,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
+      - name: ドキュメントの Lint
+        continue-on-error: true
+        uses: ./.github/workflows/lint-documents
+
+      - name: サンプルアプリケーションのソースコード圧縮
+        uses: ./.github/workflows/compress-sample-source
+        with:
+          compressed-source-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.COMPRESSED_SOURCE_PATH }}
 
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
