@@ -1,7 +1,7 @@
 {
   "scripts": {
     "lint": "run-s lint:* --continue-on-error --print-label",
-    "lint:markdownlint-all": "npx markdownlint --config .markdownlint.yaml --ignore **/node_modules/** .",
+    "lint:markdownlint-all": "npx markdownlint --config .markdownlint.yaml --rules custom-lint-rules --ignore **/node_modules/** .",
     "lint:textlint-all": "npx textlint documents samples"
   },
   "devDependencies": {

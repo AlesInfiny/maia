@@ -1,5 +1,6 @@
 ---
 title: クレジット表記
+description: AlesInfiny Maia OSS Edition ポータルサイトのクレジット表記です。
 ---
 
 <!-- textlint-disable @textlint-rule/require-header-id -->

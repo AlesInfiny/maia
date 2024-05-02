@@ -1,5 +1,5 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
-
+<!-- markdownlint-disable-file CMD001 -->
 <!-- cSpell:ignore hoge hogehoge -->
 # AlesInfiny Maia OSS Edition ドキュメントについて
 
