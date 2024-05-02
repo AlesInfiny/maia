@@ -72,6 +72,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: ソーシャルカードプラグイン用のパッケージインストール
+        shell: bash
+        run: |
+          python -m pip install "mkdocs-material[imaging]"
+          sudo apt-get install pngquant
+
       - name: Linter の処理開始
         run: echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
 
@@ -141,6 +147,7 @@ jobs:
         id: build_documents
         continue-on-error: true
         run: |
+          export BUILD_DOCUMENTS=true
           if [ ${{ startsWith(github.ref, 'refs/tags/v') }} ];
           then
             export VERSION="${{ github.ref_name }}"
