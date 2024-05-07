@@ -1,0 +1,87 @@
+name: "ドキュメントのLint"
+description: "ドキュメントをLintします。"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Node.js のセットアップ
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: npm パッケージのインストール
+      shell: bash
+      run: npm ci
+
+    - name: Python のセットアップ
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: pip パッケージのインストール
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+
+    - name: Linter の処理開始
+      shell: bash
+      run: echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
+
+    - name: Markdownlint の実行
+      id: run-markdownlint
+      continue-on-error: true
+      shell: bash
+      run: |
+        echo '## Markdownlint Result' >> $GITHUB_STEP_SUMMARY
+        npx markdownlint --config .markdownlint.yaml --ignore **/node_modules/** --output markdownlint-result.txt .
+        echo ':heavy_check_mark: Markdownlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+    - name: Markdownlint 失敗時の結果表示
+      shell: bash
+      if: ${{ steps.run-markdownlint.outcome == 'failure' }}
+      run: |
+        echo ':x: Markdownlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat markdownlint-result.txt >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
+    - name: yamllint の実行
+      id: run-yamllint
+      continue-on-error: true
+      shell: bash
+      run: |
+        echo '## yamllint Result' >> $GITHUB_STEP_SUMMARY
+        yamllint --config-file .yaml-lint.yml --format standard . > yamllint-result.txt
+        echo ':heavy_check_mark: yamllint に成功しました。' >> $GITHUB_STEP_SUMMARY
+
+    - name: yamllint 失敗時の結果表示
+      shell: bash
+      if: ${{ steps.run-yamllint.outcome == 'failure' }}
+      run: |
+        echo ':x: yamllint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat yamllint-result.txt >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+
+    - name: textlint の実行
+      shell: bash
+      run: |
+        echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
+        npx textlint documents samples --output-file textlint-result.txt --format compact
+        if [ -f textlint-result.txt ]; then
+          echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
+        else
+          echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: Lint 結果の確認
+      shell: bash
+      if: ${{ env.LINT_STATUS == 'Error' }}
+      run: exit 1
