@@ -1,6 +1,6 @@
 ---
-title: アプリケーションアーキテクチャ
-description: AlesInfiny Maia OSS Edition の考えるアプリケーションアーキテクチャについて解説します。
+title: アプリケーション アーキテクチャ
+description: AlesInfiny Maia OSS Edition の考える アプリケーションアーキテクチャについて解説します。
 ---
 
 # アプリケーションアーキテクチャ {#top}
