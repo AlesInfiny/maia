@@ -27,6 +27,11 @@ runs:
         python -m pip install "mkdocs-material[imaging]"
         sudo apt-get install pngquant
 
+    - name: RSS プラグイン用のパッケージインストール
+      shell: bash
+      run: |
+        pip install mkdocs-rss-plugin
+
     - name: ドキュメントのビルド
       shell: bash
       id: build_documents
