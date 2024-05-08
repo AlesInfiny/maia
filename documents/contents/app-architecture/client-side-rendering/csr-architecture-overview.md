@@ -14,6 +14,10 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 ![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-light.png#only-light){ loading=lazy }
 ![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-dark.png#only-dark){ loading=lazy }
 
+!!! note ""
+
+    上の図で使用している OSS 製品名およびロゴのクレジット情報は [こちら](../../about-maia/credits.md) を参照してください。
+
 ??? note "利用ライブラリ（フロントエンド）"
 
     - [TypeScript :material-open-in-new:](https://www.typescriptlang.org/){ target=_blank }
