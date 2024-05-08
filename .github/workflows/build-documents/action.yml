@@ -21,6 +21,11 @@ runs:
           export VERSION="Test Version"
         fi
 
+    - name: RSS プラグイン用のパッケージインストール
+      shell: bash
+      run: |
+        pip install mkdocs-rss-plugin
+
     - name: ドキュメントのビルド
       shell: bash
       id: build_documents
