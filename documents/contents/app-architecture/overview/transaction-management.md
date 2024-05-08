@@ -1,6 +1,6 @@
 ---
 title: 概要編
-description: AlesInfiny Maia OSS Edition のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
 ---
 
 # トランザクション管理方針 {#top}

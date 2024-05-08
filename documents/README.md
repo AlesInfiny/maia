@@ -1,5 +1,5 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
-
+<!-- markdownlint-disable-file CMD001 -->
 <!-- cSpell:ignore hoge hogehoge -->
 # AlesInfiny Maia OSS Edition ドキュメントについて
 
@@ -207,6 +207,43 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
     設定はページ最上部に記述します。
 
     <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
+
+### 各ページの title/description の設定
+
+以下のように、各 markdown ファイルの上部に `title` と `description` を設定しています。
+
+``` text
+---
+title: CSR 編
+description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
+---
+```
+
+ここで設定した `title` と `description` を元にソーシャルカードが生成されるため、以下の文字数を守って設定します。
+( `description` を省略すると、 mkdocs.yml の `site_description` の値が設定されます。)
+
+- カード上に表示できる文字数
+    - `title`：全角 9 文字×3 行まで
+    - `description`: 半角 59 文字(全角だと 30 文字目が半分途切れる)× 2 行まで
+
+※スペースを空けないと 1 単語とみなされ、同じ行に詰め込もうとして文章が途切れるので適宜スペースで区切ってください。
+
+- 例：
+
+    - `title: Azure AD B2C を利用したユーザー認証` の場合
+    ![ソーシャルカード失敗例](readme-images/social-card-example-error.png)
+    - `title: Azure AD B2C を 利用した ユーザー認証` の場合
+    ![ソーシャルカード](readme-images/social-card-example.png)
+
+文字が途切れていないか等を適宜確認してください。
+ソーシャルカードはローカルでは生成せず、 CI 上でのドキュメントビルド時に生成されるよう設定しています。
+生成されたソーシャルカードは以下の手順で確認してください。
+
+1. GitHub Actions の「ドキュメントのビルド(CI 用)」を開き、対象のブランチを選択してワークフローを実行します。
+
+1. 実行したワークフローの Summary の Artifacts から　documents をダウンロードします。
+
+1. ダウンロードした documents.zip 内の docs.zip を解凍し、`assets/images/social` に生成されたソーシャルカードを確認します。
 
 ### 修正内容のコミット
 

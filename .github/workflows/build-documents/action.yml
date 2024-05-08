@@ -21,11 +21,18 @@ runs:
           export VERSION="Test Version"
         fi
 
+    - name: ソーシャルカードプラグイン用のパッケージインストール
+      shell: bash
+      run: |
+        python -m pip install "mkdocs-material[imaging]"
+        sudo apt-get install pngquant
+
     - name: ドキュメントのビルド
       shell: bash
       id: build_documents
       continue-on-error: true
       run: |
+        export BUILD_DOCUMENTS=true
         cd "${{ inputs.document-base-path }}"
         echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
         mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
