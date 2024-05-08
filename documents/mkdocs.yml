@@ -101,15 +101,6 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: green
-  plugins:
-    - search:
-        lang: ja
-        prebuild_index: true
-    - minify:
-        minify_html: true
-        minify_js: true
-        htmlmin_opts:
-          remove_comments: true
 
 markdown_extensions:
   - abbr
@@ -140,7 +131,23 @@ extra:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
     credits: about-maia/credits/
+    rss_created: feed_rss_created.xml
+    rss_updated: feed_rss_updated.xml
   version: !ENV [VERSION, "Local Version"]
 
 extra_css:
   - stylesheets/overrides.css
+
+plugins:
+  - search:
+      lang: ja
+  - minify:
+      minify_html: true
+      minify_js: true
+      htmlmin_opts:
+        remove_comments: true
+  - social:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
+      cards_layout_options:
+        font_family: Noto Sans JP
+  - rss

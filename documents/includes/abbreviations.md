@@ -1,6 +1,6 @@
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
 
-<!-- markdownlint-disable-file MD041 -->
+<!-- markdownlint-disable-file MD041 CMD001 -->
 <!-- 省略語の用語集として使用します。 -->
 *[AAA]: Arrange Act Assert
 *[AOP]: Aspect Oriented Programming：アスペクト指向プログラミング。

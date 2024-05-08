@@ -1,5 +1,5 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
-
+<!-- markdownlint-disable-file CMD001 -->
 <!-- cSpell:ignore hoge hogehoge -->
 # AlesInfiny Maia OSS Edition ドキュメントについて
 
@@ -35,7 +35,7 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 |               | images           |                       |                     |                     | ページ固有の画像ファイル置き場                |
 |               |                  | about-maia            |                     |                     | mdファイルの配置フォルダーと構造をそろえる    |
 |               |                  |                       | hoge.png            |                     | 画像ファイルは svg か png にする                  |
-|               |                  |                       | animation.gif       |                     | gif アニメも利用可                             |
+|               |                  |                       | animation.gif       |                     | gif アニメーションも利用可                      |
 |               |                  | app-architecture      |                     |                     |                                               |
 |               |                  | guidebooks            |                     |                     |                                               |
 |               |                  |                       | how-to-develop      |                     |                                               |
@@ -69,7 +69,7 @@ Feature ブランチの名前は「feature/<更新内容を表す名前>」と�
 Visual Studio Code を起動して、 [ファイル] メニューから [ワークスペースを開く] を選択します。
 クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
 
-[ソース管理] メニューを開き、 [チェックアウト先] を選択します。
+[`ソース管理`] メニューを開き、 [チェックアウト先] を選択します。
 
 ![チェックアウト先をクリック](readme-images/click-checkout.png)
 
@@ -84,7 +84,7 @@ main ブランチをチェックアウトしたら、 pull を実行して最新
 ### Feature ブランチの作成
 
 記事を作成するための Feature ブランチをローカルに作成します。
-[ソース管理] メニューを開き、 [ブランチ] > [分岐の作成] を選択します。
+[`ソース管理`] メニューを開き、 [ブランチ] > [分岐の作成] を選択します。
 
 ![ブランチの作成をクリック](readme-images/click-create-branch.png)
 
@@ -208,10 +208,47 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 
     <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
 
+### 各ページの title/description の設定
+
+以下のように、各 markdown ファイルの上部に `title` と `description` を設定しています。
+
+``` text
+---
+title: CSR 編
+description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
+---
+```
+
+ここで設定した `title` と `description` を元にソーシャルカードが生成されるため、以下の文字数を守って設定します。
+( `description` を省略すると、 mkdocs.yml の `site_description` の値が設定されます。)
+
+- カード上に表示できる文字数
+    - `title`：全角 9 文字×3 行まで
+    - `description`: 半角 59 文字(全角だと 30 文字目が半分途切れる)× 2 行まで
+
+※スペースを空けないと 1 単語とみなされ、同じ行に詰め込もうとして文章が途切れるので適宜スペースで区切ってください。
+
+- 例：
+
+    - `title: Azure AD B2C を利用したユーザー認証` の場合
+    ![ソーシャルカード失敗例](readme-images/social-card-example-error.png)
+    - `title: Azure AD B2C を 利用した ユーザー認証` の場合
+    ![ソーシャルカード](readme-images/social-card-example.png)
+
+文字が途切れていないか等を適宜確認してください。
+ソーシャルカードはローカルでは生成せず、 CI 上でのドキュメントビルド時に生成されるよう設定しています。
+生成されたソーシャルカードは以下の手順で確認してください。
+
+1. GitHub Actions の「ドキュメントのビルド(CI 用)」を開き、対象のブランチを選択してワークフローを実行します。
+
+1. 実行したワークフローの Summary の Artifacts から　documents をダウンロードします。
+
+1. ダウンロードした documents.zip 内の docs.zip を解凍し、`assets/images/social` に生成されたソーシャルカードを確認します。
+
 ### 修正内容のコミット
 
 記事の作成と体裁の修正が完了したら、 Feature ブランチにコミットします。
-[ソース管理] メニューを開き、上部の [メッセージ] にコミットメッセージを入力します。
+[`ソース管理`] メニューを開き、上部の [メッセージ] にコミットメッセージを入力します。
 また [✓] アイコンを押下して、ローカルリポジトリにコミットします。
 
 コミットは意味のある単位であれば、何回行ってもかまいません。
@@ -219,7 +256,7 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 ### Feature ブランチのアップロード
 
 コミットが完了したら、 Feature ブランチをプッシュして、リモートリポジトリにアップロードします。
-[ソース管理] メニューを開き、 [プッシュ] を選択します。
+[`ソース管理`] メニューを開き、 [プッシュ] を選択します。
 
 ![プッシュを選択](readme-images/click-push.png)
 

@@ -2,7 +2,7 @@
 hide:
   - navigation
 title: AlesInfiny Maia OSS Edition
-description: AlesInfiny Maia OSS Edition では、 Java アプリケーションアーキテクチャや方式設計の基礎資料を提供します。
+description: AlesInfiny Maia OSS Edition では、 Java アプリケーション アーキテクチャや方式設計の基礎資料を提供します。
 ---
 
 # AlesInfiny Maia OSS Edition にようこそ {#top}

@@ -1,0 +1,68 @@
+name: "ドキュメントのビルド"
+description: "ドキュメントをビルドします。"
+inputs:
+  document-base-path:
+    description: "ドキュメントのベースフォルダパス"
+    required: true
+  output-folder-name:
+    description: "ビルドしたドキュメントの出力先フォルダ名"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: ドキュメントのバージョン設定
+      shell: bash
+      id: setup-version
+      run: |
+        if [ ${{ startsWith(github.ref, 'refs/tags/v') }} ];
+        then
+          export VERSION="${{ github.ref_name }}"
+        else
+          export VERSION="Test Version"
+        fi
+
+    - name: ソーシャルカードプラグイン用のパッケージインストール
+      shell: bash
+      run: |
+        python -m pip install "mkdocs-material[imaging]"
+        sudo apt-get install pngquant
+
+    - name: RSS プラグイン用のパッケージインストール
+      shell: bash
+      run: |
+        pip install mkdocs-rss-plugin
+
+    - name: ドキュメントのビルド
+      shell: bash
+      id: build_documents
+      continue-on-error: true
+      run: |
+        export BUILD_DOCUMENTS=true
+        cd "${{ inputs.document-base-path }}"
+        echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
+        mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
+
+    - name: ドキュメントビルドの結果表示(成功)
+      shell: bash
+      if: ${{ steps.build_documents.outcome == 'success' }}
+      run: |
+        echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+        cd "${{ inputs.document-base-path }}"
+        if [ -s mkdocs_build_log.txt ]; then
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: ドキュメントビルドの結果表示(失敗)
+      shell: bash
+      if: ${{ steps.build_documents.outcome == 'failure' }}
+      run: |
+        echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+        cd "${{ inputs.document-base-path }}"
+        if [ -s mkdocs_build_log.txt ]; then
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        exit 1
