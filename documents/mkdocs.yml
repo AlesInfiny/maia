@@ -91,15 +91,6 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: green
-  plugins:
-    - search:
-        lang: ja
-        prebuild_index: true
-    - minify:
-        minify_html: true
-        minify_js: true
-        htmlmin_opts:
-          remove_comments: true
 
 markdown_extensions:
   - abbr
@@ -134,3 +125,13 @@ extra:
 
 extra_css:
   - stylesheets/overrides.css
+
+plugins:
+  - search:
+      lang: ja
+  - minify:
+      minify_html: true
+      minify_js: true
+      htmlmin_opts:
+        remove_comments: true
+  - rss
