@@ -23,6 +23,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -39,6 +41,8 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.systemcommon.constant.MessageIdConstant;
+import com.dressca.systemcommon.util.MessageUtil;
 
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
@@ -75,6 +79,14 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を終了しました。");
 
     // テストメソッドの実行
     int quantity = 1;
@@ -85,6 +97,10 @@ public class ShoppingApplicationServiceTest {
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -103,6 +119,14 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を終了しました。");
 
     // テストメソッドの実行
     int quantity = -1;
@@ -116,6 +140,10 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().size()).isEqualTo(0);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -130,6 +158,14 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "addItemToBasket" }))
+        .thenReturn("メソッド addItemToBasket を終了しました。");
 
     try {
       // テストメソッドの実行
@@ -145,6 +181,10 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -161,6 +201,14 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を終了しました。");
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -170,6 +218,10 @@ public class ShoppingApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -186,6 +238,14 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を終了しました。");
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -198,6 +258,10 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -211,6 +275,15 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を終了しました。");
+
     try {
       // テストメソッドの実行
       int newQuantity = 5;
@@ -224,6 +297,10 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -238,6 +315,15 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "setQuantities" }))
+        .thenReturn("メソッド setQuantities を終了しました。");
+
     try {
       // テストメソッドの実行
       int newQuantity = 5;
@@ -251,6 +337,10 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     }
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @Test
@@ -268,6 +358,14 @@ public class ShoppingApplicationServiceTest {
         new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L));
     List<Long> catalogItemIds = List.of(1L, 2L);
     when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getBasketDetail" }))
+        .thenReturn("メソッド getBasketDetail を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getBasketDetail" }))
+        .thenReturn("メソッド getBasketDetail を終了しました。");
 
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
@@ -276,11 +374,25 @@ public class ShoppingApplicationServiceTest {
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
   void testGetBasketDetail_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
+
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getBasketDetail" }))
+        .thenReturn("メソッド getBasketDetail を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getBasketDetail" }))
+        .thenReturn("メソッド getBasketDetail を終了しました。");
+
     // テストメソッドの実行
     try {
       service.getBasketDetail(buyerId);
@@ -289,6 +401,9 @@ public class ShoppingApplicationServiceTest {
     }
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(0)).findByCatalogItemIdIn(any());
+
+    // staticなモックのクローズ
+    messageUtil.close();
 
   }
 
@@ -305,6 +420,14 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(10L))).thenReturn(catalogItems);
     when(this.orderRepository.add(any())).thenReturn(order);
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "checkout" }))
+        .thenReturn("メソッド checkout を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "checkout" }))
+        .thenReturn("メソッド checkout を終了しました。");
 
     // Act
     service.checkout(buyerId, shipToAddress);
@@ -313,6 +436,9 @@ public class ShoppingApplicationServiceTest {
     verify(this.orderRepository, times(1)).add(any());
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).remove(basket);
+
+    // staticなモックのクローズ
+    messageUtil.close();
 
   }
 
@@ -323,12 +449,24 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(buyerId);
     ShipTo shipToAddress = createDefaultShipTo();
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "checkout" }))
+        .thenReturn("メソッド checkout を開始しました。");
+    messageUtil
+        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "checkout" }))
+        .thenReturn("メソッド checkout を終了しました。");
 
     // Act
     Executable action = () -> service.checkout(buyerId, shipToAddress);
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);
+
+    // staticなモックのクローズ
+    messageUtil.close();
+
   }
 
   private ShipTo createDefaultShipTo() {

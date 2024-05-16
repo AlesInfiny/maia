@@ -26,4 +26,10 @@ public class MessageIdConstant {
   /** 注文ID: {0}, 購入者ID: {1} に該当する注文情報が見つかりませんでした。 */
   public static final String E_ORDER0002_FRONT = "E_ORDER0002.front";
   public static final String E_ORDER0002_LOG = "E_ORDER0002.log";
+
+  /** メソッド {0} を開始しました。 */
+  public static final String D_METHOD0000_LOG = "D_METHOD0000.log";
+
+  /** メソッド {0} を終了しました。 */
+  public static final String D_METHOD0001_LOG = "D_METHOD0001.log";
 }

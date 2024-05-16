@@ -1,5 +1,7 @@
 package com.dressca.applicationcore.applicationservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,10 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
+import com.dressca.systemcommon.constant.MessageIdConstant;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.util.MessageUtil;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -24,6 +30,8 @@ public class AssetApplicationService {
   @Autowired
   private AssetStore store;
 
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
    * 
@@ -32,11 +40,18 @@ public class AssetApplicationService {
    * @throws AssetNotFoundException アセット情報が見つからなかった場合
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
-    Asset asset = this.repository.findByAssetCode(assetCode)
-        .orElseThrow(() -> new AssetNotFoundException(assetCode));
-    Resource resource = this.store.getResource(asset)
-        .orElseThrow(() -> new AssetNotFoundException(assetCode));
 
-    return new AssetResourceInfo(asset, resource);
+    try {
+      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getAssetResourceInfo" }));
+
+      Asset asset = this.repository.findByAssetCode(assetCode)
+          .orElseThrow(() -> new AssetNotFoundException(assetCode));
+      Resource resource = this.store.getResource(asset)
+          .orElseThrow(() -> new AssetNotFoundException(assetCode));
+
+      return new AssetResourceInfo(asset, resource);
+    } finally {
+      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getAssetResourceInfo" }));
+    }
   }
 }
