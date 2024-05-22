@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps
 name: ドキュメントのビルド (CI用)
 
 on:
@@ -16,6 +16,7 @@ on:
       - ".github/workflows/build-documents/action.yml"
       - ".github/workflows/pack-and-upload/action.yml"
       - ".markdownlint.yaml"
+      - ".textlintignore"
       - ".textlintrc"
       - ".yaml-lint.yml"
       - "package-lock.json"
