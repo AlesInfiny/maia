@@ -45,7 +45,7 @@
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.24.0",
     "jsdom": "^24.0.0",
-    "npm-run-all2": "^6.1.2",
+    "npm-run-all2": "^6.2.0",
     "postcss": "^8.4.38",
     "postcss-nesting": "^12.1.1",
     "prettier": "^3.2.5",
