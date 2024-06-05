@@ -8,6 +8,7 @@ site_author: 'アドバンスド開発技術部'
 site_description: 'AlesInfiny Maia OSS Edition のポータルサイトです。'
 site_dir: build-artifacts
 
+# yamllint disable rule:comments-indentation
 nav:
   - AlesInfiny Maia OSS Edition にようこそ:
       - index.md
@@ -75,6 +76,7 @@ nav:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md
+# yamllint enable rule:comments-indentation
 
 theme:
   name: material
@@ -156,4 +158,5 @@ plugins:
       enabled: !ENV [BUILD_DOCUMENTS, false]
       cards_layout_options:
         font_family: Noto Sans JP
-  - rss
+  - rss:
+      enabled: !ENV [BUILD_DOCUMENTS, false]

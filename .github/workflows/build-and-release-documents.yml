@@ -42,7 +42,8 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: ドキュメントの Lint
+      - id: lint-documents
+        name: ドキュメントの Lint
         continue-on-error: true
         uses: ./.github/workflows/lint-documents
 
@@ -56,6 +57,11 @@ jobs:
         with:
           document-base-path: ${{ env.DOCUMENT_BASE_PATH }}
           output-folder-name: ${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
+
+      - name: Lint結果の成否判定
+        if: steps.lint-documents.outcome == 'failure'
+        run: |
+          exit 1;
 
       - name: ビルドアーティファクトのパッケージングとアップロード
         uses: ./.github/workflows/pack-and-upload
