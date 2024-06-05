@@ -36,6 +36,12 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
+      - バッチアプリケーション編:
+          - app-architecture/batch-application/index.md
+          - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
+          - バッチアプリケーションのアーキテクチャ: app-architecture/batch-application/batch-application-architecture.md
+          - バッチアプリケーションの検討事項: app-architecture/batch-application/batch-application-consideration.md
+          - バッチアプリケーションのテスト戦略: app-architecture/batch-application/batch-application-test-strategy.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
