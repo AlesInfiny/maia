@@ -57,7 +57,7 @@ Bean Validation のカスタムルールで実装すると処理方式の統一�
 - エラーログの出力
 
     例外情報からメッセージを生成し、アプリケーションログを出力します。
-    出力先や出力内容は [ログ出力方針](../../overview/java-application-processing-system.md#logging-policy) に従います。
+    出力先や出力内容は [ログ出力方針](../../overview/java-application-processing-system/logging-policy.md#logging-policy) に従います。
 
 - エラーレスポンスの生成
 
