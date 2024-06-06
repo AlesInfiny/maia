@@ -13,6 +13,8 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 
 /**
@@ -44,12 +46,12 @@ export interface OrderItemResponse {
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'unitPrice': number;
+    'subTotal': number;
     /**
      * 
      * @type {number}
      * @memberof OrderItemResponse
      */
-    'subTotal': number;
+    'unitPrice': number;
 }
 

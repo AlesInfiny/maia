@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの開発手順を解説します。
+description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # プロジェクトの共通設定 {#top}
@@ -75,7 +75,7 @@ subprojects {
 設定項目や設定の要否はプラグインによります。
 例えば、各種ツール類のバージョン指定や、静的テストツールのルールのようなインプットファイルの指定、レポート等の出力設定などが一般的には考えられます。
 
-AlesInfiny Maia として推奨する各プラグインの設定については、以下を参照してください。
+AlesInfiny Maia OSS Edition として推奨する各プラグインの設定については、以下を参照してください。
 
 - [Java プラグイン](https://docs.gradle.org/current/userguide/java_plugin.html)
 - [Checkstyle プラグイン](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)

@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの開発手順を解説します。
+description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # プロジェクトの雛型作成 {#top}
@@ -9,7 +9,7 @@ description: バックエンドで動作する Java アプリケーションの�
 
 各 Gradle プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
-[Web サービス](https://start.spring.io/)を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
+[Web サービス](https://start.spring.io/) を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
 VS Code の場合、 [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack) が導入済みであれば利用できます。
 
 ここでは Web サービスでの作成を前提に説明します。
@@ -22,7 +22,7 @@ Web 画面上の各種設定項目は以下の通りです。
 - Project
 
     プロジェクトのビルドツールを Gradle と Apache Maven から選択します。
-    AlesInfiny Maia 版では Gradle をビルドツールとして選択することをデフォルトとしており、以降の説明でも Gradle でビルドすることを前提として解説していますが、 Apache Maven も選択できます。
+    AlesInfiny Maia OSS Edition ではデフォルトのビルドツールを Gradle としており、以降の説明でも Gradle でビルドすることを前提として解説していますが、 Apache Maven も選択できます。
 
 - Language
 
@@ -33,7 +33,7 @@ Web 画面上の各種設定項目は以下の通りです。
     利用する Spring Boot のバージョンを選択します。
     ベースとなる JDK や Spring Framework のバージョンを考慮して選択します。
     特に考慮点がなければ最新の GA 版を選択することを推奨します。
-    選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン](https://spring.io/projects/spring-boot#support)に限られ、古いバージョンは指定できません。
+    選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン](https://spring.io/projects/spring-boot#support) に限られ、古いバージョンは指定できません。
 
 - Project Meta Data：Artifact
 
@@ -46,8 +46,8 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     各サブプロジェクト全体で利用するパッケージがあれば登録します。
-    後続手順の[プロジェクトの共通設定](./common-project-settings.md)にて、後から追加できます。
-    登録すべき依存ライブラリについては、[プロジェクトの共通設定](./common-project-settings.md)を参照してください。
+    後続手順の [プロジェクトの共通設定](./common-project-settings.md) にて、後から追加できます。
+    登録すべき依存ライブラリについては、[プロジェクトの共通設定](./common-project-settings.md) を参照してください。
 
 ## サブプロジェクトの作成 {#create-sub-projects}
 
@@ -74,8 +74,8 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     プロジェクトで利用するパッケージがあれば設定します。
-    後続手順の[サブプロジェクトの個別設定](./sub-project-settings.md)にて、後から追加できます。
-    各プロジェクトの依存ライブラリについては、[サブプロジェクトの個別設定](./sub-project-settings.md)を参照してください。
+    後続手順の [サブプロジェクトの個別設定](./sub-project-settings.md) にて、後から追加できます。
+    各プロジェクトの依存ライブラリについては、[サブプロジェクトの個別設定](./sub-project-settings.md) を参照してください。
 
 ## ルートプロジェクトとサブプロジェクトの配置 {#put-projects}
 

@@ -1,7 +1,7 @@
 package com.dressca.web.controller;
 
+import com.dressca.applicationcore.applicationservice.AssetApplicationService;
 import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetApplicationService;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
@@ -31,7 +31,7 @@ import lombok.AllArgsConstructor;
  * {@link Asset} の情報にアクセスするAPIコントローラーです。
  */
 @RestController
-@Tag(name = "Asset", description = "アセットの情報にアクセスするAPI")
+@Tag(name = "Assets", description = "アセットの情報にアクセスするAPI")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
 public class AssetsController {

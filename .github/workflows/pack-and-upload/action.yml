@@ -1,0 +1,30 @@
+name: "ビルドアーティファクトのパッケージングとアップロード"
+description: "ドキュメントをzip化してアップロードします。"
+inputs:
+  packaging-folder-path:
+    description: "パッケージングする対象のGITHUB_WORKSPACEからの相対パス"
+    required: true
+  document-artifact-path:
+    description: "zipファイルのGITHUB_WORKSPACEからの相対パス"
+    required: true
+  iis-files-path:
+    description: "IIS用ファイルのGITHUB_WORKSPACEからの相対パス"
+    required: false
+    default: iis-files
+
+runs:
+  using: "composite"
+  steps:
+    - name: IIS 用のファイル配置とパッケージング
+      shell: bash
+      run: |
+        cp -T -v -f -r ${{ inputs.iis-files-path }} ${{ inputs.packaging-folder-path }}
+        cd ${{ inputs.packaging-folder-path }}
+        zip -r ${GITHUB_WORKSPACE}/${{ inputs.document-artifact-path }} *
+
+    - name: ビルドアーティファクトのアップロード
+      uses: actions/upload-artifact@v4
+      with:
+        name: documents
+        path: ${{ inputs.document-artifact-path }}
+        retention-days: 7

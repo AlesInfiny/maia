@@ -22,6 +22,12 @@
 export interface CatalogItemSummaryResponse {
     /**
      * 
+     * @type {Array<string>}
+     * @memberof CatalogItemSummaryResponse
+     */
+    'assetCodes'?: Array<string>;
+    /**
+     * 
      * @type {number}
      * @memberof CatalogItemSummaryResponse
      */
@@ -38,11 +44,5 @@ export interface CatalogItemSummaryResponse {
      * @memberof CatalogItemSummaryResponse
      */
     'productCode': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof CatalogItemSummaryResponse
-     */
-    'assetCodes'?: Array<string>;
 }
 

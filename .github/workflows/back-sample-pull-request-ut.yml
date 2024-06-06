@@ -3,11 +3,6 @@
 name: バックエンドサンプルAPに対するプルリクエスト時の単体テスト実行
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'samples/web-csr/dressca-backend/**'
-      - '.github/workflows/back-sample-pull-request-ut.yml'
   pull_request:
     branches: [main]
     paths:

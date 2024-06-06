@@ -2,7 +2,7 @@ package com.dressca.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogApplicationService;
+import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.web.controller.dto.catalog.CatalogCategoryResponse;
 import com.dressca.web.mapper.CatalogCategoryMapper;
@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogCategory} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogCategory", description = "カタログカテゴリの情報にアクセスするAPI")
+@Tag(name = "CatalogCategories", description = "カタログカテゴリの情報にアクセスするAPI")
 @RequestMapping("/api/catalog-categories")
 @AllArgsConstructor
 public class CatalogCategoriesController {
@@ -39,7 +39,7 @@ public class CatalogCategoriesController {
    */
   @Operation(summary = "カタログカテゴリの一覧を取得します.", description = "カタログカテゴリの一覧を取得します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategory.class)))) })
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategoryResponse.class)))) })
   @GetMapping()
   public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
     List<CatalogCategoryResponse> categories = this.service.getCategories().stream()

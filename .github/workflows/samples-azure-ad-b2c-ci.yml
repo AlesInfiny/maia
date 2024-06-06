@@ -1,0 +1,152 @@
+# cSpell:ignore mikepenz dorny
+name: azure-ad-b2c-sample CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/azure-ad-b2c-sample/**'
+      - '.github/workflows/samples-azure-ad-b2c-ci.yml'
+  workflow_dispatch:
+
+env:
+  BACKEND_WORKING_DIRECTORY: samples/azure-ad-b2c-sample/auth-backend
+  FRONTEND_WORKING_DIRECTORY: samples/azure-ad-b2c-sample/auth-frontend
+
+jobs:
+  build-frontend:
+    name: 'フロントエンドアプリケーションのビルド'
+    runs-on: ubuntu-latest
+    env:
+      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+    strategy:
+      matrix:
+        node-version: [20.x]
+    defaults:
+      run:
+        working-directory: ${{ env.FRONTEND_WORKING_DIRECTORY }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v4
+        id: node_modules_cache_id
+        env:
+          cache-name: cache-node-modules-azure-ad-b2c-auth-frontend
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: node パッケージのキャッシュ確認
+        run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+
+      - name: node パッケージのインストール
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        run: npm install
+
+      - id: run-lint
+        name: lintの実行
+        run: npm run lint:ci >> /var/tmp/lint-result.txt 2>&1
+
+      - id: run-typecheck
+        name: TypeScript の型チェック
+        run: npm run typecheck >> /var/tmp/typecheck-result.txt 2>&1
+
+      - id: application-build
+        name: アプリケーションのビルド
+        run: npm run build-only >> /var/tmp/build-result.txt 2>&1
+
+      - name: lintの結果出力
+        if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/lint-result.txt
+          header: 'lintの結果 :pen:'
+
+      - name: 型チェックの結果出力
+        if: ${{ success() || (failure() && steps.run-typecheck.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/typecheck-result.txt
+          header: '型チェックの結果 :pencil2:'
+
+      - name: ビルドの結果出力
+        if: ${{ success() || (failure() && steps.application-build.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/build-result.txt
+          header: 'ビルドの結果 :gear:'
+
+  build-backend:
+    name: 'バックエンドアプリケーションのビルド'
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    defaults:
+      run:
+        working-directory: ${{ env.BACKEND_WORKING_DIRECTORY }}
+
+    steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: JDK17のセットアップ
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: gradlewに実行権限付与
+        run: chmod +x ./gradlew
+
+      - id: run-build-and-tests
+        name: ビルド（コンパイル, 静的テスト, JUnit）実行
+        run: ./gradlew build > build-result.txt
+        continue-on-error: true
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+        shell: bash
+        if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+        run: |
+          echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+        if: ${{ steps.run-build-and-tests.outcome == 'success' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: コンパイルと静的テストに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+        if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':x: コンパイルまたは静的テストに失敗しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: JUnitレポート
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Maven Tests
+          path: '**/build/test-results/test/TEST-*.xml'
+          reporter: java-junit
+          fail-on-error: true

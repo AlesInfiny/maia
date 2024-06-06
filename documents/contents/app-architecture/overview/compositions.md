@@ -1,13 +1,13 @@
 ---
 title: 概要編
-description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
 ---
 
-# AlesInfiny Maia を構成するもの {#top}
+# AlesInfiny Maia OSS Edition を構成するもの {#top}
 
 ## アプリケーション構成 {#application-composition}
 
-AlesInfiny Maia として、アプリケーション形態ごとに標準的なアプリケーション構成を定義しています。
+AlesInfiny Maia OSS Edition として、アプリケーション形態ごとに標準的なアプリケーション構成を定義しています。
 ここでは主要な構成要素を示します。
 詳細はアプリケーション種別ごとの詳細ページ、および、サンプルプリケーションを参照してください。
 
@@ -20,6 +20,10 @@ Vue.js を用いた SPA の構成をとります。
 
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading=lazy }
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading=lazy }
+
+!!! note ""
+
+    上の図で使用している OSS 製品名およびロゴのクレジット情報は [こちら](../../about-maia/credits.md) を参照してください。
 
 ### Web アプリケーション ( サーバーサイドレンダリング ) {#server-side-rendering}
 

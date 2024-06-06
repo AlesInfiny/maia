@@ -1,0 +1,26 @@
+{
+  // node_modules 配下の TypeScript を利用する
+  // 初回は TypeScript: Select TypeScript version で指定する必要あり。
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  // Lint の有効化
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+
+  // Formatter を Prettier にする
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "css.validate": false,
+  "typescript.validate.enable": false,
+
+  "stylelint.validate": ["postcss", "vue"],
+
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  "cSpell.words": ["dressca", "vite"]
+}

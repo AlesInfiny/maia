@@ -14,10 +14,11 @@
 
 
 
-export * from './api/asset-api';
-export * from './api/basket-item-api';
-export * from './api/catalog-brand-api';
-export * from './api/catalog-category-api';
-export * from './api/catalog-item-api';
-export * from './api/order-api';
+export * from './api/actuator-api';
+export * from './api/assets-api';
+export * from './api/basket-items-api';
+export * from './api/catalog-brands-api';
+export * from './api/catalog-categories-api';
+export * from './api/catalog-items-api';
+export * from './api/orders-api';
 

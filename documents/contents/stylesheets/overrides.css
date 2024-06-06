@@ -1,3 +1,7 @@
 .md-grid {
     max-width: initial;
 }
+
+#va-icon {
+    vertical-align: -2px;
+}

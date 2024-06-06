@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from 'vue';
 import { useBasketStore } from '@/stores/basket/basket';
-import { useAccountStore } from '@/stores/account/account';
+import { useUserStore } from '@/stores/user/user';
 import type { BasketResponse } from '@/generated/api-client/models/basket-response';
 
 import { useOrderingStore } from '@/stores/ordering/ordering';
@@ -9,11 +9,11 @@ import { useRouter } from 'vue-router';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';
 
-const accountStore = useAccountStore();
+const userStore = useUserStore();
 
 const state = reactive({
   basket: {} as BasketResponse,
-  address: accountStore.getAddress,
+  address: userStore.getAddress,
 });
 
 const { basket, address } = toRefs(state);

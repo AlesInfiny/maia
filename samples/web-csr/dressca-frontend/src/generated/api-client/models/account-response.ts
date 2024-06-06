@@ -25,13 +25,13 @@ export interface AccountResponse {
      * @type {number}
      * @memberof AccountResponse
      */
-    'consumptionTaxRate': number;
+    'consumptionTax': number;
     /**
      * 
      * @type {number}
      * @memberof AccountResponse
      */
-    'totalItemsPrice': number;
+    'consumptionTaxRate': number;
     /**
      * 
      * @type {number}
@@ -43,7 +43,7 @@ export interface AccountResponse {
      * @type {number}
      * @memberof AccountResponse
      */
-    'consumptionTax': number;
+    'totalItemsPrice': number;
     /**
      * 
      * @type {number}
