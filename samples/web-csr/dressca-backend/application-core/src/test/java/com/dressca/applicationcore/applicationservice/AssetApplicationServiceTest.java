@@ -2,18 +2,19 @@ package com.dressca.applicationcore.applicationservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Locale;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,8 +23,6 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
-import com.dressca.systemcommon.constant.MessageIdConstant;
-import com.dressca.systemcommon.util.MessageUtil;
 
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。
@@ -37,6 +36,8 @@ public class AssetApplicationServiceTest {
   private AssetStore store;
   @InjectMocks
   private AssetApplicationService service;
+  @Mock
+  private MessageSource messages;
 
   @Test
   @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
@@ -52,14 +53,10 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
-    // Debugログ出力時のmessages.propertiesに代わるstaticなモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を終了しました。");
+    // Debugログ出力時のmessages.propertiesに代わるモックの設定
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // 戻り値の検証
     assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
@@ -67,8 +64,6 @@ public class AssetApplicationServiceTest {
     verify(this.repository, times(1)).findByAssetCode(assetCode);
     verify(this.store, times(1)).getResource(asset);
 
-    // staticなモックのクローズ
-    messageUtil.close();
   }
 
   @Test
@@ -80,13 +75,9 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.empty());
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // 戻り値の検証
@@ -97,8 +88,6 @@ public class AssetApplicationServiceTest {
       verify(this.repository, times(1)).findByAssetCode(assetCode);
     }
 
-    // staticなモックのクローズ
-    messageUtil.close();
   }
 
   @Test
@@ -114,13 +103,9 @@ public class AssetApplicationServiceTest {
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.empty());
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getAssetResourceInfo" }))
-        .thenReturn("メソッド getAssetResourceInfo を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // 戻り値の検証
@@ -132,7 +117,5 @@ public class AssetApplicationServiceTest {
       verify(this.store, times(1)).getResource(asset);
     }
 
-    // staticなモックのクローズ
-    messageUtil.close();
   }
 }

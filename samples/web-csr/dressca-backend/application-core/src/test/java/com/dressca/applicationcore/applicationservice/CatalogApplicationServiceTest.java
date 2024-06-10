@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.applicationservice;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -8,22 +9,21 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.systemcommon.constant.MessageIdConstant;
-import com.dressca.systemcommon.util.MessageUtil;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
@@ -38,6 +38,8 @@ public class CatalogApplicationServiceTest {
   private CatalogCategoryRepository catalogCategoryRepository;
   @InjectMocks
   private CatalogApplicationService service;
+  @Mock
+  private MessageSource messages;
 
   @Test
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
@@ -46,13 +48,9 @@ public class CatalogApplicationServiceTest {
     when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
         .thenReturn(catalogItems);
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getCatalogItems" }))
-        .thenReturn("メソッド getCatalogItems を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getCatalogItems" }))
-        .thenReturn("メソッド getCatalogItems を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);
@@ -61,9 +59,6 @@ public class CatalogApplicationServiceTest {
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(),
         anyInt(), anyInt());
 
-    // staticなモックのクローズ
-    messageUtil.close();
-
   }
 
   @Test
@@ -71,22 +66,15 @@ public class CatalogApplicationServiceTest {
     // Arrange
     when(this.catalogRepository.countByBrandIdAndCategoryId(anyLong(), anyLong())).thenReturn(1);
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "countCatalogItems" }))
-        .thenReturn("メソッド countCatalogItems を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "countCatalogItems" }))
-        .thenReturn("メソッド countCatalogItems を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.countCatalogItems(1L, 1L);
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(anyLong(), anyLong());
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 
@@ -96,22 +84,15 @@ public class CatalogApplicationServiceTest {
     List<CatalogBrand> brands = List.of(new CatalogBrand("dummy"));
     when(this.brandRepository.getAll()).thenReturn(brands);
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getBrands" }))
-        .thenReturn("メソッド getBrands を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getBrands" }))
-        .thenReturn("メソッド getBrands を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getBrands();
 
     // Assert
     verify(this.brandRepository, times(1)).getAll();
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 
@@ -121,22 +102,15 @@ public class CatalogApplicationServiceTest {
     List<CatalogCategory> catalogCategories = List.of(new CatalogCategory("dummy"));
     when(this.catalogCategoryRepository.getAll()).thenReturn(catalogCategories);
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getCategories" }))
-        .thenReturn("メソッド getCategories を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getCategories" }))
-        .thenReturn("メソッド getCategories を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getCategories();
 
     // Assert
     verify(this.catalogCategoryRepository, times(1)).getAll();
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 

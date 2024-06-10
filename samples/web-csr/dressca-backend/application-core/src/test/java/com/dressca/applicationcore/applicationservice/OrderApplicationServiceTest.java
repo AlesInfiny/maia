@@ -2,10 +2,12 @@ package com.dressca.applicationcore.applicationservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 import com.dressca.applicationcore.order.Address;
@@ -15,16 +17,13 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.MessageIdConstant;
-import com.dressca.systemcommon.util.MessageUtil;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -36,6 +35,8 @@ public class OrderApplicationServiceTest {
   private OrderRepository orderRepository;
   @InjectMocks
   private OrderApplicationService service;
+  @Mock
+  private MessageSource messages;
 
   @Test
   void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
@@ -47,13 +48,9 @@ public class OrderApplicationServiceTest {
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     Order actual = null;
@@ -61,9 +58,6 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThat(actual).isEqualTo(order);
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 
@@ -77,22 +71,15 @@ public class OrderApplicationServiceTest {
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     Executable action = () -> service.getOrder(orderId, "dummy");
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 
@@ -104,22 +91,15 @@ public class OrderApplicationServiceTest {
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.empty());
     // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    MockedStatic<MessageUtil> messageUtil = Mockito.mockStatic(MessageUtil.class);
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を開始しました。");
-    messageUtil
-        .when(() -> MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getOrder" }))
-        .thenReturn("メソッド getOrder を終了しました。");
+    when(messages.getMessage(any(String.class), any(Object[].class),
+        any(Locale.class)))
+        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     Executable action = () -> service.getOrder(orderId, buyerId);
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
-
-    // staticなモックのクローズ
-    messageUtil.close();
 
   }
 

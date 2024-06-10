@@ -1,11 +1,14 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.baskets.Basket;
@@ -27,7 +30,6 @@ import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.util.MessageUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -38,6 +40,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class ShoppingApplicationService {
+
+  @Autowired
+  private MessageSource messages;
+
   private BasketRepository basketRepository;
   private CatalogRepository catalogRepository;
   private OrderRepository orderRepository;
@@ -55,22 +61,20 @@ public class ShoppingApplicationService {
    */
   public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
       throws CatalogNotFoundException {
-    try {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "addItemToBasket" }));
 
-      Basket basket = getOrCreateBasketForUser(buyerId);
-      // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-      if (!this.catalogDomainService.existAll(List.of(catalogItemId))) {
-        throw new CatalogNotFoundException(catalogItemId);
-      }
-      CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(List.of(catalogItemId)).get(0);
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0001_LOG,
+        new Object[] { buyerId, catalogItemId, quantity }, Locale.getDefault()));
 
-      basket.addItem(catalogItemId, catalogItem.getPrice(), quantity);
-      basket.removeEmptyItems();
-      this.basketRepository.update(basket);
-    } finally {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "addItemToBasket" }));
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
+    if (!this.catalogDomainService.existAll(List.of(catalogItemId))) {
+      throw new CatalogNotFoundException(catalogItemId);
     }
+    CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(List.of(catalogItemId)).get(0);
+
+    basket.addItem(catalogItemId, catalogItem.getPrice(), quantity);
+    basket.removeEmptyItems();
+    this.basketRepository.update(basket);
   }
 
   /**
@@ -83,35 +87,33 @@ public class ShoppingApplicationService {
    */
   public void setQuantities(String buyerId, Map<Long, Integer> quantities)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
-    try {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "setQuantities" }));
 
-      Basket basket = getOrCreateBasketForUser(buyerId);
-      // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-      if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
-        throw new CatalogNotFoundException();
-      }
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0002_LOG, new Object[] { buyerId, quantities },
+        Locale.getDefault()));
 
-      // 買い物かごに入っていないカタログアイテムが指定されていないか確認
-      List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
-          .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
-          .collect(Collectors.toList());
-      if (!notExistsInBasketCatalogIds.isEmpty()) {
-        throw new CatalogItemInBasketNotFoundException(notExistsInBasketCatalogIds, basket.getId());
-      }
-
-      for (BasketItem item : basket.getItems()) {
-        Integer quantity = quantities.get(item.getCatalogItemId());
-        if (quantity != null) {
-          item.setQuantity(quantity);
-        }
-      }
-
-      basket.removeEmptyItems();
-      this.basketRepository.update(basket);
-    } finally {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "setQuantities" }));
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
+    if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
+      throw new CatalogNotFoundException();
     }
+
+    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
+    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
+        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
+        .collect(Collectors.toList());
+    if (!notExistsInBasketCatalogIds.isEmpty()) {
+      throw new CatalogItemInBasketNotFoundException(notExistsInBasketCatalogIds, basket.getId());
+    }
+
+    for (BasketItem item : basket.getItems()) {
+      Integer quantity = quantities.get(item.getCatalogItemId());
+      if (quantity != null) {
+        item.setQuantity(quantity);
+      }
+    }
+
+    basket.removeEmptyItems();
+    this.basketRepository.update(basket);
   }
 
   /**
@@ -121,18 +123,15 @@ public class ShoppingApplicationService {
    * @return 買い物かごとその商品一覧
    */
   public BasketDetail getBasketDetail(String buyerId) {
-    try {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getBasketDetail" }));
 
-      Basket basket = getOrCreateBasketForUser(buyerId);
-      List<Long> catalogItemIds = basket.getItems().stream()
-          .map(basketItem -> basketItem.getCatalogItemId())
-          .collect(Collectors.toList());
-      List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-      return new BasketDetail(basket, catalogItems);
-    } finally {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getBasketDetail" }));
-    }
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0003_LOG, new Object[] { buyerId }, Locale.getDefault()));
+
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    List<Long> catalogItemIds = basket.getItems().stream()
+        .map(basketItem -> basketItem.getCatalogItemId())
+        .collect(Collectors.toList());
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    return new BasketDetail(basket, catalogItems);
   }
 
   /**
@@ -145,27 +144,25 @@ public class ShoppingApplicationService {
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
-    try {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "checkout" }));
 
-      Basket basket = getOrCreateBasketForUser(buyerId);
-      if (basket.getItems() == null || basket.getItems().isEmpty()) {
-        throw new EmptyBasketOnCheckoutException(null);
-      }
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0004_LOG, new Object[] { buyerId, shipToAddress },
+        Locale.getDefault()));
 
-      List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
-          .collect(Collectors.toList());
-      List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-      List<OrderItem> orderItems = basket.getItems().stream()
-          .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
-          .collect(Collectors.toList());
-      Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
-      order = this.orderRepository.add(order);
-      this.basketRepository.remove(basket);
-      return order;
-    } finally {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "checkout" }));
+    Basket basket = getOrCreateBasketForUser(buyerId);
+    if (basket.getItems() == null || basket.getItems().isEmpty()) {
+      throw new EmptyBasketOnCheckoutException(null);
     }
+
+    List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+        .collect(Collectors.toList());
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    List<OrderItem> orderItems = basket.getItems().stream()
+        .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
+        .collect(Collectors.toList());
+    Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
+    order = this.orderRepository.add(order);
+    this.basketRepository.remove(basket);
+    return order;
   }
 
   /**

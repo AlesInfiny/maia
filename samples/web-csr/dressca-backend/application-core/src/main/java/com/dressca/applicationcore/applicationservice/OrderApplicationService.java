@@ -5,12 +5,15 @@ import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.util.MessageUtil;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class OrderApplicationService {
+
+  @Autowired
+  private MessageSource messages;
+
   private OrderRepository orderRepository;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
@@ -34,19 +41,17 @@ public class OrderApplicationService {
    * @throws OrderNotFoundException 注文情報が見つからない場合.
    */
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
-    try {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0000_LOG, new String[] { "getOrder" }));
 
-      Order order = this.orderRepository.findById(orderId)
-          .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));
-      if (!order.getBuyerId().equals(buyerId)) {
-        throw new OrderNotFoundException(null, orderId, buyerId);
-      }
+    apLog.debug(
+        messages.getMessage(MessageIdConstant.D_ORDER0001_LOG, new Object[] { orderId, buyerId }, Locale.getDefault()));
 
-      return order;
-    } finally {
-      apLog.debug(MessageUtil.getMessage(MessageIdConstant.D_METHOD0001_LOG, new String[] { "getOrder" }));
+    Order order = this.orderRepository.findById(orderId)
+        .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));
+    if (!order.getBuyerId().equals(buyerId)) {
+      throw new OrderNotFoundException(null, orderId, buyerId);
     }
+
+    return order;
   }
 
 }
