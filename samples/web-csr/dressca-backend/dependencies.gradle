@@ -12,7 +12,7 @@ ext {
     h2Version = "2.2.224"
     postgresqlVersion = "42.7.3"
     springdocOpenapiVersion = "2.5.0"
-    servletApiVersion = "6.0.0"
+    servletApiVersion = "6.1.0"
     commonsLangVersion = "3.14.0"
 
     supportDependencies = [
