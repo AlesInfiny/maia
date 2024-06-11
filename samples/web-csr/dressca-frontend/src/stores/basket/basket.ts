@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type {
   BasketResponse,
-  PutBasketItemRequest,
+  PutBasketItemsRequest,
   PostBasketItemsRequest,
 } from '@/generated/api-client';
 import { basketItemsApi } from '@/api-client';
@@ -22,16 +22,16 @@ export const useBasketStore = defineStore({
       this.addedItemId = catalogItemId;
     },
     async update(catalogItemId: number, newQuantity: number) {
-      const params: PutBasketItemRequest[] = [
+      const params: PutBasketItemsRequest[] = [
         {
           catalogItemId: catalogItemId,
           quantity: newQuantity,
         },
       ];
-      await basketItemsApi.putBasketItem(params);
+      await basketItemsApi.putBasketItems(params);
     },
     async remove(catalogItemId: number) {
-      await basketItemsApi.deleteBasketItemAsync(catalogItemId);
+      await basketItemsApi.deleteBasketItem(catalogItemId);
     },
     async fetch() {
       const response = await basketItemsApi.getBasketItems();

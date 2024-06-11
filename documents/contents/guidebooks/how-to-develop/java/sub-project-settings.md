@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの開発手順を解説します。
+description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # サブプロジェクトの個別設定 {#top}
@@ -41,6 +41,28 @@ dependencies {
 }
 ```
 
+### Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
+
+`springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
+以下に、`build.gradle` への設定内容を例示します。
+
+```groovy title="build.gradle"
+// Open API 仕様書出力の作業ディレクトリを指定する。
+afterEvaluate {
+  tasks.named("forkedSpringBootRun") {
+  workingDir("$rootDir/api-docs")
+  }
+}
+// Open API 仕様書の出力先を指定する。
+openApi {
+  apiDocsUrl.set("http://localhost:8080/api-docs")
+  outputDir.set(file("$rootDir/api-docs"))
+  outputFileName.set("api-specification.json")
+}
+// ビルド時に Open API 仕様書の出力を行うよう設定する。
+build.dependsOn("generateOpenApiDocs")
+```
+
 ### web プロジェクトの依存プロジェクトの設定 {#config-web-projects}
 
 web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
@@ -57,7 +79,7 @@ dependencies {
 ### spring の設定 {#config-web-spring}
 
 Spring Boot に関する主な設定は、 web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
-設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html)や[本番対応機能](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html)を参照してください。
+設定できる項目は、[アプリケーションプロパティ設定一覧](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html) や [本番対応機能](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html) を参照してください。
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
@@ -82,7 +104,7 @@ infrastructure プロジェクトで必要な設定を解説します。
 ### infrastructure プロジェクトの依存ライブラリの設定 {#config-infrastructure-dependencies}
 
 infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
-データアクセス処理の実装に AlesInfiny Maia で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
+データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 
 ```groovy title="build.gradle"
 dependencies {

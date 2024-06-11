@@ -1,5 +1,6 @@
 ---
 title: 商標
+description: AlesInfiny Maia OSS Edition の商標について説明します。
 ---
 
 # 商標 {#top}
@@ -13,7 +14,7 @@ title: 商標
 - :ok: ニュース記事、ブログ等のメディアのタイトルおよび本文で、本サイトに関する真実であって誤解を招く表現ではない場合。
 - :ok: ご自分のブランド名や会社名よりも目立たないようにされている場合。
 
-本サイトを示す場合は、「AlesInfiny Maia」と商標を組み合わせ、半角スペースで区切って使用してください。
+本サイトを示す場合は、「AlesInfiny Maia OSS Edition」と商標を組み合わせ、半角スペースで区切って使用してください。
 
 商標を使用する場合は、 BIPROGY 株式会社の商標であることを通知するために、以下の文をわかりやすい場所に記述してください。
 記述場所は本文の最後、脚注など、 BIPROGY 株式会社の商標であることを簡単に理解できる任意の場所とします。
@@ -47,6 +48,8 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 - HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.
+- 「ESLint」およびそのロゴは OpenJS Foundation の商標または登録商標です。
+- 「Cypress」およびそのロゴは Cypress.io, Inc. の商標または登録商標です。
 - その他記載されている会社名・商品名などは、各社の商標および登録商標です。
 - 本サイトに記載の商品名、製品名、社名などには、必ずしも商標表示（ (R)、 TM ）を付記していません。
 

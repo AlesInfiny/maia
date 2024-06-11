@@ -1,11 +1,11 @@
 ---
 title: 概要編
-description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
 ---
 
 # 構築できるアプリケーション形態 {#top}
 
-AlesInfiny Maia を利用することで構築できるアプリケーションの概要を、アプリケーション形態ごとに説明します。
+AlesInfiny Maia OSS Edition を利用することで構築できるアプリケーションの概要を、アプリケーション形態ごとに説明します。
 
 ## Web アプリケーション ( クライアントサイドレンダリング ) {#client-side-rendering}
 

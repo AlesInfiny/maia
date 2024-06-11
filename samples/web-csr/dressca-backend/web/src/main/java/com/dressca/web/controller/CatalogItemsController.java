@@ -2,10 +2,10 @@ package com.dressca.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogApplicationService;
+import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
-import com.dressca.web.controller.dto.catalog.PagedCatalogItemResponse;
+import com.dressca.web.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.mapper.CatalogItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogItem", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
+@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
 public class CatalogItemsController {
@@ -44,10 +44,10 @@ public class CatalogItemsController {
    */
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
   @GetMapping()
-  public ResponseEntity<PagedCatalogItemResponse> getByQuery(
+  public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
@@ -57,7 +57,7 @@ public class CatalogItemsController {
         .collect(Collectors.toList());
     int totalCount = service.countCatalogItems(brandId, categoryId);
 
-    PagedCatalogItemResponse returnValue = new PagedCatalogItemResponse(
+    PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(
         items,
         totalCount,
         page,

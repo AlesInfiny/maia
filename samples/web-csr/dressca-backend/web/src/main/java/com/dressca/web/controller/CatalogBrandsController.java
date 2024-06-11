@@ -2,7 +2,7 @@ package com.dressca.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogApplicationService;
+import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.web.controller.dto.catalog.CatalogBrandResponse;
 import com.dressca.web.mapper.CatalogBrandMapper;
@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogBrand", description = "カタログブランドの情報にアクセスするAPI")
+@Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスするAPI")
 @RequestMapping("/api/catalog-brands")
 @AllArgsConstructor
 public class CatalogBrandsController {
@@ -39,9 +39,9 @@ public class CatalogBrandsController {
    */
   @Operation(summary = "カタログブランドの一覧を取得する.", description = "カタログブランドの一覧を取得する.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrand.class)))) })
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
   @GetMapping()
-  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrand() {
+  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
         .map(CatalogBrandMapper::convert)
         .collect(Collectors.toList());

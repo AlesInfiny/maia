@@ -1,11 +1,11 @@
 ---
 title: 概要編
-description: AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
 ---
 
 # アプリケーションアーキテクチャ概要編 {#top}
 
-AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説します。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーションアーキテクチャ概要を解説します。
 
 1. [構築できるアプリケーション形態](application-kind.md)
 
@@ -23,3 +23,7 @@ AlesInfiny Maia のアプリケーションアーキテクチャ概要を解説�
 1. [Java アプリケーションの処理方式](java-application-processing-system.md)
 
     AlesInfiny Maia で構築する Java アプリケーションの共通的な処理方式を解説します。
+
+1. [トランザクション管理方針](transaction-management.md)
+
+    AlesInfiny Maia で構築する Java アプリケーションのトランザクション管理方針を解説します。

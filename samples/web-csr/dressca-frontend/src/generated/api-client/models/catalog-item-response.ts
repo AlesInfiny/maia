@@ -22,6 +22,30 @@
 export interface CatalogItemResponse {
     /**
      * 
+     * @type {Array<string>}
+     * @memberof CatalogItemResponse
+     */
+    'assetCodes'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof CatalogItemResponse
+     */
+    'catalogBrandId': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CatalogItemResponse
+     */
+    'catalogCategoryId': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CatalogItemResponse
+     */
+    'description': string;
+    /**
+     * 
      * @type {number}
      * @memberof CatalogItemResponse
      */
@@ -34,39 +58,15 @@ export interface CatalogItemResponse {
     'name': string;
     /**
      * 
-     * @type {string}
-     * @memberof CatalogItemResponse
-     */
-    'productCode': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof CatalogItemResponse
-     */
-    'assetCodes'?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemResponse
-     */
-    'description': string;
-    /**
-     * 
      * @type {number}
      * @memberof CatalogItemResponse
      */
     'price': number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CatalogItemResponse
      */
-    'catalogCategoryId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemResponse
-     */
-    'catalogBrandId': number;
+    'productCode': string;
 }
 

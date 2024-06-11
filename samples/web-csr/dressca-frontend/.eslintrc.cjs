@@ -18,5 +18,5 @@ module.exports = {
       extends: ['plugin:cypress/recommended'],
     },
   ],
-  ignorePatterns: ['postcss.config.js', 'tailwind.config.js'],
+  ignorePatterns: ['postcss.config.cjs', 'tailwind.config.js'],
 };

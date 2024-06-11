@@ -1,6 +1,6 @@
 ---
 title: CSR 編 - Web API
-description: バックエンドアプリケーションのアーキテクチャについて、層ごとに詳細を説明します。
+description: バックエンドアプリケーションのアーキテクチャについて、 層ごとに詳細を説明します。
 ---
 
 # インフラストラクチャ層 {#top}
@@ -25,7 +25,7 @@ MyBatis は、ストアドプロシージャの呼び出しや、高度なマッ
 MyBatis は、多数のテーブルが関連しあうシステムと相性のよい仕組みを持っています。
 
 MyBatis を利用するためには、全てのクエリとその実行結果のマッピングを XML に定義します。
-Spring Data でサポートされているような基本的な CRUD 処理は、[自動生成ツール](https://mybatis.org/generator/)で生成できます。
+Spring Data でサポートされているような基本的な CRUD 処理は、[自動生成ツール](https://mybatis.org/generator/) で生成できます。
 他の O/R マッパーと比較してコード量は多くなりますが、自動生成ツールの恩恵により開発作業の時間は大きく変わりません。
 
 MyBatis-Spring は MyBatis を Spring Framework 上で利用しやすいように、連携機能を提供するパッケージです。
@@ -36,7 +36,7 @@ MyBatis のコンポーネントを DI コンテナーで管理可能にし、 S
 JDBC でのデータベースアクセス実装をサポートするフレームワークです。
 基本的な CRUD 処理の実装や Bean へのマッピング機能などが提供されるため、通常の JDBC による実装と比較して少量のコードで実装できます。
 
-Spring Data JDBC の詳細については[こちら](https://spring.pleiades.io/projects/spring-data-jdbc)を参照してください。
+Spring Data JDBC の詳細については [こちら](https://spring.pleiades.io/projects/spring-data-jdbc) を参照してください。
 
 ### Spring Data JPA {#spring-data-jpa}
 
@@ -51,14 +51,14 @@ Spring Data JPA を採用する場合、開発者が JPA について正しく�
 特に複数テーブルが関連するデータを取得する場合、テーブル結合の有無をクエリ単位で定義することが難しいため、性能に影響を与える実装のリスクが高まります。
 JPA を用いた開発経験がある理解度の高いメンバーを揃えることを推奨します。
 
-Spring Data JPA の詳細については[こちら](https://spring.pleiades.io/projects/spring-data-jpa)を参照してください。
+Spring Data JPA の詳細については [こちら](https://spring.pleiades.io/projects/spring-data-jpa) を参照してください。
 
 ### 各フレームワークの比較 {#framework-comparison}
 
 データベースのテーブル構造やクエリがシンプルで、より軽量な実装をしたい場合は Spring Data JDBC や Spring Data JPA の採用を推奨します。
 テーブルの関連が複雑で、結合を含む複雑なクエリが多く発生する場合は MyBatis-Spring の採用を推奨します。
 
-AlesInfiny Maia では、一定以上の規模であればテーブルの関連は複雑になりがちであることと、軽量なデータベースアクセス実装にも対応できることから、 MyBatis ( MyBatis-Spring ) を標準として採用します。
+AlesInfiny Maia OSS Edition では、 MyBatis ( MyBatis-Spring ) を標準として採用します。一定以上の規模のテーブルの関連は複雑になりがちであり、 MyBatis は軽量なデータベースアクセス実装にも対応できるためです。
 
 ## MyBatis を用いたデータベースアクセス実装 {#mybatis-implementation}
 
