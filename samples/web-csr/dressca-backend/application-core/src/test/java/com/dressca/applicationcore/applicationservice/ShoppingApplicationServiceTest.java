@@ -15,14 +15,19 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -44,6 +49,7 @@ import com.dressca.applicationcore.order.ShipTo;
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
@@ -54,8 +60,16 @@ public class ShoppingApplicationServiceTest {
   @Mock
   private CatalogDomainService catalogDomainService;
 
-  @InjectMocks
+  @Autowired
+  private MessageSource messages;
+
   private ShoppingApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new ShoppingApplicationService(messages, basketRepository, catalogRepository, orderRepository,
+        catalogDomainService);
+  }
 
   @Test
   void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws CatalogNotFoundException {
@@ -85,6 +99,7 @@ public class ShoppingApplicationServiceTest {
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
+
   }
 
   @Test
@@ -116,6 +131,7 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().size()).isEqualTo(0);
+
   }
 
   @Test
@@ -145,6 +161,7 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
+
   }
 
   @Test
@@ -170,6 +187,7 @@ public class ShoppingApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
+
   }
 
   @Test
@@ -198,6 +216,7 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
+
   }
 
   @Test
@@ -211,6 +230,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+
     try {
       // テストメソッドの実行
       int newQuantity = 5;
@@ -224,6 +244,7 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
+
   }
 
   @Test
@@ -238,6 +259,7 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+
     try {
       // テストメソッドの実行
       int newQuantity = 5;
@@ -251,6 +273,7 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     }
+
   }
 
   @Test
@@ -276,11 +299,13 @@ public class ShoppingApplicationServiceTest {
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
+
   }
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
   void testGetBasketDetail_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
+
     // テストメソッドの実行
     try {
       service.getBasketDetail(buyerId);
@@ -329,6 +354,7 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);
+
   }
 
   private ShipTo createDefaultShipTo() {

@@ -19,7 +19,13 @@ nav:
           - 構築できるアプリケーション形態: app-architecture/overview/application-kind.md
           - AlesInfiny Maia OSS Edition を構成するもの: app-architecture/overview/compositions.md
           - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
-          - Java アプリケーションの処理方式: app-architecture/overview/java-application-processing-system.md
+          - Java アプリケーションの処理方式:
+              - app-architecture/overview/java-application-processing-system/index.md
+              - 例外処理方針: app-architecture/overview/java-application-processing-system/exception-handling-policy.md
+              - ログ出力方針: app-architecture/overview/java-application-processing-system/logging-policy.md
+              - メッセージ管理方針: app-architecture/overview/java-application-processing-system/message-management-policy.md
+              - 入力検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
+              - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
