@@ -1,6 +1,11 @@
 package com.dressca.applicationcore.applicationservice;
 
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +14,9 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
+import com.dressca.systemcommon.constant.MessageIdConstant;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -23,6 +31,10 @@ public class AssetApplicationService {
   private AssetRepository repository;
   @Autowired
   private AssetStore store;
+  @Autowired
+  private MessageSource messages;
+
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
@@ -32,6 +44,10 @@ public class AssetApplicationService {
    * @throws AssetNotFoundException アセット情報が見つからなかった場合
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
+
+    apLog
+        .debug(messages.getMessage(MessageIdConstant.D_ASSET0001_LOG, new Object[] { assetCode }, Locale.getDefault()));
+
     Asset asset = this.repository.findByAssetCode(assetCode)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
     Resource resource = this.store.getResource(asset)
