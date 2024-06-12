@@ -1,6 +1,5 @@
 package com.dressca.applicationcore.applicationservice;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -9,12 +8,15 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -29,6 +31,7 @@ import com.dressca.applicationcore.catalog.CatalogRepository;
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
   @Mock
   private CatalogRepository catalogRepository;
@@ -36,10 +39,16 @@ public class CatalogApplicationServiceTest {
   private CatalogBrandRepository brandRepository;
   @Mock
   private CatalogCategoryRepository catalogCategoryRepository;
-  @InjectMocks
-  private CatalogApplicationService service;
-  @Mock
+
+  @Autowired
   private MessageSource messages;
+
+  private CatalogApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new CatalogApplicationService(messages, catalogRepository, brandRepository, catalogCategoryRepository);
+  }
 
   @Test
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
@@ -47,10 +56,6 @@ public class CatalogApplicationServiceTest {
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
     when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
         .thenReturn(catalogItems);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);
@@ -65,10 +70,6 @@ public class CatalogApplicationServiceTest {
   void testCountCatalogItems_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     when(this.catalogRepository.countByBrandIdAndCategoryId(anyLong(), anyLong())).thenReturn(1);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.countCatalogItems(1L, 1L);
@@ -83,10 +84,6 @@ public class CatalogApplicationServiceTest {
     // Arrange
     List<CatalogBrand> brands = List.of(new CatalogBrand("dummy"));
     when(this.brandRepository.getAll()).thenReturn(brands);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getBrands();
@@ -101,10 +98,6 @@ public class CatalogApplicationServiceTest {
     // Arrange
     List<CatalogCategory> catalogCategories = List.of(new CatalogCategory("dummy"));
     when(this.catalogCategoryRepository.getAll()).thenReturn(catalogCategories);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.getCategories();

@@ -10,20 +10,23 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
@@ -46,6 +49,7 @@ import com.dressca.applicationcore.order.ShipTo;
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
@@ -56,10 +60,16 @@ public class ShoppingApplicationServiceTest {
   @Mock
   private CatalogDomainService catalogDomainService;
 
-  @InjectMocks
-  private ShoppingApplicationService service;
-  @Mock
+  @Autowired
   private MessageSource messages;
+
+  private ShoppingApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new ShoppingApplicationService(messages, basketRepository, catalogRepository, orderRepository,
+        catalogDomainService);
+  }
 
   @Test
   void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws CatalogNotFoundException {
@@ -79,10 +89,6 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     int quantity = 1;
@@ -112,10 +118,6 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     int quantity = -1;
@@ -144,10 +146,6 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // テストメソッドの実行
@@ -180,10 +178,6 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -210,10 +204,6 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -240,10 +230,6 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // テストメソッドの実行
@@ -273,10 +259,6 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // テストメソッドの実行
@@ -309,10 +291,6 @@ public class ShoppingApplicationServiceTest {
         new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L));
     List<Long> catalogItemIds = List.of(1L, 2L);
     when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
@@ -327,11 +305,6 @@ public class ShoppingApplicationServiceTest {
   @ParameterizedTest
   @MethodSource("blankStringSource")
   void testGetBasketDetail_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
-
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // テストメソッドの実行
     try {
@@ -357,10 +330,6 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(10L))).thenReturn(catalogItems);
     when(this.orderRepository.add(any())).thenReturn(order);
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     service.checkout(buyerId, shipToAddress);
@@ -379,10 +348,6 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(buyerId);
     ShipTo shipToAddress = createDefaultShipTo();
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // Act
     Executable action = () -> service.checkout(buyerId, shipToAddress);

@@ -2,18 +2,20 @@ package com.dressca.applicationcore.applicationservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Locale;
 import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -28,16 +30,22 @@ import com.dressca.applicationcore.assets.AssetStore;
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
   @Mock
   private AssetRepository repository;
   @Mock
   private AssetStore store;
-  @InjectMocks
-  private AssetApplicationService service;
-  @Mock
+  @Autowired
   private MessageSource messages;
+
+  private AssetApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new AssetApplicationService(repository, store, messages);
+  }
 
   @Test
   @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
@@ -53,10 +61,6 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     // 戻り値の検証
     assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
@@ -74,10 +78,6 @@ public class AssetApplicationServiceTest {
 
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.empty());
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // 戻り値の検証
@@ -102,10 +102,6 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.empty());
-    // Debugログ出力時のmessages.propertiesに代わるモックの設定
-    when(messages.getMessage(any(String.class), any(Object[].class),
-        any(Locale.class)))
-        .thenReturn("JUnit 用のダミーメッセージです。");
 
     try {
       // 戻り値の検証
