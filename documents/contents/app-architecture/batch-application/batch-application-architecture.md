@@ -16,7 +16,10 @@ description: バッチアプリケーションを実装するための OSS ラ�
 
 ### Spring Batch {#spring-batch}
 
-#### chunk {#chunk}
+#### Spring Batch のバッチ処理方式
 
-#### Tasklet {#tasklet} 
+- Tasklet
+
+- Chunk
+
 -->
