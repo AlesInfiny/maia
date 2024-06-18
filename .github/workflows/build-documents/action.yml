@@ -33,7 +33,7 @@ runs:
       continue-on-error: true
       run: |
         export BUILD_DOCUMENTS=true
-        export VERSION=${{ env.VERSION }}
+        export VERSION="${{ env.VERSION }}"
         cd "${{ inputs.document-base-path }}"
         echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
         mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
