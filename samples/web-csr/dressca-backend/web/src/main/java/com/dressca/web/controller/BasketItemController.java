@@ -6,14 +6,14 @@ import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
 import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.controller.dto.baskets.PutBasketItemsRequest;
-import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
+import com.dressca.web.controller.dto.catalog.CatalogItemSummaryResponse;
 import com.dressca.web.mapper.BasketMapper;
+import com.dressca.web.mapper.CatalogItemSummaryMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -181,7 +181,7 @@ public class BasketItemController {
     return ResponseEntity.noContent().build();
   }
 
-  private CatalogItemResponse getCatalogItemResponse(
+  private CatalogItemSummaryResponse getCatalogItemResponse(
       long catalogItemId, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
         .filter(item -> item.getId() == catalogItemId)
@@ -191,17 +191,11 @@ public class BasketItemController {
     return convertCatalogItemDto(catalogItem);
   }
 
-  private CatalogItemResponse convertCatalogItemDto(CatalogItem catalogItem) {
+  private CatalogItemSummaryResponse convertCatalogItemDto(CatalogItem catalogItem) {
     if (catalogItem == null) {
       return null;
     }
 
-    List<String> assetCodes = catalogItem.getAssets().stream().map(CatalogItemAsset::getAssetCode)
-        .collect(Collectors.toList());
-
-    return new CatalogItemResponse(catalogItem.getId(), catalogItem.getName(),
-        catalogItem.getProductCode(), assetCodes, catalogItem.getDescription(),
-        catalogItem.getPrice(), catalogItem.getCatalogCategoryId(),
-        catalogItem.getCatalogBrandId());
+    return CatalogItemSummaryMapper.convert(catalogItem);
   }
 }
