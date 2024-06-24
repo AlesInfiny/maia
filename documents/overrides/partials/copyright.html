@@ -15,5 +15,19 @@
         <a href="{{ config.extra.footer_urls.trademarks|url }}">商標</a>
         <span>|</span>
         <a href="{{ config.extra.footer_urls.credits|url }}">クレジット表記</a>
+        <span>|</span>
+        <a href="{{ config.extra.footer_urls.rss_created|url }}">
+          <span class="twemoji" id="va-icon">
+            {% include ".icons/octicons/rss-16.svg" %} 
+          </span>
+          新着情報
+        </a>
+        <span>|</span>
+        <a href="{{ config.extra.footer_urls.rss_updated|url }}">
+          <span class="twemoji" id="va-icon">
+            {% include ".icons/octicons/rss-16.svg" %} 
+          </span>
+          更新情報
+        </a>
     </div>
 </div>

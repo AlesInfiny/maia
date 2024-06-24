@@ -15,22 +15,35 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * {@link OrderApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class OrderApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
-  @InjectMocks
+  @Autowired
+  private MessageSource messages;
+
   private OrderApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new OrderApplicationService(messages, orderRepository);
+  }
 
   @Test
   void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
@@ -48,6 +61,7 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThat(actual).isEqualTo(order);
+
   }
 
   @Test
@@ -65,6 +79,7 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
+
   }
 
   @Test
@@ -80,6 +95,7 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
+
   }
 
   private ShipTo createDefaultShipTo() {

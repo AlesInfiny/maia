@@ -1,6 +1,6 @@
 ---
 title: CSR 編
-description: クライアントサイドレンダリングを行う Web アプリケーションのアーキテクチャについて解説します。
+description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
 # 全体処理方式 {#top}
@@ -26,7 +26,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 Java アプリケーションのログ出力方針については、以下を参照してください。
 
-- [Java アプリケーションの処理方式 - ログ出力方針](../../app-architecture/overview/java-application-processing-system.md#logging-policy)
+- [Java アプリケーションの処理方式 - ログ出力方針](../../app-architecture/overview/java-application-processing-system/logging-policy.md#logging-policy)
 
 以降、本節では Vue.js のフロントエンドアプリケーションのログ出力方針を示します。
 
@@ -76,7 +76,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）で定義するフロ
 
 Java アプリケーションのメッセージ管理方針については、以下を参照してください。
 
-- [Java アプリケーションの処理方式 - メッセージ管理方針](../../app-architecture/overview/java-application-processing-system.md#message-management-policy)
+- [Java アプリケーションの処理方式 - メッセージ管理方針](../../app-architecture/overview/java-application-processing-system/message-management-policy.md#message-management-policy)
 
 フロントエンドアプリケーションでは、特別なメッセージ管理しません。
 画面内に出力するメッセージやラベルは、各画面やソースコード内に個別に実装したものを使用します。
@@ -128,7 +128,7 @@ ID の重複チェック、注文数が在庫数以内であるかのチェッ�
 
 AlesInfiny Maia において定義しているヘルスチェックの実装例について説明します。
 
-ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system.md#health-check-necessity) を参照してください。
+ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../overview/java-application-processing-system/health-check-necessity.md#health-check-necessity) を参照してください。
 
 ### ヘルスチェック機能の 2 種類のプローブ {#health-check-probe}
 
@@ -164,7 +164,7 @@ AlesInfiny Maia のサンプルアプリケーションでは、[前節](#health
 
     データベースの正常動作によって、リクエストを受信する準備ができていることを確認するためのプローブ。
 
-本ドキュメントにおける [ヘルスチェックのレスポンス形式](../overview/java-application-processing-system.md#health-check-response) に基づき、アクセスしたアドレスからの HTTP レスポンスは以下のように定義します。これにより、簡潔な形でサーバーの状態を把握できます。
+本ドキュメントにおける [ヘルスチェックのレスポンス形式](../overview/java-application-processing-system/health-check-necessity.md#health-check-response) に基づき、アクセスしたアドレスからの HTTP レスポンスは以下のように定義します。これにより、簡潔な形でサーバーの状態を把握できます。
 
 | ステータス      | ステータスコード | レスポンスボディ                | 詳細                                       |
 | -------------- | --------------- | ----------------------------- | ------------------------------------------ |

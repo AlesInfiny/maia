@@ -101,11 +101,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: JDK17のセットアップ
+      - name: JDK21のセットアップ
         uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: gradlewに実行権限付与

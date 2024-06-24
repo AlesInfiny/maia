@@ -1,6 +1,6 @@
 ---
 title: 概要編
-description: AlesInfiny Maia OSS Edition のアプリケーションアーキテクチャ概要を解説します。
+description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
 ---
 
 # アプリケーションアーキテクチャ概要編 {#top}
@@ -20,7 +20,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーシ
 
     AlesInfiny Maia の推奨する Git リポジトリの構造を解説します。
 
-1. [Java アプリケーションの処理方式](java-application-processing-system.md)
+1. [Java アプリケーションの処理方式](java-application-processing-system/index.md)
 
     AlesInfiny Maia で構築する Java アプリケーションの共通的な処理方式を解説します。
 

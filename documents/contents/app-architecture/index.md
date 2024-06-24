@@ -1,6 +1,6 @@
 ---
-title: アプリケーションアーキテクチャ
-description: AlesInfiny Maia OSS Edition の考えるアプリケーションアーキテクチャについて解説します。
+title: アプリケーション アーキテクチャ
+description: AlesInfiny Maia OSS Edition の考える アプリケーションアーキテクチャについて解説します。
 ---
 
 # アプリケーションアーキテクチャ {#top}
@@ -13,3 +13,7 @@ description: AlesInfiny Maia OSS Edition の考えるアプリケーションア
 
     Vue.js を用いたクライアントサイドレンダリング型の Web アプリケーションアーキテクチャについて解説します。
     バックエンドの Web API アプリケーションのアーキテクチャについても解説します。
+
+- [バッチアプリケーション編](batch-application/index.md)
+
+    バッチアプリケーションについて概要や、アーキテクチャについて解説します。

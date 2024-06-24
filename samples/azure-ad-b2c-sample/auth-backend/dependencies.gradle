@@ -1,14 +1,14 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.2.4"
-    springDependencyManagementVersion = "1.1.4"
+    springBootVersion = "3.3.1"
+    springDependencyManagementVersion = "1.1.5"
     springdocOpenapiGradlePluginVersion = "1.8.0"
-    spotbugsVersion = "6.0.9"
+    spotbugsVersion = "6.0.17"
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "2.5.0"
-    activeDirectoryVersion = "5.11.0"
-    springCloudAzureVersion = "5.11.0"
+    activeDirectoryVersion = "5.13.0"
+    springCloudAzureVersion = "5.13.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",

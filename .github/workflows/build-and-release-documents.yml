@@ -1,26 +1,11 @@
----
 # cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
 name: ドキュメントのビルドとリリース
 
 on:
   push:
-    branches: [main]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+-Beta[0-9]+'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'documents/**'
-      - 'iis-files/**'
-      - 'samples/**'
-      - '.github/workflows/build-and-release-documents.yml'
-      - '.markdownlint.yaml'
-      - '.textlintrc'
-      - '.yaml-lint.yml'
-      - 'package-lock.json'
-      - 'package.json'
-      - 'requirements.txt'
   workflow_dispatch:
 
 permissions:
@@ -29,7 +14,10 @@ permissions:
 
 env:
   APP_ALESINFINY_MAIA_WEBAPP_NAME: app-alesinfiny-maia-docs-prod
+  DOCUMENT_BASE_PATH: documents
+  DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
+  COMPRESSED_SOURCE_PATH: contents/samples/downloads
 
 jobs:
   build:
@@ -54,138 +42,32 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Node.js のセットアップ
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: npm パッケージのインストール
-        run: npm ci
-
-      - name: Python のセットアップ
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: pip パッケージのインストール
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
-
-      - name: Linter の処理開始
-        run: echo '# Linter Result :newspaper:' >> $GITHUB_STEP_SUMMARY
-
-      - name: Markdownlint の実行
-        id: run-markdownlint
+      - id: lint-documents
+        name: ドキュメントの Lint
         continue-on-error: true
-        run: |
-          echo '## Markdownlint Result' >> $GITHUB_STEP_SUMMARY
-          npx markdownlint --config .markdownlint.yaml --ignore **/node_modules/** --output markdownlint-result.txt .
-          echo ':heavy_check_mark: Markdownlint に成功しました。' >> $GITHUB_STEP_SUMMARY
+        uses: ./.github/workflows/lint-documents
 
-      - name: Markdownlint 失敗時の結果表示
-        if: ${{ steps.run-markdownlint.outcome == 'failure' }}
-        run: |
-          echo ':x: Markdownlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat markdownlint-result.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
-
-      - name: yamllint の実行
-        id: run-yamllint
-        continue-on-error: true
-        run: |
-          echo '## yamllint Result' >> $GITHUB_STEP_SUMMARY
-          yamllint --config-file .yaml-lint.yml --format standard . > yamllint-result.txt
-          echo ':heavy_check_mark: yamllint に成功しました。' >> $GITHUB_STEP_SUMMARY
-
-      - name: yamllint 失敗時の結果表示
-        if: ${{ steps.run-yamllint.outcome == 'failure' }}
-        run: |
-          echo ':x: yamllint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat yamllint-result.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          echo 'LINT_STATUS=Error' >> $GITHUB_ENV
-
-      - name: textlint の実行
-        run: |
-          echo '## textlint Result' >> $GITHUB_STEP_SUMMARY
-          npx textlint documents samples --output-file textlint-result.txt --format compact
-          if [ -f textlint-result.txt ]; then
-            echo ':x: textlint に失敗しました。  ' >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat textlint-result.txt >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            echo 'LINT_STATUS=Error' >> $GITHUB_ENV
-          else
-            echo ':heavy_check_mark: textlint に成功しました。' >> $GITHUB_STEP_SUMMARY
-          fi
-
-      - name: Lint 結果の確認
-        if: ${{ env.LINT_STATUS == 'Error' }}
-        run: exit 1
-
-      - name: dressca.zip の作成
-        run: |
-          cd samples/web-csr
-          zip -r ../../documents/contents/samples/downloads/dressca.zip *
-
-      - name: azure-ad-b2c.zipの作成
-        run: |
-          cd samples/azure-ad-b2c-sample
-          zip -r ../../documents/contents/samples/downloads/azure-ad-b2c.zip *
+      - name: サンプルアプリケーションのソースコード圧縮
+        uses: ./.github/workflows/compress-sample-source
+        with:
+          compressed-source-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.COMPRESSED_SOURCE_PATH }}
 
       - name: ドキュメントのビルド
-        id: build_documents
-        continue-on-error: true
-        run: |
-          if [ ${{ startsWith(github.ref, 'refs/tags/v') }} ];
-          then
-            export VERSION="${{ github.ref_name }}"
-          else
-            export VERSION="Test Version"
-          fi
-          cd documents
-          echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
-          mkdocs build --verbose --clean --strict > mkdocs_build_log.txt
-
-      - name: ドキュメントビルドの結果表示(成功)
-        if: ${{ steps.build_documents.outcome == 'success' }}
-        run: |
-          echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
-          cd documents
-          if [ -s mkdocs_build_log.txt ]; then
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
-
-      - name: ドキュメントビルドの結果表示(失敗)
-        if: ${{ steps.build_documents.outcome == 'failure' }}
-        run: |
-          echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
-          cd documents
-          if [ -s mkdocs_build_log.txt ]; then
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
-          exit 1
-
-      - name: IIS 用のファイル配置とパッケージング
-        run: |
-          cp -T -v -f -r iis-files documents/build-artifacts/
-          cd documents/build-artifacts
-          zip -r ../${{ env.DOCUMENT_ARTIFACTS_FILENAME }} *
-
-      - name: ビルドアーティファクトのアップロード
-        uses: actions/upload-artifact@v4
+        uses: ./.github/workflows/build-documents
         with:
-          name: documents
-          path: documents/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
-          retention-days: 7
+          document-base-path: ${{ env.DOCUMENT_BASE_PATH }}
+          output-folder-name: ${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
+
+      - name: Lint結果の成否判定
+        if: steps.lint-documents.outcome == 'failure'
+        run: |
+          exit 1;
+
+      - name: ビルドアーティファクトのパッケージングとアップロード
+        uses: ./.github/workflows/pack-and-upload
+        with:
+          packaging-folder-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
+          document-artifact-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
 
   release-github:
     name: Githubのリリース
@@ -228,7 +110,7 @@ jobs:
         with:
           app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
           slot-name: staging
-          package: '${{ env.DOCUMENT_ARTIFACTS_FILENAME }}'
+          package: "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}"
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@v1
@@ -241,7 +123,7 @@ jobs:
 
   swap:
     name: 本番環境への反映承認
-    needs: [release-github, release-documents]
+    needs: [build, release-github, release-documents]
     if: needs.build.outputs.is_pre_release == 'false' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:

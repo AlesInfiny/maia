@@ -8,6 +8,7 @@ site_author: 'アドバンスド開発技術部'
 site_description: 'AlesInfiny Maia OSS Edition のポータルサイトです。'
 site_dir: build-artifacts
 
+# yamllint disable rule:comments-indentation
 nav:
   - AlesInfiny Maia OSS Edition にようこそ:
       - index.md
@@ -18,11 +19,19 @@ nav:
           - 構築できるアプリケーション形態: app-architecture/overview/application-kind.md
           - AlesInfiny Maia OSS Edition を構成するもの: app-architecture/overview/compositions.md
           - 推奨するリポジトリ構造: app-architecture/overview/repository-structure.md
-          - Java アプリケーションの処理方式: app-architecture/overview/java-application-processing-system.md
+          - Java アプリケーションの処理方式:
+              - app-architecture/overview/java-application-processing-system/index.md
+              - 例外処理方針: app-architecture/overview/java-application-processing-system/exception-handling-policy.md
+              - ログ出力方針: app-architecture/overview/java-application-processing-system/logging-policy.md
+              - メッセージ管理方針: app-architecture/overview/java-application-processing-system/message-management-policy.md
+              - 入力検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
+              - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
           - 全体処理方式: app-architecture/client-side-rendering/global-function.md
+          - フロントエンドアプリケーションのアーキテクチャ:
+              - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
               - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
@@ -34,6 +43,12 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
+      - バッチアプリケーション編:
+          - app-architecture/batch-application/index.md
+          - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
+          - バッチアプリケーションのアーキテクチャ: app-architecture/batch-application/batch-application-architecture.md
+          - バッチアプリケーションの検討事項: app-architecture/batch-application/batch-application-consideration.md
+          - バッチアプリケーションのテスト戦略: app-architecture/batch-application/batch-application-test-strategy.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
@@ -47,8 +62,16 @@ nav:
               - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
               - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
               - サブプロジェクトの個別設定: guidebooks/how-to-develop/java/sub-project-settings.md
-          # - Vue.js 編:
-              # - guidebooks/how-to-develop/vue-js/index.md
+          - Vue.js 編:
+              - guidebooks/how-to-develop/vue-js/index.md
+              - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
+              - ブランクプロジェクトの作成: guidebooks/how-to-develop/vue-js/create-vuejs-blank-project.md
+              - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/vue-js/folder-structure-of-blank-project.md
+              - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
+              - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
+              - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
+              - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
+              - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
   - サンプル解説:
@@ -59,6 +82,7 @@ nav:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md
+# yamllint enable rule:comments-indentation
 
 theme:
   name: material
@@ -91,15 +115,6 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: green
-  plugins:
-    - search:
-        lang: ja
-        prebuild_index: true
-    - minify:
-        minify_html: true
-        minify_js: true
-        htmlmin_opts:
-          remove_comments: true
 
 markdown_extensions:
   - abbr
@@ -130,7 +145,24 @@ extra:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
     credits: about-maia/credits/
+    rss_created: feed_rss_created.xml
+    rss_updated: feed_rss_updated.xml
   version: !ENV [VERSION, "Local Version"]
 
 extra_css:
   - stylesheets/overrides.css
+
+plugins:
+  - search:
+      lang: ja
+  - minify:
+      minify_html: true
+      minify_js: true
+      htmlmin_opts:
+        remove_comments: true
+  - social:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
+      cards_layout_options:
+        font_family: Noto Sans JP
+  - rss:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
