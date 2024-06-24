@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの開発手順を解説します。
+description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # サブプロジェクトの個別設定 {#top}
@@ -39,6 +39,28 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+```
+
+### Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
+
+`springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
+以下に、`build.gradle` への設定内容を例示します。
+
+```groovy title="build.gradle"
+// Open API 仕様書出力の作業ディレクトリを指定する。
+afterEvaluate {
+  tasks.named("forkedSpringBootRun") {
+  workingDir("$rootDir/api-docs")
+  }
+}
+// Open API 仕様書の出力先を指定する。
+openApi {
+  apiDocsUrl.set("http://localhost:8080/api-docs")
+  outputDir.set(file("$rootDir/api-docs"))
+  outputFileName.set("api-specification.json")
+}
+// ビルド時に Open API 仕様書の出力を行うよう設定する。
+build.dependsOn("generateOpenApiDocs")
 ```
 
 ### web プロジェクトの依存プロジェクトの設定 {#config-web-projects}

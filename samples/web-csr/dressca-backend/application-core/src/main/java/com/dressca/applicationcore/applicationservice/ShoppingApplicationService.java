@@ -1,9 +1,14 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.baskets.Basket;
@@ -22,7 +27,10 @@ import com.dressca.applicationcore.order.OrderItemAsset;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.MessageIdConstant;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -32,10 +40,16 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class ShoppingApplicationService {
+
+  @Autowired
+  private MessageSource messages;
+
   private BasketRepository basketRepository;
   private CatalogRepository catalogRepository;
   private OrderRepository orderRepository;
   private CatalogDomainService catalogDomainService;
+
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 買い物かごに商品を追加します。
@@ -47,6 +61,10 @@ public class ShoppingApplicationService {
    */
   public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
       throws CatalogNotFoundException {
+
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0001_LOG,
+        new Object[] { buyerId, catalogItemId, quantity }, Locale.getDefault()));
+
     Basket basket = getOrCreateBasketForUser(buyerId);
     // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
     if (!this.catalogDomainService.existAll(List.of(catalogItemId))) {
@@ -69,6 +87,10 @@ public class ShoppingApplicationService {
    */
   public void setQuantities(String buyerId, Map<Long, Integer> quantities)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0002_LOG, new Object[] { buyerId, quantities },
+        Locale.getDefault()));
+
     Basket basket = getOrCreateBasketForUser(buyerId);
     // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
     if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
@@ -101,6 +123,9 @@ public class ShoppingApplicationService {
    * @return 買い物かごとその商品一覧
    */
   public BasketDetail getBasketDetail(String buyerId) {
+
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0003_LOG, new Object[] { buyerId }, Locale.getDefault()));
+
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
         .map(basketItem -> basketItem.getCatalogItemId())
@@ -119,6 +144,9 @@ public class ShoppingApplicationService {
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
+
+    apLog.debug(messages.getMessage(MessageIdConstant.D_BASKET0004_LOG, new Object[] { buyerId, shipToAddress },
+        Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     if (basket.getItems() == null || basket.getItems().isEmpty()) {

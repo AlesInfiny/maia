@@ -1,5 +1,6 @@
 ---
 title: 商標
+description: AlesInfiny Maia OSS Edition の商標について説明します。
 ---
 
 # 商標 {#top}

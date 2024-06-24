@@ -1,5 +1,5 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
-
+<!-- markdownlint-disable-file CMD001 -->
 <!-- cSpell:ignore Validatable signupsignin b2clogin -->
 
 # Azure AD B2C による認証サンプル
@@ -25,9 +25,9 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 本サンプルは以下の環境で動作確認を行っています。
 
-- Java 17
+- Java 21
 - Node.js v20.10.0
-- Visual Studio Code 1.87.2
+- Visual Studio Code 1.90.1
 
 ## サンプルの構成
 

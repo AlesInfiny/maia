@@ -9,11 +9,17 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
@@ -25,6 +31,7 @@ import com.dressca.applicationcore.catalog.CatalogRepository;
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
   @Mock
   private CatalogRepository catalogRepository;
@@ -32,8 +39,16 @@ public class CatalogApplicationServiceTest {
   private CatalogBrandRepository brandRepository;
   @Mock
   private CatalogCategoryRepository catalogCategoryRepository;
-  @InjectMocks
+
+  @Autowired
+  private MessageSource messages;
+
   private CatalogApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new CatalogApplicationService(messages, catalogRepository, brandRepository, catalogCategoryRepository);
+  }
 
   @Test
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
@@ -48,6 +63,7 @@ public class CatalogApplicationServiceTest {
     // Assert
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(),
         anyInt(), anyInt());
+
   }
 
   @Test
@@ -60,6 +76,7 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(anyLong(), anyLong());
+
   }
 
   @Test
@@ -73,6 +90,7 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.brandRepository, times(1)).getAll();
+
   }
 
   @Test
@@ -86,6 +104,7 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.catalogCategoryRepository, times(1)).getAll();
+
   }
 
   private CatalogItem createCatalogItem(long id) {

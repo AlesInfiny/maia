@@ -8,7 +8,10 @@
 		"tableformatter.common.centerAlignedHeader": false,
 		"markdownlint.ignore": [
 			"LICENSE"
-		]
+		],
+		"markdownlint.customRules": [
+            "./custom-lint-rules/requires-title-and-description.js"
+        ]
 	},
 	"extensions": {
         "recommendations": [

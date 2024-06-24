@@ -7,11 +7,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,14 +30,22 @@ import com.dressca.applicationcore.assets.AssetStore;
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
   @Mock
   private AssetRepository repository;
   @Mock
   private AssetStore store;
-  @InjectMocks
+  @Autowired
+  private MessageSource messages;
+
   private AssetApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new AssetApplicationService(repository, store, messages);
+  }
 
   @Test
   @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
@@ -54,6 +67,7 @@ public class AssetApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(1)).findByAssetCode(assetCode);
     verify(this.store, times(1)).getResource(asset);
+
   }
 
   @Test
@@ -73,6 +87,7 @@ public class AssetApplicationServiceTest {
       // モックが想定通り呼び出されていることの確認
       verify(this.repository, times(1)).findByAssetCode(assetCode);
     }
+
   }
 
   @Test
@@ -97,5 +112,6 @@ public class AssetApplicationServiceTest {
       verify(this.repository, times(1)).findByAssetCode(assetCode);
       verify(this.store, times(1)).getResource(asset);
     }
+
   }
 }

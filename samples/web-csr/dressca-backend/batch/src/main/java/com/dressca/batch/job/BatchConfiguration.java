@@ -25,10 +25,9 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
  * Jobの定義と各種設定を行うクラス。
  */
 @Configuration
-@EnableBatchProcessing
 @ComponentScan(basePackages = { "com.dressca" })
 @MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
-
+@EnableBatchProcessing
 public class BatchConfiguration {
 
   /**
