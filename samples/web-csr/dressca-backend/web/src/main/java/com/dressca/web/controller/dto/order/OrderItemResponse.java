@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItemResponse {
   @NotNull
-  public long id;
-  public CatalogItemSummaryResponse itemOrdered;
+  private long id;
+  private CatalogItemSummaryResponse itemOrdered;
   @NotNull
-  public int quantity;
+  private int quantity;
   @NotNull
-  public BigDecimal unitPrice;
+  private BigDecimal unitPrice;
   @NotNull
-  public BigDecimal subTotal;
+  private BigDecimal subTotal;
 }
