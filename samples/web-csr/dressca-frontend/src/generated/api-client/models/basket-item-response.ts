@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CatalogItemSummaryResponse } from './catalog-item-summary-response';
+import type { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 
 /**
  * 

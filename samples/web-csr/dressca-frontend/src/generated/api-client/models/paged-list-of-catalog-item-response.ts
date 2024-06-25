@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CatalogItemResponse } from './catalog-item-response';
+import type { CatalogItemResponse } from './catalog-item-response';
 
 /**
  * 

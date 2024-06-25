@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountResponse } from './account-response';
+import type { AccountResponse } from './account-response';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OrderItemResponse } from './order-item-response';
+import type { OrderItemResponse } from './order-item-response';
 
 /**
  * 
