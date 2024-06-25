@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import { useOrderingStore } from '@/stores/ordering/ordering';
+import { getOrder } from '@/services/ordering/ordering-service';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';
 
-const orderingStore = useOrderingStore();
 const router = useRouter();
+const props = defineProps<{
+  orderId: number;
+}>();
 const state = reactive({
   lastOrdered: null as OrderResponse | null,
 });
+
+const { lastOrdered } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
 
@@ -18,14 +22,8 @@ const goCatalog = () => {
   router.push({ name: 'catalog' });
 };
 
-onMounted(() => {
-  const lastOrder = orderingStore.getLastOrder;
-  if (typeof lastOrder === 'undefined') {
-    router.push('/');
-    return;
-  }
-  state.lastOrdered = lastOrder;
-  orderingStore.clearLastOrder();
+onMounted(async () => {
+  state.lastOrdered = await getOrder(props.orderId);
 });
 </script>
 
@@ -46,25 +44,25 @@ onMounted(() => {
           <tr>
             <td>税抜き合計</td>
             <td class="text-right">
-              {{ toCurrencyJPY(state.lastOrdered?.account?.totalItemsPrice) }}
+              {{ toCurrencyJPY(lastOrdered?.account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
             <td>送料</td>
             <td class="text-right">
-              {{ toCurrencyJPY(state.lastOrdered?.account?.deliveryCharge) }}
+              {{ toCurrencyJPY(lastOrdered?.account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
             <td>消費税</td>
             <td class="text-right">
-              {{ toCurrencyJPY(state.lastOrdered?.account?.consumptionTax) }}
+              {{ toCurrencyJPY(lastOrdered?.account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
             <td>合計</td>
             <td class="text-right text-xl font-bold text-red-500">
-              {{ toCurrencyJPY(state.lastOrdered?.account?.totalPrice) }}
+              {{ toCurrencyJPY(lastOrdered?.account?.totalPrice) }}
             </td>
           </tr>
         </tbody>
@@ -75,26 +73,26 @@ onMounted(() => {
         <tbody>
           <tr>
             <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
-            <td class="pl-2">{{ state.lastOrdered?.fullName }}</td>
+            <td class="pl-2">{{ lastOrdered?.fullName }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ `〒${state.lastOrdered?.postalCode}` }}</td>
+            <td class="pl-2">{{ `〒${lastOrdered?.postalCode}` }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ state.lastOrdered?.todofuken }}</td>
+            <td class="pl-2">{{ lastOrdered?.todofuken }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ state.lastOrdered?.shikuchoson }}</td>
+            <td class="pl-2">{{ lastOrdered?.shikuchoson }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ state.lastOrdered?.azanaAndOthers }}</td>
+            <td class="pl-2">{{ lastOrdered?.azanaAndOthers }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="mt-8 mx-2">
       <div
-        v-for="item in state.lastOrdered?.orderItems"
+        v-for="item in lastOrdered?.orderItems"
         :key="item.itemOrdered?.id"
         class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
       >

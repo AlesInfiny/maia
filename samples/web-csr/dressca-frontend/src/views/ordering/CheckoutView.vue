@@ -1,49 +1,45 @@
 <script setup lang="ts">
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted } from 'vue';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useUserStore } from '@/stores/user/user';
-import type { BasketResponse } from '@/generated/api-client/models/basket-response';
+import { postOrder } from '@/services/ordering/ordering-service';
 
-import { useOrderingStore } from '@/stores/ordering/ordering';
 import { useRouter } from 'vue-router';
 import currencyHelper from '@/shared/helpers/currencyHelper';
 import assetHelper from '@/shared/helpers/assetHelper';
+import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore();
+const basketStore = useBasketStore();
 
-const state = reactive({
-  basket: {} as BasketResponse,
-  address: userStore.getAddress,
-});
-
-const { basket, address } = toRefs(state);
+const { getBasket } = storeToRefs(basketStore);
+const { getAddress } = storeToRefs(userStore);
 const router = useRouter();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
 
-const orderingStore = useOrderingStore();
-
 const checkout = async () => {
-  await orderingStore.order(
-    address.value.fullName,
-    address.value.postalCode,
-    address.value.todofuken,
-    address.value.shikuchoson,
-    address.value.azanaAndOthers,
-  );
-  router.push({ name: 'ordering/done' });
+  try {
+    const orderId = await postOrder(
+      getAddress.value.fullName,
+      getAddress.value.postalCode,
+      getAddress.value.todofuken,
+      getAddress.value.shikuchoson,
+      getAddress.value.azanaAndOthers,
+    );
+    router.push({ name: 'ordering/done', params: { orderId: orderId } });
+  } catch (error) {
+    console.error(error);
+    router.push({ name: 'error' });
+  }
 };
-
-const basketStore = useBasketStore();
 
 onMounted(async () => {
   await basketStore.fetch();
-  const basket = basketStore.getBasket;
-  if (basket.basketItems?.length === 0) {
+  if (getBasket.value.basketItems?.length === 0) {
     router.push('/');
     return;
   }
-  state.basket = basket;
 });
 </script>
 
@@ -64,25 +60,25 @@ onMounted(async () => {
           <tr>
             <td>税抜き合計</td>
             <td class="text-right">
-              {{ toCurrencyJPY(basket.account?.totalItemsPrice) }}
+              {{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
             <td>送料</td>
             <td class="text-right">
-              {{ toCurrencyJPY(basket.account?.deliveryCharge) }}
+              {{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
             <td>消費税</td>
             <td class="text-right">
-              {{ toCurrencyJPY(basket.account?.consumptionTax) }}
+              {{ toCurrencyJPY(getBasket.account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
             <td>合計</td>
             <td class="text-right text-xl font-bold text-red-500">
-              {{ toCurrencyJPY(basket.account?.totalPrice) }}
+              {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
             </td>
           </tr>
         </tbody>
@@ -99,26 +95,26 @@ onMounted(async () => {
         <tbody>
           <tr>
             <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
-            <td class="pl-2">{{ address.fullName }}</td>
+            <td class="pl-2">{{ getAddress.fullName }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ `〒${address.postalCode}` }}</td>
+            <td class="pl-2">{{ `〒${getAddress.postalCode}` }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ address.todofuken }}</td>
+            <td class="pl-2">{{ getAddress.todofuken }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ address.shikuchoson }}</td>
+            <td class="pl-2">{{ getAddress.shikuchoson }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ address.azanaAndOthers }}</td>
+            <td class="pl-2">{{ getAddress.azanaAndOthers }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="mt-8 mx-2">
       <div
-        v-for="item in basket.basketItems"
+        v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
         class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
       >

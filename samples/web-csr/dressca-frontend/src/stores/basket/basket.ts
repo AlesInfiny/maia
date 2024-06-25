@@ -3,6 +3,7 @@ import type {
   BasketResponse,
   PutBasketItemsRequest,
   PostBasketItemsRequest,
+  BasketItemResponse,
 } from '@/generated/api-client';
 import { basketItemsApi } from '@/api-client';
 
@@ -47,6 +48,11 @@ export const useBasketStore = defineStore({
     },
     getAddedItemId(state): number | undefined {
       return state.addedItemId;
+    },
+    getAddedItem(state): BasketItemResponse | undefined {
+      return state.basket.basketItems?.find(
+        (item) => item.catalogItemId === state.addedItemId,
+      );
     },
   },
 });

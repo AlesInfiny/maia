@@ -1,4 +1,4 @@
-import { createApp, markRaw } from 'vue';
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
@@ -17,10 +17,6 @@ app.config.errorHandler = (err: unknown, vm, info) => {
   console.log(err, vm, info);
   router.replace({ name: 'error' });
 };
-
-pinia.use(({ store }) => {
-  store.router = markRaw(router);
-});
 
 app.use(pinia);
 app.use(router);

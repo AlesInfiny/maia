@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { validationItems } from '@/validation/validation-items';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { signInAsync } from '@/services/authentication/authentication-service';
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
 import { useRoutingStore } from '@/stores/routing/routing';
 
@@ -12,6 +13,8 @@ const formSchema = yup.object({
   password: yup.string().required(),
 });
 
+const router = useRouter();
+
 const { meta } = useForm({ validationSchema: formSchema });
 const { value: email, errorMessage: emailError } = useField<string>('email');
 const { value: password, errorMessage: passwordError } = useField('password');
@@ -20,12 +23,17 @@ const isInvalid = () => {
   return !meta.value.valid;
 };
 
-const authenticationStore = useAuthenticationStore();
 const routingStore = useRoutingStore();
 
 const signIn = () => {
-  authenticationStore.signInAsync();
-  routingStore.redirectToRequestRoute();
+  signInAsync();
+  if (!routingStore.redirectFrom) {
+    router.push('/');
+    return;
+  }
+
+  router.push({ name: routingStore.redirectFrom });
+  routingStore.deleteRedirectFrom();
 };
 </script>
 

@@ -11,4 +11,12 @@ export const orderingRoutes: RouteRecordRaw[] = [
     name: 'ordering/done',
     component: () => import('@/views/ordering/DoneView.vue'),
   },
+  {
+    path: '/ordering/done/:orderId(\\d+)',
+    name: 'ordering/done',
+    component: () => import('@/views/ordering/DoneView.vue'),
+    props: (route) => ({
+      orderId: Number(route.params.orderId),
+    }),
+  },
 ];
