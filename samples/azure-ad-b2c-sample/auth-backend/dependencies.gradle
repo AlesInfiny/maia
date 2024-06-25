@@ -3,7 +3,7 @@ ext {
     springBootVersion = "3.3.1"
     springDependencyManagementVersion = "1.1.5"
     springdocOpenapiGradlePluginVersion = "1.8.0"
-    spotbugsVersion = "6.0.17"
+    spotbugsVersion = "6.0.18"
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "2.5.0"
