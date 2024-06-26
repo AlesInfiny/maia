@@ -86,18 +86,22 @@ auth-frontend
 　 ├ api-client
 　 │ └ index.ts ........................ Web API 呼び出し時の共通処理を記述する TypeScript ファイル
 　 ├ generated ......................... 自動生成された Axios のコードが配置されるフォルダー
+　 ├ services
+　 │  ├ authentication
+　 │  │ └ authentication-service.ts ..... 認証（サインイン、トークン取得）を行うサービス
+　 │  ├ server-time
+　 │    └ server-time-service.ts ........ 認証の必要がない処理を行うサービス
 　 ├ shared
 　 │ └ authentication
 　 │ 　 ├ authentication-adb2c.ts ...... Azure AD B2C による認証（サインイン、トークン取得）を行う TypeScript ファイル
 　 │ 　 └ authentication-config.ts ..... 上のコードが使用する設定ファイル
-　 ├ stores
-　 │ ├ authentication
-　 │ │  └ authentication.ts ............ 認証の結果を保持するストア
-　 │ ├ user
-　 │ │  └ user.ts ...................... 認証を必要とする Web API 呼び出しの結果を保持するストア
-　 │ ├ serverTime
-　 │ └  └ serverTime.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
-　 └ views
+　 └ stores
+　   ├ authentication
+　   │  └ authentication.ts ............ 認証の結果を保持するストア
+　   ├ user
+　   │  └ user.ts ...................... 認証を必要とする Web API 呼び出しの結果を保持するストア
+　   ├ server-time
+　   └  └ server-time.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
 ```
 
 ## サンプルのシナリオ
@@ -309,7 +313,6 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     interface ImportMetaEnv {
       // 認証に関係のないプロパティは省略
       readonly VITE_ADB2C_USER_FLOW_SIGN_UP_SIGN_IN: string;
-      readonly VITE_ADB2C_URI_SIGN_UP_SIGN_IN: string;
       readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
       readonly VITE_ADB2C_SCOPE: string;
       readonly VITE_ADB2C_APP_CLIENT_ID: string;
@@ -366,30 +369,41 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     }
     ```
 
-1. `ログイン`画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
+1. 認証機能を持つサービスを作成します。`src\services\authentication` フォルダーを作成し、 `authentication-service.ts` を作成します。
+
+    ```ts
+    import { useAuthenticationStore } from "@/stores/authentication/authentication";
+
+    export const authenticationService = {
+      async signIn() {
+        const authenticationStore = useAuthenticationStore();
+        await authenticationStore.signIn();
+        
+        if (authenticationStore.isAuthenticated) {
+          // サインインが成功した場合の処理をここに記述します。
+        } 
+      },
+    };
+    ```
+
+1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
     ```ts
     <script setup lang="ts">
+    import { authenticationService } from '@/services/authentication/authentication-service';
     import { useAuthenticationStore } from '@/stores/authentication/authentication';
-
     const authenticationStore = useAuthenticationStore();
-    const isAuthenticated = () => {
-      return authenticationStore.isAuthenticated;
-    };
-    const signIn = async () => {
-      await authenticationStore.signIn();
 
-      if (authenticationStore.isAuthenticated) {
-        // ログインが成功した場合の処理をここに記述
-      }
+    const signIn = async () => {
+      await authenticationService.signIn();
     };
     </script>
     ```
 
-1. `ログイン`画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
+1. `ログイン` 画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
 
     ```html
-    <button v-if="!isAuthenticated()" @click="signIn()">ログイン</button>
+    <button v-if="!authenticationStore.isAuthenticated" @click="signIn()">ログイン</button>
     ```
 
 1. `npm install` を実行し、その他のパッケージをインストールします。
