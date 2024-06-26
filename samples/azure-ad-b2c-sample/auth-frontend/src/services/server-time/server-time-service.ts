@@ -1,4 +1,4 @@
-import { useServerTimeStore } from '@/stores/server-time/server-time';
+import { useServerTimeStore } from '@/stores/serverTime/serverTime';
 
 export async function fetchServerTime() {
   const serverTimeStore = useServerTimeStore();

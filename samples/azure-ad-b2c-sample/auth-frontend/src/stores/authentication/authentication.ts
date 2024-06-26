@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import {
   signInAzureADB2C,
   getTokenAzureADB2C,
-  AuthenticationResult,
+  type AuthenticationResult,
 } from '@/shared/authentication/authentication-adb2c';
 
 export const useAuthenticationStore = defineStore({

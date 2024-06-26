@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 /** api-client の共通の Configuration があればここに定義します。 */
