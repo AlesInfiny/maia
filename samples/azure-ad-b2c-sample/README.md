@@ -328,12 +328,15 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `src\api-client\index.ts` を編集します。
 
     ```ts
-    import { useAuthenticationStore } from "@/stores/authentication/authentication";
+    import axios from 'axios';
+    import * as apiClient from '@/generated/api-client';
+    import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
     // その他のコードは省略
 
     /** axios の共通の設定があればここに定義 */
     const axiosInstance = axios.create({
+      baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
       headers: {
         "Content-Type": "application/json",
       },
@@ -341,10 +344,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     /** api-client の共通の Configuration があればここに定義。 */
     function createConfig(): apiClient.Configuration {
-      const config = new apiClient.Configuration({
-      basePath: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
-      });
-
+      const config = new apiClient.Configuration();
       return config;
     }
 

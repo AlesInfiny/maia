@@ -4,6 +4,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
 /** axios の共通の設定があればここに定義します。 */
 const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -12,10 +13,7 @@ const axiosInstance = axios.create({
 
 /** api-client の共通の Configuration があればここに定義します。 */
 function createConfig(): apiClient.Configuration {
-  const config = new apiClient.Configuration({
-    basePath: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
-  });
-
+  const config = new apiClient.Configuration();
   return config;
 }
 
