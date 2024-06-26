@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useUserStore } from './stores/user/user';
-import { useServerTimeStore } from './stores/serverTime/serverTime';
+import { useServerTimeStore } from './stores/server-time/server-time';
 import { authenticationService } from '@/services/authentication/authentication-service';
 import { fetchServerTime } from '@/services/server-time/server-time-service';
 import { onMounted } from 'vue';
