@@ -145,6 +145,29 @@ dependencies {
 }
 ```
 
+## batch プロジェクトの設定 {#config-batch}
+
+batch プロジェクトで必要な設定を解説します。
+
+### batch プロジェクトの依存ライブラリの設定 {#config-batch-dependencies}
+
+### batch プロジェクトの依存プロジェクトの設定 {#config-batch-projects}
+
+### batch プロジェクトの環境変数の設定 {#config-batch-environmental-variables}
+
+#### メタデータテーブルの管理に h2 データベースを利用する場合（開発環境） {#use-h2-database}
+
+h2 データベースを利用する場合、 Spring Batch のジョブ管理を取り扱うメタデータテーブルが自動的に作成されます。
+
+#### メタデータテーブルの管理に h2 データベース以外を利用する場合（本番環境）{#not-use-h2-database}
+
+PostgreSQL や MySQL といったデータベースを利用する場合、　Spring Batch で作成を要求されるメタデータテーブルが必要とならない場合があります。
+例えば、ジョブの実行履歴などのメタデータテーブルの管理を Spring Batch ではなく特定のジョブ管理ツールを利用する場合には、以下のようにメタデータテーブルの作成を無効化します。
+
+``` application.properties
+spring.batch.initializer.enabled=false
+```
+
 ## システム共通プロジェクトの設定 {#config-system-common}
 
 システム共通プロジェクトの依存ライブラリについては、特に必須や推奨するライブラリはありません。
