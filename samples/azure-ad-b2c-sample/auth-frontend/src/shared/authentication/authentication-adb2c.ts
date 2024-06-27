@@ -7,7 +7,7 @@ import {
   loginRequest,
   tokenRequest,
 } from './authentication-config';
-import { AccountFilter } from '@azure/msal-common';
+import type { AccountFilter } from '@azure/msal-common';
 
 msalInstance.initialize();
 

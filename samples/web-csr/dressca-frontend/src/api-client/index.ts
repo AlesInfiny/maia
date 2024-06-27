@@ -2,29 +2,42 @@ import axios from 'axios';
 import * as apiClient from '@/generated/api-client';
 
 /** api-client の共通の Configuration があればここに定義します。 */
-const config = new apiClient.Configuration({});
+function createConfig(): apiClient.Configuration {
+  const config = new apiClient.Configuration();
+  return config;
+}
 
 /** axios の共通の設定があればここに定義します。 */
-const axiosInstance = axios.create({});
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+});
 
-const assetsApi = new apiClient.AssetsApi(config, '', axiosInstance);
-const basketItemsApi = new apiClient.BasketItemsApi(config, '', axiosInstance);
+const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance);
+const basketItemsApi = new apiClient.BasketItemsApi(
+  createConfig(),
+  '',
+  axiosInstance,
+);
 const catalogBrandsApi = new apiClient.CatalogBrandsApi(
-  config,
+  createConfig(),
   '',
   axiosInstance,
 );
 const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(
-  config,
+  createConfig(),
   '',
   axiosInstance,
 );
 const catalogItemsApi = new apiClient.CatalogItemsApi(
-  config,
+  createConfig(),
   '',
   axiosInstance,
 );
-const ordersApi = new apiClient.OrdersApi(config, '', axiosInstance);
+const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance);
 
 export {
   assetsApi,

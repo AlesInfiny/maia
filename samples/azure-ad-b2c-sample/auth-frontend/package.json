@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
-    "build": "run-p typecheck build-only --print-label",
-    "build-only": "vite build",
+    "build:prod": "run-p typecheck build-only:prod --print-label",
+    "build:dev": "run-p typecheck build-only:dev --print-label",
+    "build-only:prod": "vite build --mode prod",
+    "build-only:dev": "vite build --mode dev",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest",
     "typecheck": "vue-tsc --build --force",
@@ -15,38 +17,35 @@
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
-  "dependencies": {
-    "@azure/msal-browser": "^3.11.1",
-    "@heroicons/vue": "^2.1.1",
-    "axios": "^1.6.8",
+ "dependencies": {
+    "@azure/msal-browser": "^3.17.0",
+    "@heroicons/vue": "^2.1.4",
+    "axios": "^1.7.2",
     "pinia": "^2.1.7",
-    "vue": "^3.4.21"
+    "vue": "^3.4.30"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.13.1",
-    "@rushstack/eslint-patch": "^1.10.1",
+    "@openapitools/openapi-generator-cli": "^2.13.4",
+    "@rushstack/eslint-patch": "^1.10.3",
     "@tsconfig/node20": "^20.1.4",
-    "@types/jsdom": "^21.1.6",
-    "@types/node": "^20.10.5",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.14.8",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/test-utils": "^2.4.5",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
-    "eslint-plugin-cypress": "^2.15.1",
-    "eslint-plugin-vue": "^9.24.0",
-    "jsdom": "^24.0.0",
+    "eslint-plugin-cypress": "^3.3.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "jsdom": "^24.1.0",
     "npm-run-all2": "^6.2.0",
-    "prettier": "^3.2.5",
-    "typescript": "~5.3.3",
-    "vite": "^5.2.6",
-    "vitest": "^1.4.0",
-    "vue-tsc": "^2.0.11"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.13.0"
+    "prettier": "^3.3.2",
+    "typescript": "~5.4.5",
+    "vite": "^5.3.1",
+    "vitest": "^1.6.0",
+    "vue-tsc": "^2.0.21"
   }
 }

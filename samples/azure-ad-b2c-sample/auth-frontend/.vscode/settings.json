@@ -18,9 +18,19 @@
   "css.validate": false,
   "typescript.validate.enable": false,
 
-  "stylelint.validate": ["postcss", "vue"],
+  "stylelint.validate": ["vue"],
 
   "editor.guides.bracketPairs": true,
   "editor.bracketPairColorization.enabled": true,
-  "cSpell.words": ["dressca", "vite"]
+  "cSpell.words": [
+    "dressca",
+    "msal",
+    "openapi",
+    "openapitools",
+    "pinia",
+    "rushstack",
+    "stylelint",
+    "typecheck",
+    "vite"
+  ]
 }

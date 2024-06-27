@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountResponse } from './account-response';
+import type { AccountResponse } from './account-response';
 // May contain unused imports in some cases
 // @ts-ignore
-import { BasketItemResponse } from './basket-item-response';
+import type { BasketItemResponse } from './basket-item-response';
 
 /**
  * 

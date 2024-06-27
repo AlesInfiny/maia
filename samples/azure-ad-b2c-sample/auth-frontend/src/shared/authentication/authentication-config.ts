@@ -1,7 +1,7 @@
 import {
   LogLevel,
   PublicClientApplication,
-  SilentRequest,
+  type SilentRequest,
 } from '@azure/msal-browser';
 
 export const b2cPolicies = {

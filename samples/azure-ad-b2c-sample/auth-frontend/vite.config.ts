@@ -19,15 +19,13 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: env.VITE_BACKEND_ENDPOINT_ORIGIN,
+          target: env.VITE_PROXY_ENDPOINT_ORIGIN,
           changeOrigin: true,
-          configure: (proxy, options) => {
-            options.autoRewrite = true;
-            options.secure = false;
-          },
+          autoRewrite: true,
+          secure: false,
         },
         '/swagger': {
-          target: env.VITE_BACKEND_ENDPOINT_ORIGIN,
+          target: env.VITE_PROXY_ENDPOINT_ORIGIN,
           changeOrigin: true,
           secure: false,
         },

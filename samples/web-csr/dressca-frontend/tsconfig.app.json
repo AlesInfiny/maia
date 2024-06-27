@@ -9,7 +9,5 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "preserveValueImports": false,
-    "verbatimModuleSyntax": false
   }
 }

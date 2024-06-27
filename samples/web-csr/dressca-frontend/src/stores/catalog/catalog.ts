@@ -48,5 +48,9 @@ export const useCatalogStore = defineStore({
     getItems(state) {
       return state.catalogItemPage.items;
     },
+    getBrandName: (state) => {
+      return (id: number) =>
+        state.brands.find((brand) => brand.id === id)?.name;
+    },
   },
 });

@@ -60,7 +60,7 @@ jobs:
 
       - id: application-build
         name: アプリケーションのビルド
-        run: npm run build-only >> /var/tmp/build-result.txt 2>&1
+        run: npm run build-only:dev >> /var/tmp/build-result.txt 2>&1
 
       - id: run-unit-tests
         name: 単体テストの実行

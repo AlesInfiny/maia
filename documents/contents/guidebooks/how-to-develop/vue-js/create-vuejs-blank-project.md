@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いたクライアントサイドアプリケーションの開発手順を説明します。
+description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
 ---
 
 # ブランクプロジェクトの作成 {#top}
@@ -48,7 +48,7 @@ npm run dev
 `npm run dev` が成功すると以下のように表示されるので、「 Local: 」に表示された URL をブラウザーで表示します。ブランクプロジェクトのランディングページが表示されます。
 
 ```terminal
-VITE v5.2.7  ready in 2970 ms
+VITE v5.x.x  ready in 2970 ms
 
 >  Local:   http://localhost:5173/
 >  Network: use --host to expose

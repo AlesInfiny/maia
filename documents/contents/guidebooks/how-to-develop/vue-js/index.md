@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いたクライアントサイドアプリケーションの開発手順を説明します。
+description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
 ---
 
 # Vue.js 編 {#top}
@@ -11,6 +11,7 @@ Vue.js を用いてフロントエンドアプリケーションを開発する�
 1. [事前準備](preparation.md)
 1. [ブランクプロジェクトの作成](create-vuejs-blank-project.md)
 1. [ブランクプロジェクトのフォルダー構造](folder-structure-of-blank-project.md)
+1. [プロジェクトの共通設定](project-settings.md)
 1. [開発に使用するパッケージ](optional-packages.md)
 1. [CSSの設定とCSSフレームワークの適用](css.md)
 1. [静的コード分析とフォーマット](static-verification-and-format.md)
