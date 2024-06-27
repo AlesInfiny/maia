@@ -30,7 +30,7 @@ REST API アプリケーションの構築方法は以下の通りです。
 
 - Spring Boot アプリケーションを利用したバッチ処理
 
-    サードパーティーのジョブ管理ツールをすでに利用しており、ジョブは実行するだけにしたい場合は、 Spring Batch のライブラリを利用しない Spring Boot アプリケーションを用いてバッチ処理をすることは有効です。
+    サードパーティーのジョブ管理ツールをすでに利用しており、ジョブは実行するだけにしたい場合は、 Spring Batch のライブラリを利用せず Spring Boot アプリケーションを用いてバッチ処理をすることは有効です。
     また、ジョブ実行が小規模で単純な処理で構成されており Spring Batch の機能を必要としない場合も、 Spring Boot アプリケーションを利用するとよいでしょう。
 
 - [イベント駆動型の Spring Batch アプリケーション](https://spring.pleiades.io/spring-batch/reference/spring-batch-integration/launching-jobs-through-messages.html) を利用したバッチ処理
@@ -83,7 +83,7 @@ FaaS に配置することによる起動時間短縮の実現方法として、
 
 ### GraalVM を利用した実行 {#graal-vm}
 
-[GraalVM](https://www.oracle.com/jp/java/graalvm/what-is-graalvm/) は、 Oracle 社が開発した　Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
+[GraalVM](https://www.oracle.com/jp/java/graalvm/what-is-graalvm/) は、 Oracle 社が開発した Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
 GraalVM を利用することで、 JVM を介さず直接実行できるネイティブイメージを作成することが可能となり、実行速度の高速化やメモリ使用量の削減を期待できます。
 
 GraalVM を利用したサンプルアプリケーションの実行検証については、以下をご確認ください。
