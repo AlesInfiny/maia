@@ -42,15 +42,16 @@ create-vue パッケージをインストールする必要があり、続行す
 ```terminal
 cd <project-name>
 npm install
+npm run format
 npm run dev
 ```
 
 `npm run dev` が成功すると以下のように表示されるので、「 Local: 」に表示された URL をブラウザーで表示します。ブランクプロジェクトのランディングページが表示されます。
 
 ```terminal
-VITE v5.x.x  ready in 2970 ms
+VITE v5.x.x  ready in xxxx ms
 
->  Local:   http://localhost:5173/
->  Network: use --host to expose
->  press h + enter to show help
+  -  Local:   http://localhost:5173/
+  -  Network: use --host to expose
+  -  press h + enter to show help
 ```
