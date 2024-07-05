@@ -85,7 +85,7 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
 
 1. ブラウザーを開き、以下のアドレスにアクセスします。
 
-    <http://localhost:3000>
+    <http://localhost:5173>
 
     [![Dressca トップページ](images/dressca-top.png){ width="600" loading=lazy }](images/dressca-top.png)
 
