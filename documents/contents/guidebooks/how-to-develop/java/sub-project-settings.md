@@ -96,6 +96,17 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
 - ヘルスチェック機能を含む Spring Boot Actuator に関する設定
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
+- バッチ処理
+    - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
+    - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+
+!!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
+
+    Spring Batch においては、バッチ処理の実行履歴やトランザクション管理など、ジョブ管理を行うメタデータテーブルを利用します。
+    `spring.batch.jdbc.initialize-schema=never` でメタデータテーブルの初期化を実施しない設定とした場合、メタデータテーブルは作成されません。
+    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、[メタデータテーブルが存在しないエラー](https://github.com/spring-projects/spring-batch/issues/4485) が発生しバッチ処理が正常に動作しません。
+    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html) を実行するよう指定する必要があります。
+    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../app-architecture/batch-application/batch-application-consideration/do-not-use-meta-data-table.md#batch-job-management-by-third-party-tool) をご覧ください。
 
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 
@@ -151,21 +162,28 @@ batch プロジェクトで必要な設定を解説します。
 
 ### batch プロジェクトの依存ライブラリの設定 {#config-batch-dependencies}
 
+batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
+データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
+
+```groovy title="build.gradle"
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-batch'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
+}
+```
+
 ### batch プロジェクトの依存プロジェクトの設定 {#config-batch-projects}
 
-### batch プロジェクトの環境変数の設定 {#config-batch-environmental-variables}
+batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
 
-#### メタデータテーブルの管理に h2 データベースを利用する場合（開発環境） {#use-h2-database}
-
-h2 データベースを利用する場合、 Spring Batch のジョブ管理を取り扱うメタデータテーブルが自動的に作成されます。
-
-#### メタデータテーブルの管理に h2 データベース以外を利用する場合（本番環境）{#not-use-h2-database}
-
-PostgreSQL や MySQL といったデータベースを利用する場合、　Spring Batch で作成を要求されるメタデータテーブルが必要とならない場合があります。
-例えば、ジョブの実行履歴などのメタデータテーブルの管理を Spring Batch ではなく特定のジョブ管理ツールを利用する場合には、以下のようにメタデータテーブルの作成を無効化します。
-
-``` application.properties
-spring.batch.initializer.enabled=false
+```groovy title="build.gradle"
+dependencies {
+  implementation project(':application-core')
+  implementation project(':infrastructure')
+  implementation project(':system-common')
+}
 ```
 
 ## システム共通プロジェクトの設定 {#config-system-common}
