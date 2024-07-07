@@ -48,11 +48,11 @@ nav:
           - app-architecture/batch-application/index.md
           - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
           - バッチアプリケーションのアーキテクチャ: app-architecture/batch-application/batch-application-architecture.md
-          - バッチアプリケーションの検討事項: 
+          - バッチアプリケーションの検討事項:
               - app-architecture/batch-application/batch-application-consideration/index.md
               - バッチアプリケーションの起動に時間がかかる: app-architecture/batch-application/batch-application-consideration/reduced-startup-time.md
               - Spring Batch のメタデータテーブルを作成したくない: app-architecture/batch-application/batch-application-consideration/do-not-use-meta-data-table.md
-          - バッチアプリケーションのテスト戦略: 
+          - バッチアプリケーションのテスト戦略:
               - app-architecture/batch-application/batch-application-test-policy/index.md
               - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
   # - クックブック:
