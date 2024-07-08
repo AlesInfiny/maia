@@ -3,7 +3,7 @@ title: バッチアプリケーション編
 description: バッチアプリケーションでの検討事項としてメタデータテーブルを作成しない方法について解説します。
 ---
 
-# Spring Batch のメタデータテーブルを作成したくない {#batch-job-management-by-third-party-tool}
+# Spring Batch のメタデータテーブルを作成したくない {#top}
 
 本サンプルアプリケーションは、 Spring Batch のアーキテクチャを利用してバッチ処理を実現しています。
 Spring Batch では、バッチの実行履歴や実行状態の保存といったジョブ管理のために、メタデータテーブルを作成しています。

@@ -3,7 +3,7 @@ title: バッチ アプリケーション編
 description: バッチ処理の概要について説明します。
 ---
 
-# バッチアプリケーションの概要 {#batch-application-overview}
+# バッチアプリケーションの概要 {#top}
 
 ## バッチアプリケーションとは {#about-batch-application}
 
