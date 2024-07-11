@@ -21,7 +21,7 @@
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../dressca-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.1.4",
+    "@heroicons/vue": "^2.1.5",
     "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "vee-validate": "^4.13.1",
