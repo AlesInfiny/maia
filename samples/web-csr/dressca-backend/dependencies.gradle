@@ -13,7 +13,7 @@ ext {
     postgresqlVersion = "42.7.3"
     springdocOpenapiVersion = "2.5.0"
     servletApiVersion = "6.1.0"
-    commonsLangVersion = "3.14.0"
+    commonsLangVersion = "3.15.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
