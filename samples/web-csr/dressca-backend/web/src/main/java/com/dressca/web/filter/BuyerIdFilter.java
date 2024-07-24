@@ -49,7 +49,7 @@ public class BuyerIdFilter implements Filter {
         .path("/")
         .httpOnly(cookieSettings.isHttpOnly())
         .secure(cookieSettings.isSecure())
-        .maxAge(cookieSettings.getExpiredDays() * 60 * 60 * 24)
+        .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
         .sameSite(cookieSettings.getSameSite()).build();
     ((HttpServletResponse) response).addHeader("Set-Cookie", responseCookie.toString());
   }
