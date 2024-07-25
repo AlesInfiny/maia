@@ -18,19 +18,19 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      // proxy: {
-      //   '/api': {
-      //     target: env.VITE_PROXY_ENDPOINT_ORIGIN,
-      //     changeOrigin: true,
-      //     autoRewrite: true,
-      //     secure: false,
-      //   },
-      //   '/swagger': {
-      //     target: env.VITE_PROXY_ENDPOINT_ORIGIN,
-      //     changeOrigin: true,
-      //     secure: false,
-      //   },
-      // },
+      proxy: {
+        '/api': {
+          target: env.VITE_PROXY_ENDPOINT_ORIGIN,
+          changeOrigin: true,
+          autoRewrite: true,
+          secure: false,
+        },
+        '/swagger': {
+          target: env.VITE_PROXY_ENDPOINT_ORIGIN,
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
   };
 });
