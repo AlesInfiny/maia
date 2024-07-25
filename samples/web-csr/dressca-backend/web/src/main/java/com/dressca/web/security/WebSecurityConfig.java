@@ -14,10 +14,10 @@ import org.springframework.web.cors.CorsConfiguration;
  * セキュリティ関連の実行クラス。
  */
 @Configuration(proxyBeanMethods = false)
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 public class WebSecurityConfig {
 
-  @Value("${cors.allowed.origins}")
+  @Value("${cors.allowed.origins:}")
   private String[] allowedOrigins;
 
   /**
@@ -36,10 +36,10 @@ public class WebSecurityConfig {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);
           conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-          conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
           conf.setAllowedHeaders(List.of("*"));
-          // 注文情報の確定にlocationを利用するため公開ヘッダーとして設定
-          conf.addExposedHeader("location");
+          // 注文情報の確定にLocationを利用するため公開ヘッダーとして設定
+          conf.addExposedHeader("Location");
           return conf;
         }));
 
