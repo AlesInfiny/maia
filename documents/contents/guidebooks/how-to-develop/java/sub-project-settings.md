@@ -97,6 +97,10 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
 
+### CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}
+
+Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
+
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 
 infrastructure プロジェクトで必要な設定を解説します。
