@@ -37,6 +37,10 @@ AlesInfiny Maia OSS Edition （以下、本サイト）は、以下を提供し�
 
 :   本サイトのドキュメントに直接記載され、 Web ブラウザーを介して読み取ることのできるソースコードを指します。
 
+`AlesInfiny Maia オープンソースプロジェクト`
+
+:   本サイトおよび本サイトの提供物を所有または管理する主体を指します。
+
 <!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 ### ライセンスの付与 {#license-grant}
 
