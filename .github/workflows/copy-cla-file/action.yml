@@ -14,4 +14,4 @@ runs:
       shell: bash
       run: |
         mkdir ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}
-        cp ${GITHUB_WORKSPACE}/${{ inputs.cla-file-path }} ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}
+        cp ${GITHUB_WORKSPACE}/${{ inputs.cla-file-path }} ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}/CLA.pdf

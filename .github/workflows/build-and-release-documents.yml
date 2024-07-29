@@ -19,7 +19,7 @@ env:
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
   COMPRESSED_SOURCE_PATH: contents/samples/downloads
   CLA_FILE_INPUT_PATH: documents/contents/assets/files/CLA.pdf
-  CLA_FILE_DESTINATION_PATH: documents/downloads/CLA.pdf
+  CLA_FILE_DESTINATION_PATH: documents/downloads/
 
 jobs:
   build:
