@@ -18,6 +18,8 @@ env:
   DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
   COMPRESSED_SOURCE_PATH: contents/samples/downloads
+  CLA_FILE_INPUT_PATH: contents/assets/files/CLA.pdf
+  CLA_FILE_DESTINATION_PATH: documents/downloads/CLA.pdf
 
 jobs:
   build:
@@ -51,6 +53,12 @@ jobs:
         uses: ./.github/workflows/compress-sample-source
         with:
           compressed-source-path: ${{ env.DOCUMENT_BASE_PATH }}/${{ env.COMPRESSED_SOURCE_PATH }}
+
+      - name: CLA ファイルのコピー
+        uses: ./.github/workflows/copy-cla-file
+        with:
+          cla-file-path: ${{ env.CLA_FILE_INPUT_PATH }}
+          cla-file-destination-path: ${{ env.CLA_FILE_DESTINATION_PATH }}
 
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
