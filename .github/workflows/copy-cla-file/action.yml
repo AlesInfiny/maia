@@ -13,5 +13,4 @@ runs:
     - name: CLA.pdf のコピー
       shell: bash
       run: |
-        cd documents
         cp ${GITHUB_WORKSPACE}/${{ inputs.cla-file-path }} ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}
