@@ -8,6 +8,7 @@ inputs:
     description: "CLA ファイルのコピー先を示すパス"
     required: true
 runs:
+  using: "composite"
   steps:
     - name: CLA.pdf のコピー
       shell: bash
