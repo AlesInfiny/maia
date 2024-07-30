@@ -19,7 +19,7 @@
   },
  "dependencies": {
     "@azure/msal-browser": "^3.17.0",
-    "@heroicons/vue": "^2.1.4",
+    "@heroicons/vue": "^2.1.5",
     "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.30"
