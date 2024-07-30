@@ -75,7 +75,7 @@ public class WebSecurityConfig {
 
 Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用して実装します。
 
-```java title="WebSecurityConfig.java"
+```java title="WebSecurityConfig.java"　hl_lines="15 16 17 18 19"
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -105,35 +105,23 @@ public class WebSecurityConfig {
 
 ### CORS のポリシー設定についての詳細 {#detail-of-cors-policy}
 
-上のコード例「 `WebSecurityConfig.java` 」における CORS の設定に関するメソッドを抜粋します。
+上のコード例「 `WebSecurityConfig.java` 」における CORS の設定に関するメソッドについて説明します。
 
-```java title="WebSecurityConfig.java" hl_lines="4 5 6 7 8"
-http
-  .cors(cors -> cors.configurationSource(request -> {
-    CorsConfiguration conf = new CorsConfiguration();
-    conf.setAllowCredentials(true);
-    conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-    conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-    conf.setAllowedHeaders(List.of("*"));
-    conf.addExposedHeader("Location");
-    }));
-```
-
-- `setAllowCredentials` メソッド
+- `setAllowCredentials` メソッド（ 15 行目）
 
     許可したオリジンのクライアントに Cookie 等の認証情報を送信することを許可します。
     アプリケーションで Cookie や認証を使用する場合、このメソッドの呼び出しが必要です。
 
-- `setAllowedOrigins` メソッド
+- `setAllowedOrigins` メソッド（ 16 行目）
 
     CORS でリソースへのアクセスを許可するオリジンを設定します。
     AlesInfiny Maia ではアプリケーション設定ファイルから値を取得して引数に渡します。
 
-- `setAllowedHeaders` メソッド
+- `setAllowedHeaders` メソッド（ 17 行目）
 
     許可したオリジンのクライアントに許可する HTTP リクエストヘッダーを設定します。
 
-- `addExposedHeader` メソッド
+- `addExposedHeader` メソッド（ 18 行目）
 
     許可したオリジンのクライアントに対して公開する必要がある HTTP レスポンスヘッダーを設定します。
     アプリケーションで許可する HTTP レスポンスヘッダー名を指定してください。
