@@ -107,7 +107,7 @@ public class WebSecurityConfig {
 
 上のコード例「 `WebSecurityConfig.java` 」における CORS の設定に関するメソッドを抜粋します。
 
-```java
+```java title="WebSecurityConfig.java" hl_lines="4 5 6 7 8"
 http
   .cors(cors -> cors.configurationSource(request -> {
     CorsConfiguration conf = new CorsConfiguration();
@@ -152,7 +152,7 @@ http
 
 AlesInfiny Maris では Web API 呼び出しの共通処理用に `./src/api-client/index.ts` という設定ファイルを作成する（ [参照](../vue-js/create-api-client-code.md#set-client-code) ）ので、ここで HTTP ヘッダーを設定します。
 
-```ts title="index.ts"
+```ts title="index.ts" hl_lines="11"
 import axios from 'axios';
 import * as apiClient from '@/generated/api-client';
 
