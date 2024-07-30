@@ -22,7 +22,7 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
-public class WebSecurityConfiguration {
+public class WebSecurityConfig {
 
   @Value("${cors.allowed.origins:}")
   private String allowedOrigins;
