@@ -117,11 +117,15 @@ public class WebSecurityConfig {
     CORS でリソースへのアクセスを許可するオリジンを設定します。
     AlesInfiny Maia ではアプリケーション設定ファイルから値を取得して引数に渡します。
 
-- `setAllowedHeaders` メソッド（ 17 行目）
+- `setAllowedMethods` メソッド（ 17 行目）
+
+    許可したオリジンのクライアントが使用可能な HTTP メソッドを設定します。アプリケーションで許可する HTTP メソッド名を指定してください。なお、 CORS 環境の場合プリフライトリクエストが使用する `OPTIONS` は必須です。詳細は [Preflight request (プリフライトリクエスト) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request) を参照してください。
+
+- `setAllowedHeaders` メソッド（ 18 行目）
 
     許可したオリジンのクライアントに許可する HTTP リクエストヘッダーを設定します。
 
-- `addExposedHeader` メソッド（ 18 行目）
+- `addExposedHeader` メソッド（ 19 行目）
 
     許可したオリジンのクライアントに対して公開する必要がある HTTP レスポンスヘッダーを設定します。
     アプリケーションで許可する HTTP レスポンスヘッダー名を指定してください。
