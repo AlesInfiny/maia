@@ -1,10 +1,8 @@
-package com.dressca.web.controlleradvice;
+package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.LogicException;
-import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Map;
@@ -14,58 +12,37 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.context.annotation.Profile;
 
 /**
- * サーバーエラーのハンドリングを行うクラスです（本番環境用）。
+ * サーバーエラーのハンドリングを行うクラスです。
  */
 @ControllerAdvice
-@Profile("production | test")
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
-   * その他の業務エラーをステータースコード500で返却する（本番環境、テスト環境用）。
+   * 例外をステータースコード401で返却する。
    *
-   * @param e   業務例外
+   * @param e   未認証の例外
    * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @return ステータースコード401のレスポンス
    */
-  @ExceptionHandler(LogicException.class)
-  public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
-        e.getFrontMessageValue());
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<?> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_AUTH0001, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.LOGIC_ERROR_TITLE);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(problemDetail);
+        .body(null);
   }
 
   /**
-   * その他のシステムエラーをステータースコード500で返却する（本番環境、テスト環境用）。
-   *
-   * @param e   その他の例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
-   */
-  @ExceptionHandler(SystemException.class)
-  public ResponseEntity<ProblemDetail> handleException(SystemException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
-        e.getFrontMessageValue());
-    apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(problemDetail);
-  }
-
-  /**
-   * 上記のいずれにも当てはまらない例外をステータースコード500で返却する（本番環境、テスト環境用）。
+   * 例外をステータースコード500で返却する。
    *
    * @param e   その他の例外
    * @param req リクエスト
