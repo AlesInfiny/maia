@@ -1,4 +1,4 @@
-package com.dressca.web.controlleradvice;
+package com.dressca.web.controller.advice;
 
 import java.util.Map;
 import org.slf4j.Logger;
