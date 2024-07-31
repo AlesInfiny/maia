@@ -19,9 +19,9 @@ description: バッチアプリケーションのテスト方針を説明しま�
     バッチアプリケーションの単体テストについては、[バックエンドアプリケーションの単体テスト :material-open-in-new:](../../client-side-rendering/test/backend-application/unit-test.md){ target=_blank } の構成と違いはありません。
     ただし、 Spring Batch の単体テスト用のライブラリとして以下の `Spring Batch Test` が提供されています。
 
-    - [Spring Batch Test :material-open-in-new:](org.springframework.batch:spring-batch-test){ target=_blank }
+    - [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/){ target=_blank }
   
-    [バックエンドアプリケーションの単体テストで利用するツール](../../app-architecture/client-side-rendering/test/backend-application/unit-test/#ut0-dynamic-testing-tools){ target=_blank } と組み合わせて、バッチアプリケーションの単体テストを実装してください。
+    [バックエンドアプリケーションの単体テストで利用するツール](../../client-side-rendering/test/backend-application/unit-test.md#ut0-dynamic-testing-tools){ target=_blank } と組み合わせて、バッチアプリケーションの単体テストを実装してください。
 
 1. [結合テスト (ITa)](./integration-test.md)
 

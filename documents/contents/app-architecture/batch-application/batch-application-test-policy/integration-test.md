@@ -23,7 +23,7 @@ description: バッチアプリケーションのテスト方針における結�
 - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
-- [Spring Batch Test :material-open-in-new:](org.springframework.batch:spring-batch-test){ target=_blank }
+- [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }
     - Spring Batch ベースのテストを実行するためのツールセットです。
     - ジョブ実行を作成または削除するためのテストセットアップで使用できます。
 - [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }

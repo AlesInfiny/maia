@@ -11,7 +11,7 @@ Spring Batch では、バッチの実行履歴や実行状態の保存といっ�
 
 クラウドサービスのリソースにバッチアプリケーションを配置する場合や、バッチアプリケーションのジョブ管理を特定のジョブ管理ツールに任せる場合、 Spring Batch でジョブを管理するためのメタデータテーブルは必要ありません。
 
-しかしながら、 Spring Batch の仕様上、メタデータテーブルがなければバッチ処理は実行されず、[エラー :material-open-in-new:](https://github.com/spring-projects/spring-batch/issues/4485){ target=_blank } が発生します。
+しかしながら、 Spring Batch の仕様によってメタデータテーブルがなければバッチ処理は実行されず、エラーが発生します。
 そのため、 Spring Batch を利用するうえで作成が必須とされるメタデータテーブルに対し、とりうる対応について説明します。
 
 ## メタデータテーブルをインメモリデータベースに作成するよう設定する {#definition-meta-data-table-by-in-memory-db}

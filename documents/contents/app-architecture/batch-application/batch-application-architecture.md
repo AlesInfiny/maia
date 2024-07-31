@@ -21,11 +21,11 @@ Web アプリケーションの利用ライブラリについては、[こちら
 
 バッチアプリケーションに必要なライブラリについて説明します。
 
-- [Spring Batch :material-open-in-new:](https://spring.pleiades.io/projects/spring-batch){ target=_blank }
+- [Spring Batch :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/){ target=_blank }
 
     トランザクション管理、ジョブ処理統計、開始 / 停止 /スキップ、リソース管理、大量のレコード処理といったバッチ処理機能を提供します。
 
-- [Spring Batch Test :material-open-in-new:](https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-test){ target=_blank }
+- [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }
 
     Spring Batch ベースのテストを実行するライブラリです。
     ジョブを起動・実行するためのテストセットアップを使用できます。
