@@ -9,8 +9,8 @@ description: バックエンドで動作する Java アプリケーションの 
 
 各 Gradle プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
-[Web サービス](https://start.spring.io/) を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
-VS Code の場合、 [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack) が導入済みであれば利用できます。
+[Web サービス :material-open-in-new:](https://start.spring.io/){ target=_blank } を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
+VS Code の場合、 [Spring Boot Extension Pack :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack){ target=_blank } が導入済みであれば利用できます。
 
 ここでは Web サービスでの作成を前提に説明します。
 
@@ -33,7 +33,7 @@ Web 画面上の各種設定項目は以下の通りです。
     利用する Spring Boot のバージョンを選択します。
     ベースとなる JDK や Spring Framework のバージョンを考慮して選択します。
     特に考慮点がなければ最新の GA 版を選択することを推奨します。
-    選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン](https://spring.io/projects/spring-boot#support) に限られ、古いバージョンは指定できません。
+    選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン :material-open-in-new:](https://spring.io/projects/spring-boot#support){ target=_blank } に限られ、古いバージョンは指定できません。
 
 - Project Meta Data：Artifact
 

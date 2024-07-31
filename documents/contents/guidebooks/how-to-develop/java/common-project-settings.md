@@ -77,10 +77,10 @@ subprojects {
 
 AlesInfiny Maia OSS Edition として推奨する各プラグインの設定については、以下を参照してください。
 
-- [Java プラグイン](https://docs.gradle.org/current/userguide/java_plugin.html)
-- [Checkstyle プラグイン](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
-- [SpotBugs プラグイン](https://spotbugs.readthedocs.io/ja/latest/gradle.html)
-- [JaCoCo プラグイン](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
+- [Java プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank }
+- [Checkstyle プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank }
+- [SpotBugs プラグイン :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank }
+- [JaCoCo プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank }
 
 また、必要であれば独自のタスクを定義できます。
 
@@ -114,7 +114,7 @@ buildscript {
 
 !!! tip "dependencies.gradle に記載する情報の範囲について"
     `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
-    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot](https://docs.github.com/ja/code-security/dependabot) による通知が受けられます。
+    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot :material-open-in-new:](https://docs.github.com/ja/code-security/dependabot){ target=_blank } による通知が受けられます。
 
 各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
 
