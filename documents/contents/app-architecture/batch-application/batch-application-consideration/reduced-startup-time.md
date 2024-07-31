@@ -29,7 +29,7 @@ REST API アプリケーションの構築方法は以下の通りです。
     サードパーティーのジョブ管理ツールをすでに利用しており、ジョブは実行するだけにしたい場合は、 Spring Batch のライブラリを利用せず Spring Boot アプリケーションを用いてバッチ処理をすることは有効です。
     また、ジョブ実行が小規模で単純な処理で構成されており Spring Batch の機能を必要としない場合も、 Spring Boot アプリケーションを利用するとよいでしょう。
 
-- [イベント駆動型の Spring Batch アプリケーション](https://spring.pleiades.io/spring-batch/reference/spring-batch-integration/launching-jobs-through-messages.html) を利用したバッチ処理
+- [イベント駆動型の Spring Batch アプリケーション :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/spring-batch-integration/launching-jobs-through-messages.html) を利用したバッチ処理
 
     Spring Batch の中には、アプリケーションを常駐プロセス化し API を使用してバッチジョブを開始する機能が提供されています。
     ジョブのスケジューリングやジョブの履歴閲覧などのジョブ管理を Spring Batch 上で行いたい場合や、大規模で複雑なバッチ処理を限られた実行時間でこなす必要がある場合には、本機能を利用して常駐プロセス化する方法が有効となるでしょう。
@@ -47,7 +47,7 @@ REST API アプリケーションの構築方法は以下の通りです。
 - Spring Boot のスケジューリング機能を利用する
 
     ジョブ管理を Spring Batch の機能で実行する場合、 Spring Boot で提供されているスケジューリング機能を利用します。
-    [@Scheduled アノテーション](https://spring.pleiades.io/guides/gs/scheduling-tasks) は、定期的にバッチ処理を実行できる機能です。
+    [@Scheduled アノテーション :material-open-in-new:](https://spring.pleiades.io/guides/gs/scheduling-tasks){ target=_blank } は、定期的にバッチ処理を実行できる機能です。
     このアノテーションを利用すれば、一度アプリケーションを起動した後は定期的にバッチ処理が自動実行されるようになり、 Bean の初期化にかかる起動時間を短縮できます。
 
 ## クラウドサービスの FaaS でバッチ処理を実行する {#batch-processing-by-cloud}
@@ -82,9 +82,9 @@ FaaS に配置することによる起動時間短縮の実現方法として、
 
 ### GraalVM を利用した実行 {#graal-vm}
 
-[GraalVM](https://www.oracle.com/jp/java/graalvm/what-is-graalvm/) は、 Oracle 社が開発した Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
+[GraalVM :material-open-in-new:](https://www.oracle.com/jp/java/graalvm/what-is-graalvm/){ target=_blank } は、 Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
 GraalVM を利用することで、 JVM を介さず直接実行できるネイティブイメージを作成することが可能となり、実行速度の高速化やメモリ使用量の削減を期待できます。
 
 GraalVM を利用したサンプルアプリケーションの実行検証については、以下をご確認ください。
 
-- [GraalVM の実行検証記事](https://qiita.com/RyoNakagawa2/items/c0b29955cb7f1bfd7c75)
+- [GraalVM の実行検証記事 :material-open-in-new:](https://qiita.com/RyoNakagawa2/items/c0b29955cb7f1bfd7c75){ target=_blank }
