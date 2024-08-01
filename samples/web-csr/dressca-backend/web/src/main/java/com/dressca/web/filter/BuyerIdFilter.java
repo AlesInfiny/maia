@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import com.dressca.web.security.CookieSettings;
 
@@ -51,7 +52,7 @@ public class BuyerIdFilter implements Filter {
         .secure(cookieSettings.isSecure())
         .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
         .sameSite(cookieSettings.getSameSite()).build();
-    ((HttpServletResponse) response).addHeader("Set-Cookie", responseCookie.toString());
+    ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }
 
 }

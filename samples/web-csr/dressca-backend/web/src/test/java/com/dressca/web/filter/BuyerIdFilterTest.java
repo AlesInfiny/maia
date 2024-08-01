@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -50,7 +51,7 @@ public class BuyerIdFilterTest {
 
     // doFilter の実行
     filter.doFilter(request, response, chain);
-    String setCookieHeader = response.getHeader("Set-Cookie");
+    String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
     // Set-Cookieヘッダーの値が期待通りであることを確認
     assertNotNull(setCookieHeader);
@@ -79,7 +80,7 @@ public class BuyerIdFilterTest {
 
     // doFilter の実行
     filter.doFilter(request, response, chain);
-    String setCookieHeader = response.getHeader("Set-Cookie");
+    String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
     // Set-Cookieヘッダーの値が期待通りであることを確認
     assertNotNull(setCookieHeader);
