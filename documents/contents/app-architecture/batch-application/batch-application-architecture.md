@@ -14,7 +14,8 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、バッ
 ![アーキテクチャ概要図](../../images/app-architecture/batch-application/batch-library-light.png#only-light){ loading=lazy }
 ![アーキテクチャ概要図](../../images/app-architecture/batch-application/batch-library-dark.png#only-dark){ loading=lazy }
 
-なお、本アーキテクチャでは、図の通り [クライアントサイドレンダリング方式の Web アプリケーション](../client-side-rendering/csr-architecture-overview.md) を参照・利用しています。
+なお、本アーキテクチャでは、図の通り [クライアントサイドレンダリング方式の Web アプリケーション](../client-side-rendering/csr-architecture-overview.md) の一部を参照しています。
+具体的には、インフラストラクチャ層およびアプリケーションコア層のドメインモデルを参照し再利用しているほか、アプリケーションコア層のビジネスロジックにあたるアプリケーションサービスをバッチアプリケーションが置換している形になります。
 Web アプリケーションの利用ライブラリについては、[こちら](../client-side-rendering/csr-architecture-overview.md#technology-stack) をご覧ください。
 
 ### 利用ライブラリ {#oss-library}
