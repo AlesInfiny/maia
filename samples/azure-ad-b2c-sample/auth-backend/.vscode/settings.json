@@ -10,7 +10,7 @@
     "Servlet",
     "systemcommon",
   ],
-  "[java]" : {
+  "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "editor.formatOnType": true
