@@ -24,7 +24,7 @@ Web アプリケーションの利用ライブラリについては、[こちら
 
 - [Spring Batch :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/){ target=_blank }
 
-    トランザクション管理、ジョブ処理統計、開始 / 停止 /スキップ、リソース管理、大量のレコード処理といったバッチ処理機能を提供します。
+    トランザクション管理、ジョブ処理統計、開始 / 停止 / スキップ、エラーハンドリング、フロー制御、リソース管理、大量のレコード処理といったバッチ処理機能を提供します。
 
 - [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }
 
@@ -100,7 +100,8 @@ Spring Batch 上でバッチ処理を実行する際の流れを以下に示し�
 - [Tasklet :material-open-in-new:](https://spring.pleiades.io/spring-batch/docs/current/api/org/springframework/batch/core/step/tasklet/Tasklet.html){ target=_blank }
 
     `Job` を全体で 1 回のコミットで処理する仕組みを提供するクラスです。
-    `Chunk` モデルよりも実装が簡単であり、 `ItemReader` や `ItemProcessor` 、 `ItemWriter` のように処理を分ける必要もないため、実装に必要なファイル数が少なくなるという特徴があります。
+    `Chunk` モデルのように `ItemReader` や `ItemProcessor` 、 `ItemWriter` と処理を分ける必要がないため、実装に慣れていない開発者にとっては実装しやすい特徴があります。
+    また、バッチ処理の実装が 1 クラスにまとまり見通しがよくなります。
 
 !!! note "Chunk モデルと Tasklet モデルの使い分け"
 
@@ -121,5 +122,5 @@ Spring Batch 上でバッチ処理を実行する際の流れを以下に示し�
 
 ### Spring Batch のメタデータスキーマ {#spring-batch-meta-data-schema}
 
-Spring Batch では、バッチの実行履歴や実行状態の保存のために、メタデータテーブルを作成する必要があります。
+Spring Batch では、バッチの実行履歴や実行状態をデータベースに保存するため、 Spring Batch で規定しているメタデータテーブルを作成する必要があります。
 作成されるメタデータテーブルの詳細については、[Spring Batch ドキュメントのメタデータスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } をご覧ください。
