@@ -76,9 +76,9 @@ jobs:
       - name: issue の情報を出力
         if: ${{ steps.check-version-update.outputs.update-required  == 'true' }}
         env:
-          STATUS: ${{ fromJson(steps.create-issue.outputs.outputs).status }}
-          ISSUE_NUMBER: ${{ fromJson(steps.create-issue.outputs.outputs).number }}
-          ISSUE_URL: ${{ fromJson(steps.create-issue.outputs.outputs).url }}
+          STATUS: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).url }}
         run: |
           echo "# issue の作成結果" >> $GITHUB_STEP_SUMMARY
           if [ $STATUS = 'created' ]; then
