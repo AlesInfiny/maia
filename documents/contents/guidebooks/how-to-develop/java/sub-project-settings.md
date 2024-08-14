@@ -104,9 +104,9 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
 
     Spring Batch においては、バッチ処理の実行履歴やトランザクション管理など、ジョブ管理を行うメタデータテーブルを利用します。
     `spring.batch.jdbc.initialize-schema=never` でメタデータテーブルの初期化を実施しない設定とした場合、メタデータテーブルは作成されません。
-    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、[メタデータテーブルが存在しないエラー](https://github.com/spring-projects/spring-batch/issues/4485) が発生しバッチ処理が正常に動作しません。
-    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html) を実行するよう指定する必要があります。
-    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../app-architecture/batch-application/batch-application-consideration/do-not-use-meta-data-table.md#batch-job-management-by-third-party-tool) をご覧ください。
+    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、メタデータテーブルが存在しないエラーが発生しバッチ処理が正常に動作しません。
+    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
+    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md#batch-job-management-by-third-party-tool) をご覧ください。
 
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 

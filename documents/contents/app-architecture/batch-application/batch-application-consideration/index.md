@@ -8,4 +8,4 @@ description: バッチアプリケーションでの検討事項について解�
 バッチアプリケーションを実際に運用していく中で発生しうる課題について、どのように対応していくかを解説します。
 
 - [バッチアプリケーションの起動に時間がかかる](./reduced-startup-time.md)
-- [Spring Batch のメタデータテーブルを作成したくない](./without-using-meta-data-table.md)
+- [メタデータテーブルの必要性について](./without-using-meta-data-table.md)
