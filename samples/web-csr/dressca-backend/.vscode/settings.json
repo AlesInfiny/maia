@@ -20,7 +20,7 @@
     "springframework",
     "systemcommon",
     "tasklet",
-    "todofuken"
+    "todofuken",
   ],
   "[java]": {
     "editor.formatOnSave": true,
