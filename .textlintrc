@@ -38,6 +38,7 @@
     "@textlint-ja/no-synonyms": {
       "allows": [
         "=",
+        "圧迫",
         "アプリ",
         "アプリケーション",
         "以降",
