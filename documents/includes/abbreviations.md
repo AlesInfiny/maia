@@ -27,6 +27,7 @@
 *[O/R]: Object / Relational
 *[OS]: Operating System
 *[OSS]: Open Source Software
+*[PKCE]: Proof Key for Code Exchange
 *[RAM]: Random Access Memory：「メモリ」とも表現される。
 *[SPA]: Single Page Application：単一ページアプリケーション。 CSR の実装方式。
 *[SSR]: Server Side Rendering
