@@ -2,7 +2,6 @@ package com.dressca.applicationcore.applicationservice;
 
 import java.util.List;
 import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-
 import lombok.AllArgsConstructor;
 
 /**
