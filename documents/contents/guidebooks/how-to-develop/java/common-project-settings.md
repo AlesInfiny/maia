@@ -75,7 +75,7 @@ subprojects {
 設定項目や設定の要否はプラグインによります。
 例えば、各種ツール類のバージョン指定や、静的テストツールのルールのようなインプットファイルの指定、レポート等の出力設定などが一般的には考えられます。
 
-AlesInfiny Maia OSS Edition として推奨する各プラグインの設定については、以下を参照してください。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）として推奨する各プラグインの設定については、以下を参照してください。
 
 - [Java プラグイン](https://docs.gradle.org/current/userguide/java_plugin.html)
 - [Checkstyle プラグイン](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
@@ -83,6 +83,43 @@ AlesInfiny Maia OSS Edition として推奨する各プラグインの設定に�
 - [JaCoCo プラグイン](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
 
 また、必要であれば独自のタスクを定義できます。
+
+#### 各プラグインのルール設定 {#plugin-rule-settings}
+
+- Checkstyle プラグインのルール設定
+
+  Checkstyle を利用する場合、静的テストを実施する際のルールをインプットファイルで定義します。
+  [Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したフォーマットを適用する際には、 Checkstyle が提供している [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
+  独自のルールを定義したい場合には、このインプットファイルを編集してください。
+
+- SpotBugs プラグインのフィルタリングルール設定
+
+  SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
+  このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
+  SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
+
+### フォーマッターの設定 {#formatter-settings}
+
+ソースコードのフォーマットの一貫性を保つために、統合開発環境で提供されている自動フォーマット機能を利用します。
+AlesInfiny Maia で推奨する Visual Studio Code （以降、 VS Code ）を利用する場合、[こちら :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting){ target=_blank } の設定を参照してください。
+
+また、上記の設定の他に、ソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう、 `settings.json` に以下を設定します。
+
+```json title="settings.json"
+{
+  "[java]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true
+  }
+}
+```
+
+!!! waring "フォーマッターと静的テストの競合"
+
+  フォーマットツールが自動的に整形したソースコードが静的テストのルールに違反することで、静的テスト側で警告が発生するかもしれません。
+  また、フォーマッターと静的テストの設定が一致していても、各ツールの仕様によってフォーマットの基準が異なり、意図しない警告が発生する可能性もあります。
+  このような場合、フォーマッターや静的テストのルールの緩和なども含め、警告が出ないように調整する必要があるでしょう。
 
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
