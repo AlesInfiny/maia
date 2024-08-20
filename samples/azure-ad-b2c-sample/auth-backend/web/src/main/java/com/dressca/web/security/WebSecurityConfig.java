@@ -12,18 +12,19 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * セキュリティ関連の実行クラス。
  */
 @Configuration(proxyBeanMethods = false)
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 @EnableMethodSecurity
 @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
-public class WebSecurityConfiguration {
+public class WebSecurityConfig {
 
-  @Value("${cors.allowed.origins}")
+  @Value("${cors.allowed.origins:}")
   private String allowedOrigins;
 
   /**
@@ -36,16 +37,17 @@ public class WebSecurityConfiguration {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-
-    http.csrf(csrf -> csrf.disable());
-    http.cors(cors -> cors.configurationSource(request -> {
-      var conf = new CorsConfiguration();
-      conf.setAllowedOrigins(List.of(allowedOrigins));
-      conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-      conf.setAllowedHeaders(List.of("*"));
-      return conf;
-    }));
-    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+    http.securityMatcher("/api/**")
+        .csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(request -> {
+          CorsConfiguration conf = new CorsConfiguration();
+          conf.setAllowCredentials(true);
+          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+          conf.setAllowedHeaders(List.of("*"));
+          return conf;
+        }))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
         .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
     return http.build();
   }

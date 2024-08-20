@@ -17,3 +17,5 @@ Vue.js を用いてフロントエンドアプリケーションを開発する�
 1. [静的コード分析とフォーマット](static-verification-and-format.md)
 1. [入力値検証](input-validation.md)
 1. [Open API 仕様書からのクライアントコード生成](create-api-client-code.md)
+
+フロントエンドアプリケーションを公開するオリジンと、呼び出し先の Web API を公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
