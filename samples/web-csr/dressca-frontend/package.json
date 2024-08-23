@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.4",
-    "axios": "^1.7.2",
+    "axios": "^1.7.5",
     "pinia": "^2.1.7",
     "vee-validate": "^4.13.1",
     "vue": "^3.4.30",
