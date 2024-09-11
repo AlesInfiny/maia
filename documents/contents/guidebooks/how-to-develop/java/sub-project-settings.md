@@ -108,6 +108,10 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
     そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
     バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md#batch-job-management-by-third-party-tool) をご覧ください。
 
+### CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}
+
+Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
+
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 
 infrastructure プロジェクトで必要な設定を解説します。

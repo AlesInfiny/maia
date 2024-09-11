@@ -81,6 +81,8 @@ nav:
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
+          - CORS 環境の構築:
+              - guidebooks/how-to-develop/cors/index.md
   - サンプル解説:
       - samples/index.md
       - Azure AD B2C を利用したユーザー認証:
