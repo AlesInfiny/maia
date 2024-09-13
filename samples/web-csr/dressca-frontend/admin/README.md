@@ -1,3 +1,6 @@
+<!-- textlint-disable @textlint-rule/require-header-id,ja-technical-writing/sentence-length -->
+<!-- markdownlint-disable-file CMD001 -->
+
 # vue-project
 
 This template should help get you started developing with Vue 3 in Vite.
