@@ -1,0 +1,16 @@
+package com.dressca.web.admin.constant;
+
+/**
+ * ProblemDetail用の定数クラス。
+ */
+public class ProblemDetailsConstant {
+
+  /** 業務エラーのタイトル。 */
+  public static final String LOGIC_ERROR_TITLE = "業務エラー";
+
+  /** システムエラーのタイトル。 */
+  public static final String SYSTEM_ERROR_TITLE = "システムエラー";
+
+  /** errorキー。 */
+  public static final String ERROR_KEY = "error";
+}

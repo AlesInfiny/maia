@@ -13,6 +13,28 @@
     },
     {
       "type": "java",
+      "name": "Spring Boot-WebApplication<web>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.dressca.web.consumer.WebApplication",
+      "projectName": "web-consumer",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-WebApplication<web>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.dressca.web.admin.WebApplication",
+      "projectName": "web-admin",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
       "name": "Spring Batch chunk",
       "request": "launch",
       "cwd": "${workspaceFolder}",
