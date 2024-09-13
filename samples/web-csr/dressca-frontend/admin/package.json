@@ -1,0 +1,48 @@
+{
+  "name": "admin",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode dev",
+    "mock": "vite --mode mock",
+    "build:dev": "run-p type-check build-only:dev",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "test:e2e": "start-server-and-test dev http://localhost:6173/ 'cypress open --e2e --browser chrome'",
+    "test:e2e:ci": "start-server-and-test dev http://localhost:6173/ 'cypress run'",
+    "build-only:dev": "vite build --mode dev",
+    "build-only:prod": "vite build --mode prod",
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && stylelint **/*.{vue,css} --fix",
+    "lint:ci": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && stylelint **/*.{vue,css}",
+    "format": "prettier --write src/",
+    "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
+    "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
+    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ../../../dressca-backend/src/Dressca.Web.Admin/dressca-admin-api.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^2.1.4",
+    "@vee-validate/yup": "^4.13.2",
+    "axios": "^1.7.2",
+    "msw": "~2.3.5",
+    "pinia": "^2.1.7",
+    "vee-validate": "^4.13.1",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3",
+    "yup": "^1.4.0",
+    "vitest": "^2.0.5"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.4",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "cypress": "^13.13.2",
+    "vite": "^5.3.5"
+  }
+}
