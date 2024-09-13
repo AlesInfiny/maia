@@ -37,7 +37,7 @@ jobs:
       - name: 現在のOpenAPI Generatorのバージョン取得
         id: get-current-openapi-generator-version
         run: |
-          echo "current-version=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/openapitools.json)" >> $GITHUB_OUTPUT
+          echo "current-version=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
 
       - name: アップデート要否を判定
         id: check-version-update
@@ -69,6 +69,7 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_APP_NAME: "Dressca-Consumer"
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version }}
 
