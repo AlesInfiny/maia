@@ -1,16 +1,16 @@
 ---
-# cSpell:ignore typecheck
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: dressca-frontend CI
+name: dressca-consumer-frontend CI
 
 on:
   pull_request:
     branches: [main]
     paths:
       - 'samples/web-csr/dressca-frontend/**'
-      - '.github/workflows/samples-dressca-frontend.ci.yml'
+      - 'samples/web-csr/dressca-frontend/consumer/**'
+      - '.github/workflows/samples-dressca-consumer-frontend.ci.yml'
   workflow_dispatch:
 
 defaults:
@@ -52,19 +52,19 @@ jobs:
 
       - id: run-lint
         name: lintの実行
-        run: npm run lint:ci >> /var/tmp/lint-result.txt 2>&1
+        run: npm run lint:ci:consumer >> /var/tmp/lint-result.txt 2>&1
 
-      - id: run-typecheck
+      - id: run-type-check
         name: TypeScript の型チェック
-        run: npm run typecheck >> /var/tmp/typecheck-result.txt 2>&1
+        run: npm run type-check:consumer >> /var/tmp/typecheck-result.txt 2>&1
 
       - id: application-build
         name: アプリケーションのビルド
-        run: npm run build-only:dev >> /var/tmp/build-result.txt 2>&1
+        run: npm run build-only:dev:consumer >> /var/tmp/build-result.txt 2>&1
 
       - id: run-unit-tests
         name: 単体テストの実行
-        run: npm run test:unit >> /var/tmp/unit-test-result.txt 2>&1
+        run: npm run test:unit:consumer >> /var/tmp/unit-test-result.txt 2>&1
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
@@ -74,7 +74,7 @@ jobs:
           header: 'lintの結果 :pen:'
 
       - name: 型チェックの結果出力
-        if: ${{ success() || (failure() && steps.run-typecheck.conclusion == 'failure') }}
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
           body: /var/tmp/typecheck-result.txt
