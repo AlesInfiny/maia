@@ -15,7 +15,7 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.consumer.WebApplication;
-import com.dressca.web.consumer.constant.ProblemDetailsConstant;
+import com.dressca.web.constant.ProblemDetailsConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

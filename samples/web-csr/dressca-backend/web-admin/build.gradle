@@ -25,6 +25,7 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
 	
+	implementation project(':web')
 	implementation project(':application-core')
 	implementation project(':infrastructure')
 	implementation project(':system-common')
