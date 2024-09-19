@@ -38,22 +38,23 @@ export const msalConfig = {
 キャッシュストレージの保存先として指定できる値は以下の通りです。
 
 - `sessionStorage`
-- `localStorage` （ AlesInfiny Maia OSS Edition では非推奨）
+- `localStorage`
 - `memoryStorage`
 
-なお、デフォルトでは [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する `sessionStorage` を利用します。
-キャッシュストレージの保存先の違いに関しては、 [Store の永続化方式](../../app-architecture/client-side-rendering/global-function.md) で詳細を確認してください。
+なお、サンプルでは [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する Session Storage を利用するため `sessionStorage` を指定しています。
+キャッシュストレージの保存先の違いによる影響に関しては、 [Store の永続化方式](../../app-architecture/client-side-rendering/global-function.md) で詳細を確認してください。
 
-!!! Danger "localStorage を利用する際の危険性"
+!!! Danger "Local Storage を利用する際の危険性"
 
     キャッシュの保存先に `localStorage` を指定した場合、トークンやアクセス情報といった秘密情報が Local Storage に保存されます。
-    すなわち、ユーザーが明示的にログアウトをしない限りキャッシュがクリアされず、 XSS 攻撃などのセキュリティ上の脅威にさらされ続ける可能性があります。
+    これにより、別タブ遷移やリロードでもログイン状態が保持されるためユーザー体験が向上しますが、ユーザーが明示的にログアウトをしない限りキャッシュがクリアされず、秘密情報が XSS 攻撃などのセキュリティ上の脅威にさらされ続ける危険性があります。
     
-    よって、MSAL.js で保存される認証・認可情報のキャッシュの保存先として `localStorage` を利用しないでください。
+    上記の危険性から、原則として秘密情報を Local Storage に保存することは望ましくありません。
+    よって、 MSAL.js で提供される秘密情報の保存設定は `localStorage` を使用する代わりに、 `sessionStorage` もしくは `memoryStorage` を使用するよう設定してください。
 
-!!! Warning "memoryStorage を利用する際の注意点"
+!!! Warning "Memory Storage を利用する際の注意点"
 
-    キャッシュの保存先に `memoryStorage` を指定した場合、インメモリに秘密情報が保持されるため、ページの更新やナビゲーションでキャッシュがクリアされます。
+    キャッシュの保存先に `memoryStorage` を指定した場合、秘密情報がインメモリに保持されるため、ページの更新やナビゲーションでキャッシュがクリアされます。
     これにより、セキュリティが強固になるメリットを享受できる反面、 キャッシュのクリアごとにユーザー認証が必要になり、ユーザー体験が低下する恐れがあります。
 
     また、MSAL.js で提供されている `loginRedirect()` や `acquireTokenRedirect()` といったリダイレクトフローが利用できず、`loginPopup()` や `acquireTokenPopup()` といったポップアップによる実装が強制されます。
