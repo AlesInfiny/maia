@@ -39,6 +39,10 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar.enabled = false
+jar.enabled = true
