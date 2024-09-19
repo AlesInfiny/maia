@@ -8,10 +8,23 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 # 静的コード分析とフォーマット {#top}
 
 静的コード分析とフォーマットには .editorconfig 、 ESLint 、 Stylelint 、および Prettier を使用します。
+これらの設定はアプリケーション間で共通することが多いため、ルートプロジェクトに配置して共通化します。
+下記の手順を実行後の設定ファイルの配置例を示します。
+
+```terminal linenums="0"
+<project-name> ------ ルートプロジェクト
+├ .editorconfig
+├ .eslintrc.cjs
+├ .stylelintrc.js
+├ .prettierrc.json
+└ <workspace-name> -- ワークスペース/プロジェクト
+  ├ .eslintrc.cjs
+  └ .stylelintrc.js
+```
 
 ## .editorconfigの追加 {#add-editorconfig}
 
-プロジェクトのルートフォルダーに [.editorconfig :material-open-in-new:](https://editorconfig.org/){ target=_blank } を追加することで、 IDE 上で追加されるファイルにコーディングルールを課すことが可能になります。
+ルートプロジェクトの直下に [.editorconfig :material-open-in-new:](https://editorconfig.org/){ target=_blank } を追加することで、 IDE 上で追加されるファイルにコーディングルールを課すことが可能になります。
 
 VSCode の推奨プラグインである [EditorConfig for Visual Studio Code :material-open-in-new:](https://github.com/editorconfig/editorconfig-vscode){ target=_blank } を使用すると、以下のような設定が可能です。
 
@@ -29,6 +42,7 @@ VSCode の推奨プラグインである [EditorConfig for Visual Studio Code :m
 ## Prettier {#prettier}
 
 Prettier は Vue.js のブランクプロジェクト作成時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+ただし、ワークスペースの直下に作成されているため、ルートプロジェクトの直下に移動します。
 
 ### Prettier の設定 {#settings-prettier}
 
@@ -55,7 +69,7 @@ ESLint は Vue.js のブランクプロジェクト作成時にオプション�
 
 ### ESLint の設定 {#settings-eslint}
 
-設定ファイル `./.eslintrc.cjs` で行います。このファイルはインストール時に自動的に追加されます。
+設定ファイル `./.eslintrc.cjs` で行います。このファイルはインストール時にワークスペースの直下に自動的に追加されているので、ルートプロジェクトの直下にコピーします。
 
 既定の状態でも静的コード分析は可能ですが、 postCSS の設定ファイルなど、分析する必要のないファイルまで分析対象となってしまうため、以下のように ignorePatterns を追加します。
 
@@ -74,6 +88,18 @@ module.exports = {
   /* 中略 */
   ignorePatterns: ['postcss.config.js', 'tailwind.config.js'],
 }
+```
+
+ワークスペース直下の設定ファイルは、ルートプロジェクト直下の設定ファイルを継承するように変更します。
+
+```javascript title=".eslintrc.cjs"
+/* eslint-env node */
+require('@rushstack/eslint-patch/modern-module-resolution');
+
+module.exports = {
+  root: true,
+  extends: '../.eslintrc.cjs',
+};
 ```
 
 その他の設定方法については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
@@ -105,7 +131,7 @@ npm install -D stylelint \
 
 ### Stylelint の設定 {#settings-stylelint}
 
-プロジェクトのルートフォルダーに設定ファイル `./.stylelintrc.js` を作成し、コードを記述します。
+ルートプロジェクトの直下に設定ファイル `./.stylelintrc.js` を作成し、コードを記述します。
 
 ```javascript title=".stylelintrc.js"
 export default {
@@ -129,6 +155,16 @@ export default {
       customSyntax: 'postcss-html',
     },
   ],
+};
+```
+
+各ワークスペースでは、ルートプロジェクトの設定ファイルを継承し、必要に応じて設定を追加します。
+
+```javascript title=".stylelintrc.js"
+import stylelintConfigBase from '../.stylelintrc.js'
+
+export default {
+  extends: stylelintConfigBase
 };
 ```
 
