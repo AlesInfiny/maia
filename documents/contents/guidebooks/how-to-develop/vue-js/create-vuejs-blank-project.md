@@ -5,20 +5,60 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 # ブランクプロジェクトの作成 {#top}
 
-## Vue.js およびオプションのインストール {#install-vue-js-and-options}
+下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
 
-以下のコマンドを実行して Vue.js をインストールします。
+## プロジェクトの全体像 {#project-overview}
+
+mono-repo 構成では、
+複数のフロントエンドアプリケーションのプロジェクトを 1 つのリポジトリで管理します。
+[npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces){ target=_blank } を用いることで、
+プロジェクトごとにワークスペースを作成し、管理できます。
+プロジェクトをまたがるワークスペースや、ワークスペースをまたがるプロジェクトを作成できますが、
+原則としてワークスペースとプロジェクトが 1:1 で対応するようにします。
+
+![プロジェクトフォルダの構造](../../../images/guidebooks/how-to-develop/vue-js/project-folder-structure-light.png#only-light){ loading=lazy align=right }
+![プロジェクトフォルダの構造](../../../images/guidebooks/how-to-develop/vue-js/project-folder-structure-dark.png#only-dark){ loading=lazy align=right }
+
+## プロジェクトの初期化 {#init-npm-project}
+
+以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
 ```terminal
-npm create vue@latest
+npm init -y
+```
+
+実行に成功すると、 package.json ファイルが作成されます。
+
+```terminal
+Wrote to ...\package.json:
+{
+  "name": "root-project-name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+## Vue.js およびオプションのインストール {#install-vue-js-and-options}
+
+以下のコマンドを実行し、任意のワークスペース名（プロジェクト名）を指定して Vue.js をインストールします。
+
+```terminal
+npm init -w <workspace-name> vue@latest .
 ```
 
 create-vue パッケージをインストールする必要があり、続行するかどうかを確認するメッセージが表示されるので、「y」を選択します。
 
-プロジェクト名を入力します。
+`-w` オプションで指定したワークスペース名と同じ名称を入力します。
 
 ```terminal
-√ Project name: ... <project-name>
+√ Package name: ... <workspace-name>
 ```
 
 インストールオプションを確認されるので、左右カーソルキーで Yes / No を選択します。クライアントサイドのアーキテクチャに基づき、使用するものに対して Yes を選択すると、以下のようになります。
@@ -40,15 +80,18 @@ create-vue パッケージをインストールする必要があり、続行す
 以下のようにコマンドを実行し、必要なパッケージをインストールしてアプリケーションを実行します。
 
 ```terminal
-cd <project-name>
 npm install
-npm run format
-npm run dev
+npm run format -w <workspace-name>
+npm run dev -w <workspace-name>
 ```
 
 `npm run dev` が成功すると以下のように表示されるので、「 Local: 」に表示された URL をブラウザーで表示します。ブランクプロジェクトのランディングページが表示されます。
 
 ```terminal
+> workspace-name@0.0.0 dev
+> vite
+
+
 VITE v5.x.x  ready in xxxx ms
 
   -  Local:   http://localhost:5173/
