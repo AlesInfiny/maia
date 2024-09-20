@@ -4,6 +4,8 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,5 +45,29 @@ public class MybatisCatalogRepository implements CatalogRepository {
   @Override
   public List<CatalogItem> findWithPaging(int skipRows, int pageSize) {
     return mapper.findWithPaging(skipRows, pageSize);
+  }
+
+  @Override
+  public Optional<CatalogItem> findById(long id) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'findById'");
+  }
+
+  @Override
+  public CatalogItem add(CatalogItem item) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'add'");
+  }
+
+  @Override
+  public void remove(CatalogItem item) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'remove'");
+  }
+
+  @Override
+  public void update(CatalogItem item) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'update'");
   }
 }
