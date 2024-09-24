@@ -100,6 +100,21 @@ Spring Boot に関する主な設定は、 web プロジェクトの `src/main/r
 - ヘルスチェック機能を含む Spring Boot Actuator に関する設定
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
+- バッチ処理
+    - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
+    - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+
+!!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
+
+    Spring Batch においては、バッチ処理の実行履歴やトランザクション管理など、ジョブ管理を行うメタデータテーブルを利用します。
+    `spring.batch.jdbc.initialize-schema=never` でメタデータテーブルの初期化を実施しない設定とした場合、メタデータテーブルは作成されません。
+    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、メタデータテーブルが存在しないエラーが発生しバッチ処理が正常に動作しません。
+    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
+    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md#batch-job-management-by-third-party-tool) をご覧ください。
+
+### CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}
+
+Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
 
 ## infrastructure プロジェクトの設定 {#config-infrastructure}
 
@@ -145,6 +160,36 @@ application-core プロジェクトは system-common を参照しています。
   
 ```groovy title="build.gradle"
 dependencies {
+  implementation project(':system-common')
+}
+```
+
+## batch プロジェクトの設定 {#config-batch}
+
+batch プロジェクトで必要な設定を解説します。
+
+### batch プロジェクトの依存ライブラリの設定 {#config-batch-dependencies}
+
+batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
+データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
+
+```groovy title="build.gradle"
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-batch'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
+}
+```
+
+### batch プロジェクトの依存プロジェクトの設定 {#config-batch-projects}
+
+batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
+
+```groovy title="build.gradle"
+dependencies {
+  implementation project(':application-core')
+  implementation project(':infrastructure')
   implementation project(':system-common')
 }
 ```

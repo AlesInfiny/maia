@@ -75,14 +75,115 @@ subprojects {
 設定項目や設定の要否はプラグインによります。
 例えば、各種ツール類のバージョン指定や、静的テストツールのルールのようなインプットファイルの指定、レポート等の出力設定などが一般的には考えられます。
 
-AlesInfiny Maia OSS Edition として推奨する各プラグインの設定については、以下を参照してください。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）として推奨する各プラグインの設定は、以下の通りです。
 
-- [Java プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank }
-- [Checkstyle プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank }
-- [SpotBugs プラグイン :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank }
-- [JaCoCo プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank }
+#### Java プラグイン {#java-plugin}
 
-また、必要であれば独自のタスクを定義できます。
+Java プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+
+また、 Java プラグインや後述する各プラグインのタスクをカスタマイズする場合は、 `build.gradle` に設定を追加します。
+具体例として、 test タスクにおいて使用するプロファイルを変更するようカスタマイズする設定を示します。
+
+```groovy title="build.gradle"
+
+subprojects {
+  test {
+    // UTテスト時はtestプロファイルを利用
+    jvmArgs=['-Dspring.profiles.active=test']
+    useJUnitPlatform()
+  }
+}
+
+```
+
+#### Checkstyle プラグイン {#checkstyle-plugin}
+
+Checkstyle プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+また、 Checkstyle を利用する場合、静的テストを実施する際のルールをインプットファイルで定義します。
+[Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したルールを適用する場合、 Checkstyle が提供する [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
+独自のルールを定義したい場合には、このインプットファイルを編集してください。
+インプットファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+```groovy title="build.gradle" hl_lines="4"
+subprojects {
+  checkstyle {
+    toolVersion = 'x.x.x'
+    configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
+  }
+}
+```
+
+さらに、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
+設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
+
+#### SpotBugs プラグイン {#spotbugs-plugin}
+
+SpotBugs プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank }{ target=_blank } を参照してください。
+
+また、 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
+このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
+SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
+フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
+
+```groovy title="build.gradle" hl_lines="4"
+subprojects {
+  spotbugs {
+    toolVersion = 'x.x.x'
+    excludeFilter.set(rootProject.file('フィルタファイルのパス'))
+    ignoreFailures = true
+  }
+}
+```
+
+#### JaCoCo プラグイン {#jacoco-plugin}
+
+JaCoCo プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+
+なお、 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
+
+```groovy title="build.gradle"　hl_lines="6 7 8 9 10"
+subprojects {
+  jacocoTestReport {
+    reports {
+      html.required = true
+    }
+    afterEvaluate {
+      classDirectories.setFrom(classDirectories.files.collect {
+        fileTree(dir: it, excludes: ["**/xxx/*", "**/Yyy.class"])
+      })
+    }
+  }
+}
+```
+
+### フォーマッターの設定 {#formatter-settings}
+
+ソースコードのフォーマットの一貫性を保つために、統合開発環境で提供されている自動フォーマット機能を利用します。
+Visual Studio Code を利用する場合、[こちら :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting){ target=_blank } の設定を参照してください。
+
+また、上記の設定の他に、ソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう、 `settings.json` に以下を設定します。
+
+```json title="settings.json"
+{
+  "[java]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true
+  }
+}
+```
+
+!!! waring "フォーマッターと静的テストの競合"
+
+    フォーマットツールが自動的に整形したソースコードが静的テストのルールに違反することで、静的テスト側で警告が発生するかもしれません。
+    また、フォーマッターと静的テストの設定が一致していても、各ツールの仕様によってフォーマットの基準が異なり、意図しない警告が発生する可能性もあります。
+    このような警告の状態化は、対処を必要とする重要な警告が埋もれてしまうことになり、プロジェクトに悪影響を与えます。
+    フォーマッターや静的テストのルールの緩和なども含め、警告が出ないように設定を調整してください。
 
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 

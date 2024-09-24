@@ -224,7 +224,7 @@ src/
 ``` text title="components フォルダー by Atomic Design" linenums="0"
 src/
 └─ components/
-   ├─ atoms&molecules/
+   ├─ atoms-and-molecules/
    │  ├─ Button.vue
    │  ├─ Input.vue
    │  └─ Form.vue
