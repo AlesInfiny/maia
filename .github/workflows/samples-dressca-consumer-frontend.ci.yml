@@ -1,0 +1,95 @@
+---
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: dressca-consumer-frontend CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/web-csr/dressca-frontend/**'
+      - 'samples/web-csr/dressca-frontend/consumer/**'
+      - '.github/workflows/samples-dressca-consumer-frontend.ci.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: samples/web-csr/dressca-frontend
+
+jobs:
+  build:
+    name: フロントエンドアプリケーションのビルド
+    runs-on: ubuntu-latest
+    env:
+      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v4
+        id: node_modules_cache_id
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: node パッケージのキャッシュ確認
+        run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+
+      - name: node パッケージのインストール
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        run: npm install
+
+      - id: run-lint
+        name: lintの実行
+        run: npm run lint:ci:consumer >> /var/tmp/lint-result.txt 2>&1
+
+      - id: run-type-check
+        name: TypeScript の型チェック
+        run: npm run type-check:consumer >> /var/tmp/typecheck-result.txt 2>&1
+
+      - id: application-build
+        name: アプリケーションのビルド
+        run: npm run build-only:dev:consumer >> /var/tmp/build-result.txt 2>&1
+
+      - id: run-unit-tests
+        name: 単体テストの実行
+        run: npm run test:unit:consumer >> /var/tmp/unit-test-result.txt 2>&1
+
+      - name: lintの結果出力
+        if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/lint-result.txt
+          header: 'lintの結果 :pen:'
+
+      - name: 型チェックの結果出力
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/typecheck-result.txt
+          header: '型チェックの結果 :pencil2:'
+
+      - name: ビルドの結果出力
+        if: ${{ success() || (failure() && steps.application-build.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/build-result.txt
+          header: 'ビルドの結果 :gear:'
+
+      - name: 単体テストの結果出力
+        if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/unit-test-result.txt
+          header: '単体テストの結果 :memo:'
