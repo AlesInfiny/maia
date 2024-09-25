@@ -95,47 +95,5 @@
     <include refid="selectCatalogItemsIncludeAsset"/>
     LIMIT #{_skiprows}, #{_pagesize}
   </select>
-
-  <select id="findById" resultMap="selectCatalogItems">
-    <include refid="selectCatalogItems"/>
-    WHERE ID = #{id}
-  </select>
-
-  <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="CatalogItem">
-   INSERT INTO CATALOG_ITEMS 
-    (
-      NAME,
-      DESCRIPTION,
-      PRICE,
-      PRODUCT_CODE,
-      CATALOG_CATEGORY_ID,
-      CATALOG_BRAND_ID
-    )
-    VALUES 
-    (
-      #{item.name},
-      #{item.description},
-      #{item.price},
-      #{item.productCode},
-      #{item.catalogCategoryId},
-      #{item.catalogBrandId}
-    )
-  </insert>
-
-  <delete id="remove" parameterType="CatalogItem">
-    DELETE FROM CATALOG_ITEMS
-    WHERE ID = #{item.id}
-  </delete>
-
-  <update id="update" parameterType="CatalogItem">
-    UPDATE CATALOG_ITEMS SET
-      NAME = #{item.name},
-      DESCRIPTION = #{item.description},
-      PRICE = #{item.price},
-      PRODUCT_CODE = #{item.productCode},
-      CATALOG_CATEGORY_ID = #{item.catalogCategoryId},
-      CATALOG_BRAND_ID  = #{item.catalogBrandId}
-    WHERE ID = #{item.id}
-  </update>
-
+  
 </mapper>
