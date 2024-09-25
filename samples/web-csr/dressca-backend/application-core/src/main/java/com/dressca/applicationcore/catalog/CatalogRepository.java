@@ -54,31 +54,31 @@ public interface CatalogRepository {
   List<CatalogItem> findWithPaging(int skipRows, int pageSize);
 
   /**
-   * 指定した ID のカタログアイテムを取得します.
-   * 
+   * 指定した ID のカタログアイテムを取得します。
+   *
    * @param id ID
    * @return 条件に一致するカタログアイテム. 存在しない場合、空のOptional.
    */
   Optional<CatalogItem> findById(long id);
 
   /**
-   * カタログアイテムを追加します.
-   * 
+   * カタログアイテムを追加します。
+   *
    * @param item カタログアイテム
    * @return 追加されたカタログアイテム
    */
   CatalogItem add(CatalogItem item);
 
   /**
-   * カタログアイテムを削除します.
-   * 
+   * カタログアイテムを削除します。
+   *
    * @param item カタログアイテム
    */
   void remove(CatalogItem item);
 
   /**
-   * カタログアイテムを更新します.
-   * 
+   * カタログアイテムを更新します。
+   *
    * @param item カタログアイテム
    */
   void update(CatalogItem item);

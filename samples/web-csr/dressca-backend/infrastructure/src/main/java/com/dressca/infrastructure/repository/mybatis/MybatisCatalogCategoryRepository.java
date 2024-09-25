@@ -1,9 +1,11 @@
 package com.dressca.infrastructure.repository.mybatis;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
@@ -29,4 +31,10 @@ public class MybatisCatalogCategoryRepository implements CatalogCategoryReposito
         .collect(Collectors.toList());
   }
 
+  @Override
+  public Optional<CatalogCategory> findById(long id) {
+    CatalogCategoryEntity entity = catalogCategoryMapper.selectByPrimaryKey(id);
+    CatalogCategory category = EntityTranslator.catalogCategoryEntityTranslate(entity);
+    return Optional.ofNullable(category);
+  }
 }
