@@ -1,6 +1,6 @@
 yamllint==1.35.1
 mkdocs==1.6.1
-mkdocs-material==9.5.35
+mkdocs-material==9.5.37
 pymdown-extensions==10.10.1
 mkdocs-minify-plugin==0.8.0
 mkdocs-rss-plugin==1.15.0
