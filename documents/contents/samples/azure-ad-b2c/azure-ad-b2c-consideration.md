@@ -1,6 +1,6 @@
 ---
 title: Azure AD B2C を 利用した ユーザー認証
-description: Azure AD B2C による認証・認可において、トークンのキャッシュ保存先を指定する方法について解説します。
+description: Azure AD B2C による認証を利用するためのサンプルと、 その使い方を解説します。
 ---
 
 # MSAL.js で提供される秘密情報のキャッシュ保存先 {#top}
