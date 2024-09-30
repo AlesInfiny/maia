@@ -27,7 +27,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 - Java 21
 - Node.js v20.10.0
-- Visual Studio Code 1.90.1
+- Visual Studio Code 1.93.1
 
 ## サンプルの構成
 
@@ -80,28 +80,28 @@ auth-backend
 
 ```text
 auth-frontend
-├ .env.dev ............................. Azure AD B2C への接続情報といった環境変数を記載する設定ファイル
-├ env.d.ts ............................. 上の環境変数の型定義を行う TypeScript ファイル
+├ .env.dev .............................. Azure AD B2C への接続情報を記載する設定ファイル
+├ env.d.ts .............................. 環境変数の型定義をする TypeScript ファイル
 └ src
+　 ├ App.vue ............................ 画面。本サンプルでは画面は App.vue のみ。
 　 ├ api-client
-　 │ └ index.ts ........................ Web API 呼び出し時の共通処理を記述する TypeScript ファイル
-　 ├ generated ......................... 自動生成された Axios のコードが配置されるフォルダー
+　 │ └ index.ts ......................... Web API 呼び出し時の共通処理を記述する TypeScript ファイル
+　 ├ generated .......................... 自動生成された Axios のコードが配置されるフォルダー
 　 ├ services
 　 │  ├ authentication
-　 │  │ └ authentication-service.ts ..... 認証（サインイン、トークン取得）を行うサービス
+　 │  │ ├ authentication-service.ts ..... 認証（サインイン、トークン取得）を行うサービス
+　 │  │ └ authentication-config.ts ...... 上のコードが使用する設定ファイル
 　 │  ├ server-time
-　 │    └ server-time-service.ts ........ 認証の必要がない処理を行うサービス
-　 ├ shared
-　 │ └ authentication
-　 │ 　 ├ authentication-adb2c.ts ...... Azure AD B2C による認証（サインイン、トークン取得）を行う TypeScript ファイル
-　 │ 　 └ authentication-config.ts ..... 上のコードが使用する設定ファイル
+　 │  │ └ server-time-service.ts ........ 認証の必要がない処理を行うサービス
+　 │  └ user
+　 │    └ user-service.ts ............... 認証の必要がある処理を行うサービス
 　 └ stores
-　   ├ authentication
-　   │  └ authentication.ts ............ 認証の結果を保持するストア
-　   ├ user
-　   │  └ user.ts ...................... 認証を必要とする Web API 呼び出しの結果を保持するストア
-　   ├ server-time
-　   └  └ server-time.ts ...................... 認証を必要としない Web API 呼び出しの結果を保持するストア
+　 　 ├ authentication
+　 　 │ └ authentication.ts ............. 認証の状態を保持するストア
+　 　 ├ server-time
+　 　 │ └ server-time.ts ................ 認証の必要がない Web API 呼び出しの結果を保持するストア
+　 　 └ user
+　 　 　 └ user.ts ...................... 認証が必要な Web API 呼び出しの結果を保持するストア
 ```
 
 ## サンプルのシナリオ
@@ -306,10 +306,9 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 ### フロントエンドアプリケーション
 
-1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
-1. `npm install @azure/msal-browser` を実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
+1. ターミナルで `npm install @azure/msal-browser` を実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
 1. `auth-frontend\.env.dev` に記述した Azure AD B2C の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
-1. `env.d.ts` のインターフェースに `.env.dev` で追加したプロパティを追加します。
+1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
     ```ts
     interface ImportMetaEnv {
@@ -322,41 +321,37 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     }
     ```
 
-1. `src\shared\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
-   - authentication-adb2c.ts
-   - authentication-config.ts
+1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
+1. `src\services\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
+    - authentication-services.ts
+    - authentication-config.ts
 1. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
-   - authentication.ts
-1. `src\api-client\index.ts` を編集します。
+    - authentication.ts
+1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
+    AlesInfiny Maris のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
 
     ```ts
-    import axios from 'axios';
-    import * as apiClient from '@/generated/api-client';
-    import { useAuthenticationStore } from '@/stores/authentication/authentication';
+    import axios from "axios";
+    import * as apiClient from "@/generated/api-client";
+    import { authenticationService } from '@/services/authentication/authentication-service';
 
     // その他のコードは省略
 
-    /** axios の共通の設定があればここに定義 */
-    const axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    /** api-client の共通の Configuration があればここに定義。 */
+    /** api-client の共通の Configuration があればここに定義します。 */
     function createConfig(): apiClient.Configuration {
-      const config = new apiClient.Configuration();
+      const config = new apiClient.Configuration({
+        basePath: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
+      });
+
       return config;
     }
 
-    async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
-      const store = useAuthenticationStore();
+    async function addTokenAsync(config: apiClient.Configuration) {
+      
 
-      // 認証済みの場合、アクセストークンを取得して Configuration に設定
-      if (store.isAuthenticated) {
-        await store.getToken();
-        const token = store.getAccessToken;
+      // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
+      if (await authenticationService.isAuthenticated()) {
+        const token = await authenticationService.getTokenAzureADB2C();
         config.accessToken = token;
       }
     }
@@ -364,28 +359,23 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     export async function getExampleApi(): Promise<apiClient.ExampleApi> {
       const config = createConfig();
 
-      // 認証が必要な API は、 addTokenAsync を呼び出すよう設定
+      // 認証が必要な API では、addTokenAsync を呼び出します。
       await addTokenAsync(config);
       const exampleApi = new apiClient.ExampleApi(config, '', axiosInstance);
       return exampleApi;
     }
-    ```
 
-1. 認証機能を持つサービスを作成します。`src\services\authentication` フォルダーを作成し、 `authentication-service.ts` を作成します。
+    export async function getServerTimeApi(): Promise<apiClient.ServerTimeApi> {
+      const config = createConfig();
 
-    ```ts
-    import { useAuthenticationStore } from "@/stores/authentication/authentication";
-
-    export const authenticationService = {
-      async signIn() {
-        const authenticationStore = useAuthenticationStore();
-        await authenticationStore.signIn();
-        
-        if (authenticationStore.isAuthenticated) {
-          // サインインが成功した場合の処理をここに記述します。
-        } 
-      },
-    };
+      // 認証が不要な API では、addTokenAsync は呼び出しません。
+      const serverTimeApi = new apiClient.ServerTimeApi(
+        config,
+        '',
+        axiosInstance
+      );
+      return serverTimeApi;
+    }
     ```
 
 1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
@@ -397,7 +387,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
     const authenticationStore = useAuthenticationStore();
 
     const signIn = async () => {
-      await authenticationService.signIn();
+      await authenticationService.signInAzureADB2C();
     };
     </script>
     ```
