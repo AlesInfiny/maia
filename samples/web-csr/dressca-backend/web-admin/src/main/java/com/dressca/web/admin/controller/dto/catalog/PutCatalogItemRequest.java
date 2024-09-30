@@ -1,18 +1,27 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+/**
+ * カタログアイテムを変更する際に用いるdtoクラスです。
+ */
+@Data
 @AllArgsConstructor
 public class PutCatalogItemRequest {
-    public String name = "";
-    public String description = "";
-    public long price;
-    public String ProductCode;
-    public long CatalogCategoryId;
-    public long CatalogBrandId;
-    public byte[] rowVersion;
+  @NotNull
+  public String name = "";
+  @NotNull
+  public String description = "";
+  @NotNull
+  public long price;
+  @NotNull
+  public String productCode;
+  @NotNull
+  public long catalogCategoryId;
+  @NotNull
+  public long catalogBrandId;
+  @NotNull
+  public byte[] rowVersion;
 }

@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * カタログリポジトリ。
@@ -56,10 +55,10 @@ public interface CatalogRepository {
   /**
    * 指定した ID のカタログアイテムを取得します。
    *
-   * @param id ID
-   * @return 条件に一致するカタログアイテム. 存在しない場合、空のOptional.
+   * @param id カタログアイテムID
+   * @return 条件に一致するカタログアイテム
    */
-  Optional<CatalogItem> findById(long id);
+  CatalogItem findById(long id);
 
   /**
    * カタログアイテムを追加します。

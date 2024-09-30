@@ -8,7 +8,6 @@ import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogIte
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,10 +53,8 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public Optional<CatalogItem> findById(long id) {
-    CatalogItemEntity entity = catalogItemMapper.selectByPrimaryKey(id);
-    CatalogItem item = EntityTranslator.catalogItemEntityTranslate(entity);
-    return Optional.ofNullable(item);
+  public CatalogItem findById(long id) {
+    return mapper.findById(id);
   }
 
   @Override

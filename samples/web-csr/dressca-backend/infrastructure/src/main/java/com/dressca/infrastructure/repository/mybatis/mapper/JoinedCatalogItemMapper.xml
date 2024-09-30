@@ -27,7 +27,7 @@
       ASSETS.CATALOG_ITEM_ID,
       ASSETS.ASSET_CODE
     FROM CATALOG_ITEMS
-    INNER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
+      LEFT OUTER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
       CATALOG_ITEMS.ID = ASSETS.CATALOG_ITEM_ID
     )
   </sql>
@@ -95,5 +95,12 @@
     <include refid="selectCatalogItemsIncludeAsset"/>
     LIMIT #{_skiprows}, #{_pagesize}
   </select>
-  
+
+  <select id="findById" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+      CATALOG_ITEMS.ID = #{id}
+    </where>
+  </select>
+
 </mapper>

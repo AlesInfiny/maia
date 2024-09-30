@@ -1,7 +1,6 @@
 package com.dressca.infrastructure.repository.mybatis;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
@@ -32,9 +31,9 @@ public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
   }
 
   @Override
-  public Optional<CatalogBrand> findById(long id) {
+  public CatalogBrand findById(long id) {
     CatalogBrandEntity entity = catalogBrandMapper.selectByPrimaryKey(id);
     CatalogBrand brand = EntityTranslator.catalogBrandEntityTranslate(entity);
-    return Optional.ofNullable(brand);
+    return brand;
   }
 }

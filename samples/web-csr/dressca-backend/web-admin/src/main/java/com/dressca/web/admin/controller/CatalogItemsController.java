@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -54,7 +53,7 @@ public class CatalogItemsController {
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class)))
   @GetMapping("{id}")
-  public ResponseEntity<CatalogItemResponse> GetById(@PathVariable("id") long id) {
+  public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
     CatalogItem item;
     try {
       item = this.service.GetCatalogItem(id);
@@ -101,15 +100,14 @@ public class CatalogItemsController {
   /**
    * カタログにアイテムを追加します。
    * 
-   * @param postCatalogItemRequest
+   * @param postCatalogItemRequest 追加するカタログアイテム
    * @return 追加したカタログアイテム
    */
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponse(responseCode = "201", description = "成功。", content = @Content)
   @PostMapping
-  public ResponseEntity<CatalogItem> postCatalogItem(PostCatalogItemRequest postCatalogItemRequest) {
-
-    CatalogItem item = this.service.addItemToCatalog(
+  public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest) {
+    this.service.addItemToCatalog(
         postCatalogItemRequest.getName(),
         postCatalogItemRequest.getDescription(),
         new BigDecimal(postCatalogItemRequest.getPrice()),
@@ -117,18 +115,13 @@ public class CatalogItemsController {
         postCatalogItemRequest.getCatalogBrandId(),
         postCatalogItemRequest.getCatalogCategoryId());
 
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-        .path("/{id}")
-        .buildAndExpand(item.getId())
-        .toUri();
-
-    return ResponseEntity.created(location).body(item);
+    return ResponseEntity.created(URI.create("catalog-items")).build();
   }
 
   /**
    * カタログから指定したカタログアイテム ID のアイテムを削除します。
    * 
-   * @param id カタログアイテムID。
+   * @param catalogItemId カタログアイテムID。
    * @return なし。
    */
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
@@ -138,9 +131,7 @@ public class CatalogItemsController {
 
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
-    }
-
-    catch (CatalogNotFoundException e) {
+    } catch (CatalogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
 
@@ -151,7 +142,7 @@ public class CatalogItemsController {
    * 指定したIDのカタログアイテムの情報を更新します。
    * 
    * @param catalogItemId         カタログアイテムID。
-   * @param putCatalogItemRequest
+   * @param putCatalogItemRequest 更新するカタログアイテムの情報。
    * @return なし。
    */
   @Operation(summary = "指定したIDのカタログアイテムの情報を更新します。", description = "指定したIDのカタログアイテムの情報を更新します。")
@@ -163,7 +154,7 @@ public class CatalogItemsController {
   })
   @PutMapping("{catalogItemId}")
   public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
-      PutCatalogItemRequest putCatalogItemRequest) {
+      @RequestBody PutCatalogItemRequest putCatalogItemRequest) {
 
     CatalogItemUpdateCommand command = new CatalogItemUpdateCommand(
         catalogItemId,
@@ -177,9 +168,7 @@ public class CatalogItemsController {
 
     try {
       this.service.updateCatalogItem(command);
-    }
-
-    catch (CatalogNotFoundException e) {
+    } catch (CatalogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
 

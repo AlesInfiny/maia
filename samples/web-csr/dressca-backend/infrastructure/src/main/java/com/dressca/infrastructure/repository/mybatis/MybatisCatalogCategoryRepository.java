@@ -1,7 +1,6 @@
 package com.dressca.infrastructure.repository.mybatis;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
@@ -32,9 +31,9 @@ public class MybatisCatalogCategoryRepository implements CatalogCategoryReposito
   }
 
   @Override
-  public Optional<CatalogCategory> findById(long id) {
+  public CatalogCategory findById(long id) {
     CatalogCategoryEntity entity = catalogCategoryMapper.selectByPrimaryKey(id);
     CatalogCategory category = EntityTranslator.catalogCategoryEntityTranslate(entity);
-    return Optional.ofNullable(category);
+    return category;
   }
 }
