@@ -44,6 +44,10 @@ Azure AD B2C を利用したユーザー認証の簡単な実装サンプルを�
     - [spring-cloud-azure-starter-active-directory-b2c :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c){ target=_blank }
     - [spring-cloud-azure-dependencies :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies){ target=_blank }
 
+## 本サンプルを利用する際の検討事項 {#consideration}
+
+- [MSAL.js で提供される秘密情報のキャッシュ保存先](./azure-ad-b2c-consideration.md)
+
 ## ダウンロード {#download}
 
 サンプルアプリケーションと詳細な解説は以下からダウンロードできます。
