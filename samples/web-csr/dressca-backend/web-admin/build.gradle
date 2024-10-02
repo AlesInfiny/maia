@@ -24,6 +24,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
+	implementation supportDependencies.spring_boot_security_starter
 	
 	implementation project(':web')
 	implementation project(':application-core')
@@ -32,6 +33,7 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.spring_boot_starter_log4j2
+	testImplementation supportDependencies.spring_security_test
 
 	compileOnly supportDependencies.servlet_api
 }

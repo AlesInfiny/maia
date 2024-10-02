@@ -56,7 +56,7 @@ public class CatalogItemsController {
   public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
     CatalogItem item;
     try {
-      item = this.service.GetCatalogItem(id);
+      item = this.service.getCatalogItem(id);
     } catch (CatalogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }

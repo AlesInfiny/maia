@@ -45,7 +45,7 @@ public class CatalogManagementApplicationService {
    * @return 条件に一致するカタログアイテム。
    * @throws CatalogNotFoundException カタログアイテムが見つからなかった場合。
    */
-  public CatalogItem GetCatalogItem(long id) throws CatalogNotFoundException {
+  public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException {
     apLog.debug("処理開始を表す仮のログ出力です。");
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
