@@ -1,0 +1,94 @@
+name: openapi-generatorのバージョンアップ確認
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/check-openapi-generator-update.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * 0'
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check-update:
+    name: openapi-generatorのバージョンアップ確認
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub API経由でリポジトリの情報を取得
+        id: get-repo-info-via-github-api
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.github.com/repos/OpenAPITools/openapi-generator/releases/latest'
+          method: 'GET'
+          customHeaders: '{"Content-Type": "application/json"}'
+
+      - name: 最新のOpenAPI Generatorのバージョン取得
+        id: get-latest-openapi-generator-version
+        run: |
+          echo ${{ steps.get-repo-info-via-github-api.outputs.response }}
+          echo ${{ steps.get-repo-info-via-github-api.outputs.headers }}
+          echo ${{ steps.get-repo-info-via-github-api.outputs.status }}
+          echo "latest-version=$(echo ${{ fromJson(steps.get-repo-info-via-github-api.outputs.response).tag_name }} |sed 's/^v//')" >> $GITHUB_OUTPUT
+
+      - name: チェックアウト
+        uses: actions/checkout@v4
+
+      - name: 現在のOpenAPI Generatorのバージョン取得
+        id: get-current-openapi-generator-version
+        run: |
+          echo "current-version=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
+
+      - name: アップデート要否を判定
+        id: check-version-update
+        run: |
+          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version }} ]]; then
+            echo "update-required=false" >> $GITHUB_OUTPUT
+          else
+            echo "update-required=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: サマリに出力
+        run: |
+          echo "# 確認結果" >> $GITHUB_STEP_SUMMARY
+          echo "openapi-generator のバージョンは ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required }} です。">> $GITHUB_STEP_SUMMARY
+
+      - name: issue を作成
+        id: create-issue
+        if: ${{ steps.check-version-update.outputs.update-required == 'true' }}
+        uses: Wandalen/wretry.action@master
+        with:
+          action: dblock/create-a-github-issue@v3
+          with: |
+            filename: ./.github/ISSUE_TEMPLATE/openapi-generator-update-issue.md
+            update_existing: true
+            search_existing: open
+          attempt_limit: 3
+          attempt_delay: 300000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_APP_NAME: "Dressca-Consumer"
+          LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
+          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version }}
+
+
+      - name: issue の情報を出力
+        if: ${{ steps.check-version-update.outputs.update-required  == 'true' }}
+        env:
+          STATUS: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).url }}
+        run: |
+          echo "# issue の作成結果" >> $GITHUB_STEP_SUMMARY
+          if [ $STATUS = 'created' ]; then
+            echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
+          elif [ $STATUS = 'updated' ]; then
+            echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
+          echo status: $STATUS >> $GITHUB_STEP_SUMMARY
+          echo - $ISSUE_URL >> $GITHUB_STEP_SUMMARY

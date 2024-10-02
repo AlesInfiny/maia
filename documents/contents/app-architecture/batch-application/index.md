@@ -9,6 +9,6 @@ description: バッチアプリケーションについて概要や、主に使�
 
 1. [バッチアプリケーションのアーキテクチャ](batch-application-architecture.md)
 
-1. [バッチアプリケーションのテスト戦略](batch-application-test-strategy.md)
+1. [バッチアプリケーションのテスト方針](batch-application-test-policy/index.md)
 
-1. [バッチアプリケーションの検討事項](batch-application-consideration.md)
+1. [バッチアプリケーションの検討事項](batch-application-consideration/index.md)
