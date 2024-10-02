@@ -26,10 +26,18 @@ nav:
               - メッセージ管理方針: app-architecture/overview/java-application-processing-system/message-management-policy.md
               - 入力検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
               - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
+          - トランザクション管理方針: app-architecture/overview/transaction-management.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
-          - 全体処理方式: app-architecture/client-side-rendering/global-function.md
+          - 全体処理方式:
+              - app-architecture/client-side-rendering/global-function/index.md
+              - 例外処理方針: app-architecture/client-side-rendering/global-function/exception-handling.md
+              - ログ出力方針: app-architecture/client-side-rendering/global-function/logging-policy.md
+              - メッセージ管理方針: app-architecture/client-side-rendering/global-function/message-management-policy.md
+              - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
+              - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
+              - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
@@ -47,8 +55,13 @@ nav:
           - app-architecture/batch-application/index.md
           - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
           - バッチアプリケーションのアーキテクチャ: app-architecture/batch-application/batch-application-architecture.md
-          - バッチアプリケーションの検討事項: app-architecture/batch-application/batch-application-consideration.md
-          - バッチアプリケーションのテスト戦略: app-architecture/batch-application/batch-application-test-strategy.md
+          - バッチアプリケーションの検討事項:
+              - app-architecture/batch-application/batch-application-consideration/index.md
+              - バッチアプリケーションの起動に時間がかかる: app-architecture/batch-application/batch-application-consideration/reduced-startup-time.md
+              - メタデータテーブルの必要性について: app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md
+          - バッチアプリケーションのテスト戦略:
+              - app-architecture/batch-application/batch-application-test-policy/index.md
+              - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
@@ -67,6 +80,7 @@ nav:
               - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
               - ブランクプロジェクトの作成: guidebooks/how-to-develop/vue-js/create-vuejs-blank-project.md
               - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/vue-js/folder-structure-of-blank-project.md
+              - ワークスペースの設定: guidebooks/how-to-develop/vue-js/setting-workspaces.md
               - プロジェクトの共通設定: guidebooks/how-to-develop/vue-js/project-settings.md
               - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
               - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
@@ -81,7 +95,8 @@ nav:
       - samples/index.md
       - Azure AD B2C を利用したユーザー認証:
           - samples/azure-ad-b2c/index.md
-  - AlesInfiny Maia について:
+          - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/azure-ad-b2c/azure-ad-b2c-consideration.md
+  - AlesInfiny Maia OSS Edition について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md

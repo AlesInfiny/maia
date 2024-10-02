@@ -10,6 +10,7 @@
 *[CORS]: Cross-Origin Resource Sharing：オリジン間リソース共有。
 *[CRUD]: Create Read Update Delete：永続性の 4 つの基本機能のイニシャルを並べた用語。
 *[CSR]: Client Side Rendering
+*[CSRF]: Cross-Site Request Forgery：クロスサイトリクエストフォージェリ。
 *[DI]: Dependency Injection：依存性の注入。
 *[E2E]: End to end
 *[FaaS]: Function as a Service: サーバーレスでアプリケーション開発ができる環境を提供するクラウドサービス。
