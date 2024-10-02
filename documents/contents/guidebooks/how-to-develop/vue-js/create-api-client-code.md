@@ -54,7 +54,7 @@ package.json の scripts セクションにタスクを追加します。
   "scripts": {
     "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
-    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ../../dressca-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
+    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../dressca-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   }
 }
 ```
@@ -69,10 +69,10 @@ openapi-generator-cli の generate コマンドのオプションについて説
 -g typescript-axios
 ```
 
-入力の API 仕様書として `./../dressca-backend/api-docs/api-specification.json` というファイルを指定します。
+入力の API 仕様書として `./../../dressca-backend/api-docs/api-specification.json` というファイルを指定します。
 
 ``` terminal
--i ./../dressca-backend/api-docs/api-specification.json 
+-i ./../../dressca-backend/api-docs/api-specification.json 
 ```
 
 以下のプロパティを追加します。
