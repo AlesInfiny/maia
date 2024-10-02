@@ -79,7 +79,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）として推奨す�
 
 #### Java プラグイン {#java-plugin}
 
-Java プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+Java プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
 
 また、 Java プラグインや後述する各プラグインのタスクをカスタマイズする場合は、 `build.gradle` に設定を追加します。
 具体例として、 test タスクにおいて使用するプロファイルを変更するようカスタマイズする設定を示します。
@@ -98,7 +98,7 @@ subprojects {
 
 #### Checkstyle プラグイン {#checkstyle-plugin}
 
-Checkstyle プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+Checkstyle プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
@@ -123,7 +123,7 @@ subprojects {
 
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
-SpotBugs プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank }{ target=_blank } を参照してください。
+SpotBugs プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
 
 また、 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
 このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
@@ -142,7 +142,7 @@ subprojects {
 
 #### JaCoCo プラグイン {#jacoco-plugin}
 
-JaCoCo プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new: :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank }{ target=_blank } を参照してください。
+JaCoCo プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
 なお、 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
