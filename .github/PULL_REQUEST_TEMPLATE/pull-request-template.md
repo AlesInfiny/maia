@@ -1,7 +1,7 @@
 ---
 name: general-pull-request
 about: 汎用的なPull Requestのテンプレートです
-title: ''
+title: 'Pull Request Template'
 labels: ''
 assignees: ''
 ---
