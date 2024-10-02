@@ -30,7 +30,14 @@ nav:
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
-          - 全体処理方式: app-architecture/client-side-rendering/global-function.md
+          - 全体処理方式:
+              - app-architecture/client-side-rendering/global-function/index.md
+              - 例外処理方針: app-architecture/client-side-rendering/global-function/exception-handling.md
+              - ログ出力方針: app-architecture/client-side-rendering/global-function/logging-policy.md
+              - メッセージ管理方針: app-architecture/client-side-rendering/global-function/message-management-policy.md
+              - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
+              - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
+              - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
