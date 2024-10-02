@@ -125,8 +125,11 @@ public class CatalogItemJobTest {
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
-      String insertItem = "insert into catalog_items (id,name,description,price,product_code,catalog_category_id,catalog_brand_id) values (?,?,?,1000,'C000000001',1,1)";
-      String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id) values (?,'dummy',?)";
+      String insertItem = "insert into catalog_items"
+          + " (id,name,description,price,product_code,catalog_category_id,catalog_brand_id)"
+          + " values (?,?,?,1000,'C000000001',1,1)";
+      String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id)"
+          + " values (?,'dummy',?)";
       jdbcTemplate.update(insertItem, 101 + i, "sample" + i, "商品説明" + i);
       jdbcTemplate.update(insertItemAsset, 101 + i, 101 + i);
     }

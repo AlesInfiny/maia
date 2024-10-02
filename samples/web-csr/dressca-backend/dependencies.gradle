@@ -1,9 +1,9 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.3.1"
+    springBootVersion = "3.3.4"
     springDependencyManagementVersion = "1.1.5"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.0.18"
+    spotbugsVersion = "6.0.23"
 
     // -- DEPENDENCIES
     springBatchTestVersion = "5.1.2"
@@ -14,7 +14,7 @@ ext {
     springdocOpenapiVersion = "2.5.0"
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.17.0"
-    springSecurity = "3.3.1"
+    springSecurity = "3.3.4"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
