@@ -30,13 +30,16 @@
     <property name="eachLine" value="true"/>
   </module>
 
-  <!-- 最大文字数が100文字を超過しても改行されない問題が発生しているためコメントアウト -->
   <!-- 
+  formatterの最大文字数は100文字であるが100文字を超えた改行を実施する場合があるため
+  CheckStyleでは120文字を超えた場合に警告が発生するよう設定
+   -->
   <module name="LineLength">
-    <property name="max" value="100"/>
-    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+    <property name="max" value="120"/>
+    <!-- アノテーション内ではformatterによる100文字を超えた場合の改行が適用されないため検証から除外 -->
+    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://|^@.*| @.*"/>
   </module> 
-  -->
+ 
 
   <!-- チェック除外対象を示したファイルがあればそれを参照する -->
   <module name="SuppressionFilter">

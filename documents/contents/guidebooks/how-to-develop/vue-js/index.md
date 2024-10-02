@@ -11,9 +11,12 @@ Vue.js を用いてフロントエンドアプリケーションを開発する�
 1. [事前準備](preparation.md)
 1. [ブランクプロジェクトの作成](create-vuejs-blank-project.md)
 1. [ブランクプロジェクトのフォルダー構造](folder-structure-of-blank-project.md)
+1. [ワークスペースの設定](setting-workspaces.md)
 1. [プロジェクトの共通設定](project-settings.md)
 1. [開発に使用するパッケージ](optional-packages.md)
 1. [CSSの設定とCSSフレームワークの適用](css.md)
 1. [静的コード分析とフォーマット](static-verification-and-format.md)
 1. [入力値検証](input-validation.md)
 1. [Open API 仕様書からのクライアントコード生成](create-api-client-code.md)
+
+フロントエンドアプリケーションを公開するオリジンと、呼び出し先の Web API を公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
