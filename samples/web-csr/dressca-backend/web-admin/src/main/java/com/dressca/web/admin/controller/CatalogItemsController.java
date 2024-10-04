@@ -5,16 +5,22 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogManagementApplicationService;
+import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.web.admin.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +50,8 @@ public class CatalogItemsController {
   @Autowired
   private CatalogManagementApplicationService service;
 
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+
   /**
    * 指定したIDのカタログアイテムを返します。
    * 
@@ -53,6 +61,7 @@ public class CatalogItemsController {
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class)))
   @GetMapping("{id}")
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
     CatalogItem item;
     try {
@@ -76,15 +85,16 @@ public class CatalogItemsController {
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
-  @GetMapping()
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)
+  })
+  @GetMapping
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<CatalogItemResponse> items = this.service.getCatalogItems(brandId,
-        categoryId, page, pageSize).stream()
+    List<CatalogItemResponse> items = this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert)
         .collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
@@ -106,15 +116,20 @@ public class CatalogItemsController {
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponse(responseCode = "201", description = "成功。", content = @Content)
   @PostMapping
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest) {
-    this.service.addItemToCatalog(
-        postCatalogItemRequest.getName(),
-        postCatalogItemRequest.getDescription(),
-        new BigDecimal(postCatalogItemRequest.getPrice()),
-        postCatalogItemRequest.getProductCode(),
-        postCatalogItemRequest.getCatalogBrandId(),
-        postCatalogItemRequest.getCatalogCategoryId());
-
+    try {
+      this.service.addItemToCatalog(
+          postCatalogItemRequest.getName(),
+          postCatalogItemRequest.getDescription(),
+          new BigDecimal(postCatalogItemRequest.getPrice()),
+          postCatalogItemRequest.getProductCode(),
+          postCatalogItemRequest.getCatalogBrandId(),
+          postCatalogItemRequest.getCatalogCategoryId());
+    } catch (PermissionDeniedException e) {
+      apLog.error(e.getMessage(), e);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
     return ResponseEntity.created(URI.create("catalog-items")).build();
   }
 
@@ -127,14 +142,16 @@ public class CatalogItemsController {
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponse(responseCode = "204", description = "成功.", content = @Content)
   @DeleteMapping("{catalogItemId}")
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId) {
-
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
+    } catch (PermissionDeniedException e) {
+      apLog.error(e.getMessage(), e);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
-
     return ResponseEntity.noContent().build();
   }
 
@@ -153,9 +170,9 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "409", description = "更新の競合が発生。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest) {
-
     CatalogItemUpdateCommand command = new CatalogItemUpdateCommand(
         catalogItemId,
         putCatalogItemRequest.getName(),
@@ -165,13 +182,14 @@ public class CatalogItemsController {
         putCatalogItemRequest.getCatalogBrandId(),
         putCatalogItemRequest.getCatalogCategoryId(),
         putCatalogItemRequest.getRowVersion());
-
     try {
       this.service.updateCatalogItem(command);
+    } catch (PermissionDeniedException e) {
+      apLog.error(e.getMessage(), e);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
-
     return ResponseEntity.noContent().build();
   }
 }

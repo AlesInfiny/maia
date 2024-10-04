@@ -8,6 +8,7 @@ import com.dressca.web.admin.controller.dto.catalog.CatalogCategoryResponse;
 import com.dressca.web.admin.mapper.CatalogCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,8 @@ public class CatalogCategoriesController {
   @Operation(summary = "カタログカテゴリの一覧を取得します.", description = "カタログカテゴリの一覧を取得します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategoryResponse.class)))) })
-  @GetMapping()
+  @GetMapping
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
     List<CatalogCategoryResponse> categories = this.service.getCategories().stream()
         .map(CatalogCategoryMapper::convert)

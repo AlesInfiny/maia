@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "Assets", description = "アセットの情報にアクセスするAPI")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
+@PreAuthorize(value = "hasRole('ADMIN')")
 public class AssetsController {
 
   @Autowired
@@ -52,6 +54,7 @@ public class AssetsController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
   @GetMapping("{assetCode}")
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<Resource> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {

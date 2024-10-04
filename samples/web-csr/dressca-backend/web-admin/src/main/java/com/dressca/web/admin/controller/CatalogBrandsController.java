@@ -8,6 +8,7 @@ import com.dressca.web.admin.controller.dto.catalog.CatalogBrandResponse;
 import com.dressca.web.admin.mapper.CatalogBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,8 @@ public class CatalogBrandsController {
   @Operation(summary = "カタログブランドの一覧を取得する.", description = "カタログブランドの一覧を取得する.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
-  @GetMapping()
+  @GetMapping
+  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
         .map(CatalogBrandMapper::convert)

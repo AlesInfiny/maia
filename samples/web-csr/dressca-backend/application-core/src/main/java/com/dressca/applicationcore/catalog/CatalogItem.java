@@ -97,5 +97,4 @@ public class CatalogItem {
     this.catalogBrandId = catalogBrandId;
     this.rowVersion = rowVersion;
   }
-
 }

@@ -2,12 +2,12 @@ package com.dressca.applicationcore.catalog;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * カタログアイテム更新処理のファサードとなるコマンドオブジェクトです。
  */
-@Data
+@Getter
 @AllArgsConstructor
 public class CatalogItemUpdateCommand {
   private long id;
