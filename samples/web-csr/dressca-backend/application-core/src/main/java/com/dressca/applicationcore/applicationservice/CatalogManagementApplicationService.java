@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.dressca.applicationcore.authorization.PermissionDeniedException;
+import com.dressca.applicationcore.authorization.UserStore;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
@@ -35,6 +37,9 @@ public class CatalogManagementApplicationService {
   private CatalogRepository catalogRepository;
   private CatalogBrandRepository catalogBrandRepository;
   private CatalogCategoryRepository catalogCategoryRepository;
+
+  @Autowired
+  private UserStore userStore;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -80,6 +85,7 @@ public class CatalogManagementApplicationService {
    * @param catalogBrandId    ブランドID
    * @param catalogCategoryId カテゴリID
    * @return 追加したカタログアイテム。
+   * @throws PermissionDeniedException 追加権限がない場合。
    */
   public CatalogItem addItemToCatalog(
       String name,
@@ -87,8 +93,11 @@ public class CatalogManagementApplicationService {
       BigDecimal price,
       String productCode,
       long catalogBrandId,
-      long catalogCategoryId) {
+      long catalogCategoryId) throws PermissionDeniedException {
     apLog.debug("処理開始を表す仮のログ出力です。");
+    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+      throw new PermissionDeniedException("addItemToCatalog");
+    }
     CatalogItem item = new CatalogItem(name,
         description,
         price,
@@ -103,15 +112,19 @@ public class CatalogManagementApplicationService {
    * カタログからアイテムを削除します。
    * 
    * @param id 削除対象のカタログアイテムのID。
-   * @throws CatalogNotFoundException 削除対象のカタログアイテムが存在しなかった場合。
+   * @throws PermissionDeniedException 削除権限がない場合。
+   * @throws CatalogNotFoundException  削除対象のカタログアイテムが存在しなかった場合。
+   * 
    */
-  public void deleteItemFromCatalog(long id) throws CatalogNotFoundException {
+  public void deleteItemFromCatalog(long id) throws CatalogNotFoundException, PermissionDeniedException {
     apLog.debug("処理開始を表す仮のログ出力です。");
-
+    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+      throw new PermissionDeniedException("deleteItemFromCatalog");
+    }
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
       apLog.info("カタログアイテムが見つからなかったことを表す仮のログ出力です。");
-      new CatalogNotFoundException(id);
+      throw new CatalogNotFoundException(id);
     }
     this.catalogRepository.remove(item);
   }
@@ -120,11 +133,15 @@ public class CatalogManagementApplicationService {
    * カタログアイテムを更新します。
    * 
    * @param command 更新処理のファサードとなるコマンドオブジェクト。
-   * @throws CatalogNotFoundException 更新対象のカタログアイテムが存在しなかった場合。
+   * @throws PermissionDeniedException 更新権限がない場合。
+   * @throws CatalogNotFoundException  更新対象のカタログアイテムが存在しなかった場合。
    */
-  public void updateCatalogItem(CatalogItemUpdateCommand command) throws CatalogNotFoundException {
+  public void updateCatalogItem(CatalogItemUpdateCommand command)
+      throws CatalogNotFoundException, PermissionDeniedException {
     apLog.debug("処理開始を表す仮のログ出力です。");
-
+    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+      throw new PermissionDeniedException("updateCatalogItem");
+    }
     long catalogItemId = command.getId();
     if (catalogRepository.findById(catalogItemId) == null) {
       throw new CatalogNotFoundException(catalogItemId);
@@ -163,10 +180,8 @@ public class CatalogManagementApplicationService {
    * @return 条件に一致するカタログ情報の件数。
    */
   public int countCatalogItems(long brandId, long categoryId) {
-
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0002_LOG, new Object[] { brandId, categoryId },
         Locale.getDefault()));
-
     return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
   }
 }
