@@ -2,7 +2,7 @@ package com.dressca.applicationcore.baskets;
 
 import java.util.List;
 import java.util.StringJoiner;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -17,7 +17,7 @@ public class CatalogItemInBasketNotFoundException extends LogicException {
    * @param basketId   買い物かごID
    */
   public CatalogItemInBasketNotFoundException(List<Long> catalogIds, long basketId) {
-    super(null, ExceptionIdConstant.E_BASKET0002,
+    super(null, ExceptionIdConstant.E_CATALOG_ITEM_ID_DOES_EXIST_IN_BASKET,
         new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) },
         new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) });
   }

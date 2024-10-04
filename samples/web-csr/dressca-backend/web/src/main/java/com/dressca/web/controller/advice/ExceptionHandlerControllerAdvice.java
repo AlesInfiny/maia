@@ -1,13 +1,14 @@
 package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * サーバーエラーのハンドリングを行うクラスです（本番環境用）。
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.dressca")
 @Profile("production | test")
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
@@ -37,8 +38,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
-        e.getFrontMessageValue());
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.LOGIC_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -54,9 +54,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    * @return ステータースコード500のレスポンス
    */
   @ExceptionHandler(SystemException.class)
-  public ResponseEntity<ProblemDetail> handleException(SystemException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
-        e.getFrontMessageValue());
+  public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -73,7 +72,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -82,10 +81,16 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
-    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
+    Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
+      {
+        put(ProblemDetailsConstant.EXCEPTION_ID, errorBuilder.getExceptionId());
+        put(ProblemDetailsConstant.EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
+      }
+    };
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     problemDetail.setTitle(title);
-    problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
+    problemDetail.setProperties(errorProperty);
+    ;
     return problemDetail;
   }
 }

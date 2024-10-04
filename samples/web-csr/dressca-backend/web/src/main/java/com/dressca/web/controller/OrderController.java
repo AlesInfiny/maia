@@ -7,7 +7,7 @@ import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.controller.dto.order.OrderResponse;
@@ -99,7 +99,7 @@ public class OrderController {
       order = shoppingApplicationService.checkout(buyerId, shipToAddress);
     } catch (EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
-      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+      throw new SystemException(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     }
 
     String requestUri = req.getRequestURL().toString();

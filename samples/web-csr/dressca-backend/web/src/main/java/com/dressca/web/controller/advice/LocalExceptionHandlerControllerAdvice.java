@@ -1,6 +1,7 @@
 package com.dressca.web.controller.advice;
 
 import java.util.Map;
+import java.util.LinkedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
@@ -22,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * サーバーエラーのハンドリングを行うクラスです（開発環境用）。
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.dressca")
 @Profile("local")
 public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
@@ -54,7 +55,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * @return ステータースコード500のレスポンス
    */
   @ExceptionHandler(SystemException.class)
-  public ResponseEntity<ProblemDetail> localHandleException(SystemException e, HttpServletRequest req) {
+  public ResponseEntity<ProblemDetail> localHandleSystemException(SystemException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue(),
         e.getFrontMessageValue());
     apLog.error(errorBuilder.createLogMessageStackTrace());
@@ -73,7 +74,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> localHandleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -82,11 +83,16 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
-    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
-    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
-        errorBuilder.createLogMessageStackTrace());
+    Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
+      {
+        put(ProblemDetailsConstant.EXCEPTION_ID, errorBuilder.getExceptionId());
+        put(ProblemDetailsConstant.EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
+      }
+    };
+    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+        HttpStatus.INTERNAL_SERVER_ERROR, errorBuilder.createLogMessageStackTrace());
     problemDetail.setTitle(title);
-    problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
+    problemDetail.setProperties(errorProperty);
     return problemDetail;
   }
 }
