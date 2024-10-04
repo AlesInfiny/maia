@@ -1,16 +1,18 @@
 package com.dressca.web.admin.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import com.dressca.web.admin.filter.DummyUserInjectionFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
-import com.dressca.web.admin.filter.DummyUserFilter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,10 +21,14 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfig {
 
   @Value("${cors.allowed.origins:}")
   private String allowedOrigins;
+
+  @Autowired(required = false)
+  private DummyUserInjectionFilter dummyUserInjectionFilter;
 
   /**
    * CORS設定、認可機能を実装。
@@ -33,13 +39,13 @@ public class WebSecurityConfig {
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
     http.securityMatcher("/api/**")
         .csrf(csrf -> csrf.disable())
-        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        // .authorizeHttpRequests(authorize -> authorize
-        // .anyRequest().hasRole("ADMIN"))
-        .addFilterBefore(new DummyUserFilter(), AuthorizationFilter.class);
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
+    if (dummyUserInjectionFilter != null) {
+      http.addFilterBefore(dummyUserInjectionFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 
     return http.build();
   }
