@@ -16,7 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * ログイン中のユーザーの情報を取得します。
+ * {@link UserStore}の情報にアクセスする API コントローラです。
  */
 @RestController
 @Tag(name = "Users", description = "ログイン中のユーザーの情報を取得します。")

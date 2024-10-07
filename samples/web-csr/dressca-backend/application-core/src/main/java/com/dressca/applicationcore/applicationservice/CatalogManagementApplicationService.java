@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.authorization.UserStore;
 import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
@@ -51,11 +53,13 @@ public class CatalogManagementApplicationService {
    * @throws CatalogNotFoundException カタログアイテムが見つからなかった場合。
    */
   public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException {
-    apLog.debug("処理開始を表す仮のログ出力です。");
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG,
+        new Object[] { id }, Locale.getDefault()));
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
-      apLog.info("カタログアイテムが見つからなかったことを表す仮のログ出力です。");
-      throw new CatalogNotFoundException(id);
+      CatalogNotFoundException e = new CatalogNotFoundException(id);
+      apLog.info(e.getMessage());
+      throw e;
     }
     return item;
   }
@@ -94,7 +98,8 @@ public class CatalogManagementApplicationService {
       String productCode,
       long catalogBrandId,
       long catalogCategoryId) throws PermissionDeniedException {
-    apLog.debug("処理開始を表す仮のログ出力です。");
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG,
+        new Object[] {}, Locale.getDefault()));
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
@@ -117,14 +122,16 @@ public class CatalogManagementApplicationService {
    * 
    */
   public void deleteItemFromCatalog(long id) throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug("処理開始を表す仮のログ出力です。");
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG,
+        new Object[] { id }, Locale.getDefault()));
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
     }
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
-      apLog.info("カタログアイテムが見つからなかったことを表す仮のログ出力です。");
-      throw new CatalogNotFoundException(id);
+      CatalogNotFoundException e = new CatalogNotFoundException(id);
+      apLog.info(e.getMessage());
+      throw e;
     }
     this.catalogRepository.remove(item);
   }
@@ -133,30 +140,43 @@ public class CatalogManagementApplicationService {
    * カタログアイテムを更新します。
    * 
    * @param command 更新処理のファサードとなるコマンドオブジェクト。
-   * @throws PermissionDeniedException 更新権限がない場合。
-   * @throws CatalogNotFoundException  更新対象のカタログアイテムが存在しなかった場合。
+   * @throws PermissionDeniedException        更新権限がない場合。
+   * @throws CatalogNotFoundException         更新対象のカタログアイテムが存在しなかった場合。
+   * @throws CatalogBrandNotFoundException    更新対象のカタログブランドが存在しなかった場合。
+   * @throws CatalogCategoryNotFoundException 更新対象のカタログカテゴリが存在しなかった場合。
    */
   public void updateCatalogItem(CatalogItemUpdateCommand command)
-      throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug("処理開始を表す仮のログ出力です。");
+      throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
+      CatalogCategoryNotFoundException {
+
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG,
+        new Object[] { command.getId() }, Locale.getDefault()));
+
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
+
     long catalogItemId = command.getId();
     if (catalogRepository.findById(catalogItemId) == null) {
-      throw new CatalogNotFoundException(catalogItemId);
+      CatalogNotFoundException e = new CatalogNotFoundException(catalogItemId);
+      apLog.info(e.getMessage());
+      throw e;
     }
 
     long catalogBrandId = command.getCatalogBrandId();
     CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
     if (catalogBrand == null) {
-      apLog.info("カタログブランドが見つからなかったことを表す仮のログ出力です。");
+      CatalogBrandNotFoundException e = new CatalogBrandNotFoundException(catalogBrandId);
+      apLog.info(e.getMessage());
+      throw e;
     }
 
     long catalogCategoryId = command.getCatalogCategoryId();
     CatalogCategory catalogCategory = catalogCategoryRepository.findById(catalogCategoryId);
     if (catalogCategory == null) {
-      apLog.info("カタログカテゴリが見つからなかったことを表す仮のログ出力です。");
+      CatalogCategoryNotFoundException e = new CatalogCategoryNotFoundException(catalogCategoryId);
+      apLog.info(e.getMessage());
+      throw e;
     }
 
     CatalogItem item = new CatalogItem(
@@ -165,8 +185,8 @@ public class CatalogManagementApplicationService {
         command.getDescription(),
         command.getPrice(),
         command.getProductCode(),
-        command.getCatalogBrandId(),
-        command.getCatalogCategoryId(),
+        catalogBrandId,
+        catalogCategoryId,
         command.getRowVersion());
 
     this.catalogRepository.update(item);

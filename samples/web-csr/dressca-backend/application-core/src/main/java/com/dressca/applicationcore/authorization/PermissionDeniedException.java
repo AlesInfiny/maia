@@ -9,7 +9,7 @@ public class PermissionDeniedException extends LogicException {
   public PermissionDeniedException(String operationName) {
     super(
         null,
-        "仮のエラーコードで権限エラーを表現します。",
+        "{0} を実行する権限がありません。",
         new String[] { String.valueOf(operationName) },
         new String[] { String.valueOf(operationName) });
   }

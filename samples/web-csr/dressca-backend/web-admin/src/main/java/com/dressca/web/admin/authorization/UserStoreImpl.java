@@ -14,7 +14,8 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザー名を取得します。
-   * 未ログインの場合は空文字を返します。
+   * 
+   * @return ログイン中のユーザー名。未ログインの場合、空文字。
    */
   public String loginUserName() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -26,7 +27,8 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザーのロールを取得します。
-   * 未ログインの場合は空文字を返します。
+   * 
+   * @return ログイン中のユーザーのロール。未ログインの場合、空文字
    */
   public String loginUserRole() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -40,7 +42,8 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザーが指定したロールに属しているかどうか確認します。
-   * 未ログインの場合はfalseを返します。
+   * 
+   * @return ログインしている場合true。未ログインの場合false。
    */
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

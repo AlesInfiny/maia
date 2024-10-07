@@ -24,6 +24,11 @@ public class ExceptionIdConstant {
   public static final String E_ORDER0002 = "E_ORDER0002";
 
   /** カタログ情報が存在しなかった際の例外。 */
-  public static final String E_CATALOG0001 = "E_CATALOG0002";
+  public static final String E_CATALOG0001 = "E_CATALOG0001";
 
+  /** カタログブランドが存在しなかった際の例外。 */
+  public static final String E_CATALOG0002 = "E_CATALOG0002";
+
+  /** カタログカテゴリが存在しなかった際の例外。 */
+  public static final String E_CATALOG0003 = "E_CATALOG0003";
 }

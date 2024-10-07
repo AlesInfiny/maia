@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogManagementApplicationService;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
+import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
+import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
@@ -67,6 +69,7 @@ public class CatalogItemsController {
     try {
       item = this.service.getCatalogItem(id);
     } catch (CatalogNotFoundException e) {
+      apLog.warn(e.getMessage());
       return ResponseEntity.notFound().build();
     }
     CatalogItemResponse returnValue = CatalogItemMapper.convert(item);
@@ -127,7 +130,7 @@ public class CatalogItemsController {
           postCatalogItemRequest.getCatalogBrandId(),
           postCatalogItemRequest.getCatalogCategoryId());
     } catch (PermissionDeniedException e) {
-      apLog.error(e.getMessage(), e);
+      apLog.warn(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
     return ResponseEntity.created(URI.create("catalog-items")).build();
@@ -147,9 +150,10 @@ public class CatalogItemsController {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
     } catch (PermissionDeniedException e) {
-      apLog.error(e.getMessage(), e);
+      apLog.warn(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
+      apLog.warn(e.getMessage());
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.noContent().build();
@@ -185,9 +189,10 @@ public class CatalogItemsController {
     try {
       this.service.updateCatalogItem(command);
     } catch (PermissionDeniedException e) {
-      apLog.error(e.getMessage(), e);
+      apLog.warn(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    } catch (CatalogNotFoundException e) {
+    } catch (CatalogNotFoundException | CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
+      apLog.warn(e.getMessage());
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.noContent().build();
