@@ -5,9 +5,9 @@ package com.dressca.systemcommon.constant;
  */
 public class CommonExceptionIdConstant {
   /** 想定外のシステムエラー。 */
-  public static final String E_SYSTEM = "SystemError";
+  public static final String E_SYSTEM = "systemError";
 
   /** 想定外の業務エラー。 */
-  public static final String E_BUSINESS = "BusinessError";
+  public static final String E_BUSINESS = "businessError";
 
 }
