@@ -1,12 +1,12 @@
 import { useBasketStore } from '@/stores/basket/basket';
 
-const basketStore = useBasketStore();
-
 export async function fetchBasket() {
+  const basketStore = useBasketStore();
   await basketStore.fetch();
 }
 
 export async function addItemToBasket(itemId: number) {
+  const basketStore = useBasketStore();
   await basketStore.add(itemId);
   await basketStore.fetch();
 }
@@ -15,6 +15,7 @@ export async function updateItemInBasket(
   catalogItemId: number,
   newQuantity: number,
 ) {
+  const basketStore = useBasketStore();
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId();
 
@@ -26,6 +27,7 @@ export async function updateItemInBasket(
 }
 
 export async function removeItemFromBasket(catalogItemId: number) {
+  const basketStore = useBasketStore();
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId();
   try {
