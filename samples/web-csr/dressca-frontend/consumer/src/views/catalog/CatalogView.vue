@@ -14,7 +14,7 @@ import Loading from '@/components/common/LoadingSpinner.vue';
 import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
-import { errorHandler } from '@/shared/error-handler/error-handler';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -22,6 +22,7 @@ const catalogStore = useCatalogStore();
 const { getSpecialContents } = storeToRefs(specialContentStore);
 const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
+const customErrorHandler = useCustomErrorHandler();
 
 const state = reactive({
   selectedCategory: 0,
@@ -38,7 +39,7 @@ const addBasket = async (catalogItemId: number) => {
     await addItemToBasket(catalogItemId);
     router.push({ name: 'basket' });
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('カートに追加できませんでした。');
     });
   }
@@ -50,7 +51,7 @@ onMounted(async () => {
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('商品の取得に失敗しました。');
     });
   }
