@@ -23,7 +23,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.1.5",
     "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
-    "axios": "^1.7.3",
+    "axios": "^1.7.7",
     "pinia": "^2.2.0",
     "vee-validate": "^4.13.2",
     "vue": "^3.4.35",
