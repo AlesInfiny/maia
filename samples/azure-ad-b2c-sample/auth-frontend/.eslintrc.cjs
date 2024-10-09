@@ -6,17 +6,14 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
-    '@vue/eslint-config-typescript/recommended',
+    '@vue/eslint-config-airbnb-with-typescript',
     '@vue/eslint-config-prettier',
   ],
+  rules: {
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'error',
+  },
   env: {
     'vue/setup-compiler-macros': true,
   },
-  overrides: [
-    {
-      files: ['cypress/integration/**.spec.{js,ts,jsx,tsx}'],
-      extends: ['plugin:cypress/recommended'],
-    },
-  ],
-  ignorePatterns: ['postcss.config.js', 'tailwind.config.js'],
 };

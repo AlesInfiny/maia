@@ -101,7 +101,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(options?: any): AxiosPromise<UserResponse> {
+        getUser(options?: RawAxiosRequestConfig): AxiosPromise<UserResponse> {
             return localVarFp.getUser(options).then((request) => request(axios, basePath));
         },
     };
