@@ -154,7 +154,7 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getById(orderId: number, options?: any): AxiosPromise<OrderResponse> {
+        getById(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<OrderResponse> {
             return localVarFp.getById(orderId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -164,7 +164,7 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postOrder(postOrderRequest: PostOrderRequest, options?: any): AxiosPromise<void> {
+        postOrder(postOrderRequest: PostOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.postOrder(postOrderRequest, options).then((request) => request(axios, basePath));
         },
     };

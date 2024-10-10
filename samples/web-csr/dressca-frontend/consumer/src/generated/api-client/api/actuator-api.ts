@@ -181,7 +181,7 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        health(options?: any): AxiosPromise<object> {
+        health(options?: RawAxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.health(options).then((request) => request(axios, basePath));
         },
         /**
@@ -190,7 +190,7 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        healthPath(options?: any): AxiosPromise<object> {
+        healthPath(options?: RawAxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.healthPath(options).then((request) => request(axios, basePath));
         },
         /**
@@ -199,7 +199,7 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        links(options?: any): AxiosPromise<{ [key: string]: { [key: string]: Link; }; }> {
+        links(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: { [key: string]: Link; }; }> {
             return localVarFp.links(options).then((request) => request(axios, basePath));
         },
     };
