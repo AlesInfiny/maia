@@ -14,7 +14,7 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザー名を取得します。
-   * 
+   *
    * @return ログイン中のユーザー名。未ログインの場合、空文字。
    */
   public String loginUserName() {
@@ -27,7 +27,7 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザーのロールを取得します。
-   * 
+   *
    * @return ログイン中のユーザーのロール。未ログインの場合、空文字
    */
   public String loginUserRole() {
@@ -42,7 +42,7 @@ public class UserStoreImpl implements UserStore {
 
   /**
    * ログイン中のユーザーが指定したロールに属しているかどうか確認します。
-   * 
+   *
    * @return ログインしている場合true。未ログインの場合false。
    */
   public boolean isInRole(String role) {

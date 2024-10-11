@@ -1,4 +1,4 @@
-package com.dressca.web.admin.controller.dto.authorization;
+package com.dressca.web.admin.controller.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
