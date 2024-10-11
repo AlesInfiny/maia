@@ -71,8 +71,8 @@ nav:
           - guidebooks/how-to-develop/index.md
           - Java 編:
               - guidebooks/how-to-develop/java/index.md
-              - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
               - 事前準備: guidebooks/how-to-develop/java/preparation.md
+              - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
               - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
               - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
               - サブプロジェクトの個別設定: guidebooks/how-to-develop/java/sub-project-settings.md

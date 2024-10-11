@@ -9,9 +9,9 @@ description: バックエンドで動作する Java アプリケーションの 
 AlesInfiny Maia OSS Edition として推奨する設定や、共通的に使用する実装コードを中心に、プロジェクトの初期構築に必要な情報を提供します。
 業務機能の開発方法については解説しません。
 
-1. 事前準備
+1. [事前準備](./preparation.md)
 
-    「[ローカル開発環境の構築](../../how-to-develop/local-environment/index.md)」を参照し、 Java アプリケーションの開発に必要なローカル開発環境を構築してください。
+     Java アプリケーションの開発に必要なローカル開発環境について解説します。
 
 1. [アプリケーションの全体構造](./application-structure.md)
 
