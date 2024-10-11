@@ -25,4 +25,5 @@ public interface JoinedCatalogItemMapper {
 
   CatalogItem findById(@Param("id") long id);
 
+  int update(@Param("item") CatalogItem item);
 }
