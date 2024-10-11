@@ -97,7 +97,7 @@ export const CatalogCategoriesApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogCategories(options?: any): AxiosPromise<Array<CatalogCategoryResponse>> {
+        getCatalogCategories(options?: RawAxiosRequestConfig): AxiosPromise<Array<CatalogCategoryResponse>> {
             return localVarFp.getCatalogCategories(options).then((request) => request(axios, basePath));
         },
     };

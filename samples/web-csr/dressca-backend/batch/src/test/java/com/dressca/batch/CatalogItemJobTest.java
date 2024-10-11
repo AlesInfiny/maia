@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -27,6 +27,7 @@ import com.dressca.batch.job.BatchConfiguration;
 /**
  * CatalogItemJobのテストです。
  */
+@SpringBootTest
 @SpringBatchTest
 @SpringJUnitConfig(BatchConfiguration.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -37,8 +38,6 @@ public class CatalogItemJobTest {
   @Autowired
   @Qualifier("catalogItem_job")
   Job catalogItemJob;
-  @Autowired
-  JobLauncher jobLauncher;
   @Autowired
   JobRepository jobRepository;
   private JdbcTemplate jdbcTemplate;
