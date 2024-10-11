@@ -8,3 +8,39 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 ## ローカル開発環境の構築 {#create-dev-environment}
 
 ローカル開発環境の構築について [ローカル開発環境の構築](../local-environment/index.md) を参照し、最低限必要なソフトウェアをインストールしてください。
+
+## Visual Studio Code の拡張機能インストール {#install-extensions}
+
+Visual Studio Code を利用する場合、クライアントサイドアプリケーションの開発のために以下の拡張機能をインストールします。
+
+- [Vue - Official :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Vue.volar){ target=_blank }
+
+    Vue.js アプリケーションの開発に推奨されている拡張機能です。
+    詳細は [公式ドキュメント :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/tooling#ide-support){ target=_blank }を参照してください。
+
+- [EditorConfig for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig){ target=_blank }
+
+    アプリケーションのコーディングスタイルを維持する機能を提供します。
+
+- [ESLint :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint){ target=_blank }
+
+    TypeScript のコード品質を向上させるための拡張機能です。
+    リアルタイムでのコードのエラーを検出する機能を提供します。
+
+- [Stylelint :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint){ target=_blank }
+
+    CSS のコード品質を向上させるための拡張機能です。
+    リアルタイムでのコードのエラーを検出する機能を提供します。
+
+- [Prettier - Code formatter :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode){ target=_blank }
+
+    EditorConfig や ESLint 、 StyleLint と連携して、より詳細なコーディングルールを適用する機能を提供します。
+
+- [language-postcss :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=cpylua.language-postcss){ target=_blank }
+
+    PostCSS で記述されたコードの可読性を向上させる機能を提供します。
+    また、 StyleLint と連携することで、 PostCSS のコードのエラーを検出できます。
+
+- [Code Spell Checker :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker){ target=_blank }
+
+    コードやテキストの一般的なスペルの誤りを検知する機能を提供します。

@@ -54,9 +54,7 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 ### Visual Studio Code のインストール {#install-vscode}
 
-1. 以下のサイトから、コンピューターの環境にあった Visual Studio Code(以下 VS Code) のインストーラーをダウンロードします。
-
-    <https://code.visualstudio.com/>
+1. [こちらのサイト :material-open-in-new:](https://code.visualstudio.com/){ target=_blank } から、コンピューターの環境にあった Visual Studio Code(以下 VS Code) のインストーラーをダウンロードします。
 
 1. ダウンロードしたインストーラーを実行します。
 
@@ -66,9 +64,12 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 1. 以下の拡張機能をインストールします。
 
-    - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+    - [Japanese Language Pack for Visual Studio Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja){ target=_blank }
 
-    - [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)[^1]
+    バックエンドアプリケーションやフロントエンドアプリケーションの開発に利用する VS Code の拡張機能は、以下を確認してください。
+
+    - [バックエンドアプリケーション開発の事前準備](../java/preparation.md#install-extensions)
+    - [フロントエンドアプリケーション開発の事前準備](../vue-js/preparation.md#install-extensions)
 
 ### Git for Windows のインストール {#install-git-for-windows}
 
@@ -77,9 +78,7 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
     Git for Windows のインストール中に、既定のエディターを選択する必要があります。
     VS Code をインストールしている場合、 VS Code を既定のエディターとして設定できます。
 
-1. 以下のサイトから、コンピューターの環境にあった Git for Windows のインストーラーをダウンロードします。
-
-    <https://git-scm.com/>
+1. [こちらのサイト :material-open-in-new:](https://git-scm.com/){ target=_blank } から、コンピューターの環境にあった Git for Windows のインストーラーをダウンロードします。
 
 1. ダウンロードしたインストーラーを実行します。
 
@@ -95,23 +94,15 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 JDK の取得先は実行環境に合わせて選択します。
 
-- Azure：Microsoft Build for OpenJDK
+- [Azure：Microsoft Build for OpenJDK :material-open-in-new:](https://www.microsoft.com/openjdk/){ target=_blank }
 
-    <https://www.microsoft.com/openjdk/>
-
-- AWS：Amazon Corretto
-
-    <https://aws.amazon.com/jp/corretto/>
+- [AWS：Amazon Corretto :material-open-in-new:](https://aws.amazon.com/jp/corretto/){ target=_blank }
 
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
-    - Adoptium
+    - [Adoptium :material-open-in-new:](https://adoptium.net/){ target=_blank }
 
-        <https://adoptium.net/>
-
-    - Oracle JDK
-
-        <https://www.oracle.com/java/>
+    - [Oracle JDK :material-open-in-new:](https://www.oracle.com/java/){ target=_blank }
 
 本ドキュメントは Adoptium を前提に記載しています。
 
@@ -124,11 +115,6 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 
 ### Node.js のインストール {#install-node}
 
-1. 以下のサイトからインストーラーを取得します。
-
-    <https://nodejs.org/en/>
+1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
-
-[^1]:
-    Vue.js アプリケーションの開発に推奨されている拡張機能です。詳細は [公式ドキュメント :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/tooling#ide-support){ target=_blank }を参照してください。
