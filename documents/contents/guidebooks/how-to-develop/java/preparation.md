@@ -19,15 +19,13 @@ Visual Studio Code を利用する場合、 Java アプリケーションを開�
 
 - [Extension Pack for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack){ target=_blank }
 
-    Java アプリケーションの作成、テスト、デバッグの機能を提供します。
+    Java アプリケーションの作成、テスト、デバッグ等の基本的な機能を提供します。
 
-- [Gradle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle){ target=_blank }
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-    Gradle ビルド用のビジュアルインターフェイスを提供します。
+    アプリケーションの起動で利用する [Gradle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle){ target=_blank } やコード補完やエラーレポートを提供する [Language Support for Java(TM) by Red Hat :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=redhat.java){ target=_blank } といったの拡張機能が追加でインストールされます。
 
-- [Language Support for Java(TM) by Red Hat :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=redhat.java){ target=_blank }
-
-    Java アプリケーション開発における、コード補完やエラーレポート、リファクタリングなどの拡張機能を提供します。
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - [Lombok Annotations Support for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-lombok){ target=_blank }
 

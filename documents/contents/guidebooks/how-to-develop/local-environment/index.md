@@ -66,6 +66,12 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
     - [Japanese Language Pack for Visual Studio Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja){ target=_blank }
 
+        VS Code のユーザーインターフェースを日本語にローカライズする機能を提供します。
+
+    - [EditorConfig for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig){ target=_blank }
+
+        アプリケーションのコーディングスタイルを維持する機能を提供します。
+
     バックエンドアプリケーションやフロントエンドアプリケーションの開発に利用する VS Code の拡張機能は、以下を確認してください。
 
     - [バックエンドアプリケーション開発の事前準備](../java/preparation.md#install-extensions)

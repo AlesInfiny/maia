@@ -11,7 +11,7 @@ AlesInfiny Maia OSS Edition として推奨する設定や、共通的に使用�
 
 1. [事前準備](./preparation.md)
 
-     Java アプリケーションの開発に必要なローカル開発環境について解説します。
+    Java アプリケーションの開発に必要なローカル開発環境について解説します。
 
 1. [アプリケーションの全体構造](./application-structure.md)
 

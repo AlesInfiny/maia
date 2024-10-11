@@ -18,10 +18,6 @@ Visual Studio Code を利用する場合、クライアントサイドアプリ�
     Vue.js アプリケーションの開発に推奨されている拡張機能です。
     詳細は [公式ドキュメント :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/tooling#ide-support){ target=_blank }を参照してください。
 
-- [EditorConfig for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig){ target=_blank }
-
-    アプリケーションのコーディングスタイルを維持する機能を提供します。
-
 - [ESLint :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint){ target=_blank }
 
     TypeScript のコード品質を向上させるための拡張機能です。
@@ -40,7 +36,3 @@ Visual Studio Code を利用する場合、クライアントサイドアプリ�
 
     PostCSS で記述されたコードの可読性を向上させる機能を提供します。
     また、 StyleLint と連携することで、 PostCSS のコードのエラーを検出できます。
-
-- [Code Spell Checker :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker){ target=_blank }
-
-    コードやテキストの一般的なスペルの誤りを検知する機能を提供します。
