@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * ダミーユーザーをSecurityContextHolderに詰めるためのフィルタークラス。
  */
-@Profile("dev")
+@Profile("local")
 @Component
 public class DummyUserInjectionFilter extends OncePerRequestFilter {
 
@@ -34,7 +34,6 @@ public class DummyUserInjectionFilter extends OncePerRequestFilter {
         dummyUser,
         dummyUser.getPassword(),
         dummyUser.getAuthorities());
-
     SecurityContextHolder.getContext().setAuthentication(authentication);
     filterChain.doFilter(request, response);
   }

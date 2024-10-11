@@ -11,7 +11,10 @@ import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
+import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.admin.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
@@ -47,6 +50,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
+@PreAuthorize(value = "isAuthenticated()")
 public class CatalogItemsController {
 
   @Autowired
@@ -63,7 +67,6 @@ public class CatalogItemsController {
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class)))
   @GetMapping("{id}")
-  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
     CatalogItem item;
     try {
@@ -91,12 +94,12 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)
   })
   @GetMapping
-  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
+
     List<CatalogItemResponse> items = this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert)
         .collect(Collectors.toList());
@@ -127,8 +130,8 @@ public class CatalogItemsController {
           postCatalogItemRequest.getDescription(),
           new BigDecimal(postCatalogItemRequest.getPrice()),
           postCatalogItemRequest.getProductCode(),
-          postCatalogItemRequest.getCatalogBrandId(),
-          postCatalogItemRequest.getCatalogCategoryId());
+          postCatalogItemRequest.getCatalogCategoryId(),
+          postCatalogItemRequest.getCatalogBrandId());
     } catch (PermissionDeniedException e) {
       apLog.warn(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -183,17 +186,23 @@ public class CatalogItemsController {
         putCatalogItemRequest.getDescription(),
         new BigDecimal(putCatalogItemRequest.getPrice()),
         putCatalogItemRequest.getProductCode(),
-        putCatalogItemRequest.getCatalogBrandId(),
         putCatalogItemRequest.getCatalogCategoryId(),
-        putCatalogItemRequest.getRowVersion());
+        putCatalogItemRequest.getCatalogBrandId());
+
     try {
       this.service.updateCatalogItem(command);
     } catch (PermissionDeniedException e) {
       apLog.warn(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    } catch (CatalogNotFoundException | CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
+    } catch (CatalogNotFoundException e) {
       apLog.warn(e.getMessage());
       return ResponseEntity.notFound().build();
+    } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
+      apLog.warn(e.getMessage());
+      // ここでは発生を想定していないので、システムエラーとする。
+      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+    } catch (OptimisticLockingFailureException e) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
     }
     return ResponseEntity.noContent().build();
   }

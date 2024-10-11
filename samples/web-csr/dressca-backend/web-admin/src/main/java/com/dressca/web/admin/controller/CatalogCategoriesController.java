@@ -28,6 +28,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogCategories", description = "カタログカテゴリの情報にアクセスするAPI")
 @RequestMapping("/api/catalog-categories")
 @AllArgsConstructor
+@PreAuthorize(value = "isAuthenticated()")
 public class CatalogCategoriesController {
 
   @Autowired
@@ -42,7 +43,6 @@ public class CatalogCategoriesController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategoryResponse.class)))) })
   @GetMapping
-  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
     List<CatalogCategoryResponse> categories = this.service.getCategories().stream()
         .map(CatalogCategoryMapper::convert)

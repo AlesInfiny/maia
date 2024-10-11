@@ -28,6 +28,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスするAPI")
 @RequestMapping("/api/catalog-brands")
 @AllArgsConstructor
+@PreAuthorize(value = "isAuthenticated()")
 public class CatalogBrandsController {
 
   @Autowired
@@ -42,7 +43,6 @@ public class CatalogBrandsController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
   @GetMapping
-  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
         .map(CatalogBrandMapper::convert)

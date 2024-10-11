@@ -35,7 +35,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "Assets", description = "アセットの情報にアクセスするAPI")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
-@PreAuthorize(value = "hasRole('ADMIN')")
+@PreAuthorize(value = "isAuthenticated()")
 public class AssetsController {
 
   @Autowired
@@ -54,7 +54,6 @@ public class AssetsController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
   @GetMapping("{assetCode}")
-  @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<Resource> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {
