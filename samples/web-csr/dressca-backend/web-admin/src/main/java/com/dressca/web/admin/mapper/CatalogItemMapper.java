@@ -35,7 +35,6 @@ public class CatalogItemMapper {
         item.getDescription(),
         item.getPrice(),
         item.getCatalogCategoryId(),
-        item.getCatalogBrandId(),
-        item.getRowVersion());
+        item.getCatalogBrandId());
   }
 }

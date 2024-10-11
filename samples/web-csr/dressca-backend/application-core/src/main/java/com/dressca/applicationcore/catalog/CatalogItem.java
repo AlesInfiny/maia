@@ -27,7 +27,7 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
-  private byte[] rowVersion;
+  private int rowVersion;
 
   /**
    * コンストラクタ。
@@ -50,51 +50,5 @@ public class CatalogItem {
     this.productCode = productCode;
     this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
-  }
-
-  /**
-   * コンストラクタ。
-   * 
-   * @param name              商品名
-   * @param description       商品紹介
-   * @param price             単価
-   * @param productCode       プロダクトコード
-   * @param catalogCategoryId カタログ商品ID
-   * @param catalogBrandId    カタログブランドID
-   */
-  public CatalogItem(@NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
-      long catalogBrandId) {
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.productCode = productCode;
-    this.catalogCategoryId = catalogCategoryId;
-    this.catalogBrandId = catalogBrandId;
-  }
-
-  /**
-   * コンストラクタ。
-   * 
-   * @param id                ID
-   * @param name              商品名
-   * @param description       商品紹介
-   * @param price             単価
-   * @param productCode       プロダクトコード
-   * @param catalogCategoryId カタログ商品ID
-   * @param catalogBrandId    カタログブランドID
-   * @param rowVersion        行バージョン
-   */
-  public CatalogItem(long id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
-      long catalogBrandId, byte[] rowVersion) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.productCode = productCode;
-    this.catalogCategoryId = catalogCategoryId;
-    this.catalogBrandId = catalogBrandId;
-    this.rowVersion = rowVersion;
   }
 }

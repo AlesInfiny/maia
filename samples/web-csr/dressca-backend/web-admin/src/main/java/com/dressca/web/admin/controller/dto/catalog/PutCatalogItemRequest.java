@@ -22,6 +22,4 @@ public class PutCatalogItemRequest {
   public long catalogCategoryId;
   @NotNull
   public long catalogBrandId;
-  @NotNull
-  public byte[] rowVersion;
 }

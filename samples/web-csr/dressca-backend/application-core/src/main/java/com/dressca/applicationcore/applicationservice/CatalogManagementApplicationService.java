@@ -23,25 +23,33 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import lombok.AllArgsConstructor;
+import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 
 /**
  * カタログ管理に関するビジネスユースケースを実現するアプリケーションサービスです。
  */
 @Service
-@AllArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class CatalogManagementApplicationService {
 
-  @Autowired
   private MessageSource messages;
-
   private CatalogRepository catalogRepository;
   private CatalogBrandRepository catalogBrandRepository;
   private CatalogCategoryRepository catalogCategoryRepository;
-
-  @Autowired
   private UserStore userStore;
+
+  public CatalogManagementApplicationService(MessageSource messages, CatalogRepository catalogRepository,
+      CatalogBrandRepository catalogBrandRepository, CatalogCategoryRepository catalogCategoryRepository) {
+    this.messages = messages;
+    this.catalogRepository = catalogRepository;
+    this.catalogBrandRepository = catalogBrandRepository;
+    this.catalogCategoryRepository = catalogCategoryRepository;
+  }
+
+  @Autowired(required = false)
+  public void setUserStore(UserStore userStore) {
+    this.userStore = userStore;
+  }
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -96,19 +104,26 @@ public class CatalogManagementApplicationService {
       String description,
       BigDecimal price,
       String productCode,
-      long catalogBrandId,
-      long catalogCategoryId) throws PermissionDeniedException {
+      long catalogCategoryId,
+      long catalogBrandId) throws PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG,
         new Object[] {}, Locale.getDefault()));
+
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
-    CatalogItem item = new CatalogItem(name,
+
+    // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
+    CatalogItem item = new CatalogItem(
+        0,
+        name,
         description,
         price,
         productCode,
-        catalogBrandId,
-        catalogCategoryId);
+        catalogCategoryId,
+        catalogBrandId);
+    item.setRowVersion(1);
+
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
     return catalogItemAdded;
   }
@@ -140,14 +155,15 @@ public class CatalogManagementApplicationService {
    * カタログアイテムを更新します。
    * 
    * @param command 更新処理のファサードとなるコマンドオブジェクト。
-   * @throws PermissionDeniedException        更新権限がない場合。
-   * @throws CatalogNotFoundException         更新対象のカタログアイテムが存在しなかった場合。
-   * @throws CatalogBrandNotFoundException    更新対象のカタログブランドが存在しなかった場合。
-   * @throws CatalogCategoryNotFoundException 更新対象のカタログカテゴリが存在しなかった場合。
+   * @throws PermissionDeniedException         更新権限がない場合。
+   * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
+   * @throws CatalogBrandNotFoundException     更新対象のカタログブランドが存在しなかった場合。
+   * @throws CatalogCategoryNotFoundException  更新対象のカタログカテゴリが存在しなかった場合。
+   * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void updateCatalogItem(CatalogItemUpdateCommand command)
       throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
-      CatalogCategoryNotFoundException {
+      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG,
         new Object[] { command.getId() }, Locale.getDefault()));
@@ -157,16 +173,9 @@ public class CatalogManagementApplicationService {
     }
 
     long catalogItemId = command.getId();
-    if (catalogRepository.findById(catalogItemId) == null) {
+    CatalogItem currentCatalogItem = catalogRepository.findById(catalogItemId);
+    if (currentCatalogItem == null) {
       CatalogNotFoundException e = new CatalogNotFoundException(catalogItemId);
-      apLog.info(e.getMessage());
-      throw e;
-    }
-
-    long catalogBrandId = command.getCatalogBrandId();
-    CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
-    if (catalogBrand == null) {
-      CatalogBrandNotFoundException e = new CatalogBrandNotFoundException(catalogBrandId);
       apLog.info(e.getMessage());
       throw e;
     }
@@ -179,17 +188,31 @@ public class CatalogManagementApplicationService {
       throw e;
     }
 
+    long catalogBrandId = command.getCatalogBrandId();
+    CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
+    if (catalogBrand == null) {
+      CatalogBrandNotFoundException e = new CatalogBrandNotFoundException(catalogBrandId);
+      apLog.info(e.getMessage());
+      throw e;
+    }
+
     CatalogItem item = new CatalogItem(
         catalogItemId,
         command.getName(),
         command.getDescription(),
         command.getPrice(),
         command.getProductCode(),
-        catalogBrandId,
         catalogCategoryId,
-        command.getRowVersion());
+        catalogBrandId);
 
-    this.catalogRepository.update(item);
+    // 更新前の行バージョンを取得し、更新対象のカタログアイテムに追加
+    item.setRowVersion(currentCatalogItem.getRowVersion());
+
+    int updateRowCount = this.catalogRepository.update(item);
+
+    if (updateRowCount == 0) {
+      throw new OptimisticLockingFailureException(null, null, null, null);
+    }
   }
 
   /**

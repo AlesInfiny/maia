@@ -24,4 +24,5 @@ public class PostCatalogItemRequest {
   private long catalogCategoryId;
   @NotNull
   private long catalogBrandId;
+  private int rowVersion = 1;
 }

@@ -15,7 +15,6 @@ public class CatalogItemUpdateCommand {
   private String description;
   private BigDecimal price;
   private String productCode;
-  private long catalogBrandId;
   private long catalogCategoryId;
-  private byte[] rowVersion;
+  private long catalogBrandId;
 }

@@ -80,6 +80,7 @@ public interface CatalogRepository {
    *
    * @param item カタログアイテム
    */
-  void update(CatalogItem item);
+  // void update(CatalogItem item);
+  int update(CatalogItem item);
 
 }

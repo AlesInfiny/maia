@@ -30,6 +30,4 @@ public class CatalogItemResponse {
   private long catalogCategoryId;
   @NotNull
   private long catalogBrandId;
-  @NotNull
-  private byte[] rowVersion;
 }
