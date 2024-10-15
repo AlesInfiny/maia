@@ -106,11 +106,10 @@ JDK の取得先は実行環境に合わせて選択します。
 
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
-    - [Adoptium :material-open-in-new:](https://adoptium.net/){ target=_blank }
-
+    - [Temurin ( Adoptium ) :material-open-in-new:](https://adoptium.net/){ target=_blank }
     - [Oracle JDK :material-open-in-new:](https://www.oracle.com/java/){ target=_blank }
 
-本ドキュメントは Adoptium を前提に記載しています。
+本ドキュメントは Temurin を前提に記載しています。
 
 1. 上記のサイトから選択した JDK を取得します。
 
