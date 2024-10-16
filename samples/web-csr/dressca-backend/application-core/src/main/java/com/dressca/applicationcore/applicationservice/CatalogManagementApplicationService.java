@@ -211,7 +211,7 @@ public class CatalogManagementApplicationService {
     int updateRowCount = this.catalogRepository.update(item);
 
     if (updateRowCount == 0) {
-      throw new OptimisticLockingFailureException(null, null, null, null);
+      throw new OptimisticLockingFailureException(catalogItemId);
     }
   }
 

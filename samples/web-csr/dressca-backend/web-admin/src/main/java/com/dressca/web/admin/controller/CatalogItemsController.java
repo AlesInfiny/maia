@@ -65,7 +65,10 @@ public class CatalogItemsController {
    * @return カタログアイテム。
    */
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
-  @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class)))
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "404", description = "", content = @Content)
+  })
   @GetMapping("{id}")
   public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
     CatalogItem item;
@@ -120,7 +123,10 @@ public class CatalogItemsController {
    * @return 追加したカタログアイテム
    */
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
-  @ApiResponse(responseCode = "201", description = "成功。", content = @Content)
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "", content = @Content)
+  })
   @PostMapping
   @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest) {
@@ -146,7 +152,12 @@ public class CatalogItemsController {
    * @return なし。
    */
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
-  @ApiResponse(responseCode = "204", description = "成功.", content = @Content)
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
+      @ApiResponse(responseCode = "401", description = "", content = @Content),
+      @ApiResponse(responseCode = "404", description = "", content = @Content)
+  })
+
   @DeleteMapping("{catalogItemId}")
   @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId) {

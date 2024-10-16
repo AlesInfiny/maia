@@ -42,7 +42,6 @@ public class WebSecurityConfig {
     http.securityMatcher("/api/**")
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(corsConfigurationSource()));
-
     if (dummyUserInjectionFilter != null) {
       http.addFilterBefore(dummyUserInjectionFilter, UsernamePasswordAuthenticationFilter.class);
     }

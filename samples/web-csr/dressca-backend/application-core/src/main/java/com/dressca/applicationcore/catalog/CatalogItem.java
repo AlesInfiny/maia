@@ -37,7 +37,7 @@ public class CatalogItem {
    * @param description       商品紹介
    * @param price             単価
    * @param productCode       プロダクトコード
-   * @param catalogCategoryId カタログ商品ID
+   * @param catalogCategoryId カタログカテゴリID
    * @param catalogBrandId    カタログブランドID
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
