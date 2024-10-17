@@ -1,0 +1,17 @@
+name: "CLA ファイルのコピー"
+description: "CLA.pdf をコピーします。"
+inputs:
+  cla-file-path:
+    description: "CLA ファイルの場所を示すパス"
+    required: true
+  cla-file-destination-path:
+    description: "CLA ファイルのコピー先を示すパス"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: CLA.pdf のコピー
+      shell: bash
+      run: |
+        mkdir ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}
+        cp ${GITHUB_WORKSPACE}/${{ inputs.cla-file-path }} ${GITHUB_WORKSPACE}/${{ inputs.cla-file-destination-path }}/CLA.pdf

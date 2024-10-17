@@ -37,10 +37,14 @@ AlesInfiny Maia OSS Edition （以下、本サイト）は、以下を提供し�
 
 :   本サイトのドキュメントに直接記載され、 Web ブラウザーを介して読み取ることのできるソースコードを指します。
 
+`AlesInfiny Maia Organization`
+
+:   本サイトおよび本サイトの提供物を所有または管理する主体を指します。
+
 <!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 ### ライセンスの付与 {#license-grant}
 
-BIPROGY 株式会社およびすべてのコントリビューターは、本サイトの「各種ドキュメント」に [クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) のライセンスを付与します。
+AlesInfiny Maia Organization およびすべてのコントリビューターは、本サイトの「各種ドキュメント」に [クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) のライセンスを付与します。
 また本サイトの「サンプルアプリケーション」と「ドキュメント内に記載されたソースコード」に、 [Apache License, Version 2.0](#apache-license-v2.0) のライセンスを付与します。
 本利用規約、および各ライセンスの条項に従う限り私的利用、商用利用とも無料で使用できます。
 各ライセンスの本文は、次節を参照してください。
