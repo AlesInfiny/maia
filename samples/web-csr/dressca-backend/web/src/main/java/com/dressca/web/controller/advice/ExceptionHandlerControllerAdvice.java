@@ -1,4 +1,4 @@
-package com.dressca.web.controlleradvice;
+package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
