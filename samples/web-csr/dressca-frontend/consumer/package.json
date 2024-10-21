@@ -25,7 +25,7 @@
     "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
     "axios": "^1.7.7",
     "pinia": "^2.2.4",
-    "vee-validate": "^4.13.2",
+    "vee-validate": "^4.14.3",
     "vue": "^3.5.10",
     "vue-router": "^4.4.5",
     "yup": "^1.4.0"
