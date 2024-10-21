@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.mockito.Mockito.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.AssetsController;
@@ -24,6 +24,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -98,6 +99,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(開発環境)。")
   void testException_01() throws Exception {
     // テスト用の入力データ
@@ -123,6 +125,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(開発環境)。")
   void testException_02() throws Exception {
     // テスト用の入力データ
@@ -150,6 +153,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
   void testException_03() throws Exception {
     // テスト用の入力データ

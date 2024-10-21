@@ -8,12 +8,15 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Map;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -27,6 +30,34 @@ import org.springframework.context.annotation.Profile;
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+
+  /**
+   * 未認証エラーをステータスコード401で返却する。
+   *
+   * @param e   未認証エラー
+   * @param req リクエスト
+   * @return ステータースコード401のレスポンス
+   */
+  @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+  public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
+      AuthenticationCredentialsNotFoundException e, HttpServletRequest req) {
+    apLog.error(ExceptionUtils.getStackTrace(e));
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+  }
+
+  /**
+   * 認可エラーをステータスコード404で返却する。
+   *
+   * @param e   認可エラー
+   * @param req リクエスト
+   * @return ステータースコード404のレスポンス
+   */
+  @ExceptionHandler(AuthorizationDeniedException.class)
+  public ResponseEntity<String> handleAuthorizationDeniedException(
+      AuthorizationDeniedException e, HttpServletRequest req) {
+    apLog.error(ExceptionUtils.getStackTrace(e));
+    return ResponseEntity.notFound().build();
+  }
 
   /**
    * その他の業務エラーをステータースコード500で返却する（本番環境、テスト環境用）。
