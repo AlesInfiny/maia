@@ -75,7 +75,6 @@ public class CatalogManagementApplicationService {
 
     if (item == null) {
       CatalogNotFoundException e = new CatalogNotFoundException(id);
-      apLog.info(e.getMessage());
       throw e;
     }
     return item;
@@ -153,9 +152,7 @@ public class CatalogManagementApplicationService {
     }
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
-      CatalogNotFoundException e = new CatalogNotFoundException(id);
-      apLog.info(e.getMessage());
-      throw e;
+      throw new CatalogNotFoundException(id);
     }
     this.catalogRepository.remove(item);
   }
@@ -184,25 +181,19 @@ public class CatalogManagementApplicationService {
     long catalogItemId = command.getId();
     CatalogItem currentCatalogItem = catalogRepository.findById(catalogItemId);
     if (currentCatalogItem == null) {
-      CatalogNotFoundException e = new CatalogNotFoundException(catalogItemId);
-      apLog.info(e.getMessage());
-      throw e;
+      throw new CatalogNotFoundException(catalogItemId);
     }
 
     long catalogCategoryId = command.getCatalogCategoryId();
     CatalogCategory catalogCategory = catalogCategoryRepository.findById(catalogCategoryId);
     if (catalogCategory == null) {
-      CatalogCategoryNotFoundException e = new CatalogCategoryNotFoundException(catalogCategoryId);
-      apLog.info(e.getMessage());
-      throw e;
+      throw new CatalogCategoryNotFoundException(catalogCategoryId);
     }
 
     long catalogBrandId = command.getCatalogBrandId();
     CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
     if (catalogBrand == null) {
-      CatalogBrandNotFoundException e = new CatalogBrandNotFoundException(catalogBrandId);
-      apLog.info(e.getMessage());
-      throw e;
+      throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
     CatalogItem item = new CatalogItem(

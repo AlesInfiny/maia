@@ -41,7 +41,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
   public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
       AuthenticationCredentialsNotFoundException e, HttpServletRequest req) {
-    apLog.error(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }
 
@@ -55,7 +55,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   @ExceptionHandler(AuthorizationDeniedException.class)
   public ResponseEntity<String> handleAuthorizationDeniedException(
       AuthorizationDeniedException e, HttpServletRequest req) {
-    apLog.error(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
   }
 

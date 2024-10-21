@@ -76,6 +76,7 @@ public class CatalogItemsController {
     try {
       item = this.service.getCatalogItem(id);
     } catch (CatalogNotFoundException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     }
@@ -140,6 +141,7 @@ public class CatalogItemsController {
           postCatalogItemRequest.getCatalogCategoryId(),
           postCatalogItemRequest.getCatalogBrandId());
     } catch (PermissionDeniedException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
@@ -165,9 +167,11 @@ public class CatalogItemsController {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
     } catch (PermissionDeniedException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     }
@@ -204,13 +208,15 @@ public class CatalogItemsController {
     try {
       this.service.updateCatalogItem(command);
     } catch (PermissionDeniedException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
+      apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
-      apLog.debug(ExceptionUtils.getStackTrace(e));
+      apLog.error(ExceptionUtils.getStackTrace(e));
       // ここでは発生を想定していないので、システムエラーとする。
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     } catch (OptimisticLockingFailureException e) {
