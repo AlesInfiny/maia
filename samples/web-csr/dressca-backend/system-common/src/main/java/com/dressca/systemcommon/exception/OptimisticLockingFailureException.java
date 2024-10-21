@@ -1,7 +1,9 @@
 package com.dressca.systemcommon.exception;
 
+import com.dressca.systemcommon.constant.ExceptionIdConstant;
+
 /**
- * 楽観ロック違反をしたことを表す例外です。
+ * 楽観ロックエラーが発生したことを表す例外です。
  */
 public class OptimisticLockingFailureException extends LogicException {
 
@@ -14,7 +16,7 @@ public class OptimisticLockingFailureException extends LogicException {
   public OptimisticLockingFailureException(long catalogItemId) {
     super(
         null,
-        "カタログアイテム ID: {0} のカタログアイテムの更新時に楽観ロックエラーが発生しました。 ",
+        ExceptionIdConstant.E_CATALOG0005,
         new String[] { String.valueOf(catalogItemId) },
         new String[] { String.valueOf(catalogItemId) });
   }

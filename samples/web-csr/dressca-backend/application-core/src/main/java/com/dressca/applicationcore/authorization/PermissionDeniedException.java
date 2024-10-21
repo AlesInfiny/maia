@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.authorization;
 
+import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -15,7 +16,7 @@ public class PermissionDeniedException extends LogicException {
   public PermissionDeniedException(String operationName) {
     super(
         null,
-        "{0} を実行する権限がありません。",
+        ExceptionIdConstant.E_CATALOG0004,
         new String[] { String.valueOf(operationName) },
         new String[] { String.valueOf(operationName) });
   }

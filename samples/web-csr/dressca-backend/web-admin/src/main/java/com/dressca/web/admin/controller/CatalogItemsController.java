@@ -20,6 +20,7 @@ import com.dressca.web.admin.controller.dto.catalog.PagedListOfCatalogItemRespon
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class CatalogItemsController {
     try {
       item = this.service.getCatalogItem(id);
     } catch (CatalogNotFoundException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     }
     CatalogItemResponse returnValue = CatalogItemMapper.convert(item);
@@ -139,7 +140,7 @@ public class CatalogItemsController {
           postCatalogItemRequest.getCatalogCategoryId(),
           postCatalogItemRequest.getCatalogBrandId());
     } catch (PermissionDeniedException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
     return ResponseEntity.created(URI.create("catalog-items")).build();
@@ -164,10 +165,10 @@ public class CatalogItemsController {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
     } catch (PermissionDeniedException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.noContent().build();
@@ -203,13 +204,13 @@ public class CatalogItemsController {
     try {
       this.service.updateCatalogItem(command);
     } catch (PermissionDeniedException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return ResponseEntity.notFound().build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
-      apLog.warn(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       // ここでは発生を想定していないので、システムエラーとする。
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
     } catch (OptimisticLockingFailureException e) {

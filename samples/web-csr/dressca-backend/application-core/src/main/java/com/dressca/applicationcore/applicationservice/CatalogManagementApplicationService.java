@@ -38,6 +38,14 @@ public class CatalogManagementApplicationService {
   private CatalogCategoryRepository catalogCategoryRepository;
   private UserStore userStore;
 
+  /**
+   * コンストラクタ。
+   * 
+   * @param messages                  メッセージ
+   * @param catalogRepository         カタログリポジトリ。
+   * @param catalogBrandRepository    カタログブランドリポジトリ。
+   * @param catalogCategoryRepository カタログカテゴリリポジトリ。
+   */
   public CatalogManagementApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository catalogBrandRepository, CatalogCategoryRepository catalogCategoryRepository) {
     this.messages = messages;
@@ -64,6 +72,7 @@ public class CatalogManagementApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG,
         new Object[] { id }, Locale.getDefault()));
     CatalogItem item = this.catalogRepository.findById(id);
+
     if (item == null) {
       CatalogNotFoundException e = new CatalogNotFoundException(id);
       apLog.info(e.getMessage());
@@ -204,12 +213,10 @@ public class CatalogManagementApplicationService {
         command.getProductCode(),
         catalogCategoryId,
         catalogBrandId);
-
     // 更新前の行バージョンを取得し、更新対象のカタログアイテムに追加
     item.setRowVersion(currentCatalogItem.getRowVersion());
 
     int updateRowCount = this.catalogRepository.update(item);
-
     if (updateRowCount == 0) {
       throw new OptimisticLockingFailureException(catalogItemId);
     }

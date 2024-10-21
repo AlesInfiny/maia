@@ -31,4 +31,10 @@ public class ExceptionIdConstant {
 
   /** カタログカテゴリが存在しなかった際の例外。 */
   public static final String E_CATALOG0003 = "E_CATALOG0003";
+
+  /** ユーザに実行権限が無かった際の例外。 */
+  public static final String E_CATALOG0004 = "E_CATALOG0004";
+
+  /** カタログアイテムの更新時に楽観ロックエラーが発生した際の例外。 */
+  public static final String E_CATALOG0005 = "E_CATALOG0005";
 }

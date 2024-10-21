@@ -14,7 +14,7 @@ import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import com.dressca.web.WebApplication;
+import com.dressca.web.consumer.WebApplication;
 import com.dressca.web.consumer.security.CookieSettings;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;

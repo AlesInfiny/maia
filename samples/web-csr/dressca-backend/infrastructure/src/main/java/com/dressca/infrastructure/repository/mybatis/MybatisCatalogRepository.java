@@ -72,10 +72,6 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  // public void update(CatalogItem item) {
-  // CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
-  // catalogItemMapper.updateByPrimaryKey(entity);
-  // }
   public int update(CatalogItem item) {
     return this.mapper.update(item);
   }

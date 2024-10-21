@@ -23,6 +23,7 @@
       CATALOG_ITEMS.PRODUCT_CODE,
       CATALOG_ITEMS.CATALOG_CATEGORY_ID,
       CATALOG_ITEMS.CATALOG_BRAND_ID,
+      CATALOG_ITEMS.ROW_VERSION,
       ASSETS.ID,
       ASSETS.CATALOG_ITEM_ID,
       ASSETS.ASSET_CODE
@@ -40,6 +41,7 @@
     <result property="productCode" column="PRODUCT_CODE"/>
     <result property="catalogCategoryId" column="CATALOG_CATEGORY_ID"/>
     <result property="catalogBrandId" column="CATALOG_BRAND_ID"/>
+    <result property="rowVersion" column="ROW_VERSION"/>
     <collection property="assets" ofType="com.dressca.applicationcore.catalog.CatalogItemAsset" resultMap="assetsResultMap"/>
   </resultMap>
 

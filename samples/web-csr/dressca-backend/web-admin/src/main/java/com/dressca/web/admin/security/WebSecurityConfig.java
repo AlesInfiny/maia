@@ -1,4 +1,4 @@
-package com.dressca.web.admin.config;
+package com.dressca.web.admin.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.dressca.web.admin.filter.DummyUserInjectionFilter;
-import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,33 +37,24 @@ public class WebSecurityConfig {
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.securityMatcher("/api/**")
+    http
+        .securityMatcher("/api/**")
         .csrf(csrf -> csrf.disable())
-        .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+        .cors(cors -> cors.configurationSource(request -> {
+          CorsConfiguration conf = new CorsConfiguration();
+          conf.setAllowCredentials(true);
+          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+          conf.setAllowedHeaders(List.of("*"));
+          return conf;
+        }))
+        .anonymous(anon -> anon.disable());
+
+    // 開発環境においてはダミーユーザを注入する
     if (dummyUserInjectionFilter != null) {
       http.addFilterBefore(dummyUserInjectionFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     return http.build();
-  }
-
-  /**
-   * CORS設定を提供するメソッド。
-   * 
-   * @return CORS設定ソース
-   */
-  @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
-
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowCredentials(true);
-    configuration.setAllowedOrigins(Arrays.asList(allowedOrigins));
-    configuration.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("*"));
-
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-
-    return source;
   }
 }
