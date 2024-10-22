@@ -37,7 +37,7 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 
 - Amazon Web Services 、 AWS 、 Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関連会社の商標です。
 - Apache, [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/), [Apache Groovy](https://groovy.apache.org/), [Apache Log4j 2](https://logging.apache.org/log4j/2.x/), [Apache Maven](https://maven.apache.org/) and [Apache Tomcat](https://tomcat.apache.org/) are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/) in the United States and/or other countries.
-- 'Eclipse' and 'Adoptium' are trademarks of Eclipse Foundation, Inc.
+- 'Eclipse', 'Adoptium' and 'Temurin' are trademarks of Eclipse Foundation, Inc.
 - Gradle and the Gradlephant logo are registered trademark of Gradle, Inc. and its subsidiaries in the United States and/or other countries.
 - Google 、 Android は、 Google LLC の商標または登録商標です。
 - Copyright © 2022 JetBrains s.r.o. [IntelliJ IDEA] and the [IntelliJ IDEA] logo are registered trademarks of JetBrains s.r.o.
