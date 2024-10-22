@@ -2,9 +2,12 @@
 name: general-pull-request
 about: 汎用的なプルリクエストのテンプレートです
 title: ''
+description: ''
 labels: ''
 assignees: ''
 ---
+
+<!-- textlint-disable @textlint-rule/require-header-id -->
 
 ## このプルリクエストで実施したこと
 
@@ -20,3 +23,5 @@ assignees: ''
 
 関連する Issue や Discussion へのリンクを記載します。
 また、このプルリクエストを作成するにあたり参照した資料へのリンクを記載します。
+
+<!-- textlint-enabled @textlint-rule/require-header-id -->
