@@ -247,7 +247,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteBasketItem(catalogItemId: number, options?: any): AxiosPromise<void> {
+        deleteBasketItem(catalogItemId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteBasketItem(catalogItemId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -256,7 +256,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBasketItems(options?: any): AxiosPromise<BasketResponse> {
+        getBasketItems(options?: RawAxiosRequestConfig): AxiosPromise<BasketResponse> {
             return localVarFp.getBasketItems(options).then((request) => request(axios, basePath));
         },
         /**
@@ -266,7 +266,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postBasketItem(postBasketItemsRequest: PostBasketItemsRequest, options?: any): AxiosPromise<void> {
+        postBasketItem(postBasketItemsRequest: PostBasketItemsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.postBasketItem(postBasketItemsRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -276,7 +276,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putBasketItems(putBasketItemsRequest: Array<PutBasketItemsRequest>, options?: any): AxiosPromise<void> {
+        putBasketItems(putBasketItemsRequest: Array<PutBasketItemsRequest>, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.putBasketItems(putBasketItemsRequest, options).then((request) => request(axios, basePath));
         },
     };

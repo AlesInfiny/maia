@@ -6,13 +6,13 @@ labels: ''
 assignees: ''
 ---
 
-# 概要
+## 概要
 
 [openapi-generator](https://github.com/OpenAPITools/openapi-generator)のバージョンアップを検知しました。内容を確認のうえ、下記の通り対応してください。
 openapitools.json のバージョン ：{{ env.CURRENT_VERSION }}
 ライブラリ のバージョン ：{{ env.LATEST_VERSION }}
 
-# 詳細
+## 詳細
 
 下記のコマンドを実行し、最新バージョンを選択します。
 openapitools.json の version が選択したバージョンに更新されます。
@@ -30,7 +30,7 @@ npm run generate-client
 自動生成されたクライアントコードに差分がある場合、
 差分の内容の確認とアプリケーションの動作確認を行ってください。
 
-# 完了条件
+## 完了条件
 
 - [ ] openapitools.json の version が最新バージョンに更新されていること
 - [ ] 生成されたクライアントコードに差分がないか、差分に問題がないこと

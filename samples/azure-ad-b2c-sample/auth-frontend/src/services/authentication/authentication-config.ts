@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   LogLevel,
   PublicClientApplication,
@@ -6,11 +7,11 @@ import {
 
 export const b2cPolicies = {
   names: {
-    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGN_UP_SIGN_IN,
+    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGN_IN,
   },
   authorities: {
     signUpSignIn: {
-      authority: import.meta.env.VITE_ADB2C_URI_SIGN_UP_SIGN_IN,
+      authority: import.meta.env.VITE_ADB2C_SIGN_IN_URI,
     },
   },
   authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
@@ -53,9 +54,8 @@ export const msalConfig = {
             return;
           case LogLevel.Warning:
             console.warn(message);
-            return;
+            break;
           default:
-            return;
         }
       },
       logLevel: LogLevel.Verbose,
