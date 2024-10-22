@@ -66,7 +66,16 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
     - [Japanese Language Pack for Visual Studio Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja){ target=_blank }
 
-    - [Vue - Official :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Vue.volar){ target=_blank }[^1]
+        VS Code のユーザーインターフェースを日本語にローカライズする機能を提供します。
+
+    - [EditorConfig for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig){ target=_blank }
+
+        アプリケーションのコーディングスタイルを維持する機能を提供します。
+
+    バックエンドアプリケーションやフロントエンドアプリケーションの開発に利用する VS Code の拡張機能は、以下を確認してください。
+
+    - [バックエンドアプリケーション開発の事前準備](../java/preparation.md#install-extensions)
+    - [フロントエンドアプリケーション開発の事前準備](../vue-js/preparation.md#install-extensions)
 
 ### Git for Windows のインストール {#install-git-for-windows}
 
@@ -97,11 +106,10 @@ JDK の取得先は実行環境に合わせて選択します。
 
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 
-    - [Adoptium :material-open-in-new:](https://adoptium.net/){ target=_blank }
-
+    - [Temurin ( Adoptium ) :material-open-in-new:](https://adoptium.net/){ target=_blank }
     - [Oracle JDK :material-open-in-new:](https://www.oracle.com/java/){ target=_blank }
 
-本ドキュメントは Adoptium を前提に記載しています。
+本ドキュメントは Temurin を前提に記載しています。
 
 1. 上記のサイトから選択した JDK を取得します。
 
@@ -115,6 +123,3 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
-
-[^1]:
-    Vue.js アプリケーションの開発に推奨されている拡張機能です。詳細は [公式ドキュメント :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/tooling#ide-support){ target=_blank }を参照してください。

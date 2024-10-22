@@ -12,6 +12,7 @@
 *[CSR]: Client Side Rendering
 *[CSRF]: Cross-Site Request Forgery：クロスサイトリクエストフォージェリ。
 *[DI]: Dependency Injection：依存性の注入。
+*[DSL]: Domain Specific Language: ドメイン固有言語。
 *[E2E]: End to end
 *[FaaS]: Function as a Service: サーバーレスでアプリケーション開発ができる環境を提供するクラウドサービス。
 *[GA]: General Availability：正式版、製品版、一般公開版。

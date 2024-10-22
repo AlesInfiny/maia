@@ -97,7 +97,7 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServerTime(options?: any): AxiosPromise<TimeResponse> {
+        getServerTime(options?: RawAxiosRequestConfig): AxiosPromise<TimeResponse> {
             return localVarFp.getServerTime(options).then((request) => request(axios, basePath));
         },
     };

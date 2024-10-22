@@ -211,7 +211,7 @@ AlesInfiny Maia では Java のプロジェクト構成として、複数のサ�
 ![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-light.png#only-light){ loading=lazy }
 ![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-dark.png#only-dark){ loading=lazy }
 
-プロジェクト構造全体は、 Spring Initializr で生成した Gradle プロジェクトの構造と変わりはありません。
+プロジェクト構造全体は、 Spring Initializr で生成した Gradle Groovy DSL プロジェクトの構造と変わりはありません。
 パッケージの構成としては、システムで 1 つのフォルダー ( aa.bb.cc ) をベースに、各層に対応するパッケージ ( application-core など ) を作成します。
 アプリケーションコア層については、ドメインの単位でパッケージを作成し、それ以外の層については、構成するコンポーネント単位でパッケージを作成することを想定しています。
 以降の階層については、管理や機能面を考慮し、必要に応じてサブパッケージを作成してください。
