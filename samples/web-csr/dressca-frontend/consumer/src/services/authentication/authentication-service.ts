@@ -1,7 +1,6 @@
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
-const authenticationStore = useAuthenticationStore();
-
 export async function signInAsync() {
+  const authenticationStore = useAuthenticationStore();
   authenticationStore.signInAsync();
 }

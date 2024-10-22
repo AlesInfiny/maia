@@ -5,6 +5,6 @@ description: バックエンドで動作する Java アプリケーションの 
 
 # アプリケーションの全体構造 {#top}
 
-AlesInfiny Maia OSS Edition において、バックエンドで動作する Java アプリケーションは複数の Gradle プロジェクトを組み合わせたマルチプロジェクトとして構成します。
+AlesInfiny Maia OSS Edition において、バックエンドで動作する Java アプリケーションは複数の Gradle Groovy DSL プロジェクトを組み合わせたマルチプロジェクトとして構成します。
 
 構成に必要なプロジェクトはアプリケーション形態によって異なるため、[各アプリケーション形態のアーキテクチャ](../../../app-architecture/index.md) を参照してください。

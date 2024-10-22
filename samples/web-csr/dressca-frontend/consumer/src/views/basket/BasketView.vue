@@ -125,24 +125,26 @@ onUnmounted(async () => {
         <hr class="mt-4" />
         <div class="mt-4 mr-2 text-right">
           <table class="inline-block border-separate">
-            <tr>
-              <th>税抜き合計</th>
-              <td>{{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}</td>
-            </tr>
-            <tr>
-              <th>送料</th>
-              <td>{{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}</td>
-            </tr>
-            <tr>
-              <th>消費税</th>
-              <td>{{ toCurrencyJPY(getBasket.account?.consumptionTax) }}</td>
-            </tr>
-            <tr>
-              <th>合計</th>
-              <td class="">
-                {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>税抜き合計</th>
+                <td>{{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}</td>
+              </tr>
+              <tr>
+                <th>送料</th>
+                <td>{{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}</td>
+              </tr>
+              <tr>
+                <th>消費税</th>
+                <td>{{ toCurrencyJPY(getBasket.account?.consumptionTax) }}</td>
+              </tr>
+              <tr>
+                <th>合計</th>
+                <td class="">
+                  {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
