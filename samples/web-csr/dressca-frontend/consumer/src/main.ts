@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { authenticationGuard } from '@/shared/authentication/authentication-guard';
 import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
-import { createCustomErrorHandler } from './shared/error-handler/custom-error-handler';
+import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import App from './App.vue';
 import { router } from './router';
 
