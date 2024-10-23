@@ -10,14 +10,12 @@ import '@/assets/base.css';
 import '@/config/yup.config';
 
 const app = createApp(App);
-const pinia = createPinia();
-const customErrorHandler = createCustomErrorHandler();
 
-app.use(pinia);
+app.use(createPinia());
 app.use(router);
 
 app.use(globalErrorHandler);
-app.use(customErrorHandler);
+app.use(createCustomErrorHandler());
 
 authenticationGuard(router);
 
