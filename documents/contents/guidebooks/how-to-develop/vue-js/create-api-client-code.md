@@ -13,7 +13,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ### JDK のインストール {#install-jdk}
 
-Open API Generator を使用するためには、 Java 8 以降のランタイムと、システム環境変数 JAVA_HOME の設定が必要です。 Oracle JDK や Eclipse Adoptium など、適当な JDK をインストールし、 JAVA_HOME を設定してください。
+Open API Generator を使用するためには、 Java 8 以降のランタイムと、システム環境変数 JAVA_HOME の設定が必要です。 Oracle JDK や Eclipse Temurin など、適当な JDK をインストールし、 JAVA_HOME を設定してください。
 
 ## Axios {#axios}
 
