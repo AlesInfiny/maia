@@ -1,17 +1,6 @@
----
-name: general-pull-request
-about: 汎用的なプルリクエストのテンプレートです
-title: ''
-description: ''
-labels: ''
-assignees: ''
----
-
-<!-- textlint-disable @textlint-rule/require-header-id -->
-
 ## この Pull request で実施したこと
 
-このプルリクエストで何をしたのか記載します。
+この Pull request で何をしたのか記載します。
 
 ## この Pull request では実施していないこと
 
@@ -23,5 +12,3 @@ assignees: ''
 
 関連する Issues や Discussion へのリンクを記載します。
 また、このプルリクエストを作成するにあたり参照した資料へのリンクを記載します。
-
-<!-- textlint-enabled @textlint-rule/require-header-id -->
