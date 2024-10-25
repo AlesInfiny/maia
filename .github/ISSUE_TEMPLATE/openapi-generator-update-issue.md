@@ -2,15 +2,19 @@
 name: openapi-generator-update-issue
 about: openapi-generatorのアップデート用のIssueのテンプレートです
 title: "[{{ env.TARGET_APP_NAME }}]openapi-generatorをアップデートする from {{ env.CURRENT_VERSION }} to {{ env.LATEST_VERSION }}"
+description: ''
 labels: ''
 assignees: ''
 ---
 
+<!-- textlint-disable @textlint-rule/require-header-id -->
+
 ## 概要
 
-[openapi-generator](https://github.com/OpenAPITools/openapi-generator)のバージョンアップを検知しました。内容を確認のうえ、下記の通り対応してください。
-openapitools.json のバージョン ：{{ env.CURRENT_VERSION }}
-ライブラリ のバージョン ：{{ env.LATEST_VERSION }}
+[openapi-generator](https://github.com/OpenAPITools/openapi-generator) のバージョンアップを検知しました。内容を確認のうえ、下記の通り対応してください。
+
+- openapitools.json のバージョン ：{{ env.CURRENT_VERSION }}
+- ライブラリのバージョン ：{{ env.LATEST_VERSION }}
 
 ## 詳細
 
@@ -35,3 +39,5 @@ npm run generate-client
 - [ ] openapitools.json の version が最新バージョンに更新されていること
 - [ ] 生成されたクライアントコードに差分がないか、差分に問題がないこと
 - [ ] アプリケーションの動作に問題がないこと
+
+<!-- textlint-enabled @textlint-rule/require-header-id -->
