@@ -352,13 +352,14 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
 ### ドキュメントのマージ
 
 ドキュメントの作成後は main ブランチへのマージを行う Pull Request を発行して下さい。
-Pull Request をマージすると、継続的デプロイメントが走り、自動的にステージング環境の Web サイトが更新されます。
 
-Web サイトの更新が完了したら、以下にアクセスして問題なく修正が反映されていることを確認します。
+Pull Request を発行すると、ドキュメントの体裁をチェックする Github Actions のワークフローが自動実行されます。
+ワークフローでエラーが発生した場合は、エラーが解消されるようにドキュメントを修正してください。
 
-<https://app-oss-maia-staging.azurewebsites.net/>
+ワークフローで発生したエラー内容の確認方法は、以下の通りです。
 
-問題がある場合は、再度 Feature ブランチを作成するところから再実施してください。
-修正に時間がかかる場合は、以前のリリース物を再リリースし、切り戻すようにしてください。
+
+
+![ワークフローでエラーが発生した場合の画面](readme-images/github-lint-results.png)
 
 <!-- textlint-enable @textlint-rule/require-header-id -->
