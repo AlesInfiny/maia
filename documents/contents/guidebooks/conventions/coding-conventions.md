@@ -41,9 +41,9 @@ Java アプリケーション、 Vue.js アプリケーションそれぞれで�
         [CSS specifications :material-open-in-new:](https://www.w3.org/Style/CSS/current-work){ target=_blank }
 
 上記のコーディング規約は静的コード解析ツールによって自動的にチェックできるようにします。
-バックエンド側では、Checkstyleを使用して Google Java Style への準拠を自動チェックし、
+バックエンド側では、 Checkstyle を使用して Google Java Style への準拠を自動チェックし、
 SpotBugs を利用して、 SpotBugs が提供するバグパターンに該当するコードを自動検知します。
-加えて、 VS Code の自動フォーマット機能を利用することで、コーディング中に Google Java Style に準拠したフォーマットへ自動でコードを修正します。
+加えて、 VS Code の自動フォーマット機能を利用することで、コーディング中に Google Java Style へ準拠したフォーマットへと自動でコードを修正します。
 フロントエンド側では Prettier 、 ESLint 、 StyleLint を利用してコーディング規約の自動チェックを行っています。
 コーディング規約の内容および静的コード解析ツールの詳しい設定方法については、以下のページとサンプルアプリの実装を確認してください。
 
