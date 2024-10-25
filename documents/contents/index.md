@@ -7,7 +7,7 @@ description: AlesInfiny Maia OSS Edition では、 Java アプリケーション
 
 # AlesInfiny Maia OSS Edition にようこそ {#top}
 
-## AlesInfiny Maia OSS Edition とは {#what-is-alesinfiny-maia}
+### AlesInfiny Maia OSS Edition とは {#what-is-alesinfiny-maia}
 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 Java アプリケーションの一般的なアーキテクチャや方式設計のためのドキュメントおよびサンプルアプリケーションを提供します。
 AlesInfiny Maia の提供物は以下の通りです。
