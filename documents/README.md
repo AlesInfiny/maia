@@ -358,8 +358,12 @@ Pull Request を発行すると、ドキュメントの体裁をチェックす�
 
 ワークフローで発生したエラー内容の確認方法は、以下の通りです。
 
+1. Pull Request でエラーが発生していることを確認し、`Details` で詳細を確認します。
 
+    ![Pull Request 上のエラー確認画面](readme-images/pull-request-error.png)
 
-![ワークフローでエラーが発生した場合の画面](readme-images/github-lint-results.png)
+1. `Summary` から、 Lint エラーの詳細を確認します。
+
+    ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
 
 <!-- textlint-enable @textlint-rule/require-header-id -->
