@@ -15,6 +15,7 @@ on:
       - ".github/workflows/compress-sample-source/action.yml"
       - ".github/workflows/build-documents/action.yml"
       - ".github/workflows/pack-and-upload/action.yml"
+      - ".markdownlint-cli2.yaml"
       - ".markdownlint.yaml"
       - ".textlintignore"
       - ".textlintrc"
