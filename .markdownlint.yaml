@@ -15,5 +15,5 @@ ul-indent:
 MD025:
   front_matter_title: ""
 
-# MD046: false
+MD046: false
 MD051: false
