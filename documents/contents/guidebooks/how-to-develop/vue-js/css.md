@@ -33,7 +33,11 @@ Tailwind CSS は、 Web サイトを構築するための CSS フレームワー
 
 ### Tailwind CSS のインストール {#install-tailwind-css}
 
-[公式ドキュメント](https://tailwindcss.com/docs/installation/using-postcss) が推奨するとおり、 postCSS のプラグインとして Tailwind CSS 、 postCSS 、 autoprefixer をインストールします。
+[公式ドキュメント :material-open-in-new:](https://tailwindcss.com/docs/installation/using-postcss){ target=_blank } が推奨するとおり、 postCSS のプラグインとして以下をインストールします。
+
+- Tailwind CSS
+- postCSS
+- autoprefixer
 
 > Installing Tailwind CSS as a PostCSS plugin is the most seamless way to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
 

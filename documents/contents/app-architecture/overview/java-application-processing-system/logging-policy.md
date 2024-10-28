@@ -91,5 +91,5 @@ AlesInfiny Maia で定義するログの種類は以下の通りです。
 
 ## ロギングライブラリ {#logging-libraries}
 
-AlesInfiny Maia では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) を使用します。
-またロギングファサードとして [SLF4J](https://www.slf4j.org/) を使用します。
+AlesInfiny Maia では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank } を使用します。
+またロギングファサードとして [SLF4J :material-open-in-new:](https://www.slf4j.org/){ target=_blank } を使用します。

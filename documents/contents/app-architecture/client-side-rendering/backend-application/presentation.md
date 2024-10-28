@@ -16,11 +16,11 @@ description: バックエンドアプリケーションのアーキテクチャ�
 
 単項目チェックは Bean Validation を用いて実装します。
 API モデルに対してアノテーションを付与し、チェックルールを定義します。
-実装方法については [こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#chapter-bean-constraints) を参照してください。
+実装方法については [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#chapter-bean-constraints){ target=_blank } を参照してください。
 
-Hibernate Validator であらかじめ実装されているチェックルールは [こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints) を参照してください。
+Hibernate Validator であらかじめ実装されているチェックルールは [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints){ target=_blank } を参照してください。
 単項目チェックの多くは、これらの実装済みチェックルールを利用するだけで検証を行えます。
-既存のチェックルールでは実現できない場合は、[こちら](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple) を参照してカスタムルールを実装します。
+既存のチェックルールでは実現できない場合は、[こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple){ target=_blank } を参照してカスタムルールを実装します。
 
 単項目チェックは、コントローラーの引数である API モデルに対して一律実行されるように実装します。
 
@@ -61,7 +61,7 @@ Bean Validation のカスタムルールで実装すると処理方式の統一�
 
 - エラーレスポンスの生成
 
-    Web API のエラーレスポンスは、 [RFC9457](https://datatracker.ietf.org/doc/html/rfc9457) に準拠した形式で返却します。
+    Web API のエラーレスポンスは、 [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式で返却します。
 
     HTTP ステータスコードは発生したエラーの種類に応じて使い分けます。
     エラーレスポンスに使用する代表的な HTTP ステータスコードは以下の通りです。
