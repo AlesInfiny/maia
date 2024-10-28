@@ -41,9 +41,7 @@ public class UsersController {
   @GetMapping
   public ResponseEntity<UserResponse> getLoginUser() {
 
-    UserResponse response = new UserResponse(
-        this.userStore.loginUserName(),
-        this.userStore.loginUserRole());
+    UserResponse response = new UserResponse(this.userStore.loginUserName(), this.userStore.loginUserRole());
     return ResponseEntity.ok().body(response);
 
   }

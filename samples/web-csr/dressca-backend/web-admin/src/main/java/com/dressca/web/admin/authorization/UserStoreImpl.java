@@ -33,9 +33,7 @@ public class UserStoreImpl implements UserStore {
   public String loginUserRole() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      return authentication.getAuthorities().stream()
-          .map(GrantedAuthority::getAuthority)
-          .findFirst().orElse("");
+      return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse("");
     }
     return "";
   }
@@ -48,8 +46,7 @@ public class UserStoreImpl implements UserStore {
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      return authentication.getAuthorities().stream()
-          .map(GrantedAuthority::getAuthority)
+      return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
           .anyMatch(roles -> roles.contains(role));
     }
     return false;

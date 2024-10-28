@@ -14,10 +14,7 @@ public class PermissionDeniedException extends LogicException {
    * @param operationName 実行を試みた操作
    */
   public PermissionDeniedException(String operationName) {
-    super(
-        null,
-        ExceptionIdConstant.E_CATALOG0004,
-        new String[] { String.valueOf(operationName) },
+    super(null, ExceptionIdConstant.E_CATALOG0004, new String[] { String.valueOf(operationName) },
         new String[] { String.valueOf(operationName) });
   }
 }

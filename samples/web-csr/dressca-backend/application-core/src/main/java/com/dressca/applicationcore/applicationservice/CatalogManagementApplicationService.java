@@ -162,7 +162,6 @@ public class CatalogManagementApplicationService {
    */
   public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
       long catalogCategoryId, long catalogBrandId)
-
       throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
       CatalogCategoryNotFoundException, OptimisticLockingFailureException {
 

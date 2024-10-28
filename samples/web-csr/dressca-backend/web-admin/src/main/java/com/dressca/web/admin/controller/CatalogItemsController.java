@@ -105,15 +105,10 @@ public class CatalogItemsController {
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
 
     List<CatalogItemResponse> items = this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
-        .map(CatalogItemMapper::convert)
-        .collect(Collectors.toList());
+        .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
-    PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(
-        items,
-        totalCount,
-        page,
-        pageSize);
+    PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(items, totalCount, page, pageSize);
     return ResponseEntity.ok().body(returnValue);
   }
 
@@ -132,13 +127,9 @@ public class CatalogItemsController {
   @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest) {
     try {
-      this.service.addItemToCatalog(
-          postCatalogItemRequest.getName(),
-          postCatalogItemRequest.getDescription(),
-          new BigDecimal(postCatalogItemRequest.getPrice()),
-          postCatalogItemRequest.getProductCode(),
-          postCatalogItemRequest.getCatalogCategoryId(),
-          postCatalogItemRequest.getCatalogBrandId());
+      this.service.addItemToCatalog(postCatalogItemRequest.getName(), postCatalogItemRequest.getDescription(),
+          new BigDecimal(postCatalogItemRequest.getPrice()), postCatalogItemRequest.getProductCode(),
+          postCatalogItemRequest.getCatalogCategoryId(), postCatalogItemRequest.getCatalogBrandId());
     } catch (PermissionDeniedException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
