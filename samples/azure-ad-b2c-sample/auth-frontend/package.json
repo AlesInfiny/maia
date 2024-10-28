@@ -20,7 +20,6 @@
   "dependencies": {
     "@azure/msal-browser": "^3.25.0",
     "@heroicons/vue": "^2.1.5",
-    "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
     "axios": "^1.7.7",
     "pinia": "^2.2.4",
     "vue": "^3.5.10"
@@ -33,6 +32,7 @@
     "@types/node": "^22.7.4",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.6",
