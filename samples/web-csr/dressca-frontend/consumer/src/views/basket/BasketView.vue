@@ -13,7 +13,7 @@ import Loading from '@/components/common/LoadingSpinner.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
-import { errorHandler } from '@/shared/error-handler/error-handler';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
 const state = reactive({
   showLoading: true,
@@ -23,6 +23,7 @@ const basketStore = useBasketStore();
 const { getBasket, getAddedItem, getAddedItemId } = storeToRefs(basketStore);
 
 const router = useRouter();
+const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
 
@@ -38,7 +39,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity);
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('数量の変更に失敗しました。');
     });
   }
@@ -49,7 +50,7 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId);
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('商品の削除に失敗しました。');
     });
   }
@@ -64,7 +65,7 @@ onMounted(async () => {
   try {
     await fetchBasket();
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('カートの取得に失敗しました。');
     });
   } finally {
