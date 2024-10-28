@@ -10,7 +10,7 @@ import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
-import { errorHandler } from '@/shared/error-handler/error-handler';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -18,6 +18,7 @@ const basketStore = useBasketStore();
 const { getBasket } = storeToRefs(basketStore);
 const { getAddress } = storeToRefs(userStore);
 const router = useRouter();
+const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
 
@@ -32,7 +33,7 @@ const checkout = async () => {
     );
     router.push({ name: 'ordering/done', params: { orderId } });
   } catch (error) {
-    errorHandler(error, () => {
+    customErrorHandler.handle(error, () => {
       showToast('注文に失敗しました。');
       router.push({ name: 'error' });
     });
