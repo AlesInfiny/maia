@@ -30,7 +30,6 @@ updates:
     commit-message:
       prefix: "npm-root"
     labels:
-      - "ドキュメント改善"
       - "npm"
       - "dependencies"
 
