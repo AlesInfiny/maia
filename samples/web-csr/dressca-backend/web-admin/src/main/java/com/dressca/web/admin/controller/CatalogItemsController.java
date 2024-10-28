@@ -9,7 +9,6 @@ import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
@@ -160,7 +159,6 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "401", description = "", content = @Content),
       @ApiResponse(responseCode = "404", description = "", content = @Content)
   })
-
   @DeleteMapping("{catalogItemId}")
   @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId) {
@@ -196,17 +194,12 @@ public class CatalogItemsController {
   @PreAuthorize(value = "hasRole('ADMIN')")
   public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest) {
-    CatalogItemUpdateCommand command = new CatalogItemUpdateCommand(
-        catalogItemId,
-        putCatalogItemRequest.getName(),
-        putCatalogItemRequest.getDescription(),
-        new BigDecimal(putCatalogItemRequest.getPrice()),
-        putCatalogItemRequest.getProductCode(),
-        putCatalogItemRequest.getCatalogCategoryId(),
-        putCatalogItemRequest.getCatalogBrandId());
 
     try {
-      this.service.updateCatalogItem(command);
+      this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
+          putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
+          putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
+          putCatalogItemRequest.getCatalogBrandId());
     } catch (PermissionDeniedException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));

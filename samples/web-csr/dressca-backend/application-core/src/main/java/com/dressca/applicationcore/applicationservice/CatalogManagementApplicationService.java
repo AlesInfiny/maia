@@ -18,7 +18,6 @@ import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemUpdateCommand;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
@@ -107,13 +106,8 @@ public class CatalogManagementApplicationService {
    * @return 追加したカタログアイテム。
    * @throws PermissionDeniedException 追加権限がない場合。
    */
-  public CatalogItem addItemToCatalog(
-      String name,
-      String description,
-      BigDecimal price,
-      String productCode,
-      long catalogCategoryId,
-      long catalogBrandId) throws PermissionDeniedException {
+  public CatalogItem addItemToCatalog(String name, String description, BigDecimal price, String productCode,
+      long catalogCategoryId, long catalogBrandId) throws PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG,
         new Object[] {}, Locale.getDefault()));
 
@@ -122,14 +116,7 @@ public class CatalogManagementApplicationService {
     }
 
     // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
-    CatalogItem item = new CatalogItem(
-        0,
-        name,
-        description,
-        price,
-        productCode,
-        catalogCategoryId,
-        catalogBrandId);
+    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
     item.setRowVersion(1);
 
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
@@ -160,56 +147,54 @@ public class CatalogManagementApplicationService {
   /**
    * カタログアイテムを更新します。
    * 
-   * @param command 更新処理のファサードとなるコマンドオブジェクト。
-   * @throws PermissionDeniedException         更新権限がない場合。
+   * @param id                更新対象のカタログアイテムID。
+   * @param name              商品名。
+   * @param description       説明。
+   * @param price             価格。
+   * @param productCode       商品コード。
+   * @param catalogCategoryId カテゴリID。
+   * @param catalogBrandId    ブランドID。
    * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
+   * @throws PermissionDeniedException         更新権限がない場合。
    * @throws CatalogBrandNotFoundException     更新対象のカタログブランドが存在しなかった場合。
    * @throws CatalogCategoryNotFoundException  更新対象のカタログカテゴリが存在しなかった場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
-  public void updateCatalogItem(CatalogItemUpdateCommand command)
+  public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
+      long catalogCategoryId, long catalogBrandId)
+
       throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
       CatalogCategoryNotFoundException, OptimisticLockingFailureException {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG,
-        new Object[] { command.getId() }, Locale.getDefault()));
+        new Object[] { id }, Locale.getDefault()));
 
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
 
-    long catalogItemId = command.getId();
-    CatalogItem currentCatalogItem = catalogRepository.findById(catalogItemId);
+    CatalogItem currentCatalogItem = catalogRepository.findById(id);
     if (currentCatalogItem == null) {
-      throw new CatalogNotFoundException(catalogItemId);
+      throw new CatalogNotFoundException(id);
     }
 
-    long catalogCategoryId = command.getCatalogCategoryId();
     CatalogCategory catalogCategory = catalogCategoryRepository.findById(catalogCategoryId);
     if (catalogCategory == null) {
       throw new CatalogCategoryNotFoundException(catalogCategoryId);
     }
 
-    long catalogBrandId = command.getCatalogBrandId();
     CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
     if (catalogBrand == null) {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    CatalogItem item = new CatalogItem(
-        catalogItemId,
-        command.getName(),
-        command.getDescription(),
-        command.getPrice(),
-        command.getProductCode(),
-        catalogCategoryId,
-        catalogBrandId);
+    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId);
     // 更新前の行バージョンを取得し、更新対象のカタログアイテムに追加
     item.setRowVersion(currentCatalogItem.getRowVersion());
 
     int updateRowCount = this.catalogRepository.update(item);
     if (updateRowCount == 0) {
-      throw new OptimisticLockingFailureException(catalogItemId);
+      throw new OptimisticLockingFailureException(id);
     }
   }
 
