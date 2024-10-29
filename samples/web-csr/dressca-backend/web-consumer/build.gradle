@@ -45,12 +45,12 @@ configurations {
 }
 afterEvaluate {
     tasks.named("forkedSpringBootRun") {
-		workingDir("$rootDir/api-docs")
+		workingDir("$rootDir/api-docs/web-consumer")
 	}
 }
 openApi {
     apiDocsUrl.set("http://localhost:8080/api-docs")
-    outputDir.set(file("$rootDir/api-docs"))
+    outputDir.set(file("$rootDir/api-docs/web-consumer"))
     outputFileName.set("api-specification.json")
 }
 tasks.named('test') {
