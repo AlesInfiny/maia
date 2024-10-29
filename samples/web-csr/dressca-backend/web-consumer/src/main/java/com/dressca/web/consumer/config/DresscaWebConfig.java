@@ -1,5 +1,6 @@
 package com.dressca.web.consumer.config;
 
+import com.dressca.infrastructure.config.H2ServerConfig;
 import com.dressca.web.consumer.filter.BuyerIdFilter;
 import com.dressca.web.consumer.security.CookieSettings;
 import jakarta.servlet.Filter;
@@ -16,6 +17,9 @@ public class DresscaWebConfig {
 
   @Autowired
   private CookieSettings cookieSettings;
+
+  @Autowired
+  public H2ServerConfig h2ServerConfig;
 
   /**
    * BuyerIdFilter の設定。
