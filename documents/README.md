@@ -94,6 +94,7 @@ Visual Studio Code 上で Pull Request を発行する際には、以下の拡�
 また、必要に応じて以下の拡張機能をインストールします。
 
 - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
 - [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
 
 #### Node.js のインストール
@@ -109,7 +110,7 @@ Visual Studio Code 上で Pull Request を発行する際には、以下の拡�
 モジュールの更新も同じコマンドで実行できます。
 
 ```plane
-npm install
+npm ci
 ```
 
 #### Pythonのインストール
@@ -140,10 +141,6 @@ pip install -r requirements.txt
 ### ドキュメントの作成
 
 フォルダー構造に従って Markdown ファイルを作成します。
-
-リポジトリに更新を加えるため、新しくブランチを作成して作業してください。
-AlesInfiny Maia OSS Edition のリポジトリは GitHub-flow で開発します。
-Feature ブランチの名前は「feature/<更新内容を表す名前>」として開発してください。
 
 Markdown の作成にあたっては、 Material for MkDocs の Web サイトを参照してください。
 素の Markdown とは異なる表現パターンがあります。
@@ -190,6 +187,35 @@ INFO     -  [10:07:53] Browser connected: http://127.0.0.1:8000/
 
 Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の nav セクションを修正する必要があります。
 
+### ドキュメントのリンクの記載ルール
+
+ドキュメントにリンクを追加する場合、以下のように記載します。
+
+- このドキュメントの別ページに遷移するリンクの場合
+
+    以下のように記載します。
+
+    ```md
+    [Internal Link](https://internal-link)
+    ```
+
+- 外部ページに遷移するリンクの場合
+
+    以下のように、外部リンクを表すアイコンを表示するための `:material-open-in-new:` と別タブに遷移させるための `{ target=_blank }` を付与します。
+
+    ```md
+    [External Link :material-open-in-new:](https://external-link){ target=_blank }
+    ```
+
+- ライセンス条文等に含まれる外部ページリンクの場合
+
+    ライセンス条文のように原文をそのまま表示する必要のある記載の場合は、外部リンクであってもアイコンを付与しないようにします。
+    そのため、以下のように別タブに遷移させるための `{ target=_blank }` のみ記載します。
+
+    ```md
+    [License Link](https://license-link){ target=_blank }
+    ```
+
 ### 体裁の修正
 
 #### markdownlint
@@ -208,8 +234,7 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 必ず対応するようにしてください。
 
 複合語や技術用語は、辞書登録しないと誤検知されることがあります。
-その場合はワークスペースの辞書に、単語を登録するようにしてください。
-[cspell.json] ファイルの `words` に単語を登録できます。
+[cspell.json] ファイルの `words` に単語を登録するようにしてください。
 
 コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参照して、各ページで抑制してください。
 cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
@@ -247,7 +272,7 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 1. 一般的な用語 / 技術用語である場合
 
-    ワークスペース ( maris.code-workspace ) の用語集に単語を追加してください。
+    [cspell.json] ファイルの `words` に用語を追加してください。
 
 1. 特定のページでのみ使用する特殊な用語や略語の場合
 
