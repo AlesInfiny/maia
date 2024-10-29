@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,12 +25,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.authorization.UserStore;
-import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogBrandRepository;
-import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
@@ -44,9 +42,7 @@ public class CatalogManagementApplicationServiceTest {
   @Mock
   private CatalogRepository catalogRepository;
   @Mock
-  private CatalogBrandRepository catalogBrandRepository;
-  @Mock
-  private CatalogCategoryRepository catalogCategoryRepository;
+  private CatalogDomainService catalogDomainService;
   @Mock
   private UserStore userStore;
 
@@ -57,16 +53,16 @@ public class CatalogManagementApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    service = new CatalogManagementApplicationService(messages, catalogRepository, catalogBrandRepository,
-        catalogCategoryRepository);
+    service = new CatalogManagementApplicationService(messages, catalogRepository, catalogDomainService);
     service.setUserStore(this.userStore);
   }
 
   @Test
-  void testAddItemToCatalog_01_正常系_リポジトリのaddを1回呼出す() {
+  void testAddItemToCatalog_01_正常系_ドメインサービスのaddCatalogItemを1回呼出す() {
     // Arrange
-    CatalogItem catalogItem = createCatalogItem(1L);
-    when(this.catalogRepository.add(any())).thenReturn(catalogItem);
+    CatalogItem catalogItemAdded = createCatalogItem(1L);
+    when(this.catalogDomainService.addCatalogItem(anyString(), anyString(), any(), anyString(), anyLong(), anyLong()))
+        .thenReturn(catalogItemAdded);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
@@ -77,14 +73,16 @@ public class CatalogManagementApplicationServiceTest {
     }
 
     // Assert
-    verify(this.catalogRepository, times(1)).add(any());
+    verify(this.catalogDomainService, times(1)).addCatalogItem(anyString(), anyString(), any(), anyString(), anyLong(),
+        anyLong());
   }
 
   @Test
   void testAddItemToCatalog_02_異常系_カタログアイテムを追加する権限がない() {
     // Arrange
-    CatalogItem catalogItem = createCatalogItem(1L);
-    when(this.catalogRepository.add(any())).thenReturn(catalogItem);
+    CatalogItem catalogItemAdded = createCatalogItem(1L);
+    when(this.catalogDomainService.addCatalogItem(anyString(), anyString(), any(), anyString(), anyLong(), anyLong()))
+        .thenReturn(catalogItemAdded);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Action
@@ -97,34 +95,29 @@ public class CatalogManagementApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromCatalog_03_正常系_リポジトリのremoveを1回呼出す() {
+  void testDeleteItemFromCatalog_03_正常系_ドメインサービスのremoveを1回呼出す() {
     // Arrange
     long targetId = 1L;
-    CatalogItem targetItem = this.createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(targetItem);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
-    // Action
+    // Action & Assert
     try {
       this.service.deleteItemFromCatalog(targetId);
+      verify(this.catalogDomainService, times(1)).deleteCatalogItemById(anyLong());
     } catch (PermissionDeniedException | CatalogNotFoundException e) {
       fail(e.getMessage());
     }
-
-    // Assert
-    verify(this.catalogRepository, times(1)).remove(any());
   }
 
   @Test
   void testDeleteItemFromCatalog_04_異常系_対象のアイテムが存在しない() {
     // Arrange
     long targetId = 999L;
-    CatalogItem targetItem = null;
-    when(this.catalogRepository.findById(targetId)).thenReturn(targetItem);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     Executable action = () -> {
+      doThrow(new CatalogNotFoundException(targetId)).when(this.catalogDomainService).deleteCatalogItemById(targetId);
       this.service.deleteItemFromCatalog(targetId);
     };
 
@@ -136,8 +129,6 @@ public class CatalogManagementApplicationServiceTest {
   void testDeleteItemFromCatalog_05_異常系_カタログアイテムを削除する権限がない() {
     // Arrange
     long targetId = 1L;
-    CatalogItem targetItem = this.createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(targetItem);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Action
@@ -150,7 +141,7 @@ public class CatalogManagementApplicationServiceTest {
   }
 
   @Test
-  void testUpdateCatalogItem_06_正常系_リポジトリのupdateを1回呼出す() {
+  void testUpdateCatalogItem_06_正常系_ドメインサービスのupdateCatalogItemを1回呼出す() {
     // Arrange
     long targetId = 1L;
     Random random = new Random();
@@ -160,33 +151,23 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    CatalogCategory catalogCategory = createCatalogCategory();
-    CatalogBrand catalogBrand = createCatalogBrand();
-
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(catalogCategory);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(catalogBrand);
 
-    // Action
+    // Action & Assert
     try {
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
           defaultCatalogCategoryId, defaultCatalogBrandId);
+      verify(this.catalogDomainService, times(1)).updateCatalogItem(anyLong(), anyString(), anyString(), any(),
+          anyString(), anyLong(), anyLong());
     } catch (Exception e) {
       fail(e.getMessage());
     }
-
-    // Assert
-    verify(this.catalogRepository, times(1)).update(any());
   }
 
   @Test
   void testUpdateCatalogItem_07_異常系_対象のアイテムが存在しない() {
     // Arrange
-    long targetId = 1L;
+    long targetId = 999L;
     Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
@@ -194,17 +175,14 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-    CatalogCategory catalogCategory = createCatalogCategory();
-    CatalogBrand catalogBrand = createCatalogBrand();
 
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(null);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(catalogCategory);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(catalogBrand);
 
     // Action
     Executable action = () -> {
+      doThrow(new CatalogNotFoundException(targetId)).when(this.catalogDomainService).updateCatalogItem(targetId,
+          defaultName, defaultDescription, defaultPrice, defaultProductCode, defaultCatalogCategoryId,
+          defaultCatalogBrandId);
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
           defaultCatalogCategoryId, defaultCatalogBrandId);
     };
@@ -216,7 +194,7 @@ public class CatalogManagementApplicationServiceTest {
   @Test
   void testUpdateCatalogItem_08_異常系_対象のブランドが存在しない() {
     // Arrange
-    long targetId = 1L;
+    long targetId = 999L;
     Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
@@ -224,17 +202,13 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    CatalogCategory catalogCategory = createCatalogCategory();
-
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(catalogCategory);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(null);
 
     // Action
     Executable action = () -> {
+      doThrow(new CatalogBrandNotFoundException(targetId)).when(this.catalogDomainService).updateCatalogItem(targetId,
+          defaultName, defaultDescription, defaultPrice, defaultProductCode, defaultCatalogCategoryId,
+          defaultCatalogBrandId);
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
           defaultCatalogCategoryId, defaultCatalogBrandId);
     };
@@ -246,7 +220,7 @@ public class CatalogManagementApplicationServiceTest {
   @Test
   void testUpdateCatalogItem_09_異常系_対象のカテゴリが存在しない() {
     // Arrange
-    long targetId = 1L;
+    long targetId = 999L;
     Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
@@ -254,17 +228,14 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    CatalogBrand catalogBrand = createCatalogBrand();
 
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(null);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(catalogBrand);
 
     // Action
     Executable action = () -> {
+      doThrow(new CatalogCategoryNotFoundException(targetId)).when(this.catalogDomainService).updateCatalogItem(
+          targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode, defaultCatalogCategoryId,
+          defaultCatalogBrandId);
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
           defaultCatalogCategoryId, defaultCatalogBrandId);
     };
@@ -284,16 +255,7 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    CatalogCategory catalogCategory = createCatalogCategory();
-    CatalogBrand catalogBrand = createCatalogBrand();
-
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(catalogCategory);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(catalogBrand);
-
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
@@ -307,7 +269,7 @@ public class CatalogManagementApplicationServiceTest {
   @Test
   void testUpdateCatalogItem_11_異常系_楽観ロックエラーにより正常に更新ができない() {
     // Arrange
-    long targetId = 1L;
+    long targetId = 999L;
     Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
@@ -315,18 +277,13 @@ public class CatalogManagementApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    CatalogCategory catalogCategory = createCatalogCategory();
-    CatalogBrand catalogBrand = createCatalogBrand();
 
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
-    when(this.catalogRepository.update(any())).thenReturn(0);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(catalogCategory);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(catalogBrand);
-
     // Act
     Executable action = () -> {
+      doThrow(new OptimisticLockingFailureException(targetId)).when(this.catalogDomainService).updateCatalogItem(
+          targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode, defaultCatalogCategoryId,
+          defaultCatalogBrandId);
       this.service.updateCatalogItem(targetId, defaultName, defaultDescription, defaultPrice, defaultProductCode,
           defaultCatalogCategoryId, defaultCatalogBrandId);
     };
@@ -336,42 +293,44 @@ public class CatalogManagementApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItems_12_正常系_リポジトリのFindAsyncを1回呼出す() {
+  void testGetCatalogItems_12_正常系_ドメインサービスのgetCatalogItemsByConditionsを1回呼出す() {
+    // Arrange
     long brandId = 1L;
     long categoryId = 1L;
     int page = 0;
     int pageSize = 20;
 
+    // Action
     service.getCatalogItems(brandId, categoryId, page, pageSize);
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt());
+
+    // Assert
+    verify(this.catalogDomainService, times(1)).getCatalogItemsByConditions(anyLong(), anyLong(), anyInt(), anyInt());
   }
 
   @Test
-  void testGetCatalogItem_13_正常系_リポジトリのfindByIdを1回呼出す() {
+  void testGetCatalogItem_13_正常系_ドメインサービスのgetCatalogItemByIdを1回呼出す() {
     // Arrange
     long targetId = 1L;
     CatalogItem catalogItem = createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(catalogItem);
 
-    // Action
+    // Action & Assert
     try {
+      when(this.catalogDomainService.getCatalogItemById(targetId)).thenReturn(catalogItem);
       service.getCatalogItem(targetId);
+      verify(this.catalogDomainService, times(1)).getCatalogItemById(anyLong());
     } catch (CatalogNotFoundException e) {
       fail(e.getMessage());
     }
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findById(anyLong());
   }
 
   @Test
   void testGetCatalogItem_14_異常系_対象のアイテムが存在しない() {
     // Arrange
-    long targetId = 1L;
-    when(this.catalogRepository.findById(targetId)).thenReturn(null);
+    long targetId = 999L;
 
     // Action
     Executable action = () -> {
+      doThrow(new CatalogNotFoundException(targetId)).when(this.catalogDomainService).getCatalogItemById(targetId);
       this.service.getCatalogItem(targetId);
     };
 
@@ -408,15 +367,4 @@ public class CatalogManagementApplicationServiceTest {
     return catalogItem;
   }
 
-  private CatalogCategory createCatalogCategory() {
-    String defaultName = "Name";
-    CatalogCategory catalogCategory = new CatalogCategory(defaultName);
-    return catalogCategory;
-  }
-
-  private CatalogBrand createCatalogBrand() {
-    String defaultName = "Name";
-    CatalogBrand catalogBrand = new CatalogBrand(defaultName);
-    return catalogBrand;
-  }
 }

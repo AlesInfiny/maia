@@ -12,6 +12,7 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
@@ -32,6 +33,7 @@ public class CatalogApplicationService {
   private CatalogRepository catalogRepository;
   private CatalogBrandRepository brandRepository;
   private CatalogCategoryRepository catalogCategoryRepository;
+  private CatalogDomainService catalogDomainService;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -49,7 +51,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+    return this.catalogDomainService.getCatalogItemsByConditions(brandId, categoryId, page, pageSize);
   }
 
   /**

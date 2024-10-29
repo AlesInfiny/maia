@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.authorization.UserStore;
-import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogBrandRepository;
-import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
@@ -33,24 +30,21 @@ public class CatalogManagementApplicationService {
 
   private MessageSource messages;
   private CatalogRepository catalogRepository;
-  private CatalogBrandRepository catalogBrandRepository;
-  private CatalogCategoryRepository catalogCategoryRepository;
+  private CatalogDomainService catalogDomainService;
   private UserStore userStore;
 
   /**
    * コンストラクタ。
    * 
-   * @param messages                  メッセージ
-   * @param catalogRepository         カタログリポジトリ。
-   * @param catalogBrandRepository    カタログブランドリポジトリ。
-   * @param catalogCategoryRepository カタログカテゴリリポジトリ。
+   * @param messages             メッセージ.
+   * @param catalogRepository    カタログリポジトリ。
+   * @param catalogDomainService カタログドメインサービス。
    */
   public CatalogManagementApplicationService(MessageSource messages, CatalogRepository catalogRepository,
-      CatalogBrandRepository catalogBrandRepository, CatalogCategoryRepository catalogCategoryRepository) {
+      CatalogDomainService catalogDomainService) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
-    this.catalogBrandRepository = catalogBrandRepository;
-    this.catalogCategoryRepository = catalogCategoryRepository;
+    this.catalogDomainService = catalogDomainService;
   }
 
   @Autowired(required = false)
@@ -68,15 +62,8 @@ public class CatalogManagementApplicationService {
    * @throws CatalogNotFoundException カタログアイテムが見つからなかった場合。
    */
   public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG,
-        new Object[] { id }, Locale.getDefault()));
-    CatalogItem item = this.catalogRepository.findById(id);
-
-    if (item == null) {
-      CatalogNotFoundException e = new CatalogNotFoundException(id);
-      throw e;
-    }
-    return item;
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG, new Object[] { id }, Locale.getDefault()));
+    return this.catalogDomainService.getCatalogItemById(id);
   }
 
   /**
@@ -91,7 +78,7 @@ public class CatalogManagementApplicationService {
   public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+    return this.catalogDomainService.getCatalogItemsByConditions(brandId, categoryId, page, pageSize);
   }
 
   /**
@@ -108,19 +95,14 @@ public class CatalogManagementApplicationService {
    */
   public CatalogItem addItemToCatalog(String name, String description, BigDecimal price, String productCode,
       long catalogCategoryId, long catalogBrandId) throws PermissionDeniedException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG,
-        new Object[] {}, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG, new Object[] {}, Locale.getDefault()));
 
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
 
-    // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
-    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
-    item.setRowVersion(1);
-
-    CatalogItem catalogItemAdded = this.catalogRepository.add(item);
-    return catalogItemAdded;
+    return this.catalogDomainService.addCatalogItem(name, description, price, productCode, catalogCategoryId,
+        catalogBrandId);
   }
 
   /**
@@ -132,16 +114,11 @@ public class CatalogManagementApplicationService {
    * 
    */
   public void deleteItemFromCatalog(long id) throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG,
-        new Object[] { id }, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG, new Object[] { id }, Locale.getDefault()));
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
     }
-    CatalogItem item = this.catalogRepository.findById(id);
-    if (item == null) {
-      throw new CatalogNotFoundException(id);
-    }
-    this.catalogRepository.remove(item);
+    this.catalogDomainService.deleteCatalogItemById(id);
   }
 
   /**
@@ -165,36 +142,13 @@ public class CatalogManagementApplicationService {
       throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
       CatalogCategoryNotFoundException, OptimisticLockingFailureException {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG,
-        new Object[] { id }, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG, new Object[] { id }, Locale.getDefault()));
 
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
-
-    CatalogItem currentCatalogItem = catalogRepository.findById(id);
-    if (currentCatalogItem == null) {
-      throw new CatalogNotFoundException(id);
-    }
-
-    CatalogCategory catalogCategory = catalogCategoryRepository.findById(catalogCategoryId);
-    if (catalogCategory == null) {
-      throw new CatalogCategoryNotFoundException(catalogCategoryId);
-    }
-
-    CatalogBrand catalogBrand = catalogBrandRepository.findById(catalogBrandId);
-    if (catalogBrand == null) {
-      throw new CatalogBrandNotFoundException(catalogBrandId);
-    }
-
-    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId);
-    // 更新前の行バージョンを取得し、更新対象のカタログアイテムに追加
-    item.setRowVersion(currentCatalogItem.getRowVersion());
-
-    int updateRowCount = this.catalogRepository.update(item);
-    if (updateRowCount == 0) {
-      throw new OptimisticLockingFailureException(id);
-    }
+    this.catalogDomainService.updateCatalogItem(id, name, description, price, productCode, catalogCategoryId,
+        catalogBrandId);
   }
 
   /**

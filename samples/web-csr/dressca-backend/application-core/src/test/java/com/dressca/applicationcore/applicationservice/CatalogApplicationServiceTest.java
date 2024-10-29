@@ -22,6 +22,7 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 
@@ -37,6 +38,8 @@ public class CatalogApplicationServiceTest {
   private CatalogBrandRepository brandRepository;
   @Mock
   private CatalogCategoryRepository catalogCategoryRepository;
+  @Mock
+  private CatalogDomainService catalogDomainService;
 
   @Autowired
   private MessageSource messages;
@@ -45,22 +48,22 @@ public class CatalogApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    service = new CatalogApplicationService(messages, catalogRepository, brandRepository, catalogCategoryRepository);
+    service = new CatalogApplicationService(messages, catalogRepository, brandRepository, catalogCategoryRepository,
+        catalogDomainService);
   }
 
   @Test
-  void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
+  void testGetCatalogItems_正常系_ドメインサービスのgetCatalogItemsByConditionsを1回呼出す() {
     // Arrange
     List<CatalogItem> catalogItems = List.of(createCatalogItem(1L));
-    when(this.catalogRepository.findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt()))
+    when(this.catalogDomainService.getCatalogItemsByConditions(anyLong(), anyLong(), anyInt(), anyInt()))
         .thenReturn(catalogItems);
 
     // Act
     service.getCatalogItems(1L, 1L, 1, 10);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(),
-        anyInt(), anyInt());
+    verify(this.catalogDomainService, times(1)).getCatalogItemsByConditions(anyLong(), anyLong(), anyInt(), anyInt());
 
   }
 
