@@ -13,7 +13,7 @@
     },
     {
       "type": "java",
-      "name": "Spring Boot-WebApplication<web>",
+      "name": "Spring Boot-WebApplication<consumer>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
@@ -24,7 +24,7 @@
     },
     {
       "type": "java",
-      "name": "Spring Boot-WebApplication<web>",
+      "name": "Spring Boot-WebApplication<admin>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
