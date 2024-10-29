@@ -196,7 +196,13 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
     以下のように記載します。
 
     ```md
-    [Internal Link](https://internal-link)
+    [概要編](overview/index.md)
+    ```
+
+    特定のページの見出しを指定する場合は、各見出しに付与した ID を以下のようにリンクの末尾に付与します。
+
+    ```md
+    [CSR アーキテクチャ概要 - アプリケーションコア層](../csr-architecture-overview.md#application-core)
     ```
 
 - 外部ページに遷移するリンクの場合
