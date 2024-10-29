@@ -322,7 +322,9 @@
       product_code = #{productCode,jdbcType=VARCHAR},
       catalog_category_id = #{catalogCategoryId,jdbcType=BIGINT},
       catalog_brand_id = #{catalogBrandId,jdbcType=BIGINT},
-      row_version = #{rowVersion,jdbcType=INTEGER}
-    where id = #{id,jdbcType=BIGINT}
+      row_version = #{rowVersion,jdbcType=INTEGER} + 1
+    where 
+      id = #{id,jdbcType=BIGINT} 
+      and row_version = #{rowVersion,jdbcType=INTEGER}
   </update>
 </mapper>

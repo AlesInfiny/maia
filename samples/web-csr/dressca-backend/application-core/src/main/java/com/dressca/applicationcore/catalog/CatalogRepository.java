@@ -73,7 +73,7 @@ public interface CatalogRepository {
    *
    * @param item カタログアイテム
    */
-  void remove(CatalogItem item);
+  int remove(CatalogItem item);
 
   /**
    * カタログアイテムを更新します。

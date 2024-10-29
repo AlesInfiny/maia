@@ -65,14 +65,23 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public void remove(CatalogItem item) {
+  public int remove(CatalogItem item) {
     CatalogItemEntityExample catalogItemExample = new CatalogItemEntityExample();
     catalogItemExample.createCriteria().andIdEqualTo(item.getId());
-    catalogItemMapper.deleteByExample(catalogItemExample);
+    return catalogItemMapper.deleteByExample(catalogItemExample);
   }
 
   @Override
   public int update(CatalogItem item) {
-    return this.mapper.update(item);
+    CatalogItemEntity catalogItemEntity = new CatalogItemEntity();
+    catalogItemEntity.setId(item.getId());
+    catalogItemEntity.setName(item.getName());
+    catalogItemEntity.setDescription(item.getDescription());
+    catalogItemEntity.setPrice(item.getPrice());
+    catalogItemEntity.setProductCode(item.getProductCode());
+    catalogItemEntity.setCatalogCategoryId(item.getCatalogCategoryId());
+    catalogItemEntity.setCatalogBrandId(item.getCatalogBrandId());
+    catalogItemEntity.setRowVersion(item.getRowVersion());
+    return this.catalogItemMapper.updateByPrimaryKey(catalogItemEntity);
   }
 }

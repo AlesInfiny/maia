@@ -104,20 +104,4 @@
       CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
-
-  <update id="update" parameterType="com.dressca.applicationcore.catalog.CatalogItem">
-    UPDATE CATALOG_ITEMS
-    SET
-      NAME = #{item.name},
-      DESCRIPTION = #{item.description},
-      PRICE = #{item.price},
-      PRODUCT_CODE = #{item.productCode},
-      CATALOG_CATEGORY_ID = #{item.catalogCategoryId},
-      CATALOG_BRAND_ID = #{item.catalogBrandId},
-      ROW_VERSION = ROW_VERSION + 1
-    WHERE
-      ID = #{item.id}
-      AND
-      ROW_VERSION = #{item.rowVersion}
-  </update>
 </mapper>
