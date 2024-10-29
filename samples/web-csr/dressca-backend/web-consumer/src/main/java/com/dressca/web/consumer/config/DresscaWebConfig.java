@@ -18,7 +18,7 @@ public class DresscaWebConfig {
   @Autowired
   private CookieSettings cookieSettings;
 
-  @Autowired
+  @Autowired(required = false)
   public H2ServerConfig h2ServerConfig;
 
   /**
