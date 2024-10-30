@@ -1,30 +1,28 @@
-import {
-  BrowserAuthError,
-  InteractionRequiredAuthError,
-} from '@azure/msal-browser';
+import { InteractionRequiredAuthError } from '@azure/msal-browser';
 import {
   msalInstance,
   loginRequest,
   tokenRequest,
 } from '@/services/authentication/authentication-config';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
 msalInstance.initialize();
 
 export const authenticationService = {
   async signInAzureADB2C() {
     const authenticationStore = useAuthenticationStore();
+    const customErrorHandler = useCustomErrorHandler();
     try {
       const response = await msalInstance.loginPopup(loginRequest);
       msalInstance.setActiveAccount(response.account);
       authenticationStore.updateAuthenticated(true);
       return true;
     } catch (error) {
-      if (error instanceof BrowserAuthError) {
+      customErrorHandler.handle(error, () => {
         authenticationStore.updateAuthenticated(false);
-        return false;
-      }
-      throw error;
+      });
+      return false;
     }
   },
 
@@ -37,6 +35,7 @@ export const authenticationService = {
 
   async getTokenAzureADB2C() {
     const account = msalInstance.getActiveAccount();
+    const customErrorHandler = useCustomErrorHandler();
 
     tokenRequest.account = account ?? undefined;
     try {
@@ -47,15 +46,11 @@ export const authenticationService = {
       }
       return tokenResponse.accessToken;
     } catch (error) {
-      if (error instanceof InteractionRequiredAuthError) {
-        // ユーザーによる操作が必要な場合にスローされるエラーがスローされた場合、トークン呼び出しポップアップ画面を表示する。
-        const tokenResponse =
-          await msalInstance.acquireTokenPopup(tokenRequest);
-        return tokenResponse.accessToken;
-      }
-      // eslint-disable-next-line no-console
-      console.log(error);
-      throw error;
+      // ユーザーによる操作が必要な場合にスローされるエラーがスローされた場合、トークン呼び出しポップアップ画面を表示する。
+      customErrorHandler.handle(error, async () => {
+        await msalInstance.acquireTokenPopup(tokenRequest);
+      });
+      return tokenResponse.accessToken;
     }
   },
 };
