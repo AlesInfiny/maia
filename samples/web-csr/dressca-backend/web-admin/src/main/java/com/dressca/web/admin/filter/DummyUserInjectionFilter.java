@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * ダミーユーザーをSecurityContextHolderに詰めるためのフィルタークラス。
+ * 開発環境においてユーザ名がadmin@example.com、権限が管理者のユーザでアクセスしたことにして認証プロセスをスキップするために使用する。
+ * また、本フィルターはWebSecurityConfigにて、セキュリティフィルターチェーンのUsernamePasswordAuthenticationFilterの前に挿入する。
  */
 @Profile("local")
 @Component
