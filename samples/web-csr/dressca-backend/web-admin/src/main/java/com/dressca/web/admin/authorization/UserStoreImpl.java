@@ -47,7 +47,7 @@ public class UserStoreImpl implements UserStore {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
       return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-          .anyMatch(roles -> roles.contains(role));
+          .anyMatch(roles -> roles.equals(role));
     }
     return false;
   }
