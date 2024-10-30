@@ -14,7 +14,8 @@
         ]
 	},
 	"extensions": {
-        "recommendations": [
+    "recommendations": [
+      "streetsidesoftware.code-spell-checker",
 			"hediet.vscode-drawio",
 			"yzhang.markdown-all-in-one",
 			"davidanson.vscode-markdownlint",

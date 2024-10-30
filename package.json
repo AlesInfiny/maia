@@ -1,13 +1,13 @@
 {
   "scripts": {
     "lint": "run-s lint:* --continue-on-error --print-label",
-    "lint:markdownlint-all": "npx markdownlint --config .markdownlint.yaml --rules custom-lint-rules --ignore **/node_modules/** .",
+    "lint:markdownlint-all": "npx markdownlint-cli2",
     "lint:textlint-all": "npx textlint documents samples"
   },
   "devDependencies": {
     "@textlint-ja/textlint-rule-no-synonyms": "^1.3.0",
     "@textlint-rule/textlint-rule-require-header-id": "^1.0.1",
-    "markdownlint-cli": "^0.42.0",
+    "markdownlint-cli2": "^0.14.0",
     "npm-run-all2": "^6.2.3",
     "sudachi-synonyms-dictionary": "^14.0.0",
     "textlint": "^14.2.1",

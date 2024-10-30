@@ -11,7 +11,7 @@ CORS とは、いくつかの HTTP ヘッダーを使用することで、同一
 
 ??? note "オリジンとは"
 
-    オリジンとは、 URL のスキーム（プロトコル）、ホスト（ドメイン）、ポート番号の部分を指します（ [Origin (オリジン) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN](https://developer.mozilla.org/ja/docs/Glossary/Origin) ）。
+    オリジンとは、 URL のスキーム（プロトコル）、ホスト（ドメイン）、ポート番号の部分を指します（ [Origin (オリジン) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Origin){ target=_blank } ）。
 
     - `http://localhost` と `https://localhost` はスキームが異なるので異なるオリジン
     - `https://www.example.com` と `https://www2.example.com` はホスト部分が異なるので異なるオリジン
@@ -19,7 +19,7 @@ CORS とは、いくつかの HTTP ヘッダーを使用することで、同一
 
 ??? note "同一オリジンポリシーとは"
 
-    ブラウザーは原則として「同一オリジンポリシー」で動作します（ [同一オリジンポリシー - ウェブセキュリティ | MDN](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy)   ）。
+    ブラウザーは原則として「同一オリジンポリシー」で動作します（ [同一オリジンポリシー - ウェブセキュリティ | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank }   ）。
 
     > 同一オリジンポリシーは重要なセキュリティの仕組みであり、あるオリジンによって読み込まれた文書やスクリプトが、他のオリジンにあるリソースにアクセスできる方法を制限するものです。
 
@@ -31,7 +31,7 @@ CORS とは、いくつかの HTTP ヘッダーを使用することで、同一
 
 本章で解説する CORS 環境とは、 CSR アプリケーションにおいて、フロントエンドアプリケーションとバックエンドアプリケーションの配置されるサーバーのオリジンが異なる環境を意味します。 CORS 環境で CSR アプリケーションを構築する場合、いくつかの考慮や追加の実装が必要です。
 
-CORS の仕組みの詳細は「 [オリジン間リソース共有 (CORS) - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS) 」を参照してください。
+CORS の仕組みの詳細は「 [オリジン間リソース共有 (CORS) - HTTP | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS){ target=_blank } 」を参照してください。
 
 ## バックエンドアプリケーション（ Spring Boot ） {#backend}
 
@@ -123,7 +123,11 @@ public class WebSecurityConfig {
 
 - `setAllowedMethods` メソッド（ 17 行目）
 
-    許可したオリジンのクライアントが使用可能な HTTP メソッドを設定します。アプリケーションで許可する HTTP メソッド名を指定してください。なお、 CORS 環境の場合プリフライトリクエストが使用する `OPTIONS` は必須です。詳細は [Preflight request (プリフライトリクエスト) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request) を参照してください。
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
+    許可したオリジンのクライアントが使用可能な HTTP メソッドを設定します。アプリケーションで許可する HTTP メソッド名を指定してください。なお、 CORS 環境の場合プリフライトリクエストが使用する `OPTIONS` は必須です。詳細は [Preflight request (プリフライトリクエスト) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } を参照してください。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - `setAllowedHeaders` メソッド（ 18 行目）
 
@@ -138,7 +142,7 @@ public class WebSecurityConfig {
 !!! danger "Cookie を使用する場合の注意事項"
 
     CORS 環境においてアプリケーションで Cookie を使用する場合、 `SameSite` 属性に `None` を明示的に指定する必要があります。設定しない場合、別オリジンへ Cookie を送信できません。
-    なお、 Cookie の仕様上 `SameSite` 属性に `None` を設定する場合は必ず `Secure` 属性も設定する必要があります（ [HTTP Cookie の使用 - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies) ）。
+    なお、 Cookie の仕様上 `SameSite` 属性に `None` を設定する場合は必ず `Secure` 属性も設定する必要があります（ [HTTP Cookie の使用 - HTTP | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies){ target=_blank } ）。
 
     > Cookie に SameSite=None が付いた場合は、 Secure 属性も指定することになりました（安全なコンテキストが必要になりました）。
 
