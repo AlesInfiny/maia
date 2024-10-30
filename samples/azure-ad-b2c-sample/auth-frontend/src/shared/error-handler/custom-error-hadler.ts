@@ -19,8 +19,14 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       if (error instanceof Error) {
         callback();
         if (error instanceof BrowserAuthError) {
+          /* eslint no-console: 0 */
+          // eslint-disable-next-line no-alert
+          alert(error);
           console.log(error);
         } else if (error instanceof InteractionRequiredAuthError) {
+          /* eslint no-console: 0 */
+          // eslint-disable-next-line no-alert
+          alert(error);
           console.log(error);
         }
       } else {
