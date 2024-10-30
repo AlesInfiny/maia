@@ -9,7 +9,8 @@
     "build-only:dev:consumer": "npm run build-only:dev -w consumer",
     "build:prod:consumer": "npm run build:prod -w consumer",
     "test:unit:consumer": "npm run test:unit -w consumer",
-    "dev:consumer": "npm run dev -w consumer"
+    "dev:consumer": "npm run dev -w consumer",
+    "mock:consumer": "npm run mock -w consumer"
   },
   "workspaces": [
     "consumer"

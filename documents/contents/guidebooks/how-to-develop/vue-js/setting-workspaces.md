@@ -50,7 +50,7 @@ CJS 形式のファイルを正しく読み込むために、 `"type": "module"`
 
 ## スクリプトの登録 {#register-npm-scripts}
 
-CI パイプラインで使用するために、ルートプロジェクトの package.json にスクリプトを登録します。
+ルートプロジェクトの package.json にスクリプトを登録します。
 `-w` オプションでワークスペース名を指定することで、指定したワークスペースの package.json に存在するスクリプトを実行できます。
 設定例を下記に示します。
 
@@ -62,7 +62,8 @@ CI パイプラインで使用するために、ルートプロジェクトの p
     "build-only:dev:workspace-name": "npm run build-only:dev -w workspace-name",
     "build:prod:workspace-name": "npm run build:prod -w workspace-name",
     "test:unit:workspace-name": "npm run test:unit -w workspace-name",
-    "dev:workspace-name": "npm run dev -w workspace-name"
+    "dev:workspace-name": "npm run dev -w workspace-name",
+    "mock:workspace-name": "npm run mock -w workspace-name"
   },
 }
 ```
