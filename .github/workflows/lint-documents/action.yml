@@ -34,7 +34,7 @@ runs:
       shell: bash
       run: |
         echo '## Markdownlint Result' >> $GITHUB_STEP_SUMMARY
-        npx markdownlint --config .markdownlint.yaml --rules custom-lint-rules --ignore **/node_modules/** --output markdownlint-result.txt .
+        npx markdownlint-cli2 > markdownlint-result.txt 2>&1
         echo ':heavy_check_mark: Markdownlint に成功しました。' >> $GITHUB_STEP_SUMMARY
 
     - name: Markdownlint 失敗時の結果表示

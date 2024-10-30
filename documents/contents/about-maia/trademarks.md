@@ -36,7 +36,7 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 <!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length -->
 
 - Amazon Web Services 、 AWS 、 Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関連会社の商標です。
-- Apache, [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/), [Apache Groovy](https://groovy.apache.org/), [Apache Log4j 2](https://logging.apache.org/log4j/2.x/), [Apache Maven](https://maven.apache.org/) and [Apache Tomcat](https://tomcat.apache.org/) are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/) in the United States and/or other countries.
+- Apache, [Apache Commons Lang :material-open-in-new:](https://commons.apache.org/proper/commons-lang/){ target=_blank }, [Apache Groovy :material-open-in-new:](https://groovy.apache.org/){ target=_blank }, [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank }, [Apache Maven :material-open-in-new:](https://maven.apache.org/){ target=_blank } and [Apache Tomcat :material-open-in-new:](https://tomcat.apache.org/){ target=_blank } are either registered trademarks or trademarks of the [Apache Software Foundation :material-open-in-new:](https://www.apache.org/){ target=_blank } in the United States and/or other countries.
 - 'Eclipse', 'Adoptium' and 'Temurin' are trademarks of Eclipse Foundation, Inc.
 - Gradle and the Gradlephant logo are registered trademark of Gradle, Inc. and its subsidiaries in the United States and/or other countries.
 - Google 、 Android は、 Google LLC の商標または登録商標です。

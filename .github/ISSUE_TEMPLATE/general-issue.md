@@ -2,14 +2,17 @@
 name: general-Issue
 about: 汎用的なIssueのテンプレートです
 title: ''
+description: ''
 labels: ''
 assignees: ''
 
 ---
 
+<!-- textlint-disable @textlint-rule/require-header-id -->
+
 ## 概要
 
-ここに課題、問題点、バグなど、現在の状態ややるべきことの簡単な説明を記述します。
+ここに問題点やバグなど、現在の状態ややるべきことの簡単な説明を記述します。
 
 ## 詳細 / 機能詳細（オプション）
 
@@ -19,3 +22,5 @@ assignees: ''
 ## 完了条件
 
 ここにこの Issue の完了条件を箇条書きで記載します。
+
+<!-- textlint-enabled @textlint-rule/require-header-id -->
