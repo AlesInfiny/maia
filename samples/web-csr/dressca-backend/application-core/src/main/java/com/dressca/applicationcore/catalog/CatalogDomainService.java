@@ -52,8 +52,7 @@ public class CatalogDomainService {
   public CatalogItem getCatalogItemById(long id) throws CatalogNotFoundException {
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
-      CatalogNotFoundException e = new CatalogNotFoundException(id);
-      throw e;
+      throw new CatalogNotFoundException(id);
     }
     return item;
   }
@@ -106,7 +105,7 @@ public class CatalogDomainService {
   }
 
   /**
-   * カタログアイテムを更新します。
+   * カタログアイテムの情報を変更します。
    * 
    * @param id                カタログアイテム id。
    * @param name              商品名。
@@ -120,7 +119,7 @@ public class CatalogDomainService {
    * @throws CatalogCategoryNotFoundException  更新対象のカタログカテゴリがない場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラー。
    */
-  public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
+  public void modifyCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
       long catalogCategoryId, long catalogBrandId)
       throws CatalogNotFoundException, CatalogBrandNotFoundException, CatalogCategoryNotFoundException,
       OptimisticLockingFailureException {
@@ -141,7 +140,7 @@ public class CatalogDomainService {
     }
 
     CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId);
-    // 更新前の行バージョンを取得し、更新対象のカタログアイテムに追加
+    // 変更前の行バージョンを取得し、変更対象のカタログアイテムに追加
     item.setRowVersion(currentCatalogItem.getRowVersion());
 
     int updateRowCount = this.catalogRepository.update(item);

@@ -304,10 +304,12 @@
         catalog_brand_id = #{catalogBrandId,jdbcType=BIGINT},
       </if>
       <if test="rowVersion != null">
-        row_version = #{rowVersion,jdbcType=INTEGER},
+        row_version = #{rowVersion,jdbcType=INTEGER} + 1,
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where 
+      id = #{id,jdbcType=BIGINT}
+      and row_version = #{rowVersion,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
     <!--

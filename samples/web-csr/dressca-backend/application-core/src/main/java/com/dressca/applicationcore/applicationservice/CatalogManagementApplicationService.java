@@ -147,7 +147,7 @@ public class CatalogManagementApplicationService {
     if (!this.userStore.isInRole("ROLE_ADMIN")) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
-    this.catalogDomainService.updateCatalogItem(id, name, description, price, productCode, catalogCategoryId,
+    this.catalogDomainService.modifyCatalogItem(id, name, description, price, productCode, catalogCategoryId,
         catalogBrandId);
   }
 
