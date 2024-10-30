@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -47,8 +46,7 @@ public class AssetApplicationServiceTest {
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
-  void testGetAssetResourceInfo_01_正常系_存在するアセットコード() throws AssetNotFoundException {
+  void testGetAssetResourceInfo_正常系_存在するアセットコード() throws AssetNotFoundException {
     // テスト用の入力データ
     String assetCode = "ExistAssetCode";
 
@@ -70,8 +68,7 @@ public class AssetApplicationServiceTest {
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_02_異常系_リポジトリに存在しないアセットコード")
-  void testGetAssetResourceInfo_02_異常系_リポジトリに存在しないアセットコード() {
+  void testGetAssetResourceInfo_異常系_リポジトリに存在しないアセットコード() {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
@@ -90,8 +87,7 @@ public class AssetApplicationServiceTest {
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_03_異常系_ストアに存在しないアセットコード")
-  void testGetAssetResourceInfo_03_異常系_ストアに存在しないアセットコード() {
+  void testGetAssetResourceInfo_異常系_ストアに存在しないアセットコード() {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
