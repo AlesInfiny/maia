@@ -5,14 +5,14 @@ import {
   tokenRequest,
 } from '@/services/authentication/authentication-config';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 msalInstance.initialize();
 
 export const authenticationService = {
   async signInAzureADB2C() {
     const authenticationStore = useAuthenticationStore();
-    const customErrorHandler = useCustomErrorHandler();
+    const customErrorHandler = createCustomErrorHandler();
     try {
       const response = await msalInstance.loginPopup(loginRequest);
       msalInstance.setActiveAccount(response.account);
@@ -35,7 +35,7 @@ export const authenticationService = {
 
   async getTokenAzureADB2C() {
     const account = msalInstance.getActiveAccount();
-    const customErrorHandler = useCustomErrorHandler();
+    const customErrorHandler = createCustomErrorHandler();
 
     tokenRequest.account = account ?? undefined;
     try {
@@ -50,7 +50,7 @@ export const authenticationService = {
       customErrorHandler.handle(error, async () => {
         await msalInstance.acquireTokenPopup(tokenRequest);
       });
-      return tokenResponse.accessToken;
+      return '';
     }
   },
 };
