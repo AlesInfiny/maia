@@ -1,7 +1,7 @@
 import type { App, ComponentPublicInstance } from 'vue';
 import { router } from '../../router';
 
-export const errorHandlerPlugin = {
+export const globalErrorHandler = {
   /* eslint no-param-reassign: 0 */
   install(app: App) {
     app.config.errorHandler = (

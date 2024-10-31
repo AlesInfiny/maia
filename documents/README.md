@@ -11,91 +11,136 @@
 
 documents フォルダー配下のフォルダー、ファイルの配置は以下の通りです。
 
-|               |                  |                       |                     |                     |                                               |
-| ------------- | ---------------- | --------------------- | ------------------- | ------------------- | --------------------------------------------- |
-| _materials    |                  |                       |                     |                     | ドキュメント内で利用する素材                  |
-|               | images           |                       |                     |                     | 画像素材（画像を作るための元ファイル）        |
-|               |                  | app-architecture      |                     |                     | contents/images フォルダーと構造をそろえる    |
-|               |                  |                       | hoge.drawio         |                     | ファイル名は生成後の画像ファイルと同じにする  |
-| contents      |                  |                       |                     |                     | ドキュメント本体                              |
-|               | about-maia       |                       |                     |                     | 利用規約等、ライセンス関連のファイル          |
-|               | app-architecture |                       |                     |                     | アプリケーションアーキテクチャ                |
-|               |                  | client-side-rendering |                     |                     | CSR 編                                        |
-|               |                  |                       | backend-application |                     | バックエンドアプリの構造詳細                  |
-|               |                  |                       | test                |                     | テスト方針                                    |
-|               |                  |                       |                     | backend-application | バックエンドアプリのテスト方針                |
-|               |                  | overview              |                     |                     | 概要編                                        |
-|               | assets           |                       |                     |                     | 共通資材（ロゴなど）                          |
-|               |                  | images                |                     |                     |                                               |
-|               | guidebooks       |                       |                     |                     | ガイドライン系ドキュメント                    |
-|               |                  | how-to-develop        |                     |                     | アプリケーション開発手順                      |
-|               |                  |                       | java                |                     | Java 編                                       |
-|               |                  |                       | local-environment   |                     | ローカル開発環境の構築                        |
-|               |                  |                       | vue-js              |                     | Vue.js 編                                     |
-|               | images           |                       |                     |                     | ページ固有の画像ファイル置き場                |
-|               |                  | about-maia            |                     |                     | mdファイルの配置フォルダーと構造をそろえる    |
-|               |                  |                       | hoge.png            |                     | 画像ファイルは svg か png にする                  |
+|               |                  |                       |                     |                     |                                                 |
+| ------------- | ---------------- | --------------------- | ------------------- | ------------------- | ----------------------------------------------- |
+| _materials    |                  |                       |                     |                     | ドキュメント内で利用する素材                    |
+|               | images           |                       |                     |                     | 画像素材（画像を作るための元ファイル）          |
+|               |                  | app-architecture      |                     |                     | contents/images フォルダーと構造をそろえる      |
+|               |                  |                       | hoge.drawio         |                     | ファイル名は生成後の画像ファイルと同じにする    |
+| contents      |                  |                       |                     |                     | ドキュメント本体                                |
+|               | about-maia       |                       |                     |                     | 利用規約等、ライセンス関連のファイル            |
+|               | app-architecture |                       |                     |                     | アプリケーションアーキテクチャ                  |
+|               |                  | client-side-rendering |                     |                     | CSR 編                                          |
+|               |                  |                       | backend-application |                     | バックエンドアプリの構造詳細                    |
+|               |                  |                       | test                |                     | テスト方針                                      |
+|               |                  |                       |                     | backend-application | バックエンドアプリのテスト方針                  |
+|               |                  | overview              |                     |                     | 概要編                                          |
+|               | assets           |                       |                     |                     | 共通資材（ロゴなど）                            |
+|               |                  | images                |                     |                     |                                                 |
+|               | guidebooks       |                       |                     |                     | ガイドライン系ドキュメント                      |
+|               |                  | how-to-develop        |                     |                     | アプリケーション開発手順                        |
+|               |                  |                       | java                |                     | Java 編                                         |
+|               |                  |                       | local-environment   |                     | ローカル開発環境の構築                          |
+|               |                  |                       | vue-js              |                     | Vue.js 編                                       |
+|               | images           |                       |                     |                     | ページ固有の画像ファイル置き場                  |
+|               |                  | about-maia            |                     |                     | mdファイルの配置フォルダーと構造をそろえる      |
+|               |                  |                       | hoge.png            |                     | 画像ファイルは svg か png にする                |
 |               |                  |                       | animation.gif       |                     | gif アニメーションも利用可                      |
-|               |                  | app-architecture      |                     |                     |                                               |
-|               |                  | guidebooks            |                     |                     |                                               |
-|               |                  |                       | how-to-develop      |                     |                                               |
-|               |                  |                       | samples             |                     |                                               |
-|               |                  |                       | terms               |                     |                                               |
-|               | samples          |                       |                     |                     | サンプルアプリケーション解説                  |
-|               |                  | azure-ad-b2c          |                     |                     | Azure AD B2C を利用しているサンプルの解説     |
+|               |                  | app-architecture      |                     |                     |                                                 |
+|               |                  | guidebooks            |                     |                     |                                                 |
+|               |                  |                       | how-to-develop      |                     |                                                 |
+|               |                  |                       | samples             |                     |                                                 |
+|               |                  |                       | terms               |                     |                                                 |
+|               | samples          |                       |                     |                     | サンプルアプリケーション解説                    |
+|               |                  | azure-ad-b2c          |                     |                     | Azure AD B2C を利用しているサンプルの解説       |
 |               |                  | downloads             |                     |                     | サンプルアプリケーションコード置き場( zip 圧縮) |
-|               | stylesheets      |                       |                     |                     | 既定のスタイルシートの上書き設定              |
-|               | index.md         |                       |                     |                     | トップページ                                  |
-| includes      |                  |                       |                     |                     | Snippets の置き場                             |
-|               | abbreviations.md |                       |                     |                     | 略語用語集                                    |
-| overrides     |                  |                       |                     |                     | Mkdocs Material の拡張ファイル置き場（\*）     |
-| readme-images |                  |                       |                     |                     | README.md 内の画像ファイル置き場              |
-| .gitignore    |                  |                       |                     |                     | mkdocs 用の gitignore                         |
-| mkdocs.yml    |                  |                       |                     |                     | mkdocs の設定ファイル                         |
-| README.md     |                  |                       |                     |                     | このドキュメント                              |
+|               | stylesheets      |                       |                     |                     | 既定のスタイルシートの上書き設定                |
+|               | index.md         |                       |                     |                     | トップページ                                    |
+| includes      |                  |                       |                     |                     | Snippets の置き場                               |
+|               | abbreviations.md |                       |                     |                     | 略語用語集                                      |
+| overrides     |                  |                       |                     |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
+| readme-images |                  |                       |                     |                     | README.md 内の画像ファイル置き場                |
+| .gitignore    |                  |                       |                     |                     | mkdocs 用の gitignore                           |
+| mkdocs.yml    |                  |                       |                     |                     | mkdocs の設定ファイル                           |
+| README.md     |                  |                       |                     |                     | このドキュメント                                |
 
 \*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
 
-## ドキュメントの作成方法（わかっている人向けの大雑把な手順）
+## ドキュメント作成手順
 
-このリポジトリは GitHub-flow で開発します。
-Feature ブランチの名前は「feature/<更新内容を表す名前>」として開発してください。
-記事の作成後は main ブランチへのマージを行う Pull Request を投げてください。
+### ドキュメント作成環境の構築
 
-## ドキュメントの作成方法（詳細版）
+#### Visual Studio Code のインストール
 
-### ローカルの main ブランチを最新にする
+ドキュメント作成のエディターとして、 Visual Studio Code を利用します。
+以下のサイトから最新版の Visual Studio Code をインストールします。
 
-Visual Studio Code を起動して、 [ファイル] メニューから [ワークスペースを開く] を選択します。
+<https://code.visualstudio.com/download>
+
+#### Visual Studio Code の拡張機能のインストール
+
+Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
 クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
 
-[`ソース管理`] メニューを開き、 [チェックアウト先] を選択します。
+はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
 
-![チェックアウト先をクリック](readme-images/click-checkout.png)
+![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
 
-main ブランチを選択します（コミットハッシュは図とは異なるはずです。）。
+このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
 
-![main ブランチを選択](readme-images/select-main-branch.png)
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
 
-main ブランチをチェックアウトしたら、 pull を実行して最新を取得します。
+![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
-![git pull を実行](readme-images/git-pull.png)
+AlesInfiny Maia OSS Edition のリポジトリは Github-flow で開発します。
+Visual Studio Code 上で Pull Request を発行する際には、以下の拡張機能をインストールします。
 
-### Feature ブランチの作成
+- [Github Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
 
-記事を作成するための Feature ブランチをローカルに作成します。
-[`ソース管理`] メニューを開き、 [ブランチ] > [分岐の作成] を選択します。
+また、必要に応じて以下の拡張機能をインストールします。
 
-![ブランチの作成をクリック](readme-images/click-create-branch.png)
+- [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
 
-作成するブランチ名を入力します。
-ブランチ名は「feature/<更新内容を表す名前>」として Enter を押下します。
+#### Node.js のインストール
 
-![ブランチの作成](readme-images/create-branch.png)
+以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
+
+<https://nodejs.org/ja/>
+
+#### Node モジュールのインストール
+
+本リポジトリでは textlint を使用して、校正を自動化します。
+以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
+モジュールの更新も同じコマンドで実行できます。
+
+```plane
+npm ci
+```
+
+#### Pythonのインストール
+
+以下のサイトから、 Windows 用の最新版 Python をインストールします。
+インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
+
+<https://www.python.org/downloads/>
+
+コマンドプロンプトを管理者権限で起動します。
+以下のコマンドを実行して pip を更新します。
+
+```plain
+pip install --upgrade pip
+```
+
+#### Python モジュールのインストール
+
+本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
+また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
+以下のコマンドを実行して、必要なモジュールを一括でインストールします。
+モジュールの更新も同じコマンドで実行できます。
+
+```plain
+pip install -r requirements.txt
+```
 
 ### ドキュメントの作成
 
-フォルダー構成に従って Markdown ファイルを作成してください。
+フォルダー構造に従って Markdown ファイルを作成します。
 
 Markdown の作成にあたっては、 Material for MkDocs の Web サイトを参照してください。
 素の Markdown とは異なる表現パターンがあります。
@@ -142,6 +187,41 @@ INFO     -  [10:07:53] Browser connected: http://127.0.0.1:8000/
 
 Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の nav セクションを修正する必要があります。
 
+### ドキュメントのリンクの記載ルール
+
+ドキュメントにリンクを追加する場合、以下のように記載します。
+
+- このドキュメントの別ページに遷移するリンクの場合
+
+    以下のように記載します。
+
+    ```md
+    [概要編](overview/index.md)
+    ```
+
+    特定のページの見出しを指定する場合は、各見出しに付与した ID を以下のようにリンクの末尾に付与します。
+
+    ```md
+    [CSR アーキテクチャ概要 - アプリケーションコア層](../csr-architecture-overview.md#application-core)
+    ```
+
+- 外部ページに遷移するリンクの場合
+
+    以下のように、外部リンクを表すアイコンを表示するための `:material-open-in-new:` と別タブに遷移させるための `{ target=_blank }` を付与します。
+
+    ```md
+    [External Link :material-open-in-new:](https://external-link){ target=_blank }
+    ```
+
+- ライセンス条文等に含まれる外部ページリンクの場合
+
+    ライセンス条文のように原文をそのまま表示する必要のある記載の場合は、外部リンクであってもアイコンを付与しないようにします。
+    そのため、以下のように別タブに遷移させるための `{ target=_blank }` のみ記載します。
+
+    ```md
+    [License Link](https://license-link){ target=_blank }
+    ```
+
 ### 体裁の修正
 
 #### markdownlint
@@ -160,8 +240,7 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 必ず対応するようにしてください。
 
 複合語や技術用語は、辞書登録しないと誤検知されることがあります。
-その場合はワークスペースの辞書に、単語を登録するようにしてください。
-[cspell.json] ファイルの `words` に単語を登録できます。
+[cspell.json] ファイルの `words` に単語を登録するようにしてください。
 
 コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参照して、各ページで抑制してください。
 cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
@@ -199,7 +278,7 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 1. 一般的な用語 / 技術用語である場合
 
-    ワークスペース ( maris.code-workspace ) の用語集に単語を追加してください。
+    [cspell.json] ファイルの `words` に用語を追加してください。
 
 1. 特定のページでのみ使用する特殊な用語や略語の場合
 
@@ -229,11 +308,10 @@ description: クライアントサイドレンダリングを行う Web アプ�
 ※スペースを空けないと 1 単語とみなされ、同じ行に詰め込もうとして文章が途切れるので適宜スペースで区切ってください。
 
 - 例：
-
     - `title: Azure AD B2C を利用したユーザー認証` の場合
-    ![ソーシャルカード失敗例](readme-images/social-card-example-error.png)
+      ![ソーシャルカード失敗例](readme-images/social-card-example-error.png)
     - `title: Azure AD B2C を 利用した ユーザー認証` の場合
-    ![ソーシャルカード](readme-images/social-card-example.png)
+      ![ソーシャルカード](readme-images/social-card-example.png)
 
 文字が途切れていないか等を適宜確認してください。
 ソーシャルカードはローカルでは生成せず、 CI 上でのドキュメントビルド時に生成されるよう設定しています。
@@ -245,50 +323,9 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 1. ダウンロードした documents.zip 内の docs.zip を解凍し、`assets/images/social` に生成されたソーシャルカードを確認します。
 
-### 修正内容のコミット
+### 画像の作成方法
 
-記事の作成と体裁の修正が完了したら、 Feature ブランチにコミットします。
-[`ソース管理`] メニューを開き、上部の [メッセージ] にコミットメッセージを入力します。
-また [✓] アイコンを押下して、ローカルリポジトリにコミットします。
-
-コミットは意味のある単位であれば、何回行ってもかまいません。
-
-### Feature ブランチのアップロード
-
-コミットが完了したら、 Feature ブランチをプッシュして、リモートリポジトリにアップロードします。
-[`ソース管理`] メニューを開き、 [プッシュ] を選択します。
-
-![プッシュを選択](readme-images/click-push.png)
-
-### プルリクエストの作成
-
-GitHub でプッシュした Feature ブランチを main ブランチにマージするプルリクエストを作成してください。
-プルリクエストを作成すると、 Markdown と YAML の Lint と、ビルド可否のチェックが行われます。
-
-Lint の結果、警告がある場合は GitHub Actions が失敗します。
-
-![linter の警告による GitHub Actions の失敗](readme-images/linter-error.png)
-
-mkdocs のビルドがエラーとなった場合も GitHub Actions は失敗します。
-どちらの場合も GitHub Actions のログからエラー情報を確認できます。
-右側の詳細ログからエラーとなっている箇所を開くことで、ログメッセージを確認できます。
-
-![mkdocs の実行エラー](readme-images/mkdocs-error.png)
-
-プルリクエストをマージすると、継続的デプロイメントが走り、自動的にステージング環境の Web サイトが更新されます。
-
-### 修正内容の確認
-
-Web サイトの更新が完了したら、以下にアクセスして問題なく修正が反映されていることを確認します。
-
-<https://app-oss-maia-staging.azurewebsites.net/>
-
-問題がある場合は、再度 Feature ブランチを作成するところから再実施してください。
-修正に時間がかかる場合は、以前のリリース物を再リリースし、切り戻すようにしてください。
-
-## 画像の作成方法
-
-### 画像の作成ルール
+#### 画像の作成ルール
 
 図を作成する場合は \*.drawio で作成してください。
 \*.drawio ファイルは、 _materials/images フォルダーの配下に作成してください。
@@ -307,7 +344,7 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
 
 ![フォントファミリーの設定例](readme-images/drawio-font-family.png)
 
-### ライトモード/ダークモードに関する設定
+#### ライトモード/ダークモードに関する設定
 
 本ドキュメントでは、ライトモード/ダークモードの切り替えができるように設定されています。
 各モードへ対応するために、ライトモード向け / ダークモード向けの 2 通りの画像を作成します。
@@ -343,103 +380,21 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
 
-## ドキュメント執筆環境の構築方法
+### ドキュメントのマージ
 
-### Visual Studio Code のインストール
+ドキュメントの作成後は main ブランチへのマージを行う Pull Request を発行して下さい。
 
-以下のサイトから最新版の Visual Studio Code をインストールします。
+Pull Request を発行すると、ドキュメントの体裁をチェックする Github Actions のワークフローが自動実行されます。
+ワークフローでエラーが発生した場合は、エラーが解消されるようにドキュメントを修正してください。
 
-<https://code.visualstudio.com/download>
+ワークフローで発生したエラー内容の確認方法は、以下の通りです。
 
-### リポジトリのクローン
+1. Pull Request でエラーが発生していることを確認し、`Details` で詳細を確認します。
 
-ローカルマシン内の適当なフォルダーで、このリポジトリをクローンします。
-詳細な手順は以下を参照してください。
+    ![Pull Request 上のエラー確認画面](readme-images/pull-request-error.png)
 
-<https://docs.github.com/ja/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository>
+1. `Summary` から、 Lint エラーの詳細を確認します。
 
-### ユーザー名、メールアドレスの設定
-
-クローンした Git リポジトリに対して、自分のユーザー名、メールアドレスを設定します。
-コマンドプロンプトでクローンしたリポジトリのあるフォルダーに移動して、現在設定されているユーザー名、メールアドレスを確認します。
-
-```plane
-c:\hogehoge\maia>git config user.name
-XXXXXXXXXXX
-
-c:\hogehoge\maia>git config user.email
-YYYYY@hoge.com
-```
-
-グローバルの設定が生きている場合は、以下を参照し、メールアドレスとユーザー名の上書き設定を推奨します。
-メールアドレスは `GitHub が提供する no-reply メールアドレス` を設定することをおすすめします。
-また GitHub 上の設定変更もあわせて行うことをおすすめします。
-
-<https://docs.github.com/ja/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address>
-
-### Visual Studio Code 拡張機能のインストール
-
-Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
-クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
-
-はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
-
-![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
-
-このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
-
-- Code Spell Checker
-- Draw.io integration
-- Markdown All in One
-- markdownlint
-- vscode-textlint
-
-![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
-
-また必要に応じて以下の拡張機能をインストールします。
-
-- Japanese Language Pack for Visual Studio Code
-- Table Formatter
-
-### Node.js のインストール
-
-以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
-
-<https://nodejs.org/ja/>
-
-### Node モジュールのインストール
-
-本リポジトリでは textlint を使用して、校正を自動化します。
-以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
-モジュールの更新も同じコマンドで実行できます。
-
-```plane
-npm install
-```
-
-### Pythonのインストール
-
-以下のサイトから、 Windows 用の最新版 Python をインストールします。
-インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
-
-<https://www.python.org/downloads/>
-
-コマンドプロンプトを管理者権限で起動します。
-以下のコマンドを実行して pip を更新します。
-
-```plain
-pip install --upgrade pip
-```
-
-### Python モジュールのインストール
-
-本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
-また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
-以下のコマンドを実行して、必要なモジュールを一括でインストールします。
-モジュールの更新も同じコマンドで実行できます。
-
-```plain
-pip install -r requirements.txt
-```
+    ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
 
 <!-- textlint-enable @textlint-rule/require-header-id -->

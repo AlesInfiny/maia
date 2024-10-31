@@ -3,10 +3,9 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useRoutingStore } from '@/stores/routing/routing';
 
 export const authenticationGuard = (router: Router) => {
-  const authenticationStore = useAuthenticationStore();
-  const routingStore = useRoutingStore();
-
   router.beforeEach((to, from) => {
+    const authenticationStore = useAuthenticationStore();
+    const routingStore = useRoutingStore();
     const ignoreAuthPaths: (RouteRecordName | null | undefined)[] = [
       'authentication/login',
       'catalog',

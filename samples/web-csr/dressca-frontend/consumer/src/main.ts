@@ -1,7 +1,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { authenticationGuard } from '@/shared/authentication/authentication-guard';
-import { errorHandlerPlugin } from '@/shared/error-handler/error-handler-plugin';
+import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
+import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import App from './App.vue';
 import { router } from './router';
 
@@ -9,12 +10,12 @@ import '@/assets/base.css';
 import '@/config/yup.config';
 
 const app = createApp(App);
-const pinia = createPinia();
 
-app.use(pinia);
+app.use(createPinia());
 app.use(router);
 
-app.use(errorHandlerPlugin);
+app.use(globalErrorHandler);
+app.use(createCustomErrorHandler());
 
 authenticationGuard(router);
 

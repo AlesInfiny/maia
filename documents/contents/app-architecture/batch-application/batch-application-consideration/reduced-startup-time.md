@@ -1,6 +1,6 @@
 ---
-title: バッチアプリケーション編
-description: バッチアプリケーションでの検討事項として起動に時間がかかる点について解説します。
+title: バッチ アプリケーション編
+description: バッチアプリケーションでの検討事項として 起動に時間がかかる点について解説します。
 ---
 
 # バッチアプリケーションの起動に時間がかかる {#top}
@@ -29,7 +29,7 @@ REST API アプリケーションの構築方法は以下の通りです。
     サードパーティーのジョブ管理ツールをすでに利用しており、ジョブは実行するだけにしたい場合は、 Spring Batch のライブラリを利用せず Spring Boot アプリケーションを用いてバッチ処理をすることは有効です。
     また、ジョブ実行が小規模で単純な処理で構成されており Spring Batch の機能を必要としない場合も、 Spring Boot アプリケーションを利用するとよいでしょう。
 
-- [イベント駆動型の Spring Batch アプリケーション :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/spring-batch-integration/launching-jobs-through-messages.html) を利用したバッチ処理
+- [イベント駆動型の Spring Batch アプリケーション :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/spring-batch-integration/launching-jobs-through-messages.html){ target=_blank } を利用したバッチ処理
 
     Spring Batch の中には、アプリケーションを常駐プロセス化し API を使用してバッチジョブを開始する機能が提供されています。
     ジョブのスケジューリングやジョブの履歴閲覧などのジョブ管理を Spring Batch 上で行いたい場合や、大規模で複雑なバッチ処理を限られた実行時間でこなす必要がある場合には、本機能を利用して常駐プロセス化する方法が有効となるでしょう。

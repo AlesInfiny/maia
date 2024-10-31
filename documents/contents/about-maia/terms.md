@@ -52,7 +52,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
 
 ![クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://i.creativecommons.org/l/by/4.0/88x31.png)
 
-[クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/) の日本語訳を以下に示します。
+[クリエイティブ・コモンズ表示 4.0 国際ライセンス :material-open-in-new:](https://creativecommons.org/licenses/by/4.0/){ target=_blank } の日本語訳を以下に示します。
 
 ??? quote "クリエイティブ・コモンズ表示 4.0 国際ライセンス本文(日本語訳版)"
 
@@ -75,7 +75,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
       また、ライセンスする方は、公衆が期待通りにマテリアルを再利用できるようにするために、本ライセンスを適用する前に、必要となる一切の権利を取得・処理するべきです。
       ライセンスする方は、本ライセンスの対象とならないマテリアルを明示するべきです。
       これはクリエイティブ・コモンズ・ライセンスが付与された他のマテリアル、または著作権法上の例外や権利制限に基づいて利用されているマテリアルも含みます。
-      [ライセンスする方のためのより詳細な留意事項はこちらをご覧ください](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensors)。
+      [ライセンスする方のためのより詳細な留意事項はこちらをご覧ください](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensors){ target=_blank } 。
 
     - **公衆のための留意事項：** クリエイティブ・コモンズのパブリック・ライセンスの1つを利用することにより、ライセンスする方は、公衆に対し、指定された条項の下で、ライセンスされたマテリアルの利用を許諾します。
       たとえば、著作権法上の例外や権利制限が適用されるなど、いかなる理由であれ、ライセンスする方の許諾が必要ではない場合、その利用はライセンスにより制限されません。
@@ -83,7 +83,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
       ライセンスされたマテリアルは、そのマテリアルに関し第三者が著作権またはその他の権利を有しているなどの理由から、利用が制限される可能性があります。
       ライセンスする方は、すべての変更を表示または記述することをリクエストするなど、特別なリクエストをすることができます。
       クリエイティブ・コモンズ・ライセンスにより必要とされるものではありませんが、あなたは、合理的な範囲でこれらのリクエストを尊重することが奨励されます。
-      [公衆のためのより詳細な留意事項はこちらをご覧ください](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensees)。
+      [公衆のためのより詳細な留意事項はこちらをご覧ください](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensees){ target=_blank } 。
 
     **クリエイティブ・コモンズ 表示 4.0 国際 パブリック・ライセンス**
 
@@ -246,12 +246,12 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
 
     > クリエイティブ・コモンズは、クリエイティブ・コモンズ・パブリック・ライセンスの当事者ではありません。
     > ただし、クリエイティブ・コモンズは、自らが公開するマテリアルに、自らのパブリック・ライセンスのいずれかを適用すると決定することができ、その場合には許諾者とみなされます。
-    > クリエイティブ・コモンズ・パブリック・ライセンスの文章は[CC0パブリック・ドメイン宣言](https://creativecommons.org/publicdomain/zero/1.0/legalcode.ja)のもとで提供されています。
-    > 本マテリアルがクリエイティブ・コモンズ・パブリック・ライセンスで共有されていることを公衆に示すという限られた目的の場合、または[creativecommons.org/policies](https://creativecommons.org/policies)で公表されているクリエイティブ・コモンズの方針に基づいて許容される場合を除き、クリエイティブ・コモンズは、クリエイティブ・コモンズとの事前の書面による同意なしに、「クリエイティブ・コモンズ」の商標や関連商標もしくはクリエイティブ・コモンズのロゴを使用することを認めていません。
+    > クリエイティブ・コモンズ・パブリック・ライセンスの文章は[CC0パブリック・ドメイン宣言](https://creativecommons.org/publicdomain/zero/1.0/legalcode.ja){ target=_blank } のもとで提供されています。
+    > 本マテリアルがクリエイティブ・コモンズ・パブリック・ライセンスで共有されていることを公衆に示すという限られた目的の場合、または[creativecommons.org/policies](https://creativecommons.org/policies){ target=_blank } で公表されているクリエイティブ・コモンズの方針に基づいて許容される場合を除き、クリエイティブ・コモンズは、クリエイティブ・コモンズとの事前の書面による同意なしに、「クリエイティブ・コモンズ」の商標や関連商標もしくはクリエイティブ・コモンズのロゴを使用することを認めていません。
     > ここで認められていない使用には、クリエイティブ・コモンズのパブリック・ライセンスの許可されていない改変との関係での利用、その他のライセンスされたマテリアルの利用に関するいかなる取り決め、了解事項または合意との関係での利用を含みますが、これらに限られません。
     > 誤解を避けるために記すと、この項はパブリック・ライセンスの一部ではありません。
 
-    > クリエイティブ・コモンズには[creativecommons.org](https://creativecommons.org/)から連絡することができます。
+    > クリエイティブ・コモンズには[creativecommons.org](https://creativecommons.org/){ target=_blank } から連絡することができます。
 
 ### Apache License, Version 2.0 {#apache-license-v2.0}
 
