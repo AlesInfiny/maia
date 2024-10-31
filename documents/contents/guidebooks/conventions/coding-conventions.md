@@ -28,23 +28,23 @@ Java アプリケーション、 Vue.js アプリケーションそれぞれで�
         SpotBugs によって検出された、バグパターンに該当するコードを修正することで、より安全なコーディングを実現できます。
 
 - Vue.js アプリケーション
-    - TypeScript
+    - [Airbnb JavaScript Style Guide :material-open-in-new:](https://github.com/airbnb/javascript){ target=_blank }
 
-        [Airbnb JavaScript Style Guide :material-open-in-new:](https://github.com/airbnb/javascript){ target=_blank }
+        Airbnb が GitHub 上に公開している JavaScript のスタイルガイドです。コードのフォーマットに対する規約および、バグを防止するための規約を定めています。あわせて、これらの規約に従うための ESLint の設定が公開されています。
 
-    - Vue.js
+    - [Vue.js スタイルガイド :material-open-in-new:](https://ja.vuejs.org/style-guide/){ target=_blank }
 
-        [Vue.js スタイルガイド :material-open-in-new:](https://ja.vuejs.org/style-guide/){ target=_blank }
+        Vue.js が公式に提供するスタイルガイドです。 JavaScript に対する規約ではカバーできない Vue 固有の記法について、エラーの発生やアンチパターンを避けるための規約を優先度別に定めています。 これらの規約への違反を検出するための ESLint のプラグインも公式に提供されています。
 
-    - CSS
+    - [CSS specifications :material-open-in-new:](https://www.w3.org/Style/CSS/current-work){ target=_blank }
 
-        [CSS specifications :material-open-in-new:](https://www.w3.org/Style/CSS/current-work){ target=_blank }
+        W3C が策定する CSS の標準仕様です。 Stylelint では、この標準仕様に従うための設定が公開されています。
 
 上記のコーディング規約は静的コード解析ツールによって自動的にチェックできるようにします。
 バックエンド側では、 Checkstyle を使用して Google Java Style への準拠を自動チェックし、
 SpotBugs を利用して、 SpotBugs が提供するバグパターンに該当するコードを自動検知します。
 加えて、 VS Code の自動フォーマット機能を利用することで、コーディング中に Google Java Style へ準拠したフォーマットへと自動でコードを修正します。
-フロントエンド側では Prettier 、 ESLint 、 StyleLint を利用してコーディング規約の自動チェックを行っています。
+フロントエンド側では Prettier 、 ESLint 、 Stylelint を利用してコーディング規約の自動チェックを行っています。
 コーディング規約の内容および静的コード解析ツールの詳しい設定方法については、以下のページとサンプルアプリの実装を確認してください。
 
 - [Checkstyle プラグイン](../how-to-develop/java/common-project-settings.md#checkstyle-plugin)
