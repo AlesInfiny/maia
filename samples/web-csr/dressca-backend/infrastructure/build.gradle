@@ -40,3 +40,42 @@ tasks.named('test') {
 
 bootJar.enabled = false
 jar.enabled = true
+
+task replaceXmlContent {
+  doLast {
+
+    // 楽観ロック対応させるxmlファイルのリスト
+    def xmlFilePaths = ['src/main/resources/com/dressca/infrastructure/repository/mybatis/generated/mapper/CatalogItemMapper.xml']
+
+    xmlFilePaths.each{ path ->
+
+      def xmlFile = file(path)
+      def xmlContent = xmlFile.text
+
+      // 正規表現と置換のペアをリストにまとめる
+      def replacements = [
+        [ /(<sql id="Update_By_Example_Where_Clause">(?:(?!and row_version = \#\{rowVersion,jdbcType=TIMESTAMP})[\s\S])*?)(<\/if>)/,
+          '$1and row_version = #{rowVersion,jdbcType=TIMESTAMP}\n        $2' ],
+        [ /(<update id="updateByExampleSelective"[\s\S]*?)(row_version = \#\{row.rowVersion,jdbcType=TIMESTAMP},)/,
+          '$1row_version = CURRENT_TIMESTAMP,' ],
+        [ /(<update id="updateByExample"[\s\S]*?)(row_version = \#\{row.rowVersion,jdbcType=TIMESTAMP})/,
+          '$1row_version = CURRENT_TIMESTAMP' ],
+        [ /(<update id="updateByPrimaryKeySelective"[\s\S]*?)(row_version = \#\{rowVersion,jdbcType=TIMESTAMP},)/,
+          '$1row_version = CURRENT_TIMESTAMP,' ],
+        [ /(<update id="updateByPrimaryKeySelective"(?:(?!and row_version = \#\{rowVersion,jdbcType=TIMESTAMP})[\s\S])*?)(<\/update>)/,
+          '$1    and row_version = #{rowVersion,jdbcType=TIMESTAMP}\n  $2' ],
+        [ /(<update id="updateByPrimaryKey"(?:(?!row_version = CURRENT_TIMESTAMP)[\s\S])*?)(row_version = \#\{rowVersion,jdbcType=TIMESTAMP})/,
+          '$1row_version = CURRENT_TIMESTAMP' ],
+        [ /(<update id="updateByPrimaryKey"(?:(?!and row_version = \#\{rowVersion,jdbcType=TIMESTAMP})[\s\S])*?)(<\/update>)/,
+          '$1    and row_version = #{rowVersion,jdbcType=TIMESTAMP}\n  $2' ]
+    ]
+
+    // 置換処理をループで実行
+    replacements.each { pattern, replacement ->
+      xmlContent = xmlContent.replaceAll(pattern, replacement)
+    }
+
+    xmlFile.write(xmlContent)
+    }
+  }
+}
