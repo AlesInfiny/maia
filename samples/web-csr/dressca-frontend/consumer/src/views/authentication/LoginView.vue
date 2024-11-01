@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { validationItems } from '@/validation/validation-items';
 import { signInAsync } from '@/services/authentication/authentication-service';
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
 import { useRoutingStore } from '@/stores/routing/routing';
+import { configureYup } from '@/config/yup.config';
+import { ValidationItems } from '@/validation/validation-items';
+
+// yup設定の有効化
+configureYup();
 
 // フォーム固有のバリデーション定義
-const formSchema = yup.object({
-  email: validationItems.email.required(),
+const formSchema = yup.object().shape({
+  email: ValidationItems().email.required(),
   password: yup.string().required(),
 });
 
 const router = useRouter();
+const { t } = useI18n({ useScope: 'global' });
 
 const { meta } = useForm({ validationSchema: formSchema });
 const { value: email, errorMessage: emailError } = useField<string>('email');
@@ -74,7 +80,7 @@ const signIn = () => {
           :disabled="isInvalid()"
           @click="signIn"
         >
-          ログイン
+          {{ t('buttonTextList.signIn') }}
         </button>
       </div>
     </form>

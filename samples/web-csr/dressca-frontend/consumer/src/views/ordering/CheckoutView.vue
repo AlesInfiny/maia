@@ -11,6 +11,7 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { useI18n } from 'vue-i18n';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -21,6 +22,7 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = useI18n({ useScope: 'global' });
 
 const checkout = async () => {
   try {
@@ -33,10 +35,24 @@ const checkout = async () => {
     );
     router.push({ name: 'ordering/done', params: { orderId } });
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('注文に失敗しました。');
+    if (!error.response) {
+      customErrorHandler.handle(error, () => {
+        showToast('注文に失敗しました。');
+        router.push({ name: 'error' });
+      });
+    } else {
+      const message = errorMessageFormat(
+        t(error.response.exceptionId),
+        error.response.exceptionValues,
+      );
+      showToast(
+        message,
+        error.response.exceptionId,
+        error.response.title,
+        error.response.detail,
+      );
       router.push({ name: 'error' });
-    });
+    }
   }
 };
 
@@ -51,7 +67,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      注文内容を確認して「注文を確定する」ボタンを押してください。
+      {{ t('normalMessageList.orderingCheckAndComplete') }}
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
@@ -63,25 +79,25 @@ onMounted(async () => {
       >
         <tbody>
           <tr>
-            <td>税抜き合計</td>
+            <td>{{ t('labelTextList.totalExcludingTax') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
-            <td>送料</td>
+            <td>{{ t('labelTextList.shippingFee') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
-            <td>消費税</td>
+            <td>{{ t('labelTextList.tax') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(getBasket.account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
-            <td>合計</td>
+            <td>{{ t('labelTextList.total') }}</td>
             <td class="text-right text-xl font-bold text-red-500">
               {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
             </td>
@@ -93,14 +109,16 @@ onMounted(async () => {
         type="submit"
         @click="checkout()"
       >
-        注文を確定する
+        {{ t('buttonTextList.orderingComplete') }}
       </button>
       <table
         class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border"
       >
         <tbody>
           <tr>
-            <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
+            <td rowspan="5" class="w-24 pl-2 border-r">
+              {{ t('labelTextList.shippingAddress') }}
+            </td>
             <td class="pl-2">{{ getAddress.fullName }}</td>
           </tr>
           <tr>
@@ -134,9 +152,13 @@ onMounted(async () => {
             <div class="ml-2">
               <p>{{ item.catalogItem?.name }}</p>
               <p class="mt-4">
-                {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
+                {{
+                  `${t('labelTextList.price')}: ${toCurrencyJPY(item.unitPrice)}`
+                }}
               </p>
-              <p class="mt-4">{{ `数量: ${item.quantity}` }}</p>
+              <p class="mt-4">
+                {{ `${t('labelTextList.quantity')}: ${item.quantity}` }}
+              </p>
               <p class="mt-4">
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>

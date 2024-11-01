@@ -36,3 +36,45 @@ export class ServerError extends HttpError {
     this.name = 'ServerError';
   }
 }
+
+export class AssetNotFoundError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'AssetNotFoundError';
+  }
+}
+
+export class BasketIsNullOnCheckoutError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'BasketIsNullOnCheckoutError';
+  }
+}
+
+export class CatalogItemIdDoesNotExistInBasketError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'CatalogItemIdDoesNotExistInBasketError';
+  }
+}
+
+export class BasketIsEmptyOnCheckoutError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'BasketIsEmptyOnCheckoutError';
+  }
+}
+
+export class OrderNotFoundError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'OrderNotFoundError';
+  }
+}
+
+export class CatalogIdNotFoundError extends HttpError {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'CatalogIdNotFoundError';
+  }
+}

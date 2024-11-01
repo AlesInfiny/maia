@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { useI18n } from 'vue-i18n';
 import NotificationToast from './components/common/NotificationToast.vue';
 
 const authenticationStore = useAuthenticationStore();
 const isAuthenticated = () => {
   return authenticationStore.isAuthenticated;
 };
+const { t } = useI18n({ useScope: 'global' });
 </script>
 
 <template>
@@ -21,14 +23,16 @@ const isAuthenticated = () => {
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
-            <router-link class="text-2xl" to="/">Dressca</router-link>
+            <router-link class="text-2xl" to="/">
+              {{ t('labelTextList.headerTitle') }}
+            </router-link>
           </div>
           <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
             <router-link v-if="!isAuthenticated()" to="/authentication/login">
-              ログイン
+              {{ t('buttonTextList.signIn') }}
             </router-link>
           </div>
         </div>
@@ -42,7 +46,7 @@ const isAuthenticated = () => {
     <footer
       class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
     >
-      <p>&copy; 2023 - Dressca - Privacy</p>
+      <p>&copy; {{ t('labelTextList.footerCopyright') }}</p>
     </footer>
   </div>
 </template>

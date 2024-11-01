@@ -1,0 +1,26 @@
+{
+  "labelTextList": {
+    "headerTitle": "Dressca",
+    "footerCopyright": "2023 - Dressca - Privacy",
+    "totalExcludingTax": "税抜き合計",
+    "shippingFee": "送料",
+    "tax": "消費税",
+    "total": "合計",
+    "shippingAddress": "お届け先",
+    "item": "商品",
+    "price": "価格",
+    "quantity": "数量",
+    "category": "カテゴリ",
+    "brand": "ブランド",
+    "contentsOfCarts": "現在のカートの中身",
+    "subtotal": "小計"
+  },
+  "buttonTextList": {
+    "signIn": "ログイン",
+    "update": "更新",
+    "putItemsInBasket": "買い物かごに入れる",
+    "continueShopping": "買い物を続ける",
+    "proceedToCheckout": "レジに進む",
+    "orderingComplete": "注文を確定する"
+  }
+}

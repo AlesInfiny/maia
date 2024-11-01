@@ -1,10 +1,14 @@
+import { useI18n } from 'vue-i18n';
 import { setLocale } from 'yup';
 
-setLocale({
-  mixed: {
-    required: '値を入力してください',
-  },
-  string: {
-    email: 'メールアドレスの形式で入力してください',
-  },
-});
+export function configureYup(): void {
+  const { t } = useI18n({ useScope: 'global' });
+  setLocale({
+    mixed: {
+      required: t('validationTextList.required'),
+    },
+    string: {
+      email: t('validationTextList.email'),
+    },
+  });
+}

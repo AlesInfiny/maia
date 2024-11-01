@@ -15,6 +15,7 @@ import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { useI18n } from 'vue-i18n';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -23,6 +24,7 @@ const { getSpecialContents } = storeToRefs(specialContentStore);
 const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
+const { t } = useI18n({ useScope: 'global' });
 
 const state = reactive({
   selectedCategory: 0,
@@ -39,9 +41,22 @@ const addBasket = async (catalogItemId: number) => {
     await addItemToBasket(catalogItemId);
     router.push({ name: 'basket' });
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('カートに追加できませんでした。');
-    });
+    if (!error.response) {
+      customErrorHandler.handle(error, () => {
+        showToast(t('toastMessageList.failedToAddItemToCarts'));
+      });
+    } else {
+      const message = errorMessageFormat(
+        t(error.response.exceptionId),
+        error.response.exceptionValues,
+      );
+      showToast(
+        message,
+        error.response.exceptionId,
+        error.response.title,
+        error.response.detail,
+      );
+    }
   }
 };
 
@@ -51,9 +66,22 @@ onMounted(async () => {
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('商品の取得に失敗しました。');
-    });
+    if (!error.response) {
+      customErrorHandler.handle(error, () => {
+        showToast(t('toastMessageList.failedToGetItems'));
+      });
+    } else {
+      const message = errorMessageFormat(
+        t(error.response.exceptionId),
+        error.response.exceptionValues,
+      );
+      showToast(
+        message,
+        error.response.exceptionId,
+        error.response.title,
+        error.response.detail,
+      );
+    }
   }
   state.showLoading = false;
 });
@@ -81,8 +109,8 @@ watch([selectedCategory, selectedBrand], async () => {
       <div class="flex justify-center">
         <div class="grid lg:gap-24 grid-cols-1 lg:grid-cols-2 my-4 text-lg">
           <div>
-            <label class="mr-2 font-bold"
-              >カテゴリ
+            <label class="mr-2 font-bold">
+              {{ t('labelTextList.category') }}
               <select v-model="selectedCategory" class="w-48 border-2">
                 <option
                   v-for="category in getCategories"
@@ -95,8 +123,8 @@ watch([selectedCategory, selectedBrand], async () => {
             </label>
           </div>
           <div class="mt-2 lg:mt-0">
-            <label class="mr-2 font-bold"
-              >ブランド
+            <label class="mr-2 font-bold">
+              {{ t('labelTextList.brand') }}
               <select v-model="selectedBrand" class="w-48 border-2">
                 <option
                   v-for="brand in getBrands"
@@ -136,7 +164,7 @@ watch([selectedCategory, selectedBrand], async () => {
                     type="submit"
                     @click="addBasket(item.id)"
                   >
-                    買い物かごに入れる
+                    {{ t('buttonTextList.putItemsInBasket') }}
                   </button>
                 </div>
               </div>

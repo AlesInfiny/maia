@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { getOrder } from '@/services/ordering/ordering-service';
 import { showToast } from '@/services/notification/notificationService';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
@@ -20,6 +21,7 @@ const state = reactive({
 const { lastOrdered } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = useI18n({ useScope: 'global' });
 
 const goCatalog = () => {
   router.push({ name: 'catalog' });
@@ -29,10 +31,24 @@ onMounted(async () => {
   try {
     state.lastOrdered = await getOrder(props.orderId);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('注文情報の取得に失敗しました。');
+    if (!error.response) {
+      customErrorHandler.handle(error, () => {
+        showToast(t('toastMessageList.failedToOrderInformation'));
+        router.push('/');
+      });
+    } else {
+      const message = errorMessageFormat(
+        t(error.response.exceptionId),
+        error.response.exceptionValues,
+      );
+      showToast(
+        message,
+        error.response.exceptionId,
+        error.response.title,
+        error.response.detail,
+      );
       router.push('/');
-    });
+    }
   }
 });
 </script>
@@ -40,7 +56,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      注文が完了しました。
+      {{ t('normalMessageList.orderingCompleted') }}
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
@@ -52,25 +68,25 @@ onMounted(async () => {
       >
         <tbody>
           <tr>
-            <td>税抜き合計</td>
+            <td>{{ t('labelTextList.totalExcludingTax') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
-            <td>送料</td>
+            <td>{{ t('labelTextList.shippingFee') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
-            <td>消費税</td>
+            <td>{{ t('labelTextList.tax') }}</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
-            <td>合計</td>
+            <td>{{ t('labelTextList.total') }}</td>
             <td class="text-right text-xl font-bold text-red-500">
               {{ toCurrencyJPY(lastOrdered?.account?.totalPrice) }}
             </td>
@@ -82,7 +98,9 @@ onMounted(async () => {
       >
         <tbody>
           <tr>
-            <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
+            <td rowspan="5" class="w-24 pl-2 border-r">
+              {{ t('labelTextList.shippingAddress') }}
+            </td>
             <td class="pl-2">{{ lastOrdered?.fullName }}</td>
           </tr>
           <tr>
@@ -116,9 +134,13 @@ onMounted(async () => {
             <div class="ml-2">
               <p>{{ item.itemOrdered?.name }}</p>
               <p class="mt-4">
-                {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
+                {{
+                  `${t('labelTextList.price')}: ${toCurrencyJPY(item.unitPrice)}`
+                }}
               </p>
-              <p class="mt-4">{{ `数量: ${item.quantity}` }}</p>
+              <p class="mt-4">
+                {{ `${t('labelTextList.quantity')}: ${item.quantity}` }}
+              </p>
               <p class="mt-4">
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>
@@ -133,7 +155,7 @@ onMounted(async () => {
         type="submit"
         @click="goCatalog()"
       >
-        買い物を続ける
+        {{ t('buttonTextList.continueShopping') }}
       </button>
     </div>
   </div>

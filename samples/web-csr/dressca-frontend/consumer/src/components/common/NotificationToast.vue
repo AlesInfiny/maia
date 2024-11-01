@@ -10,7 +10,7 @@ const state = reactive({
 });
 
 const notificationStore = useNotificationStore();
-const { message, timeout } = storeToRefs(notificationStore);
+const { id, title, message, detail, timeout } = storeToRefs(notificationStore);
 
 const close = () => {
   state.show = false;
@@ -44,7 +44,10 @@ watch(message, (newMessage) => {
         <ExclamationCircleIcon class="w-5 h-5" />
         <span class="sr-only">Error icon</span>
       </div>
+      <div class="ms-3 text-white text-sm font-normal">{{ id }}</div>
+      <div class="ms-3 text-white text-sm font-normal">{{ title }}</div>
       <div class="ms-3 text-white text-sm font-normal">{{ message }}</div>
+      <div class="ms-3 text-white text-sm font-normal">{{ detail }}</div>
       <button
         type="button"
         class="ms-auto -mx-1.5 -my-1.5 h-8 w-8 bg-red-100 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center"
