@@ -3,6 +3,7 @@ package com.dressca.applicationcore.catalog;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import lombok.AllArgsConstructor;
@@ -85,7 +86,7 @@ public class CatalogDomainService {
       long catalogCategoryId, long catalogBrandId) {
     // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
     CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
-    item.setRowVersion(1);
+    item.setRowVersion(LocalDateTime.now());
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
     return catalogItemAdded;
   }

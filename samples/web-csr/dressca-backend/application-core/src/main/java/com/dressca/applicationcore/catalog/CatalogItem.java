@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
-  private int rowVersion;
+  private LocalDateTime rowVersion;
 
   /**
    * コンストラクタ。

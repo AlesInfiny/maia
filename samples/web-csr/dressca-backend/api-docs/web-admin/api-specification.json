@@ -607,8 +607,8 @@
             "type": "string"
           },
           "rowVersion": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [

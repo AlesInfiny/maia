@@ -66,7 +66,7 @@ CREATE TABLE catalog_items
   product_code VARCHAR(128) NOT NULL,
   catalog_category_id BIGINT NOT NULL,
   catalog_brand_id BIGINT NOT NULL,
-  row_version INT NOT NULL,
+  row_version TIMESTAMP NOT NULL,
   CONSTRAINT FK_catalog_items_catalog_brands FOREIGN KEY (catalog_brand_id) REFERENCES catalog_brands(id) ON DELETE CASCADE,
   CONSTRAINT FK_catalog_items_catalog_categories FOREIGN KEY (catalog_category_id) REFERENCES catalog_categories(id) ON DELETE CASCADE
 );
