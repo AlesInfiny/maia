@@ -5,6 +5,10 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 # CSS の設定と CSS フレームワークの適用 {#top}
 
+AlesInfiny Maia OSS Edition では、特定の CSS フレームワークを採用することを推奨しているわけではありません。
+本章では、一例として Tailwind CSS を導入する手順を紹介しますが、
+実際の開発プロジェクトでは、プロジェクトの特性に応じた技術を選定してください。
+
 ## CSS の設定 {#settings-css}
 
 Vue.js のブランクプロジェクトを作成すると、デフォルトで以下の 2 つの CSS ファイルが追加されます。
@@ -29,7 +33,8 @@ import './assets/base.css'
 
 ## Tailwind CSS {#tailwind-css}
 
-Tailwind CSS は、 Web サイトを構築するための CSS フレームワークです。
+Tailwind CSS は、 あらかじめ用意されたユーティリティクラスを組み合わせることで、
+CSS ファイルを記述せずにデザインを実現する、ユーティリティファーストな CSS フレームワークです。
 
 ### Tailwind CSS のインストール {#install-tailwind-css}
 
@@ -70,11 +75,11 @@ npm install -D tailwindcss postcss autoprefixer postcss-nesting
 npx tailwindcss init
 ```
 
-作成された直後の tailwind.config.js は以下のとおりです（Tailwind CSS 3.4.3 の場合）。
+作成された直後の tailwind.config.js は以下のとおりです（Tailwind CSS 3.4.13 の場合）。
 
 ```javascript title="tailwind.config.js"
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [],
   theme: {
     extend: {},
@@ -85,9 +90,9 @@ module.exports = {
 
 content に、 Tailwind CSS を適用する対象ファイルのパス（ワイルドカード使用可）を設定します。
 
-```javascript title="tailwind.config.js"
+```javascript title="tailwind.config.js" hl_lines="3"
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
