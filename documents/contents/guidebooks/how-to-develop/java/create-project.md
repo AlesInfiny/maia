@@ -40,6 +40,10 @@ Web 画面上の各種設定項目は以下の通りです。
 
     プロジェクトの基点のフォルダー名となるプロジェクト名を設定します。
 
+- Project Metadata : Java
+
+    利用する Java のバージョンを選択します。
+
 - Project Metadata：その他
 
     ルートプロジェクトの雛型作成では設定不要 ( 任意 ) です。
@@ -84,4 +88,9 @@ Web 画面上の各種設定項目は以下の通りです。
 これらを展開し適切に配置します。
 
 各雛型は zip 形式で生成されるため、まずは全ての雛型を展開します。
+次にルートプロジェクト内の src フォルダーを削除します。
 その後、ルートプロジェクトのフォルダー直下に各サブプロジェクトのフォルダーを配置します。
+これらの手順を行った後のフォルダーの構成は以下の通りです。
+
+![SpringBootプロジェクトのフォルダー構成](../../../images/guidebooks/how-to-develop/java/springboot-project-structure-light.png#only-light){ loading=lazy }
+![SpringBootプロジェクトのフォルダー構成](../../../images/guidebooks/how-to-develop/java/springboot-project-structure-dark.png#only-dark){ loading=lazy }
