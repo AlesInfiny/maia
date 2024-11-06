@@ -12,11 +12,11 @@ description: バックエンドで動作する Java アプリケーションの 
 
 Spring Initializr を利用して作成したプロジェクトの雛型は、単一のプロジェクト構成を想定したものであるため、マルチプロジェクトとして動作するようにします。
 
-ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `setting.gradle` を修正します。
+ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。
 
-```groovy title="setting.gradle"
-rootProject.name = 'Dressca-backend'
-include 'application-core', 'system-common', 'infrastructure', 'web', 'batch'
+```groovy title="{ルートプロジェクト}/settings.gradle"
+rootProject.name = 'ルートプロジェクトの名前'
+include 'サブプロジェクトの名前', 'サブプロジェクトの名前'
 ```
 
 `rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。
@@ -24,8 +24,14 @@ include 'application-core', 'system-common', 'infrastructure', 'web', 'batch'
 ## ビルドスクリプトの共通化 {#common-build-script}
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
-ここに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
+先の手順である [ルートプロジェクトの作成](create-project.md#create-root-project) にて Dependencies を追加していない場合、`build.gradle`内に`subprojects`ブロックを追加してください。
 
+```groovy title="{ルートプロジェクト}/build.gradle"
+subprojects {
+}
+```
+
+`subprojects`ブロックに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
 設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。
 
 ### プラグインの導入 {#common-plugin}
@@ -38,7 +44,7 @@ include 'application-core', 'system-common', 'infrastructure', 'web', 'batch'
 - SpotBugs プラグイン：静的テストツール用のプラグイン
 - JaCoCo プラグイン：カバレッジ取得ツール用プラグイン
 
-```groovy title="build.gradle"
+```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
   apply plugin: 'java'
   apply plugin: 'jacoco'
@@ -47,19 +53,29 @@ subprojects {
 }
 ```
 
+SpotBugs プラグインは Gradle の標準的なプラグインセットに含まれていないため、別途設定が必要になります。
+`plugins`ブロックに以下を追加してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+plugins {
+  // 省略
+  id 'com.github.spotbugs' version 'x.x.x' apply false
+}
+```
+
 ### 依存ライブラリの設定 {#common-dependencies}
 
 サブプロジェクト毎の役割に関わらず、システム全体で利用され得るライブラリについては、共通の依存ライブラリとして定義します。
 例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
 
-Spring Initializr でルートプロジェクトの雛型を作成した際に、共通の依存ライブラリを設定した場合には、既に `dependencies` ブロックが記述されています。
-まずはこの `dependencies` ブロックを `subprojects` ブロック内に移動させます。
-雛型作成時に未定義の場合は、新しく `dependencies` ブロックを追加してください。
-その後、 `dependencies` ブロックに必要な依存ライブラリを追加します。
+設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型を作成した際に作成された、 `dependencies` ブロックを `subprojects` ブロック内に移動させます。
+その後、 `dependencies` ブロックに必要な依存ライブラリを以下のように追加します。
 
-```groovy  title="build.gradle"
+```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
+  // 省略
   dependencies {
+    // 省略
     // Lombok の設定
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
@@ -71,7 +87,7 @@ subprojects {
 
 ### タスクの設定 {#common-tasks}
 
-導入したプラグインによって定義されたタスクに対して、設定が必要であれば設定を追加します。
+導入したプラグインによって定義されたタスクに対して、必要であれば設定を追加します。
 設定項目や設定の要否はプラグインによります。
 例えば、各種ツール類のバージョン指定や、静的テストツールのルールのようなインプットファイルの指定、レポート等の出力設定などが一般的には考えられます。
 
@@ -84,9 +100,10 @@ Java プラグインのバージョン指定などを実施する `build.gradle`
 また、 Java プラグインや後述する各プラグインのタスクをカスタマイズする場合は、 `build.gradle` に設定を追加します。
 具体例として、 test タスクにおいて使用するプロファイルを変更するようカスタマイズする設定を示します。
 
-```groovy title="build.gradle"
+```groovy title="{ルートプロジェクト}/build.gradle"
 
 subprojects {
+  // 省略
   test {
     // UTテスト時はtestプロファイルを利用
     jvmArgs=['-Dspring.profiles.active=test']
@@ -109,8 +126,9 @@ Checkstyle プラグインのバージョン指定などを実施する `build.g
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-```groovy title="build.gradle" hl_lines="4"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5"
 subprojects {
+  // 省略
   checkstyle {
     toolVersion = 'x.x.x'
     configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
@@ -130,8 +148,9 @@ SpotBugs プラグインのバージョン指定などを実施する `build.gra
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
 フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
-```groovy title="build.gradle" hl_lines="4"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5"
 subprojects {
+  // 省略
   spotbugs {
     toolVersion = 'x.x.x'
     excludeFilter.set(rootProject.file('フィルタファイルのパス'))
@@ -146,15 +165,16 @@ JaCoCo プラグインのバージョン指定などを実施する `build.gradl
 
 なお、 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
-```groovy title="build.gradle"　hl_lines="6 7 8 9 10"
+```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="7 8 9 10 11"
 subprojects {
+  // 省略
   jacocoTestReport {
     reports {
       html.required = true
     }
     afterEvaluate {
       classDirectories.setFrom(classDirectories.files.collect {
-        fileTree(dir: it, excludes: ["**/xxx/*", "**/Yyy.class"])
+        fileTree(dir: it, excludes: ['**/xxx/*', '**/Yyy.class'])
       })
     }
   }
@@ -188,26 +208,29 @@ Visual Studio Code を利用する場合、[こちら :material-open-in-new:](ht
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
+ルートプロジェクト直下に`dependencies.gradle`ファイルを追加してください。
 
 上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
 
-```groovy title="dependencies.gradle"
+```groovy title="{ルートプロジェクト}/dependencies.gradle"
 ext {
     // -- PLUGINS
-    springBootVersion = "X.X.X"
-    springDependencyManagementVersion = "X.X.X"
+    springBootVersion = 'x.x.x'
+    springDependencyManagementVersion = 'x.x.x'
 
     // -- DEPENDENCIES
-    commonsLangVersion = "X.X.X"
+    commonsLangVersion = 'x.x.x'
     supportDependencies = [
-        spring_boot_starter : "org.springframework.boot:spring-boot-starter",
-        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
+        spring_boot_starter : 'org.springframework.boot:spring-boot-starter',
+        spring_boot_starter_test : 'org.springframework.boot:spring-boot-starter-test',
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
     ]
 }
 ```
 
-```groovy title="build.gradle"
+以下に示す`buildscript`ブロックを、ルートプロジェクトの`build.gradle`の先頭に追加してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
 buildscript {
   apply from: 'dependencies.gradle'
 }
