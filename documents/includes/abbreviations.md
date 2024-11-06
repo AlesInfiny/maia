@@ -7,6 +7,7 @@
 *[AOT]: Ahead-Of-Time: 事前にすべてのコンパイルを実行する方式。
 *[API]: Application Programming Interface
 *[CI]: Continuous Integration：継続的インテグレーション。
+*[CMS]: Contents Management System.
 *[CORS]: Cross-Origin Resource Sharing：オリジン間リソース共有。
 *[CRUD]: Create Read Update Delete：永続性の 4 つの基本機能のイニシャルを並べた用語。
 *[CSR]: Client Side Rendering
@@ -36,5 +37,6 @@
 *[SSR]: Server Side Rendering
 *[VS Code]: Visual Studio Code
 *[war]: Web Application Archive
+*[XSS]: X-Site Scripting : クロスサイトスクリプティング。
 
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
