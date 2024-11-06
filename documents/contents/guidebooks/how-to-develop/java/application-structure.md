@@ -7,4 +7,8 @@ description: バックエンドで動作する Java アプリケーションの 
 
 AlesInfiny Maia OSS Edition において、バックエンドで動作する Java アプリケーションは複数の Gradle Groovy DSL プロジェクトを組み合わせたマルチプロジェクトとして構成します。
 
+!!! info "Gradle Groovy DSL プロジェクトとは"
+
+    ビルドツールとして Gradle を使用し、ビルドスクリプトが Groovy で記述されたプロジェクトのことを指します。
+
 構成に必要なプロジェクトはアプリケーション形態によって異なるため、[各アプリケーション形態のアーキテクチャ](../../../app-architecture/index.md) を参照してください。
