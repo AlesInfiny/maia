@@ -328,7 +328,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
     - authentication.ts
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-    AlesInfiny Maris のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
+    AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
 
     ```ts
     import axios from "axios";
