@@ -62,6 +62,9 @@ nav:
           - バッチアプリケーションのテスト戦略:
               - app-architecture/batch-application/batch-application-test-policy/index.md
               - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
+      - アプリケーションセキュリティ編:
+          - app-architecture/security/index.md
+          - XSS （クロスサイトスクリプティング）: app-architecture/security/xss.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~

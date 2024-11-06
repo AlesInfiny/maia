@@ -17,3 +17,7 @@ description: AlesInfiny Maia OSS Edition の考える アプリケーション�
 - [バッチアプリケーション編](batch-application/index.md)
 
     バッチアプリケーションについて概要や、アーキテクチャについて解説します。
+
+- [アプリケーションセキュリティ編](./security/index.md)
+
+    アプリケーションにおけるセキュリティの担保方針について説明します。
