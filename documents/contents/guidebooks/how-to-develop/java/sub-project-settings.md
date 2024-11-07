@@ -10,6 +10,12 @@ description: バックエンドで動作する Java アプリケーションの 
 
 ここで解説する設定はあくまで推奨設定であり、検討した上で変更することは問題ありません。
 また、依存ライブラリについて、プロジェクトで必要なライブラリを適宜追加することも問題ありません。
+なお、ここでは依存ライブラリのバージョン定義を各サブプロジェクトで管理していますが、一元的に管理する場合、[プラグイン、依存ライブラリのバージョン定義一元化](./common-project-settings.md#version-definition-aggregation) を参照してください。
+
+以降解説するサブプロジェクトとそれぞれの依存関係は図の通りです。
+
+![サブプロジェクトの依存関係](../../../images/guidebooks/how-to-develop/java/subproject-dependencies-light.png#only-light){ loading=lazy }
+![サブプロジェクトの依存関係](../../../images/guidebooks/how-to-develop/java/subproject-dependencies-dark.png#only-dark){ loading=lazy }
 
 ## web プロジェクトの設定 {#config-web}
 
@@ -31,7 +37,7 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
-```groovy title="build.gradle"
+```groovy title="web/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'com.h2database:h2:x.x.x'
@@ -46,7 +52,7 @@ dependencies {
 `springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
 以下に、`build.gradle` への設定内容を例示します。
 
-```groovy title="build.gradle"
+```groovy title="web/build.gradle"
 // Open API 仕様書出力の作業ディレクトリを指定する。
 afterEvaluate {
   tasks.named("forkedSpringBootRun") {
@@ -68,7 +74,7 @@ build.dependsOn("generateOpenApiDocs")
 web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
-```groovy title="build.gradle"
+```groovy title="web/build.gradle"
 dependencies {
   implementation project(':application-core')
   implementation project(':infrastructure')
@@ -125,7 +131,7 @@ infrastructure プロジェクトで必要な設定を解説します。
 infrastructure プロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
 データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 
-```groovy title="build.gradle"
+```groovy title="infrastructure/build.gradle"
 dependencies {
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
 }
@@ -138,7 +144,7 @@ dependencies {
 infrastructure プロジェクトは application-core 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
-```groovy title="build.gradle"
+```groovy title="infrastructure/build.gradle"
 dependencies {
   implementation project(':application-core')
   implementation project(':system-common')
@@ -158,7 +164,7 @@ application-core プロジェクトで必要な設定を解説します。
 application-core プロジェクトは system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
-```groovy title="build.gradle"
+```groovy title="application-core/build.gradle"
 dependencies {
   implementation project(':system-common')
 }
@@ -173,7 +179,7 @@ batch プロジェクトで必要な設定を解説します。
 batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
 データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
 
-```groovy title="build.gradle"
+```groovy title="application-core/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-batch'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -186,7 +192,7 @@ dependencies {
 batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
 
-```groovy title="build.gradle"
+```groovy title="batch/build.gradle"
 dependencies {
   implementation project(':application-core')
   implementation project(':infrastructure')
@@ -194,7 +200,7 @@ dependencies {
 }
 ```
 
-## システム共通プロジェクトの設定 {#config-system-common}
+## system-common プロジェクトの設定 {#config-system-common}
 
 システム共通プロジェクトの依存ライブラリについては、特に必須や推奨するライブラリはありません。
 開発するシステム共通部品で必要なライブラリを適宜追加します。
