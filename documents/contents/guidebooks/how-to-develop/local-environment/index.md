@@ -120,7 +120,7 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 
 ### Node.js のインストール {#install-node}
 
-1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。 Node.js のインストーラーは、原則 LTS 版を利用してください。
+1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。 Node.js のインストーラーは、原則最新の LTS 版を利用してください。
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
 
