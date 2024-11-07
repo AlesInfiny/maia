@@ -12,26 +12,24 @@ description: バックエンドで動作する Java アプリケーションの 
 
 Spring Initializr を利用して作成したプロジェクトの雛型は、単一のプロジェクト構成を想定したものであるため、マルチプロジェクトとして動作するようにします。
 
-ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。
+ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。以下のように、`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。
 
 ```groovy title="{ルートプロジェクト}/settings.gradle"
 rootProject.name = 'ルートプロジェクトの名前'
 include 'サブプロジェクトの名前', 'サブプロジェクトの名前'
 ```
 
-`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。
-
 ## ビルドスクリプトの共通化 {#common-build-script}
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
-先の手順である [ルートプロジェクトの作成](create-project.md#create-root-project) にて Dependencies を追加していない場合、`build.gradle`内に`subprojects`ブロックを追加してください。
+ここに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
+Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため以下の記述を追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
 }
 ```
 
-`subprojects`ブロックに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
 設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。
 
 ### プラグインの導入 {#common-plugin}
@@ -54,11 +52,10 @@ subprojects {
 ```
 
 SpotBugs プラグインは Gradle の標準的なプラグインセットに含まれていないため、別途設定が必要になります。
-`plugins`ブロックに以下を追加してください。
+`plugins` ブロックに以下の記述を追加してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 plugins {
-  // 省略
   id 'com.github.spotbugs' version 'x.x.x' apply false
 }
 ```
@@ -68,14 +65,12 @@ plugins {
 サブプロジェクト毎の役割に関わらず、システム全体で利用され得るライブラリについては、共通の依存ライブラリとして定義します。
 例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
 
-設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型を作成した際に作成された、 `dependencies` ブロックを `subprojects` ブロック内に移動させます。
+設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型作成の際に追加された `dependencies` ブロックを、 `subprojects` ブロック内に移動させます。
 その後、 `dependencies` ブロックに必要な依存ライブラリを以下のように追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
-  // 省略
   dependencies {
-    // 省略
     // Lombok の設定
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
@@ -103,7 +98,6 @@ Java プラグインのバージョン指定などを実施する `build.gradle`
 ```groovy title="{ルートプロジェクト}/build.gradle"
 
 subprojects {
-  // 省略
   test {
     // UTテスト時はtestプロファイルを利用
     jvmArgs=['-Dspring.profiles.active=test']
@@ -126,9 +120,8 @@ Checkstyle プラグインのバージョン指定などを実施する `build.g
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4"
 subprojects {
-  // 省略
   checkstyle {
     toolVersion = 'x.x.x'
     configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
@@ -148,9 +141,8 @@ SpotBugs プラグインのバージョン指定などを実施する `build.gra
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
 フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4"
 subprojects {
-  // 省略
   spotbugs {
     toolVersion = 'x.x.x'
     excludeFilter.set(rootProject.file('フィルタファイルのパス'))
@@ -165,9 +157,8 @@ JaCoCo プラグインのバージョン指定などを実施する `build.gradl
 
 なお、 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
-```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="7 8 9 10 11"
+```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6 7 8 9 10"
 subprojects {
-  // 省略
   jacocoTestReport {
     reports {
       html.required = true
@@ -208,7 +199,7 @@ Visual Studio Code を利用する場合、[こちら :material-open-in-new:](ht
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
-ルートプロジェクト直下に`dependencies.gradle`ファイルを追加してください。
+ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。
 
 上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
 
@@ -228,7 +219,7 @@ ext {
 }
 ```
 
-以下に示す`buildscript`ブロックを、ルートプロジェクトの`build.gradle`の先頭に追加してください。
+以下に示す `buildscript` ブロックを、ルートプロジェクトの `build.gradle` の先頭に追加してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 buildscript {
