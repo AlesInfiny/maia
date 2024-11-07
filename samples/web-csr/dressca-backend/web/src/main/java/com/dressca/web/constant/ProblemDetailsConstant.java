@@ -14,6 +14,6 @@ public class ProblemDetailsConstant {
   /** Exception ID。 */
   public static final String EXCEPTION_ID = "exceptionId";
 
-  /** Excepiton ID に紐づくメッセージ。 */
+  /** Exception ID に紐づくメッセージ。 */
   public static final String EXCEPTION_VALUES = "exceptionValues";
 }

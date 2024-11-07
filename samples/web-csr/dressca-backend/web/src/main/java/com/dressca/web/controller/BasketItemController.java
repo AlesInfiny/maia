@@ -7,11 +7,13 @@ import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.web.controller.advice.ProblemDetailsCreation;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
 import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.controller.dto.baskets.PutBasketItemsRequest;
 import com.dressca.web.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.mapper.BasketMapper;
 import com.dressca.web.mapper.CatalogItemSummaryMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +29,9 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +53,9 @@ public class BasketItemController {
 
   @Autowired
   private ShoppingApplicationService shoppingApplicationService;
+
+  @Autowired
+  private ProblemDetailsCreation problemDetailsCreation;
 
   /**
    * 買い物かごアイテムの一覧を取得します。
@@ -102,8 +110,27 @@ public class BasketItemController {
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
-    } catch (CatalogNotFoundException | CatalogItemInBasketNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+    } catch (CatalogNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder,
+          e.getExceptionId(),
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
+    } catch (CatalogItemInBasketNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder,
+          e.getExceptionId(),
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }
@@ -142,7 +169,13 @@ public class BasketItemController {
           postBasketItem.getCatalogItemId(),
           postBasketItem.getAddedQuantity());
     } catch (CatalogNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder, e.getExceptionId(), HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
   }
@@ -174,9 +207,21 @@ public class BasketItemController {
     try {
       this.shoppingApplicationService.setQuantities(buyerId, Map.of(catalogItemId, 0));
     } catch (CatalogNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder, e.getExceptionId(), HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     } catch (CatalogItemInBasketNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder, e.getExceptionId(), HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }

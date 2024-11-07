@@ -7,12 +7,16 @@ import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.web.controller.advice.ProblemDetailsCreation;
+import com.dressca.web.log.ErrorMessageBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +43,9 @@ public class AssetsController {
   @Autowired
   private AssetApplicationService service;
 
+  @Autowired
+  private ProblemDetailsCreation problemDetailsCreation;
+
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
@@ -52,7 +59,7 @@ public class AssetsController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
   @GetMapping("{assetCode}")
-  public ResponseEntity<Resource> get(
+  public ResponseEntity<?> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {
     try {
@@ -63,7 +70,15 @@ public class AssetsController {
     } catch (AssetNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.notFound().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder,
+          e.getExceptionId(),
+          HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     }
   }
 

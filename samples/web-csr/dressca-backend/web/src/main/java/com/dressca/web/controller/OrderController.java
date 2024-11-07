@@ -10,8 +10,10 @@ import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.web.controller.advice.ProblemDetailsCreation;
 import com.dressca.web.controller.dto.order.OrderResponse;
 import com.dressca.web.controller.dto.order.PostOrderRequest;
+import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.mapper.OrderMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,6 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +54,9 @@ public class OrderController {
   @Autowired
   private ShoppingApplicationService shoppingApplicationService;
 
+  @Autowired
+  private ProblemDetailsCreation problemDetailsCreation;
+
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
@@ -62,7 +70,7 @@ public class OrderController {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
       @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content) })
   @GetMapping("{orderId}")
-  public ResponseEntity<OrderResponse> getById(@PathVariable("orderId") long orderId,
+  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
 
@@ -73,7 +81,16 @@ public class OrderController {
     } catch (OrderNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.notFound().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+          errorBuilder,
+          e.getExceptionId(),
+          HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(problemDetail);
     }
   }
 
