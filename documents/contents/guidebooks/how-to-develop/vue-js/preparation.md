@@ -30,9 +30,9 @@ Visual Studio Code を利用する場合、クライアントサイドアプリ�
 
 - [Prettier - Code formatter :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode){ target=_blank }
 
-    EditorConfig や ESLint 、 StyleLint と連携して、より詳細なコーディングルールを適用する機能を提供します。
+    EditorConfig と連携して、統一したスタイルにコードを整形する機能を提供します。
 
 - [language-postcss :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=cpylua.language-postcss){ target=_blank }
 
-    PostCSS で記述されたコードの可読性を向上させる機能を提供します。
-    また、 StyleLint と連携することで、 PostCSS のコードのエラーを検出できます。
+    CSS で記述されたコードの可読性を向上させる機能を提供します。
+    また、 Stylelint と連携することで、 CSS のコードのエラーを検出できます。
