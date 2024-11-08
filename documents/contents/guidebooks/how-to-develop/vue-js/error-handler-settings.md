@@ -3,6 +3,8 @@ title: Vue.js 開発手順
 description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
+<!-- cSpell:ignore unhandledrejection -->
+
 # エラーハンドラーの設定 {#top}
 
 [フロントエンドの例外処理方針](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling)
@@ -64,8 +66,6 @@ window.addEventListener('unhandledrejection', (event) => {
 
 これらを組み合わせたグローバルエラーハンドラーの実装例は以下の通りです。
 
-<!-- cSpell:disable -->
-
 ```ts title="global-error-handler.ts"
 import type { App, ComponentPublicInstance } from 'vue';
 import { router } from '../../router';
@@ -91,7 +91,6 @@ export const globalErrorHandler = {
   },
 };
 ```
-<!-- cSpell:enable -->
 
 ## カスタムエラーハンドラーの設定 {#custom-error-handler-setting}
 
