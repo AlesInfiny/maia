@@ -19,6 +19,16 @@ rootProject.name = 'ルートプロジェクトの名前'
 include 'サブプロジェクトの名前', 'サブプロジェクトの名前'
 ```
 
+次に、ルートプロジェクトにある不要なプラグイン取り除きます。`build.gradle`の plugins ブロックから、以下の項目を削除してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version 'x.x.x'
+  id 'io.spring.dependency-management' version 'x.x.x'
+}
+```
+
 ## ビルドスクリプトの共通化 {#common-build-script}
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
