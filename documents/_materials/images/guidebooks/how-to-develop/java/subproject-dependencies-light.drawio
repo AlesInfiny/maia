@@ -1,15 +1,9 @@
 <mxfile host="65bd71144e">
     <diagram id="t5FLQf08IiOqZWmdRY7E" name="ページ1">
-        <mxGraphModel dx="1567" dy="973" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="940" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="44" value="" style="html=1;strokeWidth=4;endArrow=none;endFill=0;dashed=1;strokeColor=#000000;fontColor=#000000;" parent="1" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="570" y="10" as="sourcePoint"/>
-                        <mxPoint x="570" y="380" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="45" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;バックエンドアプリケーション&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="85" y="30" width="390" height="40" as="geometry"/>
                 </mxCell>
