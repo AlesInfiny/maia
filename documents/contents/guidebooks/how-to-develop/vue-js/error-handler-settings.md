@@ -1,14 +1,14 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # エラーハンドラーの設定 {#top}
 
-[クライアントサイドの例外処理方針](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling)
+[フロントエンドの例外処理方針](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling)
 に記載の通り、業務フロー上は想定されないシステムのエラーを表すシステム例外と、業務フロー上想定されるエラーを表す業務例外をそれぞれ捕捉し、適切にハンドリングする必要があります。
 
-## グローバルエラーハンドラーの設定 {#global-error-handler}
+## グローバルエラーハンドラーの設定 {#global-error-handler-setting}
 
 業務フロー上発生が想定されないエラーを捕捉し、ハンドリングするためのグローバルエラーハンドラーを設定します。
 
@@ -62,30 +62,39 @@ window.addEventListener('unhandledrejection', (event) => {
 });
 ```
 
-??? note "グローバルエラーハンドラーの実装例"
+これらを組み合わせたグローバルエラーハンドラーの実装例は以下の通りです。
 
-    ```ts title="global-error-handler.ts"
-    import type { App, ComponentPublicInstance } from 'vue';
-    import { router } from '../../router';
+<!-- cSpell:disable -->
 
-    export const globalErrorHandler = {
-        install(app: App) {
-            app.config.errorHandler = (
-            err: unknown,
-            instance: ComponentPublicInstance | null,
-            info: string,
-            ) => {
-            console.log(err, instance, info);
-            router.replace({ name: 'error' });
-            };
+```ts title="global-error-handler.ts"
+import type { App, ComponentPublicInstance } from 'vue';
+import { router } from '../../router';
 
-            window.addEventListener('error', (event) => {
-            console.log(event);
-            });
-
-            window.addEventListener('unhandledrejection', (event) => {
-            console.log(event);
-            });
-        },
+export const globalErrorHandler = {
+  install(app: App) {
+    app.config.errorHandler = (
+    err: unknown,
+    instance: ComponentPublicInstance | null,
+    info: string,
+    ) => {
+    console.log(err, instance, info);
+    router.replace({ name: 'error' });
     };
-    ```
+
+    window.addEventListener('error', (event) => {
+    console.log(event);
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+    console.log(event);
+    });
+  },
+};
+```
+<!-- cSpell:enable -->
+
+## カスタムエラーハンドラーの設定 {#custom-error-handler-setting}
+
+業務フロー上発生が想定されるエラーを捕捉し、ハンドリングするためのカスタムエラーハンドラーを設定します。
+
+（今後追加予定）
