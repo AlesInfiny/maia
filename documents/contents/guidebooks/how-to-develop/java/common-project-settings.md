@@ -4,7 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok -->
+<!-- cSpell:ignore subprojects projectlombok Dspring buildscript -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 
@@ -53,6 +53,7 @@ subprojects {
 
 SpotBugs プラグインは Gradle の標準的なプラグインセットに含まれていないため、別途設定が必要になります。
 `plugins` ブロックに以下の記述を追加してください。
+なお利用できるバージョンについては、[こちら :material-open-in-new:](https://github.com/spotbugs/spotbugs-gradle-plugin/releases){ target=_blank } を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 plugins {
@@ -66,7 +67,7 @@ plugins {
 例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
 
 設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型作成の際に追加された `dependencies` ブロックを、 `subprojects` ブロック内に移動させます。
-その後、 `dependencies` ブロックに必要な依存ライブラリを以下のように追加します。
+その後、 `dependencies` ブロックに必要な依存ライブラリを以下を追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
@@ -116,14 +117,22 @@ Checkstyle プラグインのバージョン指定などを実施する `build.g
 また、 Checkstyle を利用する場合、静的テストを実施する際のルールをインプットファイルで定義します。
 [Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したルールを適用する場合、 Checkstyle が提供する [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
 独自のルールを定義したい場合には、このインプットファイルを編集してください。
-インプットファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
+デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読み込みます。
+
+![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
+![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
+
+インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5 7"
 subprojects {
   checkstyle {
     toolVersion = 'x.x.x'
+    // インプットファイルに任意の命名を適用する場合
+    configFile = file('ディレクトリパスを含むインプットファイル名')
+    // デフォルトの階層以外にある checkstyle.xml をインプットファイルとして読み込む場合
     configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
   }
 }
@@ -193,15 +202,13 @@ Visual Studio Code を利用する場合、[こちら :material-open-in-new:](ht
 
     フォーマットツールが自動的に整形したソースコードが静的テストのルールに違反することで、静的テスト側で警告が発生するかもしれません。
     また、フォーマッターと静的テストの設定が一致していても、各ツールの仕様によってフォーマットの基準が異なり、意図しない警告が発生する可能性もあります。
-    このような警告の状態化は、対処を必要とする重要な警告が埋もれてしまうことになり、プロジェクトに悪影響を与えます。
+    このような警告の常態化は、対処を必要とする重要な警告が埋もれてしまうことになり、プロジェクトに悪影響を与えます。
     フォーマッターや静的テストのルールの緩和なども含め、警告が出ないように設定を調整してください。
 
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。
-
-上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
 
 ```groovy title="{ルートプロジェクト}/dependencies.gradle"
 ext {
@@ -219,6 +226,11 @@ ext {
 }
 ```
 
+!!! tip "dependencies.gradle に記載する情報の範囲について"
+    `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
+    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot :material-open-in-new:](https://docs.github.com/ja/code-security/dependabot){ target=_blank } による通知が受けられます。
+
+上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
 以下に示す `buildscript` ブロックを、ルートプロジェクトの `build.gradle` の先頭に追加してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
@@ -226,10 +238,6 @@ buildscript {
   apply from: 'dependencies.gradle'
 }
 ```
-
-!!! tip "dependencies.gradle に記載する情報の範囲について"
-    `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
-    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot :material-open-in-new:](https://docs.github.com/ja/code-security/dependabot){ target=_blank } による通知が受けられます。
 
 各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
 
