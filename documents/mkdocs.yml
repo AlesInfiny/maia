@@ -62,6 +62,9 @@ nav:
           - バッチアプリケーションのテスト戦略:
               - app-architecture/batch-application/batch-application-test-policy/index.md
               - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
+      - アプリケーションセキュリティ編:
+          - app-architecture/security/index.md
+          - XSS （クロスサイトスクリプティング）: app-architecture/security/xss.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
@@ -93,6 +96,9 @@ nav:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
               - guidebooks/how-to-develop/cors/index.md
+      # - 規約:
+      #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
+      - コーディング規約: guidebooks/conventions/coding-conventions.md
   - サンプル解説:
       - samples/index.md
       - Azure AD B2C を利用したユーザー認証:
@@ -154,7 +160,11 @@ markdown_extensions:
       check_paths: true
       auto_append:
         - includes/abbreviations.md
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed
   - toc:
       permalink: ⚓︎

@@ -7,6 +7,10 @@ changelog:
         labels:
           - dependencies
           - 内部の改善
+          - 不具合
+    - title: ':wrench: Bug fixes'
+      labels:
+        - 不具合
     - title: ':label: :green_circle: Gradle package dependencies'
       labels:
         - gradle
