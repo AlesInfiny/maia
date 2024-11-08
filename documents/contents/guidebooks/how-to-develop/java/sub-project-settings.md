@@ -10,7 +10,7 @@ description: バックエンドで動作する Java アプリケーションの 
 
 ここで解説する設定はあくまで推奨設定であり、検討した上で変更することは問題ありません。
 また、依存ライブラリについて、プロジェクトで必要なライブラリを適宜追加することも問題ありません。
-なお、ここでは依存ライブラリのバージョン定義を各サブプロジェクトで管理していますが、一元的に管理する場合、[プラグイン、依存ライブラリのバージョン定義一元化](./common-project-settings.md#version-definition-aggregation) を参照してください。
+なお、ここでは依存ライブラリのバージョン定義を各サブプロジェクトで管理していますが、一元的に管理する場合、先の手順である [プラグイン、依存ライブラリのバージョン定義一元化](./common-project-settings.md#version-definition-aggregation) を参照してください。
 
 以降解説するサブプロジェクトとそれぞれの依存関係は図の通りです。
 
@@ -87,13 +87,14 @@ dependencies {
 Spring Boot に関する主な設定は、 web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
 設定できる項目については、以下を参照してください。
 
-- [アプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html){ target=_blank }
+- [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html){ target=_blank }
+- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.drive-class-name： JDBC ドライバーの完全修飾名
+    - spring.datasource.driver-class-name： JDBC ドライバーの完全修飾名
     - spring.datasource.url：データベースの JDBC URL
     - spring.datasource.username：データベースのログインユーザー名
     - spring.datasource.password：データベースのログインパスワード
