@@ -1,4 +1,4 @@
-package com.dressca.infrastructure.config;
+package com.dressca.web.consumer.config;
 
 import org.h2.tools.Server;
 import org.springframework.context.annotation.Profile;

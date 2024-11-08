@@ -25,6 +25,7 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_security_starter
+	implementation supportDependencies.h2database
 	
 	implementation project(':web')
 	implementation project(':application-core')
