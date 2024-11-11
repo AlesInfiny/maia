@@ -4,13 +4,13 @@
   "type": "module",
   "private": "true",
   "scripts": {
-    "lint:ci:consumer": "npm run lint:ci -w app",
-    "type-check:consumer": "npm run type-check -w app",
-    "build-only:dev:consumer": "npm run build-only:dev -w app",
-    "build:prod:consumer": "npm run build:prod -w app",
-    "test:unit:consumer": "npm run test:unit -w app",
-    "dev:consumer": "npm run dev -w app",
-    "mock:consumer": "npm run mock -w app"
+    "lint:ci:app": "npm run lint:ci -w app",
+    "type-check:app": "npm run type-check -w app",
+    "build-only:dev:app": "npm run build-only:dev -w app",
+    "build:prod:app": "npm run build:prod -w app",
+    "test:unit:app": "npm run test:unit -w app",
+    "dev:app": "npm run dev -w app",
+    "mock:app": "npm run mock -w app"
   },
   "workspaces": [
     "app"
