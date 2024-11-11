@@ -19,14 +19,38 @@ rootProject.name = 'ルートプロジェクトの名前'
 include 'サブプロジェクトの名前', 'サブプロジェクトの名前'
 ```
 
-次に、ルートプロジェクトにある不要なプラグイン取り除きます。`build.gradle`の plugins ブロックから、以下の項目を削除してください。
+次に、ルートプロジェクトにある不要な記述を取り除きます。`build.gradle`から以下の項目を削除してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle"
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2 3 4 7 8 10 11 12 13 14 16 17 18 21 22 23 26 27 28"
 plugins {
   id 'java'
   id 'org.springframework.boot' version 'x.x.x'
   id 'io.spring.dependency-management' version 'x.x.x'
 }
+
+group = 'プロジェクトのグループ名'
+version = 'x.x.x-SNAPSHOT'
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}
+
 ```
 
 ## ビルドスクリプトの共通化 {#common-build-script}
@@ -40,7 +64,7 @@ subprojects {
 }
 ```
 
-設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。
+設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。なお、プラグインおよびライブラリの利用できるバージョンについては [Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank }を参照してください。
 
 ### プラグインの導入 {#common-plugin}
 
@@ -63,7 +87,6 @@ subprojects {
 
 SpotBugs プラグインは Gradle の標準的なプラグインセットに含まれていないため、別途設定が必要になります。
 `plugins` ブロックに以下の記述を追加してください。
-なお利用できるバージョンについては、[こちら :material-open-in-new:](https://github.com/spotbugs/spotbugs-gradle-plugin/releases){ target=_blank } を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 plugins {
@@ -127,7 +150,7 @@ Checkstyle プラグインのバージョン指定などを実施する `build.g
 また、 Checkstyle を利用する場合、静的テストを実施する際のルールをインプットファイルで定義します。
 [Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したルールを適用する場合、 Checkstyle が提供する [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
 独自のルールを定義したい場合には、このインプットファイルを編集してください。
-デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読み込みます。
+デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。フォルダーを追加して適切な位置に配置してください。
 
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
@@ -218,16 +241,17 @@ Visual Studio Code を利用する場合、[こちら :material-open-in-new:](ht
 ## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
-ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。
+
+ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
 
 ```groovy title="{ルートプロジェクト}/dependencies.gradle"
 ext {
-    // -- PLUGINS
+    // プラグインのバージョン
     springBootVersion = 'x.x.x'
     springDependencyManagementVersion = 'x.x.x'
-
-    // -- DEPENDENCIES
+    // 依存ライブラリのバージョン
     commonsLangVersion = 'x.x.x'
+    // ライブラリ定義文字列
     supportDependencies = [
         spring_boot_starter : 'org.springframework.boot:spring-boot-starter',
         spring_boot_starter_test : 'org.springframework.boot:spring-boot-starter-test',
@@ -240,7 +264,7 @@ ext {
     `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
     しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot :material-open-in-new:](https://docs.github.com/ja/code-security/dependabot){ target=_blank } による通知が受けられます。
 
-上記ファイル内でプラグインおよびライブラリのバージョンを変数として定義し、ルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込むことで、各サブプロジェクトから参照できるようになります。
+次に、上記ファイルをルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込みます。これにより、各サブプロジェクトからそれぞれの変数を参照できるようになります。
 以下に示す `buildscript` ブロックを、ルートプロジェクトの `build.gradle` の先頭に追加してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
@@ -251,7 +275,7 @@ buildscript {
 
 各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
 
-```groovy title="{サブプロジェクト}/build.gradle"
+```groovy title="{サブプロジェクト}/build.gradle" hl_lines="3 4 8 9 10"
 plugins {
   id 'java'
   id 'org.springframework.boot' version "${springBootVersion}"
