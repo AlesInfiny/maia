@@ -42,7 +42,7 @@ Web 画面上の各種設定項目は以下の通りです。
 
 - Project Metadata : Java
 
-    利用する Java のバージョンを選択します。
+    利用する環境の Java のバージョンを選択します。
 
 - Project Metadata：その他
 
