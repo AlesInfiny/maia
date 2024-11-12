@@ -57,7 +57,7 @@ tasks.named('test') {
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
 ここに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
-Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため、以下の記述を追加します。
+Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため、 `dependencies` ブロックの下部に以下の記述を追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
