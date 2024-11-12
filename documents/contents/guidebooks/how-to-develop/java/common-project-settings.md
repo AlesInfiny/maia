@@ -57,7 +57,7 @@ tasks.named('test') {
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
 ここに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
-Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため以下の記述を追加します。
+Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため、以下の記述を追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
@@ -100,7 +100,7 @@ plugins {
 例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
 
 設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型作成の際に追加された `dependencies` ブロックを、 `subprojects` ブロック内に移動させます。
-その後、 `dependencies` ブロックに必要な依存ライブラリを以下を追加します。
+その後、 `dependencies` ブロックに必要な依存ライブラリを以下のように追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 subprojects {
