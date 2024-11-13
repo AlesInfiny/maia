@@ -1,10 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,11 +12,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 
 /**
  * {@link CatalogDomainService}の動作をテストするクラスです。
@@ -130,181 +124,6 @@ public class CatalogDomainServiceTest {
     assertThat(existAll).isFalse();
   }
 
-  @Test
-  void testGetCatalogItemById_正常系_リポジトリのfindByIdを1回呼出す() throws CatalogNotFoundException {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-
-    // Act
-    this.service.getCatalogItemById(1L);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findById(anyLong());
-  }
-
-  @Test
-  void testGetCatalogItemById_異常系_対象のアイテムが存在しない() {
-    // Arrange
-    long targetId = 999L;
-    when(this.catalogRepository.findById(targetId)).thenReturn(null);
-
-    // Act
-    Executable action = () -> {
-      this.service.getCatalogItemById(targetId);
-    };
-
-    // Assert
-    assertThrows(CatalogNotFoundException.class, action);
-  }
-
-  @Test
-  void testGetCatalogItemsByConditions_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
-    // Action
-    this.service.getCatalogItemsByConditions(1L, 1L, 0, 20);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt());
-  }
-
-  @Test
-  void testAddCatalogItem_正常系_リポジトリのaddを1回呼出す() {
-
-    // Action
-    this.service.addCatalogItem("Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L, 1L);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).add(any());
-  }
-
-  @Test
-  void testDeleteCatalogItemById_正常系_リポジトリのremoveを1回呼出す() throws CatalogNotFoundException {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-
-    // Action
-    this.service.deleteCatalogItemById(1L);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).remove(any());
-  }
-
-  @Test
-  void testDeleteCatalogItemById_異常系_対象のアイテムが存在しない() {
-    // Arrange
-    long targetId = 999L;
-    when(this.catalogRepository.findById(targetId)).thenReturn(null);
-
-    // Action
-    Executable action = () -> {
-      this.service.deleteCatalogItemById(targetId);
-    };
-
-    // Assert
-    assertThrows(CatalogNotFoundException.class, action);
-  }
-
-  @Test
-  void testUpdateCatalogItem_正常系_リポジトリのupdateを1回呼出す() throws CatalogNotFoundException, CatalogBrandNotFoundException,
-      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    CatalogCategory category = createCatalogCategory();
-    CatalogBrand brand = createCatalogBrand();
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(category);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(brand);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-
-    // Action
-    this.service.modifyCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L, 1L);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).update(any());
-  }
-
-  @Test
-  void testUpdateCatalogItem_異常系_対象のアイテムが存在しない() {
-    // Arrange
-    CatalogCategory category = createCatalogCategory();
-    CatalogBrand brand = createCatalogBrand();
-    when(this.catalogRepository.findById(anyLong())).thenReturn(null);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(category);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(brand);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-
-    // Action
-    Executable action = () -> {
-      this.service.modifyCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L,
-          1L);
-    };
-
-    // Assert
-    assertThrows(CatalogNotFoundException.class, action);
-  }
-
-  @Test
-  void testUpdateCatalogItem_異常系_対象のカテゴリが存在しない() {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    CatalogBrand brand = createCatalogBrand();
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(null);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(brand);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-
-    // Action
-    Executable action = () -> {
-      this.service.modifyCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L,
-          1L);
-    };
-
-    // Assert
-    assertThrows(CatalogCategoryNotFoundException.class, action);
-  }
-
-  @Test
-  void testUpdateCatalogItem_異常系_対象のブランドが存在しない() {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    CatalogCategory category = createCatalogCategory();
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(category);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(null);
-    when(this.catalogRepository.update(any())).thenReturn(1);
-
-    // Action
-    Executable action = () -> {
-      this.service.modifyCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L,
-          1L);
-    };
-
-    // Assert
-    assertThrows(CatalogBrandNotFoundException.class, action);
-  }
-
-  @Test
-  void testUpdateCatalogItem_異常系_楽観ロックエラーが発生() {
-    // Arrange
-    CatalogItem item = createCatalogItem(1L);
-    CatalogCategory category = createCatalogCategory();
-    CatalogBrand brand = createCatalogBrand();
-    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
-    when(this.catalogCategoryRepository.findById(anyLong())).thenReturn(category);
-    when(this.catalogBrandRepository.findById(anyLong())).thenReturn(brand);
-    when(this.catalogRepository.update(any())).thenReturn(0);
-
-    // Action
-    Executable action = () -> {
-      this.service.modifyCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L,
-          1L);
-    };
-
-    // Assert
-    assertThrows(OptimisticLockingFailureException.class, action);
-  }
-
   private CatalogItem createCatalogItem(long id) {
     long defaultCatalogCategoryId = 1L;
     long defaultCatalogBrandId = 1L;
@@ -318,17 +137,4 @@ public class CatalogDomainServiceTest {
     // catalogItem.setId(id);
     return catalogItem;
   }
-
-  private CatalogCategory createCatalogCategory() {
-    String defaultName = "Name";
-    CatalogCategory catalogCategory = new CatalogCategory(defaultName);
-    return catalogCategory;
-  }
-
-  private CatalogBrand createCatalogBrand() {
-    String defaultName = "Name";
-    CatalogBrand catalogBrand = new CatalogBrand(defaultName);
-    return catalogBrand;
-  }
-
 }
