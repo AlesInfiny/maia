@@ -92,3 +92,4 @@ Contributor Covenant は [Creative Commons Attribution 4.0 International Public 
 
 <!-- textlint-enable @textlint-rule/require-header-id, ja-technical-writing/sentence-length, @textlint-ja/no-synonyms, ja-technical-writing/max-ten, ja-technical-writing/no-doubled-joshi, ja-spacing/ja-space-between-half-and-full-width, ja-spacing/ja-space-around-link, ja-technical-writing/ja-no-mixed-period -->
 <!-- markdownlint-enable CMD001 -->
+<!-- cspell:ignore joshi -->
