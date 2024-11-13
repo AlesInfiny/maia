@@ -18,7 +18,7 @@ public class DresscaWebConfig {
   private CookieSettings cookieSettings;
 
   @Autowired(required = false)
-  public H2ServerConfig h2ServerConfig;
+  public H2ServerLauncher h2ServerLauncher;
 
   /**
    * BuyerIdFilter の設定。

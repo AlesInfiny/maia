@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 @Component
 @Profile("local")
-public class H2ServerConfig {
+public class H2ServerLauncher {
 
   private Server tcpServer;
 

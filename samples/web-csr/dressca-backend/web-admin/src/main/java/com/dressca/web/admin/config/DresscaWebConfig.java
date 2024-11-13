@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class DresscaWebConfig {
 
   @Autowired(required = false)
-  public H2ServerConfig h2ServerConfig;
+  public H2ServerLauncher h2ServerLauncher;
 }
