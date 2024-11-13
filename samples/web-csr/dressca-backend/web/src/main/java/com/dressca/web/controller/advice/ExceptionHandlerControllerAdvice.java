@@ -1,9 +1,11 @@
 package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
+import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
@@ -41,7 +43,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
   public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
       AuthenticationCredentialsNotFoundException e, HttpServletRequest req) {
-    apLog.error(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }
 
@@ -52,11 +54,25 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    * @param req リクエスト
    * @return ステータースコード404のレスポンス
    */
-  @ExceptionHandler(AuthorizationDeniedException.class)
+  @ExceptionHandler({ AuthorizationDeniedException.class, PermissionDeniedException.class })
   public ResponseEntity<String> handleAuthorizationDeniedException(
       AuthorizationDeniedException e, HttpServletRequest req) {
-    apLog.error(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * 楽観ロックエラーをステータスコード409で返却する。
+   * 
+   * @param e   楽観ロックエラー
+   * @param req リクエスト
+   * @return ステータスコード409のレスポンス
+   */
+  @ExceptionHandler(OptimisticLockingFailureException.class)
+  public ResponseEntity<String> handleOptimisticLockingFailureException(
+      OptimisticLockingFailureException e, HttpServletRequest req) {
+    apLog.warn(ExceptionUtils.getStackTrace(e));
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
   }
 
   /**

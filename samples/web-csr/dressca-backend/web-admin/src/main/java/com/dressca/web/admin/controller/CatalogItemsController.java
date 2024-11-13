@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogManagementApplicationService;
+import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
@@ -23,7 +23,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,7 +53,7 @@ import lombok.AllArgsConstructor;
 public class CatalogItemsController {
 
   @Autowired
-  private CatalogManagementApplicationService service;
+  private CatalogApplicationService service;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -104,7 +103,7 @@ public class CatalogItemsController {
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
 
-    List<CatalogItemResponse> items = this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
+    List<CatalogItemResponse> items = this.service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
@@ -117,6 +116,7 @@ public class CatalogItemsController {
    * 
    * @param postCatalogItemRequest 追加するカタログアイテム
    * @return 追加したカタログアイテム
+   * @throws PermissionDeniedException 認可エラー
    */
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponses(value = {
@@ -124,17 +124,14 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "401", description = "", content = @Content)
   })
   @PostMapping
-  @PreAuthorize(value = "hasRole('ADMIN')")
-  public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest) {
-    try {
-      this.service.addItemToCatalog(postCatalogItemRequest.getName(), postCatalogItemRequest.getDescription(),
-          new BigDecimal(postCatalogItemRequest.getPrice()), postCatalogItemRequest.getProductCode(),
-          postCatalogItemRequest.getCatalogCategoryId(), postCatalogItemRequest.getCatalogBrandId());
-    } catch (PermissionDeniedException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    }
+  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
+  public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest)
+      throws PermissionDeniedException {
+
+    this.service.addItemToCatalog(postCatalogItemRequest.getName(), postCatalogItemRequest.getDescription(),
+        new BigDecimal(postCatalogItemRequest.getPrice()), postCatalogItemRequest.getProductCode(),
+        postCatalogItemRequest.getCatalogCategoryId(), postCatalogItemRequest.getCatalogBrandId());
+
     return ResponseEntity.created(URI.create("catalog-items")).build();
   }
 
@@ -143,6 +140,7 @@ public class CatalogItemsController {
    * 
    * @param catalogItemId カタログアイテムID。
    * @return なし。
+   * @throws PermissionDeniedException 認可エラー
    */
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponses(value = {
@@ -151,14 +149,11 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "404", description = "", content = @Content)
   })
   @DeleteMapping("{catalogItemId}")
-  @PreAuthorize(value = "hasRole('ADMIN')")
-  public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId) {
+  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
+  public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
+      throws PermissionDeniedException {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
-    } catch (PermissionDeniedException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
@@ -173,6 +168,8 @@ public class CatalogItemsController {
    * @param catalogItemId         カタログアイテムID。
    * @param putCatalogItemRequest 更新するカタログアイテムの情報。
    * @return なし。
+   * @throws OptimisticLockingFailureException 楽観ロックエラー
+   * @throws PermissionDeniedException         認可エラー
    */
   @Operation(summary = "指定したIDのカタログアイテムの情報を更新します。", description = "指定したIDのカタログアイテムの情報を更新します。")
   @ApiResponses(value = {
@@ -182,19 +179,15 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "409", description = "更新の競合が発生。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
-  @PreAuthorize(value = "hasRole('ADMIN')")
+  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
-      @RequestBody PutCatalogItemRequest putCatalogItemRequest) {
-
+      @RequestBody PutCatalogItemRequest putCatalogItemRequest)
+      throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
       this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
           putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
           putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
           putCatalogItemRequest.getCatalogBrandId());
-    } catch (PermissionDeniedException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
@@ -203,8 +196,6 @@ public class CatalogItemsController {
       apLog.error(ExceptionUtils.getStackTrace(e));
       // ここでは発生を想定していないので、システムエラーとする。
       throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
-    } catch (OptimisticLockingFailureException e) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
     }
     return ResponseEntity.noContent().build();
   }

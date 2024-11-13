@@ -14,9 +14,11 @@ import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
@@ -52,11 +54,25 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * @param req リクエスト
    * @return ステータースコード404のレスポンス
    */
-  @ExceptionHandler(AuthorizationDeniedException.class)
+  @ExceptionHandler({ AuthorizationDeniedException.class, PermissionDeniedException.class })
   public ResponseEntity<String> handleAuthorizationDeniedException(
       AuthorizationDeniedException e, HttpServletRequest req) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * 楽観ロックエラーをステータスコード409で返却する。
+   * 
+   * @param e   楽観ロックエラー
+   * @param req リクエスト
+   * @return ステータスコード409のレスポンス
+   */
+  @ExceptionHandler(OptimisticLockingFailureException.class)
+  public ResponseEntity<String> handleOptimisticLockingFailureException(
+      OptimisticLockingFailureException e, HttpServletRequest req) {
+    apLog.warn(ExceptionUtils.getStackTrace(e));
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
   }
 
   /**

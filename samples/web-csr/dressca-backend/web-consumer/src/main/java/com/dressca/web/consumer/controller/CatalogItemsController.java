@@ -52,7 +52,7 @@ public class CatalogItemsController {
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<CatalogItemResponse> items = service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
+    List<CatalogItemResponse> items = service.getCatalogItemsByConsumer(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert)
         .collect(Collectors.toList());
     int totalCount = service.countCatalogItems(brandId, categoryId);
