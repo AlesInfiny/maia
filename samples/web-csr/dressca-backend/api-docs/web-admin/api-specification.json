@@ -237,6 +237,9 @@
           },
           "400": {
             "description": "リクエストエラー"
+          },
+          "401": {
+            "description": "認可エラー"
           }
         },
         "summary": "カタログアイテムを検索して返します.",
@@ -262,7 +265,7 @@
             "description": "成功。"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "認可エラー"
           }
         },
         "summary": "カタログにアイテムを追加します。",
@@ -291,10 +294,10 @@
             "description": "成功."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "認可エラー"
           },
           "404": {
-            "description": "Not Found"
+            "description": "対象のIDが存在しない。"
           }
         },
         "summary": "カタログから指定したカタログアイテム ID のアイテムを削除します。",
@@ -372,8 +375,11 @@
             },
             "description": "成功"
           },
+          "401": {
+            "description": "認可エラー"
+          },
           "404": {
-            "description": "Not Found"
+            "description": "対象のIDが存在しない。"
           }
         },
         "summary": "指定したIDのカタログアイテムを返します。",

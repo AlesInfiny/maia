@@ -68,10 +68,16 @@ public class CatalogApplicationService {
    * 
    * @param id カタログアイテムID
    * @return 条件に一致するカタログアイテム。
-   * @throws CatalogNotFoundException カタログアイテムが見つからなかった場合。
+   * @throws CatalogNotFoundException  カタログアイテムが見つからなかった場合。
+   * @throws PermissionDeniedException 取得権限がない場合。
    */
-  public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException {
+  public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException, PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG, new Object[] { id }, Locale.getDefault()));
+
+    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+      throw new PermissionDeniedException("getCatalogItem");
+    }
+
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
       throw new CatalogNotFoundException(id);
@@ -104,11 +110,17 @@ public class CatalogApplicationService {
    * @param page       ページ
    * @param pageSize   ページサイズ
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
+   * @throws PermissionDeniedException 取得権限がない場合。
    */
-  public List<CatalogItem> getCatalogItemsByAdmin(long brandId, long categoryId, int page, int pageSize) {
+  public List<CatalogItem> getCatalogItemsByAdmin(long brandId, long categoryId, int page, int pageSize)
+      throws PermissionDeniedException {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
+
+    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+      throw new PermissionDeniedException("getCatalogItemsByAdmin");
+    }
 
     return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }

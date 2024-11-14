@@ -62,7 +62,10 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsByAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
+  void testGetCatalogItemsByAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() throws PermissionDeniedException {
+    // Arrange
+    when(this.userStore.isInRole(anyString())).thenReturn(true);
+
     // Action
     service.getCatalogItemsByAdmin(1L, 1L, 0, 20);
 
@@ -71,19 +74,26 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsByConsumer_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
+  void testGetCatalogItemsByAdmin_異常系_カタログアイテムの一覧を取得する権限がない() {
+    // Arrange
+    when(this.userStore.isInRole(anyString())).thenReturn(false);
+
     // Action
-    service.getCatalogItemsByConsumer(1L, 1L, 0, 20);
+    Executable action = () -> {
+      service.getCatalogItemsByAdmin(1L, 1L, 0, 20);
+    };
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(anyLong(), anyLong(), anyInt(), anyInt());
+    assertThrows(PermissionDeniedException.class, action);
   }
 
   @Test
-  void testGetCatalogItem_正常系_リポジトリのfindByIdを1回呼出す() throws CatalogNotFoundException {
+  void testGetCatalogItem_正常系_リポジトリのfindByIdを1回呼出す() throws CatalogNotFoundException, PermissionDeniedException {
     // Arrange
-    CatalogItem catalogItem = createCatalogItem(1L);
+    long targetId = 1L;
+    CatalogItem catalogItem = createCatalogItem(targetId);
     when(this.catalogRepository.findById(anyLong())).thenReturn(catalogItem);
+    when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     service.getCatalogItem(1L);
@@ -96,6 +106,7 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItem_異常系_対象のアイテムが存在しない() {
     // Arrange
     when(this.catalogRepository.findById(anyLong())).thenReturn(null);
+    when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     Executable action = () -> {
@@ -104,6 +115,23 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     assertThrows(CatalogNotFoundException.class, action);
+  }
+
+  @Test
+  void testGetCatalogItem_異常系_カタログアイテムを取得する権限がない() {
+    // Arrange
+    long targetId = 1L;
+    CatalogItem item = createCatalogItem(targetId);
+    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
+    when(this.userStore.isInRole(anyString())).thenReturn(false);
+
+    // Action
+    Executable action = () -> {
+      this.service.getCatalogItem(anyLong());
+    };
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
   }
 
   @Test

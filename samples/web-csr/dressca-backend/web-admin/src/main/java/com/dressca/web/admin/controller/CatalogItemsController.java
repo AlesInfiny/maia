@@ -62,14 +62,16 @@ public class CatalogItemsController {
    * 
    * @param id ID。
    * @return カタログアイテム。
+   * @throws PermissionDeniedException 認可エラー
    */
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "404", description = "", content = @Content)
+      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @GetMapping("{id}")
-  public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) {
+  public ResponseEntity<CatalogItemResponse> getById(@PathVariable("id") long id) throws PermissionDeniedException {
     CatalogItem item;
     try {
       item = this.service.getCatalogItem(id);
@@ -90,18 +92,20 @@ public class CatalogItemsController {
    * @param page       ページ番号。未指定の場合は1。
    * @param pageSize   ページサイズ。未指定の場合は20。
    * @return カタログアイテムの一覧
+   * @throws PermissionDeniedException 認可エラー
    */
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content)
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content),
+      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content)
   })
   @GetMapping
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "0") int page,
-      @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
+      @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws PermissionDeniedException {
 
     List<CatalogItemResponse> items = this.service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert).collect(Collectors.toList());
@@ -121,7 +125,7 @@ public class CatalogItemsController {
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
-      @ApiResponse(responseCode = "401", description = "", content = @Content)
+      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content)
   })
   @PostMapping
   @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
@@ -145,8 +149,8 @@ public class CatalogItemsController {
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "401", description = "", content = @Content),
-      @ApiResponse(responseCode = "404", description = "", content = @Content)
+      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @DeleteMapping("{catalogItemId}")
   @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
