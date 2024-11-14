@@ -469,4 +469,4 @@ Apache License, Version 2.0 の本文を以下に示します。
 しかし、誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性は保証いたしません。
 当該情報に基づいて被ったいかなる損害について、一切責任を負いませんのであらかじめご了承ください。
 
-<!-- cSpell:ignore creativecommons -->
+<!-- cspell:ignore creativecommons -->
