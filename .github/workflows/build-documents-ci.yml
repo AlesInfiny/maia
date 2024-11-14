@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps
 name: ドキュメントのビルド (CI用)
 
 on:

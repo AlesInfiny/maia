@@ -1,4 +1,4 @@
-# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
 name: ドキュメントのビルドとリリース
 
 on:
