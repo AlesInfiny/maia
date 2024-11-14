@@ -3,6 +3,7 @@ import { showToast } from '@/services/notification/notificationService';
 import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
+import { i18n } from '@/locales/i18n';
 import {
   CustomErrorBase,
   UnauthorizedError,
@@ -22,6 +23,7 @@ export interface CustomErrorHandler {
 }
 
 export function createCustomErrorHandler(): CustomErrorHandler {
+  const { t } = i18n.global;
   const customErrorHandler: CustomErrorHandler = {
     install: (app: App) => {
       app.provide(customErrorHandlerKey, customErrorHandler);
@@ -48,19 +50,19 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               router.currentRoute.value.path.slice(1),
             );
             router.push({ name: 'authentication/login' });
-            showToast('ログインしてください。');
+            showToast(t('loginRequiredError'));
           }
         } else if (error instanceof NetworkError) {
           if (handlingNetworkError) {
             handlingNetworkError();
           } else {
-            showToast('ネットワークエラーが発生しました。');
+            showToast(t('networkError'));
           }
         } else if (error instanceof ServerError) {
           if (handlingServerError) {
             handlingServerError();
           } else {
-            showToast('サーバーエラーが発生しました。');
+            showToast(t('serverError'));
           }
         }
       } else {

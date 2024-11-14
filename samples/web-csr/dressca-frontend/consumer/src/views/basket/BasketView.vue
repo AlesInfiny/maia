@@ -8,14 +8,14 @@ import {
 import { showToast } from '@/services/notification/notificationService';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
 import Loading from '@/components/common/LoadingSpinner.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
-import { errorMessageFormat } from '@/shared/helpers/creationFrontErrorMessage';
+import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
 
 const state = reactive({
   showLoading: true,
@@ -28,7 +28,7 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
-const { t } = useI18n({ useScope: 'global' });
+const { t } = i18n.global;
 
 const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0;
@@ -44,11 +44,11 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   } catch (error) {
     if (!error.response) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToChangeQuantities'));
+        showToast(t('failedToChangeQuantities'));
       });
     } else {
       const message = errorMessageFormat(
-        t(error.response.exceptionId),
+        error.response.exceptionId,
         error.response.exceptionValues,
       );
       showToast(
@@ -56,6 +56,8 @@ const update = async (catalogItemId: number, newQuantity: number) => {
         error.response.exceptionId,
         error.response.title,
         error.response.detail,
+        error.response.status,
+        100000,
       );
     }
   }
@@ -68,7 +70,7 @@ const remove = async (catalogItemId: number) => {
   } catch (error: any) {
     if (!error.response) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToDeleteItems'));
+        showToast(t('failedToDeleteItems'));
       });
     } else {
       const message = errorMessageFormat(
@@ -96,7 +98,7 @@ onMounted(async () => {
   } catch (error) {
     if (!error.response) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToGetCarts'));
+        showToast(t('failedToGetCarts'));
       });
     } else {
       const message = errorMessageFormat(
@@ -126,7 +128,7 @@ onUnmounted(async () => {
     <div v-if="!state.showLoading">
       <div v-if="getAddedItemId && !!getAddedItem" class="mx-2">
         <span class="text-lg font-medium text-green-500">
-          {{ t('normalMessageList.addedItemsToBasket') }}
+          {{ t('addedItemsToBasket') }}
         </span>
         <div class="grid grid-cols-1 lg:grid-cols-3 mt-4 flex items-center">
           <img
@@ -145,22 +147,16 @@ onUnmounted(async () => {
 
       <div v-if="isEmpty()" class="mt-4 mx-2">
         <span class="text-2xl font-medium">
-          {{ t('normalMessageList.noItemsInBasket') }}
+          {{ t('noItemsInBasket') }}
         </span>
       </div>
       <div v-if="!isEmpty()" class="mt-8 mx-2">
-        <span class="text-2xl font-medium">
-          {{ t('labelTextList.contentsOfCarts') }}
-        </span>
+        <span class="text-2xl font-medium">現在のカートの中身</span>
         <div
           class="hidden lg:grid grid-cols-1 lg:grid-cols-5 mt-4 flex items-center"
         >
-          <div class="text-lg font-medium text-center lg:col-span-3">
-            {{ t('labelTextList.item') }}
-          </div>
-          <div class="text-lg font-medium text-right lg:col-span-1">
-            {{ t('labelTextList.quantity') }}
-          </div>
+          <div class="text-lg font-medium text-center lg:col-span-3">商品</div>
+          <div class="text-lg font-medium text-right lg:col-span-1">数量</div>
         </div>
         <div
           v-for="item in getBasket.basketItems"
@@ -178,19 +174,19 @@ onUnmounted(async () => {
           <table class="inline-block border-separate">
             <tbody>
               <tr>
-                <th>{{ t('labelTextList.totalExcludingTax') }}</th>
+                <th>税抜き合計</th>
                 <td>{{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}</td>
               </tr>
               <tr>
-                <th>{{ t('labelTextList.shippingFee') }}</th>
+                <th>送料</th>
                 <td>{{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}</td>
               </tr>
               <tr>
-                <th>{{ t('labelTextList.tax') }}</th>
+                <th>消費税</th>
                 <td>{{ toCurrencyJPY(getBasket.account?.consumptionTax) }}</td>
               </tr>
               <tr>
-                <th>{{ t('labelTextList.total') }}</th>
+                <th>合計</th>
                 <td class="">
                   {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
                 </td>
@@ -205,7 +201,7 @@ onUnmounted(async () => {
           type="submit"
           @click="goCatalog()"
         >
-          {{ t('buttonTextList.continueShopping') }}
+          買い物を続ける
         </button>
         <span v-if="!isEmpty()">
           <button
@@ -213,7 +209,7 @@ onUnmounted(async () => {
             type="submit"
             @click="order()"
           >
-            {{ t('buttonTextList.proceedToCheckout') }}
+            レジに進む
           </button>
         </span>
       </div>

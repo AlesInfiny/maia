@@ -1,14 +1,14 @@
-import { useI18n } from 'vue-i18n';
+import { i18n } from '@/locales/i18n';
 import { setLocale } from 'yup';
 
 export function configureYup(): void {
-  const { t } = useI18n({ useScope: 'global' });
+  const { t } = i18n.global;
   setLocale({
     mixed: {
-      required: t('validationTextList.required'),
+      required: t('required'),
     },
     string: {
-      email: t('validationTextList.email'),
+      email: t('email'),
     },
   });
 }

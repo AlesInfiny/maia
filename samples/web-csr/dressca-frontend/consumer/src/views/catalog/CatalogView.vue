@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
-import { useI18n } from 'vue-i18n';
+import { i18n } from '@/locales/i18n';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -24,7 +24,7 @@ const { getSpecialContents } = storeToRefs(specialContentStore);
 const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
-const { t } = useI18n({ useScope: 'global' });
+const { t } = i18n.global;
 
 const state = reactive({
   selectedCategory: 0,
@@ -43,11 +43,11 @@ const addBasket = async (catalogItemId: number) => {
   } catch (error) {
     if (!error.response) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToAddItemToCarts'));
+        showToast(t('failedToAddItemToCarts'));
       });
     } else {
       const message = errorMessageFormat(
-        t(error.response.exceptionId),
+        error.response.exceptionId,
         error.response.exceptionValues,
       );
       showToast(
@@ -55,6 +55,8 @@ const addBasket = async (catalogItemId: number) => {
         error.response.exceptionId,
         error.response.title,
         error.response.detail,
+        error.response.status,
+        100000,
       );
     }
   }
@@ -68,11 +70,11 @@ onMounted(async () => {
   } catch (error) {
     if (!error.response) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToGetItems'));
+        showToast(t('failedToGetItems'));
       });
     } else {
       const message = errorMessageFormat(
-        t(error.response.exceptionId),
+        error.response.exceptionId,
         error.response.exceptionValues,
       );
       showToast(
@@ -80,6 +82,8 @@ onMounted(async () => {
         error.response.exceptionId,
         error.response.title,
         error.response.detail,
+        error.response.status,
+        100000,
       );
     }
   }
@@ -110,7 +114,7 @@ watch([selectedCategory, selectedBrand], async () => {
         <div class="grid lg:gap-24 grid-cols-1 lg:grid-cols-2 my-4 text-lg">
           <div>
             <label class="mr-2 font-bold">
-              {{ t('labelTextList.category') }}
+              カテゴリ
               <select v-model="selectedCategory" class="w-48 border-2">
                 <option
                   v-for="category in getCategories"
@@ -124,7 +128,7 @@ watch([selectedCategory, selectedBrand], async () => {
           </div>
           <div class="mt-2 lg:mt-0">
             <label class="mr-2 font-bold">
-              {{ t('labelTextList.brand') }}
+              ブランド
               <select v-model="selectedBrand" class="w-48 border-2">
                 <option
                   v-for="brand in getBrands"
@@ -164,7 +168,7 @@ watch([selectedCategory, selectedBrand], async () => {
                     type="submit"
                     @click="addBasket(item.id)"
                   >
-                    {{ t('buttonTextList.putItemsInBasket') }}
+                    買い物かごに入れる
                   </button>
                 </div>
               </div>

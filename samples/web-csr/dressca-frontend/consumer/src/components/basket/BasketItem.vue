@@ -6,9 +6,7 @@ import * as yup from 'yup';
 import { useField, useForm } from 'vee-validate';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
-import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n({ useScope: 'global' });
 const props = defineProps<{
   item: BasketItemResponse;
 }>();
@@ -83,7 +81,7 @@ const remove = () => {
             :disabled="isUpdateDisabled"
             @click="update()"
           >
-            {{ t('buttonTextList.update') }}
+            更新
           </button>
         </div>
       </div>
@@ -95,7 +93,7 @@ const remove = () => {
       </div>
     </div>
     <div class="text-right mt-4 mr-3">
-      {{ t('labelTextList.subtotal') }}：
+      小計：
       <span>{{ toCurrencyJPY(item.subTotal) }}</span>
     </div>
   </div>

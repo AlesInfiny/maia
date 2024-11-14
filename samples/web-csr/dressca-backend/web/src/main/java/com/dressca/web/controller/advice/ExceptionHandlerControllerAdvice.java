@@ -57,7 +57,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+    String[] test = { "test", "tokyo" };
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, test);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
         ProblemDetailsConstant.SYSTEM_ERROR_TITLE,
@@ -76,7 +77,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+    String[] test = { "test", "tokyo" };
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, test);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
         ProblemDetailsConstant.SYSTEM_ERROR_TITLE,

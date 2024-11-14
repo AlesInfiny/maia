@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { i18n } from '@/locales/i18n';
 import { getOrder } from '@/services/ordering/ordering-service';
 import { showToast } from '@/services/notification/notificationService';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
@@ -21,7 +21,7 @@ const state = reactive({
 const { lastOrdered } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
-const { t } = useI18n({ useScope: 'global' });
+const { t } = i18n.global;
 
 const goCatalog = () => {
   router.push({ name: 'catalog' });
@@ -31,14 +31,14 @@ onMounted(async () => {
   try {
     state.lastOrdered = await getOrder(props.orderId);
   } catch (error) {
-    if (!error.response) {
+    if (error.response == null) {
       customErrorHandler.handle(error, () => {
-        showToast(t('toastMessageList.failedToOrderInformation'));
+        showToast(t('failedToOrderInformation'));
         router.push('/');
       });
     } else {
       const message = errorMessageFormat(
-        t(error.response.exceptionId),
+        error.response.exceptionId,
         error.response.exceptionValues,
       );
       showToast(
@@ -46,6 +46,8 @@ onMounted(async () => {
         error.response.exceptionId,
         error.response.title,
         error.response.detail,
+        error.response.status,
+        100000,
       );
       router.push('/');
     }
@@ -56,7 +58,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      {{ t('normalMessageList.orderingCompleted') }}
+      {{ t('orderingCompleted') }}
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
@@ -68,25 +70,25 @@ onMounted(async () => {
       >
         <tbody>
           <tr>
-            <td>{{ t('labelTextList.totalExcludingTax') }}</td>
+            <td>税抜き合計</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
-            <td>{{ t('labelTextList.shippingFee') }}</td>
+            <td>送料</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
-            <td>{{ t('labelTextList.tax') }}</td>
+            <td>消費税</td>
             <td class="text-right">
               {{ toCurrencyJPY(lastOrdered?.account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
-            <td>{{ t('labelTextList.total') }}</td>
+            <td>合計</td>
             <td class="text-right text-xl font-bold text-red-500">
               {{ toCurrencyJPY(lastOrdered?.account?.totalPrice) }}
             </td>
@@ -98,9 +100,7 @@ onMounted(async () => {
       >
         <tbody>
           <tr>
-            <td rowspan="5" class="w-24 pl-2 border-r">
-              {{ t('labelTextList.shippingAddress') }}
-            </td>
+            <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
             <td class="pl-2">{{ lastOrdered?.fullName }}</td>
           </tr>
           <tr>
@@ -134,12 +134,10 @@ onMounted(async () => {
             <div class="ml-2">
               <p>{{ item.itemOrdered?.name }}</p>
               <p class="mt-4">
-                {{
-                  `${t('labelTextList.price')}: ${toCurrencyJPY(item.unitPrice)}`
-                }}
+                {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
               </p>
               <p class="mt-4">
-                {{ `${t('labelTextList.quantity')}: ${item.quantity}` }}
+                {{ `数量: ${item.quantity}` }}
               </p>
               <p class="mt-4">
                 {{ toCurrencyJPY(item.subTotal) }}
@@ -155,7 +153,7 @@ onMounted(async () => {
         type="submit"
         @click="goCatalog()"
       >
-        {{ t('buttonTextList.continueShopping') }}
+        買い物を続ける
       </button>
     </div>
   </div>
