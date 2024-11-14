@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * サーバーエラーのハンドリングを行うクラスです（本番環境用）。
+ * サーバーエラーのハンドリングを行うクラスです。
  */
 @ControllerAdvice(basePackages = "com.dressca")
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
@@ -30,7 +30,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ProblemDetailsCreation problemDetailsCreation;
 
   /**
-   * その他の業務エラーをステータースコード500で返却する（本番環境、テスト環境用）。
+   * その他の業務エラーをステータースコード500で返却する。
    *
    * @param e   業務例外
    * @param req リクエスト
@@ -49,7 +49,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * その他のシステムエラーをステータースコード500で返却する（本番環境、テスト環境用）。
+   * その他のシステムエラーをステータースコード500で返却する。
    *
    * @param e   その他の例外
    * @param req リクエスト
@@ -57,8 +57,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
-    String[] test = { "test", "tokyo" };
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, test);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
         ProblemDetailsConstant.SYSTEM_ERROR_TITLE,
@@ -69,7 +68,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * 上記のいずれにも当てはまらない例外をステータースコード500で返却する（本番環境、テスト環境用）。
+   * 上記のいずれにも当てはまらない例外をステータースコード500で返却する。
    *
    * @param e   その他の例外
    * @param req リクエスト
@@ -77,8 +76,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    String[] test = { "test", "tokyo" };
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, test);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
         ProblemDetailsConstant.SYSTEM_ERROR_TITLE,
