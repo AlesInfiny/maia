@@ -93,7 +93,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
-    return this.getCatalogItems(brandId, categoryId, page, pageSize);
+    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 
   /**
@@ -110,7 +110,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
-    return this.getCatalogItems(brandId, categoryId, page, pageSize);
+    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 
   /**
@@ -248,9 +248,5 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0004_LOG, new Object[] {}, Locale.getDefault()));
 
     return this.categoryRepository.getAll();
-  }
-
-  private List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize) {
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 }
