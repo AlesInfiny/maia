@@ -1,4 +1,4 @@
-# cSpell:ignore mikepenz dorny
+# cspell:ignore mikepenz dorny
 name: azure-ad-b2c-sample CI
 
 on:

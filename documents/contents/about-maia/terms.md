@@ -448,7 +448,7 @@ Apache License, Version 2.0 の本文を以下に示します。
        same "printed page" as the copyright notice for easier
        identification within third-party archives.
 
-    Copyright © 2023 BIPROGY Inc. All rights reserved.
+    Copyright [yyyy] [name of copyright owner]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -469,4 +469,4 @@ Apache License, Version 2.0 の本文を以下に示します。
 しかし、誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性は保証いたしません。
 当該情報に基づいて被ったいかなる損害について、一切責任を負いませんのであらかじめご了承ください。
 
-<!-- cSpell:ignore creativecommons -->
+<!-- cspell:ignore creativecommons -->
