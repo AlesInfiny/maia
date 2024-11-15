@@ -58,85 +58,8 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 
 ## ドキュメント作成手順
 
-### ドキュメント作成環境の構築
-
-#### Visual Studio Code のインストール
-
-ドキュメント作成のエディターとして、 Visual Studio Code を利用します。
-以下のサイトから最新版の Visual Studio Code をインストールします。
-
-<https://code.visualstudio.com/download>
-
-#### Visual Studio Code の拡張機能のインストール
-
-Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
-クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
-
-はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
-
-![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
-
-このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
-
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-- [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
-- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
-- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
-
-![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
-
-AlesInfiny Maia OSS Edition のリポジトリは Github-flow で開発します。
-Visual Studio Code 上で Pull Request を発行する際には、以下の拡張機能をインストールします。
-
-- [Github Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-
-また、必要に応じて以下の拡張機能をインストールします。
-
-- [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
-- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
-- [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
-
-#### Node.js のインストール
-
-以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
-
-<https://nodejs.org/ja/>
-
-#### Node モジュールのインストール
-
-本リポジトリでは textlint を使用して、校正を自動化します。
-以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
-モジュールの更新も同じコマンドで実行できます。
-
-```plane
-npm ci
-```
-
-#### Pythonのインストール
-
-以下のサイトから、 Windows 用の最新版 Python をインストールします。
-インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
-
-<https://www.python.org/downloads/>
-
-コマンドプロンプトを管理者権限で起動します。
-以下のコマンドを実行して pip を更新します。
-
-```plain
-pip install --upgrade pip
-```
-
-#### Python モジュールのインストール
-
-本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
-また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
-以下のコマンドを実行して、必要なモジュールを一括でインストールします。
-モジュールの更新も同じコマンドで実行できます。
-
-```plain
-pip install -r requirements.txt
-```
+最初に「[ドキュメント作成環境の構築](#ドキュメント作成環境の構築)」に従って、ドキュメント作成環境を構築してください。
+ドキュメントの作成にあたり、以下の手順、規則に従って作成してください。
 
 ### ドキュメントの作成
 
@@ -390,5 +313,85 @@ Pull Request を発行すると、ドキュメントの体裁をチェックす�
 1. `Summary` から、 Lint エラーの詳細を確認します。
 
     ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
+
+## ドキュメント作成環境の構築
+
+### Visual Studio Code のインストール
+
+ドキュメント作成のエディターとして、 Visual Studio Code を利用します。
+以下のサイトから最新版の Visual Studio Code をインストールします。
+
+<https://code.visualstudio.com/download>
+
+### Visual Studio Code の拡張機能のインストール
+
+Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
+クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
+
+はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
+
+![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
+
+このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
+
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
+
+![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
+
+AlesInfiny Maia OSS Edition のリポジトリは Github-flow で開発します。
+Visual Studio Code 上で Pull Request を発行する際には、以下の拡張機能をインストールします。
+
+- [Github Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+
+また、必要に応じて以下の拡張機能をインストールします。
+
+- [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
+
+### Node.js のインストール
+
+以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
+
+<https://nodejs.org/ja/>
+
+### Node モジュールのインストール
+
+本リポジトリでは textlint を使用して、校正を自動化します。
+以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
+モジュールの更新も同じコマンドで実行できます。
+
+```plane
+npm ci
+```
+
+### Pythonのインストール
+
+以下のサイトから、 Windows 用の最新版 Python をインストールします。
+インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
+
+<https://www.python.org/downloads/>
+
+コマンドプロンプトを管理者権限で起動します。
+以下のコマンドを実行して pip を更新します。
+
+```plain
+pip install --upgrade pip
+```
+
+### Python モジュールのインストール
+
+本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
+また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
+以下のコマンドを実行して、必要なモジュールを一括でインストールします。
+モジュールの更新も同じコマンドで実行できます。
+
+```plain
+pip install -r requirements.txt
+```
 
 <!-- textlint-enable @textlint-rule/require-header-id -->
