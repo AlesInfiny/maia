@@ -342,11 +342,6 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 
 ![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
-AlesInfiny Maia OSS Edition のリポジトリは Github-flow で開発します。
-Visual Studio Code 上で Pull Request を発行する際には、以下の拡張機能をインストールします。
-
-- [Github Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-
 また、必要に応じて以下の拡張機能をインストールします。
 
 - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
