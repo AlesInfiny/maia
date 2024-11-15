@@ -297,23 +297,6 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
 
-### ドキュメントのマージ
-
-ドキュメントの作成後は main ブランチへのマージを行う Pull Request を発行して下さい。
-
-Pull Request を発行すると、ドキュメントの体裁をチェックする Github Actions のワークフローが自動実行されます。
-ワークフローでエラーが発生した場合は、エラーが解消されるようにドキュメントを修正してください。
-
-ワークフローで発生したエラー内容の確認方法は、以下の通りです。
-
-1. Pull Request でエラーが発生していることを確認し、`Details` で詳細を確認します。
-
-    ![Pull Request 上のエラー確認画面](readme-images/pull-request-error.png)
-
-1. `Summary` から、 Lint エラーの詳細を確認します。
-
-    ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
-
 ## ドキュメント作成環境の構築
 
 ### Visual Studio Code のインストール
