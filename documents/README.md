@@ -1,6 +1,6 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 <!-- markdownlint-disable-file CMD001 -->
-<!-- cspell:ignore hoge hogehoge -->
+<!-- cspell:ignore hoge -->
 # AlesInfiny Maia OSS Edition ドキュメントについて
 
 ## 本番環境
