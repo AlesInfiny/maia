@@ -297,6 +297,24 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
 
+### ドキュメントの自動検証
+
+各種 Linter を用いて、ドキュメントの体裁や表現、表記揺れを自動で検証できます。
+Visual Studio Code の [ターミナル] を開き、ルートディレクトリに移動して、以下のコマンドを実行してください。
+
+```plain
+npm run lint
+```
+
+markdownlint と textlint が実行され、エラーがある場合は表示されます。
+
+markdownlint と textlint を個別に実行したい場合は、それぞれ以下のコマンドを実行してください。
+
+```plain
+npm run lint:markdownlint-all
+npm run lint:textlint-all
+```
+
 ## ドキュメント作成環境の構築
 
 ### Visual Studio Code のインストール
