@@ -16,6 +16,7 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { i18n } from '@/locales/i18n';
+import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -40,25 +41,25 @@ const addBasket = async (catalogItemId: number) => {
   try {
     await addItemToBasket(catalogItemId);
     router.push({ name: 'basket' });
-  } catch (error) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToAddItemToCarts'));
-      });
-    } else {
-      const message = errorMessageFormat(
-        error.response.exceptionId,
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-        error.response.status,
-        100000,
-      );
-    }
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
+    });
   }
 };
 
@@ -67,25 +68,25 @@ onMounted(async () => {
   fetchCategoriesAndBrands();
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
-  } catch (error) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToGetItems'));
-      });
-    } else {
-      const message = errorMessageFormat(
-        error.response.exceptionId,
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-        error.response.status,
-        100000,
-      );
-    }
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
+    });
   }
   state.showLoading = false;
 });

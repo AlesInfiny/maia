@@ -8,6 +8,7 @@ import type { OrderResponse } from '@/generated/api-client/models/order-response
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
@@ -30,27 +31,26 @@ const goCatalog = () => {
 onMounted(async () => {
   try {
     state.lastOrdered = await getOrder(props.orderId);
-  } catch (error) {
-    if (error.response == null) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToOrderInformation'));
-        router.push('/');
-      });
-    } else {
-      const message = errorMessageFormat(
-        error.response.exceptionId,
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-        error.response.status,
-        100000,
-      );
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
       router.push('/');
-    }
+    });
   }
 });
 </script>

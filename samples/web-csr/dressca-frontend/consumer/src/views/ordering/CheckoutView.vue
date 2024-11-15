@@ -5,7 +5,6 @@ import { useUserStore } from '@/stores/user/user';
 import { postOrder } from '@/services/ordering/ordering-service';
 import { fetchBasket } from '@/services/basket/basket-service';
 import { showToast } from '@/services/notification/notificationService';
-
 import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
@@ -35,27 +34,26 @@ const checkout = async () => {
       getAddress.value.azanaAndOthers,
     );
     router.push({ name: 'ordering/done', params: { orderId } });
-  } catch (error) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToOrderItems'));
-        router.push({ name: 'error' });
-      });
-    } else {
-      const message = errorMessageFormat(
-        error.response.exceptionId,
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-        error.response.status,
-        100000,
-      );
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
       router.push({ name: 'error' });
-    }
+    });
   }
 };
 

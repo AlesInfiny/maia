@@ -41,25 +41,25 @@ const goCatalog = () => {
 const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity);
-  } catch (error) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToChangeQuantities'));
-      });
-    } else {
-      const message = errorMessageFormat(
-        error.response.exceptionId,
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-        error.response.status,
-        100000,
-      );
-    }
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
+    });
   }
 };
 
@@ -68,22 +68,24 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId);
   } catch (error: any) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToDeleteItems'));
-      });
-    } else {
-      const message = errorMessageFormat(
-        t(error.response.exceptionId),
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-      );
-    }
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
+    });
   }
 };
 
@@ -95,23 +97,25 @@ onMounted(async () => {
   state.showLoading = true;
   try {
     await fetchBasket();
-  } catch (error) {
-    if (!error.response) {
-      customErrorHandler.handle(error, () => {
+  } catch (error: any) {
+    customErrorHandler.handle(error, () => {
+      if (!error.response) {
         showToast(t('failedToGetCarts'));
-      });
-    } else {
-      const message = errorMessageFormat(
-        t(error.response.exceptionId),
-        error.response.exceptionValues,
-      );
-      showToast(
-        message,
-        error.response.exceptionId,
-        error.response.title,
-        error.response.detail,
-      );
-    }
+      } else {
+        const message = errorMessageFormat(
+          error.response.exceptionId,
+          error.response.exceptionValues,
+        );
+        showToast(
+          message,
+          error.response.exceptionId,
+          error.response.title,
+          error.response.detail,
+          error.response.status,
+          100000,
+        );
+      }
+    });
   } finally {
     state.showLoading = false;
   }

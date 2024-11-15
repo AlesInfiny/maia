@@ -2,19 +2,22 @@
 export abstract class CustomErrorBase extends Error {
   cause?: Error | null;
 
-  response?: ProblemDetails | null;
-
   constructor(message: string, cause?: Error) {
     super(message);
     // ラップ前のエラーを cause として保持
     this.cause = cause;
-    this.response = cause.response.data;
   }
 }
 
 export class HttpError extends CustomErrorBase {
-  constructor(message: string, cause?: Error) {
+  response?: ProblemDetails | null;
+
+  constructor(
+    message: string,
+    cause?: Error & { response?: { data?: ProblemDetails } },
+  ) {
     super(message, cause);
+    this.response = cause?.response?.data ?? null;
     this.name = 'HttpError';
   }
 }
