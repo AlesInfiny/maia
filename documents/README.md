@@ -297,22 +297,23 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
 
-### ドキュメントのマージ
+### ドキュメントの自動検証
 
-ドキュメントの作成後は main ブランチへのマージを行う Pull Request を発行して下さい。
+各種 Linter を用いて、ドキュメントの体裁や表現、表記揺れを自動で検証できます。
+Visual Studio Code の [ターミナル] を開き、ルートディレクトリに移動して、以下のコマンドを実行してください。
 
-Pull Request を発行すると、ドキュメントの体裁をチェックする Github Actions のワークフローが自動実行されます。
-ワークフローでエラーが発生した場合は、エラーが解消されるようにドキュメントを修正してください。
+```plain
+npm run lint
+```
 
-ワークフローで発生したエラー内容の確認方法は、以下の通りです。
+markdownlint と textlint が実行され、エラーがある場合は表示されます。
 
-1. Pull Request でエラーが発生していることを確認し、`Details` で詳細を確認します。
+markdownlint と textlint を個別に実行したい場合は、それぞれ以下のコマンドを実行してください。
 
-    ![Pull Request 上のエラー確認画面](readme-images/pull-request-error.png)
-
-1. `Summary` から、 Lint エラーの詳細を確認します。
-
-    ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
+```plain
+npm run lint:markdownlint-all
+npm run lint:textlint-all
+```
 
 ## ドキュメント作成環境の構築
 
