@@ -13,87 +13,68 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ## グローバルエラーハンドラーの設定 {#global-error-handler-setting}
 
 業務フロー上発生が想定されないエラーを捕捉し、ハンドリングするためのグローバルエラーハンドラーを設定します。
+エラーハンドラーはアプリケーションの共通部品なので、新しく`shared` フォルダーを作成し、下図の階層に、`global-error-handler.ts`を作成します。
 
-### グローバルエラーハンドラーの使用 {#use-global-error-handler}
-
-グローバルエラーハンドラーはアプリケーション全体で使用したいので、
-アプリケーションのエントリーポイントで、 Vue.js の [プラグイン](https://ja.vuejs.org/guide/reusability/plugins) として、グローバルにインストールします。
-
-``` ts title="main.ts" hl_lines="3 12"
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
-import App from './App.vue';
-import { router } from './router';
-
-const app = createApp(App);
-
-app.use(createPinia());
-app.use(router);
-
-app.use(globalErrorHandler);
-
-app.mount('#app');
+``` text title="フォルダー構造" linenums="0"
+<project-name>
+└─ src/
+  └─ shared/ ---------------------- アプリケーションの共通部品が配置されるフォルダー
+     └─ error-handler/
+        └─ global-error-handler.ts
 ```
 
-### グローバルエラーハンドラーの実装 {#implement-global-error-handler}
+グローバルエラーハンドラーは、 Vue.js の [プラグイン](https://ja.vuejs.org/guide/reusability/plugins) として実装します。
+プラグインは、アプリケーション全体で利用したい機能やコンポーネントがある場合に有用です。
 
-Vue.js アプリケーションで発生したエラーに対するハンドリングは、 Vue.js で用意されている [app.config.errorHandler](https://ja.vuejs.org/api/application#app-config-errorhandler) に実装します。
+??? example "グローバルエラーハンドラーの実装例"
+    Vue.js アプリケーションで発生したエラーに対するハンドリングは、 Vue.js で用意されている [app.config.errorHandler](https://ja.vuejs.org/api/application#app-config-errorhandler) に実装します。 JavaScript の構文エラーや、 Vue アプリケーション外の例外に対しては、[addEventListener()](https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener) メソッドを用いてイベントリスナーを追加することでハンドリングします。同期処理については [error](https://developer.mozilla.org/ja/docs/Web/API/Window/error_event) イベントを検知することでハンドリングし、 API 通信や I/O 処理のような非同期処理については [unhandledrejection](https://developer.mozilla.org/ja/docs/Web/API/Window/unhandledrejection_event) イベントを検知することで、ハンドリングします。
 
-```ts
-app.config.errorHandler = (
-  err: unknown,
-  instance: ComponentPublicInstance | null,
-  info: string,
-) => {
-  // Vue.js アプリケーションでのエラー発生時に実行したい処理
-};
-```
+    ```ts title="global-error-handler.ts"
+    import type { App, ComponentPublicInstance } from 'vue';
+    import { router } from '../../router';
 
-JavaScript の構文エラーや、 Vue アプリケーション外の例外に対しては、[addEventListener()](https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener) メソッドを用いてイベントリスナーを追加することでハンドリングします。
-同期処理については [error](https://developer.mozilla.org/ja/docs/Web/API/Window/error_event) イベントを検知することでハンドリングし、 API 通信や I/O 処理のような非同期処理については [unhandledrejection](https://developer.mozilla.org/ja/docs/Web/API/Window/unhandledrejection_event)
-イベントを検知することで、ハンドリングします。
+    export const globalErrorHandler = {
+      install(app: App) {
+        app.config.errorHandler = (
+        err: unknown,
+        instance: ComponentPublicInstance | null,
+        info: string,
+        ) => {
+        // Vue.js アプリケーションでのエラー発生時に実行したい処理
+        console.log(err, instance, info);
+        router.replace({ name: 'error' });
+        };
 
-```ts
-window.addEventListener('error', (event) => {
-  // 同期処理でのエラー発生時に実行したい処理
-});
+        window.addEventListener('error', (event) => {
+        // 同期処理でのエラー発生時に実行したい処理
+        console.log(event);
+        });
 
-window.addEventListener('unhandledrejection', (event) => {
-  // 非同期処理でのエラー発生時に実行したい処理
-});
-```
-
-これらを組み合わせたグローバルエラーハンドラーの実装例は以下の通りです。
-
-```ts title="global-error-handler.ts"
-import type { App, ComponentPublicInstance } from 'vue';
-import { router } from '../../router';
-
-export const globalErrorHandler = {
-  install(app: App) {
-    app.config.errorHandler = (
-    err: unknown,
-    instance: ComponentPublicInstance | null,
-    info: string,
-    ) => {
-    console.log(err, instance, info);
-    router.replace({ name: 'error' });
+        window.addEventListener('unhandledrejection', (event) => {
+        // 非同期処理でのエラー発生時に実行したい処理
+        console.log(event);
+        });
+      },
     };
+    ```
 
-    window.addEventListener('error', (event) => {
-    console.log(event);
-    });
+実装したグローバルエラーハンドラーを、アプリケーションのエントリーポイントでインストールします。
 
-    window.addEventListener('unhandledrejection', (event) => {
-    console.log(event);
-    });
-  },
-};
-```
+??? example "エントリーポイントの実装例"
 
-## カスタムエラーハンドラーの設定 {#custom-error-handler-setting}
+    ``` ts title="main.ts" hl_lines="3 12"
+    import { createApp } from 'vue';
+    import { createPinia } from 'pinia';
+    import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
+    import App from './App.vue';
+    import { router } from './router';
 
-業務フロー上発生が想定されるエラーを捕捉し、ハンドリングするためのカスタムエラーハンドラーを設定します。
+    const app = createApp(App);
 
-（今後追加予定）
+    app.use(createPinia());
+    app.use(router);
+
+    app.use(globalErrorHandler);
+
+    app.mount('#app');
+    ```
