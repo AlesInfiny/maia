@@ -239,14 +239,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 この拡張機能は、英単語のスペルミスを検出するために導入するものであり、コメントの多くはスペルミスに起因しています。
 必ず対応するようにしてください。
 
-複合語や技術用語は、辞書登録しないと誤検知されることがあります。
-[cspell.json] ファイルの `words` に単語を登録するようにしてください。
-
-コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参照して、各ページで抑制してください。
-CSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
-このページの上部にも設定してあります。
-
-<https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
+詳細は「[用語集の整理](#用語集の整理)」を参照してください。
 
 #### textlint
 
@@ -285,7 +278,8 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
     以下を参照して、ページ内に `cspell:ignore` を追加して、警告を除外する用語を追加してください。
     設定はページ最上部に記述します。
 
-    <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
+    - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
+    - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
 
 ### 各ページの title/description の設定
 
