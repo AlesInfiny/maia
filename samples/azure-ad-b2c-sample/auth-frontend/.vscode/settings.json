@@ -30,7 +30,6 @@
     "pinia",
     "rushstack",
     "stylelint",
-    "typecheck",
     "vite"
   ]
 }
