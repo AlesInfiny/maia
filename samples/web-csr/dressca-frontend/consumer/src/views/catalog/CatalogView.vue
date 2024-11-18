@@ -16,7 +16,8 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { isHttpError } from '@/shared/error-handler/custom-error-handler';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -41,23 +42,25 @@ const addBasket = async (catalogItemId: number) => {
   try {
     await addItemToBasket(catalogItemId);
     router.push({ name: 'basket' });
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToAddItemToCarts'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToAddItemToCarts'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
     });
   }
@@ -68,23 +71,25 @@ onMounted(async () => {
   fetchCategoriesAndBrands();
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToGetItems'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToGetItems'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
     });
   }

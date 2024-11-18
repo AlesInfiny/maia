@@ -11,7 +11,8 @@ import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { isHttpError } from '@/shared/error-handler/custom-error-handler';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -34,23 +35,25 @@ const checkout = async () => {
       getAddress.value.azanaAndOthers,
     );
     router.push({ name: 'ordering/done', params: { orderId } });
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToOrderItems'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToOrderItems'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
       router.push({ name: 'error' });
     });

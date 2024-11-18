@@ -46,7 +46,7 @@ export class ServerError extends HttpError {
 interface ProblemDetails {
   detail: string;
   exceptionId: string;
-  exceptionValue: string[];
+  exceptionValues: string[];
   instance: string;
   status: number;
   title: string;

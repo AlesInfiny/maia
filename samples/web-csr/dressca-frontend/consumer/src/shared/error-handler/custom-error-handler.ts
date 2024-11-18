@@ -4,12 +4,18 @@ import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import {
   CustomErrorBase,
+  HttpError,
   UnauthorizedError,
   NetworkError,
   ServerError,
 } from './custom-error';
+
+export const isHttpError = (error: unknown): error is HttpError => {
+  return error instanceof HttpError;
+};
 
 export interface CustomErrorHandler {
   install(app: App): void;
@@ -38,7 +44,6 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
-
         // エラーの種類によって共通処理を行う
         // switch だと instanceof での判定ができないため if 文で判定
         if (error instanceof UnauthorizedError) {
@@ -50,19 +55,60 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               router.currentRoute.value.path.slice(1),
             );
             router.push({ name: 'authentication/login' });
-            showToast(t('loginRequiredError'));
+            if (!error.response) {
+              showToast(t('loginRequiredError'));
+            } else {
+              const message = errorMessageFormat(
+                error.response.exceptionId,
+                error.response.exceptionValues,
+              );
+              showToast(
+                message,
+                error.response.exceptionId,
+                error.response.title,
+                error.response.detail,
+                error.response.status,
+                100000,
+              );
+            }
           }
         } else if (error instanceof NetworkError) {
           if (handlingNetworkError) {
             handlingNetworkError();
-          } else {
+          } else if (!error.response) {
             showToast(t('networkError'));
+          } else {
+            const message = errorMessageFormat(
+              error.response.exceptionId,
+              error.response.exceptionValues,
+            );
+            showToast(
+              message,
+              error.response.exceptionId,
+              error.response.title,
+              error.response.detail,
+              error.response.status,
+              100000,
+            );
           }
         } else if (error instanceof ServerError) {
           if (handlingServerError) {
             handlingServerError();
-          } else {
+          } else if (!error.response) {
             showToast(t('serverError'));
+          } else {
+            const message = errorMessageFormat(
+              error.response.exceptionId,
+              error.response.exceptionValues,
+            );
+            showToast(
+              message,
+              error.response.exceptionId,
+              error.response.title,
+              error.response.detail,
+              error.response.status,
+              100000,
+            );
           }
         }
       } else {

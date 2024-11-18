@@ -15,7 +15,8 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
-import { errorMessageFormat } from '@/shared/error-handler/creationFrontErrorMessage';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { isHttpError } from '@/shared/error-handler/custom-error-handler';
 
 const state = reactive({
   showLoading: true,
@@ -41,23 +42,25 @@ const goCatalog = () => {
 const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity);
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToChangeQuantities'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToChangeQuantities'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
     });
   }
@@ -67,23 +70,25 @@ const update = async (catalogItemId: number, newQuantity: number) => {
 const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId);
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToDeleteItems'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToDeleteItems'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
     });
   }
@@ -97,23 +102,25 @@ onMounted(async () => {
   state.showLoading = true;
   try {
     await fetchBasket();
-  } catch (error: any) {
+  } catch (error) {
     customErrorHandler.handle(error, () => {
-      if (!error.response) {
-        showToast(t('failedToGetCarts'));
-      } else {
-        const message = errorMessageFormat(
-          error.response.exceptionId,
-          error.response.exceptionValues,
-        );
-        showToast(
-          message,
-          error.response.exceptionId,
-          error.response.title,
-          error.response.detail,
-          error.response.status,
-          100000,
-        );
+      if (isHttpError(error)) {
+        if (!error.response) {
+          showToast(t('failedToGetCarts'));
+        } else {
+          const message = errorMessageFormat(
+            error.response.exceptionId,
+            error.response.exceptionValues,
+          );
+          showToast(
+            message,
+            error.response.exceptionId,
+            error.response.title,
+            error.response.detail,
+            error.response.status,
+            100000,
+          );
+        }
       }
     });
   } finally {
