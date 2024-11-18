@@ -36,23 +36,23 @@ description: Vue.js を用いた フロントエンドアプリケーション�
     export const globalErrorHandler = {
       install(app: App) {
         app.config.errorHandler = (
-        err: unknown,
-        instance: ComponentPublicInstance | null,
-        info: string,
+          err: unknown,
+          instance: ComponentPublicInstance | null,
+          info: string,
         ) => {
-        // Vue.js アプリケーションでのエラー発生時に実行したい処理
-        console.log(err, instance, info);
-        router.replace({ name: 'error' });
+          // Vue.js アプリケーションでのエラー発生時に実行したい処理
+          console.log(err, instance, info);
+          router.replace({ name: 'error' });
         };
 
         window.addEventListener('error', (event) => {
-        // 同期処理でのエラー発生時に実行したい処理
-        console.log(event);
+          // 同期処理でのエラー発生時に実行したい処理
+          console.log(event);
         });
 
         window.addEventListener('unhandledrejection', (event) => {
-        // 非同期処理でのエラー発生時に実行したい処理
-        console.log(event);
+          // 非同期処理でのエラー発生時に実行したい処理
+          console.log(event);
         });
       },
     };
