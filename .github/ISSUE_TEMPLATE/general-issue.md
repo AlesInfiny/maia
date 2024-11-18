@@ -23,4 +23,4 @@ assignees: ''
 
 ここにこの Issue の完了条件を箇条書きで記載します。
 
-<!-- textlint-enabled @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id -->

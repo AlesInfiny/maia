@@ -1,6 +1,6 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 <!-- markdownlint-disable-file CMD001 -->
-<!-- cSpell:ignore hoge hogehoge -->
+<!-- cspell:ignore hoge -->
 # AlesInfiny Maia OSS Edition ドキュメントについて
 
 ## 本番環境
@@ -58,85 +58,8 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 
 ## ドキュメント作成手順
 
-### ドキュメント作成環境の構築
-
-#### Visual Studio Code のインストール
-
-ドキュメント作成のエディターとして、 Visual Studio Code を利用します。
-以下のサイトから最新版の Visual Studio Code をインストールします。
-
-<https://code.visualstudio.com/download>
-
-#### Visual Studio Code の拡張機能のインストール
-
-Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
-クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
-
-はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
-
-![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
-
-このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
-
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-- [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
-- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
-- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
-
-![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
-
-AlesInfiny Maia OSS Edition のリポジトリは Github-flow で開発します。
-Visual Studio Code 上で Pull Request を発行する際には、以下の拡張機能をインストールします。
-
-- [Github Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-
-また、必要に応じて以下の拡張機能をインストールします。
-
-- [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
-- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
-- [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
-
-#### Node.js のインストール
-
-以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
-
-<https://nodejs.org/ja/>
-
-#### Node モジュールのインストール
-
-本リポジトリでは textlint を使用して、校正を自動化します。
-以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
-モジュールの更新も同じコマンドで実行できます。
-
-```plane
-npm ci
-```
-
-#### Pythonのインストール
-
-以下のサイトから、 Windows 用の最新版 Python をインストールします。
-インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
-
-<https://www.python.org/downloads/>
-
-コマンドプロンプトを管理者権限で起動します。
-以下のコマンドを実行して pip を更新します。
-
-```plain
-pip install --upgrade pip
-```
-
-#### Python モジュールのインストール
-
-本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
-また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
-以下のコマンドを実行して、必要なモジュールを一括でインストールします。
-モジュールの更新も同じコマンドで実行できます。
-
-```plain
-pip install -r requirements.txt
-```
+最初に「[ドキュメント作成環境の構築](#ドキュメント作成環境の構築)」に従って、ドキュメント作成環境を構築してください。
+ドキュメントの作成にあたり、以下の手順、規則に従って作成してください。
 
 ### ドキュメントの作成
 
@@ -233,20 +156,13 @@ markdownlint の拡張機能をインストールしていると、 [問題] ウ
 本リポジトリでは Markdown の体裁にエラーがあると、 Web サイトの発行が行えないようになっています。
 警告が出ている場合は、メッセージを読んで必ず解消しましょう。
 
-#### cSpell
+#### CSpell
 
-cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ます。
+CSpell の拡張機能をインストールしていると、 [問題] ウィンドウに未定義の単語の存在を知らせるコメントが出ます。
 この拡張機能は、英単語のスペルミスを検出するために導入するものであり、コメントの多くはスペルミスに起因しています。
 必ず対応するようにしてください。
 
-複合語や技術用語は、辞書登録しないと誤検知されることがあります。
-[cspell.json] ファイルの `words` に単語を登録するようにしてください。
-
-コード内や設定ファイル内の文字など、単語登録することが望ましくないと考える場合は、以下の記事を参照して、各ページで抑制してください。
-cSpell が実行されないようにするのではなく、そのページ内で使用する抑制しても良い単語を、ページの先頭に記述する方式で抑制しましょう。
-このページの上部にも設定してあります。
-
-<https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
+詳細は「[用語集の整理](#用語集の整理)」を参照してください。
 
 #### textlint
 
@@ -263,7 +179,7 @@ vscode-textlint の拡張機能をインストールしていると、 [問題] 
 
 # 解析ルールが無効になる場所
 
-<!-- textlint-enabled @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id -->
 ```
 
 詳細は以下を参照してください。
@@ -272,7 +188,7 @@ vscode-textlint の拡張機能をインストールしていると、 [問題] 
 
 ### 用語集の整理
 
-cSpell の拡張機能をインストールしていると、 [問題] ウィンドウに上記と同じようなスペルミスを指摘するコメントが出ます。
+CSpell の拡張機能をインストールしていると、 [問題] ウィンドウに上記と同じようなスペルミスを指摘するコメントが出ます。
 ドキュメントに関連する部分で警告が出る場合は対策を講じてください。
 対応方法は以下の通りです。
 
@@ -282,10 +198,11 @@ cSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 1. 特定のページでのみ使用する特殊な用語や略語の場合
 
-    以下を参照して、ページ内に `cSpell:ignore` を追加して、警告を除外する用語を追加してください。
+    以下を参照して、ページ内に `cspell:ignore` を追加して、警告を除外する用語を追加してください。
     設定はページ最上部に記述します。
 
-    <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
+    - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
+    - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
 
 ### 各ページの title/description の設定
 
@@ -380,21 +297,97 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
 
-### ドキュメントのマージ
+### ドキュメントの自動検証
 
-ドキュメントの作成後は main ブランチへのマージを行う Pull Request を発行して下さい。
+各種 Linter を用いて、ドキュメントの体裁や表現、表記揺れを自動で検証できます。
+Visual Studio Code の [ターミナル] を開き、ルートディレクトリに移動して、以下のコマンドを実行してください。
 
-Pull Request を発行すると、ドキュメントの体裁をチェックする Github Actions のワークフローが自動実行されます。
-ワークフローでエラーが発生した場合は、エラーが解消されるようにドキュメントを修正してください。
+```plain
+npm run lint
+```
 
-ワークフローで発生したエラー内容の確認方法は、以下の通りです。
+markdownlint と textlint が実行され、エラーがある場合は表示されます。
 
-1. Pull Request でエラーが発生していることを確認し、`Details` で詳細を確認します。
+markdownlint と textlint を個別に実行したい場合は、それぞれ以下のコマンドを実行してください。
 
-    ![Pull Request 上のエラー確認画面](readme-images/pull-request-error.png)
+```plain
+npm run lint:markdownlint-all
+npm run lint:textlint-all
+```
 
-1. `Summary` から、 Lint エラーの詳細を確認します。
+## ドキュメント作成環境の構築
 
-    ![ワークフローでエラーが発生した場合の詳細画面](readme-images/github-lint-error-results.png)
+### Visual Studio Code のインストール
+
+ドキュメント作成のエディターとして、 Visual Studio Code を利用します。
+以下のサイトから最新版の Visual Studio Code をインストールします。
+
+<https://code.visualstudio.com/download>
+
+### Visual Studio Code の拡張機能のインストール
+
+Visual Studio Code の [ファイル] メニューから [ワークスペースを開く] を選択します。
+クローンしたフォルダー内にある maia.code-workspace ファイルを選択して開きます。
+
+はじめてワークスペースを開いたとき、以下のようなダイアログが表示されるので、 [インストール] ボタンを押下します。
+
+![このリポジトリにお勧めの拡張機能をインストールしますか](readme-images/install-vscode-extensions.png)
+
+このダイアログ経由でインストールしなかった場合は、 [拡張機能] メニューから [推奨] のグループを開いて、以下の拡張機能をインストールします。
+
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
+
+![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
+
+また、必要に応じて以下の拡張機能をインストールします。
+
+- [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
+
+### Node.js のインストール
+
+以下のサイトから安定版の Node.js インストーラーをダウンロードし、インストールしてください。
+
+<https://nodejs.org/ja/>
+
+### Node モジュールのインストール
+
+本リポジトリでは textlint を使用して、校正を自動化します。
+以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
+モジュールの更新も同じコマンドで実行できます。
+
+```plane
+npm ci
+```
+
+### Pythonのインストール
+
+以下のサイトから、 Windows 用の最新版 Python をインストールします。
+インストール時に [Add Python 3.x to PATH] へチェックを入れてからインストールしてください。
+
+<https://www.python.org/downloads/>
+
+コマンドプロンプトを管理者権限で起動します。
+以下のコマンドを実行して pip を更新します。
+
+```plain
+pip install --upgrade pip
+```
+
+### Python モジュールのインストール
+
+本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
+また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
+以下のコマンドを実行して、必要なモジュールを一括でインストールします。
+モジュールの更新も同じコマンドで実行できます。
+
+```plain
+pip install -r requirements.txt
+```
 
 <!-- textlint-enable @textlint-rule/require-header-id -->

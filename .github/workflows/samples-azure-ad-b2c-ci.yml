@@ -1,4 +1,4 @@
-# cSpell:ignore mikepenz dorny
+# cspell:ignore mikepenz dorny
 name: azure-ad-b2c-sample CI
 
 on:
@@ -53,15 +53,15 @@ jobs:
 
       - id: run-lint
         name: lintの実行
-        run: npm run lint:ci >> /var/tmp/lint-result.txt 2>&1
+        run: npm run lint:ci:app >> /var/tmp/lint-result.txt 2>&1
 
-      - id: run-typecheck
+      - id: run-type-check
         name: TypeScript の型チェック
-        run: npm run typecheck >> /var/tmp/typecheck-result.txt 2>&1
+        run: npm run type-check:app >> /var/tmp/type-check-result.txt 2>&1
 
       - id: application-build
         name: アプリケーションのビルド
-        run: npm run build-only:dev >> /var/tmp/build-result.txt 2>&1
+        run: npm run build-only:dev:app >> /var/tmp/build-result.txt 2>&1
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
@@ -71,10 +71,10 @@ jobs:
           header: 'lintの結果 :pen:'
 
       - name: 型チェックの結果出力
-        if: ${{ success() || (failure() && steps.run-typecheck.conclusion == 'failure') }}
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-          body: /var/tmp/typecheck-result.txt
+          body: /var/tmp/type-check-result.txt
           header: '型チェックの結果 :pencil2:'
 
       - name: ビルドの結果出力
