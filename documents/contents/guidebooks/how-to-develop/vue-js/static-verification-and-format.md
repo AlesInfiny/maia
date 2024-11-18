@@ -3,7 +3,7 @@ title: Vue.js 開発手順
 description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
 ---
 
-<!-- cSpell:ignore parens rushstack stylelintrc -->
+<!-- cspell:ignore parens rushstack stylelintrc -->
 
 # 静的コード分析とフォーマット {#top}
 

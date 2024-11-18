@@ -4,7 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok -->
+<!-- cspell:ignore subprojects projectlombok -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 

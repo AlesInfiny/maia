@@ -40,4 +40,4 @@ npm run generate-client
 - [ ] 生成されたクライアントコードに差分がないか、差分に問題がないこと
 - [ ] アプリケーションの動作に問題がないこと
 
-<!-- textlint-enabled @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id -->

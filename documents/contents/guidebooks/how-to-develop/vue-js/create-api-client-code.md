@@ -29,13 +29,13 @@ npm install axios
 
 Open API Generator をインストールします。ターミナルで以下のコマンドを入力します。
 
-<!-- cSpell:disable -->
+<!-- cspell:disable -->
 
 ```terminal
 npm install -D @openapitools/openapi-generator-cli
 ```
 
-<!-- cSpell:enable -->
+<!-- cspell:enable -->
 
 ### Open API Generator の設定 {#settings-open-api-generator}
 
@@ -47,7 +47,7 @@ package.json の scripts セクションにタスクを追加します。
     ここで開発環境が Windows であり、 CI 環境が UNIX の場合には、開発環境では実行できていたコマンドが CI 環境では実行できないといった問題が発生します。
     そのため、 タスク中で OS コマンドを使用したい場合には、可能であれば [Node.jsのAPI :material-open-in-new:](https://nodejs.org/api/documentation.html){ target=_blank } で代替するほうがベターです。
 
-<!-- cSpell:disable -->
+<!-- cspell:disable -->
 
 ```json title="package.json"
 {
@@ -59,7 +59,7 @@ package.json の scripts セクションにタスクを追加します。
 }
 ```
 
-<!-- cSpell:enable -->
+<!-- cspell:enable -->
 
 openapi-generator-cli の generate コマンドのオプションについて説明します。
 

@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
+# cspell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
 site_name: AlesInfiny Maia OSS Edition
 site_url: https://maia.alesinfiny.org/
 docs_dir: contents
