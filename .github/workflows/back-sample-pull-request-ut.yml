@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore mikepenz dorny
+# cspell:ignore mikepenz dorny
 name: バックエンドサンプルAPに対するプルリクエスト時の単体テスト実行
 
 on:

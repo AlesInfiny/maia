@@ -137,7 +137,7 @@ Project Reference 機能については [Project References :material-open-in-ne
           "scripts": {
             "build": "run-p type-check \"build-only {@}\" --",
             "build-only": "vite build",
-            "typecheck": "vue-tsc --build --force"
+            "type-check": "vue-tsc --build --force"
           }
         }
         ```
