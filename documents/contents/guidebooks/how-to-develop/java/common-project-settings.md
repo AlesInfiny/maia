@@ -7,16 +7,17 @@ description: バックエンドで動作する Java アプリケーションの 
 <!-- cSpell:ignore subprojects projectlombok Dspring buildscript -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
+Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。
 
 ## マルチプロジェクト構成のための設定 {#config-multi-project}
 
 Spring Initializr を利用して作成したプロジェクトの雛型は、単一のプロジェクト構成を想定したものであるため、マルチプロジェクトとして動作するようにします。
 
-ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。以下のように、`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。
+ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。以下のように、`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。なお各プロジェクトの名前はフォルダー名（Spring Initializr で設定した Metadata : Artifact）に対応します。
 
 ```groovy title="{ルートプロジェクト}/settings.gradle"
-rootProject.name = 'ルートプロジェクトの名前'
-include 'サブプロジェクトの名前', 'サブプロジェクトの名前'
+rootProject.name = 'xx-system' // ルートプロジェクトの名前
+include 'application-core', 'infrastructure', 'web', 'batch', 'system-common' // サブプロジェクトの名前
 ```
 
 次に、ルートプロジェクトにある不要な記述を取り除きます。`build.gradle`から以下の項目を削除してください。
@@ -56,7 +57,7 @@ tasks.named('test') {
 ## ビルドスクリプトの共通化 {#common-build-script}
 
 ビルドをする上で、各サブプロジェクト共通の設定は、ルートプロジェクトの `build.gradle` 内の `subprojects` ブロックに定義します。
-ここに定義された内容は、全てのサブプロジェクトで定義したのと同等の扱いになります。
+ここに定義された内容は、全てのサブプロジェクトで定義したものと同等の扱いになります。
 Spring Initializr を利用して作成したプロジェクトには `subprojects` ブロックがないため、 `dependencies` ブロックの下部に以下の記述を追加します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
@@ -64,7 +65,9 @@ subprojects {
 }
 ```
 
-設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。なお、プラグインおよびライブラリの利用できるバージョンについては [Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank }を参照してください。
+設定内容はそれぞれのプロジェクトによりますが、一般的な設定項目について以降で解説します。
+プラグインおよびライブラリのバージョンについてはプロジェクトに合わせて適切に選定してください。
+特別な要件がない場合には [Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank }を参照して最新版を利用し、バージョンによるエラーについては適宜対応してください。
 
 ### プラグインの導入 {#common-plugin}
 
@@ -124,10 +127,9 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）として推奨す�
 
 #### Java プラグイン {#java-plugin}
 
-Java プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
+Java プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
 
-また、 Java プラグインや後述する各プラグインのタスクをカスタマイズする場合は、 `build.gradle` に設定を追加します。
-具体例として、 test タスクにおいて使用するプロファイルを変更するようカスタマイズする設定を示します。
+カスタマイズの具体例として、 test タスクにおいて使用するプロファイルを変更する設定を示します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 
@@ -143,14 +145,15 @@ subprojects {
 
 #### Checkstyle プラグイン {#checkstyle-plugin}
 
-Checkstyle プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
+Checkstyle プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-また、 Checkstyle を利用する場合、静的テストを実施する際のルールをインプットファイルで定義します。
+Checkstyle を利用する場合、静的テストを実行する際のルールをインプットファイルで定義します。
 [Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したルールを適用する場合、 Checkstyle が提供する [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
 独自のルールを定義したい場合には、このインプットファイルを編集してください。
-デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。フォルダーを追加して適切な位置に配置してください。
+
+デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。ダウンロードしたインプットファイルの名前を checkstyle.xml に変更した後、フォルダーを追加して適切な位置に配置してください。
 
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
@@ -171,14 +174,18 @@ subprojects {
 }
 ```
 
-さらに、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
+また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
+
+!!! info "Google Style を適用した CheckStyle のタスクでエラーが起きた場合の対処法"
+
+    Gradle がデフォルトで提供する CheckStyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank } を参照して、 CheckStyle の toolVersion に最新のバージョンを指定してください。
 
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
-SpotBugs プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
+SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
 
-また、 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
+SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
 このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
 フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
@@ -195,9 +202,9 @@ subprojects {
 
 #### JaCoCo プラグイン {#jacoco-plugin}
 
-JaCoCo プラグインのバージョン指定などを実施する `build.gradle` の設定は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
+JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
-なお、 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
+JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6 7 8 9 10"
 subprojects {
@@ -217,11 +224,21 @@ subprojects {
 ### フォーマッターの設定 {#formatter-settings}
 
 ソースコードのフォーマットの一貫性を保つために、統合開発環境で提供されている自動フォーマット機能を利用します。
-Visual Studio Code を利用する場合、[こちら :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting){ target=_blank } の設定を参照してください。
+ルートディレクトリ直下の .vscode フォルダーの `settings.json` に設定を追記します。
+.vscode フォルダーおよび `settings.json` がない場合は新規作成してください。
 
-また、上記の設定の他に、ソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう、 `settings.json` に以下を設定します。
+AlesInfiny Maia OSS Edition ではコーディング規約として [Google Java Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } を採用しています。
+Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting#_applying-formatter-settings){ target=_blank } を参照して、以下のように `settings.json` にフォーマッターを設定してください。
 
-```json title="settings.json"
+```json title=".vscode/settings.json"
+{
+  "java.format.settings.url": "フォーマッター xml ファイルの URL またはファイルパス"
+}
+```
+
+上記の設定の他にソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう以下を追加してください。
+
+```json title=".vscode/settings.json"
 {
   "[java]": {
     "editor.formatOnSave": true,
@@ -238,53 +255,61 @@ Visual Studio Code を利用する場合、[こちら :material-open-in-new:](ht
     このような警告の常態化は、対処を必要とする重要な警告が埋もれてしまうことになり、プロジェクトに悪影響を与えます。
     フォーマッターや静的テストのルールの緩和なども含め、警告が出ないように設定を調整してください。
 
-## プラグイン、依存ライブラリのバージョン定義一元化 {#version-definition-aggregation}
+ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+ターミナルで以下を実行してください。
 
-アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
-
-ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
-
-```groovy title="{ルートプロジェクト}/dependencies.gradle"
-ext {
-    // プラグインのバージョン
-    springBootVersion = 'x.x.x'
-    springDependencyManagementVersion = 'x.x.x'
-    // 依存ライブラリのバージョン
-    commonsLangVersion = 'x.x.x'
-    // ライブラリ定義文字列
-    supportDependencies = [
-        spring_boot_starter : 'org.springframework.boot:spring-boot-starter',
-        spring_boot_starter_test : 'org.springframework.boot:spring-boot-starter-test',
-        commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
-    ]
-}
+```winbatch title="バックエンドアプリケーションのビルド"
+./gradlew build
 ```
 
-!!! tip "dependencies.gradle に記載する情報の範囲について"
-    `dependencies.gradle` には依存ライブラリのバージョン部分のみを定義してもかまいません。
-    しかし、ライブラリ定義文字列全体を変数として定義することで、 GitHub が提供する依存関係監視ツール [Dependabot :material-open-in-new:](https://docs.github.com/ja/code-security/dependabot){ target=_blank } による通知が受けられます。
+??? info "ここまでの手順を実行した際の `{ルートプロジェクト}/build.gradle` の例"
 
-次に、上記ファイルをルートプロジェクトの `build.gradle` 内の `buildscript` ブロックで読み込みます。これにより、各サブプロジェクトからそれぞれの変数を参照できるようになります。
-以下に示す `buildscript` ブロックを、ルートプロジェクトの `build.gradle` の先頭に追加してください。
+    ```groovy title="{ルートプロジェクト}/build.gradle"
+    plugins {
+      id 'com.github.spotbugs' version 'x.x.x' apply false
+    }
 
-```groovy title="{ルートプロジェクト}/build.gradle"
-buildscript {
-  apply from: 'dependencies.gradle'
-}
-```
+    subprojects {
 
-各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
+      apply plugin: 'java'
+      apply plugin: 'jacoco'
+      apply plugin: 'checkstyle'
+      apply plugin: 'com.github.spotbugs'
 
-```groovy title="{サブプロジェクト}/build.gradle" hl_lines="3 4 8 9 10"
-plugins {
-  id 'java'
-  id 'org.springframework.boot' version "${springBootVersion}"
-  id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-}
+      dependencies {
+        // Lombok の設定
+        annotationProcessor 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        compileOnly 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+      }
 
-dependencies {
-  implementation supportDependencies.spring_boot_starter
-  implementation supportDependencies.commons_lang3
-  testImplementation supportDependencies.spring_boot_starter_test
-}
-```
+      test {
+        // UTテスト時はtestプロファイルを利用
+        jvmArgs=['-Dspring.profiles.active=test']
+        useJUnitPlatform()
+      }
+
+      checkstyle {
+        toolVersion = 'x.x.x'
+      }
+
+      spotbugs {
+        toolVersion = 'x.x.x'
+        excludeFilter.set(rootProject.file('フィルタファイルのパス'))
+        ignoreFailures = true
+      }
+
+      jacocoTestReport {
+        reports {
+          html.required = true
+        }
+        afterEvaluate {
+          classDirectories.setFrom(classDirectories.files.collect {
+            fileTree(dir: it, excludes: ['**/xxx/*', '**/yyy.class'])
+          })
+        }
+      }
+    }
+    ```
+    

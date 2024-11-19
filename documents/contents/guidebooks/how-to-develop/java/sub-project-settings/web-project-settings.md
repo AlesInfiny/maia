@@ -1,0 +1,185 @@
+---
+title: Java 編
+description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
+---
+
+# web プロジェクトの設定 {#top}
+
+web プロジェクトで必要な設定を解説します。
+
+## 依存ライブラリの設定 {#config-dependencies}
+
+web プロジェクトで利用を推奨するライブラリは以下の通りです。
+
+- `spring-boot-starter-web`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+
+- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+
+- `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
+
+- `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
+
+- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
+
+上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
+
+```groovy title="web/build.gradle"
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'com.h2database:h2:x.x.x'
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
+
+## 依存プロジェクトの設定 {#config-projects}
+
+web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
+  
+```groovy title="web/build.gradle"
+dependencies {
+  implementation project(':application-core')
+  implementation project(':infrastructure')
+  implementation project(':system-common')
+}
+```
+
+## Spring Boot の設定 {#config-spring}
+
+Spring Boot に関する主な設定は、 web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+設定できる項目については、以下を参照してください。
+
+- [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html){ target=_blank }
+- [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html){ target=_blank }
+- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/){ target=_blank }
+
+設定項目は多岐に渡るため、一般的に設定する項目について例示します。
+
+- データソース
+    - spring.datasource.driver-class-name： JDBC ドライバーの完全修飾名
+    - spring.datasource.url：データベースの JDBC URL
+    - spring.datasource.username：データベースのログインユーザー名
+    - spring.datasource.password：データベースのログインパスワード
+- データベース初期化設定
+    - spring.sql.init.mode：データベースの初期化有無
+- ロギング
+    - logging.xxx でロギングの各種設定が可能
+- MyBatis の設定
+    - mybatis.configuration.xxx で MyBatis の設定を記述可能
+- ヘルスチェック機能を含む Spring Boot Actuator に関する設定
+    - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
+    - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
+- バッチ処理
+    - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
+    - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+
+!!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
+
+    Spring Batch においては、バッチ処理の実行履歴やトランザクション管理など、ジョブ管理を行うメタデータテーブルを利用します。
+    `spring.batch.jdbc.initialize-schema=never` でメタデータテーブルの初期化を実施しない設定とした場合、メタデータテーブルは作成されません。
+    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、メタデータテーブルが存在しないエラーが発生しバッチ処理が正常に動作しません。
+    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
+    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
+
+## Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
+
+`springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
+以下に、 `application.properties` と `build.gradle` への設定内容を例示します。
+
+```properties title="web/src/main/resource/application.properties"
+# springdoc-openapi用のURLを指定
+springdoc.api-docs.path=/api-docs
+```
+
+```groovy title="web/build.gradle"
+plugins {
+  // Open API のプラグインを追加する。
+  id 'org.springdoc.openapi-gradle-plugin' version 'x.x.x'
+}
+
+// Open API 仕様書出力の作業ディレクトリを指定する。
+afterEvaluate {
+  tasks.named("forkedSpringBootRun") {
+  workingDir("$rootDir/api-docs")
+  }
+}
+// Open API 仕様書の出力先を指定する。
+openApi {
+  apiDocsUrl.set("http://localhost:8080/api-docs")
+  outputDir.set(file("$rootDir/api-docs"))
+  outputFileName.set("api-specification.json")
+}
+// ビルド時に Open API 仕様書の出力を行うよう設定する。
+build.dependsOn("generateOpenApiDocs")
+```
+
+ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+ターミナルで以下を実行してください。
+
+```winbatch title="web プロジェクトのビルド"
+./gradlew web:build
+```
+
+??? info "ここまでの手順を実行した際の `web/build.gradle` の例"
+
+    ```groovy title="web/build.gradle"
+    plugins {
+      id 'java'
+      id 'org.springframework.boot' version 'x.x.x'
+      id 'io.spring.dependency-management' version 'x.x.x'
+      // Open API のプラグインを追加する。
+      id 'org.springdoc.openapi-gradle-plugin' version 'x.x.x'
+    }
+
+    group = 'プロジェクトのグループ名'
+    version = 'x.x.x-SNAPSHOT'
+
+    java {
+      toolchain {
+        languageVersion = JavaLanguageVersion.of(x)
+      }
+    }
+
+    repositories {
+      mavenCentral()
+    }
+
+    dependencies {
+      implementation 'org.springframework.boot:spring-boot-starter-web'
+      implementation 'com.h2database:h2:x.x.x'
+      implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+      implementation 'org.springframework.boot:spring-boot-starter-actuator'
+      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      implementation project(':application-core')
+      implementation project(':infrastructure')
+      implementation project(':system-common')
+      // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
+    }
+
+    // Open API 仕様書出力の作業ディレクトリを指定する。
+    afterEvaluate {
+      tasks.named("forkedSpringBootRun") {
+        workingDir("$rootDir/api-docs")
+      }
+    }
+
+    // Open API 仕様書の出力先を指定する。
+    openApi {
+      apiDocsUrl.set("http://localhost:8080/api-docs")
+      outputDir.set(file("$rootDir/api-docs"))
+      outputFileName.set("api-specification.json")
+    }
+
+    // ビルド時に Open API 仕様書の出力を行うよう設定する。
+    build.dependsOn("generateOpenApiDocs")
+
+    tasks.named('test') {
+      useJUnitPlatform()
+    }
+    ```
+
+## CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}
+
+Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../../cors/index.md) を参照してください。

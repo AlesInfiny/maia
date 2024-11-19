@@ -51,12 +51,16 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     各サブプロジェクト全体で利用するパッケージがあれば登録します。
-    後続手順の [プロジェクトの共通設定](./common-project-settings.md) にて、後から追加できます。
-    登録すべき依存ライブラリについては、[プロジェクトの共通設定](./common-project-settings.md) を参照してください。
+    本ガイドでは後続手順の [プロジェクトの共通設定](./common-project-settings.md) にて追加するため設定不要 ( 任意 ) です。
 
 ## サブプロジェクトの作成 {#create-sub-projects}
 
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
+AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
+
+![推奨するサブプロジェクト](../../../images/guidebooks/how-to-develop/java/recommended-subproject-light.png#only-light){ loading=lazy }
+![推奨するサブプロジェクト](../../../images/guidebooks/how-to-develop/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
+
 以下、サブプロジェクト毎に異なる設定項目について説明します。
 その他の項目はルートプロジェクトと同様に設定してください。
 
@@ -79,8 +83,7 @@ Web 画面上の各種設定項目は以下の通りです。
 - Dependencies
 
     プロジェクトで利用するパッケージがあれば設定します。
-    後続手順の [サブプロジェクトの個別設定](./sub-project-settings.md) にて、後から追加できます。
-    各プロジェクトの依存ライブラリについては、[サブプロジェクトの個別設定](./sub-project-settings.md) を参照してください。
+    本ガイドでは後続手順の [サブプロジェクトの個別設定](./sub-project-settings/index.md) にて追加するため設定不要 ( 任意 ) です。
 
 ## ルートプロジェクトとサブプロジェクトの配置 {#put-projects}
 
