@@ -323,7 +323,7 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteCatalogItem(catalogItemId: number, options?: any): AxiosPromise<void> {
+        deleteCatalogItem(catalogItemId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteCatalogItem(catalogItemId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -333,7 +333,7 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getById(id: number, options?: any): AxiosPromise<PagedListOfCatalogItemResponse> {
+        getById(id: number, options?: RawAxiosRequestConfig): AxiosPromise<PagedListOfCatalogItemResponse> {
             return localVarFp.getById(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -346,7 +346,7 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: any): AxiosPromise<PagedListOfCatalogItemResponse> {
+        getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: RawAxiosRequestConfig): AxiosPromise<PagedListOfCatalogItemResponse> {
             return localVarFp.getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
@@ -356,7 +356,7 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCatalogItem(postCatalogItemRequest: PostCatalogItemRequest, options?: any): AxiosPromise<void> {
+        postCatalogItem(postCatalogItemRequest: PostCatalogItemRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.postCatalogItem(postCatalogItemRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -367,7 +367,7 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putCatalogItem(catalogItemId: number, putCatalogItemRequest: PutCatalogItemRequest, options?: any): AxiosPromise<void> {
+        putCatalogItem(catalogItemId: number, putCatalogItemRequest: PutCatalogItemRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.putCatalogItem(catalogItemId, putCatalogItemRequest, options).then((request) => request(axios, basePath));
         },
     };
