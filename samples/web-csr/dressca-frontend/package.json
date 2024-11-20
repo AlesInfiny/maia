@@ -13,6 +13,7 @@
     "mock:consumer": "npm run mock -w consumer"
   },
   "workspaces": [
-    "consumer"
+    "consumer",
+    "admin"
   ]
 }
