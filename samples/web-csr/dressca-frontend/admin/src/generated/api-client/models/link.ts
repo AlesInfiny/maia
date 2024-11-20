@@ -17,20 +17,20 @@
 /**
  * 
  * @export
- * @interface CatalogCategoryResponse
+ * @interface Link
  */
-export interface CatalogCategoryResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogCategoryResponse
-     */
-    'id': number;
+export interface Link {
     /**
      * 
      * @type {string}
-     * @memberof CatalogCategoryResponse
+     * @memberof Link
      */
-    'name': string;
+    'href'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Link
+     */
+    'templated'?: boolean;
 }
 

@@ -2,11 +2,11 @@
 .npmignore
 .openapi-generator-ignore
 api.ts
+api/actuator-api.ts
 api/assets-api.ts
 api/catalog-brands-api.ts
 api/catalog-categories-api.ts
 api/catalog-items-api.ts
-api/health-checks-api.ts
 api/users-api.ts
 base.ts
 common.ts
@@ -17,8 +17,8 @@ models/catalog-brand-response.ts
 models/catalog-category-response.ts
 models/catalog-item-response.ts
 models/index.ts
+models/link.ts
 models/paged-list-of-catalog-item-response.ts
 models/post-catalog-item-request.ts
-models/problem-details.ts
 models/put-catalog-item-request.ts
 models/user-response.ts
