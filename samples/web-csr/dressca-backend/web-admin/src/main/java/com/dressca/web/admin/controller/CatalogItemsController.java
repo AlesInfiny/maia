@@ -49,7 +49,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
-@PreAuthorize(value = "isAuthenticated()")
+@PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
 public class CatalogItemsController {
 
   @Autowired
@@ -67,7 +67,7 @@ public class CatalogItemsController {
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @GetMapping("{id}")
@@ -98,7 +98,8 @@ public class CatalogItemsController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content),
-      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content)
+      @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
+      @ApiResponse(responseCode = "404", description = "リソースアクセスエラー", content = @Content)
   })
   @GetMapping
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
@@ -125,10 +126,10 @@ public class CatalogItemsController {
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
-      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content)
+      @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
+      @ApiResponse(responseCode = "404", description = "リソースアクセスエラー", content = @Content)
   })
   @PostMapping
-  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest)
       throws PermissionDeniedException {
 
@@ -149,11 +150,10 @@ public class CatalogItemsController {
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。", description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @DeleteMapping("{catalogItemId}")
-  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
       throws PermissionDeniedException {
     try {
@@ -178,12 +178,11 @@ public class CatalogItemsController {
   @Operation(summary = "指定したIDのカタログアイテムの情報を更新します。", description = "指定したIDのカタログアイテムの情報を更新します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "401", description = "認可エラー", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content),
       @ApiResponse(responseCode = "409", description = "更新の競合が発生。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
-  @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
