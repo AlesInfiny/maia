@@ -1,3 +1,4 @@
+# cspell:ignore dblock elif fjogeleit openapitools Wandalen wretry
 name: openapi-generatorのバージョンアップ確認
 on:
   pull_request:
