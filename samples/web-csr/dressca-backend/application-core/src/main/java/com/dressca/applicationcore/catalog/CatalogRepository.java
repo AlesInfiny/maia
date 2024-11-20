@@ -51,4 +51,35 @@ public interface CatalogRepository {
    * @param pageSize データ取得行数の最大値
    */
   List<CatalogItem> findWithPaging(int skipRows, int pageSize);
+
+  /**
+   * 指定した ID のカタログアイテムを取得します。
+   *
+   * @param id カタログアイテムID
+   * @return 条件に一致するカタログアイテム
+   */
+  CatalogItem findById(long id);
+
+  /**
+   * カタログアイテムを追加します。
+   *
+   * @param item カタログアイテム
+   * @return 追加されたカタログアイテム
+   */
+  CatalogItem add(CatalogItem item);
+
+  /**
+   * カタログアイテムを削除します。
+   *
+   * @param item カタログアイテム
+   */
+  int remove(CatalogItem item);
+
+  /**
+   * カタログアイテムを更新します。
+   *
+   * @param item カタログアイテム
+   */
+  int update(CatalogItem item);
+
 }

@@ -2,12 +2,23 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Spring Boot-WebApplication<web>",
+      "name": "Spring Boot-WebApplication<consumer>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
-      "mainClass": "com.dressca.web.WebApplication",
-      "projectName": "web",
+      "mainClass": "com.dressca.web.consumer.WebApplication",
+      "projectName": "web-consumer",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-WebApplication<admin>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.dressca.web.admin.WebApplication",
+      "projectName": "web-admin",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
     },

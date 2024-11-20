@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-	id 'org.springdoc.openapi-gradle-plugin' version "${springdocOpenapiGradlePluginVersion}"
 }
 
 group = 'com.dressca'
@@ -42,18 +41,10 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
-afterEvaluate {
-    tasks.named("forkedSpringBootRun") {
-		workingDir("$rootDir/api-docs")
-	}
-}
-openApi {
-    apiDocsUrl.set("http://localhost:8080/api-docs")
-    outputDir.set(file("$rootDir/api-docs"))
-    outputFileName.set("api-specification.json")
-}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-build.dependsOn("generateOpenApiDocs")
+bootJar.enabled = false
+jar.enabled = true

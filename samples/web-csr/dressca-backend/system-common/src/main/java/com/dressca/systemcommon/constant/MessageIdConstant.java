@@ -56,4 +56,16 @@ public class MessageIdConstant {
 
   /** フィルタリング用のカタログカテゴリリストを取得します。 */
   public static final String D_CATALOG0004_LOG = "D_CATALOG0004.log";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを取得します。 */
+  public static final String D_CATALOG0005_LOG = "D_CATALOG0005.log";
+
+  /** カタログにアイテムを追加します。 */
+  public static final String D_CATALOG0006_LOG = "D_CATALOG0006.log";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを削除します。 */
+  public static final String D_CATALOG0007_LOG = "D_CATALOG0007.log";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを更新します。 */
+  public static final String D_CATALOG0008_LOG = "D_CATALOG0008.log";
 }

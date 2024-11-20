@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class CatalogDomainServiceTest {
   @Mock
-  private CatalogRepository repository;
+  private CatalogRepository catalogRepository;
+  @Mock
+  private CatalogBrandRepository catalogBrandRepository;
+  @Mock
+  private CatalogCategoryRepository catalogCategoryRepository;
   @InjectMocks
   private CatalogDomainService service;
 
@@ -34,13 +37,13 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     service.getExistCatalogItems(catalogItemIdsList);
 
     // Assert
-    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
   }
 
   @Test
@@ -49,7 +52,7 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = { 2L };
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     List<CatalogItem> actualItems = service.getExistCatalogItems(List.of(1L, 2L));
@@ -66,13 +69,13 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     service.existAll(catalogItemIdsList);
 
     // Assert
-    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
   }
 
   @Test
@@ -82,7 +85,7 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
@@ -97,7 +100,7 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = { 2L };
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
@@ -112,7 +115,7 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = {};
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
@@ -122,9 +125,8 @@ public class CatalogDomainServiceTest {
   }
 
   private CatalogItem createCatalogItem(long id) {
-    Random random = new Random();
-    long defaultCatalogCategoryId = random.nextInt(1000);
-    long defaultCatalogBrandId = random.nextInt(1000);
+    long defaultCatalogCategoryId = 1L;
+    long defaultCatalogBrandId = 1L;
     String defaultDescription = "Description.";
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
