@@ -6,6 +6,7 @@
     "dev": "vite --mode dev",
     "mock": "vite --mode mock",
     "build:dev": "run-p type-check build-only:dev",
+    "build:prod": "run-p type-check build-only:prod",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "start-server-and-test dev http://localhost:6173/ 'cypress open --e2e --browser chrome'",
