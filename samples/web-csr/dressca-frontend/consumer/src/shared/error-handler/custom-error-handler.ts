@@ -13,15 +13,12 @@ import {
   ServerError,
 } from './custom-error';
 
-export const isHttpError = (error: unknown): error is HttpError => {
-  return error instanceof HttpError;
-};
-
 export interface CustomErrorHandler {
   install(app: App): void;
   handle(
     error: unknown,
     callback: () => void,
+    handlingHttpError?: ((httpError: HttpError) => void) | null,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
     handlingServerError?: (() => void) | null,
@@ -37,6 +34,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
     handle: (
       error: unknown,
       callback: () => void,
+      handlingHttpError: ((httpError: HttpError) => void) | null = null,
       handlingUnauthorizedError: (() => void) | null = null,
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
@@ -44,19 +42,41 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
-        // エラーの種類によって共通処理を行う
-        // switch だと instanceof での判定ができないため if 文で判定
-        if (error instanceof UnauthorizedError) {
-          if (handlingUnauthorizedError) {
-            handlingUnauthorizedError();
-          } else {
-            const routingStore = useRoutingStore();
-            routingStore.setRedirectFrom(
-              router.currentRoute.value.path.slice(1),
-            );
-            router.push({ name: 'authentication/login' });
-            if (!error.response) {
-              showToast(t('loginRequiredError'));
+
+        if (error instanceof HttpError) {
+          // エラーの種類によって共通処理を行う
+          // switch だと instanceof での判定ができないため if 文で判定
+          if (error instanceof UnauthorizedError) {
+            if (handlingUnauthorizedError) {
+              handlingUnauthorizedError();
+            } else {
+              const routingStore = useRoutingStore();
+              routingStore.setRedirectFrom(
+                router.currentRoute.value.path.slice(1),
+              );
+              router.push({ name: 'authentication/login' });
+              if (!error.response) {
+                showToast(t('loginRequiredError'));
+              } else {
+                const message = errorMessageFormat(
+                  error.response.exceptionId,
+                  error.response.exceptionValues,
+                );
+                showToast(
+                  message,
+                  error.response.exceptionId,
+                  error.response.title,
+                  error.response.detail,
+                  error.response.status,
+                  100000,
+                );
+              }
+            }
+          } else if (error instanceof NetworkError) {
+            if (handlingNetworkError) {
+              handlingNetworkError();
+            } else if (!error.response) {
+              showToast(t('networkError'));
             } else {
               const message = errorMessageFormat(
                 error.response.exceptionId,
@@ -71,44 +91,27 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                 100000,
               );
             }
-          }
-        } else if (error instanceof NetworkError) {
-          if (handlingNetworkError) {
-            handlingNetworkError();
-          } else if (!error.response) {
-            showToast(t('networkError'));
-          } else {
-            const message = errorMessageFormat(
-              error.response.exceptionId,
-              error.response.exceptionValues,
-            );
-            showToast(
-              message,
-              error.response.exceptionId,
-              error.response.title,
-              error.response.detail,
-              error.response.status,
-              100000,
-            );
-          }
-        } else if (error instanceof ServerError) {
-          if (handlingServerError) {
-            handlingServerError();
-          } else if (!error.response) {
-            showToast(t('serverError'));
-          } else {
-            const message = errorMessageFormat(
-              error.response.exceptionId,
-              error.response.exceptionValues,
-            );
-            showToast(
-              message,
-              error.response.exceptionId,
-              error.response.title,
-              error.response.detail,
-              error.response.status,
-              100000,
-            );
+          } else if (error instanceof ServerError) {
+            if (handlingServerError) {
+              handlingServerError();
+            } else if (!error.response) {
+              showToast(t('serverError'));
+            } else {
+              const message = errorMessageFormat(
+                error.response.exceptionId,
+                error.response.exceptionValues,
+              );
+              showToast(
+                message,
+                error.response.exceptionId,
+                error.response.title,
+                error.response.detail,
+                error.response.status,
+                100000,
+              );
+            }
+          } else if (handlingHttpError) {
+            handlingHttpError(error);
           }
         }
       } else {

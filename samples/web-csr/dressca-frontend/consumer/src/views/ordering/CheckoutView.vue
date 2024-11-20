@@ -12,7 +12,7 @@ import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { isHttpError } from '@/shared/error-handler/custom-error-handler';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -36,30 +36,32 @@ const checkout = async () => {
     );
     router.push({ name: 'ordering/done', params: { orderId } });
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      if (isHttpError(error)) {
+    customErrorHandler.handle(
+      error,
+      () => {
+        router.push({ name: 'error' });
+      },
+      (httpError: HttpError) => {
         if (!error.response) {
           showToast(t('failedToOrderItems'));
         } else {
           const message = errorMessageFormat(
-            error.response.exceptionId,
-            error.response.exceptionValues,
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
           );
           showToast(
             message,
-            error.response.exceptionId,
-            error.response.title,
-            error.response.detail,
-            error.response.status,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
             100000,
           );
         }
-      }
-      router.push({ name: 'error' });
-    });
+      },
+    );
   }
 };
-
 onMounted(async () => {
   await fetchBasket();
   if (getBasket.value.basketItems?.length === 0) {

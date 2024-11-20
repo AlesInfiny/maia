@@ -9,7 +9,7 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { isHttpError } from '@/shared/error-handler/custom-error-handler';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
@@ -33,27 +33,30 @@ onMounted(async () => {
   try {
     state.lastOrdered = await getOrder(props.orderId);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      if (isHttpError(error)) {
+    customErrorHandler.handle(
+      error,
+      () => {
+        router.push('/');
+      },
+      (httpError: HttpError) => {
         if (!error.response) {
           showToast(t('failedToOrderInformation'));
         } else {
           const message = errorMessageFormat(
-            error.response.exceptionId,
-            error.response.exceptionValues,
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
           );
           showToast(
             message,
-            error.response.exceptionId,
-            error.response.title,
-            error.response.detail,
-            error.response.status,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
             100000,
           );
         }
-      }
-      router.push('/');
-    });
+      },
+    );
   }
 });
 </script>

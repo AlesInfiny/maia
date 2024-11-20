@@ -16,7 +16,7 @@ import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { isHttpError } from '@/shared/error-handler/custom-error-handler';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const state = reactive({
   showLoading: true,
@@ -43,26 +43,28 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      if (isHttpError(error)) {
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
         if (!error.response) {
           showToast(t('failedToChangeQuantities'));
         } else {
           const message = errorMessageFormat(
-            error.response.exceptionId,
-            error.response.exceptionValues,
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
           );
           showToast(
             message,
-            error.response.exceptionId,
-            error.response.title,
-            error.response.detail,
-            error.response.status,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
             100000,
           );
         }
-      }
-    });
+      },
+    );
   }
 };
 
@@ -71,26 +73,28 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      if (isHttpError(error)) {
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
         if (!error.response) {
           showToast(t('failedToDeleteItems'));
         } else {
           const message = errorMessageFormat(
-            error.response.exceptionId,
-            error.response.exceptionValues,
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
           );
           showToast(
             message,
-            error.response.exceptionId,
-            error.response.title,
-            error.response.detail,
-            error.response.status,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
             100000,
           );
         }
-      }
-    });
+      },
+    );
   }
 };
 
@@ -103,26 +107,28 @@ onMounted(async () => {
   try {
     await fetchBasket();
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      if (isHttpError(error)) {
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
         if (!error.response) {
           showToast(t('failedToGetCarts'));
         } else {
           const message = errorMessageFormat(
-            error.response.exceptionId,
-            error.response.exceptionValues,
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
           );
           showToast(
             message,
-            error.response.exceptionId,
-            error.response.title,
-            error.response.detail,
-            error.response.status,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
             100000,
           );
         }
-      }
-    });
+      },
+    );
   } finally {
     state.showLoading = false;
   }

@@ -72,7 +72,7 @@ watch(message, (newMessage) => {
             <div class="ml-2">{{ title }}</div>
           </div>
           <div v-if="detail" class="">
-            <div class="text-base font-bold text-stone-800 underline">
+            <div class="text-sm font-bold text-stone-800 underline">
               エラー詳細
             </div>
             <div
