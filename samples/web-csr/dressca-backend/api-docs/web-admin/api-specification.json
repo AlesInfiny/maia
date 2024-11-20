@@ -239,7 +239,10 @@
             "description": "リクエストエラー"
           },
           "401": {
-            "description": "認可エラー"
+            "description": "未認証エラー"
+          },
+          "404": {
+            "description": "リソースアクセスエラー"
           }
         },
         "summary": "カタログアイテムを検索して返します.",
@@ -265,7 +268,10 @@
             "description": "成功。"
           },
           "401": {
-            "description": "認可エラー"
+            "description": "未認証エラー"
+          },
+          "404": {
+            "description": "リソースアクセスエラー"
           }
         },
         "summary": "カタログにアイテムを追加します。",
@@ -294,7 +300,7 @@
             "description": "成功."
           },
           "401": {
-            "description": "認可エラー"
+            "description": "未認証エラー"
           },
           "404": {
             "description": "対象のIDが存在しない。"
@@ -334,7 +340,7 @@
             "description": "成功."
           },
           "401": {
-            "description": "認可エラー"
+            "description": "未認証エラー"
           },
           "404": {
             "description": "対象のIDが存在しない。"
@@ -376,7 +382,7 @@
             "description": "成功"
           },
           "401": {
-            "description": "認可エラー"
+            "description": "未認証エラー"
           },
           "404": {
             "description": "対象のIDが存在しない。"
