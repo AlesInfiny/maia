@@ -39,7 +39,7 @@ onMounted(async () => {
         router.push('/');
       },
       (httpError: HttpError) => {
-        if (!error.response) {
+        if (!httpError.response) {
           showToast(t('failedToOrderInformation'));
         } else {
           const message = errorMessageFormat(

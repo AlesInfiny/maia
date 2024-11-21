@@ -42,7 +42,7 @@ const checkout = async () => {
         router.push({ name: 'error' });
       },
       (httpError: HttpError) => {
-        if (!error.response) {
+        if (!httpError.response) {
           showToast(t('failedToOrderItems'));
         } else {
           const message = errorMessageFormat(

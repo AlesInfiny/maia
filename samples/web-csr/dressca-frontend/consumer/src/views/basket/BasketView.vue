@@ -47,7 +47,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!error.response) {
+        if (!httpError.response) {
           showToast(t('failedToChangeQuantities'));
         } else {
           const message = errorMessageFormat(
@@ -77,7 +77,7 @@ const remove = async (catalogItemId: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!error.response) {
+        if (!httpError.response) {
           showToast(t('failedToDeleteItems'));
         } else {
           const message = errorMessageFormat(
@@ -111,7 +111,7 @@ onMounted(async () => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!error.response) {
+        if (!httpError.response) {
           showToast(t('failedToGetCarts'));
         } else {
           const message = errorMessageFormat(
