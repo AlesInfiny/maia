@@ -51,7 +51,6 @@ body:
     attributes:
       label: ログ・スタックトレース
       description: スタックトレースなど、アプリケーションやビルドシステムの出力するログを添付してください。
-      render: text
   - type: checkboxes
     id: confirmation
     attributes:
