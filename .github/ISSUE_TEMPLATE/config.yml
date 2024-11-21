@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: セキュリティアドバイザリ
-    url: https://github.com/AlesInfiny/maris/security/advisories/new
+    url: https://github.com/AlesInfiny/maia/security/advisories/new
     about: セキュリティ関連の問題、脆弱性の報告はセキュリティアドバイザリのフォームからお願いします。
