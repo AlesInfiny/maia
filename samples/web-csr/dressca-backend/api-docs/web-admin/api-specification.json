@@ -375,7 +375,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedListOfCatalogItemResponse"
+                  "$ref": "#/components/schemas/CatalogItemResponse"
                 }
               }
             },
@@ -548,6 +548,10 @@
           },
           "productCode": {
             "type": "string"
+          },
+          "rowVersion": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -557,7 +561,8 @@
           "id",
           "name",
           "price",
-          "productCode"
+          "productCode",
+          "rowVersion"
         ]
       },
       "Link": {
@@ -617,10 +622,6 @@
           },
           "productCode": {
             "type": "string"
-          },
-          "rowVersion": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
@@ -655,6 +656,10 @@
           },
           "productCode": {
             "type": "string"
+          },
+          "rowVersion": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -663,7 +668,8 @@
           "description",
           "name",
           "price",
-          "productCode"
+          "productCode",
+          "rowVersion"
         ]
       },
       "UserResponse": {

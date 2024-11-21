@@ -66,7 +66,7 @@ public class CatalogItemsController {
    */
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CatalogItemResponse.class))),
       @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
@@ -154,7 +154,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
+  public ResponseEntity<Void> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
       throws PermissionDeniedException {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
@@ -183,14 +183,14 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "409", description = "更新の競合が発生。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<Void> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
       this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
           putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
           putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
-          putCatalogItemRequest.getCatalogBrandId());
+          putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion());
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
