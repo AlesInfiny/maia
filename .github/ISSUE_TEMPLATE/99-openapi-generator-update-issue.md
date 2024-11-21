@@ -7,8 +7,6 @@ labels: ''
 assignees: ''
 ---
 
-<!-- textlint-disable @textlint-rule/require-header-id -->
-
 ## 概要
 
 [openapi-generator](https://github.com/OpenAPITools/openapi-generator) のバージョンアップを検知しました。内容を確認のうえ、下記の通り対応してください。
@@ -39,5 +37,3 @@ npm run generate-client
 - [ ] openapitools.json の version が最新バージョンに更新されていること
 - [ ] 生成されたクライアントコードに差分がないか、差分に問題がないこと
 - [ ] アプリケーションの動作に問題がないこと
-
-<!-- textlint-enable @textlint-rule/require-header-id -->
