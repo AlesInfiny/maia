@@ -1,6 +1,7 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,6 @@ public class CatalogItemResponse {
   private long catalogCategoryId;
   @NotNull
   private long catalogBrandId;
+  @NotNull
+  private LocalDateTime rowVersion;
 }
