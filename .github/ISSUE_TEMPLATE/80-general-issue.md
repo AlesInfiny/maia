@@ -1,11 +1,10 @@
 ---
-name: general-Issue
+name: 汎用的な提案
 about: 汎用的なIssueのテンプレートです
 title: ''
 description: ''
 labels: ''
 assignees: ''
-
 ---
 
 <!-- textlint-disable @textlint-rule/require-header-id -->
