@@ -1,6 +1,6 @@
 ---
-name: 汎用的な提案
-about: 汎用的なIssueのテンプレートです
+name: （汎用）機能および課題の提案
+about: 汎用的な機能および課題を提案するテンプレートです。
 title: ''
 description: ''
 labels: ''
