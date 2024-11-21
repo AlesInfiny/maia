@@ -182,6 +182,7 @@ public class CatalogApplicationService {
    * @param productCode       商品コード。
    * @param catalogCategoryId カテゴリID。
    * @param catalogBrandId    ブランドID。
+   * @param rowVersion        行バージョン。
    * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
    * @throws PermissionDeniedException         更新権限がない場合。
    * @throws CatalogBrandNotFoundException     更新対象のカタログブランドが存在しなかった場合。
@@ -189,7 +190,7 @@ public class CatalogApplicationService {
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
-      long catalogCategoryId, long catalogBrandId)
+      long catalogCategoryId, long catalogBrandId, LocalDateTime rowVersion)
       throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
       CatalogCategoryNotFoundException, OptimisticLockingFailureException {
 
@@ -214,8 +215,8 @@ public class CatalogApplicationService {
     }
 
     CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId);
-    // 変更前の行バージョンを取得し、変更対象のカタログアイテムに追加
-    item.setRowVersion(currentCatalogItem.getRowVersion());
+    // 変更前の行バージョンを、変更対象のカタログアイテムに追加
+    item.setRowVersion(rowVersion);
 
     int updateRowCount = this.catalogRepository.update(item);
     if (updateRowCount == 0) {
