@@ -1,14 +1,11 @@
 ---
-name: general-Issue
-about: 汎用的なIssueのテンプレートです
+name: （汎用）機能および課題の提案
+about: 汎用的な機能および課題を提案するテンプレートです。
 title: ''
 description: ''
 labels: ''
 assignees: ''
-
 ---
-
-<!-- textlint-disable @textlint-rule/require-header-id -->
 
 ## 概要
 
@@ -22,5 +19,3 @@ assignees: ''
 ## 完了条件
 
 ここにこの Issue の完了条件を箇条書きで記載します。
-
-<!-- textlint-enable @textlint-rule/require-header-id -->
