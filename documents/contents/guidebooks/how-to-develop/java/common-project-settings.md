@@ -4,7 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok Dspring buildscript -->
+<!-- cSpell:ignore subprojects projectlombok Dspring applicationcore systemcommon -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。
@@ -100,7 +100,7 @@ plugins {
 ### 依存ライブラリの設定 {#common-dependencies}
 
 サブプロジェクト毎の役割に関わらず、システム全体で利用され得るライブラリについては、共通の依存ライブラリとして定義します。
-例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリとして定義する候補になります。
+例えば、ボイラープレートコードを削減するためのライブラリである Lombok などが共通の依存ライブラリです。
 
 設定の手順として、まずは Spring Initializr でルートプロジェクトの雛型作成の際に追加された `dependencies` ブロックを、 `subprojects` ブロック内に移動させます。
 その後、 `dependencies` ブロックに必要な依存ライブラリを以下のように追加します。
@@ -177,9 +177,9 @@ subprojects {
 また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
 
-!!! info "Google Style を適用した CheckStyle のタスクでエラーが起きた場合の対処法"
+!!! info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
 
-    Gradle がデフォルトで提供する CheckStyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank } を参照して、 CheckStyle の toolVersion に最新のバージョンを指定してください。
+    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank } を参照して、 Checkstyle の toolVersion に最新のバージョンを指定してください。
 
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
@@ -256,7 +256,8 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
     フォーマッターや静的テストのルールの緩和なども含め、警告が出ないように設定を調整してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
-ターミナルで以下を実行してください。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
+なお、以下のコマンドでビルドを実行すると、デフォルトで作成されたソースコードに対して Checkstyle の警告が出力されるので、出力内容に従って対処してください。
 
 ```winbatch title="バックエンドアプリケーションのビルド"
 ./gradlew build

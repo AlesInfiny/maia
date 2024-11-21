@@ -15,7 +15,7 @@ application-core プロジェクトで必要な設定を解説します。
 
 application-core プロジェクトは system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
-  
+
 ```groovy title="application-core/build.gradle"
 dependencies {
   implementation project(':system-common')
@@ -38,7 +38,7 @@ jar {
 ```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
-ターミナルで以下を実行してください。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```winbatch title="application-core プロジェクトのビルド"
 ./gradlew application-core:build

@@ -4,7 +4,6 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # サブプロジェクトの個別設定 {#top}
-<!-- cSpell:ignore springdoc datasource -->
 
 サブプロジェクト単位で個別に設定が必要な内容について解説します。
 

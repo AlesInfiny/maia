@@ -54,7 +54,7 @@ jar {
 ```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
-ターミナルで以下を実行してください。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```winbatch title="infrastructure プロジェクトのビルド"
 ./gradlew infrastructure:build

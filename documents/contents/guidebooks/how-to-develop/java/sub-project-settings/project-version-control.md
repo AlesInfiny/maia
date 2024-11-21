@@ -4,6 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # プラグイン、依存ライブラリのバージョン定義一元化 {#top}
+<!-- cSpell:ignore buildscript subprojects projectlombok Dspring -->
 
 アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
@@ -185,7 +186,7 @@ dependencies {
     ```
 
 バージョン定義一元化を実行した後に、適切にビルドが実行できるかを確認します。
-ターミナルで以下を実行してください。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```winbatch title="バックエンドアプリケーションのビルド"
 ./gradlew build

@@ -4,6 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # batch プロジェクトの設定 {#top}
+<!-- cSpell:ignore datasource -->
 
 batch プロジェクトで必要な設定を解説します。
 
@@ -40,8 +41,41 @@ dependencies {
 }
 ```
 
+## Spring Boot の設定 {#config-spring}
+
+batch プロジェクトに関する Spring Boot のプロパティ等を設定します。
+batch プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+設定できる項目については、以下を参照してください。
+
+- [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html){ target=_blank }
+- [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html){ target=_blank }
+- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/){ target=_blank }
+
+設定項目は多岐に渡るため、一般的に設定する項目について例示します。
+
+- データソース
+    - spring.datasource.driver-class-name： JDBC ドライバーの完全修飾名
+    - spring.datasource.url：データベースの JDBC URL
+    - spring.datasource.username：データベースのログインユーザー名
+    - spring.datasource.password：データベースのログインパスワード
+- データベース初期化設定
+    - spring.sql.init.mode：データベースの初期化有無
+- MyBatis の設定
+    - mybatis.configuration.xxx で MyBatis の設定を記述可能
+- バッチ処理
+    - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
+    - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+
+!!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
+
+    Spring Batch においては、バッチ処理の実行履歴やトランザクション管理など、ジョブ管理を行うメタデータテーブルを利用します。
+    `spring.batch.jdbc.initialize-schema=never` でメタデータテーブルの初期化を実施しない設定とした場合、メタデータテーブルは作成されません。
+    しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、メタデータテーブルが存在しないエラーが発生しバッチ処理が正常に動作しません。
+    そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
+    バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
+
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
-ターミナルで以下を実行してください。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```winbatch title="batch プロジェクトのビルド"
 ./gradlew batch:build
