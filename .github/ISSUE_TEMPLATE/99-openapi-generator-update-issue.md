@@ -1,6 +1,6 @@
 ---
-name: openapi-generator-update-issue
-about: openapi-generatorのアップデート用のIssueのテンプレートです
+name: Open APIジェネレーターのアップデート
+about: openapi-generatorのアップデートを促すIssueのテンプレートです。
 title: "[{{ env.TARGET_APP_NAME }}]openapi-generatorをアップデートする from {{ env.CURRENT_VERSION }} to {{ env.LATEST_VERSION }}"
 description: ''
 labels: ''
