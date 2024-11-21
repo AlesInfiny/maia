@@ -7,8 +7,6 @@ labels: ''
 assignees: ''
 ---
 
-<!-- textlint-disable @textlint-rule/require-header-id -->
-
 ## 概要
 
 ここに問題点やバグなど、現在の状態ややるべきことの簡単な説明を記述します。
@@ -21,5 +19,3 @@ assignees: ''
 ## 完了条件
 
 ここにこの Issue の完了条件を箇条書きで記載します。
-
-<!-- textlint-enable @textlint-rule/require-header-id -->
