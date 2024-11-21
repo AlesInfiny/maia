@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         不具合の報告にご協力いただきありがとうございます！
-        報告したい不具合が機密情報を含むセキュリティ関連の問題、脆弱性である場合、 [Open a draft security advisory](https://github.com/AlesInfiny/maris/security/advisories/new) から報告するようお願いします。
+        報告したい不具合が機密情報を含むセキュリティ関連の問題、脆弱性である場合、 [Open a draft security advisory](https://github.com/AlesInfiny/maia/security/advisories/new) から報告するようお願いします。
   - type: textarea
     id: expected-behavior
     attributes:
@@ -58,7 +58,7 @@ body:
       label: 確認
       description: 以下の項目の確認および同意ができたら、チェックボックスをオンにしてください。
       options:
-        - label: 報告しようとしている不具合がセキュリティ関連の問題、脆弱性に関するものではないことを確認しました。セキュリティ関連の問題、脆弱性の場合は [Open a draft security advisory](https://github.com/AlesInfiny/maris/security/advisories/new) から報告してください。
+        - label: 報告しようとしている不具合がセキュリティ関連の問題、脆弱性に関するものではないことを確認しました。セキュリティ関連の問題、脆弱性の場合は [Open a draft security advisory](https://github.com/AlesInfiny/maia/security/advisories/new) から報告してください。
           required: true
         - label: 報告しようとしている不具合が [Issues](https://github.com/AlesInfiny/maia/issues) および [Discussions](https://github.com/AlesInfiny/maia/discussions) に登録されていないことを確認しました。
           required: true
