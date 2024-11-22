@@ -16,7 +16,7 @@ body:
     attributes:
       label: 現在の機能やドキュメントに関する問題点
       description: 現在提供している機能やドキュメントの問題点や不足について説明してください。必要に応じてスクリーンショットや GIF アニメを含めてください。
-      placeholder: ex. 私は xx をしようとしています。しかし、 xx です。
+      placeholder: ex. 私は 〇〇 をしようとしています。しかし、 xx です。
     validations:
       required: true
   - type: textarea
