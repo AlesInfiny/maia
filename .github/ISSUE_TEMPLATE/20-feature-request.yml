@@ -1,0 +1,48 @@
+name: 機能要求
+description: 新しい機能やドキュメントの追加を要求するためのテンプレートです。
+title: "[New feature]: "
+labels: ["not triaged"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        新しい機能・ドキュメントの要望をいただきありがとうございます！
+        類似の機能およびドキュメントが、 Issue / プルリクエスト / Discussions に登録されていないことを確認してください。
+        - [Issues](https://github.com/AlesInfiny/maia/issues)
+        - [プルリクエスト](https://github.com/AlesInfiny/maia/pulls)
+        - [Discussions](https://github.com/AlesInfiny/maia/discussions)
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 現在の機能やドキュメントに関する問題点
+      description: 現在提供している機能やドキュメントの問題点や不足について説明してください。必要に応じてスクリーンショットや GIF アニメを含めてください。
+      placeholder: ex. 私は xx をしようとしています。しかし、 xx です。
+    validations:
+      required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: 必要な解決策
+      description: 問題点を解決するために、あなたが必要としている機能やドキュメントの概要を説明してください。具体的な解決策を検討されている場合は、その内容もあわせて記載ください。
+    validations:
+      required: true
+  - type: textarea
+    id: good-and-bad-influences
+    attributes:
+      label: 良い影響と悪い影響
+      description: 新しい機能・ドキュメントの追加によって発生することが予想される良い影響、悪い影響があれば記述してください。
+  - type: textarea
+    id: scope-of-impact
+    attributes:
+      label: 影響範囲
+      description: 機能やドキュメントの追加および修正によって、どのような人がどの程度その恩恵を受けるか説明してください。
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 確認
+      description: 以下の項目の確認および同意ができたら、チェックボックスをオンにしてください。
+      options:
+        - label: 要求しようとしている機能およびドキュメントが、既に [Issues](https://github.com/AlesInfiny/maia/issues) や [プルリクエスト](https://github.com/AlesInfiny/maia/pulls) 、 [Discussions](https://github.com/AlesInfiny/maia/discussions) に登録されていないことを確認しました。
+          required: true
+        - label: 私たちの [行動規範](https://github.com/AlesInfiny/maia/blob/main/.github/CODE_OF_CONDUCT.md) に従うことを同意します。
+          required: true
