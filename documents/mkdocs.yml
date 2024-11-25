@@ -191,6 +191,7 @@ extra_css:
 
 plugins:
   - git-revision-date-localized:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
       enable_creation_date: true
       timezone: Asia/Tokyo
       type: date
