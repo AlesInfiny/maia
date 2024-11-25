@@ -9,7 +9,7 @@ AlesInfiny Maia OSS Edition は現代の Java システム開発において標�
 ## Getting Started
 
 AlesInfiny Maia OSS Edition は、以下の Web サイトを通じて最新バージョンを公開しています。
-ドキュメントの閲覧やサンプルアプリケーションのダウンロードは、 Web サイトをご覧ください。
+ドキュメントの閲覧やサンプルアプリケーションのダウンロードは、 Web サイトから行ってください。
 
 <https://maia.alesinfiny.org/>
 
