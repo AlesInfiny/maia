@@ -97,7 +97,7 @@ export const CatalogBrandsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrands(options?: RawAxiosRequestConfig): AxiosPromise<Array<CatalogBrandResponse>> {
+        getCatalogBrands(options?: any): AxiosPromise<Array<CatalogBrandResponse>> {
             return localVarFp.getCatalogBrands(options).then((request) => request(axios, basePath));
         },
     };

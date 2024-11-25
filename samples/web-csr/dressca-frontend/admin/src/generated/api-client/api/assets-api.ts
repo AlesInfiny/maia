@@ -101,7 +101,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(assetCode: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+        get(assetCode: string, options?: any): AxiosPromise<File> {
             return localVarFp.get(assetCode, options).then((request) => request(axios, basePath));
         },
     };
