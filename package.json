@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "run-s lint:* --continue-on-error --print-label",
     "lint:markdownlint-all": "npx markdownlint-cli2",
-    "lint:textlint-all": "npx textlint documents samples"
+    "lint:textlint-all": "npx textlint documents samples .github"
   },
   "devDependencies": {
     "@textlint-ja/textlint-rule-no-synonyms": "^1.3.0",
