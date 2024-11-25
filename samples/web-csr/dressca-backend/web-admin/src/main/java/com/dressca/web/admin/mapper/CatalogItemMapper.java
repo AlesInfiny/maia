@@ -27,6 +27,7 @@ public class CatalogItemMapper {
         .collect(Collectors.toList());
 
     return new CatalogItemResponse(item.getId(), item.getName(), item.getProductCode(), assetCodes,
-        item.getDescription(), item.getPrice(), item.getCatalogCategoryId(), item.getCatalogBrandId());
+        item.getDescription(), item.getPrice(), item.getCatalogCategoryId(), item.getCatalogBrandId(),
+        item.getRowVersion());
   }
 }

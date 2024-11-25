@@ -1,5 +1,6 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
+import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,6 @@ public class PutCatalogItemRequest {
   public long catalogCategoryId;
   @NotNull
   public long catalogBrandId;
+  @NotNull
+  public LocalDateTime rowVersion;
 }
