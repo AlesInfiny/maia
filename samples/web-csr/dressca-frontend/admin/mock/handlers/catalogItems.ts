@@ -18,24 +18,8 @@ export const catalogItemsHandlers = [
   }),
   http.post<never, PostCatalogItemRequest, never>(
     '/api/catalog-items',
-    async ({ request }) => {
-      const body = await request.json();
-      let status;
-      switch (body.name) {
-        case '400':
-          status = HttpStatusCode.BadRequest;
-          break;
-        case '401':
-          status = HttpStatusCode.Unauthorized;
-          break;
-        case '500':
-          status = HttpStatusCode.InternalServerError;
-          break;
-        default:
-          status = HttpStatusCode.Created;
-          break;
-      }
-      return new HttpResponse(null, { status });
+    async () => {
+      return new HttpResponse(null, { status: HttpStatusCode.Created });
     },
   ),
   http.get<
@@ -50,54 +34,13 @@ export const catalogItemsHandlers = [
     );
     return HttpResponse.json(item, { status: HttpStatusCode.Ok });
   }),
-  http.delete('/api/catalog-items/:catalogItemId', async ({ params }) => {
-    const { catalogItemId } = params;
-    let status;
-    switch (catalogItemId) {
-      case '400':
-        status = HttpStatusCode.BadRequest;
-        break;
-      case '401':
-        status = HttpStatusCode.Unauthorized;
-        break;
-      case '404':
-        status = HttpStatusCode.NotFound;
-        break;
-      case '500':
-        status = HttpStatusCode.InternalServerError;
-        break;
-      default:
-        status = HttpStatusCode.NoContent;
-        break;
-    }
-    return new HttpResponse(null, { status });
+  http.delete('/api/catalog-items/:catalogItemId', async () => {
+    return new HttpResponse(null, { status: HttpStatusCode.NoContent });
   }),
   http.put<never, PutCatalogItemRequest, never>(
     '/api/catalog-items/:catalogItemId',
-    async ({ request }) => {
-      const body = await request.json();
-      let status;
-      switch (body.name) {
-        case '400':
-          status = HttpStatusCode.BadRequest;
-          break;
-        case '401':
-          status = HttpStatusCode.Unauthorized;
-          break;
-        case '404':
-          status = HttpStatusCode.NotFound;
-          break;
-        case '409':
-          status = HttpStatusCode.Conflict;
-          break;
-        case '500':
-          status = HttpStatusCode.InternalServerError;
-          break;
-        default:
-          status = HttpStatusCode.NoContent;
-          break;
-      }
-      return new HttpResponse(null, { status });
+    async () => {
+      return new HttpResponse(null, { status: HttpStatusCode.NoContent });
     },
   ),
 ];
