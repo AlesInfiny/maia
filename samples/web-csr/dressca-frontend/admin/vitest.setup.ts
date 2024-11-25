@@ -5,8 +5,7 @@ beforeAll(() => {
   server.listen();
 });
 
-beforeEach(() => {
-});
+beforeEach(() => {});
 
 afterEach(() => {
   server.resetHandlers();
