@@ -8,4 +8,5 @@ gitignore: true
 # Github の Issues や Pull requests に設定の Tag が含まれることを防ぐため yaml 上で除外設定を実行する
 globs:
   - "**/*.md"
-  - "!**/.github/**/*.md"
+  - "!**/.github/ISSUE_TEMPLATE/**/*.md"
+  - "!**/.github/pull_request_template.md"
