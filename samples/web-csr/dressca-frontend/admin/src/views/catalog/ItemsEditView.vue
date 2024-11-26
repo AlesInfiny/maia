@@ -189,6 +189,7 @@ const initItemAsync = async (itemId: number) => {
 
 /**
  * 対象の ID のアイテムの状態を再取得します。
+ * 編集中のアイテムの行バージョンを最新化します。
  * @param itemId
  */
 const reFetchItemAsync = async (itemId: number) => {
