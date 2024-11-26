@@ -7,6 +7,9 @@ copyright: 'Copyright &copy; 2023 BIPROGY Inc. All rights reserved.'
 site_author: 'AlesInfiny Maia OSS Edition コミュニティ'
 site_description: 'AlesInfiny Maia OSS Edition のポータルサイトです。'
 site_dir: build-artifacts
+repo_name: AlesInfiny/maia
+repo_url: https://github.com/AlesInfiny/maia
+edit_uri: edit/main/documents/contents/
 
 # yamllint disable rule:comments-indentation
 nav:
@@ -91,6 +94,7 @@ nav:
               - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
               - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
+              - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
@@ -114,6 +118,7 @@ theme:
   custom_dir: overrides
   favicon: assets/images/favicon.png
   features:
+    - content.action.view
     - content.code.annotate
     - navigation.indexes
     - navigation.instant
@@ -123,6 +128,9 @@ theme:
   font:
     text: Noto Sans JP
     code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+    view: material/eye
   language: ja
   logo: assets/maia-logo.png
   palette:
@@ -182,6 +190,11 @@ extra_css:
   - stylesheets/overrides.css
 
 plugins:
+  - git-revision-date-localized:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
+      enable_creation_date: true
+      timezone: Asia/Tokyo
+      type: date
   - search:
       lang: ja
   - minify:
