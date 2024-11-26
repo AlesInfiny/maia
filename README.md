@@ -29,7 +29,7 @@ AlesInfiny Maia OSS Edition は、以下の Web サイトを通じて最新バ�
 サンプルアプリケーションや要件別サンプルの開発環境は、 VS Code を推奨します。
 開発環境の構築手順は以下を参照してください。
 
-- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築手順](https://maia.alesinfiny.org/guidebooks/how-to-develop/local-environment/)
+- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築](https://maia.alesinfiny.org/guidebooks/how-to-develop/local-environment/)
 
 ## サンプルアプリケーションのテスト
 
