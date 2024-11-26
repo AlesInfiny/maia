@@ -1,5 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+/**
+ * '/catalog/'に割り当てるコンポーネントを定義します。
+ */
 export const catalogRoutes: RouteRecordRaw[] = [
   {
     path: '/catalog/items',

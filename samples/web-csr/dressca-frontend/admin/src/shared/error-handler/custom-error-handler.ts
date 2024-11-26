@@ -10,6 +10,9 @@ import {
   ServerError,
 } from './custom-error';
 
+/**
+ * カスタムエラーハンドラーを型付けするためのインターフェースです。
+ */
 export interface CustomErrorHandler {
   install(app: App): void;
   handle(
@@ -21,6 +24,10 @@ export interface CustomErrorHandler {
   ): void;
 }
 
+/**
+ * カスタムエラーハンドラーを provide する Vue プラグインです。
+ * @returns カスタムエラーハンドラー。
+ */
 export function createCustomErrorHandler(): CustomErrorHandler {
   const customErrorHandler: CustomErrorHandler = {
     install: (app: App) => {

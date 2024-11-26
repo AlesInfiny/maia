@@ -6,6 +6,11 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * Mock Service Worker のワーカースクリプトを削除するプラグインです。
+ * 本番ビルド時にワーカースクリプトを削除するために使用します。
+ * @returns Vite のプラグイン
+ */
 function excludeMsw(): Plugin {
   return {
     name: 'exclude-msw',

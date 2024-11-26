@@ -1,6 +1,12 @@
 import type { App, ComponentPublicInstance } from 'vue';
 import { router } from '../../router';
 
+/**
+ * Vue アプリケーション内のエラー、
+ * アプリケーション外の同期エラー、
+ * アプリケーション外の非同期エラーについて、
+ * 業務上想定しないシステムエラーをハンドリングするためのグローバルエラーハンドラーです。
+ */
 export const globalErrorHandler = {
   /* eslint no-param-reassign: 0 */
   install(app: App) {

@@ -1,4 +1,8 @@
 /* eslint max-classes-per-file: 0 */
+
+/**
+ * カスタムエラーの基底クラスです。
+ */
 export abstract class CustomErrorBase extends Error {
   cause?: Error | null;
 
@@ -9,6 +13,9 @@ export abstract class CustomErrorBase extends Error {
   }
 }
 
+/**
+ * HTTP 通信でのエラーを表すカスタムエラーです。
+ */
 export class HttpError extends CustomErrorBase {
   constructor(message: string, cause?: Error) {
     super(message, cause);
@@ -16,6 +23,9 @@ export class HttpError extends CustomErrorBase {
   }
 }
 
+/**
+ * ネットワークエラーを表すカスタムエラーです。
+ */
 export class NetworkError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause);
@@ -23,6 +33,9 @@ export class NetworkError extends HttpError {
   }
 }
 
+/**
+ * 401 Unauthorized を表すカスタムエラーです。
+ */
 export class UnauthorizedError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause);
@@ -30,6 +43,9 @@ export class UnauthorizedError extends HttpError {
   }
 }
 
+/**
+ * 409 Conflict を表すカスタムエラーです。
+ */
 export class ConflictError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause);
@@ -37,6 +53,9 @@ export class ConflictError extends HttpError {
   }
 }
 
+/**
+ * 404 Not Found を表すカスタムエラーです。
+ */
 export class NotFoundError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause);
@@ -44,6 +63,9 @@ export class NotFoundError extends HttpError {
   }
 }
 
+/**
+ * 500 Internal Server Error を表すカスタムエラーです。
+ */
 export class ServerError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause);

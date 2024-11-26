@@ -7,6 +7,9 @@ export const validationItems = {
   email: yup.string().email(),
 };
 
+/**
+ * カタログアイテムのバリデーションを定義する型付きのスキーマです。
+ */
 export const catalogItemSchema: TypedSchema = toTypedSchema(
   yup.object({
     name: yup

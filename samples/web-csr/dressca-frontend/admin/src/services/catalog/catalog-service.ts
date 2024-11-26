@@ -12,6 +12,11 @@ import type {
   PutCatalogItemRequest,
 } from '@/generated/api-client';
 
+/**
+ * カテゴリの情報を取得します。
+ * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
+ * @returns カタログカテゴリの配列。
+ */
 export async function fetchCategories(): Promise<CatalogCategoryResponse[]> {
   const response = await catalogCategoriesApi.getCatalogCategories();
   const categories = response.data;
@@ -19,6 +24,11 @@ export async function fetchCategories(): Promise<CatalogCategoryResponse[]> {
   return categories;
 }
 
+/**
+ * ブランドの情報を取得します。
+ * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
+ * @returns カテゴリブランドの配列。
+ */
 export async function fetchBrands(): Promise<CatalogBrandResponse[]> {
   const response = await catalogBrandsApi.getCatalogBrands();
   const brands = response.data;
@@ -26,6 +36,13 @@ export async function fetchBrands(): Promise<CatalogBrandResponse[]> {
   return brands;
 }
 
+/**
+ * 検索条件に合致する、ページネーションされたカタログアイテムのリストを取得します。
+ * @param categoryId カテゴリのID。
+ * @param brandId ブランドのID。
+ * @param page ページ数。
+ * @returns ページネーションされたカタログアイテムのリスト。
+ */
 export async function fetchItems(
   categoryId: number,
   brandId: number,
@@ -40,11 +57,25 @@ export async function fetchItems(
   return response.data;
 }
 
+/**
+ * 対象のIDを持つカタログアイテムの情報を取得します。
+ * @param itemId アイテム ID。
+ * @returns カタログアイテムの情報。
+ */
 export async function fetchItem(itemId: number): Promise<CatalogItemResponse> {
   const itemResponse = await catalogItemsApi.getById(itemId);
   return itemResponse.data;
 }
 
+/**
+ * アイテムをカタログに追加します。
+ * @param name アイテム名。
+ * @param description 説明。
+ * @param price 単価。
+ * @param productCode 商品コード。
+ * @param catalogCategoryId カテゴリ ID。
+ * @param catalogBrandId ブランド ID。
+ */
 export async function postCatalogItem(
   name: string,
   description: string,
@@ -64,6 +95,17 @@ export async function postCatalogItem(
   await catalogItemsApi.postCatalogItem(postCatalogItemInput);
 }
 
+/**
+ * アイテムの情報を更新します。
+ * @param id アイテム ID 。
+ * @param name アイテム名。
+ * @param description  説明。
+ * @param price 単価。
+ * @param productCode 商品コード。
+ * @param catalogCategoryId カテゴリ ID。
+ * @param catalogBrandId ブランド ID。
+ * @param rowVersion 排他制御のための行バージョン。
+ */
 export async function updateCatalogItem(
   id: number,
   name: string,
@@ -86,6 +128,10 @@ export async function updateCatalogItem(
   await catalogItemsApi.putCatalogItem(id, putCatalogItemRequest);
 }
 
+/**
+ * 対象の ID を持つアイテムをカタログから削除します。
+ * @param id アイテム ID 。
+ */
 export async function deleteCatalogItem(id: number) {
   await catalogItemsApi.deleteCatalogItem(id);
 }

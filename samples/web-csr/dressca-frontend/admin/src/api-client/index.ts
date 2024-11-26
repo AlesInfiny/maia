@@ -24,6 +24,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+/** レスポンスのステータスコードに応じてカスタムエラーを割り当てます。 */
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -51,23 +52,35 @@ axiosInstance.interceptors.response.use(
   },
 );
 
+/**
+ * カタログブランド API のクライアントです。
+ */
 const catalogBrandsApi = new apiClient.CatalogBrandsApi(
   createConfig(),
   '',
   axiosInstance,
 );
 
+/**
+ * カタログカテゴリ API のクライアントです。
+ */
 const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(
   createConfig(),
   '',
   axiosInstance,
 );
 
+/**
+ * カタログアイテム API のクライアントです。
+ */
 const catalogItemsApi = new apiClient.CatalogItemsApi(
   createConfig(),
   '',
   axiosInstance,
 );
 
+/**
+ * ユーザー API のクライアントです。
+ */
 const UsersApi = new apiClient.UsersApi(createConfig(), '', axiosInstance);
 export { catalogBrandsApi, catalogCategoriesApi, catalogItemsApi, UsersApi };

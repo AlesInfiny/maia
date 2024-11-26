@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia';
 import { UsersApi } from '@/api-client';
 
+/**
+ * 認証状態のストアです。
+ */
 export const useAuthenticationStore = defineStore({
   id: 'authentication',
   state: () => ({
@@ -11,6 +14,10 @@ export const useAuthenticationStore = defineStore({
     userRole: JSON.parse(sessionStorage.getItem('userRole') || '""'),
   }),
   actions: {
+    /**
+     * アプリケーションにログインします。
+     * セッションストレージに認証状態を保存します。
+     */
     async signInAsync() {
       const response = await UsersApi.getLoginUser();
       const { userName, role } = response.data;
@@ -24,6 +31,10 @@ export const useAuthenticationStore = defineStore({
         JSON.stringify(this.authenticationState),
       );
     },
+    /**
+     * アプリケーションからログアウトします。
+     * セッションストレージから認証状態を削除します。
+     */
     async signOutAsync() {
       this.userName = '';
       this.userRole = '';
@@ -34,6 +45,11 @@ export const useAuthenticationStore = defineStore({
     },
   },
   getters: {
+    /**
+     * ユーザーが認証済みかどうかを取得します。
+     * @param state 状態。
+     * @returns 認証済みかどうかを表す真理値。
+     */
     isAuthenticated(state) {
       return state.authenticationState;
     },
