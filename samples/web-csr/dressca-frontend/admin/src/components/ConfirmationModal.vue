@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 
+/**
+ * ユーザーに実行要否の確認を行うモーダルです。
+ */
+
 defineProps<{
   show: boolean;
   header: string;

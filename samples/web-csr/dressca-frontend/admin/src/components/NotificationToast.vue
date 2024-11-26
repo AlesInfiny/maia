@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useNotificationStore } from '@/stores/notification/notification';
-
 import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { ref, watch } from 'vue';
+
+/**
+ * ユーザーにメッセージを通知するトーストです。
+ */
 
 const state = ref({
   show: false,

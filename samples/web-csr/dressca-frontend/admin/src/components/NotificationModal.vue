@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { CheckCircleIcon } from '@heroicons/vue/24/outline';
 
+/**
+ * ユーザーにメッセージを通知するモーダルです。
+ */
+
 defineProps<{
   show: boolean;
   header: string;
