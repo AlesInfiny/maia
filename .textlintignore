@@ -4,4 +4,5 @@ samples/**/spotbugs*.txt
 
 # Github の Issues や Pull requests のテンプレートファイルをテスト対象から除外
 
-.github/**/*.md
+.github/pull_request_template.md
+.github/ISSUE_TEMPLATE/*.md

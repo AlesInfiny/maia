@@ -1,3 +1,4 @@
+# cspell:ignore pngquant
 name: "ドキュメントのビルド"
 description: "ドキュメントをビルドします。"
 inputs:
