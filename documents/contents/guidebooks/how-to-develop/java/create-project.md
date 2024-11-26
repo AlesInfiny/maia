@@ -6,6 +6,7 @@ description: バックエンドで動作する Java アプリケーションの 
 # プロジェクトの雛型作成 {#top}
 
 ## Spring Initializr の利用 {#use-spring-initializr}
+<!-- cSpell:ignore applicationcore -->
 
 各 Gradle Groovy DSL プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
@@ -73,12 +74,16 @@ AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレ�
 - Project Metadata：Artifact
 
     サブプロジェクトの基点のフォルダー名となるプロジェクト名を設定します。
-    また、グループ名に続くパッケージ名としても利用されますので、グループ名と同様、パッケージ名の命名規則と合致する名前にすることが望ましいです。
 
 - Project Metadata：Name
 
     アプリケーション名を設定します。
     この名前は Spring Boot 実行クラス ( Main クラス ) のクラス名やパッケージした際の war や jar 名に利用されます。
+
+- Project Metadata：Package Name
+
+    パッケージ名を設定します。
+    通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.application-core というパッケージ名であれば、 com.example.applicationcore のように修正してください。
 
 - Dependencies
 
