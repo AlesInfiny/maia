@@ -108,6 +108,10 @@ buildscript {
 各サブプロジェクトでは、下記のように `dependencies.gradle` で定義された変数を読み取る形にプラグインや依存ライブラリの記載を修正します。
 以下に、バージョン定義を `dependencies.gradle` に移管した web プロジェクトの `build.gradle` の一部を示します。
 
+!!! info "Groovy ファイルにおける一重引用符と二重引用符の使い分け"
+    Groovy では文字列は一重引用符で囲み、変数を含む文字列は二重引用符で囲んで表現します。
+    変数を含む文字列を一重引用符で囲むとエラーが出るため、注意して使い分けてください。
+
 ```groovy title="web/build.gradle" hl_lines="3 4 5 9 10 11 12 13"
 plugins {
   id 'java'

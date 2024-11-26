@@ -4,7 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # batch プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource -->
+<!-- cSpell:ignore datasource hikari tasklet -->
 
 batch プロジェクトで必要な設定を解説します。
 
@@ -27,6 +27,10 @@ dependencies {
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 ```
+
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [Spring Batch Test :material-open-in-new:](https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-test){ target=_blank }
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
@@ -54,10 +58,10 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.url：データベースの JDBC URL
-    - spring.datasource.username：データベースのログインユーザー名
-    - spring.datasource.password：データベースのログインパスワード
+    - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
+    - spring.datasource.hikari.url：データベースの JDBC URL
+    - spring.datasource.hikari.username：データベースのログインユーザー名
+    - spring.datasource.hikari.password：データベースのログインパスワード
 - データベース初期化設定
     - spring.sql.init.mode：データベースの初期化有無
 - MyBatis の設定
@@ -65,6 +69,30 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
 - バッチ処理
     - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
     - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+
+??? info "`application.properties` の設定例"
+
+    ```properties title="開発環境での設定例（ H2 Database を使用する場合）"
+    spring.datasource.hikari.driver-class-name=org.h2.Driver
+    spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
+    spring.datasource.hikari.username=データベースのログインユーザー名
+    spring.datasource.hikari.password=データベースのログインパスワード
+    spring.h2.console.enabled=true
+    spring.h2.console.path=/h2-console
+    spring.h2.console.settings.web-allow-others=true
+    spring.sql.init.mode=embedded
+    mybatis.configuration.map-underscore-to-camel-case=true
+    spring.batch.job.name=catalogItem_tasklet_job
+    ```
+
+    ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
+    spring.datasource.hikari.driver-class-name=org.postgresql.Driver
+    spring.datasource.hikari.url=jdbc:postgresql://localhost:5432/データベースの名前
+    spring.datasource.hikari.username=データベースのログインユーザー名
+    spring.datasource.hikari.password=データベースのログインパスワード
+    spring.sql.init.mode=never
+    mybatis.configuration.map-underscore-to-camel-case=true
+    ```
 
 !!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
 

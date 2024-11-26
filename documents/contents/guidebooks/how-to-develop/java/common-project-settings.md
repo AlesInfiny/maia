@@ -69,6 +69,9 @@ subprojects {
 プラグインおよびライブラリのバージョンについてはプロジェクトに合わせて適切に選定してください。
 特別な要件がない場合には [Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank }を参照して最新版を利用し、バージョンによるエラーについては適宜対応してください。
 
+また、以降の手順で追加するそれぞれのブロックは、並んでいる順番によっては正常に動作しない場合があります。
+本ページの下部に、本手順を全て実行した際の例を示しているので、適宜そちらを参照してください。
+
 ### プラグインの導入 {#common-plugin}
 
 各サブプロジェクト共通で利用する Gradle のプラグインを定義します。
@@ -90,6 +93,7 @@ subprojects {
 
 SpotBugs プラグインは Gradle の標準的なプラグインセットに含まれていないため、別途設定が必要になります。
 `plugins` ブロックに以下の記述を追加してください。
+またバージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs.snom/spotbugs-gradle-plugin){ target=_blank } を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"
 plugins {
@@ -127,11 +131,11 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）として推奨す�
 
 #### Java プラグイン {#java-plugin}
 
-Java プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
+Java プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
 
-カスタマイズの具体例として、 test タスクにおいて使用するプロファイルを変更する設定を示します。
+本ガイドではカスタマイズの具体例として、 test タスクにおいて使用するプロファイルを変更する設定を示します。
 
-```groovy title="{ルートプロジェクト}/build.gradle"
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="4"
 
 subprojects {
   test {
@@ -143,9 +147,11 @@ subprojects {
 
 ```
 
+Java プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
+
 #### Checkstyle プラグイン {#checkstyle-plugin}
 
-Checkstyle プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
+Checkstyle プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
@@ -153,56 +159,67 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 [Google Style :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank } に準拠したルールを適用する場合、 Checkstyle が提供する [インプットファイル :material-open-in-new:](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml){ target=_blank } を利用します。
 独自のルールを定義したい場合には、このインプットファイルを編集してください。
 
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
 デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。ダウンロードしたインプットファイルの名前を checkstyle.xml に変更した後、フォルダーを追加して適切な位置に配置してください。
 
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
 
-インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
-
-<!-- textlint-enable ja-technical-writing/sentence-length -->
-
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="5 7"
-subprojects {
-  checkstyle {
-    toolVersion = 'x.x.x'
-    // インプットファイルに任意の命名を適用する場合
-    configFile = file('ディレクトリパスを含むインプットファイル名')
-    // デフォルトの階層以外にある checkstyle.xml をインプットファイルとして読み込む場合
-    configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
-  }
-}
-```
-
 また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
 
-!!! info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
+Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
 
-    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[Maven Repository :material-open-in-new:](https://mvnrepository.com/){ target=_blank } を参照して、 Checkstyle の toolVersion に最新のバージョンを指定してください。
+??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
+
+    インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4 6"
+    subprojects {
+      checkstyle {
+        // インプットファイルに任意の命名を適用する場合
+        configFile = file('ディレクトリパスを含むインプットファイル名')
+        // デフォルトの階層以外にある checkstyle.xml をインプットファイルとして読み込む場合
+        configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
+      }
+    }
+    ```
+
+??? info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
+
+    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、 Checkstyle の toolVersion に最新のバージョンを指定してください。
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+    subprojects {
+      checkstyle {
+        toolVersion = 'x.x.x'
+      }
+    }
+    ```
 
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
-SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
+SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
 
 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
 このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
 フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
 subprojects {
   spotbugs {
-    toolVersion = 'x.x.x'
     excludeFilter.set(rootProject.file('フィルタファイルのパス'))
     ignoreFailures = true
   }
 }
 ```
 
+SpotBugs プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
+
 #### JaCoCo プラグイン {#jacoco-plugin}
 
-JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方法は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
+JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
@@ -220,6 +237,8 @@ subprojects {
   }
 }
 ```
+
+JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
 ### フォーマッターの設定 {#formatter-settings}
 
@@ -296,7 +315,6 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
 
       spotbugs {
-        toolVersion = 'x.x.x'
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
       }

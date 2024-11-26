@@ -4,7 +4,7 @@ description: バックエンドで動作する Java アプリケーションの 
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource -->
+<!-- cSpell:ignore datasource testdb hikari -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -34,6 +34,11 @@ dependencies {
 }
 ```
 
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
+    - [SpringDoc OpenAPI Starter WebMVC UI :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui){ target=_blank }
+
 ## 依存プロジェクトの設定 {#config-projects}
 
 web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
@@ -60,10 +65,10 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.url：データベースの JDBC URL
-    - spring.datasource.username：データベースのログインユーザー名
-    - spring.datasource.password：データベースのログインパスワード
+    - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
+    - spring.datasource.hikari.url：データベースの JDBC URL
+    - spring.datasource.hikari.username：データベースのログインユーザー名
+    - spring.datasource.hikari.password：データベースのログインパスワード
 - データベース初期化設定
     - spring.sql.init.mode：データベースの初期化有無
 - ロギング
@@ -74,10 +79,33 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
 
+??? info "`application.properties` の設定例"
+
+    ```properties title="開発環境での設定例（ H2 Database を使用する場合）"
+    spring.datasource.hikari.driver-class-name=org.h2.Driver
+    spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
+    spring.datasource.hikari.username=データベースのログインユーザー名
+    spring.datasource.hikari.password=データベースのログインパスワード
+    spring.h2.console.enabled=true
+    spring.h2.console.path=/h2-console
+    spring.h2.console.settings.web-allow-others=true
+    spring.sql.init.mode=embedded
+    logging.level.web=DEBUG
+    ```
+    
+    ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
+    spring.datasource.hikari.driver-class-name=org.postgresql.Driver
+    spring.datasource.hikari.url=jdbc:postgresql://localhost:5432/データベースの名前
+    spring.datasource.hikari.username=データベースのログインユーザー名
+    spring.datasource.hikari.password=データベースのログインパスワード
+    spring.sql.init.mode=never
+    ```
+
 ## Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
 
-`springdoc-openapi-ui`を依存関係に追加した場合、 Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
+Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
 以下に、 `application.properties` と `build.gradle` への設定内容を例示します。
+SpringDoc OpenAPI Gradle Plugin のバージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-gradle-plugin){ target=_blank } を参照してください。
 
 ```properties title="web/src/main/resource/application.properties"
 # springdoc-openapi用のURLを指定
