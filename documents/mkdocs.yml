@@ -190,6 +190,11 @@ extra_css:
   - stylesheets/overrides.css
 
 plugins:
+  - git-revision-date-localized:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
+      enable_creation_date: true
+      timezone: Asia/Tokyo
+      type: date
   - search:
       lang: ja
   - minify:
