@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import {
-  fetchBrands,
-  fetchCategories,
+  fetchCategoriesAndBrands,
   postCatalogItem,
 } from '@/services/catalog/catalog-service';
 import { showToast } from '@/services/notification/notificationService';
@@ -102,8 +101,8 @@ const closeAddNotice = () => {
  */
 onMounted(async () => {
   try {
-    catalogBrands.value = await fetchBrands();
-    catalogCategories.value = await fetchCategories();
+    [catalogCategories.value, catalogBrands.value] =
+      await fetchCategoriesAndBrands();
   } catch (error) {
     customErrorHandler.handle(error, () => {
       showToast('カテゴリとブランド情報の取得に失敗しました。');

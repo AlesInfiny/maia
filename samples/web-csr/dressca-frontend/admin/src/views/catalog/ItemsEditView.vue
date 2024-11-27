@@ -4,8 +4,7 @@ import {
   fetchItem,
   updateCatalogItem,
   deleteCatalogItem,
-  fetchBrands,
-  fetchCategories,
+  fetchCategoriesAndBrands,
 } from '@/services/catalog/catalog-service';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { showToast } from '@/services/notification/notificationService';
@@ -138,7 +137,7 @@ const closeUpdateNotice = () => {
 };
 
 /**
- * アイテムの情報を現在のアイテムの状態にセットします。
+ * API モデルのアイテムの情報を、画面の現在のアイテムの状態にセットします。
  * @param catalogItemResponse カタログアイテムのレスポンス情報
  */
 const setCurrentItemState = (item: CatalogItemResponse) => {
@@ -150,15 +149,34 @@ const setCurrentItemState = (item: CatalogItemResponse) => {
   currentItemState.value.categoryId = item.catalogCategoryId;
   currentItemState.value.brandId = item.catalogBrandId;
   currentItemState.value.assetCodes = item.assetCodes;
+  currentItemState.value.rowVersion = item.rowVersion;
+};
+
+/**
+ * カタログアイテムの情報を取得します。
+ * @param itemId カタログアイテムID
+ */
+const getItem = async (itemId: number) => {
+  try {
+    setCurrentItemState(await fetchItem(itemId));
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      showToast('対象のアイテムが見つかりませんでした。');
+      router.push({ name: 'catalog/items' });
+    }
+    customErrorHandler.handle(error, () => {
+      showToast('アイテムの取得に失敗しました。');
+    });
+  }
 };
 
 /**
  * カタログカテゴリとブランドの情報を取得します。
  */
-const fetchCategoriesAndBrands = async () => {
+const getCategoriesAndBrands = async () => {
   try {
-    catalogBrands.value = await fetchBrands();
-    catalogCategories.value = await fetchCategories();
+    [catalogCategories.value, catalogBrands.value] =
+      await fetchCategoriesAndBrands();
   } catch (error) {
     customErrorHandler.handle(error, () => {
       showToast('カタログアイテムとカテゴリの取得に失敗しました。');
@@ -171,32 +189,30 @@ const fetchCategoriesAndBrands = async () => {
  * @param itemId カタログアイテムID
  */
 const initItemAsync = async (itemId: number) => {
-  await fetchCategoriesAndBrands();
-  const item = await fetchItem(itemId);
-  setCurrentItemState(item);
+  await getCategoriesAndBrands();
+  await getItem(itemId);
   setValues({
-    name: item.name,
-    description: item.description,
-    price: item.price,
-    productCode: item.productCode,
+    name: currentItemState.value.name,
+    description: currentItemState.value.description,
+    price: currentItemState.value.price,
+    productCode: currentItemState.value.productCode,
   });
-  editingItemState.value.id = item.id;
-  editingItemState.value.categoryId = item.catalogCategoryId;
-  editingItemState.value.brandId = item.catalogBrandId;
-  editingItemState.value.assetCodes = item.assetCodes;
-  editingItemState.value.rowVersion = item.rowVersion;
+  editingItemState.value.id = currentItemState.value.id;
+  editingItemState.value.categoryId = currentItemState.value.categoryId;
+  editingItemState.value.brandId = currentItemState.value.brandId;
+  editingItemState.value.assetCodes = currentItemState.value.assetCodes;
+  editingItemState.value.rowVersion = currentItemState.value.rowVersion;
 };
 
 /**
  * 対象の ID のアイテムの状態を再取得します。
- * 編集中のアイテムの行バージョンを最新化します。
+ * 編集中のアイテムの行バージョンのみを最新化します。
  * @param itemId
  */
-const reFetchItemAsync = async (itemId: number) => {
-  await fetchCategoriesAndBrands();
-  const item = await fetchItem(itemId);
-  setCurrentItemState(item);
-  editingItemState.value.rowVersion = item.rowVersion;
+const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
+  await getCategoriesAndBrands();
+  await getItem(itemId);
+  editingItemState.value.rowVersion = currentItemState.value.rowVersion;
 };
 
 /**
@@ -256,7 +272,7 @@ const updateItemAsync = async () => {
         showToast(
           'カタログアイテムの更新が競合しました。もう一度更新してください。',
         );
-        await reFetchItemAsync(id);
+        await reFetchItemAndInitRowVersionAsync(id);
       });
     } else {
       customErrorHandler.handle(error, async () => {

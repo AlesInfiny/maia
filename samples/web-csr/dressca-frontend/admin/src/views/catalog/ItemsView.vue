@@ -2,8 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import {
-  fetchBrands,
-  fetchCategories,
+  fetchCategoriesAndBrands,
   fetchItems,
 } from '@/services/catalog/catalog-service';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
@@ -81,8 +80,8 @@ const getCategoryName = (id: number) => {
 onMounted(async () => {
   try {
     pagedListOfCatalogItem.value = await fetchItems(0, 0);
-    catalogBrands.value = await fetchBrands();
-    catalogCategories.value = await fetchCategories();
+    [catalogCategories.value, catalogBrands.value] =
+      await fetchCategoriesAndBrands();
   } catch (error) {
     customErrorHandler.handle(error, () => {
       showToast('カタログアイテムの取得に失敗しました。');

@@ -37,6 +37,18 @@ export async function fetchBrands(): Promise<CatalogBrandResponse[]> {
 }
 
 /**
+ * カテゴリとブランドの情報を取得します。
+ * @returns カテゴリとブランドの情報のタプル。
+ */
+export async function fetchCategoriesAndBrands(): Promise<
+  [CatalogCategoryResponse[], CatalogBrandResponse[]]
+> {
+  const categories = await fetchCategories();
+  const brands = await fetchBrands();
+  return [categories, brands];
+}
+
+/**
  * 検索条件に合致する、ページネーションされたカタログアイテムのリストを取得します。
  * @param categoryId カテゴリのID。
  * @param brandId ブランドのID。
