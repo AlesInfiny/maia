@@ -8,30 +8,38 @@ import { router } from './router';
 import App from './App.vue';
 
 /**
- * モックモードでの実行時に、モック用のワーカープロセスが起動していることを確認します。
- * アプリケーションのマウント前にモック用のワーカープロセスが起動している必要があるからです。
+ * モック用のワーカープロセスが起動していることを確認します。
  * @returns {Promise<ServiceWorkerRegistration | undefined>}
  */
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
-  if (import.meta.env.MODE !== 'mock') {
-    return undefined;
-  }
   const { worker } = await import('../mock/browser');
   return worker.start({
     onUnhandledRequest: 'bypass',
   });
 }
 
-enableMocking().then(() => {
-  const app = createApp(App);
+/*
+ * ワーカープロセスの起動前にアプリケーションがマウントされると、
+ * ホーム画面に API をコールする処理があった場合に想定外のエラーが発生するので、
+ * モック用のワーカープロセスの起動を待つ必要があります。
+ */
+if (import.meta.env.MODE === 'mock') {
+  try {
+    await enableMocking();
+  } catch (error) {
+    /* eslint no-console: 0 */
+    console.error('モック用のワーカープロセスの起動に失敗しました。', error);
+  }
+}
 
-  app.use(createPinia());
-  app.use(router);
+const app = createApp(App);
 
-  app.use(globalErrorHandler);
-  app.use(createCustomErrorHandler());
+app.use(createPinia());
+app.use(router);
 
-  authenticationGuard(router);
+app.use(globalErrorHandler);
+app.use(createCustomErrorHandler());
 
-  app.mount('#app');
-});
+authenticationGuard(router);
+
+app.mount('#app');
