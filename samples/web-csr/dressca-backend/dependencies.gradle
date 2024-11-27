@@ -7,7 +7,7 @@ ext {
 
     // -- DEPENDENCIES
     springBatchTestVersion = "5.1.2"
-    mybatisSpringBootStarterVersion = "3.0.3"
+    mybatisSpringBootStarterVersion = "3.0.4"
     mybatisSpringBootStarterTestVersion = "3.0.3"
     h2Version = "2.3.232"
     postgresqlVersion = "42.7.4"
