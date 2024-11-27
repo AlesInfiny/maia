@@ -58,6 +58,9 @@ jar {
 }
 ```
 
+また、併せて不要なファイルを削除します。
+infrastructure プロジェクトの `src` 以下にある、 `InfrastructureApplication.java` と `InfrastructureApplicationTest.java` を削除してください。
+
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
@@ -90,8 +93,6 @@ jar {
     dependencies {
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
       implementation 'com.h2database:h2:x.x.x'
-      implementation 'org.springframework.boot:spring-boot-starter'
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
       implementation project(':application-core')
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。

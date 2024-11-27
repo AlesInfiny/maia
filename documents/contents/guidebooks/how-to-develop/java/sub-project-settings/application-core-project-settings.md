@@ -37,6 +37,9 @@ jar {
 }
 ```
 
+また、併せて不要なファイルを削除します。
+application-core プロジェクトの `src` 以下にある、 `ApplicationCoreApplication.java` と `ApplicationCoreApplicationTest.java` を削除してください。
+
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
@@ -67,8 +70,6 @@ jar {
     }
 
     dependencies {
-      implementation 'org.springframework.boot:spring-boot-starter'
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
