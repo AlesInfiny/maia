@@ -82,7 +82,6 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
     spring.h2.console.settings.web-allow-others=true
     spring.sql.init.mode=embedded
     mybatis.configuration.map-underscore-to-camel-case=true
-    spring.batch.job.name=catalogItem_tasklet_job
     ```
 
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
@@ -101,6 +100,35 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
     しかし、バッチ処理実行時においてメタデータテーブルが存在しない場合、メタデータテーブルが存在しないエラーが発生しバッチ処理が正常に動作しません。
     そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
     バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
+
+## バッチアプリケーションとして動作させる設定 {#config-batch-application}
+
+batch プロジェクトをウェブアプリケーションではなく、バッチアプリケーションとして動作させるためクラスファイルを書き換えます。
+なお、バッチアプリケーションの具体的な実装については解説しません。
+
+batch プロジェクトの `src/main/java` 以下の `BatchApplication.java` の main メソッドを書き換えます。
+
+``` Java title="BatchApplication.java"
+public static void main(String[] args) {
+  SpringApplication app = new SpringApplication(BatchApplication.class);
+  // batch プロジェクトをウェブアプリケーションでは立ち上げない設定
+  app.setWebApplicationType(WebApplicationType.NONE);
+  System.exit(SpringApplication.exit(app.run(args)));
+}
+```
+
+また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTest.java` を書き換えます。
+
+``` Java title="BatchApplicationTest.java"
+・・・
+import org.springframework.batch.test.context.SpringBatchTest; // 追加
+
+@SpringBootTest
+@SpringBatchTest // 追加
+class BatchApplicationTests {
+・・・
+}
+```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
