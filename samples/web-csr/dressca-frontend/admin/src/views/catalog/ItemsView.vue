@@ -93,7 +93,7 @@ onMounted(async () => {
 /**
  * アイテム追加画面に遷移します。
  */
-const goAdd = () => {
+const goToAddItem = () => {
   router.push({ name: 'catalog/items/add' });
 };
 
@@ -101,7 +101,7 @@ const goAdd = () => {
  * アイテム編集画面に遷移します。
  * @param id カタログアイテムID
  */
-const goEdit = (id: number) => {
+const goToEditItem = (id: number) => {
   router.push({ name: 'catalog/items/edit', params: { itemId: id } });
 };
 </script>
@@ -115,7 +115,7 @@ const goEdit = (id: number) => {
       <button
         type="button"
         class="rounded bg-green-600 px-4 py-2 text-xl font-bold text-white hover:bg-green-800"
-        @click="goAdd"
+        @click="goToAddItem"
       >
         アイテム追加
       </button>
@@ -158,7 +158,7 @@ const goEdit = (id: number) => {
             <button
               type="button"
               class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
-              @click="goEdit(item.id)"
+              @click="goToEditItem(item.id)"
             >
               編集
             </button>
