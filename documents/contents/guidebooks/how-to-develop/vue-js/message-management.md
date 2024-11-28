@@ -39,11 +39,10 @@ npm install vue-i18n
 
 ### メッセージファイルの作成 {#creating-message-files}
 
-メッセージファイルを作成します。
-アーキテクチャ定義では、メッセージ管理に関するファイルは `./src/locales` フォルダーに集約されます。
+アーキテクチャ定義では、メッセージに関するファイルは `./src/locales` フォルダーに集約されます。
 以下のように、メッセージ本体を格納する JSON ファイルを作成します。
 
-``` json title="messageList_jp.json"
+``` json title="messageList_jp.json の例"
 {
   "errorOccurred": "エラーが発生しました。",
   "businessError": "業務エラーが発生しました。",
@@ -62,9 +61,11 @@ npm install vue-i18n
 
     入力値検証用のメッセージを格納する
 
+JSON ファイルでメッセージを管理する際は、メッセージコードとメッセージ本体を key-value で管理します。
+
 ### メッセージファイルの読込 {#reading-message-files}
 
-メッセージ本体を格納する JSON ファイルを読み込むために、以下のように記載します。
+メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
 ``` ts title="i18n.ts"
 import { createI18n } from 'vue-i18n';
@@ -94,25 +95,46 @@ const i18n = createI18n({
 export { i18n };
 ```
 
-``` ts title="languageHelper.ts"
-export function languageHelper() {
-  const toConfigureLocale = () => {
-    const browserLanguage = window.navigator.language;
-    let language = 'ja';
-    if (browserLanguage !== 'ja' && browserLanguage !== 'en') {
-      language = 'en';
-    } else {
-      language = browserLanguage;
-    }
-    return language;
-  };
-  return {
-    toConfigureLocale,
-  };
-}
-```
+メッセージ管理機能を導入するための `createI18n` の引数の役割は以下の通りです。
 
-``` ts title="main.ts"
+- legacy
+
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+    createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=_blank } のどちらを利用するか選択します。
+    本実装では、 Composition API を利用するため、 legacy を false に設定します。
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
+
+- locale
+
+    使用する言語を指定します。
+
+    本実装では、以下のようなブラウザーの言語設定を読み込む `languageHelper.ts` を作成し、インポートして利用します。
+
+    ``` ts title="languageHelper.ts"
+    export function languageHelper() {
+      const toConfigureLocale = () => {
+        const browserLanguage = window.navigator.language;
+        let language = 'ja';
+        if (browserLanguage !== 'ja' && browserLanguage !== 'en') {
+          language = 'en';
+        } else {
+          language = browserLanguage;
+        }
+        return language;
+      };
+      return {
+        toConfigureLocale,
+      };
+    }
+    ```
+
+- messages
+
+    locale の言語設定に基づき、利用するメッセージを指定します。
+
+`i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
+
+``` ts title="main.ts" hl_lines="8 16"
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { authenticationGuard } from '@/shared/authentication/authentication-guard';
@@ -137,12 +159,29 @@ authenticationGuard(router);
 app.mount('#app');
 ```
 
-### メッセージの利用 {#using-message}
+### メッセージの取得 {#using-message}
 
-メッセージファイルの読込設定をしたのちに、実際にメッセージを利用します。
+読み込んだメッセージを取得するためには、 `i18n.ts` を各ファイルでインポートして利用します。
+実装例は以下の通りです。
 
-#### 結果メッセージの利用 {#using-result-message}
+``` ts title="メッセージ利用例"
+<script setup lang="ts">
+import { i18n } from '@/locales/i18n';
 
-#### 入力値検証用メッセージの利用 {#using-validation-message}
+const { t } = i18n.global;
 
-詳細については、[こちら](./input-validation.md) をご覧ください。
+// TypeScript 上で利用する場合
+showToast(t('errorOccurred'));
+
+</script>
+
+// テンプレート構文上で利用する場合
+<template>
+  <span class="text-lg font-medium text-green-500">
+    {{ t('errorOccurred') }}
+  </span>
+</template>
+```
+
+メッセージ関数 `t()` を利用してメッセージを取得します。
+メッセージ関数 `t()` の引数には、 JSON ファイルのメッセージコードを指定してメッセージ本体を呼び出します。

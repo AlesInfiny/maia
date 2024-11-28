@@ -103,3 +103,11 @@ HTTP 通信で発生する例外について、レスポンスやステータス
     C->>B: エラー通知
     deactivate C
 ```
+
+### API 通信のエラーレスポンス {#error-response}
+
+API 通信で発生したエラーにおいて、バックエンドから返却されるエラーレスポンスには、 [ProblemDetails :material-open-in-new:](https://www.rfc-editor.org/rfc/rfc9457.html){ target=_blank } に基づいたレスポンスボディーを含みます。
+
+クライアントサイドでポップアップやトースト通知などを用いてエラー通知を実装する場合には、 ProblemDetails の各プロパティの内容を表示します。
+
+AlesInfiny Maia OSS Edition における、拡張メンバーを含む ProblemDetails のプロパティに関しては、[こちら](../../overview/java-application-processing-system/exception-handling-policy.md#error-response) を確認してください。
