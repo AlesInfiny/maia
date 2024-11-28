@@ -22,24 +22,9 @@ errorOccurred=エラーが発生しました。
 
 ## エラーメッセージコードの統一 {#unification-of-message-codes}
 
-エラー発生時のメッセージ整形の流れを以下に示します。
+同一の業務エラーやシステムエラーのメッセージコードは、バックエンド側とフロントエンド側で統一します。
 
-![エラーメッセージ整形の流れ](../../../images/app-architecture/client-side-rendering/error-message-delivery-light.png#only-light){ loading=lazy }
-![エラーメッセージ整形の流れ](../../../images/app-architecture/client-side-rendering/error-message-delivery-dark.png#only-dark){ loading=lazy }
-
-この画像の通り、エラー発生時はバックエンドアプリケーションのエラーログの出力とフロントエンドアプリケーションへのエラーの画面出力が順次実施されます。
-
-そのため、同一の業務エラーやシステムエラーのメッセージコードは、バックエンド側とフロントエンド側で統一します。
-これにより、以下のような利点があります。
-
-- 一貫性の確保
-
-    統一されたメッセージコードを使用することで、エラーの識別が容易になり、システム全体の一貫性が保たれます。
-
-- デバッグの効率化
-
-    開発者がエラーを特定しやすくなり、問題解決のスピードが向上します。
-    バックエンドとフロントエンドで同じコードを使用することで、エラーの原因を迅速に特定できます。
+詳細については、[こちら](../../client-side-rendering/global-function/message-management-policy.md#unification-of-message-codes) を確認してください。
 
 ## メッセージの管理単位 {#management-unit}
 
