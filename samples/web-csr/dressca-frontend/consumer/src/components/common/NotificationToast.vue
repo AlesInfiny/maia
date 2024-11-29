@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useNotificationStore } from '@/stores/notification/notification';
-import { useClipboard } from '@vueuse/core';
 import {
   ClipboardDocumentIcon,
   ExclamationCircleIcon,
@@ -16,7 +15,9 @@ const state = reactive({
 const notificationStore = useNotificationStore();
 const { id, title, message, detail, status, timeout } =
   storeToRefs(notificationStore);
-const { copy } = useClipboard({ copiedDuring: 3000 });
+const copy = (text: string) => {
+  navigator.clipboard.writeText(text);
+};
 
 const close = () => {
   state.show = false;
