@@ -6,7 +6,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 # メッセージ管理機能の設定 {#top}
 
 フロントエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../app-architecture/client-side-rendering/global-function/message-management-policy.md) をご確認ください。
-本アーキテクチャに基づき、メッセージ管理機能のライブラリは Vue I18n を使用します。
+本アーキテクチャに基づき、メッセージ管理機能のライブラリは [Vue I18n :material-open-in-new:](https://kazupon.github.io/vue-i18n/){ target=_blank } を使用します。
 
 ## 必要なパッケージのインストール {#install-packages}
 
@@ -39,7 +39,7 @@ npm install vue-i18n
 
 ### メッセージファイルの作成 {#creating-message-files}
 
-アーキテクチャ定義では、メッセージに関するファイルは `./src/locales` フォルダーに集約されます。
+メッセージに関するファイルは `./src/locales` フォルダーに集約します。
 以下のように、メッセージ本体を格納する JSON ファイルを作成します。
 
 ``` json title="messageList_jp.json の例"
@@ -51,7 +51,7 @@ npm install vue-i18n
 }
 ```
 
-前述のフォルダー構成の通り、メッセージ管理方針に従って JSON ファイルは以下の 2 つで分割します。
+前述のフォルダー構成の通り、メッセージ管理方針に従って JSON ファイルは以下の 2 つに分割します。
 
 - messageList.json
 
@@ -88,7 +88,8 @@ const langPackage = {
 
 const i18n = createI18n({
   legacy: false,
-  locale: languageHelper().toConfigureLocale(),
+  locale: window.navigator.language,
+  fallbackLocale: 'en',
   messages: langPackage,
 });
 
@@ -107,26 +108,11 @@ export { i18n };
 - locale
 
     使用する言語を指定します。
+    本実装では、`window.navigator.language` でブラウザーの言語設定を取得します。
 
-    本実装では、以下のようなブラウザーの言語設定を読み込む `languageHelper.ts` を作成し、インポートして利用します。
+- fallbackLocale
 
-    ``` ts title="languageHelper.ts"
-    export function languageHelper() {
-      const toConfigureLocale = () => {
-        const browserLanguage = window.navigator.language;
-        let language = 'ja';
-        if (browserLanguage !== 'ja' && browserLanguage !== 'en') {
-          language = 'en';
-        } else {
-          language = browserLanguage;
-        }
-        return language;
-      };
-      return {
-        toConfigureLocale,
-      };
-    }
-    ```
+    locale に設定した言語がサポートされていない場合に、フォールバックする locale を指定します。
 
 - messages
 

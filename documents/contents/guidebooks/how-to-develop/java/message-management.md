@@ -3,6 +3,8 @@ title: Java 編
 description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
+<!-- cspell:ignore applicationcore systemcommon -->
+
 # メッセージ管理機能の設定 {#top}
 
 バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../app-architecture/overview/java-application-processing-system/message-management-policy.md) をご確認ください。
@@ -14,16 +16,16 @@ description: バックエンドで動作する Java アプリケーションの 
 ```terminal linenums="0"
 root/ ------------------------------------------ root フォルダー
  ├ application-core/src/main/resource
- │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
+ │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
  │    └ message.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resource
-   └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一括管理するフォルダー
+   └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一元管理するフォルダー
       └ message.properties --------------------- 共通メッセージのプロパティファイル
 ```
 
 ### プロパティファイルの作成 {#creating-property-file}
 
-アーキテクチャ定義では、メッセージに関するプロパティファイルは各サブプロジェクトの `/src/main/resource/<サブプロジェクト名>` フォルダーに集約されます。
+メッセージに関するプロパティファイルは各サブプロジェクトの `/src/main/resource/<サブプロジェクト名>` フォルダーに集約します。
 以下のように、メッセージ本体を格納するプロパティファイルを作成します。
 
 ```properties title="message.properties"
@@ -33,7 +35,7 @@ businessError=想定外の業務エラーが発生しました
 
 ### プロパティファイルの読込 {#reading-property-files}
 
-以下のように、 web プロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
+以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
 
 ``` properties title="application.properties"
 spring.messages.basename=applicationcore.messages,systemcommon.messages
