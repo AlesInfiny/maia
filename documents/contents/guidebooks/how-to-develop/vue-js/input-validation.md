@@ -19,7 +19,7 @@ npm install vee-validate yup vue-i18n
 
 ## メッセージの定義 {#definition-messages}
 
-入力値検証メッセージを定義するため、`./src/locales` フォルダーに JSON ファイルを作成し、以下のように記述します。
+入力値検証失敗時のメッセージを定義するため、`./src/locales` フォルダーに JSON ファイルを作成し、以下のように記述します。
 メッセージを多言語対応する場合には、それぞれの言語の JSON ファイルを作成し、各言語のメッセージをフォルダーで分割して管理します。
 
 ```json title="validationTextList_jp.json"
@@ -51,9 +51,10 @@ export function configureYup(): void {
 }
 ```
 
-作成したファイルを読み込むため、 入力値検証する Vue ファイルのスクリプト構文に以下を記述します。
+作成したファイルを読み込むため、 入力値を検証する Vue ファイルのスクリプト構文に以下を記述します。
 
-```typescript title="main.ts"
+```vue title="example.vue"
+<script setup lang="ts">
 import { configureYup } from '@/config/yup.config';
 
 // yup設定の有効化
@@ -64,6 +65,7 @@ const formSchema = yup.object({
   email: ValidationItems().email.required(),
   password: yup.string().required(),
 });
+</script>
 ```
 
 ## 入力値検証の実行 {#input-validation}
