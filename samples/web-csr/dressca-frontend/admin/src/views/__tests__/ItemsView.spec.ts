@@ -4,16 +4,12 @@ import { createPinia, setActivePinia } from 'pinia';
 import { router } from '@/router';
 import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsView from '@/views/catalog/ItemsView.vue';
-import {
-  catalogBrandsApi,
-  catalogCategoriesApi,
-  catalogItemsApi,
-} from '@/api-client';
 import type {
+  CatalogBrandResponse,
+  CatalogCategoryResponse,
   CatalogItemResponse,
   PagedListOfCatalogItemResponse,
 } from '@/generated/api-client';
-import type { AxiosResponse } from 'axios';
 
 vi.mock('@/api-client', () => ({
   catalogBrandsApi: {
@@ -61,9 +57,7 @@ describe('アイテム一覧画面のテスト', () => {
   });
 });
 
-function createPagedListCatalogItemResponse(
-  items: CatalogItemResponse[],
-): PagedListOfCatalogItemResponse {
+function createPagedListCatalogItemResponse(): PagedListOfCatalogItemResponse {
   return {
     hasNext: false,
     hasPrevious: false,
@@ -87,7 +81,7 @@ function createPagedListCatalogItemResponse(
   };
 }
 
-function createBrandResponse(): CatalogBrandResponse {
+function createBrandResponse(): CatalogBrandResponse[] {
   return [
     {
       id: 1,
