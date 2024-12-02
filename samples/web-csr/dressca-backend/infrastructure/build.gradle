@@ -34,6 +34,13 @@ dependencies {
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 }
 
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
