@@ -31,9 +31,6 @@ npm install vue-i18n
     │ │ ├ messageList_ja.json ---------------------- 処理の成功や失敗などの結果メッセージを格納する JSON ファイル（日本語）
     │ │ └ validationTextList_ja.json --------------- 入力値検証用のメッセージを格納する JSON ファイル（日本語）
     │ └ i18n.ts ------------------------------------ メッセージ管理の設定に関するコード
-    ├ shared/ -------------------------------------- 共通処理を行うコードが配置されるフォルダー
-    │ └ helpers/ ----------------------------------- 特定のタスクを実行するための再利用可能なコードが配置されるフォルダー
-    │   └ languageHelper.ts ------------------------ 言語設定を行うコード
     └ main.ts -------------------------------------- 各ライブラリ等を読み込むためのコード
 ```
 
@@ -55,11 +52,12 @@ npm install vue-i18n
 
 - messageList.json
 
-  処理の成功や失敗を示す処理メッセージを格納する
+  処理の成功や失敗を示す処理メッセージを格納します。
 
 - validationTextList.json
 
-  入力値検証用のメッセージを格納する
+  入力値検証用のメッセージを格納します。
+  詳細は [こちら](./input-validation.md#definition-messages) を確認してください。
 
 JSON ファイルでメッセージを管理する際は、メッセージコードとメッセージ本体を key-value で管理します。
 
@@ -70,10 +68,9 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 ```ts title="i18n.ts"
 import { createI18n } from "vue-i18n";
 import messageListEN from "@/locales/en/messageList_en.json";
-import messageListJP from "@/locales/ja/messageList_jp.json";
-import validationTextListJP from "@/locales/ja/validationTextList_jp.json";
+import messageListJP from "@/locales/ja/messageList_ja.json";
+import validationTextListJP from "@/locales/ja/validationTextList_ja.json";
 import validationTextListEN from "@/locales/en/validationTextList_en.json";
-import { languageHelper } from "@/shared/helpers/languageHelper";
 
 const langPackage = {
   ja: {
@@ -102,22 +99,22 @@ export { i18n };
 
     <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-  createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=\_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=\_blank } のどちらを利用するか選択します。
-  本実装では、 Composition API を利用するため、 legacy を false に設定します。
+    createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=\_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=\_blank } のどちらを利用するか選択します。
+    本実装では、 Composition API を利用するため、 legacy を false に設定します。
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - locale
 
-  使用する言語を指定します。
-  本実装では、`window.navigator.language` でブラウザーの言語設定を取得します。
+    使用する言語を指定します。
+    本実装では、`window.navigator.language` でブラウザーの言語設定を取得します。
 
 - fallbackLocale
 
-  locale に設定した言語がサポートされていない場合に、フォールバックする locale を指定します。
+    locale に設定した言語がサポートされていない場合に、フォールバックする locale を指定します。
 
 - messages
 
-  locale の言語設定に基づき、利用するメッセージを指定します。
+    locale の言語設定に基づき、利用するメッセージを指定します。
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
