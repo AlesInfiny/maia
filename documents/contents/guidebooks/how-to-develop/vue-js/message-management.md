@@ -6,11 +6,11 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 # メッセージ管理機能の設定 {#top}
 
 フロントエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../app-architecture/client-side-rendering/global-function/message-management-policy.md) をご確認ください。
-本アーキテクチャに基づき、メッセージ管理機能のライブラリは [Vue I18n :material-open-in-new:](https://kazupon.github.io/vue-i18n/){ target=_blank } を使用します。
+本アーキテクチャに基づき、メッセージ管理機能のライブラリは [Vue I18n :material-open-in-new:](https://kazupon.github.io/vue-i18n/){ target=\_blank } を使用します。
 
 ## 必要なパッケージのインストール {#install-packages}
 
-ターミナルを開き、以下のコマンドを実行します。
+ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
 
 ```terminal
 npm install vue-i18n
@@ -20,7 +20,7 @@ npm install vue-i18n
 
 本設定で利用するフォルダーの構成は以下の通りです。
 
-``` terminal linenums="0"
+```terminal linenums="0"
 <workspace-name>
   └ src/ ------------------------------------------- アプリケーションのソースコードが配置されるフォルダー
     ├ locales/ ------------------------------------- メッセージ管理を行うコードが配置されるフォルダー
@@ -42,7 +42,7 @@ npm install vue-i18n
 メッセージに関するファイルは `./src/locales` フォルダーに集約します。
 以下のように、メッセージ本体を格納する JSON ファイルを作成します。
 
-``` json title="messageList_jp.json の例"
+```json title="messageList_jp.json の例"
 {
   "errorOccurred": "エラーが発生しました。",
   "businessError": "業務エラーが発生しました。",
@@ -55,11 +55,11 @@ npm install vue-i18n
 
 - messageList.json
 
-    処理の成功や失敗を示す処理メッセージを格納する
+  処理の成功や失敗を示す処理メッセージを格納する
 
 - validationTextList.json
 
-    入力値検証用のメッセージを格納する
+  入力値検証用のメッセージを格納する
 
 JSON ファイルでメッセージを管理する際は、メッセージコードとメッセージ本体を key-value で管理します。
 
@@ -67,13 +67,13 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
-``` ts title="i18n.ts"
-import { createI18n } from 'vue-i18n';
-import messageListEN from '@/locales/en/messageList_en.json';
-import messageListJP from '@/locales/ja/messageList_jp.json';
-import validationTextListJP from '@/locales/ja/validationTextList_jp.json';
-import validationTextListEN from '@/locales/en/validationTextList_en.json';
-import { languageHelper } from '@/shared/helpers/languageHelper';
+```ts title="i18n.ts"
+import { createI18n } from "vue-i18n";
+import messageListEN from "@/locales/en/messageList_en.json";
+import messageListJP from "@/locales/ja/messageList_jp.json";
+import validationTextListJP from "@/locales/ja/validationTextList_jp.json";
+import validationTextListEN from "@/locales/en/validationTextList_en.json";
+import { languageHelper } from "@/shared/helpers/languageHelper";
 
 const langPackage = {
   ja: {
@@ -89,7 +89,7 @@ const langPackage = {
 const i18n = createI18n({
   legacy: false,
   locale: window.navigator.language,
-  fallbackLocale: 'en',
+  fallbackLocale: "en",
   messages: langPackage,
 });
 
@@ -101,56 +101,55 @@ export { i18n };
 - legacy
 
     <!-- textlint-disable ja-technical-writing/sentence-length -->
-    createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=_blank } のどちらを利用するか選択します。
-    本実装では、 Composition API を利用するため、 legacy を false に設定します。
+
+  createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=\_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=\_blank } のどちらを利用するか選択します。
+  本実装では、 Composition API を利用するため、 legacy を false に設定します。
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - locale
 
-    使用する言語を指定します。
-    本実装では、`window.navigator.language` でブラウザーの言語設定を取得します。
+  使用する言語を指定します。
+  本実装では、`window.navigator.language` でブラウザーの言語設定を取得します。
 
 - fallbackLocale
 
-    locale に設定した言語がサポートされていない場合に、フォールバックする locale を指定します。
+  locale に設定した言語がサポートされていない場合に、フォールバックする locale を指定します。
 
 - messages
 
-    locale の言語設定に基づき、利用するメッセージを指定します。
+  locale の言語設定に基づき、利用するメッセージを指定します。
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
-``` ts title="main.ts" hl_lines="8 16"
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import { authenticationGuard } from '@/shared/authentication/authentication-guard';
-import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
-import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
-import App from './App.vue';
-import { router } from './router';
-import { i18n } from './locales/i18n';
+```ts title="main.ts" hl_lines="8 16"
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import { authenticationGuard } from "@/shared/authentication/authentication-guard";
+import { globalErrorHandler } from "@/shared/error-handler/global-error-handler";
+import { createCustomErrorHandler } from "@/shared/error-handler/custom-error-handler";
+import App from "./App.vue";
+import { router } from "./router";
+import { i18n } from "./locales/i18n";
 
-import '@/assets/base.css';
+import "@/assets/base.css";
 
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
 app.use(i18n);
-app.use(globalErrorHandler);
-app.use(createCustomErrorHandler());
 
 authenticationGuard(router);
 
-app.mount('#app');
+app.mount("#app");
 ```
 
-### メッセージの取得 {#using-message}
+### メッセージの取得 {#getting-messages}
 
 読み込んだメッセージを取得するためには、 `i18n.ts` を各ファイルでインポートして利用します。
 実装例は以下の通りです。
 
-``` ts title="メッセージ利用例"
+```ts title="メッセージ利用例"
 <script setup lang="ts">
 import { i18n } from '@/locales/i18n';
 

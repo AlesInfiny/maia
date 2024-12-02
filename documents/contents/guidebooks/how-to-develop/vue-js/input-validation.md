@@ -11,7 +11,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ## 必要なパッケージのインストール {#install-packages}
 
-ターミナルを開き、以下のコマンドを実行します。
+ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
 
 ```terminal
 npm install vee-validate yup vue-i18n

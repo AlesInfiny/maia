@@ -44,7 +44,7 @@ spring.messages.basename=applicationcore.messages,systemcommon.messages
 読み込むプロパティファイルは `src/main/resource` 配下の `<フォルダー名>.<ファイル名>` で指定します。
 プロパティファイルが複数ある場合は、ファイルの間をカンマで区切ります。
 
-### メッセージの取得 {#using-messages}
+### メッセージの取得 {#getting-messages}
 
 読み込んだプロパティファイルのメッセージを取得するためには、 [`MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } クラスを利用します。
 
