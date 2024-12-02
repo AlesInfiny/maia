@@ -100,7 +100,7 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 
     dressca-backend > Tasks > build > build
 
-1. VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
+1. 前手順と同様に、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
     dressca-backend > Tasks > application > bootRunDev
 
