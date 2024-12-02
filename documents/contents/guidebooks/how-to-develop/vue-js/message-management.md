@@ -121,7 +121,7 @@ export { i18n };
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
-```ts title="main.ts" hl_lines="8 16"
+```ts title="main.ts" hl_lines="6 14"
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { authenticationGuard } from "@/shared/authentication/authentication-guard";
