@@ -67,7 +67,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
     スタイルルールを互いに入れ子にするためのプラグイン（[インストール方法](css.md#install-tailwind-css)）
 
-- [stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
+- [Stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
 
     CSS の静的検証ツール（[インストール方法](static-verification-and-format.md#install-stylelint)）
 

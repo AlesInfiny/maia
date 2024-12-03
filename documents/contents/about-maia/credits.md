@@ -93,9 +93,9 @@ Copyright 2020-present John Jakob "Jake" Sarjeant
 
 Copyright 2017 James Long
 
-## StyleLint {#stylelint style="clear:both;" }
+## Stylelint {#stylelint style="clear:both;" }
 
-![StyleLint Logo](../images/about-maia/stylelint-logo.png){ align="left" width="96" }
+![Stylelint Logo](../images/about-maia/stylelint-logo.png){ align="left" width="96" }
 
 [MIT License :material-open-in-new:](https://github.com/stylelint/stylelint.io/blob/main/LICENSE){ target=_blank }
 
