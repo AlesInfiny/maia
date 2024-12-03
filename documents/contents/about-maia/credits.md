@@ -3,6 +3,7 @@ title: クレジット表記
 description: AlesInfiny Maia OSS Edition ポータルサイトのクレジット表記です。
 ---
 
+<!-- cspell:ignore Abdelrahman Awad hackathons Jakob Maxime Morote Sarjeant Thirouin -->
 <!-- textlint-disable @textlint-rule/require-header-id -->
 
 # クレジット表記 {#top}

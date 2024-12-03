@@ -46,7 +46,7 @@ AlesInfiny Maia で採用している Vue.js のソフトウェア・アーキ�
 Vue.js ではビューとビューモデルを [単一ファイルコンポーネント(SFC) :material-open-in-new:](https://ja.vuejs.org/guide/scaling-up/sfc){ target=_blank } と呼ばれる同一のファイル(拡張子.vue)に記述できるので、図ではビュー&ビューモデルと表現しています。
 <!-- textlint-enable -->
 
-### ビュー＆ビューモデル コンポーネント {#view-and-viewmodel-component}
+### ビュー＆ビューモデル コンポーネント {#view-and-view-model-component}
 
 ![MVVM パターン ビュー＆ビューモデル](../../../images/app-architecture/client-side-rendering/view%26viewmodel-component-light.png#only-light){ loading=lazy }
 ![MVVM パターン ビュー＆ビューモデル](../../../images/app-architecture/client-side-rendering/view%26viewmodel-component-dark.png#only-dark){ loading=lazy }
