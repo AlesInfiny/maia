@@ -55,7 +55,7 @@ The copyright owner reserves the right of final explanation for any use case not
 
 [MIT License :material-open-in-new:](https://github.com/vitejs/vite/blob/main/LICENSE){ target=_blank }
 
-Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors
+Copyright (c) 2019-present, VoidZero Inc. and Vite contributors
 
 ## VeeValidate {#vee-validate style="clear:both;" }
 
