@@ -24,6 +24,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）を構成する OSS 
 
 AlesInfiny Maia で採用している Vue.js のソフトウェア・アーキテクチャは MVVM パターンに分類されます。
 以下にアーキテクチャを示します。
+
 ![フロントエンド コンポーネント構成](../../../images/app-architecture/client-side-rendering/frontend-architecture-light.png#only-light){ loading=lazy }
 ![フロントエンド コンポーネント構成](../../../images/app-architecture/client-side-rendering/frontend-architecture-dark.png#only-dark){ loading=lazy }
 
