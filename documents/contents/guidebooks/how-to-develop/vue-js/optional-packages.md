@@ -59,7 +59,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
     Web API 仕様からクライアントコードの自動生成（[インストール方法](create-api-client-code.md#install-open-api-generator)）
 
-- [postCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
+- [PostCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
 
     CSS の最適化（[インストール方法](css.md#install-tailwind-css)）
 
