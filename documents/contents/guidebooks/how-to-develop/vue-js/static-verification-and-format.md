@@ -26,7 +26,9 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ルートプロジェクトの直下に [.editorconfig :material-open-in-new:](https://editorconfig.org/){ target=_blank } を追加することで、 IDE 上で追加されるファイルにコーディングルールを課すことが可能になります。
 
-VSCode の推奨プラグインである [EditorConfig for Visual Studio Code :material-open-in-new:](https://github.com/editorconfig/editorconfig-vscode){ target=_blank } を使用すると、以下のような設定が可能です。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+Visual Studio Code の推奨プラグインである [EditorConfig for Visual Studio Code :material-open-in-new:](https://github.com/editorconfig/editorconfig-vscode){ target=_blank } を使用すると、以下のような設定が可能です。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - エンコード
 - 改行コード
