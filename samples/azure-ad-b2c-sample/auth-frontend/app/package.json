@@ -14,6 +14,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "lint:ci": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
+    "mock": "vite --mode mock",
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
@@ -21,6 +22,7 @@
     "@azure/msal-browser": "^3.26.1",
     "@heroicons/vue": "^2.1.5",
     "axios": "^1.7.7",
+    "msw": "^2.3.5",
     "pinia": "^2.2.5",
     "vue": "^3.5.10"
   },
@@ -48,5 +50,10 @@
     "vite": "^5.4.8",
     "vitest": "^2.1.4",
     "vue-tsc": "^2.1.10"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
