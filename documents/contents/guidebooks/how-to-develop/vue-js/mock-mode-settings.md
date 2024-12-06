@@ -1,26 +1,37 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # モックモードの設定 {#top}
 
-Mock Service Worker を用います。
+フロントエンド・バックエンドアプリケーションを並行して開発する場合や、
+外部の API へリクエストを行う等の理由で環境の用意が難しい場合には、モックの利用が有効です。
+モックを用いることで、バックエンドアプリケーションの API サーバーが用意できなくても、フロントエンドアプリケーション単独で動作を確認できます。
+加えて、任意のレスポンスデータやレスポンスコードを設定できるため、実物の API サーバーでは再現が難しいようなエラーケースの表示も容易に確認できます。
 
-本章で登場するフォルダーとファイルは以下の通りです。
+モックを実現するライブラリとして [Mock Service Worker :material-open-in-new:](https://mswjs.io/){ target=_blank } （以下、 MSW と記載します）を用います。
+MSW は、 API リクエストをインターセプトすることで、ネットワークレベルでのモックを実現します。
+
+以下では、 Vite と MSW の設定方法を説明します。
+
+## フォルダー構成 {#folder-structure}
+
+モックモードの設定に関係するフォルダーとファイルは以下の通りです。
 
 ```terminal linenums="0"
 <workspace-name>
 ├ public/
-│ └ mockServiceWorker.js -- ワーカースクリプト
+│ └ mockServiceWorker.js -- ライブラリが生成するワーカースクリプト
 │ mock/
-│ ├ data/ ----------------- データの置き場
+│ ├ data/ ----------------- レスポンスデータの置き場
 │ ├ handlers/ ------------- ハンドラーの置き場
-│ ├ browser.ts ------------ ブラウザー用のサーバーを起動するためのスクリプト
-│ └ handlers.ts ------------ ハンドラーを集約するためのファイル
+│ ├ browser.ts ------------ ブラウザー用のワーカープロセスを起動するためのスクリプト
+│ └ handlers.ts ----------- ハンドラーを集約するためのファイル
 ├ src/
 │ └ generated/
-│   └ api-client/ --------- openapi-generator で自動生成したコード
+│   └ api-client/
+│     └ model/    --------- openapi-generator で自動生成した API モデル
 │ └ main.ts --------------- アプリケーションのエントリーポイント
 ├ .env.mock --------------- モックモードの環境設定ファイル
 ├ package.json ------------ ワークスペースのメタデータ、依存関係、スクリプトなどを定義するファイル
@@ -29,18 +40,20 @@ Mock Service Worker を用います。
 
 ## Vite の設定 {#vite-settings}
 
+ワークスペース直下の`package.json` にモックモードの起動スクリプトを定義します。
+
 ```json title="package.json"
-    "mock": "vite --mode mock",
+"mock": "vite --mode mock",
 ```
 
-`.env.mock` を作成します。
+モックモード用の環境設定ファイルとして、`.env.mock` を作成します。必要に応じて環境変数を定義してください。
+モックモードを動作させるためだけであれば、追加の定義は不要です。
 
 ```env title=".env.mock"
 VITE_XXX_YYY=
 ```
 
-サーバーが起動できることを確認します。
-API コールの部分ではエラーが出力されます。
+ワークスペース直下で以下のコマンドを実行し、モックモードでサーバーが起動できることを確認します。
 
 ```terminal
 npm run mock
@@ -48,7 +61,7 @@ npm run mock
 
 ## Mock Service Worker の設定 {#msw-settings}
 
-ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
+ワークスペースの直下で以下のコマンドを実行し、 MSW をインストールします。
 
 ```terminal
 npm install msw
@@ -60,20 +73,22 @@ npm install msw
 npx msw init ./public --save
 ```
 
-`mockServiceWorker.js` が作成されます。
-`package.json` に正しいフォルダーが指定されていることを確認してください。
+コマンドを実行すると、引数で指定したフォルダー（上述の例では `public` フォルダー）に、
+ワーカースクリプト（ `mockServiceWorker.js`） が作成され、`package.json` にフォルダーのパスが登録されます。
+`mockServiceWorker.js` は公開フォルダーに配置する必要があります。
 
-`mockServiceWorker.js` はバージョン管理対象にしてください。
+`mockServiceWorker.js` はバージョン情報を持ち、 MSW のライブラリバージョンと同期する必要があるので、リポジトリにコミットし、バージョン管理対象にすることが推奨されています[^1]。
 
 ```json title="package.json"
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
-  },
+"msw": {
+  "workerDirectory": [
+    "public"
+  ]
+},
 ```
 
-`browser.ts` を作成します。
+`mock`フォルダーに`browser.ts` と、`handlers.ts`を作成します。
+ハンドラーの実装は別途行うため、現時点では空で構いません。
 
 ```ts title="browser.ts"
 import { setupWorker } from 'msw/browser';
@@ -82,41 +97,43 @@ import { handlers } from './handler';
 export const worker = setupWorker(...handlers);
 ```
 
-`handlers.ts`を作成します。
-ハンドラーの実装は別途行うため、現時点では空で構いません。
-
 ```ts title="handlers.ts"
 export const handlers = []; // 後で実装します。
 ```
 
 アプリケーションのエントリーポイントで、
-モックモードで起動した場合に Mock Service Worker を立ち上げるように設定します。
-エントリーポイントで下記のように設定してください。
+モックモードで起動した場合にワーカーを立ち上げるように設定します。
+`main.ts`に以下のように設定してください。
 
 ```ts title="main.ts"
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
-  const { worker } = await import('../mock/browser');
+  const { worker } = await import('../mock/browser'); // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
-    onUnhandledRequest: 'bypass',
+    onUnhandledRequest: 'bypass', // MSW のハンドラーを未設定のリクエストに対して警告を出さないように設定します。
   });
 }
 
 if (import.meta.env.MODE === 'mock') {
   try {
-    await enableMocking();
+    await enableMocking(); // ワーカーの起動を待ちます。
   } catch (error) {
     console.error('モック用のワーカープロセスの起動に失敗しました。', error);
   }
 }
 
+// ワーカーが起動したら、アプリケーションを立ち上げます。
 const app = createApp(App);
 ```
 
+??? info "ワーカープロセスの起動を待つ理由"
+    ワーカープロセスが起動する前にアプリケーションが立ち上がると、 API リクエストをインターセプトできずに予期せぬ挙動を引き起こす可能性があるためです。
+    たとえばトップページをマウントした際に API リクエストを行うアプリケーションでは、このリクエストで予期せぬエラーが発生し、エラーページに遷移してしまうといったことが考えられます。
+
 再度下記のコマンドで Vite のサーバーを立ち上げ、ワーカープロセスが起動していることを確認します。
-開発者ツールに `[MSW] Mocking enabled.` のメッセージが表示されていれば、設定は成功です。
+開発者ツール上に 「[MSW] Mocking enabled.」 のメッセージが表示されていれば、設定は成功です。
 
 ```terminal
 npm run mock
 ```
 
-## ハンドラーの実装 {#implement-handler}
+[^1]: [Committing the worker script :material-open-in-new:](https://mswjs.io/docs/best-practices/managing-the-worker/#committing-the-worker-script){ target=_blank }
