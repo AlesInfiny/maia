@@ -41,6 +41,7 @@ nav:
               - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
               - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
               - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
+              - 認証・認可方針: app-architecture/client-side-rendering/global-function/authentication-and-authorization-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
