@@ -2,11 +2,11 @@
 <!-- markdownlint-disable-file CMD001 -->
 <!-- cspell:ignore Validatable signupsignin b2clogin -->
 
-# Azure AD B2C による認証サンプル
+# Azure Active Directory B2C による認証サンプル
 
 ## このサンプルについて
 
-Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
+Azure Active Directory B2C （以降、 Azure AD B2C ）によるユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
 また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
