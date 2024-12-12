@@ -38,10 +38,10 @@ CSS ファイルを記述せずにデザインを実現する、ユーティリ�
 
 ### Tailwind CSS のインストール {#install-tailwind-css}
 
-[公式ドキュメント :material-open-in-new:](https://tailwindcss.com/docs/installation/using-postcss){ target=_blank } が推奨するとおり、 postCSS のプラグインとして以下をインストールします。
+[公式ドキュメント :material-open-in-new:](https://tailwindcss.com/docs/installation/using-postcss){ target=_blank } が推奨するとおり、 PostCSS のプラグインとして以下をインストールします。
 
 - Tailwind CSS
-- postCSS
+- PostCSS
 - autoprefixer
 
 > Installing Tailwind CSS as a PostCSS plugin is the most seamless way to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
@@ -50,13 +50,13 @@ CSS ファイルを記述せずにデザインを実現する、ユーティリ�
 npm install -D tailwindcss postcss autoprefixer postcss-nesting
 ```
 
-- [postCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
+- [PostCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
 
-    [postCSS](#postcss) で説明します。
+    [PostCSS](#postcss) で説明します。
 
 - [autoprefixer :material-open-in-new:](https://autoprefixer.github.io/){ target=_blank }
 
-    CSS に対してベンダープレフィクスを自動的に付与する postCSS のプラグインです。このプラグインを使用することにより、ベンダープレフィクスを意識する必要が無くなります。
+    CSS に対してベンダープレフィクスを自動的に付与する PostCSS のプラグインです。このプラグインを使用することにより、ベンダープレフィクスを意識する必要が無くなります。
 
 - [postcss-nesting :material-open-in-new:](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting){ target=_blank }
 
@@ -109,13 +109,13 @@ export default {
 @tailwind utilities;
 ```
 
-## postCSS {#postcss}
+## PostCSS {#postcss}
 
 CSS を操作するための JavaScript ベースのプラグインです。このプラグインの API を利用する多くのプラグインが公開されており、前述の Tailwind CSS もその１つです。
 
-postCSS は Tailwind CSS と一緒にすでにインストール済みなので、インストールの必要はありません。
+PostCSS は Tailwind CSS と一緒にすでにインストール済みなので、インストールの必要はありません。
 
-### postCSS の設定 {#settings-postcss}
+### PostCSS の設定 {#settings-postcss}
 
 設定ファイル `./postcss.config.cjs` を作成します。
 

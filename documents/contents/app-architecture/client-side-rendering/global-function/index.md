@@ -30,3 +30,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 1. [メッセージ管理方針](./message-management-policy.md)
 
     アプリケーションのメッセージ管理方針について説明します。
+
+1. [認証・認可方針](./authentication-and-authorization-policy.md)
+
+    アプリケーションの認証・認可方針について説明します。

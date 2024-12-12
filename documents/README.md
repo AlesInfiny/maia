@@ -315,7 +315,7 @@ npm run lint:markdownlint-all
 npm run lint:textlint-all
 ```
 
-## ドキュメント作成環境の構築
+## ドキュメント執筆環境の構築方法
 
 ### Visual Studio Code のインストール
 
