@@ -5,11 +5,11 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 # OpenAPI 仕様書からのクライアントコード生成 {#top}
 
-サーバー側で公開される Web API は、 OpenAPI 仕様書を自動生成しています（詳細は [サブプロジェクトの個別設定](../java/sub-project-settings.md) を参照）。 Vue.js アプリケーションでは、 OpenAPI Generator を使用して、この OpenAPI 仕様書からクライアントコードを生成します。
+サーバー側で公開される Web API は、 OpenAPI 仕様書を自動生成しています（詳細は [web プロジェクトの設定](../java/sub-project-settings/web-project-settings.md) を参照）。 Vue.js アプリケーションでは、 OpenAPI Generator を使用して、この OpenAPI 仕様書からクライアントコードを生成します。
 
 ## 事前準備 {#preparation}
 
-[OpenAPI 仕様書の出力設定](../java/sub-project-settings.md#open-api-specification-output-configuration) に示す手順に従って生成した OpenAPI 仕様書をローカルに保存します。ここでは、ファイル名を「api-specification.json」とします。
+[OpenAPI 仕様書の出力設定](../java/sub-project-settings/web-project-settings.md#open-api-specification-output-configuration) に示す手順に従って生成した OpenAPI 仕様書をローカルに保存します。ここでは、ファイル名を「api-specification.json」とします。
 
 ### JDK のインストール {#install-jdk}
 
