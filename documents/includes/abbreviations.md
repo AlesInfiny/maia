@@ -14,12 +14,12 @@
 *[CSRF]: Cross-Site Request Forgery：クロスサイトリクエストフォージェリ。
 *[DI]: Dependency Injection：依存性の注入。
 *[DSL]: Domain Specific Language: ドメイン固有言語。
-*[E2E]: End to end
+*[E2E]: End to End
 *[FaaS]: Function as a Service: サーバーレスでアプリケーション開発ができる環境を提供するクラウドサービス。
 *[GA]: General Availability：正式版、製品版、一般公開版。
-*[GB]: Gigabyte：記憶媒体の容量を表す単位。
+*[GB]: GigaByte：記憶媒体の容量を表す単位。
 *[jar]: Java ARchive
-*[JDBC]: Java Database Connectivity
+*[JDBC]: Java DataBase Connectivity
 *[JDK]: Java Development Kit：Java アプリケーションを構築するためのソフトウェア開発キット。
 *[JIT]: Just-In-Time: アプリケーションの実行時にソースコードをコンパイルする方式。
 *[JPA]: Java Persistence API
@@ -28,6 +28,7 @@
 *[IDE]: Integrated Development Environment：統合開発環境。
 *[LB]: Load Balancer
 *[MVC]: Model-View-Controller
+*[MVVM]: Model-View-ViewModel
 *[O/R]: Object / Relational
 *[OS]: Operating System
 *[OSS]: Open Source Software

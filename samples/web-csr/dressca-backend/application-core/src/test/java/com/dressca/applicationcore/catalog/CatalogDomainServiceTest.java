@@ -27,6 +27,8 @@ public class CatalogDomainServiceTest {
   @InjectMocks
   private CatalogDomainService service;
 
+  private static final Random random = new Random();
+
   @Test
   void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
@@ -122,7 +124,6 @@ public class CatalogDomainServiceTest {
   }
 
   private CatalogItem createCatalogItem(long id) {
-    Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
     String defaultDescription = "Description.";

@@ -11,7 +11,7 @@ description: バックエンドで動作する Java アプリケーションの 
 各 Gradle Groovy DSL プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
 [Web サービス :material-open-in-new:](https://start.spring.io/){ target=_blank } を利用する方法や、各種 IDE にプラグインや拡張機能を導入することで IDE 上でも利用できます。
-VS Code の場合、 [Spring Boot Extension Pack :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack){ target=_blank } が導入済みであれば利用できます。
+Visual Studio Code の場合、 [Spring Boot Extension Pack :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack){ target=_blank } が導入済みであれば利用できます。
 
 ここでは Web サービスでの作成を前提に説明します。
 

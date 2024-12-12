@@ -64,6 +64,8 @@ public class ShoppingApplicationServiceTest {
 
   private ShoppingApplicationService service;
 
+  private static final Random random = new Random();
+
   @BeforeEach
   void setUp() {
     service = new ShoppingApplicationService(messages, basketRepository, catalogRepository, orderRepository,
@@ -382,7 +384,6 @@ public class ShoppingApplicationServiceTest {
   }
 
   private CatalogItem createCatalogItem(long id) {
-    Random random = new Random();
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
     String defaultDescription = "Description.";
