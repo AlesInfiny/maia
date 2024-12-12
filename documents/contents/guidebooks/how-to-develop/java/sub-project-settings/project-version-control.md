@@ -167,21 +167,21 @@ dependencies {
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
-    // Open API 仕様書出力の作業ディレクトリを指定する。
+    // OpenAPI 仕様書出力の作業ディレクトリを指定する。
     afterEvaluate {
       tasks.named("forkedSpringBootRun") {
         workingDir("$rootDir/api-docs")
       }
     }
 
-    // Open API 仕様書の出力先を指定する。
+    // OpenAPI 仕様書の出力先を指定する。
     openApi {
       apiDocsUrl.set("http://localhost:8080/api-docs")
       outputDir.set(file("$rootDir/api-docs"))
       outputFileName.set("api-specification.json")
     }
 
-    // ビルド時に Open API 仕様書の出力を行うよう設定する。
+    // ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
     build.dependsOn("generateOpenApiDocs")
 
     tasks.named('test') {

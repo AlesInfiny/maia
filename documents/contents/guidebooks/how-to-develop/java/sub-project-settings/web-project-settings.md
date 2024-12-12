@@ -101,9 +101,9 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
     spring.sql.init.mode=never
     ```
 
-## Open API 仕様書の出力設定 {#open-api-specification-output-configuration}
+## OpenAPI 仕様書の出力設定 {#open-api-specification-output-configuration}
 
-Open API 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
+OpenAPI 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
 以下に、 `application.properties` と `build.gradle` への設定内容を例示します。
 SpringDoc OpenAPI Gradle Plugin のバージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-gradle-plugin){ target=_blank } を参照してください。
 
@@ -114,23 +114,23 @@ springdoc.api-docs.path=/api-docs
 
 ```groovy title="web/build.gradle"
 plugins {
-  // Open API のプラグインを追加する。
+  // OpenAPI のプラグインを追加する。
   id 'org.springdoc.openapi-gradle-plugin' version 'x.x.x'
 }
 
-// Open API 仕様書出力の作業ディレクトリを指定する。
+// OpenAPI 仕様書出力の作業ディレクトリを指定する。
 afterEvaluate {
   tasks.named("forkedSpringBootRun") {
   workingDir("$rootDir/api-docs")
   }
 }
-// Open API 仕様書の出力先を指定する。
+// OpenAPI 仕様書の出力先を指定する。
 openApi {
   apiDocsUrl.set("http://localhost:8080/api-docs")
   outputDir.set(file("$rootDir/api-docs"))
   outputFileName.set("api-specification.json")
 }
-// ビルド時に Open API 仕様書の出力を行うよう設定する。
+// ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
 build.dependsOn("generateOpenApiDocs")
 ```
 
@@ -148,7 +148,7 @@ build.dependsOn("generateOpenApiDocs")
       id 'java'
       id 'org.springframework.boot' version 'x.x.x'
       id 'io.spring.dependency-management' version 'x.x.x'
-      // Open API のプラグインを追加する。
+      // OpenAPI のプラグインを追加する。
       id 'org.springdoc.openapi-gradle-plugin' version 'x.x.x'
     }
 
@@ -177,21 +177,21 @@ build.dependsOn("generateOpenApiDocs")
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
-    // Open API 仕様書出力の作業ディレクトリを指定する。
+    // OpenAPI 仕様書出力の作業ディレクトリを指定する。
     afterEvaluate {
       tasks.named("forkedSpringBootRun") {
         workingDir("$rootDir/api-docs")
       }
     }
 
-    // Open API 仕様書の出力先を指定する。
+    // OpenAPI 仕様書の出力先を指定する。
     openApi {
       apiDocsUrl.set("http://localhost:8080/api-docs")
       outputDir.set(file("$rootDir/api-docs"))
       outputFileName.set("api-specification.json")
     }
 
-    // ビルド時に Open API 仕様書の出力を行うよう設定する。
+    // ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
     build.dependsOn("generateOpenApiDocs")
 
     tasks.named('test') {
