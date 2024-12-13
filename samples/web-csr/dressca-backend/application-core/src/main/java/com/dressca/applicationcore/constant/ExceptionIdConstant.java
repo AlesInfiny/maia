@@ -8,6 +8,9 @@ public class ExceptionIdConstant {
   /** 存在しないアセットコード: {0} のアセットが要求されました。 */
   public static final String E_ASSET_NOT_FOUND = "assetNotFound";
 
+  /** サポートされていないアセットタイプ： {0} が指定されました。 */
+  public static final String E_ASSET_TYPE_NOT_SUPPORTED = "assetTypeNotSupported";
+
   /** 存在しない買い物かごID: {0} の買い物かごが要求されました。 */
   public static final String E_BASKET_IS_NULL_ON_CHECKOUT = "basketIsNullOnCheckout";
 
