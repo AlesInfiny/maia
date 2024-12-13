@@ -86,3 +86,7 @@ application-core プロジェクトの `src` 以下にある、 `ApplicationCore
       enabled = true
     }
     ```
+
+## メッセージ管理の設定 {#message-management-settings}
+
+application-core プロジェクトで管理する業務メッセージの設定方法については、[こちら](./message-management.md) を参照してください。

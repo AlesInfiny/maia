@@ -69,3 +69,7 @@ system-common プロジェクトの `src` 以下にある、 `SystemCommonApplic
       enabled = true
     }
     ```
+
+## メッセージ管理の設定 {#message-management-settings}
+
+system-common プロジェクトで管理する共通メッセージの設定方法については、[こちら](./message-management.md) を参照してください。

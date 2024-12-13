@@ -17,7 +17,7 @@ public class CatalogItemInBasketNotFoundException extends LogicException {
    * @param basketId   買い物かごID
    */
   public CatalogItemInBasketNotFoundException(List<Long> catalogIds, long basketId) {
-    super(null, ExceptionIdConstant.E_CATALOG_ITEM_ID_DOES_EXIST_IN_BASKET,
+    super(null, ExceptionIdConstant.E_CATALOG_ITEM_ID_DOES_NOT_EXIST_IN_BASKET,
         new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) },
         new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) });
   }

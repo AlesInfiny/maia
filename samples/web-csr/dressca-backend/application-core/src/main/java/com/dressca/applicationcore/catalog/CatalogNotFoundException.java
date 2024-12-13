@@ -7,11 +7,20 @@ import com.dressca.systemcommon.exception.LogicException;
  * 商品が存在しないことを表す例外です。
  */
 public class CatalogNotFoundException extends LogicException {
+
+  /**
+   * 見つからなかったカタログ ID を指定して例外を作成します。
+   * 
+   * @param catalogId 見つからなかったカタログ ID 。
+   */
   public CatalogNotFoundException(long catalogId) {
     super(null, ExceptionIdConstant.E_CATALOG_ID_NOT_FOUND, new String[] { String.valueOf(catalogId) },
         new String[] { String.valueOf(catalogId) });
   }
 
+  /**
+   * カタログに商品が存在しないことを表す例外を作成します。
+   */
   public CatalogNotFoundException() {
     super(null, ExceptionIdConstant.E_CATALOG_ID_NOT_FOUND, null, null);
   }
