@@ -32,5 +32,3 @@ AlesInfiny Maia OSS Edition として推奨する設定や、共通的に使用�
 1. サブプロジェクト内のフォルダー構成
 
     [各種アーキテクチャの説明](../../../app-architecture/index.md) を参照して、各サブプロジェクト内のフォルダー構造を作成してください。
-
-1. [メッセージ管理機能の設定](./message-management.md)

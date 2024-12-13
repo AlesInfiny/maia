@@ -7,7 +7,7 @@ description: バックエンドで動作する Java アプリケーションの 
 
 # メッセージ管理機能の設定 {#top}
 
-バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../app-architecture/overview/java-application-processing-system/message-management-policy.md) をご確認ください。
+バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../app-architecture/overview/java-application-processing-system/message-management-policy.md) をご確認ください。
 
 ## 設定方法 {#settings}
 
