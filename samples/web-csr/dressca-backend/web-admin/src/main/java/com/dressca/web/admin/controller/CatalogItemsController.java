@@ -154,7 +154,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<Void> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
+  public ResponseEntity<CatalogItem> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId)
       throws PermissionDeniedException {
     try {
       this.service.deleteItemFromCatalog(catalogItemId);
@@ -183,7 +183,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "409", description = "更新の競合が発生。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<Void> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<CatalogItem> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
