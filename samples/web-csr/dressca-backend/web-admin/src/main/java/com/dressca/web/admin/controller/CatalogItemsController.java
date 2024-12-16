@@ -16,7 +16,7 @@ import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
-import com.dressca.web.admin.controller.dto.catalog.PagedListOfCatalogItemResponse;
+import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
@@ -100,14 +100,14 @@ public class CatalogItemsController {
    */
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
       @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
   @GetMapping
-  public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
+  public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
@@ -118,7 +118,8 @@ public class CatalogItemsController {
         .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
-    PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(items, totalCount, page, pageSize);
+    PagedListOfGetCatalogItemResponse returnValue = new PagedListOfGetCatalogItemResponse(items, totalCount, page,
+        pageSize);
     return ResponseEntity.ok().body(returnValue);
   }
 

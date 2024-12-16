@@ -247,7 +247,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedListOfCatalogItemResponse"
+                  "$ref": "#/components/schemas/PagedListOfGetCatalogItemResponse"
                 }
               }
             },
@@ -654,7 +654,7 @@
           }
         }
       },
-      "PagedListOfCatalogItemResponse": {
+      "PagedListOfGetCatalogItemResponse": {
         "type": "object",
         "properties": {
           "hasNext": {
