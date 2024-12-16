@@ -21,9 +21,9 @@ import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
+import com.dressca.applicationcore.constant.UserRoleConstant;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.constant.UserRoleConstant;
 import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 
 /**
