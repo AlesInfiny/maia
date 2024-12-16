@@ -64,8 +64,6 @@ task updateMyBatisGeneratorMapperForOptimisticLocking {
 
       // 正規表現と置換のペアをリストにまとめる
       def replacements = [
-        [ /(<sql id="Update_By_Example_Where_Clause">(?:(?!and ${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})[\s\S])*?)(<\/if>)/,
-          "\$1and ${optimisticLockColumn} = #{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}}\n        \$2" ],
         [ /(<update id="updateByExampleSelective"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}},)/,
           "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP," ],
         [ /(<update id="updateByExample"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})/,

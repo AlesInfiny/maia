@@ -80,7 +80,6 @@
               </choose>
             </foreach>
           </trim>
-        and row_version = #{rowVersion,jdbcType=TIMESTAMP}
         </if>
       </foreach>
     </where>
