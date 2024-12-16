@@ -426,11 +426,7 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/GetCatalogItemResponse"
-=======
-                  "$ref": "#/components/schemas/CatalogItemResponse"
->>>>>>> develop/admin/dressca-admin-main
                 }
               }
             },
@@ -627,7 +623,6 @@
           "price",
           "productCode",
           "rowVersion"
-<<<<<<< HEAD
         ]
       },
       "GetLoginUserResponse": {
@@ -646,8 +641,6 @@
         "required": [
           "roles",
           "userName"
-=======
->>>>>>> develop/admin/dressca-admin-main
         ]
       },
       "Link": {
@@ -765,31 +758,8 @@
           "price",
           "productCode",
           "rowVersion"
-<<<<<<< HEAD
-=======
-        ]
-      },
-      "UserResponse": {
-        "type": "object",
-        "properties": {
-          "role": {
-            "type": "string"
-          },
-          "userName": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "role",
-          "userName"
->>>>>>> develop/admin/dressca-admin-main
         ]
       }
     }
   }
 }
-}
-},
-"required": [
-"role",
-"userName"
