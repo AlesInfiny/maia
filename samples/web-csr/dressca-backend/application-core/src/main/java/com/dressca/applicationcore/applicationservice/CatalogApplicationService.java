@@ -23,6 +23,7 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.constant.UserRoleConstant;
 import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 
 /**
@@ -74,7 +75,7 @@ public class CatalogApplicationService {
   public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException, PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG, new Object[] { id }, Locale.getDefault()));
 
-    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItem");
     }
 
@@ -118,7 +119,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
-    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItemsByAdmin");
     }
 
@@ -141,7 +142,7 @@ public class CatalogApplicationService {
       long catalogCategoryId, long catalogBrandId) throws PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG, new Object[] {}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
 
@@ -155,21 +156,27 @@ public class CatalogApplicationService {
   /**
    * カタログからアイテムを削除します。
    * 
-   * @param id 削除対象のカタログアイテムのID。
-   * @throws PermissionDeniedException 削除権限がない場合。
-   * @throws CatalogNotFoundException  削除対象のカタログアイテムが存在しなかった場合。
+   * @param id         削除対象のカタログアイテムのID。
+   * @param rowVersion 行バージョン。
+   * @throws PermissionDeniedException         削除権限がない場合。
+   * @throws CatalogNotFoundException          削除対象のカタログアイテムが存在しなかった場合。
+   * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    * 
    */
-  public void deleteItemFromCatalog(long id) throws CatalogNotFoundException, PermissionDeniedException {
+  public void deleteItemFromCatalog(long id, LocalDateTime rowVersion)
+      throws CatalogNotFoundException, PermissionDeniedException, OptimisticLockingFailureException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG, new Object[] { id }, Locale.getDefault()));
-    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
     }
     CatalogItem item = this.catalogRepository.findById(id);
     if (item == null) {
       throw new CatalogNotFoundException(id);
     }
-    this.catalogRepository.remove(item);
+    int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
+    if (deleteRowCount == 0) {
+      throw new OptimisticLockingFailureException(id);
+    }
   }
 
   /**
@@ -196,7 +203,7 @@ public class CatalogApplicationService {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG, new Object[] { id }, Locale.getDefault()));
 
-    if (!this.userStore.isInRole("ROLE_ADMIN")) {
+    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
     CatalogItem currentCatalogItem = catalogRepository.findById(id);

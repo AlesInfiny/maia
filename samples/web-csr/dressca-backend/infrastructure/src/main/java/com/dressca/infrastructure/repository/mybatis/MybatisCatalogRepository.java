@@ -7,6 +7,7 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogIte
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,13 +62,14 @@ public class MybatisCatalogRepository implements CatalogRepository {
   public CatalogItem add(CatalogItem item) {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
     catalogItemMapper.insert(entity);
+    item.setId(entity.getId());
     return item;
   }
 
   @Override
-  public int remove(CatalogItem item) {
+  public int remove(Long id, LocalDateTime rowVersion) {
     CatalogItemEntityExample catalogItemExample = new CatalogItemEntityExample();
-    catalogItemExample.createCriteria().andIdEqualTo(item.getId());
+    catalogItemExample.createCriteria().andIdEqualTo(id).andRowVersionEqualTo(rowVersion);
     return catalogItemMapper.deleteByExample(catalogItemExample);
   }
 
