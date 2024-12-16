@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogBrand;
-import com.dressca.web.admin.controller.dto.catalog.CatalogBrandResponse;
+import com.dressca.web.admin.controller.dto.catalog.GetCatalogBrandsResponse;
 import com.dressca.web.admin.mapper.CatalogBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +41,13 @@ public class CatalogBrandsController {
    */
   @Operation(summary = "カタログブランドの一覧を取得する.", description = "カタログブランドの一覧を取得する.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetCatalogBrandsResponse.class)))),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @GetMapping
-  public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
-    List<CatalogBrandResponse> brands = this.service.getBrands().stream()
+  public ResponseEntity<List<GetCatalogBrandsResponse>> getCatalogBrands() {
+    List<GetCatalogBrandsResponse> brands = this.service.getBrands().stream()
         .map(CatalogBrandMapper::convert)
         .collect(Collectors.toList());
 

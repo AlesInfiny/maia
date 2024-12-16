@@ -116,10 +116,16 @@
                 }
               }
             },
-            "description": "成功."
+            "description": "成功。"
+          },
+          "401": {
+            "description": "未認証。"
           },
           "404": {
-            "description": "アセットコードに対応するアセットがない."
+            "description": "アセットコードに対応するアセットがない。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "アセットを取得する.",
@@ -139,12 +145,18 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CatalogBrandResponse"
+                    "$ref": "#/components/schemas/GetCatalogBrandsResponse"
                   }
                 }
               }
             },
-            "description": "成功"
+            "description": "成功。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "カタログブランドの一覧を取得する.",
@@ -164,12 +176,18 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CatalogCategoryResponse"
+                    "$ref": "#/components/schemas/GetCatalogCategoriesResponse"
                   }
                 }
               }
             },
-            "description": "成功"
+            "description": "成功。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "カタログカテゴリの一覧を取得します.",
@@ -233,16 +251,19 @@
                 }
               }
             },
-            "description": "成功"
+            "description": "成功。"
           },
           "400": {
-            "description": "リクエストエラー"
+            "description": "リクエストエラー。"
           },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証。"
           },
           "404": {
-            "description": "リソースアクセスエラー"
+            "description": "失敗。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "カタログアイテムを検索して返します.",
@@ -267,11 +288,17 @@
           "201": {
             "description": "成功。"
           },
+          "400": {
+            "description": "リクエストエラー。"
+          },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証。"
           },
           "404": {
-            "description": "リソースアクセスエラー"
+            "description": "失敗。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "カタログにアイテムを追加します。",
@@ -293,17 +320,35 @@
               "type": "integer",
               "format": "int64"
             }
+          },
+          {
+            "in": "query",
+            "name": "rowVersion",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
           }
         ],
         "responses": {
           "204": {
-            "description": "成功."
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
           },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証。"
           },
           "404": {
-            "description": "対象のIDが存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しない。"
+          },
+          "409": {
+            "description": "競合が発生。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "カタログから指定したカタログアイテム ID のアイテムを削除します。",
@@ -337,16 +382,22 @@
         },
         "responses": {
           "204": {
-            "description": "成功."
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
           },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証。"
           },
           "404": {
-            "description": "対象のIDが存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しない。"
           },
           "409": {
-            "description": "更新の競合が発生。"
+            "description": "競合が発生。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "指定したIDのカタログアイテムの情報を更新します。",
@@ -358,7 +409,7 @@
     "/api/catalog-items/{id}": {
       "get": {
         "description": "指定したIDのカタログアイテムを返します。",
-        "operationId": "getById",
+        "operationId": "getCatalogItem",
         "parameters": [
           {
             "in": "path",
@@ -375,17 +426,23 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CatalogItemResponse"
+                  "$ref": "#/components/schemas/GetCatalogItemResponse"
                 }
               }
             },
-            "description": "成功"
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
           },
           "401": {
-            "description": "未認証エラー"
+            "description": "未認証。"
           },
           "404": {
-            "description": "対象のIDが存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しない。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "指定したIDのカタログアイテムを返します。",
@@ -465,14 +522,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
+                  "$ref": "#/components/schemas/GetLoginUserResponse"
                 }
               }
             },
-            "description": "成功."
+            "description": "成功。"
           },
           "401": {
-            "description": "未認証エラー."
+            "description": "未認証。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
         "summary": "ログイン中のユーザーの情報を取得します。",
@@ -484,7 +544,7 @@
   },
   "components": {
     "schemas": {
-      "CatalogBrandResponse": {
+      "GetCatalogBrandsResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -500,7 +560,7 @@
           "name"
         ]
       },
-      "CatalogCategoryResponse": {
+      "GetCatalogCategoriesResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -516,7 +576,7 @@
           "name"
         ]
       },
-      "CatalogItemResponse": {
+      "GetCatalogItemResponse": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -565,6 +625,24 @@
           "rowVersion"
         ]
       },
+      "GetLoginUserResponse": {
+        "type": "object",
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "roles",
+          "userName"
+        ]
+      },
       "Link": {
         "type": "object",
         "properties": {
@@ -582,7 +660,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CatalogItemResponse"
+              "$ref": "#/components/schemas/GetCatalogItemResponse"
             }
           },
           "page": {
@@ -670,21 +748,6 @@
           "price",
           "productCode",
           "rowVersion"
-        ]
-      },
-      "UserResponse": {
-        "type": "object",
-        "properties": {
-          "role": {
-            "type": "string"
-          },
-          "userName": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "role",
-          "userName"
         ]
       }
     }
