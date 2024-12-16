@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
@@ -227,7 +228,8 @@ public class CatalogApplicationServiceTest {
     when(this.catalogRepository.update(any())).thenReturn(1);
 
     // Action
-    this.service.updateCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L, 1L);
+    this.service.updateCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L, 1L,
+        LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
 
     // Assert
     verify(this.catalogRepository, times(1)).update(any());
@@ -250,7 +252,7 @@ public class CatalogApplicationServiceTest {
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(targetId, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001",
-          1L, 1L);
+          1L, 1L, LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
     };
 
     // Assert
@@ -273,7 +275,7 @@ public class CatalogApplicationServiceTest {
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001", 1L,
-          targetId);
+          targetId, LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
     };
 
     // Assert
@@ -296,7 +298,7 @@ public class CatalogApplicationServiceTest {
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001",
-          targetId, 1L);
+          targetId, 1L, LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
     };
 
     // Assert
@@ -321,7 +323,7 @@ public class CatalogApplicationServiceTest {
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(1L, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001",
-          1L, 1L);
+          1L, 1L, LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
     };
 
     // Assert
@@ -346,7 +348,7 @@ public class CatalogApplicationServiceTest {
     // Action
     Executable action = () -> {
       this.service.updateCatalogItem(targetId, "Name", "Description.", BigDecimal.valueOf(100_000_000L), "C000000001",
-          1L, 1L);
+          1L, 1L, LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0));
     };
 
     // Assert

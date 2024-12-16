@@ -41,7 +41,7 @@ public class UserStoreImpl implements UserStore {
   /**
    * ログイン中のユーザーが指定したロールに属しているかどうか確認します。
    *
-   * @return ログインしている場合true。未ログインの場合false。
+   * @return ロールに属している場合true。未ログインの場合false。
    */
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

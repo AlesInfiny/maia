@@ -50,7 +50,7 @@ public class CatalogItemsController {
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
-      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
     List<CatalogItemResponse> items = service.getCatalogItemsByConsumer(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert)

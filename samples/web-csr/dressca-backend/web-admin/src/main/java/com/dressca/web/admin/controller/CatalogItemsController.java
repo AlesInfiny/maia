@@ -66,7 +66,7 @@ public class CatalogItemsController {
    */
   @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CatalogItemResponse.class))),
       @ApiResponse(responseCode = "401", description = "未認証エラー", content = @Content),
       @ApiResponse(responseCode = "404", description = "対象のIDが存在しない。", content = @Content)
   })
@@ -105,7 +105,7 @@ public class CatalogItemsController {
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
-      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws PermissionDeniedException {
 
     List<CatalogItemResponse> items = this.service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize).stream()
@@ -190,7 +190,7 @@ public class CatalogItemsController {
       this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
           putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
           putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
-          putCatalogItemRequest.getCatalogBrandId());
+          putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion());
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
