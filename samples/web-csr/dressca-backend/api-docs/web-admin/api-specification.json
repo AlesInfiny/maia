@@ -228,7 +228,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 0
+              "default": 1
             }
           },
           {
@@ -657,6 +657,12 @@
       "PagedListOfCatalogItemResponse": {
         "type": "object",
         "properties": {
+          "hasNext": {
+            "type": "boolean"
+          },
+          "hasPrevious": {
+            "type": "boolean"
+          },
           "items": {
             "type": "array",
             "items": {
@@ -672,6 +678,10 @@
             "format": "int32"
           },
           "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
             "type": "integer",
             "format": "int32"
           }

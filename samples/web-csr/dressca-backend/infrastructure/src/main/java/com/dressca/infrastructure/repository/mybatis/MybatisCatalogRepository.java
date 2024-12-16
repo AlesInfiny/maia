@@ -34,7 +34,7 @@ public class MybatisCatalogRepository implements CatalogRepository {
   @Override
   public List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page,
       int pageSize) {
-    int offset = pageSize * page;
+    int offset = pageSize * (page - 1);
     return mapper.findByBrandIdAndCategoryId(brandId, categoryId, pageSize, offset);
   }
 
