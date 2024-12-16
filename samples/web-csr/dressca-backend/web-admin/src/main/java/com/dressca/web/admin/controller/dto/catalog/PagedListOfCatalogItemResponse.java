@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagedListOfCatalogItemResponse {
-  private List<CatalogItemResponse> items;
+  private List<GetCatalogItemResponse> items;
   private int totalCount;
   private int page;
   private int pageSize;

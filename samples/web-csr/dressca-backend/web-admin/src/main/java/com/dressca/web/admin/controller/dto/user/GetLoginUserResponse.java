@@ -1,5 +1,7 @@
-package com.dressca.web.admin.controller.dto;
+package com.dressca.web.admin.controller.dto.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +11,9 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class UserResponse {
+public class GetLoginUserResponse {
   @NotNull
   private String userName = "";
   @NotNull
-  private String role = "";
+  private List<String> roles = new ArrayList<>();
 }

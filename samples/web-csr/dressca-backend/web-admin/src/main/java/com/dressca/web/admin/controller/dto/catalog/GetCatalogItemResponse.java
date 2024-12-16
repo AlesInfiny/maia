@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogItemResponse {
+public class GetCatalogItemResponse {
 
   @NotNull
   private long id;
