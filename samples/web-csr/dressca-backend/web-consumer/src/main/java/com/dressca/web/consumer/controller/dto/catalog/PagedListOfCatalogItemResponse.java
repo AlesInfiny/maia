@@ -29,7 +29,7 @@ public class PagedListOfCatalogItemResponse {
     this.totalCount = totalCount;
     this.page = page;
     this.pageSize = pageSize;
-    this.totalPages = (int) Math.ceil(this.totalCount / (double) this.pageSize);
+    this.totalPages = this.totalCount / this.pageSize + (this.totalCount % this.pageSize == 0 ? 0 : 1);
     this.hasPrevious = this.page > 1;
     this.hasNext = this.page < this.totalPages;
   }
