@@ -151,4 +151,4 @@ npm run lint
 
 [行動規範](/.github/CODE_OF_CONDUCT.md) をご覧ください。
 
-<!-- textlint-enabled @textlint-rule/require-header-id -->
+<!-- textlint-enable @textlint-rule/require-header-id -->

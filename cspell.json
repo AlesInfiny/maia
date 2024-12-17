@@ -1,6 +1,7 @@
 {
     "ignorePaths": [
         ".vscode",
+        ".git",
         ".gitattributes",
         ".gitignore",
         ".markdownlint-cli2.yaml",
@@ -12,6 +13,7 @@
         "LICENSE",
         "LICENSE-CODE",
         "maia.code-workspace",
+        "mkdocs.yml",
         "package-lock.json",
         "package.json",
         "requirements.txt",
@@ -21,7 +23,8 @@
         "**/iis-files/**",
         "**/node_modules/**",
         "**/openapitools.json",
-        "mkdocs.yml",
+        "**/*.drawio",
+        "**/*.svg",
     ],
     "words": [
         "Adoptium",
@@ -47,13 +50,16 @@
         "mkdocs",
         "Mockito",
         "MSAL",
+        "MVVM",
         "MyBatis",
         "Noto",
         "OpenAPI",
         "openapitools.json",
+        "PKCE",
         "Pinia",
         "Pymarkdown",
         "pymdown",
+        "Tasklet",
         "Servlet",
         "SpotBugs",
         "Springdoc",
@@ -63,6 +69,7 @@
         "Temurin",
         "textlint",
         "Vetur",
+        "viewmodel",
         "webmvc",
         "winbatch"
     ]
