@@ -142,11 +142,17 @@ public class CatalogItemsController {
   public ResponseEntity<CatalogItem> postCatalogItem(@RequestBody PostCatalogItemRequest postCatalogItemRequest)
       throws PermissionDeniedException {
 
-    CatalogItem addedCatalogItem = this.service.addItemToCatalog(postCatalogItemRequest.getName(),
-        postCatalogItemRequest.getDescription(),
-        new BigDecimal(postCatalogItemRequest.getPrice()), postCatalogItemRequest.getProductCode(),
-        postCatalogItemRequest.getCatalogCategoryId(), postCatalogItemRequest.getCatalogBrandId());
-    return ResponseEntity.created(URI.create("/api/catalog-items/" + addedCatalogItem.getId())).build();
+    try {
+      CatalogItem addedCatalogItem = this.service.addItemToCatalog(postCatalogItemRequest.getName(),
+          postCatalogItemRequest.getDescription(), new BigDecimal(postCatalogItemRequest.getPrice()),
+          postCatalogItemRequest.getProductCode(), postCatalogItemRequest.getCatalogCategoryId(),
+          postCatalogItemRequest.getCatalogBrandId());
+      return ResponseEntity.created(URI.create("/api/catalog-items/" + addedCatalogItem.getId())).build();
+    } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
+      apLog.error(ExceptionUtils.getStackTrace(e));
+      // ここでは発生を想定していないので、システムエラーとする。
+      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+    }
   }
 
   /**
