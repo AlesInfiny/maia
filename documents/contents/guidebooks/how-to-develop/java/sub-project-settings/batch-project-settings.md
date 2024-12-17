@@ -101,6 +101,25 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
     そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
     バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
 
+## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+依存関係に記載している `org.mybatis.spring.boot:mybatis-spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j 2 を使用します。
+そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
+
+``` groovy title="spring-boot-starter-logging の除外設定"
+configurations {
+ all {
+  exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+ }
+}
+```
+
 ## バッチアプリケーションとして動作させる設定 {#config-batch-application}
 
 batch プロジェクトをウェブアプリケーションではなく、バッチアプリケーションとして動作させるためクラスファイルを書き換えます。
@@ -167,6 +186,12 @@ class BatchApplicationTests {
       implementation project(':infrastructure')
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
+    }
+
+    configurations {
+      all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
     }
 
     tasks.named('test') {
