@@ -25,10 +25,10 @@ public class ProblemDetailsCreation {
   private Environment env;
 
   /**
-   * その他のシステムエラーをステータースコード500で返却する。
+   * エラーレスポンスに含める ProblemDetails を作成する。
    *
    * @param errorBuilder 例外ビルダー
-   * @param titleId      タイトル
+   * @param titleId      タイトルのメッセージ ID
    * @param status       ステータスコード
    * @return エラーレスポンスに格納する ProblemDetails
    */
@@ -39,17 +39,19 @@ public class ProblemDetailsCreation {
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
     problemDetail.setTitle(messageSource.getMessage(titleId, new String[] {}, Locale.getDefault()));
 
+    // 開発環境においては、 detail プロパティにスタックトレースを含める
+    // 開発環境かどうかの判断は、環境変数の Profile をもとに判断する
     String[] activeProfiles = env.getActiveProfiles();
     if (activeProfiles.length == 0) {
       activeProfiles = env.getDefaultProfiles();
     }
 
-    // local 環境においては detail を含める
     if (Arrays.stream(activeProfiles).filter(profile -> Objects.equals(profile, "local"))
         .findFirst().isPresent()) {
       problemDetail.setDetail(errorBuilder.createLogMessageStackTrace());
     }
 
+    // 拡張メンバーとして exceptionId と exceptionValues を含める
     Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
       {
         put(ProblemDetailsExtensionConstant.EXCEPTION_ID, errorBuilder.getExceptionId());
