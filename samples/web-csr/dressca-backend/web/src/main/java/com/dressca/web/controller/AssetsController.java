@@ -6,6 +6,7 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.applicationcore.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
@@ -79,7 +80,7 @@ public class AssetsController {
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
           errorBuilder,
-          e.getExceptionId(),
+          CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_JSON)

@@ -5,7 +5,6 @@ import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +39,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
-        ProblemDetailsConstant.LOGIC_ERROR_TITLE,
+    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+        errorBuilder,
+        CommonExceptionIdConstant.E_BUSINESS,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
@@ -59,8 +59,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
-        ProblemDetailsConstant.SYSTEM_ERROR_TITLE,
+    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+        errorBuilder,
+        CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +80,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
-        ProblemDetailsConstant.SYSTEM_ERROR_TITLE,
+        CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_JSON)

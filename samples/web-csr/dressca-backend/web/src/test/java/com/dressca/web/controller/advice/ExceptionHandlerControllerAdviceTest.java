@@ -16,7 +16,6 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
-import com.dressca.web.constant.ProblemDetailsConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -102,6 +101,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = CommonExceptionIdConstant.E_BUSINESS;
+    String title = "想定外の業務エラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
@@ -111,7 +111,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").doesNotExist());
@@ -129,6 +129,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = CommonExceptionIdConstant.E_SYSTEM;
+    String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
@@ -139,7 +140,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").doesNotExist());
@@ -157,6 +158,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
     String exceptionId = CommonExceptionIdConstant.E_SYSTEM;
+    String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
@@ -165,7 +167,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").doesNotExist());

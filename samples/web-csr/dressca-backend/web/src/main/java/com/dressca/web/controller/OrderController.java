@@ -87,7 +87,7 @@ public class OrderController {
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
           errorBuilder,
-          e.getExceptionId(),
+          CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_JSON)
