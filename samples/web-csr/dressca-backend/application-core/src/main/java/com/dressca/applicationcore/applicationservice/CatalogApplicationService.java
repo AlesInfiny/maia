@@ -18,6 +18,7 @@ import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
+import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
@@ -39,22 +40,26 @@ public class CatalogApplicationService {
   private CatalogRepository catalogRepository;
   private CatalogBrandRepository brandRepository;
   private CatalogCategoryRepository categoryRepository;
+  private CatalogDomainService catalogDomainService;
   private UserStore userStore;
 
   /**
    * コンストラクタ。
    * 
-   * @param messages           メッセージ
-   * @param catalogRepository  カタログリポジトリ。
-   * @param brandRepository    カタログブランドリポジトリ。
-   * @param categoryRepository カタログカテゴリリポジトリ。
+   * @param messages             メッセージ。
+   * @param catalogRepository    カタログリポジトリ。
+   * @param brandRepository      カタログブランドリポジトリ。
+   * @param categoryRepository   カタログカテゴリリポジトリ。
+   * @param catalogDomainService カタログドメインサービス。
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
-      CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository) {
+      CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
+      CatalogDomainService catalogDomainService) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
     this.brandRepository = brandRepository;
     this.categoryRepository = categoryRepository;
+    this.catalogDomainService = catalogDomainService;
   }
 
   @Autowired(required = false)
@@ -133,17 +138,28 @@ public class CatalogApplicationService {
    * @param description       説明
    * @param price             単価
    * @param productCode       商品コード
-   * @param catalogBrandId    ブランドID
    * @param catalogCategoryId カテゴリID
+   * @param catalogBrandId    ブランドID
    * @return 追加したカタログアイテム。
-   * @throws PermissionDeniedException 追加権限がない場合。
+   * @throws PermissionDeniedException        追加権限がない場合。
+   * @throws CatalogCategoryNotFoundException 追加対象のカタログカテゴリが存在しなかった場合。
+   * @throws CatalogBrandNotFoundException    追加対象のカタログブランドが存在しなかった場合。
    */
   public CatalogItem addItemToCatalog(String name, String description, BigDecimal price, String productCode,
-      long catalogCategoryId, long catalogBrandId) throws PermissionDeniedException {
+      long catalogCategoryId, long catalogBrandId)
+      throws PermissionDeniedException, CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG, new Object[] {}, Locale.getDefault()));
 
     if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
+    }
+
+    if (!this.catalogDomainService.existCatalogCategory(catalogCategoryId)) {
+      throw new CatalogCategoryNotFoundException(catalogCategoryId);
+    }
+
+    if (!this.catalogDomainService.existCatalogBrand(catalogBrandId)) {
+      throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
     // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
@@ -161,16 +177,14 @@ public class CatalogApplicationService {
    * @throws PermissionDeniedException         削除権限がない場合。
    * @throws CatalogNotFoundException          削除対象のカタログアイテムが存在しなかった場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
-   * 
    */
   public void deleteItemFromCatalog(long id, LocalDateTime rowVersion)
-      throws CatalogNotFoundException, PermissionDeniedException, OptimisticLockingFailureException {
+      throws PermissionDeniedException, OptimisticLockingFailureException, CatalogNotFoundException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG, new Object[] { id }, Locale.getDefault()));
     if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
     }
-    CatalogItem item = this.catalogRepository.findById(id);
-    if (item == null) {
+    if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
     int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
@@ -192,32 +206,30 @@ public class CatalogApplicationService {
    * @param rowVersion        行バージョン。
    * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
    * @throws PermissionDeniedException         更新権限がない場合。
-   * @throws CatalogBrandNotFoundException     更新対象のカタログブランドが存在しなかった場合。
    * @throws CatalogCategoryNotFoundException  更新対象のカタログカテゴリが存在しなかった場合。
+   * @throws CatalogBrandNotFoundException     更新対象のカタログブランドが存在しなかった場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
       long catalogCategoryId, long catalogBrandId, LocalDateTime rowVersion)
-      throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
-      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
+      throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
+      CatalogBrandNotFoundException, OptimisticLockingFailureException {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG, new Object[] { id }, Locale.getDefault()));
 
     if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
-    CatalogItem currentCatalogItem = catalogRepository.findById(id);
-    if (currentCatalogItem == null) {
+
+    if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
 
-    CatalogCategory catalogCategory = categoryRepository.findById(catalogCategoryId);
-    if (catalogCategory == null) {
+    if (!this.catalogDomainService.existCatalogCategory(catalogCategoryId)) {
       throw new CatalogCategoryNotFoundException(catalogCategoryId);
     }
 
-    CatalogBrand catalogBrand = brandRepository.findById(catalogBrandId);
-    if (catalogBrand == null) {
+    if (!this.catalogDomainService.existCatalogBrand(catalogBrandId)) {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
