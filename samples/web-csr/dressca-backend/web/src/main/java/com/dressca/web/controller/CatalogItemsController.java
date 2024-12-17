@@ -8,6 +8,7 @@ import com.dressca.web.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.mapper.CatalogItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,8 @@ public class CatalogItemsController {
   @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @GetMapping()
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,

@@ -5,14 +5,18 @@ import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
+import com.dressca.applicationcore.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.web.controller.advice.ProblemDetailsCreation;
 import com.dressca.web.log.ErrorMessageBuilder;
+import java.util.Locale;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,7 +61,8 @@ public class AssetsController {
   @Operation(summary = "アセットを取得する.", description = "与えられたアセットコードに対応するアセットを返却する.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @GetMapping("{assetCode}")
   public ResponseEntity<?> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
@@ -93,7 +98,10 @@ public class AssetsController {
       case AssetTypes.png:
         return MediaType.IMAGE_PNG;
       default:
-        throw new IllegalArgumentException("指定したアセットのアセットタイプは Content-Type に変換できません。");
+        MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+        String message = messageSource.getMessage(ExceptionIdConstant.E_ASSET_TYPE_NOT_CONVERTED,
+            new String[] { asset.getAssetType() }, Locale.getDefault());
+        throw new IllegalArgumentException(message);
     }
   }
 }

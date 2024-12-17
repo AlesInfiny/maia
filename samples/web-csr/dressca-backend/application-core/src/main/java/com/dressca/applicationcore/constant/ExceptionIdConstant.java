@@ -11,6 +11,9 @@ public class ExceptionIdConstant {
   /** サポートされていないアセットタイプ： {0} が指定されました。 */
   public static final String E_ASSET_TYPE_NOT_SUPPORTED = "assetTypeNotSupported";
 
+  /** "指定したアセットのアセットタイプ: {0} は Content-Type に変換できません。" */
+  public static final String E_ASSET_TYPE_NOT_CONVERTED = "assetTypeNotConverted";
+
   /** 存在しない買い物かごID: {0} の買い物かごが要求されました。 */
   public static final String E_BASKET_IS_NULL_ON_CHECKOUT = "basketIsNullOnCheckout";
 

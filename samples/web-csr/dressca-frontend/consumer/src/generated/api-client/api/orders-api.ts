@@ -25,6 +25,8 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 import type { OrderResponse } from '../models';
 // @ts-ignore
 import type { PostOrderRequest } from '../models';
+// @ts-ignore
+import type { ProblemDetail } from '../models';
 /**
  * OrdersApi - axios parameter creator
  * @export
