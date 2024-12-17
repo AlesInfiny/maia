@@ -16,6 +16,8 @@ batch プロジェクトで利用を推奨するライブラリは以下の通�
 
 - `spring-boot-starter-batch`： Spring Batch アプリケーションを構築するための依存関係を提供するスターター
 
+- `spring-boot-starter-log4j2`: Spring Boot アプリケーションで log4j 2 を使用するためのスターター
+
 - `spring-batch-test`： Spring Batch アプリケーションのテストのライブラリ
 
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
@@ -23,6 +25,7 @@ batch プロジェクトで利用を推奨するライブラリは以下の通�
 ```groovy title="batch/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-batch'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
