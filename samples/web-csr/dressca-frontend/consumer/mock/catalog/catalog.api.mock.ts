@@ -39,9 +39,12 @@ const brands: CatalogBrandResponse[] = [
 ];
 
 const catalogItemPage: PagedListOfCatalogItemResponse = {
+  hasNext: false,
+  hasPrevious: false,
   page: 1,
   pageSize: 20,
   totalCount: 3,
+  totalPages: 1,
   items: [
     {
       id: 1,
@@ -173,9 +176,12 @@ export const catalogApiMock = (middlewares: Connect.Server) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     const query = req.url && url.parse(req.url, true).query;
     const page: PagedListOfCatalogItemResponse = {
+      hasNext: catalogItemPage.hasNext,
+      hasPrevious: catalogItemPage.hasPrevious,
       page: catalogItemPage.page,
       pageSize: catalogItemPage.pageSize,
       totalCount: catalogItemPage.totalCount,
+      totalPages: catalogItemPage.totalPages,
     };
     let filterdItems = catalogItemPage.items;
 
