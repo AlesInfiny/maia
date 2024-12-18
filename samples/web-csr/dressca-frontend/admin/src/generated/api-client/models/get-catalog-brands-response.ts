@@ -17,19 +17,19 @@
 /**
  * 
  * @export
- * @interface CatalogBrandResponse
+ * @interface GetCatalogBrandsResponse
  */
-export interface CatalogBrandResponse {
+export interface GetCatalogBrandsResponse {
     /**
      * 
      * @type {number}
-     * @memberof CatalogBrandResponse
+     * @memberof GetCatalogBrandsResponse
      */
     'id': number;
     /**
      * 
      * @type {string}
-     * @memberof CatalogBrandResponse
+     * @memberof GetCatalogBrandsResponse
      */
     'name': string;
 }

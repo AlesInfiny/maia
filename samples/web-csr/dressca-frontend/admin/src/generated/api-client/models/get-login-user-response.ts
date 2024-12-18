@@ -17,20 +17,20 @@
 /**
  * 
  * @export
- * @interface CatalogCategoryResponse
+ * @interface GetLoginUserResponse
  */
-export interface CatalogCategoryResponse {
+export interface GetLoginUserResponse {
     /**
      * 
-     * @type {number}
-     * @memberof CatalogCategoryResponse
+     * @type {Array<string>}
+     * @memberof GetLoginUserResponse
      */
-    'id': number;
+    'roles': Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof CatalogCategoryResponse
+     * @memberof GetLoginUserResponse
      */
-    'name': string;
+    'userName': string;
 }
 
