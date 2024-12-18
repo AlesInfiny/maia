@@ -12,17 +12,17 @@ import lombok.Data;
 @AllArgsConstructor
 public class PutCatalogItemRequest {
   @NotNull
-  public String name = "";
+  private String name = "";
   @NotNull
-  public String description = "";
+  private String description = "";
   @NotNull
-  public long price;
+  private long price;
   @NotNull
-  public String productCode;
+  private String productCode;
   @NotNull
-  public long catalogCategoryId;
+  private long catalogCategoryId;
   @NotNull
-  public long catalogBrandId;
+  private long catalogBrandId;
   @NotNull
-  public LocalDateTime rowVersion;
+  private LocalDateTime rowVersion;
 }

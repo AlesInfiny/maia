@@ -163,18 +163,20 @@ public class CatalogApplicationServiceTest {
 
   @Test
   void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す()
-      throws CatalogNotFoundException, PermissionDeniedException {
+      throws CatalogNotFoundException, PermissionDeniedException, OptimisticLockingFailureException {
     // Arrange
     long targetId = 1L;
     CatalogItem item = createCatalogItem(targetId);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogRepository.findById(anyLong())).thenReturn(item);
+    when(this.catalogRepository.remove(anyLong(), any())).thenReturn(1);
+    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
 
     // Action
-    this.service.deleteItemFromCatalog(1L);
+    this.service.deleteItemFromCatalog(1L, rowVersion);
 
     // Assert
-    verify(this.catalogRepository, times(1)).remove(any());
+    verify(this.catalogRepository, times(1)).remove(any(), any());
 
   }
 
@@ -184,10 +186,12 @@ public class CatalogApplicationServiceTest {
     long targetId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogRepository.findById(anyLong())).thenReturn(null);
+    when(this.catalogRepository.remove(anyLong(), any())).thenReturn(1);
+    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
 
     // Action
     Executable action = () -> {
-      this.service.deleteItemFromCatalog(targetId);
+      this.service.deleteItemFromCatalog(targetId, rowVersion);
     };
 
     // Assert
@@ -201,14 +205,36 @@ public class CatalogApplicationServiceTest {
     CatalogItem item = createCatalogItem(targetId);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
     when(this.catalogRepository.findById(anyLong())).thenReturn(item);
+    when(this.catalogRepository.remove(anyLong(), any())).thenReturn(1);
+    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
 
     // Action
     Executable action = () -> {
-      this.service.deleteItemFromCatalog(1L);
+      this.service.deleteItemFromCatalog(1L, rowVersion);
     };
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testDeleteItemFromCatalog_異常系_楽観ロックエラー() {
+    // Arrange
+    long targetId = 1L;
+    CatalogItem item = createCatalogItem(targetId);
+    when(this.userStore.isInRole(anyString())).thenReturn(true);
+    when(this.catalogRepository.findById(anyLong())).thenReturn(item);
+    when(this.catalogRepository.remove(anyLong(), any())).thenReturn(0);
+    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+
+    // Action
+    Executable action = () -> {
+      this.service.deleteItemFromCatalog(1L, rowVersion);
+    };
+
+    // Assert
+    assertThrows(OptimisticLockingFailureException.class, action);
+
   }
 
   @Test
