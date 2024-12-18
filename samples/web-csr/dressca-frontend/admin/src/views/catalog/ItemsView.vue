@@ -10,9 +10,9 @@ import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { showToast } from '@/services/notification/notificationService';
 import type {
-  CatalogBrandResponse,
-  CatalogCategoryResponse,
-  PagedListOfCatalogItemResponse,
+  GetCatalogBrandsResponse,
+  GetCatalogCategoriesResponse,
+  PagedListOfGetCatalogItemResponse,
 } from '@/generated/api-client';
 
 const router = useRouter();
@@ -24,7 +24,7 @@ const { getFirstAssetUrl } = assetHelper();
 /**
  * リアクティブなページネーションされたカタログアイテムの状態です。
  */
-const pagedListOfCatalogItem = ref<PagedListOfCatalogItemResponse>({
+const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
   page: 0,
   totalPages: 0,
   pageSize: 0,
@@ -48,12 +48,14 @@ const pagedListOfCatalogItem = ref<PagedListOfCatalogItemResponse>({
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<CatalogBrandResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<CatalogCategoryResponse[]>([{ id: 0, name: '' }]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
+  { id: 0, name: '' },
+]);
 
 /**
  * カタログブランドの名前を取得します。

@@ -9,7 +9,7 @@ import { ref } from 'vue';
 
 const router = useRouter();
 const authenticationStore = useAuthenticationStore();
-const { authenticationState, userName, userRole } =
+const { authenticationState, userName, userRoles } =
   storeToRefs(authenticationStore);
 
 /**
@@ -56,7 +56,7 @@ const logout = async () => {
         >
           <div class="relative rounded-full text-white">
             <span class="absolute -inset-1.5"></span>
-            {{ userRole }}
+            {{ userRoles }}
           </div>
           <div
             class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"

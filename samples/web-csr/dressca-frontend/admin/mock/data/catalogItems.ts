@@ -1,9 +1,9 @@
 import type {
-  CatalogItemResponse,
-  PagedListOfCatalogItemResponse,
+  GetCatalogItemResponse,
+  PagedListOfGetCatalogItemResponse,
 } from '@/generated/api-client';
 
-export const catalogItems: CatalogItemResponse[] = [
+export const catalogItems: GetCatalogItemResponse[] = [
   {
     id: 1,
     catalogCategoryId: 1,
@@ -129,7 +129,7 @@ export const catalogItems: CatalogItemResponse[] = [
   },
 ];
 
-export const pagedListCatalogItem: PagedListOfCatalogItemResponse = {
+export const pagedListCatalogItem: PagedListOfGetCatalogItemResponse = {
   hasNext: false,
   hasPrevious: false,
   page: 1,

@@ -11,8 +11,8 @@ import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
 import { catalogItemSchema } from '@/validation/validation-items';
 import type {
-  CatalogBrandResponse,
-  CatalogCategoryResponse,
+  GetCatalogBrandsResponse,
+  GetCatalogCategoriesResponse,
 } from '@/generated/api-client';
 
 const router = useRouter();
@@ -50,12 +50,14 @@ const selectedBrandId = ref(1);
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<CatalogBrandResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<CatalogCategoryResponse[]>([{ id: 0, name: '' }]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
+  { id: 0, name: '' },
+]);
 
 /**
  * リアクティブなモーダルの開閉状態です。
