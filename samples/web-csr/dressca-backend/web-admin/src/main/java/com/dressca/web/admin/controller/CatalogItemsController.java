@@ -11,6 +11,7 @@ import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.applicationcore.constant.UserRoleConstant;
 import com.dressca.systemcommon.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
@@ -50,7 +51,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
-@PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
+@PreAuthorize(value = "hasAuthority('" + UserRoleConstant.ADMIN + "')")
 public class CatalogItemsController {
 
   @Autowired
@@ -93,7 +94,7 @@ public class CatalogItemsController {
    *
    * @param brandId    ブランドID。未指定の場合は0。
    * @param categoryId カテゴリID。未指定の場合は0。
-   * @param page       ページ番号。未指定の場合は0。
+   * @param page       ページ番号。未指定の場合は1。
    * @param pageSize   ページサイズ。未指定の場合は20。
    * @return カタログアイテムの一覧。
    * @throws PermissionDeniedException 認可エラー。
@@ -174,7 +175,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<Void> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestParam LocalDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
@@ -206,7 +207,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<Void> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {

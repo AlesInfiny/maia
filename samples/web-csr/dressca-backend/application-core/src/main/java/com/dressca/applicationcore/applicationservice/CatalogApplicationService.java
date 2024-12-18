@@ -179,7 +179,7 @@ public class CatalogApplicationService {
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void deleteItemFromCatalog(long id, LocalDateTime rowVersion)
-      throws PermissionDeniedException, OptimisticLockingFailureException, CatalogNotFoundException {
+      throws PermissionDeniedException, CatalogNotFoundException, OptimisticLockingFailureException {
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG, new Object[] { id }, Locale.getDefault()));
     if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
