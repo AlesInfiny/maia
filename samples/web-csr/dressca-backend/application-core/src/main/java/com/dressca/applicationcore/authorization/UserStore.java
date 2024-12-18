@@ -1,13 +1,15 @@
 package com.dressca.applicationcore.authorization;
 
+import java.util.List;
+
 /**
  * ユーザーのセッション情報のインターフェース。
  */
 public interface UserStore {
 
-  public String loginUserName();
+  public String getLoginUserName();
 
-  public String loginUserRole();
+  public List<String> getLoginUserRoles();
 
   public boolean isInRole(String role);
 }

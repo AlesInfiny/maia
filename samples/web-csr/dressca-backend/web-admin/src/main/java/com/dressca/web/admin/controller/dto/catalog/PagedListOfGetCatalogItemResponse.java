@@ -7,8 +7,8 @@ import lombok.Data;
  * 検索したカタログアイテムの情報を取得する際に用いるdtoクラスです。
  */
 @Data
-public class PagedListOfCatalogItemResponse {
-  private List<CatalogItemResponse> items;
+public class PagedListOfGetCatalogItemResponse {
+  private List<GetCatalogItemResponse> items;
   private int totalCount;
   private int page;
   private int pageSize;
@@ -24,7 +24,7 @@ public class PagedListOfCatalogItemResponse {
    * @param page       現在のページ番号。
    * @param pageSize   ページ数の合計。
    */
-  public PagedListOfCatalogItemResponse(List<CatalogItemResponse> items, int totalCount, int page, int pageSize) {
+  public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount, int page, int pageSize) {
     this.items = items;
     this.totalCount = totalCount;
     this.page = page;

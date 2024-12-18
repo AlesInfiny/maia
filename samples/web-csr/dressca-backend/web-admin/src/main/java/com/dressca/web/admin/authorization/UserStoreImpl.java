@@ -1,5 +1,8 @@
 package com.dressca.web.admin.authorization;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +20,8 @@ public class UserStoreImpl implements UserStore {
    *
    * @return ログイン中のユーザー名。未ログインの場合、空文字。
    */
-  public String loginUserName() {
+  @Override
+  public String getLoginUserName() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
       return authentication.getName();
@@ -28,14 +32,17 @@ public class UserStoreImpl implements UserStore {
   /**
    * ログイン中のユーザーのロールを取得します。
    *
-   * @return ログイン中のユーザーのロール。未ログインの場合、空文字
+   * @return ログイン中のユーザーのロールの配列。未ログインの場合、空の配列。
    */
-  public String loginUserRole() {
+  @Override
+  public List<String> getLoginUserRoles() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse("");
+      List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+          .collect(Collectors.toList());
+      return roles;
     }
-    return "";
+    return new ArrayList<>();
   }
 
   /**
