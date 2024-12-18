@@ -183,6 +183,7 @@ class BatchApplicationTests {
 
     dependencies {
       implementation 'org.springframework.boot:spring-boot-starter-batch'
+      implementation 'org.springframework.boot:spring-boot-starter-log4j2'
       testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
       testImplementation 'org.springframework.boot:spring-boot-starter-test'
       implementation project(':application-core')

@@ -238,6 +238,7 @@ build.dependsOn("generateOpenApiDocs")
       implementation 'com.h2database:h2:x.x.x'
       implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'org.springframework.boot:spring-boot-starter-actuator'
+      implementation 'org.springframework.boot:spring-boot-starter-log4j2'
       testImplementation 'org.springframework.boot:spring-boot-starter-test'
       implementation project(':application-core')
       implementation project(':infrastructure')
