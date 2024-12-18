@@ -38,27 +38,38 @@ jobs:
       - name: 現在のOpenAPI Generatorのバージョン取得
         id: get-current-openapi-generator-version
         run: |
-          echo "current-version=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
+          echo "current-version-consumer=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
+          echo "current-version-admin=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/admin/openapitools.json)" >> $GITHUB_OUTPUT
 
       - name: アップデート要否を判定
         id: check-version-update
         run: |
-          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version }} ]]; then
-            echo "update-required=false" >> $GITHUB_OUTPUT
+          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version-consumer }} ]]; then
+            echo "update-required-consumer=false" >> $GITHUB_OUTPUT
           else
-            echo "update-required=true" >> $GITHUB_OUTPUT
+            echo "update-required-consumer=true" >> $GITHUB_OUTPUT
+          fi
+          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version-admin }} ]]; then
+            echo "update-required-admin=false" >> $GITHUB_OUTPUT
+          else
+            echo "update-required-admin=true" >> $GITHUB_OUTPUT
           fi
 
       - name: サマリに出力
         run: |
           echo "# 確認結果" >> $GITHUB_STEP_SUMMARY
           echo "openapi-generator のバージョンは ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} です。" >> $GITHUB_STEP_SUMMARY
-          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version }} です。" >> $GITHUB_STEP_SUMMARY
-          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required }} です。">> $GITHUB_STEP_SUMMARY
+          echo "## Dressca-Consumer" >> $GITHUB_STEP_SUMMARY
+          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-consumer }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-consumer }} です。">> $GITHUB_STEP_SUMMARY
+          echo "## Dressca-Admin" >> $GITHUB_STEP_SUMMARY
+          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-admin }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-admin }} です。">> $GITHUB_STEP_SUMMARY
 
-      - name: issue を作成
-        id: create-issue
-        if: ${{ steps.check-version-update.outputs.update-required == 'true' }}
+
+      - name: issue を作成（Dressca-Consumer）
+        id: create-issue-consumer
+        if: ${{ steps.check-version-update.outputs.update-required-consumer == 'true' }}
         uses: Wandalen/wretry.action@master
         with:
           action: dblock/create-a-github-issue@v3
@@ -72,17 +83,54 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_APP_NAME: "Dressca-Consumer"
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
-          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version }}
+          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-consumer }}
 
 
-      - name: issue の情報を出力
-        if: ${{ steps.check-version-update.outputs.update-required  == 'true' }}
+      - name: issue の情報を出力（Dressca-Consumer）
+        if: ${{ steps.check-version-update.outputs.update-required-consumer  == 'true' }}
         env:
-          STATUS: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).status }}
-          ISSUE_NUMBER: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).number }}
-          ISSUE_URL: ${{ steps.create-issue.outputs.outputs && fromJson(steps.create-issue.outputs.outputs).url }}
+          STATUS: ${{ steps.create-issue-consumer.outputs.outputs && fromJson(steps.create-issue-consumer.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue-consumer.outputs.outputs && fromJson(steps.create-issue-consumer.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue-consumer.outputs.outputs && fromJson(steps.create-issue-consumer.outputs.outputs).url }}
         run: |
-          echo "# issue の作成結果" >> $GITHUB_STEP_SUMMARY
+          echo "# issue の作成結果（Dressca-Consumer）" >> $GITHUB_STEP_SUMMARY
+          if [ $STATUS = 'created' ]; then
+            echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
+          elif [ $STATUS = 'updated' ]; then
+            echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
+          echo status: $STATUS >> $GITHUB_STEP_SUMMARY
+          echo - $ISSUE_URL >> $GITHUB_STEP_SUMMARY
+
+      - name: issue を作成（Dressca-Admin）
+        id: create-issue-admin
+        if: ${{ steps.check-version-update.outputs.update-required-admin == 'true' }}
+        uses: Wandalen/wretry.action@master
+        with:
+          action: dblock/create-a-github-issue@v3
+          with: |
+            filename: ./.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
+            update_existing: true
+            search_existing: open
+          attempt_limit: 3
+          attempt_delay: 300000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_APP_NAME: "Dressca-Admin"
+          LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
+          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-admin }}
+
+      - name: issue の情報を出力（Dressca-Admin）
+        if: ${{ steps.check-version-update.outputs.update-required-admin  == 'true' }}
+        env:
+          STATUS: ${{ steps.create-issue-admin.outputs.outputs && fromJson(steps.create-issue-admin.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue-admin.outputs.outputs && fromJson(steps.create-issue-admin.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue-admin.outputs.outputs && fromJson(steps.create-issue-admin.outputs.outputs).url }}
+        run: |
+          echo "# issue の作成結果（Dressca-Admin）" >> $GITHUB_STEP_SUMMARY
           if [ $STATUS = 'created' ]; then
             echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
           elif [ $STATUS = 'updated' ]; then
