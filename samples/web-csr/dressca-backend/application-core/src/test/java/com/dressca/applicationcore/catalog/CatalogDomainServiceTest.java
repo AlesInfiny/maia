@@ -124,6 +124,87 @@ public class CatalogDomainServiceTest {
     assertThat(existAll).isFalse();
   }
 
+  @Test
+  void testExistCatalogBrand_正常系_指定したカタログブランドが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogBrand catalogBrand = this.createCatalogBrand(targetId);
+    when(this.catalogBrandRepository.findById(targetId)).thenReturn(catalogBrand);
+
+    // Act
+    boolean existCatalogBrand = service.existCatalogBrand(targetId);
+
+    // Assert
+    assertThat(existCatalogBrand).isTrue();
+  }
+
+  @Test
+  void testExistCatalogBrand_正常系_指定したカタログブランドが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogBrandRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogBrand = service.existCatalogBrand(targetId);
+
+    // Assert
+    assertThat(existCatalogBrand).isFalse();
+  }
+
+  @Test
+  void testExistCatalogCategory_正常系_指定したカタログカテゴリが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogCategory catalogCategory = this.createCatalogCategory(targetId);
+    when(this.catalogCategoryRepository.findById(targetId)).thenReturn(catalogCategory);
+
+    // Act
+    boolean existCatalogCategory = service.existCatalogCategory(targetId);
+
+    // Assert
+    assertThat(existCatalogCategory).isTrue();
+  }
+
+  @Test
+  void testExistCatalogCategory_正常系_指定したカタログカテゴリが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogCategoryRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogCategory = service.existCatalogCategory(targetId);
+
+    // Assert
+    assertThat(existCatalogCategory).isFalse();
+  }
+
+  @Test
+  void testExistCatalogItem_正常系_指定したカタログアイテムが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogItem catalogItem = this.createCatalogItem(targetId);
+    when(this.catalogRepository.findById(targetId)).thenReturn(catalogItem);
+
+    // Act
+    boolean existCatalogItem = service.existCatalogItem(targetId);
+
+    // Assert
+    assertThat(existCatalogItem).isTrue();
+  }
+
+  @Test
+  void testExistCatalogItem_正常系_指定したカタログアイテムが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogItem = service.existCatalogItem(targetId);
+
+    // Assert
+    assertThat(existCatalogItem).isFalse();
+  }
+
   private CatalogItem createCatalogItem(long id) {
     long defaultCatalogCategoryId = 1L;
     long defaultCatalogBrandId = 1L;
@@ -136,5 +217,17 @@ public class CatalogDomainServiceTest {
         defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId);
     // catalogItem.setId(id);
     return catalogItem;
+  }
+
+  private CatalogBrand createCatalogBrand(long id) {
+    String defaultName = "Name";
+    CatalogBrand catalogBrand = new CatalogBrand(defaultName);
+    return catalogBrand;
+  }
+
+  private CatalogCategory createCatalogCategory(long id) {
+    String defaultName = "Name";
+    CatalogCategory catalogCategory = new CatalogCategory(defaultName);
+    return catalogCategory;
   }
 }
