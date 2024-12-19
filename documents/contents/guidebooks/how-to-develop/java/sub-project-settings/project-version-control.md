@@ -112,7 +112,7 @@ buildscript {
     Groovy では文字列は一重引用符で囲み、変数を含む文字列は二重引用符で囲んで表現します。
     変数を含む文字列を一重引用符で囲むとエラーが出るため、注意して使い分けてください。
 
-```groovy title="web/build.gradle" hl_lines="3 4 5 9 10 11 12 13"
+```groovy title="web/build.gradle" hl_lines="3 4 5 9 10 11 12 13 14"
 plugins {
   id 'java'
   id 'org.springframework.boot' version "${springBootVersion}"
@@ -123,8 +123,9 @@ plugins {
 dependencies {
   implementation supportDependencies.spring_boot_starter_web
   implementation supportDependencies.h2database
-  implementation supportDependencies.springdoc_openapi_starter_webmvc_ui 
-  implementation supportDependencies.spring_boot_starter_actuator 
+  implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+  implementation supportDependencies.spring_boot_starter_actuator
+  implementation supportDependencies.spring_boot_starter_log4j2
   testImplementation supportDependencies.spring_boot_starter_test
   implementation project(':application-core')
   implementation project(':infrastructure')
@@ -158,13 +159,20 @@ dependencies {
     dependencies {
       implementation supportDependencies.spring_boot_starter_web
       implementation supportDependencies.h2database
-      implementation supportDependencies.springdoc_openapi_starter_webmvc_ui 
-      implementation supportDependencies.spring_boot_starter_actuator 
+      implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+      implementation supportDependencies.spring_boot_starter_actuator
+      implementation supportDependencies.spring_boot_starter_log4j2
       testImplementation supportDependencies.spring_boot_starter_test
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
+    }
+
+    configurations {
+      all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
     }
 
     // OpenAPI 仕様書出力の作業ディレクトリを指定する。
