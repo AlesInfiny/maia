@@ -33,7 +33,7 @@ public class UserControllerTest {
         .with(jwt())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.userId").value("user"));
+        .andExpect(jsonPath("$.userId").value("users"));
   }
 
   @Test
