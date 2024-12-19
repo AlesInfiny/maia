@@ -90,7 +90,7 @@ public class OrderController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     }
   }

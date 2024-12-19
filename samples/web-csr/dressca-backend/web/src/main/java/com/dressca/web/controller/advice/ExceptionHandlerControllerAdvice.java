@@ -44,7 +44,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         CommonExceptionIdConstant.E_BUSINESS,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
         .body(problemDetail);
   }
 
@@ -64,7 +64,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
         .body(problemDetail);
   }
 
@@ -83,7 +83,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
         .body(problemDetail);
   }
 }

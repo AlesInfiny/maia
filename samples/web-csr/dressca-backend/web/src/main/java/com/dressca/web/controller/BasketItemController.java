@@ -121,7 +121,7 @@ public class BasketItemController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     } catch (CatalogItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
@@ -131,7 +131,7 @@ public class BasketItemController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
@@ -179,7 +179,7 @@ public class BasketItemController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
@@ -220,7 +220,7 @@ public class BasketItemController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     } catch (CatalogItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
@@ -230,7 +230,7 @@ public class BasketItemController {
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
