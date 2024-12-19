@@ -14,7 +14,7 @@ ext {
     springdocOpenapiVersion = "2.6.0"
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.17.0"
-    springSecurity = "3.3.4"
+    springSecurity = "3.4.1"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
