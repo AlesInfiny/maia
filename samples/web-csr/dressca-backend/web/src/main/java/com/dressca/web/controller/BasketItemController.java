@@ -8,7 +8,7 @@ import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
-import com.dressca.web.controller.advice.ProblemDetailsCreation;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
 import com.dressca.web.controller.dto.baskets.PostBasketItemsRequest;
@@ -56,7 +56,7 @@ public class BasketItemController {
   private ShoppingApplicationService shoppingApplicationService;
 
   @Autowired
-  private ProblemDetailsCreation problemDetailsCreation;
+  private ProblemDetailsFactory problemDetailsFactory;
 
   /**
    * 買い物かごアイテムの一覧を取得します。
@@ -116,7 +116,7 @@ public class BasketItemController {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
@@ -126,7 +126,7 @@ public class BasketItemController {
     } catch (CatalogItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
@@ -174,7 +174,7 @@ public class BasketItemController {
     } catch (CatalogNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
@@ -215,7 +215,7 @@ public class BasketItemController {
     } catch (CatalogNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
@@ -225,7 +225,7 @@ public class BasketItemController {
     } catch (CatalogItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);

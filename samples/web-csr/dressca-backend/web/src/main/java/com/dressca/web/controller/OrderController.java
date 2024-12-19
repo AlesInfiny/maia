@@ -10,7 +10,7 @@ import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.web.controller.advice.ProblemDetailsCreation;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.controller.dto.order.OrderResponse;
 import com.dressca.web.controller.dto.order.PostOrderRequest;
 import com.dressca.web.log.ErrorMessageBuilder;
@@ -55,7 +55,7 @@ public class OrderController {
   private ShoppingApplicationService shoppingApplicationService;
 
   @Autowired
-  private ProblemDetailsCreation problemDetailsCreation;
+  private ProblemDetailsFactory problemDetailsFactory;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -85,7 +85,7 @@ public class OrderController {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);

@@ -10,7 +10,7 @@ import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
-import com.dressca.web.controller.advice.ProblemDetailsCreation;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Locale;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -49,7 +49,7 @@ public class AssetsController {
   private AssetApplicationService service;
 
   @Autowired
-  private ProblemDetailsCreation problemDetailsCreation;
+  private ProblemDetailsFactory problemDetailsFactory;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -78,7 +78,7 @@ public class AssetsController {
       apLog.debug(ExceptionUtils.getStackTrace(e));
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
           CommonExceptionIdConstant.E_BUSINESS,
           HttpStatus.NOT_FOUND);

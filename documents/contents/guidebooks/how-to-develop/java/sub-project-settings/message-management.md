@@ -17,10 +17,10 @@ description: バックエンドで動作する Java アプリケーションの 
 root/ ------------------------------------------ root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
- │    └ message.properties --------------------- 業務メッセージのプロパティファイル
+ │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resource
    └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一元管理するフォルダー
-      └ message.properties --------------------- 共通メッセージのプロパティファイル
+      └ messages.properties --------------------- 共通メッセージのプロパティファイル
 ```
 
 ### プロパティファイルの作成 {#creating-property-file}

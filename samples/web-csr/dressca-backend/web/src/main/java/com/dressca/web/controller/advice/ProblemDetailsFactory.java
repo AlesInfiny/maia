@@ -19,7 +19,7 @@ import com.dressca.web.log.ErrorMessageBuilder;
  * エラーレスポンスに含める ProblemDetails を作成するクラスです。
  */
 @Component
-public class ProblemDetailsCreation {
+public class ProblemDetailsFactory {
 
   @Autowired
   private Environment env;

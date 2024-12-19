@@ -26,7 +26,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   @Autowired
-  private ProblemDetailsCreation problemDetailsCreation;
+  private ProblemDetailsFactory problemDetailsFactory;
 
   /**
    * その他の業務エラーをステータースコード500で返却する。
@@ -39,7 +39,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
         errorBuilder,
         CommonExceptionIdConstant.E_BUSINESS,
         HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,7 +59,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
         errorBuilder,
         CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,7 +79,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
     ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(errorBuilder,
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstant.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
