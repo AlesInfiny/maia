@@ -141,7 +141,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
         .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
         .andExpect(jsonPath("$.error." + exceptionId)
             .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
-        .andExpect(jsonPath("$.details").exists());
+        .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
