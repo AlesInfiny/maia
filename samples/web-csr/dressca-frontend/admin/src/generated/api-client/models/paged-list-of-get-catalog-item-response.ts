@@ -15,54 +15,54 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { CatalogItemResponse } from './catalog-item-response';
+import type { GetCatalogItemResponse } from './get-catalog-item-response';
 
 /**
  * 
  * @export
- * @interface PagedListOfCatalogItemResponse
+ * @interface PagedListOfGetCatalogItemResponse
  */
-export interface PagedListOfCatalogItemResponse {
+export interface PagedListOfGetCatalogItemResponse {
     /**
      * 
      * @type {boolean}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'hasNext'?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'hasPrevious'?: boolean;
     /**
      * 
-     * @type {Array<CatalogItemResponse>}
-     * @memberof PagedListOfCatalogItemResponse
+     * @type {Array<GetCatalogItemResponse>}
+     * @memberof PagedListOfGetCatalogItemResponse
      */
-    'items'?: Array<CatalogItemResponse>;
+    'items'?: Array<GetCatalogItemResponse>;
     /**
      * 
      * @type {number}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'page'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'pageSize'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'totalCount'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PagedListOfCatalogItemResponse
+     * @memberof PagedListOfGetCatalogItemResponse
      */
     'totalPages'?: number;
 }

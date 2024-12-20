@@ -1,7 +1,7 @@
-import type { CatalogBrandResponse } from '@/generated/api-client';
+import type { GetCatalogBrandsResponse } from '@/generated/api-client';
 import { HttpResponse, http } from 'msw';
 
-const catalogBrands: CatalogBrandResponse[] = [
+const catalogBrands: GetCatalogBrandsResponse[] = [
   {
     id: 1,
     name: '高級なブランド',

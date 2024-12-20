@@ -1,7 +1,7 @@
-import type { CatalogCategoryResponse } from '@/generated/api-client';
+import type { GetCatalogCategoriesResponse } from '@/generated/api-client';
 import { HttpResponse, http } from 'msw';
 
-const catalogCategories: CatalogCategoryResponse[] = [
+const catalogCategories: GetCatalogCategoriesResponse[] = [
   {
     id: 1,
     name: '服',

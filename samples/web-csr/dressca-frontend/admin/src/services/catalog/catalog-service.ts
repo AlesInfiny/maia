@@ -4,10 +4,10 @@ import {
   catalogItemsApi,
 } from '@/api-client';
 import type {
-  CatalogBrandResponse,
-  CatalogCategoryResponse,
-  CatalogItemResponse,
-  PagedListOfCatalogItemResponse,
+  GetCatalogBrandsResponse,
+  GetCatalogCategoriesResponse,
+  GetCatalogItemResponse,
+  PagedListOfGetCatalogItemResponse,
   PostCatalogItemRequest,
   PutCatalogItemRequest,
 } from '@/generated/api-client';
@@ -17,7 +17,9 @@ import type {
  * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
  * @returns カタログカテゴリの配列。
  */
-export async function fetchCategories(): Promise<CatalogCategoryResponse[]> {
+export async function fetchCategories(): Promise<
+  GetCatalogCategoriesResponse[]
+> {
   const response = await catalogCategoriesApi.getCatalogCategories();
   const categories = response.data;
   categories.unshift({ id: 0, name: 'すべて' });
@@ -29,7 +31,7 @@ export async function fetchCategories(): Promise<CatalogCategoryResponse[]> {
  * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
  * @returns カテゴリブランドの配列。
  */
-export async function fetchBrands(): Promise<CatalogBrandResponse[]> {
+export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
   const response = await catalogBrandsApi.getCatalogBrands();
   const brands = response.data;
   brands.unshift({ id: 0, name: 'すべて' });
@@ -41,7 +43,7 @@ export async function fetchBrands(): Promise<CatalogBrandResponse[]> {
  * @returns カテゴリとブランドの情報のタプル。
  */
 export async function fetchCategoriesAndBrands(): Promise<
-  [CatalogCategoryResponse[], CatalogBrandResponse[]]
+  [GetCatalogCategoriesResponse[], GetCatalogBrandsResponse[]]
 > {
   const categories = await fetchCategories();
   const brands = await fetchBrands();
@@ -59,7 +61,7 @@ export async function fetchItems(
   categoryId: number,
   brandId: number,
   page?: number,
-): Promise<PagedListOfCatalogItemResponse> {
+): Promise<PagedListOfGetCatalogItemResponse> {
   const response = await catalogItemsApi.getByQuery(
     brandId === 0 ? undefined : brandId,
     categoryId === 0 ? undefined : categoryId,
@@ -74,8 +76,10 @@ export async function fetchItems(
  * @param itemId アイテム ID。
  * @returns カタログアイテムの情報。
  */
-export async function fetchItem(itemId: number): Promise<CatalogItemResponse> {
-  const itemResponse = await catalogItemsApi.getById(itemId);
+export async function fetchItem(
+  itemId: number,
+): Promise<GetCatalogItemResponse> {
+  const itemResponse = await catalogItemsApi.getCatalogItem(itemId);
   return itemResponse.data;
 }
 
@@ -144,6 +148,6 @@ export async function updateCatalogItem(
  * 対象の ID を持つアイテムをカタログから削除します。
  * @param id アイテム ID 。
  */
-export async function deleteCatalogItem(id: number) {
-  await catalogItemsApi.deleteCatalogItem(id);
+export async function deleteCatalogItem(id: number, rowVersion: string) {
+  await catalogItemsApi.deleteCatalogItem(id, rowVersion);
 }

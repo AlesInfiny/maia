@@ -1,9 +1,9 @@
 import { HttpResponse, http } from 'msw';
-import type { UserResponse } from '@/generated/api-client';
+import type { GetLoginUserResponse } from '@/generated/api-client';
 
-const user: UserResponse = {
+const user: GetLoginUserResponse = {
   userName: 'admin@example.com',
-  role: 'Admin',
+  roles: ['Admin'],
 };
 
 export const usersHandlers = [

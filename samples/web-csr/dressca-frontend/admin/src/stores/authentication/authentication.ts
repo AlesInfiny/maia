@@ -11,7 +11,7 @@ export const useAuthenticationStore = defineStore({
       sessionStorage.getItem('isAuthenticated') || 'false',
     ) as boolean,
     userName: JSON.parse(sessionStorage.getItem('userName') || '""'),
-    userRole: JSON.parse(sessionStorage.getItem('userRole') || '""'),
+    userRoles: JSON.parse(sessionStorage.getItem('userRoles') || '""'),
   }),
   actions: {
     /**
@@ -20,12 +20,12 @@ export const useAuthenticationStore = defineStore({
      */
     async signInAsync() {
       const response = await UsersApi.getLoginUser();
-      const { userName, role } = response.data;
+      const { userName, roles } = response.data;
       this.userName = userName;
-      this.userRole = role;
+      this.userRoles = roles;
       this.authenticationState = true;
       sessionStorage.setItem('userName', JSON.stringify(this.userName));
-      sessionStorage.setItem('userRole', JSON.stringify(this.userRole));
+      sessionStorage.setItem('userRoles', JSON.stringify(this.userRoles));
       sessionStorage.setItem(
         'isAuthenticated',
         JSON.stringify(this.authenticationState),
@@ -37,11 +37,11 @@ export const useAuthenticationStore = defineStore({
      */
     async signOutAsync() {
       this.userName = '';
-      this.userRole = '';
+      this.userRoles = '';
       this.authenticationState = false;
       sessionStorage.removeItem('isAuthenticated');
       sessionStorage.removeItem('userName');
-      sessionStorage.removeItem('userRole');
+      sessionStorage.removeItem('userRoles');
     },
   },
   getters: {

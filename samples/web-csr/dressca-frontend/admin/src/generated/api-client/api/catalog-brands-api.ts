@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { CatalogBrandResponse } from '../models';
+import type { GetCatalogBrandsResponse } from '../models';
 /**
  * CatalogBrandsApi - axios parameter creator
  * @export
@@ -75,7 +75,7 @@ export const CatalogBrandsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCatalogBrands(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CatalogBrandResponse>>> {
+        async getCatalogBrands(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetCatalogBrandsResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCatalogBrands(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['CatalogBrandsApi.getCatalogBrands']?.[localVarOperationServerIndex]?.url;
@@ -97,7 +97,7 @@ export const CatalogBrandsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCatalogBrands(options?: RawAxiosRequestConfig): AxiosPromise<Array<CatalogBrandResponse>> {
+        getCatalogBrands(options?: RawAxiosRequestConfig): AxiosPromise<Array<GetCatalogBrandsResponse>> {
             return localVarFp.getCatalogBrands(options).then((request) => request(axios, basePath));
         },
     };

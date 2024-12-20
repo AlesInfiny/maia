@@ -18,9 +18,9 @@ import {
   NotFoundError,
 } from '@/shared/error-handler/custom-error';
 import type {
-  CatalogBrandResponse,
-  CatalogCategoryResponse,
-  CatalogItemResponse,
+  GetCatalogBrandsResponse,
+  GetCatalogCategoriesResponse,
+  GetCatalogItemResponse,
 } from '@/generated/api-client';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
@@ -92,12 +92,14 @@ const currentItemState = ref<ItemState>({
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<CatalogBrandResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<CatalogCategoryResponse[]>([{ id: 0, name: '' }]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
+  { id: 0, name: '' },
+]);
 
 /**
  * 削除確認モーダルの開閉状態です。
@@ -140,7 +142,7 @@ const closeUpdateNotice = () => {
  * API モデルのアイテムの情報を、画面の現在のアイテムの状態にセットします。
  * @param catalogItemResponse カタログアイテムのレスポンス情報
  */
-const setCurrentItemState = (item: CatalogItemResponse) => {
+const setCurrentItemState = (item: GetCatalogItemResponse) => {
   currentItemState.value.id = item.id;
   currentItemState.value.name = item.name;
   currentItemState.value.description = item.description;
@@ -228,13 +230,23 @@ onMounted(async () => {
  */
 const deleteItemAsync = async () => {
   try {
-    await deleteCatalogItem(editingItemState.value.id);
+    await deleteCatalogItem(
+      editingItemState.value.id,
+      editingItemState.value.rowVersion,
+    );
     showDeleteNotice.value = true;
   } catch (error) {
     if (error instanceof NotFoundError) {
       customErrorHandler.handle(error, () => {
         showToast('更新対象のカタログアイテムが見つかりませんでした。');
         router.push({ name: '/catalog/items' });
+      });
+    } else if (error instanceof ConflictError) {
+      customErrorHandler.handle(error, async () => {
+        showToast(
+          'カタログアイテムの更新と削除が競合しました。もう一度削除してください。',
+        );
+        await reFetchItemAndInitRowVersionAsync(id);
       });
     } else {
       customErrorHandler.handle(error, () => {
