@@ -103,6 +103,7 @@ nav:
               - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
               - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
+              - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
