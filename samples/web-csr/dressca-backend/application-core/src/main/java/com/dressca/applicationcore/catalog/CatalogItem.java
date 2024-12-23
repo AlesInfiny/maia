@@ -52,4 +52,21 @@ public class CatalogItem {
     this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
   }
+
+  /**
+   * 登録用のカタログアイテムを作成します。
+   * 
+   * @param name              商品名。
+   * @param description       商品紹介。
+   * @param price             単価。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カタログカテゴリ ID 。
+   * @param catalogBrandId    カタログブランド ID 。
+   * @return 登録用のカタログアイテム。
+   */
+  public static CatalogItem createCatalogItemForRegistration(@NonNull String name, @NonNull String description,
+      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId, long catalogBrandId) {
+    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
+    return item;
+  }
 }

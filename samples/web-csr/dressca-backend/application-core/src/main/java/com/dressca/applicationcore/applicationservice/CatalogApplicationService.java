@@ -162,8 +162,8 @@ public class CatalogApplicationService {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    // 0は仮の値で、DBにINSERTされる時にDBによって自動採番される
-    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
+    CatalogItem item = CatalogItem.createCatalogItemForRegistration(name, description, price, productCode,
+        catalogCategoryId, catalogBrandId);
     item.setRowVersion(LocalDateTime.now());
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
     return catalogItemAdded;
