@@ -3,7 +3,7 @@ title: 開発環境構築
 description: AlesInfiny Maia OSS Edition のアプリケーション開発で 最低限必要な環境の構築方法を解説します。
 ---
 
-# ローカル開発環境の構築手順 {#top}
+# ローカル開発環境の構築 {#top}
 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーション開発で最低限必要な環境の構築方法を解説します。
 

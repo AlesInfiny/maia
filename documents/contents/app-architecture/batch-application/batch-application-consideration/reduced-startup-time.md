@@ -47,7 +47,7 @@ REST API アプリケーションの構築方法は以下の通りです。
 - Spring Boot のスケジューリング機能を利用する
 
     ジョブ管理を Spring Batch の機能で実行する場合、 Spring Boot で提供されているスケジューリング機能を利用します。
-    [@Scheduled アノテーション :material-open-in-new:](https://spring.pleiades.io/guides/gs/scheduling-tasks){ target=_blank } は、定期的にバッチ処理を実行できる機能です。
+    [`#!java @Scheduled` :material-open-in-new:](https://spring.pleiades.io/guides/gs/scheduling-tasks){ target=_blank } は、定期的にバッチ処理を実行できる機能です。
     このアノテーションを利用すれば、一度アプリケーションを起動した後は定期的にバッチ処理が自動実行されるようになり、 Bean の初期化にかかる起動時間を短縮できます。
 
 ## クラウドサービスの FaaS でバッチ処理を実行する {#batch-processing-by-cloud}

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,8 @@ public class CatalogDomainServiceTest {
   private CatalogCategoryRepository catalogCategoryRepository;
   @InjectMocks
   private CatalogDomainService service;
+
+  private static final Random random = new Random();
 
   @Test
   void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
@@ -206,8 +209,8 @@ public class CatalogDomainServiceTest {
   }
 
   private CatalogItem createCatalogItem(long id) {
-    long defaultCatalogCategoryId = 1L;
-    long defaultCatalogBrandId = 1L;
+    long defaultCatalogCategoryId = random.nextInt(1000);
+    long defaultCatalogBrandId = random.nextInt(1000);
     String defaultDescription = "Description.";
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
