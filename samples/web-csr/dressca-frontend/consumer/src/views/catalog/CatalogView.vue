@@ -47,7 +47,7 @@ const addBasket = async (catalogItemId: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToAddItemToCarts'));
         } else {
           const message = errorMessageFormat(
@@ -78,7 +78,7 @@ onMounted(async () => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToGetItems'));
         } else {
           const message = errorMessageFormat(
