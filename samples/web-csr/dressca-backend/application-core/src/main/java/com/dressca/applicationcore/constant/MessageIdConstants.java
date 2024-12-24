@@ -3,7 +3,7 @@ package com.dressca.applicationcore.constant;
 /**
  * 業務メッセージID用定数クラス。
  */
-public class MessageIdConstant {
+public class MessageIdConstants {
 
   /** アセット情報{0}を取得します。 */
   public static final String D_ASSET_GET_ASSET = "assetApplicationServiceGetAsset";

@@ -2,7 +2,7 @@ package com.dressca.applicationcore.assets;
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;
-import com.dressca.applicationcore.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class Asset {
     this.assetCode = assetCode;
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-      String message = messageSource.getMessage(ExceptionIdConstant.E_ASSET_TYPE_NOT_SUPPORTED,
+      String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
           new String[] { assetType }, Locale.getDefault());
 
       throw new IllegalArgumentException(message);
@@ -47,7 +47,7 @@ public class Asset {
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-      String message = messageSource.getMessage(ExceptionIdConstant.E_ASSET_TYPE_NOT_SUPPORTED,
+      String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
           new String[] { assetType }, Locale.getDefault());
 
       throw new IllegalArgumentException(message);

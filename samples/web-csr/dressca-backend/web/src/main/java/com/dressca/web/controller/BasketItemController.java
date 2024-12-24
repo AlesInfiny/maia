@@ -7,7 +7,7 @@ import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.controller.dto.baskets.BasketResponse;
@@ -118,7 +118,7 @@ public class BasketItemController {
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -128,7 +128,7 @@ public class BasketItemController {
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -176,7 +176,7 @@ public class BasketItemController {
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -217,7 +217,7 @@ public class BasketItemController {
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -227,7 +227,7 @@ public class BasketItemController {
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)

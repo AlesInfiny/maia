@@ -3,7 +3,7 @@ package com.dressca.systemcommon.constant;
 /**
  * 例外ID用定数クラス。
  */
-public class CommonExceptionIdConstant {
+public class CommonExceptionIdConstants {
   /** 想定外のシステムエラーが発生しました。 */
   public static final String E_SYSTEM = "systemError";
 

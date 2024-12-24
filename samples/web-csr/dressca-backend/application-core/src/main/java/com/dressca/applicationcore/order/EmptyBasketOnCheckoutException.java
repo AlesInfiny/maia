@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.order;
 
-import com.dressca.applicationcore.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -9,7 +9,7 @@ import com.dressca.systemcommon.exception.LogicException;
 public class EmptyBasketOnCheckoutException extends LogicException {
 
   public EmptyBasketOnCheckoutException(Throwable cause) {
-    super(cause, ExceptionIdConstant.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
+    super(cause, ExceptionIdConstants.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
   }
 
 }

@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Component;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
-import com.dressca.web.constant.ProblemDetailsExtensionConstant;
+import com.dressca.web.constant.WebConstants;
 import com.dressca.web.log.ErrorMessageBuilder;
 
 /**
@@ -54,8 +54,8 @@ public class ProblemDetailsFactory {
     // 拡張メンバーとして exceptionId と exceptionValues を含める
     Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
       {
-        put(ProblemDetailsExtensionConstant.EXCEPTION_ID, errorBuilder.getExceptionId());
-        put(ProblemDetailsExtensionConstant.EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
+        put(WebConstants.PROBLEM_DETAILS_EXCEPTION_ID, errorBuilder.getExceptionId());
+        put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
       }
     };
 

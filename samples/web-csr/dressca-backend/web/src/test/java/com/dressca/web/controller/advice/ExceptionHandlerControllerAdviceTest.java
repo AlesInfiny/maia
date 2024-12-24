@@ -9,7 +9,7 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.controller.AssetsController;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
@@ -100,7 +100,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = CommonExceptionIdConstant.E_BUSINESS;
+    String exceptionId = CommonExceptionIdConstants.E_BUSINESS;
     String title = "想定外の業務エラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
@@ -128,7 +128,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = CommonExceptionIdConstant.E_SYSTEM;
+    String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
     String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
@@ -157,7 +157,7 @@ public class ExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = CommonExceptionIdConstant.E_SYSTEM;
+    String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
     String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;

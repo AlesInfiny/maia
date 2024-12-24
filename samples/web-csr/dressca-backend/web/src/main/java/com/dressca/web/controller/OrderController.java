@@ -7,7 +7,7 @@ import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
@@ -87,7 +87,7 @@ public class OrderController {
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          CommonExceptionIdConstant.E_BUSINESS,
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -117,7 +117,7 @@ public class OrderController {
       order = shoppingApplicationService.checkout(buyerId, shipToAddress);
     } catch (EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
-      throw new SystemException(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+      throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
 
     String requestUri = req.getRequestURL().toString();

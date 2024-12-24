@@ -1,7 +1,7 @@
 package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
@@ -37,11 +37,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_BUSINESS, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
         errorBuilder,
-        CommonExceptionIdConstant.E_BUSINESS,
+        CommonExceptionIdConstants.E_BUSINESS,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -57,11 +57,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
         errorBuilder,
-        CommonExceptionIdConstant.E_SYSTEM,
+        CommonExceptionIdConstants.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_PROBLEM_JSON)
@@ -77,10 +77,10 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstant.E_SYSTEM,
+        CommonExceptionIdConstants.E_SYSTEM,
         HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .contentType(MediaType.APPLICATION_PROBLEM_JSON)

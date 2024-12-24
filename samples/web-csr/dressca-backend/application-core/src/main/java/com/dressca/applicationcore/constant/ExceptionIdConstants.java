@@ -3,7 +3,7 @@ package com.dressca.applicationcore.constant;
 /**
  * 業務例外ID用定数クラス。
  */
-public class ExceptionIdConstant {
+public class ExceptionIdConstants {
 
   /** 存在しないアセットコード: {0} のアセットが要求されました。 */
   public static final String E_ASSET_NOT_FOUND = "assetNotFound";

@@ -3,11 +3,11 @@ package com.dressca.web.constant;
 /**
  * ProblemDetailの拡張メンバー用の定数クラス。
  */
-public class ProblemDetailsExtensionConstant {
+public class WebConstants {
 
   /** Exception ID。 */
-  public static final String EXCEPTION_ID = "exceptionId";
+  public static final String PROBLEM_DETAILS_EXCEPTION_ID = "exceptionId";
 
   /** Exception ID に紐づく例外値。 */
-  public static final String EXCEPTION_VALUES = "exceptionValues";
+  public static final String PROBLEM_DETAILS_EXCEPTION_VALUES = "exceptionValues";
 }
