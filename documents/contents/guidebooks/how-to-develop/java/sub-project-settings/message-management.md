@@ -74,7 +74,9 @@ public class ErrorMessageBuilder {
 }
 ```
 
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 以下は、プロパティファイルからエラーレスポンスに含めるメッセージを整形する `ProblemDetailsFactory.java` クラスの例です。
 
