@@ -1,9 +1,9 @@
 package com.dressca.web.constant;
 
 /**
- * ProblemDetailの拡張メンバー用の定数クラス。
+ * web プロジェクトで利用する汎用定数クラス。
  */
-public class ProblemDetailsExtensionConstant {
+public class WebConstants {
 
   /** Exception ID。 */
   public static final String EXCEPTION_ID = "exceptionId";

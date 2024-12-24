@@ -73,3 +73,25 @@ public class ErrorMessageBuilder {
   }
 }
 ```
+
+また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
+
+以下は、プロパティファイルからエラーレスポンスに含めるメッセージを整形する `ProblemDetailsFactory.java` クラスの例です。
+
+```java title="ProblemDetailsFactory.java" hl_lines="4 5 11"
+@Component
+public class ProblemDetailsFactory {
+
+  @Autowired
+  private MessageSource messages;
+
+  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
+
+    ProblemDetail problemDetail = ProblemDetail.forStatus(status);
+
+    problemDetail.setTitle(messages.getMessage(titleId, new String[] {}, Locale.getDefault()));
+
+    ...
+  }
+}
+```
