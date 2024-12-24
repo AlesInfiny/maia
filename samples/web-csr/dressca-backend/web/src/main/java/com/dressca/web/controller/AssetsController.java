@@ -51,6 +51,9 @@ public class AssetsController {
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;
 
+  @Autowired
+  private MessageSource messages;
+
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
@@ -99,10 +102,9 @@ public class AssetsController {
       case AssetTypes.png:
         return MediaType.IMAGE_PNG;
       default:
-        MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-        String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+        String errorMessage = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
             new String[] { asset.getAssetType() }, Locale.getDefault());
-        throw new IllegalArgumentException(message);
+        throw new IllegalArgumentException(errorMessage);
     }
   }
 }

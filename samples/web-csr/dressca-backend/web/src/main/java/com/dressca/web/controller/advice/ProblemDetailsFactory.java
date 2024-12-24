@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.log.ErrorMessageBuilder;
 
@@ -23,6 +22,9 @@ public class ProblemDetailsFactory {
 
   @Autowired
   private Environment env;
+
+  @Autowired
+  private MessageSource messages;
 
   /**
    * エラーレスポンスに含める ProblemDetails を作成する。
@@ -36,8 +38,7 @@ public class ProblemDetailsFactory {
 
     ProblemDetail problemDetail = ProblemDetail.forStatus(status);
 
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    problemDetail.setTitle(messageSource.getMessage(titleId, new String[] {}, Locale.getDefault()));
+    problemDetail.setTitle(messages.getMessage(titleId, new String[] {}, Locale.getDefault()));
 
     // 開発環境においては、 detail プロパティにスタックトレースを含める
     // 開発環境かどうかの判断は、環境変数の Profile をもとに判断する
