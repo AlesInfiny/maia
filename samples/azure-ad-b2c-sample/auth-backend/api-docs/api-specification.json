@@ -18,7 +18,7 @@
     },
     {
       "description": "認証済みユーザのユーザIDを取得するAPI",
-      "name": "User"
+      "name": "Users"
     }
   ],
   "paths": {
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeResponse"
+                  "$ref": "#/components/schemas/ServerTimeResponse"
                 }
               }
             },
@@ -44,7 +44,7 @@
         ]
       }
     },
-    "/api/user": {
+    "/api/users": {
       "get": {
         "description": "ログインに成功したユーザIDを取得します.",
         "operationId": "getUser",
@@ -70,14 +70,14 @@
         ],
         "summary": "ログインに成功したユーザIDを取得します.",
         "tags": [
-          "User"
+          "Users"
         ]
       }
     }
   },
   "components": {
     "schemas": {
-      "TimeResponse": {
+      "ServerTimeResponse": {
         "type": "object",
         "properties": {
           "serverTime": {

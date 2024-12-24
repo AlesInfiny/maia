@@ -24,10 +24,10 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 // @ts-ignore
 import type { UserResponse } from '../models';
 /**
- * UserApi - axios parameter creator
+ * UsersApi - axios parameter creator
  * @export
  */
-export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -36,7 +36,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         getUser: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/user`;
+            const localVarPath = `/api/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -67,11 +67,11 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
 };
 
 /**
- * UserApi - functional programming interface
+ * UsersApi - functional programming interface
  * @export
  */
-export const UserApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+export const UsersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -82,18 +82,18 @@ export const UserApiFp = function(configuration?: Configuration) {
         async getUser(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.getUser']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.getUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * UserApi - factory interface
+ * UsersApi - factory interface
  * @export
  */
-export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UserApiFp(configuration)
+export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UsersApiFp(configuration)
     return {
         /**
          * ログインに成功したユーザIDを取得します.
@@ -108,21 +108,21 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
 };
 
 /**
- * UserApi - object-oriented interface
+ * UsersApi - object-oriented interface
  * @export
- * @class UserApi
+ * @class UsersApi
  * @extends {BaseAPI}
  */
-export class UserApi extends BaseAPI {
+export class UsersApi extends BaseAPI {
     /**
      * ログインに成功したユーザIDを取得します.
      * @summary ログインに成功したユーザIDを取得します.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
+     * @memberof UsersApi
      */
     public getUser(options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).getUser(options).then((request) => request(this.axios, this.basePath));
+        return UsersApiFp(this.configuration).getUser(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
