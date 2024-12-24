@@ -31,7 +31,7 @@ export async function getUsersApi(): Promise<apiClient.UsersApi> {
 
   // UsersApi は認証が必要な API なので、addTokenAsync を呼び出します。
   await addTokenAsync(config);
-  const userApi = new apiClient.UserApi(config, '', axiosInstance);
+  const userApi = new apiClient.UsersApi(config, '', axiosInstance);
   return userApi;
 }
 
