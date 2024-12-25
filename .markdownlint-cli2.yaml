@@ -10,3 +10,5 @@ globs:
   - "**/*.md"
   - "!**/.github/ISSUE_TEMPLATE/**/*.md"
   - "!**/.github/pull_request_template.md"
+  - "!**/LICENSE"
+  - "!**/LICENSE-CODE"

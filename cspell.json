@@ -10,7 +10,7 @@
         ".textlintrc",
         ".yaml-lint.yml",
         "cspell.json",
-        "LICENSE",
+        "**/LICENSE",
         "LICENSE-CODE",
         "maia.code-workspace",
         "mkdocs.yml",
