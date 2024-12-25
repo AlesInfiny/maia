@@ -1,14 +1,11 @@
 ---
 
-ignore:
-  - /third-party-licenses/
-
 yaml-files:
   - '*.yaml'
   - '*.yml'
   - '.yamllint'
 
-ignore-from-file: .gitignore
+ignore-from-file: [.gitignore, .yamlignore]
 
 rules:
   braces: enable
