@@ -1,12 +1,12 @@
 ---
 
+ignore:
+  - /third-party-licenses/
+
 yaml-files:
   - '*.yaml'
   - '*.yml'
   - '.yamllint'
-
-ignore:
-  - /third-party-licenses/
 
 ignore-from-file: .gitignore
 
