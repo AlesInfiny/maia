@@ -17,6 +17,7 @@
         "package-lock.json",
         "package.json",
         "requirements.txt",
+        "third-party-licenses",
         "**/.eslintrc.cjs",
         "**/.prettierrc.json",
         "**/build-artifacts/**",

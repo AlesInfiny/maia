@@ -107,6 +107,9 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本リ
 また本リポジトリのソースコードに、 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) のライセンスを付与します。
 詳細は [LICENSE-CODE.md](/LICENSE-CODE) を参照してください。
 
+このプロジェクトでは、様々なオープンソースライセンスの下でライセンスされている 3rd パーティーのライブラリを使用しています。
+詳細は [third-party-licenses](/third-party-licenses/) ディレクトリを参照してください。
+
 このプロジェクトのライセンスは、 BIPROGY 株式会社の商標を使用する権利を付与するものではありません。
 詳細は [AlesInfiny Maia OSS Edition | 商標](https://maia.alesinfiny.org/about-maia/trademarks/) を参照してください。
 
