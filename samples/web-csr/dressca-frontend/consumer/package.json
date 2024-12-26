@@ -23,7 +23,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.1.5",
     "axios": "^1.7.7",
-    "pinia": "^2.2.5",
+    "pinia": "^2.3.0",
     "vee-validate": "^4.14.4",
     "vue": "^3.5.12",
     "vue-i18n": "^10.0.4",
