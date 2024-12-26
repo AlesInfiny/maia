@@ -14,7 +14,6 @@ import type {
 
 /**
  * カテゴリの情報を取得します。
- * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
  * @returns カタログカテゴリの配列。
  */
 export async function fetchCategories(): Promise<
@@ -26,7 +25,6 @@ export async function fetchCategories(): Promise<
 
 /**
  * ブランドの情報を取得します。
- * UIの都合で、すべてのカテゴリを表すカテゴリの情報を追加します。
  * @returns カテゴリブランドの配列。
  */
 export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
@@ -143,6 +141,7 @@ export async function updateCatalogItem(
 /**
  * 対象の ID を持つアイテムをカタログから削除します。
  * @param id アイテム ID 。
+ * @param rowVersion 排他制御のための行バージョン。
  */
 export async function deleteCatalogItem(id: number, rowVersion: string) {
   await catalogItemsApi.deleteCatalogItem(id, rowVersion);
