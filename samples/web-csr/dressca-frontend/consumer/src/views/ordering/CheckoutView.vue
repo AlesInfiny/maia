@@ -13,9 +13,6 @@ import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-h
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
-import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -26,7 +23,6 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
-const { t } = i18n.global;
 const { t } = i18n.global;
 
 const checkout = async () => {
@@ -77,7 +73,6 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      {{ t('orderingCheckAndComplete') }}
       {{ t('orderingCheckAndComplete') }}
     </span>
   </div>
@@ -162,9 +157,6 @@ onMounted(async () => {
               <p>{{ item.catalogItem?.name }}</p>
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
-              </p>
-              <p class="mt-4">
-                {{ `数量: ${item.quantity}` }}
               </p>
               <p class="mt-4">
                 {{ `数量: ${item.quantity}` }}

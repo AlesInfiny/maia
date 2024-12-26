@@ -18,9 +18,6 @@ import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-h
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
-import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -30,8 +27,6 @@ const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { t } = i18n.global;
-const { t } = i18n.global;
-
 const state = reactive({
   selectedCategory: 0,
   selectedBrand: 0,
@@ -129,8 +124,6 @@ watch([selectedCategory, selectedBrand], async () => {
           <div>
             <label class="mr-2 font-bold">
               カテゴリ
-            <label class="mr-2 font-bold">
-              カテゴリ
               <select v-model="selectedCategory" class="w-48 border-2">
                 <option
                   v-for="category in getCategories"
@@ -143,8 +136,6 @@ watch([selectedCategory, selectedBrand], async () => {
             </label>
           </div>
           <div class="mt-2 lg:mt-0">
-            <label class="mr-2 font-bold">
-              ブランド
             <label class="mr-2 font-bold">
               ブランド
               <select v-model="selectedBrand" class="w-48 border-2">

@@ -9,15 +9,12 @@ import { showToast } from '@/services/notification/notificationService';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
-import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
 import Loading from '@/components/common/LoadingSpinner.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
 
@@ -32,7 +29,6 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
-const { t } = i18n.global;
 const { t } = i18n.global;
 
 const isEmpty = () => {
@@ -148,9 +144,6 @@ onUnmounted(async () => {
     <Loading :show="state.showLoading"></Loading>
     <div v-if="!state.showLoading">
       <div v-if="getAddedItemId && !!getAddedItem" class="mx-2">
-        <span class="text-lg font-medium text-green-500">
-          {{ t('addedItemsToBasket') }}
-        </span>
         <span class="text-lg font-medium text-green-500">
           {{ t('addedItemsToBasket') }}
         </span>
