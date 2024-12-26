@@ -19,7 +19,6 @@ export interface CustomErrorHandler {
     error: unknown,
     callback: () => void,
     handlingHttpError?: ((httpError: HttpError) => void) | null,
-    handlingHttpError?: ((httpError: HttpError) => void) | null,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
     handlingServerError?: (() => void) | null,
