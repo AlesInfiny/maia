@@ -23,6 +23,7 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.spring_cloud_azure_starter
 	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
+	implementation supportDependencies.spring_boot_starter_log4j2
 
 	implementation project(':system-common')
 

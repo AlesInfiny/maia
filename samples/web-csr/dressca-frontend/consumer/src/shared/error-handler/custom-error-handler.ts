@@ -5,8 +5,11 @@ import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { i18n } from '@/locales/i18n';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import {
   CustomErrorBase,
+  HttpError,
   HttpError,
   UnauthorizedError,
   NetworkError,
@@ -19,6 +22,7 @@ export interface CustomErrorHandler {
     error: unknown,
     callback: () => void,
     handlingHttpError?: ((httpError: HttpError) => void) | null,
+    handlingHttpError?: ((httpError: HttpError) => void) | null,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
     handlingServerError?: (() => void) | null,
@@ -27,6 +31,7 @@ export interface CustomErrorHandler {
 
 export function createCustomErrorHandler(): CustomErrorHandler {
   const { t } = i18n.global;
+  const { t } = i18n.global;
   const customErrorHandler: CustomErrorHandler = {
     install: (app: App) => {
       app.provide(customErrorHandlerKey, customErrorHandler);
@@ -34,6 +39,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
     handle: (
       error: unknown,
       callback: () => void,
+      handlingHttpError: ((httpError: HttpError) => void) | null = null,
       handlingHttpError: ((httpError: HttpError) => void) | null = null,
       handlingUnauthorizedError: (() => void) | null = null,
       handlingNetworkError: (() => void) | null = null,

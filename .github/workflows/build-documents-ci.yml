@@ -1,5 +1,5 @@
 ---
-# cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps yamlignore
 name: ドキュメントのビルド (CI用)
 
 on:
@@ -20,6 +20,7 @@ on:
       - ".textlintignore"
       - ".textlintrc"
       - ".yaml-lint.yml"
+      - ".yamlignore"
       - "package-lock.json"
       - "package.json"
       - "requirements.txt"

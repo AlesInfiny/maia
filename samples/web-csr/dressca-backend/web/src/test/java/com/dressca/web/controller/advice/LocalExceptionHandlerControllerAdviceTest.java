@@ -12,6 +12,7 @@ import com.dressca.web.controller.AssetsController;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
@@ -49,50 +50,50 @@ import java.util.Locale;
 @ActiveProfiles("local")
 public class LocalExceptionHandlerControllerAdviceTest {
 
-  private static final String MOCK_APPENDER_NAME = "MockAppender";
+    private static final String MOCK_APPENDER_NAME = "MockAppender";
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @MockBean
-  AssetsController assetsController;
+    @MockBean
+    AssetsController assetsController;
 
-  @Mock
-  private Appender mockAppender;
+    @Mock
+    private Appender mockAppender;
 
-  @Captor
-  private ArgumentCaptor<LogEvent> logCaptor;
+    @Captor
+    private ArgumentCaptor<LogEvent> logCaptor;
 
-  /**
-   * 各テスト実施前のセットアップを行うメソッド。
-   */
-  @BeforeEach
-  public void setup() {
-    // アプリケーションログメッセージを取得する設定
-    // Appenderの初期化
-    Mockito.reset(mockAppender);
-    // Appenderの名前を設定
-    Mockito.when(mockAppender.getName()).thenReturn(MOCK_APPENDER_NAME);
-    // Appenderとして利用できる準備ができていることを設定（下2行）
-    Mockito.when(mockAppender.isStarted()).thenReturn(true);
-    Mockito.when(mockAppender.isStopped()).thenReturn(false);
+    /**
+     * 各テスト実施前のセットアップを行うメソッド。
+     */
+    @BeforeEach
+    public void setup() {
+        // アプリケーションログメッセージを取得する設定
+        // Appenderの初期化
+        Mockito.reset(mockAppender);
+        // Appenderの名前を設定
+        Mockito.when(mockAppender.getName()).thenReturn(MOCK_APPENDER_NAME);
+        // Appenderとして利用できる準備ができていることを設定（下2行）
+        Mockito.when(mockAppender.isStarted()).thenReturn(true);
+        Mockito.when(mockAppender.isStopped()).thenReturn(false);
 
-    this.setLogLevel(Level.INFO);
-  }
+        this.setLogLevel(Level.INFO);
+    }
 
-  private void setLogLevel(Level level) {
-    // application.logのロガーを取り出し、Appenderの設定（mockAppenderにログを出力させる）を行う。
-    LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-    Configuration config = ctx.getConfiguration();
-    LoggerConfig loggerConfig = config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+    private void setLogLevel(Level level) {
+        // application.logのロガーを取り出し、Appenderの設定（mockAppenderにログを出力させる）を行う。
+        LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+        Configuration config = ctx.getConfiguration();
+        LoggerConfig loggerConfig = config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
-    // テスト毎にAppenderを設定するため、一度初期化する。
-    loggerConfig.removeAppender(MOCK_APPENDER_NAME);
+        // テスト毎にAppenderを設定するため、一度初期化する。
+        loggerConfig.removeAppender(MOCK_APPENDER_NAME);
 
-    loggerConfig.setLevel(level);
-    loggerConfig.addAppender(mockAppender, level, null);
-    ctx.updateLoggers();
-  }
+        loggerConfig.setLevel(level);
+        loggerConfig.addAppender(mockAppender, level, null);
+        ctx.updateLoggers();
+    }
 
   @Test
   @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(開発環境)。")
@@ -108,6 +109,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
             frontMessageValue, logMessageValue));
+        .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
+            frontMessageValue, logMessageValue));
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -115,6 +118,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").exists());
+    // アプリケーションログのメッセージの確認
     // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
@@ -135,6 +139,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new SystemException(null, exceptionId, frontMessageValue,
+        .thenThrow(new SystemException(null, exceptionId, frontMessageValue,
             logMessageValue));
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
@@ -150,37 +155,38 @@ public class LocalExceptionHandlerControllerAdviceTest {
         .startsWith(createLogMessage(exceptionId, logMessageValue));
   }
 
-  @Test
-  @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
-  void testException_03() throws Exception {
-    // テスト用の入力データ
-    String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
-    // 期待値の設定
-    String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
-    String title = "想定外のシステムエラーが発生しました。";
-    String[] frontMessageValue = null;
-    String[] logMessageValue = null;
-    // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new RuntimeException());
-    // APIの呼び出しとエラー時のレスポンスであることの確認
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
-        .andExpect(jsonPath("$.exceptionId").value(exceptionId))
-        .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
-        .andExpect(jsonPath("$.detail").exists());
-    // アプリケーションログのメッセージの確認
-    Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
-    assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
-    assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
-        .startsWith(createLogMessage(exceptionId, logMessageValue));
-  }
+    @Test
+    @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
+    void testException_03() throws Exception {
+        // テスト用の入力データ
+        String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
+        // 期待値の設定
+        String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
+        String title = "想定外のシステムエラーが発生しました。";
+        String[] frontMessageValue = null;
+        String[] logMessageValue = null;
+        // モックの戻り値設定
+        Mockito.when(assetsController.get(anyString()))
+                .thenThrow(new RuntimeException());
+        // APIの呼び出しとエラー時のレスポンスであることの確認
+        this.mockMvc.perform(get("/api/assets/" + assetCode))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().json("{\"title\":\"" + title + "\"}"))
+                .andExpect(jsonPath("$.exceptionId").value(exceptionId))
+                .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
+                .andExpect(jsonPath("$.detail").exists());
+        // アプリケーションログのメッセージの確認
+        Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
+        assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
+        assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
+                .startsWith(createLogMessage(exceptionId, logMessageValue));
+    }
 
-  // エラー時のアプリケーションログ出力メッセージの先頭行を返す（2行目以降はエラーのスタックトレースのため可変）
-  private String createLogMessage(String exceptionId, String[] logMessageValue) {
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
-    return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
-  }
+    // エラー時のアプリケーションログ出力メッセージの先頭行を返す（2行目以降はエラーのスタックトレースのため可変）
+    private String createLogMessage(String exceptionId, String[] logMessageValue) {
+        MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+        return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
+    }
 }

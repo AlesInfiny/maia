@@ -2,12 +2,15 @@
 import { onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
+import { i18n } from '@/locales/i18n';
 import { getOrder } from '@/services/ordering/ordering-service';
 import { showToast } from '@/services/notification/notificationService';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
 
@@ -23,6 +26,7 @@ const state = reactive({
 const { lastOrdered } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = i18n.global;
 const { t } = i18n.global;
 
 const goCatalog = () => {
@@ -64,6 +68,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
+      {{ t('orderingCompleted') }}
       {{ t('orderingCompleted') }}
     </span>
   </div>
@@ -141,6 +146,9 @@ onMounted(async () => {
               <p>{{ item.itemOrdered?.name }}</p>
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
+              </p>
+              <p class="mt-4">
+                {{ `数量: ${item.quantity}` }}
               </p>
               <p class="mt-4">
                 {{ `数量: ${item.quantity}` }}

@@ -9,12 +9,15 @@ import { showToast } from '@/services/notification/notificationService';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
+import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
 import Loading from '@/components/common/LoadingSpinner.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
 
@@ -29,6 +32,7 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = i18n.global;
 const { t } = i18n.global;
 
 const isEmpty = () => {
@@ -147,6 +151,9 @@ onUnmounted(async () => {
         <span class="text-lg font-medium text-green-500">
           {{ t('addedItemsToBasket') }}
         </span>
+        <span class="text-lg font-medium text-green-500">
+          {{ t('addedItemsToBasket') }}
+        </span>
         <div class="grid grid-cols-1 lg:grid-cols-3 mt-4 flex items-center">
           <img
             :src="getFirstAssetUrl(getAddedItem.catalogItem?.assetCodes)"
@@ -163,6 +170,9 @@ onUnmounted(async () => {
       </div>
 
       <div v-if="isEmpty()" class="mt-4 mx-2">
+        <span class="text-2xl font-medium">
+          {{ t('noItemsInBasket') }}
+        </span>
         <span class="text-2xl font-medium">
           {{ t('noItemsInBasket') }}
         </span>
