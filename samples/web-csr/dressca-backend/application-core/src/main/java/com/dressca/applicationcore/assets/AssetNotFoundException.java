@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.assets;
 
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -14,7 +14,7 @@ public class AssetNotFoundException extends LogicException {
    * @param assetCode 見つからなかった買い物かご Id
    */
   public AssetNotFoundException(String assetCode) {
-    super(null, ExceptionIdConstant.E_ASSET0001, new String[] { assetCode },
+    super(null, ExceptionIdConstant.E_ASSET_NOT_FOUND, new String[] { assetCode },
         new String[] { assetCode });
   }
 }

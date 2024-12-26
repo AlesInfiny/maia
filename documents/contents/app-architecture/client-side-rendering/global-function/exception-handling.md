@@ -3,6 +3,8 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
+<!-- cspell:ignore applicationcore rgba -->
+
 # 例外処理方針 {#top}
 
 バックエンドアプリケーションで発生するシステム例外や業務例外は、例外フィルターによって捕捉します。
@@ -102,4 +104,62 @@ HTTP 通信で発生する例外について、レスポンスやステータス
     end
     C->>B: エラー通知
     deactivate C
+```
+
+### API 通信のエラーレスポンス {#error-response}
+
+API 通信で発生した例外において、バックエンドから返却されるエラーレスポンスには、 [ProblemDetails :material-open-in-new:](https://www.rfc-editor.org/rfc/rfc9457.html){ target=_blank } に基づくレスポンスボディーを含みます。
+
+ProblemDetails は、 HTTP API のエラーレスポンスを標準化するための構造体であり、以下のプロパティで定義されています。
+
+|             項目             | プロパティ名 |    推奨レベル    |                                                                                                               内容                                                                                                               |
+| ---------------------------- | ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 簡易メッセージ               | title        | 必須             | 人間が読める形式で提供されます。                                                                                                                                                                                                 |
+| 詳細メッセージ               | detail       | 本番環境は非推奨 | スタックトレースなどを含めます。開発環境では生産性向上を目的に含めることを推奨しますが、本番環境では使用しません。開発環境と本番環境で構成を変更することが難しい場合には detail を使用しないよう統一することも検討してください。 |
+| ステータスコード             | status       | 任意             | HTTP エラーのステータスコードです。                                                                                                                                                                                              |
+| 詳細 URL                     | type         | 推奨             | エラーを説明する詳細 Web ドキュメントがある場合、ユーザーが参照する URL を追加します。                                                                                                                                           |
+| 問題が発生したリソースの URI | instance     | 任意             | 問題の発生場所を示す URI です。リクエスト先と異なるリソースが問題の発生したリソースである場合、実装の詳細やデータなどの内部情報が漏洩する可能性があるため、追加には注意が必要です。                                              |
+| 任意のパラメータ             |              | 任意             | 拡張メンバーです。必要に応じて ProblemDetails のプロパティを拡張する場合に利用します。                                                                                                                                           |
+
+AlesInfiny Maia OSS Edition では、上記のプロパティに加えて拡張メンバーとして以下を定義しています。
+
+- exceptionId
+
+    例外 ID 。メッセージファイルからエラーメッセージを取得するためのメッセージコードとして利用します。
+
+- exceptionValues
+
+    例外値。例外 ID から取得したエラーメッセージ内のパラメーターに代入する値として利用します。
+
+クライアントサイドでポップアップやトースト通知などを用いてエラー通知を実装する場合には、 ProblemDetails の各プロパティの内容を表示します。
+
+#### エラーレスポンスの例 {#example-of-error-response}
+
+説明したエラーレスポンスの例を以下に示します。
+
+```json title="開発環境の場合のエラーレスポンス"
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "title": "業務エラーが発生しました。",
+    "status": 400,
+    "detail": "dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
+    "exceptionId": "catalogItemIdDoesNotExistInBasket",
+    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+}
+```
+
+```json title="本番環境の場合のエラーレスポンス"
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "title": "業務エラーが発生しました。",
+    "status": 400,
+    "exceptionId": "catalogItemIdDoesNotExistInBasket",
+    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+}
 ```

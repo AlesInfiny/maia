@@ -30,6 +30,8 @@
     "words": [
         "Adoptium",
         "AlesInfiny",
+        "Appender",
+        "Appenders",
         "BIPROGY",
         "Checkstyle",
         "Corretto",
@@ -44,6 +46,7 @@
         "JaCoCo",
         "JDBC",
         "linenums",
+        "Logback",
         "markdownlint",
         "mkdocs",
         "Mockito",

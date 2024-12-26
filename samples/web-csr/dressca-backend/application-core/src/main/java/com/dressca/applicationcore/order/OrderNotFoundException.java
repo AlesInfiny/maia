@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.order;
 
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstant;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -17,7 +17,7 @@ public class OrderNotFoundException extends LogicException {
    * @param buyerId 見つからなかった購入者 Id.
    */
   public OrderNotFoundException(Throwable cause, long orderId, String buyerId) {
-    super(cause, ExceptionIdConstant.E_ORDER0002, new String[] { String.valueOf(orderId), buyerId },
+    super(cause, ExceptionIdConstant.E_ORDER_NOT_FOUND, new String[] { String.valueOf(orderId), buyerId },
         new String[] { String.valueOf(orderId), buyerId });
   }
 

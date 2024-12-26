@@ -11,6 +11,9 @@ public class ProblemDetailsConstant {
   /** システムエラーのタイトル。 */
   public static final String SYSTEM_ERROR_TITLE = "システムエラー";
 
-  /** errorキー。 */
-  public static final String ERROR_KEY = "error";
+  /** Exception ID。 */
+  public static final String EXCEPTION_ID = "exceptionId";
+
+  /** Exception ID に紐づくメッセージ。 */
+  public static final String EXCEPTION_VALUES = "exceptionValues";
 }
