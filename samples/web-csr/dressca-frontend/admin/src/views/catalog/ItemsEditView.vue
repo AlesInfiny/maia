@@ -50,8 +50,8 @@ const { errors, values, meta, defineField, setValues } = useForm({
   validationSchema: catalogItemSchema,
 });
 
-const [name] = defineField('name');
-const [description] = defineField('description');
+const [itemName] = defineField('itemName');
+const [itemDescription] = defineField('itemDescription');
 const [price] = defineField('price');
 const [productCode] = defineField('productCode');
 
@@ -194,8 +194,8 @@ const initItemAsync = async (itemId: number) => {
   await getCategoriesAndBrands();
   await getItem(itemId);
   setValues({
-    name: currentItemState.value.name,
-    description: currentItemState.value.description,
+    itemName: currentItemState.value.name,
+    itemDescription: currentItemState.value.description,
     price: currentItemState.value.price,
     productCode: currentItemState.value.productCode,
   });
@@ -265,8 +265,8 @@ const updateItemAsync = async () => {
   try {
     await updateCatalogItem(
       editingItemState.value.id,
-      values.name,
-      values.description,
+      values.itemName,
+      values.itemDescription,
       values.price,
       values.productCode,
       editingItemState.value.categoryId,
@@ -464,23 +464,25 @@ const updateItemAsync = async () => {
             >
             <input
               id="item-name"
-              v-model="name"
+              v-model="itemName"
               type="text"
               name="item-name"
               class="w-full border border-gray-300 px-4 py-2"
             />
-            <p class="px-1 py-1 text-base text-red-800">{{ errors.name }}</p>
+            <p class="px-1 py-1 text-base text-red-800">
+              {{ errors.itemName }}
+            </p>
           </div>
           <div class="mb-4">
             <label for="description" class="mb-2 block font-bold">説明</label>
             <textarea
-              id="description"
-              v-model="description"
-              name="description"
+              id="item-description"
+              v-model="itemDescription"
+              name="item-description"
               class="w-full border border-gray-300 px-4 py-2"
             ></textarea>
             <p class="px-1 py-1 text-base text-red-800">
-              {{ errors.description }}
+              {{ errors.itemDescription }}
             </p>
           </div>
           <div class="mb-4">

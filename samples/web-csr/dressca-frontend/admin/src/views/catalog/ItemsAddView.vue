@@ -21,15 +21,15 @@ const customErrorHandler = useCustomErrorHandler();
 const { errors, values, meta, defineField } = useForm({
   validationSchema: catalogItemSchema,
   initialValues: {
-    name: 'テスト用アイテム',
-    description: 'テスト用アイテムです。',
+    itemName: 'テスト用アイテム',
+    itemDescription: 'テスト用アイテムです。',
     price: 1980,
     productCode: 'T001',
   },
 });
 
-const [name] = defineField('name');
-const [description] = defineField('description');
+const [itemName] = defineField('itemName');
+const [itemDescription] = defineField('itemDescription');
 const [price] = defineField('price');
 const [productCode] = defineField('productCode');
 
@@ -71,8 +71,8 @@ const showAddNotice = ref(false);
 const AddItem = async () => {
   try {
     await postCatalogItem(
-      values.name,
-      values.description,
+      values.itemName,
+      values.itemDescription,
       values.price,
       values.productCode,
       selectedCategoryId.value,
@@ -130,22 +130,24 @@ onMounted(async () => {
         <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
         <input
           id="item-name"
-          v-model="name"
+          v-model="itemName"
           type="text"
           name="item-name"
           class="w-full border border-gray-300 px-4 py-2"
         />
-        <p class="px-2 py-2 text-base text-red-800">{{ errors.name }}</p>
+        <p class="px-2 py-2 text-base text-red-800">{{ errors.itemName }}</p>
       </div>
       <div class="mb-4">
-        <label for="description" class="mb-2 block font-bold">説明</label>
+        <label for="item-description" class="mb-2 block font-bold">説明</label>
         <textarea
-          id="description"
-          v-model="description"
-          name="description"
+          id="item-description"
+          v-model="itemDescription"
+          name="item-description"
           class="w-full border border-gray-300 px-4 py-2"
         ></textarea>
-        <p class="px-2 py-2 text-base text-red-800">{{ errors.description }}</p>
+        <p class="px-2 py-2 text-base text-red-800">
+          {{ errors.itemDescription }}
+        </p>
       </div>
       <div class="mb-4">
         <label for="unit-price" class="mb-2 block font-bold">単価</label>

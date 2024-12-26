@@ -21,9 +21,7 @@ export async function fetchCategories(): Promise<
   GetCatalogCategoriesResponse[]
 > {
   const response = await catalogCategoriesApi.getCatalogCategories();
-  const categories = response.data;
-  categories.unshift({ id: 0, name: 'すべて' });
-  return categories;
+  return response.data;
 }
 
 /**
@@ -33,9 +31,7 @@ export async function fetchCategories(): Promise<
  */
 export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
   const response = await catalogBrandsApi.getCatalogBrands();
-  const brands = response.data;
-  brands.unshift({ id: 0, name: 'すべて' });
-  return brands;
+  return response.data;
 }
 
 /**

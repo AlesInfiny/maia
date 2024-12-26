@@ -12,11 +12,11 @@ export const validationItems = {
  */
 export const catalogItemSchema: TypedSchema = toTypedSchema(
   yup.object({
-    name: yup
+    itemName: yup
       .string()
       .required('アイテム名は必須です。')
       .max(256, '256文字以下で入力してください。'),
-    description: yup
+    itemDescription: yup
       .string()
       .required('説明は必須です。')
       .max(1024, '1024文字以下で入力してください。'),
