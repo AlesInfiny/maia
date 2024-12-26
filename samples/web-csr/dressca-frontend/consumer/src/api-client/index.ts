@@ -1,4 +1,4 @@
-import axios, { HttpStatusCode } from 'axios';
+import axios from 'axios';
 import * as apiClient from '@/generated/api-client';
 import {
   HttpError,
@@ -28,10 +28,10 @@ axiosInstance.interceptors.response.use(
       if (!error.response) {
         return Promise.reject(new NetworkError(error.message, error));
       }
-      if (error.response.status === HttpStatusCode.InternalServerError) {
+      if (error.response.status === 500) {
         return Promise.reject(new ServerError(error.message, error));
       }
-      if (error.response.status === HttpStatusCode.Unauthorized) {
+      if (error.response.status === 401) {
         return Promise.reject(new UnauthorizedError(error.message, error));
       }
 
