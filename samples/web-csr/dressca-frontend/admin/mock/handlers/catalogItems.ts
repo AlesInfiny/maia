@@ -3,7 +3,7 @@ import type {
   PostCatalogItemRequest,
   PutCatalogItemRequest,
 } from '@/generated/api-client';
-import { HttpStatusCode } from './httpStatusCode';
+import { HttpStatusCode } from 'axios';
 import { pagedListCatalogItem, catalogItems } from '../data/catalogItems';
 
 type GetCatalogItemParams = {

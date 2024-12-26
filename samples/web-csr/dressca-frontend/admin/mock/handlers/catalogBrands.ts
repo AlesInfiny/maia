@@ -1,4 +1,5 @@
 import type { GetCatalogBrandsResponse } from '@/generated/api-client';
+import { HttpStatusCode } from 'axios';
 import { HttpResponse, http } from 'msw';
 
 const catalogBrands: GetCatalogBrandsResponse[] = [
@@ -18,6 +19,6 @@ const catalogBrands: GetCatalogBrandsResponse[] = [
 
 export const catalogBrandsHandlers = [
   http.get('/api/catalog-brands', () => {
-    return HttpResponse.json(catalogBrands, { status: 200 });
+    return HttpResponse.json(catalogBrands, { status: HttpStatusCode.Ok });
   }),
 ];

@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import { HttpResponse, http } from 'msw';
 
 export const assetsHandlers = [
@@ -6,7 +7,7 @@ export const assetsHandlers = [
       `/mock/images/${params.assetCode}.png`,
     ).then((response) => response.arrayBuffer());
     return HttpResponse.arrayBuffer(imageBuffer, {
-      status: 200,
+      status: HttpStatusCode.Ok,
       headers: {
         'Content-Type': 'image/png',
       },

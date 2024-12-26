@@ -1,5 +1,6 @@
 import { HttpResponse, http } from 'msw';
 import type { GetLoginUserResponse } from '@/generated/api-client';
+import { HttpStatusCode } from 'axios';
 
 const user: GetLoginUserResponse = {
   userName: 'admin@example.com',
@@ -8,6 +9,6 @@ const user: GetLoginUserResponse = {
 
 export const usersHandlers = [
   http.get('/api/users', () => {
-    return HttpResponse.json(user, { status: 200 });
+    return HttpResponse.json(user, { status: HttpStatusCode.Ok });
   }),
 ];
