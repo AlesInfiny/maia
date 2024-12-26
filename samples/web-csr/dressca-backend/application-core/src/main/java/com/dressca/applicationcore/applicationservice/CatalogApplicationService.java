@@ -100,7 +100,7 @@ public class CatalogApplicationService {
    * @param pageSize   ページサイズ
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    */
-  public List<CatalogItem> getCatalogItemsByConsumer(long brandId, long categoryId, int page, int pageSize) {
+  public List<CatalogItem> getCatalogItemsForConsumer(long brandId, long categoryId, int page, int pageSize) {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
@@ -118,14 +118,14 @@ public class CatalogApplicationService {
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
-  public List<CatalogItem> getCatalogItemsByAdmin(long brandId, long categoryId, int page, int pageSize)
+  public List<CatalogItem> getCatalogItemsForAdmin(long brandId, long categoryId, int page, int pageSize)
       throws PermissionDeniedException {
 
     apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0001_LOG,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
     if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
-      throw new PermissionDeniedException("getCatalogItemsByAdmin");
+      throw new PermissionDeniedException("getCatalogItemsForAdmin");
     }
 
     return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);

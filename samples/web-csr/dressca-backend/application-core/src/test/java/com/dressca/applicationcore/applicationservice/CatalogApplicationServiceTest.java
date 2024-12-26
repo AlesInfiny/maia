@@ -134,7 +134,7 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsByConsumer_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
+  void testGetCatalogItemsForConsumer_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -143,14 +143,14 @@ public class CatalogApplicationServiceTest {
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
-    service.getCatalogItemsByConsumer(brandId, categoryId, page, pageSize);
+    service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
 
     // Assert
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 
   @Test
-  void testGetCatalogItemsByConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
+  void testGetCatalogItemsForConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
     // Arrange
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     long brandId = 1L;
@@ -164,14 +164,14 @@ public class CatalogApplicationServiceTest {
         .thenReturn(expectedCatalogItemList);
 
     // Action
-    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsByConsumer(brandId, categoryId, page, pageSize);
+    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
   }
 
   @Test
-  void testGetCatalogItemsByAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() throws PermissionDeniedException {
+  void testGetCatalogItemsForAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() throws PermissionDeniedException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -180,14 +180,14 @@ public class CatalogApplicationServiceTest {
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
-    service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize);
+    service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
 
     // Assert
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 
   @Test
-  void testGetCatalogItemsByAdmin_正常系_指定した条件のカタログアイテムのリストが返却される() throws PermissionDeniedException {
+  void testGetCatalogItemsForAdmin_正常系_指定した条件のカタログアイテムのリストが返却される() throws PermissionDeniedException {
     // Arrange
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     long brandId = 1L;
@@ -201,14 +201,14 @@ public class CatalogApplicationServiceTest {
         .thenReturn(expectedCatalogItemList);
 
     // Action
-    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize);
+    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
   }
 
   @Test
-  void testGetCatalogItemsByAdmin_異常系_カタログアイテムの一覧を取得する権限がない() {
+  void testGetCatalogItemsForAdmin_異常系_カタログアイテムの一覧を取得する権限がない() {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -218,7 +218,7 @@ public class CatalogApplicationServiceTest {
 
     // Action
     Executable action = () -> {
-      service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize);
+      service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
     };
 
     // Assert

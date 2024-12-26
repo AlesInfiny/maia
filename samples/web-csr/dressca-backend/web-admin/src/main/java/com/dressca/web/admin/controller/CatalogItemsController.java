@@ -114,7 +114,7 @@ public class CatalogItemsController {
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws PermissionDeniedException {
 
-    List<GetCatalogItemResponse> items = this.service.getCatalogItemsByAdmin(brandId, categoryId, page, pageSize)
+    List<GetCatalogItemResponse> items = this.service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize)
         .stream()
         .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
