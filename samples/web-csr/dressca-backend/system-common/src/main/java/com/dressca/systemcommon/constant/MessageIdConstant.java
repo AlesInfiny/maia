@@ -27,6 +27,26 @@ public class MessageIdConstant {
   public static final String E_ORDER0002_FRONT = "E_ORDER0002.front";
   public static final String E_ORDER0002_LOG = "E_ORDER0002.log";
 
+  /** 商品ID: {0} の商品が見つかりませんでした。 */
+  public static final String E_CATALOG0001_FRONT = "E_CATALOG0001.front";
+  public static final String E_CATALOG0001_LOG = "E_CATALOG0001.log";
+
+  /** ブランドID: {0} のブランドが見つかりませんでした。 */
+  public static final String E_CATALOG0002_FRONT = "E_CATALOG0002.front";
+  public static final String E_CATALOG0002_LOG = "E_CATALOG0002.log";
+
+  /** カテゴリID: {0} のカテゴリが見つかりませんでした。 */
+  public static final String E_CATALOG0003_FRONT = "E_CATALOG0003.front";
+  public static final String E_CATALOG0003_LOG = "E_CATALOG0003.log";
+
+  /** {0} を実行する権限がありません。 */
+  public static final String E_CATALOG0004_FRONT = "E_CATALOG0004.front";
+  public static final String E_CATALOG0004_LOG = "E_CATALOG0004.log";
+
+  /** カタログアイテム ID: {0} のカタログアイテムの更新時に楽観ロックエラーが発生しました。 */
+  public static final String E_CATALOG0005_FRONT = "E_CATALOG0005.front";
+  public static final String E_CATALOG0005_LOG = "E_CATALOG0005.log";
+
   /** アセット情報{0}を取得します。 */
   public static final String D_ASSET0001_LOG = "D_ASSET0001.log";
 
