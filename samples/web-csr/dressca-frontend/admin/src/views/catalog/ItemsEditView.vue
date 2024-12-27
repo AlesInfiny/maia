@@ -238,7 +238,7 @@ const deleteItemAsync = async () => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       customErrorHandler.handle(error, () => {
-        showToast('更新対象のカタログアイテムが見つかりませんでした。');
+        showToast('削除対象のカタログアイテムが見つかりませんでした。');
         router.push({ name: '/catalog/items' });
       });
     } else if (error instanceof ConflictError) {
