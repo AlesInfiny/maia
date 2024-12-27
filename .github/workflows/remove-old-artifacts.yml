@@ -1,6 +1,9 @@
 ---
 name: 古いアーティファクトの削除
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
     inputs:
