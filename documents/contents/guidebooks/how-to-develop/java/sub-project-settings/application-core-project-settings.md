@@ -22,6 +22,25 @@ dependencies {
 }
 ```
 
+## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+依存関係に記載している `org.springframework.boot:spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j 2 を使用します。
+そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
+
+``` groovy title="spring-boot-starter-logging の除外設定"
+configurations {
+ all {
+  exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+ }
+}
+```
+
 ## プロジェクトのビルド方法の設定 {#config-build}
 
 application-core プロジェクトは単体で動作せず、他プロジェクトからライブラリとして呼び出します。
@@ -74,6 +93,13 @@ application-core プロジェクトの `src` 以下にある、 `ApplicationCore
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
+    configurations {
+      all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
+    }
+
+
     tasks.named('test') {
       useJUnitPlatform()
     }
@@ -86,3 +112,7 @@ application-core プロジェクトの `src` 以下にある、 `ApplicationCore
       enabled = true
     }
     ```
+
+## メッセージ管理の設定 {#message-management-settings}
+
+application-core プロジェクトで管理する業務メッセージの設定方法については、[こちら](./message-management.md) を参照してください。

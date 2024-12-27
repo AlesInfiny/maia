@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
+import { i18n } from '@/locales/i18n';
 import { getOrder } from '@/services/ordering/ordering-service';
 import { showToast } from '@/services/notification/notificationService';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
@@ -20,6 +23,7 @@ const state = reactive({
 const { lastOrdered } = toRefs(state);
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = i18n.global;
 
 const goCatalog = () => {
   router.push({ name: 'catalog' });
@@ -29,10 +33,30 @@ onMounted(async () => {
   try {
     state.lastOrdered = await getOrder(props.orderId);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('注文情報の取得に失敗しました。');
-      router.push('/');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {
+        router.push('/');
+      },
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToOrderInformation'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
 });
 </script>
@@ -40,7 +64,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      注文が完了しました。
+      {{ t('orderingCompleted') }}
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
@@ -118,7 +142,9 @@ onMounted(async () => {
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
               </p>
-              <p class="mt-4">{{ `数量: ${item.quantity}` }}</p>
+              <p class="mt-4">
+                {{ `数量: ${item.quantity}` }}
+              </p>
               <p class="mt-4">
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>

@@ -93,7 +93,8 @@ const remove = () => {
       </div>
     </div>
     <div class="text-right mt-4 mr-3">
-      小計： <span>{{ toCurrencyJPY(item.subTotal) }}</span>
+      小計：
+      <span>{{ toCurrencyJPY(item.subTotal) }}</span>
     </div>
   </div>
 </template>

@@ -15,6 +15,9 @@ import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { i18n } from '@/locales/i18n';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
@@ -23,7 +26,7 @@ const { getSpecialContents } = storeToRefs(specialContentStore);
 const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
-
+const { t } = i18n.global;
 const state = reactive({
   selectedCategory: 0,
   selectedBrand: 0,
@@ -39,9 +42,28 @@ const addBasket = async (catalogItemId: number) => {
     await addItemToBasket(catalogItemId);
     router.push({ name: 'basket' });
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('カートに追加できませんでした。');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToAddItemToCarts'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
 };
 
@@ -51,9 +73,28 @@ onMounted(async () => {
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('商品の取得に失敗しました。');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToGetItems'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
   state.showLoading = false;
 });
@@ -81,8 +122,8 @@ watch([selectedCategory, selectedBrand], async () => {
       <div class="flex justify-center">
         <div class="grid lg:gap-24 grid-cols-1 lg:grid-cols-2 my-4 text-lg">
           <div>
-            <label class="mr-2 font-bold"
-              >カテゴリ
+            <label class="mr-2 font-bold">
+              カテゴリ
               <select v-model="selectedCategory" class="w-48 border-2">
                 <option
                   v-for="category in getCategories"
@@ -95,8 +136,8 @@ watch([selectedCategory, selectedBrand], async () => {
             </label>
           </div>
           <div class="mt-2 lg:mt-0">
-            <label class="mr-2 font-bold"
-              >ブランド
+            <label class="mr-2 font-bold">
+              ブランド
               <select v-model="selectedBrand" class="w-48 border-2">
                 <option
                   v-for="brand in getBrands"

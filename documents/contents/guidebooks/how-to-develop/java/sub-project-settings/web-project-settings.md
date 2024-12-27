@@ -20,6 +20,8 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 
+- `spring-boot-starter-log4j2`: Spring Boot アプリケーションで log4j 2 を使用するためのスターター
+
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
@@ -30,6 +32,7 @@ dependencies {
   implementation 'com.h2database:h2:x.x.x'
   implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 ```
@@ -101,6 +104,71 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
     spring.sql.init.mode=never
     ```
 
+## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+依存関係に記載している `org.springframework.boot:spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j 2 を使用します。
+そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
+
+``` groovy title="spring-boot-starter-logging の除外設定"
+configurations {
+ all {
+  exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+ }
+}
+```
+
+## ログの設定 {#logging-configuration}
+
+`src/main/resource` に `log4j2.xml` ファイルを配置しログの設定を記述します。
+以下は、ログの設定例です。
+
+```xml title="log4j2.xml"
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+
+  <Appenders>
+    <Console name="console" Target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %c %-5p %pid %t %m%n" />
+    </Console>
+    
+    <Console name="application.log.appender" Target="SYSTEM_OUT">
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %pid %t %m%n"/>
+    </Console>
+  </Appenders>
+  
+  <Loggers>
+    <Logger name="application.log" level="debug" additivity="false">
+        <AppenderRef ref="application.log.appender" />
+    </Logger>
+
+    <Root level="info">
+        <AppenderRef ref="console" />
+    </Root>
+  </Loggers>
+
+</Configuration>
+```
+
+log4j2.xml のタグの構成要素は以下の通りです。
+
+- Appenders
+
+    ログの出力先を指定します。
+    ログイベントをどのリソース（コンソール、ファイル、データベースなど）に送信するかを決定します。
+
+- Loggers
+
+    ログのエントリーポイントを指定します。
+    この設定では、どのレベルのメッセージをログに記録するかや、 Appenders のどの要素にメッセージを送信するかなどを指定します。
+
+その他の詳細な設定については、[公式ページ :material-open-in-new:](https://logging.apache.org/log4j/2.x/manual/configuration.html){ target=_blank } を確認してください。
+
 ## OpenAPI 仕様書の出力設定 {#open-api-specification-output-configuration}
 
 OpenAPI 仕様書のファイルがビルド時に出力されるようプロジェクトファイルを設定します。
@@ -170,12 +238,20 @@ build.dependsOn("generateOpenApiDocs")
       implementation 'com.h2database:h2:x.x.x'
       implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'org.springframework.boot:spring-boot-starter-actuator'
+      implementation 'org.springframework.boot:spring-boot-starter-log4j2'
       testImplementation 'org.springframework.boot:spring-boot-starter-test'
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
+
+    configurations {
+      all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
+    }
+
 
     // OpenAPI 仕様書出力の作業ディレクトリを指定する。
     afterEvaluate {
@@ -202,3 +278,7 @@ build.dependsOn("generateOpenApiDocs")
 ## CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}
 
 Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../../cors/index.md) を参照してください。
+
+## メッセージ読込に関する設定 {#message-reading-settings}
+
+他サブプロジェクトで管理されているメッセージを読み込む場合の設定は、[こちら](./message-management.md) を参照してください。

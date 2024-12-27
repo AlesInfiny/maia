@@ -10,5 +10,6 @@ configuration.ts
 git_push.sh
 index.ts
 models/index.ts
+models/problem-detail.ts
 models/server-time-response.ts
 models/user-response.ts

@@ -21,7 +21,7 @@ const isAuthenticated = () => {
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
-            <router-link class="text-2xl" to="/">Dressca</router-link>
+            <router-link class="text-2xl" to="/"> Dressca </router-link>
           </div>
           <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
             <router-link to="/basket">

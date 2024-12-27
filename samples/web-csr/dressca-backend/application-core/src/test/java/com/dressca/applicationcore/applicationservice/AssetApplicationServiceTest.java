@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfigura
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
@@ -29,6 +30,7 @@ import com.dressca.applicationcore.assets.AssetStore;
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
