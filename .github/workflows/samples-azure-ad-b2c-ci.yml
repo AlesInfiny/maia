@@ -1,9 +1,6 @@
 # cspell:ignore mikepenz dorny
 name: azure-ad-b2c-sample CI
 
-permissions:
-  contents: read
-
 on:
   pull_request:
     branches: [main]
@@ -20,6 +17,8 @@ jobs:
   build-frontend:
     name: 'フロントエンドアプリケーションのビルド'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
     strategy:
@@ -92,6 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       checks: write
+      contents: read
       pull-requests: write
     defaults:
       run:
