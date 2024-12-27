@@ -9,13 +9,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 
 import com.dressca.web.AssetsController;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
-import com.dressca.web.constant.ProblemDetailsConstant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,9 +50,6 @@ import java.util.Locale;
 @ActiveProfiles("local")
 public class LocalExceptionHandlerControllerAdviceTest {
 
-  private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
-  private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
-  private static final String PROPERTY_DELIMITER = ".";
   private static final String MOCK_APPENDER_NAME = "MockAppender";
 
   @Autowired
@@ -105,19 +102,22 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = ExceptionIdConstant.E_ASSET0001;
-    String[] frontMessageValue = { assetCode };
-    String[] logMessageValue = { assetCode };
+    String exceptionId = CommonExceptionIdConstants.E_BUSINESS;
+    String title = "想定外の業務エラーが発生しました。";
+    String[] frontMessageValue = null;
+    String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new AssetNotFoundException(assetCode));
+        .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
+            frontMessageValue, logMessageValue));
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.LOGIC_ERROR_TITLE + "\"}"))
-        .andExpect(jsonPath("$.error." + exceptionId)
-            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
+        .andExpect(jsonPath("$.exceptionId").value(exceptionId))
+        .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").exists());
+    // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
     assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
@@ -131,19 +131,20 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = ExceptionIdConstant.E_SHARE0000;
+    String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
+    String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new SystemException(new AssetNotFoundException(assetCode), exceptionId, frontMessageValue,
+        .thenThrow(new SystemException(null, exceptionId, frontMessageValue,
             logMessageValue));
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
-        .andExpect(jsonPath("$.error." + exceptionId)
-            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
+        .andExpect(jsonPath("$.exceptionId").value(exceptionId))
+        .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -159,7 +160,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
-    String exceptionId = ExceptionIdConstant.E_SHARE0000;
+    String exceptionId = CommonExceptionIdConstants.E_SYSTEM;
+    String title = "想定外のシステムエラーが発生しました。";
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
@@ -168,9 +170,9 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // APIの呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
-        .andExpect(content().json("{\"title\":\"" + ProblemDetailsConstant.SYSTEM_ERROR_TITLE + "\"}"))
-        .andExpect(jsonPath("$.error." + exceptionId)
-            .value(createFrontErrorMessage(exceptionId, frontMessageValue)))
+        .andExpect(content().json("{\"title\":\"" + title + "\"}"))
+        .andExpect(jsonPath("$.exceptionId").value(exceptionId))
+        .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
@@ -182,15 +184,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（2行目以降はエラーのスタックトレースのため可変）
   private String createLogMessage(String exceptionId, String[] logMessageValue) {
     MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
-    String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
+    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
-  }
-
-  // エラー時のフロントに出力するメッセージを返す
-  private String createFrontErrorMessage(String exceptionId, String[] frontMessageValue) {
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
   }
 }

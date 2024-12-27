@@ -5,7 +5,7 @@ yaml-files:
   - '*.yml'
   - '.yamllint'
 
-ignore-from-file: .gitignore
+ignore-from-file: [.gitignore, .yamlignore]
 
 rules:
   braces: enable

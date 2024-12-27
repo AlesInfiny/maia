@@ -7,11 +7,14 @@ import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.consumer.controller.dto.baskets.BasketResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.baskets.PutBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.consumer.mapper.BasketMapper;
 import com.dressca.web.consumer.mapper.CatalogItemSummaryMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +30,9 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +54,9 @@ public class BasketItemController {
 
   @Autowired
   private ShoppingApplicationService shoppingApplicationService;
+
+  @Autowired
+  private ProblemDetailsFactory problemDetailsFactory;
 
   /**
    * 買い物かごアイテムの一覧を取得します。
@@ -87,7 +96,8 @@ public class BasketItemController {
       + "またシステムに登録されていないカタログアイテム Id を指定した場合も HTTP 400 を返却します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content) })
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @PutMapping()
   public ResponseEntity<?> putBasketItems(@RequestBody List<PutBasketItemsRequest> putBasketItems,
       HttpServletRequest req) {
@@ -102,8 +112,27 @@ public class BasketItemController {
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
-    } catch (CatalogNotFoundException | CatalogItemInBasketNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+    } catch (CatalogNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    } catch (CatalogItemInBasketNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }
@@ -130,8 +159,9 @@ public class BasketItemController {
       + "買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません. 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "作成完了", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー", content = @Content) })
+      @ApiResponse(responseCode = "400", description = "リクエストエラー", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @PostMapping
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
@@ -142,7 +172,15 @@ public class BasketItemController {
           postBasketItem.getCatalogItemId(),
           postBasketItem.getAddedQuantity());
     } catch (CatalogNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
   }
@@ -164,8 +202,9 @@ public class BasketItemController {
       + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
-      @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム Id がない.", content = @Content) })
+      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
+      @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム Id がない.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
       HttpServletRequest req) {
@@ -174,9 +213,25 @@ public class BasketItemController {
     try {
       this.shoppingApplicationService.setQuantities(buyerId, Map.of(catalogItemId, 0));
     } catch (CatalogNotFoundException e) {
-      return ResponseEntity.badRequest().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     } catch (CatalogItemInBasketNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }
