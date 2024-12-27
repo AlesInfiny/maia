@@ -38,7 +38,7 @@ import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
+import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。

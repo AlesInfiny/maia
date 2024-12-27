@@ -5,14 +5,22 @@ import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
+import com.dressca.web.log.ErrorMessageBuilder;
+import java.util.Locale;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +47,12 @@ public class AssetsController {
   @Autowired
   private AssetApplicationService service;
 
+  @Autowired
+  private ProblemDetailsFactory problemDetailsFactory;
+
+  @Autowired
+  private MessageSource messages;
+
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
@@ -50,9 +64,10 @@ public class AssetsController {
   @Operation(summary = "アセットを取得する.", description = "与えられたアセットコードに対応するアセットを返却する.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content) })
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @GetMapping("{assetCode}")
-  public ResponseEntity<Resource> get(
+  public ResponseEntity<?> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {
     try {
@@ -63,7 +78,15 @@ public class AssetsController {
     } catch (AssetNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      return ResponseEntity.notFound().build();
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
   }
 
@@ -78,7 +101,9 @@ public class AssetsController {
       case AssetTypes.png:
         return MediaType.IMAGE_PNG;
       default:
-        throw new IllegalArgumentException("指定したアセットのアセットタイプは Content-Type に変換できません。");
+        String errorMessage = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+            new String[] { asset.getAssetType() }, Locale.getDefault());
+        throw new IllegalArgumentException(errorMessage);
     }
   }
 }

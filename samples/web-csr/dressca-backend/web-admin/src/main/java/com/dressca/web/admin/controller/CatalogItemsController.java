@@ -11,10 +11,10 @@ import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
-import com.dressca.applicationcore.constant.UserRoleConstant;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
+import com.dressca.applicationcore.constant.UserRoleConstants;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
@@ -51,7 +51,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
-@PreAuthorize(value = "hasAuthority('" + UserRoleConstant.ADMIN + "')")
+@PreAuthorize(value = "hasAuthority('" + UserRoleConstants.ADMIN + "')")
 public class CatalogItemsController {
 
   @Autowired
@@ -152,7 +152,7 @@ public class CatalogItemsController {
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
       // ここでは発生を想定していないので、システムエラーとする。
-      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+      throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
   }
 
@@ -222,7 +222,7 @@ public class CatalogItemsController {
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
       // ここでは発生を想定していないので、システムエラーとする。
-      throw new SystemException(e, ExceptionIdConstant.E_SHARE0000, null, null);
+      throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
     return ResponseEntity.noContent().build();
   }

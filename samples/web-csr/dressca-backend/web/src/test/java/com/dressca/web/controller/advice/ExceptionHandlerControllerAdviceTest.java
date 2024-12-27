@@ -5,16 +5,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
-import com.dressca.web.AssetsController;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
+import com.dressca.web.AssetsController;
 import com.dressca.web.WebApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -15,7 +15,7 @@ public class CatalogCategoryNotFoundException extends LogicException {
    * @param catalogCategoryId 見つからなかったカタログカテゴリ Id 。
    */
   public CatalogCategoryNotFoundException(long catalogCategoryId) {
-    super(null, ExceptionIdConstant.E_CATALOG0003, new String[] { String.valueOf(
+    super(null, ExceptionIdConstants.E_CATALOG_CATEGORY_NOT_FOUND, new String[] { String.valueOf(
         catalogCategoryId) },
         new String[] { String.valueOf(catalogCategoryId) });
   }

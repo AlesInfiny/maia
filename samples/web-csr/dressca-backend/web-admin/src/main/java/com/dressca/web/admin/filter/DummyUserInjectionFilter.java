@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.dressca.applicationcore.constant.UserRoleConstant;
+import com.dressca.applicationcore.constant.UserRoleConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class DummyUserInjectionFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
     UserDetails dummyUser = new User("admin@example.com", "",
-        List.of(new SimpleGrantedAuthority(UserRoleConstant.ADMIN)));
+        List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
 
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(dummyUser,
         dummyUser.getPassword(), dummyUser.getAuthorities());

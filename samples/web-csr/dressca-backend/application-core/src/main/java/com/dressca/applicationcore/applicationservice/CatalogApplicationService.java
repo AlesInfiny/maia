@@ -22,10 +22,10 @@ import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.applicationcore.constant.UserRoleConstant;
+import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
+import com.dressca.applicationcore.constant.UserRoleConstants;
 import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 
 /**
  * カタログ情報に関するビジネスユースケースを実現するサービスです。
@@ -78,9 +78,10 @@ public class CatalogApplicationService {
    * @throws PermissionDeniedException 取得権限がない場合。
    */
   public CatalogItem getCatalogItem(long id) throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0005_LOG, new Object[] { id }, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEM, new Object[] { id }, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
+    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItem");
     }
 
@@ -124,7 +125,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] { brandId, categoryId, page, pageSize }, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
+    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItemsForAdmin");
     }
 
@@ -148,9 +149,10 @@ public class CatalogApplicationService {
   public CatalogItem addItemToCatalog(String name, String description, BigDecimal price, String productCode,
       long catalogCategoryId, long catalogBrandId)
       throws PermissionDeniedException, CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0006_LOG, new Object[] {}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(MessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG, new Object[] {}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
+    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
 
@@ -180,8 +182,9 @@ public class CatalogApplicationService {
    */
   public void deleteItemFromCatalog(long id, LocalDateTime rowVersion)
       throws PermissionDeniedException, CatalogNotFoundException, OptimisticLockingFailureException {
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0007_LOG, new Object[] { id }, Locale.getDefault()));
-    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
+    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG, new Object[] { id },
+        Locale.getDefault()));
+    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("deleteItemFromCatalog");
     }
     if (!this.catalogDomainService.existCatalogItem(id)) {
@@ -215,9 +218,10 @@ public class CatalogApplicationService {
       throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
       CatalogBrandNotFoundException, OptimisticLockingFailureException {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_CATALOG0008_LOG, new Object[] { id }, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM, new Object[] { id },
+        Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstant.ADMIN)) {
+    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("updateCatalogItem");
     }
 

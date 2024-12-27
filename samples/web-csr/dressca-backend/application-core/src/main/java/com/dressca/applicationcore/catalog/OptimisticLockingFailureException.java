@@ -1,6 +1,7 @@
-package com.dressca.systemcommon.exception;
+package com.dressca.applicationcore.catalog;
 
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
+import com.dressca.systemcommon.exception.LogicException;
 
 /**
  * 楽観ロックエラーが発生したことを表す例外です。
@@ -16,7 +17,7 @@ public class OptimisticLockingFailureException extends LogicException {
   public OptimisticLockingFailureException(long catalogItemId) {
     super(
         null,
-        ExceptionIdConstant.E_CATALOG0005,
+        ExceptionIdConstants.E_OPTIMISTIC_LOCKING_FAILURE,
         new String[] { String.valueOf(catalogItemId) },
         new String[] { String.valueOf(catalogItemId) });
   }

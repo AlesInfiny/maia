@@ -2,10 +2,10 @@ package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
+import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
-import com.dressca.systemcommon.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.web.log.ErrorMessageBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;

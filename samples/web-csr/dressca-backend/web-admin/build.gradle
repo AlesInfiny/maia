@@ -26,14 +26,14 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_security_starter
 	implementation supportDependencies.h2database
-	
+	implementation supportDependencies.spring_boot_starter_log4j2
+
 	implementation project(':web')
 	implementation project(':application-core')
 	implementation project(':infrastructure')
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_boot_starter_log4j2
 	testImplementation supportDependencies.spring_security_test
 
 	compileOnly supportDependencies.servlet_api
@@ -54,6 +54,14 @@ openApi {
     outputDir.set(file("$rootDir/api-docs/web-admin"))
     outputFileName.set("api-specification.json")
 }
+tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
+	group = 'application'
+	description = 'Runs this project as a Spring Boot Application using local profile.'
+	args = ["--spring.profiles.active=local"]
+	main = 'com.dressca.web.admin.WebApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

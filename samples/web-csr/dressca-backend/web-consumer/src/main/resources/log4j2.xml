@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+
+  <Appenders>
+    <Console name="console" Target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %c %-5p %pid %t %m%n" />
+    </Console>
+    
+    <Console name="application.log.appender" Target="SYSTEM_OUT">
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %pid %t %m%n"/>
+    </Console>
+  </Appenders>
+  
+  <Loggers>
+    <Logger name="application.log" level="debug" additivity="false">
+        <AppenderRef ref="application.log.appender" />
+    </Logger>
+
+    <Root level="info">
+        <AppenderRef ref="console" />
+    </Root>
+  </Loggers>
+
+</Configuration>
