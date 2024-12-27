@@ -17,6 +17,8 @@ jobs:
   build-frontend:
     name: 'フロントエンドアプリケーションのビルド'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
     strategy:
