@@ -1,9 +1,9 @@
 package com.dressca.applicationcore.applicationservice;
 
+import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
-import com.dressca.systemcommon.constant.MessageIdConstant;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import lombok.AllArgsConstructor;
 import java.util.Locale;
@@ -40,7 +40,9 @@ public class OrderApplicationService {
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
 
     apLog.debug(
-        messages.getMessage(MessageIdConstant.D_ORDER0001_LOG, new Object[] { orderId, buyerId }, Locale.getDefault()));
+        messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER,
+            new Object[] { orderId, buyerId },
+            Locale.getDefault()));
 
     Order order = this.orderRepository.findById(orderId)
         .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));

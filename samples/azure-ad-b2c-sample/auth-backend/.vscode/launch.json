@@ -8,7 +8,7 @@
       "console": "internalConsole",
       "mainClass": "com.dressca.web.WebApplication",
       "projectName": "web",
-      "args": "",
+      "args": "--spring.profiles.active=local",
       "envFile": "${workspaceFolder}/.env"
     }
   ]

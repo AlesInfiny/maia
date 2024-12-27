@@ -28,4 +28,5 @@ models/order-response.ts
 models/paged-list-of-catalog-item-response.ts
 models/post-basket-items-request.ts
 models/post-order-request.ts
+models/problem-detail.ts
 models/put-basket-items-request.ts
