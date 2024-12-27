@@ -1,6 +1,9 @@
 # cspell:ignore mikepenz dorny
 name: azure-ad-b2c-sample CI
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches: [main]
@@ -89,7 +92,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       checks: write
-      contents: read
       pull-requests: write
     defaults:
       run:
