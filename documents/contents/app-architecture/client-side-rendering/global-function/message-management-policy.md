@@ -109,7 +109,7 @@ JSON ファイルでは、以下のようにメッセージ文字列を識別す
 
 OpenAPI 仕様書などの各 JSON ファイルと命名規則を統一するため、メッセージコードをキャメルケースとします。
 それに伴い、フロントエンド側に合わせてバックエンドのプロパティファイルのメッセージコードもキャメルケースで記載します。
-バックエンドのプロパティファイルの設定例は、[こちら](../global-function/message-management-policy.md#message-codes-definition) を確認してください。
+バックエンドのプロパティファイルの設定例は、[こちら](../../overview/java-application-processing-system/message-management-policy.md#property-file-management) を確認してください。
 
 ### エラーメッセージ内のパラメータ {#parameter-of-error-messages}
 

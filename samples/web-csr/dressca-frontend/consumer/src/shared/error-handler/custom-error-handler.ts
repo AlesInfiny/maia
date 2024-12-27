@@ -44,6 +44,10 @@ export function createCustomErrorHandler(): CustomErrorHandler {
         callback();
 
         if (error instanceof HttpError) {
+          // 業務処理で発生した HttpError を処理する
+          if (handlingHttpError) {
+            handlingHttpError(error);
+          }
           // エラーの種類によって共通処理を行う
           // switch だと instanceof での判定ができないため if 文で判定
           if (error instanceof UnauthorizedError) {
@@ -75,21 +79,9 @@ export function createCustomErrorHandler(): CustomErrorHandler {
           } else if (error instanceof NetworkError) {
             if (handlingNetworkError) {
               handlingNetworkError();
-            } else if (!error.response) {
-              showToast(t('networkError'));
             } else {
-              const message = errorMessageFormat(
-                error.response.exceptionId,
-                error.response.exceptionValues,
-              );
-              showToast(
-                message,
-                error.response.exceptionId,
-                error.response.title,
-                error.response.detail,
-                error.response.status,
-                100000,
-              );
+              // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しない
+              showToast(t('networkError'));
             }
           } else if (error instanceof ServerError) {
             if (handlingServerError) {
@@ -110,8 +102,6 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                 100000,
               );
             }
-          } else if (handlingHttpError) {
-            handlingHttpError(error);
           }
         }
       } else {

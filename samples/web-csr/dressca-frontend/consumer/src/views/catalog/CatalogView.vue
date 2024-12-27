@@ -27,7 +27,6 @@ const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { t } = i18n.global;
-
 const state = reactive({
   selectedCategory: 0,
   selectedBrand: 0,
@@ -47,7 +46,7 @@ const addBasket = async (catalogItemId: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToAddItemToCarts'));
         } else {
           const message = errorMessageFormat(
@@ -78,7 +77,7 @@ onMounted(async () => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToGetItems'));
         } else {
           const message = errorMessageFormat(

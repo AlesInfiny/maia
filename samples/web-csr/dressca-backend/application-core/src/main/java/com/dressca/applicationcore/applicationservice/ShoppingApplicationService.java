@@ -19,7 +19,7 @@ import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import com.dressca.applicationcore.constant.MessageIdConstant;
+import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.applicationcore.order.CatalogItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
@@ -27,7 +27,7 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderItemAsset;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import lombok.AllArgsConstructor;
@@ -61,7 +61,7 @@ public class ShoppingApplicationService {
   public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
       throws CatalogNotFoundException {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_SHOPPING_ADD_ITEM_TO_BASKET,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_ADD_ITEM_TO_BASKET,
         new Object[] { buyerId, catalogItemId, quantity }, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -87,7 +87,7 @@ public class ShoppingApplicationService {
   public void setQuantities(String buyerId, Map<Long, Integer> quantities)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
         new Object[] { buyerId, quantities },
         Locale.getDefault()));
 
@@ -124,7 +124,7 @@ public class ShoppingApplicationService {
    */
   public BasketDetail getBasketDetail(String buyerId) {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_SHOPPING_GET_BASKET_ITEMS,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
         new Object[] { buyerId }, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -146,7 +146,7 @@ public class ShoppingApplicationService {
   public Order checkout(String buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
 
-    apLog.debug(messages.getMessage(MessageIdConstant.D_SHOPPING_CHECKOUT,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
         new Object[] { buyerId, shipToAddress },
         Locale.getDefault()));
 
@@ -189,7 +189,7 @@ public class ShoppingApplicationService {
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
         .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst()
-        .orElseThrow(() -> new SystemException(null, CommonExceptionIdConstant.E_BUSINESS, null, null));
+        .orElseThrow(() -> new SystemException(null, CommonExceptionIdConstants.E_BUSINESS, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
     OrderItem orderItem = new OrderItem(itemOrdered, basketItem.getUnitPrice(), basketItem.getQuantity());

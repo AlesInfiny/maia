@@ -17,7 +17,7 @@ description: アプリケーションの形態によらず、 Java アプリケ�
 
 プロパティファイルでは、以下のようにメッセージ文字列を識別するメッセージコードとメッセージ文字列本体をペアで管理します。
 
-```properties title="message.properties の例"
+```properties title="messages.properties の例"
 errorOccurred=エラーが発生しました。
 ...
 ```
@@ -30,16 +30,16 @@ errorOccurred=エラーが発生しました。
 
 ## メッセージの管理単位 {#management-unit}
 
-以下のように、ビジネスロジックで発生する業務メッセージと共通処理として発生する共通メッセージを分割して各サブプロジェクトで管理します。
+以下のように、ビジネスロジックで利用する業務メッセージと共通処理として利用する共通メッセージを分割して各サブプロジェクトで管理します。
 
 ```terminal linenums="0"
 root/ ------------------------------------------ root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
- │    └ message.properties --------------------- 業務メッセージのプロパティファイル
+ │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resource
    └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一括管理するフォルダー
-      └ message.properties --------------------- 共通メッセージのプロパティファイル
+      └ messages.properties --------------------- 共通メッセージのプロパティファイル
 ```
 
 業務メッセージと共通メッセージとして格納するメッセージの例は以下の通りです。
@@ -63,14 +63,14 @@ root/ ------------------------------------------ root フォルダー
 root/ ------------------------------------------ root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
- │    ├ message_en.properties ------------------ 業務メッセージのプロパティファイル（英語）
- │    └ message_ja.properties ------------------ 業務メッセージのプロパティファイル（日本語）
+ │    ├ messages_en.properties ------------------ 業務メッセージのプロパティファイル（英語）
+ │    └ messages_ja.properties ------------------ 業務メッセージのプロパティファイル（日本語）
  └ system-common/src/main/resource
    └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一括管理するフォルダー
-      ├ message_en.properties ------------------ 共通メッセージのプロパティファイル（英語）
-      └ message_ja.properties ------------------ 共通メッセージのプロパティファイル（日本語）
+      ├ messages_en.properties ------------------ 共通メッセージのプロパティファイル（英語）
+      └ messages_ja.properties ------------------ 共通メッセージのプロパティファイル（日本語）
 ```
 
 アプリケーション起動時に使用するメッセージファイルを切り替えることで、開発者に応じた言語を設定します。
 
-メッセージ管理方針に従った機能の実装方法などの詳細については、[こちら](../../../guidebooks/how-to-develop/java/common-project-settings.md) を確認してください。
+メッセージ管理方針に従った機能の実装方法などの詳細については、[こちら](../../../guidebooks/how-to-develop/java/sub-project-settings/message-management.md) を確認してください。

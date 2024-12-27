@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.applicationservice;
 
-import com.dressca.applicationcore.constant.MessageIdConstant;
+import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
@@ -40,7 +40,7 @@ public class OrderApplicationService {
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
 
     apLog.debug(
-        messages.getMessage(MessageIdConstant.D_ORDER_GET_ORDER,
+        messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER,
             new Object[] { orderId, buyerId },
             Locale.getDefault()));
 

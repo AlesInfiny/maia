@@ -121,7 +121,19 @@ ProblemDetails は、 HTTP API のエラーレスポンスを標準化するた�
 | 問題が発生したリソースの URI | instance     | 任意             | 問題の発生場所を示す URI です。リクエスト先と異なるリソースが問題の発生したリソースである場合、実装の詳細やデータなどの内部情報が漏洩する可能性があるため、追加には注意が必要です。                                              |
 | 任意のパラメータ             |              | 任意             | 拡張メンバーです。必要に応じて ProblemDetails のプロパティを拡張する場合に利用します。                                                                                                                                           |
 
-AlesInfiny Maia OSS Edition では、上記のプロパティに加えて拡張メンバーとして以下を定義しています。
+ProblemDetails のレスポンスに含める各プロパティは以下のような観点をもとに取捨選択します。
+
+- 環境による判断
+
+    - 本番環境の場合には、ユーザーが見て管理者に伝えるための情報のみをプロパティに含めるべきです。
+    - 開発環境の場合には、開発者がデバッグやテストなどの作業で確認すべき情報を含めるべきです。
+
+- API の用途による判断
+
+    - 外部公開 API の場合には、セキュリティやプライバシーを考慮し、必要最低限の情報を提供するようにプロパティを設定します。
+    - 内部 API の場合には、画面に対応したエラーレスポンスとして含めるべきプロパティを設定します。
+
+また、 AlesInfiny Maia OSS Edition では、フロントエンド側で管理しているメッセージを取得するために以下の拡張メンバーを追加で定義しています。
 
 - exceptionId
 
@@ -139,7 +151,7 @@ AlesInfiny Maia OSS Edition では、上記のプロパティに加えて拡張�
 
 ```json title="開発環境の場合のエラーレスポンス"
 HTTP/1.1 400 Bad Request
-Content-Type: application/json; charset=utf-8
+Content-Type: application/problem+json; charset=utf-8
 
 {
     "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
@@ -153,7 +165,7 @@ Content-Type: application/json; charset=utf-8
 
 ```json title="本番環境の場合のエラーレスポンス"
 HTTP/1.1 400 Bad Request
-Content-Type: application/json; charset=utf-8
+Content-Type: application/problem+json; charset=utf-8
 
 {
     "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",

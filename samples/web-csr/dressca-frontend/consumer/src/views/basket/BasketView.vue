@@ -47,7 +47,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToChangeQuantities'));
         } else {
           const message = errorMessageFormat(
@@ -77,7 +77,7 @@ const remove = async (catalogItemId: number) => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToDeleteItems'));
         } else {
           const message = errorMessageFormat(
@@ -111,7 +111,7 @@ onMounted(async () => {
       error,
       () => {},
       (httpError: HttpError) => {
-        if (!httpError.response) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToGetCarts'));
         } else {
           const message = errorMessageFormat(
@@ -163,6 +163,9 @@ onUnmounted(async () => {
       </div>
 
       <div v-if="isEmpty()" class="mt-4 mx-2">
+        <span class="text-2xl font-medium">
+          {{ t('noItemsInBasket') }}
+        </span>
         <span class="text-2xl font-medium">
           {{ t('noItemsInBasket') }}
         </span>

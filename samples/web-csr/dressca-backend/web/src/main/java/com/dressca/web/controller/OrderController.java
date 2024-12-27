@@ -7,10 +7,10 @@ import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.web.controller.advice.ProblemDetailsCreation;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.controller.dto.order.OrderResponse;
 import com.dressca.web.controller.dto.order.PostOrderRequest;
 import com.dressca.web.log.ErrorMessageBuilder;
@@ -55,7 +55,7 @@ public class OrderController {
   private ShoppingApplicationService shoppingApplicationService;
 
   @Autowired
-  private ProblemDetailsCreation problemDetailsCreation;
+  private ProblemDetailsFactory problemDetailsFactory;
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
@@ -68,7 +68,8 @@ public class OrderController {
   @Operation(summary = "注文情報を取得します.", description = "注文情報を取得します.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
-      @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content) })
+      @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @GetMapping("{orderId}")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
@@ -84,12 +85,12 @@ public class OrderController {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsCreation.createProblemDetail(
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
           errorBuilder,
-          e.getExceptionId(),
+          CommonExceptionIdConstants.E_BUSINESS,
           HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
           .body(problemDetail);
     }
   }
@@ -102,8 +103,8 @@ public class OrderController {
    */
   @Operation(summary = "買い物かごに登録されている商品を注文します.", description = "買い物かごに登録されている商品を注文します.")
   @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content) })
+      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
@@ -116,7 +117,7 @@ public class OrderController {
       order = shoppingApplicationService.checkout(buyerId, shipToAddress);
     } catch (EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
-      throw new SystemException(e, CommonExceptionIdConstant.E_SYSTEM, null, null);
+      throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
 
     String requestUri = req.getRequestURL().toString();
