@@ -116,7 +116,6 @@ public class LocalExceptionHandlerControllerAdviceTest {
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
         .andExpect(jsonPath("$.detail").exists());
     // アプリケーションログのメッセージの確認
-    // アプリケーションログのメッセージの確認
     Mockito.verify(mockAppender, times(1)).append(logCaptor.capture());
     assertThat(logCaptor.getValue().getLevel()).isEqualTo(Level.ERROR);
     assertThat(logCaptor.getValue().getMessage().getFormattedMessage())
