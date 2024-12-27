@@ -206,7 +206,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 ### 略語の登録
 
-[API] や [OSS] といった略語については、 `documents/includes/abbreviations.md` の用語集に登録します。
+[API] や [OSS] といった一般的な略語については、 `documents/includes/abbreviations.md` の略語集に登録します。
 以下のように、略語とその正式名称をペアにして記載します。
 
 ```md title="abbreviations.md"
