@@ -2,6 +2,7 @@
 name: 古いアーティファクトの削除
 
 permissions:
+  actions: write
   contents: read
 
 on:
