@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: GitHub API経由でリポジトリの情報を取得
         id: get-repo-info-via-github-api
-        uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@23ad54bcd1178fcff6a0d17538fa09de3a7f0a4d  # v1.16.4
         with:
           url: 'https://api.github.com/repos/OpenAPITools/openapi-generator/releases/latest'
           method: 'GET'
@@ -59,7 +59,7 @@ jobs:
       - name: issue を作成
         id: create-issue
         if: ${{ steps.check-version-update.outputs.update-required == 'true' }}
-        uses: Wandalen/wretry.action@master
+        uses: Wandalen/wretry.action@ffdd254f4eaf1562b8a2c66aeaa37f1ff2231179  # v3.7.3
         with:
           action: dblock/create-a-github-issue@v3
           with: |
