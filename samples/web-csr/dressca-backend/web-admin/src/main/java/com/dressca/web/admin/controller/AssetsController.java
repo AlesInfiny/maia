@@ -56,7 +56,6 @@ public class AssetsController {
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
-
   @GetMapping("{assetCode}")
   public ResponseEntity<Resource> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
