@@ -140,12 +140,12 @@ jobs:
           echo ':x: コンパイルまたは静的テストに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: JUnitレポート
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v62516aa379bff6370c95fd5894d5a27fb6619d9b  # v5.2.0
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
 
       - name: Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5  # v1.9.1
         if: always()
         with:
           name: Maven Tests
