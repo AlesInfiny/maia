@@ -88,8 +88,7 @@ public class ShoppingApplicationService {
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
-        new Object[] { buyerId, quantities },
-        Locale.getDefault()));
+        new Object[] { buyerId, quantities }, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
@@ -124,8 +123,8 @@ public class ShoppingApplicationService {
    */
   public BasketDetail getBasketDetail(String buyerId) {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
-        new Object[] { buyerId }, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS, new Object[] { buyerId },
+        Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
@@ -146,8 +145,7 @@ public class ShoppingApplicationService {
   public Order checkout(String buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
-        new Object[] { buyerId, shipToAddress },
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT, new Object[] { buyerId, shipToAddress },
         Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);

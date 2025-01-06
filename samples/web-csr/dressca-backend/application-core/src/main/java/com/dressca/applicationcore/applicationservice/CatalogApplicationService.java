@@ -270,9 +270,7 @@ public class CatalogApplicationService {
    */
   public List<CatalogBrand> getBrands() {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_BRANDS,
-        new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_BRANDS, new Object[] {}, Locale.getDefault()));
 
     return this.brandRepository.getAll();
   }
@@ -284,9 +282,7 @@ public class CatalogApplicationService {
    */
   public List<CatalogCategory> getCategories() {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATEGORIES,
-        new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATEGORIES, new Object[] {}, Locale.getDefault()));
 
     return this.categoryRepository.getAll();
   }
