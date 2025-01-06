@@ -44,6 +44,5 @@ public class UsersController {
     GetLoginUserResponse response = new GetLoginUserResponse(this.userStore.getLoginUserName(),
         this.userStore.getLoginUserRoles());
     return ResponseEntity.ok().body(response);
-
   }
 }

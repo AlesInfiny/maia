@@ -19,5 +19,4 @@ public class CatalogCategoryNotFoundException extends LogicException {
         catalogCategoryId) },
         new String[] { String.valueOf(catalogCategoryId) });
   }
-
 }

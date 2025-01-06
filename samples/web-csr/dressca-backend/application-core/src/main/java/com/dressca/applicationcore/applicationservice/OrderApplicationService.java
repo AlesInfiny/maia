@@ -52,5 +52,4 @@ public class OrderApplicationService {
 
     return order;
   }
-
 }

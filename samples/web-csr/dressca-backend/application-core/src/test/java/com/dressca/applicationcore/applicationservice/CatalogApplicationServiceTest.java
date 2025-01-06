@@ -354,7 +354,6 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.catalogRepository, times(1)).remove(targetId, rowVersion);
-
   }
 
   @Test
@@ -578,7 +577,6 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(anyLong(), anyLong());
-
   }
 
   @Test
@@ -592,7 +590,6 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.brandRepository, times(1)).getAll();
-
   }
 
   @Test
@@ -606,7 +603,6 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.categoryRepository, times(1)).getAll();
-
   }
 
   private CatalogItem createCatalogItem(long id) {

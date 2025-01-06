@@ -61,7 +61,6 @@ public class BuyerIdFilterTest {
     assertFalse(setCookieHeader.contains("Secure"));
     assertTrue(setCookieHeader.contains("Max-Age=86400"));
     assertTrue(setCookieHeader.contains("SameSite=Strict"));
-
   }
 
   @Test
@@ -90,7 +89,5 @@ public class BuyerIdFilterTest {
     assertTrue(setCookieHeader.contains("Secure"));
     assertTrue(setCookieHeader.contains("Max-Age=604800"));
     assertTrue(setCookieHeader.contains("SameSite=None"));
-
   }
-
 }

@@ -19,5 +19,4 @@ public class CatalogBrandNotFoundException extends LogicException {
         catalogBrandId) },
         new String[] { String.valueOf(catalogBrandId) });
   }
-
 }

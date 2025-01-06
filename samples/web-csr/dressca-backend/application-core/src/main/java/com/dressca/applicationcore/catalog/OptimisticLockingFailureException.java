@@ -21,5 +21,4 @@ public class OptimisticLockingFailureException extends LogicException {
         new String[] { String.valueOf(catalogItemId) },
         new String[] { String.valueOf(catalogItemId) });
   }
-
 }

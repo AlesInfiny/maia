@@ -66,7 +66,6 @@ public class AssetApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(1)).findByAssetCode(assetCode);
     verify(this.store, times(1)).getResource(asset);
-
   }
 
   @Test
@@ -85,7 +84,6 @@ public class AssetApplicationServiceTest {
       // モックが想定通り呼び出されていることの確認
       verify(this.repository, times(1)).findByAssetCode(assetCode);
     }
-
   }
 
   @Test
@@ -109,6 +107,5 @@ public class AssetApplicationServiceTest {
       verify(this.repository, times(1)).findByAssetCode(assetCode);
       verify(this.store, times(1)).getResource(asset);
     }
-
   }
 }

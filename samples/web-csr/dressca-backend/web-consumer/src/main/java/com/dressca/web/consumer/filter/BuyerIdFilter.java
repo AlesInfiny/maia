@@ -54,5 +54,4 @@ public class BuyerIdFilter implements Filter {
         .sameSite(cookieSettings.getSameSite()).build();
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }
-
 }

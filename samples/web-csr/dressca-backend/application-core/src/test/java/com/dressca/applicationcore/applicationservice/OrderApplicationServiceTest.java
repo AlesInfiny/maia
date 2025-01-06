@@ -62,7 +62,6 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThat(actual).isEqualTo(order);
-
   }
 
   @Test
@@ -80,7 +79,6 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
-
   }
 
   @Test
@@ -96,7 +94,6 @@ public class OrderApplicationServiceTest {
 
     // Assert
     assertThrows(OrderNotFoundException.class, action);
-
   }
 
   private ShipTo createDefaultShipTo() {
@@ -123,5 +120,4 @@ public class OrderApplicationServiceTest {
 
     return items;
   }
-
 }

@@ -85,5 +85,4 @@ public interface CatalogRepository {
    * @return 更新できたら1、できなければ0を返す。
    */
   int update(CatalogItem item);
-
 }

@@ -39,5 +39,4 @@ public class StaticFileAssetStore implements AssetStore {
     String imagePath = "images";
     return FileSystems.getDefault().getPath(basePath, imagePath, asset.getAssetCode());
   }
-
 }

@@ -98,5 +98,4 @@ public class BatchConfiguration {
     return new JobBuilder("catalogItem_job", jobRepository).incrementer(new RunIdIncrementer())
         .listener(listener).flow(step1).end().build();
   }
-
 }

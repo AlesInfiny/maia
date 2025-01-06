@@ -102,7 +102,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
-
   }
 
   @Test
@@ -134,7 +133,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().size()).isEqualTo(0);
-
   }
 
   @Test
@@ -164,7 +162,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -190,7 +187,6 @@ public class ShoppingApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
-
   }
 
   @Test
@@ -219,7 +215,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
-
   }
 
   @Test
@@ -247,7 +242,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -276,7 +270,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -302,7 +295,6 @@ public class ShoppingApplicationServiceTest {
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
-
   }
 
   @ParameterizedTest
@@ -317,7 +309,6 @@ public class ShoppingApplicationServiceTest {
     }
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(0)).findByCatalogItemIdIn(any());
-
   }
 
   @Test
@@ -341,7 +332,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.orderRepository, times(1)).add(any());
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).remove(basket);
-
   }
 
   @Test
@@ -357,7 +347,6 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);
-
   }
 
   private ShipTo createDefaultShipTo() {
