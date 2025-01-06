@@ -38,7 +38,6 @@ public class WebSecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
     http.securityMatcher("/api/**")
-        .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);
