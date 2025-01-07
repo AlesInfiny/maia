@@ -20,5 +20,4 @@ public class OrderNotFoundException extends LogicException {
     super(cause, ExceptionIdConstants.E_ORDER_NOT_FOUND, new String[] { String.valueOf(orderId), buyerId },
         new String[] { String.valueOf(orderId), buyerId });
   }
-
 }

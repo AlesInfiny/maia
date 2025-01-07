@@ -6,4 +6,4 @@
  */
 
 rootProject.name = 'dressca-backend'
-include 'application-core', 'system-common', 'infrastructure', 'web', 'batch'
+include 'application-core', 'system-common', 'infrastructure', 'web', 'web-consumer', 'web-admin', 'batch'

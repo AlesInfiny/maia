@@ -9,5 +9,4 @@ public class CommonExceptionIdConstants {
 
   /** 想定外の業務エラーが発生しました。 */
   public static final String E_BUSINESS = "businessError";
-
 }

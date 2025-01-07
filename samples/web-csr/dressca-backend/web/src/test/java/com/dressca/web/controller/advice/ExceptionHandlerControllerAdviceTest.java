@@ -8,13 +8,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
-import com.dressca.web.controller.AssetsController;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
+import com.dressca.web.AssetsController;
 import com.dressca.web.WebApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +24,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -95,6 +96,7 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(本番環境)。")
   void testException_01() throws Exception {
     // テスト用の入力データ
@@ -123,6 +125,7 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(本番環境)。")
   void testException_02() throws Exception {
     // テスト用の入力データ
@@ -152,6 +155,7 @@ public class ExceptionHandlerControllerAdviceTest {
   }
 
   @Test
+  @WithMockUser
   @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(本番環境)。")
   void testException_03() throws Exception {
     // テスト用の入力データ

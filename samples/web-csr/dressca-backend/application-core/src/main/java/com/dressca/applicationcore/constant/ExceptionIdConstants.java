@@ -28,4 +28,16 @@ public class ExceptionIdConstants {
 
   /** 商品ID: {0} の商品が見つかりませんでした。 */
   public static final String E_CATALOG_ID_NOT_FOUND = "catalogIdNotFound";
+
+  /** ブランドID: {0} のブランドが見つかりませんでした。 */
+  public static final String E_CATALOG_BRAND_NOT_FOUND = "catalogBrandNotFound";
+
+  /** カテゴリID: {0} のカテゴリが見つかりませんでした。 */
+  public static final String E_CATALOG_CATEGORY_NOT_FOUND = "catalogCategoryNotFound";
+
+  /** {0} を実行する権限がありません。 */
+  public static final String E_PERMISSION_DENIED = "permissionDenied";
+
+  /** カタログアイテム ID: {0} のカタログアイテムの更新時に楽観ロックエラーが発生しました。 */
+  public static final String E_OPTIMISTIC_LOCKING_FAILURE = "optimisticLockingFailure";
 }

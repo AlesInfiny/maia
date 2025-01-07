@@ -23,7 +23,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class CatalogDomainServiceTest {
   @Mock
-  private CatalogRepository repository;
+  private CatalogRepository catalogRepository;
+  @Mock
+  private CatalogBrandRepository catalogBrandRepository;
+  @Mock
+  private CatalogCategoryRepository catalogCategoryRepository;
   @InjectMocks
   private CatalogDomainService service;
 
@@ -36,13 +40,13 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     service.getExistCatalogItems(catalogItemIdsList);
 
     // Assert
-    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
   }
 
   @Test
@@ -51,7 +55,7 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = { 2L };
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     List<CatalogItem> actualItems = service.getExistCatalogItems(List.of(1L, 2L));
@@ -68,13 +72,13 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     service.existAll(catalogItemIdsList);
 
     // Assert
-    verify(this.repository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIdsList);
   }
 
   @Test
@@ -84,7 +88,7 @@ public class CatalogDomainServiceTest {
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIdsList)).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
@@ -99,7 +103,7 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = { 2L };
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
@@ -114,13 +118,94 @@ public class CatalogDomainServiceTest {
     long[] catalogItemIds = {};
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
-    when(this.repository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
+    when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
 
     // Act
     boolean existAll = service.existAll(List.of(1L, 2L));
 
     // Assert
     assertThat(existAll).isFalse();
+  }
+
+  @Test
+  void testExistCatalogBrand_正常系_指定したカタログブランドが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogBrand catalogBrand = this.createCatalogBrand(targetId);
+    when(this.catalogBrandRepository.findById(targetId)).thenReturn(catalogBrand);
+
+    // Act
+    boolean existCatalogBrand = service.existCatalogBrand(targetId);
+
+    // Assert
+    assertThat(existCatalogBrand).isTrue();
+  }
+
+  @Test
+  void testExistCatalogBrand_正常系_指定したカタログブランドが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogBrandRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogBrand = service.existCatalogBrand(targetId);
+
+    // Assert
+    assertThat(existCatalogBrand).isFalse();
+  }
+
+  @Test
+  void testExistCatalogCategory_正常系_指定したカタログカテゴリが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogCategory catalogCategory = this.createCatalogCategory(targetId);
+    when(this.catalogCategoryRepository.findById(targetId)).thenReturn(catalogCategory);
+
+    // Act
+    boolean existCatalogCategory = service.existCatalogCategory(targetId);
+
+    // Assert
+    assertThat(existCatalogCategory).isTrue();
+  }
+
+  @Test
+  void testExistCatalogCategory_正常系_指定したカタログカテゴリが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogCategoryRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogCategory = service.existCatalogCategory(targetId);
+
+    // Assert
+    assertThat(existCatalogCategory).isFalse();
+  }
+
+  @Test
+  void testExistCatalogItem_正常系_指定したカタログアイテムが存在する場合trueを返す() {
+    // Arrange
+    long targetId = 1L;
+    CatalogItem catalogItem = this.createCatalogItem(targetId);
+    when(this.catalogRepository.findById(targetId)).thenReturn(catalogItem);
+
+    // Act
+    boolean existCatalogItem = service.existCatalogItem(targetId);
+
+    // Assert
+    assertThat(existCatalogItem).isTrue();
+  }
+
+  @Test
+  void testExistCatalogItem_正常系_指定したカタログアイテムが存在しない場合falseを返す() {
+    // Arrange
+    long targetId = 1L;
+    when(this.catalogRepository.findById(targetId)).thenReturn(null);
+
+    // Act
+    boolean existCatalogItem = service.existCatalogItem(targetId);
+
+    // Assert
+    assertThat(existCatalogItem).isFalse();
   }
 
   private CatalogItem createCatalogItem(long id) {
@@ -135,5 +220,17 @@ public class CatalogDomainServiceTest {
         defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId);
     // catalogItem.setId(id);
     return catalogItem;
+  }
+
+  private CatalogBrand createCatalogBrand(long id) {
+    String defaultName = "Name";
+    CatalogBrand catalogBrand = new CatalogBrand(defaultName);
+    return catalogBrand;
+  }
+
+  private CatalogCategory createCatalogCategory(long id) {
+    String defaultName = "Name";
+    CatalogCategory catalogCategory = new CatalogCategory(defaultName);
+    return catalogCategory;
   }
 }

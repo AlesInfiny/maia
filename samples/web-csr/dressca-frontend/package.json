@@ -10,9 +10,17 @@
     "build:prod:consumer": "npm run build:prod -w consumer",
     "test:unit:consumer": "npm run test:unit -w consumer",
     "dev:consumer": "npm run dev -w consumer",
-    "mock:consumer": "npm run mock -w consumer"
+    "mock:consumer": "npm run mock -w consumer",
+    "lint:ci:admin": "npm run lint:ci -w admin",
+    "type-check:admin": "npm run type-check -w admin",
+    "build-only:dev:admin": "npm run build-only:dev -w admin",
+    "build:prod:admin": "npm run build:prod -w admin",
+    "test:unit:admin": "npm run test:unit -w admin",
+    "dev:admin": "npm run dev -w admin",
+    "mock:admin": "npm run mock -w admin"
   },
   "workspaces": [
-    "consumer"
+    "consumer",
+    "admin"
   ]
 }

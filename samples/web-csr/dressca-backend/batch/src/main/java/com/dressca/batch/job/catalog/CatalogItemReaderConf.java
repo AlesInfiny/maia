@@ -28,5 +28,4 @@ public class CatalogItemReaderConf {
         .pageSize(10)
         .build();
   }
-
 }
