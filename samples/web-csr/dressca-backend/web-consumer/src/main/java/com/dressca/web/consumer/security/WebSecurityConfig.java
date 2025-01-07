@@ -31,7 +31,9 @@ public class WebSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .securityMatcher("/api/**")
-        .csrf(csrf -> csrf.disable())
+        // CSRF トークンを利用したリクエストの検証を無効化（ OAuth2.0 による認証認可を利用する前提のため）
+        // OAuth2.0 によるリクエストの検証を利用しない場合は、有効化して CSRF 対策を施す
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);

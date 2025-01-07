@@ -2,6 +2,9 @@
 # cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps yamlignore
 name: ドキュメントのビルド (CI用)
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches: [main]
