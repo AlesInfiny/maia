@@ -560,6 +560,7 @@ const updateItemAsync = async () => {
             />
           </div>
           <div class="flex justify-end">
+            <!-- サンプルアプリは必ず Admin ロールを持つユーザーとしてログインするようになっているので、削除ボタンが disable になることはありません。-->
             <button
               type="button"
               class="rounded bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500 disabled:opacity-50"
