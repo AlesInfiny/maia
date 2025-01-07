@@ -6,7 +6,7 @@
   -->
   <Match>
     <Or>
-      <Bug code="EI, EI2" />
+      <Bug code="CT, EI, EI2, NP, RCN" />
     </Or>
   </Match>
   <!-- 
