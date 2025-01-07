@@ -23,8 +23,10 @@ import type {
   GetCatalogItemResponse,
 } from '@/generated/api-client';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
 const customErrorHandler = useCustomErrorHandler();
+const authenticationStore = useAuthenticationStore();
 const router = useRouter();
 const route = useRoute();
 const id = Number(route.params.itemId);
@@ -57,6 +59,10 @@ const [productCode] = defineField('productCode');
 
 const isInvalid = () => {
   return !meta.value.valid;
+};
+
+const hasAdminRole = () => {
+  return authenticationStore.isInRole('Admin');
 };
 
 /**
@@ -556,7 +562,8 @@ const updateItemAsync = async () => {
           <div class="flex justify-end">
             <button
               type="button"
-              class="rounded bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900"
+              class="rounded bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500 disabled:opacity-50"
+              :disabled="!hasAdminRole()"
               @click="showDeleteConfirm = true"
             >
               削除
@@ -565,7 +572,7 @@ const updateItemAsync = async () => {
             <button
               type="button"
               class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
-              :disabled="isInvalid()"
+              :disabled="isInvalid() || !hasAdminRole()"
               @click="showUpdateConfirm = true"
             >
               更新

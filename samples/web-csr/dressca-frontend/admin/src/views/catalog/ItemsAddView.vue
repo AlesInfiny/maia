@@ -14,9 +14,11 @@ import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
 } from '@/generated/api-client';
+import { useAuthenticationStore } from '@/stores/authentication/authentication';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
+const authenticationStore = useAuthenticationStore();
 
 const { errors, values, meta, defineField } = useForm({
   validationSchema: catalogItemSchema,
@@ -211,7 +213,7 @@ onMounted(async () => {
       <button
         type="button"
         class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
-        :disabled="isInvalid()"
+        :disabled="isInvalid() || !authenticationStore.isInRole('Admin')"
         @click="AddItem()"
       >
         追加

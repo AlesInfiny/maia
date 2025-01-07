@@ -53,5 +53,15 @@ export const useAuthenticationStore = defineStore({
     isAuthenticated(state) {
       return state.authenticationState;
     },
+    /**
+     * ユーザーが特定のロールに属するかどうかを判定する関数を取得します。
+     * ストアのゲッターには直接パラメーターを渡すことができないので、
+     * 関数を経由してパラメーターを受け取る必要があります。
+     * @param state 状態。
+     * @returns ユーザーが特定のロールに属するかどうかを判定する関数。
+     */
+    isInRole(state) {
+      return (role: string) => state.userRoles.includes(role);
+    },
   },
 });
