@@ -166,9 +166,6 @@ onUnmounted(async () => {
         <span class="text-2xl font-medium">
           {{ t('noItemsInBasket') }}
         </span>
-        <span class="text-2xl font-medium">
-          {{ t('noItemsInBasket') }}
-        </span>
       </div>
       <div v-if="!isEmpty()" class="mt-8 mx-2">
         <span class="text-2xl font-medium">現在のカートの中身</span>
