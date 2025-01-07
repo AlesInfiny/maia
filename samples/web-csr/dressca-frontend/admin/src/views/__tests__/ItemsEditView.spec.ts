@@ -1,13 +1,22 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { createPinia, setActivePinia } from 'pinia';
+import { createTestingPinia } from '@pinia/testing';
 import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsEditView from '@/views/catalog/ItemsEditView.vue';
 import { router } from '@/router';
 
 async function getWrapper() {
-  const pinia = createPinia();
-  setActivePinia(pinia);
+  const pinia = createTestingPinia({
+    initialState: {
+      authentication: {
+        authenticationState: true,
+        userName: 'admin@example.com',
+        userRoles: ['Admin'],
+      },
+    },
+    createSpy: vi.fn, // 明示的に設定する必要があります。
+    stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
+  });
   const customErrorHandler = createCustomErrorHandler();
   router.push({ name: 'catalog/items/edit', params: { itemId: 1 } });
   await router.isReady();
