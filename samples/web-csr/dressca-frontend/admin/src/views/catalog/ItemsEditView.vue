@@ -24,6 +24,7 @@ import type {
 } from '@/generated/api-client';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { Roles } from '@/shared/constants/roles';
 
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();
@@ -62,7 +63,7 @@ const isInvalid = () => {
 };
 
 const hasAdminRole = () => {
-  return authenticationStore.isInRole('Admin');
+  return authenticationStore.isInRole(Roles.ADMIN);
 };
 
 /**
