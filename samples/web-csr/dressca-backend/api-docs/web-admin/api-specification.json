@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "description": "ECサイトDressca",
     "title": "Dressca",
@@ -50,9 +50,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -61,9 +65,13 @@
               },
               "application/vnd.spring-boot.actuator.v2+json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -72,9 +80,13 @@
               },
               "application/vnd.spring-boot.actuator.v3+json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -111,7 +123,9 @@
             "content": {
               "image/*": {
                 "schema": {
-                  "type": "string",
+                  "type": [
+                    "string"
+                  ],
                   "format": "binary"
                 }
               }
@@ -458,56 +472,19 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               }
             },
             "description": "OK"
           }
         },
         "summary": "Actuator web endpoint \u0027health\u0027",
-        "tags": [
-          "Actuator"
-        ]
-      }
-    },
-    "/api/health/**": {
-      "get": {
-        "operationId": "health-path",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "summary": "Actuator web endpoint \u0027health-path\u0027",
         "tags": [
           "Actuator"
         ]
