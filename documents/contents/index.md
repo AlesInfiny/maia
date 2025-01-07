@@ -102,7 +102,7 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 
 1. 前手順と同様に、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    dressca-backend > Tasks > application > bootRunDev
+    web-consumer > Tasks > application > bootRunDev
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 
