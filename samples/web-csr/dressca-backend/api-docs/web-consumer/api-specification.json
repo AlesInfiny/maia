@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "description": "ECサイトDressca",
     "title": "Dressca",
@@ -115,7 +115,9 @@
             "content": {
               "image/*": {
                 "schema": {
-                  "type": "string",
+                  "type": [
+                    "string"
+                  ],
                   "format": "binary"
                 }
               }
@@ -417,56 +419,19 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               }
             },
             "description": "OK"
           }
         },
         "summary": "Actuator web endpoint \u0027health\u0027",
-        "tags": [
-          "Actuator"
-        ]
-      }
-    },
-    "/api/health/**": {
-      "get": {
-        "operationId": "health-path",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "summary": "Actuator web endpoint \u0027health-path\u0027",
         "tags": [
           "Actuator"
         ]
@@ -564,13 +529,6 @@
   "components": {
     "schemas": {
       "AccountResponse": {
-        "required": [
-          "consumptionTax",
-          "consumptionTaxRate",
-          "deliveryCharge",
-          "totalItemsPrice",
-          "totalPrice"
-        ],
         "type": "object",
         "properties": {
           "consumptionTax": {
@@ -589,15 +547,16 @@
           "totalPrice": {
             "type": "number"
           }
-        }
+        },
+        "required": [
+          "consumptionTax",
+          "consumptionTaxRate",
+          "deliveryCharge",
+          "totalItemsPrice",
+          "totalPrice"
+        ]
       },
       "BasketItemResponse": {
-        "required": [
-          "catalogItemId",
-          "quantity",
-          "subTotal",
-          "unitPrice"
-        ],
         "type": "object",
         "properties": {
           "catalogItem": {
@@ -617,12 +576,15 @@
           "unitPrice": {
             "type": "number"
           }
-        }
+        },
+        "required": [
+          "catalogItemId",
+          "quantity",
+          "subTotal",
+          "unitPrice"
+        ]
       },
       "BasketResponse": {
-        "required": [
-          "buyerId"
-        ],
         "type": "object",
         "properties": {
           "account": {
@@ -637,13 +599,12 @@
           "buyerId": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "buyerId"
+        ]
       },
       "CatalogBrandResponse": {
-        "required": [
-          "id",
-          "name"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -653,13 +614,13 @@
           "name": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "CatalogCategoryResponse": {
-        "required": [
-          "id",
-          "name"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -669,18 +630,13 @@
           "name": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "CatalogItemResponse": {
-        "required": [
-          "catalogBrandId",
-          "catalogCategoryId",
-          "description",
-          "id",
-          "name",
-          "price",
-          "productCode"
-        ],
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -713,14 +669,18 @@
           "productCode": {
             "type": "string"
           }
-        }
-      },
-      "CatalogItemSummaryResponse": {
+        },
         "required": [
+          "catalogBrandId",
+          "catalogCategoryId",
+          "description",
           "id",
           "name",
+          "price",
           "productCode"
-        ],
+        ]
+      },
+      "CatalogItemSummaryResponse": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -739,7 +699,12 @@
           "productCode": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "id",
+          "name",
+          "productCode"
+        ]
       },
       "Link": {
         "type": "object",
@@ -753,12 +718,6 @@
         }
       },
       "OrderItemResponse": {
-        "required": [
-          "id",
-          "quantity",
-          "subTotal",
-          "unitPrice"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -778,19 +737,15 @@
           "unitPrice": {
             "type": "number"
           }
-        }
+        },
+        "required": [
+          "id",
+          "quantity",
+          "subTotal",
+          "unitPrice"
+        ]
       },
       "OrderResponse": {
-        "required": [
-          "azanaAndOthers",
-          "buyerId",
-          "fullName",
-          "id",
-          "orderDate",
-          "postalCode",
-          "shikuchoson",
-          "todofuken"
-        ],
         "type": "object",
         "properties": {
           "account": {
@@ -828,7 +783,17 @@
           "todofuken": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "azanaAndOthers",
+          "buyerId",
+          "fullName",
+          "id",
+          "orderDate",
+          "postalCode",
+          "shikuchoson",
+          "todofuken"
+        ]
       },
       "PagedListOfCatalogItemResponse": {
         "type": "object",
@@ -864,9 +829,6 @@
         }
       },
       "PostBasketItemsRequest": {
-        "required": [
-          "catalogItemId"
-        ],
         "type": "object",
         "properties": {
           "addedQuantity": {
@@ -877,16 +839,12 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "required": [
+          "catalogItemId"
+        ]
       },
       "PostOrderRequest": {
-        "required": [
-          "azanaAndOthers",
-          "fullName",
-          "postalCode",
-          "shikuchoson",
-          "todofuken"
-        ],
         "type": "object",
         "properties": {
           "azanaAndOthers": {
@@ -904,7 +862,14 @@
           "todofuken": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "azanaAndOthers",
+          "fullName",
+          "postalCode",
+          "shikuchoson",
+          "todofuken"
+        ]
       },
       "ProblemDetail": {
         "type": "object",
@@ -918,9 +883,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
+            "additionalProperties": {}
           },
           "status": {
             "type": "integer",
@@ -936,10 +899,6 @@
         }
       },
       "PutBasketItemsRequest": {
-        "required": [
-          "catalogItemId",
-          "quantity"
-        ],
         "type": "object",
         "properties": {
           "catalogItemId": {
@@ -950,7 +909,11 @@
             "type": "integer",
             "format": "int32"
           }
-        }
+        },
+        "required": [
+          "catalogItemId",
+          "quantity"
+        ]
       }
     }
   }

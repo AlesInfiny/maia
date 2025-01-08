@@ -61,36 +61,6 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary Actuator web endpoint \'health-path\'
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        healthPath: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/health/**`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Actuator root web endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -135,22 +105,10 @@ export const ActuatorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.health(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ActuatorApi.health']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary Actuator web endpoint \'health-path\'
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async healthPath(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.healthPath(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ActuatorApi.healthPath']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -181,17 +139,8 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        health(options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        health(options?: RawAxiosRequestConfig): AxiosPromise<any> {
             return localVarFp.health(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Actuator web endpoint \'health-path\'
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        healthPath(options?: RawAxiosRequestConfig): AxiosPromise<object> {
-            return localVarFp.healthPath(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -221,17 +170,6 @@ export class ActuatorApi extends BaseAPI {
      */
     public health(options?: RawAxiosRequestConfig) {
         return ActuatorApiFp(this.configuration).health(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Actuator web endpoint \'health-path\'
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ActuatorApi
-     */
-    public healthPath(options?: RawAxiosRequestConfig) {
-        return ActuatorApiFp(this.configuration).healthPath(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
