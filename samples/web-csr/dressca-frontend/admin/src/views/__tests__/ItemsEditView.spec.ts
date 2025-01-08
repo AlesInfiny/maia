@@ -4,17 +4,12 @@ import { createTestingPinia, type TestingPinia } from '@pinia/testing';
 import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsEditView from '@/views/catalog/ItemsEditView.vue';
 import { router } from '@/router';
+import { Roles } from '@/shared/constants/roles';
 
-function CreateLoginState(
-  authenticationState: boolean = true,
-  userName: string = 'admin@example.com',
-  userRoles: string[] = ['Admin'],
-) {
+function CreateLoginState(userRoles: string[]) {
   return createTestingPinia({
     initialState: {
       authentication: {
-        authenticationState,
-        userName,
         userRoles,
       },
     },
@@ -32,12 +27,12 @@ async function getWrapper(pinia: TestingPinia) {
   });
 }
 
-describe('アイテムが削除できる', () => {
+describe('管理者ロール_アイテムが削除できる', () => {
   let loginState: TestingPinia;
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState();
+    loginState = CreateLoginState([Roles.ADMIN]);
     wrapper = await getWrapper(loginState);
   });
 
@@ -94,12 +89,38 @@ describe('アイテムが削除できる', () => {
   });
 });
 
-describe('アイテムが更新できる', () => {
+describe('ゲストロール_アイテム削除ボタンが非活性', () => {
   let loginState: TestingPinia;
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState();
+    loginState = CreateLoginState(['Guest']);
+    wrapper = await getWrapper(loginState);
+  });
+
+  it('編集画面に遷移できる', async () => {
+    // Arrange
+    // Act
+    await flushPromises();
+    // Assert
+    expect(wrapper.html()).toContain('カタログアイテム編集');
+  });
+
+  it('削除ボタンが非活性', async () => {
+    // Arrange
+    // Act
+    const deleteButton = wrapper.findAll('button')[0];
+    // Assert
+    expect(deleteButton.attributes('disabled')).toBeDefined();
+  });
+});
+
+describe('管理者ロール_アイテムが更新できる', () => {
+  let loginState: TestingPinia;
+  let wrapper: VueWrapper;
+
+  beforeAll(async () => {
+    loginState = CreateLoginState([Roles.ADMIN]);
     wrapper = await getWrapper(loginState);
   });
 
@@ -148,5 +169,31 @@ describe('アイテムが更新できる', () => {
     expect(
       wrapper.findAllComponents({ name: 'NotificationModal' })[1].isVisible(),
     ).toBeFalsy();
+  });
+});
+
+describe('ゲストロール_アイテム更新ボタンが非活性', () => {
+  let loginState: TestingPinia;
+  let wrapper: VueWrapper;
+
+  beforeAll(async () => {
+    loginState = CreateLoginState(['Guest']);
+    wrapper = await getWrapper(loginState);
+  });
+
+  it('編集画面に遷移できる', async () => {
+    // Arrange
+    // Act
+    await flushPromises();
+    // Assert
+    expect(wrapper.html()).toContain('カタログアイテム編集');
+  });
+
+  it('更新ボタンが非活性', async () => {
+    // Arrange
+    // Act
+    const editButton = wrapper.findAll('button')[1];
+    // Assert
+    expect(editButton.attributes('disabled')).toBeDefined();
   });
 });

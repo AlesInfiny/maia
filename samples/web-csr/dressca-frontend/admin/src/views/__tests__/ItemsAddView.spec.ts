@@ -4,17 +4,12 @@ import { router } from '@/router';
 import { createTestingPinia, type TestingPinia } from '@pinia/testing';
 import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsAddView from '@/views/catalog/ItemsAddView.vue';
+import { Roles } from '@/shared/constants/roles';
 
-function CreateLoginState(
-  authenticationState: boolean = true,
-  userName: string = 'admin@example.com',
-  userRoles: string[] = ['Admin'],
-) {
+function CreateLoginState(userRoles: string[]) {
   return createTestingPinia({
     initialState: {
       authentication: {
-        authenticationState,
-        userName,
         userRoles,
       },
     },
@@ -30,12 +25,12 @@ async function getWrapper(pinia: TestingPinia) {
   });
 }
 
-describe('アイテムを追加できる', () => {
+describe('管理者ロール_アイテムを追加できる', () => {
   let loginState: TestingPinia;
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState();
+    loginState = CreateLoginState([Roles.ADMIN]);
     wrapper = await getWrapper(loginState);
   });
 
@@ -57,5 +52,31 @@ describe('アイテムを追加できる', () => {
     );
     // Assert
     expect(wrapper.html()).toContain('カタログアイテムを追加しました。');
+  });
+});
+
+describe('ゲストロール_アイテム追加ボタンが非活性', () => {
+  let loginState: TestingPinia;
+  let wrapper: VueWrapper;
+
+  beforeAll(async () => {
+    loginState = CreateLoginState(['Guest']);
+    wrapper = await getWrapper(loginState);
+  });
+
+  it('追加画面に遷移できる', async () => {
+    // Arrange
+    // Act
+    await flushPromises();
+    // Assert
+    expect(wrapper.html()).toContain('カタログアイテム追加');
+  });
+
+  it('追加ボタンが非活性', async () => {
+    // Arrange
+    // Act
+    const button = wrapper.find('button');
+    // Assert
+    expect(button.attributes('disabled')).toBeDefined();
   });
 });
