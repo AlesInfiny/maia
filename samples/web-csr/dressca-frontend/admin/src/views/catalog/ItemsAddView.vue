@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import {
   fetchCategoriesAndBrands,
   postCatalogItem,
@@ -20,6 +21,7 @@ import { Roles } from '@/shared/constants/roles';
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();
+const { isInRole } = storeToRefs(authenticationStore);
 
 const { errors, values, meta, defineField } = useForm({
   validationSchema: catalogItemSchema,
@@ -214,7 +216,7 @@ onMounted(async () => {
       <button
         type="button"
         class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
-        :disabled="isInvalid() || !authenticationStore.isInRole(Roles.ADMIN)"
+        :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
         @click="AddItem()"
       >
         追加
