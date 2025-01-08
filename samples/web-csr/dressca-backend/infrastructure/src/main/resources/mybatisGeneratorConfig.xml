@@ -6,6 +6,10 @@
     <context id="local"  targetRuntime="MyBatis3">
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- 自動生成される各要素のコメントに生成時刻が出力されないように設定する -->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
         <!-- 接続先DB情報 -->
         <jdbcConnection driverClass="org.h2.Driver"
                         connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
