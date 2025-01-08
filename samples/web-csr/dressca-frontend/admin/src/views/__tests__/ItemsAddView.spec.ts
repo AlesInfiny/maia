@@ -1,22 +1,29 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { router } from '@/router';
-import { createTestingPinia } from '@pinia/testing';
+import { createTestingPinia, type TestingPinia } from '@pinia/testing';
 import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsAddView from '@/views/catalog/ItemsAddView.vue';
 
-async function getWrapper() {
-  const pinia = createTestingPinia({
+function CreateLoginState(
+  authenticationState: boolean = true,
+  userName: string = 'admin@example.com',
+  userRoles: string[] = ['Admin'],
+) {
+  return createTestingPinia({
     initialState: {
       authentication: {
-        authenticationState: true,
-        userName: 'admin@example.com',
-        userRoles: ['Admin'],
+        authenticationState,
+        userName,
+        userRoles,
       },
     },
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
   });
+}
+
+async function getWrapper(pinia: TestingPinia) {
   const customErrorHandler = createCustomErrorHandler();
   return mount(ItemsAddView, {
     global: { plugins: [pinia, router, customErrorHandler] },
@@ -24,10 +31,12 @@ async function getWrapper() {
 }
 
 describe('アイテムを追加できる', () => {
+  let loginState: TestingPinia;
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    wrapper = await getWrapper();
+    loginState = CreateLoginState();
+    wrapper = await getWrapper(loginState);
   });
 
   it('追加画面に遷移できる', async () => {
