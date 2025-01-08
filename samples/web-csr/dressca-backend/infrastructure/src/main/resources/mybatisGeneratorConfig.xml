@@ -2,13 +2,13 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <!-- JDBCドライバまでのパス -->
-    <classPathEntry location="/tools/h2database/h2-2023-09-17/h2/bin/h2-2.2.224.jar"/>
+    <classPathEntry location="/dressca/h2-2.2.224.jar"/>
     <context id="local"  targetRuntime="MyBatis3">
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
         <!-- 接続先DB情報 -->
         <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
+                        connectionURL="jdbc:h2:tcp://localhost/~/testdb;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
                         userId=""
                         password="" />
         <!-- エンティティを生成する際に、TIMESTAMP型をLocalDateTime型にするためにjavaTypeResolverを設定する
@@ -18,13 +18,13 @@
         </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
         <javaModelGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.entity"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java" />
+                        targetProject="/Maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java" />
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/resources" />
+                        targetProject="/Maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/resources" />
         <!-- Mapper.java作成先 -->
         <javaClientGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java"
+                        targetProject="/Maia/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
         <table schema="" tableName="assets" domainObjectName="AssetEntity" mapperName="AssetMapper">

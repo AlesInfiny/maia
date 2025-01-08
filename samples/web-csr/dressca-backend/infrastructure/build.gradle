@@ -24,6 +24,13 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+  mybatisTasksOnly
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
 dependencies {
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.h2database
@@ -32,14 +39,10 @@ dependencies {
 	implementation project(':system-common')
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
-}
 
-configurations {
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	}
-}
+  mybatisTasksOnly 'org.mybatis.generator:mybatis-generator-core:1.4.2'
 
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
@@ -47,6 +50,14 @@ tasks.named('test') {
 
 bootJar.enabled = false
 jar.enabled = true
+
+tasks.register('runMyBatisGenerator', JavaExec) { 
+    def resourcePath = 'src/main/resources/mybatisGeneratorConfig.xml'   
+  // JARファイルのパスを指定    
+  classpath = files(configurations.mybatisTasksOnly.singleFile)
+  // 引数を指定    
+  args = ['-configfile', resourcePath , '-overwrite']
+}
 
 task updateMyBatisGeneratorMapperForOptimisticLocking {
   doLast {
