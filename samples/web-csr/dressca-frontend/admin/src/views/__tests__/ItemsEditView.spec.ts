@@ -94,7 +94,7 @@ describe('ゲストロール_アイテム削除ボタンが非活性', () => {
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState(['Guest']);
+    loginState = CreateLoginState(['ROLE_GUEST']);
     wrapper = await getWrapper(loginState);
   });
 
@@ -177,7 +177,7 @@ describe('ゲストロール_アイテム更新ボタンが非活性', () => {
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState(['Guest']);
+    loginState = CreateLoginState(['ROLE_GUEST']);
     wrapper = await getWrapper(loginState);
   });
 

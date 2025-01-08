@@ -60,7 +60,7 @@ describe('ゲストロール_アイテム追加ボタンが非活性', () => {
   let wrapper: VueWrapper;
 
   beforeAll(async () => {
-    loginState = CreateLoginState(['Guest']);
+    loginState = CreateLoginState(['ROLE_GUEST']);
     wrapper = await getWrapper(loginState);
   });
 
