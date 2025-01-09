@@ -1,10 +1,11 @@
 import { HttpResponse, http } from 'msw';
 import type { GetLoginUserResponse } from '@/generated/api-client';
 import { HttpStatusCode } from 'axios';
+import { Roles } from '@/shared/constants/roles';
 
 const user: GetLoginUserResponse = {
   userName: 'admin@example.com',
-  roles: ['Admin'],
+  roles: [Roles.ADMIN],
 };
 
 export const usersHandlers = [
