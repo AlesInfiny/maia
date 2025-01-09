@@ -124,9 +124,6 @@
         }
       },
       "ServerTimeResponse": {
-        "required": [
-          "serverTime"
-        ],
         "type": "object",
         "properties": {
           "serverTime": {
