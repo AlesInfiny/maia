@@ -11,5 +11,4 @@ public class EmptyBasketOnCheckoutException extends LogicException {
   public EmptyBasketOnCheckoutException(Throwable cause) {
     super(cause, ExceptionIdConstants.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
   }
-
 }

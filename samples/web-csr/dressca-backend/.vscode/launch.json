@@ -2,12 +2,23 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Spring Boot-WebApplication<web>",
+      "name": "Spring Boot-WebApplication<consumer>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
-      "mainClass": "com.dressca.web.WebApplication",
-      "projectName": "web",
+      "mainClass": "com.dressca.web.consumer.WebApplication",
+      "projectName": "web-consumer",
+      "args": "--spring.profiles.active=local",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-WebApplication<admin>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.dressca.web.admin.WebApplication",
+      "projectName": "web-admin",
       "args": "--spring.profiles.active=local",
       "envFile": "${workspaceFolder}/.env"
     },
@@ -20,7 +31,7 @@
       "mainClass": "com.dressca.batch.BatchApplication",
       "projectName": "batch",
       "args": "output=item_list_chunk.csv",
-      "env":{"spring.batch.job.names":"catalogItem_job"}
+      "env": { "spring.batch.job.names": "catalogItem_job" }
     },
     {
       "type": "java",
@@ -31,7 +42,7 @@
       "mainClass": "com.dressca.batch.BatchApplication",
       "projectName": "batch",
       "args": "output=item_list_tasklet.csv",
-      "env":{"spring.batch.job.names":"catalogItem_tasklet_job"}
+      "env": { "spring.batch.job.names": "catalogItem_tasklet_job" }
     }
   ]
 }

@@ -246,8 +246,8 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     ext {
-      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
+      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
 
       supportDependencies = [
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",

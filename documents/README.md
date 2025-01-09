@@ -204,6 +204,19 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
     - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#ignore>
     - <https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#enable--disable-checking-sections-of-code>
 
+### 略語の登録
+
+[API] や [OSS] といった一般的な略語については、 `documents/includes/abbreviations.md` の略語集に登録します。
+以下のように、略語とその正式名称をペアにして記載します。
+
+```md title="abbreviations.md"
+*[OSS]: Open Source Software
+```
+
+これにより、ドキュメント上の略語にカーソルを合わせることで、正式名称が確認できるようになります。
+
+![略語を用語集に登録した結果](readme-images/abbreviations-setting-result.png)
+
 ### 各ページの title/description の設定
 
 以下のように、各 markdown ファイルの上部に `title` と `description` を設定しています。

@@ -18,7 +18,7 @@
     "mock": "vite --mode mock",
     "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
     "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
-    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../dressca-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
+    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../dressca-backend/api-docs/web-consumer/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.5",

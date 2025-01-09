@@ -34,4 +34,16 @@ public class MessageIdConstants {
 
   /** フィルタリング用のカタログカテゴリリストを取得します。 */
   public static final String D_CATALOG_GET_CATEGORIES = "catalogApplicationServiceGetCategories";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを取得します。 */
+  public static final String D_CATALOG_GET_CATALOG_ITEM = "catalogApplicationServiceGetCatalogItem";
+
+  /** カタログにアイテムを追加します。 */
+  public static final String D_CATALOG_ADD_ITEM_TO_CATALOG = "catalogApplicationServiceAddItemToCatalog";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを削除します。 */
+  public static final String D_CATALOG_DELETE_ITEM_FROM_CATALOG = "catalogApplicationServiceDeleteItemFromCatalog";
+
+  /** カタログアイテム ID: {0} のカタログアイテムを更新します。 */
+  public static final String D_CATALOG_UPDATE_CATALOG_ITEM = "catalogApplicationServiceUpdateCatalogItem";
 }

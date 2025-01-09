@@ -12,4 +12,11 @@ public interface CatalogBrandRepository {
    * @return カタログブランドのリスト
    */
   List<CatalogBrand> getAll();
+
+  /**
+   * 指定した ID のカタログブランドを取得します。
+   * 
+   * @return 条件に一致するカタログブランド。
+   */
+  CatalogBrand findById(long id);
 }

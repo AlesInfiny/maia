@@ -122,6 +122,18 @@ public class EntityTranslator {
   }
 
   /**
+   * ドメインオブジェクトから {@link CatalogItemEntity} オブジェクトを変換します。
+   * 
+   * @param catalogItem {@link CatalogItem} オブジェクト
+   * @return {@link CatalogItemEntity} オブジェクト
+   */
+  public static CatalogItemEntity createCatalogItemEntity(CatalogItem catalogItem) {
+    CatalogItemEntity entity = new CatalogItemEntity();
+    BeanUtils.copyProperties(catalogItem, entity);
+    return entity;
+  }
+
+  /**
    * {@link CatalogItemAssetEntity} をドメインオブジェクトに変換します。
    * 
    * @param entity {@link CatalogItemAssetEntity} オブジェクト

@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
     "title": "Azure AD B2C ユーザー認証",
@@ -88,27 +88,37 @@
         "type": "object",
         "properties": {
           "detail": {
-            "type": "string"
+            "type": [
+              "string"
+            ]
           },
           "instance": {
-            "type": "string",
+            "type": [
+              "string"
+            ],
             "format": "uri"
           },
           "properties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
+            "type": [
+              "object"
+            ],
+            "additionalProperties": {}
           },
           "status": {
-            "type": "integer",
+            "type": [
+              "integer"
+            ],
             "format": "int32"
           },
           "title": {
-            "type": "string"
+            "type": [
+              "string"
+            ]
           },
           "type": {
-            "type": "string",
+            "type": [
+              "string"
+            ],
             "format": "uri"
           }
         }
@@ -120,20 +130,27 @@
         "type": "object",
         "properties": {
           "serverTime": {
-            "type": "string"
+            "type": [
+              "string"
+            ]
           }
-        }
+        },
+        "required": [
+          "serverTime"
+        ]
       },
       "UserResponse": {
-        "required": [
-          "userId"
-        ],
         "type": "object",
         "properties": {
           "userId": {
-            "type": "string"
+            "type": [
+              "string"
+            ]
           }
-        }
+        },
+        "required": [
+          "userId"
+        ]
       }
     },
     "securitySchemes": {

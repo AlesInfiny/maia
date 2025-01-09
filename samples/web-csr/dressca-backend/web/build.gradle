@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-	id 'org.springdoc.openapi-gradle-plugin' version "${springdocOpenapiGradlePluginVersion}"
 }
 
 group = 'com.dressca'
@@ -25,14 +24,14 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_security_starter
-	implementation supportDependencies.spring_boot_starter_log4j2
-
+	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.spring_security_test
+	testImplementation supportDependencies.spring_boot_starter_log4j2
 
 	compileOnly supportDependencies.servlet_api
 }
@@ -42,25 +41,10 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
-afterEvaluate {
-    tasks.named("forkedSpringBootRun") {
-		workingDir("$rootDir/api-docs")
-	}
-}
-openApi {
-    apiDocsUrl.set("http://localhost:8080/api-docs")
-    outputDir.set(file("$rootDir/api-docs"))
-    outputFileName.set("api-specification.json")
-}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
-tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
-	group = 'application'
-	description = 'Runs this project as a Spring Boot Application using local profile.'
-	args = ["--spring.profiles.active=local"]
-	main = 'com.dressca.web.WebApplication'
-	classpath = sourceSets.main.runtimeClasspath
-}
 
-build.dependsOn("generateOpenApiDocs")
+bootJar.enabled = false
+jar.enabled = true
