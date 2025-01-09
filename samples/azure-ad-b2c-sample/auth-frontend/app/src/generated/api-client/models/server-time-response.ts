@@ -17,13 +17,13 @@
 /**
  * 
  * @export
- * @interface TimeResponse
+ * @interface ServerTimeResponse
  */
-export interface TimeResponse {
+export interface ServerTimeResponse {
     /**
      * 
      * @type {string}
-     * @memberof TimeResponse
+     * @memberof ServerTimeResponse
      */
     'serverTime': string;
 }

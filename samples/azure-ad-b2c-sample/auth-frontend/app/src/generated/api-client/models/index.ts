@@ -1,3 +1,3 @@
 export * from './problem-detail';
-export * from './time-response';
+export * from './server-time-response';
 export * from './user-response';

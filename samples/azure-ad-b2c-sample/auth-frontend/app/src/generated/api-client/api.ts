@@ -15,5 +15,5 @@
 
 
 export * from './api/server-time-api';
-export * from './api/user-api';
+export * from './api/users-api';
 
