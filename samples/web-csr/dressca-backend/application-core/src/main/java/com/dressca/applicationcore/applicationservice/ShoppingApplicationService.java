@@ -5,8 +5,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -28,8 +26,8 @@ import com.dressca.applicationcore.order.OrderItemAsset;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.LoggerWrapper;
 import lombok.AllArgsConstructor;
 
 /**
@@ -48,7 +46,8 @@ public class ShoppingApplicationService {
   private OrderRepository orderRepository;
   private CatalogDomainService catalogDomainService;
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private LoggerWrapper apLog;
 
   /**
    * 買い物かごに商品を追加します。

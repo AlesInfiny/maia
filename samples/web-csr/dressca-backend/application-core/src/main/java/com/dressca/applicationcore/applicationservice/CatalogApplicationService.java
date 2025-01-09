@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,8 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
+import com.dressca.systemcommon.log.LoggerWrapper;
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 
 /**
  * カタログ情報に関するビジネスユースケースを実現するサービスです。
@@ -42,6 +40,7 @@ public class CatalogApplicationService {
   private CatalogCategoryRepository categoryRepository;
   private CatalogDomainService catalogDomainService;
   private UserStore userStore;
+  private LoggerWrapper apLog;
 
   /**
    * コンストラクタ。
@@ -54,20 +53,19 @@ public class CatalogApplicationService {
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
-      CatalogDomainService catalogDomainService) {
+      CatalogDomainService catalogDomainService, LoggerWrapper apLog) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
     this.brandRepository = brandRepository;
     this.categoryRepository = categoryRepository;
     this.catalogDomainService = catalogDomainService;
+    this.apLog = apLog;
   }
 
   @Autowired(required = false)
   public void setUserStore(UserStore userStore) {
     this.userStore = userStore;
   }
-
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 指定したIdのカタログアイテムを取得します。

@@ -8,8 +8,8 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.LoggerWrapper;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.consumer.controller.dto.order.OrderResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;
@@ -25,8 +25,6 @@ import java.net.URI;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,7 +55,8 @@ public class OrderController {
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private LoggerWrapper apLog;
 
   /**
    * 注文情報を取得します。

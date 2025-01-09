@@ -15,6 +15,7 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.systemcommon.log.LoggerWrapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,12 +39,14 @@ public class OrderApplicationServiceTest {
   private OrderRepository orderRepository;
   @Autowired
   private MessageSource messages;
+  @Mock
+  private LoggerWrapper apLog;
 
   private OrderApplicationService service;
 
   @BeforeEach
   void setUp() {
-    service = new OrderApplicationService(messages, orderRepository);
+    service = new OrderApplicationService(messages, orderRepository, apLog);
   }
 
   @Test
