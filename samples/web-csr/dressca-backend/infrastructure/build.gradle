@@ -25,7 +25,9 @@ repositories {
 }
 
 configurations {
+  // MyBatis Generator の自動生成のみで利用するライブラリのための依存関係の構成を定義
   mybatisTasksOnly
+  // 使用しないロギングライブラリを除外
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
@@ -59,7 +61,7 @@ tasks.register('runMyBatisGenerator', JavaExec) {
   args = ['-configfile', resourcePath , '-overwrite']
 }
 
-task updateMyBatisGeneratorMapperForOptimisticLocking {
+tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
 
     // MyBatis Generator で生成されたマッパーの xml ファイルがあるディレクトリ
@@ -104,6 +106,10 @@ task updateMyBatisGeneratorMapperForOptimisticLocking {
       xmlFile.write(xmlContent)
     }
   }
+}
+
+tasks.named('runMyBatisGenerator') {
+    finalizedBy 'updateMyBatisGeneratorMapperForOptimisticLocking'
 }
 
 // スネークケースをローワーキャメルケースに変換するメソッド
