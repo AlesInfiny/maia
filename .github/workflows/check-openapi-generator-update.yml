@@ -40,6 +40,7 @@ jobs:
         run: |
           echo "current-version-consumer=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
           echo "current-version-admin=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/admin/openapitools.json)" >> $GITHUB_OUTPUT
+          echo "current-version-azure-ad-b2c=$(jq -r '.["generator-cli"].version' ./samples/azure-ad-b2c-sample/auth-frontend/app/openapitools.json)" >> $GITHUB_OUTPUT
 
       - name: アップデート要否を判定
         id: check-version-update
@@ -54,6 +55,11 @@ jobs:
           else
             echo "update-required-admin=true" >> $GITHUB_OUTPUT
           fi
+          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }} ]]; then
+            echo "update-required-azure-ad-b2c=false" >> $GITHUB_OUTPUT
+          else
+            echo "update-required-azure-ad-b2c=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: サマリに出力
         run: |
@@ -65,14 +71,16 @@ jobs:
           echo "## Dressca-Admin" >> $GITHUB_STEP_SUMMARY
           echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-admin }} です。" >> $GITHUB_STEP_SUMMARY
           echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-admin }} です。">> $GITHUB_STEP_SUMMARY
-
+          echo "## "AzureADB2CAuth"" >> $GITHUB_STEP_SUMMARY
+          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c }} です。">> $GITHUB_STEP_SUMMARY
 
       - name: issue を作成（Dressca-Consumer）
         id: create-issue-consumer
         if: ${{ steps.check-version-update.outputs.update-required-consumer == 'true' }}
         uses: Wandalen/wretry.action@ffdd254f4eaf1562b8a2c66aeaa37f1ff2231179  # v3.7.3
         with:
-          action: dblock/create-a-github-issue@v3
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
           with: |
             filename: ./.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -110,7 +118,7 @@ jobs:
         if: ${{ steps.check-version-update.outputs.update-required-admin == 'true' }}
         uses: Wandalen/wretry.action@ffdd254f4eaf1562b8a2c66aeaa37f1ff2231179  # v3.7.3
         with:
-          action: dblock/create-a-github-issue@v3
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
           with: |
             filename: ./.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -131,6 +139,43 @@ jobs:
           ISSUE_URL: ${{ steps.create-issue-admin.outputs.outputs && fromJson(steps.create-issue-admin.outputs.outputs).url }}
         run: |
           echo "# issue の作成結果（Dressca-Admin）" >> $GITHUB_STEP_SUMMARY
+          if [ $STATUS = 'created' ]; then
+            echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
+          elif [ $STATUS = 'updated' ]; then
+            echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
+          echo status: $STATUS >> $GITHUB_STEP_SUMMARY
+          echo - $ISSUE_URL >> $GITHUB_STEP_SUMMARY
+
+      - name: issue を作成（AzureADB2CAuth）
+        id: create-issue-azure-ad-b2c-auth
+        if: ${{ steps.check-version-update.outputs.update-required-admin == 'true' }}
+        uses: Wandalen/wretry.action@ffdd254f4eaf1562b8a2c66aeaa37f1ff2231179  # v3.7.3
+        with:
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          with: |
+            filename: ./.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
+            update_existing: true
+            search_existing: open
+          attempt_limit: 3
+          attempt_delay: 300000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_APP_NAME: "AzureADB2CAuth"
+          LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
+          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }}
+
+      - name: issue の情報を出力（AzureADB2CAuth）
+        if: ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c  == 'true' }}
+        env:
+          STATUS: ${{ steps.create-issue-azure-ad-b2c-auth.outputs.outputs && fromJson(steps.create-issue-azure-ad-b2c-auth.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue-azure-ad-b2c-auth.outputs.outputs && fromJson(steps.create-issue-azure-ad-b2c-auth.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue-azure-ad-b2c-auth.outputs.outputs && fromJson(steps.create-issue-azure-ad-b2c-auth.outputs.outputs).url }}
+        run: |
+          echo "# issue の作成結果（AzureADB2CAuth）" >> $GITHUB_STEP_SUMMARY
           if [ $STATUS = 'created' ]; then
             echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
           elif [ $STATUS = 'updated' ]; then
