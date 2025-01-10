@@ -3,6 +3,7 @@ package com.dressca.web.consumer.log;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.log.LoggerWrapper;
@@ -19,6 +20,7 @@ public class LoggerWrapperImpl implements LoggerWrapper {
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。
+   * try ブロック内に MDC.put(key, value) で追記してください。
    * 
    * @param logAction ログを出力するメソッド。
    */
@@ -26,6 +28,7 @@ public class LoggerWrapperImpl implements LoggerWrapper {
     try {
       logAction.run();
     } finally {
+      MDC.clear();
     }
   }
 

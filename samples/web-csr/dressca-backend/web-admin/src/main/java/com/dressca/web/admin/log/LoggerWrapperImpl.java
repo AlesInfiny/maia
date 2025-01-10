@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.authorization.UserStore;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.log.LoggerWrapper;
-
 import lombok.NoArgsConstructor;
 
 /**
@@ -26,6 +25,7 @@ public class LoggerWrapperImpl implements LoggerWrapper {
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。
+   * try ブロック内に MDC.put(key, value) で追記してください。
    * 
    * @param logAction ログを出力するメソッド。
    */
@@ -34,7 +34,6 @@ public class LoggerWrapperImpl implements LoggerWrapper {
     try {
       MDC.put("userId", userName);
       // session.idを追記する
-
       logAction.run();
     } finally {
       MDC.clear();
