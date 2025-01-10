@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.batch.job.JobCompletionNotificationListener;
 import com.dressca.systemcommon.log.LoggerWrapper;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoggerWrapperImpl implements LoggerWrapper {
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static final Logger apLog = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。
