@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 買い物かごのテーブルにアクセスするためのマッパークラスです。
+ * 買い物かごのテーブルにアクセスするためのマッパーのインターフェースです。
  */
 @Mapper
 public interface JoinedBasketMapper {
