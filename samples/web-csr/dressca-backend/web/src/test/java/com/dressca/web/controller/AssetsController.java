@@ -1,4 +1,4 @@
-package com.dressca.web;
+package com.dressca.web.controller;
 
 import com.dressca.applicationcore.applicationservice.AssetApplicationService;
 import com.dressca.applicationcore.assets.Asset;
