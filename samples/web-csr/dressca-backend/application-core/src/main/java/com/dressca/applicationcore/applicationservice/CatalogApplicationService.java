@@ -50,6 +50,7 @@ public class CatalogApplicationService {
    * @param brandRepository      カタログブランドリポジトリ。
    * @param categoryRepository   カタログカテゴリリポジトリ。
    * @param catalogDomainService カタログドメインサービス。
+   * @param apLog                ロガー。
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
