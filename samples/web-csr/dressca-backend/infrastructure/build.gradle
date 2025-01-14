@@ -68,7 +68,7 @@ jar.enabled = true
   <update id="updateByExampleSelective" parameterType="map">
     <set>
       <if test="row.rowVersion != null">
-        row_version = #{row.rowVersion,jdbcType=TIMESTAMP},
+        row_version = #{row.rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE},
       </if>
     </set>
   </update>
@@ -101,7 +101,7 @@ jar.enabled = true
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
     update catalog_items
     set name = #{name,jdbcType=VARCHAR},
-      row_version = #{rowVersion,jdbcType=TIMESTAMP}
+      row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -111,7 +111,7 @@ jar.enabled = true
     set name = #{name,jdbcType=VARCHAR},
       row_version = CURRENT_TIMESTAMP
     where id = #{id,jdbcType=BIGINT}
-      and row_version = #{rowVersion,jdbcType=TIMESTAMP}
+      and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
   </update>
 */
 task updateMyBatisGeneratorMapperForOptimisticLocking {
