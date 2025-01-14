@@ -23,11 +23,16 @@ description: Vue.js を用いた フロントエンドアプリケーション�
         └─ global-error-handler.ts
 ```
 
-グローバルエラーハンドラーは、 Vue.js の [プラグイン](https://ja.vuejs.org/guide/reusability/plugins) として実装します。
+グローバルエラーハンドラーは、 Vue.js の [プラグイン :material-open-in-new:](https://ja.vuejs.org/guide/reusability/plugins){ target= blank } として実装します。
 プラグインは、アプリケーション全体で利用したい機能やコンポーネントがある場合に有用です。
 
 ??? example "グローバルエラーハンドラーの実装例"
-    Vue.js アプリケーションで発生したエラーに対するハンドリングは、 Vue.js で用意されている [app.config.errorHandler](https://ja.vuejs.org/api/application#app-config-errorhandler) に実装します。 JavaScript の構文エラーや、 Vue アプリケーション外の例外に対しては、[addEventListener()](https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener) メソッドを用いてイベントリスナーを追加することでハンドリングします。同期処理については [error](https://developer.mozilla.org/ja/docs/Web/API/Window/error_event) イベントを検知することでハンドリングし、 API 通信や I/O 処理のような非同期処理については [unhandledrejection](https://developer.mozilla.org/ja/docs/Web/API/Window/unhandledrejection_event) イベントを検知することで、ハンドリングします。
+
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
+    Vue.js アプリケーションで発生したエラーに対するハンドリングは、 Vue.js で用意されている [app.config.errorHandler :material-open-in-new:](https://ja.vuejs.org/api/application#app-config-errorhandler){ target= blank } に実装します。 JavaScript の構文エラーや、 Vue アプリケーション外の例外に対しては、[addEventListener() :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener){ target= blank } メソッドを用いてイベントリスナーを追加することでハンドリングします。同期処理については [error :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Window/error_event){ target= blank } イベントを検知することでハンドリングし、 API 通信や I/O 処理のような非同期処理については [unhandledrejection :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Window/unhandledrejection_event){ target= blank } イベントを検知することで、ハンドリングします。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
     ```ts title="global-error-handler.ts"
     import type { App, ComponentPublicInstance } from 'vue';

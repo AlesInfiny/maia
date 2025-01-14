@@ -20,7 +20,7 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 
-- `spring-boot-starter-log4j2`: Spring Boot アプリケーションで log4j 2 を使用するためのスターター
+- `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
 
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
@@ -63,7 +63,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/application-properties.html){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html){ target=_blank }
-- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/){ target=_blank }
+- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -112,7 +112,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j 2 を使用します。
+AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j2 を使用します。
 そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
 
 ``` groovy title="spring-boot-starter-logging の除外設定"
