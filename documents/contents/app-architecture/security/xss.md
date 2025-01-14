@@ -7,7 +7,11 @@ description: アプリケーションセキュリティを 担保するための
 
 ## XSS とは {#what-is-xss}
 
-[安全なウェブサイトの作り方 - 1.5 クロスサイト・スクリプティング | 情報セキュリティ | IPA 独立行政法人 情報処理推進機構](https://www.ipa.go.jp/security/vuln/websecurity/cross-site-scripting.html) より XSS の定義を以下に引用します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+[安全なウェブサイトの作り方 - 1.5 クロスサイト・スクリプティング | 情報セキュリティ | IPA 独立行政法人 情報処理推進機構 :material-open-in-new:](https://www.ipa.go.jp/security/vuln/websecurity/cross-site-scripting.html){ target=_blank } より XSS の定義を以下に引用します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 <!-- textlint-disable -->
 
@@ -42,7 +46,7 @@ description: アプリケーションセキュリティを 担保するための
     そのため、アプリケーション外から取得した値を `<a>` タグの `href` 属性に設定する場合は以下のように対策します。
 
     - http:// または https:// から始まっていない入力値は受け付けない
-    - [sanitize-url](https://www.npmjs.com/package/@braintree/sanitize-url) 等のライブラリを使用して値を無害化する
+    - [sanitize-url :material-open-in-new:](https://www.npmjs.com/package/@braintree/sanitize-url){ target=_blank } 等のライブラリを使用して値を無害化する
 
     !!! warning ""
 
