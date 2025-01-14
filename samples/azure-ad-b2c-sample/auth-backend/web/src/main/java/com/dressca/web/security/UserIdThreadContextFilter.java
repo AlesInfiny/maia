@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * ユーザーIDをthreadLocalに格納するためのフィルタークラス。
+ * ユーザー ID を threadLocal に格納するためのフィルタークラスです。
  */
 public class UserIdThreadContextFilter extends OncePerRequestFilter {
 
@@ -24,7 +24,7 @@ public class UserIdThreadContextFilter extends OncePerRequestFilter {
   public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
   /**
-   * フィルターの実行クラス。
+   * フィルターの実行クラスです。
    */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
