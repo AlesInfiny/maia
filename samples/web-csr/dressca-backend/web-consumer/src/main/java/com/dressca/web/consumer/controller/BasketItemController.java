@@ -63,7 +63,7 @@ public class BasketItemController {
    * 
    * @return 買い物かごアイテムの一覧。
    */
-  @Operation(summary = "買い物かごアイテムの一覧を取得する。", description = "買い物かごアイテムの一覧を返却する。")
+  @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BasketResponse.class))) })
   @GetMapping

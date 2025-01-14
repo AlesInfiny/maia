@@ -49,7 +49,7 @@ public class AssetsController {
    * @param assetCode アセットコード。
    * @return アセット。
    */
-  @Operation(summary = "アセットを取得する。", description = "与えられたアセットコードに対応するアセットを返却する。")
+  @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),

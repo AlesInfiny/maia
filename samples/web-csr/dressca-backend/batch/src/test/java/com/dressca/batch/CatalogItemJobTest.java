@@ -55,7 +55,7 @@ public class CatalogItemJobTest {
   }
 
   /**
-   * 各テストを実施する前のセットアップメソッド。
+   * 各テストを実施する前のセットアップメソッドです。
    * 
    * @throws IOException 例外エラー。
    */

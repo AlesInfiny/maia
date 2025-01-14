@@ -97,7 +97,7 @@
     },
     "/api/assets/{assetCode}": {
       "get": {
-        "description": "与えられたアセットコードに対応するアセットを返却する。",
+        "description": "与えられたアセットコードに対応するアセットを返却します。",
         "operationId": "get",
         "parameters": [
           {
@@ -135,7 +135,7 @@
             "description": "アセットコードに対応するアセットがない。"
           }
         },
-        "summary": "アセットを取得する。",
+        "summary": "アセットを取得します。",
         "tags": [
           "Assets"
         ]
@@ -143,7 +143,7 @@
     },
     "/api/basket-items": {
       "get": {
-        "description": "買い物かごアイテムの一覧を返却する。",
+        "description": "買い物かごアイテムの一覧を返却します。",
         "operationId": "getBasketItems",
         "responses": {
           "200": {
@@ -157,7 +157,7 @@
             "description": "成功。"
           }
         },
-        "summary": "買い物かごアイテムの一覧を取得する。",
+        "summary": "買い物かごアイテムの一覧を取得します。",
         "tags": [
           "BasketItems"
         ]
@@ -290,7 +290,7 @@
     },
     "/api/catalog-brands": {
       "get": {
-        "description": "カタログブランドの一覧を取得する。",
+        "description": "カタログブランドの一覧を取得します。",
         "operationId": "getCatalogBrands",
         "responses": {
           "200": {
@@ -307,7 +307,7 @@
             "description": "成功。"
           }
         },
-        "summary": "カタログブランドの一覧を取得する。",
+        "summary": "カタログブランドの一覧を取得します。",
         "tags": [
           "CatalogBrands"
         ]

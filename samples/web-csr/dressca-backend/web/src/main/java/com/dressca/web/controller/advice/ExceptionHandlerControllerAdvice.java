@@ -34,7 +34,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ProblemDetailsFactory problemDetailsFactory;
 
   /**
-   * 未認証エラーをステータスコード 401 で返却する。
+   * 未認証エラーをステータスコード 401 で返却します。
    *
    * @param e   未認証エラー。
    * @param req リクエスト。
@@ -48,7 +48,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * 認可エラーをステータスコード 404 で返却する。
+   * 認可エラーをステータスコード 404 で返却します。
    *
    * @param e   認可エラー。
    * @param req リクエスト。
@@ -62,7 +62,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * 楽観ロックエラーをステータスコード 409 で返却する。
+   * 楽観ロックエラーをステータスコード 409 で返却します。
    * 
    * @param e   楽観ロックエラー。
    * @param req リクエスト。
@@ -76,7 +76,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * その他の業務エラーをステータースコード 500 で返却する。
+   * その他の業務エラーをステータースコード 500 で返却します。
    *
    * @param e   業務例外。
    * @param req リクエスト。
@@ -96,7 +96,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * その他のシステムエラーをステータースコード 500 で返却する。
+   * その他のシステムエラーをステータースコード 500 で返却します。
    *
    * @param e   その他の例外。
    * @param req リクエスト。
@@ -116,7 +116,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * 上記のいずれにも当てはまらない例外をステータースコード 500 で返却する。
+   * 上記のいずれにも当てはまらない例外をステータースコード 500 で返却します。
    *
    * @param e   その他の例外。
    * @param req リクエスト。

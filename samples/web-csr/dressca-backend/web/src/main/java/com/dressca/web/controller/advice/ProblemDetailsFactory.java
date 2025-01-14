@@ -27,7 +27,7 @@ public class ProblemDetailsFactory {
   private MessageSource messages;
 
   /**
-   * エラーレスポンスに含める ProblemDetails を作成する。
+   * エラーレスポンスに含める ProblemDetails を作成します。
    *
    * @param errorBuilder 例外ビルダー。
    * @param titleId      タイトルのメッセージ ID 。

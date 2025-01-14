@@ -105,7 +105,7 @@
     },
     "/api/assets/{assetCode}": {
       "get": {
-        "description": "与えられたアセットコードに対応するアセットを返却する。",
+        "description": "与えられたアセットコードに対応するアセットを返却します。",
         "operationId": "get",
         "parameters": [
           {
@@ -142,7 +142,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "アセットを取得する。",
+        "summary": "アセットを取得します。",
         "tags": [
           "Assets"
         ]
@@ -150,7 +150,7 @@
     },
     "/api/catalog-brands": {
       "get": {
-        "description": "カタログブランドの一覧を取得する。",
+        "description": "カタログブランドの一覧を取得します。",
         "operationId": "getCatalogBrands",
         "responses": {
           "200": {
@@ -173,7 +173,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "カタログブランドの一覧を取得する。",
+        "summary": "カタログブランドの一覧を取得します。",
         "tags": [
           "CatalogBrands"
         ]

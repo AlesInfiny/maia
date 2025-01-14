@@ -151,7 +151,7 @@ public class CatalogItemsController {
       return ResponseEntity.created(URI.create("/api/catalog-items/" + addedCatalogItem.getId())).build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
-      // ここでは発生を想定していないので、システムエラーとする。
+      // ここでは発生を想定していないので、システムエラーとします。
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
   }
@@ -221,7 +221,7 @@ public class CatalogItemsController {
       return ResponseEntity.notFound().build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
-      // ここでは発生を想定していないので、システムエラーとする。
+      // ここでは発生を想定していないので、システムエラーとします。
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
     return ResponseEntity.noContent().build();
