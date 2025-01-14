@@ -19,7 +19,7 @@ description: アプリケーションセキュリティを 担保するための
 
 <!-- textlint-enable -->
 
-## AlesInfiny Maia での XSS 対策 {#measures-against-xss}
+## AlesInfiny Maia OSS Edition での XSS 対策 {#measures-against-xss}
 
 原則として以下の方針をとります。
 

@@ -108,7 +108,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-依存関係に記載している `org.springframework.boot:spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+依存関係に記載している `org.springframework.boot:spring-boot-starter-web` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
