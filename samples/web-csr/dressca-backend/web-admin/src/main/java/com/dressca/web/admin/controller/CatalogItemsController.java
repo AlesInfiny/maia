@@ -2,7 +2,7 @@ package com.dressca.web.admin.controller;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
@@ -176,7 +176,7 @@ public class CatalogItemsController {
   })
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
-      @RequestParam LocalDateTime rowVersion)
+      @RequestParam OffsetDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
       this.service.deleteItemFromCatalog(catalogItemId, rowVersion);

@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis.generated.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -336,52 +336,52 @@ public class OrderEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateEqualTo(LocalDateTime value) {
+        public Criteria andOrderDateEqualTo(OffsetDateTime value) {
             addCriterion("order_date =", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateNotEqualTo(LocalDateTime value) {
+        public Criteria andOrderDateNotEqualTo(OffsetDateTime value) {
             addCriterion("order_date <>", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateGreaterThan(LocalDateTime value) {
+        public Criteria andOrderDateGreaterThan(OffsetDateTime value) {
             addCriterion("order_date >", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateGreaterThanOrEqualTo(LocalDateTime value) {
+        public Criteria andOrderDateGreaterThanOrEqualTo(OffsetDateTime value) {
             addCriterion("order_date >=", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateLessThan(LocalDateTime value) {
+        public Criteria andOrderDateLessThan(OffsetDateTime value) {
             addCriterion("order_date <", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateLessThanOrEqualTo(LocalDateTime value) {
+        public Criteria andOrderDateLessThanOrEqualTo(OffsetDateTime value) {
             addCriterion("order_date <=", value, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateIn(List<LocalDateTime> values) {
+        public Criteria andOrderDateIn(List<OffsetDateTime> values) {
             addCriterion("order_date in", values, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateNotIn(List<LocalDateTime> values) {
+        public Criteria andOrderDateNotIn(List<OffsetDateTime> values) {
             addCriterion("order_date not in", values, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andOrderDateBetween(OffsetDateTime value1, OffsetDateTime value2) {
             addCriterion("order_date between", value1, value2, "orderDate");
             return (Criteria) this;
         }
 
-        public Criteria andOrderDateNotBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andOrderDateNotBetween(OffsetDateTime value1, OffsetDateTime value2) {
             addCriterion("order_date not between", value1, value2, "orderDate");
             return (Criteria) this;
         }

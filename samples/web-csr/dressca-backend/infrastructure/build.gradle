@@ -60,7 +60,7 @@ task updateMyBatisGeneratorMapperForOptimisticLocking {
     // 楽観ロック制御を行う列名
     def optimisticLockColumn = 'row_version'
     // 楽観ロック制御を行う列のDB上のデータ型
-    def optimisticLockJdbcType = 'TIMESTAMP'
+    def optimisticLockJdbcType = 'TIMESTAMP_WITH_TIMEZONE'
     // エンティティに変換した際の楽観ロック制御を行う列名
     def optimisticLockVariable = toLowerCamelCase(optimisticLockColumn)
 

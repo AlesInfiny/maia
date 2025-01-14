@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis.generated.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class OrderEntity {
     /**
@@ -29,7 +29,7 @@ public class OrderEntity {
      *
      * @mbg.generated
      */
-    private LocalDateTime orderDate;
+    private OffsetDateTime orderDate;
 
     /**
      *
@@ -177,7 +177,7 @@ public class OrderEntity {
      *
      * @mbg.generated
      */
-    public LocalDateTime getOrderDate() {
+    public OffsetDateTime getOrderDate() {
         return orderDate;
     }
 
@@ -189,7 +189,7 @@ public class OrderEntity {
      *
      * @mbg.generated
      */
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(OffsetDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

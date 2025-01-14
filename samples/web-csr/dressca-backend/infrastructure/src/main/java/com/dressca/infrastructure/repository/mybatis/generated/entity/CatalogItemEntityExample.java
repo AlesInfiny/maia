@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis.generated.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -656,52 +656,52 @@ public class CatalogItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionEqualTo(LocalDateTime value) {
+        public Criteria andRowVersionEqualTo(OffsetDateTime value) {
             addCriterion("row_version =", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionNotEqualTo(LocalDateTime value) {
+        public Criteria andRowVersionNotEqualTo(OffsetDateTime value) {
             addCriterion("row_version <>", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionGreaterThan(LocalDateTime value) {
+        public Criteria andRowVersionGreaterThan(OffsetDateTime value) {
             addCriterion("row_version >", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionGreaterThanOrEqualTo(LocalDateTime value) {
+        public Criteria andRowVersionGreaterThanOrEqualTo(OffsetDateTime value) {
             addCriterion("row_version >=", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionLessThan(LocalDateTime value) {
+        public Criteria andRowVersionLessThan(OffsetDateTime value) {
             addCriterion("row_version <", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionLessThanOrEqualTo(LocalDateTime value) {
+        public Criteria andRowVersionLessThanOrEqualTo(OffsetDateTime value) {
             addCriterion("row_version <=", value, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionIn(List<LocalDateTime> values) {
+        public Criteria andRowVersionIn(List<OffsetDateTime> values) {
             addCriterion("row_version in", values, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionNotIn(List<LocalDateTime> values) {
+        public Criteria andRowVersionNotIn(List<OffsetDateTime> values) {
             addCriterion("row_version not in", values, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andRowVersionBetween(OffsetDateTime value1, OffsetDateTime value2) {
             addCriterion("row_version between", value1, value2, "rowVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRowVersionNotBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andRowVersionNotBetween(OffsetDateTime value1, OffsetDateTime value2) {
             addCriterion("row_version not between", value1, value2, "rowVersion");
             return (Criteria) this;
         }

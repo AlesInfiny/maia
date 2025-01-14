@@ -13,7 +13,7 @@
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="catalog_category_id" jdbcType="BIGINT" property="catalogCategoryId" />
     <result column="catalog_brand_id" jdbcType="BIGINT" property="catalogBrandId" />
-    <result column="row_version" jdbcType="TIMESTAMP" property="rowVersion" />
+    <result column="row_version" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="rowVersion" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -145,7 +145,7 @@
       row_version)
     values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
       #{productCode,jdbcType=VARCHAR}, #{catalogCategoryId,jdbcType=BIGINT}, #{catalogBrandId,jdbcType=BIGINT}, 
-      #{rowVersion,jdbcType=TIMESTAMP})
+      #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity" useGeneratedKeys="true">
     <!--
@@ -196,7 +196,7 @@
         #{catalogBrandId,jdbcType=BIGINT},
       </if>
       <if test="rowVersion != null">
-        #{rowVersion,jdbcType=TIMESTAMP},
+        #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE},
       </if>
     </trim>
   </insert>
@@ -294,7 +294,7 @@
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
-      and row_version = #{rowVersion,jdbcType=TIMESTAMP}
+      and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
     <!--
@@ -310,6 +310,6 @@
       catalog_brand_id = #{catalogBrandId,jdbcType=BIGINT},
       row_version = CURRENT_TIMESTAMP
     where id = #{id,jdbcType=BIGINT}
-      and row_version = #{rowVersion,jdbcType=TIMESTAMP}
+      and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
   </update>
 </mapper>
