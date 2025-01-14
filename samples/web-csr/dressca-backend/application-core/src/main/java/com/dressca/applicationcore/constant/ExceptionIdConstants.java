@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.constant;
 
 /**
- * 業務例外ID用定数クラス。
+ * 業務例外 ID 用の定数クラスです。
  */
 public class ExceptionIdConstants {
 

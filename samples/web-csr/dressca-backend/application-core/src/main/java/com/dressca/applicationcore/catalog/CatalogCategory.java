@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログカテゴリのドメインモデル。
+ * カタログカテゴリのドメインモデルです。
  */
 @Data
 @NoArgsConstructor
@@ -16,6 +16,12 @@ public class CatalogCategory {
   private String name;
   private List<CatalogItem> items = List.of();
 
+  /**
+   * カタログカテゴリ名を指定して、
+   * {@link CatalogCategory} クラスのインスタンスを初期化します。
+   * 
+   * @param name カタログカテゴリ名。
+   */
   public CatalogCategory(@NonNull String name) {
     this.name = name;
   }

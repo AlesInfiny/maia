@@ -34,11 +34,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   private ProblemDetailsFactory problemDetailsFactory;
 
   /**
-   * 未認証エラーをステータスコード401で返却する。
+   * 未認証エラーをステータスコード 401 で返却します。
    *
-   * @param e   未認証エラー
-   * @param req リクエスト
-   * @return ステータースコード401のレスポンス
+   * @param e   未認証エラー。
+   * @param req リクエスト。
+   * @return ステータースコード 401 のレスポンス。
    */
   @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
   public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
@@ -48,11 +48,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * 認可エラーをステータスコード404で返却する。
+   * 認可エラーをステータスコード 404 で返却します。
    *
-   * @param e   認可エラー
-   * @param req リクエスト
-   * @return ステータースコード404のレスポンス
+   * @param e   認可エラー。
+   * @param req リクエスト。
+   * @return ステータースコード 404 のレスポンス。
    */
   @ExceptionHandler({ AuthorizationDeniedException.class, PermissionDeniedException.class })
   public ResponseEntity<String> handleAuthorizationDeniedException(
@@ -62,11 +62,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * 楽観ロックエラーをステータスコード409で返却する。
+   * 楽観ロックエラーをステータスコード 409 で返却します。
    * 
-   * @param e   楽観ロックエラー
-   * @param req リクエスト
-   * @return ステータスコード409のレスポンス
+   * @param e   楽観ロックエラー。
+   * @param req リクエスト。
+   * @return ステータスコード 409 のレスポンス。
    */
   @ExceptionHandler(OptimisticLockingFailureException.class)
   public ResponseEntity<String> handleOptimisticLockingFailureException(
@@ -76,11 +76,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * その他の業務エラーをステータースコード500で返却する。
+   * その他の業務エラーをステータースコード 500 で返却します。
    *
-   * @param e   業務例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @param e   業務例外。
+   * @param req リクエスト。
+   * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
@@ -96,11 +96,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * その他のシステムエラーをステータースコード500で返却する。
+   * その他のシステムエラーをステータースコード 500 で返却します。
    *
-   * @param e   その他の例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @param e   その他の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
@@ -116,11 +116,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * 上記のいずれにも当てはまらない例外をステータースコード500で返却する。
+   * 上記のいずれにも当てはまらない例外をステータースコード 500 で返却します。
    *
-   * @param e   その他の例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @param e   その他の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {

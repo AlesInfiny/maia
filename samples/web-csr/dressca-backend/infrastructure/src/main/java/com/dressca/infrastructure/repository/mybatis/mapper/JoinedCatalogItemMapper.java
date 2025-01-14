@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * カタログアイテムのテーブルにアクセスするためのマッパークラスです。
+ * カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。
  */
 @Mapper
 public interface JoinedCatalogItemMapper {

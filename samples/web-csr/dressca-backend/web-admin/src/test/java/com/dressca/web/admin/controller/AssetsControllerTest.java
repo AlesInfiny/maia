@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * {@link AssetsController}の動作をテストするクラスです。
+ * {@link AssetsController} の動作をテストするクラスです。
  */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)

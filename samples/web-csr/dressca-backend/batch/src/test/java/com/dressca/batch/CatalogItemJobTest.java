@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.dressca.batch.job.BatchConfiguration;
 
 /**
- * CatalogItemJobのテストです。
+ * CatalogItem の Job の動作テストクラスです。
  */
 @SpringBootTest
 @SpringBatchTest
@@ -55,12 +55,12 @@ public class CatalogItemJobTest {
   }
 
   /**
-   * 各テストを実施する前のセットアップメソッド。
+   * 各テストを実施する前のセットアップメソッドです。
    * 
-   * @throws IOException 例外エラー
+   * @throws IOException 例外エラー。
    */
   @BeforeEach
-  /* DBのテストデータと出力ファイルのクリーンアップ */
+  /* DB のテストデータと出力ファイルのクリーンアップ */
   public void clearData() throws IOException {
     jdbcTemplate.update("delete from catalog_items");
     jdbcTemplate.update("delete from catalog_item_assets");
@@ -85,7 +85,7 @@ public class CatalogItemJobTest {
   }
 
   /*
-   * ジョブのエンドツーエンドのテスト：データ10件
+   * ジョブのエンドツーエンドのテスト：データ 10 件
    */
   @Test
   public void jobTest_10data() throws Exception {
@@ -104,7 +104,7 @@ public class CatalogItemJobTest {
   }
 
   /*
-   * ステップ単位でのテスト：データ10件
+   * ステップ単位でのテスト：データ 10 件
    */
   @Test
   public void stepTest_10data() throws Exception {
@@ -118,7 +118,7 @@ public class CatalogItemJobTest {
     String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
     String outputStr = (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr = (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
+    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
     assertThat(outputStr).isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
   }
 

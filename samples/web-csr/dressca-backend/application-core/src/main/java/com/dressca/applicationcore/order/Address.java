@@ -21,7 +21,7 @@ public class Address {
   private String azanaAndOthers;
 
   /**
-   * コンストラクタ。
+   * {@link Address} クラスのインスタンスを初期化します。
    */
   public Address() {
     postalCode = StringUtils.EMPTY;

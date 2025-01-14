@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文情報を取得する際に用いるdtoクラスです。
+ * 注文情報を取得する際に用いる dto クラスです。
  */
 @Data
 @NoArgsConstructor

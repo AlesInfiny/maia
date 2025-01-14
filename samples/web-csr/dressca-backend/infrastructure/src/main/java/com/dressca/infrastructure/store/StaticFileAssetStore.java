@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
- * 静的ファイルを取り扱うアセットのストアの実装です。
+ * 静的ファイルを取り扱うアセットのストアです。
  */
 @Component
 @RequiredArgsConstructor

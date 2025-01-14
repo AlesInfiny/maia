@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 買い物かごアイテムの一覧を格納するためのdtoクラスです。
+ * 買い物かごアイテムの一覧を格納するための dto クラスです。
  */
 @Data
 @NoArgsConstructor

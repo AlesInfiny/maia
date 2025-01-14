@@ -16,8 +16,8 @@ public class BasketMapper {
   /**
    * {@link Basket} オブジェクトを {@link BasketResponse} に変換します。
    * 
-   * @param basket {@link Basket} オブジェクト
-   * @return {@link BasketResponse} オブジェクト
+   * @param basket {@link Basket} オブジェクト。
+   * @return {@link BasketResponse} オブジェクト。
    */
   public static BasketResponse convert(Basket basket) {
     if (basket == null) {
@@ -25,19 +25,17 @@ public class BasketMapper {
     }
 
     Account account = basket.getAccount();
-    AccountResponse accountDto =
-        new AccountResponse(
-            Account.CONSUMPTION_TAX_RATE, 
-            account.getItemTotalPrice(),
-            account.getDeliveryCharge(), 
-            account.getConsumptionTax(), 
-            account.getTotalPrice()
-        );
-    
+    AccountResponse accountDto = new AccountResponse(
+        Account.CONSUMPTION_TAX_RATE,
+        account.getItemTotalPrice(),
+        account.getDeliveryCharge(),
+        account.getConsumptionTax(),
+        account.getTotalPrice());
+
     List<BasketItemResponse> basketItems = basket.getItems().stream()
         .map(BasketItemMapper::convert)
         .collect(Collectors.toList());
-    
+
     return new BasketResponse(basket.getBuyerId(), accountDto, basketItems);
   }
 }

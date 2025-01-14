@@ -13,8 +13,8 @@ public class CatalogItemSummaryMapper {
   /**
    * {@link CatalogItem} オブジェクトを {@link CatalogItemSummaryResponse} に変換します。
    * 
-   * @param item {@link CatalogItem} オブジェクト
-   * @return {@link CatalogItemSummaryResponse} オブジェクト
+   * @param item {@link CatalogItem} オブジェクト。
+   * @return {@link CatalogItemSummaryResponse} オブジェクト。
    */
   public static CatalogItemSummaryResponse convert(CatalogItem item) {
     if (item == null) {

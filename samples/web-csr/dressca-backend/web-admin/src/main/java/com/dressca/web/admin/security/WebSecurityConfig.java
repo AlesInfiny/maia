@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * セキュリティ関連の実行クラス。
+ * セキュリティ関連の実行クラスです。
  */
 @Configuration
 @EnableWebSecurity
@@ -29,11 +29,11 @@ public class WebSecurityConfig {
   private DummyUserInjectionFilter dummyUserInjectionFilter;
 
   /**
-   * CORS設定、認可機能を実装。
+   * CORS 設定、認可機能を設定します。
    * 
-   * @param http 認証認可の設定クラス
-   * @return フィルターチェーン
-   * @throws Exception 例外
+   * @param http 認証認可の設定クラス。
+   * @return フィルターチェーン。
+   * @throws Exception 例外。
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

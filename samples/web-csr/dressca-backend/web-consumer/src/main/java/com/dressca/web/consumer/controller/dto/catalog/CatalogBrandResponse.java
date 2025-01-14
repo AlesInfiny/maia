@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログブランドの情報を取得する際に用いるdtoクラスです。
+ * カタログブランドの情報を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor

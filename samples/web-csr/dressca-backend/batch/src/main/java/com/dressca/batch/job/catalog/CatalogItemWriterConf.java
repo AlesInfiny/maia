@@ -11,15 +11,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
 /**
- * CatalogItemの情報をローカルのCSVに出力するWriterの設定。
+ * {@link CatalogItem} の情報をローカルの CSV に出力する Writer の設定です。
  */
 @Configuration
 public class CatalogItemWriterConf {
+
   /**
-   * CatalogItemデータをCSVに出力するWriter。
+   * {@link CatalogItem} のデータを CSV に出力する Writer を設定します。
    * 
-   * @param output 出力ファイル名.Jobパラメータから取得される.
-   * @throws Exception ジョブ実行時の例外
+   * @param output 出力ファイル名。 Job パラメータから取得します。
+   * @return フラットファイルに書き込む Writer 。
+   * @throws Exception ジョブ実行時の例外。
    */
   @Bean
   @StepScope
@@ -28,7 +30,7 @@ public class CatalogItemWriterConf {
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
     FileSystemResource outputResource;
     if (output == null || "".equals(output)) {
-      // 出力ファイル名がJobパラメータで設定されていない場合
+      // 出力ファイル名が Job パラメータで設定されていない場合
       outputResource = new FileSystemResource("output/outputData.csv");
     } else {
       outputResource = new FileSystemResource("output/" + output);

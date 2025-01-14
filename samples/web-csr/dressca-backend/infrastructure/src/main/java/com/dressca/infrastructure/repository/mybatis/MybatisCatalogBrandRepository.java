@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
 /**
- * カタログブランドリポジトリ。
+ * カタログブランドのリポジトリです。
  */
 @Repository
 @AllArgsConstructor

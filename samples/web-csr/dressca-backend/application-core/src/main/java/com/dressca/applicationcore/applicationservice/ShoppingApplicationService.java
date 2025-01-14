@@ -53,10 +53,10 @@ public class ShoppingApplicationService {
   /**
    * 買い物かごに商品を追加します。
    * 
-   * @param buyerId       顧客ID
-   * @param catalogItemId カタログ商品ID
-   * @param quantity      数量
-   * @throws CatalogNotFoundException 存在しないカタログ商品が指定された場合
+   * @param buyerId       購入者 ID 。
+   * @param catalogItemId カタログアイテム ID 。
+   * @param quantity      数量。
+   * @throws CatalogNotFoundException 存在しないカタログアイテムが指定された場合。
    */
   public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
       throws CatalogNotFoundException {
@@ -79,10 +79,10 @@ public class ShoppingApplicationService {
   /**
    * 買い物かご内の商品の数量を設定します。
    * 
-   * @param buyerId    顧客ID
-   * @param quantities キーにカタログ商品ID、値に数量を設定したMap
-   * @throws CatalogNotFoundException             存在しないカタログ商品が指定された場合
-   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合
+   * @param buyerId    購入者 ID 。
+   * @param quantities キーにカタログアイテム ID 、値に数量を設定した Map 。
+   * @throws CatalogNotFoundException             存在しないカタログアイテムが指定された場合。
+   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合。
    */
   public void setQuantities(String buyerId, Map<Long, Integer> quantities)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
@@ -116,10 +116,10 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 顧客IDに対応する買い物かごと情報とその商品一覧を取得します。
+   * 購入者 ID に対応する買い物かごと情報とその商品一覧を取得します。
    * 
-   * @param buyerId 顧客ID
-   * @return 買い物かごとその商品一覧
+   * @param buyerId 購入者 ID 。
+   * @return 買い物かごとその商品一覧。
    */
   public BasketDetail getBasketDetail(String buyerId) {
 
@@ -137,10 +137,10 @@ public class ShoppingApplicationService {
   /**
    * 注文を確定します。
    * 
-   * @param buyerId       顧客ID
-   * @param shipToAddress お届け先
-   * @return 作成した注文情報
-   * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合
+   * @param buyerId       購入者 ID 。
+   * @param shipToAddress お届け先。
+   * @return 作成した注文情報。
+   * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
@@ -166,10 +166,10 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 顧客IDに対応する買い物かご情報を取得するか、無ければ新規作成します。
+   * 購入者 ID に対応する買い物かご情報を取得するか、無ければ新規作成します。
    * 
-   * @param buyerId 顧客ID
-   * @return 買い物かご情報
+   * @param buyerId 購入者 ID 。
+   * @return 買い物かご情報。
    */
   private Basket getOrCreateBasketForUser(String buyerId) {
     if (StringUtils.isBlank(buyerId)) {
@@ -179,11 +179,25 @@ public class ShoppingApplicationService {
     return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
   }
 
+  /**
+   * 購入者 ID を指定して、
+   * {@link Basket} クラスを新規で作成します。
+   * 
+   * @param buyerId 購入者 ID 。
+   * @return 買い物かご。
+   */
   private Basket createBasket(String buyerId) {
     Basket basket = new Basket(buyerId);
     return this.basketRepository.add(basket);
   }
 
+  /**
+   * 買い物かごアイテムを注文アイテムに変換します。
+   * 
+   * @param basketItem   買い物かごアイテム。
+   * @param catalogItems カタログアイテムのリスト。
+   * @return 変換された注文アイテム。
+   */
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
         .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst()

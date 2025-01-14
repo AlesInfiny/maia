@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログにアイテムを追加する際に用いるdtoクラスです。
+ * カタログにアイテムを追加する際に用いる dto クラスです。
  */
 @Data
 @NoArgsConstructor

@@ -21,7 +21,7 @@ import com.dressca.batch.job.catalog.CatalogItemProcessor;
 import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 
 /**
- * Jobの定義と各種設定を行うクラス。
+ * Job の定義と各種設定を行うクラスです。
  */
 @Configuration
 @ComponentScan(basePackages = { "com.dressca" })
@@ -29,9 +29,12 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 public class BatchConfiguration {
 
   /**
-   * catalogItem_tasklet_job用のstepの設定。
-   *
-   * @param catalogItemTasklet ステップで実行するTasklet
+   * catalogItem_tasklet_job 用の step を設定します。
+   * 
+   * @param jobRepository      ジョブのリポジトリ。
+   * @param transactionManager トランザクションマネージャー。
+   * @param catalogItemTasklet ステップで実行する Tasklet 。
+   * @return ステップ。
    */
   @Bean
   public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
@@ -41,9 +44,11 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_tasklet_jobの設定。
-   *
-   * @param step1 ジョブで実行するstep
+   * catalogItem_tasklet_job を設定します。
+   * 
+   * @param jobRepository ジョブのリポジトリ。
+   * @param step1         ジョブで実行する step 。
+   * @return ジョブ。
    */
   @Bean
   public Job catalogItem_tasklet_job(JobRepository jobRepository, @Qualifier("catalogItem_tasklet_step1") Step step1) {
@@ -52,18 +57,21 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_job用のstepの設定。
+   * catalogItem_job 用の step を設定します。
    * 
-   * @param catalogItemReader    ステップで実行するReader
-   * @param catalogItemProcessor ステップで実行するProcessor
-   * @param catalogItemWriter    ステップで実行するWriter
+   * @param jobRepository        ジョブのリポジトリ。
+   * @param transactionManager   トランザクションマネージャー。
+   * @param catalogItemReader    ステップで実行する Reader 。
+   * @param catalogItemProcessor ステップで実行する Processor 。
+   * @param catalogItemWriter    ステップで実行する Writer 。
+   * @return ステップ。
    */
   @Bean
   public Step catalogItem_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
       MyBatisPagingItemReader<CatalogItem> catalogItemReader,
       CatalogItemProcessor catalogItemProcessor,
       FlatFileItemWriter<CatalogItem> catalogItemWriter) {
-    // 複数のProcessorを連結する場合は下記のようにCompositeItemProcessorを利用する
+    // 複数の Processor を連結する場合は下記のように CompositeItemProcessor を利用する
     // CompositeItemProcessor<CatalogItemEntity, CatalogItem> compositeProcessor =
     // new CompositeItemProcessor<CatalogItemEntity, CatalogItem>();
     // List<ItemProcessor<?, ?>> itemProcessors = new ArrayList<>();
@@ -76,24 +84,26 @@ public class BatchConfiguration {
         .processor(catalogItemProcessor).writer(catalogItemWriter)
         // .faultTolerant()
         // .skipLimit(10)
-        // スキップ可能例外の指定（リトライ設定の場合は代わりにretryで指定する）
+        // スキップ可能例外の指定（リトライ設定の場合は代わりに retry で指定する）
         // .skip(Exception.class)
-        // スキップ不可例外の指定（リトライ設定の場合は代わりにnoRetryで指定する）
+        // スキップ不可例外の指定（リトライ設定の場合は代わりに noRetry で指定する）
         // .noSkip(FileNotFoundException.class)
         .build();
   }
 
   /**
-   * catalogItem_job用の設定。
+   * catalogItem_job を設定します。
    * 
-   * @param listener 設定するListener
-   * @param step1    ジョブで実行するstep
+   * @param listener      設定する Listener 。
+   * @param jobRepository ジョブのリポジトリ。
+   * @param step1         ジョブで実行する step 。
+   * @return ジョブ。
    */
   @Primary
   @Bean
   public Job catalogItem_job(JobCompletionNotificationListener listener,
       JobRepository jobRepository, @Qualifier("catalogItem_step1") Step step1) {
-    // ジョブパラメータにrun.idを自動的に付与、未指定時自動でrun.idがインクリメントされる
+    // ジョブパラメータに run.id を自動的に付与、未指定時自動で run.id がインクリメントされる
     // ジョブパラメータの衝突を自動回避する設定
     return new JobBuilder("catalogItem_job", jobRepository).incrementer(new RunIdIncrementer())
         .listener(listener).flow(step1).end().build();

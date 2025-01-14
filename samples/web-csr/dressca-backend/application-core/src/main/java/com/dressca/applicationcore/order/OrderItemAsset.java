@@ -17,10 +17,10 @@ public class OrderItemAsset {
   private OrderItem orderItem;
 
   /**
-   * コンストラクタ。
+   * {@link OrderItemAsset} クラスのインスタンスを初期化します。
    * 
-   * @param assetCode   アセットコード.
-   * @param orderItemId 注文アイテムId.
+   * @param assetCode   アセットコード。
+   * @param orderItemId 注文アイテム ID 。
    */
   public OrderItemAsset(String assetCode, long orderItemId) {
     this.assetCode = assetCode;

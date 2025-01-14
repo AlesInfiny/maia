@@ -4,16 +4,16 @@ import java.util.Optional;
 import org.springframework.core.io.Resource;
 
 /**
- * アセットのストア。
+ * アセットのストアのインターフェースです。
  */
 public interface AssetStore {
 
   /**
    * 指定したアセット情報のリソースオブジェクトを取得します。
-   * 見つからない場合は 空のOptional を返します。
+   * 見つからない場合は 空の Optional を返します。
    * 
    * @param asset アセット情報。
-   * @return リソースオブジェクト。見つからない場合は 空のOptional。
+   * @return リソースオブジェクト。見つからない場合は 空の Optional 。
    */
   Optional<Resource> getResource(Asset asset);
 }

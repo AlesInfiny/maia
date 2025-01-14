@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * ユーザー情報を取得する際に用いるdtoクラスです。
+ * ユーザー情報を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor

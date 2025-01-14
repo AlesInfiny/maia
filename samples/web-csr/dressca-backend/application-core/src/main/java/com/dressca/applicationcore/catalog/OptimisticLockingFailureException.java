@@ -9,10 +9,10 @@ import com.dressca.systemcommon.exception.LogicException;
 public class OptimisticLockingFailureException extends LogicException {
 
   /**
-   * カタログアイテムidを指定して、
+   * カタログアイテム ID を指定して、
    * {@link OptimisticLockingFailureException} クラスの新しいインスタンスを初期化します。
    * 
-   * @param catalogItemId 更新処理を試みたカタログアイテムid
+   * @param catalogItemId 更新処理を試みたカタログアイテム ID 。
    */
   public OptimisticLockingFailureException(long catalogItemId) {
     super(

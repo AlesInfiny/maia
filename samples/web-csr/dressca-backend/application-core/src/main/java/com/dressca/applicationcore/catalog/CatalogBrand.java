@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログブランドのドメインモデル。
+ * カタログブランドのドメインモデルです。
  * カタログアイテムの製造元や企画元に基づいて定義されるブランドを表現します。
  */
 @Data
@@ -18,6 +18,12 @@ public class CatalogBrand {
   private String name;
   private List<CatalogItem> items = new ArrayList<>();
 
+  /**
+   * カタログブランド名を指定して、
+   * {@link CatalogBrand} クラスのインスタンスを初期化します。
+   * 
+   * @param name カタログブランド名。
+   */
   public CatalogBrand(@NonNull String name) {
     this.name = name;
   }

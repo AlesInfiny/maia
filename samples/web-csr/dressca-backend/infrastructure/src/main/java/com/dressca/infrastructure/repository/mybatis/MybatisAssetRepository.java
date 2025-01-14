@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
 /**
- * アセットリポジトリ。
+ * アセットのリポジトリです。
  */
 @Repository
 @AllArgsConstructor

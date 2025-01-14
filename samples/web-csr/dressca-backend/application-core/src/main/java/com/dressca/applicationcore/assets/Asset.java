@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * アセットのドメインモデル。
+ * アセットのドメインモデルです。
  */
 @Data
 @NoArgsConstructor
@@ -22,10 +22,10 @@ public class Asset {
   private String assetType;
 
   /**
-   * コンストラクタ。
+   * {@link Asset} クラスのインスタンスを初期化します。
    * 
-   * @param assetCode アセットコード
-   * @param assetType アセットタイプ
+   * @param assetCode アセットコード。
+   * @param assetType アセットタイプ。
    */
   public Asset(@NonNull String assetCode, @NonNull String assetType) {
     this.assetCode = assetCode;
@@ -40,9 +40,9 @@ public class Asset {
   }
 
   /**
-   * コンストラクタ。
+   * アセットタイプをセットします。
    * 
-   * @param assetType アセットタイプ
+   * @param assetType アセットタイプ。
    */
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {

@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.constant;
 
 /**
- * 業務メッセージID用定数クラス。
+ * 業務メッセージ ID 用の定数クラスです。
  */
 public class MessageIdConstants {
 

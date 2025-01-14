@@ -11,8 +11,8 @@ public class CatalogBrandMapper {
   /**
    * {@link CatalogBrand} オブジェクトを {@link GetCatalogBrandsResponse} に変換します。
    * 
-   * @param catalogBrand オブジェクト
-   * @return {@link GetCatalogBrandsResponse} オブジェクト
+   * @param catalogBrand オブジェクト。
+   * @return {@link GetCatalogBrandsResponse} オブジェクト。
    */
   public static GetCatalogBrandsResponse convert(CatalogBrand catalogBrand) {
     if (catalogBrand == null) {

@@ -8,7 +8,7 @@ import jakarta.annotation.PreDestroy;
 import java.sql.SQLException;
 
 /**
- * 開発環境でh2データベースを立ち上げるためのクラスです。
+ * 開発環境で h2 データベースを立ち上げるためのクラスです。
  */
 @Component
 @Profile("local")
@@ -17,7 +17,7 @@ public class H2ServerLauncher {
   private Server tcpServer;
 
   /**
-   * h2サーバをサーバーモードで起動します。
+   * h2 サーバをサーバーモードで起動します。
    */
   @PostConstruct
   public void start() {
@@ -29,7 +29,7 @@ public class H2ServerLauncher {
   }
 
   /**
-   * h2サーバを停止します。
+   * h2 サーバを停止します。
    */
   @PreDestroy
   public void stop() {

@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.DisplayName;
 
+/**
+ * {@link WebApplication} の動作をテストするクラスです。
+ */
 @SpringBootTest
 class WebApplicationTests {
 

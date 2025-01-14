@@ -14,23 +14,21 @@ public class OrderItemMapper {
   /**
    * {@link OrderItem} オブジェクトを {@link OrderItemResponse} に変換します。
    * 
-   * @param item {@link OrderItem} オブジェクト
-   * @return {@link OrderItemResponse} オブジェクト
+   * @param item {@link OrderItem} オブジェクト。
+   * @return {@link OrderItemResponse} オブジェクト。
    */
   public static OrderItemResponse convert(OrderItem item) {
     return new OrderItemResponse(
-        item.getId(), 
+        item.getId(),
         new CatalogItemSummaryResponse(
-            item.getItemOrdered().getCatalogItemId(), 
-            item.getItemOrdered().getProductName(), 
+            item.getItemOrdered().getCatalogItemId(),
+            item.getItemOrdered().getProductName(),
             item.getItemOrdered().getProductCode(),
             item.getAssets().stream()
                 .map(OrderItemAsset::getAssetCode)
-                .collect(Collectors.toList())
-            ), 
+                .collect(Collectors.toList())),
         item.getQuantity(),
-        item.getUnitPrice(), 
-        item.getSubTotal()
-    );
+        item.getUnitPrice(),
+        item.getSubTotal());
   }
 }

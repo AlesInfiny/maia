@@ -20,7 +20,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 
 /**
- * catalog_item_tasklet_jobで実行されるTaskletクラス。
+ * catalog_item_tasklet_job で実行される Tasklet クラスです。
  */
 @Component
 @StepScope
@@ -33,10 +33,10 @@ public class CatalogItemTasklet implements Tasklet {
 
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-    // DBからCatalogItemを全件取得
+    // DB から CatalogItem を全件取得
     List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
-    // 商品名を先頭10文字にする
+    // 商品名を先頭 10 文字にする
     catalogItemList.forEach(it -> {
       CatalogItem item = new CatalogItem();
       BeanUtils.copyProperties(it, item);
@@ -47,7 +47,7 @@ public class CatalogItemTasklet implements Tasklet {
       convertedList.add(item);
     });
 
-    // CSVへ出力するwriterの準備
+    // CSV へ出力する writer の準備
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
     FileSystemResource outputResource;
     if (output == null || "".equals(output)) {
@@ -67,7 +67,7 @@ public class CatalogItemTasklet implements Tasklet {
         });
       }
     });
-    // CSV出力
+    // CSV 出力
     writer.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());
     writer.write(new Chunk<>(convertedList));
     writer.close();
