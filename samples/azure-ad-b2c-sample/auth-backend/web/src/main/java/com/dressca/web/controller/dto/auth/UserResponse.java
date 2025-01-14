@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ログインに成功した際のユーザIDを格納するクラス。
+ * ログインに成功した際のユーザ ID を格納するクラスです。
  */
 @Data
 @NoArgsConstructor

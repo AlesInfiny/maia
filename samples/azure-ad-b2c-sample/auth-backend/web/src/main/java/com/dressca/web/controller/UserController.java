@@ -18,26 +18,25 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
- * Azure AD B2Cに接続するためのコントローラークラス。
+ * Azure AD B2C に接続するためのコントローラークラスです。
  */
 @RestController
-@Tag(name = "User", description = "認証済みユーザのユーザIDを取得するAPI")
+@Tag(name = "User", description = "認証済みユーザのユーザ ID を取得する API")
 @RequestMapping("/api/user")
 public class UserController {
 
   /**
-   * ログイン時のメッセージ取得。
+   * ログイン時のメッセージを取得します。
    * 
-   * @return レスポンス
-   * @throws Exception 例外
+   * @return レスポンス。
+   * @throws Exception 例外。
    */
-  @Operation(summary = "ログインに成功したユーザIDを取得します.", description = "ログインに成功したユーザIDを取得します.", security = {
+  @Operation(summary = "ログインに成功したユーザ ID を取得します。", description = "ログインに成功したユーザ ID を取得します。", security = {
       @SecurityRequirement(name = "Bearer") })
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
-      @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
+      @ApiResponse(responseCode = "401", description = "未認証エラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
-
   @GetMapping
   @CrossOrigin
   @PreAuthorize(value = "isAuthenticated()")
