@@ -29,7 +29,7 @@ public class WebSecurityConfig {
   private DummyUserInjectionFilter dummyUserInjectionFilter;
 
   /**
-   * CORS 設定、認可機能の設定を Bean 登録します。
+   * CORS 設定、認可機能を設定します。
    * 
    * @param http 認証認可の設定クラス。
    * @return フィルターチェーン。
