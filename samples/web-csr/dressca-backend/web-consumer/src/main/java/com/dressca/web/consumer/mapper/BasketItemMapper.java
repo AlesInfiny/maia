@@ -11,8 +11,8 @@ public class BasketItemMapper {
   /**
    * {@link BasketItem} オブジェクトを {@link BasketItemResponse} に変換します。
    * 
-   * @param basketItem {@link BasketItem} オブジェクト
-   * @return {@link BasketItemResponse} オブジェクト
+   * @param basketItem {@link BasketItem} オブジェクト。
+   * @return {@link BasketItemResponse} オブジェクト。
    */
   public static BasketItemResponse convert(BasketItem basketItem) {
     if (basketItem == null) {
@@ -20,11 +20,10 @@ public class BasketItemMapper {
     }
 
     return new BasketItemResponse(
-        basketItem.getCatalogItemId(), 
+        basketItem.getCatalogItemId(),
         basketItem.getUnitPrice(),
-        basketItem.getQuantity(), 
-        basketItem.getSubtotal(), 
-        null
-    );
+        basketItem.getQuantity(),
+        basketItem.getSubtotal(),
+        null);
   }
 }
