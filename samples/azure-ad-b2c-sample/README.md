@@ -213,11 +213,20 @@ auth-frontend
 
 ### 動作確認
 
-1. VS Code で `auth-backend` のフォルダーへ移動します。
-1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
-    - web > Tasks > application > bootRun
-1. VS Code で `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
-1. ターミナルで `npm run dev` を実行します。
+1. VS Code で `auth-backend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    .\gradlew build
+    .\gradlew web:bootRun
+    ```
+
+1. VS Code で `auth-frontend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    npm install
+    npm run dev:app
+    ```
+
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
 1. 画面の「 `ログイン` 」をクリックします。 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
