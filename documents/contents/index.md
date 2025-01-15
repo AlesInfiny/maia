@@ -77,12 +77,12 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 
     ```winbatch title="開発モードでのフロントエンドアプリケーションの実行"
     # 開発モードでの実行
-    npm run dev
+    npm run dev:consumer
     ```
 
     ```winbatch title="モックモードでのフロントエンドアプリケーションの実行"
     # モックモードでの実行
-    npm run mock
+    npm run mock:consumer
     ```
 
 1. ブラウザーを開き、以下のアドレスにアクセスします。
