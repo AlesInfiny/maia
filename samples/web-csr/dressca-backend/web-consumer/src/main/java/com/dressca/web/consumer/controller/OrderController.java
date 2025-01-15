@@ -9,7 +9,7 @@ import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.consumer.controller.dto.order.OrderResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;
@@ -56,7 +56,7 @@ public class OrderController {
   private ProblemDetailsFactory problemDetailsFactory;
 
   @Autowired
-  private LoggerWrapper apLog;
+  private DresscaLogger apLog;
 
   /**
    * 注文情報を取得します。

@@ -6,7 +6,7 @@ import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Autowired
-  private LoggerWrapper apLog;
+  private DresscaLogger apLog;
 
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;

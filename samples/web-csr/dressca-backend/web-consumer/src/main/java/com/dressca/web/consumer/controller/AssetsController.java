@@ -8,7 +8,7 @@ import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Locale;
@@ -52,7 +52,7 @@ public class AssetsController {
   private MessageSource messages;
 
   @Autowired
-  private LoggerWrapper apLog;
+  private DresscaLogger apLog;
 
   /**
    * アセットを取得します。

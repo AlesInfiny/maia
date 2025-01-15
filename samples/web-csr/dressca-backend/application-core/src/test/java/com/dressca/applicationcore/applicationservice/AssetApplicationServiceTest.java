@@ -24,7 +24,7 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。
@@ -41,7 +41,7 @@ public class AssetApplicationServiceTest {
   @Autowired
   private MessageSource messages;
   @Mock
-  private LoggerWrapper apLog;
+  private DresscaLogger apLog;
 
   private AssetApplicationService service;
 

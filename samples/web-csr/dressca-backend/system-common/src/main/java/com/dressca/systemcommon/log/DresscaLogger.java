@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * コンテキストにログ出力を保持させるためのラッパークラスのインターフェースです。
  */
-public interface LoggerWrapper {
+public interface DresscaLogger {
 
   public void debug(String msg);
 

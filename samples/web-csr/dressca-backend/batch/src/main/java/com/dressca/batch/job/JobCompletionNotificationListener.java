@@ -1,4 +1,3 @@
-
 package com.dressca.batch.job;
 
 import org.springframework.batch.core.BatchStatus;
@@ -6,7 +5,7 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 
 /**
  * ジョブの完了を通知するためのクラスです。
@@ -15,7 +14,7 @@ import com.dressca.systemcommon.log.LoggerWrapper;
 public class JobCompletionNotificationListener implements JobExecutionListener {
 
   @Autowired
-  private LoggerWrapper apLog;
+  private DresscaLogger apLog;
 
   @Override
   public void afterJob(JobExecution jobExecution) {

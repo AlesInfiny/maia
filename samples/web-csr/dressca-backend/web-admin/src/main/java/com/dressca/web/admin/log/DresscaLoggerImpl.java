@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.authorization.UserStore;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.log.DresscaLogger;
 import lombok.NoArgsConstructor;
 
 /**
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  */
 @Component
 @NoArgsConstructor
-public class LoggerWrapperImpl implements LoggerWrapper {
+public class DresscaLoggerImpl implements DresscaLogger {
 
   @Autowired
   private UserStore userStore;
@@ -33,7 +33,7 @@ public class LoggerWrapperImpl implements LoggerWrapper {
     String userName = userStore.getLoginUserName();
     try {
       MDC.put("userId", userName);
-      // session.idを追記する
+      MDC.put("sessionId", null);
       logAction.run();
     } finally {
       MDC.clear();

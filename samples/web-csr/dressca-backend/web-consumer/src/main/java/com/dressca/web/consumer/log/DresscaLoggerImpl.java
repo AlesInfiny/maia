@@ -1,12 +1,12 @@
-package com.dressca.batch.log;
+package com.dressca.web.consumer.log;
 
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import com.dressca.batch.job.JobCompletionNotificationListener;
-import com.dressca.systemcommon.log.LoggerWrapper;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.log.DresscaLogger;
 import lombok.NoArgsConstructor;
 
 /**
@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
  */
 @Component
 @NoArgsConstructor
-public class LoggerWrapperImpl implements LoggerWrapper {
+public class DresscaLoggerImpl implements DresscaLogger {
 
-  private static final Logger apLog = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。
@@ -26,6 +26,7 @@ public class LoggerWrapperImpl implements LoggerWrapper {
    */
   private void logWithMdc(Runnable logAction) {
     try {
+      // key-value の組を追加してください
       logAction.run();
     } finally {
       MDC.clear();
