@@ -26,6 +26,8 @@ import type { BasketResponse } from '../models';
 // @ts-ignore
 import type { PostBasketItemsRequest } from '../models';
 // @ts-ignore
+import type { ProblemDetail } from '../models';
+// @ts-ignore
 import type { PutBasketItemsRequest } from '../models';
 /**
  * BasketItemsApi - axios parameter creator

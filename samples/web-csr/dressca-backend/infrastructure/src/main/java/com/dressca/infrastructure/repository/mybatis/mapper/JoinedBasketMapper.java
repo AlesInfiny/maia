@@ -13,5 +13,4 @@ public interface JoinedBasketMapper {
   Basket findById(@Param("id") long id);
 
   Basket findByBuyerId(@Param("buyerId") String buyerId);
-
 }

@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -48,6 +49,7 @@ import com.dressca.applicationcore.order.ShipTo;
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock
@@ -100,7 +102,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.catalogDomainService, times(1)).getExistCatalogItems(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
-
   }
 
   @Test
@@ -132,7 +133,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().size()).isEqualTo(0);
-
   }
 
   @Test
@@ -162,7 +162,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -188,7 +187,6 @@ public class ShoppingApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
-
   }
 
   @Test
@@ -217,7 +215,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
-
   }
 
   @Test
@@ -245,7 +242,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -274,7 +270,6 @@ public class ShoppingApplicationServiceTest {
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     }
-
   }
 
   @Test
@@ -300,7 +295,6 @@ public class ShoppingApplicationServiceTest {
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
-
   }
 
   @ParameterizedTest
@@ -315,7 +309,6 @@ public class ShoppingApplicationServiceTest {
     }
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(0)).findByCatalogItemIdIn(any());
-
   }
 
   @Test
@@ -339,7 +332,6 @@ public class ShoppingApplicationServiceTest {
     verify(this.orderRepository, times(1)).add(any());
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).remove(basket);
-
   }
 
   @Test
@@ -355,7 +347,6 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);
-
   }
 
   private ShipTo createDefaultShipTo() {

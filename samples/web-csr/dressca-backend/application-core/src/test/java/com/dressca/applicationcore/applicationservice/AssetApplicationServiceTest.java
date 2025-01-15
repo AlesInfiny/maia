@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,6 +17,7 @@ import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfigura
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
@@ -29,6 +29,7 @@ import com.dressca.applicationcore.assets.AssetStore;
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
 @ExtendWith(SpringExtension.class)
+@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
@@ -47,8 +48,7 @@ public class AssetApplicationServiceTest {
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_01_正常系_存在するアセットコード")
-  void testGetAssetResourceInfo_01_正常系_存在するアセットコード() throws AssetNotFoundException {
+  void testGetAssetResourceInfo_正常系_存在するアセットコード() throws AssetNotFoundException {
     // テスト用の入力データ
     String assetCode = "ExistAssetCode";
 
@@ -66,12 +66,10 @@ public class AssetApplicationServiceTest {
     // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(1)).findByAssetCode(assetCode);
     verify(this.store, times(1)).getResource(asset);
-
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_02_異常系_リポジトリに存在しないアセットコード")
-  void testGetAssetResourceInfo_02_異常系_リポジトリに存在しないアセットコード() {
+  void testGetAssetResourceInfo_異常系_リポジトリに存在しないアセットコード() {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
@@ -86,12 +84,10 @@ public class AssetApplicationServiceTest {
       // モックが想定通り呼び出されていることの確認
       verify(this.repository, times(1)).findByAssetCode(assetCode);
     }
-
   }
 
   @Test
-  @DisplayName("testGetAssetResourceInfo_03_異常系_ストアに存在しないアセットコード")
-  void testGetAssetResourceInfo_03_異常系_ストアに存在しないアセットコード() {
+  void testGetAssetResourceInfo_異常系_ストアに存在しないアセットコード() {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
@@ -111,6 +107,5 @@ public class AssetApplicationServiceTest {
       verify(this.repository, times(1)).findByAssetCode(assetCode);
       verify(this.store, times(1)).getResource(asset);
     }
-
   }
 }

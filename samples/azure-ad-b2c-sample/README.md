@@ -213,11 +213,20 @@ auth-frontend
 
 ### 動作確認
 
-1. VS Code で `auth-backend` のフォルダーへ移動します。
-1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
-    - web > Tasks > application > bootRun
-1. VS Code で `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
-1. ターミナルで `npm run dev` を実行します。
+1. VS Code で `auth-backend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    ./gradlew build
+    ./gradlew web:bootRun
+    ```
+
+1. VS Code で `auth-frontend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    npm ci
+    npm run dev:app
+    ```
+
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
 1. 画面の「 `ログイン` 」をクリックします。 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
@@ -246,8 +255,8 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     ext {
-      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
+      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
 
       supportDependencies = [
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",

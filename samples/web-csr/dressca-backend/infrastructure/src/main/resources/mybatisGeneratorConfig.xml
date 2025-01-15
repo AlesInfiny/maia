@@ -11,6 +11,11 @@
                         connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
                         userId=""
                         password="" />
+        <!-- エンティティを生成する際に、TIMESTAMP型をLocalDateTime型にするためにjavaTypeResolverを設定する
+        未設定だとTIMESTAMP型はDate型に変換される -->
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
         <javaModelGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.entity"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java" />

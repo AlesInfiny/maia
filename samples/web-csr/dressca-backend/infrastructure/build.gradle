@@ -34,9 +34,91 @@ dependencies {
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 }
 
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
 bootJar.enabled = false
 jar.enabled = true
+
+task updateMyBatisGeneratorMapperForOptimisticLocking {
+  doLast {
+
+    // MyBatis Generator で生成されたマッパーの xml ファイルがあるディレクトリ
+    def generatedDirectory = 'src/main/resources/com/dressca/infrastructure/repository/mybatis/generated/mapper/'
+
+    // 楽観ロック対応させるマッパーの xml ファイルのリスト
+    def xmlFilePaths = ['CatalogItemMapper.xml']
+
+    // 楽観ロック制御を行う列名
+    def optimisticLockColumn = 'row_version'
+    // 楽観ロック制御を行う列のDB上のデータ型
+    def optimisticLockJdbcType = 'TIMESTAMP'
+    // エンティティに変換した際の楽観ロック制御を行う列名
+    def optimisticLockVariable = toLowerCamelCase(optimisticLockColumn)
+
+    xmlFilePaths.each { path ->
+
+      def xmlFile = file(generatedDirectory + path)
+      def xmlContent = xmlFile.text
+
+      // 正規表現と置換のペアをリストにまとめる
+      def replacements = [
+        [ /(<update id="updateByExampleSelective"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}},)/,
+          "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP," ],
+        [ /(<update id="updateByExample"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})/,
+          "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP" ],
+        [ /(<update id="updateByPrimaryKeySelective"[\s\S]*?)(${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}},)/,
+          "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP," ],
+        [ /(<update id="updateByPrimaryKeySelective"(?:(?!and ${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})[\s\S])*?)(<\/update>)/,
+          "\$1    and ${optimisticLockColumn} = #{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}}\n  \$2" ],
+        [ /(<update id="updateByPrimaryKey"(?:(?!${optimisticLockColumn} = CURRENT_TIMESTAMP)[\s\S])*?)(${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})/,
+          "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP" ],
+        [ /(<update id="updateByPrimaryKey"(?:(?!and ${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})[\s\S])*?)(<\/update>)/,
+          "\$1    and ${optimisticLockColumn} = #{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}}\n  \$2" ]
+      ]
+
+      // 置換処理をループで実行
+      replacements.each { pattern, replacement ->
+        xmlContent = xmlContent.replaceAll(pattern, replacement)
+      }
+
+      xmlFile.write(xmlContent)
+    }
+  }
+}
+
+// スネークケースをローワーキャメルケースに変換するメソッド
+String toLowerCamelCase(String snakeCase) {
+  StringBuilder camelCase = new StringBuilder()
+  boolean nextCharUpperCase = false
+
+  for (int i = 0; i < snakeCase.length(); i++) {
+    char currentChar = snakeCase.charAt(i)
+
+    if (currentChar == '_') {
+      nextCharUpperCase = true
+    } else {
+      if (nextCharUpperCase) {
+        camelCase.append(Character.toUpperCase(currentChar))
+        nextCharUpperCase = false
+      } else {
+        camelCase.append(currentChar)
+      }
+    }
+  }
+
+  // 最初の文字を小文字にする
+  if (camelCase.length() > 0) {
+    camelCase.setCharAt(0, Character.toLowerCase(camelCase.charAt(0)))
+  }
+
+  return camelCase.toString()
+}

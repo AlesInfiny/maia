@@ -8,12 +8,15 @@ import {
 import { showToast } from '@/services/notification/notificationService';
 import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
+import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
 import Loading from '@/components/common/LoadingSpinner.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const state = reactive({
   showLoading: true,
@@ -26,6 +29,7 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = i18n.global;
 
 const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0;
@@ -39,9 +43,28 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('数量の変更に失敗しました。');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToChangeQuantities'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
 };
 
@@ -50,9 +73,28 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId);
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('商品の削除に失敗しました。');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToDeleteItems'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
 };
 
@@ -65,9 +107,28 @@ onMounted(async () => {
   try {
     await fetchBasket();
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('カートの取得に失敗しました。');
-    });
+    customErrorHandler.handle(
+      error,
+      () => {},
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToGetCarts'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   } finally {
     state.showLoading = false;
   }
@@ -83,26 +144,28 @@ onUnmounted(async () => {
     <Loading :show="state.showLoading"></Loading>
     <div v-if="!state.showLoading">
       <div v-if="getAddedItemId && !!getAddedItem" class="mx-2">
-        <span class="text-lg font-medium text-green-500"
-          >以下の商品が追加されました。</span
-        >
+        <span class="text-lg font-medium text-green-500">
+          {{ t('addedItemsToBasket') }}
+        </span>
         <div class="grid grid-cols-1 lg:grid-cols-3 mt-4 flex items-center">
           <img
             :src="getFirstAssetUrl(getAddedItem.catalogItem?.assetCodes)"
             :alt="getAddedItem.catalogItem?.name"
             class="h-[150px] m-auto pointer-events-none"
           />
-          <span class="text-center lg:text-left">{{
-            getAddedItem.catalogItem?.name
-          }}</span>
-          <span class="text-center lg:text-left">{{
-            toCurrencyJPY(getAddedItem.unitPrice)
-          }}</span>
+          <span class="text-center lg:text-left">
+            {{ getAddedItem.catalogItem?.name }}
+          </span>
+          <span class="text-center lg:text-left">
+            {{ toCurrencyJPY(getAddedItem.unitPrice) }}
+          </span>
         </div>
       </div>
 
       <div v-if="isEmpty()" class="mt-4 mx-2">
-        <span class="text-2xl font-medium">買い物かごに商品がありません。</span>
+        <span class="text-2xl font-medium">
+          {{ t('noItemsInBasket') }}
+        </span>
       </div>
       <div v-if="!isEmpty()" class="mt-8 mx-2">
         <span class="text-2xl font-medium">現在のカートの中身</span>

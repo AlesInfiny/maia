@@ -6,11 +6,6 @@
  */
 buildscript {
   apply from: 'dependencies.gradle'
-  configurations {
-    all {
-      exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-  }
 }
 
 plugins {
@@ -44,7 +39,7 @@ subprojects {
     toolVersion = '0.8.12'
   }
   checkstyle {
-    toolVersion = '10.18.2'
+    toolVersion = '10.21.1'
     configDirectory = rootProject.file('config/checkstyle')
   } 
   spotbugs {

@@ -51,67 +51,7 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-root"
-    labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend/application-core"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-application-core"
-    labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend/batch"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-batch"
-    labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend/infrastructure"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-infrastructure"
-    labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend/system-common"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-system-common"
-    labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend/web"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-web"
+      prefix: "gradle-dressca-backend"
     labels:
       - "target: Dressca"
       - "gradle"
@@ -136,19 +76,7 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-auth-root"
-    labels:
-      - "target: Azure AD B2C Auth"
-      - "gradle"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/samples/azure-ad-b2c-sample/auth-backend/web"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "gradle-auth-web"
+      prefix: "gradle-auth-backend"
     labels:
       - "target: Azure AD B2C Auth"
       - "gradle"

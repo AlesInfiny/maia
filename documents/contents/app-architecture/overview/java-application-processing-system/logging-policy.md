@@ -11,7 +11,7 @@ description: アプリケーションの形態によらず、 Java アプリケ�
 
 ## ログの種類 {#log-pattern}
 
-AlesInfiny Maia で定義するログの種類は以下の通りです。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）で定義するログの種類は以下の通りです。
 
 - 操作ログ
 
@@ -91,5 +91,38 @@ AlesInfiny Maia で定義するログの種類は以下の通りです。
 
 ## ロギングライブラリ {#logging-libraries}
 
-AlesInfiny Maia では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank } を使用します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+AlesInfiny Maia では、 Java アプリケーションのロギングライブラリとして [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank } （以降 log4j2 ）を使用します。
 またロギングファサードとして [SLF4J :material-open-in-new:](https://www.slf4j.org/){ target=_blank } を使用します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+### ログの設定ファイル {#logging-configuration-files}
+
+log4j2 では、設定ファイルを使用しログの動作を制御します。
+
+ログの設定ファイルは、以下の形式をサポートしています。
+なお、 AlesInfiny Maia では、ログの設定ファイルに XML 形式を採用しています。
+
+- XML
+- JSON
+- YAML
+- Properties
+
+また、 AlesInfiny Maia はマルチプロジェクト構成を採用しています。
+エントリーポイントとなるサブプロジェクトが複数ある場合、それぞれでログ形式を定めることが考えられます。
+
+そのため、以下のようにログの設定ファイルをエントリーポイントとなる各プロジェクトに配置します。
+
+```terminal linenums="0"
+root/ ------------------------------------------- root フォルダー
+ ├ webapp1/ ------------------------------------- エントリーポイントとなるサブプロジェクト 1
+ │ └ src/main/resource/ ------------------------- 設定ファイルを一元管理するフォルダー
+ │    └ log4j2.xml ------------------------------ ログの設定ファイル
+ └ webapp2/ ------------------------------------- エントリーポイントとなるサブプロジェクト 2
+   └ src/main/resource/ ------------------------- 設定ファイルを一元管理するフォルダー
+      └ log4j2.xml ------------------------------ ログの設定ファイル
+```
+
+log4j2.xml の具体的な設定については、[こちら](../../../guidebooks/how-to-develop/java/sub-project-settings/web-project-settings.md#logging-configuration) を確認してください。

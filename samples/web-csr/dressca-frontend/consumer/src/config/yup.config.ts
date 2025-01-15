@@ -1,10 +1,14 @@
+import { i18n } from '@/locales/i18n';
 import { setLocale } from 'yup';
 
-setLocale({
-  mixed: {
-    required: '値を入力してください',
-  },
-  string: {
-    email: 'メールアドレスの形式で入力してください',
-  },
-});
+export function configureYup(): void {
+  const { t } = i18n.global;
+  setLocale({
+    mixed: {
+      required: t('required'),
+    },
+    string: {
+      email: t('email'),
+    },
+  });
+}

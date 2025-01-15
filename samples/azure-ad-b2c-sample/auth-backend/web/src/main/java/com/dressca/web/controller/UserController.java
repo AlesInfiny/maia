@@ -1,5 +1,6 @@
 package com.dressca.web.controller;
 
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +35,7 @@ public class UserController {
       @SecurityRequirement(name = "Bearer") })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
-      @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content)
+      @ApiResponse(responseCode = "401", description = "未認証エラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
 
   @GetMapping

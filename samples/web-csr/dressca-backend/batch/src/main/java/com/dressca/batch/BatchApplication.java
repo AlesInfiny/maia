@@ -18,5 +18,4 @@ public class BatchApplication {
     app.setWebApplicationType(WebApplicationType.NONE);
     System.exit(SpringApplication.exit(app.run(args)));
   }
-
 }

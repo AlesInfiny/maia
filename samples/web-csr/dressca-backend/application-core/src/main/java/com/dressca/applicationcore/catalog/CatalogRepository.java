@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -51,4 +52,37 @@ public interface CatalogRepository {
    * @param pageSize データ取得行数の最大値
    */
   List<CatalogItem> findWithPaging(int skipRows, int pageSize);
+
+  /**
+   * 指定した ID のカタログアイテムを取得します。
+   *
+   * @param id カタログアイテムID
+   * @return 条件に一致するカタログアイテム
+   */
+  CatalogItem findById(long id);
+
+  /**
+   * カタログアイテムを追加します。
+   *
+   * @param item カタログアイテム
+   * @return 追加されたカタログアイテム
+   */
+  CatalogItem add(CatalogItem item);
+
+  /**
+   * カタログアイテムを削除します。
+   * 
+   * @param id         カタログアイテムID
+   * @param rowVersion 行バージョン
+   * @return 削除できたら1、できなければ0を返す
+   */
+  int remove(Long id, LocalDateTime rowVersion);
+
+  /**
+   * カタログアイテムを更新します。
+   * 
+   * @param item カタログアイテム。
+   * @return 更新できたら1、できなければ0を返す。
+   */
+  int update(CatalogItem item);
 }
