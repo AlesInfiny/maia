@@ -29,7 +29,12 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
 ??? example "グローバルエラーハンドラーの実装例"
+
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
     Vue.js アプリケーションで発生したエラーに対するハンドリングは、 Vue.js で用意されている [app.config.errorHandler :material-open-in-new:](https://ja.vuejs.org/api/application#app-config-errorhandler){ target=_blank } に実装します。 JavaScript の構文エラーや、 Vue アプリケーション外の例外に対しては、[addEventListener() :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener){ target=_blank } メソッドを用いてイベントリスナーを追加することでハンドリングします。同期処理については [error :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Window/error_event){ target=_blank } イベントを検知することでハンドリングし、 API 通信や I/O 処理のような非同期処理については [unhandledrejection :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Window/unhandledrejection_event){ target=_blank } イベントを検知することで、ハンドリングします。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
     ```ts title="global-error-handler.ts"
     import type { App, ComponentPublicInstance } from 'vue';

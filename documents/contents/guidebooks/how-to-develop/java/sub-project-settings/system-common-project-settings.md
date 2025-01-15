@@ -18,7 +18,7 @@ system-common プロジェクトの依存ライブラリについては、特に
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j 2 を使用します。
+AlesInfiny Maia OSS Edition では、ロギングライブラリとして Apache Log4j 2 （以降 log4j2 ）を使用します。
 そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
 
 ``` groovy title="spring-boot-starter-logging の除外設定"
