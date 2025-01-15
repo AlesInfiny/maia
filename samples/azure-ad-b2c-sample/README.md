@@ -216,14 +216,14 @@ auth-frontend
 1. VS Code で `auth-backend` のフォルダーへ移動し、ターミナルで以下を実行します。
 
     ```bash
-    .\gradlew build
-    .\gradlew web:bootRun
+    ./gradlew build
+    ./gradlew web:bootRun
     ```
 
 1. VS Code で `auth-frontend` のフォルダーへ移動し、ターミナルで以下を実行します。
 
     ```bash
-    npm install
+    npm ci
     npm run dev:app
     ```
 
