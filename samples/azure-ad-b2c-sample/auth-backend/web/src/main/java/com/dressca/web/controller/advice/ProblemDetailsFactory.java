@@ -29,10 +29,10 @@ public class ProblemDetailsFactory {
   /**
    * エラーレスポンスに含める ProblemDetails を作成する。
    *
-   * @param errorBuilder 例外ビルダー
-   * @param titleId      タイトルのメッセージ ID
-   * @param status       ステータスコード
-   * @return エラーレスポンスに格納する ProblemDetails
+   * @param errorBuilder 例外ビルダー。
+   * @param titleId      タイトルのメッセージ ID 。
+   * @param status       ステータスコード。
+   * @return エラーレスポンスに格納する ProblemDetails 。
    */
   public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
 
