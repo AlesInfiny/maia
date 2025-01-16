@@ -8,7 +8,7 @@
     "build:dev": "run-p type-check build-only:dev --print-label",
     "build-only:prod": "vite build --mode prod",
     "build-only:dev": "vite build --mode dev",
-    "preview": "vite preview --port 5050",
+    "preview": "vite preview",
     "test:unit": "vitest",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
