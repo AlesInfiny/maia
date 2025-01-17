@@ -48,72 +48,8 @@ tasks.named('test') {
 bootJar.enabled = false
 jar.enabled = true
 
-/*
-正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応する。
-置き換えのペアは更新対象の検索方法が Example と PrimaryKey のどちらを利用するかで異なる。
 
-◇ Example で検索するメソッドの例（ updateByExampleSelective の場合）
-
-  検索対象
-    1. <update id="updateByExampleSelective" から #{row.楽観ロック制御を行う列名} の直前まで
-    2. #{row.楽観ロック制御を行う列名,jdbcType=楽観ロック制御を行う列のDB上のデータ型}
-
-  置換文字列
-    3. 楽観ロック制御を行う列名 = CURRENT_TIMESTAMP
-
-  操作
-    1 の直後に 3 を置いて、 2 は挿入しない。
-
-  〇 置換前
-  <update id="updateByExampleSelective" parameterType="map">
-    <set>
-      <if test="row.rowVersion != null">
-        row_version = #{row.rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE},
-      </if>
-    </set>
-  </update>
-
-  〇 置換後
-  <update id="updateByExampleSelective" parameterType="map">
-    <set>
-      <if test="row.rowVersion != null">
-        row_version = CURRENT_TIMESTAMP,
-      </if>
-    </set>
-  </update>
-
-◇ PrimaryKey で検索するメソッドの例（ updateByPrimaryKey の場合）
-
-  Example の置き換えに加えて以下を行う。
-
-  検索対象
-    1. <update id="updateByPrimaryKey" から </update> の直前まで
-    2. </update>
-
-  置換文字列
-    3. and 楽観ロック制御を行う列名 = #{エンティティに変換した際の楽観ロック制御を行う列名,jdbcType=楽観ロック制御を行う列のDB上のデータ型}
-
-  操作
-    1 、3、 2 の順に並び替える。
-    ※二重で置換が起きないように、検索条件に置換する文字列が含まれる場合は置き換えを行わないように制御する。
-
-  〇 置換前
-  <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
-    update catalog_items
-    set name = #{name,jdbcType=VARCHAR},
-      row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-
-  〇 置換後
-  <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
-    update catalog_items
-    set name = #{name,jdbcType=VARCHAR},
-      row_version = CURRENT_TIMESTAMP
-    where id = #{id,jdbcType=BIGINT}
-      and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
-  </update>
-*/
+// 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
 task updateMyBatisGeneratorMapperForOptimisticLocking {
   doLast {
 
@@ -135,12 +71,53 @@ task updateMyBatisGeneratorMapperForOptimisticLocking {
       def xmlFile = file(generatedDirectory + path)
       def xmlContent = xmlFile.text
 
-      // 正規表現と置換のペアをリストにまとめる
+      // 正規表現と置換のペアのリスト
+      // 置き換えの処理は更新対象の検索方法が Example と PrimaryKey のどちらを利用するかで異なります。
       def replacements = [
+
+        /* Exampleの場合、更新処理の set 句で指定する更新後の行バージョンの値を、メソッドの引数から現在時刻に置き換えます。
+          〇 置換前
+          <update id="updateByExampleSelective" parameterType="map">
+            <set>
+              <if test="row.rowVersion != null">
+                row_version = #{row.rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE},
+              </if>
+            </set>
+          </update>
+
+          〇 置換後
+          <update id="updateByExampleSelective" parameterType="map">
+            <set>
+              <if test="row.rowVersion != null">
+                row_version = CURRENT_TIMESTAMP,
+              </if>
+            </set>
+          </update> 
+        */
         [ /(<update id="updateByExampleSelective"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}},)/,
           "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP," ],
         [ /(<update id="updateByExample"[\s\S]*?)(${optimisticLockColumn} = \#\{row.${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})/,
           "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP" ],
+
+        /* PrimaryKeyの場合、更新処理の set 句で指定する更新後の行バージョンの値を、メソッドの引数から現在時刻に置き換えます。
+           さらに、更新処理の対象を検索する where 句で指定する検索条件に行バージョンを追加します。
+          〇 置換前
+          <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
+            update catalog_items
+            set name = #{name,jdbcType=VARCHAR},
+              row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
+            where id = #{id,jdbcType=BIGINT}
+          </update>
+
+          〇 置換後
+          <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
+            update catalog_items
+            set name = #{name,jdbcType=VARCHAR},
+              row_version = CURRENT_TIMESTAMP
+            where id = #{id,jdbcType=BIGINT}
+              and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
+          </update>
+        */
         [ /(<update id="updateByPrimaryKeySelective"[\s\S]*?)(${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}},)/,
           "\$1${optimisticLockColumn} = CURRENT_TIMESTAMP," ],
         [ /(<update id="updateByPrimaryKeySelective"(?:(?!and ${optimisticLockColumn} = \#\{${optimisticLockVariable},jdbcType=${optimisticLockJdbcType}})[\s\S])*?)(<\/update>)/,
@@ -181,7 +158,7 @@ String toLowerCamelCase(String snakeCase) {
     }
   }
 
-  // 最初の文字を小文字にする
+  // 最初の文字を小文字にします
   if (camelCase.length() > 0) {
     camelCase.setCharAt(0, Character.toLowerCase(camelCase.charAt(0)))
   }
