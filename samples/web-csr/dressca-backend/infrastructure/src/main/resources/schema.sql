@@ -32,7 +32,7 @@ CREATE TABLE orders
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
   buyer_id VARCHAR(64) NOT NULL,
-  order_date TIMESTAMP NOT NULL,
+  order_date TIMESTAMP WITH TIME ZONE NOT NULL,
   ship_to_full_name VARCHAR(64) NOT NULL,
   ship_to_postal_code VARCHAR(16) NOT NULL,
   ship_to_todofuken VARCHAR(16) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE catalog_items
   product_code VARCHAR(128) NOT NULL,
   catalog_category_id BIGINT NOT NULL,
   catalog_brand_id BIGINT NOT NULL,
-  row_version TIMESTAMP NOT NULL,
+  row_version TIMESTAMP WITH TIME ZONE NOT NULL,
   CONSTRAINT FK_catalog_items_catalog_brands FOREIGN KEY (catalog_brand_id) REFERENCES catalog_brands(id) ON DELETE CASCADE,
   CONSTRAINT FK_catalog_items_catalog_categories FOREIGN KEY (catalog_category_id) REFERENCES catalog_categories(id) ON DELETE CASCADE
 );

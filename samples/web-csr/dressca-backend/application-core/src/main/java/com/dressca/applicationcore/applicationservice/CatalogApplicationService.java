@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Locale;
 import org.slf4j.Logger;
@@ -166,7 +166,7 @@ public class CatalogApplicationService {
 
     CatalogItem item = CatalogItem.createCatalogItemForRegistration(name, description, price, productCode,
         catalogCategoryId, catalogBrandId);
-    item.setRowVersion(LocalDateTime.now());
+    item.setRowVersion(OffsetDateTime.now());
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
     return catalogItemAdded;
   }
@@ -180,7 +180,7 @@ public class CatalogApplicationService {
    * @throws CatalogNotFoundException          削除対象のカタログアイテムが存在しなかった場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
-  public void deleteItemFromCatalog(long id, LocalDateTime rowVersion)
+  public void deleteItemFromCatalog(long id, OffsetDateTime rowVersion)
       throws PermissionDeniedException, CatalogNotFoundException, OptimisticLockingFailureException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG, new Object[] { id },
         Locale.getDefault()));
@@ -214,7 +214,7 @@ public class CatalogApplicationService {
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
-      long catalogCategoryId, long catalogBrandId, LocalDateTime rowVersion)
+      long catalogCategoryId, long catalogBrandId, OffsetDateTime rowVersion)
       throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
       CatalogBrandNotFoundException, OptimisticLockingFailureException {
 
