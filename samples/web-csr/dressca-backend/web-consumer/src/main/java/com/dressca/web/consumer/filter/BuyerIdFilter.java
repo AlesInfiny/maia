@@ -17,7 +17,7 @@ import org.springframework.http.ResponseCookie;
 import com.dressca.web.consumer.security.CookieSettings;
 
 /**
- * 購入者IDにフィルターをかけるクラスです。
+ * 購入者 ID にフィルターをかけるクラスです。
  */
 @AllArgsConstructor
 public class BuyerIdFilter implements Filter {

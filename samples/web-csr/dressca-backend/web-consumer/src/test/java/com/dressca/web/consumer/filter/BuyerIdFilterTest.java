@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * {@link BuyerIdFilter}の動作をテストするクラスです。
+ * {@link BuyerIdFilter} の動作をテストするクラスです。
  */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
@@ -53,7 +53,7 @@ public class BuyerIdFilterTest {
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
-    // Set-Cookieヘッダーの値が期待通りであることを確認
+    // Set-Cookie ヘッダーの値が期待通りであることを確認
     assertNotNull(setCookieHeader);
     assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
     assertTrue(setCookieHeader.contains("Path=/"));
@@ -81,7 +81,7 @@ public class BuyerIdFilterTest {
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
-    // Set-Cookieヘッダーの値が期待通りであることを確認
+    // Set-Cookie ヘッダーの値が期待通りであることを確認
     assertNotNull(setCookieHeader);
     assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
     assertTrue(setCookieHeader.contains("Path=/"));

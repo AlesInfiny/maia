@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログアイテムを取得する際に用いるdtoクラスです。
+ * カタログアイテムを取得する際に用いる dto クラスです。
  */
 @Data
 @NoArgsConstructor

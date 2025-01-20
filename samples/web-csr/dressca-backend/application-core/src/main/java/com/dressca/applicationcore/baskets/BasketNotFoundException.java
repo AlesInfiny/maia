@@ -9,7 +9,8 @@ import com.dressca.systemcommon.exception.LogicException;
 public class BasketNotFoundException extends LogicException {
 
   /**
-   * 存在しない買い物かご ID を指定して例外を作成します。
+   * 存在しない買い物かご ID を指定して、
+   * {@link BasketNotFoundException} クラスのインスタンスを初期化します。
    * 
    * @param basketId 見つからなかった買い物かご ID 。
    */

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * アセット情報とそのリソースの情報。
+ * アセット情報とそのリソースの情報です。
  */
 @Data
 public class AssetResourceInfo {

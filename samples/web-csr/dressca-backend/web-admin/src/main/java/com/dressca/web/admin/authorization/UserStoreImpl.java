@@ -10,16 +10,11 @@ import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.authorization.UserStore;
 
 /**
- * ユーザのセッション情報。
+ * ユーザのセッション情報です。
  */
 @Component
 public class UserStoreImpl implements UserStore {
 
-  /**
-   * ログイン中のユーザー名を取得します。
-   *
-   * @return ログイン中のユーザー名。未ログインの場合、空文字。
-   */
   @Override
   public String getLoginUserName() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -29,11 +24,6 @@ public class UserStoreImpl implements UserStore {
     return "";
   }
 
-  /**
-   * ログイン中のユーザーのロールを取得します。
-   *
-   * @return ログイン中のユーザーのロールの配列。未ログインの場合、空の配列。
-   */
   @Override
   public List<String> getLoginUserRoles() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -45,11 +35,7 @@ public class UserStoreImpl implements UserStore {
     return new ArrayList<>();
   }
 
-  /**
-   * ログイン中のユーザーが指定したロールに属しているかどうか確認します。
-   *
-   * @return ロールに属している場合true。未ログインの場合false。
-   */
+  @Override
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {

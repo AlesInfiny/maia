@@ -41,10 +41,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * {@link Order} の情報にアクセスするAPIコントローラーです。
+ * {@link Order} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "Orders", description = "注文の情報にアクセスするAPI")
+@Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
 @AllArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -62,13 +62,13 @@ public class OrderController {
   /**
    * 注文情報を取得します。
    * 
-   * @param orderId 注文 Id
-   * @return 注文情報
+   * @param orderId 注文 ID 。
+   * @return 注文情報。
    */
-  @Operation(summary = "注文情報を取得します.", description = "注文情報を取得します.")
+  @Operation(summary = "注文情報を取得します。", description = "注文情報を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
-      @ApiResponse(responseCode = "404", description = "注文IDが存在しない.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
+      @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @GetMapping("{orderId}")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
@@ -98,13 +98,13 @@ public class OrderController {
   /**
    * 買い物かごに登録されている商品を注文します。
    * 
-   * @param postOrderInput 注文に必要な配送先などの情報
-   * @return なし
+   * @param postOrderInput 注文に必要な配送先などの情報。
+   * @return なし。
    */
-  @Operation(summary = "買い物かごに登録されている商品を注文します.", description = "買い物かごに登録されている商品を注文します.")
-  @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功.", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー.", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
+  @Operation(summary = "買い物かごに登録されている商品を注文します。", description = "買い物かごに登録されている商品を注文します。")
+  @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {

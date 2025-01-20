@@ -14,8 +14,8 @@ public class CatalogItemMapper {
   /**
    * {@link CatalogItem} オブジェクトを {@link GetCatalogItemResponse} に変換します。
    * 
-   * @param item {@link CatalogItem} オブジェクト
-   * @return {@link GetCatalogItemResponse} オブジェクト
+   * @param item {@link CatalogItem} オブジェクト。
+   * @return {@link GetCatalogItemResponse} オブジェクト。
    */
   public static GetCatalogItemResponse convert(CatalogItem item) {
 

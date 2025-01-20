@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Dressca Web用の設定クラス。
+ * Dressca Web 用の設定クラスです。
  */
 @Configuration
 public class DresscaWebConfig {
