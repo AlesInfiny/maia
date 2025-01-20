@@ -13,20 +13,8 @@
   ],
   "tags": [
     {
-      "description": "アセットの情報にアクセスする API",
-      "name": "Assets"
-    },
-    {
-      "description": "ログイン中のユーザーの情報にアクセスする API",
-      "name": "Users"
-    },
-    {
-      "description": "カタログカテゴリの情報にアクセスする API",
-      "name": "CatalogCategories"
-    },
-    {
-      "description": "カタログブランドの情報にアクセスする API",
-      "name": "CatalogBrands"
+      "description": "カタログアイテムの情報にアクセスする API です。",
+      "name": "CatalogItems"
     },
     {
       "description": "Monitor and interact",
@@ -37,8 +25,20 @@
       "name": "Actuator"
     },
     {
-      "description": "カタログアイテムの情報にアクセスする API",
-      "name": "CatalogItems"
+      "description": "カタログカテゴリの情報にアクセスする API です。",
+      "name": "CatalogCategories"
+    },
+    {
+      "description": "ログイン中のユーザーの情報にアクセスする API です。",
+      "name": "Users"
+    },
+    {
+      "description": "カタログブランドの情報にアクセスする API です。",
+      "name": "CatalogBrands"
+    },
+    {
+      "description": "アセットの情報にアクセスする API です。",
+      "name": "Assets"
     }
   ],
   "paths": {
@@ -136,7 +136,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "アセットコードに対応するアセットがない。"
+            "description": "アセットコードに対応するアセットがありません。"
           },
           "500": {
             "description": "サーバーエラー。"
@@ -356,7 +356,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "409": {
             "description": "競合が発生。"
@@ -405,7 +405,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "409": {
             "description": "競合が発生。"
@@ -453,7 +453,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "500": {
             "description": "サーバーエラー。"
