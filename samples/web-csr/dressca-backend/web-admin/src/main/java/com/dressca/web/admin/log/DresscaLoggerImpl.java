@@ -12,7 +12,7 @@ import com.dressca.systemcommon.log.DresscaLogger;
 import lombok.NoArgsConstructor;
 
 /**
- * コンテキストにログ出力を保持させるためのラッパークラスです。
+ * コンテキストにログを保持させる機能を追加したカスタムロガーです。
  */
 @Component
 @NoArgsConstructor

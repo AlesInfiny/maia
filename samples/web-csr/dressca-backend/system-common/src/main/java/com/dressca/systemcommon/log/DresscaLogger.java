@@ -3,7 +3,7 @@ package com.dressca.systemcommon.log;
 import java.util.Map;
 
 /**
- * コンテキストにログ出力を保持させるためのラッパークラスのインターフェースです。
+ * コンテキストにログを保持させる機能を追加したカスタムロガーのインターフェースです。
  */
 public interface DresscaLogger {
 
