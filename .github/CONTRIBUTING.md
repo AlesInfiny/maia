@@ -128,7 +128,7 @@ Issue 提出後、内容に応じてメンテナーはラベル付けを行い�
 コンパイラーや各種 Lint ツールによる警告が発生しないようにコードとドキュメントを作成してください。
 原則として警告は抑制しないでください。
 
-### .NET アプリケーション、Vue.js アプリケーションの規約
+### Java アプリケーション、Vue.js アプリケーションの規約
 
 [AlesInfiny Maia OSS Edition のコーディング規約](/documents/contents/guidebooks/conventions/coding-conventions.md) をご覧ください。
 
