@@ -180,8 +180,7 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 購入者 ID を指定して、
-   * {@link Basket} クラスを新規で作成します。
+   * 購入者 ID を指定して、買い物かごを新規で作成します。
    * 
    * @param buyerId 購入者 ID 。
    * @return 買い物かご。
