@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.RestController;
  * {@link BasketItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "BasketItems", description = "買い物かごアイテムの情報にアクセスする API")
+@Tag(name = "BasketItems", description = "買い物かごアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/basket-items")
 @AllArgsConstructor
 public class BasketItemController {
@@ -207,7 +207,7 @@ public class BasketItemController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-      @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム ID がない。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+      @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム ID がありません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,

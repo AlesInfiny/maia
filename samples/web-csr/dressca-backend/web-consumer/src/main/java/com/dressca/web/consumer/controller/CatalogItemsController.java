@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API")
+@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
 public class CatalogItemsController {

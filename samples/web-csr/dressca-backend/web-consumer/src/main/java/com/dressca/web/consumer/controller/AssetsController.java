@@ -39,7 +39,7 @@ import lombok.AllArgsConstructor;
  * {@link Asset} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "Assets", description = "アセットの情報にアクセスする API")
+@Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
 public class AssetsController {
@@ -64,7 +64,7 @@ public class AssetsController {
   @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @GetMapping("{assetCode}")
   public ResponseEntity<?> get(

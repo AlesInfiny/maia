@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
  * {@link Order} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "Orders", description = "注文の情報にアクセスする API")
+@Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
 @AllArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -68,7 +68,7 @@ public class OrderController {
   @Operation(summary = "注文情報を取得します。", description = "注文情報を取得します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
-      @ApiResponse(responseCode = "404", description = "注文 ID が存在しない。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+      @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @GetMapping("{orderId}")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
