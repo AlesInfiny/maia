@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * セキュリティ関連の実行クラス。
+ * セキュリティ関連の実行クラスです。
  */
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -28,11 +28,11 @@ public class WebSecurityConfig {
   private String allowedOrigins;
 
   /**
-   * CORS設定、JWTトークン検証を実行。
+   * CORS 設定、JWT トークン検証を設定します。
    *
-   * @param http httpリクエスト
-   * @return フィルターチェーン
-   * @throws Exception 例外
+   * @param http http リクエスト。
+   * @return フィルターチェーン。
+   * @throws Exception 例外。
    */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
