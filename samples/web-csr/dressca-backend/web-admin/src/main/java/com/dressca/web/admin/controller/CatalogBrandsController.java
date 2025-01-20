@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスする API")
+@Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-brands")
 @AllArgsConstructor
 @PreAuthorize(value = "isAuthenticated()")

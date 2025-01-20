@@ -48,7 +48,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API")
+@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
 @PreAuthorize(value = "hasAuthority('" + UserRoleConstants.ADMIN + "')")
@@ -71,7 +71,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @GetMapping("{id}")
@@ -170,7 +170,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
@@ -202,7 +202,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })

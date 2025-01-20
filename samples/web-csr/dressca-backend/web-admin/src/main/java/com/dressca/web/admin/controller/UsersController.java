@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * {@link UserStore} の情報にアクセスする API コントローラです。
  */
 @RestController
-@Tag(name = "Users", description = "ログイン中のユーザーの情報にアクセスする API")
+@Tag(name = "Users", description = "ログイン中のユーザーの情報にアクセスする API です。")
 @RequestMapping("/api/users")
 @PreAuthorize(value = "isAuthenticated()")
 public class UsersController {
