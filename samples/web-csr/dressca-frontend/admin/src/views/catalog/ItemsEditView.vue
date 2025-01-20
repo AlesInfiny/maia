@@ -26,6 +26,7 @@ import type {
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();
@@ -125,6 +126,11 @@ const showUpdateConfirm = ref(false);
  * 更新通知モーダルの開閉状態です。
  */
 const showUpdateNotice = ref(false);
+
+/**
+ * ローディング・スピナーの表示の状態です。
+ */
+const showLoading = ref(true);
 
 /**
  * 削除通知モーダルを閉じます。
@@ -227,7 +233,9 @@ const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
  *
  */
 onMounted(async () => {
+  showLoading.value = true;
   await initItemAsync(id);
+  showLoading.value = false;
 });
 
 /**
@@ -333,7 +341,9 @@ const updateItemAsync = async () => {
     @close="closeUpdateNotice"
   ></NotificationModal>
 
-  <div class="container mx-auto gap-6">
+  <LoadingSpinner :show="showLoading"></LoadingSpinner>
+
+  <div v-if="!showLoading" class="container mx-auto gap-6">
     <div>
       <div class="flex items-center justify-center p-8 text-5xl font-bold">
         カタログアイテム編集
