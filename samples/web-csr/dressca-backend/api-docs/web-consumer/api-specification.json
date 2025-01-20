@@ -13,20 +13,8 @@
   ],
   "tags": [
     {
-      "description": "買い物かごアイテムの情報にアクセスする API",
-      "name": "BasketItems"
-    },
-    {
-      "description": "アセットの情報にアクセスする API",
-      "name": "Assets"
-    },
-    {
-      "description": "カタログカテゴリの情報にアクセスする API",
-      "name": "CatalogCategories"
-    },
-    {
-      "description": "カタログブランドの情報にアクセスする API",
-      "name": "CatalogBrands"
+      "description": "カタログアイテムの情報にアクセスする API です。",
+      "name": "CatalogItems"
     },
     {
       "description": "Monitor and interact",
@@ -37,12 +25,24 @@
       "name": "Actuator"
     },
     {
-      "description": "カタログアイテムの情報にアクセスする API",
-      "name": "CatalogItems"
+      "description": "カタログカテゴリの情報にアクセスする API です。",
+      "name": "CatalogCategories"
     },
     {
-      "description": "注文の情報にアクセスする API",
+      "description": "注文の情報にアクセスする API です。",
       "name": "Orders"
+    },
+    {
+      "description": "カタログブランドの情報にアクセスする API です。",
+      "name": "CatalogBrands"
+    },
+    {
+      "description": "買い物かごアイテムの情報にアクセスする API です。",
+      "name": "BasketItems"
+    },
+    {
+      "description": "アセットの情報にアクセスする API です。",
+      "name": "Assets"
     }
   ],
   "paths": {
@@ -132,7 +132,7 @@
                 }
               }
             },
-            "description": "アセットコードに対応するアセットがない。"
+            "description": "アセットコードに対応するアセットがありません。"
           }
         },
         "summary": "アセットを取得します。",
@@ -279,7 +279,7 @@
                 }
               }
             },
-            "description": "買い物かご内に指定したカタログアイテム ID がない。"
+            "description": "買い物かご内に指定したカタログアイテム ID がありません。"
           }
         },
         "summary": "買い物かごから指定したカタログアイテム ID の商品を削除します。",
@@ -516,7 +516,7 @@
                 }
               }
             },
-            "description": "注文 ID が存在しない。"
+            "description": "注文 ID が存在しません。"
           }
         },
         "summary": "注文情報を取得します。",
