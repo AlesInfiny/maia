@@ -29,7 +29,7 @@ public class UserControllerTest {
   @Test
   @DisplayName("testAuth_01_正常系")
   void testAuth_01() throws Exception {
-    mockMvc.perform(get("/api/user")
+    mockMvc.perform(get("/api/users")
         .with(jwt())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -39,7 +39,7 @@ public class UserControllerTest {
   @Test
   @DisplayName("testAuth_02_異常系_Headerが設定されていない場合エラー")
   void testAuth_02() throws Exception {
-    this.mockMvc.perform(get("/api/user")
+    this.mockMvc.perform(get("/api/users")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isUnauthorized());
   }

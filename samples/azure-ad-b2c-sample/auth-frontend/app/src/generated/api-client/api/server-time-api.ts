@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Azure AD B2C ユーザー認証
- * Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。
+ * Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { TimeResponse } from '../models';
+import type { ServerTimeResponse } from '../models';
 /**
  * ServerTimeApi - axios parameter creator
  * @export
@@ -30,8 +30,8 @@ import type { TimeResponse } from '../models';
 export const ServerTimeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,12 +70,12 @@ export const ServerTimeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ServerTimeApiAxiosParamCreator(configuration)
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getServerTime(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimeResponse>> {
+        async getServerTime(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServerTimeResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getServerTime(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ServerTimeApi.getServerTime']?.[localVarOperationServerIndex]?.url;
@@ -92,12 +92,12 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
     const localVarFp = ServerTimeApiFp(configuration)
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServerTime(options?: RawAxiosRequestConfig): AxiosPromise<TimeResponse> {
+        getServerTime(options?: RawAxiosRequestConfig): AxiosPromise<ServerTimeResponse> {
             return localVarFp.getServerTime(options).then((request) => request(axios, basePath));
         },
     };
@@ -111,8 +111,8 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
  */
 export class ServerTimeApi extends BaseAPI {
     /**
-     * サーバーの現在時刻を取得します.
-     * @summary サーバーの現在時刻を取得します.
+     * サーバーの現在時刻を取得します。
+     * @summary サーバーの現在時刻を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ServerTimeApi

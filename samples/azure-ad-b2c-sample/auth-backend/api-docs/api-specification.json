@@ -13,8 +13,8 @@
   ],
   "tags": [
     {
-      "description": "認証済みユーザのユーザ ID を取得する API です。",
-      "name": "User"
+      "description": "認証済みユーザのユーザ ID を取得する API",
+      "name": "Users"
     },
     {
       "description": "認証不要でサーバーの現在時刻を取得します。",
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeResponse"
+                  "$ref": "#/components/schemas/ServerTimeResponse"
                 }
               }
             },
@@ -44,7 +44,7 @@
         ]
       }
     },
-    "/api/user": {
+    "/api/users": {
       "get": {
         "description": "ログインに成功したユーザ ID を取得します。",
         "operationId": "getUser",
@@ -77,7 +77,7 @@
         ],
         "summary": "ログインに成功したユーザ ID を取得します。",
         "tags": [
-          "User"
+          "Users"
         ]
       }
     }
@@ -123,7 +123,7 @@
           }
         }
       },
-      "TimeResponse": {
+      "ServerTimeResponse": {
         "type": "object",
         "properties": {
           "serverTime": {
