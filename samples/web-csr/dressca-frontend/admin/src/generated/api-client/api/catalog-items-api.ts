@@ -79,8 +79,8 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -129,8 +129,8 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * 指定したIDのカタログアイテムを返します。
-         * @summary 指定したIDのカタログアイテムを返します。
+         * 指定した ID のカタログアイテムを返します。
+         * @summary 指定した ID のカタログアイテムを返します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -199,8 +199,8 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * 指定したIDのカタログアイテムの情報を更新します。
-         * @summary 指定したIDのカタログアイテムの情報を更新します。
+         * 指定した ID のカタログアイテムの情報を更新します。
+         * @summary 指定した ID のカタログアイテムの情報を更新します。
          * @param {number} catalogItemId 
          * @param {PutCatalogItemRequest} putCatalogItemRequest 
          * @param {*} [options] Override http request option.
@@ -263,8 +263,8 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -279,8 +279,8 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 指定したIDのカタログアイテムを返します。
-         * @summary 指定したIDのカタログアイテムを返します。
+         * 指定した ID のカタログアイテムを返します。
+         * @summary 指定した ID のカタログアイテムを返します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -305,8 +305,8 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 指定したIDのカタログアイテムの情報を更新します。
-         * @summary 指定したIDのカタログアイテムの情報を更新します。
+         * 指定した ID のカタログアイテムの情報を更新します。
+         * @summary 指定した ID のカタログアイテムの情報を更新します。
          * @param {number} catalogItemId 
          * @param {PutCatalogItemRequest} putCatalogItemRequest 
          * @param {*} [options] Override http request option.
@@ -340,8 +340,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
             return localVarFp.deleteCatalogItem(catalogItemId, rowVersion, options).then((request) => request(axios, basePath));
         },
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -353,8 +353,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
             return localVarFp.getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * 指定したIDのカタログアイテムを返します。
-         * @summary 指定したIDのカタログアイテムを返します。
+         * 指定した ID のカタログアイテムを返します。
+         * @summary 指定した ID のカタログアイテムを返します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -373,8 +373,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
             return localVarFp.postCatalogItem(postCatalogItemRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 指定したIDのカタログアイテムの情報を更新します。
-         * @summary 指定したIDのカタログアイテムの情報を更新します。
+         * 指定した ID のカタログアイテムの情報を更新します。
+         * @summary 指定した ID のカタログアイテムの情報を更新します。
          * @param {number} catalogItemId 
          * @param {PutCatalogItemRequest} putCatalogItemRequest 
          * @param {*} [options] Override http request option.
@@ -407,8 +407,8 @@ export class CatalogItemsApi extends BaseAPI {
     }
 
     /**
-     * カタログアイテムを検索して返します.
-     * @summary カタログアイテムを検索して返します.
+     * カタログアイテムを検索して返します。
+     * @summary カタログアイテムを検索して返します。
      * @param {number} [brandId] 
      * @param {number} [categoryId] 
      * @param {number} [page] 
@@ -422,8 +422,8 @@ export class CatalogItemsApi extends BaseAPI {
     }
 
     /**
-     * 指定したIDのカタログアイテムを返します。
-     * @summary 指定したIDのカタログアイテムを返します。
+     * 指定した ID のカタログアイテムを返します。
+     * @summary 指定した ID のカタログアイテムを返します。
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -446,8 +446,8 @@ export class CatalogItemsApi extends BaseAPI {
     }
 
     /**
-     * 指定したIDのカタログアイテムの情報を更新します。
-     * @summary 指定したIDのカタログアイテムの情報を更新します。
+     * 指定した ID のカタログアイテムの情報を更新します。
+     * @summary 指定した ID のカタログアイテムの情報を更新します。
      * @param {number} catalogItemId 
      * @param {PutCatalogItemRequest} putCatalogItemRequest 
      * @param {*} [options] Override http request option.
