@@ -15,24 +15,23 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
- * Azure AD B2Cに接続するためのコントローラークラス。
+ * Azure AD B2C に接続するためのコントローラークラスです。
  */
 @RestController
-@Tag(name = "ServerTime", description = "認証不要でサーバーの現在時刻を取得する")
+@Tag(name = "ServerTime", description = "認証不要でサーバーの現在時刻を取得します。")
 @RequestMapping("/api/servertime")
 public class ServerTimeController {
 
   /**
-   * サーバーの現在時刻取得。
+   * サーバーの現在時刻を取得します。
    * 
-   * @return レスポンス
-   * @throws Exception 例外
+   * @return レスポンス。
+   * @throws Exception 例外。
    */
-  @Operation(summary = "サーバーの現在時刻を取得します.", description = "サーバーの現在時刻を取得します.")
+  @Operation(summary = "サーバーの現在時刻を取得します。", description = "サーバーの現在時刻を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServerTimeResponse.class)))
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServerTimeResponse.class)))
   })
-
   @GetMapping
   public ResponseEntity<ServerTimeResponse> getServerTime() throws Exception {
 

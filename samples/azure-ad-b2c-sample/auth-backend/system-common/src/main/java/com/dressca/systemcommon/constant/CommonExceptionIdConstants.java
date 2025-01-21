@@ -1,7 +1,7 @@
 package com.dressca.systemcommon.constant;
 
 /**
- * 例外ID用定数クラス。
+ * 例外 ID 用の定数クラスです。
  */
 public class CommonExceptionIdConstants {
   /** 想定外のシステムエラーが発生しました。 */

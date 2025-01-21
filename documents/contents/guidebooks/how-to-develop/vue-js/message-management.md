@@ -52,12 +52,12 @@ npm install vue-i18n
 
 - messageList.json
 
-  処理の成功や失敗を示す処理メッセージを格納します。
+    処理の成功や失敗を示す処理メッセージを格納します。
 
 - validationTextList.json
 
-  入力値検証用のメッセージを格納します。
-  詳細は [こちら](./input-validation.md#definition-messages) を確認してください。
+    入力値検証用のメッセージを格納します。
+    詳細は [こちら](./input-validation.md#definition-messages) を確認してください。
 
 JSON ファイルでメッセージを管理する際は、メッセージコードとメッセージ本体を key-value で管理します。
 

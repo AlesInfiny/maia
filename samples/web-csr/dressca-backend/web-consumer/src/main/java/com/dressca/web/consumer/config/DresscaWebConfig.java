@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Dressca Web用の設定クラス。
+ * Dressca Web 用の設定クラスです。
  */
 @Configuration
 public class DresscaWebConfig {
@@ -21,9 +21,9 @@ public class DresscaWebConfig {
   public H2ServerLauncher h2ServerLauncher;
 
   /**
-   * BuyerIdFilter の設定。
+   * 購入者 ID のフィルターを設定します。
    * 
-   * @return BuyerIdFilter
+   * @return 購入者 ID のフィルター。
    */
   @Bean
   public FilterRegistrationBean<Filter> buyerIdFilter() {

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;
 
 /**
- * 買い物かごリポジトリ。
+ * 買い物かごのリポジトリです。
  */
 @Repository
 @AllArgsConstructor
@@ -48,7 +48,7 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.insert(row);
 
-    // 子要素（BasketItem）の追加
+    // 子要素（ BasketItem ）の追加
     List<BasketItemEntity> itemRows = basket.getItems().stream()
         .map(EntityTranslator::createBasketItemEntity)
         .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntityExample basketExample = new BasketEntityExample();
     basketExample.createCriteria().andBuyerIdEqualTo(basket.getBuyerId());
 
-    // 子要素（BasketItem）の削除
+    // 子要素（ BasketItem ）の削除
     List<BasketEntity> baskets = basketMapper.selectByExample(basketExample);
     baskets.stream()
         .mapToLong(BasketEntity::getId)
@@ -79,8 +79,8 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.updateByPrimaryKey(row);
 
-    // 子要素（BasketItem）の更新
-    // 削除されたBasketItemにも対応できるようにDELETE-INSERTする
+    // 子要素（ BasketItem ）の更新
+    // 削除された BasketItem にも対応できるように DELETE-INSERT する
     removeBasketItem(basket.getId());
     basket.getItems().stream()
         .map(EntityTranslator::createBasketItemEntity)

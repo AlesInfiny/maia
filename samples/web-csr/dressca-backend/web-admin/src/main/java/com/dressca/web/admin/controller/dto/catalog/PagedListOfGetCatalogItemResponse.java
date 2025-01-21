@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * 検索したカタログアイテムの情報を取得する際に用いるdtoクラスです。
+ * 検索したカタログアイテムの情報を取得する際に用いる dto クラスです。
  */
 @Data
 public class PagedListOfGetCatalogItemResponse {
@@ -17,7 +17,7 @@ public class PagedListOfGetCatalogItemResponse {
   private boolean hasNext;
 
   /**
-   * コンストラクタ。
+   * {@link PagedListOfGetCatalogItemResponse} クラスのインスタンスを初期化します。
    * 
    * @param items      カタログアイテムのリスト。
    * @param totalCount カタログアイテムの合計数。

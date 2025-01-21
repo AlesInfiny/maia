@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * MyBatis用の設定クラス。
+ * MyBatis 用の設定クラスです。
  */
 @Configuration
 @EnableTransactionManagement
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MyBatisConfig {
 
   /**
-   * MyBatis設定のカスタマイズ。
+   * MyBatis の設定をカスタマイズします。
    * 
-   * @return カスタマイズされたMyBatis設定
+   * @return カスタマイズされた MyBatis 設定 。
    */
   @Bean
   ConfigurationCustomizer mybatisConfigurationCustomizer() {

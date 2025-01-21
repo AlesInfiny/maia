@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.dressca.web.WebApplication;
 
 /**
- * {@link UserController}の動作をテストするクラスです。
+ * {@link UserController} の動作をテストするクラスです。
  */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
