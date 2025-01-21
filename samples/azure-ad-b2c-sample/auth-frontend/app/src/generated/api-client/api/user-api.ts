@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Azure AD B2C ユーザー認証
- * Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。
+ * Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
@@ -32,8 +32,8 @@ import type { UserResponse } from '../models';
 export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * ログインに成功したユーザ ID を取得します。
+         * @summary ログインに成功したユーザ ID を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -76,8 +76,8 @@ export const UserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * ログインに成功したユーザ ID を取得します。
+         * @summary ログインに成功したユーザ ID を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -98,8 +98,8 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = UserApiFp(configuration)
     return {
         /**
-         * ログインに成功したユーザIDを取得します.
-         * @summary ログインに成功したユーザIDを取得します.
+         * ログインに成功したユーザ ID を取得します。
+         * @summary ログインに成功したユーザ ID を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -117,8 +117,8 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  */
 export class UserApi extends BaseAPI {
     /**
-     * ログインに成功したユーザIDを取得します.
-     * @summary ログインに成功したユーザIDを取得します.
+     * ログインに成功したユーザ ID を取得します。
+     * @summary ログインに成功したユーザ ID を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
