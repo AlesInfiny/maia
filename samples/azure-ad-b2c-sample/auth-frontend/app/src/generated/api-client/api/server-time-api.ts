@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Azure AD B2C ユーザー認証
- * Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。
+ * Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
@@ -30,8 +30,8 @@ import type { ServerTimeResponse } from '../models';
 export const ServerTimeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,8 +70,8 @@ export const ServerTimeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ServerTimeApiAxiosParamCreator(configuration)
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -92,8 +92,8 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
     const localVarFp = ServerTimeApiFp(configuration)
     return {
         /**
-         * サーバーの現在時刻を取得します.
-         * @summary サーバーの現在時刻を取得します.
+         * サーバーの現在時刻を取得します。
+         * @summary サーバーの現在時刻を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -111,8 +111,8 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
  */
 export class ServerTimeApi extends BaseAPI {
     /**
-     * サーバーの現在時刻を取得します.
-     * @summary サーバーの現在時刻を取得します.
+     * サーバーの現在時刻を取得します。
+     * @summary サーバーの現在時刻を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ServerTimeApi

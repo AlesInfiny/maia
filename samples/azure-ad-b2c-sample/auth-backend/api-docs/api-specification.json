@@ -13,12 +13,12 @@
   ],
   "tags": [
     {
-      "description": "認証済みユーザのユーザ ID を取得する API です。",
-      "name": "User"
+      "description": "認証済みユーザのユーザ ID を取得する API",
+      "name": "Users"
     },
     {
       "description": "認証不要でサーバーの現在時刻を取得します。",
-      "name": "ServerTimes"
+      "name": "ServerTime"
     }
   ],
   "paths": {
@@ -39,7 +39,9 @@
           }
         },
         "summary": "サーバーの現在時刻を取得します。",
-        "tags": ["ServerTime"]
+        "tags": [
+          "ServerTime"
+        ]
       }
     },
     "/api/users": {
@@ -74,7 +76,9 @@
           }
         ],
         "summary": "ログインに成功したユーザ ID を取得します。",
-        "tags": ["Users"]
+        "tags": [
+          "Users"
+        ]
       }
     }
   },
@@ -84,25 +88,37 @@
         "type": "object",
         "properties": {
           "detail": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           },
           "instance": {
-            "type": ["string"],
+            "type": [
+              "string"
+            ],
             "format": "uri"
           },
           "properties": {
-            "type": ["object"],
+            "type": [
+              "object"
+            ],
             "additionalProperties": {}
           },
           "status": {
-            "type": ["integer"],
+            "type": [
+              "integer"
+            ],
             "format": "int32"
           },
           "title": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           },
           "type": {
-            "type": ["string"],
+            "type": [
+              "string"
+            ],
             "format": "uri"
           }
         }
@@ -111,19 +127,27 @@
         "type": "object",
         "properties": {
           "serverTime": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           }
         },
-        "required": ["serverTime"]
+        "required": [
+          "serverTime"
+        ]
       },
       "UserResponse": {
         "type": "object",
         "properties": {
           "userId": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           }
         },
-        "required": ["userId"]
+        "required": [
+          "userId"
+        ]
       }
     },
     "securitySchemes": {
