@@ -33,6 +33,7 @@ public class DresscaLoggerImpl implements DresscaLogger {
     String userName = userStore.getLoginUserName();
     try {
       MDC.put("userId", userName);
+      // サンプルアプリでは sessionId を発行していないため、 null としています。
       MDC.put("sessionId", null);
       logAction.run();
     } finally {

@@ -26,7 +26,8 @@ public class DresscaLoggerImpl implements DresscaLogger {
    */
   private void logWithMdc(Runnable logAction) {
     try {
-      // key-value の組を追加してください
+      // サンプルアプリでは sessionId を発行していないため、 null としています。
+      MDC.put("sessionId", null);
       logAction.run();
     } finally {
       MDC.clear();
