@@ -13,7 +13,7 @@
   ],
   "tags": [
     {
-      "description": "認証済みユーザのユーザ ID を取得する API",
+      "description": "認証済みユーザのユーザ ID を取得する API です。",
       "name": "Users"
     },
     {
