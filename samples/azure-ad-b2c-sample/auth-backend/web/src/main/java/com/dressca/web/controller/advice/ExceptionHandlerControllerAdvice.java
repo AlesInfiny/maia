@@ -2,10 +2,8 @@ package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private AbstractStructuredLogger apLog;
 
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;
