@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
+import { storeToRefs } from 'pinia';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import NotificationToast from './components/common/NotificationToast.vue';
 
 const authenticationStore = useAuthenticationStore();
-const isAuthenticated = () => {
-  return authenticationStore.isAuthenticated;
-};
+const { isAuthenticated } = storeToRefs(authenticationStore);
 </script>
 
 <template>
@@ -27,7 +26,7 @@ const isAuthenticated = () => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated()" to="/authentication/login">
+            <router-link v-if="!isAuthenticated" to="/authentication/login">
               ログイン
             </router-link>
           </div>

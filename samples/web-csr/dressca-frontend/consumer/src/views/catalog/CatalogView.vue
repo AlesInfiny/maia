@@ -23,7 +23,8 @@ const specialContentStore = useSpecialContentStore();
 const catalogStore = useCatalogStore();
 
 const { getSpecialContents } = storeToRefs(specialContentStore);
-const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
+const { getCategories, getBrands, getItems, getBrandName } =
+  storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { t } = i18n.global;
@@ -166,7 +167,7 @@ watch([selectedCategory, selectedBrand], async () => {
               />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">
-                  {{ catalogStore.getBrandName(item.catalogBrandId) }}
+                  {{ getBrandName(item.catalogBrandId) }}
                 </p>
                 <p class="font-bold text-lg">
                   {{ toCurrencyJPY(item.price) }}
