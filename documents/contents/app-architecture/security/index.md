@@ -7,7 +7,11 @@ description: アプリケーションセキュリティを 担保するための
 
 本章では、 AlesInfiny Maia OSS Edition （以降『AlesInfiny Maia』）のアプリケーションにおいてセキュリティを担保するための対策について説明します。
 
-なお、セキュアな Web アプリケーションの作り方については、 [安全なウェブサイトの作り方 | 情報セキュリティ | IPA 独立行政法人 情報処理推進機構](https://www.ipa.go.jp/security/vuln/websecurity/about.html) も併せて参照してください。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+なお、セキュアな Web アプリケーションの作り方については、 [安全なウェブサイトの作り方 | 情報セキュリティ | IPA 独立行政法人 情報処理推進機構 :material-open-in-new:](https://www.ipa.go.jp/security/vuln/websecurity/about.html){ target=_blank } も併せて参照してください。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 !!! danger "注意事項"
 

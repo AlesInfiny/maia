@@ -43,7 +43,7 @@ public class CatalogApplicationService {
   private AbstractStructuredLogger apLog;
 
   /**
-   * コンストラクタ。
+   * {@link CatalogApplicationService} クラスの新しいインスタンスを初期化します。
    * 
    * @param messages             メッセージ。
    * @param catalogRepository    カタログリポジトリ。
@@ -63,15 +63,20 @@ public class CatalogApplicationService {
     this.apLog = apLog;
   }
 
+  /**
+   * {@link UserStore} をセットします。
+   * 
+   * @param userStore ユーザーのセッション情報。
+   */
   @Autowired(required = false)
   public void setUserStore(UserStore userStore) {
     this.userStore = userStore;
   }
 
   /**
-   * 指定したIdのカタログアイテムを取得します。
+   * 指定した ID のカタログアイテムを取得します。
    * 
-   * @param id カタログアイテムID
+   * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
    * @throws CatalogNotFoundException  カタログアイテムが見つからなかった場合。
    * @throws PermissionDeniedException 取得権限がない場合。
@@ -94,10 +99,10 @@ public class CatalogApplicationService {
   /**
    * 利用者が条件に一致するカタログ情報を取得します。
    * 
-   * @param brandId    ブランドID
-   * @param categoryId カテゴリID
-   * @param page       ページ
-   * @param pageSize   ページサイズ
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @param page       ページ。
+   * @param pageSize   ページサイズ。
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    */
   public List<CatalogItem> getCatalogItemsForConsumer(long brandId, long categoryId, int page, int pageSize) {
@@ -111,10 +116,10 @@ public class CatalogApplicationService {
   /**
    * 管理者が条件に一致するカタログ情報を取得します。
    * 
-   * @param brandId    ブランドID
-   * @param categoryId カテゴリID
-   * @param page       ページ
-   * @param pageSize   ページサイズ
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @param page       ページ。
+   * @param pageSize   ページサイズ。
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
@@ -134,12 +139,12 @@ public class CatalogApplicationService {
   /**
    * カタログにアイテムを追加します。
    * 
-   * @param name              商品名
-   * @param description       説明
-   * @param price             単価
-   * @param productCode       商品コード
-   * @param catalogCategoryId カテゴリID
-   * @param catalogBrandId    ブランドID
+   * @param name              商品名。
+   * @param description       説明。
+   * @param price             単価。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カテゴリ ID 。
+   * @param catalogBrandId    ブランド ID 。
    * @return 追加したカタログアイテム。
    * @throws PermissionDeniedException        追加権限がない場合。
    * @throws CatalogCategoryNotFoundException 追加対象のカタログカテゴリが存在しなかった場合。
@@ -173,7 +178,7 @@ public class CatalogApplicationService {
   /**
    * カタログからアイテムを削除します。
    * 
-   * @param id         削除対象のカタログアイテムのID。
+   * @param id         削除対象のカタログアイテムの ID 。
    * @param rowVersion 行バージョン。
    * @throws PermissionDeniedException         削除権限がない場合。
    * @throws CatalogNotFoundException          削除対象のカタログアイテムが存在しなかった場合。
@@ -198,13 +203,13 @@ public class CatalogApplicationService {
   /**
    * カタログアイテムを更新します。
    * 
-   * @param id                更新対象のカタログアイテムID。
+   * @param id                更新対象のカタログアイテム ID 。
    * @param name              商品名。
    * @param description       説明。
    * @param price             価格。
-   * @param productCode       商品コード。
-   * @param catalogCategoryId カテゴリID。
-   * @param catalogBrandId    ブランドID。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カテゴリ ID 。
+   * @param catalogBrandId    ブランド ID 。
    * @param rowVersion        行バージョン。
    * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
    * @throws PermissionDeniedException         更新権限がない場合。
@@ -249,8 +254,8 @@ public class CatalogApplicationService {
   /**
    * 条件に一致するカテゴリの件数を取得します。
    * 
-   * @param brandId    ブランドID
-   * @param categoryId カテゴリID
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログ情報の件数。
    */
   public int countCatalogItems(long brandId, long categoryId) {

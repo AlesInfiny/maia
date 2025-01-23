@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "description": "Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。",
+    "description": "Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。",
     "title": "Azure AD B2C ユーザー認証",
     "version": "v1"
   },
@@ -13,40 +13,40 @@
   ],
   "tags": [
     {
-      "description": "認証不要でサーバーの現在時刻を取得する",
-      "name": "ServerTime"
+      "description": "認証済みユーザのユーザ ID を取得する API です。",
+      "name": "Users"
     },
     {
-      "description": "認証済みユーザのユーザIDを取得するAPI",
-      "name": "User"
+      "description": "認証不要でサーバーの現在時刻を取得します。",
+      "name": "ServerTime"
     }
   ],
   "paths": {
     "/api/servertime": {
       "get": {
-        "description": "サーバーの現在時刻を取得します.",
+        "description": "サーバーの現在時刻を取得します。",
         "operationId": "getServerTime",
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeResponse"
+                  "$ref": "#/components/schemas/ServerTimeResponse"
                 }
               }
             },
-            "description": "成功."
+            "description": "成功。"
           }
         },
-        "summary": "サーバーの現在時刻を取得します.",
+        "summary": "サーバーの現在時刻を取得します。",
         "tags": [
           "ServerTime"
         ]
       }
     },
-    "/api/user": {
+    "/api/users": {
       "get": {
-        "description": "ログインに成功したユーザIDを取得します.",
+        "description": "ログインに成功したユーザ ID を取得します。",
         "operationId": "getUser",
         "responses": {
           "200": {
@@ -57,7 +57,7 @@
                 }
               }
             },
-            "description": "成功."
+            "description": "成功。"
           },
           "401": {
             "content": {
@@ -67,7 +67,7 @@
                 }
               }
             },
-            "description": "未認証エラー."
+            "description": "未認証エラー。"
           }
         },
         "security": [
@@ -75,9 +75,9 @@
             "Bearer": []
           }
         ],
-        "summary": "ログインに成功したユーザIDを取得します.",
+        "summary": "ログインに成功したユーザ ID を取得します。",
         "tags": [
-          "User"
+          "Users"
         ]
       }
     }
@@ -123,7 +123,7 @@
           }
         }
       },
-      "TimeResponse": {
+      "ServerTimeResponse": {
         "type": "object",
         "properties": {
           "serverTime": {

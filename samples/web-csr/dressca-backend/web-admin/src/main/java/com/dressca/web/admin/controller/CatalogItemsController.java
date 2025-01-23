@@ -46,7 +46,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API コントローラーです.")
+@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
 @AllArgsConstructor
 @PreAuthorize(value = "hasAuthority('" + UserRoleConstants.ADMIN + "')")
@@ -59,18 +59,18 @@ public class CatalogItemsController {
   private AbstractStructuredLogger apLog;
 
   /**
-   * 指定したIDのカタログアイテムを返します。
+   * 指定した ID のカタログアイテムを返します。
    * 
-   * @param id ID。
+   * @param id ID 。
    * @return カタログアイテム。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "指定したIDのカタログアイテムを返します。", description = "指定したIDのカタログアイテムを返します。")
+  @Operation(summary = "指定した ID のカタログアイテムを返します。", description = "指定した ID のカタログアイテムを返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @GetMapping("{id}")
@@ -91,14 +91,14 @@ public class CatalogItemsController {
   /**
    * カタログアイテムを検索して返します。
    *
-   * @param brandId    ブランドID。未指定の場合は0。
-   * @param categoryId カテゴリID。未指定の場合は0。
-   * @param page       ページ番号。未指定の場合は1。
-   * @param pageSize   ページサイズ。未指定の場合は20。
+   * @param brandId    ブランド ID 。未指定の場合は 0 。
+   * @param categoryId カテゴリ ID 。未指定の場合は 0 。
+   * @param page       ページ番号。未指定の場合は 1 。
+   * @param pageSize   ページサイズ。未指定の場合は 20 。
    * @return カタログアイテムの一覧。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "カタログアイテムを検索して返します.", description = "カタログアイテムを検索して返します.")
+  @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
@@ -150,7 +150,7 @@ public class CatalogItemsController {
       return ResponseEntity.created(URI.create("/api/catalog-items/" + addedCatalogItem.getId())).build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
-      // ここでは発生を想定していないので、システムエラーとする。
+      // ここでは発生を想定していないので、システムエラーとします。
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
   }
@@ -158,7 +158,7 @@ public class CatalogItemsController {
   /**
    * カタログから指定したカタログアイテム ID のアイテムを削除します。
    * 
-   * @param catalogItemId カタログアイテムID。
+   * @param catalogItemId カタログアイテム ID 。
    * @param rowVersion    行バージョン。
    * @return なし。
    * @throws PermissionDeniedException         認可エラー。
@@ -169,7 +169,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
@@ -188,20 +188,20 @@ public class CatalogItemsController {
   }
 
   /**
-   * 指定したIDのカタログアイテムの情報を更新します。
+   * 指定した ID のカタログアイテムの情報を更新します。
    * 
-   * @param catalogItemId         カタログアイテムID。
+   * @param catalogItemId         カタログアイテム ID 。
    * @param putCatalogItemRequest 更新するカタログアイテムの情報。
    * @return なし。
    * @throws OptimisticLockingFailureException 楽観ロックエラー。
    * @throws PermissionDeniedException         認可エラー。
    */
-  @Operation(summary = "指定したIDのカタログアイテムの情報を更新します。", description = "指定したIDのカタログアイテムの情報を更新します。")
+  @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。", description = "指定した ID のカタログアイテムの情報を更新します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。", content = @Content),
       @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
@@ -220,7 +220,7 @@ public class CatalogItemsController {
       return ResponseEntity.notFound().build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
       apLog.error(ExceptionUtils.getStackTrace(e));
-      // ここでは発生を想定していないので、システムエラーとする。
+      // ここでは発生を想定していないので、システムエラーとします。
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
     return ResponseEntity.noContent().build();

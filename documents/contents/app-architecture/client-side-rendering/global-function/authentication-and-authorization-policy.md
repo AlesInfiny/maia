@@ -26,4 +26,4 @@ Spring プロジェクトの１つである [Spring Security :material-open-in-n
 AlesInfiny Maia OSS Edition では、認可機能の実装を [OAuth 2.0 :material-open-in-new:](https://oauth.net/2/){ target=_blank } の標準に則って行います。
 OAuth 2.0 は、ユーザーが自分の認証情報（ユーザー名やパスワード）を第三者と共有することなく、第三者のアプリケーションやサービスに対して自分のリソースへのアクセスを制御するための認可フレームワークです。
 
-機能の実装には、 Spring プロジェクトの１つである [Spring Security :material-open-in-new:](https://spring.io/projects/spring-security){ target=_blank } などが候補になります。
+認可機能の実装には、 Spring プロジェクトの１つである [Spring Security :material-open-in-new:](https://spring.io/projects/spring-security){ target=_blank } などが候補になります。

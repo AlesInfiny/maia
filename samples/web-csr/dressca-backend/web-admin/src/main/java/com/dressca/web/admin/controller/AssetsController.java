@@ -27,10 +27,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 /**
- * {@link Asset} の情報にアクセスするAPIコントローラーです。
+ * {@link Asset} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "Assets", description = "アセットの情報にアクセスするAPI")
+@Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
 @AllArgsConstructor
 @PreAuthorize(value = "isAuthenticated()")
@@ -45,14 +45,14 @@ public class AssetsController {
   /**
    * アセットを取得します。
    * 
-   * @param assetCode アセットコード
-   * @return アセット
+   * @param assetCode アセットコード。
+   * @return アセット。
    */
-  @Operation(summary = "アセットを取得する.", description = "与えられたアセットコードに対応するアセットを返却する.")
+  @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがない。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @GetMapping("{assetCode}")
@@ -74,8 +74,8 @@ public class AssetsController {
   /**
    * アセットタイプから Content-Type に変換します。
    * 
-   * @param asset アセット
-   * @return Content-Type の名称
+   * @param asset アセット。
+   * @return Content-Type の名称。
    */
   private MediaType getContentType(Asset asset) {
     switch (asset.getAssetType()) {

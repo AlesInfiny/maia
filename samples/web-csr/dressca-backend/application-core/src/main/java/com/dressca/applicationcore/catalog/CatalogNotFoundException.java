@@ -9,7 +9,8 @@ import com.dressca.systemcommon.exception.LogicException;
 public class CatalogNotFoundException extends LogicException {
 
   /**
-   * 見つからなかったカタログ ID を指定して例外を作成します。
+   * 見つからなかったカタログ ID を指定して
+   * {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
    * 
    * @param catalogId 見つからなかったカタログ ID 。
    */
@@ -19,7 +20,7 @@ public class CatalogNotFoundException extends LogicException {
   }
 
   /**
-   * カタログに商品が存在しないことを表す例外を作成します。
+   * {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
    */
   public CatalogNotFoundException() {
     super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND, null, null);

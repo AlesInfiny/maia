@@ -4,15 +4,15 @@ import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogCategoryResponse;
 
 /**
- * {@link CatalogCategory} と {@link CatalogCategoryResponse} のマッパーです。 
+ * {@link CatalogCategory} と {@link CatalogCategoryResponse} のマッパーです。
  */
 public class CatalogCategoryMapper {
 
   /**
    * {@link CatalogCategory} オブジェクトを {@link CatalogCategoryResponse} に変換します。
    * 
-   * @param catalogCategory {@link CatalogCategory} オブジェクト
-   * @return {@link CatalogCategoryResponse} オブジェクト
+   * @param catalogCategory {@link CatalogCategory} オブジェクト。
+   * @return {@link CatalogCategoryResponse} オブジェクト。
    */
   public static CatalogCategoryResponse convert(CatalogCategory catalogCategory) {
     if (catalogCategory == null) {

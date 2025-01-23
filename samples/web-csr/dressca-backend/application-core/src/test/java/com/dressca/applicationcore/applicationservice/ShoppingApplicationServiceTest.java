@@ -303,7 +303,7 @@ public class ShoppingApplicationServiceTest {
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
-  void testGetBasketDetail_異常系_購入者Idがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
+  void testGetBasketDetail_異常系_購入者IDがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
 
     // テストメソッドの実行
     try {
