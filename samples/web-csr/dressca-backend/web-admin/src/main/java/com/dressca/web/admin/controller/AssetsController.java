@@ -6,7 +6,7 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.systemcommon.exception.LogicException;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -40,7 +40,7 @@ public class AssetsController {
   private AssetApplicationService service;
 
   @Autowired
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * アセットを取得します。

@@ -4,7 +4,7 @@ import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.AllArgsConstructor;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class OrderApplicationService {
   private OrderRepository orderRepository;
 
   @Autowired
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * 指定した注文 Id 、購入者 Id の注文情報を取得します。

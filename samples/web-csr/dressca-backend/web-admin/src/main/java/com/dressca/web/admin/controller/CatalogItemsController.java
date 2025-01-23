@@ -15,7 +15,7 @@ import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
@@ -56,7 +56,7 @@ public class CatalogItemsController {
   private CatalogApplicationService service;
 
   @Autowired
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * 指定したIDのカタログアイテムを返します。

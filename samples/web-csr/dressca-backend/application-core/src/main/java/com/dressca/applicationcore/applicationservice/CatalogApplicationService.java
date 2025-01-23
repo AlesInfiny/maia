@@ -22,7 +22,7 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.applicationcore.constant.MessageIdConstants;
 
 /**
@@ -40,7 +40,7 @@ public class CatalogApplicationService {
   private CatalogCategoryRepository categoryRepository;
   private CatalogDomainService catalogDomainService;
   private UserStore userStore;
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * コンストラクタ。
@@ -54,7 +54,7 @@ public class CatalogApplicationService {
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
-      CatalogDomainService catalogDomainService, DresscaLogger apLog) {
+      CatalogDomainService catalogDomainService, AbstractStructuredLogger apLog) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
     this.brandRepository = brandRepository;

@@ -1,16 +1,16 @@
-package com.dressca.batch.log;
+package com.dressca.web.log;
 
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 
 /**
- * コンテキストにログ出力を保持させるためのラッパークラスです。
+ * コンテキストにログを保持させる機能を追加したカスタムロガーです。単体テストで使用します。
  */
 @Component
 @NoArgsConstructor
-public class DresscaLoggerImpl extends DresscaLogger {
+public class DresscaStructuredLoggerImpl extends AbstractStructuredLogger {
 
   @Override
   protected void logWithMdc(Runnable logAction) {

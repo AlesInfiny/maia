@@ -44,7 +44,7 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
@@ -66,7 +66,7 @@ public class ShoppingApplicationServiceTest {
   private MessageSource messages;
 
   @Mock
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   private ShoppingApplicationService service;
 

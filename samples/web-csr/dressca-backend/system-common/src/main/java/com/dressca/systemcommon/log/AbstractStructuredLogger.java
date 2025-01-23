@@ -8,7 +8,7 @@ import com.dressca.systemcommon.constant.SystemPropertyConstants;
 /**
  * コンテキストにログを保持させる機能を追加したカスタムロガーのインターフェースです。
  */
-public abstract class DresscaLogger {
+public abstract class AbstractStructuredLogger {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 

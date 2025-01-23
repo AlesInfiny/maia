@@ -12,7 +12,7 @@ import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.AllArgsConstructor;
 
 /**
@@ -30,7 +30,7 @@ public class AssetApplicationService {
   @Autowired
   private MessageSource messages;
   @Autowired
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。

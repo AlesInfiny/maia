@@ -27,7 +27,7 @@ import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.AllArgsConstructor;
 
 /**
@@ -47,7 +47,7 @@ public class ShoppingApplicationService {
   private CatalogDomainService catalogDomainService;
 
   @Autowired
-  private DresscaLogger apLog;
+  private AbstractStructuredLogger apLog;
 
   /**
    * 買い物かごに商品を追加します。

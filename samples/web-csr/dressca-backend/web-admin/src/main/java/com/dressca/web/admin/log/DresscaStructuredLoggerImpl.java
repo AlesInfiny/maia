@@ -1,8 +1,10 @@
-package com.dressca.web.consumer.log;
+package com.dressca.web.admin.log;
 
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.log.DresscaLogger;
+import com.dressca.applicationcore.authorization.UserStore;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 
 /**
@@ -10,11 +12,16 @@ import lombok.NoArgsConstructor;
  */
 @Component
 @NoArgsConstructor
-public class DresscaLoggerImpl extends DresscaLogger {
+public class DresscaStructuredLoggerImpl extends AbstractStructuredLogger {
+
+  @Autowired
+  private UserStore userStore;
 
   @Override
   protected void logWithMdc(Runnable logAction) {
+    String userName = userStore.getLoginUserName();
     try {
+      MDC.put("userId", userName);
       // サンプルアプリでは sessionId を発行していないため、 null としています。
       MDC.put("sessionId", null);
       logAction.run();
