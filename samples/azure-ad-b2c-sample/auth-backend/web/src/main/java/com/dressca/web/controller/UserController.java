@@ -21,8 +21,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * Azure AD B2C に接続するためのコントローラークラスです。
  */
 @RestController
-@Tag(name = "User", description = "認証済みユーザのユーザ ID を取得する API です。")
-@RequestMapping("/api/user")
+@Tag(name = "Users", description = "認証済みユーザのユーザ ID を取得する API です。")
+@RequestMapping("/api/users")
 public class UserController {
 
   /**
