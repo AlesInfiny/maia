@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Azure AD B2C ユーザー認証
- * Azure AD B2Cを利用したユーザー認証機能を提供するサンプルアプリケーションです。
+ * Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
@@ -17,13 +17,13 @@
 /**
  * 
  * @export
- * @interface TimeResponse
+ * @interface ServerTimeResponse
  */
-export interface TimeResponse {
+export interface ServerTimeResponse {
     /**
      * 
      * @type {string}
-     * @memberof TimeResponse
+     * @memberof ServerTimeResponse
      */
     'serverTime': string;
 }

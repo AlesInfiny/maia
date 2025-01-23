@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * 注文情報リポジトリ。
+ * 注文情報のリポジトリです。
  */
 @Repository
 @AllArgsConstructor

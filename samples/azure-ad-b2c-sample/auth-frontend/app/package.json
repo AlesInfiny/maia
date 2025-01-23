@@ -8,7 +8,7 @@
     "build:dev": "run-p type-check build-only:dev --print-label",
     "build-only:prod": "vite build --mode prod",
     "build-only:dev": "vite build --mode dev",
-    "preview": "vite preview --port 5050",
+    "preview": "vite preview",
     "test:unit": "vitest",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
@@ -45,8 +45,8 @@
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.4.2",
     "typescript": "5.3.3",
-    "vite": "^5.4.8",
-    "vitest": "^2.1.8",
+    "vite": "^6.0.10",
+    "vitest": "^3.0.2",
     "vue-tsc": "^2.2.0"
   }
 }

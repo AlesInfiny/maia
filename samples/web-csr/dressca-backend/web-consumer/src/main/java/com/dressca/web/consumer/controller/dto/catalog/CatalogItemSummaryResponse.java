@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログアイテムの概要を取得する際に用いるdtoクラスです。
+ * カタログアイテムの概要を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor

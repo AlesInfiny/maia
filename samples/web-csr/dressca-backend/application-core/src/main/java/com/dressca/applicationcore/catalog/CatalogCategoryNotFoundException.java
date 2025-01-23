@@ -9,10 +9,10 @@ import com.dressca.systemcommon.exception.LogicException;
 public class CatalogCategoryNotFoundException extends LogicException {
 
   /**
-   * 見つからなかったカタログカテゴリ Id を指定して
+   * 見つからなかったカタログカテゴリ ID を指定して、
    * {@link CatalogItemNotExistingInRepositoryException} クラスの新しいインスタンスを初期化します。
    * 
-   * @param catalogCategoryId 見つからなかったカタログカテゴリ Id 。
+   * @param catalogCategoryId 見つからなかったカタログカテゴリ ID 。
    */
   public CatalogCategoryNotFoundException(long catalogCategoryId) {
     super(null, ExceptionIdConstants.E_CATALOG_CATEGORY_NOT_FOUND, new String[] { String.valueOf(
