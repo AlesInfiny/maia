@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, toRefs, onMounted, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import {
   fetchCategoriesAndBrands,
   fetchItems,
@@ -27,13 +27,11 @@ const { getCategories, getBrands, getItems } = storeToRefs(catalogStore);
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { t } = i18n.global;
-const state = reactive({
-  selectedCategory: 0,
-  selectedBrand: 0,
-  showLoading: true,
-});
 
-const { selectedCategory, selectedBrand } = toRefs(state);
+const selectedCategory = ref(0);
+const selectedBrand = ref(0);
+const showLoading = ref(true);
+
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl, getAssetUrl } = assetHelper();
 
@@ -68,7 +66,7 @@ const addBasket = async (catalogItemId: number) => {
 };
 
 onMounted(async () => {
-  state.showLoading = true;
+  showLoading.value = true;
   fetchCategoriesAndBrands();
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value);
@@ -96,7 +94,7 @@ onMounted(async () => {
       },
     );
   }
-  state.showLoading = false;
+  showLoading.value = false;
 });
 
 watch([selectedCategory, selectedBrand], async () => {
@@ -106,8 +104,8 @@ watch([selectedCategory, selectedBrand], async () => {
 
 <template>
   <div class="container mx-auto">
-    <Loading :show="state.showLoading"></Loading>
-    <div v-if="!state.showLoading">
+    <Loading :show="showLoading"></Loading>
+    <div v-if="!showLoading">
       <div class="flex justify-center m-4">
         <CarouselSlider :items="getSpecialContents" class="h-auto w-full">
           <template #default="{ item }">
