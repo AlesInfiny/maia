@@ -14,11 +14,11 @@ public class OptimisticLockingFailureException extends LogicException {
    * 
    * @param catalogItemId 更新処理を試みたカタログアイテム ID 。
    */
-  public OptimisticLockingFailureException(long catalogItemId) {
+  public OptimisticLockingFailureException(long catalogItemId, String operationName) {
     super(
         null,
         ExceptionIdConstants.E_OPTIMISTIC_LOCKING_FAILURE,
-        new String[] { String.valueOf(catalogItemId) },
-        new String[] { String.valueOf(catalogItemId) });
+        new String[] { String.valueOf(catalogItemId), operationName },
+        new String[] { String.valueOf(catalogItemId), operationName });
   }
 }

@@ -189,15 +189,16 @@ public class CatalogApplicationService {
       throws PermissionDeniedException, CatalogNotFoundException, OptimisticLockingFailureException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG, new Object[] { id },
         Locale.getDefault()));
+    final String operationName = "deleteItemFromCatalog";
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
-      throw new PermissionDeniedException("deleteItemFromCatalog");
+      throw new PermissionDeniedException(operationName);
     }
     if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
     int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
     if (deleteRowCount == 0) {
-      throw new OptimisticLockingFailureException(id);
+      throw new OptimisticLockingFailureException(id, operationName);
     }
   }
 
@@ -225,9 +226,9 @@ public class CatalogApplicationService {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM, new Object[] { id },
         Locale.getDefault()));
-
+    final String operationName = "updateCatalogItem";
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
-      throw new PermissionDeniedException("updateCatalogItem");
+      throw new PermissionDeniedException(operationName);
     }
 
     if (!this.catalogDomainService.existCatalogItem(id)) {
@@ -248,7 +249,7 @@ public class CatalogApplicationService {
 
     int updateRowCount = this.catalogRepository.update(item);
     if (updateRowCount == 0) {
-      throw new OptimisticLockingFailureException(id);
+      throw new OptimisticLockingFailureException(id, operationName);
     }
   }
 
