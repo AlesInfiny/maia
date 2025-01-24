@@ -6,7 +6,7 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 
 /**
- * コンテキストにログ出力を保持させるためのラッパークラスです。
+ * コンテキストにログを保持させる機能を追加した構造化ロガーです。
  */
 @Component
 @NoArgsConstructor

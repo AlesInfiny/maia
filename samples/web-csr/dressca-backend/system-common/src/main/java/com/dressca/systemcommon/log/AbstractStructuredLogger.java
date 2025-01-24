@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 
 /**
- * コンテキストにログを保持させる機能を追加したカスタムロガーのインターフェースです。
+ * コンテキストにログを保持させる機能を追加した構造化ロガーのインターフェースです。
  */
 public abstract class AbstractStructuredLogger {
 
