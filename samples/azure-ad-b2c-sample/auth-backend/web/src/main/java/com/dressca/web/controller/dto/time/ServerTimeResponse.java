@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * サーバーの現在時刻を格納するクラス。
+ * サーバーの現在時刻を格納するクラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeResponse {
+public class ServerTimeResponse {
   @NotNull
   private String serverTime;
 }

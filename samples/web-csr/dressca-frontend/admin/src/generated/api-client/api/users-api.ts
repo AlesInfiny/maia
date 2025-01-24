@@ -30,7 +30,7 @@ import type { GetLoginUserResponse } from '../models';
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * ユーザーの情報。
+         * ログイン中のユーザーの情報を取得します。
          * @summary ログイン中のユーザーの情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -70,7 +70,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
     return {
         /**
-         * ユーザーの情報。
+         * ログイン中のユーザーの情報を取得します。
          * @summary ログイン中のユーザーの情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -92,7 +92,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = UsersApiFp(configuration)
     return {
         /**
-         * ユーザーの情報。
+         * ログイン中のユーザーの情報を取得します。
          * @summary ログイン中のユーザーの情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -111,7 +111,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
  */
 export class UsersApi extends BaseAPI {
     /**
-     * ユーザーの情報。
+     * ログイン中のユーザーの情報を取得します。
      * @summary ログイン中のユーザーの情報を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

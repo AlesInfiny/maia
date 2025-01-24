@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
 /**
- * セキュリティ関連の実行クラス。
+ * セキュリティ関連の実行クラスです。
  */
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -21,11 +21,11 @@ public class WebSecurityConfig {
   private String[] allowedOrigins;
 
   /**
-   * CORS 設定を実行。
+   * CORS の設定をします。
    * 
-   * @param http http リクエスト
-   * @return フィルターチェーン
-   * @throws Exception 例外
+   * @param http http リクエスト。
+   * @return フィルターチェーン。
+   * @throws Exception 例外。
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
