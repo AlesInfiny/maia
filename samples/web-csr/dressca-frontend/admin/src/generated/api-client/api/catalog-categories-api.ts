@@ -30,8 +30,8 @@ import type { GetCatalogCategoriesResponse } from '../models';
 export const CatalogCategoriesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * カタログカテゴリの一覧を取得します.
-         * @summary カタログカテゴリの一覧を取得します.
+         * カタログカテゴリの一覧を取得します。
+         * @summary カタログカテゴリの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,8 +70,8 @@ export const CatalogCategoriesApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CatalogCategoriesApiAxiosParamCreator(configuration)
     return {
         /**
-         * カタログカテゴリの一覧を取得します.
-         * @summary カタログカテゴリの一覧を取得します.
+         * カタログカテゴリの一覧を取得します。
+         * @summary カタログカテゴリの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -92,8 +92,8 @@ export const CatalogCategoriesApiFactory = function (configuration?: Configurati
     const localVarFp = CatalogCategoriesApiFp(configuration)
     return {
         /**
-         * カタログカテゴリの一覧を取得します.
-         * @summary カタログカテゴリの一覧を取得します.
+         * カタログカテゴリの一覧を取得します。
+         * @summary カタログカテゴリの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -111,8 +111,8 @@ export const CatalogCategoriesApiFactory = function (configuration?: Configurati
  */
 export class CatalogCategoriesApi extends BaseAPI {
     /**
-     * カタログカテゴリの一覧を取得します.
-     * @summary カタログカテゴリの一覧を取得します.
+     * カタログカテゴリの一覧を取得します。
+     * @summary カタログカテゴリの一覧を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogCategoriesApi
