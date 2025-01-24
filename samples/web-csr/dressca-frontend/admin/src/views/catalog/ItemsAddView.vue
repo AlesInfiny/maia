@@ -17,7 +17,7 @@ import type {
 } from '@/generated/api-client';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
