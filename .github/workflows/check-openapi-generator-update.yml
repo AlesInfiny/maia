@@ -108,6 +108,7 @@ jobs:
             echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
           else
             echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+            exit 1
           fi
           echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
           echo status: $STATUS >> $GITHUB_STEP_SUMMARY
@@ -145,6 +146,7 @@ jobs:
             echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
           else
             echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+            exit 1
           fi
           echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
           echo status: $STATUS >> $GITHUB_STEP_SUMMARY
@@ -182,6 +184,7 @@ jobs:
             echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
           else
             echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+            exit 1
           fi
           echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
           echo status: $STATUS >> $GITHUB_STEP_SUMMARY
