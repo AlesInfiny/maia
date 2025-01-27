@@ -6,9 +6,19 @@ description: バックエンドで動作する Java アプリケーションの 
 # 集約例外ハンドラーの設定 {#top}
 
 集約例外ハンドラーの設定方法について解説します。
+
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
+
+本設定で利用するフォルダーの構成は以下の通りです。
+
+```terminal linenums="0"
+root/ --------------------------------------------------- root フォルダー
+  └ web/src/main/java/Group 名/web/controller/advice/
+    ├ ExceptionHandlerControllerAdvice ------------------ 本番環境要の集約例外ハンドラー
+    └ LocalExceptionHandlerControllerAdvice ------------- ローカル環境用の集約例外ハンドラー  
+```
 
 ## 集約例外ハンドラークラスの実装 {#exception-handler-class}
 
@@ -71,7 +81,7 @@ ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装�
 ``` Java
 @ControllerAdvice(basePackages = "プロジェクトの Group 名")
 @Profile("local")
-public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
+public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
