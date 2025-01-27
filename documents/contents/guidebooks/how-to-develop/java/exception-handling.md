@@ -10,7 +10,7 @@ description: バックエンドで動作する Java アプリケーションの 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-## 集約例外ハンドラークラスの実装 {#global-error-handler-implementation}
+## 集約例外ハンドラークラスの実装 {#exception-handler-class}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 集約例外ハンドラークラスは [ResponseEntityExceptionHandler クラス :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.html) の拡張クラスとして実装し、 `@ControllerAdvice` および `@Profile` を付与します。
@@ -29,7 +29,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
 }
 ```
 
-## 例外ハンドリングのメソッドの実装 {#error-handling-method-implementation}
+## 例外ハンドリングのメソッドの実装 {#exception-handling-method}
 
 集約例外ハンドラークラスには、ハンドリングする例外と対応したメソッドを実装します。
 
