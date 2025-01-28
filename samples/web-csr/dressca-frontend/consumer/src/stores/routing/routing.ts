@@ -13,4 +13,9 @@ export const useRoutingStore = defineStore({
       this.redirectFrom = null;
     },
   },
+  getters: {
+    getRedirectFrom(state) {
+      return state.redirectFrom;
+    },
+  },
 });
