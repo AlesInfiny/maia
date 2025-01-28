@@ -8,7 +8,7 @@ description: バックエンドで動作する Java アプリケーションの 
 集約例外ハンドラーの設定方法について解説します。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 本設定で利用するフォルダーの構成は以下の通りです。
@@ -65,7 +65,7 @@ public ResponseEntity<ProblemDetail> handleLogicException(Exception e, HttpServl
 ### エラーログの出力 {#error-log-output}
 
 メソッドではエラーに関するアプリケーションログを出力します。
-ログに含める標準的なデータやログレベルは、[ログ出力方針](../../../app-architecture/overview/java-application-processing-system/logging-policy.md) を参照してください。
+ログに含める標準的なデータやログレベルは、[ログ出力方針](../../../../app-architecture/overview/java-application-processing-system/logging-policy.md) を参照してください。
 
 ### エラーレスポンスの生成 {#error-response}
 
@@ -74,7 +74,7 @@ public ResponseEntity<ProblemDetail> handleLogicException(Exception e, HttpServl
 AlesInfiny Maia では、例外メッセージをプロパティファイルから取得し、ログ出力するために ErrorMessageBuilder クラスを実装しています。
 また、プロパティファイルからエラーレスポンスに含めるメッセージを整形し ProblemDetail クラスを生成する ProblemDetailsFactory クラスを実装しています。
 これらを用いてエラーレスポンスを生成を実装しています。
-ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定のメッセージの取得](./sub-project-settings/message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
+ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定のメッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
 
 以下は、これらのクラスを用いた集約例外ハンドラーの実装例です。
 
