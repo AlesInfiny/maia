@@ -11,30 +11,17 @@ description: バックエンドで動作する Java アプリケーションの 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-本設定で利用するフォルダーの構成は以下の通りです。
-
-```terminal linenums="0"
-root/ --------------------------------------------------- root フォルダー
-  └ web/src/main/java/Group 名/web/controller/advice/
-    ├ ExceptionHandlerControllerAdvice ------------------ 本番環境要の集約例外ハンドラー
-    └ LocalExceptionHandlerControllerAdvice ------------- ローカル環境用の集約例外ハンドラー  
-```
-
 ## 集約例外ハンドラークラスの実装 {#exception-handler-class}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-集約例外ハンドラークラスは [ResponseEntityExceptionHandler クラス :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.html) の拡張クラスとして実装し、 `@ControllerAdvice` および `@Profile` を付与します。
+集約例外ハンドラークラスは [ResponseEntityExceptionHandler クラス :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.html) の拡張クラスとして実装し、 `@ControllerAdvice` を付与します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-`@ControllerAdvice` により、付与されたクラス内で定義された機能を全てのコントローラーに適用できます。
-また、 `@Profile` により、アプリケーションの動作環境ごとに集約例外ハンドラーを切り替えることができます。
+`@ControllerAdvice` により、付与されたクラス内で定義された機能を全てのコントローラーに追加で適用できます。
 
-以下は、ローカル環境で使用する集約例外ハンドラークラスの実装例です。
-
-``` Java
+``` Java title="集約例外ハンドラークラスの実装例"
 @ControllerAdvice(basePackages = "プロジェクトの Group 名")
-@Profile("local")
-public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler{
+public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler{
   // 例外をハンドリングするメソッド
 }
 ```
@@ -51,9 +38,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
 これにより、 RFC9457 に準拠したエラーレスポンスが返却されます。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-以下は、 Exception クラスをハンドリングするメソッドの実装例です。
-
-``` Java
+``` Java title="Exception クラスをハンドリングするメソッドの実装例"
 @ExceptionHandler(Exception.class)
 public ResponseEntity<ProblemDetail> handleLogicException(Exception e, HttpServletRequest req) {
   // 例外のハンドリングを行う処理
@@ -64,24 +49,23 @@ public ResponseEntity<ProblemDetail> handleLogicException(Exception e, HttpServl
 
 ### エラーログの出力 {#error-log-output}
 
-メソッドではエラーに関するアプリケーションログを出力します。
+エラーに関するアプリケーションログを出力する処理を実装します。
 ログに含める標準的なデータやログレベルは、[ログ出力方針](../../../../app-architecture/overview/java-application-processing-system/logging-policy.md) を参照してください。
 
 ### エラーレスポンスの生成 {#error-response}
 
-先述したようにエラーレスポンスは RFC9457 に準拠させるため、メソッド内で ProblemDetail をインスタンス化し、 ResponseEntity の body に含めます。
+エラーレスポンスを生成する処理を実装します。
+エラーレスポンスは RFC9457 に準拠させるため、メソッド内で ProblemDetail をインスタンス化し、 ResponseEntity の body に含めます。
 
 AlesInfiny Maia では、例外メッセージをプロパティファイルから取得し、ログ出力するために ErrorMessageBuilder クラスを実装しています。
 また、プロパティファイルからエラーレスポンスに含めるメッセージを整形し ProblemDetail クラスを生成する ProblemDetailsFactory クラスを実装しています。
-これらを用いてエラーレスポンスを生成を実装しています。
+そして、これらを用いてエラーレスポンスを生成を実装しています。
+
 ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定のメッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
 
-以下は、これらのクラスを用いた集約例外ハンドラーの実装例です。
-
-``` Java
+``` Java title="ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
 @ControllerAdvice(basePackages = "プロジェクトの Group 名")
-@Profile("local")
-public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
+public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
