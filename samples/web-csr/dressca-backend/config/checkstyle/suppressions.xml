@@ -11,4 +11,6 @@
   <suppress checks="MethodName" files=".*Test.java$"/>
   <!-- メッセージクラスの文字数はチェックしない -->
   <suppress checks="LineLength" files=".*MessageIdConstants.java$"/>
+  <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->
+  <suppress checks="IllegalCatch" files=".*Test.java$"/>
 </suppressions>

@@ -51,3 +51,21 @@ SpotBugs を利用して、 SpotBugs が提供するバグパターンに該当�
 - [SpotBugs プラグイン](../how-to-develop/java/common-project-settings.md#spotbugs-plugin)
 - [Java formatting and linting :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting){ target=_blank }
 - [静的コード分析とフォーマット(Vue.js)](../how-to-develop/vue-js/static-verification-and-format.md)
+
+## AlesInfiny Maia でカスタマイズしている規約 {#custom-conventions}
+
+AlesInfiny Maia では上記に示した基本のコーディング規約に加えて、以下に示すカスタマイズした規約を採用しています。
+
+- Java アプリケーション
+
+    - Checkstyle プラグイン
+
+        Checkstyle の規約をカスタマイズする場合、 Checkstyle プラグインが読み込むインプットファイルを編集します。具体的な方法については [こちら](../how-to-develop/java/common-project-settings.md#checkstyle-plugin) を参照ください。
+        Checkstyle プラグインでカスタマイズする規約は以下の通りです。
+
+        - [IllegalCatch :material-open-in-new:](https://checkstyle.sourceforge.io/checks/coding/illegalcatch.html){ target=_blank }
+
+            汎用検査例外を含む特定の例外のキャッチを禁止します。
+
+            汎用的な例外をキャッチしてしまうと、具体的な例外が隠蔽されてしまい、原因の特定が難しくなります。
+            汎用的な例外ではなく、具体的な例外のみをキャッチするように本規約を設けます。
