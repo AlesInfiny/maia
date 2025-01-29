@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { signInAsync } from '@/services/authentication/authentication-service';
@@ -28,15 +29,16 @@ const isInvalid = () => {
 };
 
 const routingStore = useRoutingStore();
+const { getRedirectFrom } = storeToRefs(routingStore);
 
 const signIn = () => {
   signInAsync();
-  if (!routingStore.redirectFrom) {
+  if (!getRedirectFrom.value) {
     router.push('/');
     return;
   }
 
-  router.push({ name: routingStore.redirectFrom });
+  router.push({ name: getRedirectFrom.value });
   routingStore.deleteRedirectFrom();
 };
 </script>

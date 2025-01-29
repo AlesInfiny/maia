@@ -5,13 +5,15 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * バッチアプリケーションのメインクラス。
+ * バッチアプリケーションを起動するためのメインクラスです。
  */
 @SpringBootApplication
 public class BatchApplication {
 
   /**
-   * バッチアプリケーションのメインメソッド。
+   * バッチアプリケーションを起動します。
+   * 
+   * @param args コマンドライン引数。
    */
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(BatchApplication.class);

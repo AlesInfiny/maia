@@ -17,7 +17,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 ├ .eslintrc.cjs
 ├ .stylelintrc.js
 ├ .prettierrc.json
-└ <workspace-name> -- ワークスペース/プロジェクト
+└ <workspace-name> ------- ワークスペース/プロジェクト
   ├ .eslintrc.cjs
   └ .stylelintrc.js
 ```

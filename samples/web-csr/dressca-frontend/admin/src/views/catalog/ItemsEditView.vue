@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import {
   fetchItem,
   updateCatalogItem,
@@ -23,8 +24,12 @@ import type {
   GetCatalogItemResponse,
 } from '@/generated/api-client';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { Roles } from '@/shared/constants/roles';
 
 const customErrorHandler = useCustomErrorHandler();
+const authenticationStore = useAuthenticationStore();
+const { isInRole } = storeToRefs(authenticationStore);
 const router = useRouter();
 const route = useRoute();
 const id = Number(route.params.itemId);
@@ -554,9 +559,11 @@ const updateItemAsync = async () => {
             />
           </div>
           <div class="flex justify-end">
+            <!-- サンプルアプリは必ず Admin ロールを持つユーザーとしてログインするようになっているので、削除ボタンが disable になることはありません。-->
             <button
               type="button"
-              class="rounded bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900"
+              class="rounded bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500 disabled:opacity-50"
+              :disabled="!isInRole(Roles.ADMIN)"
               @click="showDeleteConfirm = true"
             >
               削除
@@ -565,7 +572,7 @@ const updateItemAsync = async () => {
             <button
               type="button"
               class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
-              :disabled="isInvalid()"
+              :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
               @click="showUpdateConfirm = true"
             >
               更新

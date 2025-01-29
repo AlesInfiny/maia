@@ -32,8 +32,8 @@ import type { ProblemDetail } from '../models';
 export const CatalogItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -92,8 +92,8 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CatalogItemsApiAxiosParamCreator(configuration)
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -118,8 +118,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
     const localVarFp = CatalogItemsApiFp(configuration)
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -141,8 +141,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
  */
 export class CatalogItemsApi extends BaseAPI {
     /**
-     * カタログアイテムを検索して返します.
-     * @summary カタログアイテムを検索して返します.
+     * カタログアイテムを検索して返します。
+     * @summary カタログアイテムを検索して返します。
      * @param {number} [brandId] 
      * @param {number} [categoryId] 
      * @param {number} [page] 

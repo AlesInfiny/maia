@@ -25,9 +25,9 @@ public class ErrorMessageBuilder {
   private String[] frontMessageValue;
 
   /**
-   * ProblemDetailsのdetail情報に格納するスタックトレースを作成します。
+   * ProblemDetails の detail 情報に格納するスタックトレースを作成します。
    * 
-   * @return スタックトレース
+   * @return スタックトレース。
    */
   public String createLogMessageStackTrace() {
     StringBuilder builder = new StringBuilder();

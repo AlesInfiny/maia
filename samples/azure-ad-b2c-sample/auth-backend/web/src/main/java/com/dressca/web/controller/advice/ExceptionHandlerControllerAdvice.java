@@ -28,11 +28,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ProblemDetailsFactory problemDetailsFactory;
 
   /**
-   * 未認証の例外をステータースコード401で返却する。
+   * 未認証の例外をステータースコード 401 で返却します。
    *
-   * @param e   未認証の例外
-   * @param req リクエスト
-   * @return ステータースコード401のレスポンス
+   * @param e   未認証の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 401 のレスポンス。
    */
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
@@ -48,11 +48,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   }
 
   /**
-   * その他の例外をステータースコード500で返却する。
+   * その他の例外をステータースコード 500 で返却します。
    *
-   * @param e   その他の例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @param e   その他の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {

@@ -14,12 +14,12 @@ description: バックエンドで動作する Java アプリケーションの 
 本設定で利用するフォルダーの構成は以下の通りです。
 
 ```terminal linenums="0"
-root/ ------------------------------------------ root フォルダー
+root/ ------------------------------------------- root フォルダー
  ├ application-core/src/main/resource
- │ └ applicationcore --------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
+ │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
  │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resource
-   └ systemcommon ------------------------------ 共通メッセージのプロパティファイルを一元管理するフォルダー
+   └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一元管理するフォルダー
       └ messages.properties --------------------- 共通メッセージのプロパティファイル
 ```
 
@@ -46,7 +46,7 @@ spring.messages.basename=applicationcore.messages,systemcommon.messages
 
 ### メッセージの取得 {#getting-messages}
 
-読み込んだプロパティファイルのメッセージを取得するためには、 [`MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } クラスを利用します。
+読み込んだプロパティファイルのメッセージを取得するためには、 [`MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } インターフェースを利用します。
 
 以下は、プロパティファイルからメッセージを取得し、ログに出力するためのエラーメッセージを整形する `ErrorMessageBuilder` クラスの例です。
 

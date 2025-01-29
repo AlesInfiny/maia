@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "description": "ECサイトDressca",
     "title": "Dressca",
@@ -13,15 +13,7 @@
   ],
   "tags": [
     {
-      "description": "カタログブランドの情報にアクセスするAPI",
-      "name": "CatalogBrands"
-    },
-    {
-      "description": "ログイン中のユーザーの情報を取得します。",
-      "name": "Users"
-    },
-    {
-      "description": "カタログアイテムの情報にアクセスする API コントローラーです.",
+      "description": "カタログアイテムの情報にアクセスする API です。",
       "name": "CatalogItems"
     },
     {
@@ -33,12 +25,20 @@
       "name": "Actuator"
     },
     {
-      "description": "アセットの情報にアクセスするAPI",
-      "name": "Assets"
+      "description": "カタログカテゴリの情報にアクセスする API です。",
+      "name": "CatalogCategories"
     },
     {
-      "description": "カタログカテゴリの情報にアクセスするAPI",
-      "name": "CatalogCategories"
+      "description": "ログイン中のユーザーの情報にアクセスする API です。",
+      "name": "Users"
+    },
+    {
+      "description": "カタログブランドの情報にアクセスする API です。",
+      "name": "CatalogBrands"
+    },
+    {
+      "description": "アセットの情報にアクセスする API です。",
+      "name": "Assets"
     }
   ],
   "paths": {
@@ -50,9 +50,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -61,9 +65,13 @@
               },
               "application/vnd.spring-boot.actuator.v2+json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -72,9 +80,13 @@
               },
               "application/vnd.spring-boot.actuator.v3+json": {
                 "schema": {
-                  "type": "object",
+                  "type": [
+                    "object"
+                  ],
                   "additionalProperties": {
-                    "type": "object",
+                    "type": [
+                      "object"
+                    ],
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -93,7 +105,7 @@
     },
     "/api/assets/{assetCode}": {
       "get": {
-        "description": "与えられたアセットコードに対応するアセットを返却する.",
+        "description": "与えられたアセットコードに対応するアセットを返却します。",
         "operationId": "get",
         "parameters": [
           {
@@ -111,7 +123,9 @@
             "content": {
               "image/*": {
                 "schema": {
-                  "type": "string",
+                  "type": [
+                    "string"
+                  ],
                   "format": "binary"
                 }
               }
@@ -122,13 +136,13 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "アセットコードに対応するアセットがない。"
+            "description": "アセットコードに対応するアセットがありません。"
           },
           "500": {
             "description": "サーバーエラー。"
           }
         },
-        "summary": "アセットを取得する.",
+        "summary": "アセットを取得します。",
         "tags": [
           "Assets"
         ]
@@ -136,7 +150,7 @@
     },
     "/api/catalog-brands": {
       "get": {
-        "description": "カタログブランドの一覧を取得する.",
+        "description": "カタログブランドの一覧を取得します。",
         "operationId": "getCatalogBrands",
         "responses": {
           "200": {
@@ -159,7 +173,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "カタログブランドの一覧を取得する.",
+        "summary": "カタログブランドの一覧を取得します。",
         "tags": [
           "CatalogBrands"
         ]
@@ -167,7 +181,7 @@
     },
     "/api/catalog-categories": {
       "get": {
-        "description": "カタログカテゴリの一覧を取得します.",
+        "description": "カタログカテゴリの一覧を取得します。",
         "operationId": "getCatalogCategories",
         "responses": {
           "200": {
@@ -190,7 +204,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "カタログカテゴリの一覧を取得します.",
+        "summary": "カタログカテゴリの一覧を取得します。",
         "tags": [
           "CatalogCategories"
         ]
@@ -198,7 +212,7 @@
     },
     "/api/catalog-items": {
       "get": {
-        "description": "カタログアイテムを検索して返します.",
+        "description": "カタログアイテムを検索して返します。",
         "operationId": "getByQuery",
         "parameters": [
           {
@@ -266,7 +280,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "カタログアイテムを検索して返します.",
+        "summary": "カタログアイテムを検索して返します。",
         "tags": [
           "CatalogItems"
         ]
@@ -342,7 +356,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "409": {
             "description": "競合が発生。"
@@ -357,7 +371,7 @@
         ]
       },
       "put": {
-        "description": "指定したIDのカタログアイテムの情報を更新します。",
+        "description": "指定した ID のカタログアイテムの情報を更新します。",
         "operationId": "putCatalogItem",
         "parameters": [
           {
@@ -391,7 +405,7 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "409": {
             "description": "競合が発生。"
@@ -400,7 +414,7 @@
             "description": "サーバーエラー。"
           }
         },
-        "summary": "指定したIDのカタログアイテムの情報を更新します。",
+        "summary": "指定した ID のカタログアイテムの情報を更新します。",
         "tags": [
           "CatalogItems"
         ]
@@ -408,7 +422,7 @@
     },
     "/api/catalog-items/{id}": {
       "get": {
-        "description": "指定したIDのカタログアイテムを返します。",
+        "description": "指定した ID のカタログアイテムを返します。",
         "operationId": "getCatalogItem",
         "parameters": [
           {
@@ -439,13 +453,13 @@
             "description": "未認証。"
           },
           "404": {
-            "description": "指定した ID のアイテムがカタログに存在しない。"
+            "description": "指定した ID のアイテムがカタログに存在しません。"
           },
           "500": {
             "description": "サーバーエラー。"
           }
         },
-        "summary": "指定したIDのカタログアイテムを返します。",
+        "summary": "指定した ID のカタログアイテムを返します。",
         "tags": [
           "CatalogItems"
         ]
@@ -458,19 +472,13 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               },
               "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
+                "schema": {}
               }
             },
             "description": "OK"
@@ -482,40 +490,9 @@
         ]
       }
     },
-    "/api/health/**": {
-      "get": {
-        "operationId": "health-path",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {
-                  "type": "object"
-                }
-              },
-              "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "summary": "Actuator web endpoint \u0027health-path\u0027",
-        "tags": [
-          "Actuator"
-        ]
-      }
-    },
     "/api/users": {
       "get": {
-        "description": "ユーザーの情報。",
+        "description": "ログイン中のユーザーの情報を取得します。",
         "operationId": "getLoginUser",
         "responses": {
           "200": {

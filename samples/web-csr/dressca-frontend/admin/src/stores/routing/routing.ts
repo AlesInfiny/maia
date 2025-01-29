@@ -23,4 +23,14 @@ export const useRoutingStore = defineStore({
       this.redirectFrom = null;
     },
   },
+  getters: {
+    /**
+     * リダイレクト元の URL を取得します。
+     * @param state 状態。
+     * @returns リダイレクト元のURL。
+     */
+    getRedirectFrom(state) {
+      return state.redirectFrom;
+    },
+  },
 });

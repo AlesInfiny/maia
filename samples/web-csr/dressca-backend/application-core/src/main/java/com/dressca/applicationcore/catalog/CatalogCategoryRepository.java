@@ -3,13 +3,14 @@ package com.dressca.applicationcore.catalog;
 import java.util.List;
 
 /**
- * カタログカテゴリリポジトリ。
+ * カタログカテゴリのリポジトリのインターフェースです。
  */
 public interface CatalogCategoryRepository {
+
   /**
    * すべてのカタログカテゴリを取得します。
    * 
-   * @return カタログカテゴリのリスト
+   * @return カタログカテゴリのリスト。
    */
   List<CatalogCategory> getAll();
 

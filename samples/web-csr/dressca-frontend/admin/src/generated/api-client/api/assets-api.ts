@@ -28,8 +28,8 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 export const AssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -72,8 +72,8 @@ export const AssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -95,8 +95,8 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = AssetsApiFp(configuration)
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -115,8 +115,8 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
  */
 export class AssetsApi extends BaseAPI {
     /**
-     * 与えられたアセットコードに対応するアセットを返却する.
-     * @summary アセットを取得する.
+     * 与えられたアセットコードに対応するアセットを返却します。
+     * @summary アセットを取得します。
      * @param {string} assetCode アセットコード
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
