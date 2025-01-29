@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, reactive } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -13,25 +13,23 @@ const props = defineProps<{
 
 const MOVE_THRESHOLD = 30;
 
-const state = reactive({
-  hasItems: true,
-  currentIndex: 0,
-  startX: null as number | null,
-  diffX: 0,
-});
+const hasItems = ref(true);
+const currentIndex = ref(0);
+const startX = ref<number | null>(null);
+const diffX = ref(0);
 
 const nextSlide = () => {
-  state.currentIndex =
-    (state.currentIndex + 1 + props.items.length) % props.items.length;
+  currentIndex.value =
+    (currentIndex.value + 1 + props.items.length) % props.items.length;
 };
 
 const prevSlide = () => {
-  state.currentIndex =
-    (state.currentIndex - 1 + props.items.length) % props.items.length;
+  currentIndex.value =
+    (currentIndex.value - 1 + props.items.length) % props.items.length;
 };
 
 const selectSlide = (index: number) => {
-  state.currentIndex = index;
+  currentIndex.value = index;
 };
 
 const getItem = (index: number) => {
@@ -39,34 +37,34 @@ const getItem = (index: number) => {
 };
 
 const onTouchMove = (event: MouseEvent | TouchEvent) => {
-  if (state.startX == null) {
+  if (startX.value == null) {
     return;
   }
   const currentX =
     'touches' in event ? event.touches[0].clientX : event.clientX;
-  state.diffX = currentX - state.startX;
+  diffX.value = currentX - startX.value;
 };
 
 const onTouchEnd = () => {
-  if (state.startX == null) {
+  if (startX.value == null) {
     return;
   }
-  if (state.diffX > MOVE_THRESHOLD) {
+  if (diffX.value > MOVE_THRESHOLD) {
     prevSlide();
-  } else if (state.diffX < -MOVE_THRESHOLD) {
+  } else if (diffX.value < -MOVE_THRESHOLD) {
     nextSlide();
   }
-  state.startX = null;
-  state.diffX = 0;
+  startX.value = null;
+  diffX.value = 0;
 };
 
 const onTouchStart = (event: MouseEvent | TouchEvent) => {
-  state.startX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+  startX.value = 'touches' in event ? event.touches[0].clientX : event.clientX;
 };
 
 onMounted(() => {
   if (props.items.length === 0) {
-    state.hasItems = false;
+    hasItems.value = false;
     return;
   }
   window.addEventListener('mousemove', onTouchMove);
@@ -84,7 +82,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <template v-if="state.hasItems">
+  <template v-if="hasItems">
     <div data-test="body" class="container">
       <div
         class="flex justify-center items-center"
@@ -97,15 +95,15 @@ onBeforeUnmount(() => {
           @click="prevSlide"
         />
         <template v-for="index in props.items.length">
-          <template v-if="index === state.currentIndex + 1">
+          <template v-if="index === currentIndex + 1">
             <div
               :key="index"
               data-test="slider"
               :style="{
-                transform: `translate3d(${state.diffX}px, 0, 0)`,
+                transform: `translate3d(${diffX}px, 0, 0)`,
               }"
             >
-              <slot v-bind="{ item: getItem(state.currentIndex) }"></slot>
+              <slot v-bind="{ item: getItem(currentIndex) }"></slot>
             </div>
           </template>
         </template>
@@ -117,10 +115,10 @@ onBeforeUnmount(() => {
       </div>
       <div class="flex justify-center">
         <template v-for="index in props.items.length" :key="index">
-          <template v-if="index === state.currentIndex + 1">
+          <template v-if="index === currentIndex + 1">
             <MinusSmallIcon class="h-10 w-10 text-gray-500"></MinusSmallIcon>
           </template>
-          <template v-if="index !== state.currentIndex + 1">
+          <template v-if="index !== currentIndex + 1">
             <MinusSmallIcon
               class="h-10 w-10 text-gray-300"
               data-test="page-indicator"
