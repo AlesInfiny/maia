@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -76,7 +76,7 @@ public interface CatalogRepository {
    * @param rowVersion 行バージョン。
    * @return 削除できたら 1 、できなければ 0 を返す。
    */
-  int remove(Long id, LocalDateTime rowVersion);
+  int remove(Long id, OffsetDateTime rowVersion);
 
   /**
    * カタログアイテムを更新します。

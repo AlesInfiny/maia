@@ -283,5 +283,6 @@
       <property name="exceptionVariableName" value="expected"/>
     </module>
     <module name="CommentsIndentation"/>
+    <module name="IllegalCatch"/>
   </module>
 </module>
