@@ -11,6 +11,14 @@ description: バックエンドで動作する Java アプリケーションの 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
+本設定で利用するフォルダーの構成は以下の通りです。
+
+```terminal linenums="0"
+root/ --------------------------------------------------- root フォルダー
+└ web/src/main/java/{Group 名}/web/controller/advice
+  └ ExceptionHandlerControllerAdvice.java --------------- 集約例外ハンドラークラス
+```
+
 ## 集約例外ハンドラークラスの実装 {#exception-handler-class}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
