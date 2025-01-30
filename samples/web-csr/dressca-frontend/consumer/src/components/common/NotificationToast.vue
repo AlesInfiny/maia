@@ -6,11 +6,9 @@ import {
   ExclamationCircleIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline';
-import { reactive, watch } from 'vue';
+import { ref, watch } from 'vue';
 
-const state = reactive({
-  show: false,
-});
+const show = ref(false);
 
 const notificationStore = useNotificationStore();
 const { id, title, message, detail, status, timeout } =
@@ -20,13 +18,13 @@ const copy = (text: string) => {
 };
 
 const close = () => {
-  state.show = false;
+  show.value = false;
   notificationStore.clearMessage();
 };
 
 watch(message, (newMessage) => {
   if (newMessage !== '') {
-    state.show = true;
+    show.value = true;
     setTimeout(() => {
       close();
     }, timeout.value);
@@ -42,7 +40,7 @@ watch(message, (newMessage) => {
     leave-active-class="transition duration-300"
   >
     <div
-      v-if="state.show"
+      v-if="show"
       class="fixed inline-flex items-center w-5/6 inset-x-0 mx-auto mt-2 p-4 text-gray-500 bg-red-500 rounded-lg shadow"
     >
       <div
