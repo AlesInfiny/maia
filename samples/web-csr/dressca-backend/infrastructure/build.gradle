@@ -42,7 +42,7 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 
-  mybatisTasks 'org.mybatis.generator:mybatis-generator-core:1.4.2'
+  mybatisTasks supportDependencies.mybatis_generator_core
   mybatisTasks supportDependencies.h2database
 }
 
@@ -55,11 +55,13 @@ jar.enabled = true
 
 tasks.register('runMyBatisGenerator') {
   doLast {
+    // MyBatis Generator のタスクを定義します。
     ant.taskdef(
       name: 'mybatisGenerator',
       classname: 'org.mybatis.generator.ant.GeneratorAntTask',
       classpath: configurations.mybatisTasks.asPath
     )
+    // MyBatis Generator による自動生成を実行します。
     ant.mybatisGenerator(
       overwrite: true,
       configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
