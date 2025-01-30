@@ -43,7 +43,7 @@ dependencies {
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 
   mybatisTasksOnly 'org.mybatis.generator:mybatis-generator-core:1.4.2'
-
+  mybatisTasksOnly supportDependencies.h2database
 }
 
 tasks.named('test') {
@@ -53,12 +53,14 @@ tasks.named('test') {
 bootJar.enabled = false
 jar.enabled = true
 
-tasks.register('runMyBatisGenerator', JavaExec) { 
-    def resourcePath = 'src/main/resources/mybatisGeneratorConfig.xml'   
-  // JARファイルのパスを指定    
-  classpath = files(configurations.mybatisTasksOnly.singleFile)
-  // 引数を指定    
-  args = ['-configfile', resourcePath , '-overwrite']
+tasks.register('runMyBatisGenerator', JavaExec) {
+  def resourcePath = 'src/main/resources/mybatisGeneratorConfig.xml'
+  // 関連するクラスパスを指定
+  classpath = configurations.mybatisTasksOnly
+  // MyBatis Generator の CLI の エントリーポイントとなる main クラスを指定
+  main = 'org.mybatis.generator.api.ShellRunner'
+  // 引数を指定
+  args = ['-configfile', resourcePath, '-overwrite']
 }
 
 // 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
