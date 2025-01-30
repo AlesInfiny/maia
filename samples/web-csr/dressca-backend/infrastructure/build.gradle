@@ -25,8 +25,8 @@ repositories {
 }
 
 configurations {
-  // MyBatis Generator の自動生成のみで利用するライブラリのための依存関係の構成を定義
-  mybatisTasksOnly
+  // MyBatis Generator の自動生成で利用するライブラリのための依存関係の構成を定義
+  mybatisTasks
   // 使用しないロギングライブラリを除外
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
@@ -42,8 +42,8 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 
-  mybatisTasksOnly 'org.mybatis.generator:mybatis-generator-core:1.4.2'
-  mybatisTasksOnly supportDependencies.h2database
+  mybatisTasks 'org.mybatis.generator:mybatis-generator-core:1.4.2'
+  mybatisTasks supportDependencies.h2database
 }
 
 tasks.named('test') {
@@ -53,14 +53,19 @@ tasks.named('test') {
 bootJar.enabled = false
 jar.enabled = true
 
-tasks.register('runMyBatisGenerator', JavaExec) {
-  def resourcePath = 'src/main/resources/mybatisGeneratorConfig.xml'
-  // 関連するクラスパスを指定
-  classpath = configurations.mybatisTasksOnly
-  // MyBatis Generator の CLI の エントリーポイントとなる main クラスを指定
-  main = 'org.mybatis.generator.api.ShellRunner'
-  // 引数を指定
-  args = ['-configfile', resourcePath, '-overwrite']
+tasks.register('runMyBatisGenerator') {
+  doLast {
+    ant.taskdef(
+      name: 'mybatisGenerator',
+      classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+      classpath: configurations.mybatisTasks.asPath
+    )
+    ant.mybatisGenerator(
+      overwrite: true,
+      configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
+      verbose: true
+    )
+  }
 }
 
 // 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
