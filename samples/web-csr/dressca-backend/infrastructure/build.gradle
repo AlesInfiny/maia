@@ -53,8 +53,6 @@ tasks.named('test') {
 bootJar.enabled = false
 jar.enabled = true
 
-
-// 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
 tasks.register('runMyBatisGenerator', JavaExec) { 
     def resourcePath = 'src/main/resources/mybatisGeneratorConfig.xml'   
   // JARファイルのパスを指定    
@@ -63,6 +61,7 @@ tasks.register('runMyBatisGenerator', JavaExec) {
   args = ['-configfile', resourcePath , '-overwrite']
 }
 
+// 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
 tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
 
