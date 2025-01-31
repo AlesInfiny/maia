@@ -20,5 +20,6 @@ Vue.js を用いてフロントエンドアプリケーションを開発する�
 1. [入力値検証](input-validation.md)
 1. [OpenAPI 仕様書からのクライアントコード生成](create-api-client-code.md)
 1. [エラーハンドラーの設定](error-handler-settings.md)
+1. [モックモードの設定](mock-mode-settings.md)
 
 フロントエンドアプリケーションを公開するオリジンと、呼び出し先の Web API を公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../cors/index.md) を参照してください。
