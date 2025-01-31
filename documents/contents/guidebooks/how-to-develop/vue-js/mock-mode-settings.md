@@ -46,7 +46,7 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 "mock": "vite --mode mock",
 ```
 
-モックモード用の環境設定ファイルとして、`.env.mock` を作成します。必要に応じて環境変数を定義してください。
+モックモード用の環境設定ファイルとして、`vite.config.ts`と同じ階層に`.env.mock` を作成します。必要に応じて環境変数を定義してください。
 モックモードを動作させるためだけであれば、追加の定義は不要です。
 
 ```env title=".env.mock"
@@ -87,12 +87,12 @@ npx msw init ./public --save
 },
 ```
 
-`mock`フォルダーに`browser.ts` と、`handlers.ts`を作成します。
+ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts` と、`handlers.ts`を作成します。
 ハンドラーの実装は別途行うため、現時点では空で構いません。
 
 ```ts title="browser.ts"
 import { setupWorker } from 'msw/browser';
-import { handlers } from './handler';
+import { handlers } from './handlers';
 
 export const worker = setupWorker(...handlers);
 ```
