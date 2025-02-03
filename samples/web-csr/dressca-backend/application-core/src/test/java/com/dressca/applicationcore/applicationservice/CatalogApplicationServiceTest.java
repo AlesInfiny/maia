@@ -10,7 +10,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -346,7 +347,7 @@ public class CatalogApplicationServiceTest {
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
     // Action
@@ -362,7 +363,7 @@ public class CatalogApplicationServiceTest {
     long targetId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
     // Action
@@ -380,7 +381,7 @@ public class CatalogApplicationServiceTest {
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
     // Action
@@ -398,7 +399,7 @@ public class CatalogApplicationServiceTest {
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(0);
 
     // Action
@@ -426,7 +427,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
@@ -450,7 +451,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     Executable action = () -> {
@@ -476,7 +477,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     Executable action = () -> {
@@ -502,7 +503,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     Executable action = () -> {
@@ -528,7 +529,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     Executable action = () -> {
@@ -554,7 +555,7 @@ public class CatalogApplicationServiceTest {
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
-    LocalDateTime rowVersion = LocalDateTime.of(2024, 1, 1, 0, 0, 0, 0);
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
     // Action
     Executable action = () -> {

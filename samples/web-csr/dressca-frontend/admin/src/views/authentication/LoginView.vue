@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { validationItems } from '@/validation/validation-items';
@@ -17,6 +18,7 @@ const formSchema = yup.object({
 
 const router = useRouter();
 const routingStore = useRoutingStore();
+const { getRedirectFrom } = storeToRefs(routingStore);
 const customErrorHandler = useCustomErrorHandler();
 
 const { meta } = useForm({ validationSchema: formSchema });
@@ -42,13 +44,13 @@ const login = async () => {
   }
 
   // 別の画面からリダイレクトしていない場合は、ホーム画面に遷移します。
-  if (!routingStore.redirectFrom) {
+  if (!getRedirectFrom.value) {
     router.push({ name: 'home' });
     return;
   }
 
   // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
-  router.push({ path: routingStore.redirectFrom });
+  router.push({ path: getRedirectFrom.value });
   routingStore.deleteRedirectFrom();
 };
 </script>

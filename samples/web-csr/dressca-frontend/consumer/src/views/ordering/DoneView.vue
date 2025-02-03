@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
 import { getOrder } from '@/services/ordering/ordering-service';
@@ -16,11 +16,9 @@ const customErrorHandler = useCustomErrorHandler();
 const props = defineProps<{
   orderId: number;
 }>();
-const state = reactive({
-  lastOrdered: null as OrderResponse | null,
-});
 
-const { lastOrdered } = toRefs(state);
+const lastOrdered = ref<OrderResponse>();
+
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
 const { t } = i18n.global;
@@ -31,7 +29,7 @@ const goCatalog = () => {
 
 onMounted(async () => {
   try {
-    state.lastOrdered = await getOrder(props.orderId);
+    lastOrdered.value = await getOrder(props.orderId);
   } catch (error) {
     customErrorHandler.handle(
       error,
