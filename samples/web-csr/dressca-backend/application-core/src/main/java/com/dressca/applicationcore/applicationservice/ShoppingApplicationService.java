@@ -37,7 +37,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class, noRollbackFor = CatalogNotFoundException.class)
 public class ShoppingApplicationService {
 
   @Autowired
@@ -93,6 +93,7 @@ public class ShoppingApplicationService {
     Basket basket = getOrCreateBasketForUser(buyerId);
     // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
     if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
+      removeNotExistItemsFromBasket(basket);
       throw new CatalogNotFoundException();
     }
 
@@ -120,8 +121,9 @@ public class ShoppingApplicationService {
    * 
    * @param buyerId 購入者 ID 。
    * @return 買い物かごとその商品一覧。
+   * @throws CatalogNotFoundException 買い物かごに存在しないカタログアイテムが含まれる場合。
    */
-  public BasketDetail getBasketDetail(String buyerId) {
+  public BasketDetail getBasketDetail(String buyerId) throws CatalogNotFoundException {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS, new Object[] { buyerId },
         Locale.getDefault()));
@@ -130,6 +132,12 @@ public class ShoppingApplicationService {
     List<Long> catalogItemIds = basket.getItems().stream()
         .map(basketItem -> basketItem.getCatalogItemId())
         .collect(Collectors.toList());
+
+    if (!this.catalogDomainService.existAll(catalogItemIds)) {
+      removeNotExistItemsFromBasket(basket);
+      throw new CatalogNotFoundException();
+    }
+
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     return new BasketDetail(basket, catalogItems);
   }
@@ -141,9 +149,10 @@ public class ShoppingApplicationService {
    * @param shipToAddress お届け先。
    * @return 作成した注文情報。
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
+   * @throws CatalogNotFoundException       買い物かごに存在しないカタログアイテムが含まれる場合。
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
-      throws EmptyBasketOnCheckoutException {
+      throws EmptyBasketOnCheckoutException, CatalogNotFoundException {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT, new Object[] { buyerId, shipToAddress },
         Locale.getDefault()));
@@ -155,6 +164,12 @@ public class ShoppingApplicationService {
 
     List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
         .collect(Collectors.toList());
+
+    // 全て存在するかどうかをチェックする処理を追加
+    if (!this.catalogDomainService.existAll(catalogItemIds)) {
+      removeNotExistItemsFromBasket(basket);
+      throw new CatalogNotFoundException();
+    }
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
@@ -210,5 +225,19 @@ public class ShoppingApplicationService {
     orderItem.addAsset(orderItemAssets);
 
     return orderItem;
+  }
+
+  /**
+   * 買い物かごからカタログに存在しない商品を削除します。
+   * 
+   * @param basket 買い物かご。
+   */
+  private void removeNotExistItemsFromBasket(Basket basket) {
+    List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+        .collect(Collectors.toList());
+    List<Long> existCatalogItemIds = catalogDomainService.getExistCatalogItems(catalogItemIds).stream()
+        .map(CatalogItem::getId).toList();
+    basket.getItems().removeIf(item -> !existCatalogItemIds.contains(item.getCatalogItemId()));
+    this.basketRepository.update(basket);
   }
 }
