@@ -65,11 +65,28 @@ public class BasketItemController {
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BasketResponse.class))) })
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BasketResponse.class))),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
+  })
   @GetMapping
-  public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
+  public ResponseEntity<?> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
-    BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
+    BasketDetail basketItemsForUser = null;
+
+    try {
+      basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
+    } catch (CatalogNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
+
     Basket basket = basketItemsForUser.getBasket();
     List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
     BasketResponse basketDto = BasketMapper.convert(basket);

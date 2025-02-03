@@ -1,6 +1,7 @@
 package com.dressca.web.consumer.controller;
 
 import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
+import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.applicationservice.OrderApplicationService;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -102,7 +103,8 @@ public class OrderController {
    * @return なし。
    */
   @Operation(summary = "買い物かごに登録されている商品を注文します。", description = "買い物かごに登録されている商品を注文します。")
-  @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
   @PostMapping
@@ -112,9 +114,20 @@ public class OrderController {
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
-    Order order;
+    Order order = null;
     try {
       order = shoppingApplicationService.checkout(buyerId, shipToAddress);
+    } catch (CatalogNotFoundException e) {
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+          e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+          errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS,
+          HttpStatus.BAD_REQUEST);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     } catch (EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
