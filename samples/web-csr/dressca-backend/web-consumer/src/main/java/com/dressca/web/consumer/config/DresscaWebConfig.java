@@ -17,9 +17,6 @@ public class DresscaWebConfig {
   @Autowired
   private CookieSettings cookieSettings;
 
-  @Autowired(required = false)
-  public H2ServerLauncher h2ServerLauncher;
-
   /**
    * 購入者 ID のフィルターを設定します。
    * 
