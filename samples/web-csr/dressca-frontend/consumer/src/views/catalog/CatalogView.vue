@@ -94,8 +94,9 @@ onMounted(async () => {
         }
       },
     );
+  } finally {
+    showLoading.value = false;
   }
-  showLoading.value = false;
 });
 
 watch([selectedCategory, selectedBrand], async () => {
