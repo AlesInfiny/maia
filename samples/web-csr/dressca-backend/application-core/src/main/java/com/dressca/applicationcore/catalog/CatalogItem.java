@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -28,18 +28,18 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
-  private LocalDateTime rowVersion;
+  private OffsetDateTime rowVersion;
 
   /**
-   * コンストラクタ。
+   * {@link CatalogItem} クラスのインスタンスを初期化します。
    * 
-   * @param id                ID
-   * @param name              商品名
-   * @param description       商品紹介
-   * @param price             単価
-   * @param productCode       プロダクトコード
-   * @param catalogCategoryId カタログカテゴリID
-   * @param catalogBrandId    カタログブランドID
+   * @param id                ID 。
+   * @param name              商品名。
+   * @param description       商品説明。
+   * @param price             単価。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カタログカテゴリ ID 。
+   * @param catalogBrandId    カタログブランド ID 。
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
       @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
@@ -57,7 +57,7 @@ public class CatalogItem {
    * 登録用のカタログアイテムを作成します。
    * 
    * @param name              商品名。
-   * @param description       商品紹介。
+   * @param description       商品説明。
    * @param price             単価。
    * @param productCode       プロダクトコード。
    * @param catalogCategoryId カタログカテゴリ ID 。

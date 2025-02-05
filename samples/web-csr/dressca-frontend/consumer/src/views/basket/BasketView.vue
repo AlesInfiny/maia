@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import {
   fetchBasket,
   removeItemFromBasket,
@@ -18,9 +18,7 @@ import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-h
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
 
-const state = reactive({
-  showLoading: true,
-});
+const showLoading = ref(true);
 
 const basketStore = useBasketStore();
 const { getBasket, getAddedItem, getAddedItemId } = storeToRefs(basketStore);
@@ -103,7 +101,7 @@ const order = () => {
 };
 
 onMounted(async () => {
-  state.showLoading = true;
+  showLoading.value = true;
   try {
     await fetchBasket();
   } catch (error) {
@@ -130,7 +128,7 @@ onMounted(async () => {
       },
     );
   } finally {
-    state.showLoading = false;
+    showLoading.value = false;
   }
 });
 
@@ -141,8 +139,8 @@ onUnmounted(async () => {
 
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
-    <Loading :show="state.showLoading"></Loading>
-    <div v-if="!state.showLoading">
+    <Loading :show="showLoading"></Loading>
+    <div v-if="!showLoading">
       <div v-if="getAddedItemId && !!getAddedItem" class="mx-2">
         <span class="text-lg font-medium text-green-500">
           {{ t('addedItemsToBasket') }}

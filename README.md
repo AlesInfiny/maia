@@ -97,7 +97,7 @@ AlesInfiny Maia OSS Edition への貢献については [Contributing to AlesInf
 
 ## Code of Conduct
 
-AlesInfiny Maia OSS Edition に関わるすべての人は、 AlesInfiny Maia OSS Edition の [行動規範](/.github/CODE_OF_CONDUCT.md) に従うことを期待しています。
+AlesInfiny Maia OSS Edition に関わるすべての人は、 AlesInfiny Maia OSS Edition の [行動規範](https://github.com/AlesInfiny/.github/blob/main/CODE_OF_CONDUCT.md) に従うことを期待しています。
 これには、コードベース、課題追跡システム、チャットルーム、メーリングリストなど、すべてのコミュニケーションが含まれます。
 
 ## License
@@ -108,7 +108,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本リ
 詳細は [LICENSE-CODE.md](/LICENSE-CODE) を参照してください。
 
 このプロジェクトでは、様々なオープンソースライセンスの下でライセンスされている 3rd パーティーのライブラリを使用しています。
-詳細は [third-party-licenses](/third-party-licenses/) ディレクトリを参照してください。
+詳細は [third-party-licenses](/third-party-licenses/) フォルダーを参照してください。
 
 このプロジェクトのライセンスは、 BIPROGY 株式会社の商標を使用する権利を付与するものではありません。
 詳細は [AlesInfiny Maia OSS Edition | 商標](https://maia.alesinfiny.org/about-maia/trademarks/) を参照してください。

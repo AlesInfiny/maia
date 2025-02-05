@@ -1,7 +1,7 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログアイテムを取得する際に用いるdtoクラスです。
+ * カタログアイテムを取得する際に用いる dto クラスです。
  */
 @Data
 @NoArgsConstructor
@@ -32,5 +32,5 @@ public class GetCatalogItemResponse {
   @NotNull
   private long catalogBrandId;
   @NotNull
-  private LocalDateTime rowVersion;
+  private OffsetDateTime rowVersion;
 }

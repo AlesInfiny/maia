@@ -30,8 +30,8 @@ import type { GetCatalogBrandsResponse } from '../models';
 export const CatalogBrandsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * カタログブランドの一覧を取得する.
-         * @summary カタログブランドの一覧を取得する.
+         * カタログブランドの一覧を取得します。
+         * @summary カタログブランドの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,8 +70,8 @@ export const CatalogBrandsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CatalogBrandsApiAxiosParamCreator(configuration)
     return {
         /**
-         * カタログブランドの一覧を取得する.
-         * @summary カタログブランドの一覧を取得する.
+         * カタログブランドの一覧を取得します。
+         * @summary カタログブランドの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -92,8 +92,8 @@ export const CatalogBrandsApiFactory = function (configuration?: Configuration, 
     const localVarFp = CatalogBrandsApiFp(configuration)
     return {
         /**
-         * カタログブランドの一覧を取得する.
-         * @summary カタログブランドの一覧を取得する.
+         * カタログブランドの一覧を取得します。
+         * @summary カタログブランドの一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -111,8 +111,8 @@ export const CatalogBrandsApiFactory = function (configuration?: Configuration, 
  */
 export class CatalogBrandsApi extends BaseAPI {
     /**
-     * カタログブランドの一覧を取得する.
-     * @summary カタログブランドの一覧を取得する.
+     * カタログブランドの一覧を取得します。
+     * @summary カタログブランドの一覧を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CatalogBrandsApi

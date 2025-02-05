@@ -3,13 +3,14 @@ package com.dressca.applicationcore.catalog;
 import java.util.List;
 
 /**
- * カタログブランドリポジトリ。
+ * カタログブランドのリポジトリのインターフェースです。
  */
 public interface CatalogBrandRepository {
+
   /**
    * すべてのカタログブランドを取得します。
    * 
-   * @return カタログブランドのリスト
+   * @return カタログブランドのリスト。
    */
   List<CatalogBrand> getAll();
 

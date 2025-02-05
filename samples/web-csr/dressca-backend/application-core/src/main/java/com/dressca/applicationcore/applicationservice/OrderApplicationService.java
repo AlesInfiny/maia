@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 注文に関連するビジネスユースケースを実現する Application Service です。
+ * 注文に関連するビジネスユースケースを実現するサービスです。
  */
 @Service
 @AllArgsConstructor
@@ -30,12 +30,12 @@ public class OrderApplicationService {
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
-   * 指定した注文 Id 、購入者 Id の注文情報を取得します。
+   * 指定した注文 ID 、購入者 ID の注文情報を取得します。
    * 
-   * @param orderId 注文 Id.
-   * @param buyerId 購入者 Id.
-   * @return 注文情報.
-   * @throws OrderNotFoundException 注文情報が見つからない場合.
+   * @param orderId 注文 ID 。
+   * @param buyerId 購入者 ID 。
+   * @return 注文情報。
+   * @throws OrderNotFoundException 注文情報が見つからない場合。
    */
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
 

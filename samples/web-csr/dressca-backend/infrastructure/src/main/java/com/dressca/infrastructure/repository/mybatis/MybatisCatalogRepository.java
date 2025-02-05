@@ -7,14 +7,14 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogIte
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * カタログリポジトリ。
+ * カタログのリポジトリです。
  */
 @Repository
 @AllArgsConstructor
@@ -67,7 +67,7 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public int remove(Long id, LocalDateTime rowVersion) {
+  public int remove(Long id, OffsetDateTime rowVersion) {
     CatalogItemEntityExample catalogItemExample = new CatalogItemEntityExample();
     catalogItemExample.createCriteria().andIdEqualTo(id).andRowVersionEqualTo(rowVersion);
     return catalogItemMapper.deleteByExample(catalogItemExample);
