@@ -59,7 +59,7 @@ const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
 ]);
 
 /**
- * ローディング・スピナーの表示の状態です。
+ * ローディングスピナーの表示の状態です。
  */
 const showLoading = ref(true);
 

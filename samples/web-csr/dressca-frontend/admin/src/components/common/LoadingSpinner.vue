@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * API からデータが返ってくるまで画面に表示されるローディング・スピナーです。
+ * API からデータが返ってくるまで画面に表示されるローディングスピナーです。
  */
 defineProps<{
   show: boolean;
