@@ -106,6 +106,7 @@ nav:
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
               - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
               - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
+              - ローディングスピナーの実装: guidebooks/how-to-develop/vue-js/loading-spinner.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
