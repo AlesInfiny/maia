@@ -282,3 +282,70 @@ Web API を公開するオリジンと、呼び出し元となるクライアン
 ## メッセージ読込に関する設定 {#message-reading-settings}
 
 他サブプロジェクトで管理されているメッセージを読み込む場合の設定は、[こちら](./message-management.md) を参照してください。
+
+## H2 Database をサーバーモードで起動する設定 {#h2-database-server-settings}
+
+開発環境において、 H2 Database をサーバーモードで起動する設定方法を解説します。
+
+本設定は、開発環境で使用するデータベースが H2 Database であり、ルートプロジェクトに同一のデータベースへ同時にアクセスするサブプロジェクトが存在する場合に行います。
+同一のデータベースへ同時にアクセスするサブプロジェクトの例としては、コンシューマー向けの EC サイトとその EC サイトで売られる商品を管理するアプリが挙げられます。
+
+対象は H2 Database をサーバーモードで起動するクラスと、開発環境におけるアプリケーションの設定などを行う `application-dev.properties` です。以下がそれぞれの設定例です。
+
+??? example "H2 Database をサーバーモードで起動するクラスの例"
+
+    定義するクラスには、 `@Component` と `@Profile` アノテーションを付与し、開発環境でのみ DI コンテナに Bean 登録されるように設定します。
+    クラスには H2 Database を起動する処理と停止する処理をそれぞれ明記します。
+    起動する処理は、アプリケーションが起動したタイミングで H2 Database を起動させるためにコンストラクタ内で行います。
+    停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `@PreDestroy` アノテーションを付与したメソッド内で行います。
+
+    ``` Java
+    /**
+     * 開発環境で H2 Database をサーバーモードで立ち上げるためのクラスです。
+     */
+    @Component
+    @Profile("local")
+    public class H2ServerLauncher {
+
+      private Server tcpServer;
+      private final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+
+      /**
+       * {@link H2ServerLauncher} クラスのインスタンスを初期化し、 H2 Database をサーバーモードで起動します。
+       */
+      public H2ServerLauncher() {
+        try {
+          this.tcpServer = Server.createTcpServer("-tcpPort", "9092", "-tcpAllowOthers", "-ifNotExists").start();
+        } catch (SQLException e) {
+          apLog.info("H2 Database は既にサーバーモードで起動しています。");
+        }
+      }
+
+      /**
+       * インスタンスを破棄する際に H2 Database を停止します。
+       */
+      @PreDestroy
+      public void stop() {
+        if (this.tcpServer != null) {
+          this.tcpServer.stop();
+        }
+      }
+    }
+    ```
+
+??? example "`application-dev.properties` の例"
+
+    ``` properties
+    spring.datasource.hikari.driver-class-name=org.h2.Driver
+
+    # DBをサーバーモードで起動する場合の接続先情報
+    spring.datasource.hikari.jdbc-url=jdbc:h2:tcp://localhost:9092/mem:データベースの名前
+    # 起動した H2 Database にデータを流し込む設定
+    spring.sql.init.mode=always
+
+    spring.datasource.hikari.username=
+    spring.datasource.hikari.password=
+    spring.h2.console.enabled=true
+    spring.h2.console.path=/h2-console
+    spring.h2.console.settings.web-allow-others=true
+    ```
