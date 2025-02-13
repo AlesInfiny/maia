@@ -1,4 +1,4 @@
-package com.dressca.web;
+package com.dressca.web.controller;
 
 import com.dressca.applicationcore.applicationservice.AssetApplicationService;
 import com.dressca.applicationcore.assets.Asset;
@@ -7,14 +7,12 @@ import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Locale;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -53,7 +51,8 @@ public class AssetsController {
   @Autowired
   private MessageSource messages;
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private AbstractStructuredLogger apLog;
 
   /**
    * アセットを取得します。

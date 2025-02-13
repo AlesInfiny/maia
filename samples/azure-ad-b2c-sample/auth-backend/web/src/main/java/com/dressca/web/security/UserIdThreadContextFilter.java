@@ -2,13 +2,11 @@ package com.dressca.web.security;
 
 import java.io.IOException;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.web.log.DresscaStructuredLoggerImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UserIdThreadContextFilter extends OncePerRequestFilter {
 
   // ログ出力用（本番では消す）
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static final DresscaStructuredLoggerImpl apLog = new DresscaStructuredLoggerImpl();
   public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
   /**

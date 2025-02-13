@@ -44,6 +44,7 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
@@ -64,6 +65,9 @@ public class ShoppingApplicationServiceTest {
   @Autowired
   private MessageSource messages;
 
+  @Mock
+  private AbstractStructuredLogger apLog;
+
   private ShoppingApplicationService service;
 
   private static final Random random = new Random();
@@ -71,7 +75,7 @@ public class ShoppingApplicationServiceTest {
   @BeforeEach
   void setUp() {
     service = new ShoppingApplicationService(messages, basketRepository, catalogRepository, orderRepository,
-        catalogDomainService);
+        catalogDomainService, apLog);
   }
 
   @Test

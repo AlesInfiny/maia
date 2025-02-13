@@ -5,11 +5,9 @@ import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -41,7 +39,8 @@ public class AssetsController {
   @Autowired
   private AssetApplicationService service;
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private AbstractStructuredLogger apLog;
 
   /**
    * アセットを取得します。

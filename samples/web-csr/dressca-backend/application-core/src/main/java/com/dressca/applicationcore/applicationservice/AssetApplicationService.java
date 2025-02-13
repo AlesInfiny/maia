@@ -1,8 +1,6 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.Locale;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -14,7 +12,7 @@ import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.AllArgsConstructor;
 
 /**
@@ -31,8 +29,8 @@ public class AssetApplicationService {
   private AssetStore store;
   @Autowired
   private MessageSource messages;
-
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private AbstractStructuredLogger apLog;
 
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
