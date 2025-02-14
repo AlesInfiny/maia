@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
  * API からデータが返ってくるまで画面に表示されるローディングスピナーです。
+ * ルーティングの対象となるページにおいて onMounted フックで表示・非表示を制御して使用します。
  */
 defineProps<{
   show: boolean;
