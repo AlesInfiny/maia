@@ -282,53 +282,8 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 ./gradlew build
 ```
 
-??? info "ここまでの手順を実行した際の `{ルートプロジェクト}/build.gradle` の例"
+??? info "サンプルアプリケーションの {ルートプロジェクト}/build.gradle"
 
     ```groovy title="{ルートプロジェクト}/build.gradle"
-    plugins {
-      id 'com.github.spotbugs' version 'x.x.x' apply false
-    }
-
-    subprojects {
-
-      apply plugin: 'java'
-      apply plugin: 'jacoco'
-      apply plugin: 'checkstyle'
-      apply plugin: 'com.github.spotbugs'
-
-      dependencies {
-        // Lombok の設定
-        annotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
-        compileOnly 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
-      }
-
-      test {
-        // UTテスト時はtestプロファイルを利用
-        jvmArgs=['-Dspring.profiles.active=test']
-        useJUnitPlatform()
-      }
-
-      checkstyle {
-        toolVersion = 'x.x.x'
-      }
-
-      spotbugs {
-        excludeFilter.set(rootProject.file('フィルタファイルのパス'))
-        ignoreFailures = true
-      }
-
-      jacocoTestReport {
-        reports {
-          html.required = true
-        }
-        afterEvaluate {
-          classDirectories.setFrom(classDirectories.files.collect {
-            fileTree(dir: it, excludes: ['**/xxx/*', '**/yyy.class'])
-          })
-        }
-      }
-    }
+    --8<-- "https://raw.githubusercontent.com/AlesInfiny/maia/refs/heads/main/samples/web-csr/dressca-backend/build.gradle"
     ```
-    
