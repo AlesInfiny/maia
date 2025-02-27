@@ -70,6 +70,10 @@ tasks.register('runMyBatisGenerator') {
   }
 }
 
+tasks.named('runMyBatisGenerator') {
+    finalizedBy 'updateMyBatisGeneratorMapperForOptimisticLocking'
+}
+
 // 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
 tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
@@ -157,10 +161,6 @@ tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
       xmlFile.write(xmlContent)
     }
   }
-}
-
-tasks.named('runMyBatisGenerator') {
-    finalizedBy 'updateMyBatisGeneratorMapperForOptimisticLocking'
 }
 
 // スネークケースをローワーキャメルケースに変換するメソッド
