@@ -145,6 +145,8 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
     [License Link](https://license-link){ target=_blank }
     ```
 
+### Github コードの記載ルール
+
 ### 体裁の修正
 
 #### markdownlint

@@ -177,7 +177,6 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
-      url_download: true
       auto_append:
         - includes/abbreviations.md
   - pymdownx.superfences:
@@ -201,6 +200,9 @@ extra:
 
 extra_css:
   - stylesheets/overrides.css
+
+hooks:
+  - hooks/github_markdown_fetcher.py
 
 plugins:
   - git-revision-date-localized:

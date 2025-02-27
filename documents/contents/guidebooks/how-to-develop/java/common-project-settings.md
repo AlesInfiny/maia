@@ -284,6 +284,6 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 
 ??? info "サンプルアプリケーションの {ルートプロジェクト}/build.gradle"
 
-    ```groovy title="{ルートプロジェクト}/build.gradle"
-    --8<-- "https://raw.githubusercontent.com/AlesInfiny/maia/refs/heads/main/samples/web-csr/dressca-backend/build.gradle"
+    ```groovy title="build.gradle"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/build.gradle
     ```
