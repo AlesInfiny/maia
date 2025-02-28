@@ -25,7 +25,7 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.15.3",
+    "@openapitools/openapi-generator-cli": "^2.17.0",
     "@rushstack/eslint-patch": "^1.10.5",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
