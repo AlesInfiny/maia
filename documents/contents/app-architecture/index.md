@@ -11,7 +11,7 @@ description: AlesInfiny Maia OSS Edition の考える アプリケーション�
 
 - [クライアントサイドレンダリング編](client-side-rendering/index.md)
 
-    Vue.js を用いたクライアントサイドレンダリング型の Web アプリケーションアーキテクチャについて解説します。
+    Vue.js を用いたクライアントサイドレンダリング方式の Web アプリケーションアーキテクチャについて解説します。
     バックエンドの Web API アプリケーションのアーキテクチャについても解説します。
 
 - [バッチアプリケーション編](batch-application/index.md)
