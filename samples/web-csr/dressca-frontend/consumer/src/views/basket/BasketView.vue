@@ -10,7 +10,7 @@ import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
-import Loading from '@/components/common/LoadingSpinner.vue';
+import Loading from '@/components/common/LoadingSpinnerOverlay.vue';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
