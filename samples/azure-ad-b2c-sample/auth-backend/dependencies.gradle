@@ -7,7 +7,7 @@ ext {
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "2.8.1"
-    activeDirectoryVersion = "5.19.0"
+    activeDirectoryVersion = "5.20.1"
     springCloudAzureVersion = "5.19.0"
 
     supportDependencies = [
