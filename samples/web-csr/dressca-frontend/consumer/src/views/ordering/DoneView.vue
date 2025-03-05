@@ -10,7 +10,7 @@ import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
-import LoadingSpinnerOverlay from '@/components/common/LoadingSpinnerOverlay.vue';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();

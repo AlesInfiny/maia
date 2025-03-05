@@ -10,7 +10,7 @@ import { storeToRefs } from 'pinia';
 import { useSpecialContentStore } from '@/stores/special-content/special-content';
 import { useCatalogStore } from '@/stores/catalog/catalog';
 import CarouselSlider from '@/components/common/CarouselSlider.vue';
-import Loading from '@/components/common/LoadingSpinnerOverlay.vue';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
@@ -106,7 +106,7 @@ watch([selectedCategory, selectedBrand], async () => {
 
 <template>
   <div class="container mx-auto">
-    <Loading :show="showLoading"></Loading>
+    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
     <div v-if="!showLoading">
       <div class="flex justify-center m-4">
         <CarouselSlider :items="getSpecialContents" class="h-auto w-full">
