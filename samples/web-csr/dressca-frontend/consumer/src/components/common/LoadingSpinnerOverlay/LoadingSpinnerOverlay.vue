@@ -7,6 +7,10 @@
 defineProps<{
   show: boolean;
 }>();
+
+defineSlots<{
+  default: JSX.Element;
+}>();
 </script>
 
 <template>
