@@ -26,7 +26,7 @@ import type {
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
-import LoadingSpinner from '@/components/common/LoadingSpinnerOverlay.vue';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();
@@ -341,7 +341,7 @@ const updateItemAsync = async () => {
     @close="closeUpdateNotice"
   ></NotificationModal>
 
-  <LoadingSpinner :show="showLoading"></LoadingSpinner>
+  <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
 
   <div v-if="!showLoading" class="container mx-auto gap-6">
     <div>

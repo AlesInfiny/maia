@@ -7,12 +7,19 @@
 defineProps<{
   show: boolean;
 }>();
+
+defineSlots<{
+  /**
+   * 任意のスピナーアニメーションや画像を指定してください。
+   */
+  spinner: HTMLElement;
+}>();
 </script>
 
 <template>
   <div v-if="show" class="overlay">
     <div class="spinner-container">
-      <slot>
+      <slot name="spinner">
         <div class="default-spinner"></div>
       </slot>
     </div>

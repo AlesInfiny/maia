@@ -9,7 +9,7 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { showToast } from '@/services/notification/notificationService';
-import LoadingSpinner from '@/components/common/LoadingSpinnerOverlay.vue';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
@@ -118,7 +118,7 @@ const goToEditItem = (id: number) => {
 
 <template>
   <div class="container mx-auto gap-6">
-    <LoadingSpinner :show="showLoading"></LoadingSpinner>
+    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
     <div v-if="!showLoading">
       <div class="flex justify-center p-8 text-5xl font-bold">
         カタログアイテム一覧
