@@ -79,7 +79,7 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 ### Git for Windows のインストール {#install-git-for-windows}
 
-!!!warning "Git for Windows インストールの前に"
+!!! warning "Git for Windows インストールの前に"
     [VS Code のインストール](#install-vscode) を完了させておくことを推奨します。
     Git for Windows のインストール中に、既定のエディターを選択する必要があります。
     VS Code をインストールしている場合、 VS Code を既定のエディターとして設定できます。
