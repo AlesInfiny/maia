@@ -14,7 +14,7 @@ ext {
     springdocOpenapiVersion = "2.8.1"
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.17.0"
-    springSecurityVersion = "3.4.1"
+    springSecurityVersion = "3.4.3"
     mybatisGeneratorVersion = "1.4.2"
 
     supportDependencies = [
