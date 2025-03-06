@@ -9,14 +9,17 @@ defineProps<{
 }>();
 
 defineSlots<{
-  default: JSX.Element;
+  /**
+   * 任意の画像やスピナーアニメーションを指定してください。
+   */
+  spinner: JSX.Element;
 }>();
 </script>
 
 <template>
   <div v-if="show" class="overlay">
     <div class="spinner-container">
-      <slot>
+      <slot name="spinner">
         <div class="default-spinner"></div>
       </slot>
     </div>
