@@ -28,7 +28,7 @@ def replacer(match):
 def on_page_markdown(markdown, **kwargs):
   return re.sub(
     re.compile(
-      r'^(?P<spacing>[ ]*)https://github.com/(?P<user>[\w/\-]+)/blob/(?P<filename>[\w\d\-/\.]+)\.(?P<extension>\w+)(#L(?P<begin>\d+)(-L(?P<end>\d+))?)?(\n```)?$',
+      r'^(?P<spacing>[ ]*)https://github.com/(?P<user>[\w/\-]+)/blob/(?P<filename>[\w\d\-/\.]+)\.(?P<extension>\w+)(#L(?P<begin>\d+)(-L(?P<end>\d+))?)?$',
       re.MULTILINE,
     ),
     replacer,
