@@ -125,7 +125,6 @@ onMounted(async () => {
     body="カタログアイテムを追加しました。"
     @close="closeAddNotice"
   ></NotificationModal>
-
   <div
     class="container mx-auto flex flex-col items-center justify-center gap-6"
   >
