@@ -6,6 +6,8 @@ import { Bars3Icon } from '@heroicons/vue/24/solid';
 import { logoutAsync } from '@/services/authentication/authentication-service';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useLoadingStore } from '@/stores/loading/loading';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 
 const router = useRouter();
 const authenticationStore = useAuthenticationStore();
@@ -25,7 +27,10 @@ const logout = async () => {
   showLoginMenu.value = !showLoginMenu.value;
   router.push({ name: 'authentication/login' });
 };
+
+const loadingStore = useLoadingStore();
 </script>
+
 <template>
   <div class="z-2">
     <NotificationToast />
@@ -108,7 +113,10 @@ const logout = async () => {
       </div>
     </div>
   </nav>
-  <main class="mb-16 min-h-screen">
+  <main class="mb-16 min-h-screen relative">
+    <LoadingSpinnerOverlay
+      :show="loadingStore.isLoading"
+    ></LoadingSpinnerOverlay>
     <router-view />
   </main>
 
