@@ -234,8 +234,11 @@ const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
  */
 onMounted(async () => {
   showLoading.value = true;
-  await initItemAsync(id);
-  showLoading.value = false;
+  try {
+    await initItemAsync(id);
+  } finally {
+    showLoading.value = false;
+  }
 });
 
 /**
