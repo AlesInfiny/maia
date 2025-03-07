@@ -8,6 +8,7 @@ import {
   ServerError,
   UnauthorizedError,
 } from '@/shared/error-handler/custom-error';
+import { useLoadingStore } from '@/stores/loading/loading';
 
 /** api-client の共通の Configuration があればここに定義します。 */
 function createConfig(): apiClient.Configuration {
@@ -24,10 +25,29 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+axiosInstance.interceptors.request.use(
+  (request) => {
+    const loadingStore = useLoadingStore();
+    loadingStore.incrementLoading();
+    return request;
+  },
+  (error) => {
+    const loadingStore = useLoadingStore();
+    loadingStore.decrementLoading();
+    return Promise.reject(error);
+  },
+);
+
 /** レスポンスのステータスコードに応じてカスタムエラーを割り当てます。 */
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const loadingStore = useLoadingStore();
+    loadingStore.decrementLoading();
+    return response;
+  },
   (error) => {
+    const loadingStore = useLoadingStore();
+    loadingStore.decrementLoading();
     if (axios.isAxiosError(error)) {
       if (!error.response) {
         return Promise.reject(new NetworkError('Network Error', error));
