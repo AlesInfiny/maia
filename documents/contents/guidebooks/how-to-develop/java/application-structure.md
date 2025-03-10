@@ -1,11 +1,11 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
+description: サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # アプリケーションの全体構造 {#top}
 
-AlesInfiny Maia OSS Edition において、バックエンドで動作する Java アプリケーションは複数の Gradle Groovy DSL プロジェクトを組み合わせたマルチプロジェクトとして構成します。
+AlesInfiny Maia OSS Edition において、サーバーサイドで動作する Java アプリケーションは複数の Gradle Groovy DSL プロジェクトを組み合わせたマルチプロジェクトとして構成します。
 
 !!! info "Gradle Groovy DSL プロジェクトとは"
 

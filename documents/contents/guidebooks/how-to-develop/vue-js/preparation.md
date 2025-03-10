@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # 事前準備 {#top}
@@ -11,7 +11,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ## Visual Studio Code の拡張機能インストール {#install-extensions}
 
-Visual Studio Code を利用する場合、クライアントサイドアプリケーションの開発のために以下の拡張機能をインストールします。
+Visual Studio Code を利用する場合、フロントエンドアプリケーションの開発のために以下の拡張機能をインストールします。
 
 - [Vue - Official :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Vue.volar){ target=_blank }
 
