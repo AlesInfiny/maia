@@ -9,6 +9,7 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { showToast } from '@/services/notification/notificationService';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
@@ -58,6 +59,11 @@ const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
 ]);
 
 /**
+ * ローディングスピナーの表示の状態です。
+ */
+const showLoading = ref(true);
+
+/**
  * カタログブランドの名前を取得します。
  * @param id カタログブランドID
  */
@@ -80,6 +86,7 @@ const getCategoryName = (id: number) => {
  * それぞれの状態を更新します。
  */
 onMounted(async () => {
+  showLoading.value = true;
   try {
     pagedListOfCatalogItem.value = await fetchItems(0, 0);
     [catalogCategories.value, catalogBrands.value] =
@@ -88,6 +95,8 @@ onMounted(async () => {
     customErrorHandler.handle(error, () => {
       showToast('カタログアイテムの取得に失敗しました。');
     });
+  } finally {
+    showLoading.value = false;
   }
 });
 
@@ -109,63 +118,66 @@ const goToEditItem = (id: number) => {
 
 <template>
   <div class="container mx-auto gap-6">
-    <div class="flex justify-center p-8 text-5xl font-bold">
-      カタログアイテム一覧
+    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
+    <div v-if="!showLoading">
+      <div class="flex justify-center p-8 text-5xl font-bold">
+        カタログアイテム一覧
+      </div>
+      <div class="mx-2 my-8 flex justify-end">
+        <button
+          type="button"
+          class="rounded bg-green-600 px-4 py-2 text-xl font-bold text-white hover:bg-green-800"
+          @click="goToAddItem"
+        >
+          アイテム追加
+        </button>
+      </div>
+      <table class="table-auto border-separate text-xl">
+        <thead class="bg-blue-50">
+          <tr>
+            <th class="w-20">アイテムID</th>
+            <th class="w-60">画像</th>
+            <th>アイテム名</th>
+            <th>説明</th>
+            <th>単価</th>
+            <th>商品コード</th>
+            <th class="w-20">カテゴリ</th>
+            <th>ブランド</th>
+            <th class="w-20">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in pagedListOfCatalogItem.items" :key="item.id">
+            <td class="border">{{ item.id }}</td>
+            <td class="border">
+              <img
+                class="object-contain"
+                :src="getFirstAssetUrl(item.assetCodes)"
+                :alt="item.name"
+              />
+            </td>
+            <td class="border">{{ item.name }}</td>
+            <td class="border">{{ item.description }}</td>
+            <td class="border">{{ toCurrencyJPY(item.price) }}</td>
+            <td class="border">{{ item.productCode }}</td>
+            <td class="border">
+              {{ getCategoryName(item.catalogCategoryId) }}
+            </td>
+            <td class="border">
+              {{ getBrandName(item.catalogBrandId) }}
+            </td>
+            <td class="border text-center">
+              <button
+                type="button"
+                class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
+                @click="goToEditItem(item.id)"
+              >
+                編集
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="mx-2 my-8 flex justify-end">
-      <button
-        type="button"
-        class="rounded bg-green-600 px-4 py-2 text-xl font-bold text-white hover:bg-green-800"
-        @click="goToAddItem"
-      >
-        アイテム追加
-      </button>
-    </div>
-    <table class="table-auto border-separate text-xl">
-      <thead class="bg-blue-50">
-        <tr>
-          <th class="w-20">アイテムID</th>
-          <th class="w-60">画像</th>
-          <th>アイテム名</th>
-          <th>説明</th>
-          <th>単価</th>
-          <th>商品コード</th>
-          <th class="w-20">カテゴリ</th>
-          <th>ブランド</th>
-          <th class="w-20">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in pagedListOfCatalogItem.items" :key="item.id">
-          <td class="border">{{ item.id }}</td>
-          <td class="border">
-            <img
-              class="object-contain"
-              :src="getFirstAssetUrl(item.assetCodes)"
-              :alt="item.name"
-            />
-          </td>
-          <td class="border">{{ item.name }}</td>
-          <td class="border">{{ item.description }}</td>
-          <td class="border">{{ toCurrencyJPY(item.price) }}</td>
-          <td class="border">{{ item.productCode }}</td>
-          <td class="border">
-            {{ getCategoryName(item.catalogCategoryId) }}
-          </td>
-          <td class="border">
-            {{ getBrandName(item.catalogBrandId) }}
-          </td>
-          <td class="border text-center">
-            <button
-              type="button"
-              class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
-              @click="goToEditItem(item.id)"
-            >
-              編集
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
