@@ -4,7 +4,7 @@ import type {
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client';
-import { basket, basketItems } from '../data/basketItems';
+import { basket, basketItems } from '../data/basket-items';
 
 function calcBasketAccount() {
   let totalItemsPrice = 0;

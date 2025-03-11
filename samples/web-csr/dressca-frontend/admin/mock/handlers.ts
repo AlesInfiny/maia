@@ -1,8 +1,8 @@
-import { catalogItemsHandlers } from './handlers/catalogItems';
-import { catalogBrandsHandlers } from './handlers/catalogBrands';
-import { catalogCategoriesHandlers } from './handlers/catalogCategories';
-import { assetsHandlers } from './handlers/assets';
-import { usersHandlers } from './handlers/users';
+import { catalogItemsHandlers } from './handlers/catalog-items-handler';
+import { catalogBrandsHandlers } from './handlers/catalog-brands-handler';
+import { catalogCategoriesHandlers } from './handlers/catalog-categories-handler';
+import { assetsHandlers } from './handlers/assets-handler';
+import { usersHandlers } from './handlers/users-handler';
 
 export const handlers = [
   ...catalogItemsHandlers,

@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw';
 import { HttpStatusCode } from 'axios';
-import { pagedListCatalogItem } from '../data/catalogItems';
+import { pagedListCatalogItem } from '../data/catalog-items';
 
 export const catalogItemsHandlers = [
   http.get('/api/catalog-items', () => {
