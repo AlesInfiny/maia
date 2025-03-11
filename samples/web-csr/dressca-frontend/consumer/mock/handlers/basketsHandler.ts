@@ -1,9 +1,9 @@
 import { HttpResponse, http } from 'msw';
+import { HttpStatusCode } from 'axios';
 import type {
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client';
-import { HttpStatusCode } from 'axios';
 import { basket, basketItems } from '../data/basketItems';
 
 function calcBasketAccount() {
@@ -31,12 +31,13 @@ export const basketsHandlers = [
       status: HttpStatusCode.Ok,
     });
   }),
-  http.post<PostBasketItemsRequest, never, never>(
+  http.post<never, PostBasketItemsRequest, never>(
     '/api/basket-items',
     async ({ request }) => {
       const dto: PostBasketItemsRequest = await request.json();
+
       const target = basket.basketItems?.filter(
-        (item) => item.catalogItemId === dto.catalogItemId,
+        (item) => item.catalogItemId === Number(dto.catalogItemId),
       );
       if (target) {
         if (target && target.length === 0) {
@@ -55,11 +56,11 @@ export const basketsHandlers = [
       return new HttpResponse(null, { status: HttpStatusCode.Created });
     },
   ),
-  http.put<PutBasketItemsRequest, never, never>(
+  http.put<never, PutBasketItemsRequest[], never>(
     '/api/basket-items',
     async ({ request }) => {
-      const dto: PutBasketItemsRequest = await request.json();
-      const response = new HttpResponse(null, {
+      const dto: PutBasketItemsRequest[] = await request.json();
+      let response = new HttpResponse(null, {
         status: HttpStatusCode.NoContent,
       });
       dto.forEach((putBasketItem) => {

@@ -8,7 +8,7 @@ type GetOrderingParams = {
 };
 
 export const orderingHandlers = [
-  http.post<PostOrderRequest, never, never>(
+  http.post<never, PostOrderRequest, never>(
     '/api/orders',
     async ({ request }) => {
       const dto: PostOrderRequest = await request.json();
@@ -20,22 +20,19 @@ export const orderingHandlers = [
 
       const id = Math.floor(Math.random() * 1000) + 1;
 
-      return new HttpResponse(
-        null,
-        {
-          headers: {
-            Location: `http://localhost:5173/api/orders/${id}`,
-          },
+      return new HttpResponse(null, {
+        headers: {
+          Location: `http://localhost:5173/api/orders/${id}`,
         },
-        { status: HttpStatusCode.Created },
-      );
+        status: HttpStatusCode.Created,
+      });
     },
   ),
   http.get<GetOrderingParams, never, never>(
     '/api/orders/:orderId',
     async ({ params }) => {
       const { orderId } = params;
-      order.id = orderId;
+      order.id = Number(orderId);
       order.orderDate = new Date().toISOString();
       return HttpResponse.json(order, { status: HttpStatusCode.Ok });
     },
