@@ -26,6 +26,7 @@ import type {
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();
@@ -125,6 +126,11 @@ const showUpdateConfirm = ref(false);
  * 更新通知モーダルの開閉状態です。
  */
 const showUpdateNotice = ref(false);
+
+/**
+ * ローディングスピナーの表示の状態です。
+ */
+const showLoading = ref(true);
 
 /**
  * 削除通知モーダルを閉じます。
@@ -227,7 +233,12 @@ const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
  *
  */
 onMounted(async () => {
-  await initItemAsync(id);
+  showLoading.value = true;
+  try {
+    await initItemAsync(id);
+  } finally {
+    showLoading.value = false;
+  }
 });
 
 /**
@@ -333,7 +344,9 @@ const updateItemAsync = async () => {
     @close="closeUpdateNotice"
   ></NotificationModal>
 
-  <div class="container mx-auto gap-6">
+  <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
+
+  <div v-if="!showLoading" class="container mx-auto gap-6">
     <div>
       <div class="flex items-center justify-center p-8 text-5xl font-bold">
         カタログアイテム編集
