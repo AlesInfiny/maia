@@ -1,13 +1,12 @@
 {
-  "extends": ["@tsconfig/node20/tsconfig.json"],
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*",
-  "src/generated/api-client/**/*","mock/**/*","vite-plugins/*"],
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    "types": ["node"]
   }
 }
