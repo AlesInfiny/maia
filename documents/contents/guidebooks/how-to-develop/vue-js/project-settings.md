@@ -74,15 +74,21 @@ Project Reference 機能については [Project References :material-open-in-ne
     ``` json title="tsconfig.app.json"
     {
       "extends": "@vue/tsconfig/tsconfig.dom.json",
-      "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*"],
+      "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "mock/**/*",
+        "vitest.setup.ts"
+      ],
       "exclude": ["src/**/__tests__/*"],
       "compilerOptions": {
         "composite": true,
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
         "baseUrl": ".",
         "paths": {
-        "@/*": ["./src/*"]
-        },
+          "@/*": ["./src/*"]
+        }
       }
     }
     ```
@@ -94,16 +100,15 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     ``` json title="tsconfig.node.json" hl_lines="4"
     {
-      "extends": ["@tsconfig/node20/tsconfig.json"],
-      "include": ["vite.config.*", "vitest.config.*", "cypress.config.*",
-      "src/generated/api-client/**/*","mock/**/*","vite-plugins/*"],
+      "extends": "@tsconfig/node20/tsconfig.json",
+      "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
       "compilerOptions": {
         "composite": true,
         "noEmit": true,
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "types": ["node"],
+        "types": ["node"]
       }
     }
     ```
@@ -118,7 +123,7 @@ Project Reference 機能については [Project References :material-open-in-ne
         "composite": true,
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
         "lib": [],
-        "types": ["node", "jsdom"],
+        "types": ["node", "jsdom"]
       }
     }
     ```
@@ -256,6 +261,7 @@ Project Reference 機能については [Project References :material-open-in-ne
                 environment: 'jsdom',
                 exclude: [...configDefaults.exclude, 'e2e/*'],
                 root: fileURLToPath(new URL('./', import.meta.url)),
+                setupFiles: ['./vitest.setup.ts'],
               },
             }),
           ),
