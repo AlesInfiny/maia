@@ -59,22 +59,25 @@ export const basketsHandlers = [
     '/api/basket-items',
     async ({ request }) => {
       const dto: PutBasketItemsRequest = await request.json();
+      const response = new HttpResponse(null, {
+        status: HttpStatusCode.NoContent,
+      });
       dto.forEach((putBasketItem) => {
         const target = basket.basketItems?.filter(
           (item) => item.catalogItemId === putBasketItem.catalogItemId,
         );
         if (target) {
           if (target.length === 0) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end();
-          } else {
-            target[0].quantity = putBasketItem.quantity;
+            response = new HttpResponse(null, {
+              status: HttpStatusCode.BadRequest,
+            });
           }
+          target[0].quantity = putBasketItem.quantity;
         }
       });
       calcBasketAccount();
 
-      return new HttpResponse(null, { status: HttpStatusCode.NoContent });
+      return response;
     },
   ),
   http.delete('/api/basket-items/:catalogItemId', async () => {
