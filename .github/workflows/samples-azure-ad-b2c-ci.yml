@@ -1,4 +1,4 @@
-# cSpell:ignore mikepenz dorny
+# cspell:ignore mikepenz dorny
 name: azure-ad-b2c-sample CI
 
 on:
@@ -17,6 +17,8 @@ jobs:
   build-frontend:
     name: 'フロントエンドアプリケーションのビルド'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
     strategy:
@@ -53,15 +55,15 @@ jobs:
 
       - id: run-lint
         name: lintの実行
-        run: npm run lint:ci >> /var/tmp/lint-result.txt 2>&1
+        run: npm run lint:ci:app >> /var/tmp/lint-result.txt 2>&1
 
-      - id: run-typecheck
+      - id: run-type-check
         name: TypeScript の型チェック
-        run: npm run typecheck >> /var/tmp/typecheck-result.txt 2>&1
+        run: npm run type-check:app >> /var/tmp/type-check-result.txt 2>&1
 
       - id: application-build
         name: アプリケーションのビルド
-        run: npm run build-only:dev >> /var/tmp/build-result.txt 2>&1
+        run: npm run build-only:dev:app >> /var/tmp/build-result.txt 2>&1
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
@@ -71,10 +73,10 @@ jobs:
           header: 'lintの結果 :pen:'
 
       - name: 型チェックの結果出力
-        if: ${{ success() || (failure() && steps.run-typecheck.conclusion == 'failure') }}
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-          body: /var/tmp/typecheck-result.txt
+          body: /var/tmp/type-check-result.txt
           header: '型チェックの結果 :pencil2:'
 
       - name: ビルドの結果出力
@@ -138,12 +140,12 @@ jobs:
           echo ':x: コンパイルまたは静的テストに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: JUnitレポート
-        uses: mikepenz/action-junit-report@v5
+        uses: mikepenz/action-junit-report@62516aa379bff6370c95fd5894d5a27fb6619d9b  # v5.2.0
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
 
       - name: Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5  # v1.9.1
         if: always()
         with:
           name: Maven Tests

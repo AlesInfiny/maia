@@ -3,7 +3,7 @@ title: 開発環境構築
 description: AlesInfiny Maia OSS Edition のアプリケーション開発で 最低限必要な環境の構築方法を解説します。
 ---
 
-# ローカル開発環境の構築手順 {#top}
+# ローカル開発環境の構築 {#top}
 
 AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーション開発で最低限必要な環境の構築方法を解説します。
 
@@ -120,6 +120,13 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 
 ### Node.js のインストール {#install-node}
 
-1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。
+1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。 Node.js のインストーラーは、原則最新の LTS 版を利用してください。
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
+
+1. 以下のコマンドが実行できればインストールは完了です。
+
+    ```ps1 title="Node.js と npm のバージョン確認"
+    node --version
+    npm --version
+    ```

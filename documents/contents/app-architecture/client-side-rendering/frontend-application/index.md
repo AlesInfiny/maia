@@ -24,6 +24,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）を構成する OSS 
 
 AlesInfiny Maia で採用している Vue.js のソフトウェア・アーキテクチャは MVVM パターンに分類されます。
 以下にアーキテクチャを示します。
+
 ![フロントエンド コンポーネント構成](../../../images/app-architecture/client-side-rendering/frontend-architecture-light.png#only-light){ loading=lazy }
 ![フロントエンド コンポーネント構成](../../../images/app-architecture/client-side-rendering/frontend-architecture-dark.png#only-dark){ loading=lazy }
 
@@ -75,7 +76,7 @@ Vue Router : [公式ドキュメント :material-open-in-new:](https://router.vu
 
 #### モデルコンポーネントとの連携 {#linkage-with-model-component}
 
-Vue.js ではバックエンドのアプリケーションとの連携をモデルが行います。そのため、ユーザーが行う画面コンポーネントからの処理や入力情報をモデルに連携する必要があります。この連携ではビューモデルのプレゼンテーションロジックから、後述するモデルコンポーネントの Service や Store の Action を呼び出すことで、データの取得・更新をします。
+Vue.js ではバックエンドアプリケーションとの連携をモデルが行います。そのため、ユーザーが行う画面コンポーネントからの処理や入力情報をモデルに連携する必要があります。この連携ではビューモデルのプレゼンテーションロジックから、後述するモデルコンポーネントの Service や Store の Action を呼び出すことで、データの取得・更新をします。
 
 #### フロント入力チェック {#input-validation}
 
@@ -92,7 +93,7 @@ Vue.js ではバックエンドのアプリケーションとの連携をモデ�
 モデルはデータの状態管理や画面(ビュー)へのデータ連携、 Web API の呼び出しおよびハンドリングなどの役割を持つコンポーネントです。モデルは以下の要素で構成されます。またフロントエンドで扱うデータモデルと API モデルとの乖離を吸収し、扱いやすい状態に加工する役割も持ちます。
 
 - Service : ビューモデルからのリクエストに対して、 Store の呼び出し、 Web API の呼び出しなどデータの連携に必要な処理をします。
-- Store : フロントエンドで扱う状態を保持するコンテナです。 AlesInfiny Maris では Pinia という Vue.js の Store ライブラリを利用して管理します。
+- Store : フロントエンドで扱う状態を保持するコンテナです。 AlesInfiny Maia では Pinia という Vue.js の Store ライブラリを利用して管理します。
 
 Pinia : [公式ドキュメント :material-open-in-new:](https://pinia.vuejs.org/introduction.html){ target=_blank }
 
@@ -125,11 +126,11 @@ State の参照には Getter を利用します。 Getter は State を参照で
 
 AlesInfiny Maia では API 仕様を OpenAPI を用いて作成します。ここには API の機能が説明されており、フロントエンドエンジニアとバックエンドエンジニアの間で API 設計に乖離が生じないようにします。
 また [OpenAPI generator :material-open-in-new:](https://github.com/OpenAPITools/openapi-generator){ target=_blank } というツールを利用して、 API クライアントコードを自動生成できます。
-AlesInfiny Maia ではクライアント API アクセス方式に、 Promise ベースでリクエストの設定が容易である axios を採用しています。
+AlesInfiny Maia ではクライアント API アクセス方式に、 Promise ベースでリクエストの設定が容易である Axios を採用しています。
 
 OpenAPI : [公式ドキュメント :material-open-in-new:](https://swagger.io/specification/){ target=_blank }
 
-axios : [github :material-open-in-new:](https://github.com/axios/axios){ target=_blank }
+Axios : [github :material-open-in-new:](https://github.com/axios/axios){ target=_blank }
 
 ![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading-lazy }
 ![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading-lazy }
@@ -154,13 +155,17 @@ Vue.js プロジェクトのフォルダー構成は、ブランクプロジェ�
 ├─ cypress/ ------------------ cypress による E2E テストに関するファイルを格納します。
 ├─ public/ ------------------- メディアファイルや favicon など静的な資産を格納します。
 ├─ src/
+│  ├─ api-client/ ------------ API クライアントの設定ファイルを格納します。
 │  ├─ assets/ ---------------- コードや動的ファイルが必要とするCSSや画像などのアセットを格納します。
 │  ├─ components/ ------------ 単体で自己完結している再利用性の高い vue コンポーネントなどを格納します。
 │  ├─ config/ ---------------- 設定ファイルを格納します。
 │  ├─ generated/ ------------- 自動生成されたファイルを格納します。
+│  ├─ locales/ --------------- メッセージ管理に関するファイルを格納します。
 │  ├─ router/ ---------------- ルーティング定義を格納します。
 │  ├─ services/ -------------- サービスに関するファイルを格納します。
+│  ├─ shared/ ---------------- アプリケーション全体で再利用する共通機能のファイルを格納します。
 │  ├─ stores/ ---------------- store に関するファイルを格納します。
+│  ├─ validation/ ------------ 一元化するバリデーション定義ファイルを格納します。
 │  ├─ views/ ----------------- ルーティングで指定される vue ファイルを格納します。またページ固有の挙動などもここに含めます。
 │  ├─ App.vue
 │  └─ main.ts

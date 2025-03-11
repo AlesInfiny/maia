@@ -96,15 +96,13 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 1. VS Code で「dressca\\dressca-backend」フォルダーを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
 
-1. VS Code のターミナルで、カレントフォルダーを「dressca\\dressca-backend」にして以下のコマンドを実行してビルドします。
+1. VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    ```winbatch title="バックエンドアプリケーションのビルド"
-    ./gradlew build
-    ```
+    dressca-backend > Tasks > build > build
 
-1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「GRADLE PROJECTS」タブから以下のタスクを実行します。
+1. 前手順と同様に、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    web > Tasks > application > bootRun
+    web-consumer > Tasks > application > bootRunDev
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 

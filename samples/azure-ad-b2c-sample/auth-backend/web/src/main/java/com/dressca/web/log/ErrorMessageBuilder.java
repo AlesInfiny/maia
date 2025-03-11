@@ -10,15 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * ログやレスポンスでエラーメッセージを作成するためのクラスです。
+ * ログでエラーメッセージを作成するためのクラスです。
  */
 @Getter
 @AllArgsConstructor
 public class ErrorMessageBuilder {
 
-  private static final String EXCEPTION_MESSAGE_SUFFIX_LOG = "log";
-  private static final String EXCEPTION_MESSAGE_SUFFIX_FRONT = "front";
-  private static final String PROPERTY_DELIMITER = ".";
   private static final MessageSource messageSource = (MessageSource) ApplicationContextWrapper
       .getBean(MessageSource.class);
 
@@ -28,28 +25,17 @@ public class ErrorMessageBuilder {
   private String[] frontMessageValue;
 
   /**
-   * ProblemDetailsのdetail情報に格納するスタックトレースを作成します。
+   * ProblemDetails の detail 情報に格納するスタックトレースを作成します。
    * 
-   * @return スタックトレース
+   * @return スタックトレース。
    */
   public String createLogMessageStackTrace() {
     StringBuilder builder = new StringBuilder();
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_LOG);
-    String exceptionMessage = messageSource.getMessage(code, logMessageValue, Locale.getDefault());
+    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     builder.append(exceptionId).append(" ").append(exceptionMessage).append(SystemPropertyConstants.LINE_SEPARATOR);
     StringWriter writer = new StringWriter();
     ex.printStackTrace(new PrintWriter(writer));
     builder.append(writer.getBuffer().toString());
     return builder.toString();
-  }
-
-  /**
-   * ProblemDetailsのerror情報に格納するメッセージを作成します。
-   * 
-   * @return エラーメッセージ
-   */
-  public String createFrontErrorMessage() {
-    String code = String.join(PROPERTY_DELIMITER, exceptionId, EXCEPTION_MESSAGE_SUFFIX_FRONT);
-    return messageSource.getMessage(code, frontMessageValue, Locale.getDefault());
   }
 }

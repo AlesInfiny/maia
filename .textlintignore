@@ -1,7 +1,5 @@
 # SpotBugsで自動生成されるテキストファイルをテスト対象から除外
-
 samples/**/spotbugs*.txt
 
-# Github の Issues や Pull requests のテンプレートファイルをテスト対象から除外
-
-.github/**/*.md
+# third-party-licenses フォルダーはコピーしたファイルを配置するため、テスト対象から除外
+third-party-licenses/**

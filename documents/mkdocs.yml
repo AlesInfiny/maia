@@ -1,5 +1,5 @@
 ---
-# cSpell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
+# cspell:ignore htmlmin inlinehilite materialx prebuild pymdownx superfences twemoji
 site_name: AlesInfiny Maia OSS Edition
 site_url: https://maia.alesinfiny.org/
 docs_dir: contents
@@ -7,6 +7,9 @@ copyright: 'Copyright &copy; 2023 BIPROGY Inc. All rights reserved.'
 site_author: 'AlesInfiny Maia OSS Edition コミュニティ'
 site_description: 'AlesInfiny Maia OSS Edition のポータルサイトです。'
 site_dir: build-artifacts
+repo_name: AlesInfiny/maia
+repo_url: https://github.com/AlesInfiny/maia
+edit_uri: edit/main/documents/contents/
 
 # yamllint disable rule:comments-indentation
 nav:
@@ -38,6 +41,7 @@ nav:
               - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
               - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
               - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
+              - 認証・認可方針: app-architecture/client-side-rendering/global-function/authentication-and-authorization-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
@@ -62,6 +66,9 @@ nav:
           - バッチアプリケーションのテスト戦略:
               - app-architecture/batch-application/batch-application-test-policy/index.md
               - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
+      - アプリケーションセキュリティ編:
+          - app-architecture/security/index.md
+          - XSS （クロスサイトスクリプティング）: app-architecture/security/xss.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
@@ -75,7 +82,16 @@ nav:
               - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
               - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
               - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
-              - サブプロジェクトの個別設定: guidebooks/how-to-develop/java/sub-project-settings.md
+              - サブプロジェクトの個別設定:
+                  - guidebooks/how-to-develop/java/sub-project-settings/index.md
+                  - web プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/web-project-settings.md
+                  - infrastructure プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/infrastructure-project-settings.md
+                  - application-core プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/application-core-project-settings.md
+                  - batch プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/batch-project-settings.md
+                  - system-common プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/system-common-project-settings.md
+                  - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/java/sub-project-settings/project-version-control.md
+                  - メッセージ管理機能の設定: guidebooks/how-to-develop/java/sub-project-settings/message-management.md
+                  - 集約例外ハンドラーの設定: guidebooks/how-to-develop/java/sub-project-settings/exception-handling.md
           - Vue.js 編:
               - guidebooks/how-to-develop/vue-js/index.md
               - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
@@ -86,15 +102,21 @@ nav:
               - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
               - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
               - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
+              - メッセージ管理機能の設定: guidebooks/how-to-develop/vue-js/message-management.md
               - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
+              - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
+              - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
               - guidebooks/how-to-develop/cors/index.md
+      # - 規約:
+      #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
+      - コーディング規約: guidebooks/conventions/coding-conventions.md
   - サンプル解説:
       - samples/index.md
-      - Azure AD B2C を利用したユーザー認証:
+      - Azure Active Directory B2C を利用したユーザー認証:
           - samples/azure-ad-b2c/index.md
           - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/azure-ad-b2c/azure-ad-b2c-consideration.md
   - AlesInfiny Maia OSS Edition について:
@@ -108,6 +130,7 @@ theme:
   custom_dir: overrides
   favicon: assets/images/favicon.png
   features:
+    - content.action.view
     - content.code.annotate
     - navigation.indexes
     - navigation.instant
@@ -117,6 +140,9 @@ theme:
   font:
     text: Noto Sans JP
     code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+    view: material/eye
   language: ja
   logo: assets/maia-logo.png
   palette:
@@ -153,7 +179,11 @@ markdown_extensions:
       check_paths: true
       auto_append:
         - includes/abbreviations.md
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed
   - toc:
       permalink: ⚓︎
@@ -172,6 +202,11 @@ extra_css:
   - stylesheets/overrides.css
 
 plugins:
+  - git-revision-date-localized:
+      enabled: !ENV [BUILD_DOCUMENTS, false]
+      enable_creation_date: true
+      timezone: Asia/Tokyo
+      type: date
   - search:
       lang: ja
   - minify:

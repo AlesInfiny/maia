@@ -25,6 +25,8 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 import type { OrderResponse } from '../models';
 // @ts-ignore
 import type { PostOrderRequest } from '../models';
+// @ts-ignore
+import type { ProblemDetail } from '../models';
 /**
  * OrdersApi - axios parameter creator
  * @export
@@ -32,8 +34,8 @@ import type { PostOrderRequest } from '../models';
 export const OrdersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 注文情報を取得します.
-         * @summary 注文情報を取得します.
+         * 注文情報を取得します。
+         * @summary 注文情報を取得します。
          * @param {number} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -66,8 +68,8 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * 買い物かごに登録されている商品を注文します.
-         * @summary 買い物かごに登録されている商品を注文します.
+         * 買い物かごに登録されている商品を注文します。
+         * @summary 買い物かごに登録されている商品を注文します。
          * @param {PostOrderRequest} postOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -112,8 +114,8 @@ export const OrdersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = OrdersApiAxiosParamCreator(configuration)
     return {
         /**
-         * 注文情報を取得します.
-         * @summary 注文情報を取得します.
+         * 注文情報を取得します。
+         * @summary 注文情報を取得します。
          * @param {number} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -125,8 +127,8 @@ export const OrdersApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 買い物かごに登録されている商品を注文します.
-         * @summary 買い物かごに登録されている商品を注文します.
+         * 買い物かごに登録されている商品を注文します。
+         * @summary 買い物かごに登録されている商品を注文します。
          * @param {PostOrderRequest} postOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -148,8 +150,8 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = OrdersApiFp(configuration)
     return {
         /**
-         * 注文情報を取得します.
-         * @summary 注文情報を取得します.
+         * 注文情報を取得します。
+         * @summary 注文情報を取得します。
          * @param {number} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -158,8 +160,8 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getById(orderId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 買い物かごに登録されている商品を注文します.
-         * @summary 買い物かごに登録されている商品を注文します.
+         * 買い物かごに登録されている商品を注文します。
+         * @summary 買い物かごに登録されている商品を注文します。
          * @param {PostOrderRequest} postOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -178,8 +180,8 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
  */
 export class OrdersApi extends BaseAPI {
     /**
-     * 注文情報を取得します.
-     * @summary 注文情報を取得します.
+     * 注文情報を取得します。
+     * @summary 注文情報を取得します。
      * @param {number} orderId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -190,8 +192,8 @@ export class OrdersApi extends BaseAPI {
     }
 
     /**
-     * 買い物かごに登録されている商品を注文します.
-     * @summary 買い物かごに登録されている商品を注文します.
+     * 買い物かごに登録されている商品を注文します。
+     * @summary 買い物かごに登録されている商品を注文します。
      * @param {PostOrderRequest} postOrderRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

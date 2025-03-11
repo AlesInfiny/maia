@@ -1,6 +1,9 @@
 ---
-# cSpell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps yamlignore
 name: ドキュメントのビルド (CI用)
+
+permissions:
+  contents: read
 
 on:
   pull_request:
@@ -20,6 +23,7 @@ on:
       - ".textlintignore"
       - ".textlintrc"
       - ".yaml-lint.yml"
+      - ".yamlignore"
       - "package-lock.json"
       - "package.json"
       - "requirements.txt"
@@ -39,7 +43,7 @@ jobs:
       - name: ブランチのチェックアウト
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - id: lint-documents
         name: ドキュメントの Lint

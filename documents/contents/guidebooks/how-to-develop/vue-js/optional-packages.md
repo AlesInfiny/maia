@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # 開発に使用するパッケージ {#top}
@@ -59,7 +59,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
     Web API 仕様からクライアントコードの自動生成（[インストール方法](create-api-client-code.md#install-open-api-generator)）
 
-- [postCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
+- [PostCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
 
     CSS の最適化（[インストール方法](css.md#install-tailwind-css)）
 
@@ -67,7 +67,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
     スタイルルールを互いに入れ子にするためのプラグイン（[インストール方法](css.md#install-tailwind-css)）
 
-- [stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
+- [Stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
 
     CSS の静的検証ツール（[インストール方法](static-verification-and-format.md#install-stylelint)）
 
@@ -94,3 +94,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 - [yup :material-open-in-new:](https://github.com/jquense/yup){ target=_blank }
 
     JavaScript でフォームのバリデーションルールを宣言的に記述できるライブラリ（[インストール方法](input-validation.md#install-packages)）
+
+- [Vue I18n :material-open-in-new:](https://vue-i18n.intlify.dev/){ target=_blank }
+
+    Vue.js アプリケーションでメッセージを外部ファイルで一元管理したり、多言語対応するためのライブラリ（[インストール方法](input-validation.md#install-packages)）

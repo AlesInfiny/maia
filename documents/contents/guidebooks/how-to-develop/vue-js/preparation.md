@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # 事前準備 {#top}
@@ -11,7 +11,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ## Visual Studio Code の拡張機能インストール {#install-extensions}
 
-Visual Studio Code を利用する場合、クライアントサイドアプリケーションの開発のために以下の拡張機能をインストールします。
+Visual Studio Code を利用する場合、フロントエンドアプリケーションの開発のために以下の拡張機能をインストールします。
 
 - [Vue - Official :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=Vue.volar){ target=_blank }
 
@@ -30,9 +30,9 @@ Visual Studio Code を利用する場合、クライアントサイドアプリ�
 
 - [Prettier - Code formatter :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode){ target=_blank }
 
-    EditorConfig や ESLint 、 StyleLint と連携して、より詳細なコーディングルールを適用する機能を提供します。
+    EditorConfig と連携して、統一したスタイルにコードを整形する機能を提供します。
 
 - [language-postcss :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=cpylua.language-postcss){ target=_blank }
 
-    PostCSS で記述されたコードの可読性を向上させる機能を提供します。
-    また、 StyleLint と連携することで、 PostCSS のコードのエラーを検出できます。
+    CSS で記述されたコードの可読性を向上させる機能を提供します。
+    また、 Stylelint と連携することで、 CSS のコードのエラーを検出できます。

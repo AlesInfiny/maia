@@ -5,12 +5,14 @@ import { useUserStore } from '@/stores/user/user';
 import { postOrder } from '@/services/ordering/ordering-service';
 import { fetchBasket } from '@/services/basket/basket-service';
 import { showToast } from '@/services/notification/notificationService';
-
 import { useRouter } from 'vue-router';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { i18n } from '@/locales/i18n';
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { HttpError } from '@/shared/error-handler/custom-error';
 
 const userStore = useUserStore();
 const basketStore = useBasketStore();
@@ -21,6 +23,7 @@ const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
 const { toCurrencyJPY } = currencyHelper();
 const { getFirstAssetUrl } = assetHelper();
+const { t } = i18n.global;
 
 const checkout = async () => {
   try {
@@ -33,13 +36,32 @@ const checkout = async () => {
     );
     router.push({ name: 'ordering/done', params: { orderId } });
   } catch (error) {
-    customErrorHandler.handle(error, () => {
-      showToast('注文に失敗しました。');
-      router.push({ name: 'error' });
-    });
+    customErrorHandler.handle(
+      error,
+      () => {
+        router.push({ name: 'error' });
+      },
+      (httpError: HttpError) => {
+        if (!httpError.response?.exceptionId) {
+          showToast(t('failedToOrderItems'));
+        } else {
+          const message = errorMessageFormat(
+            httpError.response.exceptionId,
+            httpError.response.exceptionValues,
+          );
+          showToast(
+            message,
+            httpError.response.exceptionId,
+            httpError.response.title,
+            httpError.response.detail,
+            httpError.response.status,
+            100000,
+          );
+        }
+      },
+    );
   }
 };
-
 onMounted(async () => {
   await fetchBasket();
   if (getBasket.value.basketItems?.length === 0) {
@@ -51,7 +73,7 @@ onMounted(async () => {
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
     <span class="text-lg font-medium text-green-500">
-      注文内容を確認して「注文を確定する」ボタンを押してください。
+      {{ t('orderingCheckAndComplete') }}
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
@@ -136,7 +158,9 @@ onMounted(async () => {
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
               </p>
-              <p class="mt-4">{{ `数量: ${item.quantity}` }}</p>
+              <p class="mt-4">
+                {{ `数量: ${item.quantity}` }}
+              </p>
               <p class="mt-4">
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>

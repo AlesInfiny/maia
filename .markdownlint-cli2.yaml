@@ -4,8 +4,11 @@ customRules:
 gitignore: true
 
 # 全ての md ファイルを対象に markdownlint-cli2 を実行する
-# ただし、 Github の Issues や Pull requests に使用されるテンプレート用の md はテスト対象から除外する
-# Github の Issues や Pull requests に設定の Tag が含まれることを防ぐため yaml 上で除外設定を実行する
 globs:
   - "**/*.md"
-  - "!**/.github/**/*.md"
+
+# md ファイル以外の markdownlint の除外対象を以下に記載する
+ignores:
+  - "third-party-licenses/**"
+  - "LICENSE"
+  - "LICENSE-CODE"

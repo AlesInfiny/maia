@@ -1,12 +1,12 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 <!-- markdownlint-disable-file CMD001 -->
-<!-- cSpell:ignore Validatable signupsignin b2clogin -->
+<!-- cspell:ignore Validatable signupsignin b2clogin -->
 
-# Azure AD B2C による認証サンプル
+# Azure Active Directory B2C による認証サンプル
 
 ## このサンプルについて
 
-Azure AD B2C によるユーザー認証の簡単な実装サンプルを提供します。
+Azure Active Directory B2C （以降、 Azure AD B2C ）によるユーザー認証の簡単な実装サンプルを提供します。
 
 本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
 また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
@@ -213,11 +213,20 @@ auth-frontend
 
 ### 動作確認
 
-1. VS Code で `auth-backend` のフォルダーへ移動します。
-1. VS Code のアクティビティーバーにある「Gradle」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
-    - web > Tasks > application > bootRun
-1. VS Code で `auth-frontend` のフォルダーへ移動し、 `npm install` を実行します。
-1. ターミナルで `npm run dev` を実行します。
+1. VS Code で `auth-backend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    ./gradlew build
+    ./gradlew web:bootRun
+    ```
+
+1. VS Code で `auth-frontend` のフォルダーへ移動し、ターミナルで以下を実行します。
+
+    ```bash
+    npm ci
+    npm run dev:app
+    ```
+
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
 1. 画面の「 `ログイン` 」をクリックします。 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
@@ -246,8 +255,8 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     ext {
-      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.11.0]"
+      activeDirectoryVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.19.0]"
 
       supportDependencies = [
         spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
@@ -328,7 +337,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
     - authentication.ts
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-    AlesInfiny Maris のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
+    AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
 
     ```ts
     import axios from "axios";

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 注文情報のテーブルにアクセスするためのマッパークラスです。
+ * 注文情報のテーブルにアクセスするためのマッパーのインターフェースです。
  */
 @Mapper
 public interface JoinedOrderMapper {

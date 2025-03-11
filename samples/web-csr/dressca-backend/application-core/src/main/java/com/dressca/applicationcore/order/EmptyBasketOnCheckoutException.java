@@ -1,6 +1,6 @@
 package com.dressca.applicationcore.order;
 
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**
@@ -8,8 +8,13 @@ import com.dressca.systemcommon.exception.LogicException;
  */
 public class EmptyBasketOnCheckoutException extends LogicException {
 
+  /**
+   * 原因例外を指定して、
+   * {@link EmptyBasketOnCheckoutException} クラスのインスタンスを初期化します。
+   * 
+   * @param cause 原因例外。
+   */
   public EmptyBasketOnCheckoutException(Throwable cause) {
-    super(cause, ExceptionIdConstant.E_ORDER0001, null, null);
+    super(cause, ExceptionIdConstants.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
   }
-
 }

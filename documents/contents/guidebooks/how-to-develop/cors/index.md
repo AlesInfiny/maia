@@ -55,9 +55,9 @@ cors.allowed.origins=https://dev.frontend.example.com
 
 ### 許可するオリジンの読み込み {#reading-allowed-origins}
 
-まず、 CORS による設定を有効化するために、[`@EnableWebSecurity アノテーション` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を記述します。
-また、`application.properties` で許可したオリジンを読み込むために、 [`@Value アノテーション` :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core/beans/annotation-config/value-annotations.html){ target=_blank } を利用します。
-なお、`@Value アノテーション` 内で記述したプロパティ名は `application.properties` で設定した名称と一致させる必要があります。
+まず、 CORS による設定を有効化するために、[`#!java @EnableWebSecurity` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を記述します。
+また、`application.properties` で許可したオリジンを読み込むために、 [`#!java @Value` :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core/beans/annotation-config/value-annotations.html){ target=_blank } を利用します。
+なお、`#!java @Value` 内で記述したプロパティ名は `application.properties` で設定した名称と一致させる必要があります。
 
 ```java title="WebSecurityConfig.java"
 @Configuration(proxyBeanMethods = false)
@@ -72,7 +72,7 @@ public class WebSecurityConfig {
 ```
 
 !!! note "プロパティ名の後に `:` を記述して空の配列を設定"
-    `@Value アノテーション` 内に記述したプロパティ名が application.properties に記述されていない場合、エラーが発生します。
+    `#!java @Value` 内に記述したプロパティ名が application.properties に記述されていない場合、エラーが発生します。
     AlesInfiny Maia のサンプルアプリケーションでは、プロパティ名の後に `:` を記述することで初期値に空の配列を設定し、エラーを回避しています。
 
 ### CORS ポリシーの設定 {#configure-cors-policy}
@@ -91,7 +91,7 @@ public class WebSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .securityMatcher("/api/**")
-        .csrf(csrf -> csrf.disable())
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);

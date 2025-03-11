@@ -1,11 +1,15 @@
 package com.dressca.applicationcore.assets;
 
+import java.util.Locale;
+import org.springframework.context.MessageSource;
+import com.dressca.applicationcore.constant.ExceptionIdConstants;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * アセットのドメインモデル。
+ * アセットのドメインモデルです。
  */
 @Data
 @NoArgsConstructor
@@ -18,27 +22,35 @@ public class Asset {
   private String assetType;
 
   /**
-   * コンストラクタ。
+   * {@link Asset} クラスのインスタンスを初期化します。
    * 
-   * @param assetCode アセットコード
-   * @param assetType アセットタイプ
+   * @param assetCode アセットコード。
+   * @param assetType アセットタイプ。
    */
   public Asset(@NonNull String assetCode, @NonNull String assetType) {
     this.assetCode = assetCode;
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
-      throw new IllegalArgumentException("サポートされていないアセットタイプが指定されました。");
+      MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+      String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+          new String[] { assetType }, Locale.getDefault());
+
+      throw new IllegalArgumentException(message);
     }
     this.assetType = assetType;
   }
 
   /**
-   * コンストラクタ。
+   * アセットタイプをセットします。
    * 
-   * @param assetType アセットタイプ
+   * @param assetType アセットタイプ。
    */
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
-      throw new IllegalArgumentException("サポートされていないアセットタイプが指定されました。");
+      MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+      String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+          new String[] { assetType }, Locale.getDefault());
+
+      throw new IllegalArgumentException(message);
     }
     this.assetType = assetType;
   }

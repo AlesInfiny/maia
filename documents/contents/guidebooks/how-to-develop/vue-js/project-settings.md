@@ -1,6 +1,6 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
 # プロジェクトの共通設定 {#top}
@@ -137,7 +137,7 @@ Project Reference 機能については [Project References :material-open-in-ne
           "scripts": {
             "build": "run-p type-check \"build-only {@}\" --",
             "build-only": "vite build",
-            "typecheck": "vue-tsc --build --force"
+            "type-check": "vue-tsc --build --force"
           }
         }
         ```
@@ -302,7 +302,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     ??? info "API エンドポイントを設定する際の注意点"
 
-        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で  `baseURL`を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
+        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で  `baseURL`を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
         ``` ts title="src/api-client/index.ts" hl_lines="2"
         const axiosInstance = axios.create({

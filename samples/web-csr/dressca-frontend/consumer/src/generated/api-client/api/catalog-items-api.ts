@@ -23,6 +23,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import type { PagedListOfCatalogItemResponse } from '../models';
+// @ts-ignore
+import type { ProblemDetail } from '../models';
 /**
  * CatalogItemsApi - axios parameter creator
  * @export
@@ -30,8 +32,8 @@ import type { PagedListOfCatalogItemResponse } from '../models';
 export const CatalogItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -90,8 +92,8 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CatalogItemsApiAxiosParamCreator(configuration)
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -116,8 +118,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
     const localVarFp = CatalogItemsApiFp(configuration)
     return {
         /**
-         * カタログアイテムを検索して返します.
-         * @summary カタログアイテムを検索して返します.
+         * カタログアイテムを検索して返します。
+         * @summary カタログアイテムを検索して返します。
          * @param {number} [brandId] 
          * @param {number} [categoryId] 
          * @param {number} [page] 
@@ -139,8 +141,8 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
  */
 export class CatalogItemsApi extends BaseAPI {
     /**
-     * カタログアイテムを検索して返します.
-     * @summary カタログアイテムを検索して返します.
+     * カタログアイテムを検索して返します。
+     * @summary カタログアイテムを検索して返します。
      * @param {number} [brandId] 
      * @param {number} [categoryId] 
      * @param {number} [page] 

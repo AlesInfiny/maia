@@ -10,8 +10,14 @@ export abstract class CustomErrorBase extends Error {
 }
 
 export class HttpError extends CustomErrorBase {
-  constructor(message: string, cause?: Error) {
+  response?: ProblemDetails | null;
+
+  constructor(
+    message: string,
+    cause?: Error & { response?: { data?: ProblemDetails } },
+  ) {
     super(message, cause);
+    this.response = cause?.response?.data ?? null;
     this.name = 'HttpError';
   }
 }
@@ -35,4 +41,14 @@ export class ServerError extends HttpError {
     super(message, cause);
     this.name = 'ServerError';
   }
+}
+
+interface ProblemDetails {
+  detail: string;
+  exceptionId: string;
+  exceptionValues: string[];
+  instance: string;
+  status: number;
+  title: string;
+  type: string;
 }

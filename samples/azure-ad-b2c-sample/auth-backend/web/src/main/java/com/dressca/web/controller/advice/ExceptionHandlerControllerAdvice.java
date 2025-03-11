@@ -1,13 +1,12 @@
 package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
-import com.dressca.systemcommon.constant.ExceptionIdConstant;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.web.constant.ProblemDetailsConstant;
 import com.dressca.web.log.ErrorMessageBuilder;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -25,44 +24,45 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
-  /**
-   * 例外をステータースコード401で返却する。
-   *
-   * @param e   未認証の例外
-   * @param req リクエスト
-   * @return ステータースコード401のレスポンス
-   */
-  @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<?> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_AUTH0001, null, null);
-    apLog.error(errorBuilder.createLogMessageStackTrace());
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(null);
-  }
+  @Autowired
+  private ProblemDetailsFactory problemDetailsFactory;
 
   /**
-   * 例外をステータースコード500で返却する。
+   * 未認証の例外をステータースコード 401 で返却します。
    *
-   * @param e   その他の例外
-   * @param req リクエスト
-   * @return ステータースコード500のレスポンス
+   * @param e   未認証の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 401 のレスポンス。
    */
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, ExceptionIdConstant.E_SHARE0000, null, null);
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null,
+        null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = createProblemDetail(errorBuilder, ProblemDetailsConstant.SYSTEM_ERROR_TITLE);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_JSON)
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_BUSINESS,
+        HttpStatus.UNAUTHORIZED);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
         .body(problemDetail);
   }
 
-  private ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String title) {
-    Map<String, String> errorProperty = Map.of(errorBuilder.getExceptionId(), errorBuilder.createFrontErrorMessage());
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    problemDetail.setTitle(title);
-    problemDetail.setProperty(ProblemDetailsConstant.ERROR_KEY, errorProperty);
-    return problemDetail;
+  /**
+   * その他の例外をステータースコード 500 で返却します。
+   *
+   * @param e   その他の例外。
+   * @param req リクエスト。
+   * @return ステータースコード 500 のレスポンス。
+   */
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    apLog.error(errorBuilder.createLogMessageStackTrace());
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_SYSTEM,
+        HttpStatus.INTERNAL_SERVER_ERROR);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 }

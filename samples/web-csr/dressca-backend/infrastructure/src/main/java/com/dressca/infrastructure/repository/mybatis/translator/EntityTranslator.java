@@ -28,8 +28,8 @@ public class EntityTranslator {
   /**
    * {@link AssetEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link AssetEntity} オブジェクト
-   * @return {@link Asset} オブジェクト
+   * @param entity {@link AssetEntity} オブジェクト。
+   * @return {@link Asset} オブジェクト。
    */
   public static Asset assetEntityTranslate(AssetEntity entity) {
     Asset asset = new Asset();
@@ -40,8 +40,8 @@ public class EntityTranslator {
   /**
    * {@link BasketEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link BasketEntity} オブジェクト
-   * @return {@link Basket} オブジェクト
+   * @param entity {@link BasketEntity} オブジェクト。
+   * @return {@link Basket} オブジェクト。
    */
   public static Basket basketEntityTranslate(BasketEntity entity) {
     Basket basket = new Basket();
@@ -52,8 +52,8 @@ public class EntityTranslator {
   /**
    * ドメインオブジェクトから {@link BasketEntity} を作成します。
    * 
-   * @param basket {@link Basket} オブジェクト
-   * @return {@link BasketEntity} オブジェクト
+   * @param basket {@link Basket} オブジェクト。
+   * @return {@link BasketEntity} オブジェクト。
    */
   public static BasketEntity createBasketEntity(Basket basket) {
     BasketEntity entity = new BasketEntity();
@@ -64,8 +64,8 @@ public class EntityTranslator {
   /**
    * {@link AssetEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link AssetEntity} オブジェクト
-   * @return {@link Asset} オブジェクト
+   * @param entity {@link AssetEntity} オブジェクト。
+   * @return {@link Asset} オブジェクト。
    */
   public static BasketItem basketItemEntityTranslate(BasketItemEntity entity) {
     BasketItem basketItem = new BasketItem();
@@ -76,8 +76,8 @@ public class EntityTranslator {
   /**
    * ドメインオブジェクトから {@link BasketItemEntity} オブジェクトを変換します。
    * 
-   * @param basketItem {@link BasketItem} オブジェクト
-   * @return {@link BasketItemEntity} オブジェクト
+   * @param basketItem {@link BasketItem} オブジェクト。
+   * @return {@link BasketItemEntity} オブジェクト。
    */
   public static BasketItemEntity createBasketItemEntity(BasketItem basketItem) {
     BasketItemEntity entity = new BasketItemEntity();
@@ -88,8 +88,8 @@ public class EntityTranslator {
   /**
    * {@link CatalogBrandEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link CatalogBrandEntity} オブジェクト
-   * @return {@link CatalogBrand} オブジェクト
+   * @param entity {@link CatalogBrandEntity} オブジェクト。
+   * @return {@link CatalogBrand} オブジェクト。
    */
   public static CatalogBrand catalogBrandEntityTranslate(CatalogBrandEntity entity) {
     CatalogBrand catalogBrand = new CatalogBrand();
@@ -100,8 +100,8 @@ public class EntityTranslator {
   /**
    * {@link CatalogCategoryEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link CatalogCategoryEntity} オブジェクト
-   * @return {@link CatalogCategory} オブジェクト
+   * @param entity {@link CatalogCategoryEntity} オブジェクト。
+   * @return {@link CatalogCategory} オブジェクト。
    */
   public static CatalogCategory catalogCategoryEntityTranslate(CatalogCategoryEntity entity) {
     CatalogCategory catalogCategory = new CatalogCategory();
@@ -112,8 +112,8 @@ public class EntityTranslator {
   /**
    * {@link CatalogItemEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link CatalogItemEntity} オブジェクト
-   * @return {@link CatalogItem} オブジェクト
+   * @param entity {@link CatalogItemEntity} オブジェクト。
+   * @return {@link CatalogItem} オブジェクト。
    */
   public static CatalogItem catalogItemEntityTranslate(CatalogItemEntity entity) {
     CatalogItem catalogItem = new CatalogItem();
@@ -122,10 +122,22 @@ public class EntityTranslator {
   }
 
   /**
+   * ドメインオブジェクトから {@link CatalogItemEntity} オブジェクトを変換します。
+   * 
+   * @param catalogItem {@link CatalogItem} オブジェクト。
+   * @return {@link CatalogItemEntity} オブジェクト。
+   */
+  public static CatalogItemEntity createCatalogItemEntity(CatalogItem catalogItem) {
+    CatalogItemEntity entity = new CatalogItemEntity();
+    BeanUtils.copyProperties(catalogItem, entity);
+    return entity;
+  }
+
+  /**
    * {@link CatalogItemAssetEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link CatalogItemAssetEntity} オブジェクト
-   * @return {@link CatalogItemAsset} オブジェクト
+   * @param entity {@link CatalogItemAssetEntity} オブジェクト。
+   * @return {@link CatalogItemAsset} オブジェクト。
    */
   public static CatalogItemAsset catalogItemAssetEntityTranslate(CatalogItemAssetEntity entity) {
     CatalogItemAsset catalogItemAsset = new CatalogItemAsset();
@@ -136,8 +148,8 @@ public class EntityTranslator {
   /**
    * {@link OrderEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link OrderEntity} オブジェクト
-   * @return {@link Order} オブジェクト
+   * @param entity {@link OrderEntity} オブジェクト。
+   * @return {@link Order} オブジェクト。
    */
   public static Order orderEntityTranslate(OrderEntity entity) {
     Order order = new Order();
@@ -148,8 +160,8 @@ public class EntityTranslator {
   /**
    * {@link OrderItemEntity} をドメインオブジェクトに変換します。
    * 
-   * @param entity {@link OrderItemEntity} オブジェクト
-   * @return {@link OrderItem} オブジェクト
+   * @param entity {@link OrderItemEntity} オブジェクト。
+   * @return {@link OrderItem} オブジェクト。
    */
   public static OrderItem orderItemEntityTranslate(OrderItemEntity entity) {
     OrderItem orderItem = new OrderItem();

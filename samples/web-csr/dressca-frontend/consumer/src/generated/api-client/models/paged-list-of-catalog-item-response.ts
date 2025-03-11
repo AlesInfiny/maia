@@ -25,6 +25,18 @@ import type { CatalogItemResponse } from './catalog-item-response';
 export interface PagedListOfCatalogItemResponse {
     /**
      * 
+     * @type {boolean}
+     * @memberof PagedListOfCatalogItemResponse
+     */
+    'hasNext'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PagedListOfCatalogItemResponse
+     */
+    'hasPrevious'?: boolean;
+    /**
+     * 
      * @type {Array<CatalogItemResponse>}
      * @memberof PagedListOfCatalogItemResponse
      */
@@ -47,5 +59,11 @@ export interface PagedListOfCatalogItemResponse {
      * @memberof PagedListOfCatalogItemResponse
      */
     'totalCount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PagedListOfCatalogItemResponse
+     */
+    'totalPages'?: number;
 }
 

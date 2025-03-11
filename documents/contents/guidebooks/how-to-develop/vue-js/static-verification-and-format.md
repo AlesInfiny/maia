@@ -1,9 +1,9 @@
 ---
 title: Vue.js 開発手順
-description: Vue.js を用いた クライアントサイドアプリケーションの 開発手順を説明します。
+description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
-<!-- cSpell:ignore parens rushstack stylelintrc -->
+<!-- cspell:ignore parens rushstack stylelintrc -->
 
 # 静的コード分析とフォーマット {#top}
 
@@ -17,7 +17,7 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 ├ .eslintrc.cjs
 ├ .stylelintrc.js
 ├ .prettierrc.json
-└ <workspace-name> -- ワークスペース/プロジェクト
+└ <workspace-name> ------- ワークスペース/プロジェクト
   ├ .eslintrc.cjs
   └ .stylelintrc.js
 ```
@@ -26,7 +26,9 @@ description: Vue.js を用いた クライアントサイドアプリケーシ�
 
 ルートプロジェクトの直下に [.editorconfig :material-open-in-new:](https://editorconfig.org/){ target=_blank } を追加することで、 IDE 上で追加されるファイルにコーディングルールを課すことが可能になります。
 
-VSCode の推奨プラグインである [EditorConfig for Visual Studio Code :material-open-in-new:](https://github.com/editorconfig/editorconfig-vscode){ target=_blank } を使用すると、以下のような設定が可能です。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+Visual Studio Code の推奨プラグインである [EditorConfig for Visual Studio Code :material-open-in-new:](https://github.com/editorconfig/editorconfig-vscode){ target=_blank } を使用すると、以下のような設定が可能です。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 - エンコード
 - 改行コード
@@ -71,7 +73,7 @@ ESLint は Vue.js のブランクプロジェクト作成時にオプション�
 
 設定ファイル `./.eslintrc.cjs` で行います。このファイルはインストール時にワークスペースの直下に自動的に追加されているので、ルートプロジェクトの直下にコピーします。
 
-既定の状態でも静的コード分析は可能ですが、 postCSS の設定ファイルなど、分析する必要のないファイルまで分析対象となってしまうため、以下のように ignorePatterns を追加します。
+既定の状態でも静的コード分析は可能ですが、 PostCSS の設定ファイルなど、分析する必要のないファイルまで分析対象となってしまうため、以下のように ignorePatterns を追加します。
 
 ```javascript title=".eslintrc.cjs" hl_lines="13 13"
 /* eslint-env node */

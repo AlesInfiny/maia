@@ -13,7 +13,7 @@ import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
-import com.dressca.systemcommon.constant.MessageIdConstant;
+import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import lombok.AllArgsConstructor;
 
@@ -37,14 +37,14 @@ public class AssetApplicationService {
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
    * 
-   * @param assetCode アセットコード
-   * @return アセット情報とそのリソースオブジェクト
-   * @throws AssetNotFoundException アセット情報が見つからなかった場合
+   * @param assetCode アセットコード。
+   * @return アセット情報とそのリソースオブジェクト。
+   * @throws AssetNotFoundException アセット情報が見つからなかった場合。
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
 
-    apLog
-        .debug(messages.getMessage(MessageIdConstant.D_ASSET0001_LOG, new Object[] { assetCode }, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(MessageIdConstants.D_ASSET_GET_ASSET, new Object[] { assetCode }, Locale.getDefault()));
 
     Asset asset = this.repository.findByAssetCode(assetCode)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));

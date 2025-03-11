@@ -3,6 +3,7 @@ title: クレジット表記
 description: AlesInfiny Maia OSS Edition ポータルサイトのクレジット表記です。
 ---
 
+<!-- cspell:ignore Abdelrahman Awad hackathons Jakob Maxime Morote Sarjeant Thirouin -->
 <!-- textlint-disable @textlint-rule/require-header-id -->
 
 # クレジット表記 {#top}
@@ -55,7 +56,7 @@ The copyright owner reserves the right of final explanation for any use case not
 
 [MIT License :material-open-in-new:](https://github.com/vitejs/vite/blob/main/LICENSE){ target=_blank }
 
-Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors
+Copyright (c) 2019-present, VoidZero Inc. and Vite contributors
 
 ## VeeValidate {#vee-validate style="clear:both;" }
 
@@ -93,9 +94,9 @@ Copyright 2020-present John Jakob "Jake" Sarjeant
 
 Copyright 2017 James Long
 
-## StyleLint {#stylelint style="clear:both;" }
+## Stylelint {#stylelint style="clear:both;" }
 
-![StyleLint Logo](../images/about-maia/stylelint-logo.png){ align="left" width="96" }
+![Stylelint Logo](../images/about-maia/stylelint-logo.png){ align="left" width="96" }
 
 [MIT License :material-open-in-new:](https://github.com/stylelint/stylelint.io/blob/main/LICENSE){ target=_blank }
 

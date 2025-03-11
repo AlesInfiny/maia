@@ -21,6 +21,8 @@ import globalAxios from 'axios';
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
+// @ts-ignore
+import type { ProblemDetail } from '../models';
 /**
  * AssetsApi - axios parameter creator
  * @export
@@ -28,8 +30,8 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 export const AssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -72,8 +74,8 @@ export const AssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -95,8 +97,8 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = AssetsApiFp(configuration)
     return {
         /**
-         * 与えられたアセットコードに対応するアセットを返却する.
-         * @summary アセットを取得する.
+         * 与えられたアセットコードに対応するアセットを返却します。
+         * @summary アセットを取得します。
          * @param {string} assetCode アセットコード
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -115,8 +117,8 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
  */
 export class AssetsApi extends BaseAPI {
     /**
-     * 与えられたアセットコードに対応するアセットを返却する.
-     * @summary アセットを取得する.
+     * 与えられたアセットコードに対応するアセットを返却します。
+     * @summary アセットを取得します。
      * @param {string} assetCode アセットコード
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

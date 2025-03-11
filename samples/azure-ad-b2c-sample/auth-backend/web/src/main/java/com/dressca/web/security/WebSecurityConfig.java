@@ -3,10 +3,10 @@ package com.dressca.web.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * セキュリティ関連の実行クラス。
+ * セキュリティ関連の実行クラスです。
  */
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -28,17 +28,15 @@ public class WebSecurityConfig {
   private String allowedOrigins;
 
   /**
-   * CORS設定、JWTトークン検証を実行。
+   * CORS 設定、JWT トークン検証を設定します。
    *
-   * @param http httpリクエスト
-   * @return フィルターチェーン
-   * @throws Exception 例外
+   * @param http http リクエスト。
+   * @return フィルターチェーン。
+   * @throws Exception 例外。
    */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
     http.securityMatcher("/api/**")
-        .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);
@@ -47,7 +45,7 @@ public class WebSecurityConfig {
           conf.setAllowedHeaders(List.of("*"));
           return conf;
         }))
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
         .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
     return http.build();
   }

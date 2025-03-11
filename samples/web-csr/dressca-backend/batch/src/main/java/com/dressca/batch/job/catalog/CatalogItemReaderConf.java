@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.dressca.applicationcore.catalog.CatalogItem;
 
 /**
- * CATALOG_ITEMテーブルからデータ一覧を取得するReaderの設定。
+ * CATALOG_ITEM テーブルからデータ一覧を取得する Reader の設定です。
  */
 @Configuration
 public class CatalogItemReaderConf {
@@ -18,7 +18,9 @@ public class CatalogItemReaderConf {
   SqlSessionFactory sqlSessionFactory;
 
   /**
-   * CATALOG_ITEMテーブルからデータ一覧を取得するReader。
+   * CATALOG_ITEM テーブルからデータ一覧を取得する Reader を設定します。
+   * 
+   * @return MyBatis を用いてデータベースのページングされた {@link CatalogItem} を読み取るための Reader 。
    */
   @Bean
   public MyBatisPagingItemReader<CatalogItem> catalogItemReader() {
@@ -28,5 +30,4 @@ public class CatalogItemReaderConf {
         .pageSize(10)
         .build();
   }
-
 }

@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -27,17 +28,18 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
+  private OffsetDateTime rowVersion;
 
   /**
-   * コンストラクタ。
+   * {@link CatalogItem} クラスのインスタンスを初期化します。
    * 
-   * @param id                ID
-   * @param name              商品名
-   * @param description       商品紹介
-   * @param price             単価
-   * @param productCode       プロダクトコード
-   * @param catalogCategoryId カタログ商品ID
-   * @param catalogBrandId    カタログブランドID
+   * @param id                ID 。
+   * @param name              商品名。
+   * @param description       商品説明。
+   * @param price             単価。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カタログカテゴリ ID 。
+   * @param catalogBrandId    カタログブランド ID 。
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
       @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
@@ -49,5 +51,22 @@ public class CatalogItem {
     this.productCode = productCode;
     this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
+  }
+
+  /**
+   * 登録用のカタログアイテムを作成します。
+   * 
+   * @param name              商品名。
+   * @param description       商品説明。
+   * @param price             単価。
+   * @param productCode       プロダクトコード。
+   * @param catalogCategoryId カタログカテゴリ ID 。
+   * @param catalogBrandId    カタログブランド ID 。
+   * @return 登録用のカタログアイテム。
+   */
+  public static CatalogItem createCatalogItemForRegistration(@NonNull String name, @NonNull String description,
+      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId, long catalogBrandId) {
+    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
+    return item;
   }
 }

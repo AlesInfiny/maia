@@ -11,4 +11,5 @@ export * from './order-response';
 export * from './paged-list-of-catalog-item-response';
 export * from './post-basket-items-request';
 export * from './post-order-request';
+export * from './problem-detail';
 export * from './put-basket-items-request';
