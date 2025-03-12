@@ -10,7 +10,7 @@
     "markdownlint-cli2": "^0.17.2",
     "npm-run-all2": "^7.0.2",
     "sudachi-synonyms-dictionary": "^14.0.0",
-    "textlint": "^14.4.2",
+    "textlint": "^14.5.0",
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-rule-ja-no-orthographic-variants": "^2.0.0",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
