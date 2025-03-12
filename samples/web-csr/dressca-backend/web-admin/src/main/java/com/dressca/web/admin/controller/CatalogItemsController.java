@@ -14,16 +14,14 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,7 +55,8 @@ public class CatalogItemsController {
   @Autowired
   private CatalogApplicationService service;
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  @Autowired
+  private AbstractStructuredLogger apLog;
 
   /**
    * 指定した ID のカタログアイテムを返します。
