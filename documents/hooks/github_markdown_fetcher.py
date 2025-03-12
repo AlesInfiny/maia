@@ -5,8 +5,6 @@ def replacer(match):
     filename = f"{match.group('filename')}.{match.group('extension')}"
     url = f"https://raw.githubusercontent.com/{match.group('user')}/{filename}"
     code = urllib.request.urlopen(url).read().decode('utf-8')
-    # Code Blocks に vue の拡張子を持つファイルを指定することができないため、明示的に js に変換
-    extension = 'js' if match.group('extension') == 'vue' else match.group('extension')
     spacing = match.group('spacing')
     
     # begin と end が整数に変換できるかどうかをチェック
