@@ -50,29 +50,11 @@ spring.messages.basename=applicationcore.messages,systemcommon.messages
 
 以下は、プロパティファイルからメッセージを取得し、ログに出力するためのエラーメッセージを整形する `ErrorMessageBuilder` クラスの例です。
 
-```java title="ErrorMessageBuilder.java" hl_lines="5 14"
-@Getter
-@AllArgsConstructor
-public class ErrorMessageBuilder {
+??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
 
-  private static final MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-
-  private Exception ex;
-  private String exceptionId;
-  private String[] logMessageValue;
-  private String[] frontMessageValue;
-
-  public String createLogMessageStackTrace() {
-    StringBuilder builder = new StringBuilder();
-    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
-    builder.append(exceptionId).append(" ").append(exceptionMessage).append(SystemPropertyConstants.LINE_SEPARATOR);
-    StringWriter writer = new StringWriter();
-    ex.printStackTrace(new PrintWriter(writer));
-    builder.append(writer.getBuffer().toString());
-    return builder.toString();
-  }
-}
-```
+    ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
+    ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
@@ -80,20 +62,8 @@ public class ErrorMessageBuilder {
 
 以下は、プロパティファイルからエラーレスポンスに含めるメッセージを整形する `ProblemDetailsFactory.java` クラスの例です。
 
-```java title="ProblemDetailsFactory.java" hl_lines="4 5 11"
-@Component
-public class ProblemDetailsFactory {
+??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
 
-  @Autowired
-  private MessageSource messages;
-
-  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
-
-    ProblemDetail problemDetail = ProblemDetail.forStatus(status);
-
-    problemDetail.setTitle(messages.getMessage(titleId, new String[] {}, Locale.getDefault()));
-
-    ...
-  }
-}
-```
+    ```java title="ProblemDetailsFactory.java" hl_lines="26 27 39 41"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java
+    ```

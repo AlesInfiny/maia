@@ -145,6 +145,37 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
     [License Link](https://license-link){ target=_blank }
     ```
 
+### Github コードの記載ルール
+
+AlesInfiny Maia の Github コードをドキュメントで参照する場合、コンテンツタブとコードブロックを利用して
+具体的には、以下のように記載します。
+
+- コード全体をドキュメントに表示する場合
+
+    コード全体をドキュメントに表示する場合、コードブロック内に Github の URL を直接記載します。
+    コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
+
+    ```md
+    ??? example "App.vue の設定例"
+
+        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue
+        ```
+    ```
+
+- コードの一部を切り取って表示する場合
+
+    コードの一部を切り取って表示する場合、 URL の末尾に `#L1-L8` のように切り取る行数を追記します。
+    コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
+
+    ```md
+    !!! example "App.vue の設定例"
+
+        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue#L1-L8
+        ```
+    ```
+
 ### 体裁の修正
 
 #### markdownlint
