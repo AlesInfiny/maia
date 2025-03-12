@@ -50,9 +50,11 @@ spring.messages.basename=applicationcore.messages,systemcommon.messages
 
 以下は、プロパティファイルからメッセージを取得し、ログに出力するためのエラーメッセージを整形する `ErrorMessageBuilder` クラスの例です。
 
-```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
-```
+??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
+
+    ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
+    ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
