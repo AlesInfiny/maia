@@ -24,6 +24,15 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+  // MyBatis Generator の自動生成で利用するライブラリのための依存関係の構成を定義
+  mybatisTasks
+  // 使用しないロギングライブラリを除外
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
 dependencies {
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.h2database
@@ -32,14 +41,10 @@ dependencies {
 	implementation project(':system-common')
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
-}
 
-configurations {
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	}
+  mybatisTasks supportDependencies.mybatis_generator_core
+  mybatisTasks supportDependencies.h2database
 }
-
 
 tasks.named('test') {
 	useJUnitPlatform()
@@ -48,9 +53,29 @@ tasks.named('test') {
 bootJar.enabled = false
 jar.enabled = true
 
+tasks.register('runMyBatisGenerator') {
+  doLast {
+    // MyBatis Generator のタスクを定義します。
+    ant.taskdef(
+      name: 'mybatisGenerator',
+      classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+      classpath: configurations.mybatisTasks.asPath
+    )
+    // MyBatis Generator による自動生成を実行します。
+    ant.mybatisGenerator(
+      overwrite: true,
+      configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
+      verbose: true
+    )
+  }
+}
+
+tasks.named('runMyBatisGenerator') {
+    finalizedBy 'updateMyBatisGeneratorMapperForOptimisticLocking'
+}
 
 // 正規表現と置換のペアをリストにまとめて置き換えを行うことで楽観ロックに対応します。
-task updateMyBatisGeneratorMapperForOptimisticLocking {
+tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
 
     // MyBatis Generator で生成されたマッパーの xml ファイルがあるディレクトリ

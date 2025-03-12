@@ -10,7 +10,7 @@ import { useBasketStore } from '@/stores/basket/basket';
 import { useRouter } from 'vue-router';
 import { i18n } from '@/locales/i18n';
 import BasketItem from '@/components/basket/BasketItem.vue';
-import Loading from '@/components/common/LoadingSpinner.vue';
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
 import { storeToRefs } from 'pinia';
@@ -139,7 +139,7 @@ onUnmounted(async () => {
 
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
-    <Loading :show="showLoading"></Loading>
+    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
     <div v-if="!showLoading">
       <div v-if="getAddedItemId && !!getAddedItem" class="mx-2">
         <span class="text-lg font-medium text-green-500">
