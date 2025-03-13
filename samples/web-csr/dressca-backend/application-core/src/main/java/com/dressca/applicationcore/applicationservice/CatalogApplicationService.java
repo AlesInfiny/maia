@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Locale;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,8 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 
 /**
  * カタログ情報に関するビジネスユースケースを実現するサービスです。
@@ -42,6 +40,7 @@ public class CatalogApplicationService {
   private CatalogCategoryRepository categoryRepository;
   private CatalogDomainService catalogDomainService;
   private UserStore userStore;
+  private AbstractStructuredLogger apLog;
 
   /**
    * {@link CatalogApplicationService} クラスの新しいインスタンスを初期化します。
@@ -51,15 +50,17 @@ public class CatalogApplicationService {
    * @param brandRepository      カタログブランドリポジトリ。
    * @param categoryRepository   カタログカテゴリリポジトリ。
    * @param catalogDomainService カタログドメインサービス。
+   * @param apLog                ロガー。
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
-      CatalogDomainService catalogDomainService) {
+      CatalogDomainService catalogDomainService, AbstractStructuredLogger apLog) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
     this.brandRepository = brandRepository;
     this.categoryRepository = categoryRepository;
     this.catalogDomainService = catalogDomainService;
+    this.apLog = apLog;
   }
 
   /**
@@ -71,8 +72,6 @@ public class CatalogApplicationService {
   public void setUserStore(UserStore userStore) {
     this.userStore = userStore;
   }
-
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 指定した ID のカタログアイテムを取得します。
@@ -189,15 +188,16 @@ public class CatalogApplicationService {
       throws PermissionDeniedException, CatalogNotFoundException, OptimisticLockingFailureException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG, new Object[] { id },
         Locale.getDefault()));
+    final String operationName = "deleteItemFromCatalog";
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
-      throw new PermissionDeniedException("deleteItemFromCatalog");
+      throw new PermissionDeniedException(operationName);
     }
     if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
     int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
     if (deleteRowCount == 0) {
-      throw new OptimisticLockingFailureException(id);
+      throw new OptimisticLockingFailureException(id, operationName);
     }
   }
 
@@ -225,9 +225,9 @@ public class CatalogApplicationService {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM, new Object[] { id },
         Locale.getDefault()));
-
+    final String operationName = "updateCatalogItem";
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
-      throw new PermissionDeniedException("updateCatalogItem");
+      throw new PermissionDeniedException(operationName);
     }
 
     if (!this.catalogDomainService.existCatalogItem(id)) {
@@ -248,7 +248,7 @@ public class CatalogApplicationService {
 
     int updateRowCount = this.catalogRepository.update(item);
     if (updateRowCount == 0) {
-      throw new OptimisticLockingFailureException(id);
+      throw new OptimisticLockingFailureException(id, operationName);
     }
   }
 

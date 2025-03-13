@@ -40,6 +40,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
@@ -58,6 +59,8 @@ public class CatalogApplicationServiceTest {
   private CatalogDomainService catalogDomainService;
   @Mock
   private UserStore userStore;
+  @Mock
+  private AbstractStructuredLogger apLog;
 
   @Autowired
   private MessageSource messages;
@@ -69,7 +72,7 @@ public class CatalogApplicationServiceTest {
   @BeforeEach
   void setUp() {
     service = new CatalogApplicationService(messages, catalogRepository, brandRepository, categoryRepository,
-        catalogDomainService);
+        catalogDomainService, apLog);
     service.setUserStore(this.userStore);
   }
 
