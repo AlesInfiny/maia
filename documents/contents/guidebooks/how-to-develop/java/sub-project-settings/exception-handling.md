@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
+description: サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # 集約例外ハンドラーの設定 {#top}
@@ -76,23 +76,8 @@ AlesInfiny Maia では、例外メッセージをプロパティファイルか�
 
 ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定 - メッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
 
-``` Java title="ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
-@ControllerAdvice(basePackages = "プロジェクトのグループ名")
-public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
+??? example "ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
-
-  @Autowired
-  private ProblemDetailsFactory problemDetailsFactory;
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
-    apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
-  }
-}
-```
+    ``` Java title="ExceptionHandlerControllerAdvice.java" hl_lines="33-34 85-96 105-116 125-135"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java
+    ```

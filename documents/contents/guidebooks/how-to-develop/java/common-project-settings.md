@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
+description: サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # プロジェクトの共通設定 {#top}
@@ -331,4 +331,3 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
     }
     ```
-    

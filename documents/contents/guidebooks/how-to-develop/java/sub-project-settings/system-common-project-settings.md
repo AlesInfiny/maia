@@ -1,6 +1,6 @@
 ---
 title: Java 編
-description: バックエンドで動作する Java アプリケーションの 開発手順を解説します。
+description: サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 ## system-common プロジェクトの設定 {#top}

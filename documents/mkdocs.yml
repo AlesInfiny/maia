@@ -202,6 +202,9 @@ extra:
 extra_css:
   - stylesheets/overrides.css
 
+hooks:
+  - hooks/github_markdown_fetcher.py
+
 plugins:
   - git-revision-date-localized:
       enabled: !ENV [BUILD_DOCUMENTS, false]

@@ -79,49 +79,29 @@ public class WebSecurityConfig {
 
 Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用して実装します。
 
-```java title="WebSecurityConfig.java"　hl_lines="15 16 17 18 19"
-@Configuration(proxyBeanMethods = false)
-@EnableWebSecurity
-public class WebSecurityConfig {
+以下は、サンプルアプリケーションにおける CORS の設定を実現する `WebSecurityConfig.java` の実装例です。
 
-  @Value("${cors.allowed.origins:}")
-  private String[] allowedOrigins;
+??? example "`SecurityFilterChain` の CORS 設定例"
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .securityMatcher("/api/**")
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-        .cors(cors -> cors.configurationSource(request -> {
-          CorsConfiguration conf = new CorsConfiguration();
-          conf.setAllowCredentials(true);
-          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-          conf.setAllowedHeaders(List.of("*"));
-          conf.addExposedHeader("Location");
-          return conf;
-        }));
-
-    return http.build();
-  }
-}
-```
+    ```java title="WebSecurityConfig.java"　hl_lines="30-31 37-46"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
+    ```
 
 ### CORS のポリシー設定についての詳細 {#detail-of-cors-policy}
 
 上のコード例「 `WebSecurityConfig.java` 」における CORS の設定に関するメソッドについて説明します。
 
-- `setAllowCredentials` メソッド（ 15 行目）
+- `setAllowCredentials` メソッド
 
     許可したオリジンのクライアントに Cookie 等の認証情報を送信することを許可します。
     アプリケーションで Cookie や認証を使用する場合、このメソッドの呼び出しが必要です。
 
-- `setAllowedOrigins` メソッド（ 16 行目）
+- `setAllowedOrigins` メソッド
 
     CORS でリソースへのアクセスを許可するオリジンを設定します。
     AlesInfiny Maia ではアプリケーション設定ファイルから値を取得して引数に渡します。
 
-- `setAllowedMethods` メソッド（ 17 行目）
+- `setAllowedMethods` メソッド
 
     <!-- textlint-disable ja-technical-writing/sentence-length -->
 
@@ -129,11 +109,11 @@ public class WebSecurityConfig {
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-- `setAllowedHeaders` メソッド（ 18 行目）
+- `setAllowedHeaders` メソッド
 
     許可したオリジンのクライアントに許可する HTTP リクエストヘッダーを設定します。
 
-- `addExposedHeader` メソッド（ 19 行目）
+- `addExposedHeader` メソッド
 
     許可したオリジンのクライアントに対して公開する必要がある HTTP レスポンスヘッダーを設定します。
     アプリケーションで許可する HTTP レスポンスヘッダー名を指定してください。
@@ -173,7 +153,7 @@ export { exampleApi };
 
 <!-- textlint-disable @textlint-ja/no-synonyms -->
 
-`withCredentials: true` （ 11 行目）
+`withCredentials: true`
 
 <!-- textlint-enable @textlint-ja/no-synonyms -->
 
