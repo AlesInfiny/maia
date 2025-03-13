@@ -74,13 +74,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     ``` json title="tsconfig.app.json"
     {
       "extends": "@vue/tsconfig/tsconfig.dom.json",
-      "include": [
-        "env.d.ts",
-        "src/**/*",
-        "src/**/*.vue",
-        "mock/**/*",
-        "vitest.setup.ts"
-      ],
+      "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*"],
       "exclude": ["src/**/__tests__/*"],
       "compilerOptions": {
         "composite": true,
@@ -261,7 +255,6 @@ Project Reference 機能については [Project References :material-open-in-ne
                 environment: 'jsdom',
                 exclude: [...configDefaults.exclude, 'e2e/*'],
                 root: fileURLToPath(new URL('./', import.meta.url)),
-                setupFiles: ['./vitest.setup.ts'],
               },
             }),
           ),
