@@ -177,7 +177,6 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
-      url_download: true
       auto_append:
         - includes/abbreviations.md
   - pymdownx.superfences:
