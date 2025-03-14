@@ -169,7 +169,7 @@ public class CatalogApplicationService {
     }
 
     CatalogItem item = CatalogItem.createCatalogItemForRegistration(name, description, price, productCode,
-        catalogCategoryId, catalogBrandId);
+        catalogCategoryId, catalogBrandId, false);
     item.setRowVersion(OffsetDateTime.now());
     CatalogItem catalogItemAdded = this.catalogRepository.add(item);
     return catalogItemAdded;
@@ -242,7 +242,8 @@ public class CatalogApplicationService {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId);
+    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId,
+        false);
     // 変更前の行バージョンを、変更対象のカタログアイテムに追加
     item.setRowVersion(rowVersion);
 
