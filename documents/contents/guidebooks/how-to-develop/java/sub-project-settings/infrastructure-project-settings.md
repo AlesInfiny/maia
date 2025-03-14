@@ -133,8 +133,8 @@ infrastructure プロジェクトの `src` 以下にある、 `InfrastructureApp
     }
     ```
 
-## MyBatis Generator による Model および Mapper コードの自動生成
+## MyBatis Generator によるコードの自動生成 {#code-generation-with-myBatis-generator}
 
 MyBatis Generator は、 MyBatis を使用する際に、データベースのテーブルから Java のモデルクラスやマッパーインターフェース、 XML マッパーファイルなどを自動的に生成するツールです。
 
-具体的な、設定方法については [こちら](./mybatis-generator-settings.md) を参照してください。
+具体的な設定方法については、[こちら](./mybatis-generator-settings.md) を参照してください。

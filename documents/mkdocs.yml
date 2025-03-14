@@ -92,6 +92,7 @@ nav:
                   - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/java/sub-project-settings/project-version-control.md
                   - メッセージ管理機能の設定: guidebooks/how-to-develop/java/sub-project-settings/message-management.md
                   - 集約例外ハンドラーの設定: guidebooks/how-to-develop/java/sub-project-settings/exception-handling.md
+                  - MyBatis Generator の設定: guidebooks/how-to-develop/java/sub-project-settings/mybatis-generator-settings.md
           - Vue.js 編:
               - guidebooks/how-to-develop/vue-js/index.md
               - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
