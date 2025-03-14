@@ -7,7 +7,7 @@ description: サーバーサイドで動作する Java アプリケーション�
 
 # MyBatis Generator の設定 {#top}
 
-infrastructure プロジェクトにおいて、 MyBatis Generator を利用してエンティティや O/R マッパーを自動的に生成するための設定について解説します。
+infrastructure プロジェクトにおいて、 MyBatis Generator を利用してエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
 
 ## 事前準備 {#preparation}
 
