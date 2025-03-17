@@ -61,6 +61,9 @@ public class MybatisCatalogRepository implements CatalogRepository {
   @Override
   public CatalogItem add(CatalogItem item) {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
+    // Lombok の boolean 型は getter setter 名が特殊で、 Translator を用いた自動的なプロパティの引き継ぎができない。
+    // そのため、 isDeleted プロパティは手動で set する。
+    entity.setIsDeleted(item.isDeleted());
     catalogItemMapper.insert(entity);
     item.setId(entity.getId());
     return item;
@@ -75,15 +78,10 @@ public class MybatisCatalogRepository implements CatalogRepository {
 
   @Override
   public int update(CatalogItem item) {
-    CatalogItemEntity catalogItemEntity = new CatalogItemEntity();
-    catalogItemEntity.setId(item.getId());
-    catalogItemEntity.setName(item.getName());
-    catalogItemEntity.setDescription(item.getDescription());
-    catalogItemEntity.setPrice(item.getPrice());
-    catalogItemEntity.setProductCode(item.getProductCode());
-    catalogItemEntity.setCatalogCategoryId(item.getCatalogCategoryId());
-    catalogItemEntity.setCatalogBrandId(item.getCatalogBrandId());
-    catalogItemEntity.setRowVersion(item.getRowVersion());
-    return this.catalogItemMapper.updateByPrimaryKey(catalogItemEntity);
+    CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
+    // Lombok では boolean 型は getter setter 名が特殊で、 Translator を用いた自動的なプロパティの引き継ぎができない。
+    // そのため、 isDeleted プロパティは手動で set する。
+    entity.setIsDeleted(item.isDeleted());
+    return this.catalogItemMapper.updateByPrimaryKey(entity);
   }
 }
