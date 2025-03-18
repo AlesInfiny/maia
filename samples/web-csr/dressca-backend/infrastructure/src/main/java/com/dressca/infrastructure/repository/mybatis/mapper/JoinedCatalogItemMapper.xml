@@ -56,6 +56,7 @@
     <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
       #{categoryId}
     </foreach>
+    AND IS_DELETED = false
   </select>
 
   <select id="findByBrandIdAndCategoryId" resultMap="catalogItemsIncludeAssetResultMap">
@@ -67,6 +68,7 @@
       <if test="categoryId != 0">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
+      AND IS_DELETED = false
     </where>
     LIMIT #{limit} OFFSET #{offset}
   </select>
@@ -78,6 +80,7 @@
       <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
         #{catalogItemId}
       </foreach>
+      AND CATALOG_ITEMS.IS_DELETED = false
     </if>
   </select>
 
@@ -90,11 +93,15 @@
       <if test="categoryId != 0">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
+      AND IS_DELETED = false
     </where>
   </select>
   
   <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+      IS_DELETED = false
+    </where>
     LIMIT #{_skiprows}, #{_pagesize}
   </select>
 
@@ -102,6 +109,7 @@
     <include refid="selectCatalogItemsIncludeAsset"/>
     <where>
       CATALOG_ITEMS.ID = #{id}
+      AND CATALOG_ITEMS.IS_DELETED = false
     </where>
   </select>
 </mapper>
