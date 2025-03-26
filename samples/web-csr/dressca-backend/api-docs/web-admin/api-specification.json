@@ -50,13 +50,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": [
-                    "object"
-                  ],
+                  "type": "object",
                   "additionalProperties": {
-                    "type": [
-                      "object"
-                    ],
+                    "type": "object",
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -65,13 +61,9 @@
               },
               "application/vnd.spring-boot.actuator.v2+json": {
                 "schema": {
-                  "type": [
-                    "object"
-                  ],
+                  "type": "object",
                   "additionalProperties": {
-                    "type": [
-                      "object"
-                    ],
+                    "type": "object",
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -80,13 +72,9 @@
               },
               "application/vnd.spring-boot.actuator.v3+json": {
                 "schema": {
-                  "type": [
-                    "object"
-                  ],
+                  "type": "object",
                   "additionalProperties": {
-                    "type": [
-                      "object"
-                    ],
+                    "type": "object",
                     "additionalProperties": {
                       "$ref": "#/components/schemas/Link"
                     }
@@ -123,9 +111,7 @@
             "content": {
               "image/*": {
                 "schema": {
-                  "type": [
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "binary"
                 }
               }
@@ -472,13 +458,19 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object"
+                }
               },
               "application/vnd.spring-boot.actuator.v2+json": {
-                "schema": {}
+                "schema": {
+                  "type": "object"
+                }
               },
               "application/vnd.spring-boot.actuator.v3+json": {
-                "schema": {}
+                "schema": {
+                  "type": "object"
+                }
               }
             },
             "description": "OK"
