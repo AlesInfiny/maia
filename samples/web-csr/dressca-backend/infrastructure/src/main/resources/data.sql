@@ -30,19 +30,19 @@ VALUES
     (3, 'シューズ');
 ALTER TABLE catalog_categories ALTER COLUMN id RESTART WITH 4;
 
-INSERT INTO catalog_items (id, name, description, price, product_code, catalog_category_id, catalog_brand_id, row_version) 
+INSERT INTO catalog_items (id, name, description, price, product_code, catalog_category_id, catalog_brand_id, is_deleted, row_version) 
 VALUES 
-    (1, 'クルーネック Tシャツ - ブラック', '定番の無地ロングTシャツです。', 1980, 'C000000001', 1, 3, CURRENT_TIMESTAMP),
-    (2, '裏起毛 スキニーデニム', '暖かいのに着膨れしない起毛デニムです。', 4800, 'C000000002', 1, 2, CURRENT_TIMESTAMP),
-    (3, 'ウールコート', 'あたたかく肌ざわりも良いウール100%のロングコートです。', 49800, 'C000000003', 1, 1, CURRENT_TIMESTAMP),
-    (4, '無地 ボタンダウンシャツ', 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。', 2800, 'C000000004', 1, 2, CURRENT_TIMESTAMP),
-    (5, 'レザーハンドバッグ', 'コンパクトサイズのバッグですが収納力は抜群です。', 18800, 'B000000001', 2, 3, CURRENT_TIMESTAMP),
-    (6, 'ショルダーバッグ', 'エイジング加工したレザーを使用しています。', 38000, 'B000000002', 2, 2, CURRENT_TIMESTAMP),
-    (7, 'トートバッグ ポーチ付き', '春の季節にぴったりのトートバッグです。インナーポーチまたは単体でも使用可能なポーチ付。', 24800, 'B000000003', 2, 3, CURRENT_TIMESTAMP),
-    (8, 'ショルダーバッグ', 'さらりと気軽に纏える、キュートなミニサイズショルダー。', 2800, 'B000000004', 2, 1, CURRENT_TIMESTAMP),
-    (9, 'レザー チェーンショルダーバッグ', 'エレガントな雰囲気を放つキルティングデザインです。', 258000, 'B000000005', 2, 1, CURRENT_TIMESTAMP),
-    (10, 'ランニングシューズ - ブルー', '柔らかいソールは快適な履き心地で、ランニングに最適です。', 12800, 'S000000001', 3, 2, CURRENT_TIMESTAMP),
-    (11, 'メダリオン ストレートチップ ドレスシューズ', 'イタリアの職人が丁寧に手作業で作り上げた一品です。', 23800, 'S000000002', 3, 1, CURRENT_TIMESTAMP);
+    (1, 'クルーネック Tシャツ - ブラック', '定番の無地ロングTシャツです。', 1980, 'C000000001', 1, 3, false, CURRENT_TIMESTAMP),
+    (2, '裏起毛 スキニーデニム', '暖かいのに着膨れしない起毛デニムです。', 4800, 'C000000002', 1, 2, false, CURRENT_TIMESTAMP),
+    (3, 'ウールコート', 'あたたかく肌ざわりも良いウール100%のロングコートです。', 49800, 'C000000003', 1, 1, false, CURRENT_TIMESTAMP),
+    (4, '無地 ボタンダウンシャツ', 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。', 2800, 'C000000004', 1, 2, false, CURRENT_TIMESTAMP),
+    (5, 'レザーハンドバッグ', 'コンパクトサイズのバッグですが収納力は抜群です。', 18800, 'B000000001', 2, 3, false, CURRENT_TIMESTAMP),
+    (6, 'ショルダーバッグ', 'エイジング加工したレザーを使用しています。', 38000, 'B000000002', 2, 2, false, CURRENT_TIMESTAMP),
+    (7, 'トートバッグ ポーチ付き', '春の季節にぴったりのトートバッグです。インナーポーチまたは単体でも使用可能なポーチ付。', 24800, 'B000000003', 2, 3, false, CURRENT_TIMESTAMP),
+    (8, 'ショルダーバッグ', 'さらりと気軽に纏える、キュートなミニサイズショルダー。', 2800, 'B000000004', 2, 1, false, CURRENT_TIMESTAMP),
+    (9, 'レザー チェーンショルダーバッグ', 'エレガントな雰囲気を放つキルティングデザインです。', 258000, 'B000000005', 2, 1, false, CURRENT_TIMESTAMP),
+    (10, 'ランニングシューズ - ブルー', '柔らかいソールは快適な履き心地で、ランニングに最適です。', 12800, 'S000000001', 3, 2, false, CURRENT_TIMESTAMP),
+    (11, 'メダリオン ストレートチップ ドレスシューズ', 'イタリアの職人が丁寧に手作業で作り上げた一品です。', 23800, 'S000000002', 3, 1, false, CURRENT_TIMESTAMP);
 ALTER TABLE catalog_items ALTER COLUMN id RESTART WITH 12;
 
 INSERT INTO catalog_item_assets (id, asset_code, catalog_item_id) 

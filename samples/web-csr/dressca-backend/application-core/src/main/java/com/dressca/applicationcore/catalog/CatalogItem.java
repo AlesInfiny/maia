@@ -28,6 +28,7 @@ public class CatalogItem {
   private String productCode;
   private long catalogCategoryId;
   private long catalogBrandId;
+  private boolean isDeleted;
   private OffsetDateTime rowVersion;
 
   /**
@@ -40,10 +41,11 @@ public class CatalogItem {
    * @param productCode       プロダクトコード。
    * @param catalogCategoryId カタログカテゴリ ID 。
    * @param catalogBrandId    カタログブランド ID 。
+   * @param isDeleted         削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
       @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
-      long catalogBrandId) {
+      long catalogBrandId, boolean isDeleted) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -51,6 +53,7 @@ public class CatalogItem {
     this.productCode = productCode;
     this.catalogCategoryId = catalogCategoryId;
     this.catalogBrandId = catalogBrandId;
+    this.isDeleted = isDeleted;
   }
 
   /**
@@ -65,8 +68,10 @@ public class CatalogItem {
    * @return 登録用のカタログアイテム。
    */
   public static CatalogItem createCatalogItemForRegistration(@NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId, long catalogBrandId) {
-    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId);
+      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId, long catalogBrandId,
+      boolean isDeleted) {
+    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId,
+        isDeleted);
     return item;
   }
 }
