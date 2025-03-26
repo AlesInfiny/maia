@@ -287,8 +287,9 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(1L, BigDecimal.valueOf(1000), 1);
     basket.addItem(2L, BigDecimal.valueOf(2000), 1);
     when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.of(basket));
-    List<CatalogItem> items = List.of(new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L),
-        new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L));
+    List<CatalogItem> items = List.of(
+        new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L, false),
+        new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L, false));
     List<Long> catalogItemIds = List.of(1L, 2L);
     when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
 
@@ -385,9 +386,10 @@ public class ShoppingApplicationServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
+    boolean defaultIsDeleted = false;
 
     CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId);
+        defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId, defaultIsDeleted);
     // catalogItem.setId(id);
     return catalogItem;
   }

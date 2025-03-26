@@ -215,9 +215,10 @@ public class CatalogDomainServiceTest {
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
     String defaultProductCode = "C000000001";
+    boolean defaultIsDeleted = false;
 
     CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId);
+        defaultProductCode, defaultCatalogCategoryId, defaultCatalogBrandId, defaultIsDeleted);
     // catalogItem.setId(id);
     return catalogItem;
   }

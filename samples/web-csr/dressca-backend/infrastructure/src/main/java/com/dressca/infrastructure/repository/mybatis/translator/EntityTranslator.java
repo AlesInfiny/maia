@@ -118,6 +118,7 @@ public class EntityTranslator {
   public static CatalogItem catalogItemEntityTranslate(CatalogItemEntity entity) {
     CatalogItem catalogItem = new CatalogItem();
     BeanUtils.copyProperties(entity, catalogItem);
+    catalogItem.setDeleted(entity.getIsDeleted());
     return catalogItem;
   }
 
@@ -130,6 +131,7 @@ public class EntityTranslator {
   public static CatalogItemEntity createCatalogItemEntity(CatalogItem catalogItem) {
     CatalogItemEntity entity = new CatalogItemEntity();
     BeanUtils.copyProperties(catalogItem, entity);
+    entity.setIsDeleted(catalogItem.isDeleted());
     return entity;
   }
 

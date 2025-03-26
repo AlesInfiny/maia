@@ -1,17 +1,17 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.4.1"
+    springBootVersion = "3.4.4"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.0.27"
+    spotbugsVersion = "6.1.7"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "5.2.1"
+    springBatchTestVersion = "5.2.2"
     mybatisSpringBootStarterVersion = "3.0.4"
     mybatisSpringBootStarterTestVersion = "3.0.4"
     h2Version = "2.3.232"
     postgresqlVersion = "42.7.4"
-    springdocOpenapiVersion = "2.8.1"
+    springdocOpenapiVersion = "2.8.6"
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.17.0"
     mybatisGeneratorVersion = "1.4.2"
