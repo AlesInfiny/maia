@@ -105,7 +105,7 @@ export const ActuatorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.health(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ActuatorApi.health']?.[localVarOperationServerIndex]?.url;
@@ -139,7 +139,7 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        health(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+        health(options?: RawAxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.health(options).then((request) => request(axios, basePath));
         },
         /**
