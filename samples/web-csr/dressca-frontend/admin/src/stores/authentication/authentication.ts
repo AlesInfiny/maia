@@ -4,8 +4,7 @@ import { UsersApi } from '@/api-client';
 /**
  * 認証状態のストアです。
  */
-export const useAuthenticationStore = defineStore({
-  id: 'authentication',
+export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({
     authenticationState: JSON.parse(
       sessionStorage.getItem('isAuthenticated') || 'false',

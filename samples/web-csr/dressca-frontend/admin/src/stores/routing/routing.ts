@@ -3,8 +3,7 @@ import { defineStore } from 'pinia';
 /**
  * ルーティング情報のストア。
  */
-export const useRoutingStore = defineStore({
-  id: 'routing',
+export const useRoutingStore = defineStore('routing', {
   state: () => ({
     redirectFrom: null as null | string,
   }),
