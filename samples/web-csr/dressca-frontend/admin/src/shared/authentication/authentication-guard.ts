@@ -9,10 +9,9 @@ import { useRoutingStore } from '@/stores/routing/routing';
  * @param router vue-router。
  */
 export const authenticationGuard = (router: Router) => {
-  const authenticationStore = useAuthenticationStore();
-  const routingStore = useRoutingStore();
-
   router.beforeEach((to) => {
+    const authenticationStore = useAuthenticationStore();
+    const routingStore = useRoutingStore();
     const ignoreAuthPaths: (RouteRecordName | null | undefined)[] = [
       'authentication/login',
       'error',
