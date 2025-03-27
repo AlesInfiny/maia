@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import { getServerTimeApi } from '@/api-client';
 
-export const useServerTimeStore = defineStore({
-  id: 'serverTime',
+export const useServerTimeStore = defineStore('serverTime', {
   state: () => ({
     serverTime: '' as string,
   }),

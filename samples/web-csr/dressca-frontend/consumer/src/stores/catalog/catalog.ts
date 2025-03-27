@@ -10,8 +10,7 @@ import {
   catalogItemsApi,
 } from '@/api-client';
 
-export const useCatalogStore = defineStore({
-  id: 'catalog',
+export const useCatalogStore = defineStore('catalog', {
   state: () => ({
     categories: [] as CatalogCategoryResponse[],
     brands: [] as CatalogBrandResponse[],
