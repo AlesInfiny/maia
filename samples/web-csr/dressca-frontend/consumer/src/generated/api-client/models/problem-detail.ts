@@ -34,10 +34,10 @@ export interface ProblemDetail {
     'instance'?: string;
     /**
      * 
-     * @type {{ [key: string]: any; }}
+     * @type {{ [key: string]: object; }}
      * @memberof ProblemDetail
      */
-    'properties'?: { [key: string]: any; };
+    'properties'?: { [key: string]: object; };
     /**
      * 
      * @type {number}
