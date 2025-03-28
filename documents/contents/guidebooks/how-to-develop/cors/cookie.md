@@ -7,7 +7,7 @@ description: CORS （オリジン間リソース共有）環境での アプリ�
 
 ## Cookie とは {#about-cookie}
 
-[HTTP Cookie の仕様 - MDN Web Docs :material-open-in-new:](https://www.ipa.go.jp/security/vuln/websecurity/csrf.html){ target=_blank } より Cookie の定義を以下に引用します。
+[HTTP Cookie の仕様 - MDN Web Docs :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Cookies){ target=_blank } より Cookie の定義を以下に引用します。
 
 > Cookie（ウェブ Cookie、ブラウザー Cookie とも呼ぶ）は、サーバーがユーザーのウェブブラウザーに送信する小さなデータです。ブラウザーは Cookie を保存したり、新しい Cookie を作成したり、既存の Cookie を変更したり、後でリクエストされたときに同じサーバーにそれらを送り返したりすることができます。 Cookie により、ウェブアプリケーションは限られた量のデータを格納し、状態についての情報を記憶することができます。
 
@@ -61,4 +61,4 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ## フロントエンドアプリケーションの設定 {#frontend-settings}
 
 クロスオリジンの環境の場合、フロントエンドアプリケーションでは、リクエスト発行時に Cookie をヘッダーに含めることを許可する設定が必要となります。
-実装例は [CORS の環境構築のページ](index.md#http-request-header) を参照してください。
+実装例は [『CORS 環境の構築』のページ](./index.md#http-request-header) を参照してください。
