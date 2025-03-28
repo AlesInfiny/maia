@@ -40,7 +40,7 @@ API リクエスト時にオリジンヘッダーを検証することで、異�
 
 ### 単純リクエストにおける更新系処理の実施禁止 {#prohibition-of-update-operations-on-get-requests}
 
-GET リクエストをはじめとする [単純リクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#simple_requests){ target=_blank } は、 CORS におけるプリフライトリクエストを発生させません。
+GET リクエストをはじめとする [単純リクエスト :material-open-in-new:](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#simple_requests){ target=_blank } は、 CORS におけるプリフライトリクエストを発生させません。
 そのため、単純リクエストに対してはオリジンヘッダーの検証が行われず、単純リクエストに更新系の処理が含まれていると CSRF 攻撃の対象になってしまいます。
 
 よって、単純リクエストに対しては更新系の処理を含まないように API を設計する必要があります。
@@ -51,7 +51,7 @@ Cookie を使用する際には、悪意のあるサイトで Cookie にアク�
 Cookie は、既定として `SameSite = Lax` が設定されていますが、 CSRF 対策を実現するためには以下のように属性を付与します。
 
     - `HttpOnly` を設定し、 JavaScript から Cookie へアクセスできないようにする。
-    - アプリケーションがクロスオリジンの構成をとる場合は、別オリジンとの通信を許可するために `SameSite = None` を設定することが強制されるため、 `Secure` を必ず設定して HTTPS プロトコル上の暗号化されたリクエストのみで Cookie を送信するようにする（ [参照](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies){ target=_blank } ）。
+    - アプリケーションがクロスオリジンの構成をとる場合は、別オリジンとの通信を許可するために `SameSite = None` を設定することが強制されるため、 `Secure` を必ず設定して HTTPS プロトコル上の暗号化されたリクエストのみで Cookie を送信するようにする（ [参照 :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies){ target=_blank } ）。
     - アプリケーションがセイムオリジンの構成をとる場合は、認証情報などのセキュリティを格納する必要がある際には `SameSite = Strict` を設定する。
 
 ??? info "その他の CSRF 対策の方法"
