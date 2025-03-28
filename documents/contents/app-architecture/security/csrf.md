@@ -57,7 +57,7 @@ Cookie は、既定として `SameSite = Lax` が設定されていますが、 
 ??? info "その他の CSRF 対策の方法"
 
     Open Web Application Security Project (OWASP) では、 CSRF 対策として上記以外の方法も提唱しています。
-    詳細は [こちら :material-open-in-new:](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#General_Recommendation:_Synchronizer_Token_Pattern){ target=_blank } を参照してください。
+    詳細は [こちら :material-open-in-new:](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html){ target=_blank } を参照してください。
     
     以下にいくつかの方法を示します。
 
