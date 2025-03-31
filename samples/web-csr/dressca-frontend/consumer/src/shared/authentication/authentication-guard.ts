@@ -6,15 +6,6 @@ export const authenticationGuard = (router: Router) => {
   router.beforeEach((to, from) => {
     const authenticationStore = useAuthenticationStore();
     const routingStore = useRoutingStore();
-    const ignoreAuthPaths: (RouteRecordName | null | undefined)[] = [
-      'authentication/login',
-      'catalog',
-      'basket',
-      'error',
-    ];
-    if (ignoreAuthPaths.includes(to.name)) {
-      return true;
-    }
 
     const orderingPaths: (RouteRecordName | null | undefined)[] = [
       'ordering/checkout',
@@ -24,12 +15,12 @@ export const authenticationGuard = (router: Router) => {
       return { name: 'catalog' };
     }
 
-    if (authenticationStore.isAuthenticated) {
-      return true;
+    if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
+      const redirectFromPath: string = to.name?.toString() ?? '';
+      routingStore.setRedirectFrom(redirectFromPath);
+      return { name: 'authentication/login' };
     }
 
-    const redirectFromPath: string = to.name?.toString() ?? '';
-    routingStore.setRedirectFrom(redirectFromPath);
-    return { name: 'authentication/login' };
+    return true;
   });
 };
