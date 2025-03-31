@@ -1,4 +1,4 @@
-import type { Router, RouteRecordName } from 'vue-router';
+import type { Router } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useRoutingStore } from '@/stores/routing/routing';
 
