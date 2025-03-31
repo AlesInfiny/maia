@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useNotificationStore = defineStore({
-  id: 'notification',
+export const useNotificationStore = defineStore('notification', {
   state: () => ({
     message: '' as string,
     id: '' as string,

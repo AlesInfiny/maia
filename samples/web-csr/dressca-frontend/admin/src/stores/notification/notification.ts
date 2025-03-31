@@ -3,8 +3,7 @@ import { defineStore } from 'pinia';
 /**
  * 通知のストアです。
  */
-export const useNotificationStore = defineStore({
-  id: 'notification',
+export const useNotificationStore = defineStore('notification', {
   state: () => ({
     message: '' as string,
     timeout: 5000 as number,

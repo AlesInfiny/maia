@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import type { SpecialContent } from '@/stores/special-content/special-content.model';
 
-export const useSpecialContentStore = defineStore({
-  id: 'special-content',
+export const useSpecialContentStore = defineStore('special-content', {
   state: () => ({
     contents: [
       {

@@ -1,5 +1,5 @@
 import { setupServer } from 'msw/node';
-import { handlers } from './handler';
+import { handlers } from './handlers';
 
 /**
  * Node.js 環境用のワーカーを起動します。

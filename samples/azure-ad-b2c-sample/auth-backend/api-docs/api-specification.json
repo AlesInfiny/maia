@@ -88,37 +88,27 @@
         "type": "object",
         "properties": {
           "detail": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "instance": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "uri"
           },
           "properties": {
-            "type": [
-              "object"
-            ],
-            "additionalProperties": {}
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "status": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "title": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "type": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "uri"
           }
         }
@@ -127,9 +117,7 @@
         "type": "object",
         "properties": {
           "serverTime": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           }
         },
         "required": [
@@ -140,9 +128,7 @@
         "type": "object",
         "properties": {
           "userId": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           }
         },
         "required": [

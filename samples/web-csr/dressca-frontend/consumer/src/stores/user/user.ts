@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Address } from '@/stores/user/user.model';
 
-export const useUserStore = defineStore({
-  id: 'user',
+export const useUserStore = defineStore('user', {
   state: () => ({
     address: {
       fullName: '国会　太郎',

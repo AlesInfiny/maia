@@ -7,8 +7,7 @@ import type {
 } from '@/generated/api-client';
 import { basketItemsApi } from '@/api-client';
 
-export const useBasketStore = defineStore({
-  id: 'basket',
+export const useBasketStore = defineStore('basket', {
   state: () => ({
     basket: {} as BasketResponse,
     addedItemId: undefined as number | undefined,

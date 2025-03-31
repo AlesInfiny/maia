@@ -4,7 +4,7 @@ import type {
   PutCatalogItemRequest,
 } from '@/generated/api-client';
 import { HttpStatusCode } from 'axios';
-import { pagedListCatalogItem, catalogItems } from '../data/catalogItems';
+import { pagedListCatalogItem, catalogItems } from '../data/catalog-items';
 
 type GetCatalogItemParams = {
   catalogItemId: string;

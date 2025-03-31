@@ -1,12 +1,6 @@
 import { HttpResponse, http } from 'msw';
-import type { GetLoginUserResponse } from '@/generated/api-client';
 import { HttpStatusCode } from 'axios';
-import { Roles } from '@/shared/constants/roles';
-
-const user: GetLoginUserResponse = {
-  userName: 'admin@example.com',
-  roles: [Roles.ADMIN],
-};
+import { user } from '../data/users';
 
 export const usersHandlers = [
   http.get('/api/users', () => {
