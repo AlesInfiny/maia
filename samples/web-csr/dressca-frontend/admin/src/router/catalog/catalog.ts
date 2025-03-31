@@ -8,15 +8,18 @@ export const catalogRoutes: RouteRecordRaw[] = [
     path: '/catalog/items',
     name: 'catalog/items',
     component: () => import('@/views/catalog/ItemsView.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/catalog/items/edit/:itemId',
     name: 'catalog/items/edit',
     component: () => import('@/views/catalog/ItemsEditView.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/catalog/items/add',
     name: 'catalog/items/add',
     component: () => import('@/views/catalog/ItemsAddView.vue'),
+    meta: { requiresAuth: true },
   },
 ];
