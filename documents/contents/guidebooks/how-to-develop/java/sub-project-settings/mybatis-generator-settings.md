@@ -13,19 +13,19 @@ infrastructure プロジェクトにおいて、 MyBatis Generator を利用し�
 
 本手順を実行する前に [infrastructure プロジェクトの設定](./infrastructure-project-settings.md) を完了してください。
 
-MyBatis Generator を実行する際は、データベースにテーブルが作成されている必要があります。
+MyBatis Generator を実行する際は、生成対象となるテーブルが作成されたデータベースを稼働させる必要があります。
 本設定では [H2 Console :material-open-in-new:](https://www.h2database.com/html/download.html){ target=_blank } を利用して H2 Database に以下の DDL と DML を実行し、テーブルを作成しています。
 
 ??? example "サンプルアプリケーションの schema.sql"
 
     ```sql title="schema.sql"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/data.sql
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/schema.sql
     ```
 
 ??? example "サンプルアプリケーションの data.sql"
 
     ```sql title="data.sql"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/schema.sql
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/data.sql
     ```
 
 !!! warning "MyBatis Generator 実行用のテーブル作成について"
@@ -33,7 +33,23 @@ MyBatis Generator を実行する際は、データベースにテーブルが�
     サンプルアプリケーションの実行中は、 schema.sql と data.sql が自動的に読み込まれた H2 Database がインメモリで起動します。
     そのため、サンプルアプリケーションの実行用のデータベース作成の必要はありませんが、アプリケーションの停止と共にテーブルは削除されます。
 
-    よって、 MyBatis Generator でコードを自動生成するためのテーブルを別途用意しておく必要があることに注意してください。
+    よって、 MyBatis Generator を利用する際には、自動生成用のテーブルを別途用意しておく必要があります。
+    H2 Console を利用してデータベースを起動する場合は、以下の手順を実施します。
+
+    1. Windows 内を検索し、 H2 Console を起動する。
+    1. JDBC URL に任意のパスを入力し、接続ボタンをクリックする。接続すると自動でデータベースが作成され、起動する。
+
+        ![H2 Console のページ](../../../../images/guidebooks/how-to-develop/java/h2_console_page.png)
+
+    1. 上記の方法でエラーが発生する場合は、 H2 Console のインジケーターを右クリックし `Create new database ...` を選択する。
+
+        ![H2 Console のインジケーター表示](../../../../images/guidebooks/how-to-develop/java//indicator_display.png)
+
+    1. 任意のパス、ユーザー名、パスワードでデータベースを作成する。
+
+        ![H2 データベースの作成画面](../../../../images/guidebooks/how-to-develop/java/h2_database_creation_page.png)
+
+    1. 2 の手順と同様に先ほどのパス、ユーザー名、パスワードを入力して接続し、データベースを起動する。
 
 ## MyBatis Generator の設定ファイルの作成 {#generator-files-settings}
 
