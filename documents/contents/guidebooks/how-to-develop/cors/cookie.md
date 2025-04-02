@@ -18,7 +18,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 ## バックエンドアプリケーションの設定 {#backend-settings}
 
-本章では、サンプルアプリケーションにて実装している、購入者 ID を Cookie 付与する機能を設定例として解説します。
+本章では、サンプルアプリケーションにて実装している、購入者 ID を Cookie へ付与する機能を設定例として解説します。
 
 まず、 Cookie に付与する属性を `application.properties` に定義します。
 以下は、クロスオリジンの場合の方針に基づき `Secure` と `HttpOnly` 、 `SameSite = None` を定義する例です。
@@ -26,7 +26,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ??? example "Cookie の属性の設定を定義する application.properties の設定例"
 
     ```java title="application.properties"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties#L11-L15
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties#L11-L14
     ```
 
 その後、 `#!java @ConfigurationProperties` を利用して `application.properties` に記述した Cookie の設定値を読み込みます。
@@ -61,4 +61,4 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ## フロントエンドアプリケーションの設定 {#frontend-settings}
 
 クロスオリジンの環境の場合、フロントエンドアプリケーションでは、リクエスト発行時に Cookie をヘッダーに含めることを許可する設定が必要となります。
-実装例は [『CORS 環境の構築』のページ](./index.md#http-request-header) を参照してください。
+実装例は [CORS 環境の構築](./index.md#http-request-header) を参照してください。

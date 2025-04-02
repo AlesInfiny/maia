@@ -68,7 +68,7 @@ nav:
               - 結合テスト: app-architecture/batch-application/batch-application-test-policy/integration-test.md
       - アプリケーションセキュリティ編:
           - app-architecture/security/index.md
-          - CSRF （クロスサイト・リクエスト・フォージュエリ）: app-architecture/security/csrf.md
+          - CSRF （クロスサイト・リクエスト・フォージェリ）: app-architecture/security/csrf.md
           - XSS （クロスサイト・スクリプティング）: app-architecture/security/xss.md
   # - クックブック:
       # - 目次: cook-book/index.md

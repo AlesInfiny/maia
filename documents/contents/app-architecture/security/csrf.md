@@ -3,7 +3,7 @@ title: アプリケーション セキュリティ編
 description: アプリケーションセキュリティを 担保するための方針を説明します。
 ---
 
-# CSRF （クロスサイト・リクエスト・フォージュエリ） {#top}
+# CSRF （クロスサイト・リクエスト・フォージェリ） {#top}
 
 ## CSRF とは {#what-is-csrf}
 
@@ -21,42 +21,46 @@ description: アプリケーションセキュリティを 担保するための
 
 ## AlesInfiny Maia OSS Edition での CSRF 対策 {#measures-against-csrf}
 
-原則として以下の方針をとります。
+ブラウザーは、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
 
-### プリフライトリクエストによるオリジンヘッダーの検証 {#verification-of-origin-header}
+同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことが記述されています。
+つまり、結果の読み取りができないだけでリクエスト自体は送られてしまい、サーバー側の処理が実行されてしまう危険性があることを表しています。
 
-API リクエスト時にオリジンヘッダーを検証することで、異なるオリジンの Web サイト上にある更新系のリクエストをブロックします。
-オリジンヘッダーの検証には CORS （オリジン間リソース共有）の機能を利用し、プリフライトリクエスト発生時にリクエストのオリジンヘッダーが許可されたものかどうか確認します。
+そのため AlesInfiny Maia OSS Edition では、異なるオリジンに配置された悪意の Web サイト上において「データを更新するリクエストを事前にブロックさせる」ことで CSRF 攻撃を対策します。
+
+上記に基づき、原則として以下の方針をとります。
+
+### プリフライトリクエストによる Origin ヘッダーの検証 {#verification-of-origin-header}
+
+API リクエスト時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジンの Web サイト上にあるリクエストを処理が実行される前にブロックします。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-プリフライトリクエストについては、 [Preflight request (プリフライトリクエスト) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } を参照してください。
+具体的には、同一オリジンポリシーに基づき、[プリフライトリクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } による Origin ヘッダーを検証します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-!!! info "CORS とは"
+### 単純リクエストにおける更新系処理の実行禁止 {#prohibition-of-update-operations-on-get-requests}
 
-    CORS については、[こちら](../../guidebooks/how-to-develop/cors/index.md#about-cors) を参照してください。
+[単純リクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS#%E5%8D%98%E7%B4%94%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88){ target=_blank } に関しては、 プリフライトリクエストを発生させません。
+そのため、単純リクエストに対しては Origin ヘッダーの検証が行われず、単純リクエストに更新系の処理が含まれていると CSRF 攻撃の対象になってしまいます。
 
-### 単純リクエストにおける更新系処理の実施禁止 {#prohibition-of-update-operations-on-get-requests}
-
-GET リクエストをはじめとする [単純リクエスト :material-open-in-new:](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#simple_requests){ target=_blank } は、 CORS におけるプリフライトリクエストを発生させません。
-そのため、単純リクエストに対してはオリジンヘッダーの検証が行われず、単純リクエストに更新系の処理が含まれていると CSRF 攻撃の対象になってしまいます。
-
-よって、単純リクエストに対しては更新系の処理を含まないように API を設計する必要があります。
+よって、単純リクエストに対しては更新系の処理を含まないように Web API を設計する必要があります。
 
 ### Cookie の属性付与 {#granting-cookie}
 
-Cookie を使用する際には、悪意のあるサイトで Cookie にアクセスされたり、 Cookie が異なるドメインに送信されたりすることを防止する必要があります。
-Cookie は、既定として `SameSite = Lax` が設定されていますが、 CSRF 対策を実現するためには以下のように属性を付与します。
+Cookie を使用する際には、悪意のあるサイトで Cookie にアクセスされたり Cookie が異なるドメインに送られたりすることで、 Cookie を利用したデータの更新が不正に行われることを防止する必要があります。
+Cookie に属性が設定されていない場合ブラウザー側で `SameSite = Lax` として扱われますが、 CSRF 対策を実現するために以下の属性を付与します。
 
-    - `HttpOnly` を設定し、 JavaScript から Cookie へアクセスできないようにする。
-    - アプリケーションがクロスオリジンの構成をとる場合は、別オリジンとの通信を許可するために `SameSite = None` を設定することが強制されるため、 `Secure` を必ず設定して HTTPS プロトコル上の暗号化されたリクエストのみで Cookie を送信するようにする（ [参照 :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies){ target=_blank } ）。
-    - アプリケーションがセイムオリジンの構成をとる場合は、認証情報などのセキュリティを格納する必要がある際には `SameSite = Strict` を設定する。
+- `HttpOnly` を設定し、 JavaScript から Cookie へアクセスできないようにする。
+- アプリケーションがクロスオリジンの構成をとる場合は、別オリジンとの通信を許可するために `SameSite = None` を設定することが強制される。そのため、 `Secure` を必ず設定して HTTPS プロトコル上の暗号化されたリクエストのみで Cookie を送るようにする（ [参照 :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies){ target=_blank } ）。
+- アプリケーションが同一オリジンの構成をとる場合は、認証情報などのセキュリティを格納する必要がある際には `SameSite = Strict` を設定する。
+
+これらの対策により、 CSRF の対策を実現できます。
 
 ??? info "その他の CSRF 対策の方法"
 
-    Open Web Application Security Project (OWASP) では、 CSRF 対策として上記以外の方法も提唱しています。
+    Open Web Application Security Project (OWASP) では、 CSRF 対策のベストプラクティスとして上記以外の方法も提唱しています。
     詳細は [こちら :material-open-in-new:](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html){ target=_blank } を参照してください。
     
     以下にいくつかの方法を示します。
@@ -64,22 +68,43 @@ Cookie は、既定として `SameSite = Lax` が設定されていますが、 
     - CSRF トークンの付与
 
         クライアントがリクエストを発行する際に、サーバー側でそのリクエスト内のトークンの存在と有効性を検証することで、正しいクライアントからのリクエストであることを保証する方法です。
-        実装方法については、[公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa){ target=_blank } を参照してください。
+        実装方法については、[Spring Boot 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa){ target=_blank } を参照してください。
 
     - カスタムヘッダーの付与
 
         固有のヘッダーを付与することで、全てのリクエストがクロスオリジンのプリフライトリクエストの対象となります。
         これにより、固有のヘッダーが存在しないオリジンからのリクエストはブロックされます。
+    
+    AlesInfiny Maia OSS Edition ではこれらの対策は実装されていませんが、組み合わせて導入することによる多段階のセキュリティは有効です。
+    セキュリティ要件やビジネスニーズに応じてこれらの対策を追加で実装するかを検討してください。
+
+!!! danger "包括的なセキュリティ対策の重要性"
+
+    CSRF 対策が実施されていても、アプリケーションにその他の脆弱性があると攻撃を受けることがあります。
+    例えば、 XSS 攻撃への対策が実施されていない場合、 CSRF 対策が実施されていたとしてもアプリケーション内でスクリプトを送り込んで実行することができてしまい、同一オリジンポリシーの制約を受けることなく攻撃を実行できます。
+    このように、セキュリティ対策は単一の脆弱性に対する防御だけでは不十分であり、包括的なアプローチが必要です。
+    XSS 攻撃への対策方法については、 [こちら](./xss.md) を参照してください。
 
 ### CSR アプリケーション {#csr-application}
 
-バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のような対策を実施します。
+バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のように対策します。
 
-- オリジンヘッダーの検証
+- Origin ヘッダーの検証
 
-    Spring Security の CORS の機能を利用してオリジンヘッダーを検証します。
-    クロスオリジンの場合、バックエンドアプリケーションにおいてフロントエンドアプリケーションのオリジンを許可しておく必要があります。
-    実装方法については、[こちら](../../guidebooks/how-to-develop/cors/index.md) を参照してください。
+    ブラウザーが発行するプリフライトリクエストを発行した際のバックエンド側のレスポンスによって、これから発行するリクエストが許可されたオリジンからのものか検証します。
+    フロントエンドアプリケーションとバックエンドアプリケーションがの構成によって設定が異なるため、注意が必要です。
+
+    - クロスオリジンで構成されている場合
+
+        アプリケーションがクロスオリジンで構成されている場合、バックエンド側はフロントエンド側のオリジンからのリクエストは許可するよう設定する必要があります。
+        そのため、 Spring Security を利用してフロントエンドアプリケーションのオリジンからのリクエストを許可するよう CORS の設定を変更します。
+        実装方法については、[こちら](../../guidebooks/how-to-develop/cors/index.md) を参照してください。
+
+    - 同一オリジンで構成されている場合
+
+        バックエンド側で CORS に関する設定が実装されていないと、ブラウザーがプリフライトリクエストを発行した際のバックエンド側のレスポンスはエラーを返します。
+        そのため、ブラウザーは異なるオリジンからのリクエストと判断してバックエンドへのリクエストが送られることをブロックします。
+        よって、アプリケーションが同一オリジンで構成されている場合、バックエンド側で CORS を設定する必要はありません。
 
 - Cookie の属性付与
 
