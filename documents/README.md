@@ -383,7 +383,7 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 - [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
 - [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
 - [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
+- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=3w36zj6.textlint)
 
 ![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
