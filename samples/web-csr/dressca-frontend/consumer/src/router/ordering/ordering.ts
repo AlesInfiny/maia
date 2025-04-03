@@ -8,12 +8,6 @@ export const orderingRoutes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/ordering/done',
-    name: 'ordering/done',
-    component: () => import('@/views/ordering/DoneView.vue'),
-    meta: { requiresAuth: true },
-  },
-  {
     path: '/ordering/done/:orderId(\\d+)',
     name: 'ordering/done',
     component: () => import('@/views/ordering/DoneView.vue'),
