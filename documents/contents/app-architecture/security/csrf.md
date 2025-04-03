@@ -23,7 +23,7 @@ description: アプリケーションセキュリティを 担保するための
 
 ブラウザーは原則として、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
 
-同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことが記述されています。
+同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことが既定されています。
 つまり、結果の読み取りができないだけでリクエスト自体は送られてしまい、データの改ざんといった処理が実行されてしまう危険性があることを表しています。
 
 そのため AlesInfiny Maia OSS Edition では、異なるオリジンに配置された悪意のある Web サイトからの「データを更新するリクエストを事前にブロックする」ことで CSRF 攻撃に対策します。
@@ -36,9 +36,15 @@ description: アプリケーションセキュリティを 担保するための
 
 Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジン上の Web サイトからのリクエストを処理が実行される前にブロックします。
 
-具体的には、同一オリジンポリシーに基づき異なるオリジンからのリクエストをあらかじめブロックするために [プリフライトリクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } によって Origin ヘッダーを検証します。
+具体的には、以下のように異なるオリジンからのリクエストをあらかじめブロックするために [プリフライトリクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } によって Origin ヘッダーを検証します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
+
+![プリフライトリクエスト](../../images/app-architecture/security/preflight-request-light.png#only-light){ loading=lazy }
+![プリフライトリクエスト](../../images/app-architecture/security/preflight-request-dark.png#only-dark){ loading=lazy }
+
+正しいオリジンからのリクエストの場合にはプリフライトリクエストの結果として `204` のレスポンスが返却されるため、メインリクエストを正常に送ることができます。
+しかし、異なるオリジンからのリクエストの場合はプリフライトリクエストの結果として `403` のレスポンスが返却されるため、悪意のあるメインリクエストが送られることを事前にブロックできます。
 
 ### 単純リクエストにおける更新系処理の実行禁止 {#prohibition-of-update-operations-on-get-requests}
 
@@ -47,7 +53,6 @@ Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in
 そのため、単純リクエストに対しては Origin ヘッダーの検証が行われず、単純リクエストに更新系の処理が含まれていると CSRF 攻撃の対象になってしまいます。
 
 よって、単純リクエストには更新系の処理を含まないように Web API を設計する必要があります。
-
 
 ### Cookie の属性付与 {#granting-cookie}
 
@@ -70,24 +75,25 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
     - CSRF トークンの付与
 
         フロントエンドアプリケーションがリクエストを発行する際に、バックエンドアプリケーションでそのリクエスト内のトークンの存在と有効性を検証することで、正しいクライアントからのリクエストであることを保証する方法です。
-        実装方法については、[Spring Boot 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa){ target=_blank } を参照してください。
+        実装方法については、[Spring Security 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa){ target=_blank } を参照してください。
 
     - カスタムヘッダーの付与
 
         固有のヘッダーを付与することで、全てのリクエストがクロスオリジンのプリフライトリクエストの対象となります。
         これにより、固有のヘッダーが存在しないオリジンからのリクエストはブロックされます。
     
-    AlesInfiny Maia OSS Edition ではこれらの対策は実装されていませんが、組み合わせて導入することによる多段階のセキュリティは有効です。
+    AlesInfiny Maia OSS Edition での対策に加えてこれらの方法を導入することで、多段階のより厳重な CSRF 対策を実現できます。
     セキュリティ要件やビジネスニーズに応じてこれらの対策を追加で実装するかを検討してください。
 
 ### CSR アプリケーション {#csr-application}
 
-バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のように対策します。
+バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のように実装します。
 
 - Origin ヘッダーの検証
 
-    ブラウザーが発行するプリフライトリクエストを発行した際のバックエンドアプリケーションのレスポンスによって、これから発行するリクエストが許可されたオリジンからのものか検証します。
-    フロントエンドアプリケーションとバックエンドアプリケーションのオリジンの構成によって設定が異なるため、注意が必要です。
+    [こちら](#verification-of-origin-header) で説明した通り、ブラウザーが発行するプリフライトリクエストの Origin ヘッダーをバックエンドアプリケーションで検証し、その結果をレスポンスとして返却します。
+    ブラウザーは、そのレスポンスをもとにメインリクエストをバックエンドアプリケーションに送るかどうかを決定します。
+    なお、フロントエンドアプリケーションとバックエンドアプリケーションのオリジンの構成によって検証の設定が異なるため、注意が必要です。
 
     - クロスオリジンで構成されている場合
 
@@ -97,7 +103,7 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
 
     - 同一オリジンで構成されている場合
 
-        バックエンドアプリケーションで CORS に関する設定が実装されていないと、ブラウザーがプリフライトリクエストを発行した際のレスポンスはエラーを返します。
+        バックエンドアプリケーションで CORS に関する設定が実装されていないと、ブラウザーがプリフライトリクエストを発行した際のレスポンスはエラーを返却します。
         そのため、ブラウザーは異なるオリジンからのリクエストと判断してバックエンドアプリケーションへリクエストが送られることをブロックします。
         よって、アプリケーションが同一オリジンで構成されている場合、バックエンドアプリケーションで CORS を設定する必要はありません。
 
