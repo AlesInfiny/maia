@@ -34,7 +34,8 @@ description: アプリケーションセキュリティを 担保するための
 
 ### プリフライトリクエストによる Origin ヘッダーの検証 {#verification-of-origin-header}
 
-API リクエスト時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジンの Web サイト上にあるリクエストを処理が実行される前にブロックします。
+Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジン上の Web サイトからのリクエストを処理が実行される前にブロックします。
+
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
