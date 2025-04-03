@@ -43,7 +43,8 @@ API リクエスト時に [Origin ヘッダー :material-open-in-new:](https://d
 
 ### 単純リクエストにおける更新系処理の実行禁止 {#prohibition-of-update-operations-on-get-requests}
 
-[単純リクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS#%E5%8D%98%E7%B4%94%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88){ target=_blank } に関しては、 プリフライトリクエストを発生させません。
+[単純リクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS#%E5%8D%98%E7%B4%94%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88){ target=_blank } では、 プリフライトリクエストが発生しません。
+
 そのため、単純リクエストに対しては Origin ヘッダーの検証が行われず、単純リクエストに更新系の処理が含まれていると CSRF 攻撃の対象になってしまいます。
 
 よって、単純リクエストに対しては更新系の処理を含まないように Web API を設計する必要があります。
