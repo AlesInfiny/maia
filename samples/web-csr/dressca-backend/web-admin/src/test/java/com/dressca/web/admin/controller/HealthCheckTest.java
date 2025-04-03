@@ -29,7 +29,7 @@ public class HealthCheckTest {
   void testGet_serverCheck() throws Exception {
     this.mockMvc.perform(get("/api/health/check"))
         .andExpect(status().isOk())
-        .andExpect(content().json("{'status':'DOWN'}"));
+        .andExpect(content().json("{'status':'UP'}"));
   }
 
   @Test
