@@ -23,21 +23,18 @@ description: アプリケーションセキュリティを 担保するための
 
 ブラウザーは原則として、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
 
-
 同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことが記述されています。
 つまり、結果の読み取りができないだけでリクエスト自体は送られてしまい、データの改ざんといった処理が実行されてしまう危険性があることを表しています。
 
 そのため AlesInfiny Maia OSS Edition では、異なるオリジンに配置された悪意のある Web サイトからの「データを更新するリクエストを事前にブロックする」ことで CSRF 攻撃に対策します。
 
-
 上記に基づき、原則として以下の方針をとります。
 
 ### プリフライトリクエストによる Origin ヘッダーの検証 {#verification-of-origin-header}
 
-Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジン上の Web サイトからのリクエストを処理が実行される前にブロックします。
-
-
 <!-- textlint-disable ja-technical-writing/sentence-length -->
+
+Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Origin){ target=_blank } を検証することで、異なるオリジン上の Web サイトからのリクエストを処理が実行される前にブロックします。
 
 具体的には、同一オリジンポリシーに基づき異なるオリジンからのリクエストをあらかじめブロックするために [プリフライトリクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Glossary/Preflight_request){ target=_blank } によって Origin ヘッダーを検証します。
 
@@ -82,13 +79,6 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
     AlesInfiny Maia OSS Edition ではこれらの対策は実装されていませんが、組み合わせて導入することによる多段階のセキュリティは有効です。
     セキュリティ要件やビジネスニーズに応じてこれらの対策を追加で実装するかを検討してください。
 
-!!! danger "包括的なセキュリティ対策の重要性"
-
-    CSRF 対策が実施されていても、アプリケーションにその他の脆弱性があると攻撃を受けることがあります。
-    例えば、 XSS 攻撃への対策が実施されていない場合、 CSRF 対策が実施されていたとしてもアプリケーション内でスクリプトを送り込んで実行することができてしまい、同一オリジンポリシーの制約を受けることなく攻撃を実行できます。
-    このように、セキュリティ対策は単一の脆弱性に対する防御だけでは不十分であり、包括的なアプローチが必要です。
-    XSS 攻撃への対策方法については、 [こちら](./xss.md) を参照してください。
-
 ### CSR アプリケーション {#csr-application}
 
 バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のように対策します。
@@ -97,7 +87,6 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
 
     ブラウザーが発行するプリフライトリクエストを発行した際のバックエンドアプリケーションのレスポンスによって、これから発行するリクエストが許可されたオリジンからのものか検証します。
     フロントエンドアプリケーションとバックエンドアプリケーションのオリジンの構成によって設定が異なるため、注意が必要です。
-
 
     - クロスオリジンで構成されている場合
 
