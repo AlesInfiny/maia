@@ -126,6 +126,8 @@ Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用
 
     > Cookie に SameSite=None が付いた場合は、 Secure 属性も指定することになりました（安全なコンテキストが必要になりました）。
 
+    実装方法については、[Cookie の設定](./cookie.md) を参照してください。
+
 ## フロントエンドアプリケーション（ Vue.js ） {#frontend}
 
 ### Web API 呼び出し時の HTTP ヘッダーの設定 {#http-request-header}

@@ -11,7 +11,7 @@
 *[CORS]: Cross-Origin Resource Sharing：オリジン間リソース共有。
 *[CRUD]: Create Read Update Delete：永続性の 4 つの基本機能のイニシャルを並べた用語。
 *[CSR]: Client Side Rendering
-*[CSRF]: Cross-Site Request Forgery：クロスサイトリクエストフォージェリ。
+*[CSRF]: Cross-Site Request Forgery：クロスサイト・リクエスト・フォージェリ。
 *[DI]: Dependency Injection：依存性の注入。
 *[DSL]: Domain Specific Language: ドメイン固有言語。
 *[E2E]: End to End
@@ -38,6 +38,6 @@
 *[SSR]: Server Side Rendering
 *[VS Code]: Visual Studio Code
 *[war]: Web Application Archive
-*[XSS]: X-Site Scripting : クロスサイトスクリプティング。
+*[XSS]: X-Site Scripting : クロスサイト・スクリプティング。
 
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
