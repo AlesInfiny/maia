@@ -197,7 +197,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 #### textlint
 
-vscode-textlint の拡張機能をインストールしていると、 [問題] ウィンドウに校正に関するコメントが出ます。
+textlint（VS Code 拡張機能）の拡張機能をインストールしていると、 [問題] ウィンドウに校正に関するコメントが出ます。
 この拡張機能は、技術ドキュメントを書く際の冗長な表現を排除したり、表記ゆれの検出したりする自動校正ツールです。
 多くの場合、文章の見直しによってエラーを回避できます。
 必ず対応するようにしてください。
@@ -383,7 +383,7 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 - [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
 - [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
 - [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-- [vscode-textlint](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
+- [textlint（VS Code 拡張機能）](https://marketplace.visualstudio.com/items?itemName=3w36zj6.textlint)
 
 ![拡張機能メニュー](readme-images/recommend-vscode-extensions.png)
 
