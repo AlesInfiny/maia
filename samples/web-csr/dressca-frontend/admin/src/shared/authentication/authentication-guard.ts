@@ -1,4 +1,4 @@
-import type { Router, RouteRecordName } from 'vue-router';
+import type { Router } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useRoutingStore } from '@/stores/routing/routing';
 
@@ -12,20 +12,13 @@ export const authenticationGuard = (router: Router) => {
   router.beforeEach((to) => {
     const authenticationStore = useAuthenticationStore();
     const routingStore = useRoutingStore();
-    const ignoreAuthPaths: (RouteRecordName | null | undefined)[] = [
-      'authentication/login',
-      'error',
-    ];
-    if (ignoreAuthPaths.includes(to.name)) {
-      return true;
+
+    if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
+      const redirectFromPath: string = to.fullPath;
+      routingStore.setRedirectFrom(redirectFromPath);
+      return { name: 'authentication/login' };
     }
 
-    if (authenticationStore.isAuthenticated) {
-      return true;
-    }
-
-    const redirectFromPath: string = to.fullPath;
-    routingStore.setRedirectFrom(redirectFromPath);
-    return { name: 'authentication/login' };
+    return true;
   });
 };
