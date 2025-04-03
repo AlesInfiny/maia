@@ -7,11 +7,6 @@ export const orderingRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/ordering/CheckoutView.vue'),
   },
   {
-    path: '/ordering/done',
-    name: 'ordering/done',
-    component: () => import('@/views/ordering/DoneView.vue'),
-  },
-  {
     path: '/ordering/done/:orderId(\\d+)',
     name: 'ordering/done',
     component: () => import('@/views/ordering/DoneView.vue'),
