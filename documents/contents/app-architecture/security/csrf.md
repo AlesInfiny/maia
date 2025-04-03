@@ -21,7 +21,8 @@ description: アプリケーションセキュリティを 担保するための
 
 ## AlesInfiny Maia OSS Edition での CSRF 対策 {#measures-against-csrf}
 
-ブラウザーは、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
+ブラウザーは原則として、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
+
 
 同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことが記述されています。
 つまり、結果の読み取りができないだけでリクエスト自体は送られてしまい、データの改ざんといった処理が実行されてしまう危険性があることを表しています。
