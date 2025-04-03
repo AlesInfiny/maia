@@ -36,6 +36,7 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
     よって、 MyBatis Generator を利用する際には、自動生成用のテーブルを別途用意しておく必要があります。
     H2 Console を利用してデータベースを起動する場合は、以下の手順を実施します。
 
+    1. [H2 Console :material-open-in-new:](https://www.h2database.com/html/download.html){ target=_blank } をインストールする。
     1. Windows 内を検索し、 H2 Console を起動する。
     1. JDBC URL に任意のパスを入力し、接続ボタンをクリックする。接続すると自動でデータベースが作成され、起動する。
 
