@@ -26,8 +26,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v20.10.0
-- Visual Studio Code 1.93.1
+- Node.js v22.14.0
+- Visual Studio Code 1.98.2
 
 ## サンプルの構成
 
