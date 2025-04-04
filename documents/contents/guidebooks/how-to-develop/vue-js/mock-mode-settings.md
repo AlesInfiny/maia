@@ -26,12 +26,12 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 │ mock/
 │ ├ data/ ----------------- レスポンスデータの置き場
 │ ├ handlers/ ------------- ハンドラーの置き場
-│ ├ browser.ts ------------ ブラウザー用のワーカープロセスを起動するためのスクリプト
-│ └ handlers.ts ----------- ハンドラーを集約するためのファイル
+│ │ └ index.ts ------------ ハンドラーを集約するためのファイル
+│ └ browser.ts ------------ ブラウザー用のワーカープロセスを起動するためのスクリプト
 ├ src/
-│ └ generated/
-│   └ api-client/
-│     └ model/    --------- openapi-generator で自動生成した API モデル
+│ ├ generated/
+│ │ └ api-client/
+│ │   └ model/    --------- openapi-generator で自動生成した API モデル
 │ └ main.ts --------------- アプリケーションのエントリーポイント
 ├ .env.mock --------------- モックモードの環境設定ファイル
 ├ package.json ------------ ワークスペースのメタデータ、依存関係、スクリプトなどを定義するファイル
@@ -87,8 +87,7 @@ npx msw init ./public --save
 },
 ```
 
-ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts` と、`handlers.ts`を作成します。
-ハンドラーの実装は別途行うため、現時点では空で構いません。
+ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts`を作成します。
 
 ```ts title="browser.ts"
 import { setupWorker } from 'msw/browser';
@@ -97,7 +96,10 @@ import { handlers } from './handlers';
 export const worker = setupWorker(...handlers);
 ```
 
-```ts title="handlers.ts"
+`mock`フォルダーの配下に、`handlers`フォルダーを作成し、さらにその配下に`index.ts`を作成します。
+ハンドラーの実装は別途行うため、現時点では空で構いません。
+
+```ts title="index.ts"
 export const handlers = []; // 後で実装します。
 ```
 
