@@ -29,9 +29,9 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 │ │ └ index.ts ------------ ハンドラーを集約するためのファイル
 │ └ browser.ts ------------ ブラウザー用のワーカープロセスを起動するためのスクリプト
 ├ src/
-│ └ generated/
-│   └ api-client/
-│     └ model/    --------- openapi-generator で自動生成した API モデル
+│ ├ generated/
+│ │ └ api-client/
+│ │   └ model/    --------- openapi-generator で自動生成した API モデル
 │ └ main.ts --------------- アプリケーションのエントリーポイント
 ├ .env.mock --------------- モックモードの環境設定ファイル
 ├ package.json ------------ ワークスペースのメタデータ、依存関係、スクリプトなどを定義するファイル
