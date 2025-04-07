@@ -23,7 +23,7 @@ export const catalogItemSchema: TypedSchema = toTypedSchema(
     price: yup
       .string()
       .required('単価は必須です。')
-      .matches(/^[1-9]\d*$/, '半角数字で入力してください'),
+      .matches(/^[1-9]\d*$/, '1以上の整数を半角数字で入力してください'),
     productCode: yup
       .string()
       .required('商品コードは必須です。')
