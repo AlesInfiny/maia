@@ -98,8 +98,8 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 インストール後、拡張機能の初期化処理が実行されます。
 初期化処理の状態を VS Code のステータスバーで確認し、完了後次の手順に進んでください。
 
-    ![processing](images/extensions-init-status-dark.png#only-dark){ width="800" loading=lazy }
-    ![processing](images/extensions-init-status-light.png#only-light){ width="800" loading=lazy }
+    ![拡張機能の初期化処理の状態](images/extensions-init-status-dark.png#only-dark){ width="800" loading=lazy }
+    ![拡張機能の初期化処理の状態](images/extensions-init-status-light.png#only-light){ width="800" loading=lazy }
 
 1. VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
