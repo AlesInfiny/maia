@@ -95,6 +95,11 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 
 1. VS Code で「dressca\\dressca-backend」フォルダーを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
+インストール後、拡張機能の初期化処理が実行されます。
+初期化処理の状態を VS Code のステータスバーで確認し、完了後次の手順に進んでください。
+
+    ![拡張機能の初期化処理の状態](images/extensions-init-status-dark.png#only-dark){ width="800" loading=lazy }
+    ![拡張機能の初期化処理の状態](images/extensions-init-status-light.png#only-light){ width="800" loading=lazy }
 
 1. VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
