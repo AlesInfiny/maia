@@ -29,7 +29,7 @@ const { errors, values, meta, defineField } = useForm({
   initialValues: {
     itemName: 'テスト用アイテム',
     itemDescription: 'テスト用アイテムです。',
-    price: 1980,
+    price: '1980',
     productCode: 'T001',
   },
 });
@@ -168,7 +168,7 @@ onMounted(async () => {
         <label for="unit-price" class="mb-2 block font-bold">単価</label>
         <input
           id="unit-price"
-          v-model.number="price"
+          v-model="price"
           type="text"
           name="unit-price"
           class="w-full border border-gray-300 px-4 py-2"

@@ -21,11 +21,9 @@ export const catalogItemSchema: TypedSchema = toTypedSchema(
       .required('説明は必須です。')
       .max(1024, '1024文字以下で入力してください。'),
     price: yup
-      .number()
+      .string()
       .required('単価は必須です。')
-      .typeError('数値で入力してください。')
-      .integer('整数で入力してください。')
-      .positive('正の数で入力してください。'),
+      .matches(/^[1-9]\d*$/, '1以上の整数を半角数字で入力してください'),
     productCode: yup
       .string()
       .required('商品コードは必須です。')
