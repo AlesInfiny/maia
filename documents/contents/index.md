@@ -106,10 +106,10 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
 
     !!! tip "bootRunDev タスクのパーセンテージについて"
 
-        bootRunDev タスクはサーバーとして待機するループ処理を行うため、以下のようにパーセンテージが 100 % になりません。
+        ![bootRunDevタスクの実行例](images/bootrundev-execute-example.png){ width="300" loading=lazy align=right }
+        
+        bootRunDev タスクはサーバーとして待機するループ処理を行うため、図のようにパーセンテージが 100% になりません。
         以降の手順で API にアクセスできれば、正常に起動できています。
-
-        ![bootRunDevタスクの実行例](images/bootrundev-execute-example.png)
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 
