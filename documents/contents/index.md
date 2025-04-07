@@ -101,10 +101,13 @@ VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移�
     dressca-backend > Tasks > build > build
 
 1. 前手順と同様に、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
-bootRunDev タスクはサーバーとして待機するループ処理を行うため、パーセンテージが 100 % になりません。
-次の手順で API にアクセスできれば、正常に起動できています。
 
     web-consumer > Tasks > application > bootRunDev
+
+    !!! tip "bootRunDev タスクのパーセンテージについて"
+
+        bootRunDev タスクはサーバーとして待機するループ処理を行うため、パーセンテージが 100 % になりません。
+        以降の手順で API にアクセスできれば、正常に起動できています。
 
 1. 以下のアドレスで、サンプルアプリケーションの API にアクセスできます。
 
