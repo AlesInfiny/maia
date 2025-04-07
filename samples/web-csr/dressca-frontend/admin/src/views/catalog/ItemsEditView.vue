@@ -44,7 +44,7 @@ interface ItemState {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: string;
   productCode: string;
   categoryId: number;
   brandId: number;
@@ -72,7 +72,7 @@ const editingItemState = ref<ItemState>({
   id: 0,
   name: '',
   description: '',
-  price: 0,
+  price: '',
   productCode: '',
   categoryId: 0,
   brandId: 0,
@@ -87,7 +87,7 @@ const currentItemState = ref<ItemState>({
   id: 0,
   name: '',
   description: '',
-  price: 0,
+  price: '',
   productCode: '',
   categoryId: 0,
   brandId: 0,
@@ -157,7 +157,7 @@ const setCurrentItemState = (item: GetCatalogItemResponse) => {
   currentItemState.value.id = item.id;
   currentItemState.value.name = item.name;
   currentItemState.value.description = item.description;
-  currentItemState.value.price = item.price;
+  currentItemState.value.price = item.price.toString();
   currentItemState.value.productCode = item.productCode;
   currentItemState.value.categoryId = item.catalogCategoryId;
   currentItemState.value.brandId = item.catalogBrandId;
@@ -507,7 +507,7 @@ const updateItemAsync = async () => {
             <label for="unit-price" class="mb-2 block font-bold">単価</label>
             <input
               id="unit-price"
-              v-model.number="price"
+              v-model="price"
               name="unit-price"
               class="w-full border border-gray-300 px-4 py-2"
             />
