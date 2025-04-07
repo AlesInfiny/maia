@@ -54,7 +54,7 @@ export const authenticationService = {
         return tokenResponse.accessToken;
       }
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
       throw error;
     }
   },
