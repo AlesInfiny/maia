@@ -22,7 +22,7 @@
     "@azure/msal-browser": "^4.9.1",
     "@heroicons/vue": "^2.2.0",
     "axios": "^1.8.4",
-    "pinia": "^3.0.1",
+    "pinia": "^3.0.2",
     "vue": "^3.5.13"
   },
   "devDependencies": {
