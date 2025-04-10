@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 会計情報のドメインモデルです。
+ * 会計情報のエンティティです。
  */
 @Data
 @AllArgsConstructor

@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文のドメインモデルです。
+ * 注文のエンティティです。
  */
 @Data
 @NoArgsConstructor
