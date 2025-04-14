@@ -7,6 +7,8 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline';
 import { ref, watch } from 'vue';
+import { notificationEventBus } from '@/shared/event-bus';
+import { showToast } from '@/services/notification/notificationService';
 
 const show = ref(false);
 
@@ -21,6 +23,17 @@ const close = () => {
   show.value = false;
   notificationStore.clearMessage();
 };
+
+notificationEventBus.on('notification', (payload) =>
+  showToast(
+    payload.message,
+    payload.id,
+    payload.title,
+    payload.detail,
+    payload.status,
+    payload.timeout,
+  ),
+);
 
 watch(message, (newMessage) => {
   if (newMessage !== '') {

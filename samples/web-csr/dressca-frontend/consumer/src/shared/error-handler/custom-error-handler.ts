@@ -1,10 +1,8 @@
 import type { App } from 'vue';
-import { showToast } from '@/services/notification/notificationService';
-import { useRoutingStore } from '@/stores/routing/routing';
-import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
+import { notificationEventBus, unAuthorizedEventBus } from '@/shared/event-bus';
 import {
   CustomErrorBase,
   HttpError,
@@ -54,26 +52,26 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingUnauthorizedError) {
               handlingUnauthorizedError();
             } else {
-              const routingStore = useRoutingStore();
-              routingStore.setRedirectFrom(
-                router.currentRoute.value.path.slice(1),
-              );
-              router.push({ name: 'authentication/login' });
+              unAuthorizedEventBus.emit('unAuthorized', {
+                details: t('loginRequiredError'),
+              });
               if (!error.response) {
-                showToast(t('loginRequiredError'));
+                notificationEventBus.emit('notification', {
+                  message: t('loginRequiredError'),
+                });
               } else {
                 const message = errorMessageFormat(
                   error.response.exceptionId,
                   error.response.exceptionValues,
                 );
-                showToast(
+                notificationEventBus.emit('notification', {
                   message,
-                  error.response.exceptionId,
-                  error.response.title,
-                  error.response.detail,
-                  error.response.status,
-                  100000,
-                );
+                  id: error.response.exceptionId,
+                  title: error.response.title,
+                  detail: error.response.detail,
+                  status: error.response.status,
+                  timeout: 100000,
+                });
               }
             }
           } else if (error instanceof NetworkError) {
@@ -81,26 +79,30 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               handlingNetworkError();
             } else {
               // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しない
-              showToast(t('networkError'));
+              notificationEventBus.emit('notification', {
+                message: t('networkError'),
+              });
             }
           } else if (error instanceof ServerError) {
             if (handlingServerError) {
               handlingServerError();
             } else if (!error.response) {
-              showToast(t('serverError'));
+              notificationEventBus.emit('notification', {
+                message: t('serverError'),
+              });
             } else {
               const message = errorMessageFormat(
                 error.response.exceptionId,
                 error.response.exceptionValues,
               );
-              showToast(
+              notificationEventBus.emit('notification', {
                 message,
-                error.response.exceptionId,
-                error.response.title,
-                error.response.detail,
-                error.response.status,
-                100000,
-              );
+                id: error.response.exceptionId,
+                title: error.response.title,
+                detail: error.response.detail,
+                status: error.response.status,
+                timeout: 100000,
+              });
             }
           }
         }

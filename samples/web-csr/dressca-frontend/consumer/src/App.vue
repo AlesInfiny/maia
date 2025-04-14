@@ -2,10 +2,19 @@
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { storeToRefs } from 'pinia';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import { useRoutingStore } from '@/stores/routing/routing';
+import { router } from '@/router';
+import { unAuthorizedEventBus } from './shared/event-bus';
 import NotificationToast from './components/common/NotificationToast.vue';
 
 const authenticationStore = useAuthenticationStore();
 const { isAuthenticated } = storeToRefs(authenticationStore);
+
+unAuthorizedEventBus.on('unAuthorized', () => {
+  const routingStore = useRoutingStore();
+  routingStore.setRedirectFrom(router.currentRoute.value.path.slice(1));
+  router.push({ name: 'authentication/login' });
+});
 </script>
 
 <template>
