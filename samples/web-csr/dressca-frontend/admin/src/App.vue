@@ -6,11 +6,20 @@ import { Bars3Icon } from '@heroicons/vue/24/solid';
 import { logoutAsync } from '@/services/authentication/authentication-service';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useNotificationStore } from '@/stores/notification/notification';
 
 const router = useRouter();
 const authenticationStore = useAuthenticationStore();
 const { authenticationState, userName, userRoles } =
   storeToRefs(authenticationStore);
+
+const notificationStore = useNotificationStore();
+const { message, timeout } = storeToRefs(notificationStore);
+
+/**
+ * トーストの開閉状態です。
+ */
+const showToast = ref(false);
 
 /**
  * ログインメニューの開閉状態です。
@@ -28,7 +37,11 @@ const logout = async () => {
 </script>
 <template>
   <div class="z-2">
-    <NotificationToast />
+    <NotificationToast
+      v-model:show="showToast"
+      v-model:message="message"
+      v-model:timeout="timeout"
+    />
   </div>
   <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
