@@ -36,7 +36,7 @@ const logout = async () => {
 };
 </script>
 <template>
-  <div class="z-2">
+  <div class="z-20 fixed">
     <NotificationToast
       v-model:show="showToast"
       v-model:message="message"
