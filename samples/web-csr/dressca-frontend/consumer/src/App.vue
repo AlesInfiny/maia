@@ -4,13 +4,16 @@ import { storeToRefs } from 'pinia';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
-import { unAuthorizedEventBus } from './shared/event-bus';
+import { useEventBus } from '@vueuse/core';
 import NotificationToast from './components/common/NotificationToast.vue';
+import { unAuthorizedErrorEventKey } from './shared/events';
 
 const authenticationStore = useAuthenticationStore();
 const { isAuthenticated } = storeToRefs(authenticationStore);
 
-unAuthorizedEventBus.on('unAuthorized', () => {
+const unAuthorizedEventBus = useEventBus(unAuthorizedErrorEventKey);
+
+unAuthorizedEventBus.on(() => {
   const routingStore = useRoutingStore();
   routingStore.setRedirectFrom(router.currentRoute.value.path.slice(1));
   router.push({ name: 'authentication/login' });

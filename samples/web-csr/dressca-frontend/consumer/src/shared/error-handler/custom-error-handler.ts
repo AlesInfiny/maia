@@ -2,7 +2,7 @@ import type { App } from 'vue';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { notificationEventBus, unAuthorizedEventBus } from '@/shared/event-bus';
+import { useEventBus } from '@vueuse/core';
 import {
   CustomErrorBase,
   HttpError,
@@ -10,6 +10,7 @@ import {
   NetworkError,
   ServerError,
 } from './custom-error';
+import { unAuthorizedErrorEventKey, unHandledErrorEventKey } from '../events';
 
 export interface CustomErrorHandler {
   install(app: App): void;
@@ -37,6 +38,8 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
     ) => {
+      const unHandledEventBus = useEventBus(unHandledErrorEventKey);
+      const unAuthorizedEventBus = useEventBus(unAuthorizedErrorEventKey);
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
@@ -52,11 +55,11 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingUnauthorizedError) {
               handlingUnauthorizedError();
             } else {
-              unAuthorizedEventBus.emit('unAuthorized', {
+              unAuthorizedEventBus.emit({
                 details: t('loginRequiredError'),
               });
               if (!error.response) {
-                notificationEventBus.emit('notification', {
+                unHandledEventBus.emit({
                   message: t('loginRequiredError'),
                 });
               } else {
@@ -64,7 +67,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                   error.response.exceptionId,
                   error.response.exceptionValues,
                 );
-                notificationEventBus.emit('notification', {
+                unHandledEventBus.emit({
                   message,
                   id: error.response.exceptionId,
                   title: error.response.title,
@@ -79,7 +82,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               handlingNetworkError();
             } else {
               // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しない
-              notificationEventBus.emit('notification', {
+              unHandledEventBus.emit({
                 message: t('networkError'),
               });
             }
@@ -87,7 +90,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingServerError) {
               handlingServerError();
             } else if (!error.response) {
-              notificationEventBus.emit('notification', {
+              unHandledEventBus.emit({
                 message: t('serverError'),
               });
             } else {
@@ -95,7 +98,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                 error.response.exceptionId,
                 error.response.exceptionValues,
               );
-              notificationEventBus.emit('notification', {
+              unHandledEventBus.emit({
                 message,
                 id: error.response.exceptionId,
                 title: error.response.title,
