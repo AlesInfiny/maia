@@ -177,9 +177,13 @@ onUnmounted(async () => {
           v-for="item in getBasket.basketItems"
           :key="item.catalogItemId"
           class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+          :class="{
+            'bg-red-200': getBasket.deletedItemIds.includes(item.catalogItemId),
+          }"
         >
           <BasketItem
             :item="item"
+            :available="!getBasket.deletedItemIds.includes(item.catalogItemId)"
             @update="update"
             @remove="remove"
           ></BasketItem>
