@@ -36,6 +36,6 @@ public class BasketMapper {
         .map(BasketItemMapper::convert)
         .collect(Collectors.toList());
 
-    return new BasketResponse(basket.getBuyerId(), accountDto, basketItems);
+    return new BasketResponse(basket.getBuyerId(), accountDto, basketItems, null);
   }
 }
