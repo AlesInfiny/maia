@@ -602,6 +602,13 @@
           },
           "buyerId": {
             "type": "string"
+          },
+          "deletedItemIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
         "required": [
