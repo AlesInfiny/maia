@@ -44,6 +44,11 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
+  public List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<Long> catalogItemIds) {
+    return mapper.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+  }
+
+  @Override
   public int countByBrandIdAndCategoryId(long brandId, long categoryId) {
     return mapper.countByBrandIdAndCategoryId(brandId, categoryId);
   }
