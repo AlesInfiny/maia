@@ -18,4 +18,5 @@ public class BasketResponse {
   private String buyerId;
   private AccountResponse account;
   private List<BasketItemResponse> basketItems;
+  private List<Long> deletedItemIds;
 }

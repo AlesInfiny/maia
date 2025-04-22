@@ -37,6 +37,15 @@ public interface CatalogRepository {
   List<CatalogItem> findByCatalogItemIdIn(List<Long> catalogItemIds);
 
   /**
+   * カタログアイテム ID のリストに一致するカタログのリストを取得します。
+   * その際、削除済みフラグは考慮しません。
+   * 
+   * @param catalogItemIds カタログアイテム ID 。
+   * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
+   */
+  List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<Long> catalogItemIds);
+
+  /**
    * ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
    * 
    * @param brandId    ブランド ID 。

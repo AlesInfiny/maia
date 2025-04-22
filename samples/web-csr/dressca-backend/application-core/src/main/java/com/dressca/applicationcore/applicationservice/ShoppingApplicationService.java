@@ -129,8 +129,12 @@ public class ShoppingApplicationService {
     List<Long> catalogItemIds = basket.getItems().stream()
         .map(basketItem -> basketItem.getCatalogItemId())
         .collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-    return new BasketDetail(basket, catalogItems);
+    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+    List<Long> deletedItemIds = catalogItems.stream()
+        .filter(item -> item.isDeleted())
+        .map(item -> item.getId())
+        .collect(Collectors.toList());
+    return new BasketDetail(basket, catalogItems, deletedItemIds);
   }
 
   /**
