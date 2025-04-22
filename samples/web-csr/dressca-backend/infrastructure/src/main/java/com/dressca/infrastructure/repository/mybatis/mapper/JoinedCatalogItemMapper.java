@@ -18,6 +18,8 @@ public interface JoinedCatalogItemMapper {
 
   List<CatalogItem> findByCatalogItemIdIn(@Param("catalogItemIds") List<Long> catalogItemIds);
 
+  List<CatalogItem> findByCatalogItemIdInIncludingDeleted(@Param("catalogItemIds") List<Long> catalogItemIds);
+
   int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
       @Param("categoryId") long categoryId);
 
