@@ -11,20 +11,20 @@ export const globalErrorHandler = {
       // 本サンプルAPではコンソールへログの出力を行います。
       // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
       /* eslint no-console: 0 */
-      console.log(err, instance, info);
+      console.error(err, instance, info);
     };
 
     // Vue.js 以外のエラー
     // テストやデバッグ時にエラーの発生を検知するために利用します。
     window.addEventListener('error', (event) => {
       /* eslint no-console: 0 */
-      console.log(event);
+      console.error(event);
     });
 
     // テストやデバッグ時に予期せぬ非同期エラーの発生を検知するために利用します。
     window.addEventListener('unhandledrejection', (event) => {
       /* eslint no-console: 0 */
-      console.log(event);
+      console.error(event);
     });
   },
 };
