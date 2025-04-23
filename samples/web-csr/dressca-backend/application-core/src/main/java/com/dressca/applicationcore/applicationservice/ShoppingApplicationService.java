@@ -1,8 +1,10 @@
 package com.dressca.applicationcore.applicationservice;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +112,40 @@ public class ShoppingApplicationService {
       }
     }
 
+    basket.removeEmptyItems();
+    this.basketRepository.update(basket);
+  }
+
+  /**
+   * 買い物かごからアイテムを削除します。
+   * 
+   * @param buyerId       購入者 ID 。
+   * @param catalogItemId 削除対象のカタログアイテムの ID 。
+   * @throws CatalogNotFoundException             存在しないカタログアイテムが指定された場合。
+   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合。
+   */
+  public void deleteItemFromBasket(String buyerId, long catalogItemId)
+      throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_DELETE_ITEM_FROM_BASKET,
+        new Object[] { buyerId, catalogItemId }, Locale.getDefault()));
+
+    Basket basket = getOrCreateBasketForUser(buyerId);
+
+    if (!catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)) {
+      throw new CatalogNotFoundException();
+    }
+
+    if (!basket.isInCatalogItem(catalogItemId)) {
+      throw new CatalogItemInBasketNotFoundException(
+          Collections.singletonList(Long.valueOf(catalogItemId)),
+          basket.getId());
+    }
+    Optional<BasketItem> basketItem = basket.getItems().stream()
+        .filter(item -> item.getCatalogItemId() == catalogItemId)
+        .findFirst();
+
+    basketItem.ifPresent(item -> item.setQuantity(0));
     basket.removeEmptyItems();
     this.basketRepository.update(basket);
   }
