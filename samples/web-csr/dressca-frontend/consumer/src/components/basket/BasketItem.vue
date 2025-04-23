@@ -6,7 +6,9 @@ import * as yup from 'yup';
 import { useField, useForm } from 'vee-validate';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
+import { i18n } from '@/locales/i18n';
 
+const { t } = i18n.global;
 const props = defineProps<{
   item: BasketItemResponse;
   available: boolean;
@@ -57,7 +59,7 @@ const remove = () => {
         <p>{{ item.catalogItem?.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
         <p v-if="!available" class="mt-4 text-red-500 font-bold">
-          販売期間外の商品です。買い物かごから削除してください 。
+          {{ t('itemOutOfSales') }}
         </p>
       </div>
     </div>

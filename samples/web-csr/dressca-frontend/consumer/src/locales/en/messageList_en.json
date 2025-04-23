@@ -19,6 +19,7 @@
   "failedToAddItemToCarts": "It was failed to add item to carts.",
   "failedToGetItems": "It was failed to get items.",
   "failedToOrderItems": "It was failed to order items.",
+  "itemOutOfSales": "This item is currently not for sale. Please remove it from your carts.",
   "noItemsInBasket": "There are no items in the basket.",
   "orderingCheckAndComplete": "Please check the order and press the `confirm the order`.",
   "orderingCompleted": "Your order has been completed."

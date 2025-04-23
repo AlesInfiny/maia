@@ -19,6 +19,7 @@
   "failedToAddItemToCarts": "カートに追加できませんでした。",
   "failedToGetItems": "商品の取得に失敗しました。",
   "failedToOrderItems": "注文に失敗しました。",
+  "itemOutOfSales": "こちらの商品は現在販売しておりません。買い物かごからの削除をお願いします。",
   "noItemsInBasket": "買い物かごに商品がありません。",
   "orderingCheckAndComplete": "注文内容を確認して「注文を確定する」ボタンを押してください。",
   "orderingCompleted": "注文が完了しました。"
