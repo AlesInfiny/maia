@@ -120,8 +120,15 @@
   <select id="findById" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
     <where>
-      CATALOG_ITEMS.ID = #{id}
-      AND CATALOG_ITEMS.IS_DELETED = false
+        CATALOG_ITEMS.ID = #{id}
+        AND CATALOG_ITEMS.IS_DELETED = false
+    </where>
+  </select>
+
+  <select id="findByIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+        CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
 </mapper>

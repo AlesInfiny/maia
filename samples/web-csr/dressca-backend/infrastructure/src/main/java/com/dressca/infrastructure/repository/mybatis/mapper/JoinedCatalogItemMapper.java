@@ -26,4 +26,6 @@ public interface JoinedCatalogItemMapper {
   List<CatalogItem> findWithPaging(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 
   CatalogItem findById(@Param("id") long id);
+
+  CatalogItem findByIdIncludingDeleted(@Param("id") long id);
 }
