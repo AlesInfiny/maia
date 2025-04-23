@@ -70,6 +70,17 @@ public class CatalogDomainService {
     return this.catalogRepository.findById(catalogItemId) != null;
   }
 
+  /**
+   * 指定した ID のカタログアイテムがリポジトリ内に存在するかどうかを示す真理値を取得します。
+   * その際、削除済みフラグは考慮しません。
+   * 
+   * @param catalogItemId カタログアイテム ID 。
+   * @return 指定したカタログアイテムがリポジトリ内に存在する場合は true 、存在しない場合は false 。
+   */
+  public boolean existCatalogItemIncludingDeleted(long catalogItemId) {
+    return this.catalogRepository.findByIdIncludingDeleted(catalogItemId) != null;
+  }
+
   private boolean existCatalogItemIdInItems(List<CatalogItem> items, long catalogItemId) {
     return items.stream()
         .anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
