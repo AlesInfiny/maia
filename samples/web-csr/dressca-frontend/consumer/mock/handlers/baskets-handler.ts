@@ -10,7 +10,7 @@ function calcBasketAccount() {
   if (!basket || !basket.account) {
     return;
   }
-  const updatedBasketItems =
+  const basketItemsCalculatedSubTotal =
     basket.basketItems?.map((item) => {
       const subTotal = item.unitPrice * item.quantity;
       return {
@@ -18,12 +18,13 @@ function calcBasketAccount() {
         subTotal,
       };
     }) || [];
-  // undefined になる場合は 0 を代入
-  const totalItemsPrice = updatedBasketItems.reduce(
-    (total, item) => total + item.subTotal,
-    0,
-  );
-  basket.basketItems = updatedBasketItems;
+  basket.basketItems = basketItemsCalculatedSubTotal;
+
+  // basketItems が undefined または空の場合 0 を代入
+  const totalItemsPrice = basket.basketItems?.length
+    ? basket.basketItems.reduce((total, item) => total + item.subTotal, 0)
+    : 0;
+
   basket.account.consumptionTaxRate = 0.1;
   basket.account.totalItemsPrice = totalItemsPrice;
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500;
