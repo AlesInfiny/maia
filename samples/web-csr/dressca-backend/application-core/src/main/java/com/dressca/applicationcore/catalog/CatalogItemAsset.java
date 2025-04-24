@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * カタログアイテムアセットのエンティティです。
+ * カタログアイテムアセットの値オブジェクトです。
  */
 @Data
 public class CatalogItemAsset {

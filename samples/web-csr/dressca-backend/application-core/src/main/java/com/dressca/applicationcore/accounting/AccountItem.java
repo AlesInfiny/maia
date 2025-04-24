@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 会計情報のエンティティです。
+ * 会計情報の値オブジェクトです。
  */
 @Data
 @AllArgsConstructor
