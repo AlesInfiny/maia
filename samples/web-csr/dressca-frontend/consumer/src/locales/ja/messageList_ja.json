@@ -7,6 +7,7 @@
   "systemError": "システムエラーが発生しました。",
   "addedItemsToBasket": "以下の商品が追加されました。",
   "assetNotFound": "アセットコード: [0] のアセットが見つかりませんでした。",
+  "basketContainsUnavailableItem": "現在販売していない商品が買い物かごに含まれています。",
   "basketIsEmptyOnCheckout": "注文のチェックアウト時に買い物かごが空でした。",
   "basketIsNullOnCheckout": "買い物かごID: [0] の買い物かごが見つかりませんでした。",
   "catalogIdNotFound": "商品ID: [0] の商品が見つかりませんでした。",
@@ -19,7 +20,7 @@
   "failedToAddItemToCarts": "カートに追加できませんでした。",
   "failedToGetItems": "商品の取得に失敗しました。",
   "failedToOrderItems": "注文に失敗しました。",
-  "itemOutOfSales": "こちらの商品は現在販売しておりません。買い物かごから削除してください。",
+  "itemUnavailable": "こちらの商品は現在販売しておりません。買い物かごから削除してください。",
   "noItemsInBasket": "買い物かごに商品がありません。",
   "orderingCheckAndComplete": "注文内容を確認して「注文を確定する」ボタンを押してください。",
   "orderingCompleted": "注文が完了しました。"

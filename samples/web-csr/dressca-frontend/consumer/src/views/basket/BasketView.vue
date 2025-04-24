@@ -101,6 +101,8 @@ const order = async () => {
   await fetchBasket();
   if (getDeletedItemIds.value.length === 0) {
     router.push({ name: 'ordering/checkout' });
+  } else {
+    showToast(t('basketContainsUnavailableItem'));
   }
 };
 
@@ -108,6 +110,9 @@ onMounted(async () => {
   showLoading.value = true;
   try {
     await fetchBasket();
+    if (getDeletedItemIds.value.length !== 0) {
+      showToast(t('basketContainsUnavailableItem'));
+    }
   } catch (error) {
     customErrorHandler.handle(
       error,
@@ -182,7 +187,7 @@ onUnmounted(async () => {
           :key="item.catalogItemId"
           class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
           :class="{
-            'bg-red-200': getDeletedItemIds.includes(item.catalogItemId),
+            'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
           }"
         >
           <BasketItem

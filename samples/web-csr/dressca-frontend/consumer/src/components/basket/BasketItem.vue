@@ -59,7 +59,7 @@ const remove = () => {
         <p>{{ item.catalogItem?.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
         <p v-if="!available" class="mt-4 text-red-500 font-bold">
-          {{ t('itemOutOfSales') }}
+          {{ t('itemUnavailable') }}
         </p>
       </div>
     </div>
