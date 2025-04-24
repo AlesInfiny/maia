@@ -7,20 +7,16 @@ import type {
 import { basket, basketItems } from '../data/basket-items';
 
 function calcBasketAccount() {
-  if (!basket || !basket.account) {
+  if (!basket || !basket.account || !basket.basketItems) {
     return;
   }
-  const basketItemsCalculatedSubTotal =
-    basket.basketItems?.map((item) => {
-      const subTotal = item.unitPrice * item.quantity;
-      return {
-        ...item,
-        subTotal,
-      };
-    }) || [];
+  const basketItemsCalculatedSubTotal = basket.basketItems?.map((item) => ({
+    ...item,
+    subTotal: item.unitPrice * item.quantity,
+  }));
   basket.basketItems = basketItemsCalculatedSubTotal;
 
-  // basketItems が undefined または空の場合 0 を代入
+  // basketItems が undefined の場合 0 を代入
   const totalItemsPrice = basket.basketItems?.length
     ? basket.basketItems.reduce((total, item) => total + item.subTotal, 0)
     : 0;
