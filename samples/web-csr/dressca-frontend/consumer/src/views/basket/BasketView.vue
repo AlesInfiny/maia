@@ -235,7 +235,7 @@ onUnmounted(async () => {
           <button
             class="w-36 mt-4 mr-4 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded disabled:bg-orange-300 disabled:opacity-50"
             type="submit"
-            :disabled="getDeletedItemIds > 0"
+            :disabled="getDeletedItemIds.length > 0"
             @click="order()"
           >
             レジに進む
