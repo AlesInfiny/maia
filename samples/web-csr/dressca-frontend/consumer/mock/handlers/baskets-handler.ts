@@ -1,39 +1,54 @@
 import { HttpResponse, http } from 'msw';
 import { HttpStatusCode } from 'axios';
 import type {
+  BasketResponse,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client';
 import { basket, basketItems } from '../data/basket-items';
 
-function calcBasketAccount() {
-  if (!basket || !basket.account || !basket.basketItems) {
-    return;
-  }
-  const basketItemsCalculatedSubTotal = basket.basketItems.map((item) => ({
-    ...item,
-    subTotal: item.unitPrice * item.quantity,
-  }));
-  basket.basketItems = basketItemsCalculatedSubTotal;
+let currentBasket = basket;
 
+function calcBasketAccount(initialBasket: BasketResponse): BasketResponse {
+  if (!initialBasket || !initialBasket.account || !initialBasket.basketItems) {
+    return initialBasket;
+  }
+  const basketItemsCalculatedSubTotal = initialBasket.basketItems.map(
+    (item) => ({
+      ...item,
+      subTotal: item.unitPrice * item.quantity,
+    }),
+  );
   // undefined になる場合は 0 を代入
-  const totalItemsPrice = basket.basketItems?.length
-    ? basket.basketItems
+  const totalItemsPrice = basketItemsCalculatedSubTotal.length
+    ? basketItemsCalculatedSubTotal
         .map((item) => item.subTotal)
         .reduce((total, subTotal) => total + subTotal, 0)
     : 0;
-  basket.account.consumptionTaxRate = 0.1;
-  basket.account.totalItemsPrice = totalItemsPrice;
+  const consumptionTaxRate = 0.1;
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500;
-  basket.account.deliveryCharge = deliveryCharge;
-  const consumptionTax = Math.floor((totalItemsPrice + deliveryCharge) * 0.1);
-  basket.account.consumptionTax = consumptionTax;
-  basket.account.totalPrice = totalItemsPrice + consumptionTax + deliveryCharge;
+  const consumptionTax = Math.floor(
+    (totalItemsPrice + deliveryCharge) * consumptionTaxRate,
+  );
+  const totalPrice = totalItemsPrice + consumptionTax + deliveryCharge;
+
+  return {
+    ...initialBasket,
+    basketItems: basketItemsCalculatedSubTotal,
+    account: {
+      ...initialBasket.account,
+      consumptionTaxRate,
+      totalItemsPrice,
+      deliveryCharge,
+      consumptionTax,
+      totalPrice,
+    },
+  } as BasketResponse;
 }
 
 export const basketsHandlers = [
   http.get('/api/basket-items', () => {
-    return HttpResponse.json(basket, {
+    return HttpResponse.json(currentBasket, {
       status: HttpStatusCode.Ok,
     });
   }),
@@ -42,7 +57,7 @@ export const basketsHandlers = [
     async ({ request }) => {
       const dto: PostBasketItemsRequest = await request.json();
 
-      const target = basket.basketItems?.filter(
+      const target = currentBasket.basketItems?.filter(
         (item) => item.catalogItemId === Number(dto.catalogItemId),
       );
       if (target) {
@@ -52,13 +67,13 @@ export const basketsHandlers = [
           );
           if (typeof addBasketItem !== 'undefined') {
             addBasketItem.quantity = dto.addedQuantity ?? 0;
-            basket.basketItems?.push(addBasketItem);
+            currentBasket.basketItems?.push(addBasketItem);
           }
         } else {
           target[0].quantity += dto.addedQuantity ?? 0;
         }
       }
-      calcBasketAccount();
+      currentBasket = calcBasketAccount(currentBasket);
       return new HttpResponse(null, { status: HttpStatusCode.Created });
     },
   ),
@@ -70,7 +85,7 @@ export const basketsHandlers = [
         status: HttpStatusCode.NoContent,
       });
       dto.forEach((putBasketItem) => {
-        const target = basket.basketItems?.filter(
+        const target = currentBasket.basketItems?.filter(
           (item) => item.catalogItemId === putBasketItem.catalogItemId,
         );
         if (target) {
@@ -82,17 +97,16 @@ export const basketsHandlers = [
           target[0].quantity = putBasketItem.quantity;
         }
       });
-      calcBasketAccount();
-
+      currentBasket = calcBasketAccount(currentBasket);
       return response;
     },
   ),
   http.delete('/api/basket-items/:catalogItemId', async ({ params }) => {
     const { catalogItemId } = params;
-    basket.basketItems = basket.basketItems?.filter(
+    currentBasket.basketItems = currentBasket.basketItems?.filter(
       (item) => item.catalogItemId !== Number(catalogItemId),
     );
-    calcBasketAccount();
+    currentBasket = calcBasketAccount(currentBasket);
     return new HttpResponse(null, { status: HttpStatusCode.NoContent });
   }),
 ];
