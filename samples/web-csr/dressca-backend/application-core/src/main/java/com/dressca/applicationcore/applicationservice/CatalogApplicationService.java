@@ -74,7 +74,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 指定した ID のカタログアイテムを取得します。
+   * 削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
    * 
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
@@ -89,7 +89,7 @@ public class CatalogApplicationService {
       throw new PermissionDeniedException("getCatalogItem");
     }
 
-    CatalogItem item = this.catalogRepository.findById(id);
+    CatalogItem item = this.catalogRepository.findByIdIncludingDeleted(id);
     if (item == null) {
       throw new CatalogNotFoundException(id);
     }
@@ -133,7 +133,7 @@ public class CatalogApplicationService {
       throw new PermissionDeniedException("getCatalogItemsForAdmin");
     }
 
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+    return this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page, pageSize);
   }
 
   /**
@@ -192,7 +192,7 @@ public class CatalogApplicationService {
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
-    if (!this.catalogDomainService.existCatalogItem(id)) {
+    if (!this.catalogDomainService.existCatalogItemIncludingDeleted(id)) {
       throw new CatalogNotFoundException(id);
     }
     int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
@@ -212,6 +212,7 @@ public class CatalogApplicationService {
    * @param catalogCategoryId カテゴリ ID 。
    * @param catalogBrandId    ブランド ID 。
    * @param rowVersion        行バージョン。
+   * @param isDeleted         削除済みフラグ。
    * @throws CatalogNotFoundException          更新対象のカタログアイテムが存在しなかった場合。
    * @throws PermissionDeniedException         更新権限がない場合。
    * @throws CatalogCategoryNotFoundException  更新対象のカタログカテゴリが存在しなかった場合。
@@ -219,7 +220,7 @@ public class CatalogApplicationService {
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void updateCatalogItem(long id, String name, String description, BigDecimal price, String productCode,
-      long catalogCategoryId, long catalogBrandId, OffsetDateTime rowVersion)
+      long catalogCategoryId, long catalogBrandId, OffsetDateTime rowVersion, boolean isDeleted)
       throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
       CatalogBrandNotFoundException, OptimisticLockingFailureException {
 
@@ -230,7 +231,7 @@ public class CatalogApplicationService {
       throw new PermissionDeniedException(operationName);
     }
 
-    if (!this.catalogDomainService.existCatalogItem(id)) {
+    if (!this.catalogDomainService.existCatalogItemIncludingDeleted(id)) {
       throw new CatalogNotFoundException(id);
     }
 
@@ -243,7 +244,7 @@ public class CatalogApplicationService {
     }
 
     CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId, catalogBrandId,
-        false);
+        isDeleted);
     // 変更前の行バージョンを、変更対象のカタログアイテムに追加
     item.setRowVersion(rowVersion);
 
@@ -254,19 +255,35 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 条件に一致するカテゴリの件数を取得します。
+   * 利用者が条件に一致するカテゴリの件数を取得します。
    * 
    * @param brandId    ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログ情報の件数。
    */
-  public int countCatalogItems(long brandId, long categoryId) {
+  public int countCatalogItemsForConsumer(long brandId, long categoryId) {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
         new Object[] { brandId, categoryId },
         Locale.getDefault()));
 
     return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
+  }
+
+  /**
+   * 管理者が条件に一致するカテゴリの件数を取得します。
+   * 
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @return 条件に一致するカタログ情報の件数。
+   */
+  public int countCatalogItemsForAdmin(long brandId, long categoryId) {
+
+    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
+        new Object[] { brandId, categoryId },
+        Locale.getDefault()));
+
+    return this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
   }
 
   /**
