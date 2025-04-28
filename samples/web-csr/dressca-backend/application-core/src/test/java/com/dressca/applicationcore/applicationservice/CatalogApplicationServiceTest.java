@@ -77,18 +77,19 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItem_正常系_リポジトリのfindByIdを1回呼出す() throws CatalogNotFoundException, PermissionDeniedException {
+  void testGetCatalogItem_正常系_リポジトリのfindByIdIncludingDeletedを1回呼出す()
+      throws CatalogNotFoundException, PermissionDeniedException {
     // Arrange
     long targetId = 1L;
     CatalogItem catalogItem = createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(catalogItem);
+    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(catalogItem);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     service.getCatalogItem(targetId);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findById(targetId);
+    verify(this.catalogRepository, times(1)).findByIdIncludingDeleted(targetId);
   }
 
   @Test
@@ -96,7 +97,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     CatalogItem expectedCatalogItem = createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(expectedCatalogItem);
+    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(expectedCatalogItem);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
@@ -110,7 +111,7 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItem_異常系_対象のアイテムが存在しない() {
     // Arrange
     long targetId = 999L;
-    when(this.catalogRepository.findById(targetId)).thenReturn(null);
+    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(null);
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
@@ -127,7 +128,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     CatalogItem item = createCatalogItem(targetId);
-    when(this.catalogRepository.findById(targetId)).thenReturn(item);
+    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(item);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Action
@@ -189,7 +190,8 @@ public class CatalogApplicationServiceTest {
     service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page,
+        pageSize);
   }
 
   @Test
@@ -203,7 +205,7 @@ public class CatalogApplicationServiceTest {
     long targetId = 1L;
     CatalogItem catalogItem = createCatalogItem(targetId);
     List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
-    when(this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize))
+    when(this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page, pageSize))
         .thenReturn(expectedCatalogItemList);
 
     // Action
@@ -349,7 +351,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -365,7 +367,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(false);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -383,7 +385,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -401,7 +403,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(0);
 
@@ -422,7 +424,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -431,9 +433,11 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    boolean isDeleted = false;
 
     // Action
-    this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+    this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+        isDeleted);
 
     // Assert
     verify(this.catalogRepository, times(1)).update(any());
@@ -446,7 +450,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -455,10 +459,11 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-
+    boolean isDeleted = false;
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+          isDeleted);
     };
 
     // Assert
@@ -472,7 +477,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -481,10 +486,11 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-
+    boolean isDeleted = false;
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+          isDeleted);
     };
 
     // Assert
@@ -498,7 +504,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -507,10 +513,12 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    boolean isDeleted = false;
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+          isDeleted);
     };
 
     // Assert
@@ -524,7 +532,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -533,10 +541,12 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    boolean isDeleted = false;
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+          isDeleted);
     };
 
     // Assert
@@ -550,7 +560,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(0);
@@ -559,10 +569,12 @@ public class CatalogApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
     String productCode = "C000000001";
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    boolean isDeleted = false;
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
+          isDeleted);
     };
 
     // Assert
@@ -570,17 +582,31 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testCountCatalogItems_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
+  void countCatalogItemsForConsumer_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
     when(this.catalogRepository.countByBrandIdAndCategoryId(anyLong(), anyLong())).thenReturn(1);
 
     // Act
-    service.countCatalogItems(brandId, categoryId);
+    service.countCatalogItemsForConsumer(brandId, categoryId);
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(anyLong(), anyLong());
+  }
+
+  @Test
+  void countCatalogItemsForAdmin_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
+    // Arrange
+    long brandId = 1L;
+    long categoryId = 1L;
+    when(this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(anyLong(), anyLong())).thenReturn(1);
+
+    // Act
+    service.countCatalogItemsForAdmin(brandId, categoryId);
+
+    // Assert
+    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(anyLong(), anyLong());
   }
 
   @Test
