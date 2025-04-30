@@ -1,6 +1,7 @@
 import { HttpResponse, http } from 'msw';
 import { HttpStatusCode } from 'axios';
 import type {
+  BasketItemResponse,
   BasketResponse,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
@@ -14,11 +15,14 @@ function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
     return originalBasket;
   }
   const basketItemsCalculatedSubTotal = originalBasket.basketItems.map(
-    (item) => ({
-      ...item,
-      subTotal: item.unitPrice * item.quantity,
+    ({ catalogItem, catalogItemId, quantity, unitPrice }) => ({
+      catalogItem,
+      catalogItemId,
+      quantity,
+      unitPrice,
+      subTotal: unitPrice * quantity,
     }),
-  );
+  ) as Array<BasketItemResponse>;
   const totalItemsPrice = basketItemsCalculatedSubTotal.length
     ? basketItemsCalculatedSubTotal
         .map((item) => item.subTotal)
