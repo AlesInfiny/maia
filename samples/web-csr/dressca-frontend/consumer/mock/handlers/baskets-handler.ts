@@ -31,9 +31,9 @@ function calcBasketItemsSubTotal(
 }
 
 /**
- * 買い物かごアイテムのリストから会計情報を計算します。
+ * 小計金額が計算済みの買い物かごアイテムのリストから会計情報を計算します。
  * @param basketItemsCalculatedSubTotal 小計金額が計算済みの買い物かごアイテムのリスト。
- * @returns 会計情報。
+ * @returns 買い物かごの会計情報。
  */
 function calcBasketAccount(
   basketItemsCalculatedSubTotal: BasketItemResponse[],
