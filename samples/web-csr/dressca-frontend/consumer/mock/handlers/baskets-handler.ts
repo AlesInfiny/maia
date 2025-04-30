@@ -9,11 +9,11 @@ import { basket, basketItems } from '../data/basket-items';
 
 let currentBasket = basket;
 
-function calcBasketAccount(initialBasket: BasketResponse): BasketResponse {
-  if (!initialBasket?.account || !initialBasket?.basketItems) {
-    return initialBasket;
+function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
+  if (!originalBasket?.account || !originalBasket?.basketItems) {
+    return originalBasket;
   }
-  const basketItemsCalculatedSubTotal = initialBasket.basketItems.map(
+  const basketItemsCalculatedSubTotal = originalBasket.basketItems.map(
     (item) => ({
       ...item,
       subTotal: item.unitPrice * item.quantity,
@@ -32,10 +32,10 @@ function calcBasketAccount(initialBasket: BasketResponse): BasketResponse {
   const totalPrice = totalItemsPrice + consumptionTax + deliveryCharge;
 
   return {
-    ...initialBasket,
+    ...originalBasket,
     basketItems: basketItemsCalculatedSubTotal,
     account: {
-      ...initialBasket.account,
+      ...originalBasket.account,
       consumptionTaxRate,
       totalItemsPrice,
       deliveryCharge,
