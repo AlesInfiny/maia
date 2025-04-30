@@ -7,11 +7,9 @@ import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-ha
 import BasketView from '@/views/basket/BasketView.vue';
 import type { BasketResponse } from '@/generated/api-client';
 import { ServerError } from '@/shared/error-handler/custom-error';
-import { type ProblemDetails } from '@/shared/error-handler/custom-error';
-// TODO Maia・Maris 間でProblemDetails が共通化できたら、@/generated/api-client/model から import します。
 import { useNotificationStore } from '@/stores/notification/notification';
-import { AxiosError, AxiosHeaders } from 'axios';
 import BasketItem from '@/components/basket/BasketItem.vue';
+import { createAxiosError, createProblemDetails } from '../helpers';
 
 function createBasketResponse(): BasketResponse {
   return {
@@ -66,49 +64,6 @@ function createEmptyBasketResponse(): BasketResponse {
   };
 }
 
-function createAxiosError(problemDetails: ProblemDetails): AxiosError {
-  const error = new AxiosError('', '', undefined, null, {
-    status: problemDetails.status,
-    statusText: '',
-    headers: {},
-    config: {
-      headers: new AxiosHeaders({
-        'Content-Type': 'application/json',
-      }),
-    },
-    data: {
-      detail: problemDetails.detail,
-      exceptionId: problemDetails.exceptionId,
-      exceptionValues: problemDetails.exceptionValues,
-      instance: problemDetails.instance,
-      status: problemDetails.status,
-      title: problemDetails.title,
-      type: problemDetails.type,
-    },
-  });
-  return error;
-}
-
-function createProblemDetails({
-  detail = 'No details available',
-  exceptionId = 'exceptionId',
-  exceptionValues = [],
-  instance = '/api/',
-  status = 500,
-  title = 'Internal Server Error',
-  type = 'about:blank',
-}: Partial<ProblemDetails>): ProblemDetails {
-  return {
-    detail,
-    exceptionId,
-    exceptionValues,
-    instance,
-    status,
-    title,
-    type,
-  };
-}
-
 /**
  *  vi.mock はファイルの先頭に巻き上げられるので、
  * 複数回 vi.mock を宣言すると、最後に定義されたもので上書きされてしまいます。
@@ -153,8 +108,8 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
     const expectCount = createBasketResponse().basketItems?.length!;
     // Act
     await flushPromises();
-    const basketItem = wrapper.findAllComponents(BasketItem);
     // Assert
+    const basketItem = wrapper.findAllComponents(BasketItem);
     expect(wrapper.html()).toContain('クルーネック Tシャツ - ブラック');
     expect(wrapper.html()).toContain('裏起毛 スキニーデニム');
     expect(basketItem).toHaveLength(expectCount);
@@ -163,16 +118,16 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
   it('「買い物を続ける」ボタンが表示されている', () => {
     // Arrange
     // Act
-    const button = wrapper.findAll('button')[0];
     // Assert
+    const button = wrapper.findAll('button')[0];
     expect(button.isVisible()).toBe(true);
   });
 
   it('「レジに進む」ボタンが表示されている', () => {
     // Arrange
     // Act
-    const button = wrapper.findAll('button')[1];
     // Assert
+    const button = wrapper.findAll('button')[1];
     expect(button.isVisible()).toBe(true);
   });
 });
@@ -196,16 +151,16 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
   it('「買い物を続ける」ボタンが表示されている', () => {
     // Arrange
     // Act
-    const button = wrapper.findAll('button')[0];
     // Assert
+    const button = wrapper.findAll('button')[0];
     expect(button.isVisible()).toBe(true);
   });
 
   it('「レジに進む」ボタンが表示されていない', () => {
     // Arrange
     // Act
-    const button = wrapper.findAll('button')[1];
     // Assert
+    const button = wrapper.findAll('button')[1];
     expect(button).toBeFalsy();
   });
 });
