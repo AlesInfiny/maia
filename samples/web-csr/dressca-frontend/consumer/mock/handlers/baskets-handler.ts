@@ -1,20 +1,25 @@
 import { HttpResponse, http } from 'msw';
 import { HttpStatusCode } from 'axios';
 import type {
+  AccountResponse,
   BasketItemResponse,
-  BasketResponse,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client';
 import { basket, basketItems } from '../data/basket-items';
 
-let currentBasket = basket;
-
-function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
-  if (!originalBasket?.account || !originalBasket?.basketItems) {
-    return originalBasket;
+/**
+ * 買い物かごアイテムのリストからアイテム毎の小計金額を計算します。
+ * @param originalBasketItems 買い物かごアイテムのリスト。
+ * @returns 小計金額が計算済みの買い物かごアイテムのリスト。
+ */
+function calcBasketItemsSubTotal(
+  originalBasketItems: BasketItemResponse[],
+): BasketItemResponse[] {
+  if (!originalBasketItems) {
+    return originalBasketItems;
   }
-  const basketItemsCalculatedSubTotal = originalBasket.basketItems.map(
+  return originalBasketItems.map(
     ({ catalogItem, catalogItemId, quantity, unitPrice }) => ({
       catalogItem,
       catalogItemId,
@@ -22,7 +27,17 @@ function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
       unitPrice,
       subTotal: unitPrice * quantity,
     }),
-  ) as Array<BasketItemResponse>;
+  ) as BasketItemResponse[];
+}
+
+/**
+ * 買い物かごアイテムのリストから会計情報を計算します。
+ * @param basketItemsCalculatedSubTotal 小計金額が計算済みの買い物かごアイテムのリスト。
+ * @returns 会計情報。
+ */
+function calcBasketAccount(
+  basketItemsCalculatedSubTotal: BasketItemResponse[],
+): AccountResponse {
   const totalItemsPrice = basketItemsCalculatedSubTotal.reduce(
     (total, { subTotal }) => total + subTotal,
     0,
@@ -33,24 +48,18 @@ function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
     (totalItemsPrice + deliveryCharge) * consumptionTaxRate,
   );
   const totalPrice = totalItemsPrice + consumptionTax + deliveryCharge;
-
   return {
-    ...originalBasket,
-    basketItems: basketItemsCalculatedSubTotal,
-    account: {
-      ...originalBasket.account,
-      consumptionTaxRate,
-      totalItemsPrice,
-      deliveryCharge,
-      consumptionTax,
-      totalPrice,
-    },
-  } as BasketResponse;
+    consumptionTax,
+    consumptionTaxRate,
+    deliveryCharge,
+    totalItemsPrice,
+    totalPrice,
+  } as AccountResponse;
 }
 
 export const basketsHandlers = [
   http.get('/api/basket-items', () => {
-    return HttpResponse.json(currentBasket, {
+    return HttpResponse.json(basket, {
       status: HttpStatusCode.Ok,
     });
   }),
@@ -59,7 +68,7 @@ export const basketsHandlers = [
     async ({ request }) => {
       const dto: PostBasketItemsRequest = await request.json();
 
-      const target = currentBasket.basketItems?.filter(
+      const target = basket.basketItems?.filter(
         (item) => item.catalogItemId === Number(dto.catalogItemId),
       );
       if (target) {
@@ -69,13 +78,14 @@ export const basketsHandlers = [
           );
           if (typeof addBasketItem !== 'undefined') {
             addBasketItem.quantity = dto.addedQuantity ?? 0;
-            currentBasket.basketItems?.push(addBasketItem);
+            basket.basketItems?.push(addBasketItem);
           }
         } else {
           target[0].quantity += dto.addedQuantity ?? 0;
         }
       }
-      currentBasket = calcBasketAccount(currentBasket);
+      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+      basket.account = calcBasketAccount(basket.basketItems);
       return new HttpResponse(null, { status: HttpStatusCode.Created });
     },
   ),
@@ -87,7 +97,7 @@ export const basketsHandlers = [
         status: HttpStatusCode.NoContent,
       });
       dto.forEach((putBasketItem) => {
-        const target = currentBasket.basketItems?.filter(
+        const target = basket.basketItems?.filter(
           (item) => item.catalogItemId === putBasketItem.catalogItemId,
         );
         if (target) {
@@ -99,16 +109,18 @@ export const basketsHandlers = [
           target[0].quantity = putBasketItem.quantity;
         }
       });
-      currentBasket = calcBasketAccount(currentBasket);
+      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+      basket.account = calcBasketAccount(basket.basketItems);
       return response;
     },
   ),
   http.delete('/api/basket-items/:catalogItemId', async ({ params }) => {
     const { catalogItemId } = params;
-    currentBasket.basketItems = currentBasket.basketItems?.filter(
+    basket.basketItems = basket.basketItems?.filter(
       (item) => item.catalogItemId !== Number(catalogItemId),
     );
-    currentBasket = calcBasketAccount(currentBasket);
+    basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+    basket.account = calcBasketAccount(basket.basketItems);
     return new HttpResponse(null, { status: HttpStatusCode.NoContent });
   }),
 ];
