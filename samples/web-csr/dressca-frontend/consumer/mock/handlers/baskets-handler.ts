@@ -82,7 +82,7 @@ export const basketsHandlers = [
           target[0].quantity += dto.addedQuantity ?? 0;
         }
       }
-      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems || []);
       const subTotals = basket.basketItems.map((item) => item.subTotal);
       basket.account = calcBasketAccount(subTotals);
       return new HttpResponse(null, { status: HttpStatusCode.Created });
@@ -108,7 +108,7 @@ export const basketsHandlers = [
           target[0].quantity = putBasketItem.quantity;
         }
       });
-      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+      basket.basketItems = calcBasketItemsSubTotal(basket.basketItems || []);
       const subTotals = basket.basketItems.map((item) => item.subTotal);
       basket.account = calcBasketAccount(subTotals);
       return response;
@@ -119,7 +119,7 @@ export const basketsHandlers = [
     basket.basketItems = basket.basketItems?.filter(
       (item) => item.catalogItemId !== Number(catalogItemId),
     );
-    basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
+    basket.basketItems = calcBasketItemsSubTotal(basket.basketItems || []);
     const subTotals = basket.basketItems.map((item) => item.subTotal);
     basket.account = calcBasketAccount(subTotals);
     return new HttpResponse(null, { status: HttpStatusCode.NoContent });
