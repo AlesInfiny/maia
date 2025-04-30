@@ -161,7 +161,7 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
     // Act
     // Assert
     const button = wrapper.findAll('button')[1];
-    expect(button).toBeFalsy();
+    expect(button.exists()).toBe(false);
   });
 });
 
@@ -179,7 +179,7 @@ describe('買い物かごのアイテムを表示する_サーバーエラー', 
       title: expectTitle,
     });
     const error = createAxiosError(problem);
-    getBasketItemsMock.mockRejectedValue(new ServerError('any message', error));
+    getBasketItemsMock.mockRejectedValue(new ServerError('', error));
     const expectMessage = 'サーバーエラーが発生しました。';
     await getWrapper();
     const notificationStore = useNotificationStore();
