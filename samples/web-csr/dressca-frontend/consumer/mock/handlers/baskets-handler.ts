@@ -19,7 +19,6 @@ function calcBasketAccount(initialBasket: BasketResponse): BasketResponse {
       subTotal: item.unitPrice * item.quantity,
     }),
   );
-  // undefined になる場合は 0 を代入
   const totalItemsPrice = basketItemsCalculatedSubTotal.length
     ? basketItemsCalculatedSubTotal
         .map((item) => item.subTotal)
