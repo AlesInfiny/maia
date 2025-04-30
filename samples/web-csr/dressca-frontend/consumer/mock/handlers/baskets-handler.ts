@@ -23,11 +23,10 @@ function calcBasketAccount(originalBasket: BasketResponse): BasketResponse {
       subTotal: unitPrice * quantity,
     }),
   ) as Array<BasketItemResponse>;
-  const totalItemsPrice = basketItemsCalculatedSubTotal.length
-    ? basketItemsCalculatedSubTotal
-        .map((item) => item.subTotal)
-        .reduce((total, subTotal) => total + subTotal, 0)
-    : 0;
+  const totalItemsPrice = basketItemsCalculatedSubTotal.reduce(
+    (total, { subTotal }) => total + subTotal,
+    0,
+  );
   const consumptionTaxRate = 0.1;
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500;
   const consumptionTax = Math.floor(
