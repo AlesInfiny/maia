@@ -10,7 +10,7 @@ import { basket, basketItems } from '../data/basket-items';
 let currentBasket = basket;
 
 function calcBasketAccount(initialBasket: BasketResponse): BasketResponse {
-  if (!initialBasket || !initialBasket.account || !initialBasket.basketItems) {
+  if (!initialBasket?.account || !initialBasket?.basketItems) {
     return initialBasket;
   }
   const basketItemsCalculatedSubTotal = initialBasket.basketItems.map(
@@ -61,7 +61,7 @@ export const basketsHandlers = [
         (item) => item.catalogItemId === Number(dto.catalogItemId),
       );
       if (target) {
-        if (target && target.length === 0) {
+        if (target.length === 0) {
           const addBasketItem = basketItems.find(
             (item) => item.catalogItemId === dto.catalogItemId,
           );
