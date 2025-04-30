@@ -27,7 +27,7 @@ function calcBasketItemsSubTotal(
       unitPrice,
       subTotal: unitPrice * quantity,
     }),
-  ) as BasketItemResponse[];
+  );
 }
 
 /**
@@ -52,7 +52,7 @@ function calcBasketAccount(subTotals: number[]): AccountResponse {
     deliveryCharge,
     totalItemsPrice,
     totalPrice,
-  } as AccountResponse;
+  };
 }
 
 export const basketsHandlers = [
