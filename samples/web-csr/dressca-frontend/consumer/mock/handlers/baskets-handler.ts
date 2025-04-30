@@ -31,15 +31,13 @@ function calcBasketItemsSubTotal(
 }
 
 /**
- * 小計金額が計算済みの買い物かごアイテムのリストから会計情報を計算します。
- * @param basketItemsCalculatedSubTotal 小計金額が計算済みの買い物かごアイテムのリスト。
+ * 小計金額から買い物かごの会計情報を計算します。
+ * @param subTotals 小計金額のリスト。
  * @returns 買い物かごの会計情報。
  */
-function calcBasketAccount(
-  basketItemsCalculatedSubTotal: BasketItemResponse[],
-): AccountResponse {
-  const totalItemsPrice = basketItemsCalculatedSubTotal.reduce(
-    (total, { subTotal }) => total + subTotal,
+function calcBasketAccount(subTotals: number[]): AccountResponse {
+  const totalItemsPrice = subTotals.reduce(
+    (total, subTotal) => total + subTotal,
     0,
   );
   const consumptionTaxRate = 0.1;
@@ -85,7 +83,8 @@ export const basketsHandlers = [
         }
       }
       basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
-      basket.account = calcBasketAccount(basket.basketItems);
+      const subTotals = basket.basketItems.map((item) => item.subTotal);
+      basket.account = calcBasketAccount(subTotals);
       return new HttpResponse(null, { status: HttpStatusCode.Created });
     },
   ),
@@ -110,7 +109,8 @@ export const basketsHandlers = [
         }
       });
       basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
-      basket.account = calcBasketAccount(basket.basketItems);
+      const subTotals = basket.basketItems.map((item) => item.subTotal);
+      basket.account = calcBasketAccount(subTotals);
       return response;
     },
   ),
@@ -120,7 +120,8 @@ export const basketsHandlers = [
       (item) => item.catalogItemId !== Number(catalogItemId),
     );
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems);
-    basket.account = calcBasketAccount(basket.basketItems);
+    const subTotals = basket.basketItems.map((item) => item.subTotal);
+    basket.account = calcBasketAccount(subTotals);
     return new HttpResponse(null, { status: HttpStatusCode.NoContent });
   }),
 ];
