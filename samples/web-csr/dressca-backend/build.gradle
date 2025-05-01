@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-  id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
+  id 'com.github.spotbugs' version "$spotbugsVersion" apply false
 }
 
 subprojects {
@@ -36,15 +36,15 @@ subprojects {
   }
 
   jacoco {
-    toolVersion = '0.8.12'
+    toolVersion = "$jacocoToolVersion"
   }
   checkstyle {
-    toolVersion = '10.21.4'
+    toolVersion = "$checkstyleToolVersion"
     configDirectory = rootProject.file('config/checkstyle')
   } 
   spotbugs {
     excludeFilter.set(rootProject.file('config/spotbugs/exclude-filter.xml'))
-    toolVersion = '4.8.6'
+    toolVersion = "$spotbugsToolVersion"
     ignoreFailures = true
   }
 
