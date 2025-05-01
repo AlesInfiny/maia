@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-  id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
+  id 'com.github.spotbugs' version "$spotbugsVersion" apply false
 }
 
 subprojects {
