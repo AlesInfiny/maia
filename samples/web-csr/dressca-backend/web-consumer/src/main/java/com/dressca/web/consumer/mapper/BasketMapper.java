@@ -1,5 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.accounting.Account;
@@ -36,6 +37,6 @@ public class BasketMapper {
         .map(BasketItemMapper::convert)
         .collect(Collectors.toList());
 
-    return new BasketResponse(basket.getBuyerId(), accountDto, basketItems);
+    return new BasketResponse(basket.getBuyerId(), accountDto, basketItems, Collections.emptyList());
   }
 }
