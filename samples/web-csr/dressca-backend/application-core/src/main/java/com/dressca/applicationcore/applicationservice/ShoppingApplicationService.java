@@ -117,7 +117,7 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 買い物かごからアイテムを削除します。
+   * 買い物かごから商品を削除します。
    * 
    * @param buyerId       購入者 ID 。
    * @param catalogItemId 削除対象のカタログアイテムの ID 。
