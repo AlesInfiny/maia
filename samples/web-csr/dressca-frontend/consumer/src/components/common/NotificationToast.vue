@@ -79,6 +79,7 @@ watch(message, (newMessage) => {
             >
               <div class="ml-2 text-xs">{{ detail }}</div>
               <button
+                data-testid=""
                 type="button"
                 class="mr-2 h-8 w-8 bg-red-100 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center flex-shrink-0"
                 @click="copy(detail)"
@@ -90,6 +91,7 @@ watch(message, (newMessage) => {
         </div>
       </div>
       <button
+        data-testid=""
         type="button"
         class="h-8 w-8 bg-red-100 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center flex-shrink-0"
         @click="close"

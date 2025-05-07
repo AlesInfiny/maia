@@ -85,11 +85,13 @@ onBeforeUnmount(() => {
   <template v-if="hasItems">
     <div data-test="body" class="container">
       <div
+        data-testid=""
         class="flex justify-center items-center"
         @touchstart="onTouchStart"
         @mousedown="onTouchStart"
       >
         <ChevronLeftIcon
+          data-testid=""
           class="h-10 w-10 text-gray-300 hover:text-gray-500"
           data-test="left-arrow"
           @click="prevSlide"
@@ -108,6 +110,7 @@ onBeforeUnmount(() => {
           </template>
         </template>
         <ChevronRightIcon
+          data-testid=""
           class="h-10 w-10 text-gray-300 hover:text-gray-500"
           data-test="right-arrow"
           @click="nextSlide"
@@ -120,6 +123,7 @@ onBeforeUnmount(() => {
           </template>
           <template v-if="index !== currentIndex + 1">
             <MinusSmallIcon
+              data-testid=""
               class="h-10 w-10 text-gray-300"
               data-test="page-indicator"
               @click="selectSlide(index - 1)"

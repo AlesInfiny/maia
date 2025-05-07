@@ -67,6 +67,7 @@ const remove = () => {
           <label>
             <input
               v-model.number="quantity"
+              data-testid=""
               type="number"
               min="1"
               max="999"
@@ -76,6 +77,7 @@ const remove = () => {
         </div>
         <div class="basis-2/5">
           <button
+            data-testid=""
             type="button"
             class="w-12 mt-2 mr-2 py-2 rounded bg-transparent disabled:bg-transparent hover:bg-blue-500 font-semibold text-blue-700 disabled:text-blue-700 hover:text-white border border-blue-500 disabled:border-blue-500 disabled:cursor-not-allowed"
             :disabled="isUpdateDisabled"
@@ -87,6 +89,7 @@ const remove = () => {
       </div>
       <div class="mt-2 mb-1 ml-4 mr-2 grid place-items-end">
         <TrashIcon
+          data-testid=""
           class="h-8 w-8 text-gray-500 hover:text-gray-700"
           @click="remove()"
         />
