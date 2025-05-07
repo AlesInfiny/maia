@@ -52,6 +52,7 @@ const signIn = () => {
           <input
             id="email"
             v-model="email"
+            data-test-id="email"
             type="text"
             placeholder="email"
             class="w-full px-4 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
@@ -65,6 +66,7 @@ const signIn = () => {
           <input
             id="password"
             v-model="password"
+            data-test-id="password"
             type="password"
             placeholder="password"
             class="w-full px-4 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
@@ -75,6 +77,7 @@ const signIn = () => {
       </div>
       <div class="form-group mt-8">
         <button
+          data-test-id="signIn"
           type="button"
           class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:bg-blue-500"
           :disabled="isInvalid()"

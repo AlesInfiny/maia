@@ -124,7 +124,11 @@ watch([selectedCategory, selectedBrand], async () => {
           <div>
             <label class="mr-2 font-bold">
               カテゴリ
-              <select v-model="selectedCategory" class="w-48 border-2">
+              <select
+                v-model="selectedCategory"
+                data-test-id="selectedCategory"
+                class="w-48 border-2"
+              >
                 <option
                   v-for="category in getCategories"
                   :key="category.id"
@@ -138,7 +142,11 @@ watch([selectedCategory, selectedBrand], async () => {
           <div class="mt-2 lg:mt-0">
             <label class="mr-2 font-bold">
               ブランド
-              <select v-model="selectedBrand" class="w-48 border-2">
+              <select
+                v-model="selectedBrand"
+                data-test-id="selectedBrand"
+                class="w-48 border-2"
+              >
                 <option
                   v-for="brand in getBrands"
                   :key="brand.id"
@@ -173,6 +181,7 @@ watch([selectedCategory, selectedBrand], async () => {
                 </p>
                 <div class="mt-4 flex items-center justify-center">
                   <button
+                    data-test-id="addBasket"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     type="submit"
                     @click="addBasket(item.id)"

@@ -8,6 +8,7 @@ module.exports = {
     'eslint:recommended',
     '@vue/eslint-config-airbnb-with-typescript',
     '@vue/eslint-config-prettier',
+    "plugin:test-id/recommended"
   ],
   rules: {
     'import/prefer-default-export': 'off',

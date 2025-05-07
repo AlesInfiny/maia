@@ -212,6 +212,7 @@ onUnmounted(async () => {
       </div>
       <div class="flex justify-between">
         <button
+          data-test-id="goCatalog"
           class="w-36 mt-4 ml-4 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
           type="submit"
           @click="goCatalog()"
@@ -220,6 +221,7 @@ onUnmounted(async () => {
         </button>
         <span v-if="!isEmpty()">
           <button
+            data-test-id="order"
             class="w-36 mt-4 mr-4 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
             type="submit"
             @click="order()"
