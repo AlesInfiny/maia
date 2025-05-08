@@ -99,11 +99,11 @@ const remove = async (catalogItemId: number) => {
 
 const order = async () => {
   await fetchBasket();
-  if (getDeletedItemIds.value.length === 0) {
-    router.push({ name: 'ordering/checkout' });
-  } else {
+  if (getDeletedItemIds.value.length !== 0) {
     showToast(t('basketContainsUnavailableItem'));
+    return;
   }
+  router.push({ name: 'ordering/checkout' });
 };
 
 onMounted(async () => {
