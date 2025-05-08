@@ -28,6 +28,6 @@ public class CatalogItemMapper {
 
     return new GetCatalogItemResponse(item.getId(), item.getName(), item.getProductCode(), assetCodes,
         item.getDescription(), item.getPrice(), item.getCatalogCategoryId(), item.getCatalogBrandId(),
-        item.getRowVersion());
+        item.getRowVersion(), item.isDeleted());
   }
 }

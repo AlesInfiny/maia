@@ -3,6 +3,7 @@ package com.dressca.web.admin.controller.dto.catalog;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,7 @@ public class GetCatalogItemResponse {
   private long catalogBrandId;
   @NotNull
   private OffsetDateTime rowVersion;
+  @NotNull
+  @JsonProperty("isDeleted")
+  private boolean isDeleted;
 }

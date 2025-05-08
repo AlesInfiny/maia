@@ -50,6 +50,7 @@ interface ItemState {
   brandId: number;
   assetCodes: string[] | undefined;
   rowVersion: string;
+  isDeleted: boolean;
 }
 
 const { errors, values, meta, defineField, setValues } = useForm({
@@ -78,6 +79,7 @@ const editingItemState = ref<ItemState>({
   brandId: 0,
   assetCodes: [''],
   rowVersion: '',
+  isDeleted: false,
 });
 
 /**
@@ -93,6 +95,7 @@ const currentItemState = ref<ItemState>({
   brandId: 0,
   assetCodes: [''],
   rowVersion: '',
+  isDeleted: false,
 });
 
 /**
@@ -163,6 +166,7 @@ const setCurrentItemState = (item: GetCatalogItemResponse) => {
   currentItemState.value.brandId = item.catalogBrandId;
   currentItemState.value.assetCodes = item.assetCodes;
   currentItemState.value.rowVersion = item.rowVersion;
+  currentItemState.value.isDeleted = item.isDeleted;
 };
 
 /**
@@ -215,6 +219,7 @@ const initItemAsync = async (itemId: number) => {
   editingItemState.value.brandId = currentItemState.value.brandId;
   editingItemState.value.assetCodes = currentItemState.value.assetCodes;
   editingItemState.value.rowVersion = currentItemState.value.rowVersion;
+  editingItemState.value.isDeleted = currentItemState.value.isDeleted;
 };
 
 /**
@@ -288,6 +293,7 @@ const updateItemAsync = async () => {
       editingItemState.value.categoryId,
       editingItemState.value.brandId,
       editingItemState.value.rowVersion,
+      editingItemState.value.isDeleted,
     );
     await initItemAsync(id);
     showUpdateNotice.value = true;
@@ -327,7 +333,8 @@ const updateItemAsync = async () => {
     header="削除成功"
     body="カタログアイテムを削除しました。"
     @close="closeDeleteNotice"
-  ></NotificationModal>
+  >
+  </NotificationModal>
 
   <ConfirmationModal
     :show="showUpdateConfirm"
@@ -342,7 +349,8 @@ const updateItemAsync = async () => {
     header="更新成功"
     body="カタログアイテムを更新しました。"
     @close="closeUpdateNotice"
-  ></NotificationModal>
+  >
+  </NotificationModal>
 
   <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
 

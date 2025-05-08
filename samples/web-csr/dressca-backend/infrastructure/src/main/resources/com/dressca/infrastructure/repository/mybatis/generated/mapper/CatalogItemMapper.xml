@@ -47,7 +47,6 @@
           </trim>
         </if>
       </foreach>
-      and is_deleted = false
     </where>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
@@ -118,7 +117,6 @@
     <include refid="Base_Column_List" />
     from catalog_items
     where id = #{id,jdbcType=BIGINT}
-    and is_deleted = false
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--

@@ -39,6 +39,13 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
+  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId, int page,
+      int pageSize) {
+    int offset = pageSize * (page - 1);
+    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize, offset);
+  }
+
+  @Override
   public List<CatalogItem> findByCatalogItemIdIn(List<Long> catalogItemIds) {
     return mapper.findByCatalogItemIdIn(catalogItemIds);
   }
@@ -54,6 +61,11 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
+  public int countByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId) {
+    return mapper.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
+  }
+
+  @Override
   public List<CatalogItem> findWithPaging(int skipRows, int pageSize) {
     return mapper.findWithPaging(skipRows, pageSize);
   }
@@ -61,6 +73,11 @@ public class MybatisCatalogRepository implements CatalogRepository {
   @Override
   public CatalogItem findById(long id) {
     return mapper.findById(id);
+  }
+
+  @Override
+  public CatalogItem findByIdIncludingDeleted(long id) {
+    return mapper.findByIdIncludingDeleted(id);
   }
 
   @Override

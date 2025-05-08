@@ -569,6 +569,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "name": {
             "type": "string"
           },
@@ -588,6 +591,7 @@
           "catalogCategoryId",
           "description",
           "id",
+          "isDeleted",
           "name",
           "price",
           "productCode",
@@ -704,6 +708,9 @@
           "description": {
             "type": "string"
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "name": {
             "type": "string"
           },
@@ -723,6 +730,7 @@
           "catalogBrandId",
           "catalogCategoryId",
           "description",
+          "isDeleted",
           "name",
           "price",
           "productCode",

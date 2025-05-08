@@ -57,7 +57,7 @@ public class CatalogItemsController {
     List<CatalogItemResponse> items = service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize).stream()
         .map(CatalogItemMapper::convert)
         .collect(Collectors.toList());
-    int totalCount = service.countCatalogItems(brandId, categoryId);
+    int totalCount = service.countCatalogItemsForConsumer(brandId, categoryId);
 
     PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(
         items,

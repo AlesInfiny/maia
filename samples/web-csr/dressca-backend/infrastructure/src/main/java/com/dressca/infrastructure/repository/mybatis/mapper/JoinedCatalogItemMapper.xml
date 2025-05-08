@@ -75,6 +75,19 @@
     LIMIT #{limit} OFFSET #{offset}
   </select>
 
+  <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+      <if test="brandId != 0">
+        CATALOG_BRAND_ID = #{brandId}
+      </if>
+      <if test="categoryId != 0">
+        AND CATALOG_CATEGORY_ID = #{categoryId}
+      </if>
+    </where>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+
   <select id="findByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectCatalogItemsIncludeAsset"/>
     <if test="catalogItemIds.size != 0">
@@ -108,6 +121,18 @@
       AND IS_DELETED = false
     </where>
   </select>
+
+  <select id="countByBrandIdAndCategoryIdIncludingDeleted" resultType="Integer">
+    SELECT COUNT(*) FROM CATALOG_ITEMS
+    <where>
+      <if test="brandId != 0">
+        CATALOG_BRAND_ID = #{brandId}
+      </if>
+      <if test="categoryId != 0">
+        AND CATALOG_CATEGORY_ID = #{categoryId}
+      </if>
+    </where>
+  </select>
   
   <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
@@ -122,6 +147,13 @@
     <where>
       CATALOG_ITEMS.ID = #{id}
       AND CATALOG_ITEMS.IS_DELETED = false
+    </where>
+  </select>
+
+  <select id="findByIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+      CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
 </mapper>

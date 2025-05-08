@@ -125,6 +125,7 @@ export async function updateCatalogItem(
   catalogCategoryId: number,
   catalogBrandId: number,
   rowVersion: string,
+  isDeleted: boolean,
 ) {
   const putCatalogItemRequest: PutCatalogItemRequest = {
     name,
@@ -134,6 +135,7 @@ export async function updateCatalogItem(
     catalogCategoryId,
     catalogBrandId,
     rowVersion,
+    isDeleted,
   };
   await catalogItemsApi.putCatalogItem(id, putCatalogItemRequest);
 }

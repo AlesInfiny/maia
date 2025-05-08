@@ -42,6 +42,7 @@ const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
       name: '',
       productCode: '',
       rowVersion: '',
+      isDeleted: false,
     },
   ],
 });
@@ -144,10 +145,15 @@ const goToEditItem = (id: number) => {
             <th class="w-20">カテゴリ</th>
             <th>ブランド</th>
             <th class="w-20">操作</th>
+            <th>アイテム状態</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in pagedListOfCatalogItem.items" :key="item.id">
+          <tr
+            v-for="item in pagedListOfCatalogItem.items"
+            :key="item.id"
+            :class="[item.isDeleted ? 'border bg-gray-500' : 'border']"
+          >
             <td class="border">{{ item.id }}</td>
             <td class="border">
               <img
@@ -175,6 +181,7 @@ const goToEditItem = (id: number) => {
                 編集
               </button>
             </td>
+            <td class="border">{{ item.isDeleted ? '削除済み' : '' }}</td>
           </tr>
         </tbody>
       </table>
