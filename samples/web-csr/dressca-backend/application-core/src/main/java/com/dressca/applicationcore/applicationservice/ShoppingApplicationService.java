@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.applicationservice;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -163,12 +164,15 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
-        .map(basketItem -> basketItem.getCatalogItemId())
+        .map(BasketItem::getCatalogItemId)
         .collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+    List<CatalogItem> catalogItems = new ArrayList<CatalogItem>();
+    if (!catalogItemIds.isEmpty()) {
+      catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+    }
     List<Long> deletedItemIds = catalogItems.stream()
-        .filter(item -> item.isDeleted())
-        .map(item -> item.getId())
+        .filter(CatalogItem::isDeleted)
+        .map(CatalogItem::getId)
         .collect(Collectors.toList());
     return new BasketDetail(basket, catalogItems, deletedItemIds);
   }
