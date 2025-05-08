@@ -12,7 +12,10 @@ describe('HelloWorld', () => {
       subTotal: 100000,
       unitPrice: 50000,
     };
-    const wrapper = mount(BasketItem, { props: { item: basketItemResponse } });
+    const available: boolean = true;
+    const wrapper = mount(BasketItem, {
+      props: { item: basketItemResponse, available },
+    });
     expect(wrapper.text()).toContain('￥100,000');
   });
 
@@ -23,7 +26,10 @@ describe('HelloWorld', () => {
       subTotal: 150000,
       unitPrice: 50000,
     };
-    const wrapper = mount(BasketItem, { props: { item: basketItemResponse } });
+    const available: boolean = true;
+    const wrapper = mount(BasketItem, {
+      props: { item: basketItemResponse, available },
+    });
     expect(wrapper.text()).toContain('￥50,000');
   });
 });

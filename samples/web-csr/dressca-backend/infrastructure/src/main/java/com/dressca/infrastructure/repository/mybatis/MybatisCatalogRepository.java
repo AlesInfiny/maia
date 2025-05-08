@@ -64,6 +64,11 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
+  public CatalogItem findByIdIncludingDeleted(long id) {
+    return mapper.findByIdIncludingDeleted(id);
+  }
+
+  @Override
   public CatalogItem add(CatalogItem item) {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
     catalogItemMapper.insert(entity);

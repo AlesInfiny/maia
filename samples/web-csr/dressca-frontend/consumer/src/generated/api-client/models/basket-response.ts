@@ -44,5 +44,11 @@ export interface BasketResponse {
      * @memberof BasketResponse
      */
     'buyerId': string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof BasketResponse
+     */
+    'deletedItemIds'?: Array<number>;
 }
 

@@ -124,4 +124,11 @@
       AND CATALOG_ITEMS.IS_DELETED = false
     </where>
   </select>
+
+  <select id="findByIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <where>
+      CATALOG_ITEMS.ID = #{id}
+    </where>
+  </select>
 </mapper>

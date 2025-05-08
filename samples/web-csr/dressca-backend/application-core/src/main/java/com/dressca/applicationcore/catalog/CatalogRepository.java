@@ -70,6 +70,14 @@ public interface CatalogRepository {
   CatalogItem findById(long id);
 
   /**
+   * 削除済みカタログアイテムを含めて、指定した ID のカタログアイテムを取得します。
+   *
+   * @param id カタログアイテムID。
+   * @return 条件に一致するカタログアイテム。
+   */
+  CatalogItem findByIdIncludingDeleted(long id);
+
+  /**
    * カタログアイテムを追加します。
    *
    * @param item カタログアイテム。
