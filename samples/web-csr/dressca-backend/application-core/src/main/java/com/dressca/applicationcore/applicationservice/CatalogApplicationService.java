@@ -192,7 +192,7 @@ public class CatalogApplicationService {
     if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
-    if (!this.catalogDomainService.existCatalogItemIncludingDeleted(id)) {
+    if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
     int deleteRowCount = this.catalogRepository.remove(id, rowVersion);
@@ -231,7 +231,7 @@ public class CatalogApplicationService {
       throw new PermissionDeniedException(operationName);
     }
 
-    if (!this.catalogDomainService.existCatalogItemIncludingDeleted(id)) {
+    if (!this.catalogDomainService.existCatalogItem(id)) {
       throw new CatalogNotFoundException(id);
     }
 

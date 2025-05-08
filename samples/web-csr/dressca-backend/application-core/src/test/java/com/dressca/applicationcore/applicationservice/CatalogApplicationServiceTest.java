@@ -351,7 +351,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -367,7 +367,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(false);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -385,7 +385,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
@@ -403,7 +403,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(0);
 
@@ -424,7 +424,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -450,7 +450,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(false);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -477,7 +477,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -504,7 +504,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -532,7 +532,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(1);
@@ -560,7 +560,7 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(targetId)).thenReturn(true);
+    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     when(this.catalogRepository.update(any())).thenReturn(0);

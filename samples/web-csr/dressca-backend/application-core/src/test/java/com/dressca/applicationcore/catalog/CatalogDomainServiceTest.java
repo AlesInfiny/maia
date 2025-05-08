@@ -208,33 +208,6 @@ public class CatalogDomainServiceTest {
     assertThat(existCatalogItem).isFalse();
   }
 
-  @Test
-  void testExistCatalogItemIncludingDeleted_正常系_指定したカタログアイテムが存在する場合trueを返す() {
-    // Arrange
-    long targetId = 1L;
-    CatalogItem catalogItem = this.createCatalogItem(targetId);
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(catalogItem);
-
-    // Act
-    boolean existCatalogItem = service.existCatalogItemIncludingDeleted(targetId);
-
-    // Assert
-    assertThat(existCatalogItem).isTrue();
-  }
-
-  @Test
-  void testExistCatalogItemIncludingDeleted_正常系_指定したカタログアイテムが存在しない場合falseを返す() {
-    // Arrange
-    long targetId = 1L;
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(null);
-
-    // Act
-    boolean existCatalogItem = service.existCatalogItemIncludingDeleted(targetId);
-
-    // Assert
-    assertThat(existCatalogItem).isFalse();
-  }
-
   private CatalogItem createCatalogItem(long id) {
     long defaultCatalogCategoryId = random.nextInt(1000);
     long defaultCatalogBrandId = random.nextInt(1000);
