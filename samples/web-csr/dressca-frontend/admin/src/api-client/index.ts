@@ -16,7 +16,7 @@ function createConfig(): apiClient.Configuration {
 }
 
 /** axios の共通の設定があればここに定義します。 */
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
   headers: {
     'Content-Type': 'application/json',
