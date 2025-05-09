@@ -21,12 +21,12 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemE
 import org.springframework.beans.BeanUtils;
 
 /**
- * エンティティとドメインオブジェクトを相互に変換するクラスです。
+ * テーブルエンティティとエンティティ・値オブジェクトを相互に変換するクラスです。
  */
 public class EntityTranslator {
 
   /**
-   * {@link AssetEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link AssetEntity} を値オブジェクト： {@link Asset} に変換します。
    * 
    * @param entity {@link AssetEntity} オブジェクト。
    * @return {@link Asset} オブジェクト。
@@ -38,7 +38,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link BasketEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link BasketEntity} をエンティティ： {@link Basket} に変換します。
    * 
    * @param entity {@link BasketEntity} オブジェクト。
    * @return {@link Basket} オブジェクト。
@@ -50,7 +50,7 @@ public class EntityTranslator {
   }
 
   /**
-   * ドメインオブジェクトから {@link BasketEntity} を作成します。
+   * エンティティ： {@link Basket} をテーブルエンティティ： {@link BasketEntity} に変換します。
    * 
    * @param basket {@link Basket} オブジェクト。
    * @return {@link BasketEntity} オブジェクト。
@@ -62,10 +62,10 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link AssetEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link BasketItemEntity} をエンティティ： {@link BasketItem} に変換します。
    * 
-   * @param entity {@link AssetEntity} オブジェクト。
-   * @return {@link Asset} オブジェクト。
+   * @param entity {@link BasketItemEntity} オブジェクト。
+   * @return {@link BasketItem} オブジェクト。
    */
   public static BasketItem basketItemEntityTranslate(BasketItemEntity entity) {
     BasketItem basketItem = new BasketItem();
@@ -74,7 +74,7 @@ public class EntityTranslator {
   }
 
   /**
-   * ドメインオブジェクトから {@link BasketItemEntity} オブジェクトを変換します。
+   * エンティティ： {@link BasketItem} をテーブルエンティティ： {@link BasketItemEntity} に変換します。
    * 
    * @param basketItem {@link BasketItem} オブジェクト。
    * @return {@link BasketItemEntity} オブジェクト。
@@ -86,7 +86,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link CatalogBrandEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link CatalogBrandEntity} を値オブジェクト：{@link CatalogBrand}に変換します。
    * 
    * @param entity {@link CatalogBrandEntity} オブジェクト。
    * @return {@link CatalogBrand} オブジェクト。
@@ -98,7 +98,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link CatalogCategoryEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link CatalogCategoryEntity} を値オブジェクト： {@link CatalogCategory} に変換します。
    * 
    * @param entity {@link CatalogCategoryEntity} オブジェクト。
    * @return {@link CatalogCategory} オブジェクト。
@@ -110,7 +110,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link CatalogItemEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link CatalogItemEntity} をエンティティ： {@link CatalogItem} に変換します。
    * 
    * @param entity {@link CatalogItemEntity} オブジェクト。
    * @return {@link CatalogItem} オブジェクト。
@@ -123,7 +123,7 @@ public class EntityTranslator {
   }
 
   /**
-   * ドメインオブジェクトから {@link CatalogItemEntity} オブジェクトを変換します。
+   * エンティティ： {@link CatalogItem} からテーブルエンティティ： {@link CatalogItemEntity} に変換します。
    * 
    * @param catalogItem {@link CatalogItem} オブジェクト。
    * @return {@link CatalogItemEntity} オブジェクト。
@@ -136,7 +136,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link CatalogItemAssetEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link CatalogItemAssetEntity} を値オブジェクト： {@link CatalogItemAsset} に変換します。
    * 
    * @param entity {@link CatalogItemAssetEntity} オブジェクト。
    * @return {@link CatalogItemAsset} オブジェクト。
@@ -148,7 +148,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link OrderEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link OrderEntity} をエンティティ： {@link Order} に変換します。
    * 
    * @param entity {@link OrderEntity} オブジェクト。
    * @return {@link Order} オブジェクト。
@@ -160,7 +160,7 @@ public class EntityTranslator {
   }
 
   /**
-   * {@link OrderItemEntity} をドメインオブジェクトに変換します。
+   * テーブルエンティティ： {@link OrderItemEntity} をエンティティ： {@link OrderItem} に変換します。
    * 
    * @param entity {@link OrderItemEntity} オブジェクト。
    * @return {@link OrderItem} オブジェクト。

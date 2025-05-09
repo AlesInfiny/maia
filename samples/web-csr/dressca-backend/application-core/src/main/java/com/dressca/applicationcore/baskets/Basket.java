@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * 買い物かごの情報を表現するドメインモデルです。
+ * 買い物かごの情報を表現するエンティティです。
  */
 @Data
 @NoArgsConstructor

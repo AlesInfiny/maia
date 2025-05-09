@@ -7,7 +7,7 @@ description: サーバーサイドで動作する Java アプリケーション�
 
 # MyBatis Generator の設定 {#top}
 
-infrastructure プロジェクトにおいて、 MyBatis Generator を利用してエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
+infrastructure プロジェクトにおいて、 MyBatis Generator を利用してテーブルエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
 
 ## 事前準備 {#preparation}
 
@@ -68,7 +68,7 @@ mybatisGeneratorConfig.xml に設定する各要素については、[こちら 
     各タブの設定内容は以下の通りです。
 
     - `<jdbcConnection>`: 接続するデータベースに関する設定です。
-    - `<javaModelGenerator>`: データベースのテーブルに対応する Java のエンティティクラスを生成するための設定です。
+    - `<javaModelGenerator>`: データベースのテーブルに対応する Java のテーブルエンティティクラスを生成するための設定です。
     - `<sqlMapGenerator>`: MyBatis の SQL マッピングファイルを生成するための設定です。
     - `<javaClientGenerator>`: MyBatis のマッパーインターフェースを生成するための設定です。
     - `<table>`: 生成対象となるテーブルに関する設定です。

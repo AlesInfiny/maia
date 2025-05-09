@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログアイテムのドメインモデルです。
+ * カタログアイテムの値オブジェクトです。
  */
 @Data
 @NoArgsConstructor

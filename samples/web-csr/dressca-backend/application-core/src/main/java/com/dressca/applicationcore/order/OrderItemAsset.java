@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文アイテムアセットのドメインモデルです。
+ * 注文アイテムアセットのエンティティです。
  */
 @Data
 @AllArgsConstructor

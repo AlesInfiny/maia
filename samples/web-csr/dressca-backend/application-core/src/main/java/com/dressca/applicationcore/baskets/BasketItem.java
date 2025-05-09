@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 買い物かごアイテムのドメインモデルです。
+ * 買い物かごアイテムのエンティティです。
  */
 @Data
 @NoArgsConstructor

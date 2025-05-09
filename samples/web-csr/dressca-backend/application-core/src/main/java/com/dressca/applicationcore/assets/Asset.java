@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * アセットのドメインモデルです。
+ * アセットのエンティティです。
  */
 @Data
 @NoArgsConstructor

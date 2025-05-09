@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログカテゴリのドメインモデルです。
+ * カタログカテゴリの値オブジェクトです。
  */
 @Data
 @NoArgsConstructor
