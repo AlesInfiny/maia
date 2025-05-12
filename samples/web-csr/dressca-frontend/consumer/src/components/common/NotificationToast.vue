@@ -25,8 +25,8 @@ const close = () => {
   notificationStore.clearMessage();
 };
 
-const unhandledEventBus = useEventBus(unhandledErrorEventKey);
-unhandledEventBus.on((payload) =>
+const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
+unhandledErrorEventBus.on((payload) =>
   showToast(
     payload.message,
     payload.id,

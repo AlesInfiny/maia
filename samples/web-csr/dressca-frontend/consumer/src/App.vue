@@ -11,9 +11,9 @@ import { unauthorizedErrorEventKey } from './shared/events';
 const authenticationStore = useAuthenticationStore();
 const { isAuthenticated } = storeToRefs(authenticationStore);
 
-const unauthorizedEventBus = useEventBus(unauthorizedErrorEventKey);
+const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
 
-unauthorizedEventBus.on(() => {
+unauthorizedErrorEventBus.on(() => {
   const routingStore = useRoutingStore();
   routingStore.setRedirectFrom(router.currentRoute.value.path.slice(1));
   router.push({ name: 'authentication/login' });

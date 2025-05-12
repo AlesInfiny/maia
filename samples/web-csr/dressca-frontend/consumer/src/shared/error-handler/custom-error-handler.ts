@@ -38,8 +38,8 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
     ) => {
-      const unhandledEventBus = useEventBus(unhandledErrorEventKey);
-      const unauthorizedEventBus = useEventBus(unauthorizedErrorEventKey);
+      const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
+      const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
@@ -55,11 +55,11 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingUnauthorizedError) {
               handlingUnauthorizedError();
             } else {
-              unauthorizedEventBus.emit({
+              unauthorizedErrorEventBus.emit({
                 details: t('loginRequiredError'),
               });
               if (!error.response) {
-                unhandledEventBus.emit({
+                unhandledErrorEventBus.emit({
                   message: t('loginRequiredError'),
                 });
               } else {
@@ -67,7 +67,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                   error.response.exceptionId,
                   error.response.exceptionValues,
                 );
-                unhandledEventBus.emit({
+                unhandledErrorEventBus.emit({
                   message,
                   id: error.response.exceptionId,
                   title: error.response.title,
@@ -82,7 +82,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               handlingNetworkError();
             } else {
               // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しない
-              unhandledEventBus.emit({
+              unhandledErrorEventBus.emit({
                 message: t('networkError'),
               });
             }
@@ -90,7 +90,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingServerError) {
               handlingServerError();
             } else if (!error.response) {
-              unhandledEventBus.emit({
+              unhandledErrorEventBus.emit({
                 message: t('serverError'),
               });
             } else {
@@ -98,7 +98,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
                 error.response.exceptionId,
                 error.response.exceptionValues,
               );
-              unhandledEventBus.emit({
+              unhandledErrorEventBus.emit({
                 message,
                 id: error.response.exceptionId,
                 title: error.response.title,
