@@ -10,7 +10,7 @@ import {
   NetworkError,
   ServerError,
 } from './custom-error';
-import { unAuthorizedErrorEventKey, unHandledErrorEventKey } from '../events';
+import { unauthorizedErrorEventKey, unHandledErrorEventKey } from '../events';
 
 export interface CustomErrorHandler {
   install(app: App): void;
@@ -39,7 +39,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       handlingServerError: (() => void) | null = null,
     ) => {
       const unHandledEventBus = useEventBus(unHandledErrorEventKey);
-      const unAuthorizedEventBus = useEventBus(unAuthorizedErrorEventKey);
+      const unauthorizedEventBus = useEventBus(unauthorizedErrorEventKey);
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
@@ -55,7 +55,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingUnauthorizedError) {
               handlingUnauthorizedError();
             } else {
-              unAuthorizedEventBus.emit({
+              unauthorizedEventBus.emit({
                 details: t('loginRequiredError'),
               });
               if (!error.response) {

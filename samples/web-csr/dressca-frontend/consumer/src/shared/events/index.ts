@@ -22,7 +22,7 @@ type UnHandledErrorEventPayload = {
 /**
  * 未認証エラーの発生を示すイベントのペイロードです。
  */
-type UnAuthorizedErrorEventPayload = {
+type UnauthorizedErrorEventPayload = {
   /** 詳細情報（例：リダイレクト先の情報やガイダンス） */
   details: string;
 };
@@ -38,7 +38,7 @@ export const unHandledErrorEventKey: EventBusKey<UnHandledErrorEventPayload> =
 /**
  * 未認証エラーの発生を示すイベントのキー値です。
  * @example
- * eventBus.emit(unAuthorizedErrorEventKey, { details: 'ログインしてください。' });
+ * eventBus.emit(unauthorizedErrorEventKey, { details: 'ログインしてください。' });
  */
-export const unAuthorizedErrorEventKey: EventBusKey<UnAuthorizedErrorEventPayload> =
-  Symbol('unAuthorizedErrorEventKey');
+export const unauthorizedErrorEventKey: EventBusKey<UnauthorizedErrorEventPayload> =
+  Symbol('unauthorizedErrorEventKey');

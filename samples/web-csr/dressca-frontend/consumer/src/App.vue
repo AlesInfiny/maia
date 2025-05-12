@@ -6,14 +6,14 @@ import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
 import { useEventBus } from '@vueuse/core';
 import NotificationToast from './components/common/NotificationToast.vue';
-import { unAuthorizedErrorEventKey } from './shared/events';
+import { unauthorizedErrorEventKey } from './shared/events';
 
 const authenticationStore = useAuthenticationStore();
 const { isAuthenticated } = storeToRefs(authenticationStore);
 
-const unAuthorizedEventBus = useEventBus(unAuthorizedErrorEventKey);
+const unauthorizedEventBus = useEventBus(unauthorizedErrorEventKey);
 
-unAuthorizedEventBus.on(() => {
+unauthorizedEventBus.on(() => {
   const routingStore = useRoutingStore();
   routingStore.setRedirectFrom(router.currentRoute.value.path.slice(1));
   router.push({ name: 'authentication/login' });
