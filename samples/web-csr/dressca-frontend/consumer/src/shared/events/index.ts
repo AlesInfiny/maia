@@ -4,7 +4,7 @@ import type { EventBusKey } from '@vueuse/core';
  * 想定外のエラーの発生を示すイベントのペイロードです。
  * ユーザーへのトースト通知などに使用します。
  */
-type UnHandledErrorEventPayload = {
+type UnhandledErrorEventPayload = {
   /** ユーザーへ通知するメッセージ。 */
   message: string;
   /** エラーの ID （オプション） */
@@ -32,8 +32,8 @@ type UnauthorizedErrorEventPayload = {
  * @example
  * eventBus.emit(unHandledErrorEventKey, { message: 'エラーが発生しました。' });
  */
-export const unHandledErrorEventKey: EventBusKey<UnHandledErrorEventPayload> =
-  Symbol('unHandledErrorEventKey');
+export const unhandledErrorEventKey: EventBusKey<UnhandledErrorEventPayload> =
+  Symbol('unhandledErrorEventKey');
 
 /**
  * 未認証エラーの発生を示すイベントのキー値です。

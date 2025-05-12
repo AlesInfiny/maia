@@ -9,7 +9,7 @@ import {
 import { ref, watch } from 'vue';
 import { useEventBus } from '@vueuse/core';
 import { showToast } from '@/services/notification/notificationService';
-import { unHandledErrorEventKey } from '@/shared/events';
+import { unhandledErrorEventKey } from '@/shared/events';
 
 const show = ref(false);
 
@@ -25,8 +25,8 @@ const close = () => {
   notificationStore.clearMessage();
 };
 
-const unHandledEventBus = useEventBus(unHandledErrorEventKey);
-unHandledEventBus.on((payload) =>
+const unhandledEventBus = useEventBus(unhandledErrorEventKey);
+unhandledEventBus.on((payload) =>
   showToast(
     payload.message,
     payload.id,
