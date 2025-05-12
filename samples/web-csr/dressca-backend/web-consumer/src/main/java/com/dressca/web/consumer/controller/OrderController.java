@@ -58,6 +58,8 @@ public class OrderController {
   @Autowired
   private AbstractStructuredLogger apLog;
 
+  private static final String BUYER_ID_ATTRIBUTE_KEY = "buyerId";
+
   /**
    * 注文情報を取得します。
    * 
@@ -72,7 +74,7 @@ public class OrderController {
   @GetMapping("{orderId}")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(BUYER_ID_ATTRIBUTE_KEY).toString();
 
     try {
       Order order = orderApplicationService.getOrder(orderId, buyerId);
@@ -107,7 +109,7 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(BUYER_ID_ATTRIBUTE_KEY).toString();
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
