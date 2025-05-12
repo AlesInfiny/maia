@@ -77,6 +77,8 @@ public class BasketItemController {
     for (BasketItemResponse item : basketDto.getBasketItems()) {
       item.setCatalogItem(this.getCatalogItemResponse(item.getCatalogItemId(), catalogItems));
     }
+    List<Long> deletedItemIds = basketItemsForUser.getDeletedItemIds();
+    basketDto.setDeletedItemIds(deletedItemIds);
     return ResponseEntity.ok().body(basketDto);
   }
 
