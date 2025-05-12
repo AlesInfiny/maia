@@ -30,7 +30,7 @@ type UnauthorizedErrorEventPayload = {
 /**
  * 想定外のエラーの発生を示すイベントのキー値です。
  * @example
- * eventBus.emit(unHandledErrorEventKey, { message: 'エラーが発生しました。' });
+ * const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
  */
 export const unhandledErrorEventKey: EventBusKey<UnhandledErrorEventPayload> =
   Symbol('unhandledErrorEventKey');
@@ -38,7 +38,7 @@ export const unhandledErrorEventKey: EventBusKey<UnhandledErrorEventPayload> =
 /**
  * 未認証エラーの発生を示すイベントのキー値です。
  * @example
- * eventBus.emit(unauthorizedErrorEventKey, { details: 'ログインしてください。' });
+ * const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
  */
 export const unauthorizedErrorEventKey: EventBusKey<UnauthorizedErrorEventPayload> =
   Symbol('unauthorizedErrorEventKey');
