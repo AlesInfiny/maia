@@ -14,4 +14,5 @@ import lombok.Getter;
 public class BasketDetail {
   Basket basket;
   List<CatalogItem> catalogItems;
+  List<Long> deletedItemIds;
 }

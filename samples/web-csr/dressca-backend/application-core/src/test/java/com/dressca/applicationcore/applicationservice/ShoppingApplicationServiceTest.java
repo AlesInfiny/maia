@@ -291,7 +291,7 @@ public class ShoppingApplicationServiceTest {
         new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L, false),
         new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L, false));
     List<Long> catalogItemIds = List.of(1L, 2L);
-    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(items);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds)).thenReturn(items);
 
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
@@ -299,7 +299,7 @@ public class ShoppingApplicationServiceTest {
     assertThat(actual.catalogItems.get(0).getId()).isEqualTo(1L);
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(2L);
     // モックが想定通り呼び出されていることの確認
-    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdInIncludingDeleted(catalogItemIds);
   }
 
   @ParameterizedTest
@@ -313,7 +313,7 @@ public class ShoppingApplicationServiceTest {
       assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
     }
     // モックが想定通り呼び出されていることの確認
-    verify(this.catalogRepository, times(0)).findByCatalogItemIdIn(any());
+    verify(this.catalogRepository, times(0)).findByCatalogItemIdInIncludingDeleted(any());
   }
 
   @Test

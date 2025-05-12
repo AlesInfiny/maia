@@ -5,6 +5,11 @@ ext {
     springdocOpenapiGradlePluginVersion = "1.9.0"
     spotbugsVersion = "6.1.7"
 
+    // -- TOOLS
+    jacocoToolVersion = "0.8.12"
+    checkstyleToolVersion = "10.21.4"
+    spotbugsToolVersion = "4.8.6"
+
     // -- DEPENDENCIES
     springBatchTestVersion = "5.2.2"
     mybatisSpringBootStarterVersion = "3.0.4"
@@ -38,6 +43,10 @@ ext {
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
 
         lombok : "org.projectlombok:lombok",
-        slf4j : "org.slf4j:slf4j-simple"
+        slf4j : "org.slf4j:slf4j-simple",
+
+        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
+        checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",
+        spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion"
     ]
 }
