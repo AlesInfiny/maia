@@ -53,12 +53,9 @@ public class ProblemDetailsFactory {
     }
 
     // 拡張メンバーとして exceptionId と exceptionValues を含める
-    Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
-      {
-        put(WebConstants.PROBLEM_DETAILS_EXCEPTION_ID, errorBuilder.getExceptionId());
-        put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
-      }
-    };
+    Map<String, Object> errorProperty = new LinkedHashMap<String, Object>();
+    errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_ID, errorBuilder.getExceptionId());
+    errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
 
     problemDetail.setProperties(errorProperty);
 

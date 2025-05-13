@@ -131,7 +131,7 @@ public class CatalogDomainServiceTest {
   void testExistCatalogBrand_正常系_指定したカタログブランドが存在する場合trueを返す() {
     // Arrange
     long targetId = 1L;
-    CatalogBrand catalogBrand = this.createCatalogBrand(targetId);
+    CatalogBrand catalogBrand = this.createCatalogBrand();
     when(this.catalogBrandRepository.findById(targetId)).thenReturn(catalogBrand);
 
     // Act
@@ -158,7 +158,7 @@ public class CatalogDomainServiceTest {
   void testExistCatalogCategory_正常系_指定したカタログカテゴリが存在する場合trueを返す() {
     // Arrange
     long targetId = 1L;
-    CatalogCategory catalogCategory = this.createCatalogCategory(targetId);
+    CatalogCategory catalogCategory = this.createCatalogCategory();
     when(this.catalogCategoryRepository.findById(targetId)).thenReturn(catalogCategory);
 
     // Act
@@ -250,13 +250,13 @@ public class CatalogDomainServiceTest {
     return catalogItem;
   }
 
-  private CatalogBrand createCatalogBrand(long id) {
+  private CatalogBrand createCatalogBrand() {
     String defaultName = "Name";
     CatalogBrand catalogBrand = new CatalogBrand(defaultName);
     return catalogBrand;
   }
 
-  private CatalogCategory createCatalogCategory(long id) {
+  private CatalogCategory createCatalogCategory() {
     String defaultName = "Name";
     CatalogCategory catalogCategory = new CatalogCategory(defaultName);
     return catalogCategory;

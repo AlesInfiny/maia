@@ -29,6 +29,18 @@ public interface CatalogRepository {
       int pageSize);
 
   /**
+   * 削除済みのカタログアイテムを含めて、ブランドIDとカテゴリIDに一致するカタログのリストを取得します。
+   * 
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @param page       ページ。
+   * @param pageSize   ページサイズ。
+   * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
+   */
+  List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId, int page,
+      int pageSize);
+
+  /**
    * カタログアイテム ID のリストに一致するカタログのリストを取得します。
    * 
    * @param catalogItemIds カタログアイテム ID 。
@@ -52,6 +64,15 @@ public interface CatalogRepository {
    * @return 条件に一致するカタログの件数。
    */
   int countByBrandIdAndCategoryId(long brandId, long categoryId);
+
+  /**
+   * 削除済みカタログアイテムを含めて、ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
+   * 
+   * @param brandId    ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @return 条件に一致するカタログの件数。
+   */
+  int countByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId);
 
   /**
    * バッチ向けにページングを考慮して全件データを取得します。

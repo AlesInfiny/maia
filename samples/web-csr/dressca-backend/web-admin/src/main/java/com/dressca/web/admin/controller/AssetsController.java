@@ -79,7 +79,7 @@ public class AssetsController {
    */
   private MediaType getContentType(Asset asset) {
     switch (asset.getAssetType()) {
-      case AssetTypes.png:
+      case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
         throw new IllegalArgumentException("指定したアセットのアセットタイプは Content-Type に変換できません。");

@@ -116,7 +116,7 @@ public class CatalogItemsController {
     List<GetCatalogItemResponse> items = this.service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize)
         .stream()
         .map(CatalogItemMapper::convert).collect(Collectors.toList());
-    int totalCount = this.service.countCatalogItems(brandId, categoryId);
+    int totalCount = this.service.countCatalogItemsForAdmin(brandId, categoryId);
 
     PagedListOfGetCatalogItemResponse returnValue = new PagedListOfGetCatalogItemResponse(items, totalCount, page,
         pageSize);
@@ -213,7 +213,8 @@ public class CatalogItemsController {
       this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
           putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
           putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
-          putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion());
+          putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion(),
+          putCatalogItemRequest.isDeleted());
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
