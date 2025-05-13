@@ -52,6 +52,12 @@ export interface GetCatalogItemResponse {
     'id': number;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetCatalogItemResponse
+     */
+    'isDeleted': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof GetCatalogItemResponse
      */
