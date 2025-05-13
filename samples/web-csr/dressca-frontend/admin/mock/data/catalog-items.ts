@@ -14,6 +14,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'C000000001',
     assetCodes: [],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'C000000002',
     assetCodes: ['4aed07c4ed5d45a5b97f11acedfbb601'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'C000000003',
     assetCodes: ['082b37439ecc44919626ba00fc60ee85'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 4,
@@ -48,6 +51,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'C000000004',
     assetCodes: ['f5f89954281747fa878129c29e1e0f83'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 5,
@@ -59,6 +63,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'B000000001',
     assetCodes: ['a8291ef2e8e14869a7048e272915f33c'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'B000000002',
     assetCodes: ['66237018c769478a90037bd877f5fba1'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 7,
@@ -82,6 +88,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'B000000003',
     assetCodes: ['d136d4c81b86478990984dcafbf08244'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 8,
@@ -93,6 +100,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'B000000004',
     assetCodes: ['47183f32f6584d7fb661f9216e11318b'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 9,
@@ -104,6 +112,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'B000000005',
     assetCodes: ['cf151206efd344e1b86854f4aa49fdef'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 10,
@@ -115,6 +124,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'S000000001',
     assetCodes: ['ab2e78eb7fe3408aadbf1e17a9945a8c'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
   {
     id: 11,
@@ -126,6 +136,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     productCode: 'S000000002',
     assetCodes: ['0e557e96bc054f10bc91c27405a83e85'],
     rowVersion: 'byte',
+    isDeleted: false,
   },
 ];
 
