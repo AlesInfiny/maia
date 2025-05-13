@@ -1,6 +1,5 @@
 import type { App } from 'vue';
 import { showToast } from '@/services/notification/notificationService';
-import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import {
@@ -50,11 +49,17 @@ export function createCustomErrorHandler(): CustomErrorHandler {
           if (handlingUnauthorizedError) {
             handlingUnauthorizedError();
           } else {
-            const routingStore = useRoutingStore();
-            routingStore.setRedirectFrom(
-              router.currentRoute.value.path.slice(1),
-            );
-            router.push({ name: 'authentication/login' });
+            // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
+            router.push({
+              name: 'authentication/login',
+              query: {
+                redirectName: router.currentRoute.value.name?.toString(),
+                redirectParams: JSON.stringify(
+                  router.currentRoute.value.params,
+                ),
+                redirectQuery: JSON.stringify(router.currentRoute.value.query),
+              },
+            });
             showToast('ログインしてください。');
           }
         } else if (error instanceof NetworkError) {
