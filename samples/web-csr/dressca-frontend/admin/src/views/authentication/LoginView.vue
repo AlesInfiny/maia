@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { validationItems } from '@/validation/validation-items';
 import { loginAsync } from '@/services/authentication/authentication-service';
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
-import { useRoutingStore } from '@/stores/routing/routing';
 import { showToast } from '@/services/notification/notificationService';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
@@ -17,8 +15,7 @@ const formSchema = yup.object({
 });
 
 const router = useRouter();
-const routingStore = useRoutingStore();
-const { getRedirectFrom } = storeToRefs(routingStore);
+const route = useRoute();
 const customErrorHandler = useCustomErrorHandler();
 
 const { meta } = useForm({ validationSchema: formSchema });
@@ -42,16 +39,17 @@ const login = async () => {
       showToast('ログインに失敗しました。');
     });
   }
-
   // 別の画面からリダイレクトしていない場合は、ホーム画面に遷移します。
-  if (!getRedirectFrom.value) {
+  if (!route.query.redirectName) {
     router.push({ name: 'home' });
-    return;
+  } else {
+    // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
+    router.push({
+      name: route.query.redirectName as string,
+      params: JSON.parse(route.query.redirectParams as string),
+      query: JSON.parse(route.query.redirectQuery as string),
+    });
   }
-
-  // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
-  router.push({ path: getRedirectFrom.value });
-  routingStore.deleteRedirectFrom();
 };
 </script>
 

@@ -7,8 +7,8 @@ import org.apache.commons.lang3.StringUtils;
  * アセットタイプを管理するクラスです。
  */
 public class AssetTypes {
-  public static final String png = "png";
-  private static final Set<String> supportedAssetTypes = Set.of(png);
+  public static final String PNG = "png";
+  private static final Set<String> supportedAssetTypes = Set.of(PNG);
 
   /**
    * アセットタイプが対応しているかどうかを判定します。

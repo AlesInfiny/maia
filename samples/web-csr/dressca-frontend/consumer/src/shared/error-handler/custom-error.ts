@@ -43,7 +43,7 @@ export class ServerError extends HttpError {
   }
 }
 
-interface ProblemDetails {
+export interface ProblemDetails {
   detail: string;
   exceptionId: string;
   exceptionValues: string[];

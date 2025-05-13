@@ -7,6 +7,9 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline';
 import { ref, watch } from 'vue';
+import { useEventBus } from '@vueuse/core';
+import { showToast } from '@/services/notification/notificationService';
+import { unhandledErrorEventKey } from '@/shared/events';
 
 const show = ref(false);
 
@@ -21,6 +24,18 @@ const close = () => {
   show.value = false;
   notificationStore.clearMessage();
 };
+
+const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
+unhandledErrorEventBus.on((payload) =>
+  showToast(
+    payload.message,
+    payload.id,
+    payload.title,
+    payload.detail,
+    payload.status,
+    payload.timeout,
+  ),
+);
 
 watch(message, (newMessage) => {
   if (newMessage !== '') {

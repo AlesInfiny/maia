@@ -1,6 +1,5 @@
 import type { Router } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { useRoutingStore } from '@/stores/routing/routing';
 
 /**
  * ナビゲーションガードです。
@@ -11,12 +10,16 @@ import { useRoutingStore } from '@/stores/routing/routing';
 export const authenticationGuard = (router: Router) => {
   router.beforeEach((to) => {
     const authenticationStore = useAuthenticationStore();
-    const routingStore = useRoutingStore();
 
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
-      const redirectFromPath: string = to.fullPath;
-      routingStore.setRedirectFrom(redirectFromPath);
-      return { name: 'authentication/login' };
+      return {
+        name: 'authentication/login',
+        query: {
+          redirectName: to.name?.toString(),
+          redirectParams: JSON.stringify(to.params),
+          redirectQuery: JSON.stringify(to.query),
+        },
+      };
     }
 
     return true;
