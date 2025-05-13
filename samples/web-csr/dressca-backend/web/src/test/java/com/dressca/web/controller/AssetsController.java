@@ -97,7 +97,7 @@ public class AssetsController {
    */
   private MediaType getContentType(Asset asset) {
     switch (asset.getAssetType()) {
-      case AssetTypes.png:
+      case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
         String errorMessage = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
