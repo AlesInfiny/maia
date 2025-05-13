@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * カタログアイテムアセットのドメインモデルです。
+ * カタログアイテムアセットのエンティティです。
  */
 @Data
 public class CatalogItemAsset {
