@@ -82,8 +82,7 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
 
   it('HTTPレスポンスなし_NetworkErrorをスロー', async () => {
     // Arrange
-    server.use(http.get('/test', () => undefined));
-    // 何も返さないと msw と jsdom のほうでエラーが出てしてしまうので、 代わりに undefined を返却します。
+    server.use(http.get('/test', () => HttpResponse.error())); // msw の API を使用してネットワークエラーを再現します。
 
     // Act
     const responsePromise = axiosInstance.get('/test');
