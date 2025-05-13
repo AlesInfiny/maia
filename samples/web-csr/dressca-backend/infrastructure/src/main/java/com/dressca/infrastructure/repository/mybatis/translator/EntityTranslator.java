@@ -86,7 +86,7 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ：{@link CatalogBrand}に変換します。
+   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ：{@link CatalogBrand} に変換します。
    * 
    * @param entity {@link CatalogBrandEntity} オブジェクト。
    * @return {@link CatalogBrand} オブジェクト。
@@ -98,7 +98,8 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link CatalogCategory} に変換します。
+   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link CatalogCategory}
+   * に変換します。
    * 
    * @param entity {@link CatalogCategoryEntity} オブジェクト。
    * @return {@link CatalogCategory} オブジェクト。
@@ -136,7 +137,8 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogItemAssetEntity} をエンティティ： {@link CatalogItemAsset} に変換します。
+   * テーブルエンティティ： {@link CatalogItemAssetEntity} をエンティティ： {@link CatalogItemAsset}
+   * に変換します。
    * 
    * @param entity {@link CatalogItemAssetEntity} オブジェクト。
    * @return {@link CatalogItemAsset} オブジェクト。
