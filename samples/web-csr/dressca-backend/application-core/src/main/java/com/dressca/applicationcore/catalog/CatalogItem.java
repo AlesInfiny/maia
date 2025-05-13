@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログアイテムの値オブジェクトです。
+ * カタログアイテムのエンティティです。
  */
 @Data
 @NoArgsConstructor

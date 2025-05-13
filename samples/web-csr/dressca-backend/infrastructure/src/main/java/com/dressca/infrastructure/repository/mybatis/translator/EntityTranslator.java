@@ -21,12 +21,12 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemE
 import org.springframework.beans.BeanUtils;
 
 /**
- * テーブルエンティティとエンティティ・値オブジェクトを相互に変換するクラスです。
+ * テーブルエンティティとエンティティを相互に変換するクラスです。
  */
 public class EntityTranslator {
 
   /**
-   * テーブルエンティティ： {@link AssetEntity} を値オブジェクト： {@link Asset} に変換します。
+   * テーブルエンティティ： {@link AssetEntity} をエンティティ： {@link Asset} に変換します。
    * 
    * @param entity {@link AssetEntity} オブジェクト。
    * @return {@link Asset} オブジェクト。
@@ -86,7 +86,7 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogBrandEntity} を値オブジェクト：{@link CatalogBrand}に変換します。
+   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ：{@link CatalogBrand}に変換します。
    * 
    * @param entity {@link CatalogBrandEntity} オブジェクト。
    * @return {@link CatalogBrand} オブジェクト。
@@ -98,7 +98,7 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogCategoryEntity} を値オブジェクト： {@link CatalogCategory} に変換します。
+   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link CatalogCategory} に変換します。
    * 
    * @param entity {@link CatalogCategoryEntity} オブジェクト。
    * @return {@link CatalogCategory} オブジェクト。
@@ -136,7 +136,7 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogItemAssetEntity} を値オブジェクト： {@link CatalogItemAsset} に変換します。
+   * テーブルエンティティ： {@link CatalogItemAssetEntity} をエンティティ： {@link CatalogItemAsset} に変換します。
    * 
    * @param entity {@link CatalogItemAssetEntity} オブジェクト。
    * @return {@link CatalogItemAsset} オブジェクト。

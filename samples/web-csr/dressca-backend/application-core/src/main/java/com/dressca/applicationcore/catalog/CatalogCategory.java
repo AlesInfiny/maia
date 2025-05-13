@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログカテゴリの値オブジェクトです。
+ * カタログカテゴリのエンティティです。
  */
 @Data
 @NoArgsConstructor
