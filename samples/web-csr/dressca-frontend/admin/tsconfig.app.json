@@ -5,6 +5,7 @@
     "src/**/*",
     "src/**/*.vue",
     "mock/**/*",
+    "vitest.setup.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
