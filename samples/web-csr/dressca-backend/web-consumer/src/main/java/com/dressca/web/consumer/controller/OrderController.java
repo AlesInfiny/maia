@@ -11,7 +11,7 @@ import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
-import com.dressca.web.consumer.constant.AttributeKeyConstants;
+import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.order.OrderResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;
 import com.dressca.web.log.ErrorMessageBuilder;
@@ -73,7 +73,7 @@ public class OrderController {
   @GetMapping("{orderId}")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(AttributeKeyConstants.BUYER_ID_ATTRIBUTE_KEY).toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
       Order order = orderApplicationService.getOrder(orderId, buyerId);
@@ -108,7 +108,7 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(AttributeKeyConstants.BUYER_ID_ATTRIBUTE_KEY).toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);

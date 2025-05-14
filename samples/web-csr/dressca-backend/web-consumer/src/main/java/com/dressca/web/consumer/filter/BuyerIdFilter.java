@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import com.dressca.web.consumer.constant.AttributeKeyConstants;
+import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.security.CookieSettings;
 
 /**
@@ -42,10 +42,10 @@ public class BuyerIdFilter implements Filter {
     if (StringUtils.isBlank(buyerId)) {
       buyerId = UUID.randomUUID().toString();
     }
-    request.setAttribute(AttributeKeyConstants.BUYER_ID_ATTRIBUTE_KEY, buyerId);
+    request.setAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID, buyerId);
 
     chain.doFilter(request, response);
-    buyerId = request.getAttribute(AttributeKeyConstants.BUYER_ID_ATTRIBUTE_KEY).toString();
+    buyerId = request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId)
         .path("/")
         .httpOnly(cookieSettings.isHttpOnly())
