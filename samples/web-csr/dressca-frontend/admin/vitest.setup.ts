@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, afterEach, afterAll } from 'vitest';
+import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
 import { server } from './mock/node';
 
 /*
@@ -14,6 +14,7 @@ beforeEach(() => {});
 
 afterEach(() => {
   server.resetHandlers();
+  vi.restoreAllMocks();
 });
 
 afterAll(() => {

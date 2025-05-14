@@ -5,6 +5,7 @@ import {
   NetworkError,
   ServerError,
   UnauthorizedError,
+  UnknownError,
 } from '@/shared/error-handler/custom-error';
 
 /** api-client の共通の Configuration があればここに定義します。 */
@@ -34,10 +35,9 @@ axiosInstance.interceptors.response.use(
       if (error.response.status === HttpStatusCode.Unauthorized) {
         return Promise.reject(new UnauthorizedError(error.message, error));
       }
-
       return Promise.reject(new HttpError(error.message, error));
     }
-    return Promise.reject(error);
+    return Promise.reject(new UnknownError('Unknown Error', error));
   },
 );
 
@@ -71,4 +71,5 @@ export {
   catalogCategoriesApi,
   catalogItemsApi,
   ordersApi,
+  axiosInstance,
 };

@@ -7,6 +7,7 @@ import {
   NotFoundError,
   ServerError,
   UnauthorizedError,
+  UnknownError,
 } from '@/shared/error-handler/custom-error';
 
 /** api-client の共通の Configuration があればここに定義します。 */
@@ -48,7 +49,7 @@ axiosInstance.interceptors.response.use(
       }
       return Promise.reject(new HttpError(error.message, error));
     }
-    return Promise.reject(error);
+    return Promise.reject(new UnknownError('Unknown Error', error));
   },
 );
 
