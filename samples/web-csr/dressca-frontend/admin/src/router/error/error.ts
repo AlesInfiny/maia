@@ -10,4 +10,10 @@ export const errorRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/error/ErrorView.vue'),
     meta: { requiresAuth: false },
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/error/NotFoundView.vue'),
+    meta: { requiresAuth: true },
+  },
 ];
