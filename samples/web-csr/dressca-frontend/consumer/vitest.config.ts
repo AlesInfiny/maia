@@ -11,6 +11,7 @@ export default defineConfig((configEnv) =>
         environment: 'jsdom',
         exclude: [...configDefaults.exclude, 'e2e/*'],
         root: fileURLToPath(new URL('./', import.meta.url)),
+        setupFiles: ['./vitest.setup.ts'],
       },
     }),
   ),
