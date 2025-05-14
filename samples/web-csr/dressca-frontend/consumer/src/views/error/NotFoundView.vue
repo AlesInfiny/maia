@@ -1,9 +1,15 @@
+<script setup lang="ts">
+import { i18n } from '@/locales/i18n';
+
+const { t } = i18n.global;
+</script>
+
 <template>
   <div class="bg-white text-gray-800">
     <div class="flex justify-center">
       <div class="bg-white p-8">
         <p class="mb-4 text-2xl font-medium">
-          ご指定のページが見つかりませんでした。
+          {{ t('pageNotFound') }}
         </p>
         <p class="mb-6 text-lg">
           アクセスしようとしたページは、削除・更新されたか、現在利用できない可能性があります。<br />
