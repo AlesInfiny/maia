@@ -8,7 +8,8 @@
 		"tableformatter.common.centerAlignedHeader": false,
 		"markdownlint.customRules": [
             "./custom-lint-rules/requires-title-and-description.js"
-        ]
+		],
+		"java.compile.nullAnalysis.mode": "automatic"
 	},
 	"extensions": {
     "recommendations": [
