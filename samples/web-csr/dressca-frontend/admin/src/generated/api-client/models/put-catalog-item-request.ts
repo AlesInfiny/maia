@@ -40,6 +40,12 @@ export interface PutCatalogItemRequest {
     'description': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof PutCatalogItemRequest
+     */
+    'isDeleted': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof PutCatalogItemRequest
      */

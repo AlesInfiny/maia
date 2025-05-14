@@ -37,16 +37,16 @@ public class CatalogItemWriterConf {
     }
     writer.setResource(outputResource);
     writer.setAppendAllowed(true);
-    writer.setLineAggregator(new DelimitedLineAggregator<CatalogItem>() {
-      {
-        setDelimiter(",");
-        setFieldExtractor(new BeanWrapperFieldExtractor<CatalogItem>() {
-          {
-            setNames(new String[] { "name", "price", "productCode" });
-          }
-        });
-      }
-    });
+
+    BeanWrapperFieldExtractor<CatalogItem> fieldExtractor = new BeanWrapperFieldExtractor<>();
+    fieldExtractor.setNames(new String[] { "name", "price", "productCode" });
+
+    DelimitedLineAggregator<CatalogItem> lineAggregator = new DelimitedLineAggregator<>();
+    lineAggregator.setDelimiter(",");
+    lineAggregator.setFieldExtractor(fieldExtractor);
+
+    writer.setLineAggregator(lineAggregator);
+
     return writer;
   }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログブランドのドメインモデルです。
+ * カタログブランドのエンティティです。
  * カタログアイテムの製造元や企画元に基づいて定義されるブランドを表現します。
  */
 @Data
