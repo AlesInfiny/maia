@@ -7,6 +7,7 @@ import {
   NotFoundError,
   ServerError,
   UnauthorizedError,
+  UnknownError,
 } from '@/shared/error-handler/custom-error';
 
 /** api-client の共通の Configuration があればここに定義します。 */
@@ -30,25 +31,23 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (axios.isAxiosError(error)) {
       if (!error.response) {
-        return Promise.reject(new NetworkError('Network Error', error));
+        return Promise.reject(new NetworkError(error.message, error));
       }
       if (error.response.status === HttpStatusCode.InternalServerError) {
-        return Promise.reject(new ServerError('Server Error', error));
+        return Promise.reject(new ServerError(error.message, error));
       }
       if (error.response.status === HttpStatusCode.Unauthorized) {
-        return Promise.reject(
-          new UnauthorizedError('Unauthorized Error', error),
-        );
+        return Promise.reject(new UnauthorizedError(error.message, error));
       }
       if (error.response.status === HttpStatusCode.NotFound) {
-        return Promise.reject(new NotFoundError('NotFound Error', error));
+        return Promise.reject(new NotFoundError(error.message, error));
       }
       if (error.response.status === HttpStatusCode.Conflict) {
-        return Promise.reject(new ConflictError('Conflict Error', error));
+        return Promise.reject(new ConflictError(error.message, error));
       }
       return Promise.reject(new HttpError(error.message, error));
     }
-    return Promise.reject(error);
+    return Promise.reject(new UnknownError('Unknown Error', error));
   },
 );
 

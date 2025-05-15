@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   HttpError,
   NetworkError,
@@ -6,10 +6,11 @@ import {
   ConflictError,
   NotFoundError,
   ServerError,
+  UnknownError,
 } from '@/shared/error-handler/custom-error';
 import { axiosInstance } from '@/api-client';
 import { http, HttpResponse } from 'msw';
-import { HttpStatusCode } from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 import { server } from '../../../mock/node';
 
 describe('axiosInstance_レスポンスインターセプター_HTTPステータスに応じた例外をスロー', () => {
@@ -102,5 +103,21 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
 
     // Assert
     await expect(responsePromise).rejects.toThrow(HttpError);
+  });
+  it('AxiosError以外_UnknownErrorをthrow', async () => {
+    // Arrange
+    server.use(
+      http.get('/test', () => {
+        throw new Error();
+      }),
+    );
+    // 多くの場合で Axios がうまく AxiosError に包み直してしまうので、検証のために強制的に挙動を差し替えます。
+    vi.spyOn(axios, 'isAxiosError').mockReturnValue(false);
+
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(UnknownError);
   });
 });

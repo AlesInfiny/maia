@@ -1,22 +1,16 @@
 import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
-import { server } from './mock/node';
 
 /*
  * Vitestの自動テスト実行時に、共通で実行したい処理を定義する設定ファイルです。
- * たとえば、モックのワーカープロセスの起動、初期化、終了を設定しています。
+ * たとえば、テストスイートの実行後にモック化した処理の実装を元に戻します。
  */
 
-beforeAll(() => {
-  server.listen();
-});
+beforeAll(() => {});
 
 beforeEach(() => {});
 
 afterEach(() => {
-  server.resetHandlers();
   vi.restoreAllMocks();
 });
 
-afterAll(() => {
-  server.close();
-});
+afterAll(() => {});
