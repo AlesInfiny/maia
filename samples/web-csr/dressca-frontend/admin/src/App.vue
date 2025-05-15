@@ -18,6 +18,8 @@ const { authenticationState, userName, userRoles } =
 const notificationStore = useNotificationStore();
 const { message, timeout } = storeToRefs(notificationStore);
 
+const injectedRouter = useRouter();
+
 /**
  * トーストの開閉状態です。
  */
@@ -34,9 +36,6 @@ const showLoginMenu = ref(false);
 const logout = async () => {
   await logoutAsync();
   showLoginMenu.value = !showLoginMenu.value;
-  const injectedRouter = useRouter();
-  // script setup の内部で実行するので、provide/inject が使えます。
-  // 直接 import したルーターと命名が被らないように変更しています。
   injectedRouter.push({ name: 'authentication/login' });
 };
 

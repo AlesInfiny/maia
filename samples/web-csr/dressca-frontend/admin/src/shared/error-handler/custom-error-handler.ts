@@ -54,6 +54,9 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             unauthorizedErrorEventBus.emit({
               details: 'ログインしてください。',
             });
+            unhandledErrorEventBus.emit({
+              message: 'ログインしてください。',
+            });
           }
         } else if (error instanceof NetworkError) {
           if (handlingNetworkError) {
