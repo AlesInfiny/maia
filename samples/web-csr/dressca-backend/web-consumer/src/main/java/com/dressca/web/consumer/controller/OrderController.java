@@ -70,7 +70,7 @@ public class OrderController {
       @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
+  public ResponseEntity<Object> getById(@PathVariable("orderId") long orderId,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
 
@@ -105,7 +105,7 @@ public class OrderController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
   @PostMapping
-  public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
+  public ResponseEntity<Object> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),

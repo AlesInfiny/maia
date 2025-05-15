@@ -102,7 +102,7 @@ public class BasketItemController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @PutMapping()
-  public ResponseEntity<?> putBasketItems(@RequestBody List<PutBasketItemsRequest> putBasketItems,
+  public ResponseEntity<Object> putBasketItems(@RequestBody List<PutBasketItemsRequest> putBasketItems,
       HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
@@ -168,7 +168,7 @@ public class BasketItemController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @PostMapping
-  public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
+  public ResponseEntity<Object> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
     try {
@@ -212,7 +212,7 @@ public class BasketItemController {
       @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム ID がありません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<Object> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
       HttpServletRequest req) {
     String buyerId = req.getAttribute("buyerId").toString();
 
