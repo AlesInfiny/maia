@@ -10,4 +10,7 @@ public class WebConstants {
 
   /** Exception ID に紐づく例外値。 */
   public static final String PROBLEM_DETAILS_EXCEPTION_VALUES = "exceptionValues";
+
+  /** 購入者 ID の属性キーです。 */
+  public static final String ATTRIBUTE_KEY_BUYER_ID = "buyerId";
 }
