@@ -7,7 +7,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 AlesInfiny Maia において定義しているヘルスチェックの実装例について説明します。
 
-ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../../overview/java-application-processing-system/health-check-necessity.md#health-check-necessity) を参照してください。
+ヘルスチェック機能の概要については、[ヘルスチェックの必要性](../../overview/java-application-processing-system/health-check-necessity.md) を参照してください。
 
 ## ヘルスチェック機能の 2 種類のプローブ {#health-check-probe}
 

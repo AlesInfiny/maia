@@ -7,7 +7,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 Java アプリケーションのメッセージ管理方針については、以下を参照してください。
 
-- [Java アプリケーションの処理方式 - メッセージ管理方針](../../../app-architecture/overview/java-application-processing-system/message-management-policy.md#message-management-policy)
+- [Java アプリケーションの処理方式 - メッセージ管理方針](../../../app-architecture/overview/java-application-processing-system/message-management-policy.md)
 
 フロントエンドアプリケーションにおけるメッセージとは、画面や帳票等に表示する固定文言、またはユーザーの画面操作の結果に応じて表示する動的文言を指します。
 
