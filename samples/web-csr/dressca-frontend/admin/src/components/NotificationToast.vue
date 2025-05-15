@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { watch } from 'vue';
+import { useEventBus } from '@vueuse/core';
+import { showToast } from '@/services/notification/notificationService';
+import { unhandledErrorEventKey } from '@/shared/events';
 
 /**
  * ユーザーにメッセージを通知するトーストです。
@@ -20,6 +23,9 @@ const timeout = defineModel('timeout', {
   required: true,
   default: 5000,
 });
+
+const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
+unhandledErrorEventBus.on((payload) => showToast(payload.message));
 
 const close = () => {
   show.value = false;
