@@ -9,6 +9,16 @@ export abstract class CustomErrorBase extends Error {
   }
 }
 
+/**
+ * 原因不明のエラーを表すカスタムエラーです。
+ */
+export class UnknownError extends CustomErrorBase {
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'UnknownError';
+  }
+}
+
 export class HttpError extends CustomErrorBase {
   response?: ProblemDetails | null;
 
