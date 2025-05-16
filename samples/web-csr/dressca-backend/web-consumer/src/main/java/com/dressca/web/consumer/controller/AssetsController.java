@@ -66,7 +66,7 @@ public class AssetsController {
       @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
   })
   @GetMapping("{assetCode}")
-  public ResponseEntity<?> get(
+  public ResponseEntity<Object> get(
       @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {
     try {
