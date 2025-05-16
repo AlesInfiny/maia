@@ -1,8 +1,11 @@
 package com.dressca.applicationcore.applicationservice;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +118,40 @@ public class ShoppingApplicationService {
   }
 
   /**
+   * 買い物かごから商品を削除します。
+   * 
+   * @param buyerId       購入者 ID 。
+   * @param catalogItemId 削除対象のカタログアイテムの ID 。
+   * @throws CatalogNotFoundException             存在しないカタログアイテムが指定された場合。
+   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合。
+   */
+  public void deleteItemFromBasket(String buyerId, long catalogItemId)
+      throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+
+    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_DELETE_ITEM_FROM_BASKET,
+        new Object[] { buyerId, catalogItemId }, Locale.getDefault()));
+
+    Basket basket = getOrCreateBasketForUser(buyerId);
+
+    if (!catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)) {
+      throw new CatalogNotFoundException();
+    }
+
+    if (!basket.isInCatalogItem(catalogItemId)) {
+      throw new CatalogItemInBasketNotFoundException(
+          Collections.singletonList(Long.valueOf(catalogItemId)),
+          basket.getId());
+    }
+    Optional<BasketItem> basketItem = basket.getItems().stream()
+        .filter(item -> item.getCatalogItemId() == catalogItemId)
+        .findFirst();
+
+    basketItem.ifPresent(item -> item.setQuantity(0));
+    basket.removeEmptyItems();
+    this.basketRepository.update(basket);
+  }
+
+  /**
    * 購入者 ID に対応する買い物かごと情報とその商品一覧を取得します。
    * 
    * @param buyerId 購入者 ID 。
@@ -127,12 +164,15 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<Long> catalogItemIds = basket.getItems().stream()
-        .map(basketItem -> basketItem.getCatalogItemId())
+        .map(BasketItem::getCatalogItemId)
         .collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+    List<CatalogItem> catalogItems = new ArrayList<CatalogItem>();
+    if (!catalogItemIds.isEmpty()) {
+      catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+    }
     List<Long> deletedItemIds = catalogItems.stream()
-        .filter(item -> item.isDeleted())
-        .map(item -> item.getId())
+        .filter(CatalogItem::isDeleted)
+        .map(CatalogItem::getId)
         .collect(Collectors.toList());
     return new BasketDetail(basket, catalogItems, deletedItemIds);
   }

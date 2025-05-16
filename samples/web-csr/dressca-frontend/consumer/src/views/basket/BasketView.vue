@@ -21,7 +21,8 @@ import { HttpError } from '@/shared/error-handler/custom-error';
 const showLoading = ref(true);
 
 const basketStore = useBasketStore();
-const { getBasket, getAddedItem, getAddedItemId } = storeToRefs(basketStore);
+const { getBasket, getAddedItem, getAddedItemId, getDeletedItemIds } =
+  storeToRefs(basketStore);
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
@@ -96,7 +97,12 @@ const remove = async (catalogItemId: number) => {
   }
 };
 
-const order = () => {
+const order = async () => {
+  await fetchBasket();
+  if (getDeletedItemIds.value.length !== 0) {
+    showToast(t('basketContainsUnavailableItem'));
+    return;
+  }
   router.push({ name: 'ordering/checkout' });
 };
 
@@ -104,6 +110,9 @@ onMounted(async () => {
   showLoading.value = true;
   try {
     await fetchBasket();
+    if (getDeletedItemIds.value.length !== 0) {
+      showToast(t('basketContainsUnavailableItem'));
+    }
   } catch (error) {
     customErrorHandler.handle(
       error,
@@ -177,9 +186,13 @@ onUnmounted(async () => {
           v-for="item in getBasket.basketItems"
           :key="item.catalogItemId"
           class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+          :class="{
+            'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
+          }"
         >
           <BasketItem
             :item="item"
+            :available="!getDeletedItemIds.includes(item.catalogItemId)"
             @update="update"
             @remove="remove"
           ></BasketItem>
@@ -221,8 +234,9 @@ onUnmounted(async () => {
         <span v-if="!isEmpty()">
           <button
             data-testId="orderButton"
-            class="w-36 mt-4 mr-4 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
+            class="w-36 mt-4 mr-4 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded disabled:bg-orange-300 disabled:opacity-50"
             type="submit"
+            :disabled="getDeletedItemIds.length > 0"
             @click="order()"
           >
             レジに進む

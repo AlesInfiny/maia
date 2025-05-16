@@ -11,6 +11,7 @@ export const useBasketStore = defineStore('basket', {
   state: () => ({
     basket: {} as BasketResponse,
     addedItemId: undefined as number | undefined,
+    deletedItemIds: [] as Array<number>,
   }),
   actions: {
     async add(catalogItemId: number) {
@@ -36,6 +37,7 @@ export const useBasketStore = defineStore('basket', {
     async fetch() {
       const response = await basketItemsApi.getBasketItems();
       this.basket = response.data;
+      this.deletedItemIds = response.data.deletedItemIds || [];
     },
     async deleteAddedItemId() {
       this.addedItemId = undefined;
@@ -52,6 +54,9 @@ export const useBasketStore = defineStore('basket', {
       return state.basket.basketItems?.find(
         (item) => item.catalogItemId === state.addedItemId,
       );
+    },
+    getDeletedItemIds(state): Array<number> {
+      return state.deletedItemIds;
     },
   },
 });
