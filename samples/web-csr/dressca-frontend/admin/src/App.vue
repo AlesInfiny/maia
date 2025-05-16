@@ -5,16 +5,20 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Bars3Icon } from '@heroicons/vue/24/solid';
 import { logoutAsync } from '@/services/authentication/authentication-service';
 import { useRouter } from 'vue-router';
+import { router } from '@/router';
 import { ref } from 'vue';
 import { useNotificationStore } from '@/stores/notification/notification';
+import { useEventBus } from '@vueuse/core';
+import { unauthorizedErrorEventKey } from './shared/events';
 
-const router = useRouter();
 const authenticationStore = useAuthenticationStore();
 const { authenticationState, userName, userRoles } =
   storeToRefs(authenticationStore);
 
 const notificationStore = useNotificationStore();
 const { message, timeout } = storeToRefs(notificationStore);
+
+const injectedRouter = useRouter();
 
 /**
  * トーストの開閉状態です。
@@ -32,8 +36,23 @@ const showLoginMenu = ref(false);
 const logout = async () => {
   await logoutAsync();
   showLoginMenu.value = !showLoginMenu.value;
-  router.push({ name: 'authentication/login' });
+  injectedRouter.push({ name: 'authentication/login' });
 };
+
+const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
+
+unauthorizedErrorEventBus.on(() => {
+  // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
+  // コンポーネント外に引き渡すので、 router を直接 import します。
+  router.push({
+    name: 'authentication/login',
+    query: {
+      redirectName: router.currentRoute.value.name?.toString(),
+      redirectParams: JSON.stringify(router.currentRoute.value.params),
+      redirectQuery: JSON.stringify(router.currentRoute.value.query),
+    },
+  });
+});
 </script>
 <template>
   <div class="z-20 fixed">
