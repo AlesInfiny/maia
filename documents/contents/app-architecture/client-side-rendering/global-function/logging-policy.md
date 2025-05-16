@@ -7,7 +7,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 Java アプリケーションのログ出力方針については、以下を参照してください。
 
-- [Java アプリケーションの処理方式 - ログ出力方針](../../../app-architecture/overview/java-application-processing-system/logging-policy.md#logging-policy)
+- [Java アプリケーションの処理方式 - ログ出力方針](../../../app-architecture/overview/java-application-processing-system/logging-policy.md)
 
 以降、本節では Vue.js のフロントエンドアプリケーションのログ出力方針を示します。
 

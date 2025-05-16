@@ -3,7 +3,7 @@ title: Java アプリケーションの 処理方式
 description: アプリケーションの形態によらず、 Java アプリケーションで 考慮すべき関心事について、実装方針を説明します。
 ---
 
-# ヘルスチェックの必要性 {#health-check-necessity}
+# ヘルスチェックの必要性 {#top}
 
 ## 目的・背景 {#health-check-background}
 

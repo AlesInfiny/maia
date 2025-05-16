@@ -5,7 +5,7 @@ description: アプリケーションの形態によらず、 Java アプリケ�
 
 <!-- cspell:ignore applicationcore systemcommon -->
 
-# メッセージ管理方針 {#message-management-policy}
+# メッセージ管理方針 {#top}
 
 フロントエンドアプリケーションのメッセージ管理方針については、以下を参照してください。
 
