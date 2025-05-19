@@ -37,9 +37,9 @@ export const useBasketStore = defineStore('basket', {
     async fetch() {
       const response = await basketItemsApi.getBasketItems();
       this.basket = response.data;
-      this.deletedItemIds = response.data.deletedItemIds || [];
+      this.deletedItemIds = response.data.deletedItemIds ?? [];
     },
-    async deleteAddedItemId() {
+    deleteAddedItemId() {
       this.addedItemId = undefined;
     },
   },
