@@ -5,10 +5,11 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Bars3Icon } from '@heroicons/vue/24/solid';
 import { logoutAsync } from '@/services/authentication/authentication-service';
 import { useRouter } from 'vue-router';
-import { router } from '@/router';
+import { router as importedRouter } from '@/router';
 import { ref } from 'vue';
 import { useNotificationStore } from '@/stores/notification/notification';
 import { useEventBus } from '@vueuse/core';
+import { showToast as showToastByService } from '@/services/notification/notificationService';
 import { unauthorizedErrorEventKey } from './shared/events';
 
 const authenticationStore = useAuthenticationStore();
@@ -18,7 +19,7 @@ const { authenticationState, userName, userRoles } =
 const notificationStore = useNotificationStore();
 const { message, timeout } = storeToRefs(notificationStore);
 
-const injectedRouter = useRouter();
+const router = useRouter();
 
 /**
  * トーストの開閉状態です。
@@ -36,22 +37,23 @@ const showLoginMenu = ref(false);
 const logout = async () => {
   await logoutAsync();
   showLoginMenu.value = !showLoginMenu.value;
-  injectedRouter.push({ name: 'authentication/login' });
+  router.push({ name: 'authentication/login' });
 };
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
 
-unauthorizedErrorEventBus.on(() => {
+unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
-  // コンポーネント外に引き渡すので、 router を直接 import します。
-  router.push({
+  // コンポーネント外に引き渡すので、 直接 import した router を使用します。
+  importedRouter.push({
     name: 'authentication/login',
     query: {
-      redirectName: router.currentRoute.value.name?.toString(),
-      redirectParams: JSON.stringify(router.currentRoute.value.params),
-      redirectQuery: JSON.stringify(router.currentRoute.value.query),
+      redirectName: importedRouter.currentRoute.value.name?.toString(),
+      redirectParams: JSON.stringify(importedRouter.currentRoute.value.params),
+      redirectQuery: JSON.stringify(importedRouter.currentRoute.value.query),
     },
   });
+  showToastByService(payload.details);
 });
 </script>
 <template>
