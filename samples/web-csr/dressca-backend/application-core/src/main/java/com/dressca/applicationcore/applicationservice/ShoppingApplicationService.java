@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,16 +136,13 @@ public class ShoppingApplicationService {
       throw new CatalogNotFoundException();
     }
 
-    if (!basket.isInCatalogItem(catalogItemId)) {
-      throw new CatalogItemInBasketNotFoundException(
-          Collections.singletonList(Long.valueOf(catalogItemId)),
-          basket.getId());
-    }
-    Optional<BasketItem> basketItem = basket.getItems().stream()
+    BasketItem basketItem = basket.getItems().stream()
         .filter(item -> item.getCatalogItemId() == catalogItemId)
-        .findFirst();
+        .findFirst()
+        .orElseThrow(() -> new CatalogItemInBasketNotFoundException(
+            Collections.singletonList(Long.valueOf(catalogItemId)), basket.getId()));
 
-    basketItem.ifPresent(item -> item.setQuantity(0));
+    basketItem.setQuantity(0);
     basket.removeEmptyItems();
     this.basketRepository.update(basket);
   }
