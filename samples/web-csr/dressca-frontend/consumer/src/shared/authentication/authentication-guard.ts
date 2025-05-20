@@ -1,11 +1,9 @@
 import type { Router, RouteRecordName } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { useRoutingStore } from '@/stores/routing/routing';
 
 export const authenticationGuard = (router: Router) => {
   router.beforeEach((to, from) => {
     const authenticationStore = useAuthenticationStore();
-    const routingStore = useRoutingStore();
 
     const orderingPaths: (RouteRecordName | null | undefined)[] = [
       'ordering/checkout',
@@ -16,9 +14,14 @@ export const authenticationGuard = (router: Router) => {
     }
 
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
-      const redirectFromPath: string = to.name?.toString() ?? '';
-      routingStore.setRedirectFrom(redirectFromPath);
-      return { name: 'authentication/login' };
+      return {
+        name: 'authentication/login',
+        query: {
+          redirectName: to.name?.toString(),
+          redirectParams: JSON.stringify(to.params),
+          redirectQuery: JSON.stringify(to.query),
+        },
+      };
     }
 
     return true;
