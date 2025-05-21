@@ -158,7 +158,7 @@ export const basketItems: BasketItemResponse[] = [
       id: deletedItemId,
       name: '削除済みアイテム',
       productCode: 'C999999999',
-      assetCodes: [],
+      assetCodes: ['05c0415d57b342e79a10cac9b9cb25a8'],
     },
     subTotal: 0,
   },

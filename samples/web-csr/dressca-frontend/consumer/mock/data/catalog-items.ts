@@ -127,7 +127,7 @@ export const catalogItems: CatalogItemResponse[] = [
     name: '削除済みアイテム',
     price: 1980,
     productCode: 'C999999999',
-    assetCodes: [],
+    assetCodes: ['05c0415d57b342e79a10cac9b9cb25a8'],
   },
 ];
 
