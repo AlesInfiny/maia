@@ -4,7 +4,7 @@ import type { BasketItemResponse } from '@/generated/api-client/models/basket-it
 import { i18n } from '@/locales/i18n';
 import BasketItem from '../basket/BasketItem.vue';
 
-function createBasketResponse(): BasketItemResponse {
+function createBasketItemResponse(): BasketItemResponse {
   return {
     catalogItemId: 10,
     quantity: 2,
@@ -20,7 +20,7 @@ describe('BasketItem', () => {
 
   it('小計が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketResponse();
+    const basketItemResponse = createBasketItemResponse();
     const available = true;
 
     // Act
@@ -35,7 +35,7 @@ describe('BasketItem', () => {
 
   it('単価が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketResponse();
+    const basketItemResponse = createBasketItemResponse();
     const available = true;
 
     // Act
@@ -50,7 +50,7 @@ describe('BasketItem', () => {
 
   it('販売中止中のメッセージが表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketResponse();
+    const basketItemResponse = createBasketItemResponse();
     const available = false;
 
     // Act
