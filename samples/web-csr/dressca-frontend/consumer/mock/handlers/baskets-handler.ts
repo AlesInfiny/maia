@@ -6,6 +6,7 @@ import type {
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client';
+import { deletedItemId } from '../data/catalog-items';
 import { basket, basketItems } from '../data/basket-items';
 
 /**
@@ -77,6 +78,12 @@ export const basketsHandlers = [
           if (typeof addBasketItem !== 'undefined') {
             addBasketItem.quantity = dto.addedQuantity ?? 0;
             basket.basketItems?.push(addBasketItem);
+
+            // 追加したアイテムがカタログから削除済みのアイテムだった場合、
+            // 買い物かごの削除済みアイテム ID リストに ID を追加します。
+            if (addBasketItem.catalogItemId === deletedItemId) {
+              basket.deletedItemIds?.push(addBasketItem.catalogItemId);
+            }
           }
         } else {
           target[0].quantity += dto.addedQuantity ?? 0;
@@ -122,6 +129,11 @@ export const basketsHandlers = [
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? []);
     const subTotals = basket.basketItems.map((item) => item.subTotal);
     basket.account = calcBasketAccount(subTotals);
+    // 削除したアイテムがカタログから削除済みのアイテムだった場合、
+    // 買い物かごの削除済みアイテム ID リストを空にします。
+    if (Number(catalogItemId) === deletedItemId) {
+      basket.deletedItemIds = [];
+    }
     return new HttpResponse(null, { status: HttpStatusCode.NoContent });
   }),
 ];

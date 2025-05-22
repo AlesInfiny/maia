@@ -14,6 +14,9 @@ public class MessageIdConstants {
   /** 買い物かごの商品の数量（顧客ID: {0}, 数量: {1}）を設定します。 */
   public static final String D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES = "shoppingApplicationServiceSetBasketItemsQuantities";
 
+  /** 顧客（顧客ID: {0}）の買い物かごから商品（カタログ商品ID: {1}）を削除します。 */
+  public static final String D_SHOPPING_DELETE_ITEM_FROM_BASKET = "shoppingApplicationServiceDeleteItemFromBasket";
+
   /** 顧客（顧客ID: {0}）の買い物かごと情報とその商品一覧を取得します。 */
   public static final String D_SHOPPING_GET_BASKET_ITEMS = "shoppingApplicationServiceGetBasketItems";
 
