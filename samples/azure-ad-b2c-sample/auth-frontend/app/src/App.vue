@@ -1,8 +1,11 @@
+<!-- eslint-disable no-alert -->
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { authenticationService } from '@/services/authentication/authentication-service';
 import { fetchServerTime } from '@/services/server-time/server-time-service';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import { fetchUser } from './services/user/user-service';
 import { useServerTimeStore } from './stores/server-time/server-time';
 import { useUserStore } from './stores/user/user';
@@ -14,18 +17,44 @@ const serverTimeStore = useServerTimeStore();
 const { getServerTime } = storeToRefs(serverTimeStore);
 const authenticationStore = useAuthenticationStore();
 const { isAuthenticated } = storeToRefs(authenticationStore);
+const customErrorHandler = useCustomErrorHandler();
 
 const signIn = async () => {
   await authenticationService.signInAzureADB2C();
-  await fetchUser();
+  try {
+    await fetchUser();
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      window.alert('ユーザー情報の取得に失敗しました。');
+    });
+  }
 };
 
 async function updateServerTime() {
-  await fetchServerTime();
+  try {
+    await fetchServerTime();
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      window.alert('サーバー時刻の更新に失敗しました。');
+    });
+  }
 }
+
 onMounted(async () => {
-  await fetchServerTime();
-  await fetchUser();
+  try {
+    await fetchServerTime();
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      window.alert('サーバー時刻の取得に失敗しました。');
+    });
+  }
+  try {
+    await fetchUser();
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      window.alert('ユーザー情報の取得に失敗しました。');
+    });
+  }
 });
 </script>
 
