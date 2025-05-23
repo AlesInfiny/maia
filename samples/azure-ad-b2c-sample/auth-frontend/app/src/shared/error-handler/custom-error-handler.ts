@@ -2,7 +2,6 @@
 /* eslint-disable no-alert */
 // このサンプルコードではファァイル全体に対して ESLint の設定を無効化しておきます。
 import {
-  CustomErrorBase,
   UnauthorizedError,
   NetworkError,
   ServerError,
