@@ -12,7 +12,7 @@ export const handlers = [
   http.get('/api/users', () => {
     return HttpResponse.json(
       { userId: 'mock-user-id-123' },
-      { status: HttpStatusCode.Ok },
+      { status: HttpStatusCode.InternalServerError },
     );
   }),
 ];
