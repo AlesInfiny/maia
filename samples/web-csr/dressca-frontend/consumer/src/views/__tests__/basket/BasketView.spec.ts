@@ -3,7 +3,6 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { router } from '@/router';
 import { i18n } from '@/locales/i18n';
 import { createTestingPinia } from '@pinia/testing';
-import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import BasketView from '@/views/basket/BasketView.vue';
 import type { BasketResponse } from '@/generated/api-client';
 import { ServerError } from '@/shared/error-handler/custom-error';
@@ -88,9 +87,8 @@ async function getWrapper() {
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
   });
   i18n.global.locale.value = 'ja'; // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
-  const customErrorHandler = createCustomErrorHandler();
   return mount(BasketView, {
-    global: { plugins: [pinia, router, i18n, customErrorHandler] },
+    global: { plugins: [pinia, router, i18n] },
   });
 }
 

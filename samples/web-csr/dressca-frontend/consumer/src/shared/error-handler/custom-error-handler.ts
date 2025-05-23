@@ -1,5 +1,3 @@
-import type { App } from 'vue';
-import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { useEventBus } from '@vueuse/core';
@@ -13,7 +11,6 @@ import {
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events';
 
 export interface CustomErrorHandler {
-  install(app: App): void;
   handle(
     error: unknown,
     callback: () => void,
@@ -24,12 +21,9 @@ export interface CustomErrorHandler {
   ): void;
 }
 
-export function createCustomErrorHandler(): CustomErrorHandler {
+export function useCustomErrorHandler(): CustomErrorHandler {
   const { t } = i18n.global;
   const customErrorHandler: CustomErrorHandler = {
-    install: (app: App) => {
-      app.provide(customErrorHandlerKey, customErrorHandler);
-    },
     handle: (
       error: unknown,
       callback: () => void,
