@@ -7,10 +7,10 @@ import { showToast } from '@/services/notification/notificationService';
 import type { OrderResponse } from '@/generated/api-client/models/order-response';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { HttpError } from '@/shared/error-handler/custom-error';
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
