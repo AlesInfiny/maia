@@ -7,7 +7,6 @@ import {
 } from '@/services/catalog/catalog-service';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { showToast } from '@/services/notification/notificationService';
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
 import type {
@@ -15,6 +14,7 @@ import type {
   GetCatalogCategoriesResponse,
   PagedListOfGetCatalogItemResponse,
 } from '@/generated/api-client';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();

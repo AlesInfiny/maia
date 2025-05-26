@@ -6,7 +6,6 @@ import {
   postCatalogItem,
 } from '@/services/catalog/catalog-service';
 import { showToast } from '@/services/notification/notificationService';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import NotificationModal from '@/components/NotificationModal.vue';
 import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
@@ -18,6 +17,7 @@ import type {
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 const router = useRouter();
 const customErrorHandler = useCustomErrorHandler();
