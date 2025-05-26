@@ -6,6 +6,7 @@ import { storeToRefs } from 'pinia';
 import { authenticationService } from '@/services/authentication/authentication-service';
 import { fetchServerTime } from '@/services/server-time/server-time-service';
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { BrowserAuthError } from '@azure/msal-browser';
 import { fetchUser } from './services/user/user-service';
 import { useServerTimeStore } from './stores/server-time/server-time';
 import { useUserStore } from './stores/user/user';
@@ -20,7 +21,23 @@ const { isAuthenticated } = storeToRefs(authenticationStore);
 const customErrorHandler = useCustomErrorHandler();
 
 const signIn = async () => {
-  await authenticationService.signInAzureADB2C();
+  try {
+    await authenticationService.signInAzureADB2C();
+  } catch (error) {
+    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthErrorが発生します。
+    if (error instanceof BrowserAuthError) {
+      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知アクションを撮りません。
+      customErrorHandler.handle(error, () => {
+        console.info('ユーザーが認証処理を中断しました。');
+        authenticationStore.updateAuthenticated(false);
+      });
+    } else {
+      customErrorHandler.handle(error, () => {
+        window.alert('AzureADB2C での認証に失敗しました。');
+      });
+    }
+  }
+
   try {
     await fetchUser();
   } catch (error) {
