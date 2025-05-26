@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-// このサンプルコードではファァイル全体に対して ESLint の設定を無効化しておきます。
+// このサンプルコードでは、ログ出力先としてコンソール、ユーザーへの通知先としてブラウザの標準ダイアログを使用するので、ファイル全体に対して ESLint の設定を無効化しておきます。
+// 実際のアプリケーションでは、適切なログ出力先や、通知先のコンポーネントを使用してください。
 import {
   UnauthorizedError,
   NetworkError,
