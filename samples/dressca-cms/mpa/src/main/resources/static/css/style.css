@@ -1,0 +1,27 @@
+/* style.css */
+
+/* フッター・ヘッダーの背景色を #009485 に固定 */
+.navbar, .footer {
+  background-color: #009485 !important;
+}
+
+/* ボタン（.btn-outline-light）のホバー時テキスト色を #009485 に固定 */
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+  color: #009485 !important;
+}
+
+/* サイドバーのホバー時テキスト色を #009485 に固定 */
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: #009485 !important;
+}
+
+/* パンくずリストのリンク色を #009485 に固定 */
+.breadcrumb .breadcrumb-item a {
+  color: #009485 !important;
+}
+.breadcrumb .breadcrumb-item.active {
+  color: #009485 !important;
+}
+

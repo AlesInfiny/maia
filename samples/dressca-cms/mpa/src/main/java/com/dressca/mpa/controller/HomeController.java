@@ -15,4 +15,9 @@ public class HomeController {
 	String settings() {
 		return "settings";
 	}
+
+	@GetMapping("/accordion") 
+	String accordion() {
+		return "accordion";
+	}
 }

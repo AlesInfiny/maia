@@ -1,6 +1,13 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
   <th:block layout:fragment="content">
     <h1>index ページ</h1>
+
+    <!-- パンくずリスト -->
+    <nav class="col-md-10 mt-3">
+      <th:block th:insert="~{fragments/breadcrumbs :: breadcrumbs}"></th:block>
+    </nav>
+
+    <br />
+
   </th:block>  
 </html>

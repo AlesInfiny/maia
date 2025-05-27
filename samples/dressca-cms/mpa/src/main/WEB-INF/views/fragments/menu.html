@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <th:block th:fragment="block-menu">
+    <nav class="nav flex-column pt-3 vh-100 text-dark">
+      <a class="nav-link link-dark active" aria-current="page" th:href="@{/index}">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+      <a class="nav-link link-dark" th:href="@{/accordion}">
+        <i class="bi bi-box-seam"></i> Accordion
+      </a>
+      <a class="nav-link link-dark" th:href="@{/users}">
+        <i class="bi bi-people"></i> Users
+      </a>
+      <a class="nav-link link-dark" th:href="@{/settings}">
+        <i class="bi bi-gear"></i> Settings
+      </a>
+    </nav>
+  </th:block>
+</html>
