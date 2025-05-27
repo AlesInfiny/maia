@@ -24,6 +24,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
     "@vee-validate/yup": "^4.15.0",
+    "@vueuse/core": "^13.1.0",
     "axios": "^1.8.4",
     "msw": "2.7.3",
     "pinia": "^3.0.1",

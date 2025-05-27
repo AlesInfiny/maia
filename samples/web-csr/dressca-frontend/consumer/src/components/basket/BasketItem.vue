@@ -6,9 +6,12 @@ import * as yup from 'yup';
 import { useField, useForm } from 'vee-validate';
 import { currencyHelper } from '@/shared/helpers/currencyHelper';
 import { assetHelper } from '@/shared/helpers/assetHelper';
+import { i18n } from '@/locales/i18n';
 
+const { t } = i18n.global;
 const props = defineProps<{
   item: BasketItemResponse;
+  available: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -55,6 +58,9 @@ const remove = () => {
       <div class="ml-2">
         <p>{{ item.catalogItem?.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
+        <p v-if="!available" class="mt-4 text-red-500 font-bold">
+          {{ t('itemUnavailable') }}
+        </p>
       </div>
     </div>
   </div>
@@ -71,6 +77,7 @@ const remove = () => {
               min="1"
               max="999"
               class="w-full px-4 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              :disabled="!available"
             />
           </label>
         </div>

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router';
 import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { signInAsync } from '@/services/authentication/authentication-service';
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
-import { useRoutingStore } from '@/stores/routing/routing';
 import { configureYup } from '@/config/yup.config';
 import { ValidationItems } from '@/validation/validation-items';
 
@@ -19,6 +17,7 @@ const formSchema = yup.object({
 });
 
 const router = useRouter();
+const route = useRoute();
 
 const { meta } = useForm({ validationSchema: formSchema });
 const { value: email, errorMessage: emailError } = useField<string>('email');
@@ -28,18 +27,19 @@ const isInvalid = () => {
   return !meta.value.valid;
 };
 
-const routingStore = useRoutingStore();
-const { getRedirectFrom } = storeToRefs(routingStore);
-
 const signIn = () => {
   signInAsync();
-  if (!getRedirectFrom.value) {
-    router.push('/');
-    return;
+  // 別の画面からリダイレクトしていない場合は、トップページに遷移します。
+  if (!route.query.redirectName) {
+    router.push({ name: 'catalog' });
+  } else {
+    // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
+    router.push({
+      name: route.query.redirectName as string,
+      params: JSON.parse(route.query.redirectParams as string),
+      query: JSON.parse(route.query.redirectQuery as string),
+    });
   }
-
-  router.push({ name: getRedirectFrom.value });
-  routingStore.deleteRedirectFrom();
 };
 </script>
 

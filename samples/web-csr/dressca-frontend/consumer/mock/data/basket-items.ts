@@ -2,6 +2,7 @@ import type {
   BasketResponse,
   BasketItemResponse,
 } from '@/generated/api-client';
+import { deletedItemId } from './catalog-items';
 
 export const basket: BasketResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -13,6 +14,7 @@ export const basket: BasketResponse = {
     totalPrice: 550,
   },
   basketItems: [],
+  deletedItemIds: [],
 };
 
 export const basketItems: BasketItemResponse[] = [
@@ -145,6 +147,18 @@ export const basketItems: BasketItemResponse[] = [
       name: 'メダリオン ストレートチップ ドレスシューズ',
       productCode: 'S000000002',
       assetCodes: ['0e557e96bc054f10bc91c27405a83e85'],
+    },
+    subTotal: 0,
+  },
+  {
+    catalogItemId: deletedItemId,
+    quantity: 0,
+    unitPrice: 1980,
+    catalogItem: {
+      id: deletedItemId,
+      name: '削除済みアイテム',
+      productCode: 'C999999999',
+      assetCodes: ['05c0415d57b342e79a10cac9b9cb25a8'],
     },
     subTotal: 0,
   },

@@ -218,7 +218,7 @@ public class BasketItemController {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
-      this.shoppingApplicationService.setQuantities(buyerId, Map.of(catalogItemId, 0));
+      this.shoppingApplicationService.deleteItemFromBasket(buyerId, catalogItemId);
     } catch (CatalogNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());

@@ -1,13 +1,13 @@
 import type { App } from 'vue';
-import { showToast } from '@/services/notification/notificationService';
-import { router } from '@/router';
 import { customErrorHandlerKey } from '@/shared/injection-symbols';
+import { useEventBus } from '@vueuse/core';
 import {
   CustomErrorBase,
   UnauthorizedError,
   NetworkError,
   ServerError,
 } from './custom-error';
+import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events';
 
 /**
  * カスタムエラーハンドラーを型付けするためのインターフェースです。
@@ -39,6 +39,8 @@ export function createCustomErrorHandler(): CustomErrorHandler {
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
     ) => {
+      const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
+      const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
       // ハンドリングできるエラーの場合はコールバックを実行
       if (error instanceof CustomErrorBase) {
         callback();
@@ -49,30 +51,25 @@ export function createCustomErrorHandler(): CustomErrorHandler {
           if (handlingUnauthorizedError) {
             handlingUnauthorizedError();
           } else {
-            // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
-            router.push({
-              name: 'authentication/login',
-              query: {
-                redirectName: router.currentRoute.value.name?.toString(),
-                redirectParams: JSON.stringify(
-                  router.currentRoute.value.params,
-                ),
-                redirectQuery: JSON.stringify(router.currentRoute.value.query),
-              },
+            unauthorizedErrorEventBus.emit({
+              details: 'ログインしてください。',
             });
-            showToast('ログインしてください。');
           }
         } else if (error instanceof NetworkError) {
           if (handlingNetworkError) {
             handlingNetworkError();
           } else {
-            showToast('ネットワークエラーが発生しました。');
+            unhandledErrorEventBus.emit({
+              message: 'ネットワークエラーが発生しました。',
+            });
           }
         } else if (error instanceof ServerError) {
           if (handlingServerError) {
             handlingServerError();
           } else {
-            showToast('サーバーエラーが発生しました。');
+            unhandledErrorEventBus.emit({
+              message: 'サーバーエラーが発生しました。',
+            });
           }
         }
       } else {
