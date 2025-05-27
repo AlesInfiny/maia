@@ -23,10 +23,10 @@ import type {
   GetCatalogCategoriesResponse,
   GetCatalogItemResponse,
 } from '@/generated/api-client';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
 import { Roles } from '@/shared/constants/roles';
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 const customErrorHandler = useCustomErrorHandler();
 const authenticationStore = useAuthenticationStore();

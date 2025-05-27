@@ -2,15 +2,13 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { router } from '@/router';
 import { createPinia, setActivePinia } from 'pinia';
-import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsView from '@/views/catalog/ItemsView.vue';
 
 async function getWrapper() {
   const pinia = createPinia();
   setActivePinia(pinia);
-  const customErrorHandler = createCustomErrorHandler();
   return mount(ItemsView, {
-    global: { plugins: [pinia, router, customErrorHandler] },
+    global: { plugins: [pinia, router] },
   });
 }
 describe('アイテム一覧が表示できる', () => {

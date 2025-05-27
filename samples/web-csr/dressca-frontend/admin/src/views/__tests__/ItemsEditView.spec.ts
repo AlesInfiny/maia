@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { createTestingPinia, type TestingPinia } from '@pinia/testing';
-import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import ItemsEditView from '@/views/catalog/ItemsEditView.vue';
 import { router } from '@/router';
 import { Roles } from '@/shared/constants/roles';
@@ -19,11 +18,10 @@ function CreateLoginState(userRoles: string[]) {
 }
 
 async function getWrapper(pinia: TestingPinia) {
-  const customErrorHandler = createCustomErrorHandler();
   router.push({ name: 'catalog/items/edit', params: { itemId: 1 } });
   await router.isReady();
   return mount(ItemsEditView, {
-    global: { plugins: [pinia, router, customErrorHandler] },
+    global: { plugins: [pinia, router] },
   });
 }
 

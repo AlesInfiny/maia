@@ -6,7 +6,7 @@ import { validationItems } from '@/validation/validation-items';
 import { loginAsync } from '@/services/authentication/authentication-service';
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
 import { showToast } from '@/services/notification/notificationService';
-import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 
 // フォーム固有のバリデーション定義
 const formSchema = yup.object({
