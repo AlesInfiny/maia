@@ -1,5 +1,3 @@
-import type { App } from 'vue';
-import { customErrorHandlerKey } from '@/shared/injection-symbols';
 import { i18n } from '@/locales/i18n';
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
 import { useEventBus } from '@vueuse/core';
@@ -13,7 +11,6 @@ import {
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events';
 
 export interface CustomErrorHandler {
-  install(app: App): void;
   handle(
     error: unknown,
     callback: () => void,
@@ -24,12 +21,9 @@ export interface CustomErrorHandler {
   ): void;
 }
 
-export function createCustomErrorHandler(): CustomErrorHandler {
+export function useCustomErrorHandler(): CustomErrorHandler {
   const { t } = i18n.global;
   const customErrorHandler: CustomErrorHandler = {
-    install: (app: App) => {
-      app.provide(customErrorHandlerKey, customErrorHandler);
-    },
     handle: (
       error: unknown,
       callback: () => void,
@@ -40,17 +34,17 @@ export function createCustomErrorHandler(): CustomErrorHandler {
     ) => {
       const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
       const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
-      // ハンドリングできるエラーの場合はコールバックを実行
+      // ハンドリングできるエラーの場合はコールバックを実行します。
       if (error instanceof CustomErrorBase) {
         callback();
 
         if (error instanceof HttpError) {
-          // 業務処理で発生した HttpError を処理する
+          // 業務処理で発生した HttpError を処理します。
           if (handlingHttpError) {
             handlingHttpError(error);
           }
           // エラーの種類によって共通処理を行う
-          // switch だと instanceof での判定ができないため if 文で判定
+          // switch だと instanceof での判定ができないため if 文で判定します。
           if (error instanceof UnauthorizedError) {
             if (handlingUnauthorizedError) {
               handlingUnauthorizedError();
@@ -58,7 +52,8 @@ export function createCustomErrorHandler(): CustomErrorHandler {
               unauthorizedErrorEventBus.emit({
                 details: t('loginRequiredError'),
               });
-              if (!error.response) {
+              // ProblemDetail の構造に依存します。
+              if (!error.response?.exceptionId) {
                 unhandledErrorEventBus.emit({
                   message: t('loginRequiredError'),
                 });
@@ -81,7 +76,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
             if (handlingNetworkError) {
               handlingNetworkError();
             } else {
-              // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しない
+              // NetworkError ではエラーレスポンスが存在しないため ProblemDetails の処理は実施しません。
               unhandledErrorEventBus.emit({
                 message: t('networkError'),
               });
@@ -89,7 +84,8 @@ export function createCustomErrorHandler(): CustomErrorHandler {
           } else if (error instanceof ServerError) {
             if (handlingServerError) {
               handlingServerError();
-            } else if (!error.response) {
+              // ProblemDetail の構造に依存します。
+            } else if (!error.response?.exceptionId) {
               unhandledErrorEventBus.emit({
                 message: t('serverError'),
               });
@@ -110,7 +106,7 @@ export function createCustomErrorHandler(): CustomErrorHandler {
           }
         }
       } else {
-        // ハンドリングできないエラーの場合は上位にエラーを投げる
+        // ハンドリングできないエラーの場合は上位にエラーを再スローします。
         throw error;
       }
     },
