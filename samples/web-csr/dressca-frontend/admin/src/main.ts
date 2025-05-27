@@ -3,7 +3,6 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { authenticationGuard } from '@/shared/authentication/authentication-guard';
 import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
-import { createCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
 import { router } from './router';
 import App from './App.vue';
 
@@ -38,7 +37,6 @@ app.use(createPinia());
 app.use(router);
 
 app.use(globalErrorHandler);
-app.use(createCustomErrorHandler());
 
 authenticationGuard(router);
 
