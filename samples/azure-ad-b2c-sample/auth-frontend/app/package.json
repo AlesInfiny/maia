@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
+    "mock": "vite --mode mock",
     "build:prod": "run-p type-check build-only:prod --print-label",
     "build:dev": "run-p type-check build-only:dev --print-label",
     "build-only:prod": "vite build --mode prod",
@@ -22,6 +23,7 @@
     "@azure/msal-browser": "^4.9.1",
     "@heroicons/vue": "^2.2.0",
     "axios": "^1.8.4",
+    "msw": "^2.7.3",
     "pinia": "^3.0.1",
     "vue": "^3.5.13"
   },
@@ -49,5 +51,10 @@
     "vite": "^6.2.5",
     "vitest": "^3.1.1",
     "vue-tsc": "^2.2.8"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
