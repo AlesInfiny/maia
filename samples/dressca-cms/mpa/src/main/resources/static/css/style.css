@@ -5,9 +5,17 @@
   background-color: #009485 !important;
 }
 
-/* ボタン（.btn-outline-light）のホバー時テキスト色を #009485 に固定 */
+/* ボタン（.btn-outline-light）の通常状態で背景色と文字色を固定 */
+.btn-outline-light {
+  background-color: #009485 !important;
+  color: #ffffff !important;
+}
+
+/* ボタン（.btn-outline-light）のホバー時で背景色と文字色を固定 */
 .btn-outline-light:hover,
 .btn-outline-light:focus {
+  background-color: #ffffff !important;
+  border-color: #009485 !important;
   color: #009485 !important;
 }
 
@@ -23,5 +31,16 @@
 }
 .breadcrumb .breadcrumb-item.active {
   color: #009485 !important;
+}
+
+/* チェックボックスの選択時の色を #009485 に固定 */
+.form-check-input:checked, .form-check-input:checked:hover {
+  background-color: #009485 !important;
+  border-color: #009485 !important;
+}
+
+/* 対応ブラウザ向けのaccent-color設定 */
+.form-check-input {
+  accent-color: #009485;
 }
 

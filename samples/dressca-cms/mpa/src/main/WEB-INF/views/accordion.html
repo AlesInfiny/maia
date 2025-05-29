@@ -1,32 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
   <th:block layout:fragment="content">
-
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header" id="headingOne">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            アコーディオン 1
+            Accordion Item #1
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>強調文字列。</strong>これはテストです。
+            ここに最初のコンテンツを記述します。
           </div>
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            アコーディオン 2
+            Accordion Item #2
           </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>強調文字列</strong> これはテストです。
+            ここに２番目のコンテンツを記述します。
           </div>
         </div>
       </div>
     </div>
-
   </th:block>
 </html>
