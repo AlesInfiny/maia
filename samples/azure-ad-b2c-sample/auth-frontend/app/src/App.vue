@@ -1,5 +1,7 @@
 <!-- eslint-disable no-alert -->
 <!-- eslint-disable no-console -->
+<!--  このサンプルコードでは、ログ出力先としてコンソール、ユーザーへの通知先としてブラウザの標準ダイアログを使用するので、ファイル全体に対して ESLint の設定を無効化しておきます。
+実際のアプリケーションでは、適切なログ出力先や、通知先のコンポーネントを使用してください。-->
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -24,9 +26,9 @@ const signIn = async () => {
   try {
     await authenticationService.signInAzureADB2C();
   } catch (error) {
-    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthErrorが発生します。
+    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
-      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知アクションを撮りません。
+      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
       customErrorHandler.handle(error, () => {
         console.info('ユーザーが認証処理を中断しました。');
         authenticationStore.updateAuthenticated(false);
