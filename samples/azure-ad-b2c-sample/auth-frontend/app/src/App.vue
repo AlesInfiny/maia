@@ -78,15 +78,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header><h1>Azure AD B2C 認証サンプル</h1></header>
-  <div>
-    <span>現在時刻: {{ getServerTime }}</span>
-    <button type="submit" @click="updateServerTime()">更新</button>
-  </div>
-  <div>
-    <button v-if="!isAuthenticated" type="submit" @click="signIn()">
-      ログイン
-    </button>
-    <span v-if="isAuthenticated">ユーザーID: {{ getUserId }}</span>
-  </div>
+  <main>
+    <header><h1>Azure AD B2C 認証サンプル</h1></header>
+    <div>
+      <span>現在時刻: {{ getServerTime }}</span>
+      <button type="submit" @click="updateServerTime()">更新</button>
+    </div>
+    <div>
+      <button v-if="!isAuthenticated" type="submit" @click="signIn()">
+        ログイン
+      </button>
+      <span v-if="isAuthenticated">ユーザーID: {{ getUserId }}</span>
+    </div>
+  </main>
 </template>
