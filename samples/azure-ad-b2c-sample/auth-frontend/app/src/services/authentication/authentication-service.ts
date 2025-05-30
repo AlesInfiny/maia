@@ -1,7 +1,4 @@
-import {
-  BrowserAuthError,
-  InteractionRequiredAuthError,
-} from '@azure/msal-browser';
+import { InteractionRequiredAuthError } from '@azure/msal-browser';
 import {
   msalInstance,
   loginRequest,
@@ -14,18 +11,9 @@ msalInstance.initialize();
 export const authenticationService = {
   async signInAzureADB2C() {
     const authenticationStore = useAuthenticationStore();
-    try {
-      const response = await msalInstance.loginPopup(loginRequest);
-      msalInstance.setActiveAccount(response.account);
-      authenticationStore.updateAuthenticated(true);
-      return true;
-    } catch (error) {
-      if (error instanceof BrowserAuthError) {
-        authenticationStore.updateAuthenticated(false);
-        return false;
-      }
-      throw error;
-    }
+    const response = await msalInstance.loginPopup(loginRequest);
+    msalInstance.setActiveAccount(response.account);
+    authenticationStore.updateAuthenticated(true);
   },
 
   async isAuthenticated(): Promise<boolean> {

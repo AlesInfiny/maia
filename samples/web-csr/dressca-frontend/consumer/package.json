@@ -30,7 +30,7 @@
     "vee-validate": "^4.15.0",
     "vitest": "^3.1.1",
     "vue": "^3.5.13",
-    "vue-i18n": "^11.1.2",
+    "vue-i18n": "^11.1.5",
     "vue-router": "^4.5.0",
     "yup": "^1.6.1"
   },
@@ -45,7 +45,7 @@
     "@rushstack/eslint-patch": "^1.11.0",
     "@tsconfig/node20": "^20.1.5",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.15.24",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitejs/plugin-vue-jsx": "^4.1.2",
     "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
@@ -74,6 +74,6 @@
     "vue-tsc": "^2.2.8"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.39.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.41.1"
   }
 }
