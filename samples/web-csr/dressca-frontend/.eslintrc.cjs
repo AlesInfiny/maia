@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
+    'vue/no-v-for-template-key': 'off', // Vue 2系でのみ有益なルールなので、無効化しておきます。
   },
   overrides: [
     {
