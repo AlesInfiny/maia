@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <template v-if="hasItems">
+  <section v-if="hasItems">
     <div data-test="body" class="container">
       <div
         class="flex justify-center items-center"
@@ -128,5 +128,5 @@ onBeforeUnmount(() => {
         </template>
       </div>
     </div>
-  </template>
+  </section>
 </template>
