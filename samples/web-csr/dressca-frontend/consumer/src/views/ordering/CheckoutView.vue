@@ -71,103 +71,105 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container mx-auto my-4 max-w-4xl">
-    <span class="text-lg font-medium text-green-500">
-      {{ t('orderingCheckAndComplete') }}
-    </span>
-  </div>
-  <div class="container mx-auto my-4 max-w-4xl">
-    <div
-      class="mx-2 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-12 flex items-center"
-    >
-      <table
-        class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
-      >
-        <tbody>
-          <tr>
-            <td>税抜き合計</td>
-            <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}
-            </td>
-          </tr>
-          <tr>
-            <td>送料</td>
-            <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}
-            </td>
-          </tr>
-          <tr>
-            <td>消費税</td>
-            <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.consumptionTax) }}
-            </td>
-          </tr>
-          <tr>
-            <td>合計</td>
-            <td class="text-right text-xl font-bold text-red-500">
-              {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button
-        class="lg:col-end-3 mx-auto w-36 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
-        type="submit"
-        @click="checkout()"
-      >
-        注文を確定する
-      </button>
-      <table
-        class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border"
-      >
-        <tbody>
-          <tr>
-            <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
-            <td class="pl-2">{{ getAddress.fullName }}</td>
-          </tr>
-          <tr>
-            <td class="pl-2">{{ `〒${getAddress.postalCode}` }}</td>
-          </tr>
-          <tr>
-            <td class="pl-2">{{ getAddress.todofuken }}</td>
-          </tr>
-          <tr>
-            <td class="pl-2">{{ getAddress.shikuchoson }}</td>
-          </tr>
-          <tr>
-            <td class="pl-2">{{ getAddress.azanaAndOthers }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <main>
+    <div class="container mx-auto my-4 max-w-4xl">
+      <span class="text-lg font-medium text-green-500">
+        {{ t('orderingCheckAndComplete') }}
+      </span>
     </div>
-    <div class="mt-8 mx-2">
+    <div class="container mx-auto my-4 max-w-4xl">
       <div
-        v-for="item in getBasket.basketItems"
-        :key="item.catalogItemId"
-        class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+        class="mx-2 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-12 flex items-center"
       >
-        <div class="col-span-4 lg:col-span-5">
-          <div class="grid grid-cols-2">
-            <img
-              :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
-              :alt="item.catalogItem?.name"
-              class="h-[150px] pointer-events-none"
-            />
-            <div class="ml-2">
-              <p>{{ item.catalogItem?.name }}</p>
-              <p class="mt-4">
-                {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
-              </p>
-              <p class="mt-4">
-                {{ `数量: ${item.quantity}` }}
-              </p>
-              <p class="mt-4">
-                {{ toCurrencyJPY(item.subTotal) }}
-              </p>
+        <table
+          class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
+        >
+          <tbody>
+            <tr>
+              <td>税抜き合計</td>
+              <td class="text-right">
+                {{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}
+              </td>
+            </tr>
+            <tr>
+              <td>送料</td>
+              <td class="text-right">
+                {{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税</td>
+              <td class="text-right">
+                {{ toCurrencyJPY(getBasket.account?.consumptionTax) }}
+              </td>
+            </tr>
+            <tr>
+              <td>合計</td>
+              <td class="text-right text-xl font-bold text-red-500">
+                {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button
+          class="lg:col-end-3 mx-auto w-36 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
+          type="submit"
+          @click="checkout()"
+        >
+          注文を確定する
+        </button>
+        <table
+          class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border"
+        >
+          <tbody>
+            <tr>
+              <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
+              <td class="pl-2">{{ getAddress.fullName }}</td>
+            </tr>
+            <tr>
+              <td class="pl-2">{{ `〒${getAddress.postalCode}` }}</td>
+            </tr>
+            <tr>
+              <td class="pl-2">{{ getAddress.todofuken }}</td>
+            </tr>
+            <tr>
+              <td class="pl-2">{{ getAddress.shikuchoson }}</td>
+            </tr>
+            <tr>
+              <td class="pl-2">{{ getAddress.azanaAndOthers }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-8 mx-2">
+        <div
+          v-for="item in getBasket.basketItems"
+          :key="item.catalogItemId"
+          class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+        >
+          <div class="col-span-4 lg:col-span-5">
+            <div class="grid grid-cols-2">
+              <img
+                :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
+                :alt="item.catalogItem?.name"
+                class="h-[150px] pointer-events-none"
+              />
+              <div class="ml-2">
+                <p>{{ item.catalogItem?.name }}</p>
+                <p class="mt-4">
+                  {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
+                </p>
+                <p class="mt-4">
+                  {{ `数量: ${item.quantity}` }}
+                </p>
+                <p class="mt-4">
+                  {{ toCurrencyJPY(item.subTotal) }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
