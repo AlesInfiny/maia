@@ -4,7 +4,7 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 module.exports = {
   root: true,
   extends: [
-    'plugin:vue/vue3-recommended',
+    'plugin:vue/recommended',
     'eslint:recommended',
     '@vue/eslint-config-airbnb-with-typescript',
     '@vue/eslint-config-prettier',
@@ -12,6 +12,8 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
+    'vue/no-v-for-template-key': 'off', // Vue 3系で意味のないルールで、 eslint-plugin-vue v11 で廃止予定なので無効化しておきます。
+    'vue/no-v-model-argument': 'off', // Vue 3系で意味のないルールで、 eslint-plugin-vue v11 で廃止予定なので無効化しておきます。
   },
   overrides: [
     {

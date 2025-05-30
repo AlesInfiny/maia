@@ -128,109 +128,113 @@ onMounted(async () => {
 </script>
 
 <template>
-  <NotificationModal
-    :show="showAddNotice"
-    header="追加成功"
-    body="カタログアイテムを追加しました。"
-    @close="closeAddNotice"
-  ></NotificationModal>
-  <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
-  <div
-    v-if="!showLoading"
-    class="container mx-auto flex flex-col items-center justify-center gap-6"
-  >
-    <div class="p-8 text-5xl font-bold">カタログアイテム追加</div>
-    <form class="text-xl">
-      <div class="mb-4">
-        <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
-        <input
-          id="item-name"
-          v-model="itemName"
-          type="text"
-          name="item-name"
-          class="w-full border border-gray-300 px-4 py-2"
-        />
-        <p class="px-2 py-2 text-base text-red-800">{{ errors.itemName }}</p>
-      </div>
-      <div class="mb-4">
-        <label for="item-description" class="mb-2 block font-bold">説明</label>
-        <textarea
-          id="item-description"
-          v-model="itemDescription"
-          name="item-description"
-          class="w-full border border-gray-300 px-4 py-2"
-        ></textarea>
-        <p class="px-2 py-2 text-base text-red-800">
-          {{ errors.itemDescription }}
-        </p>
-      </div>
-      <div class="mb-4">
-        <label for="unit-price" class="mb-2 block font-bold">単価</label>
-        <input
-          id="unit-price"
-          v-model="price"
-          type="text"
-          name="unit-price"
-          class="w-full border border-gray-300 px-4 py-2"
-        />
-        <p class="px-2 py-2 text-base text-red-800">{{ errors.price }}</p>
-      </div>
-      <div class="mb-4">
-        <label for="product-code" class="mb-2 block font-bold"
-          >商品コード</label
-        >
-        <input
-          id="product-code"
-          v-model="productCode"
-          name="product-code"
-          class="w-full border border-gray-300 px-4 py-2"
-        />
-      </div>
-      <p class="px-2 py-2 text-base text-red-800">{{ errors.productCode }}</p>
-      <div class="mb-4">
-        <label for="category" class="mb-2 block font-bold">カテゴリ</label>
-        <select
-          id="category"
-          v-model="selectedCategoryId"
-          class="w-full border border-gray-300 px-4 py-2"
-        >
-          <option
-            v-for="category in catalogCategories.filter(
-              (category) => category.id !== 0,
-            )"
-            :key="category.id"
-            :value="category.id"
+  <main>
+    <NotificationModal
+      :show="showAddNotice"
+      header="追加成功"
+      body="カタログアイテムを追加しました。"
+      @close="closeAddNotice"
+    ></NotificationModal>
+    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
+    <div
+      v-if="!showLoading"
+      class="container mx-auto flex flex-col items-center justify-center gap-6"
+    >
+      <div class="p-8 text-5xl font-bold">カタログアイテム追加</div>
+      <form class="text-xl">
+        <div class="mb-4">
+          <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
+          <input
+            id="item-name"
+            v-model="itemName"
+            type="text"
+            name="item-name"
+            class="w-full border border-gray-300 px-4 py-2"
+          />
+          <p class="px-2 py-2 text-base text-red-800">{{ errors.itemName }}</p>
+        </div>
+        <div class="mb-4">
+          <label for="item-description" class="mb-2 block font-bold"
+            >説明</label
           >
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
+          <textarea
+            id="item-description"
+            v-model="itemDescription"
+            name="item-description"
+            class="w-full border border-gray-300 px-4 py-2"
+          ></textarea>
+          <p class="px-2 py-2 text-base text-red-800">
+            {{ errors.itemDescription }}
+          </p>
+        </div>
+        <div class="mb-4">
+          <label for="unit-price" class="mb-2 block font-bold">単価</label>
+          <input
+            id="unit-price"
+            v-model="price"
+            type="text"
+            name="unit-price"
+            class="w-full border border-gray-300 px-4 py-2"
+          />
+          <p class="px-2 py-2 text-base text-red-800">{{ errors.price }}</p>
+        </div>
+        <div class="mb-4">
+          <label for="product-code" class="mb-2 block font-bold"
+            >商品コード</label
+          >
+          <input
+            id="product-code"
+            v-model="productCode"
+            name="product-code"
+            class="w-full border border-gray-300 px-4 py-2"
+          />
+        </div>
+        <p class="px-2 py-2 text-base text-red-800">{{ errors.productCode }}</p>
+        <div class="mb-4">
+          <label for="category" class="mb-2 block font-bold">カテゴリ</label>
+          <select
+            id="category"
+            v-model="selectedCategoryId"
+            class="w-full border border-gray-300 px-4 py-2"
+          >
+            <option
+              v-for="category in catalogCategories.filter(
+                (category) => category.id !== 0,
+              )"
+              :key="category.id"
+              :value="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
 
-      <div class="mb-4">
-        <label for="brand" class="mb-2 block font-bold">ブランド</label>
-        <select
-          id="brand"
-          v-model.number="selectedBrandId"
-          name="brand"
-          class="w-full border border-gray-300 px-4 py-2"
-        >
-          <option
-            v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
-            :key="brand.id"
-            :value="brand.id"
+        <div class="mb-4">
+          <label for="brand" class="mb-2 block font-bold">ブランド</label>
+          <select
+            id="brand"
+            v-model.number="selectedBrandId"
+            name="brand"
+            class="w-full border border-gray-300 px-4 py-2"
           >
-            {{ brand.name }}
-          </option>
-        </select>
-      </div>
-      <button
-        type="button"
-        class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
-        :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
-        @click="AddItem()"
-      >
-        追加
-      </button>
-    </form>
-  </div>
+            <option
+              v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
+              :key="brand.id"
+              :value="brand.id"
+            >
+              {{ brand.name }}
+            </option>
+          </select>
+        </div>
+        <button
+          type="button"
+          class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
+          :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
+          @click="AddItem()"
+        >
+          追加
+        </button>
+      </form>
+    </div>
+  </main>
 </template>
