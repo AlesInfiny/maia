@@ -17,6 +17,9 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# openapi-generator が自動生成するドキュメント
+src/generated/**/docs/*.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
