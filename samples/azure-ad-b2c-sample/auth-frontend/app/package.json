@@ -20,7 +20,7 @@
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../auth-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
-    "@azure/msal-browser": "^4.12.0",
+    "@azure/msal-browser": "^4.13.0",
     "@heroicons/vue": "^2.2.0",
     "axios": "^1.8.4",
     "msw": "^2.8.7",
