@@ -7,9 +7,8 @@ gitignore: true
 globs:
   - "**/*.md"
 
-# markdownlint の除外対象を以下に記載する
+# md ファイル以外の markdownlint の除外対象を以下に記載する
 ignores:
   - "third-party-licenses/**"
   - "LICENSE"
   - "LICENSE-CODE"
-  - "samples/**/generated/**/docs/*.md"
