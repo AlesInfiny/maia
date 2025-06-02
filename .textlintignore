@@ -1,5 +1,9 @@
 # SpotBugsで自動生成されるテキストファイルをテスト対象から除外
 samples/**/spotbugs*.txt
 
+# openapi-generator で自動生成されるファイルをテスト対象から除外
+samples/**/generated/**/docs/*.md
+
 # third-party-licenses フォルダーはコピーしたファイルを配置するため、テスト対象から除外
 third-party-licenses/**
+
