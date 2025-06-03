@@ -8,7 +8,8 @@
     "type-check:app": "npm run type-check -w app",
     "build-only:dev:app": "npm run build-only:dev -w app",
     "build:prod:app": "npm run build:prod -w app",
-    "dev:app": "npm run dev -w app"
+    "dev:app": "npm run dev -w app",
+    "test:unit:app": "npm run test:unit -w app"
   },
   "workspaces": [
     "app"

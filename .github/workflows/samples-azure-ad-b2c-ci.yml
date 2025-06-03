@@ -65,6 +65,10 @@ jobs:
         name: アプリケーションのビルド
         run: npm run build-only:dev:app >> /var/tmp/build-result.txt 2>&1
 
+      - id: run-unit-tests
+        name: 単体テストの実行
+        run: npm run test:unit:app >> /var/tmp/unit-test-result.txt 2>&1
+
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
@@ -85,6 +89,13 @@ jobs:
         with:
           body: /var/tmp/build-result.txt
           header: 'ビルドの結果 :gear:'
+
+      - name: 単体テストの結果出力
+        if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/unit-test-result.txt
+          header: '単体テストの結果 :memo:'
 
   build-backend:
     name: 'バックエンドアプリケーションのビルド'
