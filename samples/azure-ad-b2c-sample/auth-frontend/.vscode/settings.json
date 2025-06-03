@@ -9,6 +9,9 @@
     "source.fixAll.stylelint": "explicit"
   },
 
+  // textlint の設定ファイルを指定
+  "textlint.ignorePath": "../../../.textlintignore",
+
   // Formatter を Prettier にする
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
