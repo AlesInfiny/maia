@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.20.2",
-    "@pinia/testing": "1.0.1",
+    "@pinia/testing": "1.0.2",
     "@rushstack/eslint-patch": "1.11.0",
     "@tsconfig/node20": "20.1.5",
     "@types/jsdom": "21.1.7",
