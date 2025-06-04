@@ -27,7 +27,7 @@
     "@vueuse/core": "13.3.0",
     "axios": "1.9.0",
     "msw": "2.9.0",
-    "pinia": "3.0.2",
+    "pinia": "3.0.3",
     "vee-validate": "4.15.0",
     "vitest": "3.2.0",
     "vue": "3.5.16",
