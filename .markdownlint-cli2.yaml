@@ -12,4 +12,4 @@ ignores:
   - "third-party-licenses/**"
   - "LICENSE"
   - "LICENSE-CODE"
-  - "samples/**/generated/**/docs/*.md"
+  - "**/src/generated/api-client/docs/*.md"
