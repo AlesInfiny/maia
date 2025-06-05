@@ -26,8 +26,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v22.14.0
-- Visual Studio Code 1.98.2
+- Node.js v22.16.0
+- Visual Studio Code 1.100.2
 
 ## サンプルの構成
 
@@ -134,11 +134,11 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-    - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
-    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
-    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
+  - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
+  - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
+  - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
 - フロントエンドアプリケーション
-    - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
+  - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
 
