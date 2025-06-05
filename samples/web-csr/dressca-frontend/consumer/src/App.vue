@@ -2,7 +2,6 @@
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
 import { storeToRefs } from 'pinia';
 import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { useRoutingStore } from '@/stores/routing/routing';
 import { router } from '@/router';
 import { useEventBus } from '@vueuse/core';
 import NotificationToast from './components/common/NotificationToast.vue';
@@ -14,9 +13,16 @@ const { isAuthenticated } = storeToRefs(authenticationStore);
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
 
 unauthorizedErrorEventBus.on(() => {
-  const routingStore = useRoutingStore();
-  routingStore.setRedirectFrom(router.currentRoute.value.path.slice(1));
-  router.push({ name: 'authentication/login' });
+  // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
+  // コンポーネント外に引き渡すので、 直接 import した router を使用します。
+  router.push({
+    name: 'authentication/login',
+    query: {
+      redirectName: router.currentRoute.value.name?.toString(),
+      redirectParams: JSON.stringify(router.currentRoute.value.params),
+      redirectQuery: JSON.stringify(router.currentRoute.value.query),
+    },
+  });
 });
 </script>
 

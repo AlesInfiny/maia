@@ -9,6 +9,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
+import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
 import com.dressca.web.consumer.controller.dto.baskets.BasketResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
@@ -68,7 +69,7 @@ public class BasketItemController {
       @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BasketResponse.class))) })
   @GetMapping
   public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
     Basket basket = basketItemsForUser.getBasket();
     List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
@@ -111,7 +112,7 @@ public class BasketItemController {
         .collect(Collectors.toMap(
             PutBasketItemsRequest::getCatalogItemId,
             PutBasketItemsRequest::getQuantity));
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
@@ -170,7 +171,7 @@ public class BasketItemController {
   @PostMapping
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     try {
       this.shoppingApplicationService.addItemToBasket(
           buyerId,
@@ -214,10 +215,10 @@ public class BasketItemController {
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute("buyerId").toString();
+    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
-      this.shoppingApplicationService.setQuantities(buyerId, Map.of(catalogItemId, 0));
+      this.shoppingApplicationService.deleteItemFromBasket(buyerId, catalogItemId);
     } catch (CatalogNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
           e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());

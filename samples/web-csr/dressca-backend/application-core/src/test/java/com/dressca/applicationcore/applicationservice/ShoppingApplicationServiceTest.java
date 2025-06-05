@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.applicationservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -266,6 +267,104 @@ public class ShoppingApplicationServiceTest {
       int newQuantity = 5;
       Map<Long, Integer> quantities = Map.of(catalogItemIds.get(0), newQuantity);
       service.setQuantities(buyerId, quantities);
+      fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
+    } catch (CatalogItemInBasketNotFoundException e) {
+      // モックが想定通り呼び出されていることの確認
+      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.basketRepository, times(0)).update(any());
+    } catch (Exception e) {
+      fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
+    }
+  }
+
+  @Test
+  void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す()
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+
+    // テスト用の入力データ
+    String buyerId = UUID.randomUUID().toString();
+    long catalogItemId = 1L;
+
+    // モックの設定
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
+
+    // テストメソッドの実行
+    service.deleteItemFromBasket(buyerId, catalogItemId);
+
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.basketRepository, times(1)).update(basket);
+  }
+
+  @Test
+  void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている()
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+
+    // テスト用の入力データ
+    String buyerId = UUID.randomUUID().toString();
+    long catalogItemId = 1L;
+
+    // モックの設定
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
+
+    // テストメソッドの実行
+    service.deleteItemFromBasket(buyerId, catalogItemId);
+
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
+    verify(this.basketRepository, times(1)).update(captor.capture());
+    Basket argBasket = captor.getValue();
+    assertEquals(0, argBasket.getItems().size());
+  }
+
+  @Test
+  void testDeleteItemFromBasket_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
+    // テスト用の入力データ
+    String buyerId = UUID.randomUUID().toString();
+    long catalogItemId = 1L;
+
+    // モックの設定
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(false);
+
+    try {
+      service.deleteItemFromBasket(buyerId, catalogItemId);
+      fail("CatalogNotFoundException が発生しなければ失敗");
+    } catch (CatalogNotFoundException e) {
+      // モックが想定通り呼び出されていることの確認
+      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.basketRepository, times(0)).update(any());
+    } catch (Exception e) {
+      fail("CatalogNotFoundException が発生しなければ失敗");
+    }
+  }
+
+  @Test
+  void testDeleteItemFromBasket_異常系_買い物かごに入っていない商品が指定された場合は例外が発生する() {
+    // テスト用の入力データ
+    String buyerId = UUID.randomUUID().toString();
+    long catalogItemId = 1L;
+
+    // モックの設定
+    Long basketId = 1L;
+    Basket basket = new Basket(basketId, buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
+
+    try {
+      // テストメソッドの実行
+      service.deleteItemFromBasket(buyerId, catalogItemId);
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     } catch (CatalogItemInBasketNotFoundException e) {
       // モックが想定通り呼び出されていることの確認

@@ -31,8 +31,8 @@ public class Account {
    */
   public BigDecimal getDeliveryCharge() {
     int deliveryCharge = 0;
-    if (this.accountItems.size() >= 1
-        && this.getItemTotalPrice().compareTo(BigDecimal.valueOf(5000)) == -1) {
+    if (!this.accountItems.isEmpty()
+        && this.getItemTotalPrice().compareTo(BigDecimal.valueOf(5000)) < 0) {
       deliveryCharge = 500;
     }
     return BigDecimal.valueOf(deliveryCharge);

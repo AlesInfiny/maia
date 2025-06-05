@@ -3,6 +3,9 @@ import type {
   PagedListOfCatalogItemResponse,
 } from '@/generated/api-client';
 
+/** カタログから削除済みのアイテムの ID です。 */
+export const deletedItemId: number = 99;
+
 export const catalogItems: CatalogItemResponse[] = [
   {
     id: 1,
@@ -115,6 +118,16 @@ export const catalogItems: CatalogItemResponse[] = [
     price: 23800,
     productCode: 'S000000002',
     assetCodes: ['0e557e96bc054f10bc91c27405a83e85'],
+  },
+  {
+    id: deletedItemId,
+    catalogCategoryId: 1,
+    catalogBrandId: 1,
+    description: '削除済みアイテムの動作確認用アイテムです。',
+    name: '削除済みアイテム',
+    price: 1980,
+    productCode: 'C999999999',
+    assetCodes: ['05c0415d57b342e79a10cac9b9cb25a8'],
   },
 ];
 

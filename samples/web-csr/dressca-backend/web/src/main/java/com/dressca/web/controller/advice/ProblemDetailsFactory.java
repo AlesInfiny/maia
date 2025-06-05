@@ -47,8 +47,7 @@ public class ProblemDetailsFactory {
       activeProfiles = env.getDefaultProfiles();
     }
 
-    if (Arrays.stream(activeProfiles).filter(profile -> Objects.equals(profile, "local"))
-        .findFirst().isPresent()) {
+    if (Arrays.stream(activeProfiles).anyMatch(profile -> Objects.equals(profile, "local"))) {
       problemDetail.setDetail(errorBuilder.createLogMessageStackTrace());
     }
 
