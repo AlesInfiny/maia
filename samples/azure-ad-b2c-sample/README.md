@@ -134,11 +134,11 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-  - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
-  - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
-  - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
+    - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
+    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
+    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
 - フロントエンドアプリケーション
-  - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
+    - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
 
