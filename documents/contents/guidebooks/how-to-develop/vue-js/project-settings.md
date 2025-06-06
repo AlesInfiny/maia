@@ -238,7 +238,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。
     `vitest.config.ts` でも defineConfig を関数に変更しないと型推論が上手くできないためです。
-    `vitest.config.ts` の設定については [Managing Vitest config file :material-open-in-new:](https://vitest.dev/config/file.html){ target=_blank } を参照してください。
+    `vitest.config.ts` の設定については [Managing Vitest config file :material-open-in-new:](https://vitest.dev/config/){ target=_blank } を参照してください。
 
     ??? note "vitest.config.ts の実装例"
 
