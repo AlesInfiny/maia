@@ -2,11 +2,5 @@
 $primary:   #009485;
 $secondary: #6c757d;
 
-// 3) $theme-colors マップに渡す
-$theme-colors: (
-  "primary":   $primary,
-  "secondary": $secondary
-);
-
 // 3. Bootstrap 本体を読み込む
 @import "../bootstrap/node_modules/bootstrap/scss/bootstrap";

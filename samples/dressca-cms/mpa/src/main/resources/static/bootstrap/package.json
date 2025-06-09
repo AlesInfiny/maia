@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-sass": "npx node-sass ../scss/style.scss ../css/style.css"
+    "build-sass": "npx sass ../scss/style.scss ../css/style.css"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,6 @@
   "dependencies": {
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
-    "node-sass": "^9.0.0"
+    "sass": "^1.89.1"
   }
 }
