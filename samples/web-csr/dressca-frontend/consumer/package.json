@@ -27,7 +27,7 @@
     "axios": "1.9.0",
     "msw": "2.9.0",
     "pinia": "3.0.2",
-    "vee-validate": "4.15.0",
+    "vee-validate": "4.15.1",
     "vitest": "3.2.0",
     "vue": "3.5.16",
     "vue-i18n": "11.1.5",
