@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
+  <th:block layout:fragment="content">
+    <div class="container mt-4">
+      <h2>サンプルテーブル</h2>
+      <table class="table table-hover table-bordered">
+        <thead class="table-primary">
+          <tr>
+            <th>#</th>
+            <th>名前</th>
+            <th>メール</th>
+            <th>役割</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>山田 太郎</td>
+            <td>taro@example.com</td>
+            <td>管理者</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>佐藤 花子</td>
+            <td>hanako@example.com</td>
+            <td>一般</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </th:block>
+</html>

@@ -1,15 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
   <th:block layout:fragment="content">
     <section class="login-section d-flex justify-content-center align-items-center vh-100">
-      <form th:action="@{/login}" method="post" class="p-4 border rounded bg-white" style="width:100%; max-width:400px;">
+      <form th:action="@{/login}" th:object="${loginForm}" method="post" class="p-4 border rounded bg-white" style="width:100%; max-width:400px;">
         <h2 class="mb-4 text-center">ログイン</h2>
         <div class="mb-3">
           <label for="username" class="form-label">ユーザー名</label>
-          <input type="text" id="username" name="username" class="form-control" placeholder="Username" required />
+          <input type="text" id="username" th:field="*{username}" class="form-control" th:classappend="${#fields.hasErrors('username')} ? ' is-invalid'" placeholder="Username">
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small mt-1"></div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">パスワード</label>
-          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+          <input type="password" id="password" th:field="*{password}" class="form-control" th:classappend="${#fields.hasErrors('password')} ? ' is-invalid'" placeholder="Password">
+          <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger small mt-1"></div>
         </div>
         <button type="submit" class="btn btn-outline-primary w-100">ログイン</button>
       </form>
