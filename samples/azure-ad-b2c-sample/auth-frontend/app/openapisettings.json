@@ -1,0 +1,11 @@
+{
+  "inputSpec": "./../../auth-backend/api-docs/api-specification.json",
+  "generatorName": "typescript-axios",
+  "outputDir": "./src/generated/api-client",
+  "additionalProperties": {
+    "withSeparateModelsAndApi": "true",
+    "modelPackage": "models",
+    "apiPackage": "api",
+    "supportsES6": "true"
+  }
+}
