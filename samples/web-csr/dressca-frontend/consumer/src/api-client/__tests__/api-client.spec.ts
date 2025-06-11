@@ -18,10 +18,10 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     });
 
     // Act
-    const promise = axiosInstance.get('/test');
+    const responsePromise = axiosInstance.get('/test');
 
     // Assert
-    await expect(promise).rejects.toThrow(ServerError);
+    await expect(responsePromise).rejects.toThrow(ServerError);
   });
 
   it('HTTP401レスポンス_UnauthorizedErrorをスロー', async () => {
@@ -32,10 +32,10 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     });
 
     // Act
-    const promise = axiosInstance.get('/test');
+    const responsePromise = axiosInstance.get('/test');
 
     // Assert
-    await expect(promise).rejects.toThrow(UnauthorizedError);
+    await expect(responsePromise).rejects.toThrow(UnauthorizedError);
   });
 
   it('HTTPステータスコード未登録 _HttpErrorをスロー', async () => {
@@ -46,10 +46,10 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     });
 
     // Act
-    const promise = axiosInstance.get('/test');
+    const responsePromise = axiosInstance.get('/test');
 
     // Assert
-    await expect(promise).rejects.toThrow(HttpError);
+    await expect(responsePromise).rejects.toThrow(HttpError);
   });
 
   it('responseが存在しない_NetworkError をスロー', async () => {
@@ -60,10 +60,10 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     });
 
     // Act
-    const promise = axiosInstance.get('/test');
+    const responsePromise = axiosInstance.get('/test');
 
     // Assert
-    await expect(promise).rejects.toThrow(NetworkError);
+    await expect(responsePromise).rejects.toThrow(NetworkError);
   });
 
   it('AxiosError以外_UnknownErrorをthrow', async () => {

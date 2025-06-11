@@ -1,4 +1,3 @@
-// axios-instance.spec.ts
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { axiosInstance } from '@/api-client';
 import {
@@ -16,43 +15,59 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
   });
 
   it('HTTP500レスポンス_ServerErrorをスロー', async () => {
+    // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
       isAxiosError: true,
       response: { status: HttpStatusCode.InternalServerError },
     });
 
-    const promise = axiosInstance.get('/test');
-    await expect(promise).rejects.toThrow(ServerError);
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(ServerError);
   });
 
   it('HTTP401レスポンス_UnauthorizedErrorをスロー', async () => {
+    // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
       isAxiosError: true,
       response: { status: HttpStatusCode.Unauthorized },
     });
 
-    const promise = axiosInstance.get('/test');
-    await expect(promise).rejects.toThrow(UnauthorizedError);
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(UnauthorizedError);
   });
 
   it('HTTPステータスコード未登録 _HttpErrorをスロー', async () => {
+    // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
       isAxiosError: true,
       response: { status: 123 },
     });
 
-    const promise = axiosInstance.get('/test');
-    await expect(promise).rejects.toThrow(HttpError);
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(HttpError);
   });
 
   it('responseが存在しない_NetworkError をスロー', async () => {
+    // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
       isAxiosError: true,
       response: undefined,
     });
 
-    const promise = axiosInstance.get('/test');
-    await expect(promise).rejects.toThrow(NetworkError);
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(NetworkError);
   });
 
   it('AxiosError以外_UnknownErrorをthrow', async () => {
@@ -63,7 +78,10 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     // 多くの場合で Axios がうまく AxiosError に包み直してしまうので、検証のため強制的に挙動を差し替えます。
     vi.spyOn(axios, 'isAxiosError').mockReturnValue(false);
 
-    const promise = axiosInstance.get('/test');
-    await expect(promise).rejects.toThrow(UnknownError);
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(UnknownError);
   });
 });
