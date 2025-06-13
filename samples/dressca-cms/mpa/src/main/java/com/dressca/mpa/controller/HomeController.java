@@ -11,13 +11,13 @@ public class HomeController {
 		return "index";
 	}
 
-	@GetMapping("/settings")
-	String settings() {
-		return "settings";
-	}
-
 	@GetMapping("/accordion") 
 	String accordion() {
 		return "accordion";
+	}
+
+	@GetMapping("/basic")
+	String basic() {
+		return "basic";
 	}
 }

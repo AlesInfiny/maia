@@ -5,23 +5,26 @@
     <link rel="stylesheet" th:href="@{/bootstrap/node_modules/bootstrap-icons/font/bootstrap-icons.min.css}" />
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <!-- Body の一番初めに配置する -->
     <script th:src="@{/bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <th:block th:insert="~{fragments/header :: block-header}"></th:block>
-    <div class="container-fluid">
-      <div class="row">
-        <!-- 左サイドメニュー用ブロック -->
-        <nav class="col-md-2 bg-light sidebar">
-          <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
-        </nav>
-        
-        <!-- コンテンツ領域 -->
-        <main class="col-md-10">
-          <th:block layout:fragment="content"></th:block>
-        </main>
+    <main class="flex-grow-1 d-flex overflow-auto">
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <!-- 左サイドメニュー用ブロック -->
+          <nav class="col-md-2 bg-secondary sidebar overflow-auto">
+            <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
+          </nav>
+          <!-- コンテンツ領域 -->
+          <main class="col-md-10 py-3 overflow-auto">
+            <th:block layout:fragment="content"></th:block>
+          </main>
+        </div>
       </div>
-    </div>
-    <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </main>
+    <footer class="mt-auto">
+      <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </footer>
   </body>
 </html>
