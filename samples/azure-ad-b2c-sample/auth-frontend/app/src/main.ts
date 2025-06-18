@@ -14,6 +14,7 @@ if (import.meta.env.MODE === 'mock') {
   try {
     await enableMocking(); // ワーカーの起動を待ちます。
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('モック用のワーカープロセスの起動に失敗しました。', error);
   }
 }

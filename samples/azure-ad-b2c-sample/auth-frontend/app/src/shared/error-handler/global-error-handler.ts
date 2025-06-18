@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { App, ComponentPublicInstance } from 'vue';
 
 export const globalErrorHandler = {
