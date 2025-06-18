@@ -1,4 +1,3 @@
- 
 import {
   LogLevel,
   PublicClientApplication,

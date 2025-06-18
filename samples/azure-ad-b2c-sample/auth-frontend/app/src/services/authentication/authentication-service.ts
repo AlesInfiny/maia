@@ -41,7 +41,7 @@ export const authenticationService = {
           await msalInstance.acquireTokenPopup(tokenRequest);
         return tokenResponse.accessToken;
       }
-       
+
       console.error(error);
       throw error;
     }
