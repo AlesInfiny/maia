@@ -41,7 +41,7 @@ export const authenticationService = {
           await msalInstance.acquireTokenPopup(tokenRequest);
         return tokenResponse.accessToken;
       }
-      // eslint-disable-next-line no-console
+       
       console.error(error);
       throw error;
     }
