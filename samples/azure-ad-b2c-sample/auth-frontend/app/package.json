@@ -25,7 +25,7 @@
     "axios": "1.9.0",
     "msw": "2.9.0",
     "pinia": "3.0.2",
-    "vue": "3.5.16"
+    "vue": "3.5.17"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.20.2",
