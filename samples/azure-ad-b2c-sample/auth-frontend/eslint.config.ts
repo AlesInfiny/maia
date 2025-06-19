@@ -16,13 +16,18 @@ export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: {'no-console': 'warn','no-alert':'warn'}
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**','**/src/generated/**','**/mockServiceWorker.js']),
 
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommended,
+
+  {
+    name: 'app/additional-rules',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {'no-console': 'warn','no-alert':'warn'}
+  },
 
   {
     ...pluginVitest.configs.recommended,
