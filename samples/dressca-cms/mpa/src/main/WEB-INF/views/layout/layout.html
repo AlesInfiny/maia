@@ -13,11 +13,11 @@
       <div class="container-fluid h-100">
         <div class="row h-100">
           <!-- 左サイドメニュー用ブロック -->
-          <nav class="col-md-2 bg-secondary sidebar overflow-auto">
+          <nav class="col-md-2 bg-secondary sidebar overflow-auto py-3">
             <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
           </nav>
           <!-- コンテンツ領域 -->
-          <main class="col-md-10 py-3 overflow-auto">
+          <main class="col-md-10 overflow-auto py-3">
             <th:block layout:fragment="content"></th:block>
           </main>
         </div>
