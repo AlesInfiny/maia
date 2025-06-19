@@ -1,16 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <th:block th:fragment="block-menu">
     <nav class="nav flex-column pt-3 text-dark">
-      <a class="nav-link link-dark active" aria-current="page" th:href="@{/index}">
-        <i class="bi bi-speedometer2"></i> Dashboard
+      <a class="nav-link link-primary text-dark d-flex justify-content-between align-items-center"
+         href="#submenu-dashboard"
+         data-bs-toggle="collapse"
+         aria-expanded="false"
+         aria-controls="submenu-dashboard">
+        <span><i class="bi bi-speedometer2"></i> Index</span>
+        <i class="bi bi-caret-down-fill small"></i>
       </a>
-      <a class="nav-link link-dark" th:href="@{/accordion}">
+      <div class="collapse ms-4" id="submenu-dashboard">
+        <nav class="nav flex-column">
+          <a class="nav-link link-primary text-dark py-0" th:href="@{/index}">Overview</a>
+          <a class="nav-link link-primary text-dark py-0" th:href="@{/dashboard/stats}">Stats</a>
+        </nav>
+      </div>
+      <a class="nav-link link-primary text-dark" th:href="@{/accordion}">
         <i class="bi bi-box-seam"></i> Accordion
       </a>
-      <a class="nav-link link-dark" th:href="@{/table}">
+      <a class="nav-link link-primary text-dark" th:href="@{/table}">
         <i class="bi bi-people"></i> Table
       </a>
-      <a class="nav-link link-dark" th:href="@{/basic}">
+      <a class="nav-link link-primary text-dark" th:href="@{/basic}">
         <i class="bi bi-gear"></i> Basic
       </a>
     </nav>

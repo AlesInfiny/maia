@@ -12,33 +12,33 @@
     <!-- ネイティブ日付ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeDate" class="form-label">日付を選択</label>
-      <input type="date" id="nativeDate" name="nativeDate" class="form-control" />
+      <input type="date" id="nativeDate" name="nativeDate" class="form-control w-25" />
     </div>
 
     <!-- ネイティブ日時ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeDatetime" class="form-label">日時を選択</label>
-      <input type="datetime-local" id="nativeDatetime" name="nativeDatetime" class="form-control" />
+      <input type="datetime-local" id="nativeDatetime" name="nativeDatetime" class="form-control w-25" />
     </div>
 
     <!-- ネイティブ時刻ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeTime" class="form-label">時刻を選択</label>
-      <input type="time" id="nativeTime" name="nativeTime" class="form-control" />
+      <input type="time" id="nativeTime" name="nativeTime" class="form-control w-25" />
     </div>
 
     <!-- サンプル入力フォーム -->
     <div class="mb-3">
-      <label for="sampleText" class="form-label">テキストボックス</label>
-      <input type="text" class="form-control" id="sampleText" name="sampleText" placeholder="テキストを入力" />
+      <label for="sampleText" class="form-label fs-5">テキストボックス</label>
+      <input type="text" class="form-control w-100" id="sampleText" name="sampleText" placeholder="テキストを入力" />
     </div>
     <div class="mb-3">
-      <label for="sampleTextarea" class="form-label">テキストエリア</label>
-      <textarea class="form-control" id="sampleTextarea" name="sampleTextarea" rows="3"></textarea>
+      <label for="sampleTextarea" class="form-label fs-5">テキストエリア</label>
+      <textarea class="form-control w-100" id="sampleTextarea" name="sampleTextarea" rows="3"></textarea>
     </div>
     <div class="mb-3">
-      <label for="sampleSelect" class="form-label">ドロップダウン</label>
-      <select class="form-select" id="sampleSelect" name="sampleSelect">
+      <label for="sampleSelect" class="form-label fs-5">ドロップダウン</label>
+      <select class="form-select w-25" id="sampleSelect" name="sampleSelect">
         <option value="" selected>選択してください</option>
         <option value="1">オプション 1</option>
         <option value="2">オプション 2</option>
@@ -46,7 +46,7 @@
       </select>
     </div>
     <div class="mb-3">
-      <label class="form-label">チェックボックス</label>
+      <label class="form-label fs-5">チェックボックス</label>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="checkbox1" name="checkboxGroup" value="A" />
         <label class="form-check-label" for="checkbox1">チェック A</label>
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="mb-3">
-      <label class="form-label">ラジオボタン</label>
+      <label class="form-label fs-5">ラジオボタン</label>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="radioGroup" id="radio1" value="option1">
         <label class="form-check-label" for="radio1">ラジオ 1</label>
@@ -67,5 +67,16 @@
         <label class="form-check-label" for="radio2">ラジオ 2</label>
       </div>
     </div>
-  </th:block>  
+    <div class="mb-3">
+      <a href="https://www.google.com" target="_blank" rel="noopener">Google</a>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img src="./images/0e557e96bc054f10bc91c27405a83e85" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">タイトル</h5>
+        <p class="card-text">テキスト</p>
+        <button class="btn btn-primary" th:onclick="|location.href='@{/login}'|">ボタン</button>
+      </div>
+    </div>
+  </th:block>
 </html>
