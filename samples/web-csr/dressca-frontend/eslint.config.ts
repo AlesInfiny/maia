@@ -25,6 +25,12 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
 
   {
+    name: 'app/additional-rules',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {'no-console': 'warn','no-alert':'warn'}
+  },
+
+  {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
