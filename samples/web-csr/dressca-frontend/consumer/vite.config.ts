@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv, Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
