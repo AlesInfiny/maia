@@ -1,7 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
   <th:block layout:fragment="content">
-    <div class="position-absolute top-50 start-50 translate-middle">
-      <div class="spinner-border text-primary"></div>
+    <div class="mb-3">
+      <label for="nativeTime" class="form-label fs-5">時刻を選択</label>
+      <input type="time" id="nativeTime" name="nativeTime" class="form-control w-25" />
     </div>
   </th:block>  
 </html>
