@@ -1,29 +1,57 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <th:block th:fragment="block-menu">
-    <nav class="nav flex-column col-md-2 bg-secondary sidebar overflow-auto py-3">
-      <a class="nav-link link-primary text-dark" th:href="@{/accordion}">
-        <i class="bi bi-house"></i> ホーム
-      </a>
-      <a class="nav-link link-primary text-dark d-flex justify-content-between align-items-center"
-         href="#submenu-dashboard"
-         data-bs-toggle="collapse"
-         aria-expanded="false"
-         aria-controls="submenu-dashboard">
-        <span><i class="bi bi-table"></i> マスター管理 </span>
-        <i class="bi bi-caret-down-fill small"></i>
-      </a>
-      <div class="collapse ms-4" id="submenu-dashboard">
-        <nav class="nav flex-column">
-          <a class="nav-link link-primary text-dark py-0" th:href="@{/index}">一覧</a>
-          <a class="nav-link link-primary text-dark py-0" th:href="@{/dashboard/stats}">登録</a>
-        </nav>
-      </div>
-      <a class="nav-link link-primary text-dark" th:href="@{/table}">
-        <i class="bi bi-file-text"></i> 受注管理
-      </a>
-      <a class="nav-link link-primary text-dark" th:href="@{/basic}">
-        <i class="bi bi-gear"></i> 設定
-      </a>
-    </nav>
+    <div class="flex-shrink-0 bg-secondary col-md-2 py-3">
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <button class="btn w-100 d-flex justify-content-between align-items-center" th:onclick="location.href='/'">
+            <span>
+              <i class="bi bi-house"></i> ホーム
+            </span>
+          </button>
+        </li>
+        <li class="mb-1">
+          <button class="btn w-100 d-flex justify-content-between align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+            <span>
+              <i class="bi bi-table"></i> マスター管理
+            </span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <ul class="collapse ms-4 list-unstyled fw-normal pb-1" id="dashboard-collapse">
+            <li><a href="#" class="">マスター一覧</a></li>
+            <li><a href="#" class="link-primary text-dark link-underline-dark">マスター登録</a></li>
+            <li><a href="#" class="link-primary text-dark link-underline-dark">マスター更新</a></li>
+            <li><a href="#" class="link-primary text-dark link-underline-dark">マスター削除</a></li>
+          </ul>
+        </li>
+        <li class="mb-1">
+          <button class="btn w-100 d-flex justify-content-between align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+            <span>
+              <i class="bi bi-file-text"></i> 受注管理
+            </span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <ul class="collapse ms-4 list-unstyled fw-normal pb-1" id="orders-collapse">
+            <li><a href="#" class="link-primary">New</a></li>
+            <li><a href="#" class="link-primary">Processed</a></li>
+            <li><a href="#" class="link-primary">Shipped</a></li>
+            <li><a href="#" class="link-primary">Returned</a></li>
+          </ul>
+        </li>
+        <li class="mb-1">
+          <button class="btn w-100 d-flex justify-content-between align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="true">
+            <span>
+              <i class="bi bi-gear"></i> 設定
+            </span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <ul class="collapse ms-4 list-unstyled fw-normal pb-1" id="setting-collapse">
+            <li><a href="#" class="link-primary">New</a></li>
+            <li><a href="#" class="link-primary">Processed</a></li>
+            <li><a href="#" class="link-primary">Shipped</a></li>
+            <li><a href="#" class="link-primary">Returned</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </th:block>
 </html>

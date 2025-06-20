@@ -1,8 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">  
   <th:block layout:fragment="content">
     <div class="mb-3">
-      <label for="nativeTime" class="form-label fs-5">時刻を選択</label>
-      <input type="time" id="nativeTime" name="nativeTime" class="form-control w-25" />
+      <label for="sampleText" class="form-label fs-5">ユーザーID</label>
+      <input type="text" class="form-control w-25" id="sampleText" name="sampleText" placeholder="IDを入力" />
     </div>
+    <p class="text-danger">・業務エラーが発生しました。 例外ID: xxxxxx </p>
+    <button type="submit" class="btn btn-primary">登録</button>
   </th:block>  
 </html>
