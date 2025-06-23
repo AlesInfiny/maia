@@ -1,7 +1,7 @@
 yamllint==1.37.1
 mkdocs==1.6.1
 mkdocs-material==9.6.14
-pymdown-extensions==10.15
+pymdown-extensions==10.16
 mkdocs-git-revision-date-localized-plugin==1.4.7
 mkdocs-minify-plugin==0.8.0
 mkdocs-rss-plugin==1.17.3
