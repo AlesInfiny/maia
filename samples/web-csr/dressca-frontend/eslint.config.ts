@@ -13,30 +13,37 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-  {
-    name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
-  },
 
+  // Lint 対象外とするファイルパスを列挙します。
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**','**/src/generated/**','**/mockServiceWorker.js']),
 
+  // Vue.js 向けの推奨ルールを適用します。
+  // .vue ファイルを Lint の対象とします。
   pluginVue.configs['flat/recommended'],
+
+  // TypeScript + Vue.js 向けの推奨ルールを適用します。
+  // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
   vueTsConfigs.recommended,
 
+  // プロジェクトやワークスペースに固有のルールを適用します。
+  // 必要に応じて対象のファイルやルールを設定します。
   {
-    name: 'app/additional-rules',
+    name: 'auth-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
     rules: {'no-console': 'warn','no-alert':'warn'}
   },
 
+  // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
 
+  // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
   {
     ...pluginCypress.configs.recommended,
     files: ['cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}', 'cypress/support/**/*.{js,ts,jsx,tsx}'],
   },
+  // コードのフォーマットは Prettier で実行するので、 ESLint のフォーマットルールは無効化します。
   skipFormatting,
 )
