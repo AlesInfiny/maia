@@ -11,7 +11,7 @@
     "build-only:dev": "vite build --mode dev",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "type-check": "vue-tsc --build --force",
+    "type-check": "vue-tsc --build",
     "lint": "run-p eslint format",
     "lint:ci": "run-p eslint:ci format:ci",
     "eslint": "eslint . --fix",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.20.2",
-    "@tsconfig/node20": "20.1.5",
+    "@tsconfig/node22": "22.0.2",
     "@types/jsdom": "21.1.7",
     "@types/node": "22.15.29",
     "@vitejs/plugin-vue": "5.2.4",
@@ -50,7 +50,7 @@
     "jsdom": "26.1.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.5.3",
-    "typescript": "5.3.3",
+    "typescript": "5.8.3",
     "vite": "6.3.5",
     "vitest": "3.2.0",
     "vue-tsc": "2.2.10"
