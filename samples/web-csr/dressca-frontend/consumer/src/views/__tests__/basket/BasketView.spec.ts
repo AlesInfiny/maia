@@ -103,7 +103,7 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
 
   it('取得したアイテムの情報が表示される', async () => {
     // Arrange
-    const expectCount = createBasketResponse().basketItems?.length!;
+    const expectCount = createBasketResponse().basketItems!.length;
     // Act
     await flushPromises();
     // Assert
