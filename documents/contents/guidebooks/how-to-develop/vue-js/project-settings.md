@@ -50,41 +50,13 @@ Project Reference 機能については [Project References :material-open-in-ne
 ??? note "tsconfig.json の設定例"
 
     ``` json title="tsconfig.json"
-    {
-      "files": [],
-      "references": [
-        {
-          "path": "./tsconfig.node.json"
-        },
-        {
-          "path": "./tsconfig.app.json"
-        },
-        {
-          "path": "./tsconfig.vitest.json"
-        }
-      ],
-      "compilerOptions": {
-        "module": "NodeNext"
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.json
     ```
 
 ??? note "tsconfig.app.json の設定例"
 
     ``` json title="tsconfig.app.json"
-    {
-      "extends": "@vue/tsconfig/tsconfig.dom.json",
-      "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*"],
-      "exclude": ["src/**/__tests__/*"],
-      "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-        "baseUrl": ".",
-        "paths": {
-          "@/*": ["./src/*"]
-        }
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
     ```
 
 ??? note "tsconfig.node.json の設定例"
@@ -93,33 +65,13 @@ Project Reference 機能については [Project References :material-open-in-ne
     本来 tsconfig.node.json は設定ファイルとして読み込む対象を定義すべきですが、vite.config.ts の参照先で `mock` フォルダー内のファイルを参照している都合上、 `"mock/**/*"` を include の対象にしています。
 
     ``` json title="tsconfig.node.json" hl_lines="4"
-    {
-      "extends": "@tsconfig/node20/tsconfig.json",
-      "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
-      "compilerOptions": {
-        "composite": true,
-        "noEmit": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "types": ["node"]
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
     ```
 
 ??? note "tsconfig.vitest.json の設定例"
 
     ``` json title="tsconfig.vitest.json"
-    {
-      "extends": "./tsconfig.app.json",
-      "exclude": [],
-      "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
-        "lib": [],
-        "types": ["node", "jsdom"]
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json
     ```
 
 - `compilerOptions.noEmit`
