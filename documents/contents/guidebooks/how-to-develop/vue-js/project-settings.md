@@ -61,10 +61,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? note "tsconfig.node.json の設定例"
 
-    AlesInfiny Maia サンプルアプリでは、フロントエンドアプリを mock モードでビルドする際のソースコードを `mock` フォルダー配下に含みます。
-    本来 tsconfig.node.json は設定ファイルとして読み込む対象を定義すべきですが、vite.config.ts の参照先で `mock` フォルダー内のファイルを参照している都合上、 `"mock/**/*"` を include の対象にしています。
-
-    ``` json title="tsconfig.node.json" hl_lines="4"
+    ``` json title="tsconfig.node.json"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
     ```
 
