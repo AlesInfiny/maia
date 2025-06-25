@@ -34,14 +34,14 @@ Wrote to ...\package.json:
 {
   "name": "root-project-name",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
 ```
 
@@ -58,21 +58,34 @@ create-vue パッケージをインストールする必要があり、続行す
 `-w` オプションで指定したワークスペース名と同じ名称を入力します。
 
 ```terminal
-√ Package name: ... <workspace-name>
+┌  Vue.js - The Progressive JavaScript Framework
+│
+◆  Package name:
+│   <workspace-name>
+└
 ```
 
-インストールオプションを確認されるので、左右カーソルキーで Yes / No を選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものに対して Yes を選択すると、以下のようになります。
+インストールオプションを確認されるのでそれぞれインストールするかどうかを選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものを選択すると、以下のようになります。
 
 ```terminal
-√ Add TypeScript? ... Yes
-√ Add JSX Support? ... Yes
-√ Add Vue Router for Single Page Application development? ... Yes
-√ Add Pinia for state management? ... Yes
-√ Add Vitest for Unit Testing? ... Yes
-√ Add an End-to-End Testing Solution? » Cypress
-√ Add ESLint for code quality? ... Yes
-√ Add Prettier for code formatting? ... Yes
-√ Add Vue DevTools 7 extension for debugging? (experimental) ... No
+◇  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to    
+confirm)
+│  TypeScript, JSX Support, Router (SPA development), Pinia (state management), Vitest (unit testing),
+End-to-End Testing, ESLint (error prevention), Prettier (code formatting)
+│
+◇  Select an End-to-End testing framework: (↑/↓ to navigate, enter to confirm)
+│  Cypress
+│
+◇  Install Oxlint for faster linting? (experimental)
+│  No
+```
+
+プロジェクトの作成が完了すると以下のように Git コマンドを実行して構成管理するよう勧められますが、ここでのコマンド実行は不要です。
+
+```terminal
+| Optional: Initialize Git in your project directory with:
+
+   git init && git add -A && git commit -m "initial commit"
 ```
 
 ## ブランクプロジェクトのビルドと実行 {#build-and-serve-blank-project}
@@ -92,9 +105,11 @@ npm run dev -w <workspace-name>
 > vite
 
 
-VITE v5.x.x  ready in xxxx ms
+  VITE v6.x.x  ready in xxxx ms
 
-  -  Local:   http://localhost:5173/
-  -  Network: use --host to expose
-  -  press h + enter to show help
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
+  ➜  press h + enter to show help
 ```
