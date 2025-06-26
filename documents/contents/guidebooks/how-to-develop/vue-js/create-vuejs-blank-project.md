@@ -34,6 +34,7 @@ Wrote to ...\package.json:
 {
   "name": "root-project-name",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -41,7 +42,7 @@ Wrote to ...\package.json:
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "type": "commonjs"
 }
 ```
 
@@ -58,26 +59,42 @@ create-vue パッケージをインストールする必要があり、続行す
 `-w` オプションで指定したワークスペース名と同じ名称を入力します。
 
 ```terminal
-┌  Vue.js - The Progressive JavaScript Framework
-│
-◆  Package name:
-│   <workspace-name>
-└
+T  Vue.js - The Progressive JavaScript Framework
+|
+*  Package name:
+|  <workspace-name>
+—
 ```
 
 インストールオプションを確認されるのでそれぞれインストールするかどうかを選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものを選択すると、以下のようになります。
 
 ```terminal
-◇  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to    
+*  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
+|  [+] TypeScript
+|  [+] JSX Support
+|  [+] Router (SPA development)
+|  [+] Pinia (state management)
+|  [+] Vitest (unit testing)
+|  [+] End-to-End Testing
+|  [+] ESLint (error prevention)
+|  [+] Prettier (code formatting)
+—
+
+*  Select an End-to-End testing framework: (↑/↓ to navigate, enter to confirm)
+|    Playwright
+|  > Cypress (https://www.cypress.io/)
+|    Nightwatch
+—
+```
+
+以下の実験的機能のインストールは必須ではありません。
+
+```terminal
+*  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
 confirm)
-│  TypeScript, JSX Support, Router (SPA development), Pinia (state management), Vitest (unit testing),
-End-to-End Testing, ESLint (error prevention), Prettier (code formatting)
-│
-◇  Select an End-to-End testing framework: (↑/↓ to navigate, enter to confirm)
-│  Cypress
-│
-◇  Install Oxlint for faster linting? (experimental)
-│  No
+|  [ ] Oxlint (experimental)
+|  [•] rolldown-vite (experimental)
+—
 ```
 
 プロジェクトの作成が完了すると以下のように Git コマンドを実行して構成管理するよう勧められますが、ここでのコマンド実行は不要です。
@@ -105,7 +122,7 @@ npm run dev -w <workspace-name>
 > vite
 
 
-  VITE v6.x.x  ready in xxxx ms
+  VITE v7.x.x  ready in xxxx ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
