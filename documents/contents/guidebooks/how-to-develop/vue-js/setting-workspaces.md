@@ -25,29 +25,6 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 }
 ```
 
-## ルートプロジェクトの設定 {#setting-route-project}
-
-ルートプロジェクトの package-json に `"type": "module"`と`"private": "true"`を追加します。
-CJS 形式のファイルを正しく読み込むために、 `"type": "module"` は設定が必須です。
-`"private": "true"`は、誤ってルートプロジェクトが公開されることを防ぐため、設定を推奨します。
-
-```json title="package.json（ルート）" hl_lines="6 7"
-{
-  "name": "project-name",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "private": "true",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-```
-
 ## スクリプトの登録 {#register-npm-scripts}
 
 ルートプロジェクトの package.json にスクリプトを登録します。

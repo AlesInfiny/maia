@@ -6,6 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
+なお、本ページに記載しているターミナルの表示例[^1]は、使用した npm や create-vue のバージョンによって実際の出力内容と異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -24,7 +25,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
 ```terminal
-npm init -y
+npm init -y --init-type=module --init-private
 ```
 
 実行に成功すると、 package.json ファイルが作成されます。
@@ -41,7 +42,9 @@ Wrote to ...\package.json:
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module",
+  "private": true
 }
 ```
 
@@ -50,7 +53,7 @@ Wrote to ...\package.json:
 以下のコマンドを実行し、任意のワークスペース名（プロジェクト名）を指定して Vue.js をインストールします。
 
 ```terminal
-npm init -w <workspace-name> vue@latest .
+npm init -w <workspace-name> vue@{バージョン} .
 ```
 
 create-vue パッケージをインストールする必要があり、続行するかどうかを確認するメッセージが表示されるので、「y」を選択します。
@@ -58,21 +61,52 @@ create-vue パッケージをインストールする必要があり、続行す
 `-w` オプションで指定したワークスペース名と同じ名称を入力します。
 
 ```terminal
-√ Package name: ... <workspace-name>
+T  Vue.js - The Progressive JavaScript Framework
+|
+*  Package name:
+|  <workspace-name>
+—
 ```
 
-インストールオプションを確認されるので、左右カーソルキーで Yes / No を選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものに対して Yes を選択すると、以下のようになります。
+インストールオプションを確認されるのでそれぞれインストールするかどうかを選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものを選択すると、以下のようになります。
 
 ```terminal
-√ Add TypeScript? ... Yes
-√ Add JSX Support? ... Yes
-√ Add Vue Router for Single Page Application development? ... Yes
-√ Add Pinia for state management? ... Yes
-√ Add Vitest for Unit Testing? ... Yes
-√ Add an End-to-End Testing Solution? » Cypress
-√ Add ESLint for code quality? ... Yes
-√ Add Prettier for code formatting? ... Yes
-√ Add Vue DevTools 7 extension for debugging? (experimental) ... No
+*  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
+|  [+] TypeScript
+|  [+] JSX Support
+|  [+] Router (SPA development)
+|  [+] Pinia (state management)
+|  [+] Vitest (unit testing)
+|  [+] End-to-End Testing
+|  [+] ESLint (error prevention)
+|  [+] Prettier (code formatting)
+—
+
+*  Select an End-to-End testing framework: (↑/↓ to navigate, enter to confirm)
+|    Playwright
+|  > Cypress (https://www.cypress.io/)
+|    Nightwatch
+—
+```
+
+<!-- textlint-disable ja-technical-writing/no-doubled-joshi -->
+以下の実験的機能のインストールは必須ではありません。
+<!-- textlint-enable ja-technical-writing/no-doubled-joshi -->
+
+```terminal
+*  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
+confirm)
+|  [ ] Oxlint (experimental)
+|  [•] rolldown-vite (experimental)
+—
+```
+
+プロジェクトの作成が完了すると以下のように Git コマンドを実行して構成管理するよう勧められますが、ここでのコマンド実行は不要です。
+
+```terminal
+| Optional: Initialize Git in your project directory with:
+
+   git init && git add -A && git commit -m "initial commit"
 ```
 
 ## ブランクプロジェクトのビルドと実行 {#build-and-serve-blank-project}
@@ -92,9 +126,13 @@ npm run dev -w <workspace-name>
 > vite
 
 
-VITE v5.x.x  ready in xxxx ms
+  VITE v7.x.x  ready in xxxx ms
 
-  -  Local:   http://localhost:5173/
-  -  Network: use --host to expose
-  -  press h + enter to show help
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
+  ➜  press h + enter to show help
 ```
+
+[^1]: 本ページのターミナル表示例は、 npm@11.4.2, create-vue@3.17.0 を使用してプロジェクトを作成した際の出力例です。
