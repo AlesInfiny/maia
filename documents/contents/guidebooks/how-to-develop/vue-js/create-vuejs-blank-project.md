@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
-なお、本ページに記載しているターミナルの表示例は、使用した npm や create-vue のバージョンによって実際の出力内容と異なる可能性があります。
+なお、本ページに記載しているターミナルの表示例[^1]は、使用した npm や create-vue のバージョンによって実際の出力内容と異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -133,3 +133,5 @@ npm run dev -w <workspace-name>
   ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
   ➜  press h + enter to show help
 ```
+
+[^1]: 本ページのターミナル表示例は、 npm@11.4.2, create-vue@3.17.0 を使用してプロジェクトを作成した際の出力例です。
