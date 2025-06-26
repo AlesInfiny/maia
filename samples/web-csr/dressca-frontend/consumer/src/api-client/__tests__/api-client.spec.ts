@@ -10,6 +10,20 @@ import { axiosInstance } from '@/api-client';
 import axios, { HttpStatusCode } from 'axios';
 
 describe('axiosInstance_レスポンスインターセプター_HTTPステータスに応じた例外をスロー', () => {
+  it('responseが存在しない_NetworkError をスロー', async () => {
+    // Arrange
+    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
+      isAxiosError: true,
+      response: undefined,
+    });
+
+    // Act
+    const responsePromise = axiosInstance.get('/test');
+
+    // Assert
+    await expect(responsePromise).rejects.toThrow(NetworkError);
+  });
+
   it('HTTP500レスポンス_ServerErrorをスロー', async () => {
     // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
@@ -50,20 +64,6 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
 
     // Assert
     await expect(responsePromise).rejects.toThrow(HttpError);
-  });
-
-  it('responseが存在しない_NetworkError をスロー', async () => {
-    // Arrange
-    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue({
-      isAxiosError: true,
-      response: undefined,
-    });
-
-    // Act
-    const responsePromise = axiosInstance.get('/test');
-
-    // Assert
-    await expect(responsePromise).rejects.toThrow(NetworkError);
   });
 
   it('AxiosError以外_UnknownErrorをthrow', async () => {
