@@ -53,7 +53,7 @@ Wrote to ...\package.json:
 以下のコマンドを実行し、任意のワークスペース名（プロジェクト名）を指定して Vue.js をインストールします。
 
 ```terminal
-npm init -w <workspace-name> vue@latest .
+npm init -w <workspace-name> vue@{バージョン} .
 ```
 
 create-vue パッケージをインストールする必要があり、続行するかどうかを確認するメッセージが表示されるので、「y」を選択します。
