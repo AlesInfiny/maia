@@ -79,6 +79,7 @@ package.json の scripts セクションにタスクを追加します。
 | `"inputSpec"`                | `"./../../dressca-backend/api-docs/api-specification.json"` | 入力の API 仕様書を指定します。                     |
 | `"generatorName"`            | `"typescript-axios"`                                        | 使用するジェネレーターを指定します。                |
 | `"outputDir"`                | `"./src/generated/api-client"`                              | 生成されたコードの出力先を設定します。              |
+| `"additionalProperties"`     | -                                                           | 使用するジェネレーターごとに固有の値[^1]をキー・バリュー形式で設定します。|
 | `"withSeparateModelsAndApi"` | `"true"`                                                    | model と API を別クラス・別フォルダーに配置します。 |
 | `"modelPackage"`             | `"models"`                                                  | クラスのパッケージ名を「models」に設定します。      |
 | `"apiPackage"`               | `"api"`                                                     | API クラスのパッケージ名を「api」に設定します。     |
@@ -126,10 +127,10 @@ export { defaultApi };
 
 ??? info "BaseAPI のコンストラクター"
     - `BaseAPI(configuration?: Configuration, basePath?: string, axios?: AxiosInstance)`
-  
+
     `BaseAPI` は OpenAPI Generator で自動生成されるコードの `base.ts` に含まれるクラスです。
     各 API が継承している `BaseAPI` コンストラクターの引数に api-client の共通設定、ベースパス[^1]、 axios インスタンスを設定することで、 API に関するグローバルな設定を適用します。
-    
+
     OpenAPI Generator で生成されたクライアントコードはデフォルトで OpenAPI 仕様書の URL が設定されます。
     開発環境やモックで API サーバーなしでアプリを起動するためには、アプリレベルでエンドポイントを設定する必要があります。
     Vite では `/api` のような相対パスに対して異なるエンドポイントの設定ができ、これを有効にするためには、 `BaseAPI` コンストラクターの第 2 引数のベースパスを空文字で上書きする必要があります。
@@ -148,3 +149,5 @@ export { defaultApi };
       }
     };
     ```
+
+[^1]: ジェネレーターに `"typescript-axios"` を使用する場合に設定可能な値は [こちら :material-open-in-new:](https://openapi-generator.tech/docs/generators/typescript-axios){ target=_blank }を参照ください。
