@@ -25,7 +25,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
 ```terminal
-npm init -y
+npm init -y --init-type=module --init-private
 ```
 
 実行に成功すると、 package.json ファイルが作成されます。
@@ -43,7 +43,8 @@ Wrote to ...\package.json:
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "private": true
 }
 ```
 
