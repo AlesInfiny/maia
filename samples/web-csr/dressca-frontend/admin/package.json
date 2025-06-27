@@ -9,6 +9,7 @@
     "build:prod": "run-p type-check build-only:prod",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "prepare": "cypress install",
     "test:e2e": "start-server-and-test dev http://localhost:6173/ 'cypress open --e2e --browser chrome'",
     "test:e2e:ci": "start-server-and-test dev http://localhost:6173/ 'cypress run'",
     "build-only:dev": "vite build --mode dev",
