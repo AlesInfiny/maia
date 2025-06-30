@@ -9,6 +9,7 @@
     "build:prod": "run-p type-check build-only:prod --print-label",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "prepare": "cypress install",
     "test:e2e": "start-server-and-test dev http://localhost:5173/ 'cypress open --e2e --browser chrome'",
     "test:e2e:ci": "start-server-and-test dev http://localhost:5173/ 'cypress run'",
     "build-only:dev": "vite build --mode dev",
@@ -72,6 +73,7 @@
     "tailwindcss": "3.4.17",
     "typescript": "5.8.3",
     "vite": "6.3.5",
+    "vite-plugin-vue-devtools": "7.7.7",
     "vue-tsc": "2.2.10"
   },
   "optionalDependencies": {
