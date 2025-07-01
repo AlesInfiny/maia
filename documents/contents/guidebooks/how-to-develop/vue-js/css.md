@@ -117,16 +117,10 @@ PostCSS は Tailwind CSS と一緒にすでにインストール済みなので�
 
 ### PostCSS の設定 {#settings-postcss}
 
-設定ファイル `./postcss.config.cjs` を作成します。
+設定ファイル `./postcss.config.ts` を作成します。
 
-```javascript title="postcss.config.cjs"
-module.exports = {
-  plugins: [
-    require('tailwindcss'),
-    require('autoprefixer'),
-    require('postcss-nesting'),
-  ],
-};
+```javascript title="postcss.config.ts"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/postcss.config.ts
 ```
 
 プラグインとして Tailwind CSS 、 autoprefixer 、 postcss-nesting を使用することを宣言しています。
