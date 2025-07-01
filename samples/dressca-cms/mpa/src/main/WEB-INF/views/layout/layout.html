@@ -9,17 +9,13 @@
     <!-- Body の一番初めに配置する -->
     <script th:src="@{/bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <th:block th:insert="~{fragments/header :: block-header}"></th:block>
-    <main class="flex-grow-1 d-flex overflow-auto">
-      <div class="container-fluid h-100">
-        <div class="row h-100">
-          <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
-          <!-- コンテンツ領域 -->
-          <main class="col-md-10 overflow-auto py-3">
-            <th:block layout:fragment="content"></th:block>
-          </main>
-        </div>
-      </div>
-    </main>
+    <div class="container-fluid flex-grow-1 row flex-nowrap overflow-auto">
+      <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
+      <!-- コンテンツ領域 -->
+      <main style="width:1600px" class="py-3">
+        <th:block layout:fragment="content"></th:block>
+      </main>
+    </div>
     <th:block th:replace="~{fragments/footer :: footer}"></th:block>
   </body>
 </html>

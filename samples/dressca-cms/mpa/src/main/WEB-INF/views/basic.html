@@ -4,33 +4,33 @@
     <h1 class="display-6">個別マスター①</h1>
 
     <!-- パンくずリスト -->
-    <nav class="col-md-10 mt-3">
+    <nav class="mb-3">
       <th:block th:insert="~{fragments/breadcrumbs :: breadcrumbs}"></th:block>
     </nav>
 
     <!-- ネイティブ日付ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeDate" class="form-label fs-5">日付を選択</label>
-      <input type="date" id="nativeDate" name="nativeDate" class="form-control w-25" />
+      <input style="width:auto" type="date" id="nativeDate" name="nativeDate" class="form-control" />
     </div>
 
     <!-- ネイティブ日時ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeDatetime" class="form-label fs-5">日時を選択</label>
-      <input type="datetime-local" id="nativeDatetime" name="nativeDatetime" class="form-control w-25" />
+      <input style="width:auto" type="datetime-local" id="nativeDatetime" name="nativeDatetime" class="form-control" />
     </div>
 
     <!-- ネイティブ時刻ピッカーを追加 -->
     <div class="mb-3">
       <label for="nativeTime" class="form-label fs-5">時刻を選択</label>
-      <input type="time" id="nativeTime" name="nativeTime" class="form-control w-25" />
+      <input style="width:auto" type="time" id="nativeTime" name="nativeTime" class="form-control" />
     </div>
 
     <p class="text-danger">*は必須項目です</p>
     <!-- サンプル入力フォーム -->
     <div class="mb-3">
       <label for="sampleText" class="form-label fs-5">テキストボックス</label>
-      <input type="text" class="form-control w-100" id="sampleText" name="sampleText" placeholder="テキストを入力" />
+      <input style="width:1500px" type="text" class="form-control" id="sampleText" name="sampleText" placeholder="テキストを入力" />
     </div>
 
     <div class="mb-3">
@@ -38,16 +38,16 @@
         <label for="sampleText" class="form-label fs-5">必須項目テキストボックス </label>
         <span class="text-danger">*</span>
       </span>
-      <input type="text" class="form-control w-100" id="sampleText" name="sampleText" placeholder="テキストを入力" required />
+      <input style="width:auto" type="text" class="form-control" id="sampleText" name="sampleText" placeholder="テキストを入力" required />
     </div>
 
     <div class="mb-3">
       <label for="sampleTextarea" class="form-label fs-5">テキストエリア</label>
-      <textarea class="form-control w-100" id="sampleTextarea" name="sampleTextarea" rows="3"></textarea>
+      <textarea style="width:500px;height:100px;" class="form-control" id="sampleTextarea" name="sampleTextarea" rows="3"></textarea>
     </div>
     <div class="mb-3">
       <label for="sampleSelect" class="form-label fs-5">ドロップダウン</label>
-      <select class="form-select w-25" id="sampleSelect" name="sampleSelect">
+      <select style="width:auto" class="form-select" id="sampleSelect" name="sampleSelect">
         <option value="" selected>選択してください</option>
         <option value="1">オプション 1</option>
         <option value="2">オプション 2</option>
