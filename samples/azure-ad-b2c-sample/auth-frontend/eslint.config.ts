@@ -6,7 +6,6 @@ import pluginVitest from '@vitest/eslint-plugin'
 // @ts-ignore
 import pluginCypress from 'eslint-plugin-cypress/flat'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import tsParser from "@typescript-eslint/parser"
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -26,11 +25,10 @@ export default defineConfigWithVueTs(
   // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
   vueTsConfigs.recommendedTypeChecked,
 
- // 型情報を使用した Lint を実行するための設定を適用します。
+ // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
  {
     languageOptions: {
       parserOptions: {
-        parser: tsParser,
         projectService: true,
       },
     },
