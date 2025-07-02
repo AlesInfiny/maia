@@ -61,7 +61,7 @@ export async function getUsersApi(): Promise<apiClient.UsersApi> {
   return userApi
 }
 
-export async function getServerTimeApi(): Promise<apiClient.ServerTimeApi> {
+export function getServerTimeApi(): apiClient.ServerTimeApi {
   const config = createConfig()
   const serverTimeApi = new apiClient.ServerTimeApi(config, '', axiosInstance)
   return serverTimeApi
