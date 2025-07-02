@@ -6,7 +6,7 @@ import {
 } from '@/services/authentication/authentication-config'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 
-msalInstance.initialize()
+await msalInstance.initialize()
 
 export const authenticationService = {
   async signInAzureADB2C() {
