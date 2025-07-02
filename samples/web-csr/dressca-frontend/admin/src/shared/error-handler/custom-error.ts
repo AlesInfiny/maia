@@ -4,12 +4,12 @@
  * カスタムエラーの基底クラスです。
  */
 export abstract class CustomErrorBase extends Error {
-  cause?: Error | null;
+  cause?: Error | null
 
   constructor(message: string, cause?: Error) {
-    super(message);
+    super(message)
     // ラップ前のエラーを cause として保持
-    this.cause = cause;
+    this.cause = cause
   }
 }
 
@@ -18,8 +18,8 @@ export abstract class CustomErrorBase extends Error {
  */
 export class UnknownError extends CustomErrorBase {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'UnknownError';
+    super(message, cause)
+    this.name = 'UnknownError'
   }
 }
 
@@ -28,8 +28,8 @@ export class UnknownError extends CustomErrorBase {
  */
 export class HttpError extends CustomErrorBase {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'HttpError';
+    super(message, cause)
+    this.name = 'HttpError'
   }
 }
 
@@ -38,8 +38,8 @@ export class HttpError extends CustomErrorBase {
  */
 export class NetworkError extends HttpError {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'NetworkError';
+    super(message, cause)
+    this.name = 'NetworkError'
   }
 }
 
@@ -48,8 +48,8 @@ export class NetworkError extends HttpError {
  */
 export class UnauthorizedError extends HttpError {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'UnauthorizedError';
+    super(message, cause)
+    this.name = 'UnauthorizedError'
   }
 }
 
@@ -58,8 +58,8 @@ export class UnauthorizedError extends HttpError {
  */
 export class ConflictError extends HttpError {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'ConflictError';
+    super(message, cause)
+    this.name = 'ConflictError'
   }
 }
 
@@ -68,8 +68,8 @@ export class ConflictError extends HttpError {
  */
 export class NotFoundError extends HttpError {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'NotFoundError';
+    super(message, cause)
+    this.name = 'NotFoundError'
   }
 }
 
@@ -78,7 +78,7 @@ export class NotFoundError extends HttpError {
  */
 export class ServerError extends HttpError {
   constructor(message: string, cause?: Error) {
-    super(message, cause);
-    this.name = 'ServerError';
+    super(message, cause)
+    this.name = 'ServerError'
   }
 }

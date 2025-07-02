@@ -5,15 +5,15 @@
  * デフォルトでは灰色のローディングスピナーが表示されます。
  */
 defineProps<{
-  show: boolean;
-}>();
+  show: boolean
+}>()
 
 defineSlots<{
   /**
    * 任意のスピナーアニメーションや画像を指定してください。
    */
-  spinner?: HTMLElement;
-}>();
+  spinner?: HTMLElement
+}>()
 </script>
 
 <template>
