@@ -16,8 +16,8 @@
     "lint:ci": "run-p eslint:ci format:ci",
     "eslint": "eslint . --fix",
     "eslint:ci": "eslint .",
-    "format": "prettier --write ./",
-    "format:ci": "prettier --check ./",
+    "format": "prettier --write .",
+    "format:ci": "prettier --check .",
     "generate-client": "openapi-generator-cli batch ./openapisettings.json --clean"
   },
   "dependencies": {
