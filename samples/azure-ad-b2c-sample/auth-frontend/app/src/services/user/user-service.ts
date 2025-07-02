@@ -1,10 +1,10 @@
-import { useUserStore } from '@/stores/user/user';
-import { authenticationService } from '@/services/authentication/authentication-service';
+import { useUserStore } from '@/stores/user/user'
+import { authenticationService } from '@/services/authentication/authentication-service'
 
 export async function fetchUser() {
-  const userStore = useUserStore();
+  const userStore = useUserStore()
   if (!(await authenticationService.isAuthenticated())) {
-    return;
+    return
   }
-  await userStore.fetchUserResponse();
+  await userStore.fetchUserResponse()
 }
