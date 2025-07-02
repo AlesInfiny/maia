@@ -16,7 +16,7 @@ export const authenticationService = {
     authenticationStore.updateAuthenticated(true)
   },
 
-  async isAuthenticated(): Promise<boolean> {
+  isAuthenticated(): boolean {
     const result = msalInstance.getActiveAccount() !== null
     const authenticationStore = useAuthenticationStore()
     authenticationStore.updateAuthenticated(result)
