@@ -19,8 +19,8 @@
     "lint:ci": "run-p eslint:ci format:ci",
     "eslint": "eslint . && stylelint **/*.{vue,css} --fix",
     "eslint:ci": "eslint . && stylelint **/*.{vue,css}",
-    "format": "prettier --write src/",
-    "format:ci": "prettier --check src/",
+    "format": "prettier --write ./",
+    "format:ci": "prettier --check ./",
     "generate-client": "openapi-generator-cli batch ./openapisettings.json --clean"
   },
   "dependencies": {
