@@ -12,6 +12,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ├ package.json -------------- ルートプロジェクトのメタデータ、依存関係、スクリプトなどを定義するファイル
 ├ package-lock.json --------- npm によって自動生成される、パッケージの依存関係を記録するファイル
 └ <workspace-name>
+  ├ .vscode/ ---------------- Visual Studio Code の環境設定ファイルを格納するフォルダー
   ├ cypress/ ---------------- cypress による End-to-End テスト用のフォルダー
   ├ public/ ----------------- メディアファイルや favicon など静的な資産が配置されるフォルダー
   ├ src/ -------------------- アプリケーションのソースコードが配置されるフォルダー
@@ -34,7 +35,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   ├ README.md --------------- ブランクプロジェクト作成時点ではテンプレートの説明が記述されたファイル
   ├ tsconfig.app.json ------- アプリケーションの TypeScript として読み込む対象を定義する設定ファイル
   ├ tsconfig.json ----------- TypeScript の設定ファイル
-  ├ tsconfig.node.json ------ TypeScript の設定ファイルとして読み込む対象を定義する設定ファイル
+  ├ tsconfig.node.json ------ Node.js での実行用に TypeScript として読み込む対象を定義する設定ファイル
   ├ tsconfig.vitest.json ---- 単体テストの TypeScript として読み込む対象を定義する設定ファイル
   ├ vite.config.ts ---------- Vite の設定ファイル
   └ vitest.config.ts -------- 単体テストの設定ファイル
