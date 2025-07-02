@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export const orderingRoutes: RouteRecordRaw[] = [
   {
@@ -16,4 +16,4 @@ export const orderingRoutes: RouteRecordRaw[] = [
       orderId: Number(route.params.orderId),
     }),
   },
-];
+]

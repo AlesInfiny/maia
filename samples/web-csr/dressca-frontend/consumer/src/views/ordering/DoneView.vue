@@ -1,53 +1,53 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { i18n } from '@/locales/i18n';
-import { getOrder } from '@/services/ordering/ordering-service';
-import { showToast } from '@/services/notification/notificationService';
-import type { OrderResponse } from '@/generated/api-client/models/order-response';
-import { currencyHelper } from '@/shared/helpers/currencyHelper';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { i18n } from '@/locales/i18n'
+import { getOrder } from '@/services/ordering/ordering-service'
+import { showToast } from '@/services/notification/notificationService'
+import type { OrderResponse } from '@/generated/api-client/models/order-response'
+import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
+import { HttpError } from '@/shared/error-handler/custom-error'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
 const props = defineProps<{
-  orderId: number;
-}>();
+  orderId: number
+}>()
 
-const lastOrdered = ref<OrderResponse>();
+const lastOrdered = ref<OrderResponse>()
 
-const { toCurrencyJPY } = currencyHelper();
-const { getFirstAssetUrl } = assetHelper();
-const { t } = i18n.global;
+const { toCurrencyJPY } = currencyHelper()
+const { getFirstAssetUrl } = assetHelper()
+const { t } = i18n.global
 
-const showLoading = ref(true);
+const showLoading = ref(true)
 
 const goCatalog = () => {
-  router.push({ name: 'catalog' });
-};
+  router.push({ name: 'catalog' })
+}
 
 onMounted(async () => {
-  showLoading.value = true;
+  showLoading.value = true
   try {
-    lastOrdered.value = await getOrder(props.orderId);
+    lastOrdered.value = await getOrder(props.orderId)
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {
-        router.push('/');
+        router.push('/')
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToOrderInformation'));
+          showToast(t('failedToOrderInformation'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -55,14 +55,14 @@ onMounted(async () => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 </script>
 
 <template>
@@ -74,9 +74,7 @@ onMounted(async () => {
       </span>
     </div>
     <div class="container mx-auto my-4 max-w-4xl">
-      <div
-        class="mx-2 grid grid-cols-1 lg:grid-cols-3 lg:gap-x-12 flex items-center"
-      >
+      <div class="mx-2 grid grid-cols-1 lg:grid-cols-3 lg:gap-x-12 flex items-center">
         <table
           class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
         >
@@ -107,9 +105,7 @@ onMounted(async () => {
             </tr>
           </tbody>
         </table>
-        <table
-          class="lg:col-span-2 table-fixed mt-2 lg:mt-4 border-t border-b lg:border"
-        >
+        <table class="lg:col-span-2 table-fixed mt-2 lg:mt-4 border-t border-b lg:border">
           <tbody>
             <tr>
               <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>

@@ -1,4 +1,4 @@
-import type { OrderResponse } from '@/generated/api-client';
+import type { OrderResponse } from '@/generated/api-client'
 
 // mock のため、注文データはidとorderDate以外固定値を返却する
 export const order: OrderResponse = {
@@ -43,4 +43,4 @@ export const order: OrderResponse = {
     consumptionTax: 676,
     totalPrice: 7436,
   },
-};
+}
