@@ -123,4 +123,4 @@ PostCSS は Tailwind CSS と一緒にすでにインストール済みなので�
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/postcss.config.ts
 ```
 
-プラグインとして postcss-nesting 、Tailwind CSS 、 autoprefixer を使用することを宣言しています。
+プラグインとして postcss-nesting 、 Tailwind CSS 、 autoprefixer を使用することを宣言しています。
