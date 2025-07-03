@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { CheckCircleIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 
 /**
  * ユーザーにメッセージを通知するモーダルです。
  */
 
 defineProps<{
-  show: boolean;
-  header: string;
-  body: string;
-}>();
+  show: boolean
+  header: string
+  body: string
+}>()
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 </script>
 
 <template>
@@ -27,9 +27,7 @@ const emit = defineEmits(['close']);
       aria-hidden="true"
     ></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-      <div
-        class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-      >
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div
           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
         >
@@ -49,10 +47,7 @@ const emit = defineEmits(['close']);
                 </CheckCircleIcon>
               </div>
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                <h3
-                  id="modal-title"
-                  class="text-base font-semibold leading-6 text-gray-900"
-                >
+                <h3 id="modal-title" class="text-base font-semibold leading-6 text-gray-900">
                   {{ header }}
                 </h3>
                 <div class="mt-2">

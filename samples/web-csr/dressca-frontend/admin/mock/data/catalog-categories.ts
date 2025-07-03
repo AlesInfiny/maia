@@ -1,4 +1,4 @@
-import type { GetCatalogCategoriesResponse } from '@/generated/api-client';
+import type { GetCatalogCategoriesResponse } from '@/generated/api-client'
 
 export const catalogCategories: GetCatalogCategoriesResponse[] = [
   {
@@ -13,4 +13,4 @@ export const catalogCategories: GetCatalogCategoriesResponse[] = [
     id: 3,
     name: 'シューズ',
   },
-];
+]

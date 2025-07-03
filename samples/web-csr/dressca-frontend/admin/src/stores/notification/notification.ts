@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 /**
  * 通知のストアです。
@@ -15,19 +15,19 @@ export const useNotificationStore = defineStore('notification', {
      * @param timeout タイムアウトまでの時間（ミリ秒）。
      */
     setMessage(message: string, timeout: number = 5000) {
-      this.message = message;
-      this.timeout = timeout;
+      this.message = message
+      this.timeout = timeout
 
       setTimeout(() => {
-        this.clearMessage();
-      }, this.timeout);
+        this.clearMessage()
+      }, this.timeout)
     },
 
     /**
      * メッセージを空にします。
      */
     clearMessage() {
-      this.message = '';
+      this.message = ''
     },
   },
-});
+})

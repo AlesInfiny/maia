@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 /**
  * '/error'に割り当てるコンポーネントを定義します。
@@ -16,4 +16,4 @@ export const errorRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/error/NotFoundView.vue'),
     meta: { requiresAuth: true },
   },
-];
+]

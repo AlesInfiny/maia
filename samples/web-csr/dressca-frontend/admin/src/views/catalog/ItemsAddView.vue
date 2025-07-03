@@ -1,28 +1,22 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import {
-  fetchCategoriesAndBrands,
-  postCatalogItem,
-} from '@/services/catalog/catalog-service';
-import { showToast } from '@/services/notification/notificationService';
-import NotificationModal from '@/components/NotificationModal.vue';
-import { useRouter } from 'vue-router';
-import { useForm } from 'vee-validate';
-import { catalogItemSchema } from '@/validation/validation-items';
-import type {
-  GetCatalogBrandsResponse,
-  GetCatalogCategoriesResponse,
-} from '@/generated/api-client';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { Roles } from '@/shared/constants/roles';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { fetchCategoriesAndBrands, postCatalogItem } from '@/services/catalog/catalog-service'
+import { showToast } from '@/services/notification/notificationService'
+import NotificationModal from '@/components/NotificationModal.vue'
+import { useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
+import { catalogItemSchema } from '@/validation/validation-items'
+import type { GetCatalogBrandsResponse, GetCatalogCategoriesResponse } from '@/generated/api-client'
+import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { Roles } from '@/shared/constants/roles'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
-const authenticationStore = useAuthenticationStore();
-const { isInRole } = storeToRefs(authenticationStore);
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
+const authenticationStore = useAuthenticationStore()
+const { isInRole } = storeToRefs(authenticationStore)
 
 const { errors, values, meta, defineField } = useForm({
   validationSchema: catalogItemSchema,
@@ -32,48 +26,46 @@ const { errors, values, meta, defineField } = useForm({
     price: '1980',
     productCode: 'T001',
   },
-});
+})
 
-const [itemName] = defineField('itemName');
-const [itemDescription] = defineField('itemDescription');
-const [price] = defineField('price');
-const [productCode] = defineField('productCode');
+const [itemName] = defineField('itemName')
+const [itemDescription] = defineField('itemDescription')
+const [price] = defineField('price')
+const [productCode] = defineField('productCode')
 
 const isInvalid = () => {
-  return !meta.value.valid;
-};
+  return !meta.value.valid
+}
 
 /**
  * 選択されているカタログカテゴリの ID です。
  */
-const selectedCategoryId = ref(1);
+const selectedCategoryId = ref(1)
 
 /**
  * 選択されているカタログブランドの ID です。
  */
-const selectedBrandId = ref(1);
+const selectedBrandId = ref(1)
 
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
-  { id: 0, name: '' },
-]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
 
 /**
  * リアクティブなモーダルの開閉状態です。
  */
-const showAddNotice = ref(false);
+const showAddNotice = ref(false)
 
 /**
  * ローディングスピナーの表示の状態です。
  */
-const showLoading = ref(true);
+const showLoading = ref(true)
 
 /**
  * アイテムをカタログに追加します。
@@ -88,23 +80,23 @@ const AddItem = async () => {
       values.productCode,
       selectedCategoryId.value,
       selectedBrandId.value,
-    );
-    showAddNotice.value = true;
+    )
+    showAddNotice.value = true
   } catch (error) {
     customErrorHandler.handle(error, () => {
-      showToast('カタログアイテムの追加に失敗しました。');
-    });
+      showToast('カタログアイテムの追加に失敗しました。')
+    })
   }
-};
+}
 
 /**
  * 追加成功通知のモーダルを閉じます。
  * アイテム一覧画面に遷移します。
  */
 const closeAddNotice = () => {
-  showAddNotice.value = false;
-  router.push({ name: 'catalog/items' });
-};
+  showAddNotice.value = false
+  router.push({ name: 'catalog/items' })
+}
 
 /**
  * コンポーネントがマウントされた後に呼び出されるライフサイクルフックです。
@@ -113,18 +105,17 @@ const closeAddNotice = () => {
  * それぞれの状態を更新します。
  */
 onMounted(async () => {
-  showLoading.value = true;
+  showLoading.value = true
   try {
-    [catalogCategories.value, catalogBrands.value] =
-      await fetchCategoriesAndBrands();
+    ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
     customErrorHandler.handle(error, () => {
-      showToast('カテゴリとブランド情報の取得に失敗しました。');
-    });
+      showToast('カテゴリとブランド情報の取得に失敗しました。')
+    })
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 </script>
 
 <template>
@@ -176,9 +167,7 @@ onMounted(async () => {
         <p class="px-2 py-2 text-base text-red-800">{{ errors.price }}</p>
       </div>
       <div class="mb-4">
-        <label for="product-code" class="mb-2 block font-bold"
-          >商品コード</label
-        >
+        <label for="product-code" class="mb-2 block font-bold">商品コード</label>
         <input
           id="product-code"
           v-model="productCode"
@@ -195,9 +184,7 @@ onMounted(async () => {
           class="w-full border border-gray-300 px-4 py-2"
         >
           <option
-            v-for="category in catalogCategories.filter(
-              (category) => category.id !== 0,
-            )"
+            v-for="category in catalogCategories.filter((category) => category.id !== 0)"
             :key="category.id"
             :value="category.id"
           >

@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import type { SpecialContent } from '@/stores/special-content/special-content.model';
+import { defineStore } from 'pinia'
+import type { SpecialContent } from '@/stores/special-content/special-content.model'
 
 export const useSpecialContentStore = defineStore('special-content', {
   state: () => ({
@@ -21,7 +21,7 @@ export const useSpecialContentStore = defineStore('special-content', {
   actions: {},
   getters: {
     getSpecialContents(state) {
-      return state.contents;
+      return state.contents
     },
   },
-});
+})

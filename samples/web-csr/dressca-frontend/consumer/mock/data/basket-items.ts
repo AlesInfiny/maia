@@ -1,8 +1,5 @@
-import type {
-  BasketResponse,
-  BasketItemResponse,
-} from '@/generated/api-client';
-import { deletedItemId } from './catalog-items';
+import type { BasketResponse, BasketItemResponse } from '@/generated/api-client'
+import { deletedItemId } from './catalog-items'
 
 export const basket: BasketResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -15,7 +12,7 @@ export const basket: BasketResponse = {
   },
   basketItems: [],
   deletedItemIds: [],
-};
+}
 
 export const basketItems: BasketItemResponse[] = [
   {
@@ -162,4 +159,4 @@ export const basketItems: BasketItemResponse[] = [
     },
     subTotal: 0,
   },
-];
+]

@@ -1,7 +1,7 @@
 import type {
   GetCatalogItemResponse,
   PagedListOfGetCatalogItemResponse,
-} from '@/generated/api-client';
+} from '@/generated/api-client'
 
 export const catalogItems: GetCatalogItemResponse[] = [
   {
@@ -44,8 +44,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     id: 4,
     catalogCategoryId: 1,
     catalogBrandId: 2,
-    description:
-      'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
+    description: 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
     name: '無地 ボタンダウンシャツ',
     price: 2800,
     productCode: 'C000000004',
@@ -138,7 +137,7 @@ export const catalogItems: GetCatalogItemResponse[] = [
     rowVersion: 'byte',
     isDeleted: false,
   },
-];
+]
 
 export const pagedListCatalogItem: PagedListOfGetCatalogItemResponse = {
   hasNext: false,
@@ -148,4 +147,4 @@ export const pagedListCatalogItem: PagedListOfGetCatalogItemResponse = {
   totalCount: 3,
   totalPages: 1,
   items: catalogItems,
-};
+}

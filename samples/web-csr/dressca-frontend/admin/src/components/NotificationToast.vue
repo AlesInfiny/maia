@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { watch } from 'vue';
-import { useEventBus } from '@vueuse/core';
-import { showToast } from '@/services/notification/notificationService';
-import { unhandledErrorEventKey } from '@/shared/events';
+import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { watch } from 'vue'
+import { useEventBus } from '@vueuse/core'
+import { showToast } from '@/services/notification/notificationService'
+import { unhandledErrorEventKey } from '@/shared/events'
 
 /**
  * ユーザーにメッセージを通知するトーストです。
@@ -12,34 +12,34 @@ const show = defineModel('show', {
   type: Boolean,
   required: true,
   default: false,
-});
+})
 const message = defineModel('message', {
   type: String,
   required: true,
   default: '',
-});
+})
 const timeout = defineModel('timeout', {
   type: Number,
   required: true,
   default: 5000,
-});
+})
 
-const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
-unhandledErrorEventBus.on((payload) => showToast(payload.message));
+const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
+unhandledErrorEventBus.on((payload) => showToast(payload.message))
 
 const close = () => {
-  show.value = false;
-  message.value = '';
-};
+  show.value = false
+  message.value = ''
+}
 
 watch(message, (newMessage) => {
   if (newMessage !== '') {
-    show.value = true;
+    show.value = true
     setTimeout(() => {
-      close();
-    }, timeout.value);
+      close()
+    }, timeout.value)
   }
-});
+})
 </script>
 
 <template>

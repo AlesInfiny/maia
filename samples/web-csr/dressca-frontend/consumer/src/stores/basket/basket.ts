@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 import type {
   BasketResponse,
   PutBasketItemsRequest,
   PostBasketItemsRequest,
   BasketItemResponse,
-} from '@/generated/api-client';
-import { basketItemsApi } from '@/api-client';
+} from '@/generated/api-client'
+import { basketItemsApi } from '@/api-client'
 
 export const useBasketStore = defineStore('basket', {
   state: () => ({
@@ -18,9 +18,9 @@ export const useBasketStore = defineStore('basket', {
       const params: PostBasketItemsRequest = {
         catalogItemId,
         addedQuantity: 1,
-      };
-      await basketItemsApi.postBasketItem(params);
-      this.addedItemId = catalogItemId;
+      }
+      await basketItemsApi.postBasketItem(params)
+      this.addedItemId = catalogItemId
     },
     async update(catalogItemId: number, newQuantity: number) {
       const params: PutBasketItemsRequest[] = [
@@ -28,35 +28,33 @@ export const useBasketStore = defineStore('basket', {
           catalogItemId,
           quantity: newQuantity,
         },
-      ];
-      await basketItemsApi.putBasketItems(params);
+      ]
+      await basketItemsApi.putBasketItems(params)
     },
     async remove(catalogItemId: number) {
-      await basketItemsApi.deleteBasketItem(catalogItemId);
+      await basketItemsApi.deleteBasketItem(catalogItemId)
     },
     async fetch() {
-      const response = await basketItemsApi.getBasketItems();
-      this.basket = response.data;
-      this.deletedItemIds = response.data.deletedItemIds ?? [];
+      const response = await basketItemsApi.getBasketItems()
+      this.basket = response.data
+      this.deletedItemIds = response.data.deletedItemIds ?? []
     },
     deleteAddedItemId() {
-      this.addedItemId = undefined;
+      this.addedItemId = undefined
     },
   },
   getters: {
     getBasket(state): BasketResponse {
-      return state.basket;
+      return state.basket
     },
     getAddedItemId(state): number | undefined {
-      return state.addedItemId;
+      return state.addedItemId
     },
     getAddedItem(state): BasketItemResponse | undefined {
-      return state.basket.basketItems?.find(
-        (item) => item.catalogItemId === state.addedItemId,
-      );
+      return state.basket.basketItems?.find((item) => item.catalogItemId === state.addedItemId)
     },
     getDeletedItemIds(state): Array<number> {
-      return state.deletedItemIds;
+      return state.deletedItemIds
     },
   },
-});
+})

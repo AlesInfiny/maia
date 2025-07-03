@@ -1,4 +1,4 @@
-import type { EventBusKey } from '@vueuse/core';
+import type { EventBusKey } from '@vueuse/core'
 
 /**
  * 想定外のエラーの発生を示すイベントのペイロードです。
@@ -6,26 +6,26 @@ import type { EventBusKey } from '@vueuse/core';
  */
 type UnhandledErrorEventPayload = {
   /** ユーザーへ通知するメッセージ。 */
-  message: string;
+  message: string
   /** エラーの ID （オプション） */
-  id?: string;
+  id?: string
   /** エラーのタイトル（オプション） */
-  title?: string;
+  title?: string
   /** エラーの詳細（オプション） */
-  detail?: string;
+  detail?: string
   /** HTTPステータスコード（オプション） */
-  status?: number;
+  status?: number
   /** 通知のタイムアウト（ミリ秒、オプション） */
-  timeout?: number;
-};
+  timeout?: number
+}
 
 /**
  * 未認証エラーの発生を示すイベントのペイロードです。
  */
 type UnauthorizedErrorEventPayload = {
   /** 詳細情報（例：リダイレクト先の情報やガイダンス） */
-  details: string;
-};
+  details: string
+}
 
 /**
  * 想定外のエラーの発生を示すイベントのキー値です。
@@ -33,12 +33,13 @@ type UnauthorizedErrorEventPayload = {
  * const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey);
  */
 export const unhandledErrorEventKey: EventBusKey<UnhandledErrorEventPayload> =
-  Symbol('unhandledErrorEventKey');
+  Symbol('unhandledErrorEventKey')
 
 /**
  * 未認証エラーの発生を示すイベントのキー値です。
  * @example
  * const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
  */
-export const unauthorizedErrorEventKey: EventBusKey<UnauthorizedErrorEventPayload> =
-  Symbol('unauthorizedErrorEventKey');
+export const unauthorizedErrorEventKey: EventBusKey<UnauthorizedErrorEventPayload> = Symbol(
+  'unauthorizedErrorEventKey',
+)

@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import type { Address } from '@/stores/user/user.model';
+import { defineStore } from 'pinia'
+import type { Address } from '@/stores/user/user.model'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     getAddress(state) {
-      return state.address;
+      return state.address
     },
   },
-});
+})
