@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export const errorRoutes: RouteRecordRaw[] = [
   {
@@ -13,4 +13,4 @@ export const errorRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/error/NotFoundView.vue'),
     meta: { requiresAuth: false },
   },
-];
+]

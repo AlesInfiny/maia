@@ -1,6 +1,6 @@
 // TODO Maia・Maris 間でProblemDetails が共通化できたら、@/generated/api-client/model から import します。
-import type { ProblemDetails } from '@/shared/error-handler/custom-error';
-import { AxiosError, AxiosHeaders } from 'axios';
+import type { ProblemDetails } from '@/shared/error-handler/custom-error'
+import { AxiosError, AxiosHeaders } from 'axios'
 
 /**
  * 引数の ProblemDetails オブジェクトの情報を持つ AxiosError を作成します。
@@ -28,8 +28,8 @@ export function createAxiosError(problemDetails: ProblemDetails): AxiosError {
       title: problemDetails.title,
       type: problemDetails.type,
     },
-  });
-  return error;
+  })
+  return error
 }
 
 /**
@@ -64,5 +64,5 @@ export function createProblemDetails({
     status,
     title,
     type,
-  };
+  }
 }

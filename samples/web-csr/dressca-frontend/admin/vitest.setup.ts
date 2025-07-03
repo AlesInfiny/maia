@@ -1,5 +1,5 @@
-import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
-import { server } from './mock/node';
+import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest'
+import { server } from './mock/node'
 
 /*
  * Vitestの自動テスト実行時に、共通で実行したい処理を定義する設定ファイルです。
@@ -7,16 +7,16 @@ import { server } from './mock/node';
  */
 
 beforeAll(() => {
-  server.listen();
-});
+  server.listen()
+})
 
-beforeEach(() => {});
+beforeEach(() => {})
 
 afterEach(() => {
-  server.resetHandlers();
-  vi.restoreAllMocks();
-});
+  server.resetHandlers()
+  vi.restoreAllMocks()
+})
 
 afterAll(() => {
-  server.close();
-});
+  server.close()
+})

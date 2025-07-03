@@ -1,4 +1,4 @@
-import { useNotificationStore } from '@/stores/notification/notification';
+import { useNotificationStore } from '@/stores/notification/notification'
 
 export function showToast(
   message: string,
@@ -8,6 +8,6 @@ export function showToast(
   status: number = 0,
   timeout: number = 5000,
 ) {
-  const notificationStore = useNotificationStore();
-  notificationStore.setMessage(message, id, title, detail, status, timeout);
+  const notificationStore = useNotificationStore()
+  notificationStore.setMessage(message, id, title, detail, status, timeout)
 }

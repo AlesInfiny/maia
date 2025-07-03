@@ -1,26 +1,23 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import {
-  fetchCategoriesAndBrands,
-  fetchItems,
-} from '@/services/catalog/catalog-service';
-import { currencyHelper } from '@/shared/helpers/currencyHelper';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { showToast } from '@/services/notification/notificationService';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { fetchCategoriesAndBrands, fetchItems } from '@/services/catalog/catalog-service'
+import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { showToast } from '@/services/notification/notificationService'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
   PagedListOfGetCatalogItemResponse,
-} from '@/generated/api-client';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+} from '@/generated/api-client'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
 
-const { toCurrencyJPY } = currencyHelper();
-const { getFirstAssetUrl } = assetHelper();
+const { toCurrencyJPY } = currencyHelper()
+const { getFirstAssetUrl } = assetHelper()
 
 /**
  * リアクティブなページネーションされたカタログアイテムの状態です。
@@ -45,40 +42,38 @@ const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
       isDeleted: false,
     },
   ],
-});
+})
 
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
-  { id: 0, name: '' },
-]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
 
 /**
  * ローディングスピナーの表示の状態です。
  */
-const showLoading = ref(true);
+const showLoading = ref(true)
 
 /**
  * カタログブランドの名前を取得します。
  * @param id カタログブランドID
  */
 const getBrandName = (id: number) => {
-  return catalogBrands.value.find((item) => item.id === id)?.name;
-};
+  return catalogBrands.value.find((item) => item.id === id)?.name
+}
 
 /**
  * カタログカテゴリの名前を取得します。
  * @param id カタログカテゴリID
  */
 const getCategoryName = (id: number) => {
-  return catalogCategories.value.find((item) => item.id === id)?.name;
-};
+  return catalogCategories.value.find((item) => item.id === id)?.name
+}
 
 /**
  * コンポーネントがマウントされた後に呼び出されるライフサイクルフックです。
@@ -87,43 +82,40 @@ const getCategoryName = (id: number) => {
  * それぞれの状態を更新します。
  */
 onMounted(async () => {
-  showLoading.value = true;
+  showLoading.value = true
   try {
-    pagedListOfCatalogItem.value = await fetchItems(0, 0);
-    [catalogCategories.value, catalogBrands.value] =
-      await fetchCategoriesAndBrands();
+    pagedListOfCatalogItem.value = await fetchItems(0, 0)
+    ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
     customErrorHandler.handle(error, () => {
-      showToast('カタログアイテムの取得に失敗しました。');
-    });
+      showToast('カタログアイテムの取得に失敗しました。')
+    })
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 
 /**
  * アイテム追加画面に遷移します。
  */
 const goToAddItem = () => {
-  router.push({ name: 'catalog/items/add' });
-};
+  router.push({ name: 'catalog/items/add' })
+}
 
 /**
  * アイテム編集画面に遷移します。
  * @param id カタログアイテムID
  */
 const goToEditItem = (id: number) => {
-  router.push({ name: 'catalog/items/edit', params: { itemId: id } });
-};
+  router.push({ name: 'catalog/items/edit', params: { itemId: id } })
+}
 </script>
 
 <template>
   <div class="container mx-auto gap-6">
     <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
     <div v-if="!showLoading">
-      <div class="flex justify-center p-8 text-5xl font-bold">
-        カタログアイテム一覧
-      </div>
+      <div class="flex justify-center p-8 text-5xl font-bold">カタログアイテム一覧</div>
       <div class="mx-2 my-8 flex justify-end">
         <button
           type="button"

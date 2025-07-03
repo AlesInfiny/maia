@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export const catalogRoutes: RouteRecordRaw[] = [
   {
@@ -7,4 +7,4 @@ export const catalogRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/catalog/CatalogView.vue'),
     meta: { requiresAuth: false },
   },
-];
+]

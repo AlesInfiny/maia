@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export const authenticationRoutes: RouteRecordRaw[] = [
   {
@@ -7,4 +7,4 @@ export const authenticationRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/authentication/LoginView.vue'),
     meta: { requiresAuth: false },
   },
-];
+]

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useBasketStore } from '@/stores/basket/basket';
-import { useUserStore } from '@/stores/user/user';
-import { postOrder } from '@/services/ordering/ordering-service';
-import { fetchBasket } from '@/services/basket/basket-service';
-import { showToast } from '@/services/notification/notificationService';
-import { useRouter } from 'vue-router';
-import { currencyHelper } from '@/shared/helpers/currencyHelper';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { storeToRefs } from 'pinia';
-import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { onMounted } from 'vue'
+import { useBasketStore } from '@/stores/basket/basket'
+import { useUserStore } from '@/stores/user/user'
+import { postOrder } from '@/services/ordering/ordering-service'
+import { fetchBasket } from '@/services/basket/basket-service'
+import { showToast } from '@/services/notification/notificationService'
+import { useRouter } from 'vue-router'
+import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { storeToRefs } from 'pinia'
+import { i18n } from '@/locales/i18n'
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
+import { HttpError } from '@/shared/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const userStore = useUserStore();
-const basketStore = useBasketStore();
+const userStore = useUserStore()
+const basketStore = useBasketStore()
 
-const { getBasket } = storeToRefs(basketStore);
-const { getAddress } = storeToRefs(userStore);
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
-const { toCurrencyJPY } = currencyHelper();
-const { getFirstAssetUrl } = assetHelper();
-const { t } = i18n.global;
+const { getBasket } = storeToRefs(basketStore)
+const { getAddress } = storeToRefs(userStore)
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
+const { toCurrencyJPY } = currencyHelper()
+const { getFirstAssetUrl } = assetHelper()
+const { t } = i18n.global
 
 const checkout = async () => {
   try {
@@ -33,22 +33,22 @@ const checkout = async () => {
       getAddress.value.todofuken,
       getAddress.value.shikuchoson,
       getAddress.value.azanaAndOthers,
-    );
-    router.push({ name: 'ordering/done', params: { orderId } });
+    )
+    router.push({ name: 'ordering/done', params: { orderId } })
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {
-        router.push({ name: 'error' });
+        router.push({ name: 'error' })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToOrderItems'));
+          showToast(t('failedToOrderItems'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -56,18 +56,18 @@ const checkout = async () => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   }
-};
+}
 onMounted(async () => {
-  await fetchBasket();
+  await fetchBasket()
   if (getBasket.value.basketItems?.length === 0) {
-    router.push('/');
+    router.push('/')
   }
-});
+})
 </script>
 
 <template>
@@ -77,9 +77,7 @@ onMounted(async () => {
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
-    <div
-      class="mx-2 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-12 flex items-center"
-    >
+    <div class="mx-2 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-12 flex items-center">
       <table
         class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
       >
@@ -117,9 +115,7 @@ onMounted(async () => {
       >
         注文を確定する
       </button>
-      <table
-        class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border"
-      >
+      <table class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border">
         <tbody>
           <tr>
             <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>

@@ -1,3 +1,3 @@
-import LoadingSpinnerOverlay from './LoadingSpinnerOverlay.vue';
+import LoadingSpinnerOverlay from './LoadingSpinnerOverlay.vue'
 
-export { LoadingSpinnerOverlay };
+export { LoadingSpinnerOverlay }
