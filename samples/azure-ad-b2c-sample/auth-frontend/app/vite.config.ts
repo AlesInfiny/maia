@@ -11,6 +11,14 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
 
   return {
+    build: {
+      target: 'esnext',
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: 'esnext',
+      },
+    },
     plugins,
     resolve: {
       alias: {
