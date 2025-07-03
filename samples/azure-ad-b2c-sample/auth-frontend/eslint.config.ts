@@ -21,9 +21,18 @@ export default defineConfigWithVueTs(
   // .vue ファイルを Lint の対象とします。
   pluginVue.configs['flat/recommended'],
 
-  // TypeScript + Vue.js 向けの推奨ルールを適用します。
+  // TypeScript + Vue.js 向けの型情報を使用した推奨ルールを適用します。
   // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
-  vueTsConfigs.recommended,
+  vueTsConfigs.recommendedTypeChecked,
+
+ // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
+ {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
 
   // プロジェクトやワークスペースに固有のルールを適用します。
   // 必要に応じて対象のファイルやルールを設定します。
