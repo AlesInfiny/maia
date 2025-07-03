@@ -12,11 +12,11 @@ export default defineConfig(({ mode }) => {
 
   return {
     build: {
-      target: 'esnext',
+      target: 'es2022',
     },
     optimizeDeps: {
       esbuildOptions: {
-        target: 'esnext',
+        target: 'es2022',
       },
     },
     plugins,
