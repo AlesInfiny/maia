@@ -9,9 +9,6 @@
     "source.fixAll.stylelint": "explicit"
   },
 
-  // markdownlint の設定ファイルを指定
-  "markdownlint.configFile": "./markdownlint-cli2.yaml",
-
   // Formatter を Prettier にする
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
