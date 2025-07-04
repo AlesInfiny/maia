@@ -16,7 +16,6 @@
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "css.validate": false,
-  "typescript.validate.enable": false,
 
   "stylelint.validate": ["postcss", "vue"],
 
