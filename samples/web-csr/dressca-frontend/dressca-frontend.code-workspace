@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "dressca-admin",
+      "path": "admin",
+    },
+    {
+      "name": "dressca-consumer",
+      "path": "consumer",
+    },
+    {
+      "name": "dressca-root",
+      "path": ".",
+    },
+  ],
+}
