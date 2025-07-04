@@ -13,4 +13,8 @@
       "path": ".",
     },
   ],
+  "settings": {
+    "typescript.tsdk": "dressca-root\\node_modules\\typescript\\lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+  },
 }
