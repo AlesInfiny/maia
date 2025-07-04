@@ -10,11 +10,11 @@
   },
 
   // textlint の設定ファイルを指定
-  "textlint.configPath": "../../../.textlintrc",
-  "textlint.ignorePath": "../../../.textlintignore",
+  "textlint.configPath": "./.textlintrc",
+  "textlint.ignorePath": "./.textlintignore",
 
   // markdownlint の設定ファイルを指定
-  "markdownlint.configFile": "../../../.markdownlint-cli2.yaml",
+  "markdownlint.configFile": "./markdownlint-cli2.yaml",
 
   // Formatter を Prettier にする
   "editor.defaultFormatter": "esbenp.prettier-vscode",
