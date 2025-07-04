@@ -1,20 +1,9 @@
 {
-  // node_modules 配下の TypeScript を利用する
-  // 初回は TypeScript: Select TypeScript version で指定する必要あり。
-  "typescript.tsdk": "node_modules/typescript/lib",
-
   // Lint の有効化
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
-
-  // textlint の設定ファイルを指定
-  "textlint.configPath": "../../../.textlintrc",
-  "textlint.ignorePath": "../../../.textlintignore",
-
-  // markdownlint の設定ファイルを指定
-  "markdownlint.configFile": "../../../.markdownlint-cli2.yaml",
 
   // Formatter を Prettier にする
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -23,7 +12,6 @@
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "css.validate": false,
-  "typescript.validate.enable": false,
 
   "stylelint.validate": ["postcss", "vue"],
 

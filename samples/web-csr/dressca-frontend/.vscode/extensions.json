@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "Vue.volar",
+    "vitest.explorer",
     "cpylua.language-postcss",
     "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint",
