@@ -1,3 +1,7 @@
+/* eslint @typescript-eslint/no-floating-promises: ["error", { "ignoreIIFE": true }] */
+// Safari および Safari on iOS で top-level await が Partial support のため、
+// 代替として即時実行関数式 ( IIFE ) で記述を許可するよう ESLint の設定を変更します。
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
 import { InteractionRequiredAuthError } from '@azure/msal-browser'
 import {
   msalInstance,
@@ -6,7 +10,11 @@ import {
 } from '@/services/authentication/authentication-config'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 
-msalInstance.initialize()
+// IIFE 構文が行頭に来る場合、自動セミコロン挿入( ASI )の誤動作防止のため Prettier がセミコロンを挿入します。
+// https://prettier.io/docs/options#semicolons
+;(async function () {
+  await msalInstance.initialize()
+})()
 
 export const authenticationService = {
   async signInAzureADB2C() {
@@ -16,7 +24,7 @@ export const authenticationService = {
     authenticationStore.updateAuthenticated(true)
   },
 
-  async isAuthenticated(): Promise<boolean> {
+  isAuthenticated(): boolean {
     const result = msalInstance.getActiveAccount() !== null
     const authenticationStore = useAuthenticationStore()
     authenticationStore.updateAuthenticated(result)
