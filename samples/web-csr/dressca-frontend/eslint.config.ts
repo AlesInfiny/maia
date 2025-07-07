@@ -13,24 +13,38 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-
   // Lint 対象外とするファイルパスを列挙します。
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**','**/src/generated/**','**/mockServiceWorker.js']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/src/generated/**',
+    '**/mockServiceWorker.js',
+  ]),
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
   pluginVue.configs['flat/recommended'],
 
-  // TypeScript + Vue.js 向けの推奨ルールを適用します。
+  // TypeScript + Vue.js 向けの型情報を使用した推奨ルールを適用します。
   // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
-  vueTsConfigs.recommended,
+  vueTsConfigs.recommendedTypeChecked,
+
+  // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
 
   // プロジェクトやワークスペースに固有のルールを適用します。
   // 必要に応じて対象のファイルやルールを設定します。
   {
     name: 'dressca-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: {'no-console': 'warn','no-alert':'warn'}
+    rules: { 'no-console': 'warn', 'no-alert': 'warn' },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
