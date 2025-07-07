@@ -1,16 +1,16 @@
 {
   "folders": [
     {
-      "name": "dressca-admin",
-      "path": "admin",
+      "name": "dressca-root",
+      "path": ".",
     },
     {
       "name": "dressca-consumer",
       "path": "consumer",
     },
     {
-      "name": "dressca-root",
-      "path": ".",
+      "name": "dressca-admin",
+      "path": "admin",
     },
   ],
   "settings": {
