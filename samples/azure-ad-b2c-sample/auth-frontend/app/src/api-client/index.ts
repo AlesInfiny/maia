@@ -26,10 +26,10 @@ axiosInstance.interceptors.response.use(
       if (!error.response) {
         return Promise.reject(new NetworkError(error.message, error))
       }
-      if (error.response.status === HttpStatusCode.InternalServerError) {
+      if (error.response.status === Number(HttpStatusCode.InternalServerError)) {
         return Promise.reject(new ServerError(error.message, error))
       }
-      if (error.response.status === HttpStatusCode.Unauthorized) {
+      if (error.response.status === Number(HttpStatusCode.Unauthorized)) {
         return Promise.reject(new UnauthorizedError(error.message, error))
       }
       return Promise.reject(new HttpError(error.message, error))
@@ -46,7 +46,7 @@ function createConfig(): apiClient.Configuration {
 
 async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
   // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
-  if (await authenticationService.isAuthenticated()) {
+  if (authenticationService.isAuthenticated()) {
     const token = await authenticationService.getTokenAzureADB2C()
     config.accessToken = token
   }
@@ -61,7 +61,7 @@ export async function getUsersApi(): Promise<apiClient.UsersApi> {
   return userApi
 }
 
-export async function getServerTimeApi(): Promise<apiClient.ServerTimeApi> {
+export function getServerTimeApi(): apiClient.ServerTimeApi {
   const config = createConfig()
   const serverTimeApi = new apiClient.ServerTimeApi(config, '', axiosInstance)
   return serverTimeApi
