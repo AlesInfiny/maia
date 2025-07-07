@@ -45,7 +45,7 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
 
 ### フロントエンドアプリケーションの実行手順 {#frontend-operation}
 
-1. VS Code で「dressca\\dressca-frontend」フォルダーを開き、必要な拡張機能をインストールします。
+1. VS Code で「ファイルでワークスペースを開く」から、「maia.code-workspace」フォルダーを開き、必要な拡張機能をインストールします。
 「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
 
     !!! info "「このフォルダー内のファイルの作成者を信頼しますか？」ダイアログが表示される場合"
@@ -59,7 +59,7 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
         VS Code の再起動やローカルキャッシュのクリアを試してください。
 
 1. フロントエンドのアプリケーションを実行するためのモジュールを取得します。
-コマンドプロンプト、もしくは VS Code のターミナルで、「dressca\\dressca-frontend」に移動して以下のコマンドを実行します。
+ VS Code のターミナルで、「dressca\\dressca-frontend」にいることを確認し、以下のコマンドを実行します。
 
     ```winbatch title="フロントエンドアプリケーションの実行に必要なパッケージのインストール"
     npm ci
@@ -68,21 +68,22 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
     !!! info "npm ci が失敗した場合"
         `npm ci` の途中でエラーや脆弱性情報以外の警告が出た場合、インストールに失敗している可能性があります。
         その場合は、「dressca\\dressca-frontend\\node_modules」、
-        「dressca\\dressca-frontend\\consumer\\node_modules」ディレクトリをそれぞれ削除し、再度 `npm ci` を実行してください。
+        「dressca\\dressca-frontend\\consumer\\node_modules」、
+        「dressca\\dressca-frontend\\admin\\node_modules」ディレクトリをそれぞれ削除し、再度 `npm ci` を実行してください。
 
 1. フロントエンドのアプリケーションを実行します。
-VS Code のターミナルで、「dressca\\dressca-frontend\\consumer」に移動して以下のコマンドを実行してください。
+VS Code のターミナルで、「dressca\\dressca-frontend」にいることを確認し、以下のコマンドを実行してください。
 アプリケーションの実行方法は、 API 呼び出し時にバックエンドアプリケーションへ実際にアクセスする「開発モード」と、 API 呼び出し時にモックを利用する「モックモード」の 2 種類があります。
 「開発モード」で実行する場合には、後述の手順を参照してバックエンドアプリケーションを先に起動させておく必要があります。
 
     ```winbatch title="開発モードでのフロントエンドアプリケーションの実行"
     # 開発モードでの実行
-    npm run dev
+    npm run dev:consumer
     ```
 
     ```winbatch title="モックモードでのフロントエンドアプリケーションの実行"
     # モックモードでの実行
-    npm run mock
+    npm run mock:consumer
     ```
 
 1. ブラウザーを開き、以下のアドレスにアクセスします。
