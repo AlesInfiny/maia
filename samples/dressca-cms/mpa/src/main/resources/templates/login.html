@@ -4,7 +4,7 @@
       <form th:action="@{/login}" th:object="${loginForm}" method="post" class="p-4 border rounded bg-white" style="width:100%; max-width:400px;">
         <h2 class="mb-4 text-center">ログイン</h2>
         <div class="mb-3">
-          <label for="username" class="form-label">ユーザー名</label>
+          <label for="username" class="form-label" th:text="#{login.username}">User Name</label>
           <input type="text" id="username" th:field="*{username}" class="form-control" th:classappend="${#fields.hasErrors('username')} ? ' is-invalid'" placeholder="Username">
           <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small mt-1"></div>
         </div>
