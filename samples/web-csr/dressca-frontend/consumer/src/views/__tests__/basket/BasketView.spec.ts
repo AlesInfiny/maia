@@ -81,7 +81,7 @@ vi.mock('@/api-client', () => ({
   },
 }))
 
-async function getWrapper() {
+function getWrapper() {
   const pinia = createTestingPinia({
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
@@ -95,10 +95,10 @@ async function getWrapper() {
 describe('買い物かごのアイテムを表示する_アイテムが入っている', () => {
   let wrapper: VueWrapper
 
-  beforeAll(async (): Promise<void> => {
+  beforeAll((): Promise<void> => {
     // onMounted のタイミングで API コールを行っているので、wrapper の作成よりも先にモックする必要があります。
     getBasketItemsMock.mockResolvedValue({ data: createBasketResponse() })
-    wrapper = await getWrapper()
+    wrapper = getWrapper()
   })
 
   it('取得したアイテムの情報が表示される', async () => {
@@ -133,9 +133,9 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
 describe('買い物かごのアイテムを表示する_アイテムが0件', () => {
   let wrapper: VueWrapper
 
-  beforeAll(async (): Promise<void> => {
+  beforeAll((): Promise<void> => {
     getBasketItemsMock.mockResolvedValue({ data: createEmptyBasketResponse() })
-    wrapper = await getWrapper()
+    wrapper = getWrapper()
   })
 
   it('0件を示すメッセージが表示される', async () => {
@@ -164,7 +164,7 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
 })
 
 describe('買い物かごのアイテムを表示する_サーバーエラー', () => {
-  it('サーバーエラー_通知ストアにサーバーエラーを示すメッセージが格納される', async () => {
+  it('サーバーエラー_通知ストアにサーバーエラーを示すメッセージが格納される', () => {
     // Arrange
     const expectDetail = 'expectDetail'
     const expectExceptionId = 'serverError'
@@ -179,7 +179,7 @@ describe('買い物かごのアイテムを表示する_サーバーエラー', 
     const error = createAxiosError(problem)
     getBasketItemsMock.mockRejectedValue(new ServerError('', error))
     const expectMessage = 'サーバーエラーが発生しました。'
-    await getWrapper()
+    getWrapper()
     const notificationStore = useNotificationStore()
 
     // Act

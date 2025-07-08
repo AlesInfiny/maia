@@ -42,8 +42,8 @@ describe('CarouselSlider', () => {
     expect(slotContent.text()).toBe('test1')
   })
 
-  it('引数の要素が0の時なにも表示しない', async () => {
-    const wrapper = await shallowMount(CarouselSlider, {
+  it('引数の要素が0の時なにも表示しない', () => {
+    const wrapper = shallowMount(CarouselSlider, {
       props: { items: [] },
       slots: {
         default:
@@ -90,7 +90,7 @@ describe('CarouselSlider', () => {
     expect(slotContent.text()).toBe('test3')
   })
 
-  it('表示要素を左にスライドすると要素が進む', async () => {
+  it('表示要素を左にスライドすると要素が進む', () => {
     const wrapper = shallowMount(CarouselSlider, {
       attachTo: document.body,
       props: { items },
@@ -109,9 +109,9 @@ describe('CarouselSlider', () => {
     })
     const mouseUp = new MouseEvent('mouseup', { bubbles: true, clientX: -100 })
 
-    await slider.element.dispatchEvent(mouseDown)
-    await slider.element.dispatchEvent(mouseMove)
-    await slider.element.dispatchEvent(mouseUp)
+    slider.element.dispatchEvent(mouseDown)
+    slider.element.dispatchEvent(mouseMove)
+    slider.element.dispatchEvent(mouseUp)
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
@@ -119,7 +119,7 @@ describe('CarouselSlider', () => {
     expect(slotContent.text()).toBe('test2')
   })
 
-  it('表示要素を右にスライドすると要素が進む', async () => {
+  it('表示要素を右にスライドすると要素が進む', () => {
     const wrapper = shallowMount(CarouselSlider, {
       attachTo: document.body,
       props: { items },
@@ -138,9 +138,9 @@ describe('CarouselSlider', () => {
     })
     const mouseUp = new MouseEvent('mouseup', { bubbles: true, clientX: 100 })
 
-    await slider.element.dispatchEvent(mouseDown)
-    await slider.element.dispatchEvent(mouseMove)
-    await slider.element.dispatchEvent(mouseUp)
+    slider.element.dispatchEvent(mouseDown)
+    slider.element.dispatchEvent(mouseMove)
+    slider.element.dispatchEvent(mouseUp)
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
