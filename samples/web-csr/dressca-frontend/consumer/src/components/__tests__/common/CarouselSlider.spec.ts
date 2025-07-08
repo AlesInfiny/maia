@@ -1,5 +1,5 @@
+import { nextTick } from 'vue'
 import { describe, it, expect } from 'vitest'
-
 import { shallowMount } from '@vue/test-utils'
 import CarouselSlider from '@/components/common/CarouselSlider.vue'
 
@@ -42,7 +42,7 @@ describe('CarouselSlider', () => {
     expect(slotContent.text()).toBe('test1')
   })
 
-  it('引数の要素が0の時なにも表示しない', () => {
+  it('引数の要素が0の時なにも表示しない', async () => {
     const wrapper = shallowMount(CarouselSlider, {
       props: { items: [] },
       slots: {
@@ -50,6 +50,8 @@ describe('CarouselSlider', () => {
           '<template #default="{ item }" ><div data-test="slotContent">{{ item.name }}</div></template>',
       },
     })
+
+    await nextTick()
 
     const content = wrapper.find('[data-test="body"]')
 
@@ -90,7 +92,7 @@ describe('CarouselSlider', () => {
     expect(slotContent.text()).toBe('test3')
   })
 
-  it('表示要素を左にスライドすると要素が進む', () => {
+  it('表示要素を左にスライドすると要素が進む', async () => {
     const wrapper = shallowMount(CarouselSlider, {
       attachTo: document.body,
       props: { items },
@@ -113,13 +115,15 @@ describe('CarouselSlider', () => {
     slider.element.dispatchEvent(mouseMove)
     slider.element.dispatchEvent(mouseUp)
 
+    await nextTick()
+
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
     expect(slotContent.exists()).toBe(true)
     expect(slotContent.text()).toBe('test2')
   })
 
-  it('表示要素を右にスライドすると要素が進む', () => {
+  it('表示要素を右にスライドすると要素が進む', async () => {
     const wrapper = shallowMount(CarouselSlider, {
       attachTo: document.body,
       props: { items },
@@ -141,6 +145,8 @@ describe('CarouselSlider', () => {
     slider.element.dispatchEvent(mouseDown)
     slider.element.dispatchEvent(mouseMove)
     slider.element.dispatchEvent(mouseUp)
+
+    await nextTick()
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
