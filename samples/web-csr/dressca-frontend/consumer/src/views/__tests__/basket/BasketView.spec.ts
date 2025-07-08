@@ -95,7 +95,7 @@ function getWrapper() {
 describe('買い物かごのアイテムを表示する_アイテムが入っている', () => {
   let wrapper: VueWrapper
 
-  beforeAll((): Promise<void> => {
+  beforeAll(() => {
     // onMounted のタイミングで API コールを行っているので、wrapper の作成よりも先にモックする必要があります。
     getBasketItemsMock.mockResolvedValue({ data: createBasketResponse() })
     wrapper = getWrapper()
@@ -133,7 +133,7 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
 describe('買い物かごのアイテムを表示する_アイテムが0件', () => {
   let wrapper: VueWrapper
 
-  beforeAll((): Promise<void> => {
+  beforeAll(() => {
     getBasketItemsMock.mockResolvedValue({ data: createEmptyBasketResponse() })
     wrapper = getWrapper()
   })
@@ -164,7 +164,7 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
 })
 
 describe('買い物かごのアイテムを表示する_サーバーエラー', () => {
-  it('サーバーエラー_通知ストアにサーバーエラーを示すメッセージが格納される', () => {
+  it('サーバーエラー_通知ストアにサーバーエラーを示すメッセージが格納される', async () => {
     // Arrange
     const expectDetail = 'expectDetail'
     const expectExceptionId = 'serverError'
