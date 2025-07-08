@@ -34,12 +34,12 @@ const checkout = async () => {
       getAddress.value.shikuchoson,
       getAddress.value.azanaAndOthers,
     )
-    router.push({ name: 'ordering/done', params: { orderId } })
+    await router.push({ name: 'ordering/done', params: { orderId } })
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {
-        router.push({ name: 'error' })
+        await router.push({ name: 'error' })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
@@ -65,7 +65,7 @@ const checkout = async () => {
 onMounted(async () => {
   await fetchBasket()
   if (getBasket.value.basketItems?.length === 0) {
-    router.push('/')
+    await router.push('/')
   }
 })
 </script>

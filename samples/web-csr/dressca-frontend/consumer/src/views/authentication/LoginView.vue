@@ -2,7 +2,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { signInAsync } from '@/services/authentication/authentication-service'
+import { signIn } from '@/services/authentication/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { configureYup } from '@/config/yup.config'
 import { ValidationItems } from '@/validation/validation-items'
@@ -28,13 +28,13 @@ const isInvalid = () => {
 }
 
 const signIn = () => {
-  signInAsync()
+  signIn()
   // 別の画面からリダイレクトしていない場合は、トップページに遷移します。
   if (!route.query.redirectName) {
-    router.push({ name: 'catalog' })
+    await router.push({ name: 'catalog' })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
-    router.push({
+    await router.push({
       name: route.query.redirectName as string,
       params: JSON.parse(route.query.redirectParams as string),
       query: JSON.parse(route.query.redirectQuery as string),

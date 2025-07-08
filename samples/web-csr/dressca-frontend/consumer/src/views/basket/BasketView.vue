@@ -34,7 +34,7 @@ const isEmpty = () => {
 }
 
 const goCatalog = () => {
-  router.push({ name: 'catalog' })
+  await router.push({ name: 'catalog' })
 }
 
 const update = async (catalogItemId: number, newQuantity: number) => {
@@ -102,7 +102,7 @@ const order = async () => {
     showToast(t('basketContainsUnavailableItem'))
     return
   }
-  router.push({ name: 'ordering/checkout' })
+  await router.push({ name: 'ordering/checkout' })
 }
 
 onMounted(async () => {
@@ -140,9 +140,7 @@ onMounted(async () => {
   }
 })
 
-onUnmounted(async () => {
-  basketStore.deleteAddedItemId()
-})
+onUnmounted(() => basketStore.deleteAddedItemId())
 </script>
 
 <template>

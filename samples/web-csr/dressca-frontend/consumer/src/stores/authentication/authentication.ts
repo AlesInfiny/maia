@@ -7,7 +7,7 @@ export const useAuthenticationStore = defineStore('authentication', {
     ) as boolean,
   }),
   actions: {
-    async signInAsync() {
+    signInAsync() {
       this.authenticationState = true
       sessionStorage.setItem('isAuthenticated', JSON.stringify(this.authenticationState))
     },
