@@ -1,4 +1,5 @@
 import { globalIgnores } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
@@ -37,6 +38,12 @@ export default defineConfigWithVueTs(
         projectService: true,
       },
     },
+  },
+
+  // JavaScript ファイルに対しては、 型情報を使用した Lint は無効化します。
+  {
+    files: ['**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
   },
 
   // プロジェクトやワークスペースに固有のルールを適用します。
