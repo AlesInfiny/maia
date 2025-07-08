@@ -13,7 +13,7 @@ export const globalErrorHandler = {
       // 本サンプルAPではログの出力とエラー画面への遷移を行っています。
       // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
       console.error(err, instance, info)
-      await router.replace({ name: 'error' })
+      void router.replace({ name: 'error' })
     }
 
     // Vue.js 以外のエラー

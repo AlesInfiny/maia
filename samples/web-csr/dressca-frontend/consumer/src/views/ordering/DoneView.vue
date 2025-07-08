@@ -26,7 +26,7 @@ const { t } = i18n.global
 
 const showLoading = ref(true)
 
-const goCatalog = () => {
+const goCatalog = async () => {
   await router.push({ name: 'catalog' })
 }
 
@@ -38,7 +38,7 @@ onMounted(async () => {
     customErrorHandler.handle(
       error,
       () => {
-        await router.push('/')
+        void router.push('/')
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {

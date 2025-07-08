@@ -33,7 +33,7 @@ const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0
 }
 
-const goCatalog = () => {
+const goCatalog = async () => {
   await router.push({ name: 'catalog' })
 }
 
