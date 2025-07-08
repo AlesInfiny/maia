@@ -14,7 +14,7 @@
     },
   ],
   "settings": {
-    "typescript.tsdk": "dressca-root\\node_modules\\typescript\\lib",
+    "typescript.tsdk": "dressca-root/node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.validate.enable": false,
   },
