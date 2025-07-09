@@ -29,12 +29,12 @@ const signIn = async () => {
     // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
       // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-      customErrorHandler.handle(error, () => {
+      await customErrorHandler.handleAsync(error, () => {
         console.info('ユーザーが認証処理を中断しました。')
         authenticationStore.updateAuthenticated(false)
       })
     } else {
-      customErrorHandler.handle(error, () => {
+      await customErrorHandler.handleAsync(error, () => {
         window.alert('AzureADB2C での認証に失敗しました。')
       })
     }
@@ -43,7 +43,7 @@ const signIn = async () => {
   try {
     await fetchUser()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await customErrorHandler.handleAsync(error, () => {
       window.alert('ユーザー情報の取得に失敗しました。')
     })
   }
@@ -53,7 +53,7 @@ async function updateServerTime() {
   try {
     await fetchServerTime()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await customErrorHandler.handleAsync(error, () => {
       window.alert('サーバー時刻の更新に失敗しました。')
     })
   }
@@ -63,14 +63,14 @@ onMounted(async () => {
   try {
     await fetchServerTime()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await customErrorHandler.handleAsync(error, () => {
       window.alert('サーバー時刻の取得に失敗しました。')
     })
   }
   try {
     await fetchUser()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await customErrorHandler.handleAsync(error, () => {
       window.alert('ユーザー情報の取得に失敗しました。')
     })
   }

@@ -9,13 +9,13 @@ import { formatError } from '@/shared/helpers/format-error'
  * カスタムエラーハンドラーのインターフェースです。
  */
 export interface CustomErrorHandler {
-  handle(
+  handleAsync(
     error: unknown,
     callback: () => void,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
     handlingServerError?: (() => void) | null,
-  ): void
+  ): Promise<void>
 }
 
 /**
@@ -24,9 +24,9 @@ export interface CustomErrorHandler {
  */
 export function useCustomErrorHandler(): CustomErrorHandler {
   const customErrorHandler: CustomErrorHandler = {
-    handle: (
+    handleAsync: async (
       error: unknown,
-      callback: () => void,
+      callback: () => void | Promise<void>,
       handlingUnauthorizedError: (() => void) | null = null,
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
@@ -36,7 +36,7 @@ export function useCustomErrorHandler(): CustomErrorHandler {
         console.error(formatError(error))
 
         // 呼び出し側で指定したコールバック関数をを実行します。
-        callback()
+        await callback()
 
         // エラーの種類によって共通処理を行います。
         // switch だと instanceof での判定ができないため if 文で判定します。
