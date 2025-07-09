@@ -11,7 +11,7 @@ import { formatError } from '@/shared/helpers/format-error'
 export interface CustomErrorHandler {
   handleAsync(
     error: unknown,
-    callback: () => void,
+    callback: () => void | Promise<void>,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
     handlingServerError?: (() => void) | null,
