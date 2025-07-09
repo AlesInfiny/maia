@@ -249,14 +249,14 @@ const deleteItemAsync = async () => {
     showDeleteNotice.value = true
   } catch (error) {
     if (error instanceof NotFoundError) {
-      customErrorHandler.handle(error, () => {
+      customErrorHandler.handle(error, async () => {
         showToast('削除対象のカタログアイテムが見つかりませんでした。')
-        void router.push({ name: '/catalog/items' })
+        await router.push({ name: '/catalog/items' })
       })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, () => {
+      customErrorHandler.handle(error, async () => {
         showToast('カタログアイテムの更新と削除が競合しました。もう一度削除してください。')
-        void reFetchItemAndInitRowVersionAsync(id)
+        await reFetchItemAndInitRowVersionAsync(id)
       })
     } else {
       customErrorHandler.handle(error, () => {
@@ -291,9 +291,9 @@ const updateItemAsync = async () => {
       showToast('更新対象のカタログアイテムが見つかりませんでした。')
       await router.push({ name: 'catalog/items' })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, () => {
+      customErrorHandler.handle(error, async () => {
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
-        void reFetchItemAndInitRowVersionAsync(id)
+        await reFetchItemAndInitRowVersionAsync(id)
       })
     } else {
       customErrorHandler.handle(error, () => {

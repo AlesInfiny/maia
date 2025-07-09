@@ -37,8 +37,8 @@ onMounted(async () => {
   } catch (error) {
     customErrorHandler.handle(
       error,
-      () => {
-        void router.push('/')
+      async () => {
+        await router.push('/')
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {

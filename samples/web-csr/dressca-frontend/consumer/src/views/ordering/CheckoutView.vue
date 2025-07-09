@@ -38,8 +38,8 @@ const checkout = async () => {
   } catch (error) {
     customErrorHandler.handle(
       error,
-      () => {
-        void router.push({ name: 'error' })
+      async () => {
+        await router.push({ name: 'error' })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
