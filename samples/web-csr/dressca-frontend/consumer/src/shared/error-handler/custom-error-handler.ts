@@ -13,7 +13,7 @@ import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
 export interface CustomErrorHandler {
   handle(
     error: unknown,
-    callback: () => void | Promise<void>,
+    callback: () => void,
     handlingHttpError?: ((httpError: HttpError) => void) | null,
     handlingUnauthorizedError?: (() => void) | null,
     handlingNetworkError?: (() => void) | null,
