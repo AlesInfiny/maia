@@ -293,8 +293,8 @@ const updateItemAsync = async () => {
     } else if (error instanceof ConflictError) {
       customErrorHandler.handle(error, () => {
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
-        void reFetchItemAndInitRowVersionAsync(id)
       })
+      await reFetchItemAndInitRowVersionAsync(id)
     } else {
       customErrorHandler.handle(error, () => {
         showToast('カタログアイテムの更新に失敗しました。')
