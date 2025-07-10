@@ -256,8 +256,8 @@ const deleteItemAsync = async () => {
     } else if (error instanceof ConflictError) {
       customErrorHandler.handle(error, () => {
         showToast('カタログアイテムの更新と削除が競合しました。もう一度削除してください。')
-        void reFetchItemAndInitRowVersionAsync(id)
       })
+      await reFetchItemAndInitRowVersionAsync(id)
     } else {
       customErrorHandler.handle(error, () => {
         showToast('カタログアイテムの削除に失敗しました。')
