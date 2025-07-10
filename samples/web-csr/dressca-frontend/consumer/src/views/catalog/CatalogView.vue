@@ -35,7 +35,7 @@ const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 const addBasket = async (catalogItemId: number) => {
   try {
     await addItemToBasket(catalogItemId)
-    router.push({ name: 'basket' })
+    await router.push({ name: 'basket' })
   } catch (error) {
     customErrorHandler.handle(
       error,
@@ -64,7 +64,7 @@ const addBasket = async (catalogItemId: number) => {
 
 onMounted(async () => {
   showLoading.value = true
-  fetchCategoriesAndBrands()
+  await fetchCategoriesAndBrands()
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value)
   } catch (error) {
@@ -96,7 +96,7 @@ onMounted(async () => {
 })
 
 watch([selectedCategory, selectedBrand], async () => {
-  fetchItems(selectedCategory.value, selectedBrand.value)
+  await fetchItems(selectedCategory.value, selectedBrand.value)
 })
 </script>
 

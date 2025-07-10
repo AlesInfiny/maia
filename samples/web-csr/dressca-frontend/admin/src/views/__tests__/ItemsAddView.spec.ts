@@ -17,7 +17,7 @@ function CreateLoginState(userRoles: string[]) {
   })
 }
 
-async function getWrapper(pinia: TestingPinia) {
+function getWrapper(pinia: TestingPinia) {
   return mount(ItemsAddView, {
     global: { plugins: [pinia, router] },
   })
@@ -27,9 +27,9 @@ describe('管理者ロール_アイテムを追加できる', () => {
   let loginState: TestingPinia
   let wrapper: VueWrapper
 
-  beforeAll(async () => {
+  beforeAll(() => {
     loginState = CreateLoginState([Roles.ADMIN])
-    wrapper = await getWrapper(loginState)
+    wrapper = getWrapper(loginState)
   })
 
   it('追加画面に遷移できる', async () => {
@@ -43,7 +43,7 @@ describe('管理者ロール_アイテムを追加できる', () => {
   it('追加ボタンを押下_追加成功_通知モーダルが開く', async () => {
     // Arrange
     // Act
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     await flushPromises()
     await vi.waitUntil(() =>
       wrapper.findAllComponents({ name: 'NotificationModal' })[0].isVisible(),
@@ -57,9 +57,9 @@ describe('ゲストロール_アイテム追加ボタンが非活性', () => {
   let loginState: TestingPinia
   let wrapper: VueWrapper
 
-  beforeAll(async () => {
+  beforeAll(() => {
     loginState = CreateLoginState(['ROLE_GUEST'])
-    wrapper = await getWrapper(loginState)
+    wrapper = getWrapper(loginState)
   })
 
   it('追加画面に遷移できる', async () => {
@@ -70,7 +70,7 @@ describe('ゲストロール_アイテム追加ボタンが非活性', () => {
     expect(wrapper.html()).toContain('カタログアイテム追加')
   })
 
-  it('追加ボタンが非活性', async () => {
+  it('追加ボタンが非活性', () => {
     // Arrange
     // Act
     const button = wrapper.find('button')

@@ -29,10 +29,10 @@ axiosInstance.interceptors.response.use(
       if (!error.response) {
         return Promise.reject(new NetworkError(error.message, error))
       }
-      if (error.response.status === HttpStatusCode.InternalServerError) {
+      if (error.response.status === Number(HttpStatusCode.InternalServerError)) {
         return Promise.reject(new ServerError(error.message, error))
       }
-      if (error.response.status === HttpStatusCode.Unauthorized) {
+      if (error.response.status === Number(HttpStatusCode.Unauthorized)) {
         return Promise.reject(new UnauthorizedError(error.message, error))
       }
       return Promise.reject(new HttpError(error.message, error))

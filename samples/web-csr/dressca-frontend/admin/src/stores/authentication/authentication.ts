@@ -31,7 +31,7 @@ export const useAuthenticationStore = defineStore('authentication', {
      * アプリケーションからログアウトします。
      * セッションストレージから認証状態を削除します。
      */
-    async signOutAsync() {
+    signOut() {
       this.userName = ''
       this.userRoles = ''
       this.authenticationState = false

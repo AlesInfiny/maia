@@ -11,8 +11,8 @@ const show = ref(false)
 
 const notificationStore = useNotificationStore()
 const { id, title, message, detail, status, timeout } = storeToRefs(notificationStore)
-const copy = (text: string) => {
-  navigator.clipboard.writeText(text)
+const copy = async (text: string) => {
+  await navigator.clipboard.writeText(text)
 }
 
 const close = () => {

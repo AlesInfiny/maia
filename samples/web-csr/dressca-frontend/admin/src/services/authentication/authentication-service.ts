@@ -11,7 +11,7 @@ export async function loginAsync() {
 /**
  * アプリケーションからログアウトします。
  */
-export async function logoutAsync() {
+export function logout() {
   const authenticationStore = useAuthenticationStore()
-  await authenticationStore.signOutAsync()
+  authenticationStore.signOut()
 }

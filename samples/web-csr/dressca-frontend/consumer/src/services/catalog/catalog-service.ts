@@ -2,8 +2,8 @@ import { useCatalogStore } from '@/stores/catalog/catalog'
 
 export async function fetchCategoriesAndBrands() {
   const catalogStore = useCatalogStore()
-  catalogStore.fetchCategories()
-  catalogStore.fetchBrands()
+  await catalogStore.fetchCategories()
+  await catalogStore.fetchBrands()
 }
 
 export async function fetchItems(categoryId: number, brandsId: number) {

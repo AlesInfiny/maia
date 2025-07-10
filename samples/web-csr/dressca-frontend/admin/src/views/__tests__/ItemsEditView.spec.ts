@@ -18,7 +18,7 @@ function CreateLoginState(userRoles: string[]) {
 }
 
 async function getWrapper(pinia: TestingPinia) {
-  router.push({ name: 'catalog/items/edit', params: { itemId: 1 } })
+  await router.push({ name: 'catalog/items/edit', params: { itemId: 1 } })
   await router.isReady()
   return mount(ItemsEditView, {
     global: { plugins: [pinia, router] },
@@ -100,7 +100,7 @@ describe('ゲストロール_アイテム削除ボタンが非活性', () => {
     expect(wrapper.html()).toContain('カタログアイテム編集')
   })
 
-  it('削除ボタンが非活性', async () => {
+  it('削除ボタンが非活性', () => {
     // Arrange
     // Act
     const deleteButton = wrapper.findAll('button')[0]
@@ -179,7 +179,7 @@ describe('ゲストロール_アイテム更新ボタンが非活性', () => {
     expect(wrapper.html()).toContain('カタログアイテム編集')
   })
 
-  it('更新ボタンが非活性', async () => {
+  it('更新ボタンが非活性', () => {
     // Arrange
     // Act
     const editButton = wrapper.findAll('button')[1]

@@ -104,7 +104,7 @@ export const basketsHandlers = [
     basket.account = calcBasketAccount(subTotals)
     return response
   }),
-  http.delete('/api/basket-items/:catalogItemId', async ({ params }) => {
+  http.delete('/api/basket-items/:catalogItemId', ({ params }) => {
     const { catalogItemId } = params
     basket.basketItems = basket.basketItems?.filter(
       (item) => item.catalogItemId !== Number(catalogItemId),
