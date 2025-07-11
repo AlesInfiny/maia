@@ -46,7 +46,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
 - VS Code の実行とデバッグビュー（Run and Debug）で起動する場合
 
-    既定の2つのジョブそれぞれについて、 launch.json （ VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
+    既定の 2 つのジョブそれぞれについて、 launch.json（VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
 
     VS Code のアクティビティーバーにある「 Run and Debug 」をクリックし、ビュー上部のドロップダウンリストにて、実行したいアプリケーションを指定して実行してください。
 
@@ -78,7 +78,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
     ```
 
-    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行できます。
+    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
@@ -105,7 +105,7 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
     gradlew :batch:bootRun --args="output=sample-output.csv"
     ```
 
-    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行できます。
+    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
