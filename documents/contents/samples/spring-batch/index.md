@@ -9,7 +9,7 @@ description: Spring Batch を利用したバッチアプリケーションのサ
 
 Spring Batch を利用したバッチアプリケーションの簡易な実装サンプルを提供します。
 
-バッチアプリケーションのアーキテクチャにについては、
+バッチアプリケーションのアーキテクチャについては、
 [バッチアプリケーションのアーキテクチャ](../../app-architecture/batch-application/batch-application-architecture.md) を参照してください。
 サンプルではこちらのアーキテクチャに則って、バッチアプリケーションを実装しています。
 
@@ -55,7 +55,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
     以下の通り、コマンドを実行します。
   
     ```ps1 title="実行可能 jar の起動"
-    // gradlew :batch:bootJar で実行可能jarを生成した想定
+    # gradlew :batch:bootJar で実行可能jarを生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar
     ```
 
@@ -85,7 +85,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     以下のように、コマンドを実行します。
 
     ```ps1 title="実行可能 jar の起動（ジョブ指定）"
-    // gradlew :batch:bootJar で実行可能 jar を生成した想定
+    # gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.batch.job.name=catalogItem_job
     ```
 
@@ -112,6 +112,6 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
     以下のように、コマンドを実行します。
 
     ```ps1 title="実行可能 jar の起動（ジョブ引数指定）"
-    // gradlew :batch:bootJar で実行可能 jar を生成した想定
+    # gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar output=sample-output.csv
     ```
