@@ -15,20 +15,20 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
 ## サンプルで定義されているジョブ {#sample-jobs}
 
-サンプルでは以下の2つのジョブを定義しています。
+サンプルでは以下の 2 つのジョブを定義しています。
 
 - catalogItem_job
   
-    Chunkモデルで作られたジョブです。商品情報を取得しCSVに出力します。
+    Chunk モデルで作られたジョブです。商品情報を取得し CSV に出力します。
 
 - catalogItem_tasklet_job
   
-    Taskletモデルで作られたジョブです。処理内容は catalogItem_job と同様です。
+    Tasklet モデルで作られたジョブです。処理内容は catalogItem_job と同様です。
 
 ## サンプルの起動方法 {#how-to-launch}
 
-バッチアプリケーションは Web アプリケーションと同様に、Spring Boot をベースに作られています。
-そのため基本的なアプリケーションの起動方法についても、Web アプリケーションと同様に以下の通りです。
+バッチアプリケーションは Web アプリケーションと同様に、 Spring Boot をベースに作られています。
+そのためアプリケーションの起動方法についても、 Web アプリケーションと同様に以下の通りです。
 
 - VS Code で Gradle のタスクを実行する場合
 
@@ -46,7 +46,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
 - VS Code の実行とデバッグビュー（Run and Debug）で起動する場合
 
-    既定の2つのジョブそれぞれについて、launch.json（VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
+    既定の2つのジョブそれぞれについて、 launch.json （ VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
 
     VS Code のアクティビティーバーにある「 Run and Debug 」をクリックし、ビュー上部のドロップダウンリストにて、実行したいアプリケーションを指定して実行してください。
 
@@ -65,12 +65,12 @@ Spring Batch では、複数のジョブが定義されている場合、実行�
 
 ジョブの指定方法は `spring.batch.job.name` という環境変数で指定します。
 サンプルでは、開発環境用のデフォルト設定として、 `application-dev.properties` にて
-`spring.batch.job.name=catalogItem_tasklet_job` と指定しているため、
-起動時にジョブを指定しなくても catalogItem_tasklet_job が実行されます。
+`spring.batch.job.name=catalogItem_tasklet_job` と指定しています。
+これにより起動時にジョブを指定しなくても catalogItem_tasklet_job が実行されるようになっています。
 
 catalogItem_job を実行するように、起動時に指定する場合には、以下の方法で指定します。
 
-- Gradleで実行する場合
+- Gradle で実行する場合
 
     以下のように `--args` オプションで指定します。
 
@@ -78,7 +78,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
     ```
 
-    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行することができます。
+    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行できます。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
@@ -91,13 +91,13 @@ catalogItem_job を実行するように、起動時に指定する場合には�
 
 ## ジョブ独自の引数の指定方法 {#specifying-arguments}
 
-Spring Batch で定義されたジョブは、それぞれ独自の引数を定義することができます。
-本サンプルで定義されている2つのジョブは、それぞれ `output` という名前のオプション引数を定義しており、
-出力する CSV ファイル名を設定することができます。
+Spring Batch で定義されたジョブは、それぞれ独自の引数を定義できます。
+本サンプルで定義されている 2 つのジョブは、それぞれ `output` という名前のオプション引数を定義しており、
+出力する CSV ファイル名を設定できます。
 
 実行時に `output` という引数に `sample-output.csv` を指定する場合には、以下の方法で指定します。
 
-- Gradleで実行する場合
+- Gradle で実行する場合
 
     以下のように `--args` オプションで指定します。
 
@@ -105,7 +105,7 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
     gradlew :batch:bootRun --args="output=sample-output.csv"
     ```
 
-    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行することができます。
+    VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付けてタスクを実行できます。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
