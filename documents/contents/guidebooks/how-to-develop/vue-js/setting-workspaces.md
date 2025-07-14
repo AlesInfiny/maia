@@ -59,9 +59,26 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 追加でルートプロジェクトの直下に .code-workspaces ファイルを作成し、　npm workspaces のワークスペースの単位と、 VS Code のワークスペースの単位が対応するように設定します。
 設定例を下記に示します。
 
-!!! example "マルチルートワークスペースの設定例"
-
-    ```html title="サンプルアプリケーションの .code-workspace"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/dressca-frontend.code-workspace
-
-    ```
+```json title="サンプルアプリケーションの .code-workspace"
+{
+  "folders": [
+    {
+      "name": "dressca-root",
+      "path": ".",
+    },
+    {
+      "name": "dressca-consumer",
+      "path": "consumer",
+    },
+    {
+      "name": "dressca-admin",
+      "path": "admin",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "dressca-root/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.validate.enable": false,
+  },
+}
+```
