@@ -25,7 +25,7 @@ export const orderingHandlers = [
       status: HttpStatusCode.Created,
     })
   }),
-  http.get<GetOrderingParams, never, never>('/api/orders/:orderId', async ({ params }) => {
+  http.get<GetOrderingParams, never, never>('/api/orders/:orderId', ({ params }) => {
     const { orderId } = params
     order.id = Number(orderId)
     order.orderDate = new Date().toISOString()

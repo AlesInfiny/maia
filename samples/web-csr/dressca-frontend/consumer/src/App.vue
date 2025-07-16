@@ -15,7 +15,7 @@ const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 unauthorizedErrorEventBus.on(() => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
-  router.push({
+  void router.push({
     name: 'authentication/login',
     query: {
       redirectName: router.currentRoute.value.name?.toString(),

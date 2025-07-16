@@ -4,7 +4,7 @@ import { router } from '@/router'
 import { createPinia, setActivePinia } from 'pinia'
 import ItemsView from '@/views/catalog/ItemsView.vue'
 
-async function getWrapper() {
+function getWrapper() {
   const pinia = createPinia()
   setActivePinia(pinia)
   return mount(ItemsView, {
@@ -14,8 +14,8 @@ async function getWrapper() {
 describe('アイテム一覧が表示できる', () => {
   let wrapper: VueWrapper
 
-  beforeAll(async () => {
-    wrapper = await getWrapper()
+  beforeAll(() => {
+    wrapper = getWrapper()
   })
 
   it('アイテム一覧画面に遷移できる', async () => {
@@ -26,7 +26,7 @@ describe('アイテム一覧が表示できる', () => {
     expect(wrapper.html()).toContain('カタログアイテム一覧')
   })
 
-  it('アイテムが取得した個数分表示される', async () => {
+  it('アイテムが取得した個数分表示される', () => {
     // Arrange
     const expectedItemCount = 11
     // Act

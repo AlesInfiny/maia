@@ -3,7 +3,7 @@ import NotificationToast from '@/components/NotificationToast.vue'
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
-import { logoutAsync } from '@/services/authentication/authentication-service'
+import { logout as logoutByService } from '@/services/authentication/authentication-service'
 import { useRouter } from 'vue-router'
 import { router as importedRouter } from '@/router'
 import { ref } from 'vue'
@@ -34,9 +34,9 @@ const showLoginMenu = ref(false)
  * アプリケーションからログアウトします。
  */
 const logout = async () => {
-  await logoutAsync()
+  logoutByService()
   showLoginMenu.value = !showLoginMenu.value
-  router.push({ name: 'authentication/login' })
+  await router.push({ name: 'authentication/login' })
 }
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
@@ -44,7 +44,7 @@ const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
-  importedRouter.push({
+  void importedRouter.push({
     name: 'authentication/login',
     query: {
       redirectName: importedRouter.currentRoute.value.name?.toString(),
