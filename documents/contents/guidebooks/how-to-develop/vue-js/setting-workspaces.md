@@ -56,7 +56,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時に、各ワークスペースの直下に .vscode フォルダーと設定ファイルが自動的に作成されます。
 加えて、 VS Code で mono-repo 構成を扱う場合には、[マルチルートワークスペース :material-open-in-new:](https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces){ target=_blank } 機能が役立ちます。
-追加でルートプロジェクトの直下に .code-workspaces ファイルを作成し、　npm workspaces のワークスペースの単位と、 VS Code のワークスペースの単位が対応するように設定します。
+追加でルートプロジェクトの直下に .code-workspaces ファイルを作成し、 npm workspaces のワークスペースの単位と、 VS Code のワークスペースの単位が対応するように設定します。
 設定例を下記に示します。
 
 ```json title="サンプルアプリケーションの .code-workspace"
