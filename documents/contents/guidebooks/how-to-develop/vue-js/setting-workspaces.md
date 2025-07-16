@@ -60,25 +60,5 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 設定例を下記に示します。
 
 ```json title="サンプルアプリケーションの .code-workspace"
-{
-  "folders": [
-    {
-      "name": "dressca-root",
-      "path": ".",
-    },
-    {
-      "name": "dressca-consumer",
-      "path": "consumer",
-    },
-    {
-      "name": "dressca-admin",
-      "path": "admin",
-    },
-  ],
-  "settings": {
-    "typescript.tsdk": "dressca-root/node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "typescript.validate.enable": false,
-  },
-}
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/dressca-frontend.code-workspace
 ```
