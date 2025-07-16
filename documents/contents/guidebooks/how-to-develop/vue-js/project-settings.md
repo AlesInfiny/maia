@@ -105,7 +105,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 - `compilerOptions.moduleResolution`
   
     モジュール解決の方針を設定するプロパティです。
-    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。`Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
+    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。 `Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
 
 ## Vite の設定 {#vite-settings}
 
@@ -157,7 +157,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 - `loadEnv()`
 
     モードに応じた `.env.*` ファイルを読み込み、環境変数を取得します。
-    `vite` コマンドを実行する際、`--mode` オプションに指定したパラメーターに応じた `.env.*` を読み込みます。
+    `vite` コマンドを実行する際、 `--mode` オプションに指定したパラメーターに応じた `.env.*` を読み込みます。
     例えば、 `vite build --mode dev` を実行すると `.env.dev` が読み込まれます。
     `.env.*` ファイルは環境変数を定義するために作成するもので、 `VITE_` で始まる環境変数の値を設定できます。
     モードに応じて異なる環境変数の値を設定したい場合に利用します。
