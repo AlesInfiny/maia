@@ -30,15 +30,18 @@ Java アプリケーション、 Vue.js アプリケーションそれぞれで�
 - Vue.js アプリケーション
     - [Vue.js スタイルガイド :material-open-in-new:](https://ja.vuejs.org/style-guide/){ target=_blank }
 
-        Vue.js が公式に提供するスタイルガイドです。 TypeScript に対する規約ではカバーできない Vue 固有の記法について、エラーの発生やアンチパターンを避けるための規約を優先度別に定めています。 これらの規約への違反を検出するための ESLint のプラグインが [eslint-plugin-vue :material-open-in-new:](https://eslint.vuejs.org/){ target=_blank }として公式に提供されています。
-        [Bundle Configurations :material-open-in-new:](https://eslint.vuejs.org/user-guide/#bundle-configurations-eslint-config-js){ target=_blank }としていくつかの定義済み構成が公開されていますが、
+        Vue.js が公式に提供するスタイルガイドです。
+        TypeScript に対する規約ではカバーできない Vue 固有の記法について、エラーの発生やアンチパターンを避けるための規約を優先度別に定めています。
+        <!-- textlint-disable ja-technical-writing/sentence-length -->
+        Vue.js ではこれらの規約への違反を検出するための ESLint のプラグイン [eslint-plugin-vue :material-open-in-new:](https://eslint.vuejs.org/){ target=_blank } を提供しており、 [Bundle Configurations :material-open-in-new:](https://eslint.vuejs.org/user-guide/#bundle-configurations-eslint-config-js){ target=_blank } としていくつかの定義済み構成が公開されています。
+        <!-- textlint-enable ja-technical-writing/sentence-length -->
         AlesInfiny Maia では、一般的に必須と考えられるルールに Vue.js コミュニティーの慣例に従ったルールを加えた構成である flat/recommended を使用します。
 
     - [typescript-eslint の推奨構成 :material-open-in-new:](https://typescript-eslint.io/users/configs/#recommended-configurations){ target=_blank }
 
-        [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank }プロジェクトが提供する推奨設定です。
+        [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank } プロジェクトが提供する推奨設定です。
         <!-- textlint-disable ja-technical-writing/sentence-length -->
-        AlesInfiny Maia では、公開されている推奨構成のうち、一般的に推奨されるルールに TypeScript の型情報を使用するルールを加えた [recommended-type-checked :material-open-in-new:](https://typescript-eslint.io/users/configs/#recommended-type-checked){ target=_blank }を使用します。
+        AlesInfiny Maia では、公開されている推奨構成のうち、一般的に推奨されるルールに TypeScript の型情報を使用するルールを加えた [recommended-type-checked :material-open-in-new:](https://typescript-eslint.io/users/configs/#recommended-type-checked){ target=_blank } を使用します。
         <!-- textlint-enable ja-technical-writing/sentence-length -->
 
     - [CSS specifications :material-open-in-new:](https://www.w3.org/Style/CSS/current-work){ target=_blank }
