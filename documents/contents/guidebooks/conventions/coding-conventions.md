@@ -36,7 +36,7 @@ Java アプリケーション、 Vue.js アプリケーションそれぞれで�
 
     - [typescript-eslint の推奨構成 :material-open-in-new:](https://typescript-eslint.io/users/configs/#recommended-configurations){ target=_blank }
 
-        [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank }プロジェクトが提供する推奨設定です。
+        [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank } プロジェクトが提供する推奨設定です。
         <!-- textlint-disable ja-technical-writing/sentence-length -->
         AlesInfiny Maia では、公開されている推奨構成のうち、一般的に推奨されるルールに TypeScript の型情報を使用するルールを加えた [recommended-type-checked :material-open-in-new:](https://typescript-eslint.io/users/configs/#recommended-type-checked){ target=_blank }を使用します。
         <!-- textlint-enable ja-technical-writing/sentence-length -->
