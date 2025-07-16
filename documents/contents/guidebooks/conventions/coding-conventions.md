@@ -30,7 +30,8 @@ Java アプリケーション、 Vue.js アプリケーションそれぞれで�
 - Vue.js アプリケーション
     - [Vue.js スタイルガイド :material-open-in-new:](https://ja.vuejs.org/style-guide/){ target=_blank }
 
-        Vue.js が公式に提供するスタイルガイドです。 TypeScript に対する規約ではカバーできない Vue 固有の記法について、エラーの発生やアンチパターンを避けるための規約を優先度別に定めています。これらの規約への違反を検出するための ESLint のプラグインとして [eslint-plugin-vue :material-open-in-new:](https://eslint.vuejs.org/){ target=_blank } が公式に提供されています。
+        Vue.js が公式に提供するスタイルガイドです。
+        TypeScript に対する規約ではカバーできない Vue 固有の記法について、エラーの発生やアンチパターンを避けるための規約を優先度別に定めています。これらの規約への違反を検出するための ESLint のプラグインとして [eslint-plugin-vue :material-open-in-new:](https://eslint.vuejs.org/){ target=_blank } が公式に提供されています。
         [Bundle Configurations :material-open-in-new:](https://eslint.vuejs.org/user-guide/#bundle-configurations-eslint-config-js){ target=_blank } としていくつかの定義済み構成が公開されていますが、
         AlesInfiny Maia では、一般的に必須と考えられるルールに Vue.js コミュニティーの慣例に従ったルールを加えた構成である flat/recommended を使用します。
 
