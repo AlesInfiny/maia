@@ -201,7 +201,7 @@ Project Reference 機能については [Project References :material-open-in-ne
         ```
 
 [^1]: 本ページでは、 TypeScript から JavaScript への変換を指します。
-[^2]: 本ページでは、`vite build` コマンドによりバンドル（トランスパイル後の JavaScript をブラウザーで扱いやすいよう単一のファイルにまとめる）まで行うことを指します。
+[^2]: 本ページでは、 `vite build` コマンドによりバンドル（トランスパイル後の JavaScript をブラウザーで扱いやすいよう単一のファイルにまとめる）まで行うことを指します。
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 [^3]: Vue.js の開発者ツールを追加するプラグイン（`vueDevTools()`） はライブラリの内部で `apply: 'serve'` を指定して、 [条件付きの適用 :material-open-in-new:](https://ja.vite.dev/guide/using-plugins.html#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E3%81%AE%E9%81%A9%E7%94%A8){ target=_blank } を設定しています。そのため、追加の設定をしなくても prod モードでの本番環境向けのビルド結果に Vue.js の開発者ツールは含まれません。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
