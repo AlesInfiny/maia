@@ -51,7 +51,23 @@ export default defineConfigWithVueTs(
   {
     name: 'dressca-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+    rules: {
+      'no-console': 'warn',
+      'no-alert': 'warn',
+    },
+  },
+
+  {
+    name: 'dressca-frontend/override-rules',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          allowForKnownSafePromises: ['router.push', 'router.replace'],
+        },
+      ],
+    },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
