@@ -194,7 +194,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     ??? info "API エンドポイントを設定する際の注意点"
 
-        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL`を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
+        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
         ``` ts title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L18-L19
