@@ -1,5 +1,5 @@
+import { nextTick } from 'vue'
 import { describe, it, expect } from 'vitest'
-
 import { shallowMount } from '@vue/test-utils'
 import CarouselSlider from '@/components/common/CarouselSlider.vue'
 
@@ -43,13 +43,15 @@ describe('CarouselSlider', () => {
   })
 
   it('引数の要素が0の時なにも表示しない', async () => {
-    const wrapper = await shallowMount(CarouselSlider, {
+    const wrapper = shallowMount(CarouselSlider, {
       props: { items: [] },
       slots: {
         default:
           '<template #default="{ item }" ><div data-test="slotContent">{{ item.name }}</div></template>',
       },
     })
+
+    await nextTick()
 
     const content = wrapper.find('[data-test="body"]')
 
@@ -109,9 +111,11 @@ describe('CarouselSlider', () => {
     })
     const mouseUp = new MouseEvent('mouseup', { bubbles: true, clientX: -100 })
 
-    await slider.element.dispatchEvent(mouseDown)
-    await slider.element.dispatchEvent(mouseMove)
-    await slider.element.dispatchEvent(mouseUp)
+    slider.element.dispatchEvent(mouseDown)
+    slider.element.dispatchEvent(mouseMove)
+    slider.element.dispatchEvent(mouseUp)
+
+    await nextTick()
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
@@ -138,9 +142,11 @@ describe('CarouselSlider', () => {
     })
     const mouseUp = new MouseEvent('mouseup', { bubbles: true, clientX: 100 })
 
-    await slider.element.dispatchEvent(mouseDown)
-    await slider.element.dispatchEvent(mouseMove)
-    await slider.element.dispatchEvent(mouseUp)
+    slider.element.dispatchEvent(mouseDown)
+    slider.element.dispatchEvent(mouseMove)
+    slider.element.dispatchEvent(mouseUp)
+
+    await nextTick()
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 
