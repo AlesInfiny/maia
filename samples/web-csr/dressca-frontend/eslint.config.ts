@@ -62,9 +62,11 @@ export default defineConfigWithVueTs(
     files: ['**/*.{ts,mts,tsx,vue}'],
     rules: {
       '@typescript-eslint/no-floating-promises': [
-        'warn',
+        'error',
         {
-          allowForKnownSafePromises: ['router.push', 'router.replace'],
+          allowForKnownSafeCalls: [
+            { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
+          ],
         },
       ],
     },
