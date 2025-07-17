@@ -14,9 +14,14 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-
   // Lint 対象外とするファイルパスを列挙します。
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**','**/src/generated/**','**/mockServiceWorker.js']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/src/generated/**',
+    '**/mockServiceWorker.js',
+  ]),
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
@@ -26,8 +31,8 @@ export default defineConfigWithVueTs(
   // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
   vueTsConfigs.recommendedTypeChecked,
 
- // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
- {
+  // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
+  {
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -46,7 +51,15 @@ export default defineConfigWithVueTs(
   {
     name: 'auth-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: {'no-console': 'warn','no-alert':'warn'}
+    rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+  },
+
+  {
+    name: 'dressca-frontend/override-rules',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {
+      '@typescript-eslint/no-floating-promises': ['error', { ignoreIIFE: true }],
+    },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。

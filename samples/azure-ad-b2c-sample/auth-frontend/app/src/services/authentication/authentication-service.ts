@@ -1,7 +1,3 @@
-/* eslint @typescript-eslint/no-floating-promises: ["error", { "ignoreIIFE": true }] */
-// Safari および Safari on iOS で top-level await が Partial support のため、
-// 代替として即時実行関数式 ( IIFE ) で記述を許可するよう ESLint の設定を変更します。
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
 import { InteractionRequiredAuthError } from '@azure/msal-browser'
 import {
   msalInstance,
