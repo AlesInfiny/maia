@@ -1,5 +1,5 @@
-import type { Router } from 'vue-router';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
+import type { Router } from 'vue-router'
+import { useAuthenticationStore } from '@/stores/authentication/authentication'
 
 /**
  * ナビゲーションガードです。
@@ -9,7 +9,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication';
  */
 export const authenticationGuard = (router: Router) => {
   router.beforeEach((to) => {
-    const authenticationStore = useAuthenticationStore();
+    const authenticationStore = useAuthenticationStore()
 
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
       return {
@@ -19,9 +19,9 @@ export const authenticationGuard = (router: Router) => {
           redirectParams: JSON.stringify(to.params),
           redirectQuery: JSON.stringify(to.query),
         },
-      };
+      }
     }
 
-    return true;
-  });
-};
+    return true
+  })
+}

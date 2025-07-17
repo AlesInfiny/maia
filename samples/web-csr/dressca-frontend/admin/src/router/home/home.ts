@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 /**
  * '/'に割り当てるコンポーネントを定義します。
@@ -10,4 +10,4 @@ export const homeRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/home/HomeView.vue'),
     meta: { requiresAuth: true },
   },
-];
+]

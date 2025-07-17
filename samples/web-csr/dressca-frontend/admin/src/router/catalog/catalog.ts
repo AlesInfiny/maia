@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 /**
  * '/catalog/'に割り当てるコンポーネントを定義します。
@@ -22,4 +22,4 @@ export const catalogRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/catalog/ItemsAddView.vue'),
     meta: { requiresAuth: true },
   },
-];
+]

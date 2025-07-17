@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useNotificationStore = defineStore('notification', {
   state: () => ({
@@ -18,24 +18,24 @@ export const useNotificationStore = defineStore('notification', {
       status: number = 0,
       timeout: number = 5000,
     ) {
-      this.message = message;
-      this.id = id;
-      this.title = title;
-      this.detail = detail;
-      this.status = status;
-      this.timeout = timeout;
+      this.message = message
+      this.id = id
+      this.title = title
+      this.detail = detail
+      this.status = status
+      this.timeout = timeout
 
       setTimeout(() => {
-        this.clearMessage();
-      }, this.timeout);
+        this.clearMessage()
+      }, this.timeout)
     },
 
     clearMessage() {
-      this.message = '';
-      this.id = '';
-      this.title = '';
-      this.detail = '';
-      this.status = 0;
+      this.message = ''
+      this.id = ''
+      this.title = ''
+      this.detail = ''
+      this.status = 0
     },
   },
-});
+})

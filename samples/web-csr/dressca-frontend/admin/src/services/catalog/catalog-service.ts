@@ -1,8 +1,4 @@
-import {
-  catalogBrandsApi,
-  catalogCategoriesApi,
-  catalogItemsApi,
-} from '@/api-client';
+import { catalogBrandsApi, catalogCategoriesApi, catalogItemsApi } from '@/api-client'
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
@@ -10,17 +6,15 @@ import type {
   PagedListOfGetCatalogItemResponse,
   PostCatalogItemRequest,
   PutCatalogItemRequest,
-} from '@/generated/api-client';
+} from '@/generated/api-client'
 
 /**
  * カテゴリの情報を取得します。
  * @returns カタログカテゴリの配列。
  */
-export async function fetchCategories(): Promise<
-  GetCatalogCategoriesResponse[]
-> {
-  const response = await catalogCategoriesApi.getCatalogCategories();
-  return response.data;
+export async function fetchCategories(): Promise<GetCatalogCategoriesResponse[]> {
+  const response = await catalogCategoriesApi.getCatalogCategories()
+  return response.data
 }
 
 /**
@@ -28,8 +22,8 @@ export async function fetchCategories(): Promise<
  * @returns カテゴリブランドの配列。
  */
 export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
-  const response = await catalogBrandsApi.getCatalogBrands();
-  return response.data;
+  const response = await catalogBrandsApi.getCatalogBrands()
+  return response.data
 }
 
 /**
@@ -39,9 +33,9 @@ export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
 export async function fetchCategoriesAndBrands(): Promise<
   [GetCatalogCategoriesResponse[], GetCatalogBrandsResponse[]]
 > {
-  const categories = await fetchCategories();
-  const brands = await fetchBrands();
-  return [categories, brands];
+  const categories = await fetchCategories()
+  const brands = await fetchBrands()
+  return [categories, brands]
 }
 
 /**
@@ -61,8 +55,8 @@ export async function fetchItems(
     categoryId === 0 ? undefined : categoryId,
     page,
     undefined,
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 /**
@@ -70,11 +64,9 @@ export async function fetchItems(
  * @param itemId アイテム ID。
  * @returns カタログアイテムの情報。
  */
-export async function fetchItem(
-  itemId: number,
-): Promise<GetCatalogItemResponse> {
-  const itemResponse = await catalogItemsApi.getCatalogItem(itemId);
-  return itemResponse.data;
+export async function fetchItem(itemId: number): Promise<GetCatalogItemResponse> {
+  const itemResponse = await catalogItemsApi.getCatalogItem(itemId)
+  return itemResponse.data
 }
 
 /**
@@ -101,8 +93,8 @@ export async function postCatalogItem(
     productCode,
     catalogCategoryId,
     catalogBrandId,
-  };
-  await catalogItemsApi.postCatalogItem(postCatalogItemInput);
+  }
+  await catalogItemsApi.postCatalogItem(postCatalogItemInput)
 }
 
 /**
@@ -136,8 +128,8 @@ export async function updateCatalogItem(
     catalogBrandId,
     rowVersion,
     isDeleted,
-  };
-  await catalogItemsApi.putCatalogItem(id, putCatalogItemRequest);
+  }
+  await catalogItemsApi.putCatalogItem(id, putCatalogItemRequest)
 }
 
 /**
@@ -146,5 +138,5 @@ export async function updateCatalogItem(
  * @param rowVersion 排他制御のための行バージョン。
  */
 export async function deleteCatalogItem(id: number, rowVersion: string) {
-  await catalogItemsApi.deleteCatalogItem(id, rowVersion);
+  await catalogItemsApi.deleteCatalogItem(id, rowVersion)
 }

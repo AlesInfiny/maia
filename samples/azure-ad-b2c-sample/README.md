@@ -185,7 +185,7 @@ auth-frontend
 
 #### バックエンドアプリケーションの設定
 
-1. `auth-backend\web\src\main\resources\application.properties` を開きます。
+1. VS Code で `auth-backend\web\src\main\resources\application.properties` を開きます。
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```properties
@@ -217,10 +217,10 @@ auth-frontend
 
     ```bash
     ./gradlew build
-    ./gradlew web:bootRun
+    ./gradlew web:bootRunDev
     ```
 
-1. VS Code で `auth-frontend` のフォルダーへ移動し、ターミナルで以下を実行します。
+1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開き、ターミナルで以下を実行します。
 
     ```bash
     npm ci
@@ -315,6 +315,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 ### フロントエンドアプリケーション
 
+1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
 1. ターミナルで `npm install @azure/msal-browser` を実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
 1. `auth-frontend\.env.dev` に記述した Azure AD B2C の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。

@@ -1,8 +1,8 @@
-import { i18n } from '@/locales/i18n';
-import { setLocale } from 'yup';
+import { i18n } from '@/locales/i18n'
+import { setLocale } from 'yup'
 
 export function configureYup(): void {
-  const { t } = i18n.global;
+  const { t } = i18n.global
   setLocale({
     mixed: {
       required: t('required'),
@@ -10,5 +10,5 @@ export function configureYup(): void {
     string: {
       email: t('email'),
     },
-  });
+  })
 }

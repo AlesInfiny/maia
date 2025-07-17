@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
-import { storeToRefs } from 'pinia';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { router } from '@/router';
-import { useEventBus } from '@vueuse/core';
-import NotificationToast from './components/common/NotificationToast.vue';
-import { unauthorizedErrorEventKey } from './shared/events';
+import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
+import { storeToRefs } from 'pinia'
+import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { router } from '@/router'
+import { useEventBus } from '@vueuse/core'
+import NotificationToast from './components/common/NotificationToast.vue'
+import { unauthorizedErrorEventKey } from './shared/events'
 
-const authenticationStore = useAuthenticationStore();
-const { isAuthenticated } = storeToRefs(authenticationStore);
+const authenticationStore = useAuthenticationStore()
+const { isAuthenticated } = storeToRefs(authenticationStore)
 
-const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
+const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 
 unauthorizedErrorEventBus.on(() => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
-  router.push({
+  void router.push({
     name: 'authentication/login',
     query: {
       redirectName: router.currentRoute.value.name?.toString(),
       redirectParams: JSON.stringify(router.currentRoute.value.params),
       redirectQuery: JSON.stringify(router.currentRoute.value.query),
     },
-  });
-});
+  })
+})
 </script>
 
 <template>
@@ -44,9 +44,7 @@ unauthorizedErrorEventBus.on(() => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated" to="/authentication/login">
-              ログイン
-            </router-link>
+            <router-link v-if="!isAuthenticated" to="/authentication/login"> ログイン </router-link>
           </div>
         </div>
       </nav>
@@ -56,9 +54,7 @@ unauthorizedErrorEventBus.on(() => {
       <router-view />
     </main>
 
-    <footer
-      class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500"
-    >
+    <footer class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500">
       <p>&copy; 2023 - Dressca - Privacy</p>
     </footer>
   </div>
