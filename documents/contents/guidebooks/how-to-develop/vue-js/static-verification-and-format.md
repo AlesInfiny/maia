@@ -59,7 +59,7 @@ Prettier は [ブランクプロジェクトの作成](./create-vuejs-blank-proj
 
 ### Prettier の設定 {#settings-prettier}
 
-設定ファイル `./.prettierrc.json` で行います。
+設定ファイル prettierrc.json で行います。
 
 ```json title=".prettierrc.json の設定例"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.prettierrc.json
@@ -68,7 +68,15 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.p
 既定の設定を上書きする場合は、設定値を記述します。
 全ての設定可能な値は [Options - Prettier :material-open-in-new:](https://prettier.io/docs/en/options.html){ target=_blank } を参照してください。また、設定方法は [Configuration File - Prettier :material-open-in-new:](https://prettier.io/docs/en/configuration.html){ target=_blank } を参照してください。
 
-一部の設定値は、既定で .editorconfig に記述している値が適用されます。したがって、`./.prettierrc.json` では、 .editorconfig では設定できないもののみ設定すると良いでしょう。
+一部の設定値は、既定で .editorconfig に記述している値が適用されます。したがって、.prettierrc.json では、 .editorconfig では設定できないもののみ設定すると良いでしょう。
+
+ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
+
+```terminal
+npm run format
+```
+
+Prettier がルートプロジェクトの設定ファイルを自動的に認識し、フォーマット処理が正常に実行できることを確認してください。
 
 ## ESLint {#eslint}
 
@@ -76,7 +84,7 @@ ESLint は Vue.js のブランクプロジェクト作成時にオプション�
 
 ### ESLint の設定 {#settings-eslint}
 
-設定ファイル `./eslint.config.ts` で行います。このファイルはインストール時にワークスペースの直下に自動的に追加されているので、ルートプロジェクトの直下にコピーします。
+設定ファイル .eslint.config.ts で行います。このファイルはインストール時にワークスペースの直下に自動的に追加されているので、ルートプロジェクトの直下にコピーします。
 
 ??? info "eslint.config.ts の初期設定"
 
@@ -159,7 +167,7 @@ Stylelint および、標準の設定や vue ファイルで使用する設定�
 
 ### Stylelint の設定 {#settings-stylelint}
 
-ルートプロジェクトの直下に設定ファイル `./.stylelintrc.js` を作成し、設定を記述します。
+ルートプロジェクトの直下に設定ファイル .stylelintrc.js を作成し、設定を記述します。
 
 ```javascript title=".stylelintrc.js"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.stylelintrc.js
@@ -195,7 +203,7 @@ export default {
 
 ## 静的コード分析とフォーマットの実行 {#static-code-analysis-and-format}
 
-各ワークスペースの `./package.json` には ESLint および Prettier を実行するための scripts がデフォルトで定義されています。
+各ワークスペースの package.json には ESLint および Prettier を実行するための scripts がデフォルトで定義されています。
 
 ```json title="サンプルアプリケーションの package.json"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/package.json#L18-L25
