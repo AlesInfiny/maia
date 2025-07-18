@@ -17,6 +17,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ├ .eslint.config.ts
 ├ .stylelintrc.js
 ├ .prettierrc.json
+├ tsconfig.json
 └ <workspace-name> ------- ワークスペース/プロジェクト
   └ .stylelintrc.js
 ```
@@ -72,74 +73,160 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.p
 
 ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-```terminal
+```terminal linenums="0"
 npm run format
 ```
 
-Prettier がルートプロジェクトの設定ファイルを自動的に認識し、フォーマット処理が正常に実行できることを確認してください。
+Prettier がルートプロジェクトの設定ファイルを自動的に認識し、正常に実行できることを確認してください。
 
 ## ESLint {#eslint}
 
-ESLint は Vue.js のブランクプロジェクト作成時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+ESLint および ESLint の実行に必要なパッケージは、 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
 
 ### ESLint の設定 {#settings-eslint}
 
-設定ファイル .eslint.config.ts で行います。このファイルはインストール時にワークスペースの直下に自動的に追加されているので、ルートプロジェクトの直下にコピーします。
+#### 設定前の動作確認 {#pre-setting}
 
-??? info "eslint.config.ts の初期設定"
+ESLint の設定は、設定ファイル .eslint.config.ts で行います。
+このファイルはインストール時にワークスペースの直下に自動的に追加されています。
+ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-      ```typescript title="初期設定時の eslint.config.ts"
-      import { globalIgnores } from 'eslint/config'
-      import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-      import pluginVue from 'eslint-plugin-vue'
-      import pluginVitest from '@vitest/eslint-plugin'
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      import pluginCypress from 'eslint-plugin-cypress'
-      import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+```terminal linenums="0"
+npm run lint
+```
 
-      // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-      // import { configureVueProject } from '@vue/eslint-config-typescript'
-      // configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-      // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+設定の変更前に、 ESLint が正常に実行できることを確認してください。
 
-      export default defineConfigWithVueTs(
-        {
-          name: 'app/files-to-lint',
-          files: ['**/*.{ts,mts,tsx,vue}'],
-        },
-
-        globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
-        pluginVue.configs['flat/essential'],
-        vueTsConfigs.recommended,
-
-        {
-          ...pluginVitest.configs.recommended,
-          files: ['src/**/__tests__/*'],
-        },
-
-        {
-          ...pluginCypress.configs.recommended,
-          files: [
-            'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-            'cypress/support/**/*.{js,ts,jsx,tsx}'
-          ],
-        },
-        skipFormatting,
-      )
-      ```
+#### 設定例の確認 {#confirmation-example}
 
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
-最終的な設定例を示します。
+初期設定からの変更点をハイライトで示します。
 
-!!! example "eslint.config.ts の設定例"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-41 44-47 51-55"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
+```
 
-    ```typescript title="サンプルアプリケーションの eslint.config.ts"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
-    ```
+#### mono-repo 用の設定 {#settings-for-mono-repo}
 
-その他の設定方法については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
+mono-repo 用に、設定ファイルの配置と設定を変更します。
+.eslint.config.ts を、ルートプロジェクトの直下に移動してください。
+設定後のファイルの配置は下記の通りです。
+
+```terminal linenums="0"
+<root-project-name> ------ ルートプロジェクト
+├ .eslint.config.ts
+├ tsconfig.json
+├ <workspace-name> ------- ワークスペース/プロジェクト
+```
+
+.eslint.config.ts　に、下記の設定を追加してください。
+
+```ts
+{
+  languageOptions: {
+    parserOptions: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname
+    },
+  },
+},
+```
+
+ルートプロジェクトの直下に、 eslint.config.ts 用の tsconfig.json ファイルを作成します。
+
+```json title="eslint.config.ts 用の tsconfig.json" hl_lines="3"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/tsconfig.json
+```
+
+ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
+
+```terminal linenums="0"
+npm run lint
+```
+
+ESLint がルートプロジェクトの設定ファイルを自動的に認識し、正常に実行できることを確認してください。
+
+#### 適用ルールの変更 {#change-adaptation-rules}
+
+Vue ファイルに適用するルールを、 `flat/essential` から `flat/recommended` に変更します。
+
+```ts
+pluginVue.configs['flat/recommended'],
+```
+
+TypeScript の型情報を使用するルールを使用するため、 `vueTsConfigs.recommended` を `vueTsConfigs.recommendedTypeChecked` に変更します。
+
+```ts
+vueTsConfigs.recommendedTypeChecked,
+```
+
+TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
+そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
+
+```ts
+import tseslint from 'typescript-eslint'
+
+{
+  files: ['**/*.js'],
+  extends: [tseslint.configs.disableTypeChecked],
+},
+```
+
+プロジェクト固有のルールを追加します。
+ESLint は eslint.config.ts の先頭から設定の内容をマージするので、重複する設定は後から配置されたもので上書きされます。
+そのため、プロジェクト固有のルールは、推奨ルールの設定よりも後に配置するように気を付けてください。
+
+```ts
+{
+  name: 'app/additional-rules',
+  files: ['**/*.{ts,mts,tsx,vue}'],
+  rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+},
+```
+
+ESLint の対象外とするファイルを追加します。
+サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
+[モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
+
+```ts hl_lines="5-6"
+globalIgnores([
+  '**/dist/**',
+  '**/dist-ssr/**',
+  '**/coverage/**',
+  '**/src/generated/**',
+  '**/mockServiceWorker.js',
+]),
+```
+
+その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
+
+??? info "ESLint Config Inspector で設定を可視化する"
+      [ESLint Config Inspector :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
+      ルールを変更・追加する際には、想定通りの変更が行われているか確認してください。
+      設定ファイルが存在するフォルダーの直下で下記のコマンドを実行することで、 ESLint Config Inspector を起動できます。
+
+      ```terminal linenums="0"
+      npx @eslint/config-inspector@latest
+      ```
+
+#### ESLint の実行 {#execute-eslint}
+
+ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
+ESLint が更新後の設定で正常に実行できることを確認してください。
+
+```terminal linenums="0"
+npm run lint
+```
+
+!!! warning "`<script>` ブロックを持たない .vue ファイルの Lint"
+
+      create-vue で作成されるデフォルトのアプリケーションには、 `<script>` ブロックを持たない .vue ファイルが含まれます。
+      しかし、 `<script>` ブロックを持たない .vue ファイルに対して型情報を使用した Lint ルールの適用を試みるとエラーが発生します。
+      その場合は、対象の .vue ファイルに下記のように空の `<script>` ブロックを追加してください。
+
+      ```html
+      <script setup lang="ts"></script>
+      ```
 
 ## Stylelint {#stylelint}
 
@@ -150,7 +237,7 @@ CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<sty
 
 ワークスペースの直下で下記のコマンドを実行してください。
 
-```terminal
+```terminal linenums="0"
 npm install -D stylelint \
   stylelint-config-standard \
   stylelint-config-recommended-vue
@@ -201,21 +288,36 @@ export default {
 
 具体的な設定方法や設定値については [公式ドキュメント :material-open-in-new:](https://stylelint.io/user-guide/configure){ target=_blank } を参照してください。
 
+??? warning "デフォルトのアプリケーションに対する Stylelint の警告"
+
+      create-vue で作成されるデフォルトのアプリケーションに対して Stylelint を実行すると、下記の警告が出力されて、動作確認が進められない場合があります。
+
+      ```terminal linenums="0"
+      src/assets/base.css
+        25:1  ✖  Unexpected duplicate selector ":root", first used at line 2  no-duplicate-selectors
+      ```
+
+      その場合は、 VS Code の拡張機能のサジェストに従って `/* stylelint-disable-next-line no-duplicate-selectors */` を追加し、
+      対象箇所のルール違反を無視するようにして動作確認を続行してください。
+      ただし、実際のプロジェクトで使用するコードに対しては、ルール違反を無視する設定の利用はできるだけ避けて、警告に従ってコードを修正するようにしてください。
+
 ## 静的コード分析とフォーマットの実行 {#static-code-analysis-and-format}
 
 各ワークスペースの package.json には ESLint および Prettier を実行するための scripts がデフォルトで定義されています。
+CI での実行と個別の実行を可能にするため、下記のように変更します。
+
+ESLint および Stylelint のオプション引数に `--fix` を、 Prettier のオプション引数に `--write` を設定しているため、自動で修正可能なものについては修正が実行されます。
+自動で修正できないルール違反については、ターミナル上に結果が表示されます。
+一方で、 `:ci` を付与したタスクではこれらのオプションを使用していないため、自動的に修正可能なルール違反であっても修正は実行されません。
 
 ```json title="サンプルアプリケーションの package.json"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/package.json#L18-L25
 ```
 
-ターミナルを開き、コマンドを実行します。
+ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。
 
-```terminal
-npm run lint
+```terminal linenums="0"
+npm run lint:ci:workspace-name
 ```
 
-ESLint 、 Stylelint 、 Prettier が順に実行されることを確認してください。
-
-Stylelint を vue ファイルと css ファイルに対して実行するように設定しています。
-ESLint および Stylelint のオプション引数に `--fix` を設定しているため、フォーマットが自動的に実行されます。フォーマットできない違反については、ターミナル上で結果が表示されます。
+ESLint 、 Stylelint 、 Prettier が実行されることを確認してください。
