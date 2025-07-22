@@ -51,7 +51,18 @@ export default defineConfigWithVueTs(
   {
     name: 'dressca-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+    rules: {
+      'no-console': 'warn',
+      'no-alert': 'warn',
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          allowForKnownSafeCalls: [
+            { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
+          ],
+        },
+      ],
+    },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
