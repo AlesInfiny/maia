@@ -36,7 +36,7 @@ export default defineConfigWithVueTs(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
@@ -50,7 +50,7 @@ export default defineConfigWithVueTs(
   // プロジェクトやワークスペースに固有のルールを適用します。
   // 必要に応じて対象のファイルやルールを設定します。
   {
-    name: 'dressca-frontend/additional-rules',
+    name: 'auth-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
     rules: {
       'no-console': 'warn',
