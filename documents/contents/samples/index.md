@@ -12,3 +12,5 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）で提供するサ�
 細かな機能要件・非機能要件別に、 AlesInfiny Maia として推奨する OSS ライブラリを用いたサンプルアプリケーションと、その解説を入手できます。
 
 - [Azure Active Directory B2C を利用したユーザー認証](azure-ad-b2c/index.md)
+
+- [Spring Batch を利用したバッチアプリケーション](spring-batch/index.md)

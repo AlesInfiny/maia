@@ -52,13 +52,25 @@ export default defineConfigWithVueTs(
   {
     name: 'dressca-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+    rules: {
+      'no-console': 'warn',
+      'no-alert': 'warn',
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          // 戻り値の Promise を await 不要とみなすメソッドを例外登録します。
+          allowForKnownSafeCalls: [
+            { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
+          ],
+        },
+      ],
+    },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    files: ['src/**/__tests__/**/*'],
   },
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。

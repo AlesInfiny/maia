@@ -135,9 +135,9 @@ const showLoading = ref(true)
  * 表示する編集対象のアイテムがなくなるので、
  * アイテム一覧画面へ遷移します。
  */
-const closeDeleteNotice = async () => {
+const closeDeleteNotice = () => {
   showDeleteNotice.value = false
-  await router.push({ name: 'catalog/items' })
+  router.push({ name: 'catalog/items' })
 }
 
 /**
@@ -174,7 +174,7 @@ const getItem = async (itemId: number) => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       showToast('対象のアイテムが見つかりませんでした。')
-      await router.push({ name: 'catalog/items' })
+      router.push({ name: 'catalog/items' })
     }
     customErrorHandler.handle(error, () => {
       showToast('アイテムの取得に失敗しました。')
@@ -251,7 +251,7 @@ const deleteItemAsync = async () => {
     if (error instanceof NotFoundError) {
       customErrorHandler.handle(error, () => {
         showToast('削除対象のカタログアイテムが見つかりませんでした。')
-        void router.push({ name: '/catalog/items' })
+        router.push({ name: '/catalog/items' })
       })
     } else if (error instanceof ConflictError) {
       customErrorHandler.handle(error, () => {
@@ -289,7 +289,7 @@ const updateItemAsync = async () => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       showToast('更新対象のカタログアイテムが見つかりませんでした。')
-      await router.push({ name: 'catalog/items' })
+      router.push({ name: 'catalog/items' })
     } else if (error instanceof ConflictError) {
       customErrorHandler.handle(error, () => {
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')

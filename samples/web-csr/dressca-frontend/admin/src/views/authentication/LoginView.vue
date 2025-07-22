@@ -39,10 +39,10 @@ const login = async () => {
   }
   // 別の画面からリダイレクトしていない場合は、ホーム画面に遷移します。
   if (!route.query.redirectName) {
-    await router.push({ name: 'home' })
+    router.push({ name: 'home' })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
-    await router.push({
+    router.push({
       name: route.query.redirectName as string,
       params: JSON.parse(route.query.redirectParams as string),
       query: JSON.parse(route.query.redirectQuery as string),

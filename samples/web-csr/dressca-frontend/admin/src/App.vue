@@ -33,10 +33,10 @@ const showLoginMenu = ref(false)
 /**
  * アプリケーションからログアウトします。
  */
-const logout = async () => {
+const logout = () => {
   logoutByService()
   showLoginMenu.value = !showLoginMenu.value
-  await router.push({ name: 'authentication/login' })
+  router.push({ name: 'authentication/login' })
 }
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
@@ -44,7 +44,7 @@ const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
-  void importedRouter.push({
+  importedRouter.push({
     name: 'authentication/login',
     query: {
       redirectName: importedRouter.currentRoute.value.name?.toString(),

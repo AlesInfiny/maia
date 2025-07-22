@@ -27,14 +27,14 @@ const isInvalid = () => {
   return !meta.value.valid
 }
 
-const signIn = async () => {
+const signIn = () => {
   signInByService()
   // 別の画面からリダイレクトしていない場合は、トップページに遷移します。
   if (!route.query.redirectName) {
-    await router.push({ name: 'catalog' })
+    router.push({ name: 'catalog' })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
-    await router.push({
+    router.push({
       name: route.query.redirectName as string,
       params: JSON.parse(route.query.redirectParams as string),
       query: JSON.parse(route.query.redirectQuery as string),
