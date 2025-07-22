@@ -14,9 +14,14 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-
   // Lint 対象外とするファイルパスを列挙します。
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**','**/src/generated/**','**/mockServiceWorker.js']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/src/generated/**',
+    '**/mockServiceWorker.js',
+  ]),
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
@@ -26,8 +31,8 @@ export default defineConfigWithVueTs(
   // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
   vueTsConfigs.recommendedTypeChecked,
 
- // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
- {
+  // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
+  {
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -44,15 +49,27 @@ export default defineConfigWithVueTs(
   // プロジェクトやワークスペースに固有のルールを適用します。
   // 必要に応じて対象のファイルやルールを設定します。
   {
-    name: 'auth-frontend/additional-rules',
+    name: 'dressca-frontend/additional-rules',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: {'no-console': 'warn','no-alert':'warn'}
+    rules: {
+      'no-console': 'warn',
+      'no-alert': 'warn',
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          // 戻り値の Promise を await 不要とみなすメソッドを例外登録します。
+          allowForKnownSafeCalls: [
+            { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
+          ],
+        },
+      ],
+    },
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    files: ['src/**/__tests__/**/*'],
   },
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
