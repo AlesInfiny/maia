@@ -93,9 +93,9 @@ const AddItem = async () => {
  * 追加成功通知のモーダルを閉じます。
  * アイテム一覧画面に遷移します。
  */
-const closeAddNotice = () => {
+const closeAddNotice = async () => {
   showAddNotice.value = false
-  router.push({ name: 'catalog/items' })
+  await router.push({ name: 'catalog/items' })
 }
 
 /**

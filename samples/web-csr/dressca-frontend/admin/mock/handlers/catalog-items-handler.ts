@@ -13,21 +13,21 @@ export const catalogItemsHandlers = [
       status: HttpStatusCode.Ok,
     })
   }),
-  http.post<never, PostCatalogItemRequest, never>('/api/catalog-items', async () => {
+  http.post<never, PostCatalogItemRequest, never>('/api/catalog-items', () => {
     return new HttpResponse(null, { status: HttpStatusCode.Created })
   }),
   http.get<GetCatalogItemParams, never, never, '/api/catalog-items/:catalogItemId'>(
     '/api/catalog-items/:catalogItemId',
-    async ({ params }) => {
+    ({ params }) => {
       const { catalogItemId } = params
       const item = catalogItems.find((items) => items.id === Number(catalogItemId))
       return HttpResponse.json(item, { status: HttpStatusCode.Ok })
     },
   ),
-  http.delete('/api/catalog-items/:catalogItemId', async () => {
+  http.delete('/api/catalog-items/:catalogItemId', () => {
     return new HttpResponse(null, { status: HttpStatusCode.NoContent })
   }),
-  http.put<never, PutCatalogItemRequest, never>('/api/catalog-items/:catalogItemId', async () => {
+  http.put<never, PutCatalogItemRequest, never>('/api/catalog-items/:catalogItemId', () => {
     return new HttpResponse(null, { status: HttpStatusCode.NoContent })
   }),
 ]
