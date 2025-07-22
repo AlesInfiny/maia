@@ -35,7 +35,7 @@ const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 const addBasket = async (catalogItemId: number) => {
   try {
     await addItemToBasket(catalogItemId)
-    await router.push({ name: 'basket' })
+    router.push({ name: 'basket' })
   } catch (error) {
     customErrorHandler.handle(
       error,
