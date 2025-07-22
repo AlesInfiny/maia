@@ -19,7 +19,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
 - catalogItem_job
   
-    Chunk モデルで作られたジョブです。商品情報を取得し CSV に出力します。
+    Chunk モデルで作られたジョブです。商品情報を取得し、商品名を先頭 10 文字に切り詰めたうえで CSV に出力します。
 
 - catalogItem_tasklet_job
   
@@ -64,9 +64,13 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 Spring Batch では、複数のジョブが定義されている場合、実行すべきジョブを指定しないとエラーが発生するため、ジョブの指定は必須です。
 
 ジョブの指定方法は `spring.batch.job.name` という環境変数で指定します。
-サンプルでは、開発環境用のデフォルト設定として、 `application-dev.properties` にて
+サンプルでは開発環境用のデフォルト設定として、 `application-dev.properties` にて
 `spring.batch.job.name=catalogItem_tasklet_job` と指定しています。
 これにより起動時にジョブを指定しなくても catalogItem_tasklet_job が実行されるようになっています。
+
+```properties title="application-dev.properties でのジョブ指定"
+spring.batch.job.name=catalogItem_tasklet_job
+```
 
 catalogItem_job を実行するように、起動時に指定する場合には、以下の方法で指定します。
 
