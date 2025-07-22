@@ -98,16 +98,16 @@ onMounted(async () => {
 /**
  * アイテム追加画面に遷移します。
  */
-const goToAddItem = async () => {
-  await router.push({ name: 'catalog/items/add' })
+const goToAddItem = () => {
+  router.push({ name: 'catalog/items/add' })
 }
 
 /**
  * アイテム編集画面に遷移します。
  * @param id カタログアイテムID
  */
-const goToEditItem = async (id: number) => {
-  await router.push({ name: 'catalog/items/edit', params: { itemId: id } })
+const goToEditItem = (id: number) => {
+  router.push({ name: 'catalog/items/edit', params: { itemId: id } })
 }
 </script>
 
