@@ -69,7 +69,7 @@ export default defineConfigWithVueTs(
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    files: ['src/**/__tests__/**/*'],
   },
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
