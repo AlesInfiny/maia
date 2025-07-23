@@ -18,7 +18,7 @@ function CreateLoginState(userRoles: string[]) {
 }
 
 async function getWrapper(pinia: TestingPinia) {
-  await router.push({ name: 'catalog/items/edit', params: { itemId: 1 } })
+  router.push({ name: 'catalog/items/edit', params: { itemId: 1 } })
   await router.isReady()
   return mount(ItemsEditView, {
     global: { plugins: [pinia, router] },

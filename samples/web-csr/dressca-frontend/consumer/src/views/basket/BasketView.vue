@@ -33,8 +33,8 @@ const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0
 }
 
-const goCatalog = async () => {
-  await router.push({ name: 'catalog' })
+const goCatalog = () => {
+  router.push({ name: 'catalog' })
 }
 
 const update = async (catalogItemId: number, newQuantity: number) => {
@@ -102,7 +102,7 @@ const order = async () => {
     showToast(t('basketContainsUnavailableItem'))
     return
   }
-  await router.push({ name: 'ordering/checkout' })
+  router.push({ name: 'ordering/checkout' })
 }
 
 onMounted(async () => {
