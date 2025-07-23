@@ -119,7 +119,7 @@ mono-repo 用に、設定ファイルの配置と設定を変更します。
 ├ <workspace-name> ------- ワークスペース/プロジェクト
 ```
 
-.eslint.config.ts　に、下記の設定を追加してください。
+.eslint.config.ts に、下記の設定を追加してください。
 
 ```ts
 {
