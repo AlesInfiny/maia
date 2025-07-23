@@ -85,7 +85,7 @@ ESLint および ESLint の実行に必要なパッケージは、 [ブランク
 
 ### ESLint の設定 {#settings-eslint}
 
-#### 設定前の動作確認 {#pre-setting}
+#### 設定前の動作確認 {#pre-config-check}
 
 ESLint の設定は、設定ファイル .eslint.config.ts で行います。
 このファイルはインストール時にワークスペースの直下に自動的に追加されています。
@@ -97,7 +97,7 @@ npm run lint
 
 設定の変更前に、 ESLint が正常に実行できることを確認してください。
 
-#### 設定例の確認 {#confirmation-example}
+#### 設定例の確認 {#check-config-examples}
 
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
@@ -106,7 +106,7 @@ npm run lint
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
 ```
 
-#### mono-repo 用の設定 {#settings-for-mono-repo}
+#### mono-repo 用の設定 {#mono-repo-config}
 
 mono-repo 用に、設定ファイルの配置と設定を変更します。
 .eslint.config.ts を、ルートプロジェクトの直下に移動してください。
@@ -146,7 +146,7 @@ npm run lint
 
 ESLint がルートプロジェクトの設定ファイルを自動的に認識し、正常に実行できることを確認してください。
 
-#### 適用ルールの変更 {#change-adaptation-rules}
+#### 適用ルールの変更 {#change-applied-rules}
 
 Vue ファイルに適用するルールを、 `flat/essential` から `flat/recommended` に変更します。
 
@@ -221,7 +221,7 @@ globalIgnores([
       npx @eslint/config-inspector@latest
       ```
 
-#### ESLint の実行 {#execute-eslint}
+#### ESLint の実行 {#run-eslint}
 
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
 ESLint が更新後の設定で正常に実行できることを確認してください。
