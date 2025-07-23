@@ -180,7 +180,19 @@ ESLint は eslint.config.ts の先頭から設定の内容をマージするの�
 {
   name: 'app/additional-rules',
   files: ['**/*.{ts,mts,tsx,vue}'],
-  rules: { 'no-console': 'warn', 'no-alert': 'warn' },
+  rules: {
+    'no-console': 'warn',
+    'no-alert': 'warn',
+    '@typescript-eslint/no-floating-promises': [
+      'error',
+      {
+        // 戻り値の Promise を await 不要とみなすメソッドを例外登録します。
+        allowForKnownSafeCalls: [
+          { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
+        ],
+      },
+    ],
+  },
 },
 ```
 
