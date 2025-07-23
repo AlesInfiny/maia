@@ -102,7 +102,7 @@ npm run lint
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-41 44-47 51-55"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-42 45-48 52-68"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
 ```
 
