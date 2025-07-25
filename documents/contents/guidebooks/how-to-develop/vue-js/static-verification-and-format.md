@@ -102,7 +102,7 @@ npm run lint
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-42 45-48 52-68"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-42 45-48 52-68 73 79-80"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
 ```
 
@@ -129,6 +129,22 @@ mono-repo 用に、設定ファイルの配置と設定を変更します。
       tsconfigRootDir: import.meta.dirname
     },
   },
+},
+```
+
+src フォルダーが .eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
+
+```ts hl_lines="3 8-9"
+{
+  ...pluginVitest.configs.recommended,
+  files: ['**/src/**/__tests__/**/*'],
+},
+{
+  ...pluginCypress.configs.recommended,
+  files: [
+    '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
+    '**/cypress/support/**/*.{js,ts,jsx,tsx}',
+  ],
 },
 ```
 
