@@ -1,17 +1,17 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.5.0"
+    springBootVersion = "3.5.4"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.1.13"
+    spotbugsVersion = "6.2.2"
 
     // -- TOOLS
     jacocoToolVersion = "0.8.13"
-    checkstyleToolVersion = "10.25.0"
+    checkstyleToolVersion = "10.26.1"
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "2.8.8"
+    springdocOpenapiVersion = "2.8.9"
     springCloudAzureVersion = "5.22.0"
 
     supportDependencies = [
