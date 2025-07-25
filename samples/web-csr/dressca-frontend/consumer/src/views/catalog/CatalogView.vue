@@ -1,57 +1,53 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import {
-  fetchCategoriesAndBrands,
-  fetchItems,
-} from '@/services/catalog/catalog-service';
-import { addItemToBasket } from '@/services/basket/basket-service';
-import { showToast } from '@/services/notification/notificationService';
-import { storeToRefs } from 'pinia';
-import { useSpecialContentStore } from '@/stores/special-content/special-content';
-import { useCatalogStore } from '@/stores/catalog/catalog';
-import CarouselSlider from '@/components/common/CarouselSlider.vue';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
-import { useRouter } from 'vue-router';
-import { currencyHelper } from '@/shared/helpers/currencyHelper';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { i18n } from '@/locales/i18n';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { ref, onMounted, watch } from 'vue'
+import { fetchCategoriesAndBrands, fetchItems } from '@/services/catalog/catalog-service'
+import { addItemToBasket } from '@/services/basket/basket-service'
+import { showToast } from '@/services/notification/notificationService'
+import { storeToRefs } from 'pinia'
+import { useSpecialContentStore } from '@/stores/special-content/special-content'
+import { useCatalogStore } from '@/stores/catalog/catalog'
+import CarouselSlider from '@/components/common/CarouselSlider.vue'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { useRouter } from 'vue-router'
+import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { i18n } from '@/locales/i18n'
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
+import { HttpError } from '@/shared/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const specialContentStore = useSpecialContentStore();
-const catalogStore = useCatalogStore();
+const specialContentStore = useSpecialContentStore()
+const catalogStore = useCatalogStore()
 
-const { getSpecialContents } = storeToRefs(specialContentStore);
-const { getCategories, getBrands, getItems, getBrandName } =
-  storeToRefs(catalogStore);
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
-const { t } = i18n.global;
+const { getSpecialContents } = storeToRefs(specialContentStore)
+const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(catalogStore)
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
+const { t } = i18n.global
 
-const selectedCategory = ref(0);
-const selectedBrand = ref(0);
-const showLoading = ref(true);
+const selectedCategory = ref(0)
+const selectedBrand = ref(0)
+const showLoading = ref(true)
 
-const { toCurrencyJPY } = currencyHelper();
-const { getFirstAssetUrl, getAssetUrl } = assetHelper();
+const { toCurrencyJPY } = currencyHelper()
+const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 
 const addBasket = async (catalogItemId: number) => {
   try {
-    await addItemToBasket(catalogItemId);
-    router.push({ name: 'basket' });
+    await addItemToBasket(catalogItemId)
+    router.push({ name: 'basket' })
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {},
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToAddItemToCarts'));
+          showToast(t('failedToAddItemToCarts'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -59,30 +55,30 @@ const addBasket = async (catalogItemId: number) => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   }
-};
+}
 
 onMounted(async () => {
-  showLoading.value = true;
-  fetchCategoriesAndBrands();
+  showLoading.value = true
+  await fetchCategoriesAndBrands()
   try {
-    await fetchItems(selectedCategory.value, selectedBrand.value);
+    await fetchItems(selectedCategory.value, selectedBrand.value)
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {},
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToGetItems'));
+          showToast(t('failedToGetItems'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -90,18 +86,18 @@ onMounted(async () => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 
 watch([selectedCategory, selectedBrand], async () => {
-  fetchItems(selectedCategory.value, selectedBrand.value);
-});
+  await fetchItems(selectedCategory.value, selectedBrand.value)
+})
 </script>
 
 <template>
@@ -125,11 +121,7 @@ watch([selectedCategory, selectedBrand], async () => {
             <label class="mr-2 font-bold">
               カテゴリ
               <select v-model="selectedCategory" class="w-48 border-2">
-                <option
-                  v-for="category in getCategories"
-                  :key="category.id"
-                  :value="category.id"
-                >
+                <option v-for="category in getCategories" :key="category.id" :value="category.id">
                   {{ category.name }}
                 </option>
               </select>
@@ -139,11 +131,7 @@ watch([selectedCategory, selectedBrand], async () => {
             <label class="mr-2 font-bold">
               ブランド
               <select v-model="selectedBrand" class="w-48 border-2">
-                <option
-                  v-for="brand in getBrands"
-                  :key="brand.id"
-                  :value="brand.id"
-                >
+                <option v-for="brand in getBrands" :key="brand.id" :value="brand.id">
                   {{ brand.name }}
                 </option>
               </select>
@@ -152,18 +140,10 @@ watch([selectedCategory, selectedBrand], async () => {
         </div>
       </div>
       <div class="flex justify-center">
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-6 mb-4"
-        >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-6 mb-4">
           <div v-for="item in getItems" :key="item.id">
-            <div
-              class="justify-center md:border-2 lg:border-2 p-2 h-80 w-240 mx-auto"
-            >
-              <img
-                class="h-[180px]"
-                :src="getFirstAssetUrl(item.assetCodes)"
-                :alt="item.name"
-              />
+            <div class="justify-center md:border-2 lg:border-2 p-2 h-80 w-240 mx-auto">
+              <img class="h-[180px]" :src="getFirstAssetUrl(item.assetCodes)" :alt="item.name" />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">
                   {{ getBrandName(item.catalogBrandId) }}

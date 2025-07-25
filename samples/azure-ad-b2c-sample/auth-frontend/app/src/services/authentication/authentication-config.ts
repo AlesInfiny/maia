@@ -1,9 +1,5 @@
 /* eslint-disable no-console */
-import {
-  LogLevel,
-  PublicClientApplication,
-  type SilentRequest,
-} from '@azure/msal-browser';
+import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
 
 export const b2cPolicies = {
   names: {
@@ -15,11 +11,11 @@ export const b2cPolicies = {
     },
   },
   authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
-};
+}
 
 export const apiConfig = {
   b2cScopes: [import.meta.env.VITE_ADB2C_SCOPE],
-};
+}
 
 export const msalConfig = {
   auth: {
@@ -34,41 +30,37 @@ export const msalConfig = {
   },
   system: {
     loggerOptions: {
-      loggerCallback: (
-        level: LogLevel,
-        message: string,
-        containsPii: boolean,
-      ) => {
+      loggerCallback: (level: LogLevel, message: string, containsPii: boolean) => {
         if (containsPii) {
-          return;
+          return
         }
         switch (level) {
           case LogLevel.Error:
-            console.error(message);
-            return;
+            console.error(message)
+            return
           case LogLevel.Info:
-            console.info(message);
-            return;
+            console.info(message)
+            return
           case LogLevel.Verbose:
-            console.debug(message);
-            return;
+            console.debug(message)
+            return
           case LogLevel.Warning:
-            console.warn(message);
-            break;
+            console.warn(message)
+            break
           default:
         }
       },
       logLevel: LogLevel.Verbose,
     },
   },
-};
+}
 
-export const msalInstance = new PublicClientApplication(msalConfig);
+export const msalInstance = new PublicClientApplication(msalConfig)
 
 export const loginRequest: SilentRequest = {
   scopes: ['openId', ...apiConfig.b2cScopes],
-};
+}
 
 export const tokenRequest: SilentRequest = {
   scopes: [...apiConfig.b2cScopes],
-};
+}

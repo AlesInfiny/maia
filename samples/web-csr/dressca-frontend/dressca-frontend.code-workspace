@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "name": "dressca-root",
+      "path": ".",
+    },
+    {
+      "name": "dressca-consumer",
+      "path": "consumer",
+    },
+    {
+      "name": "dressca-admin",
+      "path": "admin",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "dressca-root/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.validate.enable": false,
+  },
+}

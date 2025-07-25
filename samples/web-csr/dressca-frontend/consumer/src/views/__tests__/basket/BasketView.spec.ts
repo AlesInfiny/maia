@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeAll, assert } from 'vitest';
-import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { router } from '@/router';
-import { i18n } from '@/locales/i18n';
-import { createTestingPinia } from '@pinia/testing';
-import BasketView from '@/views/basket/BasketView.vue';
-import type { BasketResponse } from '@/generated/api-client';
-import { ServerError } from '@/shared/error-handler/custom-error';
-import { useNotificationStore } from '@/stores/notification/notification';
-import BasketItem from '@/components/basket/BasketItem.vue';
-import { createAxiosError, createProblemDetails } from '../helpers';
+import { describe, it, expect, vi, beforeAll, assert } from 'vitest'
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
+import { router } from '@/router'
+import { i18n } from '@/locales/i18n'
+import { createTestingPinia } from '@pinia/testing'
+import BasketView from '@/views/basket/BasketView.vue'
+import type { BasketResponse } from '@/generated/api-client'
+import { ServerError } from '@/shared/error-handler/custom-error'
+import { useNotificationStore } from '@/stores/notification/notification'
+import BasketItem from '@/components/basket/BasketItem.vue'
+import { createAxiosError, createProblemDetails } from '../helpers'
 
 function createBasketResponse(): BasketResponse {
   return {
@@ -46,7 +46,7 @@ function createBasketResponse(): BasketResponse {
         subTotal: 9600,
       },
     ],
-  };
+  }
 }
 
 function createEmptyBasketResponse(): BasketResponse {
@@ -60,7 +60,7 @@ function createEmptyBasketResponse(): BasketResponse {
       totalPrice: 0,
     },
     basketItems: [],
-  };
+  }
 }
 
 /**
@@ -72,124 +72,124 @@ function createEmptyBasketResponse(): BasketResponse {
 const { getBasketItemsMock } = vi.hoisted(() => {
   return {
     getBasketItemsMock: vi.fn(),
-  };
-});
+  }
+})
 
 vi.mock('@/api-client', () => ({
   basketItemsApi: {
     getBasketItems: getBasketItemsMock,
   },
-}));
+}))
 
-async function getWrapper() {
+function getWrapper() {
   const pinia = createTestingPinia({
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
-  });
-  i18n.global.locale.value = 'ja'; // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
+  })
+  i18n.global.locale.value = 'ja' // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
   return mount(BasketView, {
     global: { plugins: [pinia, router, i18n] },
-  });
+  })
 }
 
 describe('買い物かごのアイテムを表示する_アイテムが入っている', () => {
-  let wrapper: VueWrapper;
+  let wrapper: VueWrapper
 
-  beforeAll(async (): Promise<void> => {
+  beforeAll(() => {
     // onMounted のタイミングで API コールを行っているので、wrapper の作成よりも先にモックする必要があります。
-    getBasketItemsMock.mockResolvedValue({ data: createBasketResponse() });
-    wrapper = await getWrapper();
-  });
+    getBasketItemsMock.mockResolvedValue({ data: createBasketResponse() })
+    wrapper = getWrapper()
+  })
 
   it('取得したアイテムの情報が表示される', async () => {
     // Arrange
-    const expectCount = createBasketResponse().basketItems?.length!;
+    const expectCount = createBasketResponse().basketItems!.length
     // Act
-    await flushPromises();
+    await flushPromises()
     // Assert
-    const basketItem = wrapper.findAllComponents(BasketItem);
-    expect(wrapper.html()).toContain('クルーネック Tシャツ - ブラック');
-    expect(wrapper.html()).toContain('裏起毛 スキニーデニム');
-    expect(basketItem).toHaveLength(expectCount);
-  });
+    const basketItem = wrapper.findAllComponents(BasketItem)
+    expect(wrapper.html()).toContain('クルーネック Tシャツ - ブラック')
+    expect(wrapper.html()).toContain('裏起毛 スキニーデニム')
+    expect(basketItem).toHaveLength(expectCount)
+  })
 
   it('「買い物を続ける」ボタンが表示されている', () => {
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[0];
-    expect(button.isVisible()).toBe(true);
-  });
+    const button = wrapper.findAll('button')[0]
+    expect(button.isVisible()).toBe(true)
+  })
 
   it('「レジに進む」ボタンが表示されている', () => {
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[1];
-    expect(button.isVisible()).toBe(true);
-  });
-});
+    const button = wrapper.findAll('button')[1]
+    expect(button.isVisible()).toBe(true)
+  })
+})
 
 describe('買い物かごのアイテムを表示する_アイテムが0件', () => {
-  let wrapper: VueWrapper;
+  let wrapper: VueWrapper
 
-  beforeAll(async (): Promise<void> => {
-    getBasketItemsMock.mockResolvedValue({ data: createEmptyBasketResponse() });
-    wrapper = await getWrapper();
-  });
+  beforeAll(() => {
+    getBasketItemsMock.mockResolvedValue({ data: createEmptyBasketResponse() })
+    wrapper = getWrapper()
+  })
 
   it('0件を示すメッセージが表示される', async () => {
     // Arrange
     // Act
-    await flushPromises();
+    await flushPromises()
     // Assert
-    expect(wrapper.html()).toContain('買い物かごに商品がありません。');
-  });
+    expect(wrapper.html()).toContain('買い物かごに商品がありません。')
+  })
 
   it('「買い物を続ける」ボタンが表示されている', () => {
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[0];
-    expect(button.isVisible()).toBe(true);
-  });
+    const button = wrapper.findAll('button')[0]
+    expect(button.isVisible()).toBe(true)
+  })
 
   it('「レジに進む」ボタンが表示されていない', () => {
     // Arrange
     // Act
     // Assert
-    const button = wrapper.find('[data-testId="orderButton"]');
-    expect(button.exists()).toBe(false);
-  });
-});
+    const button = wrapper.find('[data-testId="orderButton"]')
+    expect(button.exists()).toBe(false)
+  })
+})
 
 describe('買い物かごのアイテムを表示する_サーバーエラー', () => {
   it('サーバーエラー_通知ストアにサーバーエラーを示すメッセージが格納される', async () => {
     // Arrange
-    const expectDetail = 'expectDetail';
-    const expectExceptionId = 'serverError';
-    const expectStatus = 500;
-    const expectTitle = 'expectTitle';
+    const expectDetail = 'expectDetail'
+    const expectExceptionId = 'serverError'
+    const expectStatus = 500
+    const expectTitle = 'expectTitle'
     const problem = createProblemDetails({
       detail: expectDetail,
       exceptionId: expectExceptionId,
       status: expectStatus,
       title: expectTitle,
-    });
-    const error = createAxiosError(problem);
-    getBasketItemsMock.mockRejectedValue(new ServerError('', error));
-    const expectMessage = 'サーバーエラーが発生しました。';
-    await getWrapper();
-    const notificationStore = useNotificationStore();
+    })
+    const error = createAxiosError(problem)
+    getBasketItemsMock.mockRejectedValue(new ServerError('', error))
+    const expectMessage = 'サーバーエラーが発生しました。'
+    getWrapper()
+    const notificationStore = useNotificationStore()
 
     // Act
-    await flushPromises();
+    await flushPromises()
 
     // Assert
-    assert.equal(notificationStore.message, expectMessage);
-    assert.equal(notificationStore.id, expectExceptionId);
-    assert.equal(notificationStore.title, expectTitle);
-    assert.equal(notificationStore.detail, expectDetail);
-    assert.equal(notificationStore.status, expectStatus);
-  });
-});
+    assert.equal(notificationStore.message, expectMessage)
+    assert.equal(notificationStore.id, expectExceptionId)
+    assert.equal(notificationStore.title, expectTitle)
+    assert.equal(notificationStore.detail, expectDetail)
+    assert.equal(notificationStore.status, expectStatus)
+  })
+})

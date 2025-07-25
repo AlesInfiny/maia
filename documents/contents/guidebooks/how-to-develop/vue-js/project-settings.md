@@ -40,7 +40,6 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 なお、 `tsconfig.app.json` `tsconfig.node.json` には npm パッケージで提供されている `tsconfig` を継承するように設定されているため、継承元の設定値が存在します。
 `extends` に定義されている継承元ファイルを参照して実際の設定値を確認できます。
-また、 `references` で参照されているファイルでは `compilerOptions.composite` を `true` に設定する必要があります。
 
 ![tsconfigの継承関係](../../../images/guidebooks/how-to-develop/vue-js/vue-tsconfig-light.png#only-light){ loading=lazy }
 ![tsconfigの継承関係](../../../images/guidebooks/how-to-develop/vue-js/vue-tsconfig-dark.png#only-dark){ loading=lazy }
@@ -50,76 +49,25 @@ Project Reference 機能については [Project References :material-open-in-ne
 ??? note "tsconfig.json の設定例"
 
     ``` json title="tsconfig.json"
-    {
-      "files": [],
-      "references": [
-        {
-          "path": "./tsconfig.node.json"
-        },
-        {
-          "path": "./tsconfig.app.json"
-        },
-        {
-          "path": "./tsconfig.vitest.json"
-        }
-      ],
-      "compilerOptions": {
-        "module": "NodeNext"
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.json
     ```
 
 ??? note "tsconfig.app.json の設定例"
 
     ``` json title="tsconfig.app.json"
-    {
-      "extends": "@vue/tsconfig/tsconfig.dom.json",
-      "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*"],
-      "exclude": ["src/**/__tests__/*"],
-      "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-        "baseUrl": ".",
-        "paths": {
-          "@/*": ["./src/*"]
-        }
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
     ```
 
 ??? note "tsconfig.node.json の設定例"
 
-    AlesInfiny Maia サンプルアプリでは、フロントエンドアプリを mock モードでビルドする際のソースコードを `mock` フォルダー配下に含みます。
-    本来 tsconfig.node.json は設定ファイルとして読み込む対象を定義すべきですが、vite.config.ts の参照先で `mock` フォルダー内のファイルを参照している都合上、 `"mock/**/*"` を include の対象にしています。
-
-    ``` json title="tsconfig.node.json" hl_lines="4"
-    {
-      "extends": "@tsconfig/node20/tsconfig.json",
-      "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
-      "compilerOptions": {
-        "composite": true,
-        "noEmit": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "types": ["node"]
-      }
-    }
+    ``` json title="tsconfig.node.json"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
     ```
 
 ??? note "tsconfig.vitest.json の設定例"
 
     ``` json title="tsconfig.vitest.json"
-    {
-      "extends": "./tsconfig.app.json",
-      "exclude": [],
-      "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
-        "lib": [],
-        "types": ["node", "jsdom"]
-      }
-    }
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json
     ```
 
 - `compilerOptions.noEmit`
@@ -136,7 +84,7 @@ Project Reference 機能については [Project References :material-open-in-ne
           "scripts": {
             "build": "run-p type-check \"build-only {@}\" --",
             "build-only": "vite build",
-            "type-check": "vue-tsc --build --force"
+            "type-check": "vue-tsc --build"
           }
         }
         ```
@@ -157,62 +105,27 @@ Project Reference 機能については [Project References :material-open-in-ne
 - `compilerOptions.moduleResolution`
   
     モジュール解決の方針を設定するプロパティです。
-    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。`Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
+    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。 `Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
 
 ## Vite の設定 {#vite-settings}
 
-[ブランクプロジェクトの作成](./create-vuejs-blank-project.md) の手順に沿って `create-vue` でプロジェクトを作成すると、プロジェクトルートに `vite.config.ts` が生成されます。
+[ブランクプロジェクトの作成](./create-vuejs-blank-project.md) の手順に沿って `create-vue` でプロジェクトを作成すると、ワークスペースの直下に `vite.config.ts` が生成されます。
 `vite.config.ts` に設定を追加することでビルド時の設定が定義できます。
-`vite` コマンドを実行する際、プロジェクトルートの `vite.config.ts` の設定値が自動的に読み込まれます。
+`vite` コマンドを実行する際、ワークスペースの直下の `vite.config.ts` の設定値が自動的に読み込まれます。
 
 ### vite.config の設定値の解説 {#vite-config}
 
-??? note "vite.config.ts の設定例"
+??? example "vite.config.ts の設定例"
 
-    ``` ts title="vite.config.ts"
-    import { fileURLToPath, URL } from 'url';
-
-    import { defineConfig, loadEnv } from 'vite';
-    import vue from '@vitejs/plugin-vue';
-    import vueJsx from '@vitejs/plugin-vue-jsx';
-    import { setupMockPlugin } from './vite-plugins/setup-mock';
-
-    export default defineConfig(({ mode }) => {
-      const plugins = [vue(), vueJsx()];
-      const env = loadEnv(mode, process.cwd());
-
-      return {
-        plugins: mode === 'mock' ? [...plugins, setupMockPlugin()] : plugins,
-        resolve: {
-          alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
-          },
-        },
-        server: {
-          proxy: {
-            '/api': {
-              target: env.VITE_PROXY_ENDPOINT_ORIGIN,
-              changeOrigin: true,
-              autoRewrite: true,
-              secure: false,
-            },
-            '/swagger': {
-              target: env.VITE_PROXY_ENDPOINT_ORIGIN,
-              changeOrigin: true,
-              secure: false,
-            },
-          },
-        },
-      };
-    });
-
+    ``` ts title="サンプルアプリケーションの vite.config.ts"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts
     ```
 
 - [条件付き設定 :material-open-in-new:](https://ja.vitejs.dev/config/#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E8%A8%AD%E5%AE%9A){ target=_blank }
 
     コマンドやモードに応じて異なる設定を適用する場合、関数を export して設定します。
 
-    ``` ts
+    ``` ts title="vite.config.ts" hl_lines="6"
     export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
       if (command === 'serve') {
         return {
@@ -224,47 +137,27 @@ Project Reference 機能については [Project References :material-open-in-ne
     })
     ```
 
-    設定例では mock モードでビルドした際に、デフォルトのプラグインに加えてモック用に定義したプラグインを読み込んでいます。
+    ??? example "条件付き設定の実装例"
+        設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
-    ``` ts
-    export default defineConfig(({ mode }) => {
-      const plugins = [vue(), vueJsx()];
-
-      return {
-        plugins: mode === 'mock' ? [...plugins, setupMockPlugin()] : plugins,
-        // ...
-      }
-    ```
+        ``` ts title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts#L30-L35
+        ```
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。
     `vitest.config.ts` でも defineConfig を関数に変更しないと型推論が上手くできないためです。
     `vitest.config.ts` の設定については [Managing Vitest config file :material-open-in-new:](https://vitest.dev/config/){ target=_blank } を参照してください。
 
-    ??? note "vitest.config.ts の実装例"
+    ??? example "vitest.config.ts の実装例"
 
-        ``` ts title="vitest.config.ts"
-        import { fileURLToPath } from 'node:url';
-        import { mergeConfig, defineConfig, configDefaults } from 'vitest/config';
-        import viteConfig from './vite.config';
-
-        export default defineConfig((configEnv) =>
-          mergeConfig(
-            viteConfig(configEnv),
-            defineConfig({
-              test: {
-                environment: 'jsdom',
-                exclude: [...configDefaults.exclude, 'e2e/*'],
-                root: fileURLToPath(new URL('./', import.meta.url)),
-              },
-            }),
-          ),
-        );
+        ``` ts title="サンプルアプリケーションの vitest.config.ts"
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vitest.config.ts
         ```
 
 - `loadEnv()`
 
     モードに応じた `.env.*` ファイルを読み込み、環境変数を取得します。
-    `vite` コマンドを実行する際、`--mode` オプションに指定したパラメーターに応じた `.env.*` を読み込みます。
+    `vite` コマンドを実行する際、 `--mode` オプションに指定したパラメーターに応じた `.env.*` を読み込みます。
     例えば、 `vite build --mode dev` を実行すると `.env.dev` が読み込まれます。
     `.env.*` ファイルは環境変数を定義するために作成するもので、 `VITE_` で始まる環境変数の値を設定できます。
     モードに応じて異なる環境変数の値を設定したい場合に利用します。
@@ -301,14 +194,14 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     ??? info "API エンドポイントを設定する際の注意点"
 
-        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で  `baseURL`を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
+        AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
-        ``` ts title="src/api-client/index.ts" hl_lines="2"
-        const axiosInstance = axios.create({
-          baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
-        });
-
+        ``` ts title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L18-L19
         ```
 
 [^1]: 本ページでは、 TypeScript から JavaScript への変換を指します。
-[^2]: 本ページでは、`vite build` コマンドによりバンドル（トランスパイル後の JavaScript をブラウザーで扱いやすいよう単一のファイルにまとめる）まで行うことを指します。
+[^2]: 本ページでは、 `vite build` コマンドによりバンドル（トランスパイル後の JavaScript をブラウザーで扱いやすいよう単一のファイルにまとめる）まで行うことを指します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+[^3]: Vue.js の開発者ツールを追加するプラグイン（`vueDevTools()`） はライブラリの内部で `apply: 'serve'` を指定して、 [条件付きの適用 :material-open-in-new:](https://ja.vite.dev/guide/using-plugins.html#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E3%81%AE%E9%81%A9%E7%94%A8){ target=_blank } を設定しています。そのため、追加の設定をしなくても prod モードでの本番環境向けのビルド結果に Vue.js の開発者ツールは含まれません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->

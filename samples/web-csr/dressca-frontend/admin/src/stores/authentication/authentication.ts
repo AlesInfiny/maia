@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { UsersApi } from '@/api-client';
+import { defineStore } from 'pinia'
+import { UsersApi } from '@/api-client'
 
 /**
  * 認証状態のストアです。
@@ -18,29 +18,26 @@ export const useAuthenticationStore = defineStore('authentication', {
      * セッションストレージに認証状態を保存します。
      */
     async signInAsync() {
-      const response = await UsersApi.getLoginUser();
-      const { userName, roles } = response.data;
-      this.userName = userName;
-      this.userRoles = roles;
-      this.authenticationState = true;
-      sessionStorage.setItem('userName', JSON.stringify(this.userName));
-      sessionStorage.setItem('userRoles', JSON.stringify(this.userRoles));
-      sessionStorage.setItem(
-        'isAuthenticated',
-        JSON.stringify(this.authenticationState),
-      );
+      const response = await UsersApi.getLoginUser()
+      const { userName, roles } = response.data
+      this.userName = userName
+      this.userRoles = roles
+      this.authenticationState = true
+      sessionStorage.setItem('userName', JSON.stringify(this.userName))
+      sessionStorage.setItem('userRoles', JSON.stringify(this.userRoles))
+      sessionStorage.setItem('isAuthenticated', JSON.stringify(this.authenticationState))
     },
     /**
      * アプリケーションからログアウトします。
      * セッションストレージから認証状態を削除します。
      */
-    async signOutAsync() {
-      this.userName = '';
-      this.userRoles = '';
-      this.authenticationState = false;
-      sessionStorage.removeItem('isAuthenticated');
-      sessionStorage.removeItem('userName');
-      sessionStorage.removeItem('userRoles');
+    signOut() {
+      this.userName = ''
+      this.userRoles = ''
+      this.authenticationState = false
+      sessionStorage.removeItem('isAuthenticated')
+      sessionStorage.removeItem('userName')
+      sessionStorage.removeItem('userRoles')
     },
   },
   getters: {
@@ -50,7 +47,7 @@ export const useAuthenticationStore = defineStore('authentication', {
      * @returns 認証済みかどうかを表す真理値。
      */
     isAuthenticated(state) {
-      return state.authenticationState;
+      return state.authenticationState
     },
     /**
      * ユーザーが特定のロールに属するかどうかを判定する関数を取得します。
@@ -61,7 +58,7 @@ export const useAuthenticationStore = defineStore('authentication', {
      * @returns ユーザーが特定のロールに属するかどうかを判定する関数。
      */
     isInRole(state) {
-      return (role: string) => state.userRoles.includes(role);
+      return (role: string) => state.userRoles.includes(role)
     },
   },
-});
+})

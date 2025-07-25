@@ -1,46 +1,45 @@
 <script setup lang="ts">
-import NotificationToast from '@/components/NotificationToast.vue';
-import { storeToRefs } from 'pinia';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { Bars3Icon } from '@heroicons/vue/24/solid';
-import { logoutAsync } from '@/services/authentication/authentication-service';
-import { useRouter } from 'vue-router';
-import { router as importedRouter } from '@/router';
-import { ref } from 'vue';
-import { useNotificationStore } from '@/stores/notification/notification';
-import { useEventBus } from '@vueuse/core';
-import { showToast as showToastByService } from '@/services/notification/notificationService';
-import { unauthorizedErrorEventKey } from './shared/events';
+import NotificationToast from '@/components/NotificationToast.vue'
+import { storeToRefs } from 'pinia'
+import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { Bars3Icon } from '@heroicons/vue/24/solid'
+import { logout as logoutByService } from '@/services/authentication/authentication-service'
+import { useRouter } from 'vue-router'
+import { router as importedRouter } from '@/router'
+import { ref } from 'vue'
+import { useNotificationStore } from '@/stores/notification/notification'
+import { useEventBus } from '@vueuse/core'
+import { showToast as showToastByService } from '@/services/notification/notificationService'
+import { unauthorizedErrorEventKey } from './shared/events'
 
-const authenticationStore = useAuthenticationStore();
-const { authenticationState, userName, userRoles } =
-  storeToRefs(authenticationStore);
+const authenticationStore = useAuthenticationStore()
+const { authenticationState, userName, userRoles } = storeToRefs(authenticationStore)
 
-const notificationStore = useNotificationStore();
-const { message, timeout } = storeToRefs(notificationStore);
+const notificationStore = useNotificationStore()
+const { message, timeout } = storeToRefs(notificationStore)
 
-const router = useRouter();
+const router = useRouter()
 
 /**
  * トーストの開閉状態です。
  */
-const showToast = ref(false);
+const showToast = ref(false)
 
 /**
  * ログインメニューの開閉状態です。
  */
-const showLoginMenu = ref(false);
+const showLoginMenu = ref(false)
 
 /**
  * アプリケーションからログアウトします。
  */
-const logout = async () => {
-  await logoutAsync();
-  showLoginMenu.value = !showLoginMenu.value;
-  router.push({ name: 'authentication/login' });
-};
+const logout = () => {
+  logoutByService()
+  showLoginMenu.value = !showLoginMenu.value
+  router.push({ name: 'authentication/login' })
+}
 
-const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey);
+const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 
 unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
@@ -52,9 +51,9 @@ unauthorizedErrorEventBus.on((payload) => {
       redirectParams: JSON.stringify(importedRouter.currentRoute.value.params),
       redirectQuery: JSON.stringify(importedRouter.currentRoute.value.query),
     },
-  });
-  showToastByService(payload.details);
-});
+  })
+  showToastByService(payload.details)
+})
 </script>
 <template>
   <div class="z-20 fixed">
@@ -67,9 +66,7 @@ unauthorizedErrorEventBus.on((payload) => {
   <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
-        <div
-          class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
-        >
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <router-link
             to="/"
             class="flex flex-shrink-0 items-center text-xl font-medium rounded-md px-3 text-white hover:bg-blue-800"

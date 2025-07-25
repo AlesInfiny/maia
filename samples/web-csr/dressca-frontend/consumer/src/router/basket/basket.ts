@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export const basketRoutes: RouteRecordRaw[] = [
   {
@@ -7,4 +7,4 @@ export const basketRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/basket/BasketView.vue'),
     meta: { requiresAuth: false },
   },
-];
+]

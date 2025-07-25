@@ -1,10 +1,7 @@
-import type {
-  CatalogItemResponse,
-  PagedListOfCatalogItemResponse,
-} from '@/generated/api-client';
+import type { CatalogItemResponse, PagedListOfCatalogItemResponse } from '@/generated/api-client'
 
 /** カタログから削除済みのアイテムの ID です。 */
-export const deletedItemId: number = 99;
+export const deletedItemId: number = 99
 
 export const catalogItems: CatalogItemResponse[] = [
   {
@@ -41,8 +38,7 @@ export const catalogItems: CatalogItemResponse[] = [
     id: 4,
     catalogCategoryId: 1,
     catalogBrandId: 2,
-    description:
-      'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
+    description: 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
     name: '無地 ボタンダウンシャツ',
     price: 2800,
     productCode: 'C000000004',
@@ -129,7 +125,7 @@ export const catalogItems: CatalogItemResponse[] = [
     productCode: 'C999999999',
     assetCodes: ['05c0415d57b342e79a10cac9b9cb25a8'],
   },
-];
+]
 
 export const pagedListCatalogItem: PagedListOfCatalogItemResponse = {
   hasNext: false,
@@ -139,4 +135,4 @@ export const pagedListCatalogItem: PagedListOfCatalogItemResponse = {
   totalCount: 3,
   totalPages: 1,
   items: catalogItems,
-};
+}

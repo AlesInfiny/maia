@@ -1,62 +1,58 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
-import { useField, useForm } from 'vee-validate';
-import * as yup from 'yup';
-import { validationItems } from '@/validation/validation-items';
-import { loginAsync } from '@/services/authentication/authentication-service';
-import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
-import { showToast } from '@/services/notification/notificationService';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+import { useRoute, useRouter } from 'vue-router'
+import { useField, useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { validationItems } from '@/validation/validation-items'
+import { loginAsync } from '@/services/authentication/authentication-service'
+import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
+import { showToast } from '@/services/notification/notificationService'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 // フォーム固有のバリデーション定義
 const formSchema = yup.object({
   userName: validationItems.email.required('ユーザー名は必須です。'),
   password: yup.string().required('パスワードは必須です。'),
-});
+})
 
-const router = useRouter();
-const route = useRoute();
-const customErrorHandler = useCustomErrorHandler();
+const router = useRouter()
+const route = useRoute()
+const customErrorHandler = useCustomErrorHandler()
 
-const { meta } = useForm({ validationSchema: formSchema });
-const { value: userName, errorMessage: userNameError } =
-  useField<string>('userName');
-const { value: password, errorMessage: passwordError } =
-  useField<string>('password');
+const { meta } = useForm({ validationSchema: formSchema })
+const { value: userName, errorMessage: userNameError } = useField<string>('userName')
+const { value: password, errorMessage: passwordError } = useField<string>('password')
 
 const isInvalid = () => {
-  return !meta.value.valid;
-};
+  return !meta.value.valid
+}
 
 /**
  * アプリケーションにログインします。
  */
 const login = async () => {
   try {
-    await loginAsync();
+    await loginAsync()
   } catch (error) {
     customErrorHandler.handle(error, () => {
-      showToast('ログインに失敗しました。');
-    });
+      showToast('ログインに失敗しました。')
+    })
   }
   // 別の画面からリダイレクトしていない場合は、ホーム画面に遷移します。
   if (!route.query.redirectName) {
-    router.push({ name: 'home' });
+    router.push({ name: 'home' })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
     router.push({
       name: route.query.redirectName as string,
       params: JSON.parse(route.query.redirectParams as string),
       query: JSON.parse(route.query.redirectQuery as string),
-    });
+    })
   }
-};
+}
 </script>
 
 <template>
-  <div
-    class="container mx-auto flex flex-col items-center justify-center gap-6"
-  >
+  <div class="container mx-auto flex flex-col items-center justify-center gap-6">
     <div class="p-8 text-3xl font-bold">ログイン</div>
 
     <form class="mt-8 text-xl">

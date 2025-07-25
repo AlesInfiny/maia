@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
-import { useField, useForm } from 'vee-validate';
-import * as yup from 'yup';
-import { signInAsync } from '@/services/authentication/authentication-service';
-import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid';
-import { configureYup } from '@/config/yup.config';
-import { ValidationItems } from '@/validation/validation-items';
+import { useRoute, useRouter } from 'vue-router'
+import { useField, useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { signIn as signInByService } from '@/services/authentication/authentication-service'
+import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
+import { configureYup } from '@/config/yup.config'
+import { ValidationItems } from '@/validation/validation-items'
 
 // yup設定の有効化
-configureYup();
+configureYup()
 
 // フォーム固有のバリデーション定義
 const formSchema = yup.object({
   email: ValidationItems().email.required(),
   password: yup.string().required(),
-});
+})
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
 
-const { meta } = useForm({ validationSchema: formSchema });
-const { value: email, errorMessage: emailError } = useField<string>('email');
-const { value: password, errorMessage: passwordError } = useField('password');
+const { meta } = useForm({ validationSchema: formSchema })
+const { value: email, errorMessage: emailError } = useField<string>('email')
+const { value: password, errorMessage: passwordError } = useField('password')
 
 const isInvalid = () => {
-  return !meta.value.valid;
-};
+  return !meta.value.valid
+}
 
 const signIn = () => {
-  signInAsync();
+  signInByService()
   // 別の画面からリダイレクトしていない場合は、トップページに遷移します。
   if (!route.query.redirectName) {
-    router.push({ name: 'catalog' });
+    router.push({ name: 'catalog' })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
     router.push({
       name: route.query.redirectName as string,
       params: JSON.parse(route.query.redirectParams as string),
       query: JSON.parse(route.query.redirectQuery as string),
-    });
+    })
   }
-};
+}
 </script>
 
 <template>

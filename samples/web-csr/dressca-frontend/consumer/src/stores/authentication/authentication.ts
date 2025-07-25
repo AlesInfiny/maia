@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({
@@ -7,17 +7,14 @@ export const useAuthenticationStore = defineStore('authentication', {
     ) as boolean,
   }),
   actions: {
-    async signInAsync() {
-      this.authenticationState = true;
-      sessionStorage.setItem(
-        'isAuthenticated',
-        JSON.stringify(this.authenticationState),
-      );
+    signIn() {
+      this.authenticationState = true
+      sessionStorage.setItem('isAuthenticated', JSON.stringify(this.authenticationState))
     },
   },
   getters: {
     isAuthenticated(state) {
-      return state.authenticationState;
+      return state.authenticationState
     },
   },
-});
+})

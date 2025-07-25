@@ -1,58 +1,57 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue'
 import {
   fetchBasket,
   removeItemFromBasket,
   updateItemInBasket,
-} from '@/services/basket/basket-service';
-import { showToast } from '@/services/notification/notificationService';
-import { useBasketStore } from '@/stores/basket/basket';
-import { useRouter } from 'vue-router';
-import { i18n } from '@/locales/i18n';
-import BasketItem from '@/components/basket/BasketItem.vue';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
-import { currencyHelper } from '@/shared/helpers/currencyHelper';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { storeToRefs } from 'pinia';
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format';
-import { HttpError } from '@/shared/error-handler/custom-error';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+} from '@/services/basket/basket-service'
+import { showToast } from '@/services/notification/notificationService'
+import { useBasketStore } from '@/stores/basket/basket'
+import { useRouter } from 'vue-router'
+import { i18n } from '@/locales/i18n'
+import BasketItem from '@/components/basket/BasketItem.vue'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { storeToRefs } from 'pinia'
+import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
+import { HttpError } from '@/shared/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const showLoading = ref(true);
+const showLoading = ref(true)
 
-const basketStore = useBasketStore();
-const { getBasket, getAddedItem, getAddedItemId, getDeletedItemIds } =
-  storeToRefs(basketStore);
+const basketStore = useBasketStore()
+const { getBasket, getAddedItem, getAddedItemId, getDeletedItemIds } = storeToRefs(basketStore)
 
-const router = useRouter();
-const customErrorHandler = useCustomErrorHandler();
-const { toCurrencyJPY } = currencyHelper();
-const { getFirstAssetUrl } = assetHelper();
-const { t } = i18n.global;
+const router = useRouter()
+const customErrorHandler = useCustomErrorHandler()
+const { toCurrencyJPY } = currencyHelper()
+const { getFirstAssetUrl } = assetHelper()
+const { t } = i18n.global
 
 const isEmpty = () => {
-  return getBasket.value.basketItems?.length === 0;
-};
+  return getBasket.value.basketItems?.length === 0
+}
 
 const goCatalog = () => {
-  router.push({ name: 'catalog' });
-};
+  router.push({ name: 'catalog' })
+}
 
 const update = async (catalogItemId: number, newQuantity: number) => {
   try {
-    await updateItemInBasket(catalogItemId, newQuantity);
+    await updateItemInBasket(catalogItemId, newQuantity)
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {},
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToChangeQuantities'));
+          showToast(t('failedToChangeQuantities'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -60,29 +59,29 @@ const update = async (catalogItemId: number, newQuantity: number) => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   }
-};
+}
 
 // 削除に失敗した通知を出す
 const remove = async (catalogItemId: number) => {
   try {
-    await removeItemFromBasket(catalogItemId);
+    await removeItemFromBasket(catalogItemId)
   } catch (error) {
     customErrorHandler.handle(
       error,
       () => {},
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToDeleteItems'));
+          showToast(t('failedToDeleteItems'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -90,28 +89,28 @@ const remove = async (catalogItemId: number) => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   }
-};
+}
 
 const order = async () => {
-  await fetchBasket();
+  await fetchBasket()
   if (getDeletedItemIds.value.length !== 0) {
-    showToast(t('basketContainsUnavailableItem'));
-    return;
+    showToast(t('basketContainsUnavailableItem'))
+    return
   }
-  router.push({ name: 'ordering/checkout' });
-};
+  router.push({ name: 'ordering/checkout' })
+}
 
 onMounted(async () => {
-  showLoading.value = true;
+  showLoading.value = true
   try {
-    await fetchBasket();
+    await fetchBasket()
     if (getDeletedItemIds.value.length !== 0) {
-      showToast(t('basketContainsUnavailableItem'));
+      showToast(t('basketContainsUnavailableItem'))
     }
   } catch (error) {
     customErrorHandler.handle(
@@ -119,12 +118,12 @@ onMounted(async () => {
       () => {},
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
-          showToast(t('failedToGetCarts'));
+          showToast(t('failedToGetCarts'))
         } else {
           const message = errorMessageFormat(
             httpError.response.exceptionId,
             httpError.response.exceptionValues,
-          );
+          )
           showToast(
             message,
             httpError.response.exceptionId,
@@ -132,18 +131,16 @@ onMounted(async () => {
             httpError.response.detail,
             httpError.response.status,
             100000,
-          );
+          )
         }
       },
-    );
+    )
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 
-onUnmounted(async () => {
-  basketStore.deleteAddedItemId();
-});
+onUnmounted(() => basketStore.deleteAddedItemId())
 </script>
 
 <template>
@@ -176,9 +173,7 @@ onUnmounted(async () => {
       </div>
       <div v-if="!isEmpty()" class="mt-8 mx-2">
         <span class="text-2xl font-medium">現在のカートの中身</span>
-        <div
-          class="hidden lg:grid grid-cols-1 lg:grid-cols-5 mt-4 flex items-center"
-        >
+        <div class="hidden lg:grid grid-cols-1 lg:grid-cols-5 mt-4 flex items-center">
           <div class="text-lg font-medium text-center lg:col-span-3">商品</div>
           <div class="text-lg font-medium text-right lg:col-span-1">数量</div>
         </div>

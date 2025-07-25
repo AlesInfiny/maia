@@ -41,56 +41,49 @@ npm install -D @openapitools/openapi-generator-cli
 
 package.json の scripts セクションにタスクを追加します。
 
-??? note "タスクを登録する際の注意点"
-    `package.json`にタスクを登録する際には、実行環境の OS に依存するコマンドの使用を避けるように注意する必要があります。
-    例えば、フォルダーを削除したい場合に`rmdir`コマンドを使用すると Windows 環境に依存してしまい、`rm`コマンドを使用すると UNIX 環境に依存してしまいます。
-    ここで開発環境が Windows であり、 CI 環境が UNIX の場合には、開発環境では実行できていたコマンドが CI 環境では実行できないといった問題が発生します。
-    そのため、 タスク中で OS コマンドを使用したい場合には、可能であれば [Node.jsのAPI :material-open-in-new:](https://nodejs.org/api/documentation.html){ target=_blank } で代替するほうがベターです。
-
 <!-- cspell:disable -->
 
 ```json title="package.json"
 {
   "scripts": {
-    "generate-client": "run-s openapi-client:clean openapi-client:generate --print-label",
-    "openapi-client:clean": "node -e \"fs.promises.rm('./src/generated/api-client', {recursive: true, force: true})\"",
-    "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../dressca-backend/api-docs/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
+    "generate-client": "openapi-generator-cli batch ./openapisettings.json --clean"
+  }
+}
+```
+
+`--clean` オプションを指定することで、クライアントコードを生成する前に、以前の生成ファイルを削除できます。
+これにより、 API 仕様書の変更によって不要になったクライアントコードは自動的に削除されます。
+
+ワークスペースの直下に、設定ファイルを作成します。
+
+```json title="openapisettings.json"
+{
+  "inputSpec": "./../../dressca-backend/api-docs/web-consumer/api-specification.json",
+  "generatorName": "typescript-axios",
+  "outputDir": "./src/generated/api-client",
+  "additionalProperties": {
+    "withSeparateModelsAndApi": "true",
+    "modelPackage": "models",
+    "apiPackage": "api",
+    "supportsES6": "true"
   }
 }
 ```
 
 <!-- cspell:enable -->
 
-openapi-generator-cli の generate コマンドのオプションについて説明します。
+設定ファイルの内容について説明します。
 
-ジェネレーターとして typescript-axios を指定します。
-
-``` terminal
--g typescript-axios
-```
-
-入力の API 仕様書として `./../../dressca-backend/api-docs/api-specification.json` というファイルを指定します。
-
-``` terminal
--i ./../../dressca-backend/api-docs/api-specification.json 
-```
-
-以下のプロパティを追加します。
-
-- `withSeparateModelsAndApi=true` ：model と API を別クラス・別フォルダーに配置する
-- `modelPackage=models：model` ：クラスのパッケージ名を「models」に設定する
-- `apiPackage=api` ：API クラスのパッケージ名を「api」に設定する
-- `supportsES6=true` ：ES6 に準拠したコードを生成する
-
-``` terminal
---additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true
-```
-
-生成されたコードの出力先を `./src/generated/api-client` に設定します。
-
-``` terminal
--o ./src/generated/api-client
-```
+| キー                         | 設定値                                                      | 意味                                                |
+| ---------------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
+| `"inputSpec"`                | `"./../../dressca-backend/api-docs/api-specification.json"` | 入力の API 仕様書を指定します。                     |
+| `"generatorName"`            | `"typescript-axios"`                                        | 使用するジェネレーターを指定します。                |
+| `"outputDir"`                | `"./src/generated/api-client"`                              | 生成されたコードの出力先を設定します。              |
+| `"additionalProperties"`     | -                                                           | 使用するジェネレーターごとに固有の値[^2]をキー・バリュー形式で設定します。|
+| `"withSeparateModelsAndApi"` | `"true"`                                                    | model と API を別クラス・別フォルダーに配置します。 |
+| `"modelPackage"`             | `"models"`                                                  | クラスのパッケージ名を「models」に設定します。      |
+| `"apiPackage"`               | `"api"`                                                     | API クラスのパッケージ名を「api」に設定します。     |
+| `"supportsES6"`              | `"true"`                                                    | ES6 に準拠したコードを生成します。                  |
 
 ## クライアントコードの生成 {#create-client-code}
 
@@ -100,11 +93,7 @@ openapi-generator-cli の generate コマンドのオプションについて説
 npm run generate-client
 ```
 
-オプション ` -o ` に定義した出力先へ、クライアントコードが生成されます。
-
-!!! info "クライアントコードの削除と再生成"
-    openapi-generator-cli の generate コマンドでは、 OpenAPI 仕様書の変更によって不要になった既存のクライアントコードは自動で削除されません。
-    そのため、既存のクライアントコードを一度削除してからクライアントコードを生成するように設定しています。
+`"outputDir"` に定義した出力先へ、クライアントコードが生成されます。
 
 ## クライアントコードの設定 {#set-client-code}
 
@@ -138,10 +127,10 @@ export { defaultApi };
 
 ??? info "BaseAPI のコンストラクター"
     - `BaseAPI(configuration?: Configuration, basePath?: string, axios?: AxiosInstance)`
-  
+
     `BaseAPI` は OpenAPI Generator で自動生成されるコードの `base.ts` に含まれるクラスです。
     各 API が継承している `BaseAPI` コンストラクターの引数に api-client の共通設定、ベースパス[^1]、 axios インスタンスを設定することで、 API に関するグローバルな設定を適用します。
-    
+
     OpenAPI Generator で生成されたクライアントコードはデフォルトで OpenAPI 仕様書の URL が設定されます。
     開発環境やモックで API サーバーなしでアプリを起動するためには、アプリレベルでエンドポイントを設定する必要があります。
     Vite では `/api` のような相対パスに対して異なるエンドポイントの設定ができ、これを有効にするためには、 `BaseAPI` コンストラクターの第 2 引数のベースパスを空文字で上書きする必要があります。
@@ -160,3 +149,5 @@ export { defaultApi };
       }
     };
     ```
+
+[^2]: ジェネレーターに `"typescript-axios"` を使用する場合に設定可能な値は [こちら :material-open-in-new:](https://openapi-generator.tech/docs/generators/typescript-axios){ target=_blank }を参照ください。

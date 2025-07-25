@@ -5,9 +5,9 @@
  * @returns フォーマット済み文字列
  */
 export function formatError(error: Error): string {
-  const { name } = error;
-  const { message } = error;
-  const stack = error.stack ?? 'error.stackが未定義です。';
+  const { name } = error
+  const { message } = error
+  const stack = error.stack ?? 'error.stackが未定義です。'
 
   return [
     `===== ERROR =====`,
@@ -15,5 +15,5 @@ export function formatError(error: Error): string {
     `message: ${message}`,
     `stack  :`,
     `${stack}`,
-  ].join('\n');
+  ].join('\n')
 }

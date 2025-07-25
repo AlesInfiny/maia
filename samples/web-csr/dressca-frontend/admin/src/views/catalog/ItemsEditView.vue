@@ -1,70 +1,67 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { storeToRefs } from 'pinia';
+import { onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import {
   fetchItem,
   updateCatalogItem,
   deleteCatalogItem,
   fetchCategoriesAndBrands,
-} from '@/services/catalog/catalog-service';
-import { assetHelper } from '@/shared/helpers/assetHelper';
-import { showToast } from '@/services/notification/notificationService';
-import ConfirmationModal from '@/components/ConfirmationModal.vue';
-import NotificationModal from '@/components/NotificationModal.vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useForm } from 'vee-validate';
-import { catalogItemSchema } from '@/validation/validation-items';
-import {
-  ConflictError,
-  NotFoundError,
-} from '@/shared/error-handler/custom-error';
+} from '@/services/catalog/catalog-service'
+import { assetHelper } from '@/shared/helpers/assetHelper'
+import { showToast } from '@/services/notification/notificationService'
+import ConfirmationModal from '@/components/ConfirmationModal.vue'
+import NotificationModal from '@/components/NotificationModal.vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
+import { catalogItemSchema } from '@/validation/validation-items'
+import { ConflictError, NotFoundError } from '@/shared/error-handler/custom-error'
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
   GetCatalogItemResponse,
-} from '@/generated/api-client';
-import { useAuthenticationStore } from '@/stores/authentication/authentication';
-import { Roles } from '@/shared/constants/roles';
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay';
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler';
+} from '@/generated/api-client'
+import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { Roles } from '@/shared/constants/roles'
+import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const customErrorHandler = useCustomErrorHandler();
-const authenticationStore = useAuthenticationStore();
-const { isInRole } = storeToRefs(authenticationStore);
-const router = useRouter();
-const route = useRoute();
-const id = Number(route.params.itemId);
-const { getFirstAssetUrl } = assetHelper();
+const customErrorHandler = useCustomErrorHandler()
+const authenticationStore = useAuthenticationStore()
+const { isInRole } = storeToRefs(authenticationStore)
+const router = useRouter()
+const route = useRoute()
+const id = Number(route.params.itemId)
+const { getFirstAssetUrl } = assetHelper()
 
 /**
  * アイテムの情報を表すインターフェースです。
  * リアクティブな状態を型付けするために必要です。
  */
 interface ItemState {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  productCode: string;
-  categoryId: number;
-  brandId: number;
-  assetCodes: string[] | undefined;
-  rowVersion: string;
-  isDeleted: boolean;
+  id: number
+  name: string
+  description: string
+  price: string
+  productCode: string
+  categoryId: number
+  brandId: number
+  assetCodes: string[] | undefined
+  rowVersion: string
+  isDeleted: boolean
 }
 
 const { errors, values, meta, defineField, setValues } = useForm({
   validationSchema: catalogItemSchema,
-});
+})
 
-const [itemName] = defineField('itemName');
-const [itemDescription] = defineField('itemDescription');
-const [price] = defineField('price');
-const [productCode] = defineField('productCode');
+const [itemName] = defineField('itemName')
+const [itemDescription] = defineField('itemDescription')
+const [price] = defineField('price')
+const [productCode] = defineField('productCode')
 
 const isInvalid = () => {
-  return !meta.value.valid;
-};
+  return !meta.value.valid
+}
 
 /**
  * 編集中のアイテムの状態です。
@@ -80,7 +77,7 @@ const editingItemState = ref<ItemState>({
   assetCodes: [''],
   rowVersion: '',
   isDeleted: false,
-});
+})
 
 /**
  * 現在のアイテムの状態です。
@@ -96,44 +93,42 @@ const currentItemState = ref<ItemState>({
   assetCodes: [''],
   rowVersion: '',
   isDeleted: false,
-});
+})
 
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }]);
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([
-  { id: 0, name: '' },
-]);
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
 
 /**
  * 削除確認モーダルの開閉状態です。
  */
-const showDeleteConfirm = ref(false);
+const showDeleteConfirm = ref(false)
 
 /**
  * 削除成功通知モーダルの開閉状態です。
  */
-const showDeleteNotice = ref(false);
+const showDeleteNotice = ref(false)
 
 /**
  * 更新確認モーダルの開閉状態です。
  */
-const showUpdateConfirm = ref(false);
+const showUpdateConfirm = ref(false)
 
 /**
  * 更新通知モーダルの開閉状態です。
  */
-const showUpdateNotice = ref(false);
+const showUpdateNotice = ref(false)
 
 /**
  * ローディングスピナーの表示の状態です。
  */
-const showLoading = ref(true);
+const showLoading = ref(true)
 
 /**
  * 削除通知モーダルを閉じます。
@@ -141,33 +136,33 @@ const showLoading = ref(true);
  * アイテム一覧画面へ遷移します。
  */
 const closeDeleteNotice = () => {
-  showDeleteNotice.value = false;
-  router.push({ name: 'catalog/items' });
-};
+  showDeleteNotice.value = false
+  router.push({ name: 'catalog/items' })
+}
 
 /**
  * 更新通知モーダルを閉じます。
  */
 const closeUpdateNotice = () => {
-  showUpdateNotice.value = false;
-};
+  showUpdateNotice.value = false
+}
 
 /**
  * API モデルのアイテムの情報を、画面の現在のアイテムの状態にセットします。
  * @param catalogItemResponse カタログアイテムのレスポンス情報
  */
 const setCurrentItemState = (item: GetCatalogItemResponse) => {
-  currentItemState.value.id = item.id;
-  currentItemState.value.name = item.name;
-  currentItemState.value.description = item.description;
-  currentItemState.value.price = item.price.toString();
-  currentItemState.value.productCode = item.productCode;
-  currentItemState.value.categoryId = item.catalogCategoryId;
-  currentItemState.value.brandId = item.catalogBrandId;
-  currentItemState.value.assetCodes = item.assetCodes;
-  currentItemState.value.rowVersion = item.rowVersion;
-  currentItemState.value.isDeleted = item.isDeleted;
-};
+  currentItemState.value.id = item.id
+  currentItemState.value.name = item.name
+  currentItemState.value.description = item.description
+  currentItemState.value.price = item.price.toString()
+  currentItemState.value.productCode = item.productCode
+  currentItemState.value.categoryId = item.catalogCategoryId
+  currentItemState.value.brandId = item.catalogBrandId
+  currentItemState.value.assetCodes = item.assetCodes
+  currentItemState.value.rowVersion = item.rowVersion
+  currentItemState.value.isDeleted = item.isDeleted
+}
 
 /**
  * カタログアイテムの情報を取得します。
@@ -175,52 +170,51 @@ const setCurrentItemState = (item: GetCatalogItemResponse) => {
  */
 const getItem = async (itemId: number) => {
   try {
-    setCurrentItemState(await fetchItem(itemId));
+    setCurrentItemState(await fetchItem(itemId))
   } catch (error) {
     if (error instanceof NotFoundError) {
-      showToast('対象のアイテムが見つかりませんでした。');
-      router.push({ name: 'catalog/items' });
+      showToast('対象のアイテムが見つかりませんでした。')
+      router.push({ name: 'catalog/items' })
     }
     customErrorHandler.handle(error, () => {
-      showToast('アイテムの取得に失敗しました。');
-    });
+      showToast('アイテムの取得に失敗しました。')
+    })
   }
-};
+}
 
 /**
  * カタログカテゴリとブランドの情報を取得します。
  */
 const getCategoriesAndBrands = async () => {
   try {
-    [catalogCategories.value, catalogBrands.value] =
-      await fetchCategoriesAndBrands();
+    ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
     customErrorHandler.handle(error, () => {
-      showToast('カタログアイテムとカテゴリの取得に失敗しました。');
-    });
+      showToast('カタログアイテムとカテゴリの取得に失敗しました。')
+    })
   }
-};
+}
 
 /**
  * 対象の ID のアイテムの状態を初期化します。
  * @param itemId カタログアイテムID
  */
 const initItemAsync = async (itemId: number) => {
-  await getCategoriesAndBrands();
-  await getItem(itemId);
+  await getCategoriesAndBrands()
+  await getItem(itemId)
   setValues({
     itemName: currentItemState.value.name,
     itemDescription: currentItemState.value.description,
     price: currentItemState.value.price,
     productCode: currentItemState.value.productCode,
-  });
-  editingItemState.value.id = currentItemState.value.id;
-  editingItemState.value.categoryId = currentItemState.value.categoryId;
-  editingItemState.value.brandId = currentItemState.value.brandId;
-  editingItemState.value.assetCodes = currentItemState.value.assetCodes;
-  editingItemState.value.rowVersion = currentItemState.value.rowVersion;
-  editingItemState.value.isDeleted = currentItemState.value.isDeleted;
-};
+  })
+  editingItemState.value.id = currentItemState.value.id
+  editingItemState.value.categoryId = currentItemState.value.categoryId
+  editingItemState.value.brandId = currentItemState.value.brandId
+  editingItemState.value.assetCodes = currentItemState.value.assetCodes
+  editingItemState.value.rowVersion = currentItemState.value.rowVersion
+  editingItemState.value.isDeleted = currentItemState.value.isDeleted
+}
 
 /**
  * 対象の ID のアイテムの状態を再取得します。
@@ -228,56 +222,51 @@ const initItemAsync = async (itemId: number) => {
  * @param itemId
  */
 const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
-  await getCategoriesAndBrands();
-  await getItem(itemId);
-  editingItemState.value.rowVersion = currentItemState.value.rowVersion;
-};
+  await getCategoriesAndBrands()
+  await getItem(itemId)
+  editingItemState.value.rowVersion = currentItemState.value.rowVersion
+}
 
 /**
  * コンポーネントがマウントされた後に呼び出されるライフサイクルフックです。
  *
  */
 onMounted(async () => {
-  showLoading.value = true;
+  showLoading.value = true
   try {
-    await initItemAsync(id);
+    await initItemAsync(id)
   } finally {
-    showLoading.value = false;
+    showLoading.value = false
   }
-});
+})
 
 /**
  * カタログからアイテムを削除します。
  */
 const deleteItemAsync = async () => {
   try {
-    await deleteCatalogItem(
-      editingItemState.value.id,
-      editingItemState.value.rowVersion,
-    );
-    showDeleteNotice.value = true;
+    await deleteCatalogItem(editingItemState.value.id, editingItemState.value.rowVersion)
+    showDeleteNotice.value = true
   } catch (error) {
     if (error instanceof NotFoundError) {
       customErrorHandler.handle(error, () => {
-        showToast('削除対象のカタログアイテムが見つかりませんでした。');
-        router.push({ name: '/catalog/items' });
-      });
+        showToast('削除対象のカタログアイテムが見つかりませんでした。')
+        router.push({ name: '/catalog/items' })
+      })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, async () => {
-        showToast(
-          'カタログアイテムの更新と削除が競合しました。もう一度削除してください。',
-        );
-        await reFetchItemAndInitRowVersionAsync(id);
-      });
+      customErrorHandler.handle(error, () => {
+        showToast('カタログアイテムの更新と削除が競合しました。もう一度削除してください。')
+      })
+      await reFetchItemAndInitRowVersionAsync(id)
     } else {
       customErrorHandler.handle(error, () => {
-        showToast('カタログアイテムの削除に失敗しました。');
-      });
+        showToast('カタログアイテムの削除に失敗しました。')
+      })
     }
   } finally {
-    showDeleteConfirm.value = false;
+    showDeleteConfirm.value = false
   }
-};
+}
 
 /**
  * カタログ上のアイテムを更新します。
@@ -294,29 +283,27 @@ const updateItemAsync = async () => {
       editingItemState.value.brandId,
       editingItemState.value.rowVersion,
       editingItemState.value.isDeleted,
-    );
-    await initItemAsync(id);
-    showUpdateNotice.value = true;
+    )
+    await initItemAsync(id)
+    showUpdateNotice.value = true
   } catch (error) {
     if (error instanceof NotFoundError) {
-      showToast('更新対象のカタログアイテムが見つかりませんでした。');
-      router.push({ name: 'catalog/items' });
+      showToast('更新対象のカタログアイテムが見つかりませんでした。')
+      router.push({ name: 'catalog/items' })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, async () => {
-        showToast(
-          'カタログアイテムの更新が競合しました。もう一度更新してください。',
-        );
-        await reFetchItemAndInitRowVersionAsync(id);
-      });
+      customErrorHandler.handle(error, () => {
+        showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
+      })
+      await reFetchItemAndInitRowVersionAsync(id)
     } else {
-      customErrorHandler.handle(error, async () => {
-        showToast('カタログアイテムの更新に失敗しました。');
-      });
+      customErrorHandler.handle(error, () => {
+        showToast('カタログアイテムの更新に失敗しました。')
+      })
     }
   } finally {
-    showUpdateConfirm.value = false;
+    showUpdateConfirm.value = false
   }
-};
+}
 </script>
 
 <template>
@@ -377,9 +364,7 @@ const updateItemAsync = async () => {
             />
           </div>
           <div class="mb-6">
-            <label for="item-name" class="mb-2 block font-bold"
-              >アイテム名</label
-            >
+            <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
             <input
               id="item-name"
               v-model="currentItemState.name"
@@ -410,9 +395,7 @@ const updateItemAsync = async () => {
             />
           </div>
           <div class="mb-6">
-            <label for="product-code" class="mb-2 block font-bold"
-              >商品コード</label
-            >
+            <label for="product-code" class="mb-2 block font-bold">商品コード</label>
             <input
               id="product-code"
               v-model="currentItemState.productCode"
@@ -431,9 +414,7 @@ const updateItemAsync = async () => {
               disabled
             >
               <option
-                v-for="category in catalogCategories.filter(
-                  (category) => category.id !== 0,
-                )"
+                v-for="category in catalogCategories.filter((category) => category.id !== 0)"
                 :key="category.id"
                 :value="category.id"
               >
@@ -485,9 +466,7 @@ const updateItemAsync = async () => {
             />
           </div>
           <div class="mb-4">
-            <label for="item-name" class="mb-2 block font-bold"
-              >アイテム名</label
-            >
+            <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
             <input
               id="item-name"
               v-model="itemName"
@@ -522,9 +501,7 @@ const updateItemAsync = async () => {
             <p class="px-1 py-1 text-base text-red-800">{{ errors.price }}</p>
           </div>
           <div class="mb-4">
-            <label for="product-code" class="mb-2 block font-bold"
-              >商品コード</label
-            >
+            <label for="product-code" class="mb-2 block font-bold">商品コード</label>
             <input
               id="product-code"
               v-model="productCode"
@@ -544,9 +521,7 @@ const updateItemAsync = async () => {
               class="w-full border border-gray-300 px-4 py-2"
             >
               <option
-                v-for="category in catalogCategories.filter(
-                  (category) => category.id !== 0,
-                )"
+                v-for="category in catalogCategories.filter((category) => category.id !== 0)"
                 :key="category.id"
                 :value="category.id"
               >
