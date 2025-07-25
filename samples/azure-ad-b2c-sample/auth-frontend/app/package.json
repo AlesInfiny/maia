@@ -41,7 +41,7 @@
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.7.0",
     "autoprefixer": "10.4.21",
-    "eslint": "9.31.0",
+    "eslint": "9.32.0",
     "eslint-plugin-cypress": "5.1.0",
     "eslint-plugin-vue": "10.3.0",
     "jiti": "2.5.0",
