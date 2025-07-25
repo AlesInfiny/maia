@@ -36,7 +36,7 @@ export default defineConfigWithVueTs(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
@@ -70,13 +70,16 @@ export default defineConfigWithVueTs(
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/**/*'],
+    files: ['**/src/**/__tests__/**/*'],
   },
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
   {
     ...pluginCypress.configs.recommended,
-    files: ['cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}', 'cypress/support/**/*.{js,ts,jsx,tsx}'],
+    files: [
+      '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
+      '**/cypress/support/**/*.{js,ts,jsx,tsx}',
+    ],
   },
   // コードのフォーマットは Prettier で実行するので、 ESLint のフォーマットルールは無効化します。
   skipFormatting,
