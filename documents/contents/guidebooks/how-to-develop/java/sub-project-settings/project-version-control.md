@@ -29,6 +29,7 @@ ext {
     spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
     spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
     spring_boot_starter_test : 'org.springframework.boot:spring-boot-starter-test',
+    spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
     springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
     h2database : "com.h2database:h2:$h2Version",
   ]
