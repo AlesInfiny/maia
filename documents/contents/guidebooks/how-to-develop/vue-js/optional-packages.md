@@ -79,10 +79,6 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Stylelint の .vue ファイル向け推奨設定（[インストール方法](static-verification-and-format.md#install-stylelint)）
 
-- [stylelint-prettier :material-open-in-new:](https://github.com/prettier/stylelint-prettier){ target=_blank }
-
-    Stylelint と Prettier の連携プラグイン（[インストール方法](static-verification-and-format.md#install-stylelint)）
-
 - [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
 
     CSS フレームワーク（[インストール方法](css.md#install-tailwind-css)）
