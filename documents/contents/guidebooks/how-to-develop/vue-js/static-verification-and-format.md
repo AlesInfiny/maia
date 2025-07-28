@@ -246,11 +246,18 @@ ESLint が更新後の設定で正常に実行できることを確認してく�
 npm run lint
 ```
 
-!!! warning "`<script>` ブロックを持たない .vue ファイルの Lint"
+!!! warning "ESLint の実行時にエラーが発生する場合の対処"
 
-      create-vue で作成されるデフォルトのアプリケーションには、 `<script>` ブロックを持たない .vue ファイルが含まれます。
-      しかし、 `<script>` ブロックを持たない .vue ファイルに対して型情報を使用した Lint ルールの適用を試みるとエラーが発生します。
-      その場合は、対象の .vue ファイルに下記のように空の `<script>` ブロックを追加してください。
+      create-vue で作成されるデフォルトのアプリケーションには、 icons フォルダの配下の .vue ファイルのように、  `<script>` ブロックを持たない .vue ファイルが含まれます。
+      しかし、 `<script>` ブロックを持たない .vue ファイルに対して型情報を使用した Lint ルールの適用を試みると下記のようなエラーが発生します。
+      その場合は、該当する .vue ファイルに空の `<script>` ブロックを追加してください。
+
+      ```terminal linenums="0"
+      [eslint   ] Error: Error while loading rule '@typescript-eslint/await-thenable': You have used a rule which requires type information, but don't have parserOptions set to generate type information for this file. See https://typescript-eslint.io/getting-started/typed-linting for enabling linting with type information.
+      [eslint   ] Parser: vue-eslint-parser
+      [eslint   ] Note: detected a parser other than @typescript-eslint/parser. Make sure the parser is configured to forward "parserOptions.project" to @typescript-eslint/parser.
+      [eslint   ] Occurred while linting ...workspace-name\src\components\icons\IconCommunity.vue
+      ```
 
       ```html
       <script setup lang="ts"></script>
