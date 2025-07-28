@@ -133,5 +133,3 @@ npm run dev -w <workspace-name>
   ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
   ➜  press h + enter to show help
 ```
-
-[^1]: 本ページのターミナル表示例は、 npm@11.4.2, create-vue@3.17.0 を使用してプロジェクトを作成した際の出力例です。
