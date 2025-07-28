@@ -27,7 +27,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ## ルートプロジェクトの設定 {#setting-route-project}
 
-ルートプロジェクトの package-json に `"type": "module"`と`"private": "true"`を追加します。
+ルートプロジェクトの package.json に `"type": "module"`と`"private": "true"`を追加します。
 CJS 形式のファイルを正しく読み込むために、 `"type": "module"` は設定が必須です。
 `"private": "true"`は、誤ってルートプロジェクトが公開されることを防ぐため、設定を推奨します。
 
