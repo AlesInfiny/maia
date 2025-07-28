@@ -202,7 +202,7 @@ src/
                component: () => import('@/views/authentication/LoginView.vue'),
             },
          ],
-      });
+      })
       ```
 
 ### components フォルダー {#components-directory}
