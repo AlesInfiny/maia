@@ -65,7 +65,7 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
-```ts title="i18n.ts"
+```typescript title="i18n.ts"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/locales/i18n.ts
 ```
 
@@ -94,7 +94,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
-```ts title="main.ts" hl_lines="6 14"
+```typescript title="main.ts" hl_lines="6 14"
 import { createApp } from "vue"
 import { createPinia } from "pinia"
 import { authenticationGuard } from "@/shared/authentication/authentication-guard"
@@ -120,7 +120,7 @@ app.mount("#app")
 読み込んだメッセージを取得するためには、 `i18n.ts` を各ファイルでインポートして利用します。
 実装例は以下の通りです。
 
-```ts title="メッセージ利用例"
+```vue title="メッセージ利用例"
 <script setup lang="ts">
 import { i18n } from '@/locales/i18n'
 

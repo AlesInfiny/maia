@@ -36,7 +36,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-    ```ts title="global-error-handler.ts"
+    ```typescript title="global-error-handler.ts"
     import type { App, ComponentPublicInstance } from 'vue'
     import { router } from '../../router'
 

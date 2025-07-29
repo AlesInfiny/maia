@@ -158,7 +158,7 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     ```md
     ??? example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue
         ```
     ```
@@ -171,7 +171,7 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     ```md
     !!! example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue#L1-L8
         ```
     ```

@@ -89,14 +89,14 @@ npx msw init ./public --save
 
 ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts`を作成します。
 
-```ts title="browser.ts"
+```typescript title="browser.ts"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/mock/browser.ts
 ```
 
 `mock`フォルダーの配下に、`handlers`フォルダーを作成し、さらにその配下に`index.ts`を作成します。
 ハンドラーの実装は別途行うため、現時点では空で構いません。
 
-```ts title="index.ts"
+```typescript title="index.ts"
 export const handlers = [] // 後で実装します。
 ```
 
@@ -104,7 +104,7 @@ export const handlers = [] // 後で実装します。
 モックモードで起動した場合にワーカーを立ち上げるように設定します。
 `main.ts`に以下のように設定してください。
 
-```ts title="main.ts"
+```typescript title="main.ts"
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({

@@ -37,7 +37,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 
 作成したファイルを読み込むため、 入力値を検証する Vue ファイルのスクリプト構文に以下を記述します。
 
-```ts title="example.vue"
+```vue title="example.vue"
 <script setup lang="ts">
 import { configureYup } from '@/config/yup.config'
 
