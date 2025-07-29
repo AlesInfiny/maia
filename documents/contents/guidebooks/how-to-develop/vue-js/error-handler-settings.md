@@ -71,7 +71,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ??? example "エントリーポイントの実装例"
 
-    ``` ts title="main.ts" hl_lines="3 12"
+    ```typescript title="main.ts" hl_lines="3 12"
     import { createApp } from 'vue'
     import { createPinia } from 'pinia'
     import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
