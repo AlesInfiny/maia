@@ -35,6 +35,7 @@ import './assets/base.css'
 
 Tailwind CSS は、 あらかじめ用意されたユーティリティクラスを組み合わせることで、
 CSS ファイルを記述せずにデザインを実現する、ユーティリティファーストな CSS フレームワークです。
+本ページに記載している出力例は、 Tailwind CSS v3.4.17 を使用したものです。バージョンが異なる場合、出力内容は異なる可能性があります。
 
 ### Tailwind CSS のインストール {#install-tailwind-css}
 
@@ -75,11 +76,11 @@ npm install -D tailwindcss postcss autoprefixer postcss-nesting
 npx tailwindcss init
 ```
 
-作成された直後の tailwind.config.js は以下のとおりです（Tailwind CSS 3.4.13 の場合）。
+作成された直後の tailwind.config.js は以下のとおりです。
 
 ```javascript title="tailwind.config.js"
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [],
   theme: {
     extend: {},
@@ -88,17 +89,11 @@ export default {
 }
 ```
 
-content に、 Tailwind CSS を適用する対象ファイルのパス（ワイルドカード使用可）を設定します。
+CJS 形式（ `module.exports` ）で記述されているコードを、 ESM 形式（ `export default` ）へ変更します。
+また、 content に、 Tailwind CSS を適用する対象ファイルのパス（ワイルドカード使用可）を設定します。
 
-```javascript title="tailwind.config.js" hl_lines="3"
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+```javascript title="tailwind.config.js" hl_lines="2-3"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tailwind.config.js
 ```
 
 `./src/assets/base.css` の最初の行に、以下のように Tailwind CSS の各コンポーネントの @tailwind ディレクティブを追加します。

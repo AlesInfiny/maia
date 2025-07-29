@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
-なお、本ページに記載しているターミナルの表示例[^1]は、使用した npm や create-vue のバージョンによって実際の出力内容と異なる可能性があります。
+本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.17.0 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -25,17 +25,17 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
 ```terminal
-npm init -y --init-type=module --init-private
+npm init -y
 ```
 
 実行に成功すると、 package.json ファイルが作成されます。
 
 ```terminal
 Wrote to ...\package.json:
+
 {
   "name": "root-project-name",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -43,8 +43,7 @@ Wrote to ...\package.json:
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "private": true
+  "description": ""
 }
 ```
 
@@ -134,5 +133,3 @@ npm run dev -w <workspace-name>
   ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
   ➜  press h + enter to show help
 ```
-
-[^1]: 本ページのターミナル表示例は、 npm@11.4.2, create-vue@3.17.0 を使用してプロジェクトを作成した際の出力例です。
