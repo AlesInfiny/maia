@@ -88,9 +88,7 @@ T  Vue.js - The Progressive JavaScript Framework
 —
 ```
 
-<!-- textlint-disable ja-technical-writing/no-doubled-joshi -->
-以下の実験的機能のインストールは必須ではありません。
-<!-- textlint-enable ja-technical-writing/no-doubled-joshi -->
+以下の実験的機能は、インストールが必須ではありません。
 
 ```terminal
 *  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
