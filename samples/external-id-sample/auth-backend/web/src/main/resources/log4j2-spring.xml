@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+
+  <Appenders>
+    <Console name="console" Target="SYSTEM_OUT">
+      <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
+    </Console>
+    
+    <Console name="application.log.appender" Target="SYSTEM_OUT">
+       <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
+    </Console>
+  </Appenders>
+  
+  <Loggers>
+    <Logger name="application.log" level="debug" additivity="false">
+        <AppenderRef ref="application.log.appender" />
+    </Logger>
+
+    <Root level="info">
+        <AppenderRef ref="console" />
+    </Root>
+  </Loggers>
+
+</Configuration>

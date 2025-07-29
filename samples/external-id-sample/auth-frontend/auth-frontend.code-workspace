@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "azure-ad-b2c-auth-root",
+      "path": ".",
+    },
+    {
+      "name": "app",
+      "path": "app",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "azure-ad-b2c-auth-root/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.validate.enable": false,
+  },
+}

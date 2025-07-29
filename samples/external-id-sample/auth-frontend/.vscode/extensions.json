@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "vitest.explorer",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "ms-vsliveshare.vsliveshare",
+    "visualstudioexptteam.vscodeintellicode",
+    "pflannery.vscode-versionlens",
+    "wmaurer.change-case",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    "whtouche.vscode-js-console-utils",
+    "bradgashler.htmltagwrap",
+    "ecmel.vscode-html-css"
+  ]
+}
