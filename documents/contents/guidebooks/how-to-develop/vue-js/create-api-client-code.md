@@ -105,7 +105,7 @@ import * as apiClient from '@/generated/api-client'
 
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration({
-  });
+  })
   return config
 }
 

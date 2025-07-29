@@ -146,7 +146,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
-});
+})
 
 const exampleApi = new apiClient.ExampleApi(createConfig(), '', axiosInstance)
 

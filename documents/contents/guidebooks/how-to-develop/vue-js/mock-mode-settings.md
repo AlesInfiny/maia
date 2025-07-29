@@ -109,7 +109,7 @@ async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
     onUnhandledRequest: 'bypass', // MSW のハンドラーを未設定のリクエストに対して警告を出さないように設定します。
-  });
+  })
 }
 
 if (import.meta.env.MODE === 'mock') {
@@ -121,7 +121,7 @@ if (import.meta.env.MODE === 'mock') {
 }
 
 // ワーカーが起動したら、アプリケーションを立ち上げます。
-const app = createApp(App);
+const app = createApp(App)
 ```
 
 ??? info "ワーカープロセスの起動を待つ理由"

@@ -50,17 +50,17 @@ description: Vue.js を用いた フロントエンドアプリケーション�
           // Vue.js アプリケーションでのエラー発生時に実行したい処理
           console.error(err, instance, info)
           router.replace({ name: 'error' })
-        };
+        }
 
         window.addEventListener('error', (event) => {
           // 同期処理でのエラー発生時に実行したい処理
           console.error(event)
-        });
+        })
 
         window.addEventListener('unhandledrejection', (event) => {
           // 非同期処理でのエラー発生時に実行したい処理
           console.error(event)
-        });
+        })
       },
     };
     ```
