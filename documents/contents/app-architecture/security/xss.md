@@ -56,7 +56,7 @@ description: アプリケーションセキュリティを 担保するための
 
     `v-html` や描画関数を使用してアプリケーション外から取得した値をそのまま出力してはなりません。
 
-    ```js title="XSS に対して脆弱なコード例①"
+    ```typescript title="XSS に対して脆弱なコード例①"
     new Vue({
         el: '#app',
         template: `<div>` + アプリケーション外から取得した値 + `</div>`

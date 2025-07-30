@@ -117,7 +117,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "vite.config.ts の設定例"
 
-    ``` ts title="サンプルアプリケーションの vite.config.ts"
+    ```typescript title="サンプルアプリケーションの vite.config.ts"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts
     ```
 
@@ -125,7 +125,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     コマンドやモードに応じて異なる設定を適用する場合、関数を export して設定します。
 
-    ``` ts title="vite.config.ts" hl_lines="6"
+    ```typescript title="vite.config.ts" hl_lines="6"
     export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
       if (command === 'serve') {
         return {
@@ -140,7 +140,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     ??? example "条件付き設定の実装例"
         設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
-        ``` ts title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
+        ```typescript title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts#L30-L35
         ```
 
@@ -150,7 +150,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     ??? example "vitest.config.ts の実装例"
 
-        ``` ts title="サンプルアプリケーションの vitest.config.ts"
+        ```typescript title="サンプルアプリケーションの vitest.config.ts"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vitest.config.ts
         ```
 
@@ -196,7 +196,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
         AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
-        ``` ts title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
+        ```typescript title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L18-L19
         ```
 

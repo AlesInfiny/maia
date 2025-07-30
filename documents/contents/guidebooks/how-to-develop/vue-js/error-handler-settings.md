@@ -36,9 +36,9 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-    ```ts title="global-error-handler.ts"
-    import type { App, ComponentPublicInstance } from 'vue';
-    import { router } from '../../router';
+    ```typescript title="global-error-handler.ts"
+    import type { App, ComponentPublicInstance } from 'vue'
+    import { router } from '../../router'
 
     export const globalErrorHandler = {
       install(app: App) {
@@ -48,19 +48,19 @@ description: Vue.js を用いた フロントエンドアプリケーション�
           info: string,
         ) => {
           // Vue.js アプリケーションでのエラー発生時に実行したい処理
-          console.error(err, instance, info);
-          router.replace({ name: 'error' });
-        };
+          console.error(err, instance, info)
+          router.replace({ name: 'error' })
+        }
 
         window.addEventListener('error', (event) => {
           // 同期処理でのエラー発生時に実行したい処理
-          console.error(event);
-        });
+          console.error(event)
+        })
 
         window.addEventListener('unhandledrejection', (event) => {
           // 非同期処理でのエラー発生時に実行したい処理
-          console.error(event);
-        });
+          console.error(event)
+        })
       },
     };
     ```
@@ -71,19 +71,19 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ??? example "エントリーポイントの実装例"
 
-    ``` ts title="main.ts" hl_lines="3 12"
-    import { createApp } from 'vue';
-    import { createPinia } from 'pinia';
-    import { globalErrorHandler } from '@/shared/error-handler/global-error-handler';
-    import App from './App.vue';
-    import { router } from './router';
+    ```typescript title="main.ts" hl_lines="3 12"
+    import { createApp } from 'vue'
+    import { createPinia } from 'pinia'
+    import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
+    import App from './App.vue'
+    import { router } from './router'
 
-    const app = createApp(App);
+    const app = createApp(App)
 
-    app.use(createPinia());
-    app.use(router);
+    app.use(createPinia())
+    app.use(router)
 
-    app.use(globalErrorHandler);
+    app.use(globalErrorHandler)
 
-    app.mount('#app');
+    app.mount('#app')
     ```
