@@ -7,6 +7,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ## TypeScript の設定 {#typescript-settings}
 
+TypeScript ファイルに対して型チェックを行うための設定をします。
+
 TypeScript で作成されたファイルは、 `tsconfig.json` の設定値をもとにトランスパイル[^1]されます。
 `tsconfig.json` の存在するフォルダーとその配下のフォルダーの該当ファイルに設定が適用されます。
 
@@ -18,7 +20,7 @@ TypeScript で作成されたファイルは、 `tsconfig.json` の設定値を�
 ├ cypress
 |  └ tsconfig.json--------- E2E テストの TypeScript として読み込む対象を定義する設定ファイル(Cypress 用)
 ├ tsconfig.app.json ------- アプリケーションの TypeScript として読み込む対象を定義する設定ファイル
-├ tsconfig.node.json ------ TypeScript の設定ファイルとして読み込む対象を定義する設定ファイル
+├ tsconfig.node.json ------ Node.js での実行用に TypeScript として読み込む対象を定義する設定ファイル
 ├ tsconfig.json ----------- TypeScript の設定ファイル
 └ tsconfig.vitest.json ---- 単体テストの TypeScript として読み込む対象を定義する設定ファイル(vitest 用)
 ```
@@ -46,27 +48,38 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ### tsconfig の設定値の解説 {#tsconfig}
 
-??? note "tsconfig.json の設定例"
+??? example "tsconfig.json の設定例"
 
-    ``` json title="tsconfig.json"
+    デフォルトの設定から変更の必要はありません。
+
+    ``` json title="サンプルアプリケーション の tsconfig.json"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.json
     ```
 
-??? note "tsconfig.app.json の設定例"
+??? example "tsconfig.app.json の設定例"
 
-    ``` json title="tsconfig.app.json"
+    `include` キーにパターンを追加しています。この段階では実際にこれらのファイルを追加で作成する必要はありません。
+    mock フォルダーと配下のファイルは、[モックモードの設定 - Mock Service Worker の設定](./mock-mode-settings.md#msw-settings) で作成します。
+    vitest.setup.ts は、 Vitest での自動テスト実行前後の共通処理を定義するファイルです。
+    postcss.config.ts は [CSS の設定 - PostCSS の設定](./css.md#settings-postcss) で作成します。
+
+    ``` json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="7-9"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
     ```
 
-??? note "tsconfig.node.json の設定例"
+??? example "tsconfig.node.json の設定例"
 
-    ``` json title="tsconfig.node.json"
+    E2E テストには Cypress を使用するので、 `include` キーから nightwatch.conf.\* および playwright.config.\* を削除しています。
+
+    ``` json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
     ```
 
-??? note "tsconfig.vitest.json の設定例"
+??? example "tsconfig.vitest.json の設定例"
 
-    ``` json title="tsconfig.vitest.json"
+    デフォルトでは \_\_tests\_\_ フォルダ直下のファイルのみを検索するように設定されているので、 \_\_tests\_\_ 直下のフォルダ配下も追加で検索するように、`include` キーに指定するパスのパターンを変更しています。
+
+    ``` json title="サンプルアプリケーション の tsconfig.vitest.json" hl_lines="3"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json
     ```
 
@@ -107,13 +120,33 @@ Project Reference 機能については [Project References :material-open-in-ne
     モジュール解決の方針を設定するプロパティです。
     tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。 `Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
 
+### 型チェックの実行 {#type-check-execution}
+
+tsconfig の設定が完了したら、ワークスペース直下で以下のコマンドを実行し、型チェックが実行できることを確認してください。
+
+```console linenums="0"
+npm run type-check
+```
+
 ## Vite の設定 {#vite-settings}
 
+フロントエンドのソースコード一式をビルドするために、 Vite の設定をします。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) の手順に沿って `create-vue` でプロジェクトを作成すると、ワークスペースの直下に `vite.config.ts` が生成されます。
 `vite.config.ts` に設定を追加することでビルド時の設定が定義できます。
 `vite` コマンドを実行する際、ワークスペースの直下の `vite.config.ts` の設定値が自動的に読み込まれます。
 
+### ビルドの実行 {#build-execution}
+
+ワークスペース直下で以下のコマンドを実行し、ビルドが実行できることを確認してください。
+dist フォルダーの配下に html ファイル、 css ファイル、 Javascript ファイル一式が生成されます。
+
+```console linenums="0"
+npm run build
+```
+
 ### vite.config の設定値の解説 {#vite-config}
+
+ビルドの設定をさらにカスタマイズする方法について説明します。
 
 ??? example "vite.config.ts の設定例"
 
