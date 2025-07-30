@@ -11,7 +11,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 これらの設定はアプリケーション間で共通することが多いため、ルートプロジェクトに配置して共通化します。
 下記の手順を実行後の設定ファイルの配置例を示します。
 
-```terminal linenums="0"
+```text linenums="0"
 <root-project-name> ------ ルートプロジェクト
 ├ .editorconfig
 ├ eslint.config.ts
@@ -73,7 +73,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.p
 
 ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-```terminal linenums="0"
+```console linenums="0"
 npm run format
 ```
 
@@ -91,7 +91,7 @@ ESLint の設定は、設定ファイル eslint.config.ts で行います。
 このファイルはインストール時にワークスペースの直下に自動的に追加されています。
 ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-```terminal linenums="0"
+```console linenums="0"
 npm run lint
 ```
 
@@ -112,7 +112,7 @@ mono-repo 用に、設定ファイルの配置と設定を変更します。
 eslint.config.ts を、ルートプロジェクトの直下に移動してください。
 設定後のファイルの配置は下記の通りです。
 
-```terminal linenums="0"
+```text linenums="0"
 <root-project-name> ------ ルートプロジェクト
 ├ eslint.config.ts
 ├ tsconfig.json
@@ -121,7 +121,7 @@ eslint.config.ts を、ルートプロジェクトの直下に移動してくだ
 
 eslint.config.ts に、下記の設定を追加してください。
 
-```ts
+```typescript
 {
   languageOptions: {
     parserOptions: {
@@ -134,7 +134,7 @@ eslint.config.ts に、下記の設定を追加してください。
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
 
-```ts hl_lines="3 8-9"
+```typescript hl_lines="3 8-9"
 {
   ...pluginVitest.configs.recommended,
   files: ['**/src/**/__tests__/**/*'],
@@ -156,7 +156,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/ts
 
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
 
-```terminal linenums="0"
+```console linenums="0"
 npm run lint
 ```
 
@@ -166,20 +166,20 @@ ESLint がルートプロジェクトの設定ファイルを自動的に認識�
 
 Vue ファイルに適用するルールを、 `flat/essential` から `flat/recommended` に変更します。
 
-```ts
+```typescript
 pluginVue.configs['flat/recommended'],
 ```
 
 TypeScript の型情報を使用するルールを使用するため、 `vueTsConfigs.recommended` を `vueTsConfigs.recommendedTypeChecked` に変更します。
 
-```ts
+```typescript
 vueTsConfigs.recommendedTypeChecked,
 ```
 
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
 そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
 
-```ts
+```typescript
 import tseslint from 'typescript-eslint'
 
 {
@@ -192,7 +192,7 @@ import tseslint from 'typescript-eslint'
 ESLint は eslint.config.ts の先頭から設定の内容をマージするので、重複する設定は後から配置されたもので上書きされます。
 そのため、プロジェクト固有のルールは、推奨ルールの設定よりも後に配置するように気を付けてください。
 
-```ts
+```typescript
 {
   name: 'app/additional-rules',
   files: ['**/*.{ts,mts,tsx,vue}'],
@@ -216,7 +216,7 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```ts hl_lines="5-6"
+```typescript hl_lines="5-6"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
@@ -233,7 +233,7 @@ globalIgnores([
       ルールを変更・追加する際には、想定通りの変更が行われているか確認してください。
       設定ファイルが存在するフォルダーの直下で下記のコマンドを実行することで、 ESLint Config Inspector を起動できます。
 
-      ```terminal linenums="0"
+      ```console linenums="0"
       npx @eslint/config-inspector@latest
       ```
 
@@ -242,7 +242,7 @@ globalIgnores([
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
 ESLint が更新後の設定で正常に実行できることを確認してください。
 
-```terminal linenums="0"
+```console linenums="0"
 npm run lint
 ```
 
@@ -252,14 +252,14 @@ npm run lint
       しかし、 `<script>` ブロックを持たない .vue ファイルに対して型情報を使用した Lint ルールの適用を試みると下記のようなエラーが発生します。
       その場合は、該当する .vue ファイルに空の `<script>` ブロックを追加してください。
 
-      ```terminal linenums="0"
+      ```console linenums="0"
       [eslint   ] Error: Error while loading rule '@typescript-eslint/await-thenable': You have used a rule which requires type information, but don't have parserOptions set to generate type information for this file. See https://typescript-eslint.io/getting-started/typed-linting for enabling linting with type information.
       [eslint   ] Parser: vue-eslint-parser
       [eslint   ] Note: detected a parser other than @typescript-eslint/parser. Make sure the parser is configured to forward "parserOptions.project" to @typescript-eslint/parser.
       [eslint   ] Occurred while linting ...workspace-name\src\components\icons\IconCommunity.vue
       ```
 
-      ```html
+      ```vue
       <script setup lang="ts"></script>
       ```
 
@@ -272,7 +272,7 @@ CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<sty
 
 ワークスペースの直下で下記のコマンドを実行してください。
 
-```terminal linenums="0"
+```console linenums="0"
 npm install -D stylelint \
   stylelint-config-standard \
   stylelint-config-recommended-vue
@@ -327,7 +327,7 @@ export default {
 
       create-vue で作成されるデフォルトのアプリケーションに対して Stylelint を実行すると、下記の警告が出力されて、動作確認が進められない場合があります。
 
-      ```terminal linenums="0"
+      ```console linenums="0"
       src/assets/base.css
         25:1  ✖  Unexpected duplicate selector ":root", first used at line 2  no-duplicate-selectors
       ```
@@ -351,7 +351,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 
 ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。
 
-```terminal linenums="0"
+```console linenums="0"
 npm run lint:ci:workspace-name
 ```
 
