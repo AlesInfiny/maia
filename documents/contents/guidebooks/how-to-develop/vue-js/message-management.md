@@ -65,32 +65,8 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
-```ts title="i18n.ts"
-import { createI18n } from "vue-i18n";
-import messageListEN from '@/locales/en/messageList_en.json';
-import messageListJA from '@/locales/ja/messageList_ja.json';
-import validationTextListJA from '@/locales/ja/validationTextList_ja.json';
-import validationTextListEN from '@/locales/en/validationTextList_en.json';
-
-const langPackage = {
-  ja: {
-    ...messageListJA,
-    ...validationTextListJA,
-  },
-  en: {
-    ...messageListEN,
-    ...validationTextListEN,
-  },
-};
-
-const i18n = createI18n({
-  legacy: false,
-  locale: window.navigator.language,
-  fallbackLocale: "en",
-  messages: langPackage,
-});
-
-export { i18n };
+```typescript title="i18n.ts"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/locales/i18n.ts
 ```
 
 メッセージ管理機能を導入するための `createI18n` の引数の役割は以下の通りです。
@@ -118,25 +94,25 @@ export { i18n };
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
-```ts title="main.ts" hl_lines="6 14"
-import { createApp } from "vue";
-import { createPinia } from "pinia";
-import { authenticationGuard } from "@/shared/authentication/authentication-guard";
-import App from "./App.vue";
-import { router } from "./router";
-import { i18n } from "./locales/i18n";
+```typescript title="main.ts" hl_lines="6 14"
+import { createApp } from "vue"
+import { createPinia } from "pinia"
+import { authenticationGuard } from "@/shared/authentication/authentication-guard"
+import App from "./App.vue"
+import { router } from "./router"
+import { i18n } from "./locales/i18n"
 
-import "@/assets/base.css";
+import "@/assets/base.css"
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(createPinia());
-app.use(router);
-app.use(i18n);
+app.use(createPinia())
+app.use(router)
+app.use(i18n)
 
-authenticationGuard(router);
+authenticationGuard(router)
 
-app.mount("#app");
+app.mount("#app")
 ```
 
 ### メッセージの取得 {#getting-messages}
@@ -144,14 +120,14 @@ app.mount("#app");
 読み込んだメッセージを取得するためには、 `i18n.ts` を各ファイルでインポートして利用します。
 実装例は以下の通りです。
 
-```ts title="メッセージ利用例"
+```vue title="メッセージ利用例"
 <script setup lang="ts">
-import { i18n } from '@/locales/i18n';
+import { i18n } from '@/locales/i18n'
 
 const { t } = i18n.global;
 
 // TypeScript 上で利用する場合
-showToast(t('errorOccurred'));
+showToast(t('errorOccurred'))
 
 </script>
 

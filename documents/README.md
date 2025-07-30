@@ -158,7 +158,7 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     ```md
     ??? example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue
         ```
     ```
@@ -171,10 +171,13 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     ```md
     !!! example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue#L1-L8
         ```
     ```
+
+コードブロックのシンタックスハイライトが利用可能な言語の一覧は、[Pygments - Languages](https://pygments.org/languages/) を参照してください。
+また、複数の表記方法が可能な場合、略称よりも正式名称に近いものを優先してください。（例： ts ではなく typescript を使用）
 
 ### 体裁の修正
 

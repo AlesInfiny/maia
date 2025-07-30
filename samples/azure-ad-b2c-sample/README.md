@@ -322,7 +322,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `auth-frontend\.env.dev` に記述した Azure AD B2C の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
-    ```ts
+    ```typescript
     interface ImportMetaEnv {
       // 認証に関係のないプロパティは省略
       readonly VITE_ADB2C_USER_FLOW_SIGN_IN: string;
@@ -342,7 +342,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
     AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
 
-    ```ts
+    ```typescript
     import axios from "axios";
     import * as apiClient from "@/generated/api-client";
     import { authenticationService } from '@/services/authentication/authentication-service';
@@ -392,7 +392,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
-    ```ts
+    ```vue
     <script setup lang="ts">
     import { authenticationService } from '@/services/authentication/authentication-service';
     import { useAuthenticationStore } from '@/stores/authentication/authentication';
@@ -406,7 +406,7 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 1. `ログイン` 画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
 
-    ```html
+    ```vue
     <button v-if="!authenticationStore.isAuthenticated" @click="signIn()">ログイン</button>
     ```
 

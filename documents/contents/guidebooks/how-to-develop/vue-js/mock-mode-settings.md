@@ -89,42 +89,39 @@ npx msw init ./public --save
 
 ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts`を作成します。
 
-```ts title="browser.ts"
-import { setupWorker } from 'msw/browser';
-import { handlers } from './handlers';
-
-export const worker = setupWorker(...handlers);
+```typescript title="browser.ts"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/mock/browser.ts
 ```
 
 `mock`フォルダーの配下に、`handlers`フォルダーを作成し、さらにその配下に`index.ts`を作成します。
 ハンドラーの実装は別途行うため、現時点では空で構いません。
 
-```ts title="index.ts"
-export const handlers = []; // 後で実装します。
+```typescript title="index.ts"
+export const handlers = [] // 後で実装します。
 ```
 
 アプリケーションのエントリーポイントで、
 モックモードで起動した場合にワーカーを立ち上げるように設定します。
 `main.ts`に以下のように設定してください。
 
-```ts title="main.ts"
+```typescript title="main.ts"
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
-  const { worker } = await import('../mock/browser'); // モックモード以外ではインポート不要なので、動的にインポートします。
+  const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
     onUnhandledRequest: 'bypass', // MSW のハンドラーを未設定のリクエストに対して警告を出さないように設定します。
-  });
+  })
 }
 
 if (import.meta.env.MODE === 'mock') {
   try {
-    await enableMocking(); // ワーカーの起動を待ちます。
+    await enableMocking()
   } catch (error) {
-    console.error('モック用のワーカープロセスの起動に失敗しました。', error);
+    console.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
 
 // ワーカーが起動したら、アプリケーションを立ち上げます。
-const app = createApp(App);
+const app = createApp(App)
 ```
 
 ??? info "ワーカープロセスの起動を待つ理由"
