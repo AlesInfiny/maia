@@ -246,7 +246,7 @@ globalIgnores([
 その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
 
 ??? info "ESLint Config Inspector で設定を可視化する"
-      [ESLint Config Inspector :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
+      [ESLint Config Inspector :material-open-in-new:](https://github.com/eslint/config-inspector){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
       ルールを変更・追加する際には、想定通りの変更が行われているか確認してください。
       設定ファイルが存在するフォルダーの直下で下記のコマンドを実行することで、 ESLint Config Inspector を起動できます。
 
