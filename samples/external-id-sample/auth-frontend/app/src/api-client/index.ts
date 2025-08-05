@@ -47,7 +47,7 @@ function createConfig(): apiClient.Configuration {
 async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
   // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
   if (authenticationService.isAuthenticated()) {
-    const token = await authenticationService.getTokenAzureADB2C()
+    const token = await authenticationService.getTokenEntraExternalId()
     config.accessToken = token
   }
 }

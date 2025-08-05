@@ -24,7 +24,7 @@ const customErrorHandler = useCustomErrorHandler()
 
 const signIn = async () => {
   try {
-    await authenticationService.signInAzureADB2C()
+    await authenticationService.signInEntraExternalId()
   } catch (error) {
     // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
@@ -35,7 +35,7 @@ const signIn = async () => {
       })
     } else {
       customErrorHandler.handle(error, () => {
-        window.alert('AzureADB2C での認証に失敗しました。')
+        window.alert('Microsoft Entra External Id での認証に失敗しました。')
       })
     }
   }
@@ -78,7 +78,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header><h1>Azure AD B2C 認証サンプル</h1></header>
+  <header><h1>Microsoft Entra External Id 認証サンプル</h1></header>
   <div>
     <span>現在時刻: {{ getServerTime }}</span>
     <button type="submit" @click="updateServerTime()">更新</button>

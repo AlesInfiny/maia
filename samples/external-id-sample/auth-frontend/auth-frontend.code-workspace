@@ -1,7 +1,7 @@
 {
   "folders": [
     {
-      "name": "azure-ad-b2c-auth-root",
+      "name": "external-id-sample-root",
       "path": ".",
     },
     {
@@ -10,7 +10,7 @@
     },
   ],
   "settings": {
-    "typescript.tsdk": "azure-ad-b2c-auth-root/node_modules/typescript/lib",
+    "typescript.tsdk": "external-id-sample-root/node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.validate.enable": false,
   },

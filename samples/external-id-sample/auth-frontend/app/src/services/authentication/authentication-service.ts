@@ -17,7 +17,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication'
 })()
 
 export const authenticationService = {
-  async signInAzureADB2C() {
+  async signInEntraExternalId() {
     const authenticationStore = useAuthenticationStore()
     const response = await msalInstance.loginPopup(loginRequest)
     msalInstance.setActiveAccount(response.account)
@@ -31,7 +31,7 @@ export const authenticationService = {
     return result
   },
 
-  async getTokenAzureADB2C() {
+  async getTokenEntraExternalId() {
     const account = msalInstance.getActiveAccount()
 
     tokenRequest.account = account ?? undefined
