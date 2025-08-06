@@ -21,10 +21,9 @@ ext {
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
 
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-
-        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
-        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c",
+        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter-active-directory:4.2.0",
         spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.5.4",
         spring_security_test : 'org.springframework.security:spring-security-test',
 
         lombok : "org.projectlombok:lombok",

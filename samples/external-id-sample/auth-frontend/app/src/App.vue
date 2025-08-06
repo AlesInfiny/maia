@@ -49,6 +49,24 @@ const signIn = async () => {
   }
 }
 
+const signOut = async () => {
+  try {
+    await authenticationService.signOutEntraExternalId()
+  } catch (error) {
+    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+    if (error instanceof BrowserAuthError) {
+      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+      customErrorHandler.handle(error, () => {
+        console.info('ユーザーが認証処理を中断しました。')
+      })
+    } else {
+      customErrorHandler.handle(error, () => {
+        window.alert('Microsoft Entra External Id での認証に失敗しました。')
+      })
+    }
+  }
+}
+
 async function updateServerTime() {
   try {
     await fetchServerTime()
@@ -85,6 +103,9 @@ onMounted(async () => {
   </div>
   <div>
     <button v-if="!isAuthenticated" type="submit" @click="signIn()">ログイン</button>
-    <span v-if="isAuthenticated">ユーザーID: {{ getUserId }}</span>
+    <span v-if="isAuthenticated">
+      ユーザーID: {{ getUserId }}
+      <button type="submit" @click="signOut()">ログアウト</button>
+    </span>
   </div>
 </template>

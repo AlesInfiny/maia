@@ -6,6 +6,7 @@ export const msalConfig = {
     clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
     authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
     redirectUri: import.meta.env.VITE_EXTERNAL_ID_APP_URI,
+    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_APP_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -41,9 +42,9 @@ export const msalConfig = {
 export const msalInstance = new PublicClientApplication(msalConfig)
 
 export const loginRequest: SilentRequest = {
-  scopes: ['openId'],
+  scopes: ['openId', 'email', import.meta.env.VITE_EXTERNAL_ID_SCOPE],
 }
 
 export const tokenRequest: SilentRequest = {
-  scopes: ['openId'],
+  scopes: ['openId', 'email', import.meta.env.VITE_EXTERNAL_ID_SCOPE],
 }

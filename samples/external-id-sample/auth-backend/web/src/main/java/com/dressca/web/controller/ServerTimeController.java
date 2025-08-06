@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
- * Azure AD B2C に接続するためのコントローラークラスです。
+ * Microsoft Entra External ID に接続しないコントローラークラスです。
  */
 @RestController
 @Tag(name = "ServerTime", description = "認証不要でサーバーの現在時刻を取得します。")
@@ -29,9 +29,15 @@ public class ServerTimeController {
    * @throws Exception 例外。
    */
   @Operation(summary = "サーバーの現在時刻を取得します。", description = "サーバーの現在時刻を取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServerTimeResponse.class)))
-  })
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "成功。",
+              content = @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ServerTimeResponse.class)))
+      })
   @GetMapping
   public ResponseEntity<ServerTimeResponse> getServerTime() throws Exception {
 
