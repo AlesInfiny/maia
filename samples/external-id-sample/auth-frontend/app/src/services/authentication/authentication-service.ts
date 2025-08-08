@@ -25,6 +25,7 @@ export const authenticationService = {
   },
 
   async signOutEntraExternalId() {
+    const authenticationStore = useAuthenticationStore()
     await msalInstance.logoutPopup()
     authenticationStore.updateAuthenticated(false)
   },
