@@ -21,22 +21,19 @@ jobs:
       contents: read
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
-    strategy:
-      matrix:
-        node-version: [20.x]
     defaults:
       run:
         working-directory: ${{ env.FRONTEND_WORKING_DIRECTORY }}
-
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
       - uses: actions/cache@v4
         id: node_modules_cache_id
