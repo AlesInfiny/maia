@@ -13,7 +13,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
 
-```terminal
+```shell
 npm install vee-validate yup vue-i18n
 ```
 

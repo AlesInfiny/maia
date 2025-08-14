@@ -40,7 +40,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
     以下の通り、コマンドを実行します。
 
-    ```ps1 title="コマンドラインでの Gradle の起動"
+    ```shell title="コマンドラインでの Gradle の起動"
     gradlew :batch:bootRun
     ```
 
@@ -54,7 +54,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
     以下の通り、コマンドを実行します。
   
-    ```ps1 title="実行可能 jar の起動"
+    ```shell title="実行可能 jar の起動"
     # gradlew :batch:bootJar で実行可能jarを生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar
     ```
@@ -78,7 +78,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
 
     以下のように `--args` オプションで指定します。
 
-    ```ps1 title="コマンドラインでの Gradle の起動（ジョブ指定）"
+    ```shell title="コマンドラインでの Gradle の起動（ジョブ指定）"
     gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
     ```
 
@@ -88,7 +88,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
 
     以下のように、コマンドを実行します。
 
-    ```ps1 title="実行可能 jar の起動（ジョブ指定）"
+    ```shell title="実行可能 jar の起動（ジョブ指定）"
     # gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.batch.job.name=catalogItem_job
     ```
@@ -105,7 +105,7 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
 
     以下のように `--args` オプションで指定します。
 
-    ```ps1 title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
+    ```shell title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
     gradlew :batch:bootRun --args="output=sample-output.csv"
     ```
 
@@ -115,7 +115,7 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
 
     以下のように、コマンドを実行します。
 
-    ```ps1 title="実行可能 jar の起動（ジョブ引数指定）"
+    ```shell title="実行可能 jar の起動（ジョブ引数指定）"
     # gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar output=sample-output.csv
     ```

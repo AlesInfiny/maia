@@ -115,7 +115,7 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
 AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j2 を使用します。
 そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
 
-``` groovy title="spring-boot-starter-logging の除外設定"
+```groovy title="spring-boot-starter-logging の除外設定"
 configurations {
  all {
   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
@@ -130,7 +130,7 @@ batch プロジェクトをウェブアプリケーションではなく、バ�
 
 batch プロジェクトの `src/main/java` 以下の `BatchApplication.java` の main メソッドを書き換えます。
 
-``` Java title="BatchApplication.java"
+```java title="BatchApplication.java"
 public static void main(String[] args) {
   SpringApplication app = new SpringApplication(BatchApplication.class);
   // batch プロジェクトをウェブアプリケーションでは立ち上げない設定
@@ -141,7 +141,7 @@ public static void main(String[] args) {
 
 また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTest.java` を書き換えます。
 
-``` Java title="BatchApplicationTest.java"
+```java title="BatchApplicationTest.java"
 ・・・
 import org.springframework.batch.test.context.SpringBatchTest; // 追加
 
@@ -155,7 +155,7 @@ class BatchApplicationTests {
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
-```winbatch title="batch プロジェクトのビルド"
+```shell title="batch プロジェクトのビルド"
 ./gradlew batch:build
 ```
 

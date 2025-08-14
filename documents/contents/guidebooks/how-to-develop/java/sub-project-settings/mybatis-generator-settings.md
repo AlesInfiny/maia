@@ -142,7 +142,7 @@ tasks.register('runMyBatisGenerator') {
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
-```winbatch title="自動生成タスクの実行コマンド"
+```shell title="自動生成タスクの実行コマンド"
 ./gradlew infrastructure:runMyBatisGenerator
 ```
 

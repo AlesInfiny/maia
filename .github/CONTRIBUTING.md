@@ -143,7 +143,7 @@ mkdocs でビルドするドキュメントは、 [この規約](/documents/READ
 
 Lint ツールは、リポジトリのルートディレクトリで、以下のコマンドを利用して実行します。
 
-```bat
+```shell
 npm run lint
 ```
 

@@ -7,7 +7,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時点でのフォルダー構造は以下のようになっています。
 
-```terminal linenums="0"
+```text linenums="0"
 <root-project-name>
 ├ package.json -------------- ルートプロジェクトのメタデータ、依存関係、スクリプトなどを定義するファイル
 ├ package-lock.json --------- npm によって自動生成される、パッケージの依存関係を記録するファイル
