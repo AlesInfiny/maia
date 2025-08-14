@@ -183,20 +183,20 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
 
 | Languages Name | Code Block Name |
 | -------------- | --------------- |
-| Java           | java            |
-| Properties     | properties      |
 | Bash           | shell           |
-| Vue            | vue             |
-| TypeScript     | typescript      |
+| CSS            | css             |
+| Groovy         | groovy          |
+| Java           | java            |
 | JavaScript     | javascript      |
 | JSON           | json            |
-| Text Only      | text            |
 | Markdown       | markdown        |
 | Mermaid        | mermaid         |
-| Groovy         | groovy          |
+| Properties     | properties      |
 | SQL            | sql             |
+| Text Only      | text            |
+| TypeScript     | typescript      |
+| Vue            | vue             |
 | XML            | xml             |
-| CSS            | css             |
 
 ### 体裁の修正
 
