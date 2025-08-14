@@ -7,3 +7,6 @@ samples/**/spotbugs*.txt
 # third-party-licenses フォルダーはコピーしたファイルを配置するため、テスト対象から除外
 third-party-licenses/**
 
+# samples 配下の gradle 関連の txt ファイルを除外
+samples/**/.gradle/*.txt
+
