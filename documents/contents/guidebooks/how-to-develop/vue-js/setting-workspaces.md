@@ -13,13 +13,13 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ワークスペースの名称は、ルートプロジェクトの package.json の `workspaces` プロパティで定義し、この値はワークスペースの package.json の `name` プロパティと一致している必要があります。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) に従って初期設定した場合は、自動的に構成されます。
 
-``` json title="package.json（ルート）"
+```json title="package.json（ルート）"
   "workspaces": [
     "workspace-name"
   ]
 ```
 
-``` json title="package.json（ワークスペース）"
+```json title="package.json（ワークスペース）"
 {
   "name": "workspace-name",
 }
@@ -54,7 +54,7 @@ CJS 形式のファイルを正しく読み込むために、 `"type": "module"`
 `-w` オプションでワークスペース名を指定することで、指定したワークスペースの package.json に存在するスクリプトを実行できます。
 設定例を下記に示します。
 
-``` json title="package.json（ルート）"
+```json title="package.json（ルート）"
 {
   "scripts": {
     "lint:ci:workspace-name": "npm run lint:ci -w workspace-name",

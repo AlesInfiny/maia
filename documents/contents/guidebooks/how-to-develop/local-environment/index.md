@@ -92,7 +92,7 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 1. 以下のコマンドが実行できればインストールは完了です。
 
-    ```ps1 title="Git for Windows のバージョン確認"
+    ```shell title="Git for Windows のバージョン確認"
     git --version
     ```
 
@@ -126,7 +126,7 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 
 1. 以下のコマンドが実行できればインストールは完了です。
 
-    ```ps1 title="Node.js と npm のバージョン確認"
+    ```shell title="Node.js と npm のバージョン確認"
     node --version
     npm --version
     ```

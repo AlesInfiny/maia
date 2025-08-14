@@ -45,7 +45,7 @@ VS Code を利用してテストを実行する場合は、 VS Code のテスト
 
 gradlew コマンドを利用してテストを実行する場合は、ルートプロジェクトのフォルダーで以下のコマンドを実行します。
 
-```plane
+```shell
 ./gradlew test
 ```
 
@@ -56,7 +56,7 @@ gradlew コマンドを利用してテストを実行する場合は、ルート
 Vue.js アプリケーションは、 Vitest でテストできます。
 Vue.js アプリケーションのルートディレクトリから、以下のようなコマンドを実行します。
 
-```plane
+```shell
 npm run test:unit:consumer
 ```
 
