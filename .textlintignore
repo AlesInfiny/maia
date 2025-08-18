@@ -2,7 +2,7 @@
 samples/**/spotbugs*.txt
 
 # samples 配下の gradle 関連の txt ファイルを除外
-samples/**/.gradle/*.txt
+samples/**/.gradle/**
 
 # openapi-generator で自動生成されるファイルをテスト対象から除外
 **/src/generated/api-client/docs/*.md
