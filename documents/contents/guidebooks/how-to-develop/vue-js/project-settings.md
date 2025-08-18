@@ -124,7 +124,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 tsconfig の設定が完了したら、ワークスペース直下で以下のコマンドを実行し、型チェックが実行できることを確認してください。
 
-```console linenums="0"
+```shell linenums="0"
 npm run type-check
 ```
 
@@ -140,7 +140,7 @@ npm run type-check
 ワークスペース直下で以下のコマンドを実行し、ビルドが実行できることを確認してください。
 dist フォルダーの配下に html ファイル、 css ファイル、 Javascript ファイル一式が生成されます。
 
-```console linenums="0"
+```shell linenums="0"
 npm run build
 ```
 

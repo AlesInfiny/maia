@@ -73,7 +73,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.p
 
 ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-```console linenums="0"
+```shell linenums="0"
 npm run format
 ```
 
@@ -91,7 +91,7 @@ ESLint の設定は、設定ファイル eslint.config.ts で行います。
 このファイルはインストール時にワークスペースの直下に自動的に追加されています。
 ワークスペースの直下にいることを確認し、下記のコマンドを実行します。
 
-```console linenums="0"
+```shell linenums="0"
 npm run lint
 ```
 
