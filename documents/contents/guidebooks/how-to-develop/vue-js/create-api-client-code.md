@@ -19,7 +19,7 @@ OpenAPI Generator を使用するためには、 Java 11 以降のランタイ�
 
 ### Axios のインストール {#install-axios}
 
-```terminal
+```shell
 npm install axios
 ```
 
@@ -31,7 +31,7 @@ OpenAPI Generator をインストールします。ターミナルで以下の�
 
 <!-- cspell:disable -->
 
-```terminal
+```shell
 npm install -D @openapitools/openapi-generator-cli
 ```
 
@@ -89,7 +89,7 @@ package.json の scripts セクションにタスクを追加します。
 
 ターミナルで以下のコマンドを実行します。
 
-```terminal
+```shell
 npm run generate-client
 ```
 
@@ -100,20 +100,20 @@ npm run generate-client
 `./src/api-client/index.ts` というファイルを作成し、以下のように設定します。
 
 ```typescript title="index.ts"
-import axios from 'axios';
-import * as apiClient from '@/generated/api-client';
+import axios from 'axios'
+import * as apiClient from '@/generated/api-client'
 
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration({
-  });
-  return config;
+  })
+  return config
 }
 
-const axiosInstance = axios.create({});
+const axiosInstance = axios.create({})
 
-const defaultApi = new apiClient.DefaultApi(createConfig(), '', axiosInstance);
+const defaultApi = new apiClient.DefaultApi(createConfig(), '', axiosInstance)
 
-export { defaultApi };
+export { defaultApi }
 ```
 
 - `apiClient.Configuration` : api-client の共通の Configuration があればここに定義します。プロパティの詳細は [こちら :material-open-in-new:](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/typescript-axios/configuration.mustache){ target=_blank }を参照してください。
@@ -126,7 +126,7 @@ export { defaultApi };
 1. 生成したインスタンスを `export` します。
 
 ??? info "BaseAPI のコンストラクター"
-    - `BaseAPI(configuration?: Configuration, basePath?: string, axios?: AxiosInstance)`
+    - `BaseAPI(configuration?: Configuration, basePath: string, axios: AxiosInstance)`
 
     `BaseAPI` は OpenAPI Generator で自動生成されるコードの `base.ts` に含まれるクラスです。
     各 API が継承している `BaseAPI` コンストラクターの引数に api-client の共通設定、ベースパス[^1]、 axios インスタンスを設定することで、 API に関するグローバルな設定を適用します。
@@ -138,16 +138,7 @@ export { defaultApi };
     [^1]: ベースパスは `https://www.example.com` のようなリンク先の基準となる URL です。
 
     ```typescript title="base.ts"
-    export class BaseAPI {
-      protected configuration: Configuration | undefined;
-
-      constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected axios: AxiosInstance = globalAxios) {
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = configuration.basePath ?? this.basePath;
-        }
-      }
-    };
+      https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/generated/api-client/base.ts#L50-L59
     ```
 
 [^2]: ジェネレーターに `"typescript-axios"` を使用する場合に設定可能な値は [こちら :material-open-in-new:](https://openapi-generator.tech/docs/generators/typescript-axios){ target=_blank }を参照ください。

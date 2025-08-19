@@ -33,7 +33,7 @@ dependencies {
 AlesInfiny Maia OSS Edition では、ロギングライブラリとして Apache Log4j 2 （以降 log4j2 ）を使用します。
 そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
 
-``` groovy title="spring-boot-starter-logging の除外設定"
+```groovy title="spring-boot-starter-logging の除外設定"
 configurations {
  all {
   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'

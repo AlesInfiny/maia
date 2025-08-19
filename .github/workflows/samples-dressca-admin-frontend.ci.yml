@@ -24,17 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/checkout@v5
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
       - uses: actions/cache@v4
         id: node_modules_cache_id

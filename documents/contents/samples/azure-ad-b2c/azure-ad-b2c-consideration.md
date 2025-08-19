@@ -19,7 +19,7 @@ MSAL.js で提供されている  `loginPopup()` や `loginRedirect()` といっ
 MSAL のインスタンス化に使用する構成オブジェクトをもとに、キャッシュストレージの保存先を設定できます。
 本サンプルでは、 `src/services/authentication/authentication-config.ts` の以下の部分で設定します。
 
-``` ts title="authentication-config.ts" hl_lines="9"
+```typescript title="authentication-config.ts" hl_lines="9"
 export const msalConfig = {
   auth: {
     clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,

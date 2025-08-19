@@ -13,7 +13,7 @@ description: サーバーサイドで動作する Java アプリケーション�
 
 本設定で利用するフォルダーの構成は以下の通りです。
 
-```terminal linenums="0"
+```text linenums="0"
 root/ ------------------------------------------- root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
@@ -37,7 +37,7 @@ businessError=想定外の業務エラーが発生しました
 
 以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
 
-``` properties title="application.properties"
+```properties title="application.properties"
 spring.messages.basename=applicationcore.messages,systemcommon.messages
 ```
 

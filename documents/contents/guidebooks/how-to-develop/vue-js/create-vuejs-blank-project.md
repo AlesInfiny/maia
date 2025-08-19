@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
-本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.17.0 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
+本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.18.0 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -24,13 +24,13 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
-```terminal
+```shell
 npm init -y
 ```
 
 実行に成功すると、 package.json ファイルが作成されます。
 
-```terminal
+```text
 Wrote to ...\package.json:
 
 {
@@ -51,7 +51,7 @@ Wrote to ...\package.json:
 
 以下のコマンドを実行し、任意のワークスペース名（プロジェクト名）を指定して Vue.js をインストールします。
 
-```terminal
+```shell
 npm init -w <workspace-name> vue@{バージョン} .
 ```
 
@@ -59,7 +59,7 @@ create-vue パッケージをインストールする必要があり、続行す
 
 `-w` オプションで指定したワークスペース名と同じ名称を入力します。
 
-```terminal
+```text
 T  Vue.js - The Progressive JavaScript Framework
 |
 *  Package name:
@@ -69,7 +69,7 @@ T  Vue.js - The Progressive JavaScript Framework
 
 インストールオプションを確認されるのでそれぞれインストールするかどうかを選択します。フロントエンドアプリケーションのアーキテクチャに基づき、使用するものを選択すると、以下のようになります。
 
-```terminal
+```text
 *  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
 |  [+] TypeScript
 |  [+] JSX Support
@@ -88,11 +88,9 @@ T  Vue.js - The Progressive JavaScript Framework
 —
 ```
 
-<!-- textlint-disable ja-technical-writing/no-doubled-joshi -->
-以下の実験的機能のインストールは必須ではありません。
-<!-- textlint-enable ja-technical-writing/no-doubled-joshi -->
+以下の実験的機能は、インストールが必須ではありません。
 
-```terminal
+```text
 *  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
 confirm)
 |  [ ] Oxlint (experimental)
@@ -100,9 +98,17 @@ confirm)
 —
 ```
 
+サンプルコードの生成をスキップするか選択します。
+どちらを選択しても構いませんが、本ページ以降のガイドでは、 No を選択しサンプルコードを生成したことを前提として説明します。
+
+```text
+◆  Skip all example code and start with a blank Vue project?
+│  ○ Yes / ● No
+```
+
 プロジェクトの作成が完了すると以下のように Git コマンドを実行して構成管理するよう勧められますが、ここでのコマンド実行は不要です。
 
-```terminal
+```text
 | Optional: Initialize Git in your project directory with:
 
    git init && git add -A && git commit -m "initial commit"
@@ -112,7 +118,7 @@ confirm)
 
 以下のようにコマンドを実行し、必要なパッケージをインストールしてアプリケーションを実行します。
 
-```terminal
+```shell
 npm install
 npm run format -w <workspace-name>
 npm run dev -w <workspace-name>
@@ -120,7 +126,7 @@ npm run dev -w <workspace-name>
 
 `npm run dev` が成功すると以下のように表示されるので、「 Local: 」に表示された URL をブラウザーで表示します。ブランクプロジェクトのランディングページが表示されます。
 
-```terminal
+```text
 > workspace-name@0.0.0 dev
 > vite
 

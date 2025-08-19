@@ -7,6 +7,7 @@
 *[AOT]: Ahead-Of-Time: 事前にすべてのコンパイルを実行する方式。
 *[API]: Application Programming Interface
 *[CI]: Continuous Integration：継続的インテグレーション。
+*[CJS]: CommonJS
 *[CMS]: Contents Management System.
 *[CORS]: Cross-Origin Resource Sharing：オリジン間リソース共有。
 *[CRUD]: Create Read Update Delete：永続性の 4 つの基本機能のイニシャルを並べた用語。
@@ -15,6 +16,7 @@
 *[DI]: Dependency Injection：依存性の注入。
 *[DSL]: Domain Specific Language: ドメイン固有言語。
 *[E2E]: End to End
+*[ESM]: ECMAScript Modules
 *[FaaS]: Function as a Service: サーバーレスでアプリケーション開発ができる環境を提供するクラウドサービス。
 *[GA]: General Availability：正式版、製品版、一般公開版。
 *[GB]: GigaByte：記憶媒体の容量を表す単位。

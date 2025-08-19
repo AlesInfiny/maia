@@ -259,7 +259,7 @@ Apache License, Version 2.0 の本文を以下に示します。
 
 ??? quote "Apache License, Version 2.0 本文"
 
-    ```plane linenums="0"
+    ```text linenums="0"
                                   Apache License
                             Version 2.0, January 2004
                          http://www.apache.org/licenses/

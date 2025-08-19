@@ -13,13 +13,13 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ワークスペースの名称は、ルートプロジェクトの package.json の `workspaces` プロパティで定義し、この値はワークスペースの package.json の `name` プロパティと一致している必要があります。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) に従って初期設定した場合は、自動的に構成されます。
 
-``` json title="package.json（ルート）"
+```json title="package.json（ルート）"
   "workspaces": [
     "workspace-name"
   ]
 ```
 
-``` json title="package.json（ワークスペース）"
+```json title="package.json（ワークスペース）"
 {
   "name": "workspace-name",
 }
@@ -54,7 +54,7 @@ CJS 形式のファイルを正しく読み込むために、 `"type": "module"`
 `-w` オプションでワークスペース名を指定することで、指定したワークスペースの package.json に存在するスクリプトを実行できます。
 設定例を下記に示します。
 
-``` json title="package.json（ルート）"
+```json title="package.json（ルート）"
 {
   "scripts": {
     "lint:ci:workspace-name": "npm run lint:ci -w workspace-name",
@@ -74,3 +74,14 @@ CJS 形式のファイルを正しく読み込むために、 `"type": "module"`
 パッケージのインストール・バージョン更新は、 npm workspaces を使用しない場合と同様に、各ワークスペースで `npm install` を行います。
 しかし、インストールしたパッケージの依存関係は、ルートプロジェクトの package-lock.json に記録されます。
 また、各ワークスペースの package.json でバージョンを指定することで、ワークスペース間で異なるバージョンのパッケージを使用できます。
+
+## VS Code 上のワークスペースの設定 {#settings-vscode-workspace}
+
+[ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時に、各ワークスペースの直下に .vscode フォルダーと設定ファイルが自動的に作成されます。
+加えて、 VS Code で mono-repo 構成を扱う場合には、[マルチルートワークスペース :material-open-in-new:](https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces){ target=_blank } 機能が役立ちます。
+追加でルートプロジェクトの直下に .code-workspaces ファイルを作成し、 npm workspaces のワークスペースの単位と、 VS Code のワークスペースの単位が対応するように設定します。
+設定例を下記に示します。
+
+```json title="サンプルアプリケーションの .code-workspace"
+https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/dressca-frontend.code-workspace
+```

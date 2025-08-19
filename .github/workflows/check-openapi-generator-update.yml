@@ -33,10 +33,10 @@ jobs:
           echo "latest-version=$(echo ${{ fromJson(steps.get-repo-info-via-github-api.outputs.response).tag_name }} |sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: チェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Issue Template を使用するため .github リポジトリをチェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: 'AlesInfiny/.github'
           path: 'util'

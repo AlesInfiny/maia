@@ -87,13 +87,13 @@ Visual Studio Code で [ターミナル] を開きます。
 ターミナルのコマンドプロンプトで、 [mkdocs.yml] ファイルのあるフォルダーに移動してください。
 フォルダー移動後、以下のコマンドを実行してください。
 
-```plain
+```shell
 mkdocs serve
 ```
 
 うまく実行できると、以下のようなメッセージが出て、 Web サーバーが起動します。
 
-```plain
+```text
 INFO     -  Building documentation...
 INFO     -  Cleaning site directory
 INFO     -  Documentation built in 1.04 seconds
@@ -118,13 +118,13 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
 
     以下のように記載します。
 
-    ```md
+    ```markdown
     [概要編](overview/index.md)
     ```
 
     特定のページの見出しを指定する場合は、各見出しに付与した ID を以下のようにリンクの末尾に付与します。
 
-    ```md
+    ```markdown
     [CSR アーキテクチャ概要 - アプリケーションコア層](../csr-architecture-overview.md#application-core)
     ```
 
@@ -132,7 +132,7 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
 
     以下のように、外部リンクを表すアイコンを表示するための `:material-open-in-new:` と別タブに遷移させるための `{ target=_blank }` を付与します。
 
-    ```md
+    ```markdown
     [External Link :material-open-in-new:](https://external-link){ target=_blank }
     ```
 
@@ -141,7 +141,7 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
     ライセンス条文のように原文をそのまま表示する必要のある記載の場合は、外部リンクであってもアイコンを付与しないようにします。
     そのため、以下のように別タブに遷移させるための `{ target=_blank }` のみ記載します。
 
-    ```md
+    ```markdown
     [License Link](https://license-link){ target=_blank }
     ```
 
@@ -155,10 +155,10 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     コード全体をドキュメントに表示する場合、コードブロック内に GitHub の URL を直接記載します。
     コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
 
-    ```md
+    ```markdown
     ??? example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue
         ```
     ```
@@ -168,13 +168,35 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
     コードの一部を切り取って表示する場合、 URL の末尾に `#L1-L8` のように切り取る行数を追記します。
     コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
 
-    ```md
+    ```markdown
     !!! example "App.vue の設定例"
 
-        ```html title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
+        ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
         https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue#L1-L8
         ```
     ```
+
+コードブロックのシンタックスハイライトが利用可能な言語の一覧は、[Pygments - Languages](https://pygments.org/languages/) を参照してください。
+また、複数の表記方法が可能な場合、略称よりも正式名称に近いものを優先してください。（例： ts ではなく typescript を使用）
+
+本ドキュメントのコードブロックで使用する言語名の例は以下の通りです。
+
+| Languages Name | Code Block Name |
+| -------------- | --------------- |
+| Bash           | shell           |
+| CSS            | css             |
+| Groovy         | groovy          |
+| Java           | java            |
+| JavaScript     | javascript      |
+| JSON           | json            |
+| Markdown       | markdown        |
+| Mermaid        | mermaid         |
+| Properties     | properties      |
+| SQL            | sql             |
+| Text Only      | text            |
+| TypeScript     | typescript      |
+| Vue            | vue             |
+| XML            | xml             |
 
 ### 体裁の修正
 
@@ -240,7 +262,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 [API] や [OSS] といった一般的な略語については、 `documents/includes/abbreviations.md` の略語集に登録します。
 以下のように、略語とその正式名称をペアにして記載します。
 
-```md title="abbreviations.md"
+```markdown title="abbreviations.md"
 *[OSS]: Open Source Software
 ```
 
@@ -252,7 +274,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 
 以下のように、各 markdown ファイルの上部に `title` と `description` を設定しています。
 
-``` text
+```text
 ---
 title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
@@ -336,7 +358,7 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
     詳細は以下の公式ドキュメントを参照してください。  
     <https://squidfunk.github.io/mkdocs-material/reference/images/#image-lazy-loading>
 
-    ```md
+    ```markdown
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-light.png#only-light){ align=right loading=lazy }
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-dark.png#only-dark){ align=right loading=lazy }
     ```
@@ -346,7 +368,7 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
 各種 Linter を用いて、ドキュメントの体裁や表現、表記揺れを自動で検証できます。
 Visual Studio Code の [ターミナル] を開き、ルートディレクトリに移動して、以下のコマンドを実行してください。
 
-```plain
+```shell
 npm run lint
 ```
 
@@ -354,7 +376,7 @@ markdownlint と textlint が実行され、エラーがある場合は表示さ
 
 markdownlint と textlint を個別に実行したい場合は、それぞれ以下のコマンドを実行してください。
 
-```plain
+```shell
 npm run lint:markdownlint-all
 npm run lint:textlint-all
 ```
@@ -405,7 +427,7 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 以下のコマンドを実行して、 textlint の実行に必要な Node モジュールをインストールしてください。
 モジュールの更新も同じコマンドで実行できます。
 
-```plane
+```shell
 npm ci
 ```
 
@@ -419,7 +441,7 @@ npm ci
 コマンドプロンプトを管理者権限で起動します。
 以下のコマンドを実行して pip を更新します。
 
-```plain
+```shell
 pip install --upgrade pip
 ```
 
@@ -430,7 +452,7 @@ pip install --upgrade pip
 以下のコマンドを実行して、必要なモジュールを一括でインストールします。
 モジュールの更新も同じコマンドで実行できます。
 
-```plain
+```shell
 pip install -r requirements.txt
 ```
 

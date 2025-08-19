@@ -47,7 +47,7 @@ CSS ファイルを記述せずにデザインを実現する、ユーティリ�
 
 > Installing Tailwind CSS as a PostCSS plugin is the most seamless way to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
 
-```terminal
+```shell
 npm install -D tailwindcss postcss autoprefixer postcss-nesting
 ```
 
@@ -72,7 +72,7 @@ npm install -D tailwindcss postcss autoprefixer postcss-nesting
 
 以下のコマンドを入力すると、`./tailwind.config.js` ファイルが作成されます。
 
-```terminal
+```shell
 npx tailwindcss init
 ```
 
