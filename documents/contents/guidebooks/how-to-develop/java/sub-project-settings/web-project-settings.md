@@ -115,7 +115,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 AlesInfiny Maia OSS Edition では、ロギングライブラリとして log4j2 を使用します。
 そのため、以下のようにデフォルトのロギングライブラリを依存関係から除外する設定を記述します。
 
-``` groovy title="spring-boot-starter-logging の除外設定"
+```groovy title="spring-boot-starter-logging の除外設定"
 configurations {
  all {
   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
@@ -205,7 +205,7 @@ build.dependsOn("generateOpenApiDocs")
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
-```winbatch title="web プロジェクトのビルド"
+```shell title="web プロジェクトのビルド"
 ./gradlew web:build
 ```
 
@@ -299,7 +299,7 @@ Web API を公開するオリジンと、呼び出し元となるクライアン
     起動する処理は、アプリケーションが起動したタイミングで H2 Database を起動させるためにコンストラクタ内で行います。
     停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `@PreDestroy` アノテーションを付与したメソッド内で行います。
 
-    ``` Java
+    ```java
     /**
      * 開発環境で H2 Database をサーバーモードで立ち上げるためのクラスです。
      */
@@ -335,7 +335,7 @@ Web API を公開するオリジンと、呼び出し元となるクライアン
 
 ??? example "`application-dev.properties` の例"
 
-    ``` properties
+    ```properties
     spring.datasource.hikari.driver-class-name=org.h2.Driver
 
     # DBをサーバーモードで起動する場合の接続先情報

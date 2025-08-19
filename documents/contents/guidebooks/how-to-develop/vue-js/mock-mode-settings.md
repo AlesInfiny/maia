@@ -19,7 +19,7 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 
 モックモードの設定に関係するフォルダーとファイルは以下の通りです。
 
-```terminal linenums="0"
+```text linenums="0"
 <workspace-name>
 ├ public/
 │ └ mockServiceWorker.js -- ライブラリが生成するワーカースクリプト
@@ -49,13 +49,13 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 モックモード用の環境設定ファイルとして、`vite.config.ts`と同じ階層に`.env.mock` を作成します。必要に応じて環境変数を定義してください。
 モックモードを動作させるためだけであれば、追加の定義は不要です。
 
-```env title=".env.mock"
+```properties title=".env.mock"
 VITE_XXX_YYY=
 ```
 
 ワークスペース直下で以下のコマンドを実行し、モックモードでサーバーが起動できることを確認します。
 
-```terminal
+```shell
 npm run mock
 ```
 
@@ -63,13 +63,13 @@ npm run mock
 
 ワークスペースの直下で以下のコマンドを実行し、 MSW をインストールします。
 
-```terminal
+```shell
 npm install msw
 ```
 
 続けて以下のコマンドを実行し、初期設定をします。
 
-```terminal
+```shell
 npx msw init ./public --save
 ```
 
@@ -131,7 +131,7 @@ const app = createApp(App)
 再度下記のコマンドで Vite のサーバーを立ち上げ、ワーカープロセスが起動していることを確認します。
 開発者ツール上に 「[MSW] Mocking enabled.」 のメッセージが表示されていれば、設定は成功です。
 
-```terminal
+```shell
 npm run mock
 ```
 

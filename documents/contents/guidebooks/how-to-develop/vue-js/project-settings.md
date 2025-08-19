@@ -15,7 +15,7 @@ TypeScript で作成されたファイルは、 `tsconfig.json` の設定値を�
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) の手順に沿って `create-vue` でプロジェクトを作成すると、以下の `tsconfig.json` および `tsconfig.*.json` が生成されます。
 各 `tsconfig.*.json` には `include` に指定したファイル群のトランスパイルに関する設定値が定義されています。
 
-```terminal linenums="0"
+```text linenums="0"
 <workspace-name>
 ├ cypress
 |  └ tsconfig.json--------- E2E テストの TypeScript として読み込む対象を定義する設定ファイル(Cypress 用)
@@ -52,7 +52,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     デフォルトの設定から変更の必要はありません。
 
-    ``` json title="サンプルアプリケーション の tsconfig.json"
+    ```json title="サンプルアプリケーション の tsconfig.json"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.json
     ```
 
@@ -63,7 +63,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     vitest.setup.ts は、 Vitest での自動テスト実行前後の共通処理を定義するファイルです。
     postcss.config.ts は [CSS の設定 - PostCSS の設定](./css.md#settings-postcss) で作成します。
 
-    ``` json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="7-9"
+    ```json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="7-9"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
     ```
 
@@ -71,7 +71,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     E2E テストには Cypress を使用するので、 `include` キーから nightwatch.conf.\* および playwright.config.\* を削除しています。
 
-    ``` json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
+    ```json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
     ```
 
@@ -79,7 +79,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
     デフォルトでは \_\_tests\_\_ フォルダ直下のファイルのみを検索するように設定されているので、 \_\_tests\_\_ 直下のフォルダ配下も追加で検索するように、`include` キーに指定するパスのパターンを変更しています。
 
-    ``` json title="サンプルアプリケーション の tsconfig.vitest.json" hl_lines="3"
+    ```json title="サンプルアプリケーション の tsconfig.vitest.json" hl_lines="3"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json
     ```
 
@@ -124,7 +124,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 tsconfig の設定が完了したら、ワークスペース直下で以下のコマンドを実行し、型チェックが実行できることを確認してください。
 
-```console linenums="0"
+```shell linenums="0"
 npm run type-check
 ```
 
@@ -140,7 +140,7 @@ npm run type-check
 ワークスペース直下で以下のコマンドを実行し、ビルドが実行できることを確認してください。
 dist フォルダーの配下に html ファイル、 css ファイル、 Javascript ファイル一式が生成されます。
 
-```console linenums="0"
+```shell linenums="0"
 npm run build
 ```
 

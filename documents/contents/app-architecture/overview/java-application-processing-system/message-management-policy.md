@@ -32,7 +32,7 @@ errorOccurred=エラーが発生しました。
 
 以下のように、ビジネスロジックで利用する業務メッセージと共通処理として利用する共通メッセージを分割して各サブプロジェクトで管理します。
 
-```terminal linenums="0"
+```text linenums="0"
 root/ ------------------------------------------- root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
@@ -59,7 +59,7 @@ root/ ------------------------------------------- root フォルダー
 メッセージを多言語対応する場合には、それぞれの言語のプロパティファイルを作成し、各言語のメッセージをファイルで分割して管理します。
 以下に示すように、各ファイル名は [ISO-639 言語コード :material-open-in-new:](https://www.iso.org/iso-639-language-code){ target=_blank } に基づき、その言語を表す言語コードを末尾に付与します。
 
-```terminal linenums="0"
+```text linenums="0"
 root/ ------------------------------------------- root フォルダー
  ├ application-core/src/main/resource
  │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー

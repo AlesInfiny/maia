@@ -19,7 +19,7 @@ OpenAPI Generator を使用するためには、 Java 11 以降のランタイ�
 
 ### Axios のインストール {#install-axios}
 
-```terminal
+```shell
 npm install axios
 ```
 
@@ -31,7 +31,7 @@ OpenAPI Generator をインストールします。ターミナルで以下の�
 
 <!-- cspell:disable -->
 
-```terminal
+```shell
 npm install -D @openapitools/openapi-generator-cli
 ```
 
@@ -89,7 +89,7 @@ package.json の scripts セクションにタスクを追加します。
 
 ターミナルで以下のコマンドを実行します。
 
-```terminal
+```shell
 npm run generate-client
 ```
 

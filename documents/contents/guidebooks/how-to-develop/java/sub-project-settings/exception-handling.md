@@ -13,7 +13,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API
 
 集約例外ハンドラーは web プロジェクトに実装します。本設定で利用するフォルダーの構成は以下の通りです。
 
-```terminal linenums="0"
+```text linenums="0"
 root/ --------------------------------------------------- root フォルダー
 └ web/src/main/java/{ プロジェクトのグループ名 }/web/controller/advice
   └ ExceptionHandlerControllerAdvice.java --------------- 集約例外ハンドラークラス
@@ -30,7 +30,7 @@ root/ --------------------------------------------------- root フォルダー
 
 `@ControllerAdvice` により、付与されたクラス内で実装された機能を全てのコントローラーに追加で適用できます。
 
-``` Java title="集約例外ハンドラークラスの例"
+```java title="集約例外ハンドラークラスの例"
 @ControllerAdvice(basePackages = "プロジェクトのグループ名")
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler{
   // 例外をハンドリングするメソッド
@@ -49,7 +49,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 これにより、 RFC9457 に準拠したエラーレスポンスが返却されます。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-``` Java title="Exception クラスをハンドリングするメソッドの例"
+```java title="Exception クラスをハンドリングするメソッドの例"
 @ExceptionHandler(Exception.class)
 public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
   // 例外のハンドリングを行う処理
@@ -78,6 +78,6 @@ ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装�
 
 ??? example "ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
 
-    ``` Java title="ExceptionHandlerControllerAdvice.java" hl_lines="32-33 84-95 104-115 124-134"
+    ```java title="ExceptionHandlerControllerAdvice.java" hl_lines="32-33 84-95 104-115 124-134"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java
     ```
