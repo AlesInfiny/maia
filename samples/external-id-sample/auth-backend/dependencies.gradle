@@ -21,7 +21,7 @@ ext {
         spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
 
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.5.4",
+        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
         spring_security_test : 'org.springframework.security:spring-security-test',
 
         lombok : "org.projectlombok:lombok",
