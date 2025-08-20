@@ -72,7 +72,7 @@ const remove = () => {
               type="number"
               min="1"
               max="999"
-              class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+              class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
               :disabled="!available"
             />
           </label>
@@ -80,7 +80,7 @@ const remove = () => {
         <div class="basis-2/5">
           <button
             type="button"
-            class="mt-2 mr-2 w-12 rounded border border-blue-500 bg-transparent py-2 font-semibold text-blue-700 hover:bg-blue-500 hover:text-white disabled:cursor-not-allowed disabled:border-blue-500 disabled:bg-transparent disabled:text-blue-700"
+            class="mt-2 mr-2 w-12 rounded-sm border border-blue-500 bg-transparent py-2 font-semibold text-blue-700 hover:bg-blue-500 hover:text-white disabled:cursor-not-allowed disabled:border-blue-500 disabled:bg-transparent disabled:text-blue-700"
             :disabled="isUpdateDisabled"
             @click="update()"
           >

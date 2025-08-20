@@ -88,7 +88,7 @@ const login = async () => {
       <div class="form-group mt-8">
         <button
           type="button"
-          class="rounded-sm bg-blue-800 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
+          class="rounded-xs bg-blue-800 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
           :disabled="isInvalid()"
           @click="login"
         >

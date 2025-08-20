@@ -98,7 +98,7 @@ unauthorizedErrorEventBus.on((payload) => {
             </div>
             <div class="relative ml-3">
               <Bars3Icon
-                class="h-14 w-14 rounded-sm px-2 py-2 text-white hover:bg-blue-800"
+                class="h-14 w-14 rounded-xs px-2 py-2 text-white hover:bg-blue-800"
                 @click="showLoginMenu = !showLoginMenu"
               ></Bars3Icon>
               <div

@@ -558,7 +558,7 @@ const updateItemAsync = async () => {
             <!-- サンプルアプリは必ず Admin ロールを持つユーザーとしてログインするようになっているので、削除ボタンが disable になることはありません。-->
             <button
               type="button"
-              class="rounded-sm bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500/50"
+              class="rounded-xs bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500/50"
               :disabled="!isInRole(Roles.ADMIN)"
               @click="showDeleteConfirm = true"
             >
@@ -567,7 +567,7 @@ const updateItemAsync = async () => {
 
             <button
               type="button"
-              class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
+              class="rounded-xs bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
               :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
               @click="showUpdateConfirm = true"
             >

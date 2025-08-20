@@ -109,7 +109,7 @@ onMounted(async () => {
         </tbody>
       </table>
       <button
-        class="mx-auto w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 lg:col-end-3"
+        class="mx-auto w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 lg:col-end-3"
         type="submit"
         @click="checkout()"
       >

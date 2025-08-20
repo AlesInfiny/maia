@@ -153,7 +153,7 @@ watch([selectedCategory, selectedBrand], async () => {
                 </p>
                 <div class="mt-4 flex items-center justify-center">
                   <button
-                    class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                    class="rounded-sm bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                     type="submit"
                     @click="addBasket(item.id)"
                   >

@@ -54,7 +54,7 @@ const signIn = () => {
             v-model="email"
             type="text"
             placeholder="email"
-            class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+            class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
           />
         </div>
         <p class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
@@ -67,7 +67,7 @@ const signIn = () => {
             v-model="password"
             type="password"
             placeholder="password"
-            class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+            class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
           />
         </div>
 
@@ -76,7 +76,7 @@ const signIn = () => {
       <div class="form-group mt-8">
         <button
           type="button"
-          class="w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
+          class="w-full rounded-sm bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
           :disabled="isInvalid()"
           @click="signIn"
         >
