@@ -65,7 +65,7 @@ const login = async () => {
             type="text"
             placeholder="ユーザー名"
             autocomplete="username"
-            class="border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-gray-500 focus:outline-none"
+            class="border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-gray-500 focus:outline-hidden"
           />
         </div>
         <p class="px-8 py-2 text-sm text-red-800">{{ userNameError }}</p>
@@ -79,7 +79,7 @@ const login = async () => {
             type="password"
             placeholder="パスワード"
             autocomplete="current-password"
-            class="border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-gray-500 focus:outline-none"
+            class="border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-gray-500 focus:outline-hidden"
           />
         </div>
 
@@ -88,7 +88,7 @@ const login = async () => {
       <div class="form-group mt-8">
         <button
           type="button"
-          class="rounded bg-blue-800 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500 disabled:opacity-50"
+          class="rounded-sm bg-blue-800 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500 disabled:opacity-50"
           :disabled="isInvalid()"
           @click="login"
         >
