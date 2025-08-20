@@ -6,11 +6,11 @@
 
 ## このサンプルについて
 
-Azure Active Directory B2C （以降、 Azure AD B2C ）によるユーザー認証の簡単な実装サンプルを提供します。
+Microsoft Entra External ID （以降、 Entra External ID ）によるユーザー認証の簡単な実装サンプルを提供します。
 
-本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
+本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Entra External ID を利用する場合のコード例として利用できます。
 また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
-これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
+これにより、 SPA アプリケーションに Entra External ID を利用したユーザー認証機能を組み込めます。
 
 ## 前提
 
@@ -27,7 +27,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 - Java 21
 - Node.js v22.17.1
-- Visual Studio Code 1.102.2
+- Visual Studio Code 1.102.3
 
 ## サンプルの構成
 
@@ -44,7 +44,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 バックエンドアプリケーションは Spring Boot 、フロントエンドアプリケーションは Vue.js (TypeScript) で作成されています。
 また、 AlesInfiny Maia のサンプルアプリケーション Dressca をベースとしており、フォルダー構造、参照する OSS 、名前空間等は Dressca に準拠しています。
 
-## バックエンドアプリケーションの構成
+### バックエンドアプリケーションの構成
 
 バックエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
 
@@ -74,14 +74,14 @@ auth-backend
 　 └ build.gradle ....................................... web 層で利用するライブラリの依存関係を記載する設定ファイル
 ```
 
-## フロントエンドアプリケーションの構成
+### フロントエンドアプリケーションの構成
 
 フロントエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
 
 ```text
 auth-frontend
 └ app
-  ├ .env.dev .............................. Azure AD B2C への接続情報を記載する設定ファイル
+  ├ .env.dev .............................. Entra External ID への接続情報を記載する設定ファイル
   ├ env.d.ts .............................. 環境変数の型定義をする TypeScript ファイル
   └ src
   　 ├ App.vue ............................ 画面。本サンプルでは画面は App.vue のみ。
@@ -109,25 +109,25 @@ auth-frontend
 
 ## サンプルのシナリオ
 
-本サンプルは、ユーザー認証が必要な Web API に対し、 Azure AD B2C を利用してその機能を提供します。
+本サンプルは、ユーザー認証が必要な Web API に対し、 Entra External ID を利用してその機能を提供します。
 本サンプルでは、ユーザー認証が必要な Web API と、認証が不要な Web API の両方を実装しています。
 これにより、認証を必要とする Web API を選択して保護できます。
 本サンプルのシナリオは以下の通りです。
 
 1. サンプルを起動すると、ブラウザーに SPA のトップ画面が表示されます。
 1. 現在時刻を取得する Web API が認証機能なしで呼び出され、トップ画面に表示されます。
-1. トップ画面の「 `ログイン` 」をクリックすると、 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
+1. トップ画面の「 `ログイン` 」をクリックすると、 Entra External ID の `サインイン` 画面がポップアップで表示されます。
 1. `サインイン` または `サインアップ` が成功すると、ポップアップが閉じます。
 1. 成功した認証情報に基づき、ユーザー固有の ID （JWT における sub の値）を取得する Web API が呼び出され、トップ画面に結果が表示されます。
 1. トップ画面の「`更新`」をクリックすると、現在時刻を再度取得します。本 Web API は、引き続き認証機能なしで呼び出されます。
-
-※本サンプルでは `サインイン` と `サインアップ` のシナリオのみ提供しており、 `サインアウト` は存在しません。
+1. トップ画面の「`ログアウト`」をクリックすると、 Entra External ID の `サインアウト` 画面がポップアップで表示されます。
+1. `サインアウト` が成功すると、ポップアップが閉じます。
 
 ## サンプルで実現している認証フロー
 
 本サンプルでは、 Microsoft 認証ライブラリ（ MSAL ）の使用によって、 [OAuth 2.0 承認コードフロー with PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) を実現しています。
 
-なお、以下の処理はフロントエンドの [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser) (JavaScript 用 Microsoft Authentication Library) によって行われます。
+なお、以下の処理はフロントエンドの MSAL.js (JavaScript 用 Microsoft Authentication Library) によって行われます。
 
 - code_verifier の生成・送信
 - code_challenge の生成・送信
@@ -137,9 +137,7 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-    - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
-    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
-    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
+    - [spring-boot-starter-oauth2-resource-server](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server)
 - フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
@@ -147,42 +145,51 @@ auth-frontend
 
 ## サンプルの動作方法
 
-本サンプルをローカルマシンで動作させるには、事前に Azure AD B2C のテナントを作成し、アプリケーションを登録する作業が必要です。
+本サンプルをローカルマシンで動作させるには、事前に Entra External ID のテナントを作成し、アプリケーションを登録する作業が必要です。
 
-### Azure AD B2C テナントの作成
+### Entra External ID テナントの作成
 
-1. [Microsoft のチュートリアル「 Azure AD B2C テナントを作成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#create-an-azure-ad-b2c-tenant) に従って、 [Azure ポータル](https://portal.azure.com/) にサインインし、 Azure AD B2C テナントを作成します。
-   - 「`初期ドメイン名`」をメモします。
-1. [Microsoft のチュートリアル「 B2C テナント ディレクトリを選択する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#select-your-b2c-tenant-directory) に従って、 B2C テナントディレクトリに切り替えます。
-1. [Microsoft のチュートリアル「 Azure AD B2C をお気に入りとして追加する (省略可能)」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-create-tenant#add-azure-ad-b2c-as-a-favorite-optional) に従って、 Azure ポータル上で「 Azure サービス」から「 Azure AD B2C 」を選択しお気に入りに登録します。
+1. [クイック スタート: Azure サブスクリプションを使用して外部テナントを作成する](https://learn.microsoft.com/ja-jp/entra/external-id/customers/quickstart-tenant-setup) に従って、[Microsoft Entra 管理センター](https://entra.microsoft.com/) にサインインし、 Entra External ID のテナントを作成します。
+    - 「`テナントサブドメイン`」（ドメイン名から `.onmicrosoft.com` を除いた部分）をメモします。
 
-### Azure AD B2C テナントを利用するアプリの登録（バックエンドアプリケーション）
+### Entra External ID テナントを利用するアプリの登録（バックエンドアプリケーション）
 
-1. [Microsoft のチュートリアル「 Azure Active Directory B2C テナントに Web API アプリケーションを追加する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga) に従い、バックエンドアプリケーションを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
-   - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
-1. [Microsoft のチュートリアル「スコープを構成する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#configure-scopes) に従って、アプリにスコープを追加します。
-   - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
-   - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
-1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+1. [アプリケーションを Microsoft Entra ID に登録する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app) に従って、バックエンドアプリケーション用のアプリを Entra External ID に登録します。
+
+    - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
+  　<!-- textlint-disable @textlint-ja/no-synonyms -->
+    - サポートされているアカウントの種類を、「この組織ディレクトリのみに含まれるアカウント」とします。
+    <!-- textlint-enable @textlint-ja/no-synonyms -->
+    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
+
+1. [委任されたアクセス許可 (スコープ) を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-web-api-dotnet-protect-app?tabs=aspnet-core#add-delegated-permissions-scopes) に従って、アプリにスコープを追加します。
+    - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
+    - 追加したスコープの名前を、ここでは「 `api.read` 」とします。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleWebAPI 」を選択します。
 1. 「概要」ブレードに表示された「 `アプリケーション ID の URI` 」をメモします。
 
-### Azure AD B2C テナントを利用するアプリの登録（フロントエンドアプリケーション）
+### Entra External ID テナントを利用するアプリの登録（フロントエンドアプリケーション）
 
-1. [Microsoft のチュートリアル「 SPA アプリケーションの登録」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/tutorial-register-spa#register-the-spa-application) に従って、フロントエンドアプリケーションを Azure AD B2C に登録します。
-   - 登録したアプリの名前を、ここでは「 `SampleSPA` 」とします。
-   - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
-   - 「暗黙的フロー」に関する設定は無視してください。
-1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
+1. [アプリケーションを Microsoft Entra ID に登録する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app) に従って、フロントエンドアプリケーション用のアプリを Entra External ID に登録します。
+    - 登録したアプリの名前を、ここでは「 `SampleSPA` 」とします。
+  　<!-- textlint-disable @textlint-ja/no-synonyms -->
+    - サポートされているアカウントの種類を、「この組織ディレクトリのみに含まれるアカウント」とします。
+    <!-- textlint-enable @textlint-ja/no-synonyms -->
+    - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleSPA 」を選択します。
-1. 「認証」ブレードを選択し、「シングルページアプリケーション」の「リダイレクト URI」に `http://localhost` を追加します。
-1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
+1. 「認証」ブレードを選択し、「リダイレクト URI の追加」をクリックします。「シングルページアプリケーション」を選択し、リダイレクト URI に「 `http://localhost:5173` 」を設定します。
+1. [Web API にアクセスするためのアクセス許可を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-configure-app-access-web-apis#add-permissions-to-access-your-web-api) に従って、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 `api.read` 」へのアクセス許可を付与します。
+1. [管理者の同意を付与する (外部テナントのみ)](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app#grant-admin-consent-external-tenants-only) に従って、 SampleSPA に管理者の同意を付与します。
 
-### ユーザーフローの作成
+### ユーザーフローの作成と割り当て
 
-1. [Microsoft のチュートリアル「Azure Active Directory B2C でサインアップおよびサインイン フローを設定する」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-sign-up-and-sign-in-policy?pivots=b2c-user-flow) に従って、`サインアップとサインイン`ユーザーフローを作成します。
-   - ここでは追加した`サインアップとサインイン`ユーザーフローの名前を「 `signupsignin1` 」とします（ユーザーフローの名前には自動的に『`B2C_1_`』プレフィックスが付与されます）。
+1. [外部テナント アプリのサインアップおよびサインイン ユーザー フローを作成する](https://learn.microsoft.com/ja-jp/entra/external-id/customers/how-to-user-flow-sign-up-sign-in-customers) に従って、ユーザーフローを作成します。
+    - ここでは追加した `サインアップとサインイン` ユーザーフローの名前を「 `signupsignin1` 」とします。
+1. [アプリケーションをユーザー フローに追加する](https://learn.microsoft.com/ja-jp/entra/external-id/customers/how-to-user-flow-add-application) に従って、 SampleSPA を signupsignin1 に追加します。
 
 ### 設定情報の記入
 
@@ -192,78 +199,82 @@ auth-frontend
 1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```properties
-    spring.cloud.azure.active-directory.b2c.enabled=true
-    spring.cloud.azure.active-directory.b2c.base-uri=http://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/
-    spring.cloud.azure.active-directory.b2c.credential.client-id=[SampleWebAPI のクライアント ID]
-    spring.cloud.azure.active-directory.b2c.profile.tenant-id=[SampleWebAPI のテナント ID]
-    spring.cloud.azure.active-directory.b2c.user-flows.sign-up-or-sign-in=B2C_1_[追加した「サインアップとサインインのユーザーフローの名前」。本サンプルの既定では signupsignin1]
+    spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{tenant-id}.ciamlogin.com/{tenant-id}/v2.0
+    spring.security.oauth2.resourceserver.jwt.audiences=client-id
     cors.allowed.origins=[フロントエンドアプリケーションのベースとなるURL。本サンプルの既定では http://localhost:5173]
     ```
 
 #### フロントエンドアプリケーションの設定
 
 1. `auth-frontend\.env.dev` を開きます。
-1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+1. 以下のように設定情報を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
-    ```properties
-    VITE_ADB2C_USER_FLOW_SIGN_IN=[B2C_1_[『サインアップとサインイン』のユーザフロー名]。 本サンプルでは B2C_1_signupsignin1]
-    VITE_ADB2C_SIGN_IN_URI=https://[初期ドメイン名].b2clogin.com/[初期ドメイン名].onmicrosoft.com/B2C_1_[『サインアップとサインイン』のユーザフロー名]
-    VITE_ADB2C_AUTHORITY_DOMAIN=[初期ドメイン名].b2clogin.com
-    VITE_ADB2C_SCOPE=[APIの公開で設定したApplication ID URI]/[Web APIに追加したスコープの名前]
-    VITE_ADB2C_APP_CLIENT_ID=[クライアントアプリケーションのクライアントID]
-    VITE_ADB2C_APP_URI=[クライアントアプリケーションのURI。本サンプルの既定では http://localhost:5173]
-    ```
+```properties
+VITE_EXTERNAL_ID_AUTHORITY_DOMAIN=https://[テナントサブドメイン].ciamlogin.com/
+VITE_EXTERNAL_ID_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
+VITE_EXTERNAL_ID_APP_CLIENT_ID=[SampleSPA のクライアント ID]
+VITE_EXTERNAL_ID_APP_URI=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
+```
 
 ### 動作確認
 
 1. VS Code で `auth-backend` のフォルダーへ移動し、ターミナルで以下を実行します。
 
-    ```bash
+    ```shell
     ./gradlew build
     ./gradlew web:bootRunDev
     ```
 
 1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開き、ターミナルで以下を実行します。
 
-    ```bash
+    ```shell
     npm ci
     npm run dev:app
     ```
 
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
-1. 画面の「 `ログイン` 」をクリックします。 Azure AD B2C の `サインイン` 画面がポップアップで表示されます。
-1. 「 Sign up now 」リンクをクリックします。
-1. 使用可能なメールアドレスを入力し、「 Send verification code 」をクリックします。
-1. 上の手順で入力したメールアドレス宛に Verification code が送信されるので、画面に入力して「 Verify code 」をクリックします。
-1. 画面に新しいパスワード等の必要事項を入力し、「 Create 」をクリックします。
-1. `サインイン` が成功し、画面に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードで `サインイン` できるようになります。
+1. 画面の「 `ログイン` 」をクリックします。 Entra External ID のサインイン画面がポップアップで表示されます。
+1. 「アカウントをお持ちでない場合、作成できます」リンクをクリックします。
+1. 使用可能なメールアドレスを入力し、「次へ」をクリックします。
+1. 上の手順で入力したメールアドレス宛にアカウント確認コードが送信されるので、画面に入力して「次へ」をクリックします。
+1. 画面に新しいパスワード等の必要事項を入力し、「次へ」をクリックします。
+1. サインインが成功し、画面上に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードでサインインできるようになります。
+1. 画面上の「 `ログアウト` 」をクリックします。 Entra External ID のサインアウト画面がポップアップで表示されます。
+1. サインアウトするアカウントをクリックします。
+1. サインアウトに成功すると、画面上から「ユーザー ID 」 の表示が消え、「 `ログイン` 」が表示されます。
 
-Azure AD B2C に追加したユーザーは、以下の手順で削除できます。
+Entra External ID に追加したユーザーは、以下の手順で削除できます。
 
-1. Azure ポータルのお気に入りから「 Azure AD B2C 」を選択します。
-1. 「ユーザー」ブレードを選択します。
+1. Microsoft Entra 管理センターの「ユーザー」ブレードを選択します。
 1. 対象のユーザーをチェックし、画面上部から「削除」を選択します。
+
+### テストの実行
+
+バックエンドアプリケーションには、認証が必要な Web API および認証不要な Web API の両方についての結合テストが実装されています。
+以下を実行してください。
+
+```shell
+./gradlew web:test
+```
 
 ## アプリケーションへの認証機能の組み込み
 
-本サンプルのコードを既存のアプリケーションへコピーすることで、 Azure AD B2C の認証機能を組み込むことができます。
+本サンプルのコードを既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
 なお、対象のアプリケーションは AlesInfiny Maia のクライアントサイドレンダリングアプリケーションです。
 
 ### バックエンドアプリケーション
 
 1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `application.properties` を設定、ライブラリを追加します。
 1. `dependencies.gradle`を開きます。
-1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
     ```gradle
     ext {
       springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.22.0]"
 
       supportDependencies = [
-        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
-        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c",
-        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
+        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
       ]
     }
     ```
@@ -273,29 +284,128 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     dependencies {
-      implementation supportDependencies.spring_cloud_azure_starter
-      implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
-    }
-
-    dependencyManagement {
-      imports {
-        mavenBom supportDependencies.spring_cloud_azure_dependencies
-      }
+      implementation supportDependencies.spring_boot_starter_oauth2_resource_server
     }
     ```
 
-1. `\web\src\main\java\com\[プロジェクト名]\web\security` フォルダーを作成し、サンプルの以下のコードをコピーします。
-   - UserIdTHreadContextFilter.java
-   - WebSecurityConfiguration.java
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
+   本例では、 OrderController.java に対して設定した例を示します。
 
     ```java
     @RestController
-    public class ExampleController {
-      // 認証が必要な Web API に対し、PreAuthorizeアノテーションを付与
+    @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
+    @AllArgsConstructor
+    @RequestMapping("/api/orders")
+    public class OrderController {
+
+      @Autowired
+      private OrderApplicationService orderApplicationService;
+      @Autowired
+      private ShoppingApplicationService shoppingApplicationService;
+
+      @Autowired
+      private ProblemDetailsFactory problemDetailsFactory;
+
+      @Autowired
+      private AbstractStructuredLogger apLog;
+
+      /**
+      * 注文情報を取得します。
+      * 
+      * @param orderId 注文 ID 。
+      * @return 注文情報。
+      */
+      @Operation(
+          summary = "注文情報を取得します。",
+          description = "注文情報を取得します。",
+          security = {
+              @SecurityRequirement(name = "Bearer")}) // OpenAPI 仕様書に Bearer トークンが必要な旨を設定します
+      @ApiResponses(
+          value = {
+              @ApiResponse(
+                  responseCode = "200",
+                  description = "成功。",
+                  content = @Content(
+                      mediaType = "application/json",
+                      schema = @Schema(implementation = OrderResponse.class))),
+              @ApiResponse(
+                  responseCode = "404",
+                  description = "注文 ID が存在しません。",
+                  content = @Content(
+                      mediaType = "application/problem+json",
+                      schema = @Schema(implementation = ProblemDetail.class)))
+          })
+      @GetMapping("{orderId}")
+      @CrossOrigin // CrossOrigin リクエストを有効化します
+      @PreAuthorize(value = "isAuthenticated()") // 認証が必要な旨のアノテーションを追加します
+      public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
+          HttpServletRequest req) {
+        String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+
+        try {
+          Order order = orderApplicationService.getOrder(orderId, buyerId);
+          OrderResponse orderDto = OrderMapper.convert(order);
+          return ResponseEntity.ok().body(orderDto);
+        } catch (OrderNotFoundException e) {
+          apLog.info(e.getMessage());
+          apLog.debug(ExceptionUtils.getStackTrace(e));
+          ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
+              e.getExceptionId(),
+              e.getLogMessageValue(), e.getFrontMessageValue());
+          ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
+              errorBuilder,
+              CommonExceptionIdConstants.E_BUSINESS,
+              HttpStatus.NOT_FOUND);
+          return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+              .body(problemDetail);
+        }
+      }
+
+      /**
+      * 買い物かごに登録されている商品を注文します。
+      * 
+      * @param postOrderInput 注文に必要な配送先などの情報。
+      * @return なし。
+      */
+      @Operation(
+          summary = "買い物かごに登録されている商品を注文します。",
+          description = "買い物かごに登録されている商品を注文します。",
+          security = {
+              @SecurityRequirement(name = "Bearer")})
+      @ApiResponses(
+          value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+              @ApiResponse(
+                  responseCode = "400",
+                  description = "リクエストエラー。",
+                  content = @Content(
+                      mediaType = "application/problem+json",
+                      schema = @Schema(implementation = ProblemDetail.class))),
+              @ApiResponse(
+                  responseCode = "500",
+                  description = "サーバーエラー。",
+                  content = @Content(
+                      mediaType = "application/problem+json",
+                      schema = @Schema(implementation = ProblemDetail.class)))})
+      @PostMapping
+      @CrossOrigin
       @PreAuthorize(value = "isAuthenticated()")
-      public ResponseEntity<ExampleResponse> get() throws Exception {
-        // 以下に、コントローラーの詳細を実装
+      public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
+          HttpServletRequest req) {
+        String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+        Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
+            postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
+        ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
+        Order order;
+        try {
+          order = shoppingApplicationService.checkout(buyerId, shipToAddress);
+        } catch (EmptyBasketOnCheckoutException e) {
+          // ここでは発生しえないので、システムエラーとする
+          throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+        }
+
+        String requestUri = req.getRequestURL().toString();
+        return ResponseEntity.created(URI.create(requestUri + "/" + order.getId())).build();
       }
     }
     ```
@@ -319,17 +429,16 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
 1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
 1. ターミナルで `npm install @azure/msal-browser` を実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
-1. `auth-frontend\.env.dev` に記述した Azure AD B2C の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
+1. `auth-frontend\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
-    ```ts
+    ```typescript
     interface ImportMetaEnv {
       // 認証に関係のないプロパティは省略
-      readonly VITE_ADB2C_USER_FLOW_SIGN_IN: string;
-      readonly VITE_ADB2C_AUTHORITY_DOMAIN: string;
-      readonly VITE_ADB2C_SCOPE: string;
-      readonly VITE_ADB2C_APP_CLIENT_ID: string;
-      readonly VITE_ADB2C_APP_URI: string;
+      readonly VITE_EXTERNAL_ID_AUTHORITY_DOMAIN: string
+      readonly VITE_EXTERNAL_ID_SCOPE: string
+      readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
+      readonly VITE_EXTERNAL_ID_APP_URI: string
     }
     ```
 
@@ -337,12 +446,40 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 1. `src\services\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
     - authentication-services.ts
     - authentication-config.ts
-1. `src\store\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
-    - authentication.ts
-1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-    AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
+1. `src\store\authentication` フォルダーに対し、以下のように変更します。
 
-    ```ts
+    ```typescript
+    import { authenticationService } from '@/services/authentication/authentication-service'
+    import { defineStore } from 'pinia'
+
+    export const useAuthenticationStore = defineStore('authentication', {
+      state: () => ({
+        authenticated: false as boolean,
+      }),
+      actions: {
+        async signIn() {
+          await authenticationService.signInEntraExternalId()
+        },
+        updateAuthenticated(isAuthenticated: boolean) {
+          this.authenticated = isAuthenticated
+        },
+        async signOut() {
+          await authenticationService.signOutEntraExternalId()
+        },
+      },
+      getters: {
+        isAuthenticated(state) {
+          return state.authenticated
+        },
+      },
+    })
+    ```
+
+1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
+   AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
+   本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
+
+    ```typescript
     import axios from "axios";
     import * as apiClient from "@/generated/api-client";
     import { authenticationService } from '@/services/authentication/authentication-service';
@@ -363,54 +500,171 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
       // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
       if (await authenticationService.isAuthenticated()) {
-        const token = await authenticationService.getTokenAzureADB2C();
+        const token = await authenticationService.getTokenEntraExternalId();
         config.accessToken = token;
       }
     }
 
-    export async function getExampleApi(): Promise<apiClient.ExampleApi> {
-      const config = createConfig();
-
+    export async function ordersApi(): Promise<apiClient.OrdersApi> {
+      const config = createConfig()
       // 認証が必要な API では、addTokenAsync を呼び出します。
-      await addTokenAsync(config);
-      const exampleApi = new apiClient.ExampleApi(config, '', axiosInstance);
-      return exampleApi;
-    }
-
-    export async function getServerTimeApi(): Promise<apiClient.ServerTimeApi> {
-      const config = createConfig();
-
-      // 認証が不要な API では、addTokenAsync は呼び出しません。
-      const serverTimeApi = new apiClient.ServerTimeApi(
-        config,
-        '',
-        axiosInstance
-      );
-      return serverTimeApi;
+      await addTokenAsync(config)
+      const orderApi = new apiClient.OrdersApi(config, '', axiosInstance)
+      return orderApi
     }
     ```
 
 1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
-    ```ts
+    ```vue
     <script setup lang="ts">
-    import { authenticationService } from '@/services/authentication/authentication-service';
-    import { useAuthenticationStore } from '@/stores/authentication/authentication';
-    const authenticationStore = useAuthenticationStore();
+    import { authenticationService } from '@/services/authentication/authentication-service'
+    import { useAuthenticationStore } from '@/stores/authentication/authentication'
+    const authenticationStore = useAuthenticationStore()
 
     const signIn = async () => {
-      await authenticationService.signInAzureADB2C();
-    };
+      await authenticationService.signInEntraExternalId()
+    }
+    const signOut = async () => {
+      await authenticationService.signOutEntraExternalId()
+    }
     </script>
     ```
 
-1. `ログイン` 画面へのリンクを以下のように記述します（クリック時に `signIn` メソッドが動作すれば `button` である必要はありません）。
+1. `LoginView.vue` は Microsoft Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
+1. `authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
 
-    ```html
-    <button v-if="!authenticationStore.isAuthenticated" @click="signIn()">ログイン</button>
+    ```typescript
+    import type { Router, RouteRecordName } from 'vue-router'
+    import { useAuthenticationStore } from '@/stores/authentication/authentication'
+
+    export const authenticationGuard = (router: Router) => {
+      router.beforeEach(async (to, from) => {
+        const authenticationStore = useAuthenticationStore()
+
+        const orderingPaths: (RouteRecordName | null | undefined)[] = [
+          'ordering/checkout',
+          'ordering/done',
+        ]
+        if (orderingPaths.includes(to.name) && !from.name) {
+          return { name: 'catalog' }
+        }
+
+        if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
+          try {
+            await authenticationStore.signIn()
+          } catch (error) {
+            return false
+          }
+        }
+        return true
+      })
+    }
     ```
 
-1. `npm install` を実行し、その他のパッケージをインストールします。
+1. `router` フォルダーの `index.ts` から、 `authenticationRoutes` を削除します。
+
+1. `ログイン` 画面、 `ログアウト` 画面へのリンクを以下のように記述します（クリック時に `signIn` メソッド、 `signOut` メソッドが動作すれば `button` である必要はありません）。
+
+    ```vue
+    <script setup lang="ts">
+    import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
+    import { storeToRefs } from 'pinia'
+    import { useAuthenticationStore } from '@/stores/authentication/authentication'
+    import NotificationToast from './components/common/NotificationToast.vue'
+    import { BrowserAuthError } from '@azure/msal-browser'
+    import { useCustomErrorHandler } from './shared/error-handler/custom-error-handler'
+
+    const authenticationStore = useAuthenticationStore()
+    const { isAuthenticated } = storeToRefs(authenticationStore)
+    const customErrorHandler = useCustomErrorHandler()
+
+    const signIn = async () => {
+      try {
+        await authenticationStore.signIn()
+      } catch (error) {
+        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+        if (error instanceof BrowserAuthError) {
+          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+          customErrorHandler.handle(error, () => {
+            // eslint-disable-next-line no-console
+            console.info('ユーザーが認証処理を中断しました。')
+            authenticationStore.updateAuthenticated(false)
+          })
+        } else {
+          customErrorHandler.handle(error, () => {
+            // eslint-disable-next-line no-alert
+            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+          })
+        }
+      }
+    }
+
+    const signOut = async () => {
+      try {
+        await authenticationStore.signOut()
+      } catch (error) {
+        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+        if (error instanceof BrowserAuthError) {
+          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+          customErrorHandler.handle(error, () => {
+            // eslint-disable-next-line no-console
+            console.info('ユーザーが認証処理を中断しました。')
+          })
+        } else {
+          customErrorHandler.handle(error, () => {
+            // eslint-disable-next-line no-alert
+            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+          })
+        }
+      }
+    }
+    </script>
+
+    <template>
+      <div class="z-2">
+        <NotificationToast />
+      </div>
+      <div class="flex flex-col h-screen justify-between z-0">
+        <header>
+          <nav
+            aria-label="Jump links"
+            class="text-lg font-medium text-gray-900 py-5 ring-1 ring-gray-900 ring-opacity-5 shadow-sm"
+          >
+            <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
+              <div>
+                <router-link class="text-2xl" to="/"> Dressca </router-link>
+              </div>
+              <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
+                <router-link to="/basket">
+                  <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
+                </router-link>
+                <button v-if="!isAuthenticated" @click="signIn">ログイン</button>
+                <button v-if="isAuthenticated" @click="signOut">ログアウト</button>
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        <main class="mb-auto">
+          <router-view />
+        </main>
+
+        <footer class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500">
+          <p>&copy; 2023 - Dressca - Privacy</p>
+        </footer>
+      </div>
+    </template>
+    ```
+
+1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `custom-error-handler.ts` に以下を追加します。
+
+    ```typescript
+    if (error instanceof BrowserAuthError) {
+      callback()
+      return
+    }
+    ```
 
 ## 参照記事
 
