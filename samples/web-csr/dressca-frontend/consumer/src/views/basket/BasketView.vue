@@ -229,7 +229,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <span v-if="!isEmpty()">
           <button
             data-testId="orderButton"
-            class="mt-4 mr-4 w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300 disabled:opacity-50"
+            class="mt-4 mr-4 w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300/50"
             type="submit"
             :disabled="getDeletedItemIds.length > 0"
             @click="order()"

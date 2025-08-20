@@ -72,7 +72,7 @@ const remove = () => {
               type="number"
               min="1"
               max="999"
-              class="placeholder-opacity-50 w-full border-b px-4 py-2 placeholder-gray-500 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+              class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
               :disabled="!available"
             />
           </label>
