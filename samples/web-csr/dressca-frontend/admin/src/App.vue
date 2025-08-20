@@ -56,7 +56,7 @@ unauthorizedErrorEventBus.on((payload) => {
 })
 </script>
 <template>
-  <div class="z-20 fixed">
+  <div class="fixed z-20">
     <NotificationToast
       v-model:show="showToast"
       v-model:message="message"
@@ -69,7 +69,7 @@ unauthorizedErrorEventBus.on((payload) => {
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <router-link
             to="/"
-            class="flex flex-shrink-0 items-center text-xl font-medium rounded-md px-3 text-white hover:bg-blue-800"
+            class="flex flex-shrink-0 items-center rounded-md px-3 text-xl font-medium text-white hover:bg-blue-800"
             >Dressca 管理</router-link
           >
           <div class="hidden sm:ml-6 sm:block">
@@ -98,7 +98,7 @@ unauthorizedErrorEventBus.on((payload) => {
             </div>
             <div class="relative ml-3">
               <Bars3Icon
-                class="h-14 w-14 px-2 py-2 rounded text-white hover:bg-blue-800"
+                class="h-14 w-14 rounded px-2 py-2 text-white hover:bg-blue-800"
                 @click="showLoginMenu = !showLoginMenu"
               ></Bars3Icon>
               <div

@@ -77,9 +77,9 @@ onMounted(async () => {
     </span>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
-    <div class="mx-2 grid grid-cols-2 lg:grid-cols-3 lg:gap-x-12 flex items-center">
+    <div class="mx-2 flex grid grid-cols-2 items-center lg:grid-cols-3 lg:gap-x-12">
       <table
-        class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
+        class="mt-2 table-fixed border-b border-t lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
       >
         <tbody>
           <tr>
@@ -109,16 +109,16 @@ onMounted(async () => {
         </tbody>
       </table>
       <button
-        class="lg:col-end-3 mx-auto w-36 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
+        class="mx-auto w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 lg:col-end-3"
         type="submit"
         @click="checkout()"
       >
         注文を確定する
       </button>
-      <table class="lg:col-span-3 table-fixed mt-2 lg:mt-4 border-t border-b lg:border">
+      <table class="mt-2 table-fixed border-b border-t lg:col-span-3 lg:mt-4 lg:border">
         <tbody>
           <tr>
-            <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
+            <td rowspan="5" class="w-24 border-r pl-2">お届け先</td>
             <td class="pl-2">{{ getAddress.fullName }}</td>
           </tr>
           <tr>
@@ -136,18 +136,18 @@ onMounted(async () => {
         </tbody>
       </table>
     </div>
-    <div class="mt-8 mx-2">
+    <div class="mx-2 mt-8">
       <div
         v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
-        class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+        class="mt-4 flex grid grid-cols-5 items-center lg:grid-cols-8"
       >
         <div class="col-span-4 lg:col-span-5">
           <div class="grid grid-cols-2">
             <img
               :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
               :alt="item.catalogItem?.name"
-              class="h-[150px] pointer-events-none"
+              class="pointer-events-none h-[150px]"
             />
             <div class="ml-2">
               <p>{{ item.catalogItem?.name }}</p>
