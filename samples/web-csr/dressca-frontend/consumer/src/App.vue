@@ -34,7 +34,7 @@ unauthorizedErrorEventBus.on(() => {
     <header>
       <nav
         aria-label="Jump links"
-        class="py-5 text-lg font-medium text-gray-900 shadow-sm ring-1 ring-gray-900 ring-opacity-5"
+        class="ring-opacity-5 py-5 text-lg font-medium text-gray-900 shadow-sm ring-1 ring-gray-900"
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>

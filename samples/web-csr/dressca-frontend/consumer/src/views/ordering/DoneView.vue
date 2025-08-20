@@ -76,7 +76,7 @@ onMounted(async () => {
     <div class="container mx-auto my-4 max-w-4xl">
       <div class="mx-2 flex grid grid-cols-1 items-center lg:grid-cols-3 lg:gap-x-12">
         <table
-          class="mt-2 table-fixed border-b border-t lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
+          class="mt-2 table-fixed border-t border-b lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
         >
           <tbody>
             <tr>
@@ -105,7 +105,7 @@ onMounted(async () => {
             </tr>
           </tbody>
         </table>
-        <table class="mt-2 table-fixed border-b border-t lg:col-span-2 lg:mt-4 lg:border">
+        <table class="mt-2 table-fixed border-t border-b lg:col-span-2 lg:mt-4 lg:border">
           <tbody>
             <tr>
               <td rowspan="5" class="w-24 border-r pl-2">お届け先</td>
@@ -157,7 +157,7 @@ onMounted(async () => {
       </div>
       <div class="flex justify-between">
         <button
-          class="ml-4 mt-4 w-36 rounded bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
+          class="mt-4 ml-4 w-36 rounded bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
           @click="goCatalog()"
         >

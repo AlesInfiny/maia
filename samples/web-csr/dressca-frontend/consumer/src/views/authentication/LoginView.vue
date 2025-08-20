@@ -54,7 +54,7 @@ const signIn = () => {
             v-model="email"
             type="text"
             placeholder="email"
-            class="w-full border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+            class="placeholder-opacity-50 w-full border-b px-4 py-2 placeholder-gray-500 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
           />
         </div>
         <p class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
@@ -67,7 +67,7 @@ const signIn = () => {
             v-model="password"
             type="password"
             placeholder="password"
-            class="w-full border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+            class="placeholder-opacity-50 w-full border-b px-4 py-2 placeholder-gray-500 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
           />
         </div>
 

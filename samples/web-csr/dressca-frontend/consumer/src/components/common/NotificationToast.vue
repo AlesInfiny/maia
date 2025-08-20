@@ -61,7 +61,7 @@ watch(message, (newMessage) => {
       </div>
       <div class="mx-auto w-11/12 shrink-0 justify-center text-base text-white">
         <div class="ml-2 text-sm font-bold">{{ message }}</div>
-        <div class="ml-4 mr-2 shrink-0">
+        <div class="mr-2 ml-4 shrink-0">
           <div v-if="status !== 0">
             <div class="mt-2 text-sm font-bold text-stone-800 underline">ステータスコード</div>
             <div class="ml-2">{{ status }}</div>

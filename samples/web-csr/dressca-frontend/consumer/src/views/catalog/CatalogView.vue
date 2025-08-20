@@ -142,7 +142,7 @@ watch([selectedCategory, selectedBrand], async () => {
       <div class="flex justify-center">
         <div class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-6">
           <div v-for="item in getItems" :key="item.id">
-            <div class="w-240 mx-auto h-80 justify-center p-2 md:border-2 lg:border-2">
+            <div class="mx-auto h-80 w-240 justify-center p-2 md:border-2 lg:border-2">
               <img class="h-[180px]" :src="getFirstAssetUrl(item.assetCodes)" :alt="item.name" />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">

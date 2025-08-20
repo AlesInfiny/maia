@@ -193,7 +193,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
           ></BasketItem>
         </div>
         <hr class="mt-4" />
-        <div class="mr-2 mt-4 text-right">
+        <div class="mt-4 mr-2 text-right">
           <table class="inline-block border-separate">
             <tbody>
               <tr>
@@ -220,7 +220,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
       </div>
       <div class="flex justify-between">
         <button
-          class="ml-4 mt-4 w-36 rounded bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
+          class="mt-4 ml-4 w-36 rounded bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
           @click="goCatalog()"
         >
@@ -229,7 +229,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <span v-if="!isEmpty()">
           <button
             data-testId="orderButton"
-            class="mr-4 mt-4 w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300 disabled:opacity-50"
+            class="mt-4 mr-4 w-36 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300 disabled:opacity-50"
             type="submit"
             :disabled="getDeletedItemIds.length > 0"
             @click="order()"

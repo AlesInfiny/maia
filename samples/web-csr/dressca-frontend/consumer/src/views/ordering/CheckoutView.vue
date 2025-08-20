@@ -79,7 +79,7 @@ onMounted(async () => {
   <div class="container mx-auto my-4 max-w-4xl">
     <div class="mx-2 flex grid grid-cols-2 items-center lg:grid-cols-3 lg:gap-x-12">
       <table
-        class="mt-2 table-fixed border-b border-t lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
+        class="mt-2 table-fixed border-t border-b lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
       >
         <tbody>
           <tr>
@@ -115,7 +115,7 @@ onMounted(async () => {
       >
         注文を確定する
       </button>
-      <table class="mt-2 table-fixed border-b border-t lg:col-span-3 lg:mt-4 lg:border">
+      <table class="mt-2 table-fixed border-t border-b lg:col-span-3 lg:mt-4 lg:border">
         <tbody>
           <tr>
             <td rowspan="5" class="w-24 border-r pl-2">お届け先</td>
