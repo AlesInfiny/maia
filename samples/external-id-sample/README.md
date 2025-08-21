@@ -271,8 +271,6 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 
     ```gradle
     ext {
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.22.0]"
-
       supportDependencies = [
         spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
       ]
