@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.JoinedAnnouncementMapper">
+  <sql id="selectAnnouncementsIncludeContents">
+    SELECT
+      ANNOUNCEMENT.ID,
+      ANNOUNCEMENT.CATEGORY,
+      ANNOUNCEMENT.POST_DATE_TIME,
+      ANNOUNCEMENT.EXPIRE_DATE_TIME,
+      ANNOUNCEMENT.DISPLAY_PRIORITY,
+      ANNOUNCEMENT.CREATED_AT,
+      ANNOUNCEMENT.CHANGED_AT,
+      ANNOUNCEMENT.IS_DELETED,
+      CONTENT.ID AS CONTENT_ID,
+      CONTENT.ANNOUNCEMENT_ID,
+      CONTENT.LANGUAGE_CODE,
+      CONTENT.TITLE,
+      CONTENT.MESSAGE,
+      CONTENT.LINK_URL
+    FROM ANNOUNCEMENT
+    LEFT JOIN ANNOUNCEMENT_CONTENT AS CONTENT ON (
+      ANNOUNCEMENT.ID = CONTENT.ANNOUNCEMENT_ID
+    )
+  </sql>
+
+  <resultMap id="announcementIncludeContentResultMap" type="com.dressca.cms.announcement.applicationcore.dto.Announcement">
+    <id property="id" column="ID"/>
+    <result property="category" column="CATEGORY"/>
+    <result property="postDateTime" column="POST_DATE_TIME"/>
+    <result property="expireDateTime" column="EXPIRE_DATE_TIME"/>
+    <result property="displayPriority" column="DISPLAY_PRIORITY"/>
+    <result property="createdAt" column="CREATED_AT"/>
+    <result property="changedAt" column="CHANGED_AT"/>
+    <result property="isDeleted" column="IS_DELETED"/>
+    <collection property="contents" ofType="com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent" resultMap="contentResultMap"/>
+  </resultMap>
+
+  <resultMap id="contentResultMap" type="com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent">
+    <id property="id" column="CONTENT_ID"/>
+    <result property="announcementId" column="ANNOUNCEMENT_ID"/>
+    <result property="languageCode" column="LANGUAGE_CODE"/>
+    <result property="title" column="TITLE"/>
+    <result property="message" column="MESSAGE"/>
+    <result property="linkUrl" column="LINK_URL"/>
+  </resultMap>
+
+  <select id="findByPageNumberAndPageSize" resultMap="announcementIncludeContentResultMap">
+    <include refid="selectAnnouncementsIncludeContents"/>
+    WHERE ANNOUNCEMENT.IS_DELETED = FALSE
+    ORDER BY ANNOUNCEMENT.POST_DATE_TIME DESC
+    LIMIT #{pageSize} OFFSET #{offset}
+  </select>
+
+</mapper>

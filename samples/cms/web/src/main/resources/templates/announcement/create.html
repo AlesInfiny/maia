@@ -1,0 +1,200 @@
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <th:block layout:fragment="content">
+    <div class="container mt-4">
+      <h2 class="mb-4">お知らせメッセージ登録</h2>
+      <form
+        th:object="${viewModel}"
+        method="post"
+        th:action="@{/announcements/create}"
+      >
+        <!-- 基本情報部 -->
+        <section class="mb-4">
+          <h3 class="h5 mb-3">基本情報</h3>
+          <div class="row mb-3 align-items-end">
+            <div class="col-lg-3 col-md-6 mb-2">
+              <label for="postDate" class="form-label">掲載開始日時</label>
+              <div class="input-group">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="postDate"
+                  name="announcement.postDate"
+                  th:field="*{announcement.postDate}"
+                />
+                <input
+                  type="time"
+                  class="form-control"
+                  id="postTime"
+                  name="announcement.postTime"
+                  th:field="*{announcement.postTime}"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-2">
+              <label for="expireDate" class="form-label">掲載終了日時</label>
+              <div class="input-group">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="expireDate"
+                  name="announcement.expireDate"
+                  th:field="*{announcement.expireDate}"
+                />
+                <input
+                  type="time"
+                  class="form-control"
+                  id="expireTime"
+                  name="announcement.expireTime"
+                  th:field="*{announcement.expireTime}"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-2">
+              <label for="category" class="form-label">カテゴリー</label>
+              <input
+                type="text"
+                class="form-control"
+                id="category"
+                name="announcement.category"
+                th:field="*{announcement.category}"
+              />
+            </div>
+            <div class="col-lg-3 col-md-6 mb-2">
+              <label for="displayPriority" class="form-label">表示優先度</label>
+              <select
+                class="form-select"
+                th:field="*{announcement.displayPriority}"
+              >
+                <option
+                  th:each="entry : ${displayPriorityMap.entrySet()}"
+                  th:value="${entry.key}"
+                  th:text="${entry.value}"
+                ></option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- お知らせメッセージ部＋アクション部 横並び -->
+        <div class="row mb-4">
+          <div class="col-lg-8 col-md-7 mb-3">
+            <section>
+              <div class="d-flex align-items-center mb-2">
+                <h3 class="h5 mb-0 me-3">お知らせメッセージ</h3>
+                <input
+                  type="submit"
+                  name="addLanguageToCreate"
+                  value="別の言語を追加"
+                  class="btn btn-outline-primary btn-sm"
+                />
+              </div>
+              <div
+                th:if="${#lists.isEmpty(viewModel.contents)}"
+                class="alert alert-info"
+              >
+                お知らせメッセージは登録されていません
+              </div>
+              <div
+                th:each="content, iterStat : ${viewModel.contents}"
+                th:if="${!#lists.isEmpty(viewModel.contents)}"
+                class="card mb-3"
+              >
+                <div class="card-body">
+                  <div class="d-flex justify-content-end mb-2">
+                    <button
+                      type="submit"
+                      name="deleteLanguageFromCreate"
+                      th:value="${content.languageCode}"
+                      class="btn btn-outline-danger btn-sm"
+                    >
+                      削除
+                    </button>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-4 mb-2">
+                      <label
+                        th:for="'contents[' + ${iterStat.index} + '].languageCode'"
+                        class="form-label"
+                        >言語</label
+                      >
+                      <select
+                        class="form-select"
+                        th:name="'contents[' + ${iterStat.index} + '].languageCode'"
+                      >
+                        <option
+                          th:each="languageCode : ${languageCodeMap}"
+                          th:value="${languageCode.key}"
+                          th:selected="${content.languageCode == languageCode.key}"
+                          th:text="${languageCode.value}"
+                        ></option>
+                      </select>
+                    </div>
+                    <div class="col-md-8 mb-2">
+                      <label
+                        th:for="'contents[' + ${iterStat.index} + '].title'"
+                        class="form-label"
+                        >タイトル</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        th:name="'contents[' + ${iterStat.index} + '].title'"
+                        th:value="${content.title}"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      th:for="'contents[' + ${iterStat.index} + '].message'"
+                      class="form-label"
+                      >表示メッセージ</label
+                    >
+                    <textarea
+                      class="form-control"
+                      rows="3"
+                      th:name="'contents[' + ${iterStat.index} + '].message'"
+                      th:text="${content.message}"
+                    ></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      th:for="'contents[' + ${iterStat.index} + '].linkUrl'"
+                      class="form-label"
+                      >リンク先 URL</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      th:name="'contents[' + ${iterStat.index} + '].linkUrl'"
+                      th:value="${content.linkUrl}"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="col-lg-4 col-md-5 mb-3">
+            <section>
+              <h3 class="h5 mb-3">アクション</h3>
+              <div class="d-flex flex-column align-items-start gap-3">
+                <input
+                  type="submit"
+                  name="create"
+                  value="お知らせメッセージの登録"
+                  class="btn btn-primary w-100"
+                />
+                <a th:href="@{/announcements}" class="mt-2"
+                  >お知らせメッセージ管理画面に戻る</a
+                >
+              </div>
+            </section>
+          </div>
+        </div>
+      </form>
+    </div>
+  </th:block>
+</html>

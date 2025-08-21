@@ -1,0 +1,87 @@
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <th:block layout:fragment="content">
+    <div class="container mt-4">
+      <div
+        class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap"
+      >
+        <h2 class="mb-0">お知らせメッセージ一覧</h2>
+        <div
+          class="d-flex align-items-center gap-3 flex-wrap w-100 w-md-auto"
+          style="max-width: 100%"
+        >
+          <div
+            class="text-secondary"
+            th:text="${viewModel.totalCount} + '件中 ' + ${viewModel.startIndex} + '件 - ' + ${viewModel.endIndex} + '件を表示'"
+            style="white-space: nowrap"
+          ></div>
+          <nav aria-label="ページネーション">
+            <ul class="pagination mb-0">
+              <li
+                class="page-item"
+                th:classappend="${!viewModel.hasPrevious} ? ' disabled'"
+              >
+                <a
+                  class="page-link"
+                  th:href="${viewModel.hasPrevious} ? @{/announcements(pageNumber=${viewModel.pageNumber-1}, pageSize=${viewModel.pageSize})} : null"
+                  aria-label="前へ"
+                  tabindex="-1"
+                  >&lt;</a
+                >
+              </li>
+              <li
+                class="page-item"
+                th:classappend="${!viewModel.hasNext} ? ' disabled'"
+              >
+                <a
+                  class="page-link"
+                  th:href="${viewModel.hasNext} ? @{/announcements(pageNumber=${viewModel.pageNumber+1}, pageSize=${viewModel.pageSize})} : null"
+                  aria-label="次へ"
+                  tabindex="-1"
+                  >&gt;</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <a th:href="@{/announcements/create}" class="btn btn-primary ms-2"
+            >新規お知らせメッセージ作成</a
+          >
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">タイトル</th>
+            <th scope="col">掲載日</th>
+            <th scope="col">カテゴリー</th>
+            <th scope="col">表示優先度</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            th:each="announcementWithContents : ${viewModel.announcementsWithContents}"
+          >
+            <td th:text="${announcementWithContents.contents[0].title}"></td>
+            <td
+              th:text="${announcementWithContents.announcement.postDate} + ' - ' + ${announcementWithContents.announcement.expireDate}"
+            ></td>
+            <td
+              th:text="${announcementWithContents.announcement.category}"
+            ></td>
+            <td
+              th:text="${displayPriorityMap[announcementWithContents.announcement.displayPriority]}"
+            ></td>
+            <td>
+              <a href="#" class="btn btn-sm btn-outline-primary me-1">編集</a>
+              <a href="#" class="btn btn-sm btn-outline-danger">削除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </th:block>
+</html>
