@@ -54,15 +54,36 @@ public class AnnouncementController {
    * @return お知らせメッセージ管理画面。
    */
   @GetMapping()
-  public String index(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-      @RequestParam(value = "pageSize", required = false) Integer pageSize, Model model) {
+  public String index(@RequestParam(value = "pageNumber", required = false) String pageNumber,
+      @RequestParam(value = "pageSize", required = false) String pageSize, Model model) {
+
+    Integer pageNumberInt = null;
+    Integer pageSizeInt = null;
+
+    try {
+      if (pageNumber != null) {
+        pageNumberInt = Integer.valueOf(pageNumber);
+      }
+    } catch (NumberFormatException e) {
+      pageNumberInt = null;
+    }
+
+    try {
+      if (pageSize != null) {
+        pageSizeInt = Integer.valueOf(pageSize);
+      }
+    } catch (NumberFormatException e) {
+      pageSizeInt = null;
+    }
+
     PagedAnnouncementList pagedAnnouncementList =
-        announcementApplicationService.getPagedAnnouncementList(pageNumber, pageSize);
+        announcementApplicationService.getPagedAnnouncementList(pageNumberInt, pageSizeInt);
+
     List<AnnouncementWithContentsViewModel> announcementWithContentsModels = new ArrayList<>();
+
     for (Announcement announcement : pagedAnnouncementList.getAnnouncements()) {
-      List<AnnouncementContent> contents = announcement.getContents();
-      List<AnnouncementContentViewModel> contentModels =
-          contents.stream().map(AnnouncementViewModelTranslator::createContentViewModel).toList();
+      List<AnnouncementContentViewModel> contentModels = announcement.getContents().stream()
+          .map(AnnouncementViewModelTranslator::createContentViewModel).toList();
       AnnouncementViewModel announcementModel =
           AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement);
       announcementWithContentsModels
