@@ -51,7 +51,16 @@
           >
         </div>
       </div>
-      <table class="table table-hover">
+      <div
+        th:if="${#lists.isEmpty(viewModel.announcementsWithContents)}"
+        class="alert alert-info"
+      >
+        登録されているお知らせメッセージはありません。
+      </div>
+      <table
+        class="table table-hover"
+        th:if="${!#lists.isEmpty(viewModel.announcementsWithContents)}"
+      >
         <thead class="table-light">
           <tr>
             <th scope="col">タイトル</th>
@@ -82,6 +91,64 @@
           </tr>
         </tbody>
       </table>
+      <nav aria-label="ページネーション" class="mt-3">
+        <ul class="pagination justify-content-center mb-0">
+          <!-- 1ページ目 -->
+          <li
+            class="page-item"
+            th:classappend="${viewModel.pageNumber == 1} ? ' active disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="${viewModel.pageNumber == 1} ? null : @{/announcements(pageNumber=1, pageSize=${viewModel.pageSize})}"
+              >1</a
+            >
+          </li>
+
+          <!-- 省略記号(前方) -->
+          <li
+            class="page-item disabled"
+            th:if="${viewModel.pageNumber - 3 > 1}"
+          >
+            <span class="page-link">…</span>
+          </li>
+
+          <!-- 中間ページ -->
+          <li
+            class="page-item"
+            th:each="i : ${#numbers.sequence(viewModel.pageNumber - 2, viewModel.pageNumber + 2)}"
+            th:if="${i > 1 && i < viewModel.lastPageNumber}"
+            th:classappend="${viewModel.pageNumber == i} ? ' active disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="${viewModel.pageNumber == i} ? null : @{/announcements(pageNumber=${i}, pageSize=${viewModel.pageSize})}"
+              th:text="${i}"
+            ></a>
+          </li>
+
+          <!-- 省略記号(後方) -->
+          <li
+            class="page-item disabled"
+            th:if="${viewModel.pageNumber + 3 < viewModel.lastPageNumber}"
+          >
+            <span class="page-link">…</span>
+          </li>
+
+          <!-- 最後のページ（2ページ以上ある場合のみ） -->
+          <li
+            class="page-item"
+            th:if="${viewModel.lastPageNumber > 1}"
+            th:classappend="${viewModel.pageNumber == viewModel.lastPageNumber} ? ' active disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="${viewModel.pageNumber == viewModel.lastPageNumber} ? null : @{/announcements(pageNumber=${viewModel.lastPageNumber}, pageSize=${viewModel.pageSize})}"
+              th:text="${viewModel.lastPageNumber}"
+            ></a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </th:block>
 </html>
