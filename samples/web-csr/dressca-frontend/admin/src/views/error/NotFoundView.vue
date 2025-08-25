@@ -8,7 +8,7 @@
           アクセスしようとしたページは、削除または移動されたか、現在利用できない状態です。<br />
           必要な情報が見つからない場合は、管理者にご連絡いただくか、システム内のメニューから再度お試しください。
         </p>
-        <div class="flex space-x-4 text-lg">
+        <div class="flex gap-4 text-lg">
           <RouterLink to="/" class="text-blue-600 underline hover:text-blue-900">
             トップページに戻る
           </RouterLink>

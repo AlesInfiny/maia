@@ -40,7 +40,7 @@ unauthorizedErrorEventBus.on(() => {
           <div>
             <router-link class="text-2xl" to="/"> Dressca </router-link>
           </div>
-          <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
+          <div class="flex gap-5 sm:gap-5 lg:gap-12">
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>

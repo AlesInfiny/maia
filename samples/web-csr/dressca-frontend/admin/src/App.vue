@@ -73,7 +73,7 @@ unauthorizedErrorEventBus.on((payload) => {
             >Dressca 管理</router-link
           >
           <div class="hidden sm:ml-6 sm:block">
-            <div class="flex space-x-4">
+            <div class="flex gap-4">
               <router-link
                 to="/catalog/items"
                 class="rounded-md px-3 py-2 text-base font-medium text-white hover:bg-blue-800"
