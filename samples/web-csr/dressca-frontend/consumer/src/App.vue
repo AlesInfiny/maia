@@ -30,17 +30,17 @@ unauthorizedErrorEventBus.on(() => {
   <div class="z-2">
     <NotificationToast />
   </div>
-  <div class="flex flex-col h-screen justify-between z-0">
+  <div class="z-0 flex h-screen flex-col justify-between">
     <header>
       <nav
         aria-label="Jump links"
-        class="text-lg font-medium text-gray-900 py-5 ring-1 ring-gray-900 ring-opacity-5 shadow-sm"
+        class="py-5 text-lg font-medium text-gray-900 shadow-xs ring-1 ring-gray-900/5"
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
             <router-link class="text-2xl" to="/"> Dressca </router-link>
           </div>
-          <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
+          <div class="flex gap-5 sm:gap-5 lg:gap-12">
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
@@ -54,7 +54,7 @@ unauthorizedErrorEventBus.on(() => {
       <router-view />
     </main>
 
-    <footer class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500">
+    <footer class="mx-auto w-full border-t bg-black px-24 py-4 text-base text-gray-500">
       <p>&copy; 2023 - Dressca - Privacy</p>
     </footer>
   </div>

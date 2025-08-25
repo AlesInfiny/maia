@@ -51,17 +51,17 @@ watch(message, (newMessage) => {
   >
     <div
       v-if="show"
-      class="fixed inline-flex items-center w-5/6 inset-x-0 mx-auto mt-2 p-4 text-gray-500 bg-red-500 rounded-lg shadow"
+      class="fixed inset-x-0 mx-auto mt-2 inline-flex w-5/6 items-center rounded-lg bg-red-500 p-4 text-gray-500 shadow-sm"
     >
       <div
-        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg"
+        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500"
       >
-        <ExclamationCircleIcon class="w-5 h-5" />
+        <ExclamationCircleIcon class="h-5 w-5" />
         <span class="sr-only">Error icon</span>
       </div>
-      <div class="w-11/12 text-base text-white justify-center flex-shrink-0 mx-auto">
+      <div class="mx-auto w-11/12 shrink-0 justify-center text-base text-white">
         <div class="ml-2 text-sm font-bold">{{ message }}</div>
-        <div class="ml-4 mr-2 flex-shrink-0">
+        <div class="mr-2 ml-4 shrink-0">
           <div v-if="status !== 0">
             <div class="mt-2 text-sm font-bold text-stone-800 underline">ステータスコード</div>
             <div class="ml-2">{{ status }}</div>
@@ -76,14 +76,14 @@ watch(message, (newMessage) => {
           </div>
           <div v-if="detail" class="">
             <div class="text-sm font-bold text-stone-800 underline">エラー詳細</div>
-            <div class="flex justify-between max-h-20 overflow-y-auto items-start">
+            <div class="flex max-h-20 items-start justify-between overflow-y-auto">
               <div class="ml-2 text-xs">{{ detail }}</div>
               <button
                 type="button"
-                class="mr-2 h-8 w-8 bg-red-100 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center flex-shrink-0"
+                class="mr-2 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
                 @click="copy(detail)"
               >
-                <ClipboardDocumentIcon class="w-5 h-5" />
+                <ClipboardDocumentIcon class="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -91,10 +91,10 @@ watch(message, (newMessage) => {
       </div>
       <button
         type="button"
-        class="h-8 w-8 bg-red-100 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center flex-shrink-0"
+        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
         @click="close"
       >
-        <XMarkIcon class="w-5 h-5" />
+        <XMarkIcon class="h-5 w-5" />
       </button>
     </div>
   </transition>
