@@ -27,7 +27,7 @@ export default {
          * Tailwind CSS が提供する関数をホワイトリストに登録します。
          * https://tailwindcss.com/docs/functions-and-directives#functions
          **/
-        ignoreFunctions: ['alpha','spacing'],
+        ignoreFunctions: ['alpha', 'spacing'],
       },
     ],
   },
