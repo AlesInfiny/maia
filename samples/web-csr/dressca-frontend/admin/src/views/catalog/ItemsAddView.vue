@@ -212,7 +212,7 @@ onMounted(async () => {
       </div>
       <button
         type="button"
-        class="rounded-xs bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
+        class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
         :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
         @click="AddItem()"
       >
