@@ -320,7 +320,17 @@ Stylelint および、標準の設定や vue ファイルで使用する設定�
 ルートプロジェクトの直下に設定ファイル .stylelintrc.js を作成し、設定を記述します。
 
 ```javascript title=".stylelintrc.js"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.stylelintrc.js
+export default {
+  extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue'],
+  ignoreFiles: ['dist/**/*'],
+  overrides: [
+    {
+      files: ['**/*.vue'],
+      /** Vue ファイルの <style> ブロック内を Lint するための設定です。*/
+      customSyntax: 'postcss-html',
+    },
+  ],
+}
 ```
 
 各ワークスペースでは、ルートプロジェクトの設定ファイルを継承し、必要に応じて設定を追加します。
@@ -336,10 +346,6 @@ export default {
 `extends`
 
 :   既存の構成を拡張します。
-
-`rules`
-
-:   使用するルールを宣言します。
 
 `ignoreFiles`
 
