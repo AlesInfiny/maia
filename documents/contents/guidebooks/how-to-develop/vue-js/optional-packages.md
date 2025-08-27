@@ -51,21 +51,9 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js で非同期通信するためのプロミスベースの HTTP クライアント（[インストール方法](create-api-client-code.md#install-axios)）
 
-- [autoprefixer :material-open-in-new:](https://autoprefixer.github.io/){ target=_blank }
-
-    ベンダープレフィックスを付与するプラグイン（[インストール方法](css.md#install-tailwind-css)）
-
 - <!-- cspell: disable-line -->[openapi-generator :material-open-in-new:](https://github.com/OpenAPITools/openapi-generator){ target=_blank }
 
     Web API 仕様からクライアントコードの自動生成（[インストール方法](create-api-client-code.md#install-open-api-generator)）
-
-- [PostCSS :material-open-in-new:](https://github.com/postcss/postcss){ target=_blank }
-
-    CSS の最適化（[インストール方法](css.md#install-tailwind-css)）
-
-- [postcss-nesting :material-open-in-new:](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting){ target=_blank }
-
-    スタイルルールを互いに入れ子にするためのプラグイン（[インストール方法](css.md#install-tailwind-css)）
 
 - [Stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
 
@@ -79,10 +67,6 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Stylelint の .vue ファイル向け推奨設定（[インストール方法](static-verification-and-format.md#install-stylelint)）
 
-- [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
-
-    CSS フレームワーク（[インストール方法](css.md#install-tailwind-css)）
-
 - [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/){ target=_blank }
 
     Vue.js 用のリアルタイムバリデーションコンポーネントライブラリ（[インストール方法](input-validation.md#install-packages)）
@@ -94,3 +78,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 - [Vue I18n :material-open-in-new:](https://vue-i18n.intlify.dev/){ target=_blank }
 
     Vue.js アプリケーションでメッセージを外部ファイルで一元管理したり、多言語対応するためのライブラリ（[インストール方法](input-validation.md#install-packages)）
+
+- [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
+
+    CSS フレームワーク（[インストール方法](css.md#install-tailwind-css)）
