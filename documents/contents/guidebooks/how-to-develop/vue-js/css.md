@@ -7,7 +7,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 AlesInfiny Maia OSS Edition では、特定の CSS フレームワークを採用することを推奨しているわけではありません。
 本章では、一例として Tailwind CSS を導入する手順を紹介しますが、実際の開発プロジェクトでは、プロジェクトの特性に応じた技術を選定してください。
-Tailwind CSS を使用しないプロジェクトの場合、本章の手順は実施する必要がありません。
+Tailwind CSS を使用しないプロジェクトの場合、本章の手順は実行する必要がありません。
 
 ## Tailwind CSS {#tailwind-css}
 
@@ -27,7 +27,7 @@ npm install - D tailwindcss @tailwindcss/vite
 
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) を実行すると、デフォルトでは　`./src/assets/base.css` と `./src/assets/main.css` の 2 つの CSS ファイルが作成されます。
 サンプルアプリケーションでは base.css に統一します。
-main.css を削除し、base.css を次のように書き換えます。
+main.css を削除し、 base.css を次のように書き換えます。
 
 ```css title="base.css"
 /* Tailwind CSS は 外部からのインポートではなく Vite のプラグインでバンドルするので、 Stylelintで URL 形式に自動修正されないように無効化します */
@@ -41,7 +41,7 @@ main.css を削除し、base.css を次のように書き換えます。
 import '@/assets/base.css'
 ```
 
-Tailwind CSS 用のプラグインを使用するように、Vite の設定ファイルを更新します。
+Tailwind CSS のプラグインを使用するために、 Vite の設定ファイルを更新します。
 次のように vite.config.ts を変更します。
 
 ```typescript title="vite.config.ts" hl_lines="1 4"
@@ -52,7 +52,7 @@ export default defineConfig(({ mode }) => {
 ```
 
 ワークスペースの直下で下記のコマンドを実行し、正常にビルドできることを確認してください。
-`./dist/assets/` 配下 に CSS ファイルが出力されます。
+`./dist/assets/` 配下に CSS ファイルが出力されます。
 
 ```shell
 npm run build
@@ -79,8 +79,7 @@ npm run build
 npm run dev
 ```
 
-ターミナルに表示される URL にアクセスして、
-青色の AlesInfiny の文字列が下線つきで表示されていることを確認してください。
+ターミナルに表示される URL へアクセスして、青色の AlesInfiny の文字列が下線つきで表示されていることを確認してください。
 
 デフォルトで作成された CSS ファイルを削除したことで、デフォルトのアプリケーションの表示にはスタイル崩れが起きていますが、問題ありません。
 
@@ -134,7 +133,7 @@ export default {
 }
 ```
 
-ワークスペースの直下で Stylelint を実行し、正常に実行できることを確認してください。
+ワークスペースの直下で Stylelint を実行し、正常に終了することを確認してください。
 
 ```shell
 npm run stylelint:ci
@@ -143,7 +142,7 @@ npm run stylelint:ci
 ### Tailwind CSS 用の Prettier の設定 {#settings-stylelint-for-tailwind-css}
 
 Tailwind CSS のユーティリティクラスの順序は開発者によってバラつきが出やすいので、 Prettier によってフォーマットします。
-公式のプラグイン[prettier-plugin-tailwindcss :material-open-in-new:](https://github.com/tailwindlabs/prettier-plugin-tailwindcss){ target=_blank }をインストールします。
+公式のプラグイン [prettier-plugin-tailwindcss :material-open-in-new:](https://github.com/tailwindlabs/prettier-plugin-tailwindcss){ target=_blank }をインストールします。
 ワークスペース直下で、下記のコマンドを実行します。
 
 ```shell
@@ -168,7 +167,7 @@ export default config
 
 ```
 
-ワークスペースの直下で Prettier を実行し、正常に実行できることを確認してください。
+ワークスペースの直下で Prettier を実行し、正常に終了することを確認してください。
 
 ```shell
 npm run format:ci

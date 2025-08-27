@@ -56,7 +56,8 @@ Visual Studio Code の推奨プラグインである [EditorConfig for Visual St
 
 ## Prettier {#prettier}
 
-Prettier は [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。ただし、追加で mono-repo 構成で使用するための設定をします。
+Prettier は [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+ただし、 mono-repo 構成で使用するための追加の設定をします。
 
 ### Prettier の設定 {#settings-prettier}
 
