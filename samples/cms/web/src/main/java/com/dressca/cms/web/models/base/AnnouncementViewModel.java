@@ -43,8 +43,6 @@ public class AnnouncementViewModel {
   @NotNull
   private Integer displayPriority;
 
-  @NotNull
-  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private OffsetDateTime createdAt;
   private OffsetDateTime changedAt;
   private Boolean isDeleted;

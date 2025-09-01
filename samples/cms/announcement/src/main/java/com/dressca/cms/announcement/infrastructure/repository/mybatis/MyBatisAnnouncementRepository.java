@@ -4,13 +4,15 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
+import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity.AnnouncementEntity;
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity.AnnouncementEntityExample;
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper.AnnouncementMapper;
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.JoinedAnnouncementMapper;
+import com.dressca.cms.announcement.infrastructure.repository.translator.AnnouncementEntityTranslator;
 import lombok.AllArgsConstructor;
 
 /**
- * お知らせメッセージのリポジトリの実装クラスです。
+ * お知らせメッセージのリポジトリです。
  */
 @Repository
 @AllArgsConstructor
@@ -30,5 +32,11 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   public List<Announcement> findByPageNumberAndPageSize(int pageNumber, int pageSize) {
     int offset = pageSize * (pageNumber - 1);
     return joinedMapper.findByPageNumberAndPageSize(pageSize, offset);
+  }
+
+  @Override
+  public int add(Announcement announcement) {
+    AnnouncementEntity entity = AnnouncementEntityTranslator.createAnnouncementEntity(announcement);
+    return mapper.insert(entity);
   }
 }

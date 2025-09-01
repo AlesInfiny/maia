@@ -22,4 +22,12 @@ public interface AnnouncementRepository {
    * @return 条件に一致するお知らせメッセージのリスト。
    */
   public List<Announcement> findByPageNumberAndPageSize(int pageNumber, int pageSize);
+
+  /**
+   * お知らせメッセージを追加します。
+   * 
+   * @param announcement 追加するお知らせメッセージ。
+   * @return 追加した行数。
+   */
+  public int add(Announcement announcement);
 }

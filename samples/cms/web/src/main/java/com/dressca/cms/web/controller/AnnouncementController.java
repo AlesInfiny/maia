@@ -3,7 +3,9 @@ package com.dressca.cms.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConsta
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
+import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
 import com.dressca.cms.web.constants.DisplayPriorityConstants;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
@@ -26,7 +29,9 @@ import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 /**
@@ -142,6 +147,7 @@ public class AnnouncementController {
    * 
    * @return
    */
+  @PostMapping("create")
   public String store(
       @Validated(AnnouncementStoreGroup.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       BindingResult result, Model model) {
@@ -155,8 +161,71 @@ public class AnnouncementController {
         AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
     List<AnnouncementContent> contents =
         contentViewModels.stream().map(AnnouncementViewModelTranslator::createContent).toList();
-    UUID id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
+    UUID id = null;
+    try {
+      id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
+    } catch (AnnouncementValidationException e) {
+      return "announcement/content";
+    }
     createSession.clear();
     return "redirect:/announcements/" + id + "/edit";
   }
+
+  /**
+   * お知らせメッセージ登録画面上で言語を追加します。
+   *
+   * @param announcementId お知らせメッセージの ID。
+   * @return お知らせメッセージの登録画面。
+   */
+  @PostMapping(path = "create", params = "addLanguageToCreate")
+  public String addLanguageToCreate() {
+    final Announcement announcement = createSession.getAnnouncement();
+    final List<AnnouncementContent> contents = new ArrayList<>(announcement.getContents());
+
+    final Set<String> existingLanguageCodeSet = contents.stream()
+        .map(AnnouncementContent::getLanguageCode).collect(Collectors.toSet());
+
+    for (String languageCode : LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES) {
+      if (!existingLanguageCodeSet.contains(languageCode)) {
+        final AnnouncementContent content = new AnnouncementContent();
+        content.setAnnouncementId(announcement.getId());
+        content.setLanguageCode(languageCode);
+        contents.add(content);
+        break;
+      }
+      announcement.setContents(contents);
+      createSession.setAnnouncement(announcement);
+    }
+    return "redirect:/announcements/create";
+  }
+
+  /**
+   * お知らせメッセージ登録画面上で言語を削除します。
+   *
+   * @param announcementId お知らせメッセージの ID。
+   * @param deleteLanguageCode 言語コード。
+   * @return お知らせメッセージの登録画面。
+   */
+  @PostMapping(path = "create", params = "deleteLanguageFromCreate")
+  public String deleteLanguageFromCreate(
+      @RequestParam("deleteLanguageFromCreate") String languageCode) {
+
+    createSession.getAnnouncement().getContents()
+        .removeIf(entity -> entity.getLanguageCode().equals(languageCode));
+
+    return "redirect:/announcements/create";
+  }
+
+
+  /**
+   * お知らせメッセージ編集画面を表示します。
+   * 
+   * @param announcementId お知らせメッセージの ID 。
+   * @return お知らせメッセージ編集画面。
+   */
+  @GetMapping("{announcementId}/edit")
+  public String edit(@PathVariable("announcementId") UUID announcementId) {
+    return "announcement/edit";
+  }
+
 }
