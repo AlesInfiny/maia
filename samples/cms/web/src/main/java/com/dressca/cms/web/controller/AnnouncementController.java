@@ -50,6 +50,11 @@ public class AnnouncementController {
     return DisplayPriorityConstants.DISPLAY_PRIORITY_MAP;
   }
 
+  @ModelAttribute("languageCodeMap")
+  public Map<String, String> languageCodeMap() {
+    return LanguageCodeConstants.LANGUAGE_CODE_MAP;
+  }
+
   /**
    * お知らせメッセージ管理画面を表示します。
    * 
@@ -67,14 +72,15 @@ public class AnnouncementController {
     PagedAnnouncementList pagedAnnouncementList =
         announcementApplicationService.getPagedAnnouncementList(pageNumberInt, pageSizeInt);
 
+    // ページングされたお知らせメッセージリストを、お知らせメッセージコンテンツ付のお知らせメッセージに変換します。
     List<AnnouncementWithContentsViewModel> announcementWithContentsModels =
-        pagedAnnouncementList.getAnnouncements().stream()
-            .map(announcement -> new AnnouncementWithContentsViewModel(
-                AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
-                announcement.getContents().stream()
-                    .map(AnnouncementViewModelTranslator::createContentViewModel)
-                    .toList()))
-            .toList();
+        pagedAnnouncementList.getAnnouncements().stream().map(announcement -> {
+          AnnouncementViewModel announcementModel =
+              AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement);
+          List<AnnouncementContentViewModel> contentModels = announcement.getContents().stream()
+              .map(AnnouncementViewModelTranslator::createContentViewModel).toList();
+          return new AnnouncementWithContentsViewModel(announcementModel, contentModels);
+        }).toList();
 
     AnnouncementListViewModel viewModel = new AnnouncementListViewModel(
         pagedAnnouncementList.getPageNumber(),
@@ -85,11 +91,10 @@ public class AnnouncementController {
         (pagedAnnouncementList.getPageNumber() - 1) * pagedAnnouncementList.getPageSize() + 1,
         Math.min(pagedAnnouncementList.getPageNumber() * pagedAnnouncementList.getPageSize(),
             pagedAnnouncementList.getTotalCount()));
+
     model.addAttribute("viewModel", viewModel);
     return "announcement/index";
   }
-
-
 
   /**
    * お知らせメッセージ登録画面を表示します。
@@ -102,23 +107,25 @@ public class AnnouncementController {
     if (createSession.getAnnouncement() == null) {
       createSession.setAnnouncement(createBlankAnnouncement());
     }
-
     Announcement announcement = createSession.getAnnouncement();
     AnnouncementCreateViewModel viewModel = new AnnouncementCreateViewModel(
         AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
         announcement.getContents().stream()
-            .map(AnnouncementViewModelTranslator::createContentViewModel)
-            .toList());
+            .map(AnnouncementViewModelTranslator::createContentViewModel).toList());
 
     model.addAttribute("viewModel", viewModel);
-    model.addAttribute("languageCodeMap", LanguageCodeConstants.LANGUAGE_CODE_MAP);
     return "announcement/create";
   }
+
 
   /**
    * お知らせメッセージを登録します。
    * 
-   * @return
+   * @param viewModel お知らせメッセージ登録画面のビューモデル。
+   * @param result バリデーションの結果。
+   * @param model モデル。
+   * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、 バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
+   * 
    */
   @PostMapping("create")
   public String store(
@@ -136,17 +143,17 @@ public class AnnouncementController {
     try {
       id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
     } catch (AnnouncementValidationException e) {
-      return "announcement/content";
+      return "announcement/create";
     }
     createSession.clear();
     return "redirect:/announcements/" + id + "/edit";
   }
 
   /**
-   * お知らせメッセージ登録画面上で言語を追加します。
-   *
-   * @param announcementId お知らせメッセージの ID。
-   * @return お知らせメッセージの登録画面。
+   * お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。
+   * 
+   * @param viewModel お知らせメッセージ登録画面のビューモデル。
+   * @return お知らせメッセージ登録画面。
    */
   @PostMapping(path = "create", params = "addLanguageToCreate")
   public String addLanguageToCreate(
@@ -159,8 +166,7 @@ public class AnnouncementController {
         AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
     List<AnnouncementContent> contents =
         new ArrayList<>(contentViewModels.stream()
-            .map(AnnouncementViewModelTranslator::createContent)
-            .toList());
+            .map(AnnouncementViewModelTranslator::createContent).toList());
 
     Set<String> existingLanguageCodeSet = contents.stream()
         .map(AnnouncementContent::getLanguageCode)
@@ -213,8 +219,6 @@ public class AnnouncementController {
     return "redirect:/announcements/create";
   }
 
-
-
   /**
    * お知らせメッセージ編集画面を表示します。
    * 
@@ -227,7 +231,10 @@ public class AnnouncementController {
   }
 
   /**
-   * 文字列をIntegerに変換するユーティリティ。変換できない場合はnullを返す。
+   * 文字列を Integer 型に変換します。
+   * 
+   * @param value Integer 型に変換したい文字列。
+   * @return Integer 型に変換された文字列。変換できなかった場合は null を返します。
    */
   private Integer parseInteger(String value) {
     try {
@@ -238,13 +245,15 @@ public class AnnouncementController {
   }
 
   /**
-   * 空のアナウンスメントを生成するユーティリティ。
+   * 空のお知らせメッセージを生成します。
+   * 
+   * @return 日本語のお知らせメッセージコンテンツを持つ、お知らせメッセージ。
    */
   private Announcement createBlankAnnouncement() {
     AnnouncementContent blankContent = new AnnouncementContent();
     blankContent.setLanguageCode("ja");
     Announcement blankAnnouncement = new Announcement();
-    blankAnnouncement.setContents(List.of(blankContent));
+    blankAnnouncement.setContents(new ArrayList<>(List.of(blankContent)));
     return blankAnnouncement;
   }
 

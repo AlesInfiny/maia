@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.dressca.cms.announcement.applicationcore.constants.ExceptionIdConstants;
 import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.constants.MessageIdConstants;
+import com.dressca.cms.announcement.applicationcore.constants.OperationTypeConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
@@ -147,7 +148,8 @@ public class AnnouncementApplicationService {
     }
 
     UUID historyId = Generators.timeBasedEpochGenerator().generate();
-    AnnouncementHistory history = createAnnouncementHistory(announcement, historyId, "admin", 1);
+    AnnouncementHistory history =
+        createAnnouncementHistory(announcement, historyId, "admin", OperationTypeConstants.CREATE);
     historyRepository.add(history);
 
     for (AnnouncementContent content : contents) {
