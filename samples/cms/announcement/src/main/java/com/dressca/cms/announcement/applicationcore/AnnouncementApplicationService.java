@@ -35,7 +35,6 @@ public class AnnouncementApplicationService {
 
   private final MessageSource messageSource;
   private final AbstractStructuredLogger apLog;
-
   private final AnnouncementRepository announcementRepository;
   private final AnnouncementContentRepository contentRepository;
   private final AnnouncementHistoryRepository historyRepository;
@@ -62,14 +61,12 @@ public class AnnouncementApplicationService {
     int totalCount = (int) announcementRepository.countByIsDeletedFalse();
     int lastPageNumber = (int) Math.ceil((double) totalCount / pageSize);
 
-
     if (pageNumber <= 0 || pageNumber > lastPageNumber) {
       pageNumber = 1;
     }
 
     List<Announcement> announcements =
         announcementRepository.findByPageNumberAndPageSize(pageNumber, pageSize);
-
 
     // お知らせメッセージコンテンツを言語コード順に並び替え、最優先の言語コードのコンテンツのみ持つようにします。
     for (Announcement announcement : announcements) {
@@ -81,8 +78,10 @@ public class AnnouncementApplicationService {
       }));
       announcement.setContents(List.of(contents.get(0)));
     }
+
     apLog.info(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_END, null,
         Locale.getDefault()));
+
     return new PagedAnnouncementList(pageNumber, pageSize, totalCount, announcements,
         lastPageNumber);
   }
