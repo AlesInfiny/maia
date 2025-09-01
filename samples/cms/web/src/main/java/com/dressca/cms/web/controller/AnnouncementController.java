@@ -181,6 +181,7 @@ public class AnnouncementController {
     }
 
     announcement.setContents(contents);
+
     createSession.setAnnouncement(announcement);
 
     return "redirect:/announcements/create";

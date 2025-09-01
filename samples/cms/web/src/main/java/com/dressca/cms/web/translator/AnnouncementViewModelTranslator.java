@@ -23,7 +23,6 @@ public class AnnouncementViewModelTranslator {
    */
   public static AnnouncementViewModel createAnnouncementViewModel(Announcement announcement) {
     AnnouncementViewModel viewModel = new AnnouncementViewModel();
-    Optional.ofNullable(announcement.getId()).ifPresent(viewModel::setId);
     Optional.ofNullable(announcement.getCategory()).ifPresent(viewModel::setCategory);
     OffsetDateTime postDateTime = announcement.getPostDateTime();
     if (postDateTime != null) {
@@ -36,9 +35,6 @@ public class AnnouncementViewModelTranslator {
       viewModel.setExpireTime(expireDateTime.toLocalTime());
     }
     Optional.ofNullable(announcement.getDisplayPriority()).ifPresent(viewModel::setDisplayPriority);
-    Optional.ofNullable(announcement.getCreatedAt()).ifPresent(viewModel::setCreatedAt);
-    Optional.ofNullable(announcement.getChangedAt()).ifPresent(viewModel::setChangedAt);
-    Optional.ofNullable(announcement.getIsDeleted()).ifPresent(viewModel::setIsDeleted);
     return viewModel;
   }
 
@@ -50,7 +46,6 @@ public class AnnouncementViewModelTranslator {
    */
   public static Announcement createAnnouncement(AnnouncementViewModel viewModel) {
     Announcement announcement = new Announcement();
-    Optional.ofNullable(viewModel.getId()).ifPresent(announcement::setId);
     Optional.ofNullable(viewModel.getCategory()).ifPresent(announcement::setCategory);
     LocalDate postDate = viewModel.getPostDate();
     LocalTime postTime = viewModel.getPostTime();
@@ -65,9 +60,6 @@ public class AnnouncementViewModelTranslator {
           .atZone(ZoneId.systemDefault()).toOffsetDateTime());
     }
     Optional.ofNullable(viewModel.getDisplayPriority()).ifPresent(announcement::setDisplayPriority);
-    Optional.ofNullable(viewModel.getCreatedAt()).ifPresent(announcement::setCreatedAt);
-    Optional.ofNullable(viewModel.getChangedAt()).ifPresent(announcement::setChangedAt);
-    Optional.ofNullable(viewModel.getIsDeleted()).ifPresent(announcement::setIsDeleted);
     return announcement;
   }
 
@@ -79,11 +71,10 @@ public class AnnouncementViewModelTranslator {
    */
   public static AnnouncementContentViewModel createContentViewModel(AnnouncementContent content) {
     AnnouncementContentViewModel viewModel = new AnnouncementContentViewModel();
-    Optional.ofNullable(content.getId()).ifPresent(viewModel::setId);
     Optional.ofNullable(content.getLanguageCode()).ifPresent(viewModel::setLanguageCode);
     Optional.ofNullable(content.getTitle()).ifPresent(viewModel::setTitle);
+    Optional.ofNullable(content.getMessage()).ifPresent(viewModel::setMessage);
     Optional.ofNullable(content.getLinkUrl()).ifPresent(viewModel::setLinkUrl);
-    Optional.ofNullable(content.getAnnouncementId()).ifPresent(viewModel::setAnnouncementId);
     return viewModel;
   }
 
@@ -95,8 +86,6 @@ public class AnnouncementViewModelTranslator {
    */
   public static AnnouncementContent createContent(AnnouncementContentViewModel viewModel) {
     AnnouncementContent content = new AnnouncementContent();
-    Optional.ofNullable(viewModel.getId()).ifPresent(content::setId);
-    Optional.ofNullable(viewModel.getAnnouncementId()).ifPresent(content::setAnnouncementId);
     Optional.ofNullable(viewModel.getLanguageCode()).ifPresent(content::setLanguageCode);
     Optional.ofNullable(viewModel.getTitle()).ifPresent(content::setTitle);
     Optional.ofNullable(viewModel.getMessage()).ifPresent(content::setMessage);

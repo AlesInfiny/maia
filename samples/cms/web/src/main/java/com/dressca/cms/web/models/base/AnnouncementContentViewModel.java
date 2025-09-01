@@ -1,7 +1,8 @@
 package com.dressca.cms.web.models.base;
 
-import java.util.UUID;
+import org.hibernate.validator.constraints.URL;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,14 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementContentViewModel {
-  private UUID id;
-  @NotNull
-  private UUID announcementId;
-  @NotNull
+  @NotNull(message = "言語を選択してください")
   private String languageCode;
-  @NotNull
+
+  @NotNull(message = "タイトルを入力してください")
+  @Size(max = 256, message = "タイトルは256文字以内で入力してください")
   private String title;
-  @NotNull
+
+  @NotNull(message = "表示メッセージを入力してください")
+  @Size(max = 512, message = "表示メッセージは512文字以内で入力してください")
   private String message;
+
+  @Size(max = 1024, message = "リンク先 URL は1024文字で入力してください")
+  @URL(message = "リンク先 URL はURLの形式で入力してください")
   private String linkUrl;
 }

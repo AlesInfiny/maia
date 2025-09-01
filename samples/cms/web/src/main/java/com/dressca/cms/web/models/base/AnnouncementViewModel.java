@@ -2,8 +2,6 @@ package com.dressca.cms.web.models.base;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,32 +16,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementViewModel {
-  @NotNull
-  private UUID id;
-
-  @Size(max = 128)
+  @Size(max = 128, message = "カテゴリーは128文字以内で入力してください")
   private String category;
 
-  @NotNull
+  @NotNull(message = "掲載開始日時を入力してください")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate postDate;
 
-  @NotNull
+  @NotNull(message = "掲載開始日時を入力してください")
   @DateTimeFormat(pattern = "HH:mm")
   private LocalTime postTime;
 
-  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate expireDate;
 
-  @NotNull
   @DateTimeFormat(pattern = "HH:mm")
   private LocalTime expireTime;
 
-  @NotNull
+  @NotNull(message = "表示優先度を選択してください")
   private Integer displayPriority;
-
-  private OffsetDateTime createdAt;
-  private OffsetDateTime changedAt;
-  private Boolean isDeleted;
 }
