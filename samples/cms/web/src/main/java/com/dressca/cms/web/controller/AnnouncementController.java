@@ -61,39 +61,21 @@ public class AnnouncementController {
   @GetMapping()
   public String index(@RequestParam(value = "pageNumber", required = false) String pageNumber,
       @RequestParam(value = "pageSize", required = false) String pageSize, Model model) {
-
-    Integer pageNumberInt = null;
-    Integer pageSizeInt = null;
-
-    try {
-      if (pageNumber != null) {
-        pageNumberInt = Integer.valueOf(pageNumber);
-      }
-    } catch (NumberFormatException e) {
-      pageNumberInt = null;
-    }
-
-    try {
-      if (pageSize != null) {
-        pageSizeInt = Integer.valueOf(pageSize);
-      }
-    } catch (NumberFormatException e) {
-      pageSizeInt = null;
-    }
+    Integer pageNumberInt = parseInteger(pageNumber);
+    Integer pageSizeInt = parseInteger(pageSize);
 
     PagedAnnouncementList pagedAnnouncementList =
         announcementApplicationService.getPagedAnnouncementList(pageNumberInt, pageSizeInt);
 
-    List<AnnouncementWithContentsViewModel> announcementWithContentsModels = new ArrayList<>();
+    List<AnnouncementWithContentsViewModel> announcementWithContentsModels =
+        pagedAnnouncementList.getAnnouncements().stream()
+            .map(announcement -> new AnnouncementWithContentsViewModel(
+                AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
+                announcement.getContents().stream()
+                    .map(AnnouncementViewModelTranslator::createContentViewModel)
+                    .toList()))
+            .toList();
 
-    for (Announcement announcement : pagedAnnouncementList.getAnnouncements()) {
-      List<AnnouncementContentViewModel> contentModels = announcement.getContents().stream()
-          .map(AnnouncementViewModelTranslator::createContentViewModel).toList();
-      AnnouncementViewModel announcementModel =
-          AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement);
-      announcementWithContentsModels
-          .add(new AnnouncementWithContentsViewModel(announcementModel, contentModels));
-    }
     AnnouncementListViewModel viewModel = new AnnouncementListViewModel(
         pagedAnnouncementList.getPageNumber(),
         pagedAnnouncementList.getPageSize(),
@@ -118,24 +100,15 @@ public class AnnouncementController {
   @GetMapping("create")
   public String create(Model model) {
     if (createSession.getAnnouncement() == null) {
-      AnnouncementContent blankContent = new AnnouncementContent();
-      blankContent.setLanguageCode("ja");
-      Announcement blankAnnouncement = new Announcement();
-      blankAnnouncement.setContents(List.of(blankContent));
-      createSession.setAnnouncement(blankAnnouncement);
+      createSession.setAnnouncement(createBlankAnnouncement());
     }
 
     Announcement announcement = createSession.getAnnouncement();
-    List<AnnouncementContent> contents = announcement.getContents();
-
-    AnnouncementViewModel announcementViewModel =
-        AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement);
-
-    List<AnnouncementContentViewModel> contentViewModels =
-        contents.stream().map(AnnouncementViewModelTranslator::createContentViewModel).toList();
-
-    AnnouncementCreateViewModel viewModel =
-        new AnnouncementCreateViewModel(announcementViewModel, contentViewModels);
+    AnnouncementCreateViewModel viewModel = new AnnouncementCreateViewModel(
+        AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
+        announcement.getContents().stream()
+            .map(AnnouncementViewModelTranslator::createContentViewModel)
+            .toList());
 
     model.addAttribute("viewModel", viewModel);
     model.addAttribute("languageCodeMap", LanguageCodeConstants.LANGUAGE_CODE_MAP);
@@ -154,14 +127,12 @@ public class AnnouncementController {
     if (result.hasErrors()) {
       return "announcement/create";
     }
-    AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
-    List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
-
     Announcement announcement =
-        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
-    List<AnnouncementContent> contents =
-        contentViewModels.stream().map(AnnouncementViewModelTranslator::createContent).toList();
-    UUID id = null;
+        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+    List<AnnouncementContent> contents = viewModel.getContents().stream()
+        .map(AnnouncementViewModelTranslator::createContent)
+        .toList();
+    UUID id;
     try {
       id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
     } catch (AnnouncementValidationException e) {
@@ -178,26 +149,39 @@ public class AnnouncementController {
    * @return お知らせメッセージの登録画面。
    */
   @PostMapping(path = "create", params = "addLanguageToCreate")
-  public String addLanguageToCreate() {
-    final Announcement announcement = createSession.getAnnouncement();
-    final List<AnnouncementContent> contents = new ArrayList<>(announcement.getContents());
+  public String addLanguageToCreate(
+      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
 
-    final Set<String> existingLanguageCodeSet = contents.stream()
-        .map(AnnouncementContent::getLanguageCode).collect(Collectors.toSet());
+    AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
+    List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
+
+    Announcement announcement =
+        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
+    List<AnnouncementContent> contents =
+        new ArrayList<>(contentViewModels.stream()
+            .map(AnnouncementViewModelTranslator::createContent)
+            .toList());
+
+    Set<String> existingLanguageCodeSet = contents.stream()
+        .map(AnnouncementContent::getLanguageCode)
+        .collect(Collectors.toSet());
 
     for (String languageCode : LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES) {
       if (!existingLanguageCodeSet.contains(languageCode)) {
-        final AnnouncementContent content = new AnnouncementContent();
+        AnnouncementContent content = new AnnouncementContent();
         content.setAnnouncementId(announcement.getId());
         content.setLanguageCode(languageCode);
         contents.add(content);
         break;
       }
-      announcement.setContents(contents);
-      createSession.setAnnouncement(announcement);
     }
+
+    announcement.setContents(contents);
+    createSession.setAnnouncement(announcement);
+
     return "redirect:/announcements/create";
   }
+
 
   /**
    * お知らせメッセージ登録画面上で言語を削除します。
@@ -208,13 +192,27 @@ public class AnnouncementController {
    */
   @PostMapping(path = "create", params = "deleteLanguageFromCreate")
   public String deleteLanguageFromCreate(
+      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       @RequestParam("deleteLanguageFromCreate") String languageCode) {
 
-    createSession.getAnnouncement().getContents()
-        .removeIf(entity -> entity.getLanguageCode().equals(languageCode));
+    AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
+    List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
+
+    Announcement announcement =
+        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
+
+    List<AnnouncementContent> contents = contentViewModels.stream()
+        .map(AnnouncementViewModelTranslator::createContent)
+        .collect(Collectors.toCollection(ArrayList::new));
+
+    contents.removeIf(entity -> entity.getLanguageCode().equals(languageCode));
+
+    announcement.setContents(contents);
+    createSession.setAnnouncement(announcement);
 
     return "redirect:/announcements/create";
   }
+
 
 
   /**
@@ -226,6 +224,28 @@ public class AnnouncementController {
   @GetMapping("{announcementId}/edit")
   public String edit(@PathVariable("announcementId") UUID announcementId) {
     return "announcement/edit";
+  }
+
+  /**
+   * 文字列をIntegerに変換するユーティリティ。変換できない場合はnullを返す。
+   */
+  private Integer parseInteger(String value) {
+    try {
+      return value != null ? Integer.valueOf(value) : null;
+    } catch (NumberFormatException e) {
+      return null;
+    }
+  }
+
+  /**
+   * 空のアナウンスメントを生成するユーティリティ。
+   */
+  private Announcement createBlankAnnouncement() {
+    AnnouncementContent blankContent = new AnnouncementContent();
+    blankContent.setLanguageCode("ja");
+    Announcement blankAnnouncement = new Announcement();
+    blankAnnouncement.setContents(List.of(blankContent));
+    return blankAnnouncement;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.dressca.cms.web.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -10,7 +11,7 @@ public class AnnouncementListViewModel {
   private int pageSize;
   private int totalCount;
   @Valid
-  private List<AnnouncementWithContentsViewModel> announcementsWithContents;
+  private List<AnnouncementWithContentsViewModel> announcementsWithContents = new ArrayList<>();
   private int lastPageNumber;
   private int startIndex;
   private int endIndex;

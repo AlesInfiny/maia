@@ -1,5 +1,6 @@
 package com.dressca.cms.web.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
@@ -14,6 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementCreateViewModel {
-  private AnnouncementViewModel announcement;
-  private List<AnnouncementContentViewModel> contents;
+  private AnnouncementViewModel announcement = new AnnouncementViewModel();
+  private List<AnnouncementContentViewModel> contents = new ArrayList<>();
 }
