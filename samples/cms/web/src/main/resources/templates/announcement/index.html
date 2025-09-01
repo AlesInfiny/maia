@@ -76,7 +76,9 @@
           >
             <td th:text="${announcementWithContents.contents[0].title}"></td>
             <td
-              th:text="${announcementWithContents.announcement.postDate} + ' - ' + ${announcementWithContents.announcement.expireDate}"
+              th:text="${announcementWithContents.announcement.expireDate != null} ?
+           ${announcementWithContents.announcement.postDate + ' - ' + announcementWithContents.announcement.expireDate} :
+           ${announcementWithContents.announcement.postDate} + ' - '"
             ></td>
             <td
               th:text="${announcementWithContents.announcement.category}"

@@ -6,6 +6,7 @@
   <th:block layout:fragment="content">
     <div class="container mt-4">
       <h2 class="mb-4">お知らせメッセージ登録</h2>
+
       <form
         th:object="${viewModel}"
         method="post"
@@ -14,7 +15,9 @@
         <!-- 基本情報部 -->
         <section class="mb-4">
           <h3 class="h5 mb-3">基本情報</h3>
+
           <div class="row mb-3 align-items-end">
+            <!-- 掲載開始日時 -->
             <div class="col-lg-3 col-md-6 mb-2">
               <label for="postDate" class="form-label">掲載開始日時</label>
               <div class="input-group">
@@ -22,14 +25,12 @@
                   type="date"
                   class="form-control"
                   id="postDate"
-                  name="announcement.postDate"
                   th:field="*{announcement.postDate}"
                 />
                 <input
                   type="time"
                   class="form-control"
                   id="postTime"
-                  name="announcement.postTime"
                   th:field="*{announcement.postTime}"
                 />
               </div>
@@ -40,6 +41,8 @@
                 掲載開始日時を入力してください
               </div>
             </div>
+
+            <!-- 掲載終了日時 -->
             <div class="col-lg-3 col-md-6 mb-2">
               <label for="expireDate" class="form-label">掲載終了日時</label>
               <div class="input-group">
@@ -47,33 +50,33 @@
                   type="date"
                   class="form-control"
                   id="expireDate"
-                  name="announcement.expireDate"
                   th:field="*{announcement.expireDate}"
                 />
                 <input
                   type="time"
                   class="form-control"
                   id="expireTime"
-                  name="announcement.expireTime"
                   th:field="*{announcement.expireTime}"
                 />
               </div>
             </div>
+
+            <!-- カテゴリー -->
             <div class="col-lg-3 col-md-6 mb-2">
               <label for="category" class="form-label">カテゴリー</label>
               <input
                 type="text"
                 class="form-control"
                 id="category"
-                name="announcement.category"
                 th:field="*{announcement.category}"
               />
+              <div
+                th:errors="*{announcement.category}"
+                style="color: red"
+              ></div>
             </div>
-            <div
-              th:if="${#fields.hasErrors('announcement.category')}"
-              th:errors="*{announcement.category}"
-              style="color: red"
-            ></div>
+
+            <!-- 表示優先度 -->
             <div class="col-lg-3 col-md-6 mb-2">
               <label for="displayPriority" class="form-label">表示優先度</label>
               <select
@@ -87,7 +90,6 @@
                 ></option>
               </select>
               <div
-                th:if="${#fields.hasErrors('announcement.displayPriority')}"
                 th:errors="*{announcement.displayPriority}"
                 style="color: red"
               ></div>
@@ -95,7 +97,7 @@
           </div>
         </section>
 
-        <!-- お知らせメッセージ部＋アクション部 横並び -->
+        <!-- お知らせメッセージ部＋アクション部 -->
         <div class="row mb-4">
           <div class="col-lg-8 col-md-7 mb-3">
             <section>
@@ -108,15 +110,16 @@
                   class="btn btn-outline-primary btn-sm"
                 />
               </div>
+
               <div
                 th:if="${#lists.isEmpty(viewModel.contents)}"
                 class="alert alert-info"
               >
                 お知らせメッセージは登録されていません
               </div>
+
               <div
                 th:each="content, iterStat : ${viewModel.contents}"
-                th:if="${!#lists.isEmpty(viewModel.contents)}"
                 class="card mb-3"
               >
                 <div class="card-body">
@@ -130,51 +133,65 @@
                       削除
                     </button>
                   </div>
-                  <div class="row mb-3">
-                    <div class="col-md-4 mb-2">
-                      <label
-                        th:for="${'contents[' + iterStat.index + '].languageCode'}"
-                        class="form-label"
-                        >言語</label
-                      >
-                      <select
-                        class="form-select"
-                        th:id="${'contents[' + iterStat.index + '].languageCode'}"
-                        th:name="${'contents[' + iterStat.index + '].languageCode'}"
-                      >
-                        <option
-                          th:each="languageCode : ${languageCodeMap}"
-                          th:value="${languageCode.key}"
-                          th:selected="${content.languageCode == languageCode.key}"
-                          th:text="${languageCode.value}"
-                        ></option>
-                      </select>
-                      <div
-                        th:errors="*{contents[__${iterStat.index}__].languageCode}"
-                        style="color: red"
-                      ></div>
-                    </div>
 
-                    <div class="col-md-8 mb-2">
-                      <label
-                        th:for="${'contents[' + iterStat.index + '].title'}"
-                        class="form-label"
-                        >タイトル</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        th:id="${'contents[' + iterStat.index + '].title'}"
-                        th:name="${'contents[' + iterStat.index + '].title'}"
-                        th:value="${content.title}"
-                      />
-                      <div
-                        th:errors="*{contents[__${iterStat.index}__].title}"
-                        style="color: red"
-                      ></div>
+                  <!-- 言語 -->
+                  <div class="mb-3">
+                    <label
+                      th:for="${'contents[' + iterStat.index + '].languageCode'}"
+                      class="form-label"
+                      >言語</label
+                    >
+                    <select
+                      class="form-select"
+                      th:id="${'contents[' + iterStat.index + '].languageCode'}"
+                      th:name="${'contents[' + iterStat.index + '].languageCode'}"
+                    >
+                      <option
+                        th:each="languageCode : ${languageCodeMap}"
+                        th:value="${languageCode.key}"
+                        th:selected="${content.languageCode == languageCode.key}"
+                        th:text="${languageCode.value}"
+                      ></option>
+                    </select>
+                    <div
+                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
+                      style="color: red"
+                    >
+                      <span
+                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].languageCode')}"
+                        th:utext="${err + '<br/>'}"
+                        th:remove="tag"
+                      ></span>
                     </div>
                   </div>
 
+                  <!-- タイトル -->
+                  <div class="mb-3">
+                    <label
+                      th:for="${'contents[' + iterStat.index + '].title'}"
+                      class="form-label"
+                      >タイトル</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      th:id="${'contents[' + iterStat.index + '].title'}"
+                      th:name="${'contents[' + iterStat.index + '].title'}"
+                      th:value="${content.title}"
+                    />
+                    <div
+                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
+                      style="color: red"
+                    >
+                      <span
+                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].title')}"
+                        th:utext="${err + '<br/>'}"
+                        th:remove="tag"
+                      ></span>
+                    </div>
+                  </div>
+
+                  <!-- 表示メッセージ -->
                   <div class="mb-3">
                     <label
                       th:for="${'contents[' + iterStat.index + '].message'}"
@@ -187,14 +204,20 @@
                       th:id="${'contents[' + iterStat.index + '].message'}"
                       th:name="${'contents[' + iterStat.index + '].message'}"
                       th:text="${content.message}"
-                    >
-                    </textarea>
+                    ></textarea>
                     <div
-                      th:errors="*{contents[__${iterStat.index}__].message}"
+                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].message')}"
                       style="color: red"
-                    ></div>
+                    >
+                      <span
+                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].message')}"
+                        th:utext="${err + '<br/>'}"
+                        th:remove="tag"
+                      ></span>
+                    </div>
                   </div>
 
+                  <!-- リンク先URL -->
                   <div class="mb-3">
                     <label
                       th:for="${'contents[' + iterStat.index + '].linkUrl'}"
@@ -209,14 +232,22 @@
                       th:value="${content.linkUrl}"
                     />
                     <div
-                      th:errors="*{contents[__${iterStat.index}__].linkUrl}"
+                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].linkUrl')}"
                       style="color: red"
-                    ></div>
+                    >
+                      <span
+                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].linkUrl')}"
+                        th:utext="${err + '<br/>'}"
+                        th:remove="tag"
+                      ></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
           </div>
+
+          <!-- アクション -->
           <div class="col-lg-4 col-md-5 mb-3">
             <section>
               <h3 class="h5 mb-3">アクション</h3>
