@@ -159,14 +159,12 @@ public class AnnouncementController {
   public String addLanguageToCreate(
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
 
-    AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
-    List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
-
     Announcement announcement =
-        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
-    List<AnnouncementContent> contents =
-        new ArrayList<>(contentViewModels.stream()
-            .map(AnnouncementViewModelTranslator::createContent).toList());
+        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+
+    List<AnnouncementContent> contents = viewModel.getContents().stream()
+        .map(AnnouncementViewModelTranslator::createContent)
+        .collect(Collectors.toCollection(ArrayList::new));
 
     Set<String> existingLanguageCodeSet = contents.stream()
         .map(AnnouncementContent::getLanguageCode)
