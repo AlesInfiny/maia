@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.UUID;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import com.dressca.cms.announcement.applicationcore.constants.ExceptionIdConstants;
+import com.dressca.cms.announcement.applicationcore.constants.FieldNameConstants;
 import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.constants.MessageIdConstants;
 import com.dressca.cms.announcement.applicationcore.constants.OperationTypeConstants;
@@ -98,7 +100,8 @@ public class AnnouncementApplicationService {
 
     for (AnnouncementContent content : contents) {
       if (!LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.contains(content.getLanguageCode())) {
-        errors.add(new AnnouncementValidationError("global", "create.postDateTime"));
+        errors.add(new AnnouncementValidationError(FieldNameConstants.GLOBAL,
+            ExceptionIdConstants.E_EXPIRE_DATE_AFTER_POST_DATE));
       }
     }
     OffsetDateTime postDateTime = announcement.getPostDateTime();
@@ -106,17 +109,20 @@ public class AnnouncementApplicationService {
     if (postDateTime != null && expireDateTime != null) {
       if (postDateTime.isAfter(expireDateTime)) {
         errors.add(
-            new AnnouncementValidationError("expireDateTime", "create.expireDateTime"));
+            new AnnouncementValidationError(FieldNameConstants.EXPIRE_DATE,
+                ExceptionIdConstants.E_EXPIRE_DATE_AFTER_POST_DATE));
       }
     }
     if (contents.isEmpty()) {
-      errors.add(new AnnouncementValidationError("global", "create.contents"));
+      errors.add(
+          new AnnouncementValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_ANNOUNCEMENT_IS_EMPTY));
     }
 
     Set<String> seenCodes = new HashSet<>();
     for (String code : contents.stream().map(AnnouncementContent::getLanguageCode).toList()) {
       if (!seenCodes.add(code)) {
-        errors.add(new AnnouncementValidationError("global", "create.contents"));
+        errors.add(
+            new AnnouncementValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
         break;
       }
     }

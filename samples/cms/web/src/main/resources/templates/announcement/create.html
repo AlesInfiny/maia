@@ -67,6 +67,11 @@
                   th:field="*{announcement.expireTime}"
                 />
               </div>
+              <div
+                th:if="${#fields.hasErrors('announcement.expireDate')}"
+                th:errors="*{announcement.expireDate}"
+                style="color: red"
+              ></div>
             </div>
 
             <!-- カテゴリー -->
@@ -270,6 +275,12 @@
           <div class="col-lg-4 col-md-5 mb-3">
             <section>
               <h3 class="h5 mb-3" th:text="#{create.action}"></h3>
+              <div th:if="${#fields.hasGlobalErrors()}" style="color: red">
+                <ul th:each="err : ${#fields.globalErrors()}">
+                  <li th:utext="${err}"></li>
+                </ul>
+              </div>
+
               <div class="d-flex flex-column align-items-start gap-3">
                 <input
                   type="submit"
