@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 /**
  * お知らせメッセージの編集を行うコントローラーです。
  */
@@ -59,8 +58,8 @@ public class AnnouncementController {
    * お知らせメッセージ管理画面を表示します。
    * 
    * @param pageNumber ページ番号。
-   * @param pageSize ページサイズ。
-   * @param model モデル。
+   * @param pageSize   ページサイズ。
+   * @param model      モデル。
    * @return お知らせメッセージ管理画面。
    */
   @GetMapping()
@@ -69,14 +68,14 @@ public class AnnouncementController {
     Integer pageNumberInt = parseInteger(pageNumber);
     Integer pageSizeInt = parseInteger(pageSize);
 
-    PagedAnnouncementList pagedAnnouncementList =
-        announcementApplicationService.getPagedAnnouncementList(pageNumberInt, pageSizeInt);
+    PagedAnnouncementList pagedAnnouncementList = announcementApplicationService.getPagedAnnouncementList(pageNumberInt,
+        pageSizeInt);
 
     // ページングされたお知らせメッセージリストを、お知らせメッセージコンテンツ付のお知らせメッセージに変換します。
-    List<AnnouncementWithContentsViewModel> announcementWithContentsModels =
-        pagedAnnouncementList.getAnnouncements().stream().map(announcement -> {
-          AnnouncementViewModel announcementModel =
-              AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement);
+    List<AnnouncementWithContentsViewModel> announcementWithContentsModels = pagedAnnouncementList.getAnnouncements()
+        .stream().map(announcement -> {
+          AnnouncementViewModel announcementModel = AnnouncementViewModelTranslator
+              .createAnnouncementViewModel(announcement);
           List<AnnouncementContentViewModel> contentModels = announcement.getContents().stream()
               .map(AnnouncementViewModelTranslator::createContentViewModel).toList();
           return new AnnouncementWithContentsViewModel(announcementModel, contentModels);
@@ -117,14 +116,14 @@ public class AnnouncementController {
     return "announcement/create";
   }
 
-
   /**
    * お知らせメッセージを登録します。
    * 
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
-   * @param result バリデーションの結果。
-   * @param model モデル。
-   * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、 バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
+   * @param result    バリデーションの結果。
+   * @param model     モデル。
+   * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、
+   *         バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
    * 
    */
   @PostMapping("create")
@@ -134,8 +133,7 @@ public class AnnouncementController {
     if (result.hasErrors()) {
       return "announcement/create";
     }
-    Announcement announcement =
-        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
     List<AnnouncementContent> contents = viewModel.getContents().stream()
         .map(AnnouncementViewModelTranslator::createContent)
         .toList();
@@ -159,8 +157,7 @@ public class AnnouncementController {
   public String addLanguageToCreate(
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
 
-    Announcement announcement =
-        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
 
     List<AnnouncementContent> contents = viewModel.getContents().stream()
         .map(AnnouncementViewModelTranslator::createContent)
@@ -187,11 +184,10 @@ public class AnnouncementController {
     return "redirect:/announcements/create";
   }
 
-
   /**
    * お知らせメッセージ登録画面上で言語を削除します。
    *
-   * @param announcementId お知らせメッセージの ID。
+   * @param announcementId     お知らせメッセージの ID。
    * @param deleteLanguageCode 言語コード。
    * @return お知らせメッセージの登録画面。
    */
@@ -203,8 +199,7 @@ public class AnnouncementController {
     AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
     List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
 
-    Announcement announcement =
-        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
+    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
 
     List<AnnouncementContent> contents = contentViewModels.stream()
         .map(AnnouncementViewModelTranslator::createContent)
