@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.UUID;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import com.dressca.cms.announcement.applicationcore.constants.ExceptionIdConstants;
 import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.constants.MessageIdConstants;
 import com.dressca.cms.announcement.applicationcore.constants.OperationTypeConstants;
@@ -45,7 +44,7 @@ public class AnnouncementApplicationService {
    * ページングされたお知らせメッセージを掲載開始日時の降順で取得します。
    * 
    * @param pageNumber ページ番号。
-   * @param pageSize ページサイズ。
+   * @param pageSize   ページサイズ。
    * @return ページングされたお知らせメッセージ。
    */
   public PagedAnnouncementList getPagedAnnouncementList(Integer pageNumber, Integer pageSize) {
@@ -66,15 +65,13 @@ public class AnnouncementApplicationService {
       pageNumber = 1;
     }
 
-    List<Announcement> announcements =
-        announcementRepository.findByPageNumberAndPageSize(pageNumber, pageSize);
+    List<Announcement> announcements = announcementRepository.findByPageNumberAndPageSize(pageNumber, pageSize);
 
     // お知らせメッセージコンテンツを言語コード順に並び替え、最優先の言語コードのコンテンツのみ持つようにします。
     for (Announcement announcement : announcements) {
       List<AnnouncementContent> contents = announcement.getContents();
       contents.sort(Comparator.comparingInt(content -> {
-        int index =
-            LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.indexOf(content.getLanguageCode());
+        int index = LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.indexOf(content.getLanguageCode());
         return index >= 0 ? index : Integer.MAX_VALUE;
       }));
       announcement.setContents(List.of(contents.get(0)));
@@ -87,12 +84,11 @@ public class AnnouncementApplicationService {
         lastPageNumber);
   }
 
-
   /**
    * お知らせメッセージおよびお知らせメッセージ履歴を登録します。
    * 
    * @param announcement お知らせメッセージ。
-   * @param contents お知らせメッセージコンテンツのリスト。
+   * @param contents     お知らせメッセージコンテンツのリスト。
    * @return 登録したお知らせメッセージの Id 。
    * @throws AnnouncementValidationException
    */
@@ -102,7 +98,7 @@ public class AnnouncementApplicationService {
 
     for (AnnouncementContent content : contents) {
       if (!LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.contains(content.getLanguageCode())) {
-        errors.add(new AnnouncementValidationError(ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
+        errors.add(new AnnouncementValidationError("global", "create.postDateTime"));
       }
     }
     OffsetDateTime postDateTime = announcement.getPostDateTime();
@@ -110,18 +106,17 @@ public class AnnouncementApplicationService {
     if (postDateTime != null && expireDateTime != null) {
       if (postDateTime.isAfter(expireDateTime)) {
         errors.add(
-            new AnnouncementValidationError(ExceptionIdConstants.E_POST_DATE_AFTER_EXPIRE_DATE));
+            new AnnouncementValidationError("expireDateTime", "create.expireDateTime"));
       }
     }
     if (contents.isEmpty()) {
-      errors.add(new AnnouncementValidationError(
-          ExceptionIdConstants.E_ANNOUNCEMENT_CONTENTS_LIST_IS_EMPTY));
+      errors.add(new AnnouncementValidationError("global", "create.contents"));
     }
 
     Set<String> seenCodes = new HashSet<>();
     for (String code : contents.stream().map(AnnouncementContent::getLanguageCode).toList()) {
       if (!seenCodes.add(code)) {
-        errors.add(new AnnouncementValidationError(ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
+        errors.add(new AnnouncementValidationError("global", "create.contents"));
         break;
       }
     }
@@ -148,8 +143,8 @@ public class AnnouncementApplicationService {
     }
 
     UUID historyId = Generators.timeBasedEpochGenerator().generate();
-    AnnouncementHistory history =
-        createAnnouncementHistory(announcement, historyId, "admin", OperationTypeConstants.CREATE);
+    AnnouncementHistory history = createAnnouncementHistory(announcement, historyId, "admin",
+        OperationTypeConstants.CREATE);
     historyRepository.add(history);
 
     for (AnnouncementContent content : contents) {
@@ -168,9 +163,9 @@ public class AnnouncementApplicationService {
   /**
    * {@link Announcement} を {@link AnnouncementHistory} に変換する。
    * 
-   * @param announcement {@link Announcement} オブジェクト。
-   * @param id お知らせメッセージ履歴の ID 。
-   * @param userName ユーザーの名前。
+   * @param announcement  {@link Announcement} オブジェクト。
+   * @param id            お知らせメッセージ履歴の ID 。
+   * @param userName      ユーザーの名前。
    * @param operationType 操作タイプ。
    * @return {@link AnnouncementHistory} オブジェクト。
    */
@@ -192,8 +187,8 @@ public class AnnouncementApplicationService {
   /**
    * {@link AnnouncementContent} を {@link AnnouncementContentHistory} に変換する。
    * 
-   * @param content @param content {@link AnnouncementContent} オブジェクト。
-   * @param id お知らせメッセージコンテンツ履歴の ID 。
+   * @param content   @param content {@link AnnouncementContent} オブジェクト。
+   * @param id        お知らせメッセージコンテンツ履歴の ID 。
    * @param historyId お知らせメッセージ履歴の ID 。
    * @return {@link AnnouncementContentHistory} オブジェクト。
    */

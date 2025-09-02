@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class AnnouncementValidationError {
-  private final String exceptionId;
+  private final String fieldName;
+  private final String messageCode;
 }
