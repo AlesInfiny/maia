@@ -20,8 +20,7 @@ CSS ファイルを記述せずにデザインを実現する、ユーティリ�
 [公式ドキュメント :material-open-in-new:](https://tailwindcss.com/docs/installation/using-vite){ target=_blank } に従って、 Tailwind CSS と Vite のプラグインをインストールします。
 
 ```shell
-npm install - D tailwindcss @tailwindcss/vite
-```
+npm install -D tailwindcss @tailwindcss/vite
 
 ### Tailwind CSS の設定 {#settings-tailwind-css}
 
