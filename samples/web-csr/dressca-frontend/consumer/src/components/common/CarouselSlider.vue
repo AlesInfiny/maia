@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
   <template v-if="hasItems">
     <div data-test="body" class="container">
       <div
-        class="flex justify-center items-center"
+        class="flex items-center justify-center"
         @touchstart="onTouchStart"
         @mousedown="onTouchStart"
       >
