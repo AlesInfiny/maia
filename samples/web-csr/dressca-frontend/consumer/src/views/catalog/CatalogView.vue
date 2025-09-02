@@ -104,19 +104,19 @@ watch([selectedCategory, selectedBrand], async () => {
   <div class="container mx-auto">
     <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
     <div v-if="!showLoading">
-      <div class="flex justify-center m-4">
+      <div class="m-4 flex justify-center">
         <CarouselSlider :items="getSpecialContents" class="h-auto w-full">
           <template #default="{ item }">
             <img
               :src="getAssetUrl(item.assetCode)"
               alt="Special Contents"
-              class="max-h-[350px] min-w-0 m-auto pointer-events-none"
+              class="pointer-events-none m-auto max-h-[350px] min-w-0"
             />
           </template>
         </CarouselSlider>
       </div>
       <div class="flex justify-center">
-        <div class="grid lg:gap-24 grid-cols-1 lg:grid-cols-2 my-4 text-lg">
+        <div class="my-4 grid grid-cols-1 text-lg lg:grid-cols-2 lg:gap-24">
           <div>
             <label class="mr-2 font-bold">
               カテゴリ
@@ -140,20 +140,20 @@ watch([selectedCategory, selectedBrand], async () => {
         </div>
       </div>
       <div class="flex justify-center">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-6 mb-4">
+        <div class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-6">
           <div v-for="item in getItems" :key="item.id">
-            <div class="justify-center md:border-2 lg:border-2 p-2 h-80 w-240 mx-auto">
+            <div class="w-240 mx-auto h-80 justify-center p-2 md:border-2 lg:border-2">
               <img class="h-[180px]" :src="getFirstAssetUrl(item.assetCodes)" :alt="item.name" />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">
                   {{ getBrandName(item.catalogBrandId) }}
                 </p>
-                <p class="font-bold text-lg">
+                <p class="text-lg font-bold">
                   {{ toCurrencyJPY(item.price) }}
                 </p>
                 <div class="mt-4 flex items-center justify-center">
                   <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                     type="submit"
                     @click="addBasket(item.id)"
                   >
