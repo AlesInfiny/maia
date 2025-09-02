@@ -183,13 +183,12 @@
                       ></option>
                     </select>
                     <div
+                      class="form-text text-danger"
                       th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
-                      style="color: red"
                     >
                       <span
                         th:each="err : ${#fields.errors('contents[' + iterStat.index + '].languageCode')}"
-                        th:utext="${err + '<br/>'}"
-                        th:remove="tag"
+                        th:utext="${err} + '<br/>'"
                       ></span>
                     </div>
                   </div>
@@ -209,13 +208,12 @@
                       th:value="${content.title}"
                     />
                     <div
+                      class="form-text text-danger"
                       th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
-                      style="color: red"
                     >
                       <span
                         th:each="err : ${#fields.errors('contents[' + iterStat.index + '].title')}"
                         th:utext="${err + '<br/>'}"
-                        th:remove="tag"
                       ></span>
                     </div>
                   </div>
@@ -235,13 +233,12 @@
                       th:text="${content.message}"
                     ></textarea>
                     <div
+                      class="form-text text-danger"
                       th:if="${#fields.hasErrors('contents[' + iterStat.index + '].message')}"
-                      style="color: red"
                     >
                       <span
                         th:each="err : ${#fields.errors('contents[' + iterStat.index + '].message')}"
                         th:utext="${err + '<br/>'}"
-                        th:remove="tag"
                       ></span>
                     </div>
                   </div>
@@ -262,13 +259,12 @@
                       th:value="${content.linkUrl}"
                     />
                     <div
+                      class="form-text text-danger"
                       th:if="${#fields.hasErrors('contents[' + iterStat.index + '].linkUrl')}"
-                      style="color: red"
                     >
                       <span
                         th:each="err : ${#fields.errors('contents[' + iterStat.index + '].linkUrl')}"
                         th:utext="${err + '<br/>'}"
-                        th:remove="tag"
                       ></span>
                     </div>
                   </div>
@@ -281,7 +277,10 @@
           <div class="col-lg-4 col-md-5 mb-3">
             <section>
               <h3 class="h5 mb-3" th:text="#{create.action}"></h3>
-              <div th:if="${#fields.hasGlobalErrors()}" style="color: red">
+              <div
+                th:if="${#fields.hasGlobalErrors()}"
+                class="form-text text-danger"
+              >
                 <ul th:each="err : ${#fields.globalErrors()}">
                   <li th:utext="${err}"></li>
                 </ul>
