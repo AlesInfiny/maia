@@ -18,7 +18,6 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationError;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
-import com.dressca.cms.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.cms.web.constants.DisplayPriorityConstants;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
@@ -45,7 +44,6 @@ public class AnnouncementController {
 
   private final AnnouncementApplicationService announcementApplicationService;
   private final AnnouncementCreateSession createSession;
-  private final AbstractStructuredLogger apLog;
 
   @ModelAttribute("displayPriorityMap")
   public Map<Integer, String> displayPriorityMap() {
@@ -146,7 +144,6 @@ public class AnnouncementController {
     } catch (AnnouncementValidationException e) {
       for (AnnouncementValidationError error : e.getValidationErrors()) {
         result.rejectValue(error.getFieldName(), error.getMessageCode());
-        apLog.info("これがエラーの中身です：" + error.toString());
       }
 
       return "announcement/create";

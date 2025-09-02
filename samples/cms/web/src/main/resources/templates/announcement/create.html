@@ -16,7 +16,7 @@
         <section class="mb-4">
           <h3 class="h5 mb-3" th:text="#{create.basic_info}"></h3>
 
-          <div class="row mb-3 align-items-end">
+          <div class="row mb-3 align-items-stretch">
             <!-- 掲載開始日時 -->
             <div class="col-lg-3 col-md-6 mb-2">
               <label
@@ -38,11 +38,12 @@
                   th:field="*{announcement.postTime}"
                 />
               </div>
-              <div
-                th:if="${#fields.hasErrors('announcement.postDate') or #fields.hasErrors('announcement.postTime')}"
-                style="color: red"
-              >
-                掲載開始日時を入力してください
+              <div class="form-text text-danger" style="min-height: 2em">
+                <span
+                  th:if="${#fields.hasErrors('announcement.postDate') or #fields.hasErrors('announcement.postTime')}"
+                  th:text="#{postDateTimeIsRequired}"
+                >
+                </span>
               </div>
             </div>
 
@@ -67,11 +68,12 @@
                   th:field="*{announcement.expireTime}"
                 />
               </div>
-              <div
-                th:if="${#fields.hasErrors('announcement.expireDate')}"
-                th:errors="*{announcement.expireDate}"
-                style="color: red"
-              ></div>
+              <div class="form-text text-danger" style="min-height: 2em">
+                <span
+                  th:if="${#fields.hasErrors('announcement.expireDate') or #fields.hasErrors('announcement.expireTime')}"
+                  th:errors="*{announcement.expireDate}"
+                ></span>
+              </div>
             </div>
 
             <!-- カテゴリー -->
@@ -87,10 +89,12 @@
                 id="category"
                 th:field="*{announcement.category}"
               />
-              <div
-                th:errors="*{announcement.category}"
-                style="color: red"
-              ></div>
+              <div class="form-text text-danger" style="min-height: 2em">
+                <span
+                  th:if="${#fields.hasErrors('announcement.category')}"
+                  th:errors="*{announcement.category}"
+                ></span>
+              </div>
             </div>
 
             <!-- 表示優先度 -->
@@ -110,10 +114,12 @@
                   th:text="${entry.value}"
                 ></option>
               </select>
-              <div
-                th:errors="*{announcement.displayPriority}"
-                style="color: red"
-              ></div>
+              <div class="form-text text-danger" style="min-height: 2em">
+                <span
+                  th:if="${#fields.hasErrors('announcement.displayPriority')}"
+                  th:errors="*{announcement.displayPriority}"
+                ></span>
+              </div>
             </div>
           </div>
         </section>
