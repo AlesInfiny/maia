@@ -81,6 +81,6 @@
     "vue-tsc": "3.0.4"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.46.2"
+    "@rollup/rollup-linux-x64-gnu": "4.50.0"
   }
 }
