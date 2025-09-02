@@ -46,28 +46,29 @@
               </li>
             </ul>
           </nav>
-          <a th:href="@{/announcements/create}" class="btn btn-primary ms-2"
-            >新規お知らせメッセージ作成</a
-          >
+          <a
+            th:href="@{/announcements/create}"
+            class="btn btn-primary ms-2"
+            th:text="#{index.create_new_announcement}"
+          ></a>
         </div>
       </div>
       <div
         th:if="${#lists.isEmpty(viewModel.announcementsWithContents)}"
         class="alert alert-info"
-      >
-        登録されているお知らせメッセージはありません。
-      </div>
+        th:text="#{index.no_announcements_message}"
+      ></div>
       <table
         class="table table-hover"
         th:if="${!#lists.isEmpty(viewModel.announcementsWithContents)}"
       >
         <thead class="table-light">
           <tr>
-            <th scope="col">タイトル</th>
-            <th scope="col">掲載日</th>
-            <th scope="col">カテゴリー</th>
-            <th scope="col">表示優先度</th>
-            <th scope="col">操作</th>
+            <th scope="col" th:text="#{index.table.title}"></th>
+            <th scope="col" th:text="#{index.table.published_date}"></th>
+            <th scope="col" th:text="#{index.table.category}"></th>
+            <th scope="col" th:text="#{index.table.display_priority}"></th>
+            <th scope="col" th:text="#{index.table.actions}"></th>
           </tr>
         </thead>
         <tbody>
@@ -87,8 +88,16 @@
               th:text="${displayPriorityMap[announcementWithContents.announcement.displayPriority]}"
             ></td>
             <td>
-              <a href="#" class="btn btn-sm btn-outline-primary me-1">編集</a>
-              <a href="#" class="btn btn-sm btn-outline-danger">削除</a>
+              <a
+                href="#"
+                class="btn btn-sm btn-outline-primary me-1"
+                th:text="#{index.edit}"
+              ></a>
+              <a
+                href="#"
+                class="btn btn-sm btn-outline-danger"
+                th:text="#{index.delete}"
+              ></a>
             </td>
           </tr>
         </tbody>

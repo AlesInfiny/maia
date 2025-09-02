@@ -5,7 +5,7 @@
 >
   <th:block layout:fragment="content">
     <div class="container mt-4">
-      <h2 class="mb-4">お知らせメッセージ登録</h2>
+      <h2 class="mb-4" th:text="#{create.page_title}"></h2>
 
       <form
         th:object="${viewModel}"
@@ -14,12 +14,16 @@
       >
         <!-- 基本情報部 -->
         <section class="mb-4">
-          <h3 class="h5 mb-3">基本情報</h3>
+          <h3 class="h5 mb-3" th:text="#{create.basic_info}"></h3>
 
           <div class="row mb-3 align-items-end">
             <!-- 掲載開始日時 -->
             <div class="col-lg-3 col-md-6 mb-2">
-              <label for="postDate" class="form-label">掲載開始日時</label>
+              <label
+                for="postDate"
+                class="form-label"
+                th:text="#{create.post_date_time}"
+              ></label>
               <div class="input-group">
                 <input
                   type="date"
@@ -44,7 +48,11 @@
 
             <!-- 掲載終了日時 -->
             <div class="col-lg-3 col-md-6 mb-2">
-              <label for="expireDate" class="form-label">掲載終了日時</label>
+              <label
+                for="expireDate"
+                class="form-label"
+                th:text="#{create.expire_date_time}"
+              ></label>
               <div class="input-group">
                 <input
                   type="date"
@@ -63,7 +71,11 @@
 
             <!-- カテゴリー -->
             <div class="col-lg-3 col-md-6 mb-2">
-              <label for="category" class="form-label">カテゴリー</label>
+              <label
+                for="category"
+                class="form-label"
+                th:text="#{create.category}"
+              ></label>
               <input
                 type="text"
                 class="form-control"
@@ -78,7 +90,11 @@
 
             <!-- 表示優先度 -->
             <div class="col-lg-3 col-md-6 mb-2">
-              <label for="displayPriority" class="form-label">表示優先度</label>
+              <label
+                for="displayPriority"
+                class="form-label"
+                th:text="#{create.display_priority}"
+              ></label>
               <select
                 class="form-select"
                 th:field="*{announcement.displayPriority}"
@@ -102,11 +118,14 @@
           <div class="col-lg-8 col-md-7 mb-3">
             <section>
               <div class="d-flex align-items-center mb-2">
-                <h3 class="h5 mb-0 me-3">お知らせメッセージ</h3>
+                <h3
+                  class="h5 mb-0 me-3"
+                  th:text="#{create.announcement_message}"
+                ></h3>
                 <input
                   type="submit"
                   name="addLanguageToCreate"
-                  value="別の言語を追加"
+                  th:value="#{create.add_language}"
                   class="btn btn-outline-primary btn-sm"
                 />
               </div>
@@ -129,9 +148,8 @@
                       name="deleteLanguageFromCreate"
                       th:value="${content.languageCode}"
                       class="btn btn-outline-danger btn-sm"
-                    >
-                      削除
-                    </button>
+                      th:text="#{create.delete}"
+                    ></button>
                   </div>
 
                   <!-- 言語 -->
@@ -139,8 +157,8 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].languageCode'}"
                       class="form-label"
-                      >言語</label
-                    >
+                      th:text="#{create.language}"
+                    ></label>
                     <select
                       class="form-select"
                       th:id="${'contents[' + iterStat.index + '].languageCode'}"
@@ -170,8 +188,8 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].title'}"
                       class="form-label"
-                      >タイトル</label
-                    >
+                      th:text="#{create.title}"
+                    ></label>
                     <input
                       type="text"
                       class="form-control"
@@ -196,8 +214,8 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].message'}"
                       class="form-label"
-                      >表示メッセージ</label
-                    >
+                      th:text="#{create.display_message}"
+                    ></label>
                     <textarea
                       class="form-control"
                       rows="3"
@@ -222,8 +240,9 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].linkUrl'}"
                       class="form-label"
-                      >リンク先 URL</label
+                      th:text="#{create.link_url}"
                     >
+                    </label>
                     <input
                       type="text"
                       class="form-control"
@@ -250,17 +269,19 @@
           <!-- アクション -->
           <div class="col-lg-4 col-md-5 mb-3">
             <section>
-              <h3 class="h5 mb-3">アクション</h3>
+              <h3 class="h5 mb-3" th:text="#{create.action}"></h3>
               <div class="d-flex flex-column align-items-start gap-3">
                 <input
                   type="submit"
                   name="create"
-                  value="お知らせメッセージの登録"
+                  th:value="#{create.create_announcement}"
                   class="btn btn-primary w-100"
                 />
-                <a th:href="@{/announcements}" class="mt-2"
-                  >お知らせメッセージ管理画面に戻る</a
-                >
+                <a
+                  th:href="@{/announcements}"
+                  class="mt-2"
+                  th:text="#{create.back_to_list}"
+                ></a>
               </div>
             </section>
           </div>
