@@ -138,7 +138,7 @@ export default {
 npm run stylelint:ci
 ```
 
-### Tailwind CSS 用の Prettier の設定 {#settings-stylelint-for-tailwind-css}
+### Tailwind CSS 用の Prettier の設定 {#settings-prettier-for-tailwind-css}
 
 Tailwind CSS のユーティリティクラスの順序は開発者によってバラつきが出やすいので、 Prettier によってフォーマットします。
 公式のプラグイン [prettier-plugin-tailwindcss :material-open-in-new:](https://github.com/tailwindlabs/prettier-plugin-tailwindcss){ target=_blank }をインストールします。
