@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +18,9 @@ import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConsta
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
-import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationError;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
+import com.dressca.cms.systemcommon.exception.ValidationError;
+import com.dressca.cms.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.cms.web.constants.DisplayPriorityConstants;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
@@ -38,12 +41,13 @@ import org.springframework.web.bind.annotation.PostMapping;
  * お知らせメッセージの編集を行うコントローラーです。
  */
 @Controller
-@RequestMapping("/announcements")
 @AllArgsConstructor
+@RequestMapping("/announcements")
 public class AnnouncementController {
 
-  private final AnnouncementApplicationService announcementApplicationService;
-  private final AnnouncementCreateSession createSession;
+  private AnnouncementApplicationService announcementApplicationService;
+  private AnnouncementCreateSession createSession;
+  private AbstractStructuredLogger apLog;
 
   @ModelAttribute("displayPriorityMap")
   public Map<Integer, String> displayPriorityMap() {
@@ -72,15 +76,21 @@ public class AnnouncementController {
     PagedAnnouncementList pagedAnnouncementList = announcementApplicationService.getPagedAnnouncementList(pageNumberInt,
         pageSizeInt);
 
-    // ページングされたお知らせメッセージリストを、お知らせメッセージコンテンツ付のお知らせメッセージに変換します。
-    List<AnnouncementWithContentsViewModel> announcementWithContentsModels = pagedAnnouncementList.getAnnouncements()
-        .stream().map(announcement -> {
+    // ページングされたお知らせメッセージリストを、お知らせメッセージコンテンツ付のお知らせメッセージのリストに変換します。
+    List<AnnouncementWithContentsViewModel> announcementWithContentsModels = pagedAnnouncementList
+        .getAnnouncements()
+        .stream()
+        .map(announcement -> {
           AnnouncementViewModel announcementModel = AnnouncementViewModelTranslator
               .createAnnouncementViewModel(announcement);
-          List<AnnouncementContentViewModel> contentModels = announcement.getContents().stream()
-              .map(AnnouncementViewModelTranslator::createContentViewModel).toList();
+          List<AnnouncementContentViewModel> contentModels = announcement
+              .getContents()
+              .stream()
+              .map(AnnouncementViewModelTranslator::createContentViewModel)
+              .toList();
           return new AnnouncementWithContentsViewModel(announcementModel, contentModels);
-        }).toList();
+        })
+        .toList();
 
     AnnouncementListViewModel viewModel = new AnnouncementListViewModel(
         pagedAnnouncementList.getPageNumber(),
@@ -110,9 +120,10 @@ public class AnnouncementController {
     Announcement announcement = createSession.getAnnouncement();
     AnnouncementCreateViewModel viewModel = new AnnouncementCreateViewModel(
         AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
-        announcement.getContents().stream()
-            .map(AnnouncementViewModelTranslator::createContentViewModel).toList());
-
+        announcement.getContents()
+            .stream()
+            .map(AnnouncementViewModelTranslator::createContentViewModel)
+            .toList());
     model.addAttribute("viewModel", viewModel);
     return "announcement/create";
   }
@@ -125,7 +136,6 @@ public class AnnouncementController {
    * @param model     モデル。
    * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、
    *         バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
-   * 
    */
   @PostMapping("create")
   public String store(
@@ -135,17 +145,19 @@ public class AnnouncementController {
       return "announcement/create";
     }
     Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
-    List<AnnouncementContent> contents = viewModel.getContents().stream()
+    List<AnnouncementContent> contents = viewModel.getContents()
+        .stream()
         .map(AnnouncementViewModelTranslator::createContent)
         .toList();
     UUID id;
     try {
       id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
     } catch (AnnouncementValidationException e) {
-      for (AnnouncementValidationError error : e.getValidationErrors()) {
+      for (ValidationError error : e.getValidationErrors()) {
         result.rejectValue(error.getFieldName(), error.getMessageCode());
       }
-
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       return "announcement/create";
     }
     createSession.clear();
@@ -159,16 +171,15 @@ public class AnnouncementController {
    * @return お知らせメッセージ登録画面。
    */
   @PostMapping(path = "create", params = "addLanguageToCreate")
-  public String addLanguageToCreate(
-      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
-
+  public String addLanguageToCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
     Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
-
-    List<AnnouncementContent> contents = viewModel.getContents().stream()
+    List<AnnouncementContent> contents = viewModel.getContents()
+        .stream()
         .map(AnnouncementViewModelTranslator::createContent)
         .collect(Collectors.toCollection(ArrayList::new));
 
-    Set<String> existingLanguageCodeSet = contents.stream()
+    Set<String> existingLanguageCodeSet = contents
+        .stream()
         .map(AnnouncementContent::getLanguageCode)
         .collect(Collectors.toSet());
 
@@ -181,11 +192,8 @@ public class AnnouncementController {
         break;
       }
     }
-
     announcement.setContents(contents);
-
     createSession.setAnnouncement(announcement);
-
     return "redirect:/announcements/create";
   }
 
@@ -197,24 +205,20 @@ public class AnnouncementController {
    * @return お知らせメッセージの登録画面。
    */
   @PostMapping(path = "create", params = "deleteLanguageFromCreate")
-  public String deleteLanguageFromCreate(
-      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
+  public String deleteLanguageFromCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       @RequestParam("deleteLanguageFromCreate") String languageCode) {
 
     AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
     List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
-
     Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
-
-    List<AnnouncementContent> contents = contentViewModels.stream()
+    List<AnnouncementContent> contents = contentViewModels
+        .stream()
         .map(AnnouncementViewModelTranslator::createContent)
         .collect(Collectors.toCollection(ArrayList::new));
 
     contents.removeIf(entity -> entity.getLanguageCode().equals(languageCode));
-
     announcement.setContents(contents);
     createSession.setAnnouncement(announcement);
-
     return "redirect:/announcements/create";
   }
 

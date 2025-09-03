@@ -5,6 +5,9 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import lombok.Data;
 
+/**
+ * お知らせメッセージ登録画面のセッションオブジェクトクラスです。
+ */
 @SessionScope
 @Component
 @Data

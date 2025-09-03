@@ -16,7 +16,7 @@ import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.
 public class AnnouncementEntityTranslator {
 
   /**
-   * テーブルエンティティ {@link AnnouncementEntity} をエンティティ {@link Announcement} に変換する。
+   * テーブルエンティティ {@link AnnouncementEntity} をエンティティ {@link Announcement} に変換します。
    *
    * @param entity {@link AnnouncementEntity} オブジェクト。
    * @return {@link Announcement} オブジェクト。
@@ -35,7 +35,7 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * エンティティ {@link Announcement} をテーブルエンティティ {@link AnnouncementEntity} に変換する。
+   * エンティティ {@link Announcement} をテーブルエンティティ {@link AnnouncementEntity} に変換します。
    *
    * @param announcement {@link Announcement} オブジェクト。
    * @return {@link AnnouncementEntity} オブジェクト。
@@ -56,7 +56,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * テーブルエンティティ {@link AnnouncementContentEntity} をエンティティ {@link AnnouncementContent} に変換する。
+   * テーブルエンティティ {@link AnnouncementContentEntity} をエンティティ
+   * {@link AnnouncementContent} に変換します。
    *
    * @param entity {@link AnnouncementContentEntity} オブジェクト。
    * @return {@link AnnouncementContent} オブジェクト。
@@ -73,7 +74,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * エンティティ {@link AnnouncementContent} をテーブルエンティティ {@link AnnouncementContentEntity} に変換する。
+   * エンティティ {@link AnnouncementContent} をテーブルエンティティ
+   * {@link AnnouncementContentEntity} に変換します。
    *
    * @param content {@link AnnouncementContent} オブジェクト。
    * @return {@link AnnouncementContentEntity} オブジェクト。
@@ -91,7 +93,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * テーブルエンティティ {@link AnnouncementHistoryEntity} をエンティティ {@link AnnouncementHistory} に変換する。
+   * テーブルエンティティ {@link AnnouncementHistoryEntity} をエンティティ
+   * {@link AnnouncementHistory} に変換します。
    *
    * @param entity {@link AnnouncementHistoryEntity} オブジェクト。
    * @return {@link AnnouncementHistory} オブジェクト。
@@ -111,7 +114,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * エンティティ {@link AnnouncementHistory} をテーブルエンティティ {@link AnnouncementHistoryEntity} に変換する。
+   * エンティティ {@link AnnouncementHistory} をテーブルエンティティ
+   * {@link AnnouncementHistoryEntity} に変換します。
    *
    * @param history {@link AnnouncementHistory} オブジェクト。
    * @return {@link AnnouncementHistoryEntity} オブジェクト。
@@ -132,8 +136,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * テーブルエンティティ {@link AnnouncementContentHistoryEntity} をエンティティ {@link AnnouncementContentHistory}
-   * に変換する。
+   * テーブルエンティティ {@link AnnouncementContentHistoryEntity} をエンティティ
+   * {@link AnnouncementContentHistory} に変換します。
    *
    * @param entity {@link AnnouncementContentHistoryEntity} オブジェクト。
    * @return {@link AnnouncementContentHistory} オブジェクト。
@@ -152,8 +156,8 @@ public class AnnouncementEntityTranslator {
   }
 
   /**
-   * エンティティ {@link AnnouncementContentHistory} をテーブルエンティティ {@link AnnouncementContentHistoryEntity}
-   * に変換する。
+   * エンティティ {@link AnnouncementContentHistory} をテーブルエンティティ
+   * {@link AnnouncementContentHistoryEntity} に変換します。
    *
    * @param contentHistory {@link AnnouncementContentHistory} オブジェクト。
    * @return {@link AnnouncementContentHistoryEntity} オブジェクト。
@@ -170,6 +174,5 @@ public class AnnouncementEntityTranslator {
     Optional.ofNullable(contentHistory.getLinkUrl()).ifPresent(entity::setLinkUrl);
     return entity;
   }
-
 
 }

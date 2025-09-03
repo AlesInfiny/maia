@@ -9,5 +9,12 @@ import com.dressca.cms.announcement.applicationcore.dto.Announcement;
  */
 @Mapper
 public interface JoinedAnnouncementMapper {
-  List<Announcement> findByPageNumberAndPageSize(int pageSize, int offset);
+  /**
+   * ページサイズとオフセットを指定して、お知らせメッセージのリストを取得します。
+   * 
+   * @param pageSize ページサイズ。
+   * @param offset   オフセット。
+   * @return お知らせメッセージのリスト。
+   */
+  List<Announcement> findByPageSizeAndOffset(int pageSize, int offset);
 }

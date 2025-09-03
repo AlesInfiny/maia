@@ -18,8 +18,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MyBatisAnnouncementRepository implements AnnouncementRepository {
 
-  private final AnnouncementMapper mapper;
-  private final JoinedAnnouncementMapper joinedMapper;
+  private AnnouncementMapper mapper;
+  private JoinedAnnouncementMapper joinedMapper;
 
   @Override
   public long countByIsDeletedFalse() {
@@ -31,7 +31,7 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   @Override
   public List<Announcement> findByPageNumberAndPageSize(int pageNumber, int pageSize) {
     int offset = pageSize * (pageNumber - 1);
-    return joinedMapper.findByPageNumberAndPageSize(pageSize, offset);
+    return joinedMapper.findByPageSizeAndOffset(pageSize, offset);
   }
 
   @Override

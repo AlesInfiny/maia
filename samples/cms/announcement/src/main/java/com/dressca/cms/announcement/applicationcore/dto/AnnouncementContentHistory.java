@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * お知らせメッセージコンテンツ履歴のエンティティです。
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

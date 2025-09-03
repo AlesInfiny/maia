@@ -44,7 +44,7 @@
     <result property="linkUrl" column="LINK_URL"/>
   </resultMap>
 
-  <select id="findByPageNumberAndPageSize" resultMap="announcementIncludeContentResultMap">
+  <select id="findByPageSizeAndOffset" resultMap="announcementIncludeContentResultMap">
     <include refid="selectAnnouncementsIncludeContents"/>
     WHERE ANNOUNCEMENT.IS_DELETED = FALSE
     ORDER BY ANNOUNCEMENT.POST_DATE_TIME DESC

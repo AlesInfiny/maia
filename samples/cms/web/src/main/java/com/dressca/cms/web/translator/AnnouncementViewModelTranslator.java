@@ -64,7 +64,8 @@ public class AnnouncementViewModelTranslator {
   }
 
   /**
-   * エンティティ {@link AnnouncementContent} をビューモデル {@link AnnouncementContentViewModel} に変換する。
+   * エンティティ {@link AnnouncementContent} をビューモデル
+   * {@link AnnouncementContentViewModel} に変換する。
    *
    * @param content {@link AnnouncementContent} オブジェクト。
    * @return {@link AnnouncementContentViewModel} オブジェクト。
@@ -79,7 +80,8 @@ public class AnnouncementViewModelTranslator {
   }
 
   /**
-   * ビューモデル {@link AnnouncementContentViewModel} をエンティティ {@link AnnouncementContent} に変換する。
+   * ビューモデル {@link AnnouncementContentViewModel} をエンティティ
+   * {@link AnnouncementContent} に変換する。
    *
    * @param viewModel {@link AnnouncementContentViewModel} オブジェクト。
    * @return {@link AnnouncementContent} オブジェクト。

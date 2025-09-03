@@ -4,6 +4,9 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * ページングされたお知らせメッセージです。
+ */
 @Data
 @AllArgsConstructor
 public class PagedAnnouncementList {

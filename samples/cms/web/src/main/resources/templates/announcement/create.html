@@ -5,7 +5,7 @@
 >
   <th:block layout:fragment="content">
     <div style="width: 1400px">
-      <h2 class="mb-4" th:text="#{create.page_title}"></h2>
+      <h2 class="mb-4" th:text="#{create.pageTitle}"></h2>
 
       <form
         th:object="${viewModel}"
@@ -14,7 +14,7 @@
       >
         <!-- 基本情報部 -->
         <section class="mb-4">
-          <h3 class="h5 mb-3" th:text="#{create.basic_info}"></h3>
+          <h3 class="h5 mb-3" th:text="#{create.basicInfoSectionTitle}"></h3>
 
           <div class="row mb-3 align-items-stretch">
             <!-- 掲載開始日時 -->
@@ -22,7 +22,7 @@
               <label
                 for="postDate"
                 class="form-label"
-                th:text="#{create.post_date_time}"
+                th:text="#{create.postDateTimeLabel}"
               ></label>
               <div class="input-group">
                 <input
@@ -41,7 +41,7 @@
               <div class="form-text text-danger" style="min-height: 2em">
                 <span
                   th:if="${#fields.hasErrors('announcement.postDate') or #fields.hasErrors('announcement.postTime')}"
-                  th:text="#{postDateTimeIsRequired}"
+                  th:text="#{blankPostDateTime}"
                 >
                 </span>
               </div>
@@ -52,7 +52,7 @@
               <label
                 for="expireDate"
                 class="form-label"
-                th:text="#{create.expire_date_time}"
+                th:text="#{create.expireDateTimeLabel}"
               ></label>
               <div class="input-group">
                 <input
@@ -81,7 +81,7 @@
               <label
                 for="category"
                 class="form-label"
-                th:text="#{create.category}"
+                th:text="#{create.categoryLabel}"
               ></label>
               <input
                 type="text"
@@ -102,7 +102,7 @@
               <label
                 for="displayPriority"
                 class="form-label"
-                th:text="#{create.display_priority}"
+                th:text="#{create.displayPriorityLabel}"
               ></label>
               <select
                 class="form-select"
@@ -131,12 +131,12 @@
               <div class="d-flex align-items-center mb-2">
                 <h3
                   class="h5 mb-0 me-3"
-                  th:text="#{create.announcement_message}"
+                  th:text="#{create.announcementSectionTitle}"
                 ></h3>
                 <input
                   type="submit"
                   name="addLanguageToCreate"
-                  th:value="#{create.add_language}"
+                  th:value="#{create.addButton}"
                   class="btn btn-outline-primary btn-sm"
                 />
               </div>
@@ -159,7 +159,7 @@
                       name="deleteLanguageFromCreate"
                       th:value="${content.languageCode}"
                       class="btn btn-outline-danger btn-sm"
-                      th:text="#{create.delete}"
+                      th:text="#{create.deleteButton}"
                     ></button>
                   </div>
 
@@ -168,7 +168,7 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].languageCode'}"
                       class="form-label"
-                      th:text="#{create.language}"
+                      th:text="#{create.languageLabel}"
                     ></label>
                     <select
                       class="form-select"
@@ -198,7 +198,7 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].title'}"
                       class="form-label"
-                      th:text="#{create.title}"
+                      th:text="#{create.titleLabel}"
                     ></label>
                     <input
                       type="text"
@@ -223,7 +223,7 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].message'}"
                       class="form-label"
-                      th:text="#{create.display_message}"
+                      th:text="#{create.messageLabel}"
                     ></label>
                     <textarea
                       class="form-control"
@@ -248,7 +248,7 @@
                     <label
                       th:for="${'contents[' + iterStat.index + '].linkUrl'}"
                       class="form-label"
-                      th:text="#{create.link_url}"
+                      th:text="#{create.linkUrlLabel}"
                     >
                     </label>
                     <input
@@ -276,7 +276,7 @@
           <!-- アクション -->
           <div class="col-4 mb-3">
             <section>
-              <h3 class="h5 mb-3" th:text="#{create.action}"></h3>
+              <h3 class="h5 mb-3" th:text="#{create.actionSectionTitle}"></h3>
               <div
                 th:if="${#fields.hasGlobalErrors()}"
                 class="form-text text-danger"
@@ -290,13 +290,13 @@
                 <input
                   type="submit"
                   name="create"
-                  th:value="#{create.create_announcement}"
+                  th:value="#{create.createButton}"
                   class="btn btn-primary w-100"
                 />
                 <a
                   th:href="@{/announcements}"
                   class="mt-2"
-                  th:text="#{create.back_to_list}"
+                  th:text="#{create.backToListLink}"
                 ></a>
               </div>
             </section>

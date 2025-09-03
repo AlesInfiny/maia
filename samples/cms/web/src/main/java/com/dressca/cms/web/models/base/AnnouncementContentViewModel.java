@@ -16,25 +16,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementContentViewModel {
-    @NotNull(message = "言語を選択してください", groups = AnnouncementStoreGroup.class)
-    private String languageCode;
+  @NotNull(message = "{nullLanguageCode}", groups = AnnouncementStoreGroup.class)
+  private String languageCode;
 
-    @NotBlank(
-            message = "タイトルを入力してください",
-            groups = AnnouncementStoreGroup.class)
-    @Size(max = 256, message = "タイトルは256文字以内で入力してください", groups = AnnouncementStoreGroup.class)
-    private String title;
+  @NotBlank(message = "{blankTitle}", groups = AnnouncementStoreGroup.class)
+  @Size(max = 256, message = "{TooLongTitle}", groups = AnnouncementStoreGroup.class)
+  private String title;
 
-    @NotBlank(
-            message = "表示メッセージを入力してください",
-            groups = AnnouncementStoreGroup.class)
-    @Size(max = 512, message = "表示メッセージは512文字以内で入力してください", groups = AnnouncementStoreGroup.class)
-    private String message;
+  @NotBlank(message = "{blankMessage}", groups = AnnouncementStoreGroup.class)
+  @Size(max = 512, message = "{tooLongMessage}", groups = AnnouncementStoreGroup.class)
+  private String message;
 
-    @Size(
-            max = 1024,
-            message = "リンク先 URL は1024文字で入力してください",
-            groups = AnnouncementStoreGroup.class)
-    @URL(message = "リンク先 URL はURLの形式で入力してください", groups = AnnouncementStoreGroup.class)
-    private String linkUrl;
+  @Size(max = 1024, message = "{tooLongLinkUrl}", groups = AnnouncementStoreGroup.class)
+  @URL(message = "{invalidLinkUrl}", groups = AnnouncementStoreGroup.class)
+  private String linkUrl;
 }

@@ -15,12 +15,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MyBatisAnnouncementContentRepository implements AnnouncementContentRepository {
 
-  private final AnnouncementContentMapper mapper;
+  private AnnouncementContentMapper mapper;
 
   @Override
   public int add(AnnouncementContent content) {
-    AnnouncementContentEntity entity =
-        AnnouncementEntityTranslator.createAnnouncementContentEntity(content);
+    AnnouncementContentEntity entity = AnnouncementEntityTranslator.createAnnouncementContentEntity(content);
     return mapper.insert(entity);
   }
 }

@@ -10,7 +10,7 @@ import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
  */
 public abstract class AbstractStructuredLogger {
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。

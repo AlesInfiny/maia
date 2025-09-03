@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * お知らせメッセージのエンティティです。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

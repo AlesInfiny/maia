@@ -14,12 +14,12 @@ import java.util.UUID;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.dressca.cms.announcement.infrastructure.repository.mybatis"})
+@MapperScan(basePackages = { "com.dressca.cms.announcement.infrastructure.repository.mybatis" })
 public class MyBatisConfig {
   /**
-   * MyBatis の設定をカスタマイズします。
+   * MyBatis の設定をカスタマイズする {@link ConfigurationCustomizer} オブジェクトを Bean 登録します。
    *
-   * @return カスタマイズされた MyBatis 設定 。
+   * @return MyBatis の設定をカスタマイズする {@link ConfigurationCustomizer} オブジェクト。
    */
   @Bean
   ConfigurationCustomizer mybatisConfigurationCustomizer() {

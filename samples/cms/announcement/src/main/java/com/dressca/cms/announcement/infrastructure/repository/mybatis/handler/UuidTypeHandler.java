@@ -9,31 +9,31 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 /**
- * UUID型のMyBatis TypeHandler
+ * MyBatis の UUID 型を解決するハンドラークラスです。
  */
 public class UuidTypeHandler extends BaseTypeHandler<UUID> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType)
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, UUID parameter, JdbcType jdbcType)
             throws SQLException {
-        ps.setString(i, parameter.toString());
+        preparedStatement.setString(i, parameter.toString());
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        String value = rs.getString(columnName);
+    public UUID getNullableResult(ResultSet resultSet, String columnName) throws SQLException {
+        String value = resultSet.getString(columnName);
         return value != null ? UUID.fromString(value) : null;
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        String value = rs.getString(columnIndex);
+    public UUID getNullableResult(ResultSet resultSet, int columnIndex) throws SQLException {
+        String value = resultSet.getString(columnIndex);
         return value != null ? UUID.fromString(value) : null;
     }
 
     @Override
-    public UUID getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        String value = cs.getString(columnIndex);
+    public UUID getNullableResult(CallableStatement callableStatement, int columnIndex) throws SQLException {
+        String value = callableStatement.getString(columnIndex);
         return value != null ? UUID.fromString(value) : null;
     }
 }

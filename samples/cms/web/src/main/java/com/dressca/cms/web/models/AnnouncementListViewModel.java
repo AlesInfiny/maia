@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 
+/**
+ * お知らせメッセージリストのビューモデルです。
+ */
 @Data
 public class AnnouncementListViewModel {
   private int pageNumber;

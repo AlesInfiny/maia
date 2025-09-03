@@ -21,26 +21,28 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
-import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationError;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
+import com.dressca.cms.systemcommon.exception.ValidationError;
 import com.dressca.cms.systemcommon.log.AbstractStructuredLogger;
 import com.fasterxml.uuid.Generators;
+import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class AnnouncementApplicationService {
 
-  private final MessageSource messageSource;
-  private final AbstractStructuredLogger apLog;
-  private final AnnouncementRepository announcementRepository;
-  private final AnnouncementContentRepository contentRepository;
-  private final AnnouncementHistoryRepository historyRepository;
-  private final AnnouncementContentHistoryRepository contentHistoryRepository;
+  private MessageSource messageSource;
+  private AbstractStructuredLogger apLog;
+  private AnnouncementRepository announcementRepository;
+  private AnnouncementContentRepository contentRepository;
+  private AnnouncementHistoryRepository historyRepository;
+  private AnnouncementContentHistoryRepository contentHistoryRepository;
+  private final TimeBasedEpochGenerator uuidGenerator = Generators.timeBasedEpochGenerator();
 
   /**
    * ページングされたお知らせメッセージを掲載開始日時の降順で取得します。
@@ -57,7 +59,7 @@ public class AnnouncementApplicationService {
       pageSize = 20;
     }
 
-    apLog.info(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_START, null,
+    apLog.debug(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_START, null,
         Locale.getDefault()));
 
     int totalCount = (int) announcementRepository.countByIsDeletedFalse();
@@ -79,11 +81,9 @@ public class AnnouncementApplicationService {
       announcement.setContents(List.of(contents.get(0)));
     }
 
-    apLog.info(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_END, null,
-        Locale.getDefault()));
+    apLog.debug(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_END, null, Locale.getDefault()));
 
-    return new PagedAnnouncementList(pageNumber, pageSize, totalCount, announcements,
-        lastPageNumber);
+    return new PagedAnnouncementList(pageNumber, pageSize, totalCount, announcements, lastPageNumber);
   }
 
   /**
@@ -92,16 +92,15 @@ public class AnnouncementApplicationService {
    * @param announcement お知らせメッセージ。
    * @param contents     お知らせメッセージコンテンツのリスト。
    * @return 登録したお知らせメッセージの Id 。
-   * @throws AnnouncementValidationException
+   * @throws AnnouncementValidationException 非宣言的なバリデーションエラーが発生した場合。
    */
-  public UUID addAnnouncementAndHistory(Announcement announcement,
-      List<AnnouncementContent> contents) throws AnnouncementValidationException {
-    List<AnnouncementValidationError> errors = new ArrayList<>();
+  public UUID addAnnouncementAndHistory(Announcement announcement, List<AnnouncementContent> contents)
+      throws AnnouncementValidationException {
+    List<ValidationError> errors = new ArrayList<>();
 
     for (AnnouncementContent content : contents) {
       if (!LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.contains(content.getLanguageCode())) {
-        errors.add(new AnnouncementValidationError(FieldNameConstants.GLOBAL,
-            ExceptionIdConstants.E_EXPIRE_DATE_AFTER_POST_DATE));
+        errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
       }
     }
     OffsetDateTime postDateTime = announcement.getPostDateTime();
@@ -109,20 +108,18 @@ public class AnnouncementApplicationService {
     if (postDateTime != null && expireDateTime != null) {
       if (postDateTime.isAfter(expireDateTime)) {
         errors.add(
-            new AnnouncementValidationError(FieldNameConstants.EXPIRE_DATE,
-                ExceptionIdConstants.E_EXPIRE_DATE_AFTER_POST_DATE));
+            new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
       }
     }
     if (contents.isEmpty()) {
-      errors.add(
-          new AnnouncementValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_ANNOUNCEMENT_IS_EMPTY));
+      errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_NULL_ANNOUNCEMENT));
     }
 
     Set<String> seenCodes = new HashSet<>();
-    for (String code : contents.stream().map(AnnouncementContent::getLanguageCode).toList()) {
+    for (AnnouncementContent content : contents) {
+      String code = content.getLanguageCode();
       if (!seenCodes.add(code)) {
-        errors.add(
-            new AnnouncementValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
+        errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
         break;
       }
     }
@@ -131,11 +128,11 @@ public class AnnouncementApplicationService {
       throw new AnnouncementValidationException(errors);
     }
 
-    apLog.info(messageSource.getMessage(
+    apLog.debug(messageSource.getMessage(
         MessageIdConstants.D_ANNOUNCEMENT_ADD_ANNOUNCEMENT_AND_HISTORY_START, null,
         Locale.getDefault()));
 
-    UUID announcementId = Generators.timeBasedEpochGenerator().generate();
+    UUID announcementId = uuidGenerator.generate();
     announcement.setId(announcementId);
     announcement.setCreatedAt(OffsetDateTime.now());
     announcement.setChangedAt(OffsetDateTime.now());
@@ -143,31 +140,31 @@ public class AnnouncementApplicationService {
     announcementRepository.add(announcement);
 
     for (AnnouncementContent content : contents) {
-      content.setId(Generators.timeBasedEpochGenerator().generate());
+      content.setId(uuidGenerator.generate());
       content.setAnnouncementId(announcementId);
       contentRepository.add(content);
     }
 
-    UUID historyId = Generators.timeBasedEpochGenerator().generate();
+    UUID historyId = uuidGenerator.generate();
     AnnouncementHistory history = createAnnouncementHistory(announcement, historyId, "admin",
         OperationTypeConstants.CREATE);
     historyRepository.add(history);
 
     for (AnnouncementContent content : contents) {
       AnnouncementContentHistory contentHistory = createAnnouncementContentHistory(content,
-          Generators.timeBasedEpochGenerator().generate(), historyId);
+          uuidGenerator.generate(), historyId);
       contentHistoryRepository.add(contentHistory);
     }
 
-    apLog.info(messageSource.getMessage(
-        MessageIdConstants.D_ANNOUNCEMENT_ADD_ANNOUNCEMENT_AND_HISTORY_START, null,
+    apLog.debug(messageSource.getMessage(
+        MessageIdConstants.D_ANNOUNCEMENT_ADD_ANNOUNCEMENT_AND_HISTORY_END, null,
         Locale.getDefault()));
 
     return announcementId;
   }
 
   /**
-   * {@link Announcement} を {@link AnnouncementHistory} に変換する。
+   * {@link Announcement} を {@link AnnouncementHistory} に変換します。
    * 
    * @param announcement  {@link Announcement} オブジェクト。
    * @param id            お知らせメッセージ履歴の ID 。
@@ -191,7 +188,7 @@ public class AnnouncementApplicationService {
   }
 
   /**
-   * {@link AnnouncementContent} を {@link AnnouncementContentHistory} に変換する。
+   * {@link AnnouncementContent} を {@link AnnouncementContentHistory} に変換します。
    * 
    * @param content   @param content {@link AnnouncementContent} オブジェクト。
    * @param id        お知らせメッセージコンテンツ履歴の ID 。

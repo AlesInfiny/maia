@@ -8,7 +8,7 @@
       <div
         class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap"
       >
-        <h2 class="mb-0" th:text="#{index.title}"></h2>
+        <h2 class="mb-0" th:text="#{index.pageTitle}"></h2>
         <div
           class="d-flex align-items-center gap-3 flex-wrap w-100 w-md-auto"
           style="max-width: 100%"
@@ -49,14 +49,14 @@
           <a
             th:href="@{/announcements/create}"
             class="btn btn-primary ms-2"
-            th:text="#{index.create_new_announcement}"
+            th:text="#{index.createButton}"
           ></a>
         </div>
       </div>
       <div
         th:if="${#lists.isEmpty(viewModel.announcementsWithContents)}"
         class="alert alert-info"
-        th:text="#{index.no_announcements_message}"
+        th:text="#{index.noAnnouncementsMessage}"
       ></div>
       <table
         class="table table-hover"
@@ -64,11 +64,11 @@
       >
         <thead class="table-light">
           <tr>
-            <th scope="col" th:text="#{index.table.title}"></th>
-            <th scope="col" th:text="#{index.table.published_date}"></th>
-            <th scope="col" th:text="#{index.table.category}"></th>
-            <th scope="col" th:text="#{index.table.display_priority}"></th>
-            <th scope="col" th:text="#{index.table.actions}"></th>
+            <th scope="col" th:text="#{index.titleLabel}"></th>
+            <th scope="col" th:text="#{index.postDateLabel}"></th>
+            <th scope="col" th:text="#{index.categoryLabel}"></th>
+            <th scope="col" th:text="#{index.displayPriorityLabel}"></th>
+            <th scope="col" th:text="#{index.actionLabel}"></th>
           </tr>
         </thead>
         <tbody>
@@ -91,12 +91,12 @@
               <a
                 href="#"
                 class="btn btn-sm btn-outline-primary me-1"
-                th:text="#{index.edit}"
+                th:text="#{index.editButton}"
               ></a>
               <a
                 href="#"
                 class="btn btn-sm btn-outline-danger"
-                th:text="#{index.delete}"
+                th:text="#{index.deleteButton}"
               ></a>
             </td>
           </tr>

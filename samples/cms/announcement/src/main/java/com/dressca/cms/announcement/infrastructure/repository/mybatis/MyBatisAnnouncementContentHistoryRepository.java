@@ -13,14 +13,13 @@ import lombok.AllArgsConstructor;
  */
 @Repository
 @AllArgsConstructor
-public class MyBatisAnnouncementContentHistoryRepository
-    implements AnnouncementContentHistoryRepository {
-  private final AnnouncementContentHistoryMapper mapper;
+public class MyBatisAnnouncementContentHistoryRepository implements AnnouncementContentHistoryRepository {
+  private AnnouncementContentHistoryMapper mapper;
 
   @Override
   public int add(AnnouncementContentHistory contentHistory) {
-    AnnouncementContentHistoryEntity entity =
-        AnnouncementEntityTranslator.createAnnouncementContentHistoryEntity(contentHistory);
+    AnnouncementContentHistoryEntity entity = AnnouncementEntityTranslator
+        .createAnnouncementContentHistoryEntity(contentHistory);
     return mapper.insert(entity);
   }
 

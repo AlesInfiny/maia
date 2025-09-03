@@ -18,19 +18,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementViewModel {
-  @Size(max = 128, message = "カテゴリーは128文字以内で入力してください", groups = AnnouncementStoreGroup.class)
-  @NotBlank(message = "カテゴリーは128文字以内で入力してください", groups = AnnouncementStoreGroup.class)
+  @Size(max = 128, message = "{tooLongCategory}", groups = AnnouncementStoreGroup.class)
+  @NotBlank(message = "{blankCategory}", groups = AnnouncementStoreGroup.class)
   private String category;
 
-  @NotNull(
-      message = "掲載開始日時を入力してください",
-      groups = AnnouncementStoreGroup.class)
+  @NotNull(groups = AnnouncementStoreGroup.class)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate postDate;
 
-  @NotNull(
-      message = "掲載開始日時を入力してください",
-      groups = AnnouncementStoreGroup.class)
+  @NotNull(groups = AnnouncementStoreGroup.class)
   @DateTimeFormat(pattern = "HH:mm")
   private LocalTime postTime;
 
@@ -40,6 +36,6 @@ public class AnnouncementViewModel {
   @DateTimeFormat(pattern = "HH:mm")
   private LocalTime expireTime;
 
-  @NotNull(message = "表示優先度を選択してください", groups = AnnouncementStoreGroup.class)
+  @NotNull(message = "{nullDisplayPriority}", groups = AnnouncementStoreGroup.class)
   private Integer displayPriority;
 }
