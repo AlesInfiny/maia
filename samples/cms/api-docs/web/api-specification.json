@@ -88,19 +88,26 @@
         ]
       },
       "post": {
-        "description": "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。",
-        "operationId": "store",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AnnouncementCreateViewModel"
-              }
+        "description": "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。",
+        "operationId": "addLanguageToCreate",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "viewModel",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AnnouncementCreateViewModel"
             }
           },
-          "description": "お知らせメッセージ登録画面のビューモデル",
-          "required": true
-        },
+          {
+            "in": "query",
+            "name": "deleteLanguageFromCreate",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -120,10 +127,10 @@
                 }
               }
             },
-            "description": "登録成功時、編集画面へリダイレクトします。"
+            "description": "追加成功時、登録画面へリダイレクトします。"
           }
         },
-        "summary": "お知らせメッセージを登録します。",
+        "summary": "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。",
         "tags": [
           "Announcement"
         ]
@@ -219,15 +226,26 @@
             "type": "string"
           },
           "linkUrl": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 0
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 0
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 0
           }
-        }
+        },
+        "required": [
+          "languageCode",
+          "message",
+          "title"
+        ]
       },
       "AnnouncementCreateViewModel": {
         "type": "object",
@@ -247,7 +265,9 @@
         "type": "object",
         "properties": {
           "category": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0
           },
           "displayPriority": {
             "type": "integer",
@@ -267,7 +287,13 @@
           "postTime": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "category",
+          "displayPriority",
+          "postDate",
+          "postTime"
+        ]
       },
       "Link": {
         "type": "object",

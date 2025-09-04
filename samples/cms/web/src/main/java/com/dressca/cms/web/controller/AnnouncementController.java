@@ -29,11 +29,9 @@ import com.dressca.cms.web.models.base.AnnouncementViewModel;
 import com.dressca.cms.web.models.validation.AnnouncementValidationGroup.AnnouncementStoreGroup;
 import com.dressca.cms.web.session.AnnouncementCreateSession;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,7 +71,8 @@ public class AnnouncementController {
    * @param model      モデル。
    * @return お知らせメッセージ管理画面。
    */
-  @Operation(summary = "お知らせメッセージ管理画面を表示します。", description = "お知らせメッセージ管理画面を表示します。", responses = {
+  @Operation(operationId = "index", summary = "お知らせメッセージ管理画面を表示します。", description = "お知らせメッセージ管理画面を表示します。")
+  @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "画面表示成功")
   })
   @GetMapping()
@@ -121,7 +120,8 @@ public class AnnouncementController {
    * @param model モデル。
    * @return お知らせメッセージ登録画面。
    */
-  @Operation(summary = "お知らせメッセージ登録画面を表示します。", description = "お知らせメッセージ登録画面を表示します。", responses = {
+  @Operation(operationId = "create", summary = "お知らせメッセージ登録画面を表示します。", description = "お知らせメッセージ登録画面を表示します。")
+  @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "画面表示成功")
   })
   @GetMapping("create")
@@ -149,11 +149,13 @@ public class AnnouncementController {
    * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、
    *         バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
    */
-  @PostMapping("create")
-  @Operation(summary = "お知らせメッセージを登録します。", description = "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。", requestBody = @RequestBody(description = "お知らせメッセージ登録画面のビューモデル", required = true, content = @Content(schema = @Schema(implementation = AnnouncementCreateViewModel.class))), responses = {
+  @Operation(operationId = "store", summary = "お知らせメッセージを登録します。", description = "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、"
+      + "バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。")
+  @ApiResponses(value = {
       @ApiResponse(responseCode = "302", description = "登録成功時、編集画面へリダイレクトします。"),
       @ApiResponse(responseCode = "200", description = "バリデーションエラー時、登録画面を表示します。")
   })
+  @PostMapping("create")
   public String store(
       @Validated(AnnouncementStoreGroup.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       BindingResult result, Model model) {
@@ -186,6 +188,10 @@ public class AnnouncementController {
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
    * @return お知らせメッセージ登録画面。
    */
+  @Operation(operationId = "addLanguageToCreate", summary = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。", description = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "302", description = "追加成功時、登録画面へリダイレクトします。")
+  })
   @PostMapping(path = "create", params = "addLanguageToCreate")
   public String addLanguageToCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
     Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
@@ -221,6 +227,10 @@ public class AnnouncementController {
    * @param languageCode 削除対象の言語コード。
    * @return お知らせメッセージの登録画面。
    */
+  @Operation(operationId = "deleteLanguageFromCreate", summary = "お知らせメッセージ登録画面上で言語を削除します。", description = "お知らせメッセージ登録画面上で言語を削除します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "302", description = "削除成功時、登録画面へリダイレクトします。")
+  })
   @PostMapping(path = "create", params = "deleteLanguageFromCreate")
   public String deleteLanguageFromCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       @RequestParam("deleteLanguageFromCreate") String languageCode) {
