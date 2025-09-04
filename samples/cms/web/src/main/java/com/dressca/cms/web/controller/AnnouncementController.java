@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.dressca.cms.announcement.applicationcore.AnnouncementApplicationService;
+import com.dressca.cms.announcement.applicationcore.constants.FieldNameConstants;
 import com.dressca.cms.announcement.applicationcore.constants.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
@@ -172,7 +173,7 @@ public class AnnouncementController {
       id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
     } catch (AnnouncementValidationException e) {
       for (ValidationError error : e.getValidationErrors()) {
-        result.rejectValue(error.getFieldName(), error.getMessageCode());
+        result.rejectValue(toViewFieldName(error.getFieldName(), "announcement"), error.getMessageCode());
       }
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
@@ -287,4 +288,18 @@ public class AnnouncementController {
     return blankAnnouncement;
   }
 
+  /**
+   * フィールド名をビューで使用されている形式に変換します。
+   * 例えば、 postDate を announcement.postDate に変換します。
+   * 
+   * @param fieldName フィールド名。（例： postDate ）
+   * @param prefix    ビューのオブジェクト名。（例： announcement ）
+   * @return ビューで使用されている形式に変換されたフィールド名。
+   */
+  private String toViewFieldName(String fieldName, String prefix) {
+    if (FieldNameConstants.GLOBAL.equals(fieldName)) {
+      return fieldName;
+    }
+    return prefix + "." + fieldName;
+  }
 }

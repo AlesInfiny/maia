@@ -111,8 +111,8 @@ public class AnnouncementApplicationService {
     OffsetDateTime postDateTime = announcement.getPostDateTime();
     OffsetDateTime expireDateTime = announcement.getExpireDateTime();
     if (postDateTime != null && expireDateTime != null && postDateTime.isAfter(expireDateTime)) {
-      validationErrors
-          .add(new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
+      validationErrors.add(
+          new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
     }
 
     if (contents.isEmpty()) {
