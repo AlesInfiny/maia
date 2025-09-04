@@ -88,6 +88,7 @@
                 class="form-control"
                 id="category"
                 th:field="*{announcement.category}"
+                size="128"
               />
               <div class="form-text text-danger" style="min-height: 2em">
                 <span
@@ -162,62 +163,63 @@
                       th:text="#{create.deleteButton}"
                     ></button>
                   </div>
+                  <div class="row">
+                    <!-- 言語 -->
+                    <div class="mb-3 col-6">
+                      <label
+                        th:for="${'contents[' + iterStat.index + '].languageCode'}"
+                        class="form-label"
+                        th:text="#{create.languageLabel}"
+                      ></label>
+                      <select
+                        class="form-select"
+                        th:id="${'contents[' + iterStat.index + '].languageCode'}"
+                        th:name="${'contents[' + iterStat.index + '].languageCode'}"
+                      >
+                        <option
+                          th:each="languageCode : ${languageCodeMap}"
+                          th:value="${languageCode.key}"
+                          th:selected="${content.languageCode == languageCode.key}"
+                          th:text="${languageCode.value}"
+                        ></option>
+                      </select>
+                      <div
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
+                      >
+                        <span
+                          th:each="err : ${#fields.errors('contents[' + iterStat.index + '].languageCode')}"
+                          th:utext="${err} + '<br/>'"
+                        ></span>
+                      </div>
+                    </div>
 
-                  <!-- 言語 -->
-                  <div class="mb-3">
-                    <label
-                      th:for="${'contents[' + iterStat.index + '].languageCode'}"
-                      class="form-label"
-                      th:text="#{create.languageLabel}"
-                    ></label>
-                    <select
-                      class="form-select"
-                      th:id="${'contents[' + iterStat.index + '].languageCode'}"
-                      th:name="${'contents[' + iterStat.index + '].languageCode'}"
-                    >
-                      <option
-                        th:each="languageCode : ${languageCodeMap}"
-                        th:value="${languageCode.key}"
-                        th:selected="${content.languageCode == languageCode.key}"
-                        th:text="${languageCode.value}"
-                      ></option>
-                    </select>
-                    <div
-                      class="form-text text-danger"
-                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
-                    >
-                      <span
-                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].languageCode')}"
-                        th:utext="${err} + '<br/>'"
-                      ></span>
+                    <!-- タイトル -->
+                    <div class="mb-3 col-6">
+                      <label
+                        th:for="${'contents[' + iterStat.index + '].title'}"
+                        class="form-label"
+                        th:text="#{create.titleLabel}"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        th:id="${'contents[' + iterStat.index + '].title'}"
+                        th:name="${'contents[' + iterStat.index + '].title'}"
+                        th:value="${content.title}"
+                        size="256"
+                      />
+                      <div
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
+                      >
+                        <span
+                          th:each="err : ${#fields.errors('contents[' + iterStat.index + '].title')}"
+                          th:utext="${err + '<br/>'}"
+                        ></span>
+                      </div>
                     </div>
                   </div>
-
-                  <!-- タイトル -->
-                  <div class="mb-3">
-                    <label
-                      th:for="${'contents[' + iterStat.index + '].title'}"
-                      class="form-label"
-                      th:text="#{create.titleLabel}"
-                    ></label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      th:id="${'contents[' + iterStat.index + '].title'}"
-                      th:name="${'contents[' + iterStat.index + '].title'}"
-                      th:value="${content.title}"
-                    />
-                    <div
-                      class="form-text text-danger"
-                      th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
-                    >
-                      <span
-                        th:each="err : ${#fields.errors('contents[' + iterStat.index + '].title')}"
-                        th:utext="${err + '<br/>'}"
-                      ></span>
-                    </div>
-                  </div>
-
                   <!-- 表示メッセージ -->
                   <div class="mb-3">
                     <label
@@ -231,6 +233,7 @@
                       th:id="${'contents[' + iterStat.index + '].message'}"
                       th:name="${'contents[' + iterStat.index + '].message'}"
                       th:text="${content.message}"
+                      size="512"
                     ></textarea>
                     <div
                       class="form-text text-danger"
@@ -257,6 +260,7 @@
                       th:id="${'contents[' + iterStat.index + '].linkUrl'}"
                       th:name="${'contents[' + iterStat.index + '].linkUrl'}"
                       th:value="${content.linkUrl}"
+                      size="1024"
                     />
                     <div
                       class="form-text text-danger"
