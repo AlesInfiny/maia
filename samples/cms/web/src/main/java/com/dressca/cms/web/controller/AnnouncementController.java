@@ -29,6 +29,12 @@ import com.dressca.cms.web.models.base.AnnouncementViewModel;
 import com.dressca.cms.web.models.validation.AnnouncementValidationGroup.AnnouncementStoreGroup;
 import com.dressca.cms.web.session.AnnouncementCreateSession;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,6 +48,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/announcements")
+@Tag(name = "Announcement", description = "お知らせメッセージの情報にアクセスする API です。")
 public class AnnouncementController {
 
   private AnnouncementApplicationService announcementApplicationService;
@@ -66,6 +73,9 @@ public class AnnouncementController {
    * @param model      モデル。
    * @return お知らせメッセージ管理画面。
    */
+  @Operation(summary = "お知らせメッセージ管理画面を表示します。", description = "お知らせメッセージ管理画面を表示します。", responses = {
+      @ApiResponse(responseCode = "200", description = "画面表示成功")
+  })
   @GetMapping()
   public String index(@RequestParam(value = "pageNumber", required = false) String pageNumber,
       @RequestParam(value = "pageSize", required = false) String pageSize, Model model) {
@@ -111,6 +121,9 @@ public class AnnouncementController {
    * @param model モデル。
    * @return お知らせメッセージ登録画面。
    */
+  @Operation(summary = "お知らせメッセージ登録画面を表示します。", description = "お知らせメッセージ登録画面を表示します。", responses = {
+      @ApiResponse(responseCode = "200", description = "画面表示成功")
+  })
   @GetMapping("create")
   public String create(Model model) {
     if (createSession.getAnnouncement() == null) {
@@ -137,6 +150,10 @@ public class AnnouncementController {
    *         バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
    */
   @PostMapping("create")
+  @Operation(summary = "お知らせメッセージを登録します。", description = "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。", requestBody = @RequestBody(description = "お知らせメッセージ登録画面のビューモデル", required = true, content = @Content(schema = @Schema(implementation = AnnouncementCreateViewModel.class))), responses = {
+      @ApiResponse(responseCode = "302", description = "登録成功時、編集画面へリダイレクトします。"),
+      @ApiResponse(responseCode = "200", description = "バリデーションエラー時、登録画面を表示します。")
+  })
   public String store(
       @Validated(AnnouncementStoreGroup.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       BindingResult result, Model model) {
@@ -200,8 +217,8 @@ public class AnnouncementController {
   /**
    * お知らせメッセージ登録画面上で言語を削除します。
    *
-   * @param announcementId     お知らせメッセージの ID。
-   * @param deleteLanguageCode 言語コード。
+   * @param viewModel    お知らせメッセージ登録画面のビューモデル。
+   * @param languageCode 削除対象の言語コード。
    * @return お知らせメッセージの登録画面。
    */
   @PostMapping(path = "create", params = "deleteLanguageFromCreate")

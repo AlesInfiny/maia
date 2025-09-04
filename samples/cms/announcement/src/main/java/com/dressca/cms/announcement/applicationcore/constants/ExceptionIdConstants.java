@@ -11,7 +11,7 @@ public class ExceptionIdConstants {
   /** 掲載終了日時は掲載開始日時以降に設定してください。 */
   public static final String E_INVALID_EXPIRE_DATE = "invalidExpireDate";
 
-  /** お知らせメッセージは 1 件以上登録してください */
+  /** お知らせメッセージは 1 件以上登録してください。 */
   public static final String E_NULL_ANNOUNCEMENT = "nullAnnouncement";
 
   /** 同じ言語コードのお知らせメッセージが登録されています。 */

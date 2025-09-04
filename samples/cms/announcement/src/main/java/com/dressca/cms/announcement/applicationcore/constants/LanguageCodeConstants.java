@@ -24,6 +24,7 @@ public class LanguageCodeConstants {
 
   /** 言語コードと言語名のマップです。 */
   public static final Map<String, String> LANGUAGE_CODE_MAP;
+
   static {
     Map<String, String> map = new LinkedHashMap<>();
     map.put(JA, "日本語");

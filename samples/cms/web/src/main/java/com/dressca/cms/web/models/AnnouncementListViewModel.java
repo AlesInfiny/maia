@@ -19,6 +19,17 @@ public class AnnouncementListViewModel {
   private boolean hasPrevious;
   private boolean hasNext;
 
+  /**
+   * {@link AnnouncementListViewModel} オブジェクトを初期化します。
+   * 
+   * @param pageNumber                ページ番号。
+   * @param pageSize                  ページサイズ。
+   * @param totalCount                お知らせメッセージの総件数。
+   * @param announcementsWithContents お知らせメッセージのビューモデルとお知らせメッセージコンテンツのビューモデルをラップするビューモデルのリスト。
+   * @param lastPageNumber            最後のページ番号。
+   * @param startIndex                開始件数。
+   * @param endIndex                  終了件数。
+   */
   public AnnouncementListViewModel(int pageNumber, int pageSize, int totalCount,
       List<AnnouncementWithContentsViewModel> announcementsWithContents, int lastPageNumber,
       int startIndex, int endIndex) {

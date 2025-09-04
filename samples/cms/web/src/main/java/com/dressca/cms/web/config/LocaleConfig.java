@@ -12,16 +12,16 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 @Configuration
 public class LocaleConfig {
 
-    /**
-     * Accept-Language ヘッダをそのまま使う {@link LocaleResolver} オブジェクトを Bean 登録します。
-     * クッキーや URL パラメータによる切り替えは不要です。
-     * 
-     * @return {@link LocaleResolver} オブジェクト。
-     */
-    @Bean
-    public LocaleResolver localeResolver() {
-        AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
-        resolver.setDefaultLocale(Locale.JAPANESE);
-        return resolver;
-    }
+  /**
+   * Accept-Language ヘッダをそのまま使う {@link LocaleResolver} オブジェクトを Bean 登録します。
+   * クッキーや URL パラメータによる切り替えは不要です。
+   * 
+   * @return {@link LocaleResolver} オブジェクト。
+   */
+  @Bean
+  public LocaleResolver localeResolver() {
+    AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
+    resolver.setDefaultLocale(Locale.JAPANESE);
+    return resolver;
+  }
 }

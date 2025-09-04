@@ -1,8 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+    "description": "Dressca CMS",
+    "title": "Dressca CMS",
+    "version": "v1"
   },
   "servers": [
     {
@@ -18,9 +19,116 @@
         "url": "https://docs.spring.io/spring-boot/docs/current/actuator-api/html/"
       },
       "name": "Actuator"
+    },
+    {
+      "description": "お知らせメッセージの情報にアクセスする API です。",
+      "name": "Announcement"
     }
   ],
   "paths": {
+    "/announcements": {
+      "get": {
+        "description": "お知らせメッセージ管理画面を表示します。",
+        "operationId": "index",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pageNumber",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "画面表示成功"
+          }
+        },
+        "summary": "お知らせメッセージ管理画面を表示します。",
+        "tags": [
+          "Announcement"
+        ]
+      }
+    },
+    "/announcements/create": {
+      "get": {
+        "description": "お知らせメッセージ登録画面を表示します。",
+        "operationId": "create",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "画面表示成功"
+          }
+        },
+        "summary": "お知らせメッセージ登録画面を表示します。",
+        "tags": [
+          "Announcement"
+        ]
+      },
+      "post": {
+        "description": "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。",
+        "operationId": "store",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnnouncementCreateViewModel"
+              }
+            }
+          },
+          "description": "お知らせメッセージ登録画面のビューモデル",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "バリデーションエラー時、登録画面を表示します。"
+          },
+          "302": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "登録成功時、編集画面へリダイレクトします。"
+          }
+        },
+        "summary": "お知らせメッセージを登録します。",
+        "tags": [
+          "Announcement"
+        ]
+      }
+    },
     "/api": {
       "get": {
         "operationId": "links",
@@ -104,6 +212,63 @@
   },
   "components": {
     "schemas": {
+      "AnnouncementContentViewModel": {
+        "type": "object",
+        "properties": {
+          "languageCode": {
+            "type": "string"
+          },
+          "linkUrl": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "AnnouncementCreateViewModel": {
+        "type": "object",
+        "properties": {
+          "announcement": {
+            "$ref": "#/components/schemas/AnnouncementViewModel"
+          },
+          "contents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnnouncementContentViewModel"
+            }
+          }
+        }
+      },
+      "AnnouncementViewModel": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "displayPriority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "expireDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "expireTime": {
+            "type": "string"
+          },
+          "postDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "postTime": {
+            "type": "string"
+          }
+        }
+      },
       "Link": {
         "type": "object",
         "properties": {

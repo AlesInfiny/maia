@@ -32,6 +32,9 @@ import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
 import lombok.AllArgsConstructor;
 
+/**
+ * お知らせメッセージのアプリケーションサービスです。
+ */
 @Service
 @AllArgsConstructor
 public class AnnouncementApplicationService {

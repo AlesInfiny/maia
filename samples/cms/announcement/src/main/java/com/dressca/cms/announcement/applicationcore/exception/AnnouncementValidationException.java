@@ -14,7 +14,7 @@ public class AnnouncementValidationException extends LogicException {
   /**
    * お知らせメッセージの非宣言的バリデーションエラー{@link AnnouncementValidationException}を初期化します。
    * 
-   * @param exceptionId 例外 ID 。
+   * @param validationErrors 非宣言的なバリデーションエラーのリスト 。
    */
   public AnnouncementValidationException(List<ValidationError> validationErrors) {
     super(null, ExceptionIdConstants.E_ANNOUNCEMENT_VALIDATION_ERROR, null, null);
