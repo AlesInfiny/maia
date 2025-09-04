@@ -9,19 +9,19 @@ import com.dressca.cms.systemcommon.exception.ValidationError;
  * お知らせメッセージの非宣言的バリデーションエラーが発生したことを表す例外クラスです。
  */
 public class AnnouncementValidationException extends LogicException {
-  private List<ValidationError> errors;
+  private List<ValidationError> validationErrors;
 
   /**
    * お知らせメッセージの非宣言的バリデーションエラー{@link AnnouncementValidationException}を初期化します。
    * 
    * @param exceptionId 例外 ID 。
    */
-  public AnnouncementValidationException(List<ValidationError> errors) {
+  public AnnouncementValidationException(List<ValidationError> validationErrors) {
     super(null, ExceptionIdConstants.E_ANNOUNCEMENT_VALIDATION_ERROR, null, null);
-    this.errors = errors;
+    this.validationErrors = validationErrors;
   }
 
   public List<ValidationError> getValidationErrors() {
-    return this.errors;
+    return this.validationErrors;
   }
 }

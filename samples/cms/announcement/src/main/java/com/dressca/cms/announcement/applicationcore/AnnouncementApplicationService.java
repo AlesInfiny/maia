@@ -96,36 +96,39 @@ public class AnnouncementApplicationService {
    */
   public UUID addAnnouncementAndHistory(Announcement announcement, List<AnnouncementContent> contents)
       throws AnnouncementValidationException {
-    List<ValidationError> errors = new ArrayList<>();
+    List<ValidationError> validationErrors = new ArrayList<>();
 
     for (AnnouncementContent content : contents) {
       if (!LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.contains(content.getLanguageCode())) {
-        errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
+        validationErrors
+            .add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
       }
-    }
-    OffsetDateTime postDateTime = announcement.getPostDateTime();
-    OffsetDateTime expireDateTime = announcement.getExpireDateTime();
-    if (postDateTime != null && expireDateTime != null) {
-      if (postDateTime.isAfter(expireDateTime)) {
-        errors.add(
-            new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
-      }
-    }
-    if (contents.isEmpty()) {
-      errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_NULL_ANNOUNCEMENT));
     }
 
-    Set<String> seenCodes = new HashSet<>();
+    OffsetDateTime postDateTime = announcement.getPostDateTime();
+    OffsetDateTime expireDateTime = announcement.getExpireDateTime();
+    if (postDateTime != null && expireDateTime != null && postDateTime.isAfter(expireDateTime)) {
+      validationErrors
+          .add(new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
+    }
+
+    if (contents.isEmpty()) {
+      validationErrors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_NULL_ANNOUNCEMENT));
+    }
+
+    // 言語コードの重複チェックを行います。
+    Set<String> languageCodes = new HashSet<>();
     for (AnnouncementContent content : contents) {
-      String code = content.getLanguageCode();
-      if (!seenCodes.add(code)) {
-        errors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
+      String languageCode = content.getLanguageCode();
+      if (!languageCodes.add(languageCode)) {
+        validationErrors
+            .add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
         break;
       }
     }
 
-    if (!errors.isEmpty()) {
-      throw new AnnouncementValidationException(errors);
+    if (!validationErrors.isEmpty()) {
+      throw new AnnouncementValidationException(validationErrors);
     }
 
     apLog.debug(messageSource.getMessage(

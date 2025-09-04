@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,6 +182,7 @@ public class AnnouncementController {
         .map(AnnouncementContent::getLanguageCode)
         .collect(Collectors.toSet());
 
+    // 登録済みの言語別のお知らせメッセージに該当しない、最も優先度の高い言語コードをお知らせメッセージコンテンツに追加します。
     for (String languageCode : LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES) {
       if (!existingLanguageCodeSet.contains(languageCode)) {
         AnnouncementContent content = new AnnouncementContent();
