@@ -23,8 +23,6 @@ ext {
     javaUuidGeneratorVersion = "5.1.0"
     thymeleafLayoutDialectVersion = "3.4.0"
 
-
-
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",

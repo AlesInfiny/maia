@@ -23,14 +23,14 @@
         </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
         <javaModelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
-                        targetProject="/dev/repos/AlesInfiny/cms/announcement/src/main/java">
+                        targetProject="/dev/repos/AlesInfiny/dressca-cms/announcement/src/main/java">
         </javaModelGenerator>
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/cms/announcement/src/main/resources" />
+                        targetProject="/dev/repos/AlesInfiny/dressca-cms/announcement/src/main/resources" />
         <!-- Mapper.java作成先 -->
         <javaClientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/cms/announcement/src/main/java"
+                        targetProject="/dev/repos/AlesInfiny/dressca-cms/announcement/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
         <table schema="" tableName="announcement" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">
