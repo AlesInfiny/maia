@@ -99,7 +99,6 @@ export default {
            * Tailwind CSS 固有のアットルール（ディレクティブ）をホワイトリストに登録します。
            * https://tailwindcss.com/docs/functions-and-directives#directives
            **/
-          `import`,
           'theme',
           'source',
           'utility',
