@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
-group = 'com.dressca'
+group = 'com.dressca.cms'
 version = '0.0.1-SNAPSHOT'
 
 java {
