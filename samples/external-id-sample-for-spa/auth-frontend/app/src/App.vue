@@ -8,30 +8,27 @@ import { storeToRefs } from 'pinia'
 import { authenticationService } from '@/services/authentication/authentication-service'
 import { fetchServerTime } from '@/services/server-time/server-time-service'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
-import { BrowserAuthError } from '@azure/msal-browser'
 import { fetchUser } from './services/user/user-service'
 import { useServerTimeStore } from './stores/server-time/server-time'
 import { useUserStore } from './stores/user/user'
-import { useAuthenticationStore } from './stores/authentication/authentication'
+import { BrowserAuthError } from '@azure/msal-browser'
 
 const userStore = useUserStore()
 const { getUserId } = storeToRefs(userStore)
 const serverTimeStore = useServerTimeStore()
 const { getServerTime } = storeToRefs(serverTimeStore)
-const authenticationStore = useAuthenticationStore()
-const { isAuthenticated } = storeToRefs(authenticationStore)
 const customErrorHandler = useCustomErrorHandler()
+const { signIn, signOut, isAuthenticated } = authenticationService()
 
-const signIn = async () => {
+const signInButtonClicked = async () => {
   try {
-    await authenticationService.signInEntraExternalId()
+    await signIn()
   } catch (error) {
     // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
       // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
       customErrorHandler.handle(error, () => {
         console.info('ユーザーが認証処理を中断しました。')
-        authenticationStore.updateAuthenticated(false)
       })
     } else {
       customErrorHandler.handle(error, () => {
@@ -49,9 +46,9 @@ const signIn = async () => {
   }
 }
 
-const signOut = async () => {
+const signOutButtonClicked = async () => {
   try {
-    await authenticationService.signOutEntraExternalId()
+    await signOut()
   } catch (error) {
     // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
@@ -102,10 +99,10 @@ onMounted(async () => {
     <button type="submit" @click="updateServerTime()">更新</button>
   </div>
   <div>
-    <button v-if="!isAuthenticated" type="submit" @click="signIn()">ログイン</button>
-    <span v-if="isAuthenticated">
+    <button v-if="!isAuthenticated()" type="submit" @click="signInButtonClicked">ログイン</button>
+    <span v-if="isAuthenticated()">
       ユーザーID: {{ getUserId }}
-      <button type="submit" @click="signOut()">ログアウト</button>
+      <button type="submit" @click="signOutButtonClicked">ログアウト</button>
     </span>
   </div>
 </template>

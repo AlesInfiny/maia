@@ -3,7 +3,8 @@ import { authenticationService } from '@/services/authentication/authentication-
 
 export async function fetchUser() {
   const userStore = useUserStore()
-  if (!authenticationService.isAuthenticated()) {
+  const isAuthenticated = authenticationService()
+  if (!isAuthenticated) {
     return
   }
   await userStore.fetchUserResponse()

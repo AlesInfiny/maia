@@ -2,61 +2,53 @@
 // Safari および Safari on iOS で top-level await が Partial support のため、
 // 代替として即時実行関数式 ( IIFE ) で記述を許可するよう ESLint の設定を変更します。
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
-import { InteractionRequiredAuthError } from '@azure/msal-browser'
-import {
-  msalInstance,
-  loginRequest,
-  tokenRequest,
-} from '@/services/authentication/authentication-config'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { InteractionRequiredAuthError } from '@azure/msal-browser'
 
-// IIFE 構文が行頭に来る場合、自動セミコロン挿入( ASI )の誤動作防止のため Prettier がセミコロンを挿入します。
-// https://prettier.io/docs/options#semicolons
-;(async function () {
-  await msalInstance.initialize()
-})()
-
-export const authenticationService = {
-  async signInEntraExternalId() {
+export function authenticationService() {
+  const signIn = async () => {
     const authenticationStore = useAuthenticationStore()
-    const response = await msalInstance.loginPopup(loginRequest)
-    msalInstance.setActiveAccount(response.account)
-    authenticationStore.updateAuthenticated(true)
-  },
+    await authenticationStore.signIn()
+    authenticationStore.updateAuthenticated()
+  }
 
-  async signOutEntraExternalId() {
+  const signOut = async () => {
     const authenticationStore = useAuthenticationStore()
-    await msalInstance.logoutPopup()
-    authenticationStore.updateAuthenticated(false)
-  },
+    await authenticationStore.signOut()
+    authenticationStore.updateAuthenticated()
+  }
 
-  isAuthenticated(): boolean {
-    const result = msalInstance.getActiveAccount() !== null
+  const isAuthenticated = (): boolean => {
     const authenticationStore = useAuthenticationStore()
-    authenticationStore.updateAuthenticated(result)
+    const result = authenticationStore.isAuthenticated
     return result
-  },
+  }
 
-  async getTokenEntraExternalId() {
-    const account = msalInstance.getActiveAccount()
-
-    tokenRequest.account = account ?? undefined
+  const getToken = async () => {
+    const authenticationStore = useAuthenticationStore()
     try {
-      const tokenResponse = await msalInstance.acquireTokenSilent(tokenRequest)
+      const accessToken = await authenticationStore.getTokenSilent()
 
-      if (!tokenResponse.accessToken || tokenResponse.accessToken === '') {
+      if (!accessToken || accessToken === '') {
         throw new InteractionRequiredAuthError('accessToken is null or empty.')
       }
-      return tokenResponse.accessToken
+      return accessToken
     } catch (error) {
       if (error instanceof InteractionRequiredAuthError) {
         // ユーザーによる操作が必要な場合にスローされるエラーがスローされた場合、トークン呼び出しポップアップ画面を表示する。
-        const tokenResponse = await msalInstance.acquireTokenPopup(tokenRequest)
-        return tokenResponse.accessToken
+        const accessToken = await authenticationStore.getTokenPopup()
+        return accessToken
       }
       // eslint-disable-next-line no-console
       console.error(error)
       throw error
     }
-  },
+  }
+
+  return {
+    signIn,
+    signOut,
+    isAuthenticated,
+    getToken,
+  }
 }
