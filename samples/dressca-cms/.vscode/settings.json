@@ -4,14 +4,15 @@
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
   "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
   "cSpell.words": [
-    "buildscript",
-    "subprojects",
     "Dspring",
-    "thymeleaf",
+    "buildscript",
+    "dists",
     "fasterxml",
-    "ultraq",
     "projectlombok",
-    "puppycrawl"
+    "puppycrawl",
+    "subprojects",
+    "thymeleaf",
+    "ultraq"
   ],
   "cSpell.ignorePaths": ["**/gradlew", "**/gradlew.bat"],
   "[java]": {

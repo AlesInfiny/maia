@@ -34,7 +34,6 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_test
 	compileOnly supportDependencies.servlet_api
-	developmentOnly supportDependencies.spring_boot_devtools
 }
 
 configurations {
@@ -59,7 +58,7 @@ tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	group = 'application'
 	description = 'Runs this project as a Spring Boot Application using local profile.'
 	args = ["--spring.profiles.active=local"]
-	main = 'com.dressca.cms.web.WebApplication'
+	mainClass = 'com.dressca.cms.web.WebApplication'
 	classpath = sourceSets.main.runtimeClasspath
 }
 
