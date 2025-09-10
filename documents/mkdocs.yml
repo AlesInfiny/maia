@@ -102,13 +102,13 @@ nav:
               - ワークスペースの設定: guidebooks/how-to-develop/vue-js/setting-workspaces.md
               - プロジェクトの共通設定: guidebooks/how-to-develop/vue-js/project-settings.md
               - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
-              - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
               - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
               - メッセージ管理機能の設定: guidebooks/how-to-develop/vue-js/message-management.md
               - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
               - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
               - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
+              - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
           - ローカル開発環境の構築:
               - guidebooks/how-to-develop/local-environment/index.md
           - CORS 環境の構築:
