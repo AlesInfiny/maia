@@ -33,7 +33,7 @@
     "@vee-validate/yup": "4.15.1",
     "@vueuse/core": "13.6.0",
     "axios": "1.11.0",
-    "msw": "2.10.4",
+    "msw": "2.11.1",
     "pinia": "3.0.3",
     "vee-validate": "4.15.1",
     "vitest": "3.2.4",
