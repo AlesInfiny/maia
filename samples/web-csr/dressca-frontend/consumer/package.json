@@ -76,7 +76,7 @@
     "tailwindcss": "4.1.12",
     "typescript": "5.8.3",
     "vite": "7.0.6",
-    "vite-plugin-vue-devtools": "8.0.0",
+    "vite-plugin-vue-devtools": "8.0.1",
     "vue-tsc": "3.0.4"
   },
   "optionalDependencies": {
