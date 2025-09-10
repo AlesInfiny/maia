@@ -15,10 +15,11 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 <root-project-name> ------ ルートプロジェクト
 ├ .editorconfig
 ├ eslint.config.ts
+├ .prettierrc.js
 ├ .stylelintrc.js
-├ .prettierrc.json
 ├ tsconfig.json
 └ <workspace-name> ------- ワークスペース/プロジェクト
+  └ .prettierrc.js
   └ .stylelintrc.js
 ```
 
@@ -56,14 +57,42 @@ Visual Studio Code の推奨プラグインである [EditorConfig for Visual St
 ## Prettier {#prettier}
 
 Prettier は [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
-ただし、設定ファイルがワークスペースの直下に作成されているため、ルートプロジェクトの直下に移動します。
+ただし、 mono-repo 構成で使用するための追加の設定をします。
 
 ### Prettier の設定 {#settings-prettier}
 
-設定ファイル prettierrc.json で行います。
+設定ファイルが prettierrc.json がワークスペースの直下に作成されているため、ルートプロジェクトの直下にコピーします。
+ワークスペース側で import するために、 prettierrc.js に拡張子を変更し、 JavaScript 形式に書き換えます。
 
-```json title=".prettierrc.json の設定例"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.prettierrc.json
+```javascript title="ルートプロジェクトの .prettierrc.js の設定例"
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  $schema: 'https://json.schemastore.org/prettierrc',
+  semi: false,
+  singleQuote: true,
+  printWidth: 100,
+}
+
+export default config
+```
+
+ワークスペース直下の prettierrc.json についても同様に拡張子を変更し、 JavaScript 形式に書き換えます。
+
+```javascript title="ワークスペースの .prettierrc.js の設定例"
+import prettierConfigBase from '../.prettierrc.js'
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  ...prettierConfigBase,
+  // ワークスペースに固有の設定があれば、追加で設定します。
+}
+
+export default config
 ```
 
 既定の設定を上書きする場合は、設定値を記述します。
@@ -77,7 +106,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.p
 npm run format
 ```
 
-Prettier がルートプロジェクトの設定ファイルを自動的に認識し、正常に実行できることを確認してください。
+Prettier が設定ファイルを認識し、フォーマット処理が正常に実行できることを確認してください。
 
 ## ESLint {#eslint}
 
@@ -292,7 +321,17 @@ Stylelint および、標準の設定や vue ファイルで使用する設定�
 ルートプロジェクトの直下に設定ファイル .stylelintrc.js を作成し、設定を記述します。
 
 ```javascript title=".stylelintrc.js"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.stylelintrc.js
+export default {
+  extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue'],
+  ignoreFiles: ['dist/**/*'],
+  overrides: [
+    {
+      files: ['**/*.vue'],
+      /** Vue ファイルの <style> ブロック内を Lint するための設定です。*/
+      customSyntax: 'postcss-html',
+    },
+  ],
+}
 ```
 
 各ワークスペースでは、ルートプロジェクトの設定ファイルを継承し、必要に応じて設定を追加します。
@@ -308,10 +347,6 @@ export default {
 `extends`
 
 :   既存の構成を拡張します。
-
-`rules`
-
-:   使用するルールを宣言します。
 
 `ignoreFiles`
 
