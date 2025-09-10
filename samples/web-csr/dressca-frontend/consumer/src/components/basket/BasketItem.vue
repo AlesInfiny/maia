@@ -65,14 +65,14 @@ const remove = () => {
   <div class="lg:col-span-3">
     <div class="grid grid-cols-1 lg:grid-cols-3">
       <div class="grid place-items-end lg:col-span-2 lg:flex lg:flex-row lg:items-center">
-        <div class="ml-2 mr-2 mt-2 basis-3/5 text-right lg:pr-10">
+        <div class="mt-2 mr-2 ml-2 basis-3/5 text-right lg:pr-10">
           <label>
             <input
               v-model.number="quantity"
               type="number"
               min="1"
               max="999"
-              class="w-full border-b px-4 py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-indigo-500 focus:outline-none"
+              class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
               :disabled="!available"
             />
           </label>
@@ -80,7 +80,7 @@ const remove = () => {
         <div class="basis-2/5">
           <button
             type="button"
-            class="mr-2 mt-2 w-12 rounded border border-blue-500 bg-transparent py-2 font-semibold text-blue-700 hover:bg-blue-500 hover:text-white disabled:cursor-not-allowed disabled:border-blue-500 disabled:bg-transparent disabled:text-blue-700"
+            class="mt-2 mr-2 w-12 rounded-sm border border-blue-500 bg-transparent py-2 font-semibold text-blue-700 hover:bg-blue-500 hover:text-white disabled:cursor-not-allowed disabled:border-blue-500 disabled:bg-transparent disabled:text-blue-700"
             :disabled="isUpdateDisabled"
             @click="update()"
           >
@@ -88,11 +88,11 @@ const remove = () => {
           </button>
         </div>
       </div>
-      <div class="mb-1 ml-4 mr-2 mt-2 grid place-items-end">
+      <div class="mt-2 mr-2 mb-1 ml-4 grid place-items-end">
         <TrashIcon class="h-8 w-8 text-gray-500 hover:text-gray-700" @click="remove()" />
       </div>
     </div>
-    <div class="mr-3 mt-4 text-right">
+    <div class="mt-4 mr-3 text-right">
       小計：
       <span>{{ toCurrencyJPY(item.subTotal) }}</span>
     </div>

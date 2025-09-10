@@ -51,10 +51,10 @@ watch(message, (newMessage) => {
   >
     <div
       v-if="show"
-      class="max-w-m fixed inset-x-0 mx-auto mt-2 inline-flex w-5/6 items-center rounded-lg bg-red-500 p-4 text-gray-500 shadow"
+      class="max-w-m fixed inset-x-0 mx-auto mt-2 inline-flex w-5/6 items-center rounded-lg bg-red-500 p-4 text-gray-500 shadow-xs"
     >
       <div
-        class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500"
+        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500"
       >
         <ExclamationCircleIcon class="h-5 w-5" />
         <span class="sr-only">Error icon</span>

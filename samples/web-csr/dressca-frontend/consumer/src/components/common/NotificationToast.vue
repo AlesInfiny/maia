@@ -51,17 +51,17 @@ watch(message, (newMessage) => {
   >
     <div
       v-if="show"
-      class="fixed inset-x-0 mx-auto mt-2 inline-flex w-5/6 items-center rounded-lg bg-red-500 p-4 text-gray-500 shadow"
+      class="fixed inset-x-0 mx-auto mt-2 inline-flex w-5/6 items-center rounded-lg bg-red-500 p-4 text-gray-500 shadow-sm"
     >
       <div
-        class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500"
+        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500"
       >
         <ExclamationCircleIcon class="h-5 w-5" />
         <span class="sr-only">Error icon</span>
       </div>
-      <div class="mx-auto w-11/12 flex-shrink-0 justify-center text-base text-white">
+      <div class="mx-auto w-11/12 shrink-0 justify-center text-base text-white">
         <div class="ml-2 text-sm font-bold">{{ message }}</div>
-        <div class="ml-4 mr-2 flex-shrink-0">
+        <div class="mr-2 ml-4 shrink-0">
           <div v-if="status !== 0">
             <div class="mt-2 text-sm font-bold text-stone-800 underline">ステータスコード</div>
             <div class="ml-2">{{ status }}</div>
@@ -80,7 +80,7 @@ watch(message, (newMessage) => {
               <div class="ml-2 text-xs">{{ detail }}</div>
               <button
                 type="button"
-                class="mr-2 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
+                class="mr-2 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
                 @click="copy(detail)"
               >
                 <ClipboardDocumentIcon class="h-5 w-5" />
@@ -91,7 +91,7 @@ watch(message, (newMessage) => {
       </div>
       <button
         type="button"
-        class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
+        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
         @click="close"
       >
         <XMarkIcon class="h-5 w-5" />

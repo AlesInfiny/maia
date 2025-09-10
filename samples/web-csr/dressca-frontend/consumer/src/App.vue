@@ -34,13 +34,13 @@ unauthorizedErrorEventBus.on(() => {
     <header>
       <nav
         aria-label="Jump links"
-        class="py-5 text-lg font-medium text-gray-900 shadow-sm ring-1 ring-gray-900 ring-opacity-5"
+        class="py-5 text-lg font-medium text-gray-900 shadow-xs ring-1 ring-gray-900/5"
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
             <router-link class="text-2xl" to="/"> Dressca </router-link>
           </div>
-          <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
+          <div class="flex gap-5 sm:gap-5 lg:gap-12">
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>

@@ -6,7 +6,7 @@ import prettierConfigBase from '../.prettierrc.js'
 const config = {
   ...prettierConfigBase,
   plugins: ['prettier-plugin-tailwindcss'],
-  tailwindConfig: './tailwind.config.js',
+  tailwindStylesheet: './src/assets/base.css',
 }
 
 export default config
