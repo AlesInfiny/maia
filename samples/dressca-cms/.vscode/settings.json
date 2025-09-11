@@ -4,6 +4,8 @@
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
   "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
   "cSpell.words": [
+    "applicationcore",
+    "assertj",
     "Dspring",
     "buildscript",
     "dists",
