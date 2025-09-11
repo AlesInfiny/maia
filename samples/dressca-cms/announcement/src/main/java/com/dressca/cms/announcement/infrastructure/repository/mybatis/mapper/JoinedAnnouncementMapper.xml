@@ -17,10 +17,6 @@
       CONTENT.TITLE,
       CONTENT.MESSAGE,
       CONTENT.LINK_URL
-    FROM ANNOUNCEMENT
-    LEFT JOIN ANNOUNCEMENT_CONTENT AS CONTENT ON (
-      ANNOUNCEMENT.ID = CONTENT.ANNOUNCEMENT_ID
-    )
   </sql>
 
   <resultMap id="announcementIncludeContentResultMap" type="com.dressca.cms.announcement.applicationcore.dto.Announcement">
@@ -46,9 +42,15 @@
 
   <select id="findByPageSizeAndOffset" resultMap="announcementIncludeContentResultMap">
     <include refid="selectAnnouncementsIncludeContents"/>
-    WHERE ANNOUNCEMENT.IS_DELETED = FALSE
-    ORDER BY ANNOUNCEMENT.POST_DATE_TIME DESC
-    LIMIT #{pageSize} OFFSET #{offset}
+    FROM (
+      SELECT *
+      FROM ANNOUNCEMENT
+      WHERE IS_DELETED = FALSE
+      ORDER BY POST_DATE_TIME DESC
+      LIMIT #{pageSize} OFFSET #{offset}
+    ) AS ANNOUNCEMENT
+    INNER JOIN ANNOUNCEMENT_CONTENT AS CONTENT
+      ON ANNOUNCEMENT.ID = CONTENT.ANNOUNCEMENT_ID
   </select>
 
 </mapper>
