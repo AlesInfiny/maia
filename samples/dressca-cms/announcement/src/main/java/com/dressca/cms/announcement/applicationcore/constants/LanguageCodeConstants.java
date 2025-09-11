@@ -11,16 +11,16 @@ import java.util.Map;
 public class LanguageCodeConstants {
 
   /** 日本語の言語コードです。 */
-  private static final String JA = "ja";
+  public static final String JA = "ja";
 
   /** 英語の言語コードです。 */
-  private static final String EN = "en";
+  public static final String EN = "en";
 
   /** 中国語の言語コードです。 */
-  private static final String ZH = "zh";
+  public static final String ZH = "zh";
 
   /** スペイン語の言語コードです。 */
-  private static final String ES = "es";
+  public static final String ES = "es";
 
   /** 言語コードと言語名のマップです。 */
   public static final Map<String, String> LANGUAGE_CODE_MAP;
