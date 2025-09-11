@@ -68,22 +68,26 @@ public class AnnouncementController {
    * お知らせメッセージ管理画面を表示します。
    * 
    * @param pageNumber ページ番号。
-   * @param pageSize   ページサイズ。
-   * @param model      モデル。
+   * @param pageSize ページサイズ。
+   * @param model モデル。
    * @return お知らせメッセージ管理画面。
    */
-  @Operation(operationId = "index", summary = "お知らせメッセージ管理画面を表示します。", description = "お知らせメッセージ管理画面を表示します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "画面表示成功")
-  })
+  @Operation(
+      operationId = "index",
+      summary = "お知らせメッセージ管理画面を表示します。",
+      description = "お知らせメッセージ管理画面を表示します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "200", description = "画面表示成功")
+      })
   @GetMapping()
   public String index(@RequestParam(value = "pageNumber", required = false) String pageNumber,
       @RequestParam(value = "pageSize", required = false) String pageSize, Model model) {
     Integer pageNumberInt = parseInteger(pageNumber);
     Integer pageSizeInt = parseInteger(pageSize);
 
-    PagedAnnouncementList pagedAnnouncementList = announcementApplicationService.getPagedAnnouncementList(pageNumberInt,
-        pageSizeInt);
+    PagedAnnouncementList pagedAnnouncementList = announcementApplicationService
+        .getPagedAnnouncementList(pageNumberInt, pageSizeInt);
 
     // ページングされたお知らせメッセージリストを、お知らせメッセージコンテンツ付のお知らせメッセージのリストに変換します。
     List<AnnouncementWithContentsViewModel> announcementWithContentsModels = pagedAnnouncementList
@@ -121,10 +125,14 @@ public class AnnouncementController {
    * @param model モデル。
    * @return お知らせメッセージ登録画面。
    */
-  @Operation(operationId = "create", summary = "お知らせメッセージ登録画面を表示します。", description = "お知らせメッセージ登録画面を表示します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "画面表示成功")
-  })
+  @Operation(
+      operationId = "create",
+      summary = "お知らせメッセージ登録画面を表示します。",
+      description = "お知らせメッセージ登録画面を表示します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "200", description = "画面表示成功")
+      })
   @GetMapping("create")
   public String create(Model model) {
     if (createSession.getAnnouncement() == null) {
@@ -133,7 +141,8 @@ public class AnnouncementController {
     Announcement announcement = createSession.getAnnouncement();
     AnnouncementCreateViewModel viewModel = new AnnouncementCreateViewModel(
         AnnouncementViewModelTranslator.createAnnouncementViewModel(announcement),
-        announcement.getContents()
+        announcement
+            .getContents()
             .stream()
             .map(AnnouncementViewModelTranslator::createContentViewModel)
             .toList());
@@ -145,17 +154,19 @@ public class AnnouncementController {
    * お知らせメッセージを登録します。
    * 
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
-   * @param result    バリデーションの結果。
-   * @param model     モデル。
-   * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、
-   *         バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
+   * @param result バリデーションの結果。
+   * @param model モデル。
+   * @return 正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、 バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。
    */
-  @Operation(operationId = "store", summary = "お知らせメッセージを登録します。", description = "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、"
-      + "バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "302", description = "登録成功時、編集画面へリダイレクトします。"),
-      @ApiResponse(responseCode = "200", description = "バリデーションエラー時、登録画面を表示します。")
-  })
+  @Operation(
+      operationId = "store",
+      summary = "お知らせメッセージを登録します。",
+      description = "正常に登録できた場合、登録したお知らせメッセージの編集画面にリダイレクトし、バリデーションエラーがあった場合、お知らせメッセージの登録画面を表示します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "302", description = "登録成功時、編集画面へリダイレクトします。"),
+          @ApiResponse(responseCode = "200", description = "バリデーションエラー時、登録画面を表示します。")
+      })
   @PostMapping("create")
   public String store(
       @Validated(AnnouncementStoreGroup.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
@@ -163,17 +174,20 @@ public class AnnouncementController {
     if (result.hasErrors()) {
       return "announcement/create";
     }
-    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
     List<AnnouncementContent> contents = viewModel.getContents()
         .stream()
         .map(AnnouncementViewModelTranslator::createContent)
         .toList();
     UUID id;
     try {
-      id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents);
+      id = announcementApplicationService.addAnnouncementAndHistory(announcement, contents,
+          "admin");
     } catch (AnnouncementValidationException e) {
       for (ValidationError error : e.getValidationErrors()) {
-        result.rejectValue(toViewFieldName(error.getFieldName(), "announcement"), error.getMessageCode());
+        result.rejectValue(toViewFieldName(error.getFieldName(), "announcement"),
+            error.getMessageCode());
       }
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
@@ -189,13 +203,19 @@ public class AnnouncementController {
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
    * @return お知らせメッセージ登録画面。
    */
-  @Operation(operationId = "addLanguageToCreate", summary = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。", description = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "302", description = "追加成功時、登録画面へリダイレクトします。")
-  })
+  @Operation(
+      operationId = "addLanguageToCreate",
+      summary = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。",
+      description = "お知らせメッセージ登録画面上で言語別お知らせメッセージを追加します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "302", description = "追加成功時、登録画面へリダイレクトします。")
+      })
   @PostMapping(path = "create", params = "addLanguageToCreate")
-  public String addLanguageToCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
-    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
+  public String addLanguageToCreate(
+      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
+    Announcement announcement =
+        AnnouncementViewModelTranslator.createAnnouncement(viewModel.getAnnouncement());
     List<AnnouncementContent> contents = viewModel.getContents()
         .stream()
         .map(AnnouncementViewModelTranslator::createContent)
@@ -224,21 +244,27 @@ public class AnnouncementController {
   /**
    * お知らせメッセージ登録画面上で言語を削除します。
    *
-   * @param viewModel    お知らせメッセージ登録画面のビューモデル。
+   * @param viewModel お知らせメッセージ登録画面のビューモデル。
    * @param languageCode 削除対象の言語コード。
    * @return お知らせメッセージの登録画面。
    */
-  @Operation(operationId = "deleteLanguageFromCreate", summary = "お知らせメッセージ登録画面上で言語を削除します。", description = "お知らせメッセージ登録画面上で言語を削除します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "302", description = "削除成功時、登録画面へリダイレクトします。")
-  })
+  @Operation(
+      operationId = "deleteLanguageFromCreate",
+      summary = "お知らせメッセージ登録画面上で言語を削除します。",
+      description = "お知らせメッセージ登録画面上で言語を削除します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "302", description = "削除成功時、登録画面へリダイレクトします。")
+      })
   @PostMapping(path = "create", params = "deleteLanguageFromCreate")
-  public String deleteLanguageFromCreate(@ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
+  public String deleteLanguageFromCreate(
+      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       @RequestParam("deleteLanguageFromCreate") String languageCode) {
 
     AnnouncementViewModel announcementViewModel = viewModel.getAnnouncement();
     List<AnnouncementContentViewModel> contentViewModels = viewModel.getContents();
-    Announcement announcement = AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
+    Announcement announcement =
+        AnnouncementViewModelTranslator.createAnnouncement(announcementViewModel);
     List<AnnouncementContent> contents = contentViewModels
         .stream()
         .map(AnnouncementViewModelTranslator::createContent)
@@ -282,18 +308,17 @@ public class AnnouncementController {
    */
   private Announcement createBlankAnnouncement() {
     AnnouncementContent blankContent = new AnnouncementContent();
-    blankContent.setLanguageCode("ja");
+    blankContent.setLanguageCode(LanguageCodeConstants.JA);
     Announcement blankAnnouncement = new Announcement();
     blankAnnouncement.setContents(new ArrayList<>(List.of(blankContent)));
     return blankAnnouncement;
   }
 
   /**
-   * フィールド名をビューで使用されている形式に変換します。
-   * 例えば、 postDate を announcement.postDate に変換します。
+   * フィールド名をビューで使用されている形式に変換します。 例えば、 postDate を announcement.postDate に変換します。
    * 
    * @param fieldName フィールド名。（例： postDate ）
-   * @param prefix    ビューのオブジェクト名。（例： announcement ）
+   * @param prefix ビューのオブジェクト名。（例： announcement ）
    * @return ビューで使用されている形式に変換されたフィールド名。
    */
   private String toViewFieldName(String fieldName, String prefix) {
