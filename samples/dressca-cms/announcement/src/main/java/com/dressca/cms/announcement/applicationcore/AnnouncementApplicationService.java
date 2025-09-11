@@ -51,7 +51,7 @@ public class AnnouncementApplicationService {
    * ページングされたお知らせメッセージを掲載開始日時の降順で取得します。
    * 
    * @param pageNumber ページ番号。
-   * @param pageSize   ページサイズ。
+   * @param pageSize ページサイズ。
    * @return ページングされたお知らせメッセージ。
    */
   public PagedAnnouncementList getPagedAnnouncementList(Integer pageNumber, Integer pageSize) {
@@ -72,39 +72,45 @@ public class AnnouncementApplicationService {
       pageNumber = 1;
     }
 
-    List<Announcement> announcements = announcementRepository.findByPageNumberAndPageSize(pageNumber, pageSize);
+    List<Announcement> announcements =
+        announcementRepository.findByPageNumberAndPageSize(pageNumber, pageSize);
 
     // お知らせメッセージコンテンツを言語コード順に並び替え、最優先の言語コードのコンテンツのみ持つようにします。
     for (Announcement announcement : announcements) {
       List<AnnouncementContent> contents = announcement.getContents();
       contents.sort(Comparator.comparingInt(content -> {
-        int index = LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.indexOf(content.getLanguageCode());
+        int index =
+            LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.indexOf(content.getLanguageCode());
         return index >= 0 ? index : Integer.MAX_VALUE;
       }));
       announcement.setContents(List.of(contents.get(0)));
     }
 
-    apLog.debug(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_END, null, Locale.getDefault()));
+    apLog.debug(messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_GET_LIST_END, null,
+        Locale.getDefault()));
 
-    return new PagedAnnouncementList(pageNumber, pageSize, totalCount, announcements, lastPageNumber);
+    return new PagedAnnouncementList(pageNumber, pageSize, totalCount, announcements,
+        lastPageNumber);
   }
 
   /**
    * お知らせメッセージおよびお知らせメッセージ履歴を登録します。
    * 
    * @param announcement お知らせメッセージ。
-   * @param contents     お知らせメッセージコンテンツのリスト。
+   * @param contents お知らせメッセージコンテンツのリスト。
    * @return 登録したお知らせメッセージの Id 。
    * @throws AnnouncementValidationException 非宣言的なバリデーションエラーが発生した場合。
    */
-  public UUID addAnnouncementAndHistory(Announcement announcement, List<AnnouncementContent> contents)
+  public UUID addAnnouncementAndHistory(Announcement announcement,
+      List<AnnouncementContent> contents, String userName)
       throws AnnouncementValidationException {
     List<ValidationError> validationErrors = new ArrayList<>();
 
     for (AnnouncementContent content : contents) {
       if (!LanguageCodeConstants.SUPPORTED_LANGUAGE_CODES.contains(content.getLanguageCode())) {
         validationErrors
-            .add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
+            .add(new ValidationError(FieldNameConstants.GLOBAL,
+                ExceptionIdConstants.E_INVALID_LANGUAGE_CODE));
       }
     }
 
@@ -112,11 +118,13 @@ public class AnnouncementApplicationService {
     OffsetDateTime expireDateTime = announcement.getExpireDateTime();
     if (postDateTime != null && expireDateTime != null && postDateTime.isAfter(expireDateTime)) {
       validationErrors.add(
-          new ValidationError(FieldNameConstants.EXPIRE_DATE, ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
+          new ValidationError(FieldNameConstants.EXPIRE_DATE,
+              ExceptionIdConstants.E_INVALID_EXPIRE_DATE));
     }
 
     if (contents.isEmpty()) {
-      validationErrors.add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_NULL_ANNOUNCEMENT));
+      validationErrors.add(
+          new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_NULL_ANNOUNCEMENT));
     }
 
     // 言語コードの重複チェックを行います。
@@ -124,8 +132,8 @@ public class AnnouncementApplicationService {
     for (AnnouncementContent content : contents) {
       String languageCode = content.getLanguageCode();
       if (!languageCodes.add(languageCode)) {
-        validationErrors
-            .add(new ValidationError(FieldNameConstants.GLOBAL, ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
+        validationErrors.add(new ValidationError(FieldNameConstants.GLOBAL,
+            ExceptionIdConstants.E_DUPLICATE_LANGUAGE_CODE));
         break;
       }
     }
@@ -152,19 +160,19 @@ public class AnnouncementApplicationService {
     }
 
     UUID historyId = uuidGenerator.generate();
-    AnnouncementHistory history = createAnnouncementHistory(announcement, historyId, "admin",
+    AnnouncementHistory history = createAnnouncementHistory(announcement, historyId, userName,
         OperationTypeConstants.CREATE);
     historyRepository.add(history);
 
     for (AnnouncementContent content : contents) {
-      AnnouncementContentHistory contentHistory = createAnnouncementContentHistory(content,
-          uuidGenerator.generate(), historyId);
+      AnnouncementContentHistory contentHistory =
+          createAnnouncementContentHistory(content, uuidGenerator.generate(), historyId);
       contentHistoryRepository.add(contentHistory);
     }
 
-    apLog.debug(messageSource.getMessage(
-        MessageIdConstants.D_ANNOUNCEMENT_ADD_ANNOUNCEMENT_AND_HISTORY_END, null,
-        Locale.getDefault()));
+    apLog.debug(
+        messageSource.getMessage(MessageIdConstants.D_ANNOUNCEMENT_ADD_ANNOUNCEMENT_AND_HISTORY_END,
+            null, Locale.getDefault()));
 
     return announcementId;
   }
@@ -172,9 +180,9 @@ public class AnnouncementApplicationService {
   /**
    * {@link Announcement} を {@link AnnouncementHistory} に変換します。
    * 
-   * @param announcement  {@link Announcement} オブジェクト。
-   * @param id            お知らせメッセージ履歴の ID 。
-   * @param userName      ユーザーの名前。
+   * @param announcement {@link Announcement} オブジェクト。
+   * @param id お知らせメッセージ履歴の ID 。
+   * @param userName ユーザーの名前。
    * @param operationType 操作タイプ。
    * @return {@link AnnouncementHistory} オブジェクト。
    */
@@ -196,8 +204,8 @@ public class AnnouncementApplicationService {
   /**
    * {@link AnnouncementContent} を {@link AnnouncementContentHistory} に変換します。
    * 
-   * @param content   @param content {@link AnnouncementContent} オブジェクト。
-   * @param id        お知らせメッセージコンテンツ履歴の ID 。
+   * @param content @param content {@link AnnouncementContent} オブジェクト。
+   * @param id お知らせメッセージコンテンツ履歴の ID 。
    * @param historyId お知らせメッセージ履歴の ID 。
    * @return {@link AnnouncementContentHistory} オブジェクト。
    */
