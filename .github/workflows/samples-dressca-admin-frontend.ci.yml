@@ -25,14 +25,14 @@ jobs:
     env:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v5
       - name: Use Node.js LTS
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8  # v4
         with:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9  # v4
         id: node_modules_cache_id
         env:
           cache-name: cache-node-modules
