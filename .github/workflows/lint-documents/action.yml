@@ -5,7 +5,7 @@ runs:
   using: "composite"
   steps:
     - name: Node.js のセットアップ
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8  # v4
       with:
         node-version: lts/*
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
@@ -15,7 +15,7 @@ runs:
       run: npm ci
 
     - name: Python のセットアップ
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d  # v5
       with:
         python-version: "3.x"
 
