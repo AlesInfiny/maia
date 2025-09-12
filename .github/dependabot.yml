@@ -45,7 +45,7 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 7
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 60
     commit-message:
       prefix: "npm-dressca-frontend"
     labels:
@@ -74,7 +74,7 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 7
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 40
     commit-message:
       prefix: "npm-auth-frontend"
     labels:
