@@ -34,7 +34,7 @@ jobs:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9  # v4
+      - uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809  # v4
         id: node_modules_cache_id
         env:
           cache-name: cache-node-modules
