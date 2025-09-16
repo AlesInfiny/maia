@@ -16,7 +16,7 @@ export const catalogItemsHandlers = [
   http.post<never, PostCatalogItemRequest, never>('/api/catalog-items', () => {
     return new HttpResponse(null, { status: HttpStatusCode.Created })
   }),
-  http.get<GetCatalogItemParams, never, never, '/api/catalog-items/:catalogItemId'>(
+  http.get<GetCatalogItemParams, never, never>(
     '/api/catalog-items/:catalogItemId',
     ({ params }) => {
       const { catalogItemId } = params
