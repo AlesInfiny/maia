@@ -74,7 +74,7 @@ onMounted(async () => {
       </span>
     </div>
     <div class="container mx-auto my-4 max-w-4xl">
-      <div class="mx-2 flex grid grid-cols-1 items-center lg:grid-cols-3 lg:gap-x-12">
+      <div class="mx-2 grid grid-cols-1 items-center lg:grid-cols-3 lg:gap-x-12">
         <table
           class="mt-2 table-fixed border-t border-b lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
         >
@@ -130,14 +130,14 @@ onMounted(async () => {
         <div
           v-for="item in lastOrdered?.orderItems"
           :key="item.itemOrdered?.id"
-          class="mt-4 flex grid grid-cols-5 items-center lg:grid-cols-8"
+          class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
         >
           <div class="col-span-4 lg:col-span-5">
             <div class="grid grid-cols-2">
               <img
                 :src="getFirstAssetUrl(item.itemOrdered?.assetCodes)"
                 :alt="item.itemOrdered?.name"
-                class="pointer-events-none h-[150px]"
+                class="pointer-events-none h-40"
               />
               <div class="ml-2">
                 <p>{{ item.itemOrdered?.name }}</p>

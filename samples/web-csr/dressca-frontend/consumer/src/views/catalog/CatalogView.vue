@@ -110,7 +110,7 @@ watch([selectedCategory, selectedBrand], async () => {
             <img
               :src="getAssetUrl(item.assetCode)"
               alt="Special Contents"
-              class="pointer-events-none m-auto max-h-[350px] min-w-0"
+              class="pointer-events-none m-auto max-h-90 min-w-0"
             />
           </template>
         </CarouselSlider>
