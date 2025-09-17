@@ -9,7 +9,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ## VueUseの導入 {#install-vue-use}
 
-イベントバス構造を表現するライブラリとして、
+イベントバス構造を表現するコンポーザブルとして、
 [useEventBus](https://vueuse.org/core/useEventBus/#useeventbus){ target=_blank }を利用します。
 下記のコマンドを実行して、依存関係に VueUse のコアパッケージを追加します。
 
@@ -18,3 +18,11 @@ npm install @vueuse/core
 ```
 
 package.json の Dependencies に @vueuse/core が追加されたことを確認してください。
+
+## イベントの定義 {#define-events}
+
+## イベントの購読 {#subscribe-events}
+
+## イベントの発火 {#emit-events}
+
+## 実装例{#implementation-example}
