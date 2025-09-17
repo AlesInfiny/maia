@@ -5,6 +5,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 # カスタムエラーの設定 {#top}
 
+下記の手順では、 TypeScript 標準の `Error` 型の限界をカバーするために、業務例外を表現するための独自例外クラスを実装します。
+
 ## カスタムエラーの必要性 {#why-custom-errors}
 
 TypeScript には標準の `Error` 型が用意されていますが、一般に下記のような欠点があります。
@@ -144,7 +146,7 @@ axiosInstance.interceptors.response.use(
 ## 業務例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
 
 業務例外が発生する可能性のある処理の呼び出し時は、`try-catch` で囲みます。
-続けて `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた処理を実行します。
+例外を `catch` したら、 `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた処理を実行します。
 下記は API の呼び出しで `NotFoundError` が発生した場合に、ユーザーへトースト通知し、別画面へ遷移する例です。
 
 ```typescript title="サンプルアプリケーションの実装例"
