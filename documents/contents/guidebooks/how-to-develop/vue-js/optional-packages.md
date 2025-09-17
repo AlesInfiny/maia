@@ -79,6 +79,10 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js アプリケーションでメッセージを外部ファイルで一元管理したり、多言語対応するためのライブラリ（[インストール方法](input-validation.md#install-packages)）
 
+- [VueUse :material-open-in-new:](https://vueuse.org/){ target=_blank }
+
+    Vue.js アプリケーションで利用できる、 Composition API ベースのユーティリティ関数をまとめたライブラリ（[インストール方法](./event-handling-settings.md#install-vueuse)）
+
 - [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
 
     CSS フレームワーク（[インストール方法](css.md#install-tailwind-css)）
