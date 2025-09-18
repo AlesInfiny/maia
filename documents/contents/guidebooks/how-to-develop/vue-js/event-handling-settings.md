@@ -9,7 +9,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 イベントバスの構造について述べます。
 
-## VueUseの導入 {#install-vue-use}
+## VueUseの導入 {#install-vueuse}
 
 イベントバス構造を表現するコンポーザブルとして、
 [useEventBus](https://vueuse.org/core/useEventBus/#useeventbus){ target=_blank }を利用します。
@@ -87,7 +87,7 @@ unhandledErrorEventBus.on((payload) =>
 
 ## イベントの発火 {#emit-events}
 
-`EventBusKey` を用いてイベントバスを取得し、`eDmit` 関数を用いてイベントを発火します。
+`EventBusKey` を用いてイベントバスを取得し、`emit` 関数を用いてイベントを発火します。
  `emit` 関数に `Payload` 型の情報を引き渡すことで、イベントを購読しているコンポーネントに情報を連携できます。
 
 ```typescript title="イベントを発火する例"
