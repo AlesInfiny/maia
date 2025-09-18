@@ -151,11 +151,11 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <span class="text-lg font-medium text-green-500">
           {{ t('addedItemsToBasket') }}
         </span>
-        <div class="mt-4 flex grid grid-cols-1 items-center lg:grid-cols-3">
+        <div class="mt-4 grid grid-cols-1 items-center lg:grid-cols-3">
           <img
             :src="getFirstAssetUrl(getAddedItem.catalogItem?.assetCodes)"
             :alt="getAddedItem.catalogItem?.name"
-            class="pointer-events-none m-auto h-[150px]"
+            class="pointer-events-none m-auto h-40"
           />
           <span class="text-center lg:text-left">
             {{ getAddedItem.catalogItem?.name }}
@@ -173,14 +173,14 @@ onUnmounted(() => basketStore.deleteAddedItemId())
       </div>
       <div v-if="!isEmpty()" class="mx-2 mt-8">
         <span class="text-2xl font-medium">現在のカートの中身</span>
-        <div class="mt-4 flex hidden grid-cols-1 items-center lg:grid lg:grid-cols-5">
+        <div class="mt-4 hidden grid-cols-1 items-center lg:grid lg:grid-cols-5">
           <div class="text-center text-lg font-medium lg:col-span-3">商品</div>
           <div class="text-right text-lg font-medium lg:col-span-1">数量</div>
         </div>
         <div
           v-for="item in getBasket.basketItems"
           :key="item.catalogItemId"
-          class="mt-4 flex grid grid-cols-5 items-center lg:grid-cols-8"
+          class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
           :class="{
             'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
           }"

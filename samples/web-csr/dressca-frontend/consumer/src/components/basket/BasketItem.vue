@@ -51,7 +51,7 @@ const remove = () => {
       <img
         :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
         :alt="item.catalogItem?.name"
-        class="pointer-events-none h-[150px]"
+        class="pointer-events-none h-40"
       />
       <div class="ml-2">
         <p>{{ item.catalogItem?.name }}</p>
