@@ -3,10 +3,6 @@ import { HttpStatusCode } from 'axios'
 import type { PostOrderRequest } from '@/generated/api-client'
 import { order } from '../data/orders'
 
-type GetOrderingParams = {
-  orderId: string
-}
-
 export const orderingHandlers = [
   http.post<never, PostOrderRequest, never>('/api/orders', async ({ request }) => {
     const dto: PostOrderRequest = await request.json()
@@ -25,7 +21,7 @@ export const orderingHandlers = [
       status: HttpStatusCode.Created,
     })
   }),
-  http.get<GetOrderingParams, never, never>('/api/orders/:orderId', ({ params }) => {
+  http.get('/api/orders/:orderId', ({ params }) => {
     const { orderId } = params
     order.id = Number(orderId)
     order.orderDate = new Date().toISOString()
