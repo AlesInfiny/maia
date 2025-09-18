@@ -7,6 +7,8 @@ export abstract class CustomErrorBase extends Error {
     // ラップ前のエラーを cause として保持
     this.cause = cause
   }
+
+  abstract toJSON(): Record<string, unknown>
 }
 
 /**
@@ -17,6 +19,17 @@ export class UnknownError extends CustomErrorBase {
     super(message, cause)
     this.name = 'UnknownError'
   }
+
+  toJSON() {
+    return {
+      timestamp: new Date().toISOString(),
+      name: this.name,
+      message: this.message,
+      stack: this.stack,
+      response: null,
+      cause: this.cause ?? null,
+    }
+  }
 }
 
 export class HttpError extends CustomErrorBase {
@@ -26,6 +39,17 @@ export class HttpError extends CustomErrorBase {
     super(message, cause)
     this.response = cause?.response?.data ?? null
     this.name = 'HttpError'
+  }
+
+  toJSON() {
+    return {
+      timestamp: new Date().toISOString(),
+      name: this.name,
+      message: this.message,
+      stack: this.stack,
+      response: this.response ?? null,
+      cause: this.cause ?? null,
+    }
   }
 }
 

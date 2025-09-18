@@ -71,6 +71,7 @@
         "textlint",
         "Vetur",
         "viewmodel",
+        "vueuse",
         "webmvc",
         "winbatch"
     ]

@@ -107,6 +107,8 @@ nav:
               - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
               - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
               - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
+              - カスタムエラーの設定: guidebooks/how-to-develop/vue-js/custom-error-settings.md
+              - イベントハンドリングの設定: guidebooks/how-to-develop/vue-js/event-handling-settings.md
               - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
               - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
           - ローカル開発環境の構築:

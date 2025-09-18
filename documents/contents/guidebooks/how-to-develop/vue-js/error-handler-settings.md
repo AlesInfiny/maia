@@ -87,3 +87,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     app.mount('#app')
     ```
+
+## カスタムエラーハンドラーの設定 {#custom-error-handler-setting}
+
+業務フロー上想定されるエラーを把握するためには、バックエンドアプリケーションとの連携が必要です。
+そのため、業務例外に対するハンドリングは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) にてバックエンドアプリケーションとの連携を設定したあと、[カスタムエラーの設定](./custom-error-settings.md) で行います。
