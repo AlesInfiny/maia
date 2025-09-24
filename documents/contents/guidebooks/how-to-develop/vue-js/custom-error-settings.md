@@ -109,7 +109,7 @@ export class UnauthorizedError extends HttpError {
 
 ## AxiosError をカスタムエラーに変換する {#convert-axios-error}
 
-Axios の [Interceptors :material-open-in-new:](https://axios-http.com/docs/interceptors){ target=_blank }を用いて、 `AxiosError` をカスタムエラーに変換します。 Axios の Interceptors は、 HTTP リクエストおよびレスポンスが処理される前に、任意のハンドリング処理を挟み込んで実行できる機能です。
+Axios の [Interceptors :material-open-in-new:](https://axios-http.com/docs/interceptors){ target=_blank } を用いて、 `AxiosError` をカスタムエラーに変換します。 Axios の Interceptors は、 HTTP リクエストおよびレスポンスが処理される前に、任意のハンドリング処理を挟み込んで実行できる機能です。
 
 この機能を用いて、 HTTP ステータスコードに対応した適切なカスタムエラーへ変換する処理を一箇所に集約して実装します。
 HTTP ステータスコードは `AxiosError` の `response.status` へ格納されています。
