@@ -22,7 +22,7 @@ Vue.js では通常、コンポーネント間の情報共有には `props` や 
 
 本章では例として、エラー発生イベントをイベントバス経由で通知し、その内容をトースト表示する実装方法を紹介します。
 
-## VueUseの導入 {#install-vueuse}
+## VueUse の導入 {#install-vueuse}
 
 イベントバスのライブラリとして、 VueUse の [useEventBus](https://vueuse.org/core/useEventBus/#useeventbus){ target=_blank }を利用します。
 ワークスペースの直下で下記のコマンドを実行して、依存関係に VueUse のコアパッケージを追加します。
