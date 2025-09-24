@@ -24,7 +24,7 @@ Vue.js では通常、コンポーネント間の情報共有には `props` や 
 
 ## VueUse の導入 {#install-vueuse}
 
-イベントバスのライブラリとして、 VueUse の [useEventBus](https://vueuse.org/core/useEventBus/#useeventbus){ target=_blank }を利用します。
+イベントバスのライブラリとして、 VueUse の [useEventBus](https://vueuse.org/core/useEventBus/#useeventbus){ target=_blank } を利用します。
 ワークスペースの直下で下記のコマンドを実行して、依存関係に VueUse のコアパッケージを追加します。
 
 ```shell
