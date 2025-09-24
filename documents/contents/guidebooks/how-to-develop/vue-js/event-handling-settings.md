@@ -166,4 +166,4 @@ unhandledErrorEventBus.on((payload) =>
 </script>
 ```
 
-[^1]: 一般的な Pub/Sub モデルについての説明は、[パブリッシャーとサブスクライバーのパターン :material-open-in-new:]([https://external-link](https://learn.microsoft.com/ja-jp/azure/architecture/patterns/publisher-subscriber)){ target=_blank }を参照ください。また、 Pub/Sub（Publisher/Subscriber）モデルを使用するアーキテクチャを、イベント駆動アーキテクチャと呼びます。イベント駆動アーキテクチャについての説明は、[イベント ドリブン アーキテクチャ スタイル :material-open-in-new:](https://learn.microsoft.com/ja-jp/azure/architecture/guide/architecture-styles/event-driven){ target=_blank }を参照ください。
+[^1]: 一般的な Pub/Sub モデルについての説明は、[パブリッシャーとサブスクライバーのパターン :material-open-in-new:]([https://external-link](https://learn.microsoft.com/ja-jp/azure/architecture/patterns/publisher-subscriber)){ target=_blank } を参照ください。また、 Pub/Sub（Publisher/Subscriber）モデルを使用するアーキテクチャを、イベント駆動アーキテクチャと呼びます。イベント駆動アーキテクチャについての説明は、[イベント ドリブン アーキテクチャ スタイル :material-open-in-new:](https://learn.microsoft.com/ja-jp/azure/architecture/guide/architecture-styles/event-driven){ target=_blank } を参照ください。
