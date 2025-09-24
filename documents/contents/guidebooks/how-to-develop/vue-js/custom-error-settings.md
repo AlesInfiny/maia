@@ -96,13 +96,13 @@ export interface ProblemDetails {
 
 HttpError を継承して、 発生しうるエラーを表現する具象クラスを定義します。
 バックエンドアプリケーションから連携された OpenAPI 定義書に従って、 必要な具象クラスを定義してください。
-下記の例は、 HTTP ステータスコード 401 Unauthorized に対応する具象クラス `UnauthorizedError` の実装例です。
+下記の例は、 HTTP ステータスコード 404 Not Found に対応する具象クラス `NotFoundError` の実装例です。
 
 ```typescript title="HttpError を継承した具象クラスの例"
-export class UnauthorizedError extends HttpError {
+export class NotFoundError extends HttpError {
   constructor(message: string, cause?: Error) {
     super(message, cause)
-    this.name = 'UnauthorizedError'
+    this.name = 'NotFoundError'
   }
 }
 ```
