@@ -4,6 +4,8 @@
   "type": "module",
   "private": "true",
   "scripts": {
+    "format:root": "prettier --write ./*.{js,ts,json,yaml}",
+    "format:ci:root": "prettier --check ./*.{js,ts,json,yaml}",
     "lint:ci:app": "npm run lint:ci -w app",
     "type-check:app": "npm run type-check -w app",
     "build-only:dev:app": "npm run build-only:dev -w app",
