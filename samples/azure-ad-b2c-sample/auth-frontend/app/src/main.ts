@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import { globalErrorHandler } from './shared/error-handler/global-error-handler'
+import { useLogger } from './composables/use-logger'
+const logger = useLogger()
 
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
@@ -14,8 +16,7 @@ if (import.meta.env.MODE === 'mock') {
   try {
     await enableMocking() // ワーカーの起動を待ちます。
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('モック用のワーカープロセスの起動に失敗しました。', error)
+    logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
 

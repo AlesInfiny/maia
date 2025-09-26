@@ -13,6 +13,7 @@ import { fetchUser } from './services/user/user-service'
 import { useServerTimeStore } from './stores/server-time/server-time'
 import { useUserStore } from './stores/user/user'
 import { useAuthenticationStore } from './stores/authentication/authentication'
+import { useLogger } from './composables/use-logger'
 
 const userStore = useUserStore()
 const { getUserId } = storeToRefs(userStore)
@@ -21,6 +22,7 @@ const { getServerTime } = storeToRefs(serverTimeStore)
 const authenticationStore = useAuthenticationStore()
 const { isAuthenticated } = storeToRefs(authenticationStore)
 const customErrorHandler = useCustomErrorHandler()
+const logger = useLogger()
 
 const signIn = async () => {
   try {
@@ -30,7 +32,7 @@ const signIn = async () => {
     if (error instanceof BrowserAuthError) {
       // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
       customErrorHandler.handle(error, () => {
-        console.info('ユーザーが認証処理を中断しました。')
+        logger.info('ユーザーが認証処理を中断しました。')
         authenticationStore.updateAuthenticated(false)
       })
     } else {
