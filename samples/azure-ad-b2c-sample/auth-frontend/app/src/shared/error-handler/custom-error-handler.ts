@@ -7,7 +7,8 @@ import { formatError } from '@/shared/helpers/format-error'
 import type { MaybeAsyncFunction, MaybePromise } from '@/types'
 
 /**
- * カスタムエラーハンドラーのインターフェースです。
+ * エラーを受け取り、呼び出し側の後処理（callback）および
+ * エラー種別ごとの追加処理を順に実行する非同期ハンドラー関数の型です。
  */
 export type handleErrorAsyncFunction = (
   error: unknown,
@@ -19,7 +20,7 @@ export type handleErrorAsyncFunction = (
 
 /**
  * カスタムエラーハンドラーを取得します。
- * @returns カスタムエラーハンドラー。
+ * @returns handleErrorAsyncFunction 型の関数。
  */
 export function useCustomErrorHandler(): handleErrorAsyncFunction {
   const handleErrorAsync = async (
