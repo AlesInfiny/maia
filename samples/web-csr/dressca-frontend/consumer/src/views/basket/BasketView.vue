@@ -24,7 +24,7 @@ const basketStore = useBasketStore()
 const { getBasket, getAddedItem, getAddedItemId, getDeletedItemIds } = storeToRefs(basketStore)
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
@@ -41,7 +41,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -71,7 +71,7 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -113,7 +113,7 @@ onMounted(async () => {
       showToast(t('basketContainsUnavailableItem'))
     }
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
