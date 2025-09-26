@@ -9,64 +9,58 @@ import type { MaybeAsyncFunction, MaybePromise } from '@/types'
 /**
  * カスタムエラーハンドラーのインターフェースです。
  */
-export interface CustomErrorHandler {
-  handleAsync(
-    error: unknown,
-    callback: MaybeAsyncFunction<void>,
-    handlingUnauthorizedError?: MaybeAsyncFunction<void> | null,
-    handlingNetworkError?: MaybeAsyncFunction<void> | null,
-    handlingServerError?: MaybeAsyncFunction<void> | null,
-  ): MaybePromise<void>
-}
+export type handleErrorAsyncFunction = (
+  error: unknown,
+  callback: MaybeAsyncFunction<void>,
+  handlingUnauthorizedError?: MaybeAsyncFunction<void> | null,
+  handlingNetworkError?: MaybeAsyncFunction<void> | null,
+  handlingServerError?: MaybeAsyncFunction<void> | null,
+) => MaybePromise<void>
 
 /**
  * カスタムエラーハンドラーを取得します。
  * @returns カスタムエラーハンドラー。
  */
-export function useCustomErrorHandler(): CustomErrorHandler {
-  const customErrorHandler: CustomErrorHandler = {
-    handleAsync: async (
-      error: unknown,
-      callback: MaybeAsyncFunction<void>,
-      handlingUnauthorizedError: MaybeAsyncFunction<void> | null = null,
-      handlingNetworkError: MaybeAsyncFunction<void> | null = null,
-      handlingServerError: MaybeAsyncFunction<void> | null = null,
-    ) => {
-      if (error instanceof Error) {
-        // Error の発生をログに記録します。
-        console.error(formatError(error))
+export function useCustomErrorHandler(): handleErrorAsyncFunction {
+  const handleErrorAsync = async (
+    error: unknown,
+    callback: MaybeAsyncFunction<void>,
+    handlingUnauthorizedError: MaybeAsyncFunction<void> | null = null,
+    handlingNetworkError: MaybeAsyncFunction<void> | null = null,
+    handlingServerError: MaybeAsyncFunction<void> | null = null,
+  ) => {
+    if (error instanceof Error) {
+      // Error の発生をログに記録します。
+      console.error(formatError(error))
 
-        // 呼び出し側で指定したコールバック関数を実行します。
-        await callback()
+      // 呼び出し側で指定したコールバック関数を実行します。
+      await callback()
 
-        // エラーの種類によって共通処理を行います。
-        // switch だと instanceof での判定ができないため if 文で判定します。
-        if (error instanceof UnauthorizedError) {
-          if (handlingUnauthorizedError) {
-            await handlingUnauthorizedError()
-          } else {
-            console.info('401 エラーに対する共通処理を実行します。')
-          }
-        } else if (error instanceof NetworkError) {
-          if (handlingNetworkError) {
-            await handlingNetworkError()
-          } else {
-            console.info('ネットワークエラーに対する共通処理を実行します。')
-          }
-        } else if (error instanceof ServerError) {
-          if (handlingServerError) {
-            await handlingServerError()
-          } else {
-            console.info('500 エラーに対する共通処理を実行します。')
-          }
+      // エラーの種類によって共通処理を行います。
+      // switch だと instanceof での判定ができないため if 文で判定します。
+      if (error instanceof UnauthorizedError) {
+        if (handlingUnauthorizedError) {
+          await handlingUnauthorizedError()
+        } else {
+          console.info('401 エラーに対する共通処理を実行します。')
         }
-      } else {
-        console.error(
-          'Error 型でない想定外のエラーを検出しました、対処できないため再スローします。',
-        )
-        throw error
+      } else if (error instanceof NetworkError) {
+        if (handlingNetworkError) {
+          await handlingNetworkError()
+        } else {
+          console.info('ネットワークエラーに対する共通処理を実行します。')
+        }
+      } else if (error instanceof ServerError) {
+        if (handlingServerError) {
+          await handlingServerError()
+        } else {
+          console.info('500 エラーに対する共通処理を実行します。')
+        }
       }
-    },
+    } else {
+      console.error('Error 型でない想定外のエラーを検出しました、対処できないため再スローします。')
+      throw error
+    }
   }
-  return customErrorHandler
+  return handleErrorAsync
 }
