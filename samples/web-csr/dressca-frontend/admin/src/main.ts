@@ -3,8 +3,11 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { authenticationGuard } from '@/shared/authentication/authentication-guard'
 import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
+import { useLogger } from '@/composables/use-logger'
 import { router } from './router'
 import App from './App.vue'
+
+const logger = useLogger()
 
 /**
  * モック用のワーカープロセスが起動していることを確認します。
@@ -26,8 +29,7 @@ if (import.meta.env.MODE === 'mock') {
   try {
     await enableMocking()
   } catch (error) {
-    /* eslint no-console: 0 */
-    console.error('モック用のワーカープロセスの起動に失敗しました。', error)
+    logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
 
