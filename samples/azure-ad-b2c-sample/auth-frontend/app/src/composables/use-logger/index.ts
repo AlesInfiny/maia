@@ -2,10 +2,10 @@
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 // Error は unknown 型として catch されるので、 error インスタンスを受け入れるために unknown 型にしています。
 export type LogArgs = unknown
-export const noop: (..._args: unknown[]) => void = () => {}
+
+const emptyFunction: (..._args: unknown[]) => void = () => {}
 
 type LogHandler = (...message: LogArgs[]) => void
-
 export interface Logger {
   debug: LogHandler
   info: LogHandler
@@ -28,9 +28,9 @@ export function initializeLogger() {
     // 本番環境用のロガーを注入します。
     // 適切な出力先を設定してください。
     const logger: Logger = {
-      debug: noop,
-      info: noop,
-      warn: noop,
+      debug: emptyFunction,
+      info: emptyFunction,
+      warn: emptyFunction,
       error: (...args) => console.error(...args),
     }
     _logger = logger
