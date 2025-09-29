@@ -9,6 +9,7 @@ import {
   ServerError,
 } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
+import { useLogger } from '@/composables/use-logger'
 
 export interface CustomErrorHandler {
   handle(
@@ -32,10 +33,12 @@ export function useCustomErrorHandler(): CustomErrorHandler {
       handlingNetworkError: (() => void) | null = null,
       handlingServerError: (() => void) | null = null,
     ) => {
+      const logger = useLogger()
       const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
       const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
       // ハンドリングできるエラーの場合はコールバックを実行します。
       if (error instanceof CustomErrorBase) {
+        logger.error(JSON.stringify(error.toJSON()))
         callback()
 
         if (error instanceof HttpError) {
