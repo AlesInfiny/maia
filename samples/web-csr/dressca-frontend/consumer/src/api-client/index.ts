@@ -72,11 +72,11 @@ function ordersApi() {
 }
 
 export {
-  axiosInstance,
   assetsApi,
   basketItemsApi,
   catalogBrandsApi,
   catalogCategoriesApi,
   catalogItemsApi,
   ordersApi,
+  axiosInstance,
 }
