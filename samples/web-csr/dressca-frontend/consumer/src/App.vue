@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
-import { storeToRefs } from 'pinia'
-import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { router } from '@/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from './components/common/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from './shared/events'
+import { authenticationService } from './services/authentication/authentication-service'
 
-const authenticationStore = useAuthenticationStore()
-const { isAuthenticated } = storeToRefs(authenticationStore)
+const { isAuthenticated } = authenticationService()
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 
@@ -44,7 +42,9 @@ unauthorizedErrorEventBus.on(() => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated" to="/authentication/login"> ログイン </router-link>
+            <router-link v-if="!isAuthenticated()" to="/authentication/login">
+              ログイン
+            </router-link>
           </div>
         </div>
       </nav>

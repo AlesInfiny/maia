@@ -41,12 +41,35 @@ axiosInstance.interceptors.response.use(
   },
 )
 
-const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance)
-const basketItemsApi = new apiClient.BasketItemsApi(createConfig(), '', axiosInstance)
-const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
-const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
-const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
-const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance)
+function assetsApi() {
+  const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance)
+  return assetsApi
+}
+
+function basketItemsApi() {
+  const basketItemsApi = new apiClient.BasketItemsApi(createConfig(), '', axiosInstance)
+  return basketItemsApi
+}
+
+function catalogBrandsApi() {
+  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
+  return catalogBrandsApi
+}
+
+function catalogCategoriesApi() {
+  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
+  return catalogCategoriesApi
+}
+
+function catalogItemsApi() {
+  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
+  return catalogItemsApi
+}
+
+function ordersApi() {
+  const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance)
+  return ordersApi
+}
 
 export {
   assetsApi,
@@ -55,5 +78,4 @@ export {
   catalogCategoriesApi,
   catalogItemsApi,
   ordersApi,
-  axiosInstance,
 }
