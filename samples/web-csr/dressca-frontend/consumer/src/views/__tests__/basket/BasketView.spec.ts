@@ -76,9 +76,10 @@ const { getBasketItemsMock } = vi.hoisted(() => {
 })
 
 vi.mock('@/api-client', () => ({
-  basketItemsApi: {
+  // basketItemsApi() を呼ぶと { getBasketItems: getBasketItemsMock } が返る
+  basketItemsApi: () => ({
     getBasketItems: getBasketItemsMock,
-  },
+  }),
 }))
 
 function getWrapper() {
