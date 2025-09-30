@@ -1,0 +1,58 @@
+---
+
+name: dressca-root-frontend CI
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/web-csr/dressca-frontend/*.*'
+      - '.github/workflows/samples-dressca-root-frontend-ci.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: samples/web-csr/dressca-frontend/
+
+jobs:
+  check:
+    name: Dressca モノレポのルートプロジェクトのチェック
+    runs-on: ubuntu-latest
+    env:
+      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v5
+      - name: Use Node.js LTS
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8  # v4
+        with:
+          node-version: lts/*
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+      - uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809  # v4
+        id: node_modules_cache_id
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-check-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: node パッケージのキャッシュ確認
+        run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+
+      - name: node パッケージのインストール
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+      - id: run-format
+        name: format の実行
+        run: npm run format:ci:root >> /var/tmp/format-result.txt 2>&1
+
+      - name: format の結果出力
+        if: ${{ success() || (failure() && steps.run-format.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/format-result.txt
+          header: 'format の結果 :pen:'
