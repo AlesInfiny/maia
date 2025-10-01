@@ -68,7 +68,7 @@ runs:
           ' "$COV_JSON"
         } > "$OUT_MD"
     - id: set-outputs
-      name: 出力をセット
+      name: 出力変数名ををセット
       shell: bash
       run: |
         echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"
