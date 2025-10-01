@@ -30,8 +30,8 @@ runs:
         mkdir -p "$(dirname "$OUT_MD")"
 
         {
+          echo ""
           echo "## サマリー"
-          echo
           echo "| 項目 | Covered/Total | % |"
           echo "|---|---:|---:|"
           jq -r '
@@ -42,9 +42,7 @@ runs:
             | "| \(.) | \($t[.].covered)/\($t[.].total) | \(($t[.].pct // 0))% |"
           ' "$COV_JSON"
 
-          echo
           echo "## ファイルごとの詳細"
-          echo
           echo "| ファイル | Lines (c/t, %) | Branches (c/t, %) | Functions (c/t, %) | Statements (c/t, %) |"
           echo "|---|---:|---:|---:|---:|"
           jq -r '
@@ -60,7 +58,6 @@ runs:
               + " | \($v.functions.covered)/\($v.functions.total), \(($v.functions.pct // 0))%"
               + " | \($v.statements.covered)/\($v.statements.total), \(($v.statements.pct // 0))% |"
           ' "$COV_JSON"
-          echo
         } > "$OUT_MD"
     - id: set-outputs
       name: 出力をセット
