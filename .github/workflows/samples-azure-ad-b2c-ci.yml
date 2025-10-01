@@ -49,7 +49,9 @@ jobs:
       - name: node パッケージのインストール
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm ci
-
+      - id: run-format-root
+        name: ルート直下の format の実行
+        run: npm run format:ci:root >> /var/tmp/format-root-result.txt 2>&1
       - id: run-lint
         name: lintの実行
         run: npm run lint:ci:app >> /var/tmp/lint-result.txt 2>&1
@@ -65,6 +67,13 @@ jobs:
       - id: run-unit-tests
         name: 単体テストの実行
         run: npm run test:unit:app >> /var/tmp/unit-test-result.txt 2>&1
+
+      - name: formatの結果出力
+        if: ${{ success() || (failure() && steps.run-format-root.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/format-root-result.txt
+          header: 'formatの結果 :pen:'
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
