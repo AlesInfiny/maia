@@ -24,8 +24,8 @@ runs:
       run: |
         set -euo pipefail
 
-        COV_JSON="./coverage-summary.json"
-        OUT_MD="./output.md"
+        COV_JSON="${{ inputs.coverage_json }}"
+        OUT_MD="${{ inputs.output_md }}"
 
         mkdir -p "$(dirname "$OUT_MD")"
 
