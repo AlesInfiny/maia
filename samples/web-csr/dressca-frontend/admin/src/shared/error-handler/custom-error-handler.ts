@@ -28,12 +28,12 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     handlingNetworkError: MaybeAsyncFunction<void> | null = null,
     handlingServerError: MaybeAsyncFunction<void> | null = null,
   ) => {
-      const logger = useLogger()
+    const logger = useLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
     // ハンドリングできるエラーの場合はコールバックを実行します。
     if (error instanceof CustomErrorBase) {
-        logger.error(JSON.stringify(error.toJSON()))
+      logger.error(JSON.stringify(error.toJSON()))
       await callback()
 
       // エラーの種類によって共通処理を行います。
