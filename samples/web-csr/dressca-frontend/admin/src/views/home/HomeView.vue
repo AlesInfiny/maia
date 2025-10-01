@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="container mx-auto flex flex-col items-center justify-center gap-6">
     <div class="p-8 text-5xl font-bold">Dressca 管理 トップ</div>
