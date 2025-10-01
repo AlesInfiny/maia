@@ -70,7 +70,7 @@ jobs:
         uses: ./.github/workflows/coverage-to-markdown
         with:
           coverage_json: ./samples/web-csr/dressca-frontend/consumer/coverage/coverage-summary.json
-          output_md: /var/tmp/consumer-coverage.md
+          output_md: /var/tmp/coverage/consumer.md
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
@@ -107,7 +107,7 @@ jobs:
             const fs = require('fs/promises')
             const body = await fs.readFile('${{ steps.format-coverage.outputs.markdown_path }}', 'utf8')
             await core.summary
-              .addHeading('単体テストのカバレッジ :memo:', 1)
+              .addHeading('単体テストのカバレッジ :memo:', 2)
               .addRaw(body)
               .write()
 
