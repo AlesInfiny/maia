@@ -17,5 +17,5 @@ runs:
           const body = await fs.readFileSync("${{ inputs.body }}");
           await core.summary
             .addHeading("${{ inputs.header }}", 2)
-            .addCodeBlock(body)
+            .addRaw(body)
             .write();
