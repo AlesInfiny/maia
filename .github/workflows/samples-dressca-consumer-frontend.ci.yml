@@ -71,6 +71,7 @@ jobs:
         with:
           coverage_json: ./samples/web-csr/dressca-frontend/consumer/coverage/coverage-summary.json
           output_md: /var/tmp/coverage/consumer.md
+          prefix: /home/runner/work/maia/maia/samples/web-csr/dressca-frontend/consumer/
 
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
