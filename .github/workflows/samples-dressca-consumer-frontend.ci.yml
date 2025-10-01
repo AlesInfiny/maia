@@ -101,7 +101,13 @@ jobs:
           header: '単体テストの結果 :memo:'
       - name: 単体テストのカバレッジ出力
         if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
-        uses: ./.github/workflows/file-to-summary
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7
         with:
-          body: ${{ steps.format-coverage.outputs.markdown_path }}
-          header: '単体テストのカバレッジ :memo:'
+          script: |
+            const fs = require('fs/promises')
+            const body = await fs.readFile('${{ steps.format-coverage.outputs.markdown_path }}', 'utf8')
+            await core.summary
+              .addHeading('単体テストのカバレッジ :memo:', 1)
+              .addRaw(body)
+              .write()
+
