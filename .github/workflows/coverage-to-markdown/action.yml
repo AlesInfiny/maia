@@ -32,7 +32,6 @@ runs:
         {
           echo ""
           echo "## サマリー"
-          echo ""
           echo "| 項目 | Covered/Total | % |"
           echo "|---|---:|---:|"
           jq -r '
@@ -64,4 +63,5 @@ runs:
       name: 出力をセット
       shell: bash
       run: |
+        cat $OUT_MD
         echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"
