@@ -1,0 +1,69 @@
+name: coverage-to-markdown
+description: Vitest の テストカバレッジファイル coverage-summary.json を jq で加工し、Markdown 形式の表に整形します。
+
+inputs:
+  coverage_json:
+    description: "入力となる coverage-summary.json のパス"
+    required: true
+  output_md:
+    description: "整形した Markdown を出力するファイルパス"
+    required: false
+    default: "/var/tmp/coverage-summary.md"
+
+outputs:
+  markdown_path:
+    description: "生成された Markdown ファイルのパス"
+    value: ${{ steps.coverage-to-md-by-jq.markdown_path }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: coverage-to-md-by-jq
+      name: jq で Markdown を生成
+      shell: bash
+      run: |
+        set -euo pipefail
+        COV_JSON="${{ inputs.coverage_json }}"
+        OUT_MD="${{ inputs.output_md }}"
+
+        mkdir -p "$(dirname "$OUT_MD")"
+
+        {
+          echo "# テストカバレッジレポート"
+          echo
+          echo "## サマリー"
+          echo
+          echo "| 項目 | Covered/Total | % |"
+          echo "|---|---:|---:|"
+          jq -r '
+            .total
+            | to_entries
+            | map(select(.key|IN("lines","branches","functions","statements")))
+            | .[]
+            | "| \(.key) | \(.value.covered)/\(.value.total) | \(.value.pct)% |"
+          ' "$COV_JSON"
+          echo
+          echo "## ファイルごとの詳細"
+          echo
+          echo "| ファイル | Lines (c/t, %) | Branches (c/t, %) | Functions (c/t, %) | Statements (c/t, %) |"
+          echo "|---|---:|---:|---:|---:|"
+          jq -r '
+            to_entries
+            | map(select(.key != "total"))
+            | .[]
+            | .key as $file
+            | .value as $v
+            | "| \($file|gsub("\\|";"\\\\|"))"
+              + " | \($v.lines.covered)/\($v.lines.total), \($v.lines.pct)%"
+              + " | \($v.branches.covered)/\($v.branches.total), \($v.branches.pct)%"
+              + " | \($v.functions.covered)/\($v.functions.total), \($v.functions.pct)%"
+              + " | \($v.statements.covered)/\($v.statements.total), \($v.statements.pct)% |"
+          ' "$COV_JSON"
+          echo
+        } > "$OUT_MD"
+
+    - id: set-output
+      name: 出力をセット
+      shell: bash
+      run: |
+        echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"

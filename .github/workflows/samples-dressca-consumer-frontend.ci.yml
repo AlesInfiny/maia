@@ -65,6 +65,13 @@ jobs:
         name: 単体テストの実行
         run: npm run test:coverage:consumer >> /var/tmp/unit-test-result.txt 2>&1
 
+      - id: format-coverage
+        name: 単体テストのカバレッジ整形
+        uses: ./.github/workflows/coverage-to-markdown
+        with:
+          coverage_json: ./samples/web-csr/dressca-frontend/consumer/coverage/coverage-summary.json
+          output_md: /var/tmp/consumer-coverage.md
+
       - name: lintの結果出力
         if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
@@ -92,10 +99,9 @@ jobs:
         with:
           body: /var/tmp/unit-test-result.txt
           header: '単体テストの結果 :memo:'
-
       - name: 単体テストのカバレッジ出力
         if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-          body: ./samples/web-csr/dressca-frontend/consumer/coverage/coverage-summary.json
+          body: ${{ steps.format-coverage.outputs.markdown_path }}
           header: '単体テストのカバレッジ :memo:'
