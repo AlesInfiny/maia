@@ -62,7 +62,7 @@ runs:
           echo
         } > "$OUT_MD"
 
-    - id: set-output
+    - id: set-outputs
       name: 出力をセット
       shell: bash
       run: |
