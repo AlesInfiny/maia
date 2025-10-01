@@ -14,7 +14,7 @@ import type {
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
@@ -87,7 +87,7 @@ onMounted(async () => {
     pagedListOfCatalogItem.value = await fetchItems(0, 0)
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('カタログアイテムの取得に失敗しました。')
     })
   } finally {

@@ -20,7 +20,7 @@ const basketStore = useBasketStore()
 const { getBasket } = storeToRefs(basketStore)
 const { getAddress } = storeToRefs(userStore)
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
@@ -36,7 +36,7 @@ const checkout = async () => {
     )
     router.push({ name: 'ordering/done', params: { orderId } })
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {
         router.push({ name: 'error' })

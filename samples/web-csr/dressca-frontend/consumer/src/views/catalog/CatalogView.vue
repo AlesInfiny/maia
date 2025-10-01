@@ -22,7 +22,7 @@ const catalogStore = useCatalogStore()
 const { getSpecialContents } = storeToRefs(specialContentStore)
 const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(catalogStore)
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const { t } = i18n.global
 
 const selectedCategory = ref(0)
@@ -37,7 +37,7 @@ const addBasket = async (catalogItemId: number) => {
     await addItemToBasket(catalogItemId)
     router.push({ name: 'basket' })
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -68,7 +68,7 @@ onMounted(async () => {
   try {
     await fetchItems(selectedCategory.value, selectedBrand.value)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
