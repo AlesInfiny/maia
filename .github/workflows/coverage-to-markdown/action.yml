@@ -10,11 +10,6 @@ inputs:
     required: false
     default: "/var/tmp/coverage-summary.md"
 
-outputs:
-  markdown_path:
-    description: "生成された Markdown ファイルのパス"
-    value: ${{ steps.set-outputs.outputs.markdown_path }}
-
 runs:
   using: "composite"
   steps:
@@ -60,8 +55,7 @@ runs:
           ' "$COV_JSON"
         } > "$OUT_MD"
     - id: set-outputs
-      name: 出力をセット
+      name: サマリーに出力
       shell: bash
       run: |
-        cat $OUT_MD
-        echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"
+        echo $OUT_MD >> $GITHUB_STEP_SUMMARY
