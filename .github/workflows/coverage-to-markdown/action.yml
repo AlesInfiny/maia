@@ -41,7 +41,7 @@ runs:
             | .[]
             | "| \(.) | \($t[.].covered)/\($t[.].total) | \(($t[.].pct // 0))% |"
           ' "$COV_JSON"
-
+          echo ""
           echo "## ファイルごとの詳細"
           echo "| ファイル | Lines (c/t, %) | Branches (c/t, %) | Functions (c/t, %) | Statements (c/t, %) |"
           echo "|---|---:|---:|---:|---:|"
