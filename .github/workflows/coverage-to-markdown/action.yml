@@ -63,5 +63,4 @@ runs:
       name: 出力をセット
       shell: bash
       run: |
-        cat $OUT_MD
         echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"
