@@ -110,4 +110,3 @@ jobs:
               .addHeading('単体テストのカバレッジ :memo:', 2)
               .addRaw(body)
               .write()
-
