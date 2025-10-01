@@ -39,7 +39,7 @@ runs:
           echo "### サマリー"
           echo "| 項目 | Covered/Total | % |"
           echo "|---|---:|---:|"
-          jq -r '
+          jq -r --arg prefix "$PREFIX" '
             .total as $t
             | ["lines","branches","functions","statements"]
             | map(select($t[.] != null))
