@@ -58,4 +58,4 @@ runs:
       name: サマリーに出力
       shell: bash
       run: |
-        echo $OUT_MD >> $GITHUB_STEP_SUMMARY
+        echo "$OUT_MD" >> "$GITHUB_STEP_SUMMARY"
