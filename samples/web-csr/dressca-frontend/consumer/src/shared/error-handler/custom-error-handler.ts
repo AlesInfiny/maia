@@ -36,9 +36,7 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
     // ハンドリングできるエラーの場合はコールバックを実行します。
     if (error instanceof CustomErrorBase) {
-        logger.error(JSON.stringify(error.toJSON()))
-      // eslint-disable-next-line no-console
-      console.error(JSON.stringify(error.toJSON()))
+      logger.error(JSON.stringify(error.toJSON()))
       await callback()
       if (error instanceof HttpError) {
         // 業務処理で発生した HttpError を処理します。
