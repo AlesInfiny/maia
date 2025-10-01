@@ -13,7 +13,7 @@ inputs:
 outputs:
   markdown_path:
     description: "生成された Markdown ファイルのパス"
-    value: ${{ steps.coverage-to-md-by-jq.markdown_path }}
+    value: ${{ steps.set-outputs.outputs.markdown_path }}
 
 runs:
   using: "composite"
