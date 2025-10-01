@@ -94,5 +94,5 @@ jobs:
         if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
-          body: ./consumer/coverage/coverage-summary.json
+          body: ./samples/web-csr/dressca-frontend/admin/coverage/coverage-summary.json
           header: '単体テストのカバレッジ :memo:'
