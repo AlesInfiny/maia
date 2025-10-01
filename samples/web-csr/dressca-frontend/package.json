@@ -20,8 +20,8 @@
     "test:unit:admin": "npm run test:unit -w admin",
     "dev:admin": "npm run dev -w admin",
     "mock:admin": "npm run mock -w admin",
-    "coverage:consumer": "npm run coverage -w consumer",
-    "coverage:admin": "npm run coverage -w admin"
+    "test:coverage:consumer": "npm run coverage -w consumer",
+    "test:coverage:admin": "npm run coverage -w admin"
   },
   "workspaces": [
     "consumer",
