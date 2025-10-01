@@ -100,7 +100,7 @@ jobs:
           body: /var/tmp/unit-test-result.txt
           header: '単体テストの結果 :memo:'
       - name: 単体テストのカバレッジ出力
-        if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
+        if: ${{ success() || (failure() && steps.format-coverage.conclusion == 'failure') }}
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7
         with:
           script: |
