@@ -26,13 +26,13 @@ runs:
       name: jq で Markdown を生成
       shell: bash
       run: |
-        set -euo pipefail
+        set -euo pipefail # エラーが出たら即終了、未定義変数の参照禁止、パイプライン中のエラー検知を設定します。
 
         COV_JSON="${{ inputs.coverage_json }}"
         OUT_MD="${{ inputs.output_md }}"
         PREFIX="${{ inputs.prefix }}"
 
-        mkdir -p "$(dirname "$OUT_MD")"
+        mkdir -p "$(dirname "$OUT_MD")" # 出力対象ディレクトリが存在していなければ作成
 
         {
           echo ""
@@ -59,7 +59,7 @@ runs:
             | .value as $v
             | "| \(
                   $file
-                  | gsub("^" + $prefix; "")         # ← prefix を除去
+                  | gsub("^" + $prefix; "") # ファイル名が長くなるので prefix を除去します。
                 )"
               + " | \($v.lines.covered)/\($v.lines.total), \(($v.lines.pct // 0))%"
               + " | \($v.branches.covered)/\($v.branches.total), \(($v.branches.pct // 0))%"
