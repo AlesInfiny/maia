@@ -32,6 +32,7 @@ runs:
         {
           echo ""
           echo "## サマリー"
+          echo ""
           echo "| 項目 | Covered/Total | % |"
           echo "|---|---:|---:|"
           jq -r '
