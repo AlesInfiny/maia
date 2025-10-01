@@ -1,5 +1,4 @@
 <!-- eslint-disable no-alert -->
-<!-- eslint-disable no-console -->
 <!--  このサンプルコードでは、ログ出力先としてコンソール、ユーザーへの通知先としてブラウザの標準ダイアログを使用するので、ファイル全体に対して ESLint の設定を無効化しておきます。
 実際のアプリケーションでは、適切なログ出力先や、通知先のコンポーネントを使用してください。-->
 <script setup lang="ts">
@@ -13,6 +12,7 @@ import { fetchUser } from './services/user/user-service'
 import { useServerTimeStore } from './stores/server-time/server-time'
 import { useUserStore } from './stores/user/user'
 import { useAuthenticationStore } from './stores/authentication/authentication'
+import { useLogger } from './composables/use-logger'
 
 const userStore = useUserStore()
 const { getUserId } = storeToRefs(userStore)
@@ -21,6 +21,7 @@ const { getServerTime } = storeToRefs(serverTimeStore)
 const authenticationStore = useAuthenticationStore()
 const { isAuthenticated } = storeToRefs(authenticationStore)
 const handleErrorAsync = useCustomErrorHandler()
+const logger = useLogger()
 
 const signIn = async () => {
   try {
@@ -30,7 +31,7 @@ const signIn = async () => {
     if (error instanceof BrowserAuthError) {
       // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
       await handleErrorAsync(error, () => {
-        console.info('ユーザーが認証処理を中断しました。')
+        logger.info('ユーザーが認証処理を中断しました。')
         authenticationStore.updateAuthenticated(false)
       })
     } else {
