@@ -23,25 +23,25 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        COV_JSON="${{ inputs.coverage_json }}"
-        OUT_MD="${{ inputs.output_md }}"
+
+        COV_JSON="./coverage-summary.json"
+        OUT_MD="./output.md"
 
         mkdir -p "$(dirname "$OUT_MD")"
 
         {
-          echo "# テストカバレッジレポート"
-          echo
           echo "## サマリー"
           echo
           echo "| 項目 | Covered/Total | % |"
           echo "|---|---:|---:|"
           jq -r '
-            .total
-            | to_entries
-            | map(select(.key|IN("lines","branches","functions","statements")))
+            .total as $t
+            | ["lines","branches","functions","statements"]
+            | map(select($t[.] != null))
             | .[]
-            | "| \(.key) | \(.value.covered)/\(.value.total) | \(.value.pct)% |"
+            | "| \(.) | \($t[.].covered)/\($t[.].total) | \(($t[.].pct // 0))% |"
           ' "$COV_JSON"
+
           echo
           echo "## ファイルごとの詳細"
           echo
@@ -50,20 +50,15 @@ runs:
           jq -r '
             to_entries
             | map(select(.key != "total"))
+            | sort_by(.key)
             | .[]
             | .key as $file
             | .value as $v
-            | "| \($file|gsub("\\|";"\\\\|"))"
-              + " | \($v.lines.covered)/\($v.lines.total), \($v.lines.pct)%"
-              + " | \($v.branches.covered)/\($v.branches.total), \($v.branches.pct)%"
-              + " | \($v.functions.covered)/\($v.functions.total), \($v.functions.pct)%"
-              + " | \($v.statements.covered)/\($v.statements.total), \($v.statements.pct)% |"
+            | "| \($file | gsub("\\|"; "\\\\|"))"
+              + " | \($v.lines.covered)/\($v.lines.total), \(($v.lines.pct // 0))%"
+              + " | \($v.branches.covered)/\($v.branches.total), \(($v.branches.pct // 0))%"
+              + " | \($v.functions.covered)/\($v.functions.total), \(($v.functions.pct // 0))%"
+              + " | \($v.statements.covered)/\($v.statements.total), \(($v.statements.pct // 0))% |"
           ' "$COV_JSON"
           echo
         } > "$OUT_MD"
-
-    - id: set-outputs
-      name: 出力をセット
-      shell: bash
-      run: |
-        echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"
