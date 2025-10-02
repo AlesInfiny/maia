@@ -9,6 +9,7 @@ import {
   ServerError,
 } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
+import { useLogger } from '@/composables/use-logger'
 import type { MaybeAsyncFunction, MaybePromise, MaybeAsyncUnaryFunction } from '@/types'
 
 export type handleErrorAsyncFunction = (
@@ -30,12 +31,12 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     handlingNetworkError: MaybeAsyncFunction<void> | null = null,
     handlingServerError: MaybeAsyncFunction<void> | null = null,
   ) => {
+    const logger = useLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
     // ハンドリングできるエラーの場合はコールバックを実行します。
     if (error instanceof CustomErrorBase) {
-      // eslint-disable-next-line no-console
-      console.error(JSON.stringify(error.toJSON()))
+      logger.error(JSON.stringify(error.toJSON()))
       await callback()
       if (error instanceof HttpError) {
         // 業務処理で発生した HttpError を処理します。

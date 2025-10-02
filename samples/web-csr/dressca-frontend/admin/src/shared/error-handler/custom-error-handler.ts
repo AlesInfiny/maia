@@ -1,6 +1,7 @@
 import { useEventBus } from '@vueuse/core'
 import { CustomErrorBase, UnauthorizedError, NetworkError, ServerError } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
+import { useLogger } from '@/composables/use-logger'
 import type { MaybeAsyncFunction, MaybePromise } from '@/types'
 
 /**
@@ -27,10 +28,12 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     handlingNetworkError: MaybeAsyncFunction<void> | null = null,
     handlingServerError: MaybeAsyncFunction<void> | null = null,
   ) => {
+    const logger = useLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
     // ハンドリングできるエラーの場合はコールバックを実行します。
     if (error instanceof CustomErrorBase) {
+      logger.error(JSON.stringify(error.toJSON()))
       await callback()
 
       // エラーの種類によって共通処理を行います。
