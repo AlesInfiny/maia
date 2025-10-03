@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
-本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.18.0 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
+本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.18.1 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -93,7 +93,7 @@ T  Vue.js - The Progressive JavaScript Framework
 ```text
 *  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
 confirm)
-|  [ ] Oxlint (experimental)
+|  [ ] Oxlint
 |  [•] rolldown-vite (experimental)
 —
 ```
