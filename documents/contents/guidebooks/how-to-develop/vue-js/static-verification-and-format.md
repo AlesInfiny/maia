@@ -131,7 +131,7 @@ npm run lint
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10 12-15 23-24 29 33 36-43 46-49 53-69 74 80-83"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10-11 13-16 24-25 30 34 37-44 47-50 54-70 75 81-84 88-91"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
 ```
 
@@ -248,6 +248,23 @@ ESLint は eslint.config.ts の先頭から設定の内容をマージするの�
       },
     ],
   },
+},
+```
+
+TypeScript ファイルに対して JSDoc 形式のドキュメンテーションを強制します。
+ワークスペースの直下にいることを確認し、[eslint-plugin-jsdoc :material-open-in-new:](https://github.com/gajus/eslint-plugin-jsdoc){ target=_blank } をインストールします。
+
+```shell linenums="0"
+npm install -D eslint-plugin-jsdoc
+```
+
+eslint.config.ts に下記の設定を追加します。
+
+```typescript
+import jsdoc from 'eslint-plugin-jsdoc'
+{
+  ...jsdoc.configs['flat/recommended-typescript-error'],
+  files: ['**/*.ts'],
 },
 ```
 
