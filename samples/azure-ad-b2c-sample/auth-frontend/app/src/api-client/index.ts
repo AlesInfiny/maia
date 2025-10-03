@@ -38,12 +38,22 @@ axiosInstance.interceptors.response.use(
   },
 )
 
-/** api-client の共通の Configuration があればここに定義します。 */
+/**
+ * api-client の共通の Configuration を生成します。
+ * 共通の Configuration があればここに定義してください。
+ * @returns 新しい Configuration インスタンス。
+ */
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration()
   return config
 }
 
+/**
+ * 認証済みであれば、Azure AD B2C からアクセストークンを取得し、
+ * 指定された Configuration に設定します。
+ * @param config 設定対象の Configuration インスタンス。
+ * @returns 非同期処理の完了を表す Promise。
+ */
 async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
   // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
   if (authenticationService.isAuthenticated()) {
@@ -52,6 +62,11 @@ async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
   }
 }
 
+/**
+ * 認証付きの UsersApi インスタンスを生成して返します。
+ * UsersApi の呼び出しには認証が必要なため、内部でトークンを付与します。
+ * @returns 認証済みの UsersApi インスタンス。
+ */
 export async function getUsersApi(): Promise<apiClient.UsersApi> {
   const config = createConfig()
 
@@ -61,6 +76,10 @@ export async function getUsersApi(): Promise<apiClient.UsersApi> {
   return userApi
 }
 
+/**
+ * 認証不要な ServerTimeApi インスタンスを生成して返します。
+ * @returns ServerTimeApi インスタンス。
+ */
 export function getServerTimeApi(): apiClient.ServerTimeApi {
   const config = createConfig()
   const serverTimeApi = new apiClient.ServerTimeApi(config, '', axiosInstance)
