@@ -5,6 +5,11 @@ import { globalErrorHandler } from './shared/error-handler/global-error-handler'
 import { useLogger } from './composables/use-logger'
 const logger = useLogger()
 
+/**
+ * MSW (Mock Service Worker) を有効化します。
+ * モックモード時のみ動的にモジュールをインポートし、Service Worker を開始します。
+ * @returns Service Worker の登録情報。モックモードでない場合は undefined。
+ */
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
