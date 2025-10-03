@@ -30,7 +30,7 @@ export default {
       },
     ],
   },
-  ignoreFiles: ['dist/**/*', 'coverage/**/*'],
+  ignoreFiles: ['dist/**/*'],
   overrides: [
     {
       files: ['**/*.vue'],
