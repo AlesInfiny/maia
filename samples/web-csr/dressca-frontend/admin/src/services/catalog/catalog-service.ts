@@ -107,6 +107,7 @@ export async function postCatalogItem(
  * @param catalogCategoryId カテゴリ ID。
  * @param catalogBrandId ブランド ID。
  * @param rowVersion 排他制御のための行バージョン。
+ * @param isDeleted　削除済みかどうか。
  */
 export async function updateCatalogItem(
   id: number,

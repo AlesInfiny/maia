@@ -10,8 +10,9 @@ import App from './App.vue'
 const logger = useLogger()
 
 /**
- * モック用のワーカープロセスが起動していることを確認します。
- * @returns {Promise<ServiceWorkerRegistration | undefined>}
+ * MSW (Mock Service Worker) を有効化します。
+ * モックモード時のみ動的にモジュールをインポートし、Service Worker を開始します。
+ * @returns Service Worker の登録情報。モックモードでない場合は undefined。
  */
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser')
