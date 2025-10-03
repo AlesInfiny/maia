@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { UsersApi } from '@/api-client'
+import { usersApi } from '@/api-client'
 
 /**
  * 認証状態のストアです。
@@ -18,7 +18,7 @@ export const useAuthenticationStore = defineStore('authentication', {
      * セッションストレージに認証状態を保存します。
      */
     async signInAsync() {
-      const response = await UsersApi.getLoginUser()
+      const response = await usersApi().getLoginUser()
       const { userName, roles } = response.data
       this.userName = userName
       this.userRoles = roles

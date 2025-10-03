@@ -111,7 +111,10 @@ function createConfig(): apiClient.Configuration {
 
 const axiosInstance = axios.create({})
 
-const defaultApi = new apiClient.DefaultApi(createConfig(), '', axiosInstance)
+function defaultApi() {
+  const defaultApi = new apiClient.DefaultApi(createConfig(), '', axiosInstance)
+  return defaultApi
+}
 
 export { defaultApi }
 ```
@@ -122,8 +125,8 @@ export { defaultApi }
 このファイルでは、 api-client や axios 共通の設定をします。
 
 1. `src/generated/api-client/api` に自動生成された API を `import` します。
-1. 上記の例の `DefaultApi` と同様に `apiClient.XxxApi(createConfig(), '', axiosInstance)` コンストラクターでインスタンスを生成します。
-1. 生成したインスタンスを `export` します。
+1. 上記の例の `DefaultApi` と同様に `apiClient.XxxApi(createConfig(), '', axiosInstance)` コンストラクターでインスタンスを生成するメソッドを定義します。
+1. 生成したメソッドを `export` します。
 
 ??? info "BaseAPI のコンストラクター"
     - `BaseAPI(configuration?: Configuration, basePath: string, axios: AxiosInstance)`

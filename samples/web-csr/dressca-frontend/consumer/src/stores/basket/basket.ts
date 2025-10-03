@@ -19,7 +19,7 @@ export const useBasketStore = defineStore('basket', {
         catalogItemId,
         addedQuantity: 1,
       }
-      await basketItemsApi.postBasketItem(params)
+      await basketItemsApi().postBasketItem(params)
       this.addedItemId = catalogItemId
     },
     async update(catalogItemId: number, newQuantity: number) {
@@ -29,13 +29,13 @@ export const useBasketStore = defineStore('basket', {
           quantity: newQuantity,
         },
       ]
-      await basketItemsApi.putBasketItems(params)
+      await basketItemsApi().putBasketItems(params)
     },
     async remove(catalogItemId: number) {
-      await basketItemsApi.deleteBasketItem(catalogItemId)
+      await basketItemsApi().deleteBasketItem(catalogItemId)
     },
     async fetch() {
-      const response = await basketItemsApi.getBasketItems()
+      const response = await basketItemsApi().getBasketItems()
       this.basket = response.data
       this.deletedItemIds = response.data.deletedItemIds ?? []
     },

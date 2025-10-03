@@ -54,20 +54,33 @@ axiosInstance.interceptors.response.use(
 /**
  * カタログブランド API のクライアントです。
  */
-const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
+function catalogBrandsApi() {
+  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
+  return catalogBrandsApi
+}
 
 /**
  * カタログカテゴリ API のクライアントです。
  */
-const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
+function catalogCategoriesApi() {
+  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
+  return catalogCategoriesApi
+}
 
 /**
  * カタログアイテム API のクライアントです。
  */
-const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
+function catalogItemsApi() {
+  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
+  return catalogItemsApi
+}
 
 /**
  * ユーザー API のクライアントです。
  */
-const UsersApi = new apiClient.UsersApi(createConfig(), '', axiosInstance)
-export { catalogBrandsApi, catalogCategoriesApi, catalogItemsApi, UsersApi }
+function usersApi() {
+  const usersApi = new apiClient.UsersApi(createConfig(), '', axiosInstance)
+  return usersApi
+}
+
+export { catalogBrandsApi, catalogCategoriesApi, catalogItemsApi, usersApi }
