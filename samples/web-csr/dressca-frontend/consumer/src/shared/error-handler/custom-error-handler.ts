@@ -21,6 +21,21 @@ export type handleErrorAsyncFunction = (
   handlingServerError?: MaybeAsyncFunction<void> | null,
 ) => MaybePromise<void>
 
+/**
+ * カスタムエラーハンドラーを提供します。
+ * HttpError / UnauthorizedError / NetworkError / ServerError などの種類ごとに
+ * 共通処理やイベント通知を行います。
+ * @returns エラーを処理する非同期関数
+ * @example
+ * const handleErrorAsync = useCustomErrorHandler()
+ * try {
+ *   await someApiCall()
+ * } catch (err) {
+ *   await handleErrorAsync(err, async () => {
+ *     console.log('エラー時のコールバック処理')
+ *   })
+ * }
+ */
 export function useCustomErrorHandler(): handleErrorAsyncFunction {
   const { t } = i18n.global
   const handleErrorAsync = async (

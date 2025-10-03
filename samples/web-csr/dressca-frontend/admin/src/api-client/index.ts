@@ -10,7 +10,11 @@ import {
   UnknownError,
 } from '@/shared/error-handler/custom-error'
 
-/** api-client の共通の Configuration があればここに定義します。 */
+/**
+ * api-client の共通の Configuration を生成します。
+ * 共通の Configuration があればここに定義してください。
+ * @returns 新しい Configuration インスタンス。
+ */
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration()
   return config
@@ -52,7 +56,8 @@ axiosInstance.interceptors.response.use(
 )
 
 /**
- * カタログブランド API のクライアントです。
+ * カタログブランド API のクライアントを生成します。
+ * @returns CatalogBrandsApi インスタンス
  */
 function catalogBrandsApi() {
   const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
@@ -60,7 +65,8 @@ function catalogBrandsApi() {
 }
 
 /**
- * カタログカテゴリ API のクライアントです。
+ * カタログカテゴリ API のクライアントを生成します。
+ * @returns CatalogCategoriesApi インスタンス
  */
 function catalogCategoriesApi() {
   const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
@@ -68,7 +74,8 @@ function catalogCategoriesApi() {
 }
 
 /**
- * カタログアイテム API のクライアントです。
+ * カタログアイテム API のクライアントを生成します。
+ * @returns CatalogItemsApi インスタンス
  */
 function catalogItemsApi() {
   const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
@@ -76,7 +83,8 @@ function catalogItemsApi() {
 }
 
 /**
- * ユーザー API のクライアントです。
+ * ユーザー API のクライアントを生成します。
+ * @returns UsersApi インスタンス
  */
 function usersApi() {
   const usersApi = new apiClient.UsersApi(createConfig(), '', axiosInstance)

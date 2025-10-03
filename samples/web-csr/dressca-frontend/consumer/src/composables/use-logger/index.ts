@@ -79,7 +79,6 @@ function initializeLogger() {
 /**
  * ロガーを取得します。
  * 初回呼び出し時にロガーが未初期化であれば `initializeLogger` により初期化します。
- *
  * @returns アプリケーション共通で利用するロガーインスタンス
  */
 export function useLogger() {

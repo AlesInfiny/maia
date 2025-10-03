@@ -51,7 +51,11 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js で非同期通信するためのプロミスベースの HTTP クライアント（[インストール方法](create-api-client-code.md#install-axios)）
 
-- <!-- cspell: disable-line -->[openapi-generator :material-open-in-new:](https://github.com/OpenAPITools/openapi-generator){ target=_blank }
+- [eslint-plugin-jsdoc :material-open-in-new:](https://github.com/gajus/eslint-plugin-jsdoc){ target=_blank }
+
+    JSDoc コメントの強制、構文チェック等を行う ESLint のプラグイン（[インストール方法](static-verification-and-format.md#change-applied-rules)）
+
+- [openapi-generator :material-open-in-new:](https://github.com/OpenAPITools/openapi-generator){ target=_blank }
 
     Web API 仕様からクライアントコードの自動生成（[インストール方法](create-api-client-code.md#install-open-api-generator)）
 
