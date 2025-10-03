@@ -4,6 +4,11 @@ import type { BasketItemResponse } from '@/generated/api-client/models/basket-it
 import { i18n } from '@/locales/i18n'
 import BasketItem from '../basket/BasketItem.vue'
 
+/**
+ * バスケットアイテムのレスポンスを生成します。
+ * 主にテストやモックデータとして利用することを想定しています。
+ * @returns `BasketItemResponse` 型のオブジェクト
+ */
 function createBasketItemResponse(): BasketItemResponse {
   return {
     catalogItemId: 10,
