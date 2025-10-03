@@ -14,17 +14,17 @@ export const useCatalogStore = defineStore('catalog', {
   }),
   actions: {
     async fetchCategories() {
-      const response = await catalogCategoriesApi.getCatalogCategories()
+      const response = await catalogCategoriesApi().getCatalogCategories()
       this.categories = response.data
       this.categories.unshift({ id: 0, name: 'すべて' })
     },
     async fetchBrands() {
-      const response = await catalogBrandsApi.getCatalogBrands()
+      const response = await catalogBrandsApi().getCatalogBrands()
       this.brands = response.data
       this.brands.unshift({ id: 0, name: 'すべて' })
     },
     async fetchItems(categoryId: number, brandId: number, page?: number) {
-      const response = await catalogItemsApi.getByQuery(
+      const response = await catalogItemsApi().getByQuery(
         brandId === 0 ? undefined : brandId,
         categoryId === 0 ? undefined : categoryId,
         page,

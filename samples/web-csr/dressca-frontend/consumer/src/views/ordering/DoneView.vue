@@ -13,7 +13,7 @@ import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const props = defineProps<{
   orderId: number
 }>()
@@ -35,7 +35,7 @@ onMounted(async () => {
   try {
     lastOrdered.value = await getOrder(props.orderId)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {
         router.push('/')

@@ -1,4 +1,3 @@
-<script setup lang="ts"></script>
 <template>
   <div class="bg-white text-gray-800">
     <div class="flex justify-center">

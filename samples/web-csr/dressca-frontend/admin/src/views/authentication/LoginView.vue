@@ -16,7 +16,7 @@ const formSchema = yup.object({
 
 const router = useRouter()
 const route = useRoute()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 
 const { meta } = useForm({ validationSchema: formSchema })
 const { value: userName, errorMessage: userNameError } = useField<string>('userName')
@@ -33,7 +33,7 @@ const login = async () => {
   try {
     await loginAsync()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('ログインに失敗しました。')
     })
   }

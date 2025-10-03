@@ -61,9 +61,8 @@ Project Reference 機能については [Project References :material-open-in-ne
     `include` キーにパターンを追加しています。この段階では実際にこれらのファイルを追加で作成する必要はありません。
     mock フォルダーと配下のファイルは、[モックモードの設定 - Mock Service Worker の設定](./mock-mode-settings.md#msw-settings) で作成します。
     vitest.setup.ts は、 Vitest での自動テスト実行前後の共通処理を定義するファイルです。
-    postcss.config.ts は [CSS の設定 - PostCSS の設定](./css.md#settings-postcss) で作成します。
 
-    ```json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="7-9"
+    ```json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="3"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
     ```
 

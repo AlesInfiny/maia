@@ -7,11 +7,12 @@ import pluginVitest from '@vitest/eslint-plugin'
 // @ts-ignore
 import pluginCypress from 'eslint-plugin-cypress/flat'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import { configureVueProject } from '@vue/eslint-config-typescript'
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-// import { configureVueProject } from '@vue/eslint-config-typescript'
-// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+configureVueProject({
+  // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
+  rootDir: import.meta.dirname,
+})
 
 export default defineConfigWithVueTs(
   // Lint 対象外とするファイルパスを列挙します。

@@ -5,7 +5,10 @@ import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
 import App from './App.vue'
 import { router } from './router'
 import { i18n } from './locales/i18n'
+import { useLogger } from './composables/use-logger'
 import '@/assets/base.css'
+
+const logger = useLogger()
 
 /**
  * モック用のワーカープロセスが起動していることを確認します。
@@ -27,8 +30,7 @@ if (import.meta.env.MODE === 'mock') {
   try {
     await enableMocking()
   } catch (error) {
-    /* eslint no-console: 0 */
-    console.error('モック用のワーカープロセスの起動に失敗しました。', error)
+    logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
 

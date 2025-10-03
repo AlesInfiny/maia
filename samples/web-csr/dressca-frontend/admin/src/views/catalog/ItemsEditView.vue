@@ -25,7 +25,7 @@ import { Roles } from '@/shared/constants/roles'
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 const router = useRouter()
@@ -176,7 +176,7 @@ const getItem = async (itemId: number) => {
       showToast('対象のアイテムが見つかりませんでした。')
       router.push({ name: 'catalog/items' })
     }
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('アイテムの取得に失敗しました。')
     })
   }
@@ -189,7 +189,7 @@ const getCategoriesAndBrands = async () => {
   try {
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('カタログアイテムとカテゴリの取得に失敗しました。')
     })
   }
@@ -249,17 +249,17 @@ const deleteItemAsync = async () => {
     showDeleteNotice.value = true
   } catch (error) {
     if (error instanceof NotFoundError) {
-      customErrorHandler.handle(error, () => {
+      await handleErrorAsync(error, () => {
         showToast('削除対象のカタログアイテムが見つかりませんでした。')
         router.push({ name: '/catalog/items' })
       })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, () => {
+      await handleErrorAsync(error, () => {
         showToast('カタログアイテムの更新と削除が競合しました。もう一度削除してください。')
       })
       await reFetchItemAndInitRowVersionAsync(id)
     } else {
-      customErrorHandler.handle(error, () => {
+      await handleErrorAsync(error, () => {
         showToast('カタログアイテムの削除に失敗しました。')
       })
     }
@@ -291,12 +291,12 @@ const updateItemAsync = async () => {
       showToast('更新対象のカタログアイテムが見つかりませんでした。')
       router.push({ name: 'catalog/items' })
     } else if (error instanceof ConflictError) {
-      customErrorHandler.handle(error, () => {
+      await handleErrorAsync(error, () => {
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
       })
       await reFetchItemAndInitRowVersionAsync(id)
     } else {
-      customErrorHandler.handle(error, () => {
+      await handleErrorAsync(error, () => {
         showToast('カタログアイテムの更新に失敗しました。')
       })
     }

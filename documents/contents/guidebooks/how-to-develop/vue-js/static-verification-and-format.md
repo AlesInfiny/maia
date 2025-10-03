@@ -131,7 +131,7 @@ npm run lint
 [コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 22-23 28 32 35-42 45-48 52-68 73 79-82"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10 12-15 23-24 29 33 36-43 46-49 53-69 74 80-83"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
 ```
 
@@ -159,6 +159,16 @@ eslint.config.ts に、下記の設定を追加してください。
     },
   },
 },
+```
+
+.vue ファイルを探すルートディレクトリを変更するよう下記の設定を追加します。
+`configureVueProject()` の詳細は [Advanced Setup :material-open-in-new:](https://github.com/vuejs/eslint-config-typescript?tab=readme-ov-file#advanced-setup){ target=_blank } を参照してください。
+
+```typescript
+import { configureVueProject } from '@vue/eslint-config-typescript'
+configureVueProject({
+  rootDir: import.meta.dirname,
+})
 ```
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
@@ -190,23 +200,6 @@ npm run lint
 ```
 
 ESLint がルートプロジェクトの設定ファイルを自動的に認識し、正常に実行できることを確認してください。
-
-!!! warning "ESLint の実行時にエラーが発生する場合の対処"
-
-      create-vue で作成されるデフォルトのアプリケーションには、 icons フォルダの配下の .vue ファイルのように、  `<script>` ブロックを持たない .vue ファイルが含まれます。
-      しかし、 `<script>` ブロックを持たない .vue ファイルに対して型情報を使用した Lint ルールの適用を試みると下記のようなエラーが発生します。
-      その場合は、該当する .vue ファイルに空の `<script>` ブロックを追加してください。
-
-      ```text linenums="0"
-      [eslint   ] Error: Error while loading rule '@typescript-eslint/await-thenable': You have used a rule which requires type information, but don't have parserOptions set to generate type information for this file. See https://typescript-eslint.io/getting-started/typed-linting for enabling linting with type information.
-      [eslint   ] Parser: vue-eslint-parser
-      [eslint   ] Note: detected a parser other than @typescript-eslint/parser. Make sure the parser is configured to forward "parserOptions.project" to @typescript-eslint/parser.
-      [eslint   ] Occurred while linting ...workspace-name\src\components\icons\IconCommunity.vue
-      ```
-
-      ```vue
-      <script setup lang="ts"></script>
-      ```
 
 #### 適用ルールの変更 {#change-applied-rules}
 
