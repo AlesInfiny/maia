@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 /**
- * '/login'に割り当てるコンポーネントを定義します。
+ * '/authentication/login'に割り当てるコンポーネントを定義します。
  */
 export const authenticationRoutes: RouteRecordRaw[] = [
   {
