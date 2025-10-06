@@ -4,6 +4,12 @@ import { router } from '@/router'
 import { createPinia, setActivePinia } from 'pinia'
 import ItemsView from '@/views/catalog/ItemsView.vue'
 
+/**
+ * コンポーネントをテスト用にマウントするヘルパー関数です。
+ * 新しい Pinia インスタンスを作成してアクティブ化し、
+ * グローバルプラグインとして `pinia` と `router` を注入します。
+ * @returns マウント済みの Vue Test Utils ラッパー
+ */
 function getWrapper() {
   const pinia = createPinia()
   setActivePinia(pinia)

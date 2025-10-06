@@ -19,7 +19,7 @@ export async function fetchCategories(): Promise<GetCatalogCategoriesResponse[]>
 
 /**
  * ブランドの情報を取得します。
- * @returns カテゴリブランドの配列。
+ * @returns カタログブランドの配列。
  */
 export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
   const response = await catalogBrandsApi().getCatalogBrands()
@@ -28,7 +28,7 @@ export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
 
 /**
  * カテゴリとブランドの情報を取得します。
- * @returns カテゴリとブランドの情報のタプル。
+ * @returns カテゴリの配列とブランドの配列のタプル。
  */
 export async function fetchCategoriesAndBrands(): Promise<
   [GetCatalogCategoriesResponse[], GetCatalogBrandsResponse[]]
@@ -107,6 +107,7 @@ export async function postCatalogItem(
  * @param catalogCategoryId カテゴリ ID。
  * @param catalogBrandId ブランド ID。
  * @param rowVersion 排他制御のための行バージョン。
+ * @param isDeleted　削除済みかどうか。
  */
 export async function updateCatalogItem(
   id: number,
