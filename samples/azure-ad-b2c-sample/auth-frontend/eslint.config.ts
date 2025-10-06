@@ -8,6 +8,7 @@ import pluginVitest from '@vitest/eslint-plugin'
 import pluginCypress from 'eslint-plugin-cypress/flat'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { configureVueProject } from '@vue/eslint-config-typescript'
+import jsdoc from 'eslint-plugin-jsdoc'
 
 configureVueProject({
   // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
@@ -82,6 +83,13 @@ export default defineConfigWithVueTs(
       '**/cypress/support/**/*.{js,ts,jsx,tsx}',
     ],
   },
+
+  // TypeScript ファイルに対して JSDoc 形式のドキュメンテーションを強制します。
+  {
+    ...jsdoc.configs['flat/recommended-typescript-error'],
+    files: ['**/*.ts'],
+  },
+
   // コードのフォーマットは Prettier で実行するので、 ESLint のフォーマットルールは無効化します。
   skipFormatting,
 )
