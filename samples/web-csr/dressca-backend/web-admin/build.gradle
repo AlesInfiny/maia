@@ -58,7 +58,7 @@ tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	group = 'application'
 	description = 'Runs this project as a Spring Boot Application using local profile.'
 	args = ["--spring.profiles.active=local"]
-	main = 'com.dressca.web.admin.WebApplication'
+	mainClass = 'com.dressca.web.admin.WebApplication'
 	classpath = sourceSets.main.runtimeClasspath
 }
 
