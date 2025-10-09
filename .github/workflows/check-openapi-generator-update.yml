@@ -33,10 +33,10 @@ jobs:
           echo "latest-version=$(echo ${{ fromJson(steps.get-repo-info-via-github-api.outputs.response).tag_name }} |sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: チェックアウト
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
 
       - name: Issue Template を使用するため .github リポジトリをチェックアウト
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
         with:
           repository: 'AlesInfiny/.github'
           path: 'util'
