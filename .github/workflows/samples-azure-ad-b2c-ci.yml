@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 1
 
       - name: Use Node.js LTS
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8  # v4
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v4
         with:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
