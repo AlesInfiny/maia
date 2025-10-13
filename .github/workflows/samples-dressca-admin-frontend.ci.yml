@@ -32,8 +32,19 @@ jobs:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
           cache: npm
+      - uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809  # v4
+        id: node_modules_cache_id
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: node パッケージのキャッシュ確認
+        run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
 
       - name: node パッケージのインストール
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm ci
 
       - id: run-lint
