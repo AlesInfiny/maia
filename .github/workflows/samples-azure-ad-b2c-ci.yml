@@ -30,24 +30,13 @@ jobs:
           fetch-depth: 1
 
       - name: Use Node.js LTS
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8  # v4
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5.0.0
         with:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-      - uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809  # v4
-        id: node_modules_cache_id
-        env:
-          cache-name: cache-node-modules-azure-ad-b2c-auth-frontend
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: node パッケージのキャッシュ確認
-        run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+          cache: npm
 
       - name: node パッケージのインストール
-        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: npm ci
       - id: run-format-root
         name: ルート直下の format の実行
