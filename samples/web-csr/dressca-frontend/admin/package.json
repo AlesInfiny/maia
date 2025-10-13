@@ -65,7 +65,7 @@
     "cypress": "15.3.0",
     "eslint": "9.36.0",
     "eslint-plugin-cypress": "5.1.1",
-    "eslint-plugin-jsdoc": "60.7.1",
+    "eslint-plugin-jsdoc": "60.8.2",
     "eslint-plugin-vue": "10.5.0",
     "jiti": "2.6.0",
     "jsdom": "27.0.0",
