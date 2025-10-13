@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **catalogBrandId** | **number** |  | [default to undefined]
 **catalogCategoryId** | **number** |  | [default to undefined]
+**deleted** | **boolean** |  | [optional] [default to undefined]
 **description** | **string** |  | [default to undefined]
 **isDeleted** | **boolean** |  | [default to undefined]
 **name** | **string** |  | [default to undefined]
@@ -22,6 +23,7 @@ import { PutCatalogItemRequest } from './api';
 const instance: PutCatalogItemRequest = {
     catalogBrandId,
     catalogCategoryId,
+    deleted,
     description,
     isDeleted,
     name,
