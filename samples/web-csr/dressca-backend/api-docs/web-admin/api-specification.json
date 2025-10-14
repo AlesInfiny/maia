@@ -562,9 +562,6 @@
             "type": "integer",
             "format": "int64"
           },
-          "deleted": {
-            "type": "boolean"
-          },
           "description": {
             "type": "string"
           },
@@ -707,9 +704,6 @@
           "catalogCategoryId": {
             "type": "integer",
             "format": "int64"
-          },
-          "deleted": {
-            "type": "boolean"
           },
           "description": {
             "type": "string"
