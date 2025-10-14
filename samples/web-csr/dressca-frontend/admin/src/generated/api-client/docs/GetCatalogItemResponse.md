@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **assetCodes** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **catalogBrandId** | **number** |  | [default to undefined]
 **catalogCategoryId** | **number** |  | [default to undefined]
-**deleted** | **boolean** |  | [optional] [default to undefined]
 **description** | **string** |  | [default to undefined]
 **id** | **number** |  | [default to undefined]
 **isDeleted** | **boolean** |  | [default to undefined]
@@ -26,7 +25,6 @@ const instance: GetCatalogItemResponse = {
     assetCodes,
     catalogBrandId,
     catalogCategoryId,
-    deleted,
     description,
     id,
     isDeleted,

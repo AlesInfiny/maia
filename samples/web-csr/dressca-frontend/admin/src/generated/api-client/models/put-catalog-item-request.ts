@@ -34,12 +34,6 @@ export interface PutCatalogItemRequest {
     'catalogCategoryId': number;
     /**
      * 
-     * @type {boolean}
-     * @memberof PutCatalogItemRequest
-     */
-    'deleted'?: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof PutCatalogItemRequest
      */
