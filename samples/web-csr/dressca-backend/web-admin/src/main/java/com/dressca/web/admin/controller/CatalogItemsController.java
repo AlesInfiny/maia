@@ -214,7 +214,7 @@ public class CatalogItemsController {
           putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
           putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
           putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion(),
-          putCatalogItemRequest.isDeleted());
+          putCatalogItemRequest.getIsDeleted());
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
