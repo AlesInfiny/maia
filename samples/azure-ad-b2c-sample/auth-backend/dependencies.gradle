@@ -12,7 +12,7 @@ ext {
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "2.8.13"
-    springCloudAzureVersion = "5.22.0"
+    springCloudAzureVersion = "6.0.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
