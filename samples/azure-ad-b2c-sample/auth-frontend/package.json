@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "private": "true",
+  "packageManager": "npm@10.9.3+sha512-6Eh1u5Q+kIVXeA8e7l2c/HpnFFcwrkt37xDMujD5be1gloWa9p6j3Fsv3mByXXmqJHy+2cElRMML8opNT7xIJQ==",
   "scripts": {
     "format:root": "prettier --write ./*.{js,ts,json,yaml}",
     "format:ci:root": "prettier --check ./*.{js,ts,json,yaml}",
