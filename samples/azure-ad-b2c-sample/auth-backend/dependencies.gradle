@@ -6,7 +6,7 @@ ext {
     spotbugsVersion = "6.2.2"
 
     // -- TOOLS
-    jacocoToolVersion = "0.8.13"
+    jacocoToolVersion = "0.8.14"
     checkstyleToolVersion = "10.26.1"
     spotbugsToolVersion = "4.8.6"
 
