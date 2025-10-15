@@ -3,7 +3,7 @@ ext {
     springBootVersion = "3.5.6"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.2.2"
+    spotbugsVersion = "6.4.2"
 
     // -- TOOLS
     jacocoToolVersion = "0.8.13"
