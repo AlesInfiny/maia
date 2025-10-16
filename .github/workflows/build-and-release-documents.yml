@@ -106,7 +106,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: ステージング環境へのデプロイ
-        uses: azure/webapps-deploy@de617f46172a906d0617bb0e50d81e9e3aec24c8  # v3.0.1
+        uses: azure/webapps-deploy@657f0700ea5214d56a0400d8ac5e8023c963d25d  # v3.0.6
         with:
           app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
           slot-name: staging
