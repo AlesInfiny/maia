@@ -27,7 +27,7 @@
     "@azure/msal-browser": "4.25.0",
     "@heroicons/vue": "2.2.0",
     "axios": "1.12.2",
-    "msw": "2.11.4",
+    "msw": "2.11.5",
     "pinia": "3.0.3",
     "vue": "3.5.22"
   },
