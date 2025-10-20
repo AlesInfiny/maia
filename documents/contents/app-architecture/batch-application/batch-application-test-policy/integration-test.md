@@ -20,7 +20,7 @@ description: バッチアプリケーションのテスト方針における 結
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。
-- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
+- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
 - [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }

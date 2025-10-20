@@ -28,7 +28,7 @@ AlesInfiny Maia において定義しているヘルスチェックの実装例�
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-Spring Boot を用いた Web アプリケーションでは、 [Spring Boot Actuator :material-open-in-new:](https://spring.pleiades.io/spring-boot/docs/current/reference/html/actuator.html){ target=_blank } を利用することで比較適容易にヘルスチェック機能を実装可能です。
+Spring Boot を用いた Web アプリケーションでは、 [Spring Boot Actuator :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank } を利用することで比較適容易にヘルスチェック機能を実装可能です。
 Spring Boot Actuator はアプリケーションレベルでサーバーを監視、管理する追加機能を提供するモジュールです。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
