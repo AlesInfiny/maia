@@ -76,10 +76,10 @@ onBeforeUnmount(() => {
 
 <template>
   <template v-if="hasItems">
-    <div data-test="body" class="container">
+    <div data-test="body" class="container touch-pan-y">
       <div
         class="flex items-center justify-center"
-        @touchstart="onTouchStart"
+        @touchstart.passive="onTouchStart"
         @mousedown="onTouchStart"
       >
         <ChevronLeftIcon
