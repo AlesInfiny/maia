@@ -173,7 +173,7 @@ npm run build
         設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
         ```typescript title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts#L30-L35
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts#L31-L36
         ```
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。
@@ -229,7 +229,7 @@ npm run build
         AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
         ```typescript title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L18-L19
+        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L22-L23
         ```
 
 [^1]: 本ページでは、 TypeScript から JavaScript への変換を指します。
