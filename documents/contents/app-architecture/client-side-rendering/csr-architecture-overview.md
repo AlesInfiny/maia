@@ -78,7 +78,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
 ??? note "利用ライブラリ（バックエンド）"
 
-    - [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/core.html#spring-core){ target=_blank }
+    - [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core.html){ target=_blank }
     
         DI コンテナや AOP の機能を提供する Spring Framework のコアライブラリです。
         ベースとなる Spring Framework のコアライブラリや、 Spring Framework の自動設定サポートを含む Spring Boot の機能を提供します。
@@ -88,7 +88,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
         Spring Framework をベースとするアプリケーション開発を効率的に行うためのフレームワークです。
         Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、実装するコード量を軽減するアノテーションを提供します。
 
-    - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/web.html#mvc){ target=_blank }
+    - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/web/webmvc.html){ target=_blank }
 
         Spring MVC は Spring Framework をベースとする Front Controller パターンの Web MVC フレームワークです。
 
@@ -97,7 +97,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
         Bean に対するデータの値チェック機能を提供するライブラリです。
         アノテーションベースで汎用的に利用できる値チェックが提供され、入力値チェック等が簡潔に実現できます。
 
-    - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
+    - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
 
         Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
         Unit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。

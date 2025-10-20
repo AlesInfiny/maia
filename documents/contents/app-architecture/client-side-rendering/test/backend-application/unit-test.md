@@ -49,7 +49,7 @@ IDE および CI ツールを利用して、自動的に各ツールによるテ
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。
-- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
+- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主にモックの作成に使用します。
 
