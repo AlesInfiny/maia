@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.24.0",
+    "@openapitools/openapi-generator-cli": "2.25.0",
     "@pinia/testing": "1.0.2",
     "@tailwindcss/vite": "4.1.14",
     "@tsconfig/node22": "22.0.2",
