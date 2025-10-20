@@ -56,6 +56,7 @@ const signInOnClick = () => {
             v-model="email"
             type="text"
             placeholder="email"
+            autocomplete="username"
             class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
           />
         </div>
