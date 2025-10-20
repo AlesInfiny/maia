@@ -21,6 +21,7 @@ CSS ファイルを記述せずにデザインを実現する、ユーティリ�
 
 ```shell
 npm install -D tailwindcss @tailwindcss/vite
+```
 
 ### Tailwind CSS の設定 {#settings-tailwind-css}
 
