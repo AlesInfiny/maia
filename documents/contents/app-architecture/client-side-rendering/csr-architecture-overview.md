@@ -24,11 +24,11 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
           JavaScript を拡張して静的型付にしたプログラミング言語です。
       
-    - [Vue.js :material-open-in-new:](https://v3.ja.vuejs.org/){ target=_blank }
+    - [Vue.js :material-open-in-new:](https://ja.vuejs.org/){ target=_blank }
 
           シンプルな設計で拡張性の高い JavaScript のフレームワークです。
       
-    - [Vite :material-open-in-new:](https://ja.vitejs.dev/){ target=_blank }
+    - [Vite :material-open-in-new:](https://ja.vite.dev/){ target=_blank }
 
           ES modules を利用してプロジェクトの高速な起動・更新を実現するフロントエンドビルドツールです。
       
@@ -44,7 +44,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
           Vue.js で非同期通信を行うためのプロミスベースの HTTP クライアントです。
           
-    - [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/){ target=_blank }
+    - [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/v4/){ target=_blank }
 
           Vue.js 用のリアルタイムバリデーションコンポーネントライブラリです。
           
@@ -102,7 +102,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
         Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
         Unit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
 
-    - [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank }
+    - [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/index.html){ target=_blank }
 
         Apache Log4j 2 は Java のロギングフレームワークです。
         複数のロガーに対して、フィルター、ローテーション、ログレベルなどの細やかな管理ができます。

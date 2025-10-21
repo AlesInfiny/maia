@@ -96,7 +96,7 @@ export default config
 ```
 
 既定の設定を上書きする場合は、設定値を記述します。
-全ての設定可能な値は [Options - Prettier :material-open-in-new:](https://prettier.io/docs/en/options.html){ target=_blank } を参照してください。また、設定方法は [Configuration File - Prettier :material-open-in-new:](https://prettier.io/docs/en/configuration.html){ target=_blank } を参照してください。
+全ての設定可能な値は [Options - Prettier :material-open-in-new:](https://prettier.io/docs/options.html){ target=_blank } を参照してください。また、設定方法は [Configuration File - Prettier :material-open-in-new:](https://prettier.io/docs/configuration.html){ target=_blank } を参照してください。
 
 一部の設定値は、既定で .editorconfig に記述している値が適用されます。したがって、.prettierrc.json では、 .editorconfig では設定できないもののみ設定すると良いでしょう。
 

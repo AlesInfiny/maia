@@ -153,7 +153,7 @@ npm run build
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts
     ```
 
-- [条件付き設定 :material-open-in-new:](https://ja.vitejs.dev/config/#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E8%A8%AD%E5%AE%9A){ target=_blank }
+- [条件付き設定 :material-open-in-new:](https://ja.vite.dev/config/#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E8%A8%AD%E5%AE%9A){ target=_blank }
 
     コマンドやモードに応じて異なる設定を適用する場合、関数を export して設定します。
 
@@ -193,15 +193,15 @@ npm run build
     例えば、 `vite build --mode dev` を実行すると `.env.dev` が読み込まれます。
     `.env.*` ファイルは環境変数を定義するために作成するもので、 `VITE_` で始まる環境変数の値を設定できます。
     モードに応じて異なる環境変数の値を設定したい場合に利用します。
-    詳しくは [環境変数を設定に使用する :material-open-in-new:](https://ja.vitejs.dev/config/#%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B){ target=_blank } を参照してください。
+    詳しくは [環境変数を設定に使用する :material-open-in-new:](https://ja.vite.dev/config/#%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B){ target=_blank } を参照してください。
 
-    また、 `VITE_` で始まる環境変数を TypeScript で型定義するには `env.d.ts` ファイルを作成します。詳しくは [TypeScript 用の自動補完 :material-open-in-new:](https://ja.vitejs.dev/guide/env-and-mode#typescript-%E7%94%A8%E3%81%AE%E8%87%AA%E5%8B%95%E8%A3%9C%E5%AE%8C){ target=_blank } を参照してください。
+    また、 `VITE_` で始まる環境変数を TypeScript で型定義するには `env.d.ts` ファイルを作成します。詳しくは [TypeScript 用の自動補完 :material-open-in-new:](https://ja.vite.dev/guide/env-and-mode#typescript-%E7%94%A8%E3%81%AE%E8%87%AA%E5%8B%95%E8%A3%9C%E5%AE%8C){ target=_blank } を参照してください。
 
-- [resolve.alias :material-open-in-new:](https://ja.vitejs.dev/config/shared-options.html#resolve-alias){ target=_blank }
+- [resolve.alias :material-open-in-new:](https://ja.vite.dev/config/shared-options.html#resolve-alias){ target=_blank }
 
     パスエイリアスを設定して、 import するパスの指定を簡潔にできます。
 
-- [server.proxy :material-open-in-new:](https://ja.vitejs.dev/config/server-options.html#server-proxy){ target=_blank }
+- [server.proxy :material-open-in-new:](https://ja.vite.dev/config/server-options.html#server-proxy){ target=_blank }
 
     Vite 開発サーバーの起動時に、特定のパスで始まるリクエストの振り分け先を指定できます。
     設定例では `/api`, `/swagger` で始まるパスのリクエストをバックエンドアプリで処理するよう指定しています。

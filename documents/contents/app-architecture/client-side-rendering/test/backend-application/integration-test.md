@@ -21,7 +21,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
-- [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }
+- [H2 :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
     - テスト用のデータベースエンジンとして使用します。
     - インメモリデータベースであり、高速に動作する特徴があります。
 

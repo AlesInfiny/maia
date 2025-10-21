@@ -71,7 +71,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Stylelint の .vue ファイル向け推奨設定（[インストール方法](static-verification-and-format.md#install-stylelint)）
 
-- [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/){ target=_blank }
+- [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/v4/){ target=_blank }
 
     Vue.js 用のリアルタイムバリデーションコンポーネントライブラリ（[インストール方法](input-validation.md#install-packages)）
 
