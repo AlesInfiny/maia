@@ -26,7 +26,7 @@ description: バッチアプリケーションのテスト方針における 結
 - [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }
     - Spring Batch ベースのテストを実行するためのツールセットです。
     - ジョブ実行を作成または削除するためのテストセットアップで使用できます。
-- [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }
+- [H2 :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
     - テスト用のデータベースエンジンとして使用します。
     - バッチ処理の対象がデータベースの場合に使用します。
     - インメモリデータベースであり、高速に動作する特徴があります。

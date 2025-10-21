@@ -36,7 +36,7 @@ Java アプリケーションの開発のみを行う場合には Eclipse や In
 
 | 開発するアプリケーション | VS Code | Eclipse | IntelliJ IDEA |
 | ------------------------ | :-----: | :-----: | :-----------: |
-| Vue.js アプリケーション  |   〇    |   ×    |      △       |
+| Vue.js アプリケーション  |   〇    |    ×    |       △       |
 | Java アプリケーション    |   〇    |   〇    |      〇       |
 
 ## ローカル開発環境の構築手順 {#setup-development-environment}
@@ -119,7 +119,7 @@ JDK のインストール時のカスタムセットアップで設定済みで�
 
 ### Node.js のインストール {#install-node}
 
-1. [こちらのサイト :material-open-in-new:](https://nodejs.org/en/){ target=_blank } からインストーラーを取得します。 Node.js のインストーラーは、原則最新の LTS 版を利用してください。
+1. [こちらのサイト :material-open-in-new:](https://nodejs.org/ja/){ target=_blank } からインストーラーを取得します。 Node.js のインストーラーは、原則最新の LTS 版を利用してください。
 
 1. インストーラーを実行します。カスタムセットアップにて、 npm のインストールと PATH の追加をするよう設定することを推奨します ( 既定値のままインストールすると npm のインストールと PATH の設定が行われます ) 。
 
