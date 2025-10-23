@@ -52,7 +52,7 @@ package.json の dependencies に @vueuse/core が追加されたことを確認
             index.ts ----------- イベントの定義に関係するソースコード一式のエントリーポイント
 ```
 
-アプリケーション内でイベントバスの同一性を識別するためにのキー値として、 JavaScript 標準の [`Symbol()` :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Symbol){ target=_blank } を用いて一意な値を生成します。
+アプリケーション内でイベントバスの同一性を識別するためのキー値として、 JavaScript 標準の [`Symbol()` :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Symbol){ target=_blank } を用いて一意な値を生成します。
 
 下記の例は、 ハンドリングされていないエラーが発生したことを示すイベントのイベントバスのキー値を生成する例です。
 他のコンポーネントやモジュールからは、このキー値を用いてイベントバスを取得します。
