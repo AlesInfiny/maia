@@ -53,7 +53,7 @@ export abstract class CustomErrorBase extends Error {
 [集約例外ハンドラーの設定](../java/sub-project-settings/exception-handling.md) で設定した通り、バックエンドから返却されるエラーレスポンスには、 `ProblemDetails` に基づくレスポンスボディーを含みます。
 よって、 HTTP 通信によって発生しうるエラーを表す `HttpError` クラスには、`AxiosError.response.data` を経由して `ProblemDetails` の情報を格納します。
 
-[例外処理方針 - API 通信のエラーレスポンス](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling-policy) で述べているように、拡張メンバー `exceptionId` と `exceptionValues` を追加で定義しています。
+[例外処理方針 - API 通信のエラーレスポンス](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#error-response) で述べているように、拡張メンバー `exceptionId` と `exceptionValues` を追加で定義しています。
 
 加えて、これらの情報を構造化して出力できるように、 `toJSON()` メソッドを実装します。
 
