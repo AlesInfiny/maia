@@ -61,7 +61,7 @@ Prettier は [ブランクプロジェクトの作成](./create-vuejs-blank-proj
 
 ### Prettier の設定 {#settings-prettier}
 
-設定ファイルが prettierrc.json がワークスペースの直下に作成されているため、ルートプロジェクトの直下にコピーします。
+prettierrc.json という設定ファイルがワークスペースの直下に作成されているため、ルートプロジェクトの直下にコピーします。
 ワークスペース側で import するために、 prettierrc.js に拡張子を変更し、 JavaScript 形式に書き換えます。
 
 ```javascript title="ルートプロジェクトの .prettierrc.js の設定例"

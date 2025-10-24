@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # メッセージ管理機能の設定 {#top}
 
 フロントエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../app-architecture/client-side-rendering/global-function/message-management-policy.md) をご確認ください。
-本アーキテクチャに基づき、メッセージ管理機能のライブラリは [Vue I18n :material-open-in-new:](https://kazupon.github.io/vue-i18n/){ target=\_blank } を使用します。
+本アーキテクチャに基づき、メッセージ管理機能のライブラリは [Vue I18n :material-open-in-new:](https://kazupon.github.io/vue-i18n/){ target=_blank } を使用します。
 
 ## 必要なパッケージのインストール {#install-packages}
 
@@ -75,7 +75,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 
     <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-    createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=\_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=\_blank } のどちらを利用するか選択します。
+    createI18n のインスタンスとして、 [Legacy API :material-open-in-new:](https://vue-i18n.intlify.dev/api/legacy.html){ target=_blank } と [Composition API :material-open-in-new:](https://vue-i18n.intlify.dev/api/composition.html){ target=_blank } のどちらを利用するか選択します。
     本実装では、 Composition API を利用するため、 legacy を false に設定します。
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
