@@ -76,7 +76,7 @@
     "stylelint": "16.25.0",
     "stylelint-config-recommended-vue": "1.6.1",
     "stylelint-config-standard": "39.0.1",
-    "tailwindcss": "4.1.14",
+    "tailwindcss": "4.1.16",
     "typescript": "5.8.3",
     "vite": "7.1.11",
     "vite-plugin-vue-devtools": "8.0.2",
