@@ -32,7 +32,7 @@
   "dependencies": {
     "@heroicons/vue": "2.2.0",
     "@vueuse/core": "13.9.0",
-    "axios": "1.12.2",
+    "axios": "1.13.0",
     "msw": "2.11.4",
     "pinia": "3.0.3",
     "vee-validate": "4.15.1",
