@@ -77,45 +77,47 @@ nav:
       - guidebooks/index.md
       - アプリケーション開発手順:
           - guidebooks/how-to-develop/index.md
-          - Java 編:
-              - guidebooks/how-to-develop/java/index.md
-              - 事前準備: guidebooks/how-to-develop/java/preparation.md
-              - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
-              - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
-              - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
-              - サブプロジェクトの個別設定:
-                  - guidebooks/how-to-develop/java/sub-project-settings/index.md
-                  - web プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/web-project-settings.md
-                  - infrastructure プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/infrastructure-project-settings.md
-                  - application-core プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/application-core-project-settings.md
-                  - batch プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/batch-project-settings.md
-                  - system-common プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/system-common-project-settings.md
-                  - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/java/sub-project-settings/project-version-control.md
-                  - メッセージ管理機能の設定: guidebooks/how-to-develop/java/sub-project-settings/message-management.md
-                  - 集約例外ハンドラーの設定: guidebooks/how-to-develop/java/sub-project-settings/exception-handling.md
-                  - MyBatis Generator の設定: guidebooks/how-to-develop/java/sub-project-settings/mybatis-generator-settings.md
-          - Vue.js 編:
-              - guidebooks/how-to-develop/vue-js/index.md
-              - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
-              - ブランクプロジェクトの作成: guidebooks/how-to-develop/vue-js/create-vuejs-blank-project.md
-              - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/vue-js/folder-structure-of-blank-project.md
-              - ワークスペースの設定: guidebooks/how-to-develop/vue-js/setting-workspaces.md
-              - プロジェクトの共通設定: guidebooks/how-to-develop/vue-js/project-settings.md
-              - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
-              - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
-              - メッセージ管理機能の設定: guidebooks/how-to-develop/vue-js/message-management.md
-              - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
-              - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
-              - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
-              - カスタムエラーの設定: guidebooks/how-to-develop/vue-js/custom-error-settings.md
-              - イベントハンドリングの設定: guidebooks/how-to-develop/vue-js/event-handling-settings.md
-              - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
-              - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
-          - ローカル開発環境の構築:
-              - guidebooks/how-to-develop/local-environment/index.md
-          - CORS 環境の構築:
-              - guidebooks/how-to-develop/cors/index.md
-              - Cookie の設定: guidebooks/how-to-develop/cors/cookie.md
+          - CSR 編:
+              - guidebooks/how-to-develop/csr/index.md
+              - Java 編:
+                  - guidebooks/how-to-develop/csr/java/index.md
+                  - 事前準備: guidebooks/how-to-develop/csr/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/csr/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/csr/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/common-project-settings.md
+                  - サブプロジェクトの個別設定:
+                      - guidebooks/how-to-develop/csr/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/web-project-settings.md
+                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/infrastructure-project-settings.md
+                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/application-core-project-settings.md
+                      - batch プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/batch-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/csr
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/csr/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/csr/sub-project-settings/mybatis-generator-settings.md
+              - Vue.js 編:
+                  - guidebooks/how-to-develop/csr/vue-js/index.md
+                  - 事前準備: guidebooks/how-to-develop/csr/vue-js/preparation.md
+                  - ブランクプロジェクトの作成: guidebooks/how-to-develop/csr/vue-js/create-vuejs-blank-project.md
+                  - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/csr/vue-js/folder-structure-of-blank-project.md
+                  - ワークスペースの設定: guidebooks/how-to-develop/csr/vue-js/setting-workspaces.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/vue-js/project-settings.md
+                  - 開発に使用するパッケージ: guidebooks/how-to-develop/csr/vue-js/optional-packages.md
+                  - 静的コード分析とフォーマット: guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md
+                  - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/vue-js/message-management.md
+                  - 入力値検証: guidebooks/how-to-develop/csr/vue-js/input-validation.md
+                  - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
+                  - エラーハンドラーの設定: guidebooks/how-to-develop/csr/vue-js/error-handler-settings.md
+                  - カスタムエラーの設定: guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md
+                  - イベントハンドリングの設定: guidebooks/how-to-develop/csr/vue-js/event-handling-settings.md
+                  - モックモードの設定: guidebooks/how-to-develop/csr/vue-js/mock-mode-settings.md
+                  - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/csr/vue-js/css.md
+              - ローカル開発環境の構築:
+                  - guidebooks/how-to-develop/csr/local-environment/index.md
+              - CORS 環境の構築:
+                  - guidebooks/how-to-develop/csr/cors/index.md
+                  - Cookie の設定: guidebooks/how-to-develop/csr/cors/cookie.md
       # - 規約:
       #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
       - コーディング規約: guidebooks/conventions/coding-conventions.md
