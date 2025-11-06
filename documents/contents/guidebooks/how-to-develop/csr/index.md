@@ -1,6 +1,6 @@
 ---
-title: アプリケーション 開発手順
-description: AlesInfiny Maia OSS Edition で開発可能な アプリケーションの開発手順を示すガイドラインです。
+title: アプリケーション 開発手順 CSR 編
+description: AlesInfiny Maia OSS Edition で開発可能な CSR アプリケーションの開発手順を示すガイドラインです。
 ---
 
 # アプリケーション開発手順（ CSR 編） {#top}

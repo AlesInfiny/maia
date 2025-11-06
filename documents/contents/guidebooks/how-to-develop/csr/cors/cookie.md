@@ -1,6 +1,6 @@
 ---
-title: CORS 環境の構築
-description: CORS （オリジン間リソース共有）環境での アプリケーションの構築方法を解説します。
+title: CORS 環境の構築 （ CSR 編）
+description: CORS （オリジン間リソース共有）環境での CSR アプリケーションの構築方法を解説します。
 ---
 
 # Cookie の設定 {#top}
