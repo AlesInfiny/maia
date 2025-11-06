@@ -7,7 +7,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 # エラーハンドラーの設定 {#top}
 
-[フロントエンドの例外処理方針](../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling-policy)
+[フロントエンドの例外処理方針](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling-policy)
 に記載の通り、業務フロー上は想定されないシステムのエラーを表すシステム例外と、業務フロー上想定されるエラーを表す業務例外をそれぞれ捕捉し、適切にハンドリングする必要があります。
 
 ## グローバルエラーハンドラーの設定 {#global-error-handler-setting}

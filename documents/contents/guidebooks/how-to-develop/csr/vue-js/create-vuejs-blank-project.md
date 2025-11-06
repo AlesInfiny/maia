@@ -10,15 +10,15 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 ## プロジェクトの全体像 {#project-overview}
 
-[mono-repo](../../../app-architecture/overview/repository-structure.md) 構成では、
+[mono-repo](../../../../app-architecture/overview/repository-structure.md) 構成では、
 複数のフロントエンドアプリケーションのプロジェクトを 1 つのリポジトリで管理します。
 [npm workspaces :material-open-in-new:](https://docs.npmjs.com/cli/v10/using-npm/workspaces){ target=_blank } を用いることで、
 プロジェクトごとにワークスペースを作成し、管理できます。
 プロジェクトをまたがるワークスペースや、ワークスペースをまたがるプロジェクトを作成できますが、
 原則としてワークスペースとプロジェクトが 1:1 で対応するようにします。
 
-![プロジェクトフォルダの構造](../../../images/guidebooks/how-to-develop/vue-js/project-folder-structure-light.png#only-light){ loading=lazy align=right }
-![プロジェクトフォルダの構造](../../../images/guidebooks/how-to-develop/vue-js/project-folder-structure-dark.png#only-dark){ loading=lazy align=right }
+![プロジェクトフォルダの構造](../../../../images/guidebooks/how-to-develop/csr/vue-js/project-folder-structure-light.png#only-light){ loading=lazy align=right }
+![プロジェクトフォルダの構造](../../../../images/guidebooks/how-to-develop/csr/vue-js/project-folder-structure-dark.png#only-dark){ loading=lazy align=right }
 
 ## プロジェクトの初期化 {#init-npm-project}
 

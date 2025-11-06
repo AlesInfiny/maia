@@ -43,8 +43,8 @@ Project Reference 機能については [Project References :material-open-in-ne
 なお、 `tsconfig.app.json` `tsconfig.node.json` には npm パッケージで提供されている `tsconfig` を継承するように設定されているため、継承元の設定値が存在します。
 `extends` に定義されている継承元ファイルを参照して実際の設定値を確認できます。
 
-![tsconfigの継承関係](../../../images/guidebooks/how-to-develop/vue-js/vue-tsconfig-light.png#only-light){ loading=lazy }
-![tsconfigの継承関係](../../../images/guidebooks/how-to-develop/vue-js/vue-tsconfig-dark.png#only-dark){ loading=lazy }
+![tsconfigの継承関係](../../../../images/guidebooks/how-to-develop/csr/vue-js/vue-tsconfig-light.png#only-light){ loading=lazy }
+![tsconfigの継承関係](../../../../images/guidebooks/how-to-develop/csr/vue-js/vue-tsconfig-dark.png#only-dark){ loading=lazy }
 
 ### tsconfig の設定値の解説 {#tsconfig}
 

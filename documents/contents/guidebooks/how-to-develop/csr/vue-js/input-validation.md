@@ -29,7 +29,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 ## 入力値検証時の設定 {#settings-validation}
 
 各言語設定に基づいた、入力値検証メッセージを読み込みます。
-[アーキテクチャ定義](../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) では設定ファイルは `./src/config` フォルダーに集約されるため、ファイル `./src/config/yup.config.ts` を作成し、以下のように記述します。
+[アーキテクチャ定義](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) では設定ファイルは `./src/config` フォルダーに集約されるため、ファイル `./src/config/yup.config.ts` を作成し、以下のように記述します。
 
 ```typescript title="yup.config.ts"
 https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/config/yup.config.ts

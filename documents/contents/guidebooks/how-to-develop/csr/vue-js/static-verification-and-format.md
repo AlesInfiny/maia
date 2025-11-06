@@ -128,7 +128,7 @@ npm run lint
 
 #### 設定例の確認 {#check-config-examples}
 
-[コーディング規約](../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
+[コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
 ```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10-11 13-16 24-25 30 34 37-44 47-50 54-70 75 81-84 88-91"

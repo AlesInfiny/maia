@@ -81,21 +81,21 @@ nav:
               - guidebooks/how-to-develop/csr/index.md
               - Java 編:
                   - guidebooks/how-to-develop/csr/java/index.md
-                  - 事前準備: guidebooks/how-to-develop/csr/preparation.md
-                  - アプリケーションの全体構造: guidebooks/how-to-develop/csr/application-structure.md
-                  - プロジェクトの雛型作成: guidebooks/how-to-develop/csr/create-project.md
-                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/common-project-settings.md
+                  - 事前準備: guidebooks/how-to-develop/csr/java/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/csr/java/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/csr/java/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/java/common-project-settings.md
                   - サブプロジェクトの個別設定:
-                      - guidebooks/how-to-develop/csr/sub-project-settings/index.md
-                      - web プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/web-project-settings.md
-                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/infrastructure-project-settings.md
-                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/application-core-project-settings.md
-                      - batch プロジェクトの設定: guidebooks/how-to-develop/csr/sub-project-settings/batch-project-settings.md
-                      - system-common プロジェクトの設定: guidebooks/how-to-develop/csr
-                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/sub-project-settings/project-version-control.md
-                      - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/sub-project-settings/message-management.md
-                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/csr/sub-project-settings/exception-handling.md
-                      - MyBatis Generator の設定: guidebooks/how-to-develop/csr/sub-project-settings/mybatis-generator-settings.md
+                      - guidebooks/how-to-develop/csr/java/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md
+                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/infrastructure-project-settings.md
+                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-core-project-settings.md
+                      - batch プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/batch-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/system-common-project-settings.md
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/java/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/java/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/csr/java/sub-project-settings/mybatis-generator-settings.md
               - Vue.js 編:
                   - guidebooks/how-to-develop/csr/vue-js/index.md
                   - 事前準備: guidebooks/how-to-develop/csr/vue-js/preparation.md

@@ -40,15 +40,15 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
     1. Windows 内を検索し、 H2 Console を起動する。
     1. JDBC URL に任意のパスを入力し、接続ボタンをクリックする。接続すると自動でデータベースが作成され、起動する。
 
-        ![H2 Console のページ](../../../../images/guidebooks/how-to-develop/java/h2_console_page.png)
+        ![H2 Console のページ](../../../../../images/guidebooks/how-to-develop/csr/java/h2_console_page.png)
 
     1. 上記の方法でエラーが発生する場合は、 H2 Console のインジケーターを右クリックし `Create new database ...` を選択する。
 
-        ![H2 Console のインジケーター表示](../../../../images/guidebooks/how-to-develop/java//indicator_display.png)
+        ![H2 Console のインジケーター表示](../../../../../images/guidebooks/how-to-develop/csr/java/indicator_display.png)
 
     1. 任意のパス、ユーザー名、パスワードでデータベースを作成する。
 
-        ![H2 データベースの作成画面](../../../../images/guidebooks/how-to-develop/java/h2_database_creation_page.png)
+        ![H2 データベースの作成画面](../../../../../images/guidebooks/how-to-develop/csr/java/h2_database_creation_page.png)
 
     1. 2 の手順と同様に先ほどのパス、ユーザー名、パスワードを入力して接続し、データベースを起動する。
 

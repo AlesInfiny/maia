@@ -163,8 +163,8 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 
 デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。ダウンロードしたインプットファイルの名前を checkstyle.xml に変更した後、フォルダーを追加して適切な位置に配置してください。
 
-![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
-![Checkstyle のデフォルトの読み込み構成](../../../images/guidebooks/how-to-develop/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
+![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
+![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
 
 また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。

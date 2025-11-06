@@ -59,8 +59,8 @@ Web 画面上の各種設定項目は以下の通りです。
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
 AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
 
-![推奨するサブプロジェクト](../../../images/guidebooks/how-to-develop/java/recommended-subproject-light.png#only-light){ loading=lazy }
-![推奨するサブプロジェクト](../../../images/guidebooks/how-to-develop/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
+![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-light.png#only-light){ loading=lazy }
+![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
 
 以下、サブプロジェクト毎に異なる設定項目について説明します。
 その他の項目はルートプロジェクトと同様に設定してください。
@@ -100,5 +100,5 @@ AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレ�
 その後、ルートプロジェクトのフォルダー直下に各サブプロジェクトのフォルダーを配置します。
 これらの手順を行った後のフォルダーの構成は以下の通りです。
 
-![SpringBootプロジェクトのフォルダー構成](../../../images/guidebooks/how-to-develop/java/springboot-project-structure-light.png#only-light){ loading=lazy }
-![SpringBootプロジェクトのフォルダー構成](../../../images/guidebooks/how-to-develop/java/springboot-project-structure-dark.png#only-dark){ loading=lazy }
+![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/csr/java/springboot-project-structure-light.png#only-light){ loading=lazy }
+![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/csr/java/springboot-project-structure-dark.png#only-dark){ loading=lazy }

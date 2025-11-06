@@ -8,7 +8,7 @@ description: サーバーサイドで動作する Java アプリケーション�
 集約例外ハンドラーの設定方法について解説します。集約例外ハンドラーを実装することで、複数のコントローラーで必要となる、プレゼンテーション層までで処理されなかった業務例外やシステム例外を一元的にハンドリングする機能を提供できます。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 集約例外ハンドラーは web プロジェクトに実装します。本設定で利用するフォルダーの構成は以下の通りです。
@@ -63,7 +63,7 @@ public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletReq
 ### エラーログの出力 {#error-log-output}
 
 エラーに関するアプリケーションログを出力する処理を実装します。
-ログに含める標準的なデータやログレベルは、[ログ出力方針](../../../../app-architecture/overview/java-application-processing-system/logging-policy.md) を参照してください。
+ログに含める標準的なデータやログレベルは、[ログ出力方針](../../../../../app-architecture/overview/java-application-processing-system/logging-policy.md) を参照してください。
 
 ### エラーレスポンスの生成 {#error-response}
 

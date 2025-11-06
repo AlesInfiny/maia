@@ -12,8 +12,8 @@ description: サーバーサイドで動作する Java アプリケーション�
 
 以降解説するサブプロジェクトとそれぞれの依存関係は図の通りです。
 
-![サブプロジェクトの依存関係](../../../../images/guidebooks/how-to-develop/java/subproject-dependencies-light.png#only-light){ loading=lazy }
-![サブプロジェクトの依存関係](../../../../images/guidebooks/how-to-develop/java/subproject-dependencies-dark.png#only-dark){ loading=lazy }
+![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/csr/java/subproject-dependencies-light.png#only-light){ loading=lazy }
+![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/csr/java/subproject-dependencies-dark.png#only-dark){ loading=lazy }
 
 1. [web プロジェクトの設定](./web-project-settings.md)
 

@@ -12,7 +12,7 @@ description: CORS （オリジン間リソース共有）環境での アプリ�
 > Cookie（ウェブ Cookie、ブラウザー Cookie とも呼ぶ）は、サーバーがユーザーのウェブブラウザーに送信する小さなデータです。ブラウザーは Cookie を保存したり、新しい Cookie を作成したり、既存の Cookie を変更したり、後でリクエストされたときに同じサーバーにそれらを送り返したりすることができます。 Cookie により、ウェブアプリケーションは限られた量のデータを格納し、状態についての情報を記憶することができます。
 
 Cookie を使用する際には、 CSRF 攻撃のような脆弱性を悪用した脅威に対しアプリケーション側で対策を施す必要があります。
-AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針については、[こちら](../../../app-architecture/security/csrf.md) を参照してください。
+AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針については、[こちら](../../../../app-architecture/security/csrf.md) を参照してください。
 
 本章では、上記方針に基づき Cookie を利用する場合の設定方法について解説します。
 

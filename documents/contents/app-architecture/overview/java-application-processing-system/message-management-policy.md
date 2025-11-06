@@ -73,4 +73,4 @@ root/ ------------------------------------------- root フォルダー
 
 アプリケーション起動時に使用するメッセージファイルを切り替えることで、開発者に応じた言語を設定します。
 
-メッセージ管理方針に従った機能の実装方法などの詳細については、[こちら](../../../guidebooks/how-to-develop/java/sub-project-settings/message-management.md) を確認してください。
+メッセージ管理方針に従った機能の実装方法などの詳細については、[こちら](../../../guidebooks/how-to-develop/csr/java/sub-project-settings/message-management.md) を確認してください。
