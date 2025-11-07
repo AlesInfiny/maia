@@ -1,5 +1,5 @@
 ---
-title: 開発環境構築 （ CSR 編）
+title: 開発環境構築 （CSR 編）
 description: AlesInfiny Maia OSS Edition の CSR アプリケーション開発で 最低限必要な環境の構築方法を解説します。
 ---
 

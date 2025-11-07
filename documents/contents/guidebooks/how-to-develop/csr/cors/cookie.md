@@ -1,5 +1,5 @@
 ---
-title: CORS 環境の構築 （ CSR 編）
+title: CORS 環境の構築 （CSR 編）
 description: CORS （オリジン間リソース共有）環境での CSR アプリケーションの構築方法を解説します。
 ---
 

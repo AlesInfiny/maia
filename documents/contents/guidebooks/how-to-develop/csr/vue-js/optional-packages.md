@@ -1,5 +1,5 @@
 ---
-title: Vue.js 開発手順 （ CSR 編）
+title: Vue.js 開発手順 （CSR 編）
 description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
