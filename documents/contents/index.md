@@ -31,7 +31,7 @@ AlesInfiny Maia で構築した Web アプリケーションのサンプルを�
 
 1. 以下を参照し、開発環境を構築してください
 
-    - 「[ローカル開発環境の構築](guidebooks/how-to-develop/local-environment/index.md)」
+    - 「[ローカル開発環境の構築](guidebooks/how-to-develop/csr/local-environment/index.md)」
 
 1. 以下のリンクから、サンプルアプリケーションをダウンロードしてください。
 

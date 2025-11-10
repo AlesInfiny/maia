@@ -99,7 +99,7 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
 
         アプリケーションがクロスオリジンで構成されている場合、バックエンドアプリケーションはフロントエンドアプリケーションのオリジンからのリクエストは許可するよう設定する必要があります。
         そのため、 Spring Security を利用してフロントエンドアプリケーションのオリジンからのリクエストを許可するよう CORS の設定を変更します。
-        実装方法については、[こちら](../../guidebooks/how-to-develop/cors/index.md) を参照してください。
+        実装方法については、[こちら](../../guidebooks/how-to-develop/csr/cors/index.md) を参照してください。
 
     - 同一オリジンで構成されている場合
 
@@ -110,7 +110,7 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
 - Cookie の属性付与
 
     Spring Boot で提供されている [ResponseCookie :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html){ target=_blank } を利用して、属性を付与します。
-    実装方法については、 [こちら](../../guidebooks/how-to-develop/cors/cookie.md) を参照してください。
+    実装方法については、 [こちら](../../guidebooks/how-to-develop/csr/cors/cookie.md) を参照してください。
 
 ### SSR アプリケーション {#ssr-application}
 

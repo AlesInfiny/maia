@@ -125,4 +125,4 @@ root/ ------------------------------------------- root フォルダー
       └ log4j2.xml ------------------------------ ログの設定ファイル
 ```
 
-log4j2.xml の具体的な設定については、[こちら](../../../guidebooks/how-to-develop/java/sub-project-settings/web-project-settings.md#logging-configuration) を確認してください。
+log4j2.xml の具体的な設定については、[こちら](../../../guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を確認してください。
