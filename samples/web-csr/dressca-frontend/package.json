@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "private": "true",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "npm": ">=10.9.3"
+  },
   "packageManager": "npm@10.9.3",
   "scripts": {
     "format:root": "prettier --write ./*.{js,ts,json,yaml}",
