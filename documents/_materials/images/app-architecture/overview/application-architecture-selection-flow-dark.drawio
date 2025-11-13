@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
+  <diagram id="yeYiLk31pQ4xjtfxo7En" name="ページ1">
+    <mxGraphModel dx="475" dy="280" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cFaSxOUyfqOolCta0fZO-11" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FFFFFF;labelBackgroundColor=none;" parent="1" source="cFaSxOUyfqOolCta0fZO-13" target="cFaSxOUyfqOolCta0fZO-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Hi8iaW48YmrrjHILB-6n-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBorderColor=default;" edge="1" parent="1" source="cFaSxOUyfqOolCta0fZO-13" target="cFaSxOUyfqOolCta0fZO-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cFaSxOUyfqOolCta0fZO-13" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;中核の業務領域か？&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="105" y="50" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cFaSxOUyfqOolCta0fZO-14" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;ドメインモデル&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="50" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cFaSxOUyfqOolCta0fZO-15" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;トランザクション&lt;br&gt;スクリプト&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="190" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hi8iaW48YmrrjHILB-6n-1" value="Yes" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Hi8iaW48YmrrjHILB-6n-2" value="No" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="210" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

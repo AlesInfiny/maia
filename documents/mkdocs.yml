@@ -30,6 +30,7 @@ nav:
               - 入力値検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
               - トランザクション管理方針: app-architecture/overview/java-application-processing-system/transaction-management.md
               - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
+          - Java アプリケーションのアーキテクチャ選定基準: app-architecture/overview/java-application-architecture-selection-guideline.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
