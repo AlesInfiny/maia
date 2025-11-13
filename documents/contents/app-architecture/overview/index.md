@@ -26,4 +26,4 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーシ
 
 1. [Java アプリケーションのアーキテクチャ選定基準](./java-application-architecture-selection-guideline.md)
 
-    AlesInfiny Maris で構築する Java アプリケーションのアーキテクチャ選定基準について解説します。
+    AlesInfiny Maia で構築する Java アプリケーションのアーキテクチャ選定基準について解説します。
