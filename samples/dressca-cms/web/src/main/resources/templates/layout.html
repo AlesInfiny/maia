@@ -1,0 +1,35 @@
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <title>Dressca CMS</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/bootstrap/node_modules/bootstrap/dist/css/bootstrap.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/bootstrap/node_modules/bootstrap-icons/font/bootstrap-icons.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!--/* Body の一番初めに配置する */-->
+    <script
+      th:src="@{/bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"
+    ></script>
+    <th:block th:insert="~{fragments/header :: block-header}"></th:block>
+    <div class="container-fluid flex-grow-1 row flex-nowrap overflow-auto">
+      <th:block th:insert="~{fragments/menu :: block-menu}"></th:block>
+      <!--/* コンテンツ領域 */-->
+      <main
+        style="width: 1600px; min-width: 1600px; max-width: 1600px"
+        class="py-3"
+      >
+        <th:block layout:fragment="content"></th:block>
+      </main>
+    </div>
+    <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+  </body>
+</html>
