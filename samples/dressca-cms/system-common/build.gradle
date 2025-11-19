@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+	implementation supportDependencies.spring_boot_starter
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 

@@ -1,4 +1,4 @@
-package com.dressca.cms.web.config;
+package com.dressca.cms.systemcommon.config;
 
 import java.io.IOException;
 import java.util.Arrays;
