@@ -7,6 +7,7 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
 import com.dressca.cms.systemcommon.constant.SystemPropertiesConstants;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -94,19 +95,19 @@ public class AnnouncementApplicationService {
    * @param announcements お知らせメッセージのリスト。
    */
   private void selectPriorityContent(List<Announcement> announcements) {
-
     for (Announcement announcement : announcements) {
-      if (announcement.getContents() != null && !announcement.getContents().isEmpty()) {
-        // 優先順位が最も高いコンテンツを選択
-        AnnouncementContent priorityContent = announcement.getContents().stream()
-            .min(Comparator.comparingInt(content -> LanguageCodeConstants.LANGUAGE_CODE_PRIORITY
-                .getOrDefault(content.getLanguageCode(), 999)))
-            .orElse(announcement.getContents().get(0));
-
-        // 選択したコンテンツのみを残す
-        announcement.getContents().clear();
-        announcement.getContents().add(priorityContent);
+      List<AnnouncementContent> contents = announcement.getContents();
+      if (contents == null || contents.isEmpty()) {
+        continue;
       }
+      // 優先順位が最も高いコンテンツを選択
+      AnnouncementContent priorityContent = contents.stream()
+          .min(Comparator.comparingInt(content -> LanguageCodeConstants.LANGUAGE_CODE_PRIORITY
+              .getOrDefault(content.getLanguageCode(), 999)))
+          .orElse(contents.get(0));
+
+      // 選択したコンテンツのみの新しいリストを作成してセット
+      announcement.setContents(Collections.singletonList(priorityContent));
     }
   }
 }
