@@ -1,0 +1,67 @@
+---
+# cspell:ignore mikepenz dorny
+name: dressca-cmsに対するプルリクエスト時の単体テスト実行
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/dressca-cms/**'
+      - '.github/workflows/samples-dressca-cms-ci.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+
+    steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: JDK21のセットアップ
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165  # v5.0.0
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: gradlewに実行権限付与
+        run: chmod +x samples/dressca-cms/gradlew
+
+      - id: run-build-and-tests
+        name: ビルド（コンパイル, 静的テスト, JUnit）実行
+        run: ./gradlew build > build-result.txt
+        working-directory: ./samples/dressca-cms
+        continue-on-error: true
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+        shell: bash
+        working-directory: ./samples/dressca-cms
+        if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+        run: |
+          echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+        if: ${{ steps.run-build-and-tests.outcome == 'success' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: ビルドとテストに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+        if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: JUnitレポート
+        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3  # v5.6.2
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
