@@ -1,5 +1,6 @@
 package com.dressca.cms.announcement.applicationcore;
 
+import com.dressca.cms.announcement.applicationcore.constant.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.constant.MessageIdConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
@@ -7,10 +8,8 @@ import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
 import com.dressca.cms.systemcommon.constant.SystemPropertiesConstants;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,17 +94,13 @@ public class AnnouncementApplicationService {
    * @param announcements お知らせメッセージのリスト。
    */
   private void selectPriorityContent(List<Announcement> announcements) {
-    Map<String, Integer> languagePriority = new HashMap<>();
-    languagePriority.put("ja", 1);
-    languagePriority.put("en", 2);
-    languagePriority.put("zh", 3);
-    languagePriority.put("es", 4);
 
     for (Announcement announcement : announcements) {
       if (announcement.getContents() != null && !announcement.getContents().isEmpty()) {
         // 優先順位が最も高いコンテンツを選択
         AnnouncementContent priorityContent = announcement.getContents().stream()
-            .min(Comparator.comparingInt(content -> languagePriority.getOrDefault(content.getLanguageCode(), 999)))
+            .min(Comparator.comparingInt(content -> LanguageCodeConstants.LANGUAGE_CODE_PRIORITY
+                .getOrDefault(content.getLanguageCode(), 999)))
             .orElse(announcement.getContents().get(0));
 
         // 選択したコンテンツのみを残す
