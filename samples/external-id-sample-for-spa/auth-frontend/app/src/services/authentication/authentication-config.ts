@@ -5,8 +5,8 @@ export const msalConfig = {
   auth: {
     clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
     authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
-    redirectUri: import.meta.env.VITE_EXTERNAL_ID_APP_URI,
-    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_APP_URI,
+    redirectUri: import.meta.env.VITE_EXTERNAL_ID_REDIRECT_URI,
+    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
