@@ -1,10 +1,10 @@
 package com.dressca.cms.web.config;
 
-import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 
 /**
  * Locale の設定クラスです。
@@ -21,7 +21,7 @@ public class LocaleConfig {
   @Bean
   public LocaleResolver localeResolver() {
     AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
-    resolver.setDefaultLocale(Locale.JAPANESE);
+    resolver.setDefaultLocale(LanguageCodeConstants.LOCALE_JA);
     return resolver;
   }
 }

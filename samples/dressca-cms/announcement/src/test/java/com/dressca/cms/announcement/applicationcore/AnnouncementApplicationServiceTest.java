@@ -5,12 +5,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dressca.cms.announcement.applicationcore.constant.LanguageCodeConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
 import com.dressca.cms.systemcommon.config.I18nConfig;
+import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
