@@ -1,7 +1,4 @@
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <body>
     <header th:fragment="block-header">
       <nav class="bg-primary navbar navbar-expand-sm">
@@ -9,17 +6,13 @@
         <div class="d-flex ms-auto">
           <div class="d-flex align-items-center">
             <i class="bi bi-person-circle fs-5 text-white me-2"></i>
-            <span
-              class="navbar-text text-white me-3"
-              th:text="ダミーユーザー"
-            ></span>
+            <span class="navbar-text text-white me-3" th:text="ダミーユーザー"></span>
           </div>
           <button
             type="button"
             class="btn btn-primary"
             th:onclick="|location.href='@{/account/logout}'|"
-            th:text="ログアウト"
-          ></button>
+            th:text="ログアウト"></button>
         </div>
       </nav>
     </header>

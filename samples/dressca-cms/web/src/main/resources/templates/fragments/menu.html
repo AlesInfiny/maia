@@ -1,24 +1,25 @@
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <th:block th:fragment="block-menu">
     <div style="width: 250px" class="bg-secondary py-3">
       <ul class="list-unstyled ps-0">
         <li class="mb-1">
           <button
             class="btn w-100 d-flex justify-content-between align-items-center gap-3"
-            th:onclick="location.href='/'"
-          >
-            <span> <i class="bi bi-house"></i> ホーム </span>
+            th:onclick="location.href='/'">
+            <span>
+              <i class="bi bi-house"></i>
+              ホーム
+            </span>
           </button>
         </li>
         <li class="mb-1">
           <button
             class="btn w-100 d-flex justify-content-between align-items-center gap-3"
-            th:onclick="|location.href='@{/announcements}'|"
-          >
-            <span> <i class="bi bi-table"></i> お知らせメッセージ管理</span>
+            th:onclick="|location.href='@{/announcements}'|">
+            <span>
+              <i class="bi bi-table"></i>
+              お知らせメッセージ管理
+            </span>
           </button>
         </li>
       </ul>
