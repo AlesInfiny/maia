@@ -17,19 +17,10 @@ public class LanguageCodeConstants {
   /** スペイン語のロケールです。 */
   public static final Locale LOCALE_ES = Locale.of("es");
 
-  /** 日本語の言語コードです。 */
-  public static final String JA = LOCALE_JA.getLanguage();
-  /** 英語の言語コードです。 */
-  public static final String EN = LOCALE_EN.getLanguage();
-  /** 中国語の言語コードです。 */
-  public static final String ZH = LOCALE_ZH.getLanguage();
-  /** スペイン語の言語コードです。 */
-  public static final String ES = LOCALE_ES.getLanguage();
-
   /** 言語コードの優先順位マップです。 */
   public static final Map<String, Integer> LANGUAGE_CODE_PRIORITY = Map.of(
-      JA, 1,
-      EN, 2,
-      ZH, 3,
-      ES, 4);
+      LOCALE_JA.getLanguage(), 1,
+      LOCALE_EN.getLanguage(), 2,
+      LOCALE_ZH.getLanguage(), 3,
+      LOCALE_ES.getLanguage(), 4);
 }

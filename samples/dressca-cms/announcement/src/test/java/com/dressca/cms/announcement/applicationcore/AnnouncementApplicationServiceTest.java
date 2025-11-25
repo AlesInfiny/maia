@@ -309,7 +309,8 @@ public class AnnouncementApplicationServiceTest {
               OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
       List<AnnouncementContent> contents = new ArrayList<>();
       AnnouncementContent content = new AnnouncementContent(UUID.randomUUID(), announcement.getId(),
-          LanguageCodeConstants.JA, "お知らせ " + (i + 1), "お知らせメッセージ " + (i + 1), null);
+          LanguageCodeConstants.LOCALE_JA.getLanguage(), "お知らせ " + (i + 1), "お知らせメッセージ " + (i + 1),
+          null);
       contents.add(content);
       announcement.setContents(contents);
       announcements.add(announcement);
@@ -328,19 +329,22 @@ public class AnnouncementApplicationServiceTest {
 
     // 英語コンテンツ
     AnnouncementContent enContent =
-        new AnnouncementContent(UUID.randomUUID(), announcementId, LanguageCodeConstants.EN,
+        new AnnouncementContent(UUID.randomUUID(), announcementId,
+            LanguageCodeConstants.LOCALE_EN.getLanguage(),
             "Announcement", "Announcement message", null);
     contents.add(enContent);
 
     // 日本語コンテンツ
     AnnouncementContent jaContent =
-        new AnnouncementContent(UUID.randomUUID(), announcementId, LanguageCodeConstants.JA,
+        new AnnouncementContent(UUID.randomUUID(), announcementId,
+            LanguageCodeConstants.LOCALE_JA.getLanguage(),
             "お知らせ", "お知らせメッセージ", null);
     contents.add(jaContent);
 
     // 中国語コンテンツ
     AnnouncementContent zhContent =
-        new AnnouncementContent(UUID.randomUUID(), announcementId, LanguageCodeConstants.ZH,
+        new AnnouncementContent(UUID.randomUUID(), announcementId,
+            LanguageCodeConstants.LOCALE_ZH.getLanguage(),
             "通知", "通知消息", null);
     contents.add(zhContent);
 
@@ -362,13 +366,15 @@ public class AnnouncementApplicationServiceTest {
 
     // 英語コンテンツ
     AnnouncementContent enContent =
-        new AnnouncementContent(UUID.randomUUID(), announcementId, LanguageCodeConstants.EN,
+        new AnnouncementContent(UUID.randomUUID(), announcementId,
+            LanguageCodeConstants.LOCALE_EN.getLanguage(),
             "Announcement", "Announcement message", null);
     contents.add(enContent);
 
     // スペイン語コンテンツ
     AnnouncementContent esContent =
-        new AnnouncementContent(UUID.randomUUID(), announcementId, LanguageCodeConstants.ES,
+        new AnnouncementContent(UUID.randomUUID(), announcementId,
+            LanguageCodeConstants.LOCALE_ES.getLanguage(),
             "Anuncio", "Mensaje de anuncio", null);
     contents.add(esContent);
 
