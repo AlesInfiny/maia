@@ -11,7 +11,7 @@ ext {
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "5.2.3"
+    springBatchTestVersion = "6.0.0"
     mybatisSpringBootStarterVersion = "3.0.5"
     mybatisSpringBootStarterTestVersion = "3.0.5"
     h2Version = "2.4.240"
