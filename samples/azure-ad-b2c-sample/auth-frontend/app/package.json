@@ -24,7 +24,7 @@
     "generate-client": "openapi-generator-cli batch ./openapisettings.json --clean"
   },
   "dependencies": {
-    "@azure/msal-browser": "4.25.0",
+    "@azure/msal-browser": "4.26.2",
     "@heroicons/vue": "2.2.0",
     "axios": "1.12.2",
     "msw": "2.11.4",
