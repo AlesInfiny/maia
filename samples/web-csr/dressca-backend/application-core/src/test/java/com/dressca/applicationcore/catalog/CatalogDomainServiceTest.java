@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * {@link CatalogDomainService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class CatalogDomainServiceTest {
   @Mock
   private CatalogRepository catalogRepository;
@@ -36,7 +36,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
-    long[] catalogItemIds = { 1L, 2L };
+    long[] catalogItemIds = {1L, 2L};
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
@@ -52,7 +52,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testExistAll_正常系_リポジトリ内に存在するアイテムのリストを返す() {
     // Arrange
-    long[] catalogItemIds = { 2L };
+    long[] catalogItemIds = {2L};
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);
@@ -68,7 +68,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testExistAll_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
     // Arrange
-    long[] catalogItemIds = { 1L, 2L };
+    long[] catalogItemIds = {1L, 2L};
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
@@ -84,7 +84,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testExistAll_正常系_カタログアイテムIdがすべて存在する場合trueを返す() {
     // Arrange
-    long[] catalogItemIds = { 1L, 2L };
+    long[] catalogItemIds = {1L, 2L};
     List<Long> catalogItemIdsList = Arrays.asList(ArrayUtils.toObject(catalogItemIds));
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
@@ -100,7 +100,7 @@ public class CatalogDomainServiceTest {
   @Test
   void testExistAll_正常系_カタログアイテムIdが一部だけ存在する場合falseを返す() {
     // Arrange
-    long[] catalogItemIds = { 2L };
+    long[] catalogItemIds = {2L};
     List<CatalogItem> catalogItems = Arrays.stream(catalogItemIds).mapToObj(this::createCatalogItem)
         .collect(Collectors.toList());
     when(this.catalogRepository.findByCatalogItemIdIn(List.of(1L, 2L))).thenReturn(catalogItems);

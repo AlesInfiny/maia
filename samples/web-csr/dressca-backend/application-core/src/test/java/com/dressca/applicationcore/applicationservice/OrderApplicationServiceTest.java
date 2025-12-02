@@ -21,24 +21,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
-import org.springframework.context.MessageSource;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
  * {@link OrderApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
-@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
-@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
+@ExtendWith(MockitoExtension.class)
 public class OrderApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
-  @Autowired
-  private MessageSource messages;
   @Mock
   private AbstractStructuredLogger apLog;
 
@@ -46,8 +38,12 @@ public class OrderApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
+    ResourceBundleMessageSource messages = new ResourceBundleMessageSource();
+    messages.setBasename("applicationcore.messages");
+    messages.setDefaultEncoding("UTF-8");
     service = new OrderApplicationService(messages, orderRepository, apLog);
   }
+
 
   @Test
   void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
@@ -118,8 +114,9 @@ public class OrderApplicationServiceTest {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    List<OrderItem> items = List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
-        BigDecimal.valueOf(100_000_000L), 1));
+    List<OrderItem> items =
+        List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
+            BigDecimal.valueOf(100_000_000L), 1));
 
     return items;
   }
