@@ -40,9 +40,7 @@
 
       <!--/* お知らせメッセージリスト部 */-->
       <!--/* お知らせメッセージが 0 件の場合 */-->
-      <div
-        th:if="${!announcementList.existAnnouncement()}"
-        th:text="#{announcement.index.noAnnouncementMessages}"></div>
+      <div th:if="${!announcementList.existAnnouncement()}" th:text="#{announcement.index.noAnnouncements}"></div>
 
       <!--/* お知らせメッセージが 1 件以上の場合 */-->
       <div th:if="${announcementList.existAnnouncement()}">
@@ -71,7 +69,7 @@
               </td>
               <td th:text="${item.announcement.category}"></td>
               <td>
-                <span th:text="${displayPriorityLabels[item.announcement.displayPriority]}"></span>
+                <span th:text="${displayPriorityOptions[item.announcement.displayPriority - 1].label}"></span>
               </td>
               <td>
                 <a
