@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter_web
+	implementation supportDependencies.spring_boot_starter_webmvc
 	implementation supportDependencies.spring_boot_starter_validation
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
@@ -35,6 +35,7 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.spring_security_test
+	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 
 	compileOnly supportDependencies.servlet_api
 }
@@ -58,7 +59,7 @@ tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	group = 'application'
 	description = 'Runs this project as a Spring Boot Application using local profile.'
 	args = ["--spring.profiles.active=local"]
-	main = 'com.dressca.web.admin.WebApplication'
+	mainClass = 'com.dressca.web.admin.WebApplication'
 	classpath = sourceSets.main.runtimeClasspath
 }
 
