@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'com.dressca.cms'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation supportDependencies.spring_boot_starter
+	testImplementation supportDependencies.spring_boot_starter_test
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+  enabled = false
+}
+
+jar {
+	enabled = true
+}
