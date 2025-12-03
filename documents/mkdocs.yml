@@ -56,6 +56,15 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
+      - サーバーサイドレンダリング編:
+          - app-architecture/server-side-rendering/index.md
+          - SSR アーキテクチャ概要: app-architecture/server-side-rendering/ssr-architecture-overview.md
+          - 全体処理方式:
+              - app-architecture/server-side-rendering/global-function/index.md
+              - 例外処理方針: app-architecture/server-side-rendering/global-function/exception-handling.md
+              - ログ出力方針: app-architecture/server-side-rendering/global-function/logging-policy.md
+              - メッセージ管理方針: app-architecture/server-side-rendering/global-function/message-management-policy.md
+              - 入力値検査方針: app-architecture/server-side-rendering/global-function/validation-policy.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
           - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md

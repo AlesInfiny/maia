@@ -89,7 +89,7 @@ AlesInfiny Maia における SSR アプリケーションアーキテクチャ�
 
     本ドキュメントおよび SSR サンプルアプリケーションでは、トランザクションスクリプトを採用しています。
     しかし AlesInfiny Maia は、アプリケーションのアーキテクチャをトランザクションスクリプトに限定するものではありません。
-    アプリケーションのアーキテクチャ選定方針は [こちら](../overview/dotnet-application-architecture-selection-guideline.md) を参照してください。
+    アプリケーションのアーキテクチャ選定方針は [こちら](../overview/java-application-architecture-selection-guideline.md) を参照してください。
 
 ### プレゼンテーション層 {#presentation}
 
