@@ -1,38 +1,35 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.5.5"
+    springBootVersion = "4.0.0"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.4.3"
+    spotbugsVersion = "6.4.7"
 
     // -- TOOLS
     jacocoToolVersion = "0.8.14"
-    checkstyleToolVersion = "12.0.1"
+    checkstyleToolVersion = "12.2.0"
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "5.2.3"
-    mybatisSpringBootStarterVersion = "3.0.5"
-    mybatisSpringBootStarterTestVersion = "3.0.5"
+    mybatisSpringBootStarterVersion = "4.0.0"
+    mybatisSpringBootStarterTestVersion = "4.0.0"
     h2Version = "2.4.240"
     postgresqlVersion = "42.7.8"
-    springdocOpenapiVersion = "2.8.13"
+    springdocOpenapiVersion = "3.0.0"
     servletApiVersion = "6.1.0"
-    commonsLangVersion = "3.19.0"
+    commonsLangVersion = "3.20.0"
     mybatisGeneratorVersion = "1.4.2"
     thymeleafLayoutDialectVersion = "3.4.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
-        spring_boot_starter_batch : "org.springframework.boot:spring-boot-starter-batch",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
-        spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
+        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
-        spring_boot_security_starter : "org.springframework.boot:spring-boot-starter-security",
+        spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_thymeleaf : "org.springframework.boot:spring-boot-starter-thymeleaf",
-        spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
         
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",

@@ -36,8 +36,8 @@
       ac.title,
       ac.message,
       ac.link_url
-    FROM announcement a
-    LEFT JOIN announcement_content ac ON a.id = ac.announcement_id
+    FROM announcements a
+    LEFT JOIN announcement_contents ac ON a.id = ac.announcement_id
     WHERE a.is_deleted = false
     ORDER BY a.post_date_time DESC, a.id, ac.language_code
     LIMIT #{limit} OFFSET #{offset}
