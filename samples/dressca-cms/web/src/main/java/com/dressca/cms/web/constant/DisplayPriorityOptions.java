@@ -3,7 +3,7 @@ package com.dressca.cms.web.constant;
 /**
  * 表示優先度の選択肢です。
  */
-public enum displayPriorityOptions {
+public enum DisplayPriorityOptions {
 
   /** 緊急の表示優先度です。 */
   EMERGENCY(1, "緊急"),
@@ -18,12 +18,12 @@ public enum displayPriorityOptions {
   private final String label;
 
   /**
-   * 値とラベルを指定して {@link displayPriorityOptions} を初期化します。
+   * 値とラベルを指定して {@link DisplayPriorityOptions} を初期化します。
    *
    * @param value 表示優先度の値。
    * @param label 表示優先度のラベル。
    */
-  displayPriorityOptions(int value, String label) {
+  DisplayPriorityOptions(int value, String label) {
     this.value = value;
     this.label = label;
   }

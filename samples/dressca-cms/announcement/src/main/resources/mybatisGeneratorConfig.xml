@@ -23,22 +23,22 @@
         </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
         <javaModelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
-                        targetProject="/dev/repos/AlesInfiny/maia/dressca-cms/announcement/src/main/java" />
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java" />
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/dressca-cms/announcement/src/main/resources" />
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/resources" />
         <!-- Mapper.java作成先 -->
         <javaClientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/dressca-cms/announcement/src/main/java"
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
-        <table schema="" tableName="ANNOUNCEMENT" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">
+        <table schema="" tableName="ANNOUNCEMENTS" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
             <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
                 typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
         </table>
-        <table schema="" tableName="ANNOUNCEMENT_CONTENT" domainObjectName="AnnouncementContentEntity" mapperName="AnnouncementContentMapper">
+        <table schema="" tableName="ANNOUNCEMENT_CONTENTS" domainObjectName="AnnouncementContentEntity" mapperName="AnnouncementContentMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
             <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
