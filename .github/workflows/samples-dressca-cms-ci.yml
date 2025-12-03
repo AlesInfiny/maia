@@ -1,6 +1,6 @@
 ---
 # cspell:ignore mikepenz dorny
-name: dressca-cmsに対するプルリクエスト時の単体テスト実行
+name: Dressca CMSに対するプルリクエスト時の単体テスト実行
 
 on:
   pull_request:
@@ -33,11 +33,20 @@ jobs:
       - name: gradlewに実行権限付与
         run: chmod +x samples/dressca-cms/gradlew
 
+      - name: Set locale to ja_JP.UTF-8
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y language-pack-ja
+          sudo update-locale LANG=ja_JP.UTF-8
+
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
         run: ./gradlew build > build-result.txt
         working-directory: ./samples/dressca-cms
         continue-on-error: true
+        env:
+          LANG: ja_JP.UTF-8
+          LC_ALL: ja_JP.UTF-8
 
       - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
         shell: bash
