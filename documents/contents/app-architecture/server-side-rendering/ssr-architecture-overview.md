@@ -12,9 +12,18 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
 ![技術スタック](../../images/app-architecture/server-side-rendering/tech-stack-light.png#only-light){ loading=lazy }
 ![技術スタック](../../images/app-architecture/server-side-rendering/tech-stack-dark.png#only-dark){ loading=lazy }
 
-??? note ""
+??? note "利用ライブラリ（フロントエンド）"
 
-??? note "利用ライブラリ（バックエンド側）"
+    - [Bootstrap :material-open-in-new:](https://getbootstrap.com/){ target=_blank }
+
+        レスポンシブデザインに対応した CSS フレームワークです。  
+        グリッドレイアウト、フォーム、ボタン、ナビゲーションなどの UI コンポーネントが豊富に用意されており、統一感のあるデザインと効率的な UI 開発を可能にします。
+
+    - [Dart Sass :material-open-in-new:](https://sass-lang.com/dart-sass/){ target=_blank }
+
+        Sass（Syntactically Awesome Style Sheets）の公式実装であり、変数、ネスト、ミックスインなどを使って CSS をより効率的・構造的に記述できます。  
+
+??? note "利用ライブラリ（バックエンド）"
 
     - [Spring Core :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core.html){ target=_blank }
     
@@ -30,7 +39,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
 
         Spring MVC は Spring Framework をベースとする Front Controller パターンの Web MVC フレームワークです。
 
-    - Spring Validation
+    - [Spring Validation :material-open-in-new:](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html){ target=_blank }
 
         Bean に対するデータの値チェック機能を提供するライブラリです。
         アノテーションベースで汎用的に利用できる値チェックが提供され、入力値チェック等が簡潔に実現できます。
@@ -44,6 +53,11 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
 
         Thymeleaf は Java 向けのサーバーサイドテンプレートエンジンです。
         Spring MVC と連携して利用することで、 Controller が用意したモデルデータを画面に表示するビューの実装をシンプルに記述できます。
+    
+    - [Thymeleaf Layout Dialect :material-open-in-new:](https://ultraq.github.io/thymeleaf-layout-dialect/){ target=_blank }
+
+        Thymeleaf Layout Dialect は、テンプレートの共通レイアウト（ヘッダー、フッター、メニューなど）を効率的に管理するための拡張機能です。
+        ベースとなるレイアウト HTML を定義し、各ページがそのレイアウトを継承する形でコンテンツを差し替えられるため、コードの重複を避け、統一感のある画面構造を実現できます。   
 
     - [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/index.html){ target=_blank }
 
@@ -62,7 +76,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
 
 ## アプリケーションアーキテクチャ {#application-architecture}
 
-AlesInfiny Maris における SSR アプリケーションアーキテクチャの全体概要を以下に示します。
+AlesInfiny Maia における SSR アプリケーションアーキテクチャの全体概要を以下に示します。
 
 ![アプリケーションアーキテクチャ](../../images/app-architecture/server-side-rendering/ssr-architecture-light.png#only-light){ loading=lazy }
 ![アプリケーションアーキテクチャ](../../images/app-architecture/server-side-rendering/ssr-architecture-dark.png#only-dark){ loading=lazy }
@@ -74,7 +88,7 @@ AlesInfiny Maris における SSR アプリケーションアーキテクチャ�
 !!! warning "SSR アプリケーションのアーキテクチャについて"
 
     本ドキュメントおよび SSR サンプルアプリケーションでは、トランザクションスクリプトを採用しています。
-    しかし AlesInfiny Maris は、アプリケーションのアーキテクチャをトランザクションスクリプトに限定するものではありません。
+    しかし AlesInfiny Maia は、アプリケーションのアーキテクチャをトランザクションスクリプトに限定するものではありません。
     アプリケーションのアーキテクチャ選定方針は [こちら](../overview/dotnet-application-architecture-selection-guideline.md) を参照してください。
 
 ### プレゼンテーション層 {#presentation}
