@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!-- 
+    Lombokによる自動作成された各メソッドで発生している警告であるが
+    spotBugsとの整合性が取れない警告であるため警告を無視する設定としている。
+  -->
+  <Match>
+    <Or>
+      <Bug code="CT, EI, EI2, NP, RCN" />
+    </Or>
+  </Match>
+  <!-- 
+    staticフィールドにinstanceメソッドの引数（ApplicationContext）を代入しているが
+    意図した設計であるため警告を無視する設定としている。
+  -->
+  <Match>
+    <Class name="com.dressca.systemcommon.util.ApplicationContextWrapper"/>
+    <Method name="setApplicationContext" />
+      <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
+</FindBugsFilter>
