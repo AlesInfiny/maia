@@ -5,4 +5,4 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 
 # ログ出力方針 {#top}
 
-SSR アプリケーションのログ出力方針は、 [.NET アプリケーションの処理方式 > ログ出力方針](../../overview/java-application-processing-system/logging-policy.md) を参照してください。
+SSR アプリケーションのログ出力方針は、 [Java アプリケーションの処理方式 - ログ出力方針](../../overview/java-application-processing-system/logging-policy.md) を参照してください。

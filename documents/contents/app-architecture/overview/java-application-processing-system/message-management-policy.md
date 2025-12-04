@@ -8,7 +8,7 @@ description: アプリケーションの形態によらず、 Java アプリケ�
 # メッセージ管理方針 {#top}
 
 メッセージ文字列は、表記の統一を図ることを目的にプロパティファイルで管理します。
-プロパティファイルの読込は、 [`#!java MessageSource` :material-open-in-new:](https://docs.spring.io/spring-boot/reference/features/internationalization.html){ target=_blank } を利用します。
+プロパティファイルの読み込みは、 [`#!java MessageSource` :material-open-in-new:](https://docs.spring.io/spring-boot/reference/features/internationalization.html){ target=_blank } を利用します。
 
 ## プロパティファイルの管理 {#property-file-management}
 
