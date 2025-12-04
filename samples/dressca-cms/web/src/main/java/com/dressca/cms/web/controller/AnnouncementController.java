@@ -227,13 +227,12 @@ public class AnnouncementController {
    *
    * @param viewModel             お知らせメッセージ登録画面のビューモデル。
    * @param announcementContentId 削除するお知らせコンテンツ ID。
-   * @param model                 モデル。
    * @return リダイレクト先。
    */
   @PostMapping(value = "create", params = "deleteLanguageFromCreate")
   public String deleteLanguageFromCreate(
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      @RequestParam("deleteLanguageFromCreate") UUID announcementContentId, Model model) {
+      @RequestParam("deleteLanguageFromCreate") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
