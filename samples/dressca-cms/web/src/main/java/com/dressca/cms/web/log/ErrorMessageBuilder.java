@@ -24,16 +24,7 @@ public class ErrorMessageBuilder {
   private String[] logMessageValue;
 
   /**
-   * ログメッセージを作成します。
-   * 
-   * @return ログメッセージ。
-   */
-  public String createLogMessage() {
-    return messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
-  }
-
-  /**
-   * スタックトレースを作成します。
+   * ProblemDetails の detail 情報に格納するスタックトレースを作成します。
    * 
    * @return スタックトレース。
    */

@@ -1,5 +1,8 @@
 package com.dressca.cms.systemcommon.exception;
 
+import java.util.Locale;
+import org.springframework.context.MessageSource;
+import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +13,6 @@ import lombok.Setter;
 @Setter
 public class LogicException extends Exception {
   private String exceptionId = null;
-
   private String[] logMessageValue = null;
 
   /**
@@ -22,8 +24,20 @@ public class LogicException extends Exception {
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    */
   public LogicException(Throwable cause, String exceptionId, String[] logMessageValue) {
-    super(cause);
+    super(resolveMessage(exceptionId, logMessageValue), cause);
     this.exceptionId = exceptionId;
     this.logMessageValue = logMessageValue;
+  }
+
+  /**
+   * メッセージソースからメッセージを取得します。
+   * 
+   * @param exceptionId     例外 ID 。
+   * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
+   * @return 取得したメッセージ。
+   */
+  private static String resolveMessage(String exceptionId, String[] logMessageValue) {
+    MessageSource messageSource = ApplicationContextWrapper.getBean(MessageSource.class);
+    return messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
   }
 }

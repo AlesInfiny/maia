@@ -12,7 +12,6 @@ import com.dressca.cms.systemcommon.exception.ValidationError;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import com.dressca.cms.web.constant.DisplayPriorityOptions;
 import com.dressca.cms.web.constant.LanguageCodeOptions;
-import com.dressca.cms.web.log.ErrorMessageBuilder;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
@@ -27,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -171,9 +171,8 @@ public class AnnouncementController {
       return "redirect:/announcements/" + announcementId + "/edit";
 
     } catch (AnnouncementValidationException e) {
-      ErrorMessageBuilder errorMessageBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue());
-      apLog.info(errorMessageBuilder.createLogMessage());
-      apLog.debug(errorMessageBuilder.createLogMessageStackTrace());
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
       // 非宣言的バリデーションエラーの場合はエラーメッセージを設定して画面を再表示
       for (ValidationError error : e.getErrorMessages()) {
         if (error.getFieldName().equals("global")) {

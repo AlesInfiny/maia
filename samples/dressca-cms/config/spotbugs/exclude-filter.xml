@@ -14,7 +14,7 @@
     意図した設計であるため警告を無視する設定としている。
   -->
   <Match>
-    <Class name="com.dressca.systemcommon.util.ApplicationContextWrapper"/>
+    <Class name="com.dressca.cms.systemcommon.util.ApplicationContextWrapper"/>
     <Method name="setApplicationContext" />
       <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
