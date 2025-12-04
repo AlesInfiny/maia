@@ -135,7 +135,6 @@ public class AnnouncementController {
    *
    * @param viewModel          お知らせメッセージ登録画面のビューモデル。
    * @param bindingResult      バインディング結果。
-   * @param redirectAttributes リダイレクト属性。
    * @param model              モデル。
    * @return ビュー名またはリダイレクト先。
    */
