@@ -1,4 +1,4 @@
-INSERT INTO announcement (id, category, post_date_time, expire_date_time, display_priority, created_at, changed_at, is_deleted) VALUES
+INSERT INTO announcements (id, category, post_date_time, expire_date_time, display_priority, created_at, changed_at, is_deleted) VALUES
 ('a0000000-0000-0000-0000-000000000001', 'お知らせ', '2025-01-01 09:00:00', '2025-12-31 23:59:59', 1, '2025-01-01 09:00:00', '2025-01-01 09:00:00', false),
 ('a0000000-0000-0000-0000-000000000002', 'メンテナンス', '2025-01-02 09:00:00', '2025-12-31 23:59:59', 2, '2025-01-02 09:00:00', '2025-01-02 09:00:00', false),
 ('a0000000-0000-0000-0000-000000000003', 'キャンペーン', '2025-01-03 09:00:00', '2025-12-31 23:59:59', 3, '2025-01-03 09:00:00', '2025-01-03 09:00:00', false),
@@ -51,7 +51,7 @@ INSERT INTO announcement (id, category, post_date_time, expire_date_time, displa
 ('a0000000-0000-0000-0000-000000000050', 'お知らせ', '2025-02-19 09:00:00', '2025-12-31 23:59:59', 2, '2025-02-19 09:00:00', '2025-02-19 09:00:00', false),
 ('a0000000-0000-0000-0000-000000000051', 'お知らせ', '2025-02-20 09:00:00', '2025-12-31 23:59:59', 2, '2025-02-20 09:00:00', '2025-02-20 09:00:00', false);
 
-INSERT INTO announcement_content (id, announcement_id, language_code, title, message, link_url) VALUES
+INSERT INTO announcement_contents (id, announcement_id, language_code, title, message, link_url) VALUES
 ('c0000000-0000-0000-0000-000000000001', 'a0000000-0000-0000-0000-000000000001', 'ja', 'お知らせメッセージ 1 のタイトル', 'これは お知らせメッセージ 1 の本文です。重要な情報をお伝えします。', 'https://example.com/announcement/1'),
 ('c0000000-0000-0000-0000-000000000002', 'a0000000-0000-0000-0000-000000000002', 'ja', 'お知らせメッセージ 2 のタイトル', 'これは お知らせメッセージ 2 の本文です。重要な情報をお伝えします。', 'https://example.com/announcement/2'),
 ('c0000000-0000-0000-0000-000000000003', 'a0000000-0000-0000-0000-000000000003', 'ja', 'お知らせメッセージ 3 のタイトル', 'これは お知らせメッセージ 3 の本文です。重要な情報をお伝えします。', 'https://example.com/announcement/3'),

@@ -2,7 +2,7 @@ package com.dressca.cms.web.controller;
 
 import com.dressca.cms.announcement.applicationcore.AnnouncementApplicationService;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
-import com.dressca.cms.web.constant.displayPriorityOptions;
+import com.dressca.cms.web.constant.DisplayPriorityOptions;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
@@ -61,7 +61,7 @@ public class AnnouncementController {
 
     // モデルに属性を格納
     model.addAttribute("announcementList", viewModel);
-    model.addAttribute("displayPriorityOptions", displayPriorityOptions.values());
+    model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
 
     // お知らせメッセージ管理画面に遷移
     return "announcement/index";

@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter_web
+	implementation supportDependencies.spring_boot_starter_webmvc
 	implementation supportDependencies.spring_boot_starter_validation
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
