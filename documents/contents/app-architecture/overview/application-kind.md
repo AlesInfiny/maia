@@ -18,8 +18,10 @@ HTML をクライアント側 JavaScript でレンダリングする方式の We
 
 ## Web アプリケーション ( サーバーサイドサイドレンダリング ) {#server-side-rendering}
 
-サーバーサイドで構築した HTML を表示する方式の Web アプリケーションです。
-（今後追加予定）
+サーバーサイドで構築した HTML をクライアント側のブラウザーでレンダリングする方式の Web アプリケーションです。
+
+![サーバーサイドレンダリング](../../images/app-architecture/overview/server-side-rendering-light.png#only-light){ loading=lazy }
+![サーバーサイドレンダリング](../../images/app-architecture/overview/server-side-rendering-dark.png#only-dark){ loading=lazy }
 
 ## バッチアプリケーション {#batch}
 

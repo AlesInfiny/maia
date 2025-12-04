@@ -11,25 +11,25 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
     サーバーサイド・クライアントサイドそれぞれのアプリケーションの例外処理方針を説明します。
 
-1. [ヘルスチェック機能の実装方針](./health-check-implementation.md)
-
-    Web API を通じてシステムが正常稼働中か確認するヘルスチェック機能の実装方針を説明します。
-
 1. [ログ出力方針](./logging-policy.md)
 
     サーバーサイド・クライアントサイドそれぞれのアプリケーションのログ出力方針を説明します。
 
-1. [ストア設計方針](./store-design-policy.md)
+1. [メッセージ管理方針](./message-management-policy.md)
 
-    クライアントサイドのストアの設計方針を説明します。
+    アプリケーションのメッセージ管理方針について説明します。
 
 1. [入力値検査方針](./validation-policy.md)
 
     アプリケーション全体の入力値検査方針について説明します。
 
-1. [メッセージ管理方針](./message-management-policy.md)
+1. [ヘルスチェック機能の方針](./health-check-policy.md)
 
-    アプリケーションのメッセージ管理方針について説明します。
+    Web API を通じてシステムが正常稼働中か確認するヘルスチェック機能の実装方針を説明します。
+
+1. [ストア設計方針](./store-design-policy.md)
+
+    クライアントサイドのストアの設計方針を説明します。
 
 1. [認証・認可方針](./authentication-and-authorization-policy.md)
 

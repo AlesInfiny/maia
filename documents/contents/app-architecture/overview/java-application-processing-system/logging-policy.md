@@ -124,5 +124,3 @@ root/ ------------------------------------------- root フォルダー
    └ src/main/resource/ ------------------------- 設定ファイルを一元管理するフォルダー
       └ log4j2.xml ------------------------------ ログの設定ファイル
 ```
-
-log4j2.xml の具体的な設定については、[こちら](../../../guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を確認してください。

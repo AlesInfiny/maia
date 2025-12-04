@@ -61,7 +61,7 @@ npm install vue-i18n
 
 JSON ファイルでメッセージを管理する際は、メッセージコードとメッセージ本体を key-value で管理します。
 
-### メッセージファイルの読込 {#reading-message-files}
+### メッセージファイルの読み込み {#reading-message-files}
 
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
