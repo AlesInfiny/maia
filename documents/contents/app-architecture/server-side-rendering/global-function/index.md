@@ -13,10 +13,18 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 
     アプリケーションのログ出力方針を説明します。
 
+1. [メッセージ管理方針](./message-management-policy.md)
+
+    SSR アプリケーションのメッセージ管理方針を説明します。
+
 1. [入力値検査方針](./validation-policy.md)
 
     SSR アプリケーションの入力値検査方針を説明します。
 
-1. [メッセージ管理方針](./message-management-policy.md)
+1. [ヘルスチェック機能の方針](./health-check-policy.md)
 
-    SSR アプリケーションのメッセージ管理方針を説明します。
+    SSR アプリケーションのヘルスチェックの基本方針について説明します。
+
+1. [認証・認可方針](./authentication-and-authorization-policy.md)
+
+    SSR アプリケーションの認証・認可方針について説明します。
