@@ -7,10 +7,12 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
 import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
+import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.cms.systemcommon.exception.ValidationError;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import com.dressca.cms.web.constant.DisplayPriorityOptions;
 import com.dressca.cms.web.constant.LanguageCodeOptions;
+import com.dressca.cms.web.log.ErrorMessageBuilder;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +48,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/announcements")
 @RequiredArgsConstructor
 public class AnnouncementController {
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
   private final AnnouncementApplicationService announcementApplicationService;
   private final AnnouncementCreateSession announcementCreateSession;
 
@@ -174,6 +179,9 @@ public class AnnouncementController {
         }
         bindingResult.rejectValue(error.getFieldName(), error.getErrorCode());
       }
+      ErrorMessageBuilder errorMessageBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue());
+      apLog.info(errorMessageBuilder.createLogMessage());
+      apLog.debug(errorMessageBuilder.createLogMessageStackTrace());
       model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
       model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
       return "announcement/create";
