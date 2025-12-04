@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementWithContentsViewModel {
+
   /**
    * お知らせメッセージのビューモデル。
    */
@@ -22,5 +23,4 @@ public class AnnouncementWithContentsViewModel {
    * 代表のお知らせコンテンツのビューモデル（言語コードの優先順で選択されたもの）。
    */
   private AnnouncementContentViewModel content;
-
 }
