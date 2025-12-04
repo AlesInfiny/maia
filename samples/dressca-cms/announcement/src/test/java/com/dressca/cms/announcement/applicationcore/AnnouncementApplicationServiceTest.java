@@ -3,6 +3,7 @@ package com.dressca.cms.announcement.applicationcore;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,15 +17,18 @@ import com.dressca.cms.announcement.applicationcore.repository.AnnouncementConte
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
+import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
@@ -42,15 +46,33 @@ public class AnnouncementApplicationServiceTest {
   private AnnouncementHistoryRepository announcementHistoryRepository;
   @Mock
   private AnnouncementContentHistoryRepository announcementContentHistoryRepository;
+  @Mock
+  private ApplicationContextWrapper applicationContextWrapper;
+
   private AnnouncementApplicationService service;
+  private ResourceBundleMessageSource messageSource;
+  private MockedStatic<ApplicationContextWrapper> mockedApplicationContextWrapper;
 
   @BeforeEach
   void setUp() {
-    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource = new ResourceBundleMessageSource();
     messageSource.setBasenames("i18n/messages");
     messageSource.setDefaultEncoding("UTF-8");
     service = new AnnouncementApplicationService(announcementRepository, announcementContentRepository,
         announcementHistoryRepository, announcementContentHistoryRepository, messageSource);
+
+    // ApplicationContextWrapper の静的メソッドをモック
+    mockedApplicationContextWrapper = mockStatic(ApplicationContextWrapper.class);
+    mockedApplicationContextWrapper
+        .when(() -> ApplicationContextWrapper.getBean(org.springframework.context.MessageSource.class))
+        .thenReturn(messageSource);
+  }
+
+  @AfterEach
+  void tearDown() {
+    if (mockedApplicationContextWrapper != null) {
+      mockedApplicationContextWrapper.close();
+    }
   }
 
   @Test
