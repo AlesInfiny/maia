@@ -171,6 +171,9 @@ public class AnnouncementController {
       return "redirect:/announcements/" + announcementId + "/edit";
 
     } catch (AnnouncementValidationException e) {
+      ErrorMessageBuilder errorMessageBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue());
+      apLog.info(errorMessageBuilder.createLogMessage());
+      apLog.debug(errorMessageBuilder.createLogMessageStackTrace());
       // 非宣言的バリデーションエラーの場合はエラーメッセージを設定して画面を再表示
       for (ValidationError error : e.getErrorMessages()) {
         if (error.getFieldName().equals("global")) {
@@ -179,9 +182,6 @@ public class AnnouncementController {
         }
         bindingResult.rejectValue(error.getFieldName(), error.getErrorCode());
       }
-      ErrorMessageBuilder errorMessageBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getLogMessageValue());
-      apLog.info(errorMessageBuilder.createLogMessage());
-      apLog.debug(errorMessageBuilder.createLogMessageStackTrace());
       model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
       model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
       return "announcement/create";
