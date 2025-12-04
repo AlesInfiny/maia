@@ -191,12 +191,11 @@ public class AnnouncementController {
    * 別の言語を追加します。
    *
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
-   * @param model     モデル。
    * @return リダイレクト先。
    */
   @PostMapping(value = "create", params = "addLanguageToCreate")
   public String addLanguageToCreate(
-      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel, Model model) {
+      @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
