@@ -1,5 +1,6 @@
 package com.dressca.cms.announcement.applicationcore.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +32,7 @@ public class PagedAnnouncementList {
   /**
    * お知らせメッセージのリスト。
    */
-  private List<Announcement> announcements;
+  private List<Announcement> announcements = new ArrayList<>();
 
   /**
    * 最後のページ番号。

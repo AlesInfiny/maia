@@ -10,19 +10,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * お知らせメッセージの DTO クラスです。
+ * お知らせメッセージ履歴の DTO クラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Announcement implements Serializable {
+public class AnnouncementHistory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * お知らせメッセージ ID。
+   * お知らせメッセージ履歴 ID。
    */
   private UUID id;
+
+  /**
+   * お知らせメッセージ ID。
+   */
+  private UUID announcementId;
 
   /**
    * カテゴリー。
@@ -50,17 +55,17 @@ public class Announcement implements Serializable {
   private OffsetDateTime createdAt;
 
   /**
-   * レコード更新日時。
+   * 変更者。
    */
-  private OffsetDateTime changedAt;
+  private String changedBy;
 
   /**
-   * 論理削除フラグ。
+   * 操作種別。
    */
-  private Boolean isDeleted;
+  private Integer operationType;
 
   /**
-   * お知らせコンテンツのリスト。
+   * お知らせコンテンツ履歴のリスト。
    */
-  private List<AnnouncementContent> contents = new ArrayList<>();
+  private List<AnnouncementContentHistory> contentHistories = new ArrayList<>();
 }
