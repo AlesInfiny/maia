@@ -1,6 +1,5 @@
 package com.dressca.cms.web.models;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +31,7 @@ public class AnnouncementListViewModel {
   /**
    * お知らせメッセージのビューモデルのリスト。
    */
-  private List<AnnouncementWithContentsViewModel> announcements = new ArrayList<>();
+  private List<AnnouncementWithContentsViewModel> announcements;
 
   /**
    * 最後のページ番号。

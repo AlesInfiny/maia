@@ -1,6 +1,5 @@
 package com.dressca.cms.web.models;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
@@ -27,5 +26,5 @@ public class AnnouncementCreateViewModel {
    * お知らせコンテンツのビューモデル一覧。
    */
   @Valid
-  private List<AnnouncementContentViewModel> contents = new ArrayList<>();
+  private List<AnnouncementContentViewModel> contents;
 }

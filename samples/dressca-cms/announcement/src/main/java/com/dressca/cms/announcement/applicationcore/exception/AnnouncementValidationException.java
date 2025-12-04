@@ -26,8 +26,7 @@ public class AnnouncementValidationException extends LogicException {
    * @param errorMessages バリデーションエラーのリスト。
    */
   public AnnouncementValidationException(List<ValidationError> errorMessages) {
-    super(null, ExceptionIdConstants.E_VALIDATION_ERROR,
-        new String[] { joinFieldNames(errorMessages) });
+    super(null, ExceptionIdConstants.E_VALIDATION_ERROR, new String[] { joinFieldNames(errorMessages) });
     this.errorMessages.addAll(errorMessages);
   }
 

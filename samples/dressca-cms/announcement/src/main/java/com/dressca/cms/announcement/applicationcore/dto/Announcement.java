@@ -2,7 +2,6 @@ package com.dressca.cms.announcement.applicationcore.dto;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -62,5 +61,5 @@ public class Announcement implements Serializable {
   /**
    * お知らせコンテンツのリスト。
    */
-  private List<AnnouncementContent> contents = new ArrayList<>();
+  private List<AnnouncementContent> contents;
 }
