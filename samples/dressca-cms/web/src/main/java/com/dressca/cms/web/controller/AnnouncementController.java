@@ -142,7 +142,7 @@ public class AnnouncementController {
   @PostMapping("/create")
   public String store(
       @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+      BindingResult bindingResult, Model model) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
