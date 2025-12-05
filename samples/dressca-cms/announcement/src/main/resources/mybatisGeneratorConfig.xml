@@ -34,13 +34,11 @@
         <!-- 生成対象テーブル -->
         <table schema="" tableName="ANNOUNCEMENTS" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
                 typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
         </table>
         <table schema="" tableName="ANNOUNCEMENT_CONTENTS" domainObjectName="AnnouncementContentEntity" mapperName="AnnouncementContentMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
                 typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
             <columnOverride column="ANNOUNCEMENT_ID" javaType="java.util.UUID" jdbcType="OTHER"
@@ -48,7 +46,6 @@
         </table>
         <table schema="" tableName="ANNOUNCEMENT_HISTORY" domainObjectName="AnnouncementHistoryEntity" mapperName="AnnouncementHistoryMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
             <columnOverride column="ANNOUNCEMENT_ID" javaType="java.util.UUID" jdbcType="OTHER"
@@ -56,7 +53,6 @@
         </table>
         <table schema="" tableName="ANNOUNCEMENT_CONTENT_HISTORY" domainObjectName="AnnouncementContentHistoryEntity" mapperName="AnnouncementContentHistoryMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
             <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
             <columnOverride column="ANNOUNCEMENT_HISTORY_ID" javaType="java.util.UUID" jdbcType="OTHER"

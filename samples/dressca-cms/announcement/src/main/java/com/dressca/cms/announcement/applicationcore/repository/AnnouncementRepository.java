@@ -24,4 +24,11 @@ public interface AnnouncementRepository {
    * @return お知らせメッセージのリスト。
    */
   List<Announcement> findByOffsetAndLimit(int offset, int limit);
+
+  /**
+   * お知らせメッセージを追加します。
+   *
+   * @param announcement お知らせメッセージ。
+   */
+  void add(Announcement announcement);
 }

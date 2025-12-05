@@ -1,18 +1,20 @@
 package com.dressca.cms.web.constant;
 
+import com.dressca.cms.announcement.applicationcore.constant.DisplayPriorityConstants;
+
 /**
  * 表示優先度の選択肢です。
  */
 public enum DisplayPriorityOptions {
 
   /** 緊急の表示優先度です。 */
-  EMERGENCY(1, "緊急"),
+  EMERGENCY(DisplayPriorityConstants.EMERGENCY, "緊急"),
   /** 高の表示優先度です。 */
-  HIGH(2, "高"),
+  HIGH(DisplayPriorityConstants.HIGH, "高"),
   /** 中の表示優先度です。 */
-  MEDIUM(3, "中"),
+  MEDIUM(DisplayPriorityConstants.MEDIUM, "中"),
   /** 低の表示優先度です。 */
-  LOW(4, "低");
+  LOW(DisplayPriorityConstants.LOW, "低");
 
   private final int value;
   private final String label;

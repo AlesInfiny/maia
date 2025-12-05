@@ -1,13 +1,18 @@
 package com.dressca.cms.web.models.base;
 
+import com.dressca.cms.web.models.validation.AnnouncementValidationGroup;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * お知らせメッセージのビューモデルクラスです。
@@ -26,21 +31,38 @@ public class AnnouncementViewModel {
   /**
    * カテゴリー。
    */
+  @Size(max = 128, groups = AnnouncementValidationGroup.Store.class)
   private String category;
 
   /**
-   * 掲載開始日時。
+   * 掲載開始日。
    */
-  private OffsetDateTime postDateTime;
+  @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.postDateIsRequired}")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate postDate;
 
   /**
-   * 掲載終了日時。
+   * 掲載開始時刻。
    */
-  private OffsetDateTime expireDateTime;
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  private LocalTime postTime;
+
+  /**
+   * 掲載終了日。
+   */
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate expireDate;
+
+  /**
+   * 掲載終了時刻。
+   */
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  private LocalTime expireTime;
 
   /**
    * 表示優先度。
    */
+  @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.displayPriorityIsRequired}")
   private Integer displayPriority;
 
   /**
@@ -57,9 +79,4 @@ public class AnnouncementViewModel {
    * 論理削除フラグ。
    */
   private Boolean isDeleted;
-
-  /**
-   * お知らせコンテンツのリスト。
-   */
-  private List<AnnouncementContentViewModel> contents;
 }

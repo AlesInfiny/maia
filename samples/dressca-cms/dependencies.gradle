@@ -19,6 +19,7 @@ ext {
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.20.0"
     mybatisGeneratorVersion = "1.4.2"
+    javaUuidGeneratorVersion = "5.1.1"
     thymeleafLayoutDialectVersion = "3.4.0"
 
     supportDependencies = [
@@ -40,6 +41,7 @@ ext {
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
         servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
+        java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion",
 
         lombok : "org.projectlombok:lombok",
