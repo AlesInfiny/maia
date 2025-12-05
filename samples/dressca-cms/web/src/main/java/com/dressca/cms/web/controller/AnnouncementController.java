@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * お知らせメッセージ管理画面のコントローラークラスです。
@@ -112,7 +111,7 @@ public class AnnouncementController {
           "",
           "",
           "");
-      announcement.setContents(List.of(jaContent));
+      announcement.setContents(new ArrayList<>(List.of(jaContent)));
       announcementCreateSession.setAnnouncement(announcement);
     }
 
@@ -133,15 +132,21 @@ public class AnnouncementController {
   /**
    * お知らせメッセージを登録します。
    *
-   * @param viewModel          お知らせメッセージ登録画面のビューモデル。
-   * @param bindingResult      バインディング結果。
-   * @param model              モデル。
+   * @param viewModel     お知らせメッセージ登録画面のビューモデル。
+   * @param bindingResult バインディング結果。
+   * @param model         モデル。
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("/create")
   public String store(
       @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
       BindingResult bindingResult, Model model) {
+    // 宣言的バリデーションでエラーがある場合は画面を再表示
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
+      model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
+      return "announcement/create";
+    }
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -150,12 +155,7 @@ public class AnnouncementController {
         && viewModel.getAnnouncement().getExpireTime() == null) {
       viewModel.getAnnouncement().setExpireTime(LocalTime.of(0, 0, 0));
     }
-    // 宣言的バリデーションでエラーがある場合は画面を再表示
-    if (bindingResult.hasErrors()) {
-      model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
-      model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
-      return "announcement/create";
-    }
+
     Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
         viewModel.getContents());
     try {
