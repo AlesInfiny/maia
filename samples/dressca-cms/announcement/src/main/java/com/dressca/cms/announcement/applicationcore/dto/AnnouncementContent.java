@@ -45,23 +45,4 @@ public class AnnouncementContent implements Serializable {
    * リンク先 URL。
    */
   private String linkUrl;
-
-  /**
-   * お知らせコンテンツ ID、言語コード、タイトル、表示メッセージ、リンク先 URL を指定して、
-   * {@link AnnouncementContent} クラスの新しいインスタンスを生成します。
-   * 
-   * @param id           お知らせコンテンツ ID。
-   * @param languageCode 言語コード。
-   * @param title        タイトル。
-   * @param message      表示メッセージ。
-   * @param linkUrl      リンク先 URL。
-   */
-  public AnnouncementContent(UUID id, String languageCode, String title, String message, String linkUrl) {
-    this.id = id;
-    this.languageCode = languageCode;
-    this.title = title;
-    this.message = message;
-    this.linkUrl = linkUrl;
-  }
-
 }

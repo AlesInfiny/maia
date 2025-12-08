@@ -104,9 +104,11 @@ public class AnnouncementController {
     // セッションにお知らせメッセージのエンティティが存在しない場合、初期化する
     if (announcementCreateSession.getAnnouncement() == null) {
       final Announcement announcement = new Announcement();
+      announcement.setId(UuidGenerator.generate());
       announcement.setDisplayPriority(DisplayPriorityConstants.MEDIUM);
       AnnouncementContent jaContent = new AnnouncementContent(
           UuidGenerator.generate(),
+          announcement.getId(),
           LanguageCodeConstants.LOCALE_JA.getLanguage(),
           "",
           "",
@@ -211,7 +213,8 @@ public class AnnouncementController {
 
     // 未登録の最も優先度の高い言語コードを追加
     String newLanguageCode = getNextPriorityLanguageCode(existingLanguageCodes);
-    AnnouncementContent newContent = new AnnouncementContent(UuidGenerator.generate(), newLanguageCode, "", "", "");
+    AnnouncementContent newContent = new AnnouncementContent(UuidGenerator.generate(), announcement.getId(),
+        newLanguageCode, "", "", "");
     contents.add(newContent);
 
     // セッションに保存

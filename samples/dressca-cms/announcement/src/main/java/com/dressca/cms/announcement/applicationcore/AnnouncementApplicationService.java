@@ -155,12 +155,9 @@ public class AnnouncementApplicationService {
     apLog.info(messages.getMessage(MessageIdConstants.D_START_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
 
     // 業務メイン処理
-    // お知らせメッセージの ID を生成
-    UUID announcementId = UuidGenerator.generate();
-    OffsetDateTime createdAt = OffsetDateTime.now();
 
     // お知らせメッセージを追加
-    announcement.setId(announcementId);
+    OffsetDateTime createdAt = OffsetDateTime.now();
     announcement.setCreatedAt(createdAt);
     announcement.setChangedAt(createdAt);
     announcement.setIsDeleted(false);
@@ -168,7 +165,6 @@ public class AnnouncementApplicationService {
 
     // お知らせコンテンツを追加
     for (AnnouncementContent content : announcement.getContents()) {
-      content.setAnnouncementId(announcementId);
       announcementContentRepository.add(content);
     }
 
@@ -187,7 +183,7 @@ public class AnnouncementApplicationService {
     // 業務終了処理
     apLog.info(messages.getMessage(MessageIdConstants.D_END_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
 
-    return announcementId;
+    return announcement.getId();
   }
 
   /**
