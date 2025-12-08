@@ -31,8 +31,7 @@ public class CatalogItemTasklet implements Tasklet {
   String output;
 
   @Override
-  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
-      throws Exception {
+  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
     // DB から CatalogItem を全件取得
     List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
