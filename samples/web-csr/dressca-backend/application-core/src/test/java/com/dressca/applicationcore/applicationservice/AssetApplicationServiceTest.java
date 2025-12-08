@@ -12,9 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetRepository;
@@ -25,13 +30,17 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
   @Mock
   private AssetRepository repository;
   @Mock
   private AssetStore store;
+  @Autowired
+  private MessageSource messages;
   @Mock
   private AbstractStructuredLogger apLog;
 
@@ -39,9 +48,6 @@ public class AssetApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    ResourceBundleMessageSource messages = new ResourceBundleMessageSource();
-    messages.setBasename("applicationcore.messages");
-    messages.setDefaultEncoding("UTF-8");
     service = new AssetApplicationService(repository, store, messages, apLog);
   }
 

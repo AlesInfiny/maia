@@ -25,7 +25,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.baskets.BasketRepository;
@@ -46,7 +51,9 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
@@ -56,6 +63,10 @@ public class ShoppingApplicationServiceTest {
   private CatalogRepository catalogRepository;
   @Mock
   private CatalogDomainService catalogDomainService;
+
+  @Autowired
+  private MessageSource messages;
+
   @Mock
   private AbstractStructuredLogger apLog;
 
@@ -65,11 +76,8 @@ public class ShoppingApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    ResourceBundleMessageSource messages = new ResourceBundleMessageSource();
-    messages.setBasename("applicationcore.messages");
-    messages.setDefaultEncoding("UTF-8");
-    service = new ShoppingApplicationService(messages, basketRepository, catalogRepository,
-        orderRepository, catalogDomainService, apLog);
+    service = new ShoppingApplicationService(messages, basketRepository, catalogRepository, orderRepository,
+        catalogDomainService, apLog);
   }
 
   @Test
@@ -89,8 +97,7 @@ public class ShoppingApplicationServiceTest {
     CatalogItem catalogItem = createCatalogItem(catalogItemId);
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
-    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds))
-        .thenReturn(List.of(catalogItem));
+    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
 
     // テストメソッドの実行
     int quantity = 1;
@@ -118,8 +125,7 @@ public class ShoppingApplicationServiceTest {
     CatalogItem catalogItem = createCatalogItem(catalogItemId);
     List<Long> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
-    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds))
-        .thenReturn(List.of(catalogItem));
+    when(this.catalogDomainService.getExistCatalogItems(catalogItemIds)).thenReturn(List.of(catalogItem));
 
     // テストメソッドの実行
     int quantity = -1;
@@ -166,8 +172,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -192,8 +197,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -276,8 +280,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -288,8 +291,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
-        .thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
 
     // テストメソッドの実行
     service.deleteItemFromBasket(buyerId, catalogItemId);
@@ -301,8 +303,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+      throws BasketNotFoundException, CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -313,8 +314,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
-        .thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
 
     // テストメソッドの実行
     service.deleteItemFromBasket(buyerId, catalogItemId);
@@ -337,8 +337,7 @@ public class ShoppingApplicationServiceTest {
     Long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
-        .thenReturn(false);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(false);
 
     try {
       service.deleteItemFromBasket(buyerId, catalogItemId);
@@ -362,8 +361,7 @@ public class ShoppingApplicationServiceTest {
     Long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
-        .thenReturn(true);
+    when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)).thenReturn(true);
 
     try {
       // テストメソッドの実行
@@ -393,8 +391,7 @@ public class ShoppingApplicationServiceTest {
         new CatalogItem(1L, "name1", "desc1", BigDecimal.valueOf(1000), "code1", 1L, 1L, false),
         new CatalogItem(2L, "name2", "desc2", BigDecimal.valueOf(2000), "code2", 2L, 2L, false));
     List<Long> catalogItemIds = List.of(1L, 2L);
-    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
-        .thenReturn(items);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds)).thenReturn(items);
 
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
@@ -407,8 +404,7 @@ public class ShoppingApplicationServiceTest {
 
   @ParameterizedTest
   @MethodSource("blankStringSource")
-  void testGetBasketDetail_異常系_購入者IDがnullまたは空白なら例外が発生する(String buyerId)
-      throws IllegalArgumentException {
+  void testGetBasketDetail_異常系_購入者IDがnullまたは空白なら例外が発生する(String buyerId) throws IllegalArgumentException {
 
     // テストメソッドの実行
     try {
@@ -477,9 +473,8 @@ public class ShoppingApplicationServiceTest {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    List<OrderItem> items =
-        List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
-            BigDecimal.valueOf(100_000_000L), 1));
+    List<OrderItem> items = List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
+        BigDecimal.valueOf(100_000_000L), 1));
 
     return items;
   }
