@@ -16,7 +16,7 @@ description: AlesInfiny Maia OSS Edition の考える アプリケーション�
 
 - [サーバーサイドレンダリング編](server-side-rendering/index.md)
 
-    サーバーサイドレンダリングアプリケーションの概要やアーキテクチャについて解説します。
+    サーバーサイドレンダリング方式の Web アプリケーションの概要やアーキテクチャについて解説します。
 
 - [バッチアプリケーション編](batch-application/index.md)
 
