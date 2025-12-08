@@ -7,13 +7,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.sql.DataSource;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.JobExecution;
-import org.springframework.batch.core.job.parameters.JobParameters;
-import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.test.JobOperatorTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
@@ -52,7 +51,7 @@ public class CatalogItemJobTest {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
 
-  @BeforeEach
+  @BeforeAll
   public void initJobLauncherTestUtils() {
     jobLauncherTestUtils.setJob(catalogItemJob);
   }
