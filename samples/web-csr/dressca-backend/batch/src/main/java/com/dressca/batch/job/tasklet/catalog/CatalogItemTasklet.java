@@ -2,15 +2,14 @@ package com.dressca.batch.job.tasklet.catalog;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.infrastructure.item.Chunk;
+import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
+import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
+import org.springframework.batch.infrastructure.repeat.RepeatStatus;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +31,8 @@ public class CatalogItemTasklet implements Tasklet {
   String output;
 
   @Override
-  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
+      throws Exception {
     // DB から CatalogItem を全件取得
     List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
@@ -48,24 +48,18 @@ public class CatalogItemTasklet implements Tasklet {
     });
 
     // CSV へ出力する writer の準備
-    FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
-    FileSystemResource outputResource;
-    if (output == null || "".equals(output)) {
-      outputResource = new FileSystemResource("output/catalogItem_tasklet.csv");
-    } else {
-      outputResource = new FileSystemResource("output/" + output);
-    }
-    writer.setResource(outputResource);
-    writer.setAppendAllowed(true);
+    String outputPath = (output == null || "".equals(output))
+        ? "output/catalogItem_tasklet.csv"
+        : "output/" + output;
 
-    BeanWrapperFieldExtractor<CatalogItem> fieldExtractor = new BeanWrapperFieldExtractor<>();
-    fieldExtractor.setNames(new String[] { "name", "price", "productCode" });
-
-    DelimitedLineAggregator<CatalogItem> lineAggregator = new DelimitedLineAggregator<>();
-    lineAggregator.setDelimiter(",");
-    lineAggregator.setFieldExtractor(fieldExtractor);
-
-    writer.setLineAggregator(lineAggregator);
+    FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriterBuilder<CatalogItem>()
+        .name("catalogItemTaskletWriter")
+        .resource(new FileSystemResource(outputPath))
+        .append(true)
+        .delimited()
+        .delimiter(",")
+        .names("name", "price", "productCode")
+        .build();
 
     // CSV 出力
     writer.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());

@@ -3,14 +3,14 @@ package com.dressca.batch.job;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.core.job.parameters.RunIdIncrementer;
+import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,7 +39,9 @@ public class BatchConfiguration {
   @Bean
   public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
       CatalogItemTasklet catalogItemTasklet) {
-    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet, transactionManager)
+    return new StepBuilder("catalogItem_tasklet_step1", jobRepository)
+        .tasklet(catalogItemTasklet)
+        .transactionManager(transactionManager)
         .build();
   }
 
@@ -78,10 +80,13 @@ public class BatchConfiguration {
     // itemProcessors.add(catalogItemProcessor);
     // itemProcessors.add(nextProcessor);
     // compositeProcessor.setDelegates(itemProcessors);
-    return new StepBuilder("catalogItem_step1", jobRepository).<CatalogItem, CatalogItem>chunk(2, transactionManager)
+    return new StepBuilder("catalogItem_step1", jobRepository)
+        .<CatalogItem, CatalogItem>chunk(2)
         .reader(catalogItemReader)
         // .processor(compositeProcessor)
-        .processor(catalogItemProcessor).writer(catalogItemWriter)
+        .processor(catalogItemProcessor)
+        .writer(catalogItemWriter)
+        .transactionManager(transactionManager)
         // .faultTolerant()
         // .skipLimit(10)
         // スキップ可能例外の指定（リトライ設定の場合は代わりに retry で指定する）
