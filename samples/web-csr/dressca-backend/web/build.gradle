@@ -23,7 +23,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
-	implementation supportDependencies.spring_boot_security_starter
+	implementation supportDependencies.spring_boot_starter_security
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
