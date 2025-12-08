@@ -51,4 +51,4 @@ OAuth 2.0 は、ユーザーが自分の認証情報（ユーザー名やパス�
 
 #### 認可の方針 {#mail-and-password-authorization-policy}
 
-(今後公開予定)
+(今後追加予定)

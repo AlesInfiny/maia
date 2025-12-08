@@ -10,19 +10,19 @@ description: バックエンドアプリケーションのアーキテクチャ�
 ## 入力チェック ( 単項目チェックと項目間チェック ) {#validation}
 
 [全体処理方式の入力値検査方針](../global-function/validation-policy.md) で説明した通り、プレゼンテーション層では入力値に対する単項目チェックと項目間チェックを実装します。
-単項目チェックと項目間チェックを通じて、 Web API の入力値が正しい形式であるか確認します。
+単項目チェックと項目間チェックを通じて、 ビューモデルの入力値が正しい形式であるか確認します。
 
 ### 単項目チェック {#single-item-check}
 
 単項目チェックは Bean Validation を用いて実装します。
-ViewModel に対してアノテーションを付与し、チェックルールを定義します。
+ビューモデルに対してアノテーションを付与し、チェックルールを定義します。
 実装方法については [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#chapter-bean-constraints){ target=_blank } を参照してください。
 
 Hibernate Validator であらかじめ実装されているチェックルールは [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints){ target=_blank } を参照してください。
 単項目チェックの多くは、これらの実装済みチェックルールを利用するだけで検証を行えます。
 既存のチェックルールでは実現できない場合は、[こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple){ target=_blank } を参照してカスタムルールを実装します。
 
-単項目チェックは、コントローラーの引数である API モデルに対して一律実行されるように実装します。
+単項目チェックは、コントローラーのアクションメソッドに対して一律実行されるように実装します。
 
 ### 項目間チェック {#cross-field-check}
 

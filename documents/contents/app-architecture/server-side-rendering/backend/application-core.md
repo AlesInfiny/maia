@@ -10,18 +10,8 @@ description: バックエンドアプリケーションのアーキテクチャ�
 
 ## エンティティや値オブジェクト {#entity-and-value-object}
 
-エンティティと値オブジェクトは、それぞれの持つ属性が関心ごとの 1 つです。
-Lombok と Bean Validation を使うことで、 Immutable などの特性に関わる実装や、属性の制約の実装を最小化して、属性の設計と実装間の見通しをよくします。
-Lombok と Bean Validation の利用により、属性の制約が複雑になる場合は、コンストラクターや Setter 内で個別に入力チェックを実装します。
-いずれにしても、エンティティや値オブジェクトの属性の制約を漏れなく実装します。
-
-### Lombok {#lombok}
-
-エンティティと値オブジェクトの実装には Lombok のアノテーションを利用し、 Immutable などの制約付与や、 Getter / Setter の機能実装を実現します。
-
-### Bean Validation {#bean-validation}
-
-エンティティと値オブジェクトは、 Bean Validation または Lombok を用いて、宣言的にプロパティの制約を実装します。
+エンティティと値オブジェクトに関しては、 CSR アプリケーションと共通です。
+詳しくは [こちら](../../client-side-rendering/backend-application/application-core.md#entity-and-value-object) を参照してください。
 
 ## 業務処理 {#business-logic}
 
