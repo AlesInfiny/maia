@@ -27,6 +27,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_security_starter
 	implementation supportDependencies.h2database
 	implementation supportDependencies.spring_boot_starter_log4j2
+	implementation supportDependencies.spring_boot_h2console
 
 	implementation project(':web')
 	implementation project(':application-core')
@@ -34,7 +35,7 @@ dependencies {
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_security_test
+	testImplementation supportDependencies.spring_boot_starter_security_test
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 
 	compileOnly supportDependencies.servlet_api
