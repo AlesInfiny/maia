@@ -3,7 +3,6 @@ package com.dressca.cms.announcement.applicationcore;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,25 +16,31 @@ import com.dressca.cms.announcement.applicationcore.repository.AnnouncementConte
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
-import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 
 /**
  * {@link AnnouncementApplicationService} の単体テストクラスです。
  */
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@TestPropertySource(properties = "spring.messages.basename=i18n/messages")
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AnnouncementApplicationServiceTest {
 
   @Mock
@@ -46,33 +51,20 @@ public class AnnouncementApplicationServiceTest {
   private AnnouncementHistoryRepository announcementHistoryRepository;
   @Mock
   private AnnouncementContentHistoryRepository announcementContentHistoryRepository;
-  @Mock
-  private ApplicationContextWrapper applicationContextWrapper;
-
+  @Autowired
+  private MessageSource messages;
+  @Autowired
+  private ApplicationContext applicationContext;
   private AnnouncementApplicationService service;
-  private ResourceBundleMessageSource messageSource;
-  private MockedStatic<ApplicationContextWrapper> mockedApplicationContextWrapper;
 
   @BeforeEach
   void setUp() {
-    messageSource = new ResourceBundleMessageSource();
-    messageSource.setBasenames("i18n/messages");
-    messageSource.setDefaultEncoding("UTF-8");
+    // ApplicationContextWrapper を初期化
+    ApplicationContextWrapper wrapper = new ApplicationContextWrapper();
+    wrapper.setApplicationContext(applicationContext);
+
     service = new AnnouncementApplicationService(announcementRepository, announcementContentRepository,
-        announcementHistoryRepository, announcementContentHistoryRepository, messageSource);
-
-    // ApplicationContextWrapper の静的メソッドをモック
-    mockedApplicationContextWrapper = mockStatic(ApplicationContextWrapper.class);
-    mockedApplicationContextWrapper
-        .when(() -> ApplicationContextWrapper.getBean(org.springframework.context.MessageSource.class))
-        .thenReturn(messageSource);
-  }
-
-  @AfterEach
-  void tearDown() {
-    if (mockedApplicationContextWrapper != null) {
-      mockedApplicationContextWrapper.close();
-    }
+        announcementHistoryRepository, announcementContentHistoryRepository, messages);
   }
 
   @Test
@@ -325,9 +317,9 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     AnnouncementContent jaContent = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
     AnnouncementContent enContent = createContent("en", "Announcement Title", "Announcement Message");
-    Announcement announcement = new Announcement(null, "WARN", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.HIGH,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(jaContent, enContent));
+    Announcement announcement = new Announcement(UUID.randomUUID(), "WARN", OffsetDateTime.now(), null,
+        DisplayPriorityConstants.HIGH, OffsetDateTime.now(), OffsetDateTime.now(), false,
+        List.of(jaContent, enContent));
     String username = "testuser";
 
     // Act
@@ -356,7 +348,7 @@ public class AnnouncementApplicationServiceTest {
     OffsetDateTime postDateTime = OffsetDateTime.now();
     OffsetDateTime expireDateTime = postDateTime.minusDays(1);
     AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = new Announcement(null, "INFO", postDateTime, expireDateTime, 1,
+    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", postDateTime, expireDateTime, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
     String username = "testuser";
 
@@ -371,7 +363,7 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
     OffsetDateTime expireDateTime = OffsetDateTime.now().plusDays(7);
-    Announcement announcement = new Announcement(null, "INFO", null, expireDateTime, 1,
+    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", null, expireDateTime, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
     String username = "testuser";
 
@@ -385,7 +377,7 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_コンテンツがnullの場合例外が発生する() {
     // Arrange
-    Announcement announcement = new Announcement(null, "INFO", OffsetDateTime.now(), null, 1,
+    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     String username = "testuser";
 
@@ -397,7 +389,7 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_コンテンツが空の場合例外が発生する() {
     // Arrange
-    Announcement announcement = new Announcement(null, "INFO", OffsetDateTime.now(), null, 1,
+    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
     String username = "testuser";
 
@@ -426,7 +418,7 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     OffsetDateTime sameDateTime = OffsetDateTime.now();
     AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = new Announcement(null, "INFO", sameDateTime, sameDateTime, 1,
+    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", sameDateTime, sameDateTime, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
     String username = "testuser";
 
@@ -471,8 +463,8 @@ public class AnnouncementApplicationServiceTest {
   }
 
   private Announcement createAnnouncement(List<AnnouncementContent> contents) {
-    return new Announcement(null, "INFO", OffsetDateTime.now(), null, DisplayPriorityConstants.MEDIUM,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, contents);
+    return new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null,
+        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false, contents);
   }
 
   private List<Announcement> createAnnouncementList(int count) {
