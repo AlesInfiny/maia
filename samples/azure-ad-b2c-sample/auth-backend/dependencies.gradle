@@ -1,24 +1,26 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.5.5"
+    springBootVersion = "4.0.0"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.4.3"
+    spotbugsVersion = "6.4.7"
 
     // -- TOOLS
     jacocoToolVersion = "0.8.14"
-    checkstyleToolVersion = "12.0.1"
+    checkstyleToolVersion = "12.2.0"
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "2.8.13"
+    springdocOpenapiVersion = "3.0.0"
     springCloudAzureVersion = "6.0.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
-        spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
+        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
+        spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
+        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
 
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
 
