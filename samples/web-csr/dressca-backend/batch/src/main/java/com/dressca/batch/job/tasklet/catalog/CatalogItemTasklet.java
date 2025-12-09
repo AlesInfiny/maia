@@ -47,7 +47,7 @@ public class CatalogItemTasklet implements Tasklet {
     });
 
     // CSV へ出力する writer の準備
-    String outputPath = (output == null || "".equals(output))
+    String outputPath = (output == null || output.isEmpty())
         ? "output/catalogItem_tasklet.csv"
         : "output/" + output;
 
