@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+  <!-- 自動生成クラスはチェックしない -->
+  <suppress checks=".*" files="com[\\/]dressca[\\/]cms[\\/]announcement[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
+  <suppress checks=".*" files="com[\\/]dressca[\\/]cms[\\/]authentication[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
+  <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
+  <suppress checks="MethodName" files=".*Test.java$"/>
+  <!-- メッセージクラスの文字数はチェックしない -->
+  <suppress checks="LineLength" files=".*MessageIdConstants.java$"/>
+  <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->
+  <suppress checks="IllegalCatch" files=".*Test.java$"/>
+</suppressions>

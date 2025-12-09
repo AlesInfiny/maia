@@ -1,0 +1,55 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'com.dressca.cms'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation supportDependencies.spring_boot_starter_webmvc
+	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.spring_boot_starter_actuator
+	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+	implementation supportDependencies.commons_lang3
+	implementation supportDependencies.h2database
+	implementation supportDependencies.spring_boot_starter_thymeleaf
+	implementation supportDependencies.thymeleaf_layout_dialect
+	implementation supportDependencies.spring_boot_starter_log4j2
+	
+	implementation project(':announcement')
+	implementation project(':authentication')
+	implementation project(':system-common')
+
+	testImplementation supportDependencies.spring_boot_starter_test
+	compileOnly supportDependencies.servlet_api
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
+	group = 'application'
+	description = 'Runs this project as a Spring Boot Application using local profile.'
+	args = ["--spring.profiles.active=local"]
+	mainClass = 'com.dressca.cms.web.WebApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
