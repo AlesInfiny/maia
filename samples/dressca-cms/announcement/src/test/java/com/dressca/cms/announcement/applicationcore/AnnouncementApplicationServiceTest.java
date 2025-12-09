@@ -72,7 +72,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 1;
     int pageSize = 20;
-    setupPagedListMock(50L, 0, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -90,8 +91,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     Integer pageNumber = null;
     int pageSize = 20;
-    setupPagedListMock(50L, 0, 20, 20);
-
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
 
@@ -104,7 +105,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 1;
     Integer pageSize = null;
-    setupPagedListMock(50L, 0, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -118,7 +120,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 1;
     int pageSize = 9;
-    setupPagedListMock(50L, 0, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -132,7 +135,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 1;
     int pageSize = 201;
-    setupPagedListMock(50L, 0, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -146,8 +150,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 0;
     int pageSize = 20;
-    setupPagedListMock(50L, 0, 20, 20);
-
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
 
@@ -160,7 +164,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 4;
     int pageSize = 20;
-    setupPagedListMock(50L, 0, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(0, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -190,7 +195,8 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     int pageNumber = 2;
     int pageSize = 20;
-    setupPagedListMock(50L, 20, 20, 20);
+    when(announcementRepository.countByIsDeletedFalse()).thenReturn(50L);
+    when(announcementRepository.findByOffsetAndLimit(20, 20)).thenReturn(createAnnouncementList(20));
 
     // Act
     PagedAnnouncementList result = service.getPagedAnnouncementList(pageNumber, pageSize);
@@ -203,11 +209,11 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testGetPagedAnnouncementList_正常系_言語コード優先順に従って日本語が選択される() {
     // Arrange
-    AnnouncementContent jaContent = createContent("ja", "title", "message");
-    AnnouncementContent enContent = createContent("en", "title", "message");
-    Announcement announcement = new Announcement(null, "INFO", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false,
-        List.of(enContent, jaContent));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent jaContent = createContent(announcement.getId(), "ja", "タイトル", "メッセージ");
+    AnnouncementContent enContent = createContent(announcement.getId(), "en", "title", "message");
+    announcement.setContents(List.of(enContent, jaContent));
+
     int pageNumber = 1;
     int pageSize = 20;
     when(announcementRepository.countByIsDeletedFalse()).thenReturn(1L);
@@ -223,9 +229,9 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testGetPagedAnnouncementList_正常系_日本語がない場合英語が選択される() {
     // Arrange
-    AnnouncementContent enContent = createContent("en", "title", "message");
-    Announcement announcement = new Announcement(null, "INFO", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(enContent));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent enContent = createContent(announcement.getId(), "en", "title", "message");
+    announcement.setContents(List.of(enContent));
     int pageNumber = 1;
     int pageSize = 20;
     when(announcementRepository.countByIsDeletedFalse()).thenReturn(1L);
@@ -241,9 +247,7 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testSelectPriorityContent_正常系_コンテンツがnullの場合スキップされる() {
     // Arrange
-    UUID announcementId = UuidGenerator.generate();
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement = createAnnouncementWithoutContent();
     int pageNumber = 1;
     int pageSize = 20;
     when(announcementRepository.countByIsDeletedFalse()).thenReturn(1L);
@@ -259,9 +263,8 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testSelectPriorityContent_正常系_コンテンツが空の場合スキップされる() {
     // Arrange
-    UUID announcementId = UuidGenerator.generate();
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
+    Announcement announcement = createAnnouncementWithoutContent();
+    announcement.setContents(new ArrayList<>());
     int pageNumber = 1;
     int pageSize = 20;
     when(announcementRepository.countByIsDeletedFalse()).thenReturn(1L);
@@ -277,12 +280,10 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testSelectPriorityContent_正常系_未知の言語コードの場合最初のコンテンツが選択される() {
     // Arrange
-    UUID announcementId = UuidGenerator.generate();
-    UUID contentId = UuidGenerator.generate();
-    AnnouncementContent unknownContent = new AnnouncementContent(contentId, announcementId, "unknown",
-        "Unknown Title", "Unknown Message", null);
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(unknownContent));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent unknownContent = createContent(announcement.getId(), "unknown",
+        "Unknown Title", "Unknown Message");
+    announcement.setContents(List.of(unknownContent));
     int pageNumber = 1;
     int pageSize = 20;
     when(announcementRepository.countByIsDeletedFalse()).thenReturn(1L);
@@ -298,8 +299,9 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_正常系_お知らせメッセージと履歴が正しく登録される() throws AnnouncementValidationException {
     // Arrange
-    AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = createAnnouncement(List.of(content));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
     String username = "testuser";
 
     // Act
@@ -315,11 +317,11 @@ public class AnnouncementApplicationServiceTest {
   void testAddAnnouncementAndHistory_正常系_複数言語のコンテンツが正しく登録される()
       throws AnnouncementValidationException {
     // Arrange
-    AnnouncementContent jaContent = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    AnnouncementContent enContent = createContent("en", "Announcement Title", "Announcement Message");
-    Announcement announcement = new Announcement(UUID.randomUUID(), "WARN", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.HIGH, OffsetDateTime.now(), OffsetDateTime.now(), false,
-        List.of(jaContent, enContent));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent jaContent = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    AnnouncementContent enContent = createContent(announcement.getId(), "en", "Announcement Title",
+        "Announcement Message");
+    announcement.setContents(List.of(jaContent, enContent));
     String username = "testuser";
 
     // Act
@@ -333,8 +335,9 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_無効な言語コードの場合例外が発生する() {
     // Arrange
-    AnnouncementContent invalidContent = createContent("invalid", "タイトル", "メッセージ");
-    Announcement announcement = createAnnouncement(List.of(invalidContent));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent invalidContent = createContent(announcement.getId(), "invalid", "タイトル", "メッセージ");
+    announcement.setContents(List.of(invalidContent));
     String username = "testuser";
 
     // Act & Assert
@@ -347,9 +350,10 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     OffsetDateTime postDateTime = OffsetDateTime.now();
     OffsetDateTime expireDateTime = postDateTime.minusDays(1);
-    AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", postDateTime, expireDateTime, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", postDateTime, expireDateTime, 1,
+        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
     String username = "testuser";
 
     // Act & Assert
@@ -361,10 +365,11 @@ public class AnnouncementApplicationServiceTest {
   void testAddAnnouncementAndHistory_正常系_掲載開始日時がnullで掲載終了日時が指定されている場合正常に登録される()
       throws AnnouncementValidationException {
     // Arrange
-    AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
     OffsetDateTime expireDateTime = OffsetDateTime.now().plusDays(7);
-    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", null, expireDateTime, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", null, expireDateTime, 1,
+        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
     String username = "testuser";
 
     // Act
@@ -377,7 +382,7 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_コンテンツがnullの場合例外が発生する() {
     // Arrange
-    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null, 1,
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     String username = "testuser";
 
@@ -389,7 +394,7 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_コンテンツが空の場合例外が発生する() {
     // Arrange
-    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null, 1,
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
     String username = "testuser";
 
@@ -401,9 +406,10 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_言語コードが重複している場合例外が発生する() {
     // Arrange
-    AnnouncementContent jaContent1 = createContent("ja", "お知らせタイトル1", "お知らせメッセージ1");
-    AnnouncementContent jaContent2 = createContent("ja", "お知らせタイトル2", "お知らせメッセージ2");
-    Announcement announcement = createAnnouncement(List.of(jaContent1, jaContent2));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent jaContent1 = createContent(announcement.getId(), "ja", "お知らせタイトル1", "お知らせメッセージ1");
+    AnnouncementContent jaContent2 = createContent(announcement.getId(), "ja", "お知らせタイトル2", "お知らせメッセージ2");
+    announcement.setContents(List.of(jaContent1, jaContent2));
     String username = "testuser";
 
     // Act & Assert
@@ -417,9 +423,10 @@ public class AnnouncementApplicationServiceTest {
       throws AnnouncementValidationException {
     // Arrange
     OffsetDateTime sameDateTime = OffsetDateTime.now();
-    AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = new Announcement(UUID.randomUUID(), "INFO", sameDateTime, sameDateTime, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", sameDateTime, sameDateTime, 1,
+        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
     String username = "testuser";
 
     // Act
@@ -433,8 +440,10 @@ public class AnnouncementApplicationServiceTest {
   void testAddAnnouncementAndHistory_正常系_掲載終了日時がnullの場合正常に登録される()
       throws AnnouncementValidationException {
     // Arrange
-    AnnouncementContent content = createContent("ja", "お知らせタイトル", "お知らせメッセージ");
-    Announcement announcement = createAnnouncement(List.of(content));
+    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
+        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
     String username = "testuser";
 
     // Act
@@ -447,9 +456,10 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_複数の無効な言語コードがある場合複数のエラーが発生する() {
     // Arrange
-    AnnouncementContent invalidContent1 = createContent("invalid1", "タイトル1", "メッセージ1");
-    AnnouncementContent invalidContent2 = createContent("invalid2", "タイトル2", "メッセージ2");
-    Announcement announcement = createAnnouncement(List.of(invalidContent1, invalidContent2));
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent invalidContent1 = createContent(announcement.getId(), "invalid1", "タイトル1", "メッセージ1");
+    AnnouncementContent invalidContent2 = createContent(announcement.getId(), "invalid2", "タイトル2", "メッセージ2");
+    announcement.setContents(List.of(invalidContent1, invalidContent2));
     String username = "testuser";
 
     // Act & Assert
@@ -458,25 +468,44 @@ public class AnnouncementApplicationServiceTest {
     assertThat(exception.getErrorMessages()).hasSize(2);
   }
 
-  private AnnouncementContent createContent(String languageCode, String title, String message) {
-    return new AnnouncementContent(null, null, languageCode, title, message, "https://example.com");
+  /**
+   * お知らせコンテンツを作成します。
+   * 
+   * @param announcementId お知らせメッセージ ID 。
+   * @param languageCode   言語コード。
+   * @param title          タイトル。
+   * @param message        メッセージ。
+   * @return お知らせコンテンツ。
+   */
+  private AnnouncementContent createContent(UUID announcementId, String languageCode, String title, String message) {
+    return new AnnouncementContent(UuidGenerator.generate(), announcementId, languageCode, title, message,
+        "https://example.com");
   }
 
-  private Announcement createAnnouncement(List<AnnouncementContent> contents) {
-    return new Announcement(UUID.randomUUID(), "INFO", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false, contents);
+  /**
+   * お知らせコンテンツが空のお知らせメッセージを作成します。
+   * 
+   * @return お知らせコンテンツが空のお知らせメッセージ。
+   */
+  private Announcement createAnnouncementWithoutContent() {
+    return new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null,
+        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
   }
 
+  /**
+   * お知らせメッセージのリストを作成します。
+   * 
+   * @param count 作成するお知らせメッセージの件数。
+   * @return 日本語のお知らせコンテンツを持つお知らせメッセージのリスト。
+   */
   private List<Announcement> createAnnouncementList(int count) {
     List<Announcement> announcements = new ArrayList<>();
     for (int i = 0; i < count; i++) {
-      announcements.add(createAnnouncement(List.of(createContent("ja", "お知らせタイトル", "お知らせメッセージ"))));
+      Announcement announcement = createAnnouncementWithoutContent();
+      List<AnnouncementContent> content = List.of(createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ"));
+      announcement.setContents(content);
+      announcements.add(announcement);
     }
     return announcements;
-  }
-
-  private void setupPagedListMock(long totalCount, int offset, int limit, int resultSize) {
-    when(announcementRepository.countByIsDeletedFalse()).thenReturn(totalCount);
-    when(announcementRepository.findByOffsetAndLimit(offset, limit)).thenReturn(createAnnouncementList(resultSize));
   }
 }
