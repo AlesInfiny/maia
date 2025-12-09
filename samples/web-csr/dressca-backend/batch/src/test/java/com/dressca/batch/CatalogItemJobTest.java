@@ -35,7 +35,7 @@ import com.dressca.batch.job.BatchConfiguration;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
   @Autowired
-  private JobOperatorTestUtils JobOperatorTestUtils;
+  private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
   @Qualifier("catalogItem_job")
@@ -53,7 +53,7 @@ public class CatalogItemJobTest {
 
   @BeforeAll
   public void initJobOperatorTestUtils() {
-    JobOperatorTestUtils.setJob(catalogItemJob);
+    jobOperatorTestUtils.setJob(catalogItemJob);
   }
 
   /**
@@ -74,7 +74,7 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_empty() throws Exception {
-    JobExecution jobExecution = this.JobOperatorTestUtils.startJob();
+    JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -92,7 +92,7 @@ public class CatalogItemJobTest {
   public void jobTest_10data() throws Exception {
     // テストデータ追加
     insertTestData();
-    JobExecution jobExecution = this.JobOperatorTestUtils.startJob();
+    JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -111,7 +111,7 @@ public class CatalogItemJobTest {
     // テストデータ追加
     insertTestData();
     // ステップを実行
-    JobExecution jobExecution = this.JobOperatorTestUtils.startStep("catalogItem_step1");
+    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
