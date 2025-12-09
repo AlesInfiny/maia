@@ -26,7 +26,7 @@ public class CatalogItemWriterConf {
   @StepScope
   public FlatFileItemWriter<CatalogItem> csvFileItemWriter(@Value("#{jobParameters['output']}") String output)
       throws Exception {
-    String outputPath = (output == null || "".equals(output))
+    String outputPath = (output == null || output.isEmpty())
         ? "output/outputData.csv"
         : "output/" + output;
 
