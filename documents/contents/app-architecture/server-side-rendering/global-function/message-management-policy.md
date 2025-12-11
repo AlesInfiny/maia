@@ -6,6 +6,15 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 # メッセージ管理方針 {#top}
 
 メッセージ文字列は、表記の統一を図ることを目的にプロパティファイルで管理します。
+メッセージは用途に応じて以下の 2 種類に分類します。
+
+- 業務メッセージ
+
+   業務ロジックで使用されるエラーメッセージや警告文など。
+
+- UI メッセージ
+
+   ラベル、ボタン名、画面固有の文言といった画面表示用のメッセージ。
 
 ## メッセージの管理単位 {#management-unit}
 
@@ -39,13 +48,21 @@ root/ -------------------------------------------------- root フォルダー
 ## プロパティファイルの管理 {#property-file-management}
 
 プロパティファイルでは、以下のようにメッセージ文字列を識別するメッセージコードとメッセージ文字列本体をペアで管理します。
+
+### 業務メッセージ {#buiness-messages}
+
+業務メッセージの管理方針については、[こちら](../../overview/java-application-processing-system/message-management-policy.md) を参照してください。
+
+### UI メッセージ {#ui-messages}
+
 メッセージコードは、アプリケーション内で重複しないように設定する必要があるため、以下のように `<機能名>.<画面名>.<項目名>` で設定します。
 
-```properties
-# register_ja.properties
-announcement.register.title=お知らせ登録画面
-# edit_ja.properties
-announcement.edit.title=お知らせ編集画面
+```properties title="register_ja.properties"
+announcement.register.message1=お知らせ登録画面のメッセージ文字列
+```
+
+```properties title="edit_ja.properties"
+announcement.edit.message1=お知らせ編集画面のメッセージ文字列
 ```
 
 ## 多言語対応 {#localization}
@@ -56,7 +73,7 @@ announcement.edit.title=お知らせ編集画面
 
 Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/i18n/AcceptHeaderLocaleResolver.html) を利用して、ブラウザーの言語設定を取得します。
 
-対応していない言語の場合は、 AcceptHeaderLocaleResolver の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
+対応していない言語の場合は、 `!java AcceptHeaderLocaleResolver` の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
 
 ### プロパティファイルの読み込み {#reading-property-files}
 
@@ -71,5 +88,5 @@ Spring Framework で提供されている [`#!java PathMatchingResourcePatternRe
 以下のように、構文内にはプロパティファイルで定義したメッセージコードを記述します。
 
 ```html
-<h1 th:text="#{announcement.register.title}"></h1>
+<h1 th:text="#{announcement.register.message1}"></h1>
 ```
