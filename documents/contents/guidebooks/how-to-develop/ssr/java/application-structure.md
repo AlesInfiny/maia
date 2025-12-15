@@ -1,6 +1,6 @@
 ---
-title: Java 編 （CSR 編）
-description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
+title: Java 編 （SSR 編）
+description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # アプリケーションの全体構造 {#top}
