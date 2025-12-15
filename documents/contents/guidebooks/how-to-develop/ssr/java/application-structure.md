@@ -14,8 +14,8 @@ AlesInfiny Maia OSS Edition において、サーバーサイドで動作する 
 本ガイドでは Spring Initializr を用いてマルチプロジェクト構成の Java アプリケーションを作成します。
 作成するルートプロジェクトの全体構成は以下の図の通りです。
 
-![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/csr/java/rootproject-structure-light.png#only-light){ loading=lazy }
-![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/csr/java/rootproject-structure-dark.png#only-dark){ loading=lazy }
+![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/ssr/java/rootproject-structure-light.png#only-light){ loading=lazy }
+![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/ssr/java/rootproject-structure-dark.png#only-dark){ loading=lazy }
 
 各サブプロジェクトはアプリケーションコア層、プレゼンテーション層、インフラストラクチャ層、バッチ層、システム共通機能にそれぞれ対応します。
 構成に必要なサブプロジェクトはアプリケーション形態によって異なるため、[各アプリケーション形態のアーキテクチャ](../../../../app-architecture/index.md) を参照してください。
