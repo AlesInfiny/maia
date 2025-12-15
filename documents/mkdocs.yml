@@ -119,6 +119,27 @@ nav:
               - CORS 環境の構築:
                   - guidebooks/how-to-develop/csr/cors/index.md
                   - Cookie の設定: guidebooks/how-to-develop/csr/cors/cookie.md
+          - SSR 編:
+              - guidebooks/how-to-develop/ssr/index.md
+              - Java 編:
+                  - guidebooks/how-to-develop/ssr/java/index.md
+                  - 事前準備: guidebooks/how-to-develop/ssr/java/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/ssr/java/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/ssr/java/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/ssr/java/common-project-settings.md
+                  - サブプロジェクトの個別設定:
+                      - guidebooks/how-to-develop/ssr/java/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/web-project-settings.md
+                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/infrastructure-project-settings.md
+                      - application-core プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/application-core-project-settings.md
+                      - batch プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/batch-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/system-common-project-settings.md
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/ssr/java/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/mybatis-generator-settings.md
+              - ローカル開発環境の構築:
+                  - guidebooks/how-to-develop/ssr/local-environment/index.md
       # - 規約:
       #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
       - コーディング規約: guidebooks/conventions/coding-conventions.md
