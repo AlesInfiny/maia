@@ -17,50 +17,17 @@ Visual Studio Code の場合、 [Spring Boot Extension Pack :material-open-in-ne
 
 ## ルートプロジェクトの作成 {#create-root-project}
 
-ルートプロジェクトの雛型を Spring Initializr を利用して作成します。
-Web 画面上の各種設定項目は以下の通りです。
+ルートプロジェクトの作成手順は CSR 編と同様です。
 
-- Project
-
-    プロジェクトのビルドツールを `Gradle - Groovy` 、 `Gradle - Kotlin` 、 `Maven` から選択します。
-    AlesInfiny Maia OSS Edition ではデフォルトのビルドツールを Gradle Groovy DSL としているため、　Spring Initializr では `Gradle - Groovy` を選択しています。
-    以降の説明でも `Gradle - Groovy` でビルドすることを前提として解説していますが、 `Gradle - Kotlin` や `Maven` も選択できます。
-
-- Language
-
-    開発言語として Java を選択します。
-
-- Spring Boot
-  
-    利用する Spring Boot のバージョンを選択します。
-    ベースとなる JDK や Spring Framework のバージョンを考慮して選択します。
-    特に考慮点がなければ最新の GA 版を選択することを推奨します。
-    選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン :material-open-in-new:](https://spring.io/projects/spring-boot#support){ target=_blank } に限られ、古いバージョンは指定できません。
-
-- Project Metadata：Artifact
-
-    プロジェクトの基点のフォルダー名となるプロジェクト名を設定します。
-
-- Project Metadata : Java
-
-    利用する環境の Java のバージョンを選択します。
-
-- Project Metadata：その他
-
-    ルートプロジェクトの雛型作成では設定不要 ( 任意 ) です。
-
-- Dependencies
-
-    各サブプロジェクト全体で利用するパッケージがあれば登録します。
-    本ガイドでは後続手順の [プロジェクトの共通設定](./common-project-settings.md) にて追加するため設定不要 ( 任意 ) です。
+[CSR編 > Java編 > プロジェクトの雛形作成 > ルートプロジェクトの作成](../../csr/java/create-project.md#create-root-project) を参照して、ルートプロジェクトを作成してください。
 
 ## サブプロジェクトの作成 {#create-sub-projects}
 
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
-AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
+AlesInfiny Maia OSS Edition では、アプリケーションの機能、プレゼンテーション層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
 
-![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-light.png#only-light){ loading=lazy }
-![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
+![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/ssr/java/recommended-subproject-light.png#only-light){ loading=lazy }
+![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/ssr/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
 
 以下、サブプロジェクト毎に異なる設定項目について説明します。
 その他の項目はルートプロジェクトと同様に設定してください。
@@ -83,7 +50,7 @@ AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレ�
 - Project Metadata：Package Name
 
     パッケージ名を設定します。
-    通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.application-core というパッケージ名であれば、 com.example.applicationcore のように修正してください。
+    通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.system-common というパッケージ名であれば、 com.example.systemcommon のように修正してください。
 
 - Dependencies
 
@@ -98,7 +65,8 @@ AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレ�
 各雛型は zip 形式で生成されるため、まずは全ての雛型を展開します。
 次にルートプロジェクト内の src フォルダーを削除します。
 その後、ルートプロジェクトのフォルダー直下に各サブプロジェクトのフォルダーを配置します。
+各機能のサブプロジェクト内に、アプリケーションコア層およびインフラストラクチャ層のフォルダーを作成します。
 これらの手順を行った後のフォルダーの構成は以下の通りです。
 
-![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/csr/java/springboot-project-structure-light.png#only-light){ loading=lazy }
-![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/csr/java/springboot-project-structure-dark.png#only-dark){ loading=lazy }
+![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/ssr/java/springboot-project-structure-light.png#only-light){ loading=lazy }
+![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/ssr/java/springboot-project-structure-dark.png#only-dark){ loading=lazy }
