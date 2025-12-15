@@ -1,6 +1,6 @@
 ---
-title: Java 編 （CSR 編）
-description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
+title: Java 編 （SSR 編）
+description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # サブプロジェクトの個別設定 {#top}
@@ -12,24 +12,16 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 以降解説するサブプロジェクトとそれぞれの依存関係は図の通りです。
 
-![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/csr/java/subproject-dependencies-light.png#only-light){ loading=lazy }
-![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/csr/java/subproject-dependencies-dark.png#only-dark){ loading=lazy }
+![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/ssr/java/subproject-dependencies-light.png#only-light){ loading=lazy }
+![サブプロジェクトの依存関係](../../../../../images/guidebooks/how-to-develop/ssr/java/subproject-dependencies-dark.png#only-dark){ loading=lazy }
 
 1. [web プロジェクトの設定](./web-project-settings.md)
 
     web プロジェクトに対して個別に実施する設定について解説します。
 
-1. [infrastructure プロジェクトの設定](./infrastructure-project-settings.md)
+1. [機能モジュールプロジェクトの設定](./infrastructure-project-settings.md)
 
-    infrastructure プロジェクトに対して個別に実施する設定について解説します。
-
-1. [application-core プロジェクトの設定](./application-core-project-settings.md)
-
-    application-core プロジェクトに対して個別に実施する設定について解説します。
-
-1. [batch プロジェクトの設定](./batch-project-settings.md)
-
-    batch プロジェクトに対して個別に実施する設定について解説します。
+    機能モジュールプロジェクトに対して個別に実施する設定について解説します。
 
 1. [system-common プロジェクトの設定](./system-common-project-settings.md)
 
@@ -49,4 +41,4 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 1. [MyBatis Generator の設定](./mybatis-generator-settings.md)
 
-    infrastructure プロジェクトに対して MyBatis Generator の設定を追加する方法について解説します。
+    機能モジュールプロジェクトに対して MyBatis Generator の設定を追加する方法について解説します。
