@@ -1,6 +1,6 @@
 ---
-title: Java 編 （CSR 編）
-description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
+title: Java 編 （SSR 編）
+description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
 # 事前準備 {#top}
@@ -11,22 +11,5 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 ## Visual Studio Code の拡張機能インストール {#install-extensions}
 
-Visual Studio Code を利用する場合、 Java アプリケーションを開発するために以下の拡張機能をインストールします。
-
-- [Spring Boot Extension Pack :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack){ target=_blank }
-
-    Spring Boot アプリケーションの開発とデプロイを提供します。
-
-- [Extension Pack for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack){ target=_blank }
-
-    Java アプリケーションの作成、テスト、デバッグ等の基本的な機能を提供します。
-
-    <!-- textlint-disable ja-technical-writing/sentence-length -->
-
-    アプリケーションの起動で利用する [Gradle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle){ target=_blank } やコード補完やエラーレポートを提供する [Language Support for Java(TM) by Red Hat :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=redhat.java){ target=_blank } といったの拡張機能が追加でインストールされます。
-
-    <!-- textlint-enable ja-technical-writing/sentence-length -->
-
-- [Lombok Annotations Support for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-lombok){ target=_blank }
-
-    Java アプリケーションにおける Lombok アノテーションのサポートを提供します。
+SSR アプリケーションの開発に必要な拡張機能は、 原則 CSR 編と同一です。
+そのため、 [CSR編 > Java編 > 事前準備](../../csr/java/preparation.md#install-extensions) を参照し、必要なソフトウェアをインストールしてください。
