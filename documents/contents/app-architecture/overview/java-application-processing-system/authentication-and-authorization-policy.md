@@ -47,7 +47,7 @@ OAuth 2.0 は、ユーザーが自分の認証情報（ユーザー名やパス�
 
 ユーザー情報 + パスワードによる認証機能を実現するには、 [Spring Security :material-open-in-new:](https://spring.io/projects/spring-security){ target=_blank } を使用します。
 ユーザー情報は、データベースに保存されているものを使用します。
-パスワードはハッシュ化して保存し、ハッシュ化には [Bcrypt :material-open-in-new:](https://docs.spring.io/spring-security/reference/api/java/org/springframework/security/crypto/bcrypt/BCrypt.html){ target=_blank } を使用します。
+パスワードはハッシュ化して保存し、ハッシュ化には [Bcrypt :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html){ target=_blank } を使用します。
 
 #### 認可の方針 {#mail-and-password-authorization-policy}
 

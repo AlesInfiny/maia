@@ -7,7 +7,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 
 ## エラーメッセージコードの統一 {#unification-of-message-codes}
 
-CSR におけるエラー発生時のメッセージ整形の流れを以下に示します。
+CSR アプリケーションにおけるエラー発生時のメッセージ整形の流れを以下に示します。
 
 ![エラーメッセージ整形の流れ](../../../images/app-architecture/client-side-rendering/error-message-delivery-light.png#only-light){ loading=lazy }
 ![エラーメッセージ整形の流れ](../../../images/app-architecture/client-side-rendering/error-message-delivery-dark.png#only-dark){ loading=lazy }

@@ -10,11 +10,11 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 
 - 業務メッセージ
 
-   業務ロジックで使用されるエラーメッセージや警告文など。
+    業務ロジックで使用されるエラーメッセージや警告文など。
 
 - UI メッセージ
 
-   ラベル、ボタン名、画面固有の文言といった画面表示用のメッセージ。
+    ラベル、ボタン名、画面固有の文言といった画面表示用のメッセージ。
 
 ## メッセージの管理単位 {#management-unit}
 
@@ -73,7 +73,7 @@ announcement.edit.message1=お知らせ編集画面のメッセージ文字列
 
 Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/i18n/AcceptHeaderLocaleResolver.html) を利用して、ブラウザーの言語設定を取得します。
 
-対応していない言語の場合は、 `!java AcceptHeaderLocaleResolver` の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
+対応していない言語の場合は、 `#!java AcceptHeaderLocaleResolver` の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
 
 ### プロパティファイルの読み込み {#reading-property-files}
 

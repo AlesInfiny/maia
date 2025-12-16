@@ -5,4 +5,4 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 
 # 認証・認可方針 {#top}
 
-認証・認可機能の方針については、 [Java アプリケーションの処理方式 - 認証・認可機能の方針](../../overview/java-application-processing-system/health-check-policy.md) を参照してください。
+認証・認可機能の方針については、 [Java アプリケーションの処理方式 - 認証・認可機能の方針](../../overview/java-application-processing-system/authentication-and-authorization-policy.md) を参照してください。

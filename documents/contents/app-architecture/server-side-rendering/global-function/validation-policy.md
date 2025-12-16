@@ -14,11 +14,11 @@ description: SSR アプリケーション全体で考慮すべきアーキテク
 ## 単項目チェック {#single-item-check}
 
 入力必須チェック、桁チェック、型チェックなど、単一の項目のみで完結する入力チェックです。
-バックエンドアプリケーションでは、誤った入力情報がシステムに投入されることを防止する目的に行います。
+SSR アプリケーションでは、誤った入力情報がシステムに投入されることを防止する目的に行います。
 
 入力チェックは Bean Validation を利用して行います。
 ビューモデルのフィールドに単項目チェックを行うアノテーションを付与します。
-また、 [`#!java @Validated` :material-open-in-new:](https://docs.spring.io/spring-boot/reference/io/validation.html){ target=_blank } アノテーションのバリデーショングループを使用して、メソッドごとにバリデーションを切り替えます。
+また、 [`#!java @Validated` :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core/validation/beanvalidation.html#validation-beanvalidation-spring-method-i18n){ target=_blank } アノテーションのバリデーショングループを使用して、メソッドごとにバリデーションを切り替えます。
 
 必要に応じて、ビューにもビューモデルと同様の入力チェックが可能なように実装します。
 ビューでの入力チェックは、 HTML5 のバリデーション機能を利用します。

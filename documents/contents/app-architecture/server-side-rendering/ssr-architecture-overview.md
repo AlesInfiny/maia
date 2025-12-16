@@ -39,7 +39,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
 
         Spring MVC は Spring Framework をベースとする Front Controller パターンの Web MVC フレームワークです。
 
-    - [Spring Validation :material-open-in-new:](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html){ target=_blank }
+    - [Spring Validation :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core/validation/beanvalidation.html){ target=_blank }
 
         Bean に対するデータの値チェック機能を提供するライブラリです。
         アノテーションベースで汎用的に利用できる値チェックが提供され、入力値チェック等が簡潔に実現できます。
@@ -132,7 +132,11 @@ Spring MVC のコントローラーに相当し、以下を行います。
 - HTTP リクエストの保持
 - 入力チェックのための Bean Validation のアノテーション付与
 
-ビューとビューモデルの間のデータのバインドには、 Thymeleaf で提供される [`th:object` や `th:field` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html){ target=_blank } のタグ属性を利用します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+ビューとビューモデルの間のデータのバインドには、 Thymeleaf で提供される [`th:object` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#handling-the-command-object) や [`th:field` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#inputs){ target=_blank } のタグ属性を利用します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ### アプリケーションコア層 {#application-core}
 
