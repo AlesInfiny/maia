@@ -14,7 +14,7 @@ description: バックエンドアプリケーションのアーキテクチャ�
 
 ### 単項目チェック {#single-item-check}
 
-単項目チェックは Bean Validation 仕様に準拠したバリデーションフレームワークである [Hibernate Validator](https://hibernate.org/validator/) を用いて実装します。
+単項目チェックは Bean Validation 仕様に準拠したバリデーションフレームワークである [Hibernate Validator :material-open-in-new:](https://hibernate.org/validator/){ target=_blank } を用いて実装します。
 API モデルに対してアノテーションを付与し、チェックルールを定義します。
 実装方法については [こちら :material-open-in-new:](https://docs.hibernate.org/stable/validator/reference/en-US/html_single/#chapter-bean-constraints){ target=_blank } を参照してください。
 

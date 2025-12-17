@@ -3,6 +3,8 @@ title: SSR 編 - 全体処理方式
 description: SSR アプリケーション全体で考慮すべきアーキテクチャについて、 その実装方針を説明します。
 ---
 
+<!-- cspell:ignore applicationcore -->
+
 # メッセージ管理方針 {#top}
 
 メッセージ文字列は、表記の統一を図ることを目的にプロパティファイルで管理します。
@@ -49,7 +51,7 @@ root/ -------------------------------------------------- root フォルダー
 
 プロパティファイルでは、以下のようにメッセージ文字列を識別するメッセージコードとメッセージ文字列本体をペアで管理します。
 
-### 業務メッセージ {#buiness-messages}
+### 業務メッセージ {#business-messages}
 
 業務メッセージの管理方針については、[こちら](../../overview/java-application-processing-system/message-management-policy.md) を参照してください。
 
@@ -71,15 +73,23 @@ announcement.edit.message1=お知らせ編集画面のメッセージ文字列
 
 ### ブラウザーの言語取得 {#getting-browser-language}
 
-Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/i18n/AcceptHeaderLocaleResolver.html) を利用して、ブラウザーの言語設定を取得します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/i18n/AcceptHeaderLocaleResolver.html){ target=_blank } を利用して、ブラウザーの言語設定を取得します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 対応していない言語の場合は、 `#!java AcceptHeaderLocaleResolver` の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
 
 ### プロパティファイルの読み込み {#reading-property-files}
 
-Spring Framework で提供されている [`#!java PathMatchingResourcePatternResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html) を利用して、プロパティファイルを読み込みます。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
-また、 [`#!java MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html) で提供されている機能を利用して、プロパティファイルの末尾に `_ja` や `_en` のような接尾辞を付与します。
+Spring Framework で提供されている [`#!java PathMatchingResourcePatternResolver` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html){ target=_blank } を利用して、プロパティファイルを読み込みます。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+また、 [`#!java MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } で提供されている機能を利用して、プロパティファイルの末尾に `_ja` や `_en` のような接尾辞を付与します。
 これにより、ブラウザーの言語設定に応じて読み込むプロパティファイルを切り替えます。
 
 #### HTML とのバインディング {#binding}

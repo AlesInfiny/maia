@@ -3,6 +3,8 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
+<!-- cspell:ignore applicationcore systemcommon -->
+
 # メッセージ管理方針 {#top}
 
 ## エラーメッセージコードの統一 {#unification-of-message-codes}
@@ -146,7 +148,7 @@ locales/ -------------------------------------- メッセージ管理を行う�
 
 基本的なメッセージ管理方針については、[Java アプリケーション処理方針 - メッセージ管理方針](../../overview/java-application-processing-system/message-management-policy.md) に従います。
 
-以降では、 CSR でメッセージを管理する際の方針について説明します。
+以降では、 CSR アプリケーションでメッセージを管理する際の方針について説明します。
 
 ### メッセージの管理単位 {#backend-management-unit}
 

@@ -134,7 +134,7 @@ Spring MVC のコントローラーに相当し、以下を行います。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-ビューとビューモデルの間のデータのバインドには、 Thymeleaf で提供される [`th:object` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#handling-the-command-object) や [`th:field` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#inputs){ target=_blank } のタグ属性を利用します。
+ビューとビューモデルの間のデータのバインドには、 Thymeleaf で提供される [`th:object` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#handling-the-command-object){ target=_blank } や [`th:field` :material-open-in-new:](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#inputs){ target=_blank } のタグ属性を利用します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
