@@ -12,11 +12,11 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-web`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
 
 - `h2`：テストやローカル実行で利用する組み込みの H2 データベース
 
-- `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
+- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
 
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 
@@ -24,23 +24,25 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
+- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
+
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-webmvc'
   implementation 'com.h2database:h2:x.x.x'
-  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+  implementation 'org.springframework.boot:spring-boot-h2console'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
 ```
 
 ??? info "各依存ライブラリのバージョンの参照先"
 
     - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
-    - [SpringDoc OpenAPI Starter WebMVC UI :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
 
