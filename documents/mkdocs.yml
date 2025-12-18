@@ -132,7 +132,6 @@ nav:
                       - web プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/web-project-settings.md
                       - infrastructure プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/infrastructure-project-settings.md
                       - application-core プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/application-core-project-settings.md
-                      - batch プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/batch-project-settings.md
                       - system-common プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/system-common-project-settings.md
                       - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/ssr/java/sub-project-settings/project-version-control.md
                       - メッセージ管理機能の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/message-management.md
