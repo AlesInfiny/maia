@@ -27,7 +27,7 @@ public class CatalogItemTasklet implements Tasklet {
 
   @Autowired
   private CatalogRepository repository;
-  @Value("#{jobParameters['output']}")
+  @Value("${output:#{null}}")
   String output;
 
   @Override
