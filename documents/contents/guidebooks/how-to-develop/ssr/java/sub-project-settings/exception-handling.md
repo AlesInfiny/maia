@@ -7,9 +7,7 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 
 集約例外ハンドラーの設定方法について解説します。集約例外ハンドラーを実装することで、複数のコントローラーで必要となる、プレゼンテーション層までで処理されなかった業務例外やシステム例外を一元的にハンドリングする機能を提供できます。
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）では、 RESTful API のエラーレスポンスの標準的な仕様である [RFC9457 :material-open-in-new:](https://datatracker.ietf.org/doc/html/rfc9457){ target=_blank } に準拠した形式でエラーレスポンスを返却します。その他の実装方針については、[こちら](../../../../../app-architecture/client-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
-<!-- textlint-enable ja-technical-writing/sentence-length -->
+AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）の集約例外ハンドラー実装方針については、[こちら](../../../../../app-architecture/server-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
 
 集約例外ハンドラーは web プロジェクトに実装します。本設定で利用するフォルダーの構成は以下の通りです。
 
@@ -24,18 +22,8 @@ root/ --------------------------------------------------- root フォルダー
 
 ## 集約例外ハンドラークラスの定義 {#exception-handler-class}
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-集約例外ハンドラークラスは [ResponseEntityExceptionHandler クラス :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.html){ target=_blank } の拡張クラスとして定義し、 `@ControllerAdvice` を付与します。
-<!-- textlint-enable ja-technical-writing/sentence-length -->
-
-`@ControllerAdvice` により、付与されたクラス内で実装された機能を全てのコントローラーに追加で適用できます。
-
-```java title="集約例外ハンドラークラスの例"
-@ControllerAdvice(basePackages = "プロジェクトのグループ名")
-public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler{
-  // 例外をハンドリングするメソッド
-}
-```
+集約例外ハンドラークラスの定義は CSR 編と同様です。
+[こちら](../../../csr/java/sub-project-settings/exception-handling.md#exception-handler-class) を参照してください。
 
 ## 例外ハンドリングするメソッドの定義 {#exception-handling-method}
 
