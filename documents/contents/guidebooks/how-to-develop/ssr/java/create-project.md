@@ -19,12 +19,12 @@ Visual Studio Code の場合、 [Spring Boot Extension Pack :material-open-in-ne
 
 ルートプロジェクトの作成手順は CSR 編と同様です。
 
-[CSR編 > Java編 > プロジェクトの雛形作成 > ルートプロジェクトの作成](../../csr/java/create-project.md#create-root-project) を参照して、ルートプロジェクトを作成してください。
+[こちら](../../csr/java/create-project.md#create-root-project) を参照して、ルートプロジェクトを作成してください。
 
 ## サブプロジェクトの作成 {#create-sub-projects}
 
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
-AlesInfiny Maia OSS Edition では、アプリケーションの機能、プレゼンテーション層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
+AlesInfiny Maia OSS Edition では、機能モジュール、プレゼンテーション層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
 
 ![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/ssr/java/recommended-subproject-light.png#only-light){ loading=lazy }
 ![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/ssr/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
@@ -65,7 +65,7 @@ AlesInfiny Maia OSS Edition では、アプリケーションの機能、プレ�
 各雛型は zip 形式で生成されるため、まずは全ての雛型を展開します。
 次にルートプロジェクト内の src フォルダーを削除します。
 その後、ルートプロジェクトのフォルダー直下に各サブプロジェクトのフォルダーを配置します。
-各機能のサブプロジェクト内に、アプリケーションコア層およびインフラストラクチャ層のフォルダーを作成します。
+各機能モジュール対応のサブプロジェクト内にアプリケーションコア層およびインフラストラクチャ層のフォルダーを追加します。
 これらの手順を行った後のフォルダーの構成は以下の通りです。
 
 ![SpringBootプロジェクトのフォルダー構成](../../../../images/guidebooks/how-to-develop/ssr/java/springboot-project-structure-light.png#only-light){ loading=lazy }
