@@ -17,5 +17,5 @@ AlesInfiny Maia OSS Edition において、サーバーサイドで動作する 
 ![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/ssr/java/rootproject-structure-light.png#only-light){ loading=lazy }
 ![ルートプロジェクトの全体構成](../../../../images/guidebooks/how-to-develop/ssr/java/rootproject-structure-dark.png#only-dark){ loading=lazy }
 
-各サブプロジェクトはアプリケーションコア層、機能モジュール、システム共通機能にそれぞれ対応します。
+各サブプロジェクトは機能モジュール、プレゼンテーション層、システム共通機能にそれぞれ対応します。
 構成に必要なサブプロジェクトはアプリケーション形態によって異なるため、[各アプリケーション形態のアーキテクチャ](../../../../app-architecture/index.md) を参照してください。
