@@ -7,7 +7,7 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 
 集約例外ハンドラーの設定方法について解説します。集約例外ハンドラーを実装することで、複数のコントローラーで必要となる、プレゼンテーション層までで処理されなかった業務例外やシステム例外を一元的にハンドリングする機能を提供できます。
 
-AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）の集約例外ハンドラー実装方針については、[こちら](../../../../../app-architecture/server-side-rendering/backend-application/presentation.md#exception-handling) を参照してください。
+SSR アプリケーションでは、エラー発生時にエラー情報を含んだ HTML ページをレンダリングしてユーザーに提示します。
 
 集約例外ハンドラーは web プロジェクトに実装します。本設定で利用するフォルダーの構成は以下の通りです。
 
@@ -33,14 +33,15 @@ root/ --------------------------------------------------- root フォルダー
 指定した例外クラスとプレゼンテーション層まででハンドリングされなかった例外が合致した際に、メソッド内の処理が実行されます。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-メソッドの返り値には、 [ProblemDetail :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ProblemDetail.html){ target=_blank } を型パラメータとして指定した [ResponseEntity :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html){ target=_blank } クラスを指定します。
-これにより、 RFC9457 に準拠したエラーレスポンスが返却されます。
+メソッドの引数には、例外オブジェクトと [Model :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/ui/Model.html){ target=_blank } を指定し、返り値にはビュー名を表す String を指定します。
+Model にエラー情報を設定し、ビュー名を返すことで、エラー情報を含んだ HTML ページがレンダリングされてユーザーに表示されます。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ```java title="Exception クラスをハンドリングするメソッドの例"
 @ExceptionHandler(Exception.class)
-public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
+public String handleException(Exception e, Model model) {
   // 例外のハンドリングを行う処理
+  return "error"; // エラーページのビュー名
 }
 ```
 
@@ -56,16 +57,7 @@ public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletReq
 ### エラーレスポンスの生成 {#error-response}
 
 エラーレスポンスを生成する処理を実装します。
-エラーレスポンスは RFC9457 に準拠させるため、メソッド内で ProblemDetail をインスタンス化し、 ResponseEntity の body に含めます。
+SSR アプリケーションでは、エラー情報を Model に設定し、エラーページのビュー名を返すことで、エラーページを HTML としてレンダリングします。
 
-AlesInfiny Maia では、例外メッセージをプロパティファイルから取得し、ログ出力するために ErrorMessageBuilder クラスを実装しています。
-また、プロパティファイルからエラーレスポンスに含めるメッセージを整形し ProblemDetail クラスを生成する ProblemDetailsFactory クラスを実装しています。
-そして、これらを用いてエラーレスポンスを生成を実装しています。
-
-ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定 - メッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
-
-??? example "ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
-
-    ```java title="ExceptionHandlerControllerAdvice.java" hl_lines="32-33 84-95 104-115 124-134"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java
-    ```
+例外の種類に応じて、エラーコードや発生日時などの情報を Model に追加し、適切なビュー名（例：`error`、`not_found`）を返します。
+ログ出力も合わせて行い、デバッグ時にはスタックトレースも出力することで、問題の原因を特定しやすくします。
