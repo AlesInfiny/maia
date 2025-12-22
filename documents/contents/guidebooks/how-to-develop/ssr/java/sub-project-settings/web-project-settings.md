@@ -49,13 +49,13 @@ dependencies {
 
 ## 依存プロジェクトの設定 {#config-projects}
 
-web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+web プロジェクトは aaa 、 bbb 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
+  implementation project(':aaa')
+  implementation project(':bbb')
   implementation project(':system-common')
 }
 ```
@@ -64,26 +64,24 @@ dependencies {
 
 Spring Boot の設定は CSR 編と同様です。
 
-[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#config-spring) を参照してください。
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#config-spring) を参照して、 Spring Boot の設定を追記してください。
 
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
 
 ロギングライブラリの除外設定は CSR 編と同様です。
 
-[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-library-exclusion-settings) を参照してください。
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-library-exclusion-settings) を参照して、ロギングライブラリの除外設定を追記してください。
 
 ## ログの設定 {#logging-configuration}
 
 ログの設定は CSR 編と同様です。
 
-[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を参照してください。
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を参照して、ログの設定を追記してください。
 
 ## メッセージ読込に関する設定 {#message-reading-settings}
 
-他サブプロジェクトで管理されているメッセージを読み込む場合の設定は、[こちら](./message-management.md) を参照してください。
+他サブプロジェクトで管理されているメッセージを読み込む場合は、[こちら](./message-management.md) を参照して、設定を追記してください。
 
 ## H2 Database をサーバーモードで起動する設定 {#h2-database-server-settings}
 
-H2 Database をサーバーモードで起動する設定は CSR 編と同様です。
-
-[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#h2-database-server-settings) を参照してください。
+H2 Database をサーバーモードで起動する場合は、[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#h2-database-server-settings) を参照して、 設定を追記してください。
