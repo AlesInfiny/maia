@@ -69,7 +69,7 @@
               </td>
               <td th:text="${item.announcement.category}"></td>
               <td>
-                <span th:text="${displayPriorityOptions[item.announcement.displayPriority - 1].label}"></span>
+                <span th:text="${displayPriority[item.announcement.displayPriority - 1].label}"></span>
               </td>
               <td>
                 <a

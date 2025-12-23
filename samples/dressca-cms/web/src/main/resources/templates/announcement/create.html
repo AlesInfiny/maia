@@ -99,7 +99,7 @@
                   th:field="*{announcement.displayPriority}"
                   th:errorclass="is-invalid">
                   <option
-                    th:each="entry : ${displayPriorityOptions}"
+                    th:each="entry : ${displayPriority}"
                     th:value="${entry.value}"
                     th:text="${entry.label}"></option>
                 </select>
@@ -155,7 +155,7 @@
                             th:field="*{contents[__${iterStat.index}__].languageCode}"
                             th:errorclass="is-invalid">
                             <option
-                              th:each="entry : ${languageCodeOptions}"
+                              th:each="entry : ${languageCode}"
                               th:value="${entry.value}"
                               th:text="${entry.label}"></option>
                           </select>

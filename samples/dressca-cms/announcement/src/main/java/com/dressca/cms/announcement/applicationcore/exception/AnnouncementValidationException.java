@@ -17,17 +17,17 @@ public class AnnouncementValidationException extends LogicException {
   /**
    * エラーメッセージのリスト。
    */
-  private final List<ValidationError> errorMessages = new ArrayList<>();
+  private final List<ValidationError> validationErrors = new ArrayList<>();
 
   /**
    * お知らせメッセージのバリデーションエラーを指定して、{@link AnnouncementValidationException}
    * クラスのインスタンスを初期化します。
    * 
-   * @param errorMessages バリデーションエラーのリスト。
+   * @param validationErrors バリデーションエラーのリスト。
    */
-  public AnnouncementValidationException(List<ValidationError> errorMessages) {
-    super(null, ExceptionIdConstants.E_VALIDATION_ERROR, new String[] { joinFieldNames(errorMessages) });
-    this.errorMessages.addAll(errorMessages);
+  public AnnouncementValidationException(List<ValidationError> validationErrors) {
+    super(null, ExceptionIdConstants.E_VALIDATION_ERROR, new String[] { joinFieldNames(validationErrors) });
+    this.validationErrors.addAll(validationErrors);
   }
 
   /**

@@ -1,7 +1,6 @@
 package com.dressca.cms.web.controller;
 
 import com.dressca.cms.announcement.applicationcore.AnnouncementApplicationService;
-import com.dressca.cms.announcement.applicationcore.constant.DisplayPriorityConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
@@ -10,8 +9,8 @@ import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.cms.systemcommon.exception.ValidationError;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
-import com.dressca.cms.web.constant.DisplayPriorityOptions;
-import com.dressca.cms.web.constant.LanguageCodeOptions;
+import com.dressca.cms.web.constant.DisplayPriority;
+import com.dressca.cms.web.constant.LanguageCode;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
@@ -66,12 +65,12 @@ public class AnnouncementController {
       Model model) {
 
     // クエリ文字列から値を取得し、数値以外の値は未指定にする
-    Integer pageNum = parseInteger(pageNumber);
-    Integer pageSz = parseInteger(pageSize);
+    Integer pageNumberInt = parseInteger(pageNumber);
+    Integer pageSizeInt = parseInteger(pageSize);
 
     // ApplicationService を呼び出してページングされたお知らせメッセージを取得
-    PagedAnnouncementList pagedList = announcementApplicationService.getPagedAnnouncementList(pageNum, pageSz);
-
+    PagedAnnouncementList pagedList = announcementApplicationService.getPagedAnnouncementList(pageNumberInt,
+        pageSizeInt);
     // ビューモデルに変換
     List<AnnouncementWithContentsViewModel> announcementViewModels = AnnouncementViewModelTranslator
         .toAnnouncementWithContentsViewModels(
@@ -87,7 +86,7 @@ public class AnnouncementController {
 
     // モデルに属性を格納
     model.addAttribute("viewModel", viewModel);
-    model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
+    model.addAttribute("displayPriority", DisplayPriority.values());
 
     // お知らせメッセージ管理画面に遷移
     return "announcement/index";
@@ -105,7 +104,7 @@ public class AnnouncementController {
     if (announcementCreateSession.getAnnouncement() == null) {
       final Announcement announcement = new Announcement();
       announcement.setId(UuidGenerator.generate());
-      announcement.setDisplayPriority(DisplayPriorityConstants.MEDIUM);
+      announcement.setDisplayPriority(DisplayPriority.MEDIUM.getValue());
       AnnouncementContent jaContent = new AnnouncementContent(
           UuidGenerator.generate(),
           announcement.getId(),
@@ -125,8 +124,8 @@ public class AnnouncementController {
     AnnouncementCreateViewModel viewModel = new AnnouncementCreateViewModel(announcementViewModel, contentViewModel);
 
     model.addAttribute("viewModel", viewModel);
-    model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
-    model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
+    model.addAttribute("displayPriority", DisplayPriority.values());
+    model.addAttribute("languageCode", LanguageCode.values());
 
     return "announcement/create";
   }
@@ -145,8 +144,8 @@ public class AnnouncementController {
       BindingResult bindingResult, Model model) {
     // 宣言的バリデーションでエラーがある場合は画面を再表示
     if (bindingResult.hasErrors()) {
-      model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
-      model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("languageCode", LanguageCode.values());
       return "announcement/create";
     }
 
@@ -175,15 +174,15 @@ public class AnnouncementController {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       // 非宣言的バリデーションエラーの場合はエラーメッセージを設定して画面を再表示
-      for (ValidationError error : e.getErrorMessages()) {
+      for (ValidationError error : e.getValidationErrors()) {
         if (error.getFieldName().equals("global")) {
           bindingResult.reject(error.getErrorCode());
           continue;
         }
         bindingResult.rejectValue(error.getFieldName(), error.getErrorCode());
       }
-      model.addAttribute("displayPriorityOptions", DisplayPriorityOptions.values());
-      model.addAttribute("languageCodeOptions", LanguageCodeOptions.values());
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("languageCode", LanguageCode.values());
       return "announcement/create";
     }
   }

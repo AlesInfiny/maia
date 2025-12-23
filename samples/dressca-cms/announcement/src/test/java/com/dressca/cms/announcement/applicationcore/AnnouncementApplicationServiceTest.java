@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dressca.cms.announcement.applicationcore.constant.DisplayPriorityConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
@@ -415,7 +414,7 @@ public class AnnouncementApplicationServiceTest {
     // Act & Assert
     AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
         () -> service.addAnnouncementAndHistory(announcement, username));
-    assertThat(exception.getErrorMessages()).hasSize(1);
+    assertThat(exception.getValidationErrors()).hasSize(1);
   }
 
   @Test
@@ -465,7 +464,7 @@ public class AnnouncementApplicationServiceTest {
     // Act & Assert
     AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
         () -> service.addAnnouncementAndHistory(announcement, username));
-    assertThat(exception.getErrorMessages()).hasSize(2);
+    assertThat(exception.getValidationErrors()).hasSize(2);
   }
 
   /**
@@ -488,8 +487,9 @@ public class AnnouncementApplicationServiceTest {
    * @return お知らせコンテンツが空のお知らせメッセージ。
    */
   private Announcement createAnnouncementWithoutContent() {
+    int displayPriority = 3; // 表示優先度中
     return new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null,
-        DisplayPriorityConstants.MEDIUM, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+        displayPriority, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
   }
 
   /**
