@@ -33,7 +33,7 @@ systemError=想定外のシステムエラーが発生しました
 businessError=想定外の業務エラーが発生しました
 ```
 
-### プロパティファイルの読込 {#reading-property-files}
+### プロパティファイルの読み込み {#reading-property-files}
 
 以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
 

@@ -25,7 +25,7 @@ Local Storage と Session Storage で構成される Web Storage にデータを
 | 最大容量                       | 1GB 程度                          | 5MB                                          | 10MB                                          |
 | CSRF 脅威                      | 無                                | 有（他の方法で対策可能）                     | 有（他の方法で対策可能）                      |
 | XSS 脅威                       | 有（対策可能）                    | 有（対策可能）                               | 有（対策可能）                                |
-| サードパーティ JavaScript 読込 | 不可                              | 可能（悪意のあるライブラリ使用時）           | 可能（悪意のあるライブラリ使用時）            |
+| サードパーティ JavaScript 読み込み | 不可                              | 可能（悪意のあるライブラリ使用時）           | 可能（悪意のあるライブラリ使用時）            |
 
 <!-- textlint-enable @textlint-ja/no-synonyms -->
 
