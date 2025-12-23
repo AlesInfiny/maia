@@ -5,7 +5,7 @@ import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 /**
  * 言語コードの選択肢です。
  */
-public enum LanguageCodeOptions {
+public enum LanguageCode {
 
   /** 日本語の言語コードです。 */
   JAPANESE(LanguageCodeConstants.LOCALE_JA.getLanguage(), "日本語"),
@@ -16,7 +16,7 @@ public enum LanguageCodeOptions {
   /** スペイン語の言語コードです。 */
   SPANISH(LanguageCodeConstants.LOCALE_ES.getLanguage(), "スペイン語");
 
-  LanguageCodeOptions(String value, String label) {
+  LanguageCode(String value, String label) {
     this.value = value;
     this.label = label;
   }
