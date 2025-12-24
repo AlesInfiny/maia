@@ -1,26 +1,30 @@
 package com.dressca.cms.web.models;
 
+import java.util.List;
 import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * お知らせメッセージとお知らせコンテンツをラップするビューモデルクラスです。
+ * お知らせメッセージ登録画面のビューモデルクラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnnouncementWithContentsViewModel {
+public class AnnouncementCreateViewModel {
 
   /**
    * お知らせメッセージのビューモデル。
    */
+  @Valid
   private AnnouncementViewModel announcement;
 
   /**
-   * 代表のお知らせコンテンツのビューモデル（言語コードの優先順で選択されたもの）。
+   * お知らせコンテンツのビューモデル一覧。
    */
-  private AnnouncementContentViewModel content;
+  @Valid
+  private List<AnnouncementContentViewModel> contents;
 }

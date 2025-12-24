@@ -7,24 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * お知らせコンテンツの DTO クラスです。
+ * お知らせコンテンツ履歴の DTO クラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnnouncementContent implements Serializable {
+public class AnnouncementContentHistory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * お知らせコンテンツ ID。
+   * お知らせコンテンツ履歴 ID。
    */
   private UUID id;
 
   /**
-   * お知らせメッセージ ID。
+   * お知らせメッセージ履歴 ID。
    */
-  private UUID announcementId;
+  private UUID announcementHistoryId;
 
   /**
    * 言語コード。

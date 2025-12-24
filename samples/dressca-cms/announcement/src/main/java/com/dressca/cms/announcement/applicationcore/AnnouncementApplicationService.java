@@ -1,16 +1,30 @@
 package com.dressca.cms.announcement.applicationcore;
 
 import com.dressca.cms.announcement.applicationcore.constant.MessageIdConstants;
+import com.dressca.cms.announcement.applicationcore.constant.OperationTypeConstants;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
+import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
+import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentHistoryRepository;
+import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
+import com.dressca.cms.announcement.applicationcore.repository.AnnouncementHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
 import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
-import com.dressca.cms.systemcommon.constant.SystemPropertiesConstants;
+import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.cms.systemcommon.exception.ValidationError;
+import com.dressca.cms.systemcommon.util.UuidGenerator;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +40,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AnnouncementApplicationService {
 
-  private static final Logger log = LoggerFactory.getLogger(SystemPropertiesConstants.APPLICATION_LOG_LOGGER);
-
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
   private final AnnouncementRepository announcementRepository;
-
+  private final AnnouncementContentRepository announcementContentRepository;
+  private final AnnouncementHistoryRepository announcementHistoryRepository;
+  private final AnnouncementContentHistoryRepository announcementContentHistoryRepository;
   private final MessageSource messages;
 
   /**
@@ -52,7 +67,7 @@ public class AnnouncementApplicationService {
       pageSize = 20;
     }
 
-    log.info(messages.getMessage(MessageIdConstants.D_START_GET_PAGED_ANNOUNCEMENT_LIST,
+    apLog.info(messages.getMessage(MessageIdConstants.D_START_GET_PAGED_ANNOUNCEMENT_LIST,
         new Object[] { pageNumber, pageSize }, Locale.getDefault()));
 
     // 業務メイン処理
@@ -81,7 +96,7 @@ public class AnnouncementApplicationService {
     selectPriorityContent(announcements);
 
     // 業務終了処理
-    log.info(messages.getMessage(MessageIdConstants.D_END_GET_PAGED_ANNOUNCEMENT_LIST,
+    apLog.info(messages.getMessage(MessageIdConstants.D_END_GET_PAGED_ANNOUNCEMENT_LIST,
         new Object[] { pageNumber, pageSize }, Locale.getDefault()));
 
     return new PagedAnnouncementList(pageNumber, pageSize, totalCount,
@@ -89,7 +104,132 @@ public class AnnouncementApplicationService {
   }
 
   /**
-   * 言語コードの優先順（ja &gt; en &gt; zh &gt; es）に従って、
+   * お知らせメッセージおよびお知らせメッセージ履歴を登録します。
+   *
+   * @param announcement お知らせメッセージ。
+   * @param username     ユーザー名。
+   * @return 登録したお知らせメッセージの ID。
+   * @throws AnnouncementValidationException バリデーションエラーが発生した場合。
+   */
+  public UUID addAnnouncementAndHistory(Announcement announcement, String username)
+      throws AnnouncementValidationException {
+    // 業務開始処理
+    List<ValidationError> validationErrors = new ArrayList<>();
+
+    // 言語コードのチェック
+    if (announcement.getContents() != null) {
+      for (AnnouncementContent content : announcement.getContents()) {
+        if (!LanguageCodeConstants.LANGUAGE_CODE_PRIORITY.containsKey(content.getLanguageCode())) {
+          validationErrors.add(new ValidationError("global", "announcement.create.invalidLanguageCode"));
+        }
+      }
+    }
+
+    // 掲載終了日時のチェック
+    if (announcement.getExpireDateTime() != null && announcement.getPostDateTime() != null
+        && announcement.getExpireDateTime().isBefore(announcement.getPostDateTime())) {
+      validationErrors
+          .add(new ValidationError("announcement.expireDate", "announcement.create.expireDateBeforePostDate"));
+    }
+
+    // お知らせコンテンツが 1 件以上あることをチェック
+    if (announcement.getContents() == null || announcement.getContents().isEmpty()) {
+      validationErrors.add(new ValidationError("global", "announcement.create.noLanguageContent"));
+    }
+
+    // 言語コードの重複チェック
+    if (announcement.getContents() != null) {
+      Set<String> languageCodes = new HashSet<>();
+      for (AnnouncementContent content : announcement.getContents()) {
+        if (!languageCodes.add(content.getLanguageCode())) {
+          validationErrors.add(new ValidationError("global", "announcement.create.duplicateLanguageCode"));
+          break;
+        }
+      }
+    }
+
+    if (!validationErrors.isEmpty()) {
+      throw new AnnouncementValidationException(validationErrors);
+    }
+
+    apLog.info(messages.getMessage(MessageIdConstants.D_START_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
+
+    // 業務メイン処理
+
+    // お知らせメッセージを追加
+    OffsetDateTime createdAt = OffsetDateTime.now();
+    announcement.setCreatedAt(createdAt);
+    announcement.setChangedAt(createdAt);
+    announcement.setIsDeleted(false);
+    announcementRepository.add(announcement);
+
+    // お知らせコンテンツを追加
+    for (AnnouncementContent content : announcement.getContents()) {
+      announcementContentRepository.add(content);
+    }
+
+    // お知らせメッセージ履歴を追加
+    AnnouncementHistory announcementHistory = createAnnouncementHistory(announcement, createdAt, username,
+        OperationTypeConstants.CREATE);
+    announcementHistoryRepository.add(announcementHistory);
+
+    // お知らせコンテンツ履歴を追加
+    for (AnnouncementContent content : announcement.getContents()) {
+      AnnouncementContentHistory contentHistory = createAnnouncementContentHistory(content,
+          announcementHistory.getId());
+      announcementContentHistoryRepository.add(contentHistory);
+    }
+
+    // 業務終了処理
+    apLog.info(messages.getMessage(MessageIdConstants.D_END_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
+
+    return announcement.getId();
+  }
+
+  /**
+   * お知らせメッセージからお知らせメッセージ履歴を生成します。
+   *
+   * @param announcement  お知らせメッセージ。
+   * @param createdAt     作成日時。
+   * @param username      ユーザー名。
+   * @param operationType 操作種別。
+   * @return お知らせメッセージ履歴。
+   */
+  private AnnouncementHistory createAnnouncementHistory(Announcement announcement,
+      OffsetDateTime createdAt, String username, int operationType) {
+    return new AnnouncementHistory(
+        UuidGenerator.generate(),
+        announcement.getId(),
+        announcement.getCategory(),
+        announcement.getPostDateTime(),
+        announcement.getExpireDateTime(),
+        announcement.getDisplayPriority(),
+        createdAt,
+        username,
+        operationType,
+        null);
+  }
+
+  /**
+   * お知らせコンテンツからお知らせコンテンツ履歴を生成します。
+   *
+   * @param content               お知らせコンテンツ。
+   * @param announcementHistoryId お知らせメッセージ履歴 ID。
+   * @return お知らせコンテンツ履歴。
+   */
+  private AnnouncementContentHistory createAnnouncementContentHistory(
+      AnnouncementContent content, UUID announcementHistoryId) {
+    return new AnnouncementContentHistory(
+        UuidGenerator.generate(),
+        announcementHistoryId,
+        content.getLanguageCode(),
+        content.getTitle(),
+        content.getMessage(),
+        content.getLinkUrl());
+  }
+
+  /**
+   * 言語コードの優先順（ja > en > zh > es）に従って、
    * 各お知らせメッセージの代表コンテンツを選択します。
    *
    * @param announcements お知らせメッセージのリスト。
