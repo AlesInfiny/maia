@@ -28,7 +28,7 @@ dependencies {
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-依存関係に記載している `org.springframework.boot:spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+依存関係に記載している `org.mybatis.spring.boot:mybatis-spring-boot-starter` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -45,10 +45,10 @@ configurations {
 
 ## プロジェクトのビルド方法の設定 {#config-build}
 
-application-core プロジェクトは単体で動作せず、他プロジェクトからライブラリとして呼び出します。
+機能モジュールのプロジェクトは単体で動作せず、他プロジェクトからライブラリとして呼び出します。
 呼び出し可能な Jar ファイルで出力する必要がないため以下を設定します。
 
-```groovy title="application-core/build.gradle"
+```groovy title="a-function/build.gradle"
 bootJar {
   enabled = false
 }
@@ -59,12 +59,12 @@ jar {
 ```
 
 また、併せて不要なファイルを削除します。
-application-core プロジェクトの `src` 以下にある、 `AaaApplication.java` と `AaaApplicationTest.java` を削除してください。
+a-function プロジェクトの `src` 以下にある、 `AFunctionApplication.java` と `AFunctionApplicationTest.java` を削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
-```winbatch title="a-function プロジェクトのビルド"
+```shell title="a-function プロジェクトのビルド"
 ./gradlew a-function:build
 ```
 
@@ -79,6 +79,7 @@ application-core プロジェクトの `src` 以下にある、 `AaaApplication.
 
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
+    description = 'プロジェクトの説明'
 
     java {
       toolchain {
@@ -91,6 +92,8 @@ application-core プロジェクトの `src` 以下にある、 `AaaApplication.
     }
 
     dependencies {
+      implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
+      implementation 'com.h2database:h2:x.x.x'
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
