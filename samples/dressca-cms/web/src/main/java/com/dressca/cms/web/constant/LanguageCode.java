@@ -14,13 +14,13 @@ import lombok.Getter;
 public enum LanguageCode {
 
   /** 日本語の言語コードです。 */
-  JAPANESE_OPTION(LanguageCodeConstants.LOCALE_JA.getLanguage(), "日本語"),
+  JAPANESE(LanguageCodeConstants.LOCALE_JA.getLanguage(), "日本語"),
   /** 英語の言語コードです。 */
-  ENGLISH_OPTION(LanguageCodeConstants.LOCALE_EN.getLanguage(), "英語"),
+  ENGLISH(LanguageCodeConstants.LOCALE_EN.getLanguage(), "英語"),
   /** 中国語の言語コードです。 */
-  CHINESE_OPTION(LanguageCodeConstants.LOCALE_ZH.getLanguage(), "中国語"),
+  CHINESE(LanguageCodeConstants.LOCALE_ZH.getLanguage(), "中国語"),
   /** スペイン語の言語コードです。 */
-  SPANISH_OPTION(LanguageCodeConstants.LOCALE_ES.getLanguage(), "スペイン語");
+  SPANISH(LanguageCodeConstants.LOCALE_ES.getLanguage(), "スペイン語");
 
   private final String value;
   private final String label;

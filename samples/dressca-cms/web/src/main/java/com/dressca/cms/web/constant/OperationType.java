@@ -14,11 +14,11 @@ import lombok.Getter;
 public enum OperationType {
 
   /** 作成の操作種別です。 */
-  CREATE_OPTION(OperationTypeConstants.CREATE, "作成"),
+  CREATE(OperationTypeConstants.CREATE, "作成"),
   /** 更新の操作種別です。 */
-  UPDATE_OPTION(OperationTypeConstants.UPDATE, "更新"),
+  UPDATE(OperationTypeConstants.UPDATE, "更新"),
   /** 削除の操作種別です。 */
-  DELETE_OPTION(OperationTypeConstants.DELETE, "削除");
+  DELETE(OperationTypeConstants.DELETE, "削除");
 
   private final int value;
   private final String label;
