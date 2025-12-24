@@ -12,9 +12,11 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-web`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
 
 - `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+
+- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
 
 - `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 
@@ -24,16 +26,20 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 
 - `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
 
+- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
+
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-webmvc'
   implementation 'com.h2database:h2:x.x.x'
+  implementation 'org.springframework.boot:spring-boot-h2console'
   implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
 ```
 
@@ -108,7 +114,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-依存関係に記載している `org.springframework.boot:spring-boot-starter-web` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+依存関係に記載している `org.springframework.boot:spring-boot-starter-webmvc` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -222,6 +228,7 @@ build.dependsOn("generateOpenApiDocs")
 
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
+    description = 'プロジェクトの説明'
 
     java {
       toolchain {
@@ -234,15 +241,19 @@ build.dependsOn("generateOpenApiDocs")
     }
 
     dependencies {
-      implementation 'org.springframework.boot:spring-boot-starter-web'
+      implementation 'org.springframework.boot:spring-boot-starter-webmvc'
       implementation 'com.h2database:h2:x.x.x'
+      implementation 'org.springframework.boot:spring-boot-h2console'
       implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'org.springframework.boot:spring-boot-starter-actuator'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
+
+      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 

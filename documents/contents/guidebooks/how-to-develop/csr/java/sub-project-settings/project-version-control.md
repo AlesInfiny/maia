@@ -26,10 +26,12 @@ ext {
   // ライブラリ定義文字列
   supportDependencies = [
     spring_boot_starter : 'org.springframework.boot:spring-boot-starter',
-    spring_boot_starter_web : "org.springframework.boot:spring-boot-starter-web",
-    spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
+    spring_boot_starter_webmvc : 'org.springframework.boot:spring-boot-starter-webmvc',
+    spring_boot_starter_actuator : 'org.springframework.boot:spring-boot-starter-actuator',
     spring_boot_starter_test : 'org.springframework.boot:spring-boot-starter-test',
-    spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
+    spring_boot_starter_webmvc_test : 'org.springframework.boot:spring-boot-starter-webmvc-test',
+    spring_boot_starter_log4j2 : 'org.springframework.boot:spring-boot-starter-log4j2',
+    spring_boot_h2console : 'org.springframework.boot:spring-boot-h2console',
     springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
     h2database : "com.h2database:h2:$h2Version",
   ]
@@ -113,7 +115,7 @@ buildscript {
     Groovy では文字列は一重引用符で囲み、変数を含む文字列は二重引用符で囲んで表現します。
     変数を含む文字列を一重引用符で囲むとエラーが出るため、注意して使い分けてください。
 
-```groovy title="web/build.gradle" hl_lines="3 4 5 9 10 11 12 13 14"
+```groovy title="web/build.gradle" hl_lines="3 4 5 9 10 11 12 13 14 20 21"
 plugins {
   id 'java'
   id 'org.springframework.boot' version "${springBootVersion}"
@@ -122,15 +124,19 @@ plugins {
 }
 
 dependencies {
-  implementation supportDependencies.spring_boot_starter_web
+  implementation supportDependencies.spring_boot_starter_webmvc
   implementation supportDependencies.h2database
+  implementation supportDependencies.spring_boot_h2console
   implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
   implementation supportDependencies.spring_boot_starter_actuator
   implementation supportDependencies.spring_boot_starter_log4j2
-  testImplementation supportDependencies.spring_boot_starter_test
+
   implementation project(':application-core')
   implementation project(':infrastructure')
   implementation project(':system-common')
+
+  testImplementation supportDependencies.spring_boot_starter_test
+  testImplementation supportDependencies.spring_boot_starter_webmvc_test
 }
 ```
 
@@ -146,6 +152,7 @@ dependencies {
 
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
+    description = 'プロジェクトの説明'
 
     java {
       toolchain {
@@ -158,15 +165,19 @@ dependencies {
     }
 
     dependencies {
-      implementation supportDependencies.spring_boot_starter_web
+      implementation supportDependencies.spring_boot_starter_webmvc
       implementation supportDependencies.h2database
+      implementation supportDependencies.spring_boot_h2console
       implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
       implementation supportDependencies.spring_boot_starter_actuator
       implementation supportDependencies.spring_boot_starter_log4j2
-      testImplementation supportDependencies.spring_boot_starter_test
+
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
+
+      testImplementation supportDependencies.spring_boot_starter_test
+      testImplementation supportDependencies.spring_boot_starter_webmvc_test
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
