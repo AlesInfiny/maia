@@ -6,7 +6,9 @@ import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementWithHistory;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
+import com.dressca.cms.announcement.applicationcore.exception.AnnouncementNotFoundException;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
@@ -67,7 +69,7 @@ public class AnnouncementApplicationService {
       pageSize = 20;
     }
 
-    apLog.info(messages.getMessage(MessageIdConstants.D_START_GET_PAGED_ANNOUNCEMENT_LIST,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_START_GET_PAGED_ANNOUNCEMENT_LIST,
         new Object[] { pageNumber, pageSize }, Locale.getDefault()));
 
     // 業務メイン処理
@@ -96,7 +98,7 @@ public class AnnouncementApplicationService {
     selectPriorityContent(announcements);
 
     // 業務終了処理
-    apLog.info(messages.getMessage(MessageIdConstants.D_END_GET_PAGED_ANNOUNCEMENT_LIST,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_GET_PAGED_ANNOUNCEMENT_LIST,
         new Object[] { pageNumber, pageSize }, Locale.getDefault()));
 
     return new PagedAnnouncementList(pageNumber, pageSize, totalCount,
@@ -152,7 +154,8 @@ public class AnnouncementApplicationService {
       throw new AnnouncementValidationException(validationErrors);
     }
 
-    apLog.info(messages.getMessage(MessageIdConstants.D_START_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
+    apLog
+        .debug(messages.getMessage(MessageIdConstants.D_START_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
 
     // 業務メイン処理
 
@@ -181,9 +184,156 @@ public class AnnouncementApplicationService {
     }
 
     // 業務終了処理
-    apLog.info(messages.getMessage(MessageIdConstants.D_END_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_ADD_ANNOUNCEMENT_AND_HISTORY, null, Locale.getDefault()));
 
     return announcement.getId();
+  }
+
+  /**
+   * 指定したお知らせメッセージ ID に対応するお知らせコンテンツを含むお知らせメッセージと、お知らせコンテンツ履歴を含むお知らせメッセージ履歴を取得します。
+   * お知らせコンテンツおよびお知らせコンテンツ履歴は以下の順でソートされます。
+   * <ul>
+   * <li>お知らせコンテンツは言語コードの優先順位順（ja > en > zh > es）</li>
+   * <li>お知らせメッセージ履歴は作成日時（更新日時）の降順</li>
+   * <li>お知らせコンテンツ履歴は言語コードの優先順位順（ja > en > zh > es）</li>
+   * </ul>
+   * 
+   * @param announcementId お知らせメッセージ ID。
+   * @return お知らせメッセージとお知らせメッセージ履歴。
+   * @throws AnnouncementNotFoundException 指定したお知らせメッセージ ID
+   *                                       に対応するお知らせメッセージが存在しない場合。
+   */
+  public AnnouncementWithHistory getAnnouncementAndHistoriesById(UUID announcementId)
+      throws AnnouncementNotFoundException {
+    // 業務開始処理
+    apLog.debug(messages.getMessage(MessageIdConstants.D_START_GET_ANNOUNCEMENT_AND_HISTORIES_BY_ID,
+        new Object[] { announcementId }, Locale.getDefault()));
+
+    // 業務メイン処理
+    // お知らせメッセージを取得
+    Announcement announcement = announcementRepository.findByIdWithContents(announcementId);
+    if (announcement == null) {
+      throw new AnnouncementNotFoundException(announcementId);
+    }
+    announcement.setContents(getSortedContentsByLanguagePriority(announcement.getContents()));
+
+    // お知らせメッセージ履歴を取得
+    List<AnnouncementHistory> histories = announcementHistoryRepository
+        .findByAnnouncementIdWithContents(announcementId);
+    histories.forEach(history -> {
+      history.setContentHistories(getSortedContentHistoriesByLanguagePriority(history.getContentHistories()));
+    });
+
+    // 業務終了処理
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_GET_ANNOUNCEMENT_AND_HISTORIES_BY_ID,
+        new Object[] { announcementId }, Locale.getDefault()));
+
+    return new AnnouncementWithHistory(announcement, histories);
+  }
+
+  /**
+   * お知らせメッセージを更新し、お知らせメッセージ履歴を追加します。
+   *
+   * @param announcement お知らせメッセージ。
+   * @param username     ユーザー名。
+   * @throws AnnouncementValidationException バリデーションエラーが発生した場合。
+   */
+  public void updateAnnouncement(Announcement announcement, String username)
+      throws AnnouncementValidationException {
+    // 業務開始処理
+    List<ValidationError> validationErrors = new ArrayList<>();
+
+    // 言語コードのチェック
+    if (announcement.getContents() != null) {
+      for (AnnouncementContent content : announcement.getContents()) {
+        if (!LanguageCodeConstants.LANGUAGE_CODE_PRIORITY.containsKey(content.getLanguageCode())) {
+          validationErrors.add(new ValidationError("global", "announcement.edit.invalidLanguageCode"));
+        }
+      }
+    }
+
+    // 掲載終了日時のチェック
+    if (announcement.getExpireDateTime() != null && announcement.getPostDateTime() != null
+        && announcement.getExpireDateTime().isBefore(announcement.getPostDateTime())) {
+      validationErrors
+          .add(new ValidationError("announcement.expireDate", "announcement.edit.expireDateBeforePostDate"));
+    }
+
+    // お知らせコンテンツが 1 件以上あることをチェック
+    if (announcement.getContents() == null || announcement.getContents().isEmpty()) {
+      validationErrors.add(new ValidationError("global", "announcement.edit.noLanguageContent"));
+    }
+
+    // 言語コードの重複チェック
+    if (announcement.getContents() != null) {
+      Set<String> languageCodes = new HashSet<>();
+      for (AnnouncementContent content : announcement.getContents()) {
+        if (!languageCodes.add(content.getLanguageCode())) {
+          validationErrors.add(new ValidationError("global", "announcement.edit.duplicateLanguageCode"));
+          break;
+        }
+      }
+    }
+
+    if (!validationErrors.isEmpty()) {
+      throw new AnnouncementValidationException(validationErrors);
+    }
+
+    apLog.debug(messages.getMessage(MessageIdConstants.D_START_UPDATE_ANNOUNCEMENT,
+        new Object[] { announcement.getId() }, Locale.getDefault()));
+
+    // 業務メイン処理
+    OffsetDateTime changedAt = OffsetDateTime.now();
+
+    // お知らせメッセージを更新
+    announcement.setChangedAt(changedAt);
+    announcementRepository.update(announcement);
+
+    // お知らせコンテンツを更新
+    // 既存のお知らせコンテンツを取得
+    List<AnnouncementContent> existingContents = announcementContentRepository
+        .findByAnnouncementId(announcement.getId());
+    Set<String> existingLanguageCodes = new HashSet<>();
+    for (AnnouncementContent existingContent : existingContents) {
+      existingLanguageCodes.add(existingContent.getLanguageCode());
+    }
+
+    Set<String> newLanguageCodes = new HashSet<>();
+    for (AnnouncementContent content : announcement.getContents()) {
+      newLanguageCodes.add(content.getLanguageCode());
+
+      if (existingLanguageCodes.contains(content.getLanguageCode())) {
+        // 既存のコンテンツを更新
+        announcementContentRepository.update(content);
+      } else {
+        // 新しいコンテンツを追加
+        content.setAnnouncementId(announcement.getId());
+        announcementContentRepository.add(content);
+      }
+    }
+
+    // 削除されたコンテンツを削除
+    for (AnnouncementContent existingContent : existingContents) {
+      if (!newLanguageCodes.contains(existingContent.getLanguageCode())) {
+        announcementContentRepository.deleteById(existingContent.getId());
+      }
+    }
+
+    // お知らせメッセージ履歴を追加
+    AnnouncementHistory announcementHistory = createAnnouncementHistory(announcement, changedAt, username,
+        OperationTypeConstants.UPDATE);
+    announcementHistoryRepository.add(announcementHistory);
+
+    // お知らせコンテンツ履歴を追加
+    for (AnnouncementContent content : announcement.getContents()) {
+      AnnouncementContentHistory contentHistory = createAnnouncementContentHistory(content,
+          announcementHistory.getId());
+      announcementContentHistoryRepository.add(contentHistory);
+    }
+
+    // 業務終了処理
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_UPDATE_ANNOUNCEMENT,
+        new Object[] { announcement.getId() }, Locale.getDefault()));
   }
 
   /**
@@ -229,8 +379,7 @@ public class AnnouncementApplicationService {
   }
 
   /**
-   * 言語コードの優先順（ja > en > zh > es）に従って、
-   * 各お知らせメッセージの代表コンテンツを選択します。
+   * 言語コードの優先順（ja > en > zh > es）に従って、各お知らせメッセージの代表コンテンツを選択します。
    *
    * @param announcements お知らせメッセージのリスト。
    */
@@ -249,5 +398,44 @@ public class AnnouncementApplicationService {
       // 選択したコンテンツのみの新しいリストを作成してセット
       announcement.setContents(Collections.singletonList(priorityContent));
     }
+  }
+
+  /**
+   * お知らせコンテンツを言語コードの優先順位順に並び替えます。
+   * MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL文が複雑になるため private
+   * メソッドとして実装しています。
+   *
+   * @param contents お知らせコンテンツのリスト。
+   * @return 言語コードの優先順位順に並び替えられたお知らせコンテンツのリスト。
+   */
+  private List<AnnouncementContent> getSortedContentsByLanguagePriority(List<AnnouncementContent> contents) {
+    if (contents == null || contents.isEmpty()) {
+      return List.of();
+    }
+
+    return contents.stream()
+        .sorted(Comparator.comparingInt(content -> LanguageCodeConstants.LANGUAGE_CODE_PRIORITY
+            .getOrDefault(content.getLanguageCode(), 999)))
+        .toList();
+  }
+
+  /**
+   * お知らせコンテンツ履歴を言語コードの優先順位順に並び替えます。
+   * MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL文が複雑になるため private
+   * メソッドとして実装しています。
+   * 
+   * @param history お知らせメッセージ履歴。
+   * @return 言語コードの優先順位順に並び替えられたお知らせコンテンツ履歴のリスト。
+   */
+  private List<AnnouncementContentHistory> getSortedContentHistoriesByLanguagePriority(
+      List<AnnouncementContentHistory> contentHistories) {
+    if (contentHistories == null || contentHistories.isEmpty()) {
+      return List.of();
+    }
+
+    return contentHistories.stream()
+        .sorted(Comparator.comparingInt(contentHistory -> LanguageCodeConstants.LANGUAGE_CODE_PRIORITY
+            .getOrDefault(contentHistory.getLanguageCode(), 999)))
+        .toList();
   }
 }

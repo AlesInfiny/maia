@@ -3,7 +3,10 @@ package com.dressca.cms.web.controller;
 import com.dressca.cms.announcement.applicationcore.AnnouncementApplicationService;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementWithHistory;
 import com.dressca.cms.announcement.applicationcore.dto.PagedAnnouncementList;
+import com.dressca.cms.announcement.applicationcore.exception.AnnouncementNotFoundException;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementValidationException;
 import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
@@ -11,19 +14,24 @@ import com.dressca.cms.systemcommon.exception.ValidationError;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import com.dressca.cms.web.constant.DisplayPriority;
 import com.dressca.cms.web.constant.LanguageCode;
+import com.dressca.cms.web.constant.OperationType;
 import com.dressca.cms.web.models.AnnouncementCreateViewModel;
+import com.dressca.cms.web.models.AnnouncementEditViewModel;
+import com.dressca.cms.web.models.AnnouncementHistoryWithContentHistoriesViewModel;
 import com.dressca.cms.web.models.AnnouncementListViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
 import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
 import com.dressca.cms.web.models.validation.AnnouncementValidationGroup;
 import com.dressca.cms.web.session.AnnouncementCreateSession;
+import com.dressca.cms.web.session.AnnouncementEditSession;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -49,6 +57,7 @@ public class AnnouncementController {
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
   private final AnnouncementApplicationService announcementApplicationService;
   private final AnnouncementCreateSession announcementCreateSession;
+  private final AnnouncementEditSession announcementEditSession;
 
   /**
    * お知らせメッセージ管理画面を表示します。
@@ -152,8 +161,7 @@ public class AnnouncementController {
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
     }
-    if (viewModel.getAnnouncement().getExpireDate() != null
-        && viewModel.getAnnouncement().getExpireTime() == null) {
+    if (viewModel.getAnnouncement().getExpireDate() != null && viewModel.getAnnouncement().getExpireTime() == null) {
       viewModel.getAnnouncement().setExpireTime(LocalTime.of(0, 0, 0));
     }
 
@@ -188,7 +196,7 @@ public class AnnouncementController {
   }
 
   /**
-   * 別の言語を追加します。
+   * 登録画面で別の言語を追加します。
    *
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
    * @return リダイレクト先。
@@ -223,7 +231,7 @@ public class AnnouncementController {
   }
 
   /**
-   * 言語別お知らせメッセージを削除します。
+   * 登録画面で言語別お知らせメッセージを削除します。
    *
    * @param viewModel             お知らせメッセージ登録画面のビューモデル。
    * @param announcementContentId 削除するお知らせコンテンツ ID。
@@ -258,8 +266,188 @@ public class AnnouncementController {
    * @return お知らせメッセージ編集画面のビュー名。
    */
   @GetMapping("{announcementId}/edit")
-  public String edit(@PathVariable("announcementId") String announcementId, Model model) {
-    return "announcement/edit";
+  public String edit(@PathVariable("announcementId") UUID announcementId, Model model) {
+    try {
+
+      // セッションにお知らせメッセージが存在しない、またはIDが異なる場合、取得する
+      if (announcementEditSession.getAnnouncement() == null
+          || !announcementEditSession.getAnnouncement().getId().equals(announcementId)) {
+        AnnouncementWithHistory announcementWithHistory = announcementApplicationService
+            .getAnnouncementAndHistoriesById(announcementId);
+        announcementEditSession.setAnnouncement(announcementWithHistory.getAnnouncement());
+        announcementEditSession.setHistories(announcementWithHistory.getHistories());
+      }
+
+      // セッションからお知らせメッセージと履歴を取得してビューモデルに変換
+      Announcement announcement = announcementEditSession.getAnnouncement();
+      List<AnnouncementContent> contents = announcement.getContents();
+      List<AnnouncementHistory> histories = announcementEditSession.getHistories();
+
+      AnnouncementViewModel announcementViewModel = AnnouncementViewModelTranslator
+          .toAnnouncementViewModel(announcement);
+      List<AnnouncementContentViewModel> contentViewModels = AnnouncementViewModelTranslator
+          .toContentViewModels(contents);
+
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
+          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+          .collect(java.util.stream.Collectors.toList());
+
+      AnnouncementEditViewModel viewModel = new AnnouncementEditViewModel(
+          announcementViewModel, contentViewModels, historyViewModels);
+
+      model.addAttribute("viewModel", viewModel);
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("displayPriorityLabelMap", DisplayPriority.DISPLAY_PRIORITY_LABEL_MAP);
+      model.addAttribute("languageCode", LanguageCode.values());
+      model.addAttribute("languageCodeLabelMap", LanguageCode.LANGUAGE_CODE_LABEL_MAP);
+      model.addAttribute("operationTypeLabelMap", OperationType.OPERATION_TYPE_LABEL_MAP);
+      return "announcement/edit";
+    } catch (AnnouncementNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      return "notfound";
+    }
+  }
+
+  /**
+   * お知らせメッセージを更新します。
+   *
+   * @param announcementId お知らせメッセージ ID。
+   * @param viewModel      お知らせメッセージ編集画面のビューモデル。
+   * @param bindingResult  バインディング結果。
+   * @param model          モデル。
+   * @return ビュー名またはリダイレクト先。
+   */
+  @PostMapping("{announcementId}/edit")
+  public String update(
+      @PathVariable("announcementId") UUID announcementId,
+      @Validated(AnnouncementValidationGroup.Update.class) @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
+      BindingResult bindingResult, Model model) {
+
+    if (viewModel.getAnnouncement().getPostTime() == null) {
+      viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
+    }
+    if (viewModel.getAnnouncement().getExpireDate() != null && viewModel.getAnnouncement().getExpireTime() == null) {
+      viewModel.getAnnouncement().setExpireTime(LocalTime.of(0, 0, 0));
+    }
+
+    // 宣言的バリデーションでエラーがある場合は画面を再表示
+    if (bindingResult.hasErrors()) {
+      // セッションから履歴を取得してviewModelに設定
+      List<AnnouncementHistory> histories = announcementEditSession.getHistories();
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
+          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+          .collect(Collectors.toList());
+      viewModel.setHistories(historyViewModels);
+      model.addAttribute("viewModel", viewModel);
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("displayPriorityLabelMap", DisplayPriority.DISPLAY_PRIORITY_LABEL_MAP);
+      model.addAttribute("languageCode", LanguageCode.values());
+      model.addAttribute("languageCodeLabelMap", LanguageCode.LANGUAGE_CODE_LABEL_MAP);
+      model.addAttribute("operationTypeLabelMap", OperationType.OPERATION_TYPE_LABEL_MAP);
+      return "announcement/edit";
+    }
+
+    Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
+        viewModel.getContents());
+    try {
+      // アプリケーションサービスを呼び出してお知らせメッセージを更新
+      announcementApplicationService.updateAnnouncement(announcement, "DummyUser");
+
+      // セッションをクリア
+      announcementEditSession.clear();
+
+      // お知らせメッセージ編集画面にリダイレクト
+      return "redirect:/announcements/" + announcementId + "/edit";
+
+    } catch (AnnouncementValidationException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      // 非宣言的バリデーションエラーの場合はエラーメッセージを設定して画面を再表示
+      for (ValidationError error : e.getValidationErrors()) {
+        if (error.getFieldName().equals("global")) {
+          bindingResult.reject(error.getErrorCode());
+          continue;
+        }
+        bindingResult.rejectValue(error.getFieldName(), error.getErrorCode());
+      }
+      // セッションから履歴を取得してviewModelに設定
+      List<AnnouncementHistory> histories = announcementEditSession.getHistories();
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
+          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+          .collect(Collectors.toList());
+      viewModel.setHistories(historyViewModels);
+      model.addAttribute("viewModel", viewModel);
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("displayPriorityLabelMap", DisplayPriority.DISPLAY_PRIORITY_LABEL_MAP);
+      model.addAttribute("languageCode", LanguageCode.values());
+      model.addAttribute("languageCodeLabelMap", LanguageCode.LANGUAGE_CODE_LABEL_MAP);
+      model.addAttribute("operationTypeLabelMap", OperationType.OPERATION_TYPE_LABEL_MAP);
+      return "announcement/edit";
+    }
+  }
+
+  /**
+   * 編集画面で別の言語を追加します。
+   *
+   * @param announcementId お知らせメッセージ ID。
+   * @param viewModel      お知らせメッセージ編集画面のビューモデル。
+   * @return リダイレクト先。
+   */
+  @PostMapping(value = "{announcementId}/edit", params = "addLanguageToEdit")
+  public String addLanguageToEdit(@PathVariable("announcementId") String announcementId,
+      @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel) {
+
+    // ビューモデルからDTOに変換
+    Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
+        viewModel.getContents());
+
+    // 登録済みの言語コードを取得
+    List<String> existingLanguageCodes = new ArrayList<>();
+    if (announcement.getContents() != null) {
+      for (AnnouncementContent content : announcement.getContents()) {
+        existingLanguageCodes.add(content.getLanguageCode());
+      }
+    }
+
+    // 未登録の最も優先度の高い言語コードを追加
+    String newLanguageCode = getNextPriorityLanguageCode(existingLanguageCodes);
+    AnnouncementContent newContent = new AnnouncementContent(UuidGenerator.generate(), announcement.getId(),
+        newLanguageCode, "", "", "");
+    announcement.getContents().add(newContent);
+
+    // セッションに保存
+    announcementEditSession.setAnnouncement(announcement);
+
+    return "redirect:/announcements/" + announcementId + "/edit";
+  }
+
+  /**
+   * 編集画面で言語別お知らせメッセージを削除します。
+   *
+   * @param announcementId        お知らせメッセージ ID。
+   * @param viewModel             お知らせメッセージ編集画面のビューモデル。
+   * @param announcementContentId 削除するお知らせコンテンツ ID。
+   * @return リダイレクト先。
+   */
+  @PostMapping(value = "{announcementId}/edit", params = "deleteLanguageFromEdit")
+  public String deleteLanguageFromEdit(@PathVariable("announcementId") UUID announcementId,
+      @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
+      @RequestParam("deleteLanguageFromEdit") UUID announcementContentId) {
+
+    // ビューモデルからDTOに変換
+    Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
+        viewModel.getContents());
+
+    // 指定された言語コードのコンテンツを削除
+    if (announcement.getContents() != null) {
+      announcement.getContents().removeIf(content -> content.getId().equals(announcementContentId));
+    }
+
+    // セッションに保存
+    announcementEditSession.setAnnouncement(announcement);
+
+    return "redirect:/announcements/" + announcementId + "/edit";
   }
 
   /**
