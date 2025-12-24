@@ -106,10 +106,10 @@ Pinia における Store は、 State・Getter・Action という 3 つの要素
 ![Pinia のアーキテクチャ](../../../images/app-architecture/client-side-rendering/pinia-architecture-light.png#only-light){ loading=lazy }
 ![Pinia のアーキテクチャ](../../../images/app-architecture/client-side-rendering/pinia-architecture-dark.png#only-dark){ loading=lazy }
 
-| 要素   | 説                                               |
-| ------ | ------------------------------------------------ |
-| State  | Store で管理するデータそのもの。                   |
-| Getter | State の値や State から算出した結果を返すもの。     |
+| 要素   | 説                                                                                                                                                                                   |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| State  | Store で管理するデータそのもの。                                                                                                                                                     |
+| Getter | State の値や State から算出した結果を返すもの。                                                                                                                                      |
 | Action | Store で管理しているデータである State に対して変更を行うもの。また API の呼び出しや API のレスポンスのハンドリングを行うもの。原則として、 State の変更を伴わない処理を持たせない。 |
 
 Store は State をグローバルなシングルトンとして管理します。そのため本来 State は直接取得・更新ができますが、 Getter と Action を通じてアクセスするルールを設けて State の参照・更新を制御し、データの一貫性を持つことが重要です。
