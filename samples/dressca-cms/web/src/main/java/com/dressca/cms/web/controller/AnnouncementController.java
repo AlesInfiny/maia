@@ -290,7 +290,7 @@ public class AnnouncementController {
 
       List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
           .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(java.util.stream.Collectors.toList());
+          .collect(Collectors.toList());
 
       AnnouncementEditViewModel viewModel = new AnnouncementEditViewModel(
           announcementViewModel, contentViewModels, historyViewModels);
@@ -395,7 +395,7 @@ public class AnnouncementController {
    * @return リダイレクト先。
    */
   @PostMapping(value = "{announcementId}/edit", params = "addLanguageToEdit")
-  public String addLanguageToEdit(@PathVariable("announcementId") String announcementId,
+  public String addLanguageToEdit(@PathVariable("announcementId") UUID announcementId,
       @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel) {
 
     // ビューモデルからDTOに変換
