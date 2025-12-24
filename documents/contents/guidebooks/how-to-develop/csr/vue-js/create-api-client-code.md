@@ -74,16 +74,16 @@ package.json の scripts セクションにタスクを追加します。
 
 設定ファイルの内容について説明します。
 
-| キー                         | 設定値                                                      | 意味                                                |
-| ---------------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
-| `"inputSpec"`                | `"./../../dressca-backend/api-docs/api-specification.json"` | 入力の API 仕様書を指定します。                     |
-| `"generatorName"`            | `"typescript-axios"`                                        | 使用するジェネレーターを指定します。                |
-| `"outputDir"`                | `"./src/generated/api-client"`                              | 生成されたコードの出力先を設定します。              |
-| `"additionalProperties"`     | -                                                           | 使用するジェネレーターごとに固有の値[^2]をキー・バリュー形式で設定します。|
-| `"withSeparateModelsAndApi"` | `"true"`                                                    | model と API を別クラス・別フォルダーに配置します。 |
-| `"modelPackage"`             | `"models"`                                                  | クラスのパッケージ名を「models」に設定します。      |
-| `"apiPackage"`               | `"api"`                                                     | API クラスのパッケージ名を「api」に設定します。     |
-| `"supportsES6"`              | `"true"`                                                    | ES6 に準拠したコードを生成します。                  |
+| キー                         | 設定値                                                      | 意味                                                                       |
+| ---------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `"inputSpec"`                | `"./../../dressca-backend/api-docs/api-specification.json"` | 入力の API 仕様書を指定します。                                            |
+| `"generatorName"`            | `"typescript-axios"`                                        | 使用するジェネレーターを指定します。                                       |
+| `"outputDir"`                | `"./src/generated/api-client"`                              | 生成されたコードの出力先を設定します。                                     |
+| `"additionalProperties"`     | -                                                           | 使用するジェネレーターごとに固有の値[^2]をキー・バリュー形式で設定します。 |
+| `"withSeparateModelsAndApi"` | `"true"`                                                    | model と API を別クラス・別フォルダーに配置します。                        |
+| `"modelPackage"`             | `"models"`                                                  | クラスのパッケージ名を「models」に設定します。                             |
+| `"apiPackage"`               | `"api"`                                                     | API クラスのパッケージ名を「api」に設定します。                            |
+| `"supportsES6"`              | `"true"`                                                    | ES6 に準拠したコードを生成します。                                         |
 
 ## クライアントコードの生成 {#create-client-code}
 

@@ -43,11 +43,11 @@ API 通信においては、ステータスコードが 40x のエラーを業�
 
 例外の発生が予測できる箇所では、同期処理は `try-catch` 、非同期処理は `catch` メソッドを利用します。予期せぬ例外が発生した場合は、 Vue.js の `app.config.errorHandler` や JavaScript の `window.onerror` といったグローバルエラーハンドリングで例外を捕捉します。
 
-| 例外の種類                                            | ハンドリング方法              |
-| ---------------------------------------------------- | ----------------------------- |
-| Vue アプリケーション内で発生する例外                   | `app.config.errorHandler`    |
-| JavaScript の構文エラーや Vue アプリケーション外の例外 | `window.onerror`             |
-| 非同期処理で発生する例外                              | `window.onunhandledrejection` |
+| 例外の種類                                             | ハンドリング方法              |
+| ------------------------------------------------------ | ----------------------------- |
+| Vue アプリケーション内で発生する例外                   | `app.config.errorHandler`     |
+| JavaScript の構文エラーや Vue アプリケーション外の例外 | `window.onerror`              |
+| 非同期処理で発生する例外                               | `window.onunhandledrejection` |
 
 HTTP 通信で発生する例外について、レスポンスやステータスコードを解析する場合は、 Axios の `axios.interceptors.response` が有効です。
 
