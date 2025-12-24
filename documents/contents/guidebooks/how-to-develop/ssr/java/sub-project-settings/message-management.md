@@ -157,7 +157,6 @@ public LocaleResolver localeResolver() {
 ??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
 
     ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
     ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
@@ -169,7 +168,7 @@ public LocaleResolver localeResolver() {
 ??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
 
     ```java title="ProblemDetailsFactory.java" hl_lines="26 27 39 41"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java
+    
     ```
 
 ### HTML とのバインディング {#binding}
