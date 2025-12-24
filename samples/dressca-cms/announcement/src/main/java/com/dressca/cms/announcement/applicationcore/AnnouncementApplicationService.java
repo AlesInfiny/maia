@@ -424,7 +424,7 @@ public class AnnouncementApplicationService {
    * MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL文が複雑になるため private
    * メソッドとして実装しています。
    * 
-   * @param history お知らせメッセージ履歴。
+   * @param contentHistories お知らせコンテンツ履歴のリスト。
    * @return 言語コードの優先順位順に並び替えられたお知らせコンテンツ履歴のリスト。
    */
   private List<AnnouncementContentHistory> getSortedContentHistoriesByLanguagePriority(
