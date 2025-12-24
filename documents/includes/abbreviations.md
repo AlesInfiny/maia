@@ -29,6 +29,7 @@
 *[JVM]: Java Virtual Machine
 *[IDE]: Integrated Development Environment：統合開発環境。
 *[LB]: Load Balancer
+*[MPA]: Multi Page Application
 *[MVC]: Model-View-Controller
 *[MVVM]: Model-View-ViewModel
 *[O/R]: Object / Relational

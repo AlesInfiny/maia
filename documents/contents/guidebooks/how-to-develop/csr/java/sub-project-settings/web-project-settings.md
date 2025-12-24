@@ -289,7 +289,7 @@ build.dependsOn("generateOpenApiDocs")
 
 Web API を公開するオリジンと、呼び出し元となるクライアントスクリプトを公開するオリジンが異なる場合（クロスオリジン）の設定は、[こちら](../../cors/index.md) を参照してください。
 
-## メッセージ読込に関する設定 {#message-reading-settings}
+## メッセージ読み込みに関する設定 {#message-reading-settings}
 
 他サブプロジェクトで管理されているメッセージを読み込む場合の設定は、[こちら](./message-management.md) を参照してください。
 
