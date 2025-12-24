@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="t5FLQf08IiOqZWmdRY7E" name="ページ1">
-        <mxGraphModel dx="1189" dy="186" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1493" dy="504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -22,7 +22,7 @@
                 <mxCell id="75" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;web&lt;/font&gt;&lt;br&gt;プレゼンテーション層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="-150" y="90" width="300" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="76" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;bbb 機能モジュール&lt;/font&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="76" value="&lt;span style=&quot;font-size: 24px;&quot;&gt;b-function&lt;/span&gt;&lt;div&gt;&lt;font&gt;b 機能モジュール&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="20" y="200" width="300" height="240" as="geometry"/>
                 </mxCell>
                 <mxCell id="77" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;system-common&lt;/font&gt;&lt;br&gt;システム共通機能" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
@@ -39,13 +39,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="81" value="&lt;span style=&quot;font-size: 26px;&quot;&gt;application-core&lt;/span&gt;&lt;br&gt;bbb機能アプリケーションコア層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="60" y="250" width="220" height="70" as="geometry"/>
+                <mxCell id="81" value="&lt;span style=&quot;font-size: 26px;&quot;&gt;application-core&lt;/span&gt;&lt;br&gt;b 機能アプリケーションコア層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="260" width="220" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="89" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="82" target="81">
+                <mxCell id="89" value="" style="edgeStyle=none;html=1;" parent="1" source="82" target="81" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="82" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;infrastructure&lt;/font&gt;&lt;br&gt;bbb 機能のインフラストラクチャ層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
+                <mxCell id="82" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;infrastructure&lt;/font&gt;&lt;br&gt;b 機能のインフラストラクチャ層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="60" y="350" width="220" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="83" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeWidth=2;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeColor=#FFFFFF;" parent="1" source="84" target="77" edge="1">
@@ -57,16 +57,16 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="84" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;aaa 機能モジュール&lt;/font&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="84" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;a-function&lt;/font&gt;&lt;/div&gt;&lt;font&gt;a 機能モジュール&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="-320" y="200" width="300" height="240" as="geometry"/>
                 </mxCell>
-                <mxCell id="86" value="&lt;span style=&quot;font-size: 26px;&quot;&gt;application-core&lt;/span&gt;&lt;br&gt;aaa 機能のアプリケーションコア層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="-280" y="250" width="220" height="70" as="geometry"/>
+                <mxCell id="86" value="&lt;span style=&quot;font-size: 26px;&quot;&gt;application-core&lt;/span&gt;&lt;br&gt;a 機能のアプリケーションコア層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="-280" y="260" width="220" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="88" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="87" target="86">
+                <mxCell id="88" value="" style="edgeStyle=none;html=1;" parent="1" source="87" target="86" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="87" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;infrastructure&lt;/font&gt;&lt;br&gt;aaa 機能のインフラストラクチャ層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
+                <mxCell id="87" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;infrastructure&lt;/font&gt;&lt;br&gt;a 機能のインフラストラクチャ層" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="-280" y="350" width="220" height="70" as="geometry"/>
                 </mxCell>
             </root>
