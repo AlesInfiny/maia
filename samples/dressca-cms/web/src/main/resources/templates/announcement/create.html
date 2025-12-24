@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>お知らせメッセージ登録</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* ページタイトル */-->
+      <h1 class="display-6 mb-4" th:text="#{announcement.create.pageTitle}"></h1>
+
+      <!--/* フォーム */-->
+      <form th:action="@{/announcements/create}" th:object="${viewModel}" method="post">
+        <!--/* 基本情報部 */-->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title" th:text="#{announcement.create.basicInfo}"></h5>
+            <div class="row mb-3">
+              <!--/* 掲載開始日時 */-->
+              <div class="col-md-3">
+                <label for="postDate" class="form-label fs-5" th:text="#{announcement.create.postDateTime}"></label>
+                <div class="row g-2">
+                  <div class="col-7">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="postDate"
+                      th:field="*{announcement.postDate}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                  <div class="col-5">
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="postTime"
+                      th:field="*{announcement.postTime}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  th:if="${#fields.hasErrors('announcement.postDate')}"
+                  th:errors="*{announcement.postDate}"></div>
+              </div>
+
+              <!--/* 掲載終了日時 */-->
+              <div class="col-md-3">
+                <label for="expireDate" class="form-label fs-5" th:text="#{announcement.create.expireDateTime}"></label>
+                <div class="row g-2">
+                  <div class="col-7">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="expireDate"
+                      th:field="*{announcement.expireDate}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                  <div class="col-5">
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="expireTime"
+                      th:field="*{announcement.expireTime}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  th:if="${#fields.hasErrors('announcement.expireDate')}"
+                  th:errors="*{announcement.expireDate}"></div>
+              </div>
+
+              <!--/* カテゴリー */-->
+              <div class="col-md-3">
+                <label for="category" class="form-label fs-5" th:text="#{announcement.create.category}"></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="category"
+                  th:field="*{announcement.category}"
+                  th:errorclass="is-invalid" />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('announcement.category')}"
+                  th:errors="*{announcement.category}"></div>
+              </div>
+
+              <!--/* 表示優先度 */-->
+              <div class="col-md-3">
+                <label
+                  for="displayPriority"
+                  class="form-label fs-5"
+                  th:text="#{announcement.create.displayPriority}"></label>
+                <select
+                  class="form-select"
+                  id="displayPriority"
+                  th:field="*{announcement.displayPriority}"
+                  th:errorclass="is-invalid">
+                  <option
+                    th:each="entry : ${displayPriority}"
+                    th:value="${entry.value}"
+                    th:text="${entry.label}"></option>
+                </select>
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('announcement.displayPriority')}"
+                  th:errors="*{announcement.displayPriority}"></div>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" th:field="*{announcement.id}" />
+        </div>
+
+        <div class="row mb-4">
+          <!--/* お知らせメッセージ部 */-->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title mb-0" th:text="#{announcement.create.announcementMessages}"></h5>
+                  <!--/* 別の言語を追加ボタン */-->
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary mt-2"
+                    name="addLanguageToCreate"
+                    th:text="#{announcement.create.addLanguage}"></button>
+                </div>
+
+                <!--/* お知らせメッセージが 0 件の場合 */-->
+                <div th:if="${#lists.isEmpty(viewModel.contents)}" th:text="#{announcement.create.noMessages}"></div>
+
+                <!--/* お知らせメッセージが 1 件以上の場合 */-->
+                <div th:if="${!#lists.isEmpty(viewModel.contents)}">
+                  <div th:each="content, iterStat : *{contents}" class="card mb-3">
+                    <div class="card-body">
+                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].id}" />
+                      <!--/* 削除ボタン */-->
+                      <div class="d-flex justify-content-end mb-3">
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-outline-danger"
+                          name="deleteLanguageFromCreate"
+                          th:value="${content.id}"
+                          th:text="#{announcement.create.delete}"></button>
+                      </div>
+
+                      <div class="row mb-3">
+                        <!--/* 言語コード */-->
+                        <div class="col-md-3">
+                          <label class="form-label fs-5" th:text="#{announcement.create.languageCode}"></label>
+                          <select
+                            class="form-select"
+                            th:field="*{contents[__${iterStat.index}__].languageCode}"
+                            th:errorclass="is-invalid">
+                            <option
+                              th:each="entry : ${languageCode}"
+                              th:value="${entry.value}"
+                              th:text="${entry.label}"></option>
+                          </select>
+                          <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
+                            th:errors="*{contents[__${iterStat.index}__].languageCode}"></div>
+                        </div>
+
+                        <!--/* タイトル */-->
+                        <div class="col-md-9">
+                          <label class="form-label fs-5" th:text="#{announcement.create.title}"></label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            th:field="*{contents[__${iterStat.index}__].title}"
+                            th:errorclass="is-invalid" />
+                          <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
+                            th:errors="*{contents[__${iterStat.index}__].title}"></div>
+                        </div>
+                      </div>
+
+                      <!--/* 表示メッセージ */-->
+                      <div class="mb-3">
+                        <label class="form-label fs-5" th:text="#{announcement.create.message}"></label>
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          th:field="*{contents[__${iterStat.index}__].message}"
+                          th:errorclass="is-invalid"></textarea>
+                        <div
+                          class="invalid-feedback"
+                          th:if="${#fields.hasErrors('contents[' + iterStat.index + '].message')}"
+                          th:errors="*{contents[__${iterStat.index}__].message}"></div>
+                      </div>
+
+                      <!--/* リンク先 URL */-->
+                      <div class="mb-3">
+                        <label class="form-label fs-5" th:text="#{announcement.create.linkUrl}"></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{contents[__${iterStat.index}__].linkUrl}"
+                          th:errorclass="is-invalid" />
+                        <div
+                          class="invalid-feedback"
+                          th:if="${#fields.hasErrors('contents[' + iterStat.index + '].linkUrl')}"
+                          th:errors="*{contents[__${iterStat.index}__].linkUrl}"></div>
+                      </div>
+                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].announcementId}" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--/* アクション部 */-->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body d-flex flex-column gap-3">
+                <h5 class="card-title">アクション</h5>
+                <!--/* 全体エラーメッセージ */-->
+                <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
+                  <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
+                </ul>
+                <button type="submit" class="btn btn-primary" th:text="#{announcement.create.register}"></button>
+                <a th:href="@{/announcements}" class="btn btn-link" th:text="#{announcement.create.backToList}"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </th:block>
+  </body>
+</html>

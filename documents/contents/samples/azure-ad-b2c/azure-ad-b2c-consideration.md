@@ -37,11 +37,11 @@ export const msalConfig = {
 
 キャッシュストレージの保存先として指定できる値は以下の通りです。
 
-| 設定値 | 保存先 |
-| ---------------- | --------------------------------------------- |
+| 設定値           | 保存先                                                                                                                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sessionStorage` | [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する Session Storage に保存する |
-| `localStorage`   | [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する Local Storage に保存する |
-| `memoryStorage`  | ブラウザーのインメモリに保存する |
+| `localStorage`   | [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する Local Storage に保存する   |
+| `memoryStorage`  | ブラウザーのインメモリに保存する                                                                                                                               |
 
 キャッシュストレージの保存先の違いによる影響に関しては、 [Store の永続化方式](../../app-architecture/client-side-rendering/global-function/store-design-policy.md) で詳細を確認してください。
 
