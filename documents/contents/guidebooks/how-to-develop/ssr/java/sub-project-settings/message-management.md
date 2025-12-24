@@ -7,7 +7,7 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 
 # メッセージ管理機能の設定 {#top}
 
-SSR アプリケーションのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/ssr/overview/message-management-policy.md) をご確認ください。
+SSR アプリケーションのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/server-side-rendering/global-function/message-management-policy.md) をご確認ください。
 
 メッセージは用途に応じて以下の 2 種類に分類します。
 
