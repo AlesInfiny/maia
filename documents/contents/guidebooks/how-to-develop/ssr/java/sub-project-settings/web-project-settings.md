@@ -49,13 +49,13 @@ dependencies {
 
 ## 依存プロジェクトの設定 {#config-projects}
 
-web プロジェクトは aaa 、 bbb 、 system-common を参照しています。
+web プロジェクトは a-function 、 b-function 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation project(':aaa')
-  implementation project(':bbb')
+  implementation project(':a-function')
+  implementation project(':b-function')
   implementation project(':system-common')
 }
 ```
@@ -77,6 +77,64 @@ Spring Boot の設定は CSR 編と同様です。
 ログの設定は CSR 編と同様です。
 
 [こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を参照して、ログの設定を追記してください。
+
+ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+ターミナルを用いてルートプロジェクト直下で以下を実行してください。
+
+```shell title="web プロジェクトのビルド"
+./gradlew web:build
+```
+
+??? info "ここまでの手順を実行した際の `web/build.gradle` の例"
+
+    ```groovy title="web/build.gradle"
+    plugins {
+      id 'java'
+      id 'org.springframework.boot' version 'x.x.x'
+      id 'io.spring.dependency-management' version 'x.x.x'
+    }
+
+    group = 'com.dressca.cms'
+    version = '0.0.1-SNAPSHOT'
+    description = 'プロジェクトの説明'
+
+    java {
+      toolchain {
+        languageVersion = JavaLanguageVersion.of(x)
+      }
+    }
+
+    repositories {
+      mavenCentral()
+    }
+
+    dependencies {
+      implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+      implementation 'com.h2database:h2:x.x.x'
+      implementation 'org.springframework.boot:spring-boot-h2console'
+      implementation 'org.springframework.boot:spring-boot-starter-actuator'
+      implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+      implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+      
+      implementation project(':a-function')
+      implementation project(':b-function')
+      implementation project(':system-common')
+
+      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+      // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
+    }
+
+    configurations {
+      all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
+    }
+
+    tasks.named('test') {
+      useJUnitPlatform()
+    }
+    ```
 
 ## メッセージ読込に関する設定 {#message-reading-settings}
 
