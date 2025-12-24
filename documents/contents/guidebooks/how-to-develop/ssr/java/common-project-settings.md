@@ -17,7 +17,7 @@ Spring Initializr を利用して作成したプロジェクトの雛型は、�
 
 ```groovy title="{ルートプロジェクト}/settings.gradle"
 rootProject.name = 'xx-system' // ルートプロジェクトの名前
-include 'aaa', 'bbb', 'web', 'system-common' // サブプロジェクトの名前
+include 'a-function', 'b-function', 'web', 'system-common' // サブプロジェクトの名前
 ```
 
 次に、ルートプロジェクトにある不要な記述を取り除きます。`build.gradle`から以下の項目を削除してください。
