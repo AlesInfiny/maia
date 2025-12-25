@@ -24,7 +24,9 @@ import lombok.AllArgsConstructor;
  * {@link CatalogCategory} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogCategories", description = "カタログカテゴリの情報にアクセスする API です。")
+@Tag(
+    name = "CatalogCategories",
+    description = "カタログカテゴリの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-categories")
 @AllArgsConstructor
 public class CatalogCategoriesController {
@@ -37,9 +39,18 @@ public class CatalogCategoriesController {
    * 
    * @return カタログカテゴリの一覧。
    */
-  @Operation(summary = "カタログカテゴリの一覧を取得します。", description = "カタログカテゴリの一覧を取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogCategoryResponse.class)))) })
+  @Operation(
+      summary = "カタログカテゴリの一覧を取得します。",
+      description = "カタログカテゴリの一覧を取得します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "成功。",
+              content = @Content(
+                  mediaType = "application/json",
+                  array = @ArraySchema(
+                      schema = @Schema(implementation = CatalogCategoryResponse.class))))})
   @GetMapping()
   public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
     List<CatalogCategoryResponse> categories = this.service.getCategories().stream()
