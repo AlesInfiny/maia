@@ -9,8 +9,7 @@ import com.dressca.systemcommon.exception.LogicException;
 public class EmptyBasketOnCheckoutException extends LogicException {
 
   /**
-   * 原因例外を指定して、
-   * {@link EmptyBasketOnCheckoutException} クラスのインスタンスを初期化します。
+   * 原因例外を指定して、 {@link EmptyBasketOnCheckoutException} クラスのインスタンスを初期化します。
    * 
    * @param cause 原因例外。
    */
