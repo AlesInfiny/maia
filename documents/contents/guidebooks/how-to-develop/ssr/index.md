@@ -1,5 +1,5 @@
 ---
-title: アプリケーション 開発手順 SSR 編
+title: アプリケーション開発手順 SSR 編
 description: AlesInfiny Maia OSS Edition で開発可能な SSR アプリケーションの開発手順を示すガイドラインです。
 ---
 
