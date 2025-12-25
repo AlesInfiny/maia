@@ -2,12 +2,13 @@
   "java.dependency.packagePresentation": "hierarchical",
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
-  "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
+  "java.format.settings.url": "./config/formatter/eclipse-formatter.xml",
   "cSpell.ignorePaths": ["**/gradlew", "**/gradlew.bat"],
   "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.detectIndentation": false
   },
   "[html]": {
     "editor.formatOnSave": true,
