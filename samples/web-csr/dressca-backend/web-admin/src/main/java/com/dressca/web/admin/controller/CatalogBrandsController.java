@@ -25,7 +25,9 @@ import lombok.AllArgsConstructor;
  * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスする API です。")
+@Tag(
+    name = "CatalogBrands",
+    description = "カタログブランドの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-brands")
 @AllArgsConstructor
 @PreAuthorize(value = "isAuthenticated()")
@@ -39,12 +41,27 @@ public class CatalogBrandsController {
    * 
    * @return カタログブランドの一覧
    */
-  @Operation(summary = "カタログブランドの一覧を取得します。", description = "カタログブランドの一覧を取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetCatalogBrandsResponse.class)))),
-      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
-  })
+  @Operation(
+      summary = "カタログブランドの一覧を取得します。",
+      description = "カタログブランドの一覧を取得します。")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "成功。",
+              content = @Content(
+                  mediaType = "application/json",
+                  array = @ArraySchema(
+                      schema = @Schema(implementation = GetCatalogBrandsResponse.class)))),
+          @ApiResponse(
+              responseCode = "401",
+              description = "未認証。",
+              content = @Content),
+          @ApiResponse(
+              responseCode = "500",
+              description = "サーバーエラー。",
+              content = @Content)
+      })
   @GetMapping
   public ResponseEntity<List<GetCatalogBrandsResponse>> getCatalogBrands() {
     List<GetCatalogBrandsResponse> brands = this.service.getBrands().stream()
