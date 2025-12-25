@@ -26,8 +26,8 @@ public class CatalogItemMapper {
     List<String> assetCodes = item.getAssets().stream().map(CatalogItemAsset::getAssetCode)
         .collect(Collectors.toList());
 
-    return new GetCatalogItemResponse(item.getId(), item.getName(), item.getProductCode(), assetCodes,
-        item.getDescription(), item.getPrice(), item.getCatalogCategoryId(), item.getCatalogBrandId(),
-        item.getRowVersion(), item.isDeleted());
+    return new GetCatalogItemResponse(item.getId(), item.getName(), item.getProductCode(),
+        assetCodes, item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
+        item.getCatalogBrandId(), item.getRowVersion(), item.isDeleted());
   }
 }
