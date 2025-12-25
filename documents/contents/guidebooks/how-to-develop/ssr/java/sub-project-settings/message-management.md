@@ -31,7 +31,7 @@ root/ -------------------------------------------------- root フォルダー
  │    └ messages_ja.properties ------------------------- a 機能の業務メッセージのプロパティファイル（日本語）
  └ web/src/main/resources
    ├ i18n/ --------------------------------------------- UI メッセージのプロパティファイルを一括管理するフォルダー
-   │  └ a-function/ ---------------------------------- a 機能のプロパティファイルを管理するフォルダー
+   │  └ a-function/ ------------------------------------ a 機能 の UI メッセージのプロパティファイルを管理するフォルダー
    |     └ register/
    |        ├ register_en.properties ------------------- UI メッセージ（登録画面）のプロパティファイル（英語）
    |        └ register_ja.properties ------------------- UI メッセージ（登録画面）のプロパティファイル（日本語）
@@ -51,37 +51,8 @@ root/ -------------------------------------------------- root フォルダー
 以下のように、メッセージコードとメッセージ文字列本体を格納するプロパティファイルを言語ごとに作成します。
 
 ```properties title="messages_ja.properties"
-# システムエラー
-error.system.unexpected=想定外のシステムエラーが発生しました。
-error.system.database=データベースへのアクセスに失敗しました。
-error.system.external=外部システムとの連携に失敗しました。
-
-# 業務エラー
-error.business.data.notfound=指定されたデータが見つかりません。
-error.business.data.duplicate=データが重複しています。
-error.business.operation.invalid=この操作は実行できません。
-
-# バリデーションエラー
-validation.required={0}は必須です。
-validation.length={0}は{1}文字以内で入力してください。
-validation.format={0}の形式が正しくありません。
-```
-
-```properties title="messages_en.properties"
-# System errors
-error.system.unexpected=An unexpected system error has occurred.
-error.system.database=Failed to access the database.
-error.system.external=Failed to integrate with external system.
-
-# Business errors
-error.business.data.notfound=The specified data was not found.
-error.business.data.duplicate=Data is duplicated.
-error.business.operation.invalid=This operation cannot be performed.
-
-# Validation errors
-validation.required={0} is required.
-validation.length={0} must be within {1} characters.
-validation.format=The format of {0} is incorrect.
+systemError=想定外のシステムエラーが発生しました
+businessError=想定外の業務エラーが発生しました
 ```
 
 #### UI メッセージ {#ui-messages}
@@ -90,13 +61,7 @@ UI メッセージのプロパティファイルは `web` サブプロジェク�
 メッセージコードは、アプリケーション内で重複しないように設定する必要があるため、以下のように `<機能名>.<画面名>.<項目名>` で設定します。
 
 ```properties title="register_ja.properties"
-announcement.register.title=お知らせ登録
 announcement.register.message1=お知らせ登録画面のメッセージ文字列
-```
-
-```properties title="register_en.properties"
-announcement.register.title=Register Announcement
-announcement.register.message1=Message string for announcement registration screen
 ```
 
 ### プロパティファイルの読込 {#reading-property-files}
@@ -110,24 +75,67 @@ Spring Framework で提供されている [`#!java PathMatchingResourcePatternRe
 また、 [`#!java MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } で提供されている機能を利用して、プロパティファイルの末尾に `_ja` や `_en` のような接尾辞を付与します。
 これにより、ブラウザーの言語設定に応じて読み込むプロパティファイルを切り替えます。
 
-以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
+??? example "サンプルアプリケーションの I18nConfig.java"
 
-```java title="WebConfig.java"
-@Bean
-public MessageSource messageSource() {
-    var messageSource = new ReloadableResourceBundleMessageSource();
-    messageSource.setBasenames(
-        "classpath:i18n/messages",
-        "classpath:i18n/announcement/register/register",
-        "classpath:i18n/announcement/edit/edit"
-    );
-    messageSource.setDefaultEncoding("UTF-8");
-    return messageSource;
-}
-```
+    以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
 
-読み込むプロパティファイルは `classpath:` 配下の `i18n/<フォルダー名>/<ファイル名>` で指定します。
-プロパティファイルが複数ある場合は、ファイルの間をカンマで区切ります。
+    ```java title="I18nConfig.java"
+    package com.dressca.cms.systemcommon.config;
+
+    import java.io.IOException;
+    import java.util.Arrays;
+    import org.springframework.context.MessageSource;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+    import org.springframework.core.io.Resource;
+    import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+    /**
+     * i18n の設定クラスです。
+     */
+    @Configuration
+    public class I18nConfig {
+
+      /**
+       * メッセージプロパティファイルが読み込まれた、 {@link MessageSource} オブジェクトを Bean 登録します。
+       * 
+       * @return {@link MessageSource} オブジェクト。
+       * @throws IOException 正常にプロパティファイルを読み込めなかった場合。
+       */
+      @Bean
+      public MessageSource messageSource() throws IOException {
+        ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
+        ms.setDefaultEncoding("UTF-8");
+        // キャッシュ時間（開発時は 0、運用時は適宜）
+        ms.setCacheSeconds(3600);
+        // ── i18n 以下をスキャン ──
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        // /i18n/messages_ja.properties や
+        // /i18n/announcement/register/register_en.properties を拾う
+        Resource[] resources = resolver.getResources("classpath*:i18n/**/*.properties");
+        String[] baseNames = Arrays.stream(resources)
+            .map(resource -> {
+              try {
+                String uriStr = resource.getURI().toString();
+                // "classpath:"付きのベース名を抽出
+                return "classpath:" + uriStr
+                    .replaceAll("^.*?/i18n/", "i18n/")
+                    .replaceAll("(_[a-z]{2}(_[A-Z]{2})?)?\\.properties$", "");
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+            })
+            .distinct()
+            .toArray(String[]::new);
+        ms.setBasenames(baseNames);
+        return ms;
+      }
+    }
+    ```
+
+    読み込むプロパティファイルは `classpath:` 配下の `i18n/<フォルダー名>/<ファイル名>` で指定します。
+    プロパティファイルが複数ある場合は、ファイルの間をカンマで区切ります。
 
 ### 多言語対応 {#localization}
 
@@ -139,37 +147,45 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 
 対応していない言語の場合は、 `#!java AcceptHeaderLocaleResolver` の `setDefaultLocale` メソッドを利用して日本語を使用するようにします。
 
-```java title="WebConfig.java"
-@Bean
-public LocaleResolver localeResolver() {
-    var resolver = new AcceptHeaderLocaleResolver();
-    resolver.setDefaultLocale(Locale.JAPANESE);
-    return resolver;
-}
-```
+??? example "サンプルアプリケーションの LocaleConfig.java"
+
+    ```java title="LocaleConfig.java"
+    package com.dressca.cms.web.config;
+
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.web.servlet.LocaleResolver;
+    import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+    import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
+
+    /**
+     * Locale の設定クラスです。
+     */
+    @Configuration
+    public class LocaleConfig {
+
+      /**
+       * Accept-Language ヘッダをそのまま使う {@link LocaleResolver} オブジェクトを Bean 登録します。
+       * クッキーや URL パラメータによる切り替えは不要です。
+       * 
+       * @return {@link LocaleResolver} オブジェクト。
+       */
+      @Bean
+      public LocaleResolver localeResolver() {
+        AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
+        resolver.setDefaultLocale(LanguageCodeConstants.LOCALE_JA);
+        return resolver;
+      }
+    }
+    ```
 
 ### メッセージの取得 {#getting-messages}
 
 読み込んだプロパティファイルのメッセージを取得するためには、 [`MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } インターフェースを利用します。
 
-以下は、プロパティファイルからメッセージを取得し、ログに出力するためのエラーメッセージを整形する `ErrorMessageBuilder` クラスの例です。
-
-??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
-
-    ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
-    ```
-
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
-
-以下は、プロパティファイルからエラーレスポンスに含めるメッセージを整形する `ProblemDetailsFactory.java` クラスの例です。
-
-??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
-
-    ```java title="ProblemDetailsFactory.java" hl_lines="26 27 39 41"
-    
-    ```
 
 ### HTML とのバインディング {#binding}
 
@@ -177,6 +193,5 @@ public LocaleResolver localeResolver() {
 以下のように、構文内にはプロパティファイルで定義したメッセージコードを記述します。
 
 ```html title="register.html"
-<h1 th:text="#{announcement.register.title}"></h1>
-<p th:text="#{announcement.register.message1}"></p>
+<h1 th:text="#{announcement.register.message1}"></h1>
 ```
