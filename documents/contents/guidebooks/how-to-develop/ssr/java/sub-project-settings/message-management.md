@@ -77,7 +77,7 @@ Spring Framework で提供されている [`#!java PathMatchingResourcePatternRe
 
 ??? example "サンプルアプリケーションの I18nConfig.java"
 
-    以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
+    以下のように、 web プロジェクトなどのエントリーポイントやシステム共通のサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
 
     ```java title="I18nConfig.java"
     package com.dressca.cms.systemcommon.config;

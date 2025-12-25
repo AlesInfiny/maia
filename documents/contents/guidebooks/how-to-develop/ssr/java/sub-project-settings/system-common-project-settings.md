@@ -3,7 +3,7 @@ title: Java 編 （SSR 編）
 description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-## system-common プロジェクトの設定 {#top}
+# system-common プロジェクトの設定 {#top}
 
 system-common プロジェクトの依存ライブラリについては、特に必須や推奨するライブラリはありません。
 開発するシステム共通部品で必要なライブラリを適宜追加します。
