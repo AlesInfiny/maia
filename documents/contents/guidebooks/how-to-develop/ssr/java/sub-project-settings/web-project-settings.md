@@ -94,7 +94,7 @@ Spring Boot の設定は CSR 編と同様です。
       id 'io.spring.dependency-management' version 'x.x.x'
     }
 
-    group = 'com.dressca.cms'
+    group = 'プロジェクトのグループ名'
     version = '0.0.1-SNAPSHOT'
     description = 'プロジェクトの説明'
 
