@@ -15,14 +15,13 @@ public class CatalogItemAsset {
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
    */
-  public CatalogItemAsset() {
-  }
+  public CatalogItemAsset() {}
 
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
    * 
    * @param catalogItemId カタログアイテム ID 。
-   * @param assetCode     アセットコード 。
+   * @param assetCode アセットコード 。
    */
   public CatalogItemAsset(long catalogItemId, @NonNull String assetCode) {
     this.catalogItemId = catalogItemId;
@@ -32,9 +31,9 @@ public class CatalogItemAsset {
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
    * 
-   * @param id            ID 。
+   * @param id ID 。
    * @param catalogItemId カタログアイテム ID 。
-   * @param assetCode     アセットコード。
+   * @param assetCode アセットコード。
    */
   public CatalogItemAsset(long id, long catalogItemId, @NonNull String assetCode) {
     this.id = id;
