@@ -9,9 +9,20 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 
 ## 依存ライブラリの設定 {#config-dependencies}
 
-機能モジュールのプロジェクトの依存ライブラリは、 application-core プロジェクトと infrastructure プロジェクトを合わせたものとなります。
+機能モジュールのプロジェクトで必要になるライブラリは、主にデータアクセス処理の実装に必要なライブラリです。
+データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
+機能モジュールのプロジェクトで利用を推奨するライブラリは以下の通りです。
 
-CSR 編の [application-core プロジェクトの設定](../../../csr/java/sub-project-settings/application-core-project-settings.md#config-dependencies) および [infrastructure プロジェクトの設定](../../../csr/java/sub-project-settings/infrastructure-project-settings.md#config-dependencies) を参照してください。
+- `mybatis-spring-boot-starter`： MyBatis と Spring Boot を統合するためのスターター
+
+- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+
+```groovy title="a-function/build.gradle"
+dependencies {
+  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
+  implementation 'com.h2database:h2:x.x.x'
+}
+```
 
 ## 依存プロジェクトの設定 {#config-projects}
 
@@ -94,6 +105,7 @@ a-function プロジェクトの `src` 以下にある、 `AFunctionApplication.
     dependencies {
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
       implementation 'com.h2database:h2:x.x.x'
+      
       implementation project(':system-common')
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
