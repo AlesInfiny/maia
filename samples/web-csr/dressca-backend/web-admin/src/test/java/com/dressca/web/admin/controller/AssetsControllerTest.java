@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
-@WithMockUser(roles = { "ADMIN" })
+@WithMockUser(roles = {"ADMIN"})
 public class AssetsControllerTest {
 
   @Autowired
