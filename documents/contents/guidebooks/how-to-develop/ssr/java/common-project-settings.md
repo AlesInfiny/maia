@@ -22,7 +22,7 @@ include 'a-function', 'b-function', 'web', 'system-common' // サブプロジェ
 
 次に、ルートプロジェクトにある不要な記述を取り除きます。`build.gradle`から以下の項目を削除してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2 3 4 7 8 10 11 12 13 14 16 17 18 21 22 23 26 27 28"
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2 3 4 7 8 9 11 12 13 14 15 17 18 19 22 23 24 27 28 29"
 plugins {
   id 'java'
   id 'org.springframework.boot' version 'x.x.x'
@@ -31,6 +31,7 @@ plugins {
 
 group = 'プロジェクトのグループ名'
 version = 'x.x.x-SNAPSHOT'
+description = 'プロジェクトの説明'
 
 java {
   toolchain {
