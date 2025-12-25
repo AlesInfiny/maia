@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
@@ -29,7 +30,7 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {

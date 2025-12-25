@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
@@ -31,7 +32,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * {@link OrderApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class OrderApplicationServiceTest {

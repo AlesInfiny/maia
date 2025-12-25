@@ -19,8 +19,9 @@ import com.dressca.web.controller.AssetsController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -32,6 +33,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -48,6 +50,7 @@ import java.util.Locale;
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("local")
+@ExtendWith(MockitoExtension.class)
 public class LocalExceptionHandlerControllerAdviceTest {
 
   private static final String MOCK_APPENDER_NAME = "MockAppender";
@@ -76,7 +79,6 @@ public class LocalExceptionHandlerControllerAdviceTest {
     Mockito.when(mockAppender.getName()).thenReturn(MOCK_APPENDER_NAME);
     // Appender として利用できる準備ができていることを設定（下 2 行）
     Mockito.when(mockAppender.isStarted()).thenReturn(true);
-    Mockito.when(mockAppender.isStopped()).thenReturn(false);
 
     this.setLogLevel(Level.INFO);
   }
