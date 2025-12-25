@@ -31,8 +31,12 @@ public class ErrorMessageBuilder {
    */
   public String createLogMessageStackTrace() {
     StringBuilder builder = new StringBuilder();
-    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
-    builder.append(exceptionId).append(" ").append(exceptionMessage).append(SystemPropertyConstants.LINE_SEPARATOR);
+    String exceptionMessage =
+        messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+    builder.append(exceptionId)
+        .append(" ")
+        .append(exceptionMessage)
+        .append(SystemPropertyConstants.LINE_SEPARATOR);
     StringWriter writer = new StringWriter();
     ex.printStackTrace(new PrintWriter(writer));
     builder.append(writer.getBuffer().toString());

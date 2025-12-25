@@ -29,14 +29,15 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   /**
    * 未認証の例外をステータースコード 401 で返却します。
    *
-   * @param e   未認証の例外。
+   * @param e 未認証の例外。
    * @param req リクエスト。
    * @return ステータースコード 401 のレスポンス。
    */
   @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null,
-        null);
+  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e,
+      HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_BUSINESS,
@@ -49,13 +50,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   /**
    * その他の例外をステータースコード 500 で返却します。
    *
-   * @param e   その他の例外。
+   * @param e その他の例外。
    * @param req リクエスト。
    * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_SYSTEM,
