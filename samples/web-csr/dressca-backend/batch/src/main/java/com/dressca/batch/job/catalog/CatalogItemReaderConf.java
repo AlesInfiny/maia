@@ -26,7 +26,8 @@ public class CatalogItemReaderConf {
   public MyBatisPagingItemReader<CatalogItem> catalogItemReader() {
     return new MyBatisPagingItemReaderBuilder<CatalogItem>()
         .sqlSessionFactory(sqlSessionFactory)
-        .queryId("com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper.findWithPaging")
+        .queryId(
+            "com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper.findWithPaging")
         .pageSize(10)
         .build();
   }

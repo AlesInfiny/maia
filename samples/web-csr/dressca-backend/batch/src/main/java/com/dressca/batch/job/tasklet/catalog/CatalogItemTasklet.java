@@ -32,7 +32,8 @@ public class CatalogItemTasklet implements Tasklet {
   String output;
 
   @Override
-  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
+      throws Exception {
     // DB から CatalogItem を全件取得
     List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
@@ -59,7 +60,7 @@ public class CatalogItemTasklet implements Tasklet {
     writer.setAppendAllowed(true);
 
     BeanWrapperFieldExtractor<CatalogItem> fieldExtractor = new BeanWrapperFieldExtractor<>();
-    fieldExtractor.setNames(new String[] { "name", "price", "productCode" });
+    fieldExtractor.setNames(new String[] {"name", "price", "productCode"});
 
     DelimitedLineAggregator<CatalogItem> lineAggregator = new DelimitedLineAggregator<>();
     lineAggregator.setDelimiter(",");

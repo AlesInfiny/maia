@@ -25,7 +25,8 @@ public class CatalogItemWriterConf {
    */
   @Bean
   @StepScope
-  public FlatFileItemWriter<CatalogItem> csvFileItemWriter(@Value("#{jobParameters['output']}") String output)
+  public FlatFileItemWriter<CatalogItem> csvFileItemWriter(
+      @Value("#{jobParameters['output']}") String output)
       throws Exception {
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
     FileSystemResource outputResource;
@@ -39,7 +40,7 @@ public class CatalogItemWriterConf {
     writer.setAppendAllowed(true);
 
     BeanWrapperFieldExtractor<CatalogItem> fieldExtractor = new BeanWrapperFieldExtractor<>();
-    fieldExtractor.setNames(new String[] { "name", "price", "productCode" });
+    fieldExtractor.setNames(new String[] {"name", "price", "productCode"});
 
     DelimitedLineAggregator<CatalogItem> lineAggregator = new DelimitedLineAggregator<>();
     lineAggregator.setDelimiter(",");
