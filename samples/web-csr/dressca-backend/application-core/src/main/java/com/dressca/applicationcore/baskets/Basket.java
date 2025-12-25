@@ -23,8 +23,7 @@ public class Basket {
   private String buyerId;
 
   /**
-   * 購入者 ID を指定して、
-   * {@link Basket} クラスのインスタンスを初期化します。
+   * 購入者 ID を指定して、 {@link Basket} クラスのインスタンスを初期化します。
    * 
    * @param buyerId 購入者 ID 。
    */
@@ -33,10 +32,9 @@ public class Basket {
   }
 
   /**
-   * 買い物かご ID と購入者 ID を指定して、
-   * {@link Basket} クラスのインスタンスを初期化します。
+   * 買い物かご ID と購入者 ID を指定して、 {@link Basket} クラスのインスタンスを初期化します。
    * 
-   * @param id      買い物かご ID 。
+   * @param id 買い物かご ID 。
    * @param buyerId 購入者 ID 。
    */
   public Basket(long id, @NonNull String buyerId) {
@@ -48,11 +46,12 @@ public class Basket {
    * カタログアイテムを追加します。
    * 
    * @param catalogItemId カタログアイテム ID 。
-   * @param unitPrice     単価。
-   * @param quantity      数量。
+   * @param unitPrice 単価。
+   * @param quantity 数量。
    */
   public void addItem(long catalogItemId, BigDecimal unitPrice, int quantity) {
-    Optional<BasketItem> existingItem = this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId)
+    Optional<BasketItem> existingItem = this.items.stream()
+        .filter(item -> item.getCatalogItemId() == catalogItemId)
         .findFirst();
 
     existingItem.ifPresentOrElse(item -> item.addQuantity(quantity),
