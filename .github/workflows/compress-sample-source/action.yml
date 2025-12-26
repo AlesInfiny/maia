@@ -19,3 +19,9 @@ runs:
       run: |
         cd samples/azure-ad-b2c-sample
         zip -r ${GITHUB_WORKSPACE}/${{ inputs.compressed-source-path }}/azure-ad-b2c.zip *
+    
+    - name: dressca-cms.zip の作成
+      shell: bash
+      run: |
+        cd samples/dressca-cms
+        zip -r ${GITHUB_WORKSPACE}/${{ inputs.compressed-source-path }}/dressca-cms.zip *
