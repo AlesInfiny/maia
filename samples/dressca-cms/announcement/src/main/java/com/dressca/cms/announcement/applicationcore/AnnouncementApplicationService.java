@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -293,15 +294,23 @@ public class AnnouncementApplicationService {
     // 既存のお知らせコンテンツを取得
     List<AnnouncementContent> existingContents = announcementContentRepository
         .findByAnnouncementId(announcement.getId());
-    Set<String> existingLanguageCodes = new HashSet<>();
+    Set<String> existingLanguageCodes = existingContents.stream()
+        .map(AnnouncementContent::getLanguageCode)
+        .collect(Collectors.toSet());
+
+    Set<String> newLanguageCodes = announcement.getContents().stream()
+        .map(AnnouncementContent::getLanguageCode)
+        .collect(Collectors.toSet());
+
+    // 削除されたコンテンツを削除
     for (AnnouncementContent existingContent : existingContents) {
-      existingLanguageCodes.add(existingContent.getLanguageCode());
+      if (!newLanguageCodes.contains(existingContent.getLanguageCode())) {
+        announcementContentRepository.deleteById(existingContent.getId());
+      }
     }
 
-    Set<String> newLanguageCodes = new HashSet<>();
+    // 既存のコンテンツを更新、新しいコンテンツを追加
     for (AnnouncementContent content : announcement.getContents()) {
-      newLanguageCodes.add(content.getLanguageCode());
-
       if (existingLanguageCodes.contains(content.getLanguageCode())) {
         // 既存のコンテンツを更新
         announcementContentRepository.update(content);
@@ -309,13 +318,6 @@ public class AnnouncementApplicationService {
         // 新しいコンテンツを追加
         content.setAnnouncementId(announcement.getId());
         announcementContentRepository.add(content);
-      }
-    }
-
-    // 削除されたコンテンツを削除
-    for (AnnouncementContent existingContent : existingContents) {
-      if (!newLanguageCodes.contains(existingContent.getLanguageCode())) {
-        announcementContentRepository.deleteById(existingContent.getId());
       }
     }
 
