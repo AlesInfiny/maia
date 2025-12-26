@@ -41,7 +41,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
     以下の通り、コマンドを実行します。
 
     ```shell title="コマンドラインでの Gradle の起動"
-    gradlew :batch:bootRun
+    ./gradlew :batch:bootRun
     ```
 
 - VS Code の実行とデバッグビュー（Run and Debug）で起動する場合
@@ -55,7 +55,7 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
     以下の通り、コマンドを実行します。
   
     ```shell title="実行可能 jar の起動"
-    # gradlew :batch:bootJar で実行可能jarを生成した想定
+    # ./gradlew :batch:bootJar で実行可能jarを生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar
     ```
 
@@ -79,7 +79,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ指定）"
-    gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
+    ./gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -89,13 +89,12 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     以下のように、コマンドを実行します。
 
     ```shell title="実行可能 jar の起動（ジョブ指定）"
-    # gradlew :batch:bootJar で実行可能 jar を生成した想定
+    # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.batch.job.name=catalogItem_job
     ```
 
 ## ジョブ独自の引数の指定方法 {#specifying-arguments}
 
-Spring Batch で定義されたジョブは、それぞれ独自の引数を定義できます。
 本サンプルで定義されている 2 つのジョブは、それぞれ `output` という名前のオプション引数を定義しており、
 出力する CSV ファイル名を設定できます。
 
@@ -106,7 +105,7 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
-    gradlew :batch:bootRun --args="output=sample-output.csv"
+    ./gradlew :batch:bootRun --args="--output=sample-output.csv"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -116,6 +115,6 @@ Spring Batch で定義されたジョブは、それぞれ独自の引数を定�
     以下のように、コマンドを実行します。
 
     ```shell title="実行可能 jar の起動（ジョブ引数指定）"
-    # gradlew :batch:bootJar で実行可能 jar を生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar output=sample-output.csv
+    # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --output=sample-output.csv
     ```
