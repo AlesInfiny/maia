@@ -10,4 +10,10 @@ public interface AnnouncementValidationGroup {
    */
   interface Store {
   }
+
+  /**
+   * お知らせメッセージ更新時のバリデーショングループです。
+   */
+  interface Update {
+  }
 }

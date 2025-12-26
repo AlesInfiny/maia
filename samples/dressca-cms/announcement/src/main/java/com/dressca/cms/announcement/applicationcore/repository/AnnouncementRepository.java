@@ -2,6 +2,7 @@ package com.dressca.cms.announcement.applicationcore.repository;
 
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * お知らせメッセージのリポジトリインターフェースです。
@@ -31,4 +32,19 @@ public interface AnnouncementRepository {
    * @param announcement お知らせメッセージ。
    */
   void add(Announcement announcement);
+
+  /**
+   * 指定したIDのお知らせメッセージをお知らせコンテンツと併せて取得します。
+   *
+   * @param id お知らせメッセージID。
+   * @return お知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
+   */
+  Announcement findByIdWithContents(UUID id);
+
+  /**
+   * お知らせメッセージを更新します。
+   *
+   * @param announcement お知らせメッセージ。
+   */
+  void update(Announcement announcement);
 }

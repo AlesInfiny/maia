@@ -1,8 +1,15 @@
 package com.dressca.cms.web.constant;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import lombok.Getter;
+
 /**
  * 表示優先度の選択肢です。
  */
+@Getter
 public enum DisplayPriority {
 
   /** 緊急の表示優先度です。 */
@@ -18,6 +25,13 @@ public enum DisplayPriority {
   private final String label;
 
   /**
+   * 表示優先度の値とラベルのマップです。
+   */
+  public static final Map<Integer, String> DISPLAY_PRIORITY_LABEL_MAP = Collections
+      .unmodifiableMap(Stream.of(DisplayPriority.values())
+          .collect(Collectors.toMap(DisplayPriority::getValue, DisplayPriority::getLabel)));
+
+  /**
    * 値とラベルを指定して {@link DisplayPriority} を初期化します。
    *
    * @param value 表示優先度の値。
@@ -26,23 +40,5 @@ public enum DisplayPriority {
   DisplayPriority(int value, String label) {
     this.value = value;
     this.label = label;
-  }
-
-  /**
-   * 表示優先度の値を取得します。
-   *
-   * @return 表示優先度の値。
-   */
-  public int getValue() {
-    return value;
-  }
-
-  /**
-   * 表示優先度のラベルを取得します。
-   *
-   * @return 表示優先度のラベル。
-   */
-  public String getLabel() {
-    return label;
   }
 }

@@ -8,6 +8,7 @@ import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.AnnouncementCustomMapper;
 import com.dressca.cms.announcement.infrastructure.translator.AnnouncementEntityTranslator;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -38,5 +39,17 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   public void add(Announcement announcement) {
     AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
     announcementMapper.insert(entity);
+  }
+
+  @Override
+  public Announcement findByIdWithContents(UUID id) {
+    // カスタムマッパーでお知らせメッセージとコンテンツを JOIN して取得し、直接 DTO を返却
+    return announcementCustomMapper.findByIdWithContents(id);
+  }
+
+  @Override
+  public void update(Announcement announcement) {
+    AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
+    announcementMapper.updateByPrimaryKey(entity);
   }
 }

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,13 +30,15 @@ public class AnnouncementViewModel {
   /**
    * カテゴリー。
    */
-  @Size(max = 128, groups = AnnouncementValidationGroup.Store.class)
+  @Size(max = 128, groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.categoryTooLong}")
+  @Size(max = 128, groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.categoryTooLong}")
   private String category;
 
   /**
    * 掲載開始日。
    */
   @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.postDateIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.postDateIsRequired}")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate postDate;
 
@@ -63,17 +64,32 @@ public class AnnouncementViewModel {
    * 表示優先度。
    */
   @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.displayPriorityIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.displayPriorityIsRequired}")
   private Integer displayPriority;
 
   /**
-   * レコード作成日時。
+   * レコード作成日。
    */
-  private OffsetDateTime createdAt;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate createdAtDate;
 
   /**
-   * レコード更新日時。
+   * レコード作成時刻。
    */
-  private OffsetDateTime changedAt;
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  private LocalTime createdAtTime;
+
+  /**
+   * レコード更新日。
+   */
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate changedAtDate;
+
+  /**
+   * レコード更新時刻。
+   */
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  private LocalTime changedAtTime;
 
   /**
    * 論理削除フラグ。
