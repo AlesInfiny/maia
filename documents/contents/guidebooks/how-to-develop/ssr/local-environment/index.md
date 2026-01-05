@@ -6,5 +6,3 @@ description: AlesInfiny Maia OSS Edition の SSR アプリケーション開発�
 
 SSR アプリケーションの開発におけるシステム要件およびローカル開発環境の構築方法は、 原則 CSR 編と同一です。
 [こちら](../../csr/local-environment/index.md) を参照し、必要なソフトウェアをインストールしてください。
-
-ただし、 npm パッケージの利用を必須としないので、 [Node.js のインストール](../../csr/local-environment/index.md#install-node) は実施不要です。
