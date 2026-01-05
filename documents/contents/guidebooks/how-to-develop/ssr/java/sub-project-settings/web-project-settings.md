@@ -95,7 +95,7 @@ Spring Boot の設定は CSR 編と同様です。
     }
 
     group = 'プロジェクトのグループ名'
-    version = '0.0.1-SNAPSHOT'
+    version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
     java {
