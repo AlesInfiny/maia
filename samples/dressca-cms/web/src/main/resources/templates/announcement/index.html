@@ -40,7 +40,7 @@
 
       <!--/* お知らせメッセージリスト部 */-->
       <!--/* お知らせメッセージが 0 件の場合 */-->
-      <div th:if="${!viewModel.existAnnouncement()}" th:text="#{announcement.index.noAnnouncementMessages}"></div>
+      <div th:if="${!viewModel.existAnnouncement()}" th:text="#{announcement.index.noAnnouncements}"></div>
 
       <!--/* お知らせメッセージが 1 件以上の場合 */-->
       <div th:if="${viewModel.existAnnouncement()}">

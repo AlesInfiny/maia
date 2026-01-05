@@ -47,4 +47,12 @@ public interface AnnouncementRepository {
    * @param announcement お知らせメッセージ。
    */
   void update(Announcement announcement);
+
+  /**
+   * 指定したIDのお知らせメッセージを論理削除します。
+   *
+   * @param id お知らせメッセージID。
+   * @return 論理削除したお知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
+   */
+  Announcement delete(UUID id);
 }

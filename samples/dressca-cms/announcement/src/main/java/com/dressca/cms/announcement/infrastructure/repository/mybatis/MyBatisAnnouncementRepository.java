@@ -37,7 +37,7 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
 
   @Override
   public void add(Announcement announcement) {
-    AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
+    AnnouncementEntity entity = AnnouncementEntityTranslator.toAnnouncementEntity(announcement);
     announcementMapper.insert(entity);
   }
 
@@ -49,7 +49,15 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
 
   @Override
   public void update(Announcement announcement) {
-    AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
+    AnnouncementEntity entity = AnnouncementEntityTranslator.toAnnouncementEntity(announcement);
     announcementMapper.updateByPrimaryKey(entity);
+  }
+
+  @Override
+  public Announcement delete(UUID id) {
+    Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
+    announcement.setIsDeleted(true);
+    announcementMapper.updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
+    return announcement;
   }
 }

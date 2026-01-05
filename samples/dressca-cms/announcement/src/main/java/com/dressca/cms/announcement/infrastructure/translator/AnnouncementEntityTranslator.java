@@ -25,7 +25,7 @@ public final class AnnouncementEntityTranslator {
    * @param dto お知らせメッセージの DTO。
    * @return お知らせメッセージのエンティティ。
    */
-  public static AnnouncementEntity toEntity(Announcement dto) {
+  public static AnnouncementEntity toAnnouncementEntity(Announcement dto) {
     if (dto == null) {
       return null;
     }
@@ -78,6 +78,21 @@ public final class AnnouncementEntityTranslator {
     AnnouncementContentHistoryEntity entity = new AnnouncementContentHistoryEntity();
     BeanUtils.copyProperties(dto, entity);
     return entity;
+  }
+
+  /**
+   * お知らせメッセージのエンティティから DTO に変換します。
+   * 
+   * @param entity お知らせメッセージのエンティティ。
+   * @return お知らせメッセージの DTO。
+   */
+  public static Announcement toAnnouncementDto(AnnouncementEntity entity) {
+    if (entity == null) {
+      return null;
+    }
+    Announcement dto = new Announcement();
+    BeanUtils.copyProperties(entity, dto);
+    return dto;
   }
 
   /**

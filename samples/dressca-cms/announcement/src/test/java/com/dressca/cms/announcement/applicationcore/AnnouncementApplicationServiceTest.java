@@ -689,6 +689,70 @@ public class AnnouncementApplicationServiceTest {
     verify(announcementContentRepository, times(1)).update(any());
   }
 
+  @Test
+  void testDeleteAnnouncementAndHistory_正常系_お知らせメッセージと履歴が正しく削除および追加される()
+      throws AnnouncementNotFoundException {
+    // Arrange
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    announcement.setContents(List.of(content));
+    List<AnnouncementHistory> histories = new ArrayList<>();
+    String username = "dummyUser";
+
+    when(announcementRepository.delete(announcement.getId())).thenReturn(announcement);
+    when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
+
+    // Act
+    AnnouncementWithHistory result = service.deleteAnnouncementAndHistory(announcement.getId(), username);
+    // Assert
+    assertThat(result).isNotNull();
+    assertThat(result.getAnnouncement()).isNotNull();
+    assertThat(result.getHistories()).isNotNull();
+    verify(announcementRepository, times(1)).delete(announcement.getId());
+    verify(announcementHistoryRepository, times(1)).add(any());
+    verify(announcementContentHistoryRepository, times(1)).add(any());
+  }
+
+  @Test
+  void testDeleteAnnouncementAndHistory_正常系_複数言語のコンテンツを持つお知らせメッセージが削除される()
+      throws AnnouncementNotFoundException {
+    // Arrange
+    Announcement announcement = createAnnouncementWithoutContent();
+    AnnouncementContent jaContent = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
+    AnnouncementContent enContent = createContent(announcement.getId(), "en", "Announcement Title",
+        "Announcement Message");
+    announcement.setContents(List.of(jaContent, enContent));
+    List<AnnouncementHistory> histories = new ArrayList<>();
+    String username = "dummyUser";
+
+    when(announcementRepository.delete(announcement.getId())).thenReturn(announcement);
+    when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
+
+    // Act
+    AnnouncementWithHistory result = service.deleteAnnouncementAndHistory(announcement.getId(), username);
+
+    // Assert
+    assertThat(result).isNotNull();
+    verify(announcementRepository, times(1)).delete(announcement.getId());
+    verify(announcementHistoryRepository, times(1)).add(any());
+    verify(announcementContentHistoryRepository, times(2)).add(any());
+  }
+
+  @Test
+  void testDeleteAnnouncementAndHistory_異常系_存在しないお知らせメッセージIDの場合例外が発生する() {
+    // Arrange
+    UUID nonExistentId = UuidGenerator.generate();
+    String username = "dummyUser";
+    when(announcementRepository.delete(nonExistentId)).thenReturn(null);
+
+    // Act & Assert
+    assertThrows(AnnouncementNotFoundException.class,
+        () -> service.deleteAnnouncementAndHistory(nonExistentId, username));
+    verify(announcementRepository, times(1)).delete(nonExistentId);
+    verify(announcementRepository, times(0)).findByIdWithContents(any());
+    verify(announcementHistoryRepository, times(0)).add(any());
+  }
+
   /**
    * お知らせコンテンツを作成します。
    * 
