@@ -305,7 +305,7 @@ public class AnnouncementApplicationServiceTest {
     Announcement announcement = createAnnouncementWithoutContent();
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act
     UUID result = service.addAnnouncementAndHistory(announcement, username);
@@ -325,7 +325,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent enContent = createContent(announcement.getId(), "en", "Announcement Title",
         "Announcement Message");
     announcement.setContents(List.of(jaContent, enContent));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act
     UUID result = service.addAnnouncementAndHistory(announcement, username);
@@ -341,7 +341,7 @@ public class AnnouncementApplicationServiceTest {
     Announcement announcement = createAnnouncementWithoutContent();
     AnnouncementContent invalidContent = createContent(announcement.getId(), "invalid", "タイトル", "メッセージ");
     announcement.setContents(List.of(invalidContent));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     assertThrows(AnnouncementValidationException.class,
@@ -357,7 +357,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     assertThrows(AnnouncementValidationException.class,
@@ -373,7 +373,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act
     UUID result = service.addAnnouncementAndHistory(announcement, username);
@@ -387,7 +387,7 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     assertThrows(AnnouncementValidationException.class,
@@ -399,7 +399,7 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
         OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     assertThrows(AnnouncementValidationException.class,
@@ -413,7 +413,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent jaContent1 = createContent(announcement.getId(), "ja", "お知らせタイトル1", "お知らせメッセージ1");
     AnnouncementContent jaContent2 = createContent(announcement.getId(), "ja", "お知らせタイトル2", "お知らせメッセージ2");
     announcement.setContents(List.of(jaContent1, jaContent2));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
@@ -430,7 +430,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act
     UUID result = service.addAnnouncementAndHistory(announcement, username);
@@ -447,7 +447,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act
     UUID result = service.addAnnouncementAndHistory(announcement, username);
@@ -463,7 +463,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent invalidContent1 = createContent(announcement.getId(), "invalid1", "タイトル1", "メッセージ1");
     AnnouncementContent invalidContent2 = createContent(announcement.getId(), "invalid2", "タイトル2", "メッセージ2");
     announcement.setContents(List.of(invalidContent1, invalidContent2));
-    String username = "testuser";
+    String username = "dummyUser";
 
     // Act & Assert
     AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
@@ -484,7 +484,7 @@ public class AnnouncementApplicationServiceTest {
         UuidGenerator.generate(), "ja", "お知らせタイトル", "お知らせメッセージ", "https://example.com");
     AnnouncementHistory history = new AnnouncementHistory(UuidGenerator.generate(), announcementId,
         "INFO", OffsetDateTime.now(), null, 3, OffsetDateTime.now(),
-        "testuser", 1, List.of(contentHistory));
+        "dummyUser", 1, List.of(contentHistory));
 
     when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(announcement);
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcementId))
@@ -523,7 +523,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
-    service.updateAnnouncement(announcement, "testuser");
+    service.updateAnnouncement(announcement, "dummyUser");
 
     verify(announcementRepository, times(1)).update(any());
     verify(announcementContentRepository, times(1)).update(any());
@@ -549,7 +549,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
-    service.updateAnnouncement(announcement, "testuser");
+    service.updateAnnouncement(announcement, "dummyUser");
 
     verify(announcementRepository, times(1)).update(any());
     verify(announcementContentRepository, times(1)).update(any());
@@ -576,7 +576,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingJaContent, existingEnContent));
 
-    service.updateAnnouncement(announcement, "testuser");
+    service.updateAnnouncement(announcement, "dummyUser");
 
     verify(announcementRepository, times(1)).update(any());
     verify(announcementContentRepository, times(1)).update(any());
@@ -594,7 +594,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(invalidContent));
 
     assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "testuser"));
+        () -> service.updateAnnouncement(announcement, "dummyUser"));
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -607,7 +607,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent content = createContent(announcement.getId(), "ja", "お知らせタイトル", "お知らせメッセージ");
     announcement.setContents(List.of(content));
     assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "testuser"));
+        () -> service.updateAnnouncement(announcement, "dummyUser"));
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -618,7 +618,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, null);
 
     assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "testuser"));
+        () -> service.updateAnnouncement(announcement, "dummyUser"));
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -629,7 +629,7 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
 
     assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "testuser"));
+        () -> service.updateAnnouncement(announcement, "dummyUser"));
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -640,7 +640,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent jaContent2 = createContent(announcement.getId(), "ja", "お知らせタイトル2", "お知らせメッセージ2");
     announcement.setContents(List.of(jaContent1, jaContent2));
     AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "testuser"));
+        () -> service.updateAnnouncement(announcement, "dummyUser"));
 
     assertThat(exception.getValidationErrors()).hasSize(1);
     verify(announcementRepository, times(0)).update(any());
@@ -661,7 +661,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
-    service.updateAnnouncement(announcement, "testuser");
+    service.updateAnnouncement(announcement, "dummyUser");
 
     verify(announcementRepository, times(1)).update(any());
     verify(announcementContentRepository, times(1)).update(any());
@@ -683,7 +683,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
-    service.updateAnnouncement(announcement, "testuser");
+    service.updateAnnouncement(announcement, "dummyUser");
 
     verify(announcementRepository, times(1)).update(any());
     verify(announcementContentRepository, times(1)).update(any());
