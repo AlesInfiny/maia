@@ -26,7 +26,7 @@
                     th:text="${#temporals.format(viewModel.announcement.postDate, 'yyyy-MM-dd')} + ' ' + ${#temporals.format(viewModel.announcement.postTime, 'HH:mm')}"></span>
                   <span
                     th:if="${viewModel.announcement.expireDate != null}"
-                    th:text="'-' + ${#temporals.format(viewModel.announcement.expireDate, 'yyyy-MM-dd')} + ' ' + ${#temporals.format(viewModel.announcement.expireTime, 'HH:mm')}"></span>
+                    th:text="' - ' + ${#temporals.format(viewModel.announcement.expireDate, 'yyyy-MM-dd')} + ' ' + ${#temporals.format(viewModel.announcement.expireTime, 'HH:mm')}"></span>
                 </div>
               </div>
 
