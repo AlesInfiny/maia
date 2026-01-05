@@ -56,6 +56,9 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   @Override
   public Announcement delete(UUID id) {
     Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
+    if (announcement == null || announcement.getIsDeleted()) {
+      return null;
+    }
     announcement.setIsDeleted(true);
     announcementMapper.updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
     return announcement;
