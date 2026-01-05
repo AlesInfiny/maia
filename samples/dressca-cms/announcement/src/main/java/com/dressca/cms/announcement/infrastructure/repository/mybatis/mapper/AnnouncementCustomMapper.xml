@@ -39,8 +39,28 @@
     FROM announcements a
     LEFT JOIN announcement_contents ac ON a.id = ac.announcement_id
     WHERE a.is_deleted = false
-    ORDER BY a.post_date_time DESC, a.id, ac.language_code
+    ORDER BY a.post_date_time DESC, a.id
     LIMIT #{limit} OFFSET #{offset}
+  </select>
+
+  <select id="findByIdWithContents" resultMap="AnnouncementWithContentsResultMap">
+    SELECT 
+      a.id,
+      a.category,
+      a.post_date_time,
+      a.expire_date_time,
+      a.display_priority,
+      a.created_at,
+      a.changed_at,
+      a.is_deleted,
+      ac.id as content_id,
+      ac.language_code,
+      ac.title,
+      ac.message,
+      ac.link_url
+    FROM announcements a
+    LEFT JOIN announcement_contents ac ON a.id = ac.announcement_id
+    WHERE a.id = #{id} AND a.is_deleted = false
   </select>
   
 </mapper>

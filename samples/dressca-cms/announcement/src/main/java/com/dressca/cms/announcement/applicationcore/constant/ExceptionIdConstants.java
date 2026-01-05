@@ -6,4 +6,7 @@ package com.dressca.cms.announcement.applicationcore.constant;
 public class ExceptionIdConstants {
   /** お知らせメッセージのバリデーションエラーが発生しました。 */
   public static final String E_VALIDATION_ERROR = "announcementValidationError";
+
+  /** 指定したお知らせメッセージ ID：{0} に対応するお知らせメッセージが存在しません。 */
+  public static final String E_ANNOUNCEMENT_NOT_FOUND = "announcementNotFound";
 }

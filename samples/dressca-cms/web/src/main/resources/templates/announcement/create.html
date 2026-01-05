@@ -19,8 +19,11 @@
             <h5 class="card-title" th:text="#{announcement.create.basicInfo}"></h5>
             <div class="row mb-3">
               <!--/* 掲載開始日時 */-->
-              <div class="col-md-3">
-                <label for="postDate" class="form-label fs-5" th:text="#{announcement.create.postDateTime}"></label>
+              <div class="col-3">
+                <label
+                  for="postDate"
+                  class="form-label fs-5"
+                  th:text="#{announcement.create.postDateTime} + '*'"></label>
                 <div class="row g-2">
                   <div class="col-7">
                     <input
@@ -46,7 +49,7 @@
               </div>
 
               <!--/* 掲載終了日時 */-->
-              <div class="col-md-3">
+              <div class="col-3">
                 <label for="expireDate" class="form-label fs-5" th:text="#{announcement.create.expireDateTime}"></label>
                 <div class="row g-2">
                   <div class="col-7">
@@ -73,7 +76,7 @@
               </div>
 
               <!--/* カテゴリー */-->
-              <div class="col-md-3">
+              <div class="col-3">
                 <label for="category" class="form-label fs-5" th:text="#{announcement.create.category}"></label>
                 <input
                   type="text"
@@ -88,11 +91,11 @@
               </div>
 
               <!--/* 表示優先度 */-->
-              <div class="col-md-3">
+              <div class="col-3">
                 <label
                   for="displayPriority"
                   class="form-label fs-5"
-                  th:text="#{announcement.create.displayPriority}"></label>
+                  th:text="#{announcement.create.displayPriority} + '*'"></label>
                 <select
                   class="form-select"
                   id="displayPriority"
@@ -115,7 +118,7 @@
 
         <div class="row mb-4">
           <!--/* お知らせメッセージ部 */-->
-          <div class="col-md-8">
+          <div class="col-8">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -136,6 +139,7 @@
                   <div th:each="content, iterStat : *{contents}" class="card mb-3">
                     <div class="card-body">
                       <input type="hidden" th:field="*{contents[__${iterStat.index}__].id}" />
+                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].announcementId}" />
                       <!--/* 削除ボタン */-->
                       <div class="d-flex justify-content-end mb-3">
                         <button
@@ -148,8 +152,8 @@
 
                       <div class="row mb-3">
                         <!--/* 言語コード */-->
-                        <div class="col-md-3">
-                          <label class="form-label fs-5" th:text="#{announcement.create.languageCode}"></label>
+                        <div class="col-3">
+                          <label class="form-label fs-5" th:text="#{announcement.create.languageCode} + '*'"></label>
                           <select
                             class="form-select"
                             th:field="*{contents[__${iterStat.index}__].languageCode}"
@@ -166,8 +170,8 @@
                         </div>
 
                         <!--/* タイトル */-->
-                        <div class="col-md-9">
-                          <label class="form-label fs-5" th:text="#{announcement.create.title}"></label>
+                        <div class="col-9">
+                          <label class="form-label fs-5" th:text="#{announcement.create.title} + '*'"></label>
                           <input
                             type="text"
                             class="form-control"
@@ -182,7 +186,7 @@
 
                       <!--/* 表示メッセージ */-->
                       <div class="mb-3">
-                        <label class="form-label fs-5" th:text="#{announcement.create.message}"></label>
+                        <label class="form-label fs-5" th:text="#{announcement.create.message} + '*'"></label>
                         <textarea
                           class="form-control"
                           rows="3"
@@ -207,7 +211,6 @@
                           th:if="${#fields.hasErrors('contents[' + iterStat.index + '].linkUrl')}"
                           th:errors="*{contents[__${iterStat.index}__].linkUrl}"></div>
                       </div>
-                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].announcementId}" />
                     </div>
                   </div>
                 </div>
@@ -216,7 +219,7 @@
           </div>
 
           <!--/* アクション部 */-->
-          <div class="col-md-4">
+          <div class="col-4">
             <div class="card">
               <div class="card-body d-flex flex-column gap-3">
                 <h5 class="card-title">アクション</h5>
