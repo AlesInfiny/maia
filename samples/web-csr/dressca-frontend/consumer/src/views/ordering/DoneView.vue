@@ -13,7 +13,7 @@ import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const props = defineProps<{
   orderId: number
 }>()
@@ -35,7 +35,7 @@ onMounted(async () => {
   try {
     lastOrdered.value = await getOrder(props.orderId)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {
         router.push('/')
@@ -74,9 +74,9 @@ onMounted(async () => {
       </span>
     </div>
     <div class="container mx-auto my-4 max-w-4xl">
-      <div class="mx-2 grid grid-cols-1 lg:grid-cols-3 lg:gap-x-12 flex items-center">
+      <div class="mx-2 grid grid-cols-1 items-center lg:grid-cols-3 lg:gap-x-12">
         <table
-          class="lg:row-start-1 lg:col-span-1 table-fixed mt-2 lg:mt-0 border-t border-b lg:border"
+          class="mt-2 table-fixed border-t border-b lg:col-span-1 lg:row-start-1 lg:mt-0 lg:border"
         >
           <tbody>
             <tr>
@@ -105,10 +105,10 @@ onMounted(async () => {
             </tr>
           </tbody>
         </table>
-        <table class="lg:col-span-2 table-fixed mt-2 lg:mt-4 border-t border-b lg:border">
+        <table class="mt-2 table-fixed border-t border-b lg:col-span-2 lg:mt-4 lg:border">
           <tbody>
             <tr>
-              <td rowspan="5" class="w-24 pl-2 border-r">お届け先</td>
+              <td rowspan="5" class="w-24 border-r pl-2">お届け先</td>
               <td class="pl-2">{{ lastOrdered?.fullName }}</td>
             </tr>
             <tr>
@@ -126,18 +126,18 @@ onMounted(async () => {
           </tbody>
         </table>
       </div>
-      <div class="mt-8 mx-2">
+      <div class="mx-2 mt-8">
         <div
           v-for="item in lastOrdered?.orderItems"
           :key="item.itemOrdered?.id"
-          class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+          class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
         >
           <div class="col-span-4 lg:col-span-5">
             <div class="grid grid-cols-2">
               <img
                 :src="getFirstAssetUrl(item.itemOrdered?.assetCodes)"
                 :alt="item.itemOrdered?.name"
-                class="h-[150px] pointer-events-none"
+                class="pointer-events-none h-40"
               />
               <div class="ml-2">
                 <p>{{ item.itemOrdered?.name }}</p>
@@ -157,7 +157,7 @@ onMounted(async () => {
       </div>
       <div class="flex justify-between">
         <button
-          class="w-36 mt-4 ml-4 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+          class="mt-4 ml-4 w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
           @click="goCatalog()"
         >

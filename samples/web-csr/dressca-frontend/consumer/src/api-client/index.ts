@@ -8,7 +8,11 @@ import {
   UnknownError,
 } from '@/shared/error-handler/custom-error'
 
-/** api-client の共通の Configuration があればここに定義します。 */
+/**
+ * api-client の共通の Configuration を生成します。
+ * 共通の Configuration があればここに定義してください。
+ * @returns 新しい Configuration インスタンス。
+ */
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration()
   return config
@@ -41,12 +45,59 @@ axiosInstance.interceptors.response.use(
   },
 )
 
-const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance)
-const basketItemsApi = new apiClient.BasketItemsApi(createConfig(), '', axiosInstance)
-const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
-const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
-const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
-const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance)
+/**
+ * アセット関連 API のクライアントを生成します。
+ * @returns AssetsApi インスタンス
+ */
+function assetsApi() {
+  const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance)
+  return assetsApi
+}
+
+/**
+ * 買い物かごアイテム関連 API のクライアントを生成します。
+ * @returns BasketItemsApi インスタンス
+ */
+function basketItemsApi() {
+  const basketItemsApi = new apiClient.BasketItemsApi(createConfig(), '', axiosInstance)
+  return basketItemsApi
+}
+
+/**
+ * カタログブランド関連 API のクライアントを生成します。
+ * @returns CatalogBrandsApi インスタンス
+ */
+function catalogBrandsApi() {
+  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
+  return catalogBrandsApi
+}
+
+/**
+ * カタログカテゴリ関連 API のクライアントを生成します。
+ * @returns CatalogCategoriesApi インスタンス
+ */
+function catalogCategoriesApi() {
+  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
+  return catalogCategoriesApi
+}
+
+/**
+ * カタログアイテム関連 API のクライアントを生成します。
+ * @returns CatalogItemsApi インスタンス
+ */
+function catalogItemsApi() {
+  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
+  return catalogItemsApi
+}
+
+/**
+ * 注文関連 API のクライアントを生成します。
+ * @returns OrdersApi インスタンス
+ */
+function ordersApi() {
+  const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance)
+  return ordersApi
+}
 
 export {
   assetsApi,

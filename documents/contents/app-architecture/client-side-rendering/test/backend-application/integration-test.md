@@ -18,10 +18,10 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。
-- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
+- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
-- [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }
+- [H2 :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
     - テスト用のデータベースエンジンとして使用します。
     - インメモリデータベースであり、高速に動作する特徴があります。
 
@@ -40,7 +40,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 AlesInfiny Maia の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
 結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証します。
-Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework){ target=_blank } を活用します。
+Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing/mockmvc.html){ target=_blank } を活用します。
 テストフレームワークは JUnit を利用します。
 
 テストが実行環境に依存しないように、データベースはインメモリの H2 を利用します。

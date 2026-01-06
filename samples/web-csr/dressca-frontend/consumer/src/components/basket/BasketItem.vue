@@ -51,12 +51,12 @@ const remove = () => {
       <img
         :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
         :alt="item.catalogItem?.name"
-        class="h-[150px] pointer-events-none"
+        class="pointer-events-none h-40"
       />
       <div class="ml-2">
         <p>{{ item.catalogItem?.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
-        <p v-if="!available" class="mt-4 text-red-500 font-bold">
+        <p v-if="!available" class="mt-4 font-bold text-red-500">
           {{ t('itemUnavailable') }}
         </p>
       </div>
@@ -64,15 +64,15 @@ const remove = () => {
   </div>
   <div class="lg:col-span-3">
     <div class="grid grid-cols-1 lg:grid-cols-3">
-      <div class="lg:col-span-2 grid place-items-end lg:flex lg:flex-row lg:items-center">
-        <div class="basis-3/5 mt-2 ml-2 mr-2 lg:pr-10 text-right">
+      <div class="grid place-items-end lg:col-span-2 lg:flex lg:flex-row lg:items-center">
+        <div class="mt-2 mr-2 ml-2 basis-3/5 text-right lg:pr-10">
           <label>
             <input
               v-model.number="quantity"
               type="number"
               min="1"
               max="999"
-              class="w-full px-4 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
               :disabled="!available"
             />
           </label>
@@ -80,7 +80,7 @@ const remove = () => {
         <div class="basis-2/5">
           <button
             type="button"
-            class="w-12 mt-2 mr-2 py-2 rounded bg-transparent disabled:bg-transparent hover:bg-blue-500 font-semibold text-blue-700 disabled:text-blue-700 hover:text-white border border-blue-500 disabled:border-blue-500 disabled:cursor-not-allowed"
+            class="mt-2 mr-2 w-12 rounded-sm border border-blue-500 bg-transparent py-2 font-semibold text-blue-700 hover:bg-blue-500 hover:text-white disabled:cursor-not-allowed disabled:border-blue-500 disabled:bg-transparent disabled:text-blue-700"
             :disabled="isUpdateDisabled"
             @click="update()"
           >
@@ -88,11 +88,11 @@ const remove = () => {
           </button>
         </div>
       </div>
-      <div class="mt-2 mb-1 ml-4 mr-2 grid place-items-end">
+      <div class="mt-2 mr-2 mb-1 ml-4 grid place-items-end">
         <TrashIcon class="h-8 w-8 text-gray-500 hover:text-gray-700" @click="remove()" />
       </div>
     </div>
-    <div class="text-right mt-4 mr-3">
+    <div class="mt-4 mr-3 text-right">
       小計：
       <span>{{ toCurrencyJPY(item.subTotal) }}</span>
     </div>

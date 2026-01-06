@@ -2,9 +2,13 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/.github/workflows"
+    directories:
+      - "/.github/workflows"
+      - "/.github/workflows/**/action.yml"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "github-actions"
     labels:
@@ -15,6 +19,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 10
     commit-message:
       prefix: "python"
@@ -26,6 +32,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 10
     commit-message:
       prefix: "npm-root"
@@ -37,7 +45,9 @@ updates:
     directory: "/samples/web-csr/dressca-frontend"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 20
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 60
     commit-message:
       prefix: "npm-dressca-frontend"
     labels:
@@ -49,6 +59,8 @@ updates:
     directory: "/samples/web-csr/dressca-backend"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-dressca-backend"
@@ -62,7 +74,9 @@ updates:
     directory: "/samples/azure-ad-b2c-sample/auth-frontend"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 20
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 40
     commit-message:
       prefix: "npm-auth-frontend"
     labels:
@@ -74,6 +88,8 @@ updates:
     directory: "/samples/azure-ad-b2c-sample/auth-backend"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 20
     commit-message:
       prefix: "gradle-auth-backend"

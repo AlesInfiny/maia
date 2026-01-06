@@ -12,6 +12,9 @@ ol-indent:
 ul-indent:
   indent: 4
 
+table:
+  style: "aligned"
+
 MD025:
   front_matter_title: ""
 

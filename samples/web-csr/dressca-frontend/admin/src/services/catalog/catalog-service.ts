@@ -13,22 +13,22 @@ import type {
  * @returns カタログカテゴリの配列。
  */
 export async function fetchCategories(): Promise<GetCatalogCategoriesResponse[]> {
-  const response = await catalogCategoriesApi.getCatalogCategories()
+  const response = await catalogCategoriesApi().getCatalogCategories()
   return response.data
 }
 
 /**
  * ブランドの情報を取得します。
- * @returns カテゴリブランドの配列。
+ * @returns カタログブランドの配列。
  */
 export async function fetchBrands(): Promise<GetCatalogBrandsResponse[]> {
-  const response = await catalogBrandsApi.getCatalogBrands()
+  const response = await catalogBrandsApi().getCatalogBrands()
   return response.data
 }
 
 /**
  * カテゴリとブランドの情報を取得します。
- * @returns カテゴリとブランドの情報のタプル。
+ * @returns カテゴリの配列とブランドの配列のタプル。
  */
 export async function fetchCategoriesAndBrands(): Promise<
   [GetCatalogCategoriesResponse[], GetCatalogBrandsResponse[]]
@@ -50,7 +50,7 @@ export async function fetchItems(
   brandId: number,
   page?: number,
 ): Promise<PagedListOfGetCatalogItemResponse> {
-  const response = await catalogItemsApi.getByQuery(
+  const response = await catalogItemsApi().getByQuery(
     brandId === 0 ? undefined : brandId,
     categoryId === 0 ? undefined : categoryId,
     page,
@@ -65,7 +65,7 @@ export async function fetchItems(
  * @returns カタログアイテムの情報。
  */
 export async function fetchItem(itemId: number): Promise<GetCatalogItemResponse> {
-  const itemResponse = await catalogItemsApi.getCatalogItem(itemId)
+  const itemResponse = await catalogItemsApi().getCatalogItem(itemId)
   return itemResponse.data
 }
 
@@ -94,7 +94,7 @@ export async function postCatalogItem(
     catalogCategoryId,
     catalogBrandId,
   }
-  await catalogItemsApi.postCatalogItem(postCatalogItemInput)
+  await catalogItemsApi().postCatalogItem(postCatalogItemInput)
 }
 
 /**
@@ -107,6 +107,7 @@ export async function postCatalogItem(
  * @param catalogCategoryId カテゴリ ID。
  * @param catalogBrandId ブランド ID。
  * @param rowVersion 排他制御のための行バージョン。
+ * @param isDeleted　削除済みかどうか。
  */
 export async function updateCatalogItem(
   id: number,
@@ -129,7 +130,7 @@ export async function updateCatalogItem(
     rowVersion,
     isDeleted,
   }
-  await catalogItemsApi.putCatalogItem(id, putCatalogItemRequest)
+  await catalogItemsApi().putCatalogItem(id, putCatalogItemRequest)
 }
 
 /**
@@ -138,5 +139,5 @@ export async function updateCatalogItem(
  * @param rowVersion 排他制御のための行バージョン。
  */
 export async function deleteCatalogItem(id: number, rowVersion: string) {
-  await catalogItemsApi.deleteCatalogItem(id, rowVersion)
+  await catalogItemsApi().deleteCatalogItem(id, rowVersion)
 }

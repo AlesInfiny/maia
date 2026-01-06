@@ -24,7 +24,7 @@ const basketStore = useBasketStore()
 const { getBasket, getAddedItem, getAddedItemId, getDeletedItemIds } = storeToRefs(basketStore)
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
@@ -41,7 +41,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -71,7 +71,7 @@ const remove = async (catalogItemId: number) => {
   try {
     await removeItemFromBasket(catalogItemId)
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -113,7 +113,7 @@ onMounted(async () => {
       showToast(t('basketContainsUnavailableItem'))
     }
   } catch (error) {
-    customErrorHandler.handle(
+    await handleErrorAsync(
       error,
       () => {},
       (httpError: HttpError) => {
@@ -151,11 +151,11 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <span class="text-lg font-medium text-green-500">
           {{ t('addedItemsToBasket') }}
         </span>
-        <div class="grid grid-cols-1 lg:grid-cols-3 mt-4 flex items-center">
+        <div class="mt-4 grid grid-cols-1 items-center lg:grid-cols-3">
           <img
             :src="getFirstAssetUrl(getAddedItem.catalogItem?.assetCodes)"
             :alt="getAddedItem.catalogItem?.name"
-            class="h-[150px] m-auto pointer-events-none"
+            class="pointer-events-none m-auto h-40"
           />
           <span class="text-center lg:text-left">
             {{ getAddedItem.catalogItem?.name }}
@@ -166,21 +166,21 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         </div>
       </div>
 
-      <div v-if="isEmpty()" class="mt-4 mx-2">
+      <div v-if="isEmpty()" class="mx-2 mt-4">
         <span class="text-2xl font-medium">
           {{ t('noItemsInBasket') }}
         </span>
       </div>
-      <div v-if="!isEmpty()" class="mt-8 mx-2">
+      <div v-if="!isEmpty()" class="mx-2 mt-8">
         <span class="text-2xl font-medium">現在のカートの中身</span>
-        <div class="hidden lg:grid grid-cols-1 lg:grid-cols-5 mt-4 flex items-center">
-          <div class="text-lg font-medium text-center lg:col-span-3">商品</div>
-          <div class="text-lg font-medium text-right lg:col-span-1">数量</div>
+        <div class="mt-4 hidden grid-cols-1 items-center lg:grid lg:grid-cols-5">
+          <div class="text-center text-lg font-medium lg:col-span-3">商品</div>
+          <div class="text-right text-lg font-medium lg:col-span-1">数量</div>
         </div>
         <div
           v-for="item in getBasket.basketItems"
           :key="item.catalogItemId"
-          class="grid grid-cols-5 lg:grid-cols-8 mt-4 flex items-center"
+          class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
           :class="{
             'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
           }"
@@ -220,7 +220,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
       </div>
       <div class="flex justify-between">
         <button
-          class="w-36 mt-4 ml-4 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+          class="mt-4 ml-4 w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
           @click="goCatalog()"
         >
@@ -229,7 +229,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <span v-if="!isEmpty()">
           <button
             data-testId="orderButton"
-            class="w-36 mt-4 mr-4 bg-orange-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded disabled:bg-orange-300 disabled:opacity-50"
+            class="mt-4 mr-4 w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300/50"
             type="submit"
             :disabled="getDeletedItemIds.length > 0"
             @click="order()"

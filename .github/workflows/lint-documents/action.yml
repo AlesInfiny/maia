@@ -5,17 +5,17 @@ runs:
   using: "composite"
   steps:
     - name: Node.js のセットアップ
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903  # v6.0.0
       with:
         node-version: lts/*
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        cache: npm
     - name: npm パッケージのインストール
       shell: bash
       run: npm ci
 
     - name: Python のセットアップ
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d  # v5.1.0
       with:
         python-version: "3.x"
 

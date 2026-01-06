@@ -14,7 +14,7 @@ import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 
@@ -83,7 +83,7 @@ const AddItem = async () => {
     )
     showAddNotice.value = true
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('カタログアイテムの追加に失敗しました。')
     })
   }
@@ -109,7 +109,7 @@ onMounted(async () => {
   try {
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('カテゴリとブランド情報の取得に失敗しました。')
     })
   } finally {
@@ -212,7 +212,7 @@ onMounted(async () => {
       </div>
       <button
         type="button"
-        class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500 disabled:opacity-50"
+        class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
         :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
         @click="AddItem()"
       >

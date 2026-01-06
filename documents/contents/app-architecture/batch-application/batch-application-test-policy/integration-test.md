@@ -20,13 +20,13 @@ description: バッチアプリケーションのテスト方針における 結
 
 - [JUnit :material-open-in-new:](https://junit.org/){ target=_blank }
     - Java のテストフレームワークです。
-- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html){ target=_blank }
+- [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
     - Spring で構築したアプリケーションのテストを実行するためのツールセットです。
     - 主に Spring Boot アプリケーションのランタイムを結合テスト用に初期化するため使用します。
 - [Spring Batch Test :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/testing.html){ target=_blank }
     - Spring Batch ベースのテストを実行するためのツールセットです。
     - ジョブ実行を作成または削除するためのテストセットアップで使用できます。
-- [H2 :material-open-in-new:](https://www.h2database.com/){ target=_blank }
+- [H2 :material-open-in-new:](https://www.h2database.com/html/main.html){ target=_blank }
     - テスト用のデータベースエンジンとして使用します。
     - バッチ処理の対象がデータベースの場合に使用します。
     - インメモリデータベースであり、高速に動作する特徴があります。
@@ -52,9 +52,9 @@ description: バッチアプリケーションのテスト方針における 結
 
 ## 結合テストの実行方法 {#testing-method}
 
-AlesInfiny Maia のバッチアプリケーションにおける結合テストでは、 [JobLauncherTestUtils :material-open-in-new:](https://spring.pleiades.io/spring-batch/docs/current/api/org/springframework/batch/test/JobLauncherTestUtils.html){ target=_blank } を利用します。
+AlesInfiny Maia のバッチアプリケーションにおける結合テストでは、 [JobOperatorTestUtils :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/api/org/springframework/batch/test/JobOperatorTestUtils.html){ target=_blank } を利用します。
 
-`JobLauncherTestUtils` は `Spring Batch Test` で提供されているクラスであり、単体のステップのテストだけでなく、ジョブのエンドツーエンドのテストに利用できます。
+`JobOperatorTestUtils` は `Spring Batch Test` で提供されているクラスであり、単体のステップのテストだけでなく、ジョブのエンドツーエンドのテストに利用できます。
 これにより、バッチ起動から正常終了までの間で複数のステップで構成されたジョブが正しい順序で実行されているかという結合テストの検証に利用できます。
 
 単体テストで確認済みの使用は、結合テストで改めて確認しません。各ステップを結合した際のジョブの動作や、複数のジョブを実行したときのジョブの動作を重点的に確認するようにします。

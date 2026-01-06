@@ -1,0 +1,76 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'com.dressca.cms'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+sourceSets {
+    main {
+        // mybatis SQL map XML ファイルを java 以下でも検知する
+        resources.srcDirs = ["src/main/java", "src/main/resources"]
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+  // MyBatis Generator の自動生成で利用するライブラリのための依存関係の構成を定義
+  mybatisTasks
+  // 使用しないロギングライブラリを除外
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+dependencies {
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.h2database
+	implementation supportDependencies.postgresql
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.mybatis_spring_boot_starter_test
+
+	implementation project(':system-common')
+
+  mybatisTasks supportDependencies.mybatis_generator_core
+  mybatisTasks supportDependencies.h2database
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+  enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+tasks.register('runMyBatisGenerator') {
+  doLast {
+    // MyBatis Generator のタスクを定義します。
+    ant.taskdef(
+      name: 'mybatisGenerator',
+      classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+      classpath: configurations.mybatisTasks.asPath
+    )
+    // MyBatis Generator による自動生成を実行します。
+    ant.mybatisGenerator(
+      overwrite: true,
+      configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
+      verbose: true
+    )
+  }
+}

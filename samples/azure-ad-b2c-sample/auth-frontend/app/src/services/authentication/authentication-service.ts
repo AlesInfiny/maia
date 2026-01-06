@@ -9,6 +9,7 @@ import {
   tokenRequest,
 } from '@/services/authentication/authentication-config'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { useLogger } from '@/composables/use-logger'
 
 // IIFE 構文が行頭に来る場合、自動セミコロン挿入( ASI )の誤動作防止のため Prettier がセミコロンを挿入します。
 // https://prettier.io/docs/options#semicolons
@@ -33,6 +34,7 @@ export const authenticationService = {
 
   async getTokenAzureADB2C() {
     const account = msalInstance.getActiveAccount()
+    const logger = useLogger()
 
     tokenRequest.account = account ?? undefined
     try {
@@ -48,8 +50,7 @@ export const authenticationService = {
         const tokenResponse = await msalInstance.acquireTokenPopup(tokenRequest)
         return tokenResponse.accessToken
       }
-      // eslint-disable-next-line no-console
-      console.error(error)
+      logger.error(error)
       throw error
     }
   },

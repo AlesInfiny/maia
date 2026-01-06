@@ -1,0 +1,74 @@
+name: coverage-to-markdown
+description: Vitest の テストカバレッジファイル coverage-summary.json を jq で加工し、Markdown 形式の表に整形します。
+
+inputs:
+  coverage_json:
+    description: "入力となる coverage-summary.json のパス"
+    required: true
+  output_md:
+    description: "整形した Markdown を出力するファイルパス"
+    required: true
+  prefix:
+    description: "ファイル名のプレフィックス"
+    required: false
+    default: ""
+
+
+outputs:
+  markdown_path:
+    description: "生成された Markdown ファイルのパス"
+    value: ${{ steps.set-outputs.outputs.markdown_path }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: coverage-to-md-by-jq
+      name: jq で Markdown を生成
+      shell: bash
+      run: |
+        set -euo pipefail # エラーが出たら即終了、未定義変数の参照禁止、パイプライン中のエラー検知を設定します。
+
+        COV_JSON="${{ inputs.coverage_json }}"
+        OUT_MD="${{ inputs.output_md }}"
+        PREFIX="${{ inputs.prefix }}"
+
+        mkdir -p "$(dirname "$OUT_MD")" # 出力対象ディレクトリが存在していなければ作成
+
+        {
+          echo ""
+          echo "### サマリー"
+          echo "| 項目 | Covered/Total | % |"
+          echo "|---|---:|---:|"
+          jq -r '
+            .total as $t
+            | ["lines","branches","functions","statements"]
+            | map(select($t[.] != null))
+            | .[]
+            | "| \(.) | \($t[.].covered)/\($t[.].total) | \(($t[.].pct // 0))% |"
+          ' "$COV_JSON"
+          echo ""
+          echo "### ファイルごとの詳細"
+          echo "| ファイル | Lines (c/t, %) | Branches (c/t, %) | Functions (c/t, %) | Statements (c/t, %) |"
+          echo "|---|---:|---:|---:|---:|"
+          jq -r --arg prefix "$PREFIX" '
+            to_entries
+            | map(select(.key != "total"))
+            | sort_by(.key)
+            | .[]
+            | .key as $file
+            | .value as $v
+            | "| \(
+                  $file
+                  | gsub("^" + $prefix; "") # ファイル名が長くなるので prefix を除去します。
+                )"
+              + " | \($v.lines.covered)/\($v.lines.total), \(($v.lines.pct // 0))%"
+              + " | \($v.branches.covered)/\($v.branches.total), \(($v.branches.pct // 0))%"
+              + " | \($v.functions.covered)/\($v.functions.total), \(($v.functions.pct // 0))%"
+              + " | \($v.statements.covered)/\($v.statements.total), \(($v.statements.pct // 0))% |"
+          ' "$COV_JSON"
+        } > "$OUT_MD"
+    - id: set-outputs
+      name: 出力変数名をセット
+      shell: bash
+      run: |
+        echo "markdown_path=${{ inputs.output_md }}" >> "$GITHUB_OUTPUT"

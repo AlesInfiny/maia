@@ -55,10 +55,10 @@ SpotBugs を利用して、 SpotBugs が提供するバグパターンに該当�
 フロントエンド側では Prettier 、 ESLint 、 Stylelint を利用してコーディング規約の自動チェックを行っています。
 コーディング規約の内容および静的コード解析ツールの詳しい設定方法については、以下のページとサンプルアプリの実装を確認してください。
 
-- [Checkstyle プラグイン](../how-to-develop/java/common-project-settings.md#checkstyle-plugin)
-- [SpotBugs プラグイン](../how-to-develop/java/common-project-settings.md#spotbugs-plugin)
+- [Checkstyle プラグイン](../how-to-develop/csr/java/common-project-settings.md#checkstyle-plugin)
+- [SpotBugs プラグイン](../how-to-develop/csr/java/common-project-settings.md#spotbugs-plugin)
 - [Java formatting and linting :material-open-in-new:](https://code.visualstudio.com/docs/java/java-linting){ target=_blank }
-- [静的コード分析とフォーマット(Vue.js)](../how-to-develop/vue-js/static-verification-and-format.md)
+- [静的コード分析とフォーマット(Vue.js)](../how-to-develop/csr/vue-js/static-verification-and-format.md)
 
 ## AlesInfiny Maia でカスタマイズしている規約 {#custom-conventions}
 
@@ -68,7 +68,7 @@ AlesInfiny Maia では上記に示した基本のコーディング規約に加�
 
     - Checkstyle プラグイン
 
-        Checkstyle の規約をカスタマイズする場合、 Checkstyle プラグインが読み込むインプットファイルを編集します。具体的な方法については [こちら](../how-to-develop/java/common-project-settings.md#checkstyle-plugin) を参照ください。
+        Checkstyle の規約をカスタマイズする場合、 Checkstyle プラグインが読み込むインプットファイルを編集します。具体的な方法については [こちら](../how-to-develop/csr/java/common-project-settings.md#checkstyle-plugin) を参照ください。
         Checkstyle プラグインでカスタマイズする規約は以下の通りです。
 
         - [IllegalCatch :material-open-in-new:](https://checkstyle.sourceforge.io/checks/coding/illegalcatch.html){ target=_blank }

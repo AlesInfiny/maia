@@ -1,24 +1,24 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "3.5.4"
+    springBootVersion = "3.5.5"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.2.2"
+    spotbugsVersion = "6.4.3"
 
     // -- TOOLS
-    jacocoToolVersion = "0.8.13"
-    checkstyleToolVersion = "10.26.1"
+    jacocoToolVersion = "0.8.14"
+    checkstyleToolVersion = "12.0.1"
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "5.2.2"
+    springBatchTestVersion = "5.2.3"
     mybatisSpringBootStarterVersion = "3.0.5"
     mybatisSpringBootStarterTestVersion = "3.0.5"
-    h2Version = "2.3.232"
-    postgresqlVersion = "42.7.7"
-    springdocOpenapiVersion = "2.8.9"
+    h2Version = "2.4.240"
+    postgresqlVersion = "42.7.8"
+    springdocOpenapiVersion = "2.8.13"
     servletApiVersion = "6.1.0"
-    commonsLangVersion = "3.18.0"
+    commonsLangVersion = "3.19.0"
     mybatisGeneratorVersion = "1.4.2"
 
     supportDependencies = [

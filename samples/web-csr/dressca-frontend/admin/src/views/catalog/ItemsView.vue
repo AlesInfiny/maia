@@ -14,7 +14,7 @@ import type {
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const router = useRouter()
-const customErrorHandler = useCustomErrorHandler()
+const handleErrorAsync = useCustomErrorHandler()
 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
@@ -87,7 +87,7 @@ onMounted(async () => {
     pagedListOfCatalogItem.value = await fetchItems(0, 0)
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
-    customErrorHandler.handle(error, () => {
+    await handleErrorAsync(error, () => {
       showToast('カタログアイテムの取得に失敗しました。')
     })
   } finally {
@@ -119,7 +119,7 @@ const goToEditItem = (id: number) => {
       <div class="mx-2 my-8 flex justify-end">
         <button
           type="button"
-          class="rounded bg-green-600 px-4 py-2 text-xl font-bold text-white hover:bg-green-800"
+          class="rounded-sm bg-green-600 px-4 py-2 text-xl font-bold text-white hover:bg-green-800"
           @click="goToAddItem"
         >
           アイテム追加
@@ -167,7 +167,7 @@ const goToEditItem = (id: number) => {
             <td class="border text-center">
               <button
                 type="button"
-                class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
+                class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
                 @click="goToEditItem(item.id)"
               >
                 編集

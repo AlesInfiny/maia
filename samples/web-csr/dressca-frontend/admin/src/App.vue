@@ -56,7 +56,7 @@ unauthorizedErrorEventBus.on((payload) => {
 })
 </script>
 <template>
-  <div class="z-20 fixed">
+  <div class="fixed z-20">
     <NotificationToast
       v-model:show="showToast"
       v-model:message="message"
@@ -69,11 +69,11 @@ unauthorizedErrorEventBus.on((payload) => {
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <router-link
             to="/"
-            class="flex flex-shrink-0 items-center text-xl font-medium rounded-md px-3 text-white hover:bg-blue-800"
+            class="flex shrink-0 items-center rounded-md px-3 text-xl font-medium text-white hover:bg-blue-800"
             >Dressca 管理</router-link
           >
           <div class="hidden sm:ml-6 sm:block">
-            <div class="flex space-x-4">
+            <div class="flex gap-4">
               <router-link
                 to="/catalog/items"
                 class="rounded-md px-3 py-2 text-base font-medium text-white hover:bg-blue-800"
@@ -98,12 +98,12 @@ unauthorizedErrorEventBus.on((payload) => {
             </div>
             <div class="relative ml-3">
               <Bars3Icon
-                class="h-14 w-14 px-2 py-2 rounded text-white hover:bg-blue-800"
+                class="h-14 w-14 rounded-sm px-2 py-2 text-white hover:bg-blue-800"
                 @click="showLoginMenu = !showLoginMenu"
               ></Bars3Icon>
               <div
                 v-if="showLoginMenu"
-                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"

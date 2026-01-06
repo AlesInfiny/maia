@@ -23,3 +23,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）のアプリケーシ
 1. [Java アプリケーションの処理方式](java-application-processing-system/index.md)
 
     AlesInfiny Maia で構築する Java アプリケーションの共通的な処理方式を解説します。
+
+1. [Java アプリケーションのアーキテクチャ選定基準](./java-application-architecture-selection-guideline.md)
+
+    AlesInfiny Maia で構築する Java アプリケーションのアーキテクチャ選定基準について解説します。

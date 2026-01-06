@@ -10,6 +10,11 @@ import { useNotificationStore } from '@/stores/notification/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
 
+/**
+ * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。
+ * 主にテストやスタブデータとして利用することを想定しています。
+ * @returns `BasketResponse` 型のオブジェクト
+ */
 function createBasketResponse(): BasketResponse {
   return {
     buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -49,6 +54,11 @@ function createBasketResponse(): BasketResponse {
   }
 }
 
+/**
+ * 空の買い物かご状態のモックレスポンスを生成します。
+ * 主に「商品未追加時の画面」やテストケースに利用されます。
+ * @returns `BasketResponse` 型のオブジェクト
+ */
 function createEmptyBasketResponse(): BasketResponse {
   return {
     buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -76,11 +86,18 @@ const { getBasketItemsMock } = vi.hoisted(() => {
 })
 
 vi.mock('@/api-client', () => ({
-  basketItemsApi: {
+  // basketItemsApi() を呼ぶと { getBasketItems: getBasketItemsMock } が返る
+  basketItemsApi: () => ({
     getBasketItems: getBasketItemsMock,
-  },
+  }),
 }))
 
+/**
+ * コンポーネントをテスト用にマウントするヘルパー関数です。
+ * テスト用 Pinia を作成し、日本語ロケールを設定した上で
+ * `pinia`・`router`・`i18n` をグローバルプラグインとして注入します。
+ * @returns マウント済みの Vue Test Utils ラッパー
+ */
 function getWrapper() {
   const pinia = createTestingPinia({
     createSpy: vi.fn, // 明示的に設定する必要があります。

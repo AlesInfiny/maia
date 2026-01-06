@@ -23,7 +23,7 @@ Spring Batch では、バッチの実行履歴や実行状態の保存といっ�
 また、メタデータ管理用に `H2` のようなインメモリデータベースを指定することで、メタデータテーブルがアプリケーション実行時にのみ生成されるようになり、アプリケーションの終了と共に削除されます。
 これにより、メタデータテーブルの管理を考慮することなくバッチ処理を実現できます。
 
-メタデータ管理用のセカンダリデータベースを設定するためには、 [`#!java @BatchDataSource` :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/autoconfigure/batch/BatchDataSource.html){ target=_blank } を利用します。
+メタデータ管理用のセカンダリデータベースを設定するためには、 [`#!java @BatchDataSource` :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/batch/jdbc/autoconfigure/BatchDataSource.html){ target=_blank } を利用します。
 
 !!! warning "バッチアプリケーションを常時稼働させる際の注意点"
 

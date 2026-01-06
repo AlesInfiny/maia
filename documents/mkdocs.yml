@@ -29,7 +29,9 @@ nav:
               - メッセージ管理方針: app-architecture/overview/java-application-processing-system/message-management-policy.md
               - 入力値検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
               - トランザクション管理方針: app-architecture/overview/java-application-processing-system/transaction-management.md
-              - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
+              - ヘルスチェック機能の方針: app-architecture/overview/java-application-processing-system/health-check-policy.md
+              - 認証・認可方針: app-architecture/overview/java-application-processing-system/authentication-and-authorization-policy.md
+          - Java アプリケーションのアーキテクチャ選定基準: app-architecture/overview/java-application-architecture-selection-guideline.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
           - CSR アーキテクチャ概要: app-architecture/client-side-rendering/csr-architecture-overview.md
@@ -39,7 +41,7 @@ nav:
               - ログ出力方針: app-architecture/client-side-rendering/global-function/logging-policy.md
               - メッセージ管理方針: app-architecture/client-side-rendering/global-function/message-management-policy.md
               - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
-              - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
+              - ヘルスチェック機能の方針: app-architecture/client-side-rendering/global-function/health-check-policy.md
               - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
               - 認証・認可方針: app-architecture/client-side-rendering/global-function/authentication-and-authorization-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
@@ -55,6 +57,24 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
+      - サーバーサイドレンダリング編:
+          - app-architecture/server-side-rendering/index.md
+          - SSR アーキテクチャ概要: app-architecture/server-side-rendering/ssr-architecture-overview.md
+          - 全体処理方式:
+              - app-architecture/server-side-rendering/global-function/index.md
+              - 例外処理方針: app-architecture/server-side-rendering/global-function/exception-handling.md
+              - ログ出力方針: app-architecture/server-side-rendering/global-function/logging-policy.md
+              - メッセージ管理方針: app-architecture/server-side-rendering/global-function/message-management-policy.md
+              - 入力値検査方針: app-architecture/server-side-rendering/global-function/validation-policy.md
+              - ヘルスチェック機能の方針: app-architecture/server-side-rendering/global-function/health-check-policy.md
+              - 認証・認可方針: app-architecture/server-side-rendering/global-function/authentication-and-authorization-policy.md
+          - フロントエンドのアーキテクチャ:
+              - app-architecture/server-side-rendering/frontend/index.md
+          - バックエンドのアーキテクチャ:
+              - app-architecture/server-side-rendering/backend/index.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
+              - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
           - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
@@ -77,43 +97,66 @@ nav:
       - guidebooks/index.md
       - アプリケーション開発手順:
           - guidebooks/how-to-develop/index.md
-          - Java 編:
-              - guidebooks/how-to-develop/java/index.md
-              - 事前準備: guidebooks/how-to-develop/java/preparation.md
-              - アプリケーションの全体構造: guidebooks/how-to-develop/java/application-structure.md
-              - プロジェクトの雛型作成: guidebooks/how-to-develop/java/create-project.md
-              - プロジェクトの共通設定: guidebooks/how-to-develop/java/common-project-settings.md
-              - サブプロジェクトの個別設定:
-                  - guidebooks/how-to-develop/java/sub-project-settings/index.md
-                  - web プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/web-project-settings.md
-                  - infrastructure プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/infrastructure-project-settings.md
-                  - application-core プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/application-core-project-settings.md
-                  - batch プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/batch-project-settings.md
-                  - system-common プロジェクトの設定: guidebooks/how-to-develop/java/sub-project-settings/system-common-project-settings.md
-                  - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/java/sub-project-settings/project-version-control.md
-                  - メッセージ管理機能の設定: guidebooks/how-to-develop/java/sub-project-settings/message-management.md
-                  - 集約例外ハンドラーの設定: guidebooks/how-to-develop/java/sub-project-settings/exception-handling.md
-                  - MyBatis Generator の設定: guidebooks/how-to-develop/java/sub-project-settings/mybatis-generator-settings.md
-          - Vue.js 編:
-              - guidebooks/how-to-develop/vue-js/index.md
-              - 事前準備: guidebooks/how-to-develop/vue-js/preparation.md
-              - ブランクプロジェクトの作成: guidebooks/how-to-develop/vue-js/create-vuejs-blank-project.md
-              - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/vue-js/folder-structure-of-blank-project.md
-              - ワークスペースの設定: guidebooks/how-to-develop/vue-js/setting-workspaces.md
-              - プロジェクトの共通設定: guidebooks/how-to-develop/vue-js/project-settings.md
-              - 開発に使用するパッケージ: guidebooks/how-to-develop/vue-js/optional-packages.md
-              - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/vue-js/css.md
-              - 静的コード分析とフォーマット: guidebooks/how-to-develop/vue-js/static-verification-and-format.md
-              - メッセージ管理機能の設定: guidebooks/how-to-develop/vue-js/message-management.md
-              - 入力値検証: guidebooks/how-to-develop/vue-js/input-validation.md
-              - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/vue-js/create-api-client-code.md
-              - エラーハンドラーの設定: guidebooks/how-to-develop/vue-js/error-handler-settings.md
-              - モックモードの設定: guidebooks/how-to-develop/vue-js/mock-mode-settings.md
-          - ローカル開発環境の構築:
-              - guidebooks/how-to-develop/local-environment/index.md
-          - CORS 環境の構築:
-              - guidebooks/how-to-develop/cors/index.md
-              - Cookie の設定: guidebooks/how-to-develop/cors/cookie.md
+          - CSR 編:
+              - guidebooks/how-to-develop/csr/index.md
+              - Java 編:
+                  - guidebooks/how-to-develop/csr/java/index.md
+                  - 事前準備: guidebooks/how-to-develop/csr/java/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/csr/java/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/csr/java/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/java/common-project-settings.md
+                  - サブプロジェクトの個別設定:
+                      - guidebooks/how-to-develop/csr/java/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md
+                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/infrastructure-project-settings.md
+                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-core-project-settings.md
+                      - batch プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/batch-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/system-common-project-settings.md
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/java/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/java/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/csr/java/sub-project-settings/mybatis-generator-settings.md
+              - Vue.js 編:
+                  - guidebooks/how-to-develop/csr/vue-js/index.md
+                  - 事前準備: guidebooks/how-to-develop/csr/vue-js/preparation.md
+                  - ブランクプロジェクトの作成: guidebooks/how-to-develop/csr/vue-js/create-vuejs-blank-project.md
+                  - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/csr/vue-js/folder-structure-of-blank-project.md
+                  - ワークスペースの設定: guidebooks/how-to-develop/csr/vue-js/setting-workspaces.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/csr/vue-js/project-settings.md
+                  - 開発に使用するパッケージ: guidebooks/how-to-develop/csr/vue-js/optional-packages.md
+                  - 静的コード分析とフォーマット: guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md
+                  - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/vue-js/message-management.md
+                  - 入力値検証: guidebooks/how-to-develop/csr/vue-js/input-validation.md
+                  - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
+                  - エラーハンドラーの設定: guidebooks/how-to-develop/csr/vue-js/error-handler-settings.md
+                  - カスタムエラーの設定: guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md
+                  - イベントハンドリングの設定: guidebooks/how-to-develop/csr/vue-js/event-handling-settings.md
+                  - モックモードの設定: guidebooks/how-to-develop/csr/vue-js/mock-mode-settings.md
+                  - CSS の設定と CSS フレームワークの適用: guidebooks/how-to-develop/csr/vue-js/css.md
+              - ローカル開発環境の構築:
+                  - guidebooks/how-to-develop/csr/local-environment/index.md
+              - CORS 環境の構築:
+                  - guidebooks/how-to-develop/csr/cors/index.md
+                  - Cookie の設定: guidebooks/how-to-develop/csr/cors/cookie.md
+          - SSR 編:
+              - guidebooks/how-to-develop/ssr/index.md
+              - Java 編:
+                  - guidebooks/how-to-develop/ssr/java/index.md
+                  - 事前準備: guidebooks/how-to-develop/ssr/java/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/ssr/java/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/ssr/java/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/ssr/java/common-project-settings.md
+                  - サブプロジェクトの個別設定:
+                      - guidebooks/how-to-develop/ssr/java/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/web-project-settings.md
+                      - 機能モジュールのプロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/function-module-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/system-common-project-settings.md
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/ssr/java/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/mybatis-generator-settings.md
+              - ローカル開発環境の構築:
+                  - guidebooks/how-to-develop/ssr/local-environment/index.md
       # - 規約:
       #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
       - コーディング規約: guidebooks/conventions/coding-conventions.md

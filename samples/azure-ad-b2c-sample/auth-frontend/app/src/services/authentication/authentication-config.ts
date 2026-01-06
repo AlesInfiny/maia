@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+import { useLogger } from '@/composables/use-logger'
 import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
 
 export const b2cPolicies = {
@@ -34,18 +34,19 @@ export const msalConfig = {
         if (containsPii) {
           return
         }
+        const logger = useLogger()
         switch (level) {
           case LogLevel.Error:
-            console.error(message)
+            logger.error(message)
             return
           case LogLevel.Info:
-            console.info(message)
+            logger.info(message)
             return
           case LogLevel.Verbose:
-            console.debug(message)
+            logger.debug(message)
             return
           case LogLevel.Warning:
-            console.warn(message)
+            logger.warn(message)
             break
           default:
         }

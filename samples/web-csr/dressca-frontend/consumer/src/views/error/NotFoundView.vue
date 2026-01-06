@@ -15,7 +15,7 @@ const { t } = i18n.global
           アクセスしようとしたページは、削除・更新されたか、現在利用できない可能性があります。<br />
           トップページまたはメニューから、再度お探しください。
         </p>
-        <div class="flex space-x-4 text-lg">
+        <div class="flex gap-4 text-lg">
           <RouterLink to="/" class="text-blue-600 underline hover:text-blue-900"
             >トップページに戻る</RouterLink
           >

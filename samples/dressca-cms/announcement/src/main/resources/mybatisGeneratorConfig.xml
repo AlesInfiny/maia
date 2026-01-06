@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="local"  targetRuntime="MyBatis3">
+        <property name="nullCatalogMeansCurrent" value="true"/>
+        <property name="useInformationSchema" value="true"/>
+        <!-- 自動生成MapperにはMapperアノテーションを付与する -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- 自動生成される各要素のコメントに生成時刻が出力されないように設定する -->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="false" />
+            <property name="addRemarkComments" value="true" />
+        </commentGenerator>
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
+                        userId=""
+                        password="" />
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <!-- Model(Entity)作成先 -->
+        <javaModelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/resources" />
+        <!-- Mapper.java作成先 -->
+        <javaClientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table schema="" tableName="ANNOUNCEMENTS" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+        </table>
+        <table schema="" tableName="ANNOUNCEMENT_CONTENTS" domainObjectName="AnnouncementContentEntity" mapperName="AnnouncementContentMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER" 
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+            <columnOverride column="ANNOUNCEMENT_ID" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+        </table>
+        <table schema="" tableName="ANNOUNCEMENT_HISTORY" domainObjectName="AnnouncementHistoryEntity" mapperName="AnnouncementHistoryMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+            <columnOverride column="ANNOUNCEMENT_ID" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+        </table>
+        <table schema="" tableName="ANNOUNCEMENT_CONTENT_HISTORY" domainObjectName="AnnouncementContentHistoryEntity" mapperName="AnnouncementContentHistoryMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="ID" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+            <columnOverride column="ANNOUNCEMENT_HISTORY_ID" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+        </table>
+    </context>
+</generatorConfiguration>

@@ -5,11 +5,15 @@ import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
 import App from './App.vue'
 import { router } from './router'
 import { i18n } from './locales/i18n'
+import { useLogger } from './composables/use-logger'
 import '@/assets/base.css'
 
+const logger = useLogger()
+
 /**
- * モック用のワーカープロセスが起動していることを確認します。
- * @returns {Promise<ServiceWorkerRegistration | undefined>}
+ * MSW (Mock Service Worker) を有効化します。
+ * モックモード時のみ動的にモジュールをインポートし、Service Worker を開始します。
+ * @returns Service Worker の登録情報。モックモードでない場合は undefined。
  */
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser')
@@ -27,8 +31,7 @@ if (import.meta.env.MODE === 'mock') {
   try {
     await enableMocking()
   } catch (error) {
-    /* eslint no-console: 0 */
-    console.error('モック用のワーカープロセスの起動に失敗しました。', error)
+    logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
 
