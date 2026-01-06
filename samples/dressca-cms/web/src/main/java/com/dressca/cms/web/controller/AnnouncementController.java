@@ -509,7 +509,7 @@ public class AnnouncementController {
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを削除
       AnnouncementWithHistory deletedAnnouncementWithHistory = announcementApplicationService
-          .deleteAnnouncementAndHistory(announcementId, "DummyUser");
+          .deleteAnnouncementAndRecordHistory(announcementId, "DummyUser");
 
       // 削除したお知らせメッセージと履歴をセッションに保存
       announcementDeleteSession.setAnnouncement(deletedAnnouncementWithHistory.getAnnouncement());

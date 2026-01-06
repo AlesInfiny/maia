@@ -690,7 +690,7 @@ public class AnnouncementApplicationServiceTest {
   }
 
   @Test
-  void testDeleteAnnouncementAndHistory_正常系_お知らせメッセージと履歴が正しく削除および追加される()
+  void testDeleteAnnouncementAndRecordHistory_正常系_お知らせメッセージと履歴が正しく削除および追加される()
       throws AnnouncementNotFoundException {
     // Arrange
     Announcement announcement = createAnnouncementWithoutContent();
@@ -703,7 +703,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
 
     // Act
-    AnnouncementWithHistory result = service.deleteAnnouncementAndHistory(announcement.getId(), username);
+    AnnouncementWithHistory result = service.deleteAnnouncementAndRecordHistory(announcement.getId(), username);
     // Assert
     assertThat(result).isNotNull();
     assertThat(result.getAnnouncement()).isNotNull();
@@ -714,7 +714,7 @@ public class AnnouncementApplicationServiceTest {
   }
 
   @Test
-  void testDeleteAnnouncementAndHistory_正常系_複数言語のコンテンツを持つお知らせメッセージが削除される()
+  void testDeleteAnnouncementAndRecordHistory_正常系_複数言語のコンテンツを持つお知らせメッセージが削除される()
       throws AnnouncementNotFoundException {
     // Arrange
     Announcement announcement = createAnnouncementWithoutContent();
@@ -729,7 +729,7 @@ public class AnnouncementApplicationServiceTest {
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
 
     // Act
-    AnnouncementWithHistory result = service.deleteAnnouncementAndHistory(announcement.getId(), username);
+    AnnouncementWithHistory result = service.deleteAnnouncementAndRecordHistory(announcement.getId(), username);
 
     // Assert
     assertThat(result).isNotNull();
@@ -739,7 +739,7 @@ public class AnnouncementApplicationServiceTest {
   }
 
   @Test
-  void testDeleteAnnouncementAndHistory_異常系_存在しないお知らせメッセージIDの場合例外が発生する() {
+  void testDeleteAnnouncementAndRecordHistory_異常系_存在しないお知らせメッセージIDの場合例外が発生する() {
     // Arrange
     UUID nonExistentId = UuidGenerator.generate();
     String username = "dummyUser";
@@ -747,7 +747,7 @@ public class AnnouncementApplicationServiceTest {
 
     // Act & Assert
     assertThrows(AnnouncementNotFoundException.class,
-        () -> service.deleteAnnouncementAndHistory(nonExistentId, username));
+        () -> service.deleteAnnouncementAndRecordHistory(nonExistentId, username));
     verify(announcementRepository, times(1)).delete(nonExistentId);
     verify(announcementRepository, times(0)).findByIdWithContents(any());
     verify(announcementHistoryRepository, times(0)).add(any());

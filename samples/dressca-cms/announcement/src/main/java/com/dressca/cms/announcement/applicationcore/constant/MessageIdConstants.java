@@ -30,8 +30,8 @@ public final class MessageIdConstants {
   public static final String D_END_UPDATE_ANNOUNCEMENT = "announcementApplicationServiceEndUpdateAnnouncement";
 
   /** お知らせメッセージ ID: {0} に対応するお知らせメッセージの削除とお知らせメッセージ履歴の追加を開始します。 */
-  public static final String D_START_DELETE_ANNOUNCEMENT_AND_HISTORY = "announcementApplicationServiceStartDeleteAnnouncementAndHistory";
+  public static final String D_START_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY = "announcementApplicationServiceStartDeleteAnnouncementAndRecordHistory";
 
   /** お知らせメッセージ ID: {0} に対応するお知らせメッセージの削除とお知らせメッセージ履歴の追加を終了しました。 */
-  public static final String D_END_DELETE_ANNOUNCEMENT_AND_HISTORY = "announcementApplicationServiceEndDeleteAnnouncementAndHistory";
+  public static final String D_END_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY = "announcementApplicationServiceEndDeleteAnnouncementAndRecordHistory";
 }

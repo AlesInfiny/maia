@@ -347,10 +347,10 @@ public class AnnouncementApplicationService {
    * @throws AnnouncementNotFoundException 指定したお知らせメッセージ ID
    *                                       に対応するお知らせメッセージが存在しない場合。
    */
-  public AnnouncementWithHistory deleteAnnouncementAndHistory(UUID announcementId, String username)
+  public AnnouncementWithHistory deleteAnnouncementAndRecordHistory(UUID announcementId, String username)
       throws AnnouncementNotFoundException {
     // 業務開始処理
-    apLog.debug(messages.getMessage(MessageIdConstants.D_START_DELETE_ANNOUNCEMENT_AND_HISTORY,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_START_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY,
         new Object[] { announcementId }, Locale.getDefault()));
 
     // 業務メイン処理
@@ -378,7 +378,7 @@ public class AnnouncementApplicationService {
         .findByAnnouncementIdWithContents(announcementId);
 
     // 業務終了処理
-    apLog.debug(messages.getMessage(MessageIdConstants.D_END_DELETE_ANNOUNCEMENT_AND_HISTORY,
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY,
         new Object[] { announcementId }, Locale.getDefault()));
 
     return new AnnouncementWithHistory(deletedAnnouncement, histories);
