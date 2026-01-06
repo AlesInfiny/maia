@@ -6,11 +6,6 @@
  */
 buildscript {
   apply from: 'dependencies.gradle'
-  configurations {
-    all {
-      exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-  }
 }
 
 plugins {
@@ -74,8 +69,8 @@ subprojects {
     reports {
       xml.enabled = false
       html {
-        enabled true
-        destination file("${buildDir}/reports/spotbugs/main.html")
+        enabled = true
+        destination = file("${buildDir}/reports/spotbugs/main.html")
       }
     }
   }
