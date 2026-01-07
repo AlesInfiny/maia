@@ -25,8 +25,8 @@ public class LogicException extends Exception {
    * @param frontMessageValue メッセージ用プレースフォルダ（フロント用）。
    * @param logMessageValue メッセージ用プレースフォルダ（ログ用）。
    */
-  public LogicException(Throwable cause, String exceptionId,
-      String[] frontMessageValue, String[] logMessageValue) {
+  public LogicException(Throwable cause, String exceptionId, String[] frontMessageValue,
+      String[] logMessageValue) {
     super(cause);
     this.exceptionId = exceptionId;
     this.frontMessageValue = frontMessageValue;
