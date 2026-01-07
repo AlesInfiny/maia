@@ -41,7 +41,7 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
 
 1. 前手順と同様に、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    web-consumer > Tasks > application > bootRunDev
+    dressca-cms > Tasks > application > bootRunDev
 
     !!! tip "bootRunDev タスクのパーセンテージについて"
 
