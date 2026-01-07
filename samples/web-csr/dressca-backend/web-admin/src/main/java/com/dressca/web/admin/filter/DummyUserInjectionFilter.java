@@ -30,8 +30,7 @@ public class DummyUserInjectionFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain)
-      throws IOException, ServletException {
+      FilterChain filterChain) throws IOException, ServletException {
     UserDetails dummyUser = new User("admin@example.com", "",
         List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
 

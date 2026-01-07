@@ -29,7 +29,8 @@ public class UserStoreImpl implements UserStore {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
       List<String> roles = authentication.getAuthorities().stream()
-          .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+          .map(GrantedAuthority::getAuthority)
+          .collect(Collectors.toList());
       return roles;
     }
     return new ArrayList<>();
@@ -39,7 +40,8 @@ public class UserStoreImpl implements UserStore {
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+      return authentication.getAuthorities().stream()
+          .map(GrantedAuthority::getAuthority)
           .anyMatch(roles -> roles.equals(role));
     }
     return false;
