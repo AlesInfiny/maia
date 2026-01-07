@@ -8,7 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_EXTERNAL_ID_SCOPE: string
   readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
   readonly VITE_EXTERNAL_ID_REDIRECT_URI: string
-  readonly VITE_EXTERNAL_ID_LOGOUT_URI: string
+  readonly VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI: string
 }
 
 interface ImportMeta {

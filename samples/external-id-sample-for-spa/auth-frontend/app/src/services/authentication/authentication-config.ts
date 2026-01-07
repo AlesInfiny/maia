@@ -39,12 +39,15 @@ export const msalConfig = {
   },
 }
 
+export const apiConfig = {
+  scopes: import.meta.env.VITE_EXTERNAL_ID_SCOPE.split(','),
+}
+
 export const msalInstance = new PublicClientApplication(msalConfig)
 
 export const loginRequest: SilentRequest = {
-  scopes: ['openId', 'email', import.meta.env.VITE_EXTERNAL_ID_SCOPE],
+  scopes: ['openId', 'email', ...apiConfig.scopes],
 }
-
 export const tokenRequest: SilentRequest = {
-  scopes: ['openId', 'email', import.meta.env.VITE_EXTERNAL_ID_SCOPE],
+  scopes: ['openId', 'email', ...apiConfig.scopes],
 }
