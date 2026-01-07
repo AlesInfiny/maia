@@ -21,7 +21,7 @@ ext {
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
 
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
+        spring_boot_starter_security_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server",
         spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
         spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
 
