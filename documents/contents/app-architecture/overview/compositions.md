@@ -21,6 +21,8 @@ Vue.js を用いた SPA の構成をとります。
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading=lazy }
 ![クライアントサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading=lazy }
 
+サンプルのダウンロードおよび解説については、 [Dressca](../../samples/dressca/index.md) を参照してください。
+
 !!! note ""
 
     上の図で使用している OSS 製品名およびロゴのクレジット情報は [こちら](../../about-maia/credits.md) を参照してください。
@@ -35,9 +37,13 @@ Thymeleaf を用いた MPA の構成をとります。
 ![サーバーサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/server-side-rendering-maia-light.png#only-light){ loading=lazy }
 ![サーバーサイドレンダリング アプリケーションスタック](../../images/app-architecture/overview/server-side-rendering-maia-dark.png#only-dark){ loading=lazy }
 
+サンプルのダウンロードおよび解説については、 [Dressca-CMS](../../samples/dressca-cms/index.md) を参照してください。
+
 ### バッチアプリケーション {#batch}
 
 Spring Framework / Spring Batch をベースとするバッチアプリケーションです。
+
+サンプルの解説については、 [Spring Batch を利用したバッチアプリケーション](../../samples/dressca/spring-batch/index.md) を参照してください。
 
 ## 技術要素 {#technical-elements}
 
