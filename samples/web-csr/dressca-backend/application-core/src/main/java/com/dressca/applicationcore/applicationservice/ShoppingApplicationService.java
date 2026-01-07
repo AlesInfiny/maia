@@ -193,7 +193,8 @@ public class ShoppingApplicationService {
       throw new EmptyBasketOnCheckoutException(null);
     }
 
-    List<Long> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+    List<Long> catalogItemIds = basket.getItems().stream()
+        .map(BasketItem::getCatalogItemId)
         .collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
@@ -216,7 +217,8 @@ public class ShoppingApplicationService {
       throw new IllegalArgumentException("buyerIdがnullまたは空文字");
     }
 
-    return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
+    return this.basketRepository.findByBuyerId(buyerId)
+        .orElseGet(() -> this.createBasket(buyerId));
   }
 
   /**
@@ -240,8 +242,8 @@ public class ShoppingApplicationService {
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
         .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst()
-        .orElseThrow(
-            () -> new SystemException(null, CommonExceptionIdConstants.E_BUSINESS, null, null));
+        .orElseThrow(() -> new SystemException(
+            null, CommonExceptionIdConstants.E_BUSINESS, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
     OrderItem orderItem =

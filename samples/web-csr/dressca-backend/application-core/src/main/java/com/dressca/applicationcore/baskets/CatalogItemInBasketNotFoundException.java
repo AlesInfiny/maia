@@ -30,7 +30,8 @@ public class CatalogItemInBasketNotFoundException extends LogicException {
    */
   private static String convertCatalogIds(List<Long> catalogIds) {
     StringJoiner sj = new StringJoiner(",");
-    catalogIds.stream().forEach(id -> sj.add(String.valueOf(id)));
+    catalogIds.stream()
+        .forEach(id -> sj.add(String.valueOf(id)));
     return sj.toString();
   }
 }

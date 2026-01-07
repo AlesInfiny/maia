@@ -14,13 +14,14 @@ public class Account {
   public static final double CONSUMPTION_TAX_RATE = 0.1;
 
   /**
-   * 会計アイテムの合計金額を取得します。 この計算結果には、消費税や送料は含まれません。
+   * 会計アイテムの合計金額を取得します。この計算結果には、消費税や送料は含まれません。
    * 
    * @return 会計アイテムの合計金額。
    */
   public BigDecimal getItemTotalPrice() {
-    return this.accountItems.stream().map(AccountItem::getSubTotal).reduce(BigDecimal.ZERO,
-        BigDecimal::add);
+    return this.accountItems.stream()
+        .map(AccountItem::getSubTotal)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
   /**
@@ -54,8 +55,10 @@ public class Account {
    * @return 消費税額。
    */
   public BigDecimal getConsumptionTax() {
-    return this.getItemTotalPrice().add(this.getDeliveryCharge())
-        .multiply(BigDecimal.valueOf(CONSUMPTION_TAX_RATE)).setScale(0, RoundingMode.FLOOR);
+    return this.getItemTotalPrice()
+        .add(this.getDeliveryCharge())
+        .multiply(BigDecimal.valueOf(CONSUMPTION_TAX_RATE))
+        .setScale(0, RoundingMode.FLOOR);
   }
 
   /**
@@ -64,6 +67,8 @@ public class Account {
    * @return 合計金額。
    */
   public BigDecimal getTotalPrice() {
-    return this.getItemTotalPrice().add(this.getDeliveryCharge()).add(this.getConsumptionTax());
+    return this.getItemTotalPrice()
+        .add(this.getDeliveryCharge())
+        .add(this.getConsumptionTax());
   }
 }

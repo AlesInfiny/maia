@@ -41,9 +41,9 @@ public class Order {
     this.buyerId = buyerId;
     this.shipToAddress = shipToAddress;
     this.orderItems = orderItems;
-    this.account = new Account(
-        orderItems.stream().map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
-            .collect(Collectors.toList()));
+    this.account = new Account(orderItems.stream()
+        .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
+        .collect(Collectors.toList()));
     this.consumptionTaxRate = Account.CONSUMPTION_TAX_RATE;
     this.totalItemsPrice = this.account.getItemTotalPrice();
     this.deliveryCharge = this.account.getDeliveryCharge();

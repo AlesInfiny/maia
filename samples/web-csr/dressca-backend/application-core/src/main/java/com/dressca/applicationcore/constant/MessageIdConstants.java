@@ -6,7 +6,8 @@ package com.dressca.applicationcore.constant;
 public class MessageIdConstants {
 
   /** アセット情報{0}を取得します。 */
-  public static final String D_ASSET_GET_ASSET = "assetApplicationServiceGetAsset";
+  public static final String D_ASSET_GET_ASSET =
+      "assetApplicationServiceGetAsset";
 
   /** 買い物かごに商品（顧客ID: {0}, カタログ商品ID: {1}, 数量: {2}）を追加します。 */
   public static final String D_SHOPPING_ADD_ITEM_TO_BASKET =
@@ -25,10 +26,12 @@ public class MessageIdConstants {
       "shoppingApplicationServiceGetBasketItems";
 
   /** 注文（顧客ID: {0}, お届け先: {1}）を確定します。 */
-  public static final String D_SHOPPING_CHECKOUT = "shoppingApplicationServiceCheckout";
+  public static final String D_SHOPPING_CHECKOUT =
+      "shoppingApplicationServiceCheckout";
 
   /** 指定した注文ID: {0}, 購入者ID: {1} の注文情報を取得します。 */
-  public static final String D_ORDER_GET_ORDER = "orderApplicationServiceGetOrder";
+  public static final String D_ORDER_GET_ORDER =
+      "orderApplicationServiceGetOrder";
 
   /** 条件（ブランドID: {0}, カテゴリID: {1}, ページ: {2}, ページサイズ: {3}）に一致するカタログ情報を取得します。 */
   public static final String D_CATALOG_GET_CATALOG_ITEMS =
@@ -39,10 +42,12 @@ public class MessageIdConstants {
       "catalogApplicationServiceCountCatalogItems";
 
   /** フィルタリング用のカタログブランドリストを取得します。 */
-  public static final String D_CATALOG_GET_BRANDS = "catalogApplicationServiceGetBrands";
+  public static final String D_CATALOG_GET_BRANDS =
+      "catalogApplicationServiceGetBrands";
 
   /** フィルタリング用のカタログカテゴリリストを取得します。 */
-  public static final String D_CATALOG_GET_CATEGORIES = "catalogApplicationServiceGetCategories";
+  public static final String D_CATALOG_GET_CATEGORIES =
+      "catalogApplicationServiceGetCategories";
 
   /** カタログアイテム ID: {0} のカタログアイテムを取得します。 */
   public static final String D_CATALOG_GET_CATALOG_ITEM =

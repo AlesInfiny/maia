@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AssetRepository {
 
   /**
-   * 指定したアセットコードの情報を取得します。 存在しない場合は 空の Optional を返します。
+   * 指定したアセットコードの情報を取得します。存在しない場合は空の Optional を返します。
    * 
    * @param assetCode アセットコード。
    * @return アセット情報。

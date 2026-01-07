@@ -72,7 +72,8 @@ public class Basket {
    * @return 買い物かごに存在する場合は true 、存在しない場合は false 。
    */
   public boolean isInCatalogItem(long catalogItemId) {
-    return this.items.stream().anyMatch(item -> item.getCatalogItemId() == catalogItemId);
+    return this.items.stream()
+        .anyMatch(item -> item.getCatalogItemId() == catalogItemId);
   }
 
   /**
