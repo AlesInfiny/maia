@@ -43,7 +43,7 @@ export const msalConfig = {
 | `localStorage`   | [Web Storage API :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API){ target=_blank } が提供する Local Storage に保存する   |
 | `memoryStorage`  | ブラウザーのインメモリに保存する                                                                                                                               |
 
-キャッシュストレージの保存先の違いによる影響に関しては、 [Store の永続化方式](../../app-architecture/client-side-rendering/global-function/store-design-policy.md) で詳細を確認してください。
+キャッシュストレージの保存先の違いによる影響に関しては、 [Store の永続化方式](../../../app-architecture/client-side-rendering/global-function/store-design-policy.md) で詳細を確認してください。
 
 !!! Danger "Local Storage を利用する際の危険性"
 

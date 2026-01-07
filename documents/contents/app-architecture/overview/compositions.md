@@ -43,7 +43,7 @@ Thymeleaf を用いた MPA の構成をとります。
 
 Spring Framework / Spring Batch をベースとするバッチアプリケーションです。
 
-サンプルの解説については、 [Spring Batch を利用したバッチアプリケーション](../../samples/dressca/spring-batch/index.md) を参照してください。
+サンプルの解説については、 [Spring Batch を利用したバッチアプリケーション](../../samples/requirement-based/spring-batch/index.md) を参照してください。
 
 ## 技術要素 {#technical-elements}
 

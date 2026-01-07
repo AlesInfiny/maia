@@ -10,7 +10,7 @@ description: Spring Batch を利用したバッチアプリケーションのサ
 Spring Batch を利用したバッチアプリケーションの簡易な実装サンプルを提供します。
 
 バッチアプリケーションのアーキテクチャについては、
-[バッチアプリケーションのアーキテクチャ](../../app-architecture/batch-application/batch-application-architecture.md) を参照してください。
+[バッチアプリケーションのアーキテクチャ](../../../app-architecture/batch-application/batch-application-architecture.md) を参照してください。
 サンプルではこちらのアーキテクチャに則って、バッチアプリケーションを実装しています。
 
 ## サンプルで定義されているジョブ {#sample-jobs}
