@@ -118,3 +118,10 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
     java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --output=sample-output.csv
     ```
+
+## ダウンロード {#download}
+
+サンプルアプリケーションは Dressca に同梱されています。
+以下を参照してください。
+
+- [Dressca > クイックスタート](../../dressca/index.md#quick-start)
