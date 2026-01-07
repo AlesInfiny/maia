@@ -28,12 +28,20 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
         展開先のフォルダーは、浅い階層にすることを推奨します。
 
 1. VS Code で「dressca-cms」フォルダーを開き、必要な拡張機能をインストールします。
-「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
-インストール後、拡張機能の初期化処理が実行されます。
-初期化処理の状態を VS Code のステータスバーで確認し、完了後次の手順に進んでください。
+   「拡張機能」メニューから 「拡張機能のフィルター」>「推奨」>「ワークスペース推奨事項」にある拡張機能を全てインストールします。
+   インストール後、拡張機能の初期化処理が実行されます。
+   初期化処理の状態を VS Code のステータスバーで確認し、完了後次の手順に進んでください。
 
     ![拡張機能の初期化処理の状態](../../images/samples/extensions-init-status-dark.png#only-dark){ width="800" loading=lazy }
     ![拡張機能の初期化処理の状態](../../images/samples/extensions-init-status-light.png#only-light){ width="800" loading=lazy }
+
+1. 画面の装飾に利用している Bootstrap のインストールを行います。
+   VS Code のターミナルで、`dressca-cms` フォルダーにいることを確認し、以下のコマンドを実行します。
+
+    ```shell title="Bootstrap のインストール"
+    cd web/src/main/resources/static/bootstrap/
+    npm ci
+    ```
 
 1. VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
@@ -60,4 +68,4 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
 
 1. ログインに成功したら、トップ画面に遷移します。左メニューから「お知らせメッセージ管理」を押下してください。お知らせメッセージ管理画面が表示されます。
 
-     [![Dressca-CMS お知らせメッセージ管理画面](../../images/samples/dressca-cms-announcements.png){ width="800" loading=lazy }](../../images/samples/dressca-cms-announcements.png)
+    [![Dressca-CMS お知らせメッセージ管理画面](../../images/samples/dressca-cms-announcements.png){ width="800" loading=lazy }](../../images/samples/dressca-cms-announcements.png)
