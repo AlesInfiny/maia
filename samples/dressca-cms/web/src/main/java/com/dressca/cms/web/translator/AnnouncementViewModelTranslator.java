@@ -2,8 +2,13 @@ package com.dressca.cms.web.translator;
 
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
+import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
+import com.dressca.cms.web.models.AnnouncementHistoryWithContentHistoriesViewModel;
 import com.dressca.cms.web.models.AnnouncementWithContentsViewModel;
+import com.dressca.cms.web.models.base.AnnouncementContentHistoryViewModel;
 import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
+import com.dressca.cms.web.models.base.AnnouncementHistoryViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,8 +46,10 @@ public final class AnnouncementViewModelTranslator {
         .expireDate(dto.getExpireDateTime() != null ? dto.getExpireDateTime().toLocalDate() : null)
         .expireTime(dto.getExpireDateTime() != null ? dto.getExpireDateTime().toLocalTime() : null)
         .displayPriority(dto.getDisplayPriority())
-        .createdAt(dto.getCreatedAt())
-        .changedAt(dto.getChangedAt())
+        .createdAtDate(dto.getCreatedAt() != null ? dto.getCreatedAt().toLocalDate() : null)
+        .createdAtTime(dto.getCreatedAt() != null ? dto.getCreatedAt().toLocalTime() : null)
+        .changedAtDate(dto.getChangedAt() != null ? dto.getChangedAt().toLocalDate() : null)
+        .changedAtTime(dto.getChangedAt() != null ? dto.getChangedAt().toLocalTime() : null)
         .isDeleted(dto.getIsDeleted())
         .build();
   }
@@ -63,6 +70,9 @@ public final class AnnouncementViewModelTranslator {
     OffsetDateTime postDateTime = combineDateTime(viewModel.getPostDate(), viewModel.getPostTime());
     OffsetDateTime expireDateTime = combineDateTime(viewModel.getExpireDate(), viewModel.getExpireTime());
 
+    OffsetDateTime createdAt = combineDateTime(viewModel.getCreatedAtDate(), viewModel.getCreatedAtTime());
+    OffsetDateTime changedAt = combineDateTime(viewModel.getChangedAtDate(), viewModel.getChangedAtTime());
+
     List<AnnouncementContent> contents = contentViewModel != null
         ? contentViewModel.stream().map(AnnouncementViewModelTranslator::toContentDto)
             .collect(Collectors.toCollection(ArrayList::new))
@@ -73,8 +83,8 @@ public final class AnnouncementViewModelTranslator {
         postDateTime,
         expireDateTime,
         viewModel.getDisplayPriority(),
-        viewModel.getCreatedAt(),
-        viewModel.getChangedAt(),
+        createdAt,
+        changedAt,
         viewModel.getIsDeleted(),
         contents);
   }
@@ -173,6 +183,72 @@ public final class AnnouncementViewModelTranslator {
   }
 
   /**
+   * お知らせメッセージ履歴の DTO からビューモデルに変換します。
+   *
+   * @param dto お知らせメッセージ履歴の DTO。
+   * @return お知らせメッセージ履歴のビューモデル。
+   */
+  public static AnnouncementHistoryViewModel toHistoryViewModel(AnnouncementHistory dto) {
+    if (dto == null) {
+      return null;
+    }
+    return new com.dressca.cms.web.models.base.AnnouncementHistoryViewModel(
+        dto.getId(),
+        dto.getAnnouncementId(),
+        dto.getCategory(),
+        dto.getPostDateTime(),
+        dto.getExpireDateTime(),
+        dto.getDisplayPriority(),
+        dto.getCreatedAt(),
+        dto.getChangedBy(),
+        dto.getOperationType());
+  }
+
+  /**
+   * お知らせコンテンツ履歴の DTO からビューモデルに変換します。
+   *
+   * @param dto お知らせコンテンツ履歴の DTO。
+   * @return お知らせコンテンツ履歴のビューモデル。
+   */
+  public static AnnouncementContentHistoryViewModel toContentHistoryViewModel(AnnouncementContentHistory dto) {
+    if (dto == null) {
+      return null;
+    }
+    return new AnnouncementContentHistoryViewModel(
+        dto.getId(),
+        dto.getAnnouncementHistoryId(),
+        dto.getLanguageCode(),
+        dto.getTitle(),
+        dto.getMessage(),
+        dto.getLinkUrl());
+  }
+
+  /**
+   * お知らせメッセージ履歴の DTO から、お知らせメッセージ履歴とコンテンツ履歴をラップする ビューモデルに変換します。
+   *
+   * @param dto お知らせメッセージ履歴の DTO。
+   * @return お知らせメッセージ履歴とコンテンツ履歴をラップするビューモデル。
+   */
+  public static AnnouncementHistoryWithContentHistoriesViewModel toHistoryWithContentHistoriesViewModel(
+      AnnouncementHistory dto) {
+    if (dto == null) {
+      return null;
+    }
+
+    AnnouncementHistoryViewModel historyViewModel = toHistoryViewModel(dto);
+
+    List<AnnouncementContentHistoryViewModel> contentHistoryViewModels = null;
+    if (dto.getContentHistories() != null) {
+      contentHistoryViewModels = dto.getContentHistories().stream()
+          .map(AnnouncementViewModelTranslator::toContentHistoryViewModel)
+          .collect(Collectors.toList());
+    }
+
+    return new com.dressca.cms.web.models.AnnouncementHistoryWithContentHistoriesViewModel(
+        historyViewModel, contentHistoryViewModels);
+  }
+
+  /**
    * 日付と時刻を結合してOffsetDateTimeに変換します。
    *
    * @param date 日付。
@@ -185,5 +261,4 @@ public final class AnnouncementViewModelTranslator {
     }
     return ZonedDateTime.of(date, time, ZoneId.systemDefault()).toOffsetDateTime();
   }
-
 }

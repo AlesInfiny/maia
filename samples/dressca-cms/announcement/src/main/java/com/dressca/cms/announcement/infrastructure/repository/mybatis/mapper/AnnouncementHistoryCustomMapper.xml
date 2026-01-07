@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.AnnouncementHistoryCustomMapper">
+  
+  <resultMap id="AnnouncementHistoryWithContentsResultMap" type="com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory">
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="announcement_id" jdbcType="OTHER" property="announcementId" typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="post_date_time" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="postDateTime" />
+    <result column="expire_date_time" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="expireDateTime" />
+    <result column="display_priority" jdbcType="INTEGER" property="displayPriority" />
+    <result column="created_at" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="createdAt" />
+    <result column="changed_by" jdbcType="VARCHAR" property="changedBy" />
+    <result column="operation_type" jdbcType="INTEGER" property="operationType" />
+    <collection property="contentHistories" ofType="com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory">
+      <id column="content_history_id" jdbcType="OTHER" property="id" typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+      <result column="id" jdbcType="OTHER" property="announcementHistoryId" typeHandler="com.dressca.cms.announcement.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+      <result column="language_code" jdbcType="VARCHAR" property="languageCode" />
+      <result column="title" jdbcType="VARCHAR" property="title" />
+      <result column="message" jdbcType="VARCHAR" property="message" />
+      <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    </collection>
+  </resultMap>
+  
+  <select id="findByAnnouncementIdWithContents" resultMap="AnnouncementHistoryWithContentsResultMap">
+    SELECT 
+      ah.id,
+      ah.announcement_id,
+      ah.category,
+      ah.post_date_time,
+      ah.expire_date_time,
+      ah.display_priority,
+      ah.created_at,
+      ah.changed_by,
+      ah.operation_type,
+      ach.id as content_history_id,
+      ach.language_code,
+      ach.title,
+      ach.message,
+      ach.link_url
+    FROM announcement_history ah
+    LEFT JOIN announcement_content_history ach ON ah.id = ach.announcement_history_id
+    WHERE ah.announcement_id = #{announcementId}
+    ORDER BY ah.created_at DESC
+  </select>
+  
+</mapper>

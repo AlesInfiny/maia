@@ -79,4 +79,19 @@ public final class AnnouncementEntityTranslator {
     BeanUtils.copyProperties(dto, entity);
     return entity;
   }
+
+  /**
+   * お知らせコンテンツのエンティティから DTO に変換します。
+   *
+   * @param entity お知らせコンテンツのエンティティ。
+   * @return お知らせコンテンツの DTO。
+   */
+  public static AnnouncementContent toContentDto(AnnouncementContentEntity entity) {
+    if (entity == null) {
+      return null;
+    }
+    AnnouncementContent dto = new AnnouncementContent();
+    BeanUtils.copyProperties(entity, dto);
+    return dto;
+  }
 }

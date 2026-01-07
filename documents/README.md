@@ -11,58 +11,69 @@
 
 documents フォルダー配下のフォルダー、ファイルの配置は以下の通りです。
 
-|               |                  |                       |                                    |                     |                                                 |
-| ------------- | ---------------- | --------------------- | ---------------------------------- | ------------------- | ----------------------------------------------- |
-| _materials    |                  |                       |                                    |                     | ドキュメント内で利用する素材                    |
-|               | images           |                       |                                    |                     | 画像素材（画像を作るための元ファイル）          |
-|               |                  | app-architecture      |                                    |                     | contents/images フォルダーと構造をそろえる      |
-|               |                  |                       | hoge.drawio                        |                     | ファイル名は生成後の画像ファイルと同じにする    |
-| contents      |                  |                       |                                    |                     | ドキュメント本体                                |
-|               | about-maia       |                       |                                    |                     | 利用規約等、ライセンス関連のファイル            |
-|               | app-architecture |                       |                                    |                     | アプリケーションアーキテクチャ                  |
-|               |                  | batch-application     |                                    |                     | バッチアプリケーション編                        |
-|               |                  |                       | batch-application-consideration    |                     | バッチアプリケーションの考慮事項                |
-|               |                  |                       | batch-application-test-policy      |                     | バッチアプリケーションのテスト方針              |
-|               |                  | client-side-rendering |                                    |                     | CSR 編                                          |
-|               |                  |                       | backend-application                |                     | バックエンドアプリの構造詳細                    |
-|               |                  |                       | frontend-application               |                     | フロントエンドアプリの構造詳細                  |
-|               |                  |                       | global-function                    |                     | 全体処理方式                                    |
-|               |                  |                       | test                               |                     | テスト方針                                      |
-|               |                  |                       |                                    | backend-application | バックエンドアプリのテスト方針                  |
-|               |                  | overview              |                                    |                     | 概要編                                          |
-|               |                  |                       | java-application-processing-system |                     | Java アプリケーションの処理方式                 |
-|               |                  | server-side-rendering |                                    |                     | SSR 編                                          |
-|               |                  |                       | backend                            |                     | バックエンド部分の構造詳細                      |
-|               |                  |                       | frontend                           |                     | フロントエンド部分の構造詳細                    |
-|               |                  |                       | global-function                    |                     | 全体処理方式                                    |
-|               | assets           |                       |                                    |                     | 共通資材（ロゴなど）                            |
-|               |                  | images                |                                    |                     |                                                 |
-|               | guidebooks       |                       |                                    |                     | ガイドライン系ドキュメント                      |
-|               |                  | how-to-develop        |                                    |                     | アプリケーション開発手順                        |
-|               |                  |                       | java                               |                     | Java 編                                         |
-|               |                  |                       | local-environment                  |                     | ローカル開発環境の構築                          |
-|               |                  |                       | vue-js                             |                     | Vue.js 編                                       |
-|               | images           |                       |                                    |                     | ページ固有の画像ファイル置き場                  |
-|               |                  | about-maia            |                                    |                     | mdファイルの配置フォルダーと構造をそろえる      |
-|               |                  |                       | hoge.png                           |                     | 画像ファイルは svg か png にする                |
-|               |                  |                       | animation.gif                      |                     | gif アニメーションも利用可                      |
-|               |                  | app-architecture      |                                    |                     |                                                 |
-|               |                  | guidebooks            |                                    |                     |                                                 |
-|               |                  |                       | how-to-develop                     |                     |                                                 |
-|               |                  |                       | samples                            |                     |                                                 |
-|               |                  |                       | terms                              |                     |                                                 |
-|               | samples          |                       |                                    |                     | サンプルアプリケーション解説                    |
-|               |                  | azure-ad-b2c          |                                    |                     | Azure AD B2C を利用しているサンプルの解説       |
-|               |                  | downloads             |                                    |                     | サンプルアプリケーションコード置き場( zip 圧縮) |
-|               | stylesheets      |                       |                                    |                     | 既定のスタイルシートの上書き設定                |
-|               | index.md         |                       |                                    |                     | トップページ                                    |
-| includes      |                  |                       |                                    |                     | Snippets の置き場                               |
-|               | abbreviations.md |                       |                                    |                     | 略語用語集                                      |
-| overrides     |                  |                       |                                    |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
-| readme-images |                  |                       |                                    |                     | README.md 内の画像ファイル置き場                |
-| .gitignore    |                  |                       |                                    |                     | mkdocs 用の gitignore                           |
-| mkdocs.yml    |                  |                       |                                    |                     | mkdocs の設定ファイル                           |
-| README.md     |                  |                       |                                    |                     | このドキュメント                                |
+|               |                            |                       |                                    |                     |                                                 |
+| ------------- | -------------------------- | --------------------- | ---------------------------------- | ------------------- | ----------------------------------------------- |
+| _materials    |                            |                       |                                    |                     | ドキュメント内で利用する素材                    |
+|               | images                     |                       |                                    |                     | 画像素材（画像を作るための元ファイル）          |
+|               |                            | app-architecture      |                                    |                     | contents/images フォルダーと構造をそろえる      |
+|               |                            |                       | hoge.drawio                        |                     | ファイル名は生成後の画像ファイルと同じにする    |
+| contents      |                            |                       |                                    |                     | ドキュメント本体                                |
+|               | about-maia                 |                       |                                    |                     | 利用規約等、ライセンス関連のファイル            |
+|               | app-architecture           |                       |                                    |                     | アプリケーションアーキテクチャ                  |
+|               |                            | batch-application     |                                    |                     | バッチアプリケーション編                        |
+|               |                            |                       | batch-application-consideration    |                     | バッチアプリケーションの考慮事項                |
+|               |                            |                       | batch-application-test-policy      |                     | バッチアプリケーションのテスト方針              |
+|               |                            | client-side-rendering |                                    |                     | CSR 編                                          |
+|               |                            |                       | backend-application                |                     | バックエンドアプリの構造詳細                    |
+|               |                            |                       | frontend-application               |                     | フロントエンドアプリの構造詳細                  |
+|               |                            |                       | global-function                    |                     | 全体処理方式                                    |
+|               |                            |                       | test                               |                     | テスト方針                                      |
+|               |                            |                       |                                    | backend-application | バックエンドアプリのテスト方針                  |
+|               |                            | overview              |                                    |                     | 概要編                                          |
+|               |                            |                       | java-application-processing-system |                     | Java アプリケーションの処理方式                 |
+|               |                            | security              |                                    |                     | セキュリティ編                                  |
+|               |                            | server-side-rendering |                                    |                     | SSR 編                                          |
+|               |                            |                       | backend                            |                     | バックエンド部分の構造詳細                      |
+|               |                            |                       | frontend                           |                     | フロントエンド部分の構造詳細                    |
+|               |                            |                       | global-function                    |                     | 全体処理方式                                    |
+|               | assets                     |                       |                                    |                     | 共通資材（ロゴなど）                            |
+|               |                            | images                |                                    |                     |                                                 |
+|               | guidebooks                 |                       |                                    |                     | ガイドライン系ドキュメント                      |
+|               |                            | conventions           |                                    |                     | 規約編                                          |
+|               |                            | how-to-develop        |                                    |                     | アプリケーション開発手順                        |
+|               |                            |                       | csr                                |                     | CSR 編                                          |
+|               |                            |                       |                                    | cors                | CORS 設定                                       |
+|               |                            |                       |                                    | java                | Java 編                                         |
+|               |                            |                       |                                    | local-environment   | ローカル開発環境の構築                          |
+|               |                            |                       |                                    | vue-js              | Vue.js 編                                       |
+|               |                            |                       | ssr                                |                     | SSR 編                                          |
+|               |                            |                       |                                    | java                | Java 編                                         |
+|               |                            |                       |                                    | local-environment   | ローカル開発環境の構築                          |
+|               | images                     |                       |                                    |                     | ページ固有の画像ファイル置き場                  |
+|               |                            | about-maia            |                                    |                     | mdファイルの配置フォルダーと構造をそろえる      |
+|               |                            |                       | hoge.png                           |                     | 画像ファイルは svg か png にする                |
+|               |                            |                       | animation.gif                      |                     | gif アニメーションも利用可                      |
+|               |                            | app-architecture      |                                    |                     |                                                 |
+|               |                            | guidebooks            |                                    |                     |                                                 |
+|               |                            |                       | how-to-develop                     |                     |                                                 |
+|               |                            | samples               |                                    |                     |                                                 |
+|               |                            | terms                 |                                    |                     |                                                 |
+|               | samples                    |                       |                                    |                     | サンプルアプリケーション解説                    |
+|               |                            | azure-ad-b2c          |                                    |                     | Azure AD B2C を利用しているサンプルの解説       |
+|               |                            | downloads             |                                    |                     | サンプルアプリケーションコード置き場( zip 圧縮) |
+|               | stylesheets                |                       |                                    |                     | 既定のスタイルシートの上書き設定                |
+|               | index.md                   |                       |                                    |                     | トップページ                                    |
+| hooks         |                            |                       |                                    |                     | MkDocs のビルドフック                           |
+|               | github_markdown_fetcher.py |                       |                                    |                     | GitHub のマークダウンを取得するフック           |
+| includes      |                            |                       |                                    |                     | Snippets の置き場                               |
+|               | abbreviations.md           |                       |                                    |                     | 略語用語集                                      |
+| overrides     |                            |                       |                                    |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
+|               | partials                   |                       |                                    |                     | パーシャルテンプレート                          |
+|               |                            | copyright.html        |                                    |                     | コピーライト表示のカスタマイズ                  |
+| readme-images |                            |                       |                                    |                     | README.md 内の画像ファイル置き場                |
+| .gitignore    |                            |                       |                                    |                     | mkdocs 用の gitignore                           |
+| mkdocs.yml    |                            |                       |                                    |                     | mkdocs の設定ファイル                           |
+| README.md     |                            |                       |                                    |                     | このドキュメント                                |
 
 \*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
 
