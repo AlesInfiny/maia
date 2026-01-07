@@ -26,8 +26,7 @@ public class CatalogItemWriterConf {
   @Bean
   @StepScope
   public FlatFileItemWriter<CatalogItem> csvFileItemWriter(
-      @Value("#{jobParameters['output']}") String output)
-      throws Exception {
+      @Value("#{jobParameters['output']}") String output) throws Exception {
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriter<>();
     FileSystemResource outputResource;
     if (output == null || "".equals(output)) {
