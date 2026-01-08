@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * {@link UserStore} の情報にアクセスする API コントローラです。
  */
 @RestController
-@Tag(
-    name = "Users",
-    description = "ログイン中のユーザーの情報にアクセスする API です。")
+@Tag(name = "Users", description = "ログイン中のユーザーの情報にアクセスする API です。")
 @RequestMapping("/api/users")
 @PreAuthorize(value = "isAuthenticated()")
 public class UsersController {
@@ -34,26 +32,13 @@ public class UsersController {
    * 
    * @return ユーザの情報。
    */
-  @Operation(
-      summary = "ログイン中のユーザーの情報を取得します。",
-      description = "ログイン中のユーザーの情報を取得します。")
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "成功。",
-              content = @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = GetLoginUserResponse.class))),
-          @ApiResponse(
-              responseCode = "401",
-              description = "未認証。",
-              content = @Content),
-          @ApiResponse(
-              responseCode = "500",
-              description = "サーバーエラー。",
-              content = @Content)
-      })
+  @Operation(summary = "ログイン中のユーザーの情報を取得します。", description = "ログイン中のユーザーの情報を取得します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = GetLoginUserResponse.class))),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<GetLoginUserResponse> getLoginUser() {
 

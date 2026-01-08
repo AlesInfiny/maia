@@ -26,16 +26,12 @@ public class BasketMapper {
     }
 
     Account account = basket.getAccount();
-    AccountResponse accountDto = new AccountResponse(
-        Account.CONSUMPTION_TAX_RATE,
-        account.getItemTotalPrice(),
-        account.getDeliveryCharge(),
-        account.getConsumptionTax(),
-        account.getTotalPrice());
+    AccountResponse accountDto =
+        new AccountResponse(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
+            account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
 
-    List<BasketItemResponse> basketItems = basket.getItems().stream()
-        .map(BasketItemMapper::convert)
-        .collect(Collectors.toList());
+    List<BasketItemResponse> basketItems =
+        basket.getItems().stream().map(BasketItemMapper::convert).collect(Collectors.toList());
 
     return new BasketResponse(basket.getBuyerId(), accountDto, basketItems,
         Collections.emptyList());

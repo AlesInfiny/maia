@@ -24,9 +24,7 @@ import lombok.AllArgsConstructor;
  * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(
-    name = "CatalogBrands",
-    description = "カタログブランドの情報にアクセスする API です。")
+@Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-brands")
 @AllArgsConstructor
 public class CatalogBrandsController {
@@ -39,23 +37,14 @@ public class CatalogBrandsController {
    * 
    * @return カタログブランドの一覧。
    */
-  @Operation(
-      summary = "カタログブランドの一覧を取得します。",
-      description = "カタログブランドの一覧を取得します。")
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "成功。",
-              content = @Content(
-                  mediaType = "application/json",
-                  array = @ArraySchema(
-                      schema = @Schema(implementation = CatalogBrandResponse.class))))})
+  @Operation(summary = "カタログブランドの一覧を取得します。", description = "カタログブランドの一覧を取得します。")
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
+      content = @Content(mediaType = "application/json",
+          array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class))))})
   @GetMapping()
   public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
-        .map(CatalogBrandMapper::convert)
-        .collect(Collectors.toList());
+        .map(CatalogBrandMapper::convert).collect(Collectors.toList());
 
     return ResponseEntity.ok().body(brands);
   }
