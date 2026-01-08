@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "redhat.java",
+    "shengchen.vscode-checkstyle",
     "vmware.vscode-boot-dev-pack",
     "vscjava.vscode-gradle",
     "vscjava.vscode-java-pack",

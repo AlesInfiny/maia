@@ -1,8 +1,11 @@
 {
   "java.dependency.packagePresentation": "hierarchical",
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
-  "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
+  "java.checkstyle.configuration": "${workspaceFolder}/config/checkstyle/checkstyle.xml",
+  "java.checkstyle.properties": {
+    "config_loc": "${workspaceFolder}/config/checkstyle"
+  },
+  "java.format.settings.url": "${workspaceFolder}/config/formatter/eclipse-formatter.xml",
   "cSpell.words": [
     "Appender",
     "applicationcore",
@@ -20,7 +23,7 @@
     "springframework",
     "systemcommon",
     "tasklet",
-    "todofuken",
+    "todofuken"
   ],
   "[java]": {
     "editor.formatOnSave": true,
