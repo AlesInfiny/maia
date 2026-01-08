@@ -261,7 +261,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 ## アプリケーションへの認証機能の組み込み
 
 本サンプルのコードを既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
-なお、対象のアプリケーションは AlesInfiny Maia のクライアントサイドレンダリングアプリケーションです。
+なお、対象のアプリケーションは AlesInfiny Maia のクライアントサイドレンダリングアプリケーション (Dressca) です。
 
 ### バックエンドアプリケーション
 
@@ -272,17 +272,17 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     ```gradle
     ext {
       supportDependencies = [
-        spring_boot_starter_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
+        spring_boot_starter_security_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server",
       ]
     }
     ```
 
-1. `\web\build.gradle`を開きます。
+1. `\web-consumer\build.gradle`を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
 
     ```gradle
     dependencies {
-      implementation supportDependencies.spring_boot_starter_oauth2_resource_server
+      implementation supportDependencies.spring_boot_starter_security_oauth2_resource_server
     }
     ```
 
@@ -290,6 +290,10 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
    本例では、 OrderController.java に対して設定した例を示します。
 
     ```java
+    import org.springframework.security.access.prepost.PreAuthorize;
+    import org.springframework.web.bind.annotation.CrossOrigin;
+    import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
     @RestController
     @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
     @AllArgsConstructor
@@ -408,9 +412,34 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     }
     ```
 
-1. 未認証の場合の例外ハンドラを実装します。
+1. Dressca サンプルの WebSecurityConfig.java を本サンプルの WebSecurityConfig.java に差し替えます。
+   この際、以下の `.addFilterAfter()` は削除してください。
 
     ```java
+      @Bean
+      public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.securityMatcher("/api/**")
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+            .cors(cors -> cors.configurationSource(request -> {
+              CorsConfiguration conf = new CorsConfiguration();
+              conf.setAllowCredentials(true);
+              conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+              conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+              conf.setAllowedHeaders(List.of("*"));
+              return conf;
+            }))
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+    -       .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
+        return http.build();
+      }
+    ```
+
+1. 未認証の場合の例外ハンドラを実装します。
+   ExceptionHandlerControllerAdvice.java に対して以下の ExceptionHandler を設定します。
+
+    ```java
+    import org.springframework.security.access.AccessDeniedException;
+
     @ControllerAdvice
     public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
       // 未認証の場合に発生する AccessDeniedException に対し、例外ハンドラを指定
@@ -426,76 +455,37 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 ### フロントエンドアプリケーション
 
 1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
-1. ターミナルで `npm install @azure/msal-browser` を実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
+1. ターミナルで`cd ../consumer` 、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
 1. `auth-frontend\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
     ```typescript
-    interface ImportMetaEnv {
-      // 認証に関係のないプロパティは省略
-      readonly VITE_EXTERNAL_ID_AUTHORITY_DOMAIN: string
-      readonly VITE_EXTERNAL_ID_SCOPE: string
-      readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
-      readonly VITE_EXTERNAL_ID_APP_URI: string
-    }
+      interface ImportMetaEnv {
+        readonly VITE_NO_ASSET_URL: string
+        readonly VITE_ASSET_URL: string
+        readonly VITE_AXIOS_BASE_ENDPOINT_ORIGIN: string
+        readonly VITE_PROXY_ENDPOINT_ORIGIN: string
+    +   readonly VITE_EXTERNAL_ID_AUTHORITY_DOMAIN: string
+    +   readonly VITE_EXTERNAL_ID_SCOPE: string
+    +   readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
+    +   readonly VITE_EXTERNAL_ID_REDIRECT_URI: string
+    +   readonly VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI: string
+      }
     ```
 
 1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
-1. `src\services\authentication` フォルダーを作成し、サンプルの以下のコードをコピーします。
+1. `src\services\authentication` フォルダーを作成し、本サンプルの以下のコードをコピー・差し替えします。
     - authentication-services.ts
     - authentication-config.ts
-1. `src\store\authentication` フォルダーに対し、以下のように変更します。
-
-    ```typescript
-    import { authenticationService } from '@/services/authentication/authentication-service'
-    import { defineStore } from 'pinia'
-
-    export const useAuthenticationStore = defineStore('authentication', {
-      state: () => ({
-        authenticated: false as boolean,
-      }),
-      actions: {
-        async signIn() {
-          await authenticationService.signInEntraExternalId()
-        },
-        updateAuthenticated(isAuthenticated: boolean) {
-          this.authenticated = isAuthenticated
-        },
-        async signOut() {
-          await authenticationService.signOutEntraExternalId()
-        },
-      },
-      getters: {
-        isAuthenticated(state) {
-          return state.authenticated
-        },
-      },
-    })
-    ```
-
+1. `src\store\authentication` フォルダーの `authentication.ts` を本サンプルのコードに差し替えます。
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
    AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
    本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
 
     ```typescript
-    import axios from "axios";
-    import * as apiClient from "@/generated/api-client";
-    import { authenticationService } from '@/services/authentication/authentication-service';
 
     // その他のコードは省略
-
-    /** api-client の共通の Configuration があればここに定義します。 */
-    function createConfig(): apiClient.Configuration {
-      const config = new apiClient.Configuration({
-        basePath: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
-      });
-
-      return config;
-    }
-
     async function addTokenAsync(config: apiClient.Configuration) {
-      
-
       // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
       if (await authenticationService.isAuthenticated()) {
         const token = await authenticationService.getTokenEntraExternalId();
@@ -503,163 +493,101 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
       }
     }
 
-    export async function ordersApi(): Promise<apiClient.OrdersApi> {
+    async function ordersApi() {
       const config = createConfig()
       // 認証が必要な API では、addTokenAsync を呼び出します。
       await addTokenAsync(config)
-      const orderApi = new apiClient.OrdersApi(config, '', axiosInstance)
-      return orderApi
+      const ordersApi = new apiClient.OrdersApi(config, '', axiosInstance)
+      return ordersApi
     }
     ```
 
 1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
 
-    ```vue
-    <script setup lang="ts">
-    import { authenticationService } from '@/services/authentication/authentication-service'
-    import { useAuthenticationStore } from '@/stores/authentication/authentication'
-    const authenticationStore = useAuthenticationStore()
+    ```typescript
+    const { signIn, signOut, isAuthenticated } = authenticationService()
 
-    const signIn = async () => {
-      await authenticationService.signInEntraExternalId()
+    const signInButtonClicked = async () => {
+      try {
+        await signIn()
+      } catch (error) {
+        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+        if (error instanceof BrowserAuthError) {
+          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+          customErrorHandler.handle(error, () => {
+            console.info('ユーザーが認証処理を中断しました。')
+          })
+        } else {
+          customErrorHandler.handle(error, () => {
+            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+          })
+        }
+      }
     }
-    const signOut = async () => {
-      await authenticationService.signOutEntraExternalId()
+
+    const signOutButtonClicked = async () => {
+      try {
+        await signOut()
+      } catch (error) {
+        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+        if (error instanceof BrowserAuthError) {
+          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+          customErrorHandler.handle(error, () => {
+            console.info('ユーザーが認証処理を中断しました。')
+          })
+        } else {
+          customErrorHandler.handle(error, () => {
+            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+          })
+        }
+      }
     }
-    </script>
     ```
 
+1. `ログイン` 画面へのリンクを含む Vue ファイルの `<template>` セクションのボタンを以下のように差し替えます。
+
+   ```html
+    <header>
+      <nav
+        aria-label="Jump links"
+        class="py-5 text-lg font-medium text-gray-900 shadow-xs ring-1 ring-gray-900/5"
+      >
+        <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
+          <div>
+            <router-link class="text-2xl" to="/"> Dressca </router-link>
+          </div>
+          <div class="flex gap-5 sm:gap-5 lg:gap-12">
+            <router-link to="/basket">
+              <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
+            </router-link>
+            <button v-if="!isAuthenticated()" @click="signInButtonClicked">ログイン</button>
+            <button v-if="isAuthenticated()" @click="signOutButtonClicked">ログアウト</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+   ```
+  
 1. `LoginView.vue` は Microsoft Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
 1. `authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
 
     ```typescript
-    import type { Router, RouteRecordName } from 'vue-router'
-    import { useAuthenticationStore } from '@/stores/authentication/authentication'
-
-    export const authenticationGuard = (router: Router) => {
-      router.beforeEach(async (to, from) => {
-        const authenticationStore = useAuthenticationStore()
-
-        const orderingPaths: (RouteRecordName | null | undefined)[] = [
-          'ordering/checkout',
-          'ordering/done',
-        ]
-        if (orderingPaths.includes(to.name) && !from.name) {
-          return { name: 'catalog' }
-        }
-
-        if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
-          try {
-            await authenticationStore.signIn()
-          } catch (error) {
-            return false
-          }
-        }
-        return true
-      })
+    if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
+      try {
+        await authenticationService().signIn()
+      } catch {
+        return false
+      }
     }
     ```
 
 1. `router` フォルダーの `index.ts` から、 `authenticationRoutes` を削除します。
 
-1. `ログイン` 画面、 `ログアウト` 画面へのリンクを以下のように記述します（クリック時に `signIn` メソッド、 `signOut` メソッドが動作すれば `button` である必要はありません）。
-
-    ```vue
-    <script setup lang="ts">
-    import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
-    import { storeToRefs } from 'pinia'
-    import { useAuthenticationStore } from '@/stores/authentication/authentication'
-    import NotificationToast from './components/common/NotificationToast.vue'
-    import { BrowserAuthError } from '@azure/msal-browser'
-    import { useCustomErrorHandler } from './shared/error-handler/custom-error-handler'
-
-    const authenticationStore = useAuthenticationStore()
-    const { isAuthenticated } = storeToRefs(authenticationStore)
-    const customErrorHandler = useCustomErrorHandler()
-
-    const signIn = async () => {
-      try {
-        await authenticationStore.signIn()
-      } catch (error) {
-        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
-        if (error instanceof BrowserAuthError) {
-          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            // eslint-disable-next-line no-console
-            console.info('ユーザーが認証処理を中断しました。')
-            authenticationStore.updateAuthenticated(false)
-          })
-        } else {
-          customErrorHandler.handle(error, () => {
-            // eslint-disable-next-line no-alert
-            window.alert('Microsoft Entra External Id での認証に失敗しました。')
-          })
-        }
-      }
-    }
-
-    const signOut = async () => {
-      try {
-        await authenticationStore.signOut()
-      } catch (error) {
-        // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
-        if (error instanceof BrowserAuthError) {
-          // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            // eslint-disable-next-line no-console
-            console.info('ユーザーが認証処理を中断しました。')
-          })
-        } else {
-          customErrorHandler.handle(error, () => {
-            // eslint-disable-next-line no-alert
-            window.alert('Microsoft Entra External Id での認証に失敗しました。')
-          })
-        }
-      }
-    }
-    </script>
-
-    <template>
-      <div class="z-2">
-        <NotificationToast />
-      </div>
-      <div class="flex flex-col h-screen justify-between z-0">
-        <header>
-          <nav
-            aria-label="Jump links"
-            class="text-lg font-medium text-gray-900 py-5 ring-1 ring-gray-900 ring-opacity-5 shadow-sm"
-          >
-            <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
-              <div>
-                <router-link class="text-2xl" to="/"> Dressca </router-link>
-              </div>
-              <div class="flex space-x-5 sm:space-x-8 lg:space-x-12">
-                <router-link to="/basket">
-                  <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
-                </router-link>
-                <button v-if="!isAuthenticated" @click="signIn">ログイン</button>
-                <button v-if="isAuthenticated" @click="signOut">ログアウト</button>
-              </div>
-            </div>
-          </nav>
-        </header>
-
-        <main class="mb-auto">
-          <router-view />
-        </main>
-
-        <footer class="w-full mx-auto border-t py-4 px-24 text-base bg-black text-gray-500">
-          <p>&copy; 2023 - Dressca - Privacy</p>
-        </footer>
-      </div>
-    </template>
-    ```
-
 1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `custom-error-handler.ts` に以下を追加します。
 
     ```typescript
     if (error instanceof BrowserAuthError) {
-      callback()
+      await callback()
       return
     }
     ```
