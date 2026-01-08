@@ -108,9 +108,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
-            frontMessageValue, logMessageValue));
+    Mockito.when(assetsController.get(anyString())).thenThrow(new LogicException(
+        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -138,8 +137,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new SystemException(null, exceptionId, frontMessageValue,
-            logMessageValue));
+        .thenThrow(new SystemException(null, exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -166,8 +164,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new RuntimeException());
+    Mockito.when(assetsController.get(anyString())).thenThrow(new RuntimeException());
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())

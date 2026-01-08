@@ -54,8 +54,8 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * @return ステータースコード 404 のレスポンス。
    */
   @ExceptionHandler({AuthorizationDeniedException.class, PermissionDeniedException.class})
-  public ResponseEntity<String> handleAuthorizationDeniedException(
-      AuthorizationDeniedException e, HttpServletRequest req) {
+  public ResponseEntity<String> handleAuthorizationDeniedException(AuthorizationDeniedException e,
+      HttpServletRequest req) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
   }
@@ -84,14 +84,13 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e,
       HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
-        e, CommonExceptionIdConstants.E_BUSINESS, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_BUSINESS, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 
   /**
@@ -104,14 +103,13 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e,
       HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
-        e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 
   /**
@@ -123,13 +121,12 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
-        e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 }
