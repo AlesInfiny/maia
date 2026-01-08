@@ -78,10 +78,10 @@ public class CatalogItemJobTest {
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE))
-        .getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr = (new FileSystemResource(expectedFile))
-        .getContentAsString(Charset.forName("UTF-8"));
+    String outputStr =
+        (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
         .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
@@ -100,10 +100,10 @@ public class CatalogItemJobTest {
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE))
-        .getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr = (new FileSystemResource(expectedFile))
-        .getContentAsString(Charset.forName("UTF-8"));
+    String outputStr =
+        (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
         .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
@@ -122,10 +122,10 @@ public class CatalogItemJobTest {
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
     String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
-    String outputStr = (new FileSystemResource(OUTPUT_FILE))
-        .getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr = (new FileSystemResource(expectedFile))
-        .getContentAsString(Charset.forName("UTF-8"));
+    String outputStr =
+        (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
     // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
     assertThat(outputStr)
         .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));

@@ -24,11 +24,9 @@ public class CatalogItemReaderConf {
    */
   @Bean
   public MyBatisPagingItemReader<CatalogItem> catalogItemReader() {
-    return new MyBatisPagingItemReaderBuilder<CatalogItem>()
-        .sqlSessionFactory(sqlSessionFactory)
+    return new MyBatisPagingItemReaderBuilder<CatalogItem>().sqlSessionFactory(sqlSessionFactory)
         .queryId(
             "com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper.findWithPaging")
-        .pageSize(10)
-        .build();
+        .pageSize(10).build();
   }
 }

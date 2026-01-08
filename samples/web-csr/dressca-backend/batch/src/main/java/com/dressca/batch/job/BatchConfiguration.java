@@ -40,8 +40,7 @@ public class BatchConfiguration {
   public Step catalogItem_tasklet_step1(JobRepository jobRepository,
       PlatformTransactionManager transactionManager, CatalogItemTasklet catalogItemTasklet) {
     return new StepBuilder("catalogItem_tasklet_step1", jobRepository)
-        .tasklet(catalogItemTasklet, transactionManager)
-        .build();
+        .tasklet(catalogItemTasklet, transactionManager).build();
   }
 
   /**
@@ -55,9 +54,7 @@ public class BatchConfiguration {
   public Job catalogItem_tasklet_job(JobRepository jobRepository,
       @Qualifier("catalogItem_tasklet_step1") Step step1) {
     return new JobBuilder("catalogItem_tasklet_job", jobRepository)
-        .incrementer(new RunIdIncrementer())
-        .start(step1)
-        .build();
+        .incrementer(new RunIdIncrementer()).start(step1).build();
   }
 
   /**
@@ -84,8 +81,7 @@ public class BatchConfiguration {
     // itemProcessors.add(nextProcessor);
     // compositeProcessor.setDelegates(itemProcessors);
     return new StepBuilder("catalogItem_step1", jobRepository)
-        .<CatalogItem, CatalogItem>chunk(2, transactionManager)
-        .reader(catalogItemReader)
+        .<CatalogItem, CatalogItem>chunk(2, transactionManager).reader(catalogItemReader)
         // .processor(compositeProcessor)
         .processor(catalogItemProcessor).writer(catalogItemWriter)
         // .faultTolerant()
@@ -111,11 +107,7 @@ public class BatchConfiguration {
       JobRepository jobRepository, @Qualifier("catalogItem_step1") Step step1) {
     // ジョブパラメータに run.id を自動的に付与、未指定時自動で run.id がインクリメントされる
     // ジョブパラメータの衝突を自動回避する設定
-    return new JobBuilder("catalogItem_job", jobRepository)
-        .incrementer(new RunIdIncrementer())
-        .listener(listener)
-        .flow(step1)
-        .end()
-        .build();
+    return new JobBuilder("catalogItem_job", jobRepository).incrementer(new RunIdIncrementer())
+        .listener(listener).flow(step1).end().build();
   }
 }
