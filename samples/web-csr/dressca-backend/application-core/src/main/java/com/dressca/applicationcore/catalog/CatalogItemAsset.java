@@ -15,8 +15,7 @@ public class CatalogItemAsset {
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
    */
-  public CatalogItemAsset() {
-  }
+  public CatalogItemAsset() {}
 
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。

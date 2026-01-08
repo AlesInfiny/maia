@@ -172,9 +172,8 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
+      CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -198,9 +197,8 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException,
+      CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -282,9 +280,8 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+  void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
+      CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
@@ -307,9 +304,8 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている()
-      throws BasketNotFoundException, CatalogNotFoundException,
-      CatalogItemInBasketNotFoundException {
+  void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている() throws BasketNotFoundException,
+      CatalogNotFoundException, CatalogItemInBasketNotFoundException {
 
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();

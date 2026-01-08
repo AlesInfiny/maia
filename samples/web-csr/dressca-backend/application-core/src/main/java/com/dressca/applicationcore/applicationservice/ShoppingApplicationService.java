@@ -99,9 +99,9 @@ public class ShoppingApplicationService {
     }
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
-    List<Long> notExistsInBasketCatalogIds = quantities.keySet().stream()
-        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
-        .collect(Collectors.toList());
+    List<Long> notExistsInBasketCatalogIds =
+        quantities.keySet().stream().filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
+            .collect(Collectors.toList());
     if (!notExistsInBasketCatalogIds.isEmpty()) {
       throw new CatalogItemInBasketNotFoundException(notExistsInBasketCatalogIds, basket.getId());
     }
@@ -137,11 +137,10 @@ public class ShoppingApplicationService {
       throw new CatalogNotFoundException();
     }
 
-    BasketItem basketItem = basket.getItems().stream()
-        .filter(item -> item.getCatalogItemId() == catalogItemId)
-        .findFirst()
-        .orElseThrow(() -> new CatalogItemInBasketNotFoundException(
-            Collections.singletonList(Long.valueOf(catalogItemId)), basket.getId()));
+    BasketItem basketItem =
+        basket.getItems().stream().filter(item -> item.getCatalogItemId() == catalogItemId)
+            .findFirst().orElseThrow(() -> new CatalogItemInBasketNotFoundException(
+                Collections.singletonList(Long.valueOf(catalogItemId)), basket.getId()));
 
     basketItem.setQuantity(0);
     basket.removeEmptyItems();
@@ -160,17 +159,14 @@ public class ShoppingApplicationService {
         new Object[] {buyerId}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    List<Long> catalogItemIds = basket.getItems().stream()
-        .map(BasketItem::getCatalogItemId)
-        .collect(Collectors.toList());
+    List<Long> catalogItemIds =
+        basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
     List<CatalogItem> catalogItems = new ArrayList<CatalogItem>();
     if (!catalogItemIds.isEmpty()) {
       catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
     }
-    List<Long> deletedItemIds = catalogItems.stream()
-        .filter(CatalogItem::isDeleted)
-        .map(CatalogItem::getId)
-        .collect(Collectors.toList());
+    List<Long> deletedItemIds = catalogItems.stream().filter(CatalogItem::isDeleted)
+        .map(CatalogItem::getId).collect(Collectors.toList());
     return new BasketDetail(basket, catalogItems, deletedItemIds);
   }
 
@@ -193,9 +189,8 @@ public class ShoppingApplicationService {
       throw new EmptyBasketOnCheckoutException(null);
     }
 
-    List<Long> catalogItemIds = basket.getItems().stream()
-        .map(BasketItem::getCatalogItemId)
-        .collect(Collectors.toList());
+    List<Long> catalogItemIds =
+        basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
@@ -217,8 +212,7 @@ public class ShoppingApplicationService {
       throw new IllegalArgumentException("buyerIdがnullまたは空文字");
     }
 
-    return this.basketRepository.findByBuyerId(buyerId)
-        .orElseGet(() -> this.createBasket(buyerId));
+    return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
   }
 
   /**
@@ -241,9 +235,8 @@ public class ShoppingApplicationService {
    */
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
-        .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst()
-        .orElseThrow(() -> new SystemException(
-            null, CommonExceptionIdConstants.E_BUSINESS, null, null));
+        .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst().orElseThrow(
+            () -> new SystemException(null, CommonExceptionIdConstants.E_BUSINESS, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
     OrderItem orderItem =

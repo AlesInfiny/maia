@@ -46,8 +46,8 @@ public class AssetApplicationService {
 
     Asset asset = this.repository.findByAssetCode(assetCode)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
-    Resource resource = this.store.getResource(asset)
-        .orElseThrow(() -> new AssetNotFoundException(assetCode));
+    Resource resource =
+        this.store.getResource(asset).orElseThrow(() -> new AssetNotFoundException(assetCode));
 
     return new AssetResourceInfo(asset, resource);
   }

@@ -50,9 +50,8 @@ public class Basket {
    * @param quantity 数量。
    */
   public void addItem(long catalogItemId, BigDecimal unitPrice, int quantity) {
-    Optional<BasketItem> existingItem = this.items.stream()
-        .filter(item -> item.getCatalogItemId() == catalogItemId)
-        .findFirst();
+    Optional<BasketItem> existingItem =
+        this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId).findFirst();
 
     existingItem.ifPresentOrElse(item -> item.addQuantity(quantity),
         () -> this.items.add(new BasketItem(0, id, catalogItemId, unitPrice, quantity)));
@@ -72,8 +71,7 @@ public class Basket {
    * @return 買い物かごに存在する場合は true 、存在しない場合は false 。
    */
   public boolean isInCatalogItem(long catalogItemId) {
-    return this.items.stream()
-        .anyMatch(item -> item.getCatalogItemId() == catalogItemId);
+    return this.items.stream().anyMatch(item -> item.getCatalogItemId() == catalogItemId);
   }
 
   /**

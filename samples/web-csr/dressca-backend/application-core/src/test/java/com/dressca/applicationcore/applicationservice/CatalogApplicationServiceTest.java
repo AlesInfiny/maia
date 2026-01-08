@@ -240,9 +240,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す()
-      throws PermissionDeniedException, CatalogCategoryNotFoundException,
-      CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す() throws PermissionDeniedException,
+      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -262,9 +261,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される()
-      throws PermissionDeniedException, CatalogCategoryNotFoundException,
-      CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される() throws PermissionDeniedException,
+      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -354,9 +352,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す()
-      throws CatalogNotFoundException, PermissionDeniedException,
-      OptimisticLockingFailureException {
+  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す() throws CatalogNotFoundException,
+      PermissionDeniedException, OptimisticLockingFailureException {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
@@ -427,9 +424,8 @@ public class CatalogApplicationServiceTest {
 
   @Test
   void testUpdateCatalogItem_正常系_リポジトリのupdateを1回呼出す()
-      throws CatalogNotFoundException, PermissionDeniedException,
-      CatalogBrandNotFoundException, CatalogCategoryNotFoundException,
-      OptimisticLockingFailureException {
+      throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
+      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
     // Arrange
     long targetId = 1L;
     long categoryId = 1L;
