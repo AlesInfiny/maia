@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- UPDATE状況などを確認するURLは以下を参照 -->
-<!-- https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml-->
+<!-- https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml -->
 <!-- formatterの設定内容については以下を参照 -->
 <!-- https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2Fformatter%2FDefaultCodeFormatterConstants.html -->
 <profiles version="13">
