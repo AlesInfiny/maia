@@ -36,14 +36,13 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e,
       HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
-        e, CommonExceptionIdConstants.E_UNAUTHORIZED, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_BUSINESS, HttpStatus.UNAUTHORIZED);
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 
   /**
@@ -55,13 +54,12 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
-        e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 }
