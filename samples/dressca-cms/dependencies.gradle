@@ -31,6 +31,7 @@ ext {
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_thymeleaf : "org.springframework.boot:spring-boot-starter-thymeleaf",
+        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",

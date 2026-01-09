@@ -212,10 +212,8 @@ public class AnnouncementApplicationService {
 
     // 業務メイン処理
     // お知らせメッセージを取得
-    Announcement announcement = announcementRepository.findByIdWithContents(announcementId);
-    if (announcement == null) {
-      throw new AnnouncementNotFoundException(announcementId);
-    }
+    Announcement announcement = announcementRepository.findByIdWithContents(announcementId)
+        .orElseThrow(() -> new AnnouncementNotFoundException(announcementId));
     announcement.setContents(getSortedContentsByLanguagePriority(announcement.getContents()));
 
     // お知らせメッセージ履歴を取得
@@ -336,6 +334,50 @@ public class AnnouncementApplicationService {
     // 業務終了処理
     apLog.debug(messages.getMessage(MessageIdConstants.D_END_UPDATE_ANNOUNCEMENT,
         new Object[] { announcement.getId() }, Locale.getDefault()));
+  }
+
+  /**
+   * お知らせメッセージを論理削除し、お知らせメッセージ履歴を追加します。
+   *
+   * @param announcementId お知らせメッセージ ID。
+   * @param username       ユーザー名。
+   * @return 削除したお知らせメッセージとその履歴。
+   * @throws AnnouncementNotFoundException 指定したお知らせメッセージ ID
+   *                                       に対応するお知らせメッセージが存在しない場合。
+   */
+  public AnnouncementWithHistory deleteAnnouncementAndRecordHistory(UUID announcementId, String username)
+      throws AnnouncementNotFoundException {
+    // 業務開始処理
+    apLog.debug(messages.getMessage(MessageIdConstants.D_START_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY,
+        new Object[] { announcementId }, Locale.getDefault()));
+
+    // 業務メイン処理
+    // お知らせメッセージを論理削除
+    Announcement deletedAnnouncement = announcementRepository.delete(announcementId)
+        .orElseThrow(() -> new AnnouncementNotFoundException(announcementId));
+    OffsetDateTime deletedAt = OffsetDateTime.now();
+
+    // お知らせメッセージ履歴を追加
+    AnnouncementHistory announcementHistory = createAnnouncementHistory(deletedAnnouncement, deletedAt, username,
+        OperationTypeConstants.DELETE);
+    announcementHistoryRepository.add(announcementHistory);
+
+    // お知らせコンテンツ履歴を追加
+    for (AnnouncementContent content : deletedAnnouncement.getContents()) {
+      AnnouncementContentHistory contentHistory = createAnnouncementContentHistory(content,
+          announcementHistory.getId());
+      announcementContentHistoryRepository.add(contentHistory);
+    }
+
+    // お知らせメッセージ履歴を取得
+    List<AnnouncementHistory> histories = announcementHistoryRepository
+        .findByAnnouncementIdWithContents(announcementId);
+
+    // 業務終了処理
+    apLog.debug(messages.getMessage(MessageIdConstants.D_END_DELETE_ANNOUNCEMENT_AND_RECORD_HISTORY,
+        new Object[] { announcementId }, Locale.getDefault()));
+
+    return new AnnouncementWithHistory(deletedAnnouncement, histories);
   }
 
   /**
