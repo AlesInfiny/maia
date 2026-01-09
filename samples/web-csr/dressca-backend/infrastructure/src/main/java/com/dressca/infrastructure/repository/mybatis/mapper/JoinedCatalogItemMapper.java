@@ -21,7 +21,8 @@ public interface JoinedCatalogItemMapper {
 
   List<CatalogItem> findByCatalogItemIdIn(@Param("catalogItemIds") List<Long> catalogItemIds);
 
-  List<CatalogItem> findByCatalogItemIdInIncludingDeleted(@Param("catalogItemIds") List<Long> catalogItemIds);
+  List<CatalogItem> findByCatalogItemIdInIncludingDeleted(
+      @Param("catalogItemIds") List<Long> catalogItemIds);
 
   int countByBrandIdAndCategoryId(@Param("brandId") long brandId,
       @Param("categoryId") long categoryId);
@@ -29,7 +30,8 @@ public interface JoinedCatalogItemMapper {
   int countByBrandIdAndCategoryIdIncludingDeleted(@Param("brandId") long brandId,
       @Param("categoryId") long categoryId);
 
-  List<CatalogItem> findWithPaging(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
+  List<CatalogItem> findWithPaging(@Param("_skiprows") int skipRows,
+      @Param("_pagesize") int pageSize);
 
   CatalogItem findById(@Param("id") long id);
 

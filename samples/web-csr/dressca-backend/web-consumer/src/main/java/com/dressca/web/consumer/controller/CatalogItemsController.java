@@ -37,33 +37,33 @@ public class CatalogItemsController {
   /**
    * カタログアイテムを検索して返します。
    * 
-   * @param brandId    ブランド ID 。
+   * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
-   * @param page       ページ番号。未指定の場合は 1 。
-   * @param pageSize   ページサイズ。未指定の場合は 20 。
+   * @param page ページ番号。未指定の場合は 1 。
+   * @param pageSize ページサイズ。未指定の場合は 20 。
    * @return カタログアイテムの一覧。
    */
   @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
-  })
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = PagedListOfCatalogItemResponse.class))),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。",
+          content = @Content(mediaType = "application/problem+json",
+              schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping()
   public ResponseEntity<PagedListOfCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<CatalogItemResponse> items = service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize).stream()
-        .map(CatalogItemMapper::convert)
-        .collect(Collectors.toList());
+    List<CatalogItemResponse> items =
+        service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize).stream()
+            .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = service.countCatalogItemsForConsumer(brandId, categoryId);
 
-    PagedListOfCatalogItemResponse returnValue = new PagedListOfCatalogItemResponse(
-        items,
-        totalCount,
-        page,
-        pageSize);
+    PagedListOfCatalogItemResponse returnValue =
+        new PagedListOfCatalogItemResponse(items, totalCount, page, pageSize);
     return ResponseEntity.ok().body(returnValue);
   }
 }

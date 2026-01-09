@@ -81,7 +81,6 @@ public class CatalogDomainService {
   }
 
   private boolean existCatalogItemIdInItems(List<CatalogItem> items, long catalogItemId) {
-    return items.stream()
-        .anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
+    return items.stream().anyMatch(catalogItem -> catalogItem.getId() == catalogItemId);
   }
 }

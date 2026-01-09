@@ -9,8 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 注文アイテムのエンティティです。
- * 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します。
+ * 注文アイテムのエンティティです。 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します。
  */
 @Data
 @NoArgsConstructor
@@ -25,12 +24,11 @@ public class OrderItem {
   private Order order;
 
   /**
-   * 注文されたカタログアイテム、単価、数量を指定して、
-   * {@link OrderItem} クラスのインスタンスを初期化します。
+   * 注文されたカタログアイテム、単価、数量を指定して、 {@link OrderItem} クラスのインスタンスを初期化します。
    * 
    * @param itemOrdered 注文されたカタログアイテム。
-   * @param bigDecimal  単価。
-   * @param quantity    数量。
+   * @param bigDecimal 単価。
+   * @param quantity 数量。
    */
   public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
     this.itemOrdered = itemOrdered;

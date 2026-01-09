@@ -29,9 +29,9 @@ public class ServerTimeController {
    * @throws Exception 例外。
    */
   @Operation(summary = "サーバーの現在時刻を取得します。", description = "サーバーの現在時刻を取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServerTimeResponse.class)))
-  })
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
+      content = @Content(mediaType = "application/json",
+          schema = @Schema(implementation = ServerTimeResponse.class)))})
   @GetMapping
   public ResponseEntity<ServerTimeResponse> getServerTime() throws Exception {
 

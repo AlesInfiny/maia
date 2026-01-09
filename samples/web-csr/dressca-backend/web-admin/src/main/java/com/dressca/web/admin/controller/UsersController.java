@@ -34,10 +34,11 @@ public class UsersController {
    */
   @Operation(summary = "ログイン中のユーザーの情報を取得します。", description = "ログイン中のユーザーの情報を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetLoginUserResponse.class))),
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = GetLoginUserResponse.class))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
-  })
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<GetLoginUserResponse> getLoginUser() {
 

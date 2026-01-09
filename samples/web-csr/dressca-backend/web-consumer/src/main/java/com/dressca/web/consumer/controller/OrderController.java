@@ -67,12 +67,14 @@ public class OrderController {
    */
   @Operation(summary = "注文情報を取得します。", description = "注文情報を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
-      @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
-  })
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = OrderResponse.class))),
+      @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。",
+          content = @Content(mediaType = "application/problem+json",
+              schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
-      HttpServletRequest req) {
+  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
@@ -82,16 +84,12 @@ public class OrderController {
     } catch (OrderNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
-          e.getExceptionId(),
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
-          errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS,
-          HttpStatus.NOT_FOUND);
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-          .body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
     }
   }
 
@@ -102,9 +100,14 @@ public class OrderController {
    * @return なし。
    */
   @Operation(summary = "買い物かごに登録されている商品を注文します。", description = "買い物かごに登録されている商品を注文します。")
-  @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))) })
+  @ApiResponses(
+      value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+          @ApiResponse(responseCode = "400", description = "リクエストエラー。",
+              content = @Content(mediaType = "application/problem+json",
+                  schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "500", description = "サーバーエラー。",
+              content = @Content(mediaType = "application/problem+json",
+                  schema = @Schema(implementation = ProblemDetail.class)))})
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {

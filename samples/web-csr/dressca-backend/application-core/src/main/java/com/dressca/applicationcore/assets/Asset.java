@@ -30,9 +30,10 @@ public class Asset {
   public Asset(@NonNull String assetCode, @NonNull String assetType) {
     this.assetCode = assetCode;
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
-      MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+      MessageSource messageSource =
+          (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
       String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-          new String[] { assetType }, Locale.getDefault());
+          new String[] {assetType}, Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }
@@ -46,9 +47,10 @@ public class Asset {
    */
   public void setAssetType(String assetType) {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
-      MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+      MessageSource messageSource =
+          (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
       String message = messageSource.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-          new String[] { assetType }, Locale.getDefault());
+          new String[] {assetType}, Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }

@@ -34,14 +34,14 @@ public class CatalogItem {
   /**
    * {@link CatalogItem} クラスのインスタンスを初期化します。
    * 
-   * @param id                ID 。
-   * @param name              商品名。
-   * @param description       商品説明。
-   * @param price             単価。
-   * @param productCode       プロダクトコード。
+   * @param id ID 。
+   * @param name 商品名。
+   * @param description 商品説明。
+   * @param price 単価。
+   * @param productCode プロダクトコード。
    * @param catalogCategoryId カタログカテゴリ ID 。
-   * @param catalogBrandId    カタログブランド ID 。
-   * @param isDeleted         削除済みかどうか。 true なら削除済み、 false なら未削除。
+   * @param catalogBrandId カタログブランド ID 。
+   * @param isDeleted 削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
   public CatalogItem(long id, @NonNull String name, @NonNull String description,
       @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
@@ -59,19 +59,19 @@ public class CatalogItem {
   /**
    * 登録用のカタログアイテムを作成します。
    * 
-   * @param name              商品名。
-   * @param description       商品説明。
-   * @param price             単価。
-   * @param productCode       プロダクトコード。
+   * @param name 商品名。
+   * @param description 商品説明。
+   * @param price 単価。
+   * @param productCode プロダクトコード。
    * @param catalogCategoryId カタログカテゴリ ID 。
-   * @param catalogBrandId    カタログブランド ID 。
+   * @param catalogBrandId カタログブランド ID 。
    * @return 登録用のカタログアイテム。
    */
-  public static CatalogItem createCatalogItemForRegistration(@NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId, long catalogBrandId,
-      boolean isDeleted) {
-    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId, catalogBrandId,
-        isDeleted);
+  public static CatalogItem createCatalogItemForRegistration(@NonNull String name,
+      @NonNull String description, @NonNull BigDecimal price, @NonNull String productCode,
+      long catalogCategoryId, long catalogBrandId, boolean isDeleted) {
+    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId,
+        catalogBrandId, isDeleted);
     return item;
   }
 }

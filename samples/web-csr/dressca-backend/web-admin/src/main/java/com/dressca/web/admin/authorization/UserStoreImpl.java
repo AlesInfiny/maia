@@ -28,8 +28,8 @@ public class UserStoreImpl implements UserStore {
   public List<String> getLoginUserRoles() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-          .collect(Collectors.toList());
+      List<String> roles = authentication.getAuthorities().stream()
+          .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
       return roles;
     }
     return new ArrayList<>();

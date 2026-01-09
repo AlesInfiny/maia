@@ -31,12 +31,15 @@ public class UserController {
    * @return レスポンス。
    * @throws Exception 例外。
    */
-  @Operation(summary = "ログインに成功したユーザ ID を取得します。", description = "ログインに成功したユーザ ID を取得します。", security = {
-      @SecurityRequirement(name = "Bearer") })
+  @Operation(summary = "ログインに成功したユーザ ID を取得します。", description = "ログインに成功したユーザ ID を取得します。",
+      security = {@SecurityRequirement(name = "Bearer")})
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
-      @ApiResponse(responseCode = "401", description = "未認証エラー。", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
-  })
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = UserResponse.class))),
+      @ApiResponse(responseCode = "401", description = "未認証エラー。",
+          content = @Content(mediaType = "application/problem+json",
+              schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping
   @CrossOrigin
   @PreAuthorize(value = "isAuthenticated()")

@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.info.Info;
  */
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))
-@ComponentScan(basePackages = { "com.dressca" })
+@ComponentScan(basePackages = {"com.dressca"})
 public class WebApplication {
 
   /**

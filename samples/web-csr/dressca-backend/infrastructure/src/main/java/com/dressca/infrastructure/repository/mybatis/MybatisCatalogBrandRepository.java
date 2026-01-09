@@ -26,8 +26,7 @@ public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
   public List<CatalogBrand> getAll() {
     CatalogBrandEntityExample example = new CatalogBrandEntityExample();
     return catalogBrandMapper.selectByExample(example).stream()
-        .map(EntityTranslator::catalogBrandEntityTranslate)
-        .collect(Collectors.toList());
+        .map(EntityTranslator::catalogBrandEntityTranslate).collect(Collectors.toList());
   }
 
   @Override

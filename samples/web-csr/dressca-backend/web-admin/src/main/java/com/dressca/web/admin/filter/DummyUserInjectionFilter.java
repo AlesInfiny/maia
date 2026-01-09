@@ -20,9 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * ダミーユーザーを SecurityContextHolder に詰めるためのフィルタークラスです。
  * 
  * <p>
- * 開発環境においてユーザ名が admin@example.com 、権限が管理者のユーザでアクセスしたことにして認証プロセスをスキップするために使用します。
- * また、本フィルターは WebSecurityConfig にて、セキュリティフィルターチェーンの
- * UsernamePasswordAuthenticationFilter の前に挿入します。
+ * 開発環境においてユーザ名が admin@example.com 、権限が管理者のユーザでアクセスしたことにして認証プロセスをスキップするために使用します。 また、本フィルターは
+ * WebSecurityConfig にて、セキュリティフィルターチェーンの UsernamePasswordAuthenticationFilter の前に挿入します。
  * </p>
  */
 @Profile("local")
@@ -30,13 +29,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DummyUserInjectionFilter extends OncePerRequestFilter {
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws IOException, ServletException {
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws IOException, ServletException {
     UserDetails dummyUser = new User("admin@example.com", "",
         List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
 
-    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(dummyUser,
-        dummyUser.getPassword(), dummyUser.getAuthorities());
+    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+        dummyUser, dummyUser.getPassword(), dummyUser.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
     filterChain.doFilter(request, response);
   }

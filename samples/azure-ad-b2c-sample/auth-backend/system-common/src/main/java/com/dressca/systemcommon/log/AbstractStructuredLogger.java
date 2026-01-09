@@ -10,11 +10,11 @@ import com.dressca.systemcommon.constant.SystemPropertyConstants;
  */
 public abstract class AbstractStructuredLogger {
 
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static final Logger apLog =
+      LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
-   * 構造化ログでデフォルトで出力する内容を追加します。
-   * try ブロック内に MDC.put(key, value) で追記してください。
+   * 構造化ログでデフォルトで出力する内容を追加します。 try ブロック内に MDC.put(key, value) で追記してください。
    * 
    * @param logAction ログを出力するメソッド。
    */
@@ -32,7 +32,7 @@ public abstract class AbstractStructuredLogger {
   /**
    * Key Value を追加して DEBUG レベルのログを出力します。
    * 
-   * @param msg         ログのメッセージ。
+   * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
   public void debug(String msg, Map<String, String> keyValueMap) {
@@ -55,7 +55,7 @@ public abstract class AbstractStructuredLogger {
   /**
    * Key Value を追加して ERROR レベルのログを出力します。
    * 
-   * @param msg         ログのメッセージ。
+   * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
   public void error(String msg, Map<String, String> keyValueMap) {
@@ -79,7 +79,7 @@ public abstract class AbstractStructuredLogger {
   /**
    * Key Value を追加して INFO レベルのログを出力します。
    * 
-   * @param msg         ログのメッセージ。
+   * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
   public void info(String msg, Map<String, String> keyValueMap) {
@@ -102,7 +102,7 @@ public abstract class AbstractStructuredLogger {
   /**
    * Key Value を追加して TRACE レベルのログを出力します。
    * 
-   * @param msg         ログのメッセージ。
+   * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
   public void trace(String msg, Map<String, String> keyValueMap) {
@@ -126,7 +126,7 @@ public abstract class AbstractStructuredLogger {
   /**
    * Key Value を追加して WARN レベルのログを出力します。
    * 
-   * @param msg         ログのメッセージ。
+   * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
   public void warn(String msg, Map<String, String> keyValueMap) {

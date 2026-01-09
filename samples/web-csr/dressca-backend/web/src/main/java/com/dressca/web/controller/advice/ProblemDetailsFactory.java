@@ -30,11 +30,12 @@ public class ProblemDetailsFactory {
    * エラーレスポンスに含める ProblemDetails を作成します。
    *
    * @param errorBuilder 例外ビルダー。
-   * @param titleId      タイトルのメッセージ ID 。
-   * @param status       ステータスコード。
+   * @param titleId タイトルのメッセージ ID 。
+   * @param status ステータスコード。
    * @return エラーレスポンスに格納する ProblemDetails 。
    */
-  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
+  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId,
+      HttpStatus status) {
 
     ProblemDetail problemDetail = ProblemDetail.forStatus(status);
 
@@ -54,7 +55,8 @@ public class ProblemDetailsFactory {
     // 拡張メンバーとして exceptionId と exceptionValues を含める
     Map<String, Object> errorProperty = new LinkedHashMap<String, Object>();
     errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_ID, errorBuilder.getExceptionId());
-    errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
+    errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES,
+        errorBuilder.getFrontMessageValue());
 
     problemDetail.setProperties(errorProperty);
 

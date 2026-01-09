@@ -27,8 +27,7 @@ public class ServerTimeControllerTest {
   @Test
   @DisplayName("testTime_01_正常系_現在時刻を取得")
   void testAuth_01() throws Exception {
-    this.mockMvc.perform(get("/api/servertime"))
-        .andExpect(status().isOk())
+    this.mockMvc.perform(get("/api/servertime")).andExpect(status().isOk())
         .andExpect(jsonPath("$.serverTime").exists());
   }
 

@@ -38,8 +38,8 @@ public class OrderApplicationService {
    */
   public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER, new Object[] { orderId, buyerId },
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER,
+        new Object[] {orderId, buyerId}, Locale.getDefault()));
 
     Order order = this.orderRepository.findById(orderId)
         .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));

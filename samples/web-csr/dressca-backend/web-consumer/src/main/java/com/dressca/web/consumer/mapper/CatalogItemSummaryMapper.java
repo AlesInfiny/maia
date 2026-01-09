@@ -21,14 +21,10 @@ public class CatalogItemSummaryMapper {
       return null;
     }
 
-    List<String> assetCodes = item.getAssets().stream()
-        .map(CatalogItemAsset::getAssetCode)
-        .collect(Collectors.toList());
+    List<String> assetCodes =
+        item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new CatalogItemSummaryResponse(
-        item.getId(),
-        item.getName(),
-        item.getProductCode(),
+    return new CatalogItemSummaryResponse(item.getId(), item.getName(), item.getProductCode(),
         assetCodes);
   }
 }

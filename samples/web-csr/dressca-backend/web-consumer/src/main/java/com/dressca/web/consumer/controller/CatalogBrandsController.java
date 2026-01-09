@@ -38,13 +38,13 @@ public class CatalogBrandsController {
    * @return カタログブランドの一覧。
    */
   @Operation(summary = "カタログブランドの一覧を取得します。", description = "カタログブランドの一覧を取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class)))) })
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
+      content = @Content(mediaType = "application/json",
+          array = @ArraySchema(schema = @Schema(implementation = CatalogBrandResponse.class))))})
   @GetMapping()
   public ResponseEntity<List<CatalogBrandResponse>> getCatalogBrands() {
     List<CatalogBrandResponse> brands = this.service.getBrands().stream()
-        .map(CatalogBrandMapper::convert)
-        .collect(Collectors.toList());
+        .map(CatalogBrandMapper::convert).collect(Collectors.toList());
 
     return ResponseEntity.ok().body(brands);
   }

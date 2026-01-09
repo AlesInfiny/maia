@@ -41,15 +41,16 @@ public class CatalogCategoriesController {
    */
   @Operation(summary = "カタログカテゴリの一覧を取得します。", description = "カタログカテゴリの一覧を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetCatalogCategoriesResponse.class)))),
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "application/json",
+              array = @ArraySchema(
+                  schema = @Schema(implementation = GetCatalogCategoriesResponse.class)))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
-  })
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<List<GetCatalogCategoriesResponse>> getCatalogCategories() {
     List<GetCatalogCategoriesResponse> categories = this.service.getCategories().stream()
-        .map(CatalogCategoryMapper::convert)
-        .collect(Collectors.toList());
+        .map(CatalogCategoryMapper::convert).collect(Collectors.toList());
 
     return ResponseEntity.ok().body(categories);
   }

@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * カタログブランドのエンティティです。
- * カタログアイテムの製造元や企画元に基づいて定義されるブランドを表現します。
+ * カタログブランドのエンティティです。 カタログアイテムの製造元や企画元に基づいて定義されるブランドを表現します。
  */
 @Data
 @NoArgsConstructor
@@ -19,8 +18,7 @@ public class CatalogBrand {
   private List<CatalogItem> items = new ArrayList<>();
 
   /**
-   * カタログブランド名を指定して、
-   * {@link CatalogBrand} クラスのインスタンスを初期化します。
+   * カタログブランド名を指定して、 {@link CatalogBrand} クラスのインスタンスを初期化します。
    * 
    * @param name カタログブランド名。
    */

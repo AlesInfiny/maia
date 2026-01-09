@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
+@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
 public class MyBatisConfig {
 
   /**
