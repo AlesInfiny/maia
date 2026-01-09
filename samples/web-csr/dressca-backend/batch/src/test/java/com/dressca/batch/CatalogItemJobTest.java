@@ -11,16 +11,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.JobExecution;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.test.JobLauncherTestUtils;
+import org.springframework.batch.test.JobOperatorTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.dressca.batch.job.BatchConfiguration;
 
@@ -31,9 +32,10 @@ import com.dressca.batch.job.BatchConfiguration;
 @SpringBatchTest
 @SpringJUnitConfig(BatchConfiguration.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
   @Autowired
-  private JobLauncherTestUtils jobLauncherTestUtils;
+  private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
   @Qualifier("catalogItem_job")
@@ -50,8 +52,8 @@ public class CatalogItemJobTest {
   }
 
   @BeforeAll
-  public void initJobLauncherTestUtils() {
-    jobLauncherTestUtils.setJob(catalogItemJob);
+  public void initJobOperatorTestUtils() {
+    jobOperatorTestUtils.setJob(catalogItemJob);
   }
 
   /**
@@ -72,8 +74,7 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_empty() throws Exception {
-    // ジョブを実行
-    JobExecution jobExecution = this.jobLauncherTestUtils.launchJob();
+    JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -91,8 +92,7 @@ public class CatalogItemJobTest {
   public void jobTest_10data() throws Exception {
     // テストデータ追加
     insertTestData();
-    // ジョブを実行
-    JobExecution jobExecution = this.jobLauncherTestUtils.launchJob();
+    JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -111,7 +111,7 @@ public class CatalogItemJobTest {
     // テストデータ追加
     insertTestData();
     // ステップを実行
-    JobExecution jobExecution = this.jobLauncherTestUtils.launchStep("catalogItem_step1");
+    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認

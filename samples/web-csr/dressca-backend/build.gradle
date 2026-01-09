@@ -69,8 +69,8 @@ subprojects {
     reports {
       xml.enabled = false
       html {
-        enabled true
-        destination file("${buildDir}/reports/spotbugs/main.html")
+        enabled = true
+        destination = file("${buildDir}/reports/spotbugs/main.html")
       }
     }
   }
