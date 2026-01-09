@@ -212,10 +212,8 @@ public class AnnouncementApplicationService {
 
     // 業務メイン処理
     // お知らせメッセージを取得
-    Announcement announcement = announcementRepository.findByIdWithContents(announcementId);
-    if (announcement == null) {
-      throw new AnnouncementNotFoundException(announcementId);
-    }
+    Announcement announcement = announcementRepository.findByIdWithContents(announcementId)
+        .orElseThrow(() -> new AnnouncementNotFoundException(announcementId));
     announcement.setContents(getSortedContentsByLanguagePriority(announcement.getContents()));
 
     // お知らせメッセージ履歴を取得
@@ -355,10 +353,8 @@ public class AnnouncementApplicationService {
 
     // 業務メイン処理
     // お知らせメッセージを論理削除
-    Announcement deletedAnnouncement = announcementRepository.delete(announcementId);
-    if (deletedAnnouncement == null) {
-      throw new AnnouncementNotFoundException(announcementId);
-    }
+    Announcement deletedAnnouncement = announcementRepository.delete(announcementId)
+        .orElseThrow(() -> new AnnouncementNotFoundException(announcementId));
     OffsetDateTime deletedAt = OffsetDateTime.now();
 
     // お知らせメッセージ履歴を追加

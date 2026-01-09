@@ -8,6 +8,7 @@ import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.AnnouncementCustomMapper;
 import com.dressca.cms.announcement.infrastructure.translator.AnnouncementEntityTranslator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -42,9 +43,13 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   }
 
   @Override
-  public Announcement findByIdWithContents(UUID id) {
+  public Optional<Announcement> findByIdWithContents(UUID id) {
     // カスタムマッパーでお知らせメッセージとコンテンツを JOIN して取得し、直接 DTO を返却
-    return announcementCustomMapper.findByIdWithContents(id);
+    Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
+    if (announcement == null || announcement.getIsDeleted()) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(announcement);
   }
 
   @Override
@@ -54,13 +59,13 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
   }
 
   @Override
-  public Announcement delete(UUID id) {
+  public Optional<Announcement> delete(UUID id) {
     Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
     if (announcement == null || announcement.getIsDeleted()) {
-      return null;
+      return Optional.empty();
     }
     announcement.setIsDeleted(true);
     announcementMapper.updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
-    return announcement;
+    return Optional.ofNullable(announcement);
   }
 }

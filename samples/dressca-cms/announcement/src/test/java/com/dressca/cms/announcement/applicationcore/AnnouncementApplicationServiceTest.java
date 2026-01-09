@@ -23,6 +23,7 @@ import com.dressca.cms.systemcommon.util.UuidGenerator;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -486,7 +487,7 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementHistory history = new AnnouncementHistory(announcementHistoryId, announcementId, "INFO",
         OffsetDateTime.now(), null, 3, OffsetDateTime.now(), "dummyUser", 1, List.of(contentHistory));
 
-    when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(announcement);
+    when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(Optional.ofNullable(announcement));
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcementId)).thenReturn(List.of(history));
 
     // Act
@@ -502,7 +503,7 @@ public class AnnouncementApplicationServiceTest {
   void testGetAnnouncementAndHistoriesById_異常系_お知らせメッセージが存在しない場合例外が発生する() {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
-    when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(null);
+    when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(AnnouncementNotFoundException.class, () -> service.getAnnouncementAndHistoriesById(announcementId));
@@ -718,7 +719,7 @@ public class AnnouncementApplicationServiceTest {
     List<AnnouncementHistory> histories = new ArrayList<>();
     String username = "dummyUser";
 
-    when(announcementRepository.delete(announcement.getId())).thenReturn(announcement);
+    when(announcementRepository.delete(announcement.getId())).thenReturn(Optional.ofNullable(announcement));
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
 
     // Act
@@ -742,7 +743,7 @@ public class AnnouncementApplicationServiceTest {
     List<AnnouncementHistory> histories = new ArrayList<>();
     String username = "dummyUser";
 
-    when(announcementRepository.delete(announcement.getId())).thenReturn(announcement);
+    when(announcementRepository.delete(announcement.getId())).thenReturn(Optional.ofNullable(announcement));
     when(announcementHistoryRepository.findByAnnouncementIdWithContents(announcement.getId())).thenReturn(histories);
 
     // Act
@@ -760,7 +761,7 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID nonExistentId = UuidGenerator.generate();
     String username = "dummyUser";
-    when(announcementRepository.delete(nonExistentId)).thenReturn(null);
+    when(announcementRepository.delete(nonExistentId)).thenReturn(Optional.empty());
 
     // Act & Assert
     assertThrows(AnnouncementNotFoundException.class,
