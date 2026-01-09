@@ -1,5 +1,6 @@
 package com.dressca.cms.announcement.applicationcore.dto;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Announcement {
+public class Announcement implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * お知らせメッセージ ID。
