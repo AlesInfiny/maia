@@ -97,3 +97,18 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+
+  # Dressca CMS
+  - package-ecosystem: "gradle"
+    directory: "/samples/dressca-cms"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "gradle-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "gradle"
+      - "dependencies"
