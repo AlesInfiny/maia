@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Azure AD B2C ユーザー認証
- * Azure AD B2C を利用したユーザー認証機能を提供するサンプルアプリケーションです。
+ * Microsoft Entra External ID ユーザー認証
+ * Microsoft Entra External ID を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
