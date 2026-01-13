@@ -1,8 +1,8 @@
 <!-- textlint-disable @textlint-rule/require-header-id -->
 <!-- markdownlint-disable-file CMD001 -->
-<!-- cspell:ignore Validatable signupsignin b2clogin -->
+<!-- cspell:ignore Validatable signupsignin -->
 
-# Azure Active Directory B2C による認証サンプル
+# Microsoft Entra External ID による認証サンプル
 
 ## このサンプルについて
 
@@ -70,7 +70,7 @@ auth-backend
 　 |  |  |  └ WebSecurityConfiguration.java ............. 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
 　 |  |  └ WebApplication.java .......................... アプリケーションの起動クラス
 　 |  └ resources
-　 |     └ application.properties ....................... Azure AD B2C への接続情報を記載する設定ファイル
+　 |     └ application.properties ....................... Entra External ID への接続情報を記載する設定ファイル
 　 └ build.gradle ....................................... web 層で利用するライブラリの依存関係を記載する設定ファイル
 ```
 
@@ -196,7 +196,7 @@ auth-frontend
 #### バックエンドアプリケーションの設定
 
 1. VS Code で `auth-backend\web\src\main\resources\application.properties` を開きます。
-1. 以下のように設定情報を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+2. 以下のように設定情報を記入します（以下の例では External ID の設定以外は省略しています）。
 
     ```properties
     spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{tenant-id}.ciamlogin.com/{tenant-id}/v2.0
@@ -278,7 +278,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     ```
 
 1. `\web-consumer\build.gradle`を開きます。
-1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Azure AD B2C の設定以外は省略しています）。
+1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
     ```gradle
     dependencies {
@@ -485,7 +485,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     ```typescript
 
     // その他のコードは省略
-    async function addTokenAsync(config: apiClient.Configuration) {
+    async function addToken(config: apiClient.Configuration) {
       // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
       if (await authenticationService.isAuthenticated()) {
         const token = await authenticationService.getTokenEntraExternalId();
@@ -495,8 +495,8 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 
     async function ordersApi() {
       const config = createConfig()
-      // 認証が必要な API では、addTokenAsync を呼び出します。
-      await addTokenAsync(config)
+      // 認証が必要な API では、addToken を呼び出します。
+      await addToken(config)
       const ordersApi = new apiClient.OrdersApi(config, '', axiosInstance)
       return ordersApi
     }
@@ -568,7 +568,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     </header>
    ```
   
-1. `LoginView.vue` は Microsoft Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
+1. `LoginView.vue` は Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
 1. `authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
 
     ```typescript
@@ -598,9 +598,9 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 
 ### フロントエンドアプリケーションの参照記事
 
-- [Azure AD B2C を利用した SPA アプリケーションサンプル](https://github.com/Azure-Samples/ms-identity-b2c-javascript-spa/tree/main)
+- [Microsoft Entra External ID を利用した SPA アプリケーションサンプル](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-single-page-app-sign-in?tabs=javascript-workforce%2Cjavascript-external&pivots=external)
 
 ### バックエンドアプリケーションの参照記事
 
 - [Spring Security における SecurityFilterChain のアーキテクチャー](https://spring.pleiades.io/spring-security/reference/servlet/architecture.html)
-- [Spring Security の Spring Cloud Azure サポート](https://learn.microsoft.com/ja-jp/azure/developer/java/spring-framework/spring-security-support?tabs=SpringCloudAzure5x)
+- [Spring Security の OAuth2.0 サポート](https://spring.pleiades.io/spring-security/reference/servlet/oauth2/)

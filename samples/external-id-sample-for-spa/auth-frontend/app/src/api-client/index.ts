@@ -44,7 +44,7 @@ function createConfig(): apiClient.Configuration {
   return config
 }
 
-async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
+async function addToken(config: apiClient.Configuration): Promise<void> {
   // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
   const { isAuthenticated, getToken } = authenticationService()
   if (isAuthenticated()) {
@@ -56,8 +56,8 @@ async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
 export async function getUsersApi(): Promise<apiClient.UsersApi> {
   const config = createConfig()
 
-  // UsersApi は認証が必要な API なので、addTokenAsync を呼び出します。
-  await addTokenAsync(config)
+  // UsersApi は認証が必要な API なので、addToken を呼び出します。
+  await addToken(config)
   const userApi = new apiClient.UsersApi(config, '', axiosInstance)
   return userApi
 }
