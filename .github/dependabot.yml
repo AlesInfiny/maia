@@ -112,3 +112,17 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "npm-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "npm"
+      - "dependencies"
