@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
@@ -45,7 +46,7 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
@@ -127,8 +128,6 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItem_異常系_カタログアイテムを取得する権限がない() {
     // Arrange
     long targetId = 1L;
-    CatalogItem item = createCatalogItem(targetId);
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(item);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Action
@@ -147,7 +146,6 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     int page = 0;
     int pageSize = 20;
-    when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
@@ -159,7 +157,6 @@ public class CatalogApplicationServiceTest {
   @Test
   void testGetCatalogItemsForConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
     // Arrange
-    when(this.userStore.isInRole(anyString())).thenReturn(true);
     long brandId = 1L;
     long categoryId = 1L;
     int page = 0;
@@ -285,8 +282,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     long categoryId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     String name = "テストアイテム";
     String description = "テスト用のアイテムです。";
     BigDecimal price = new BigDecimal(123456);
@@ -307,7 +302,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     long categoryId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
     String name = "テストアイテム";
     String description = "テスト用のアイテムです。";
@@ -369,7 +363,6 @@ public class CatalogApplicationServiceTest {
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
     // Action
     Executable action = () -> {
@@ -385,10 +378,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
-
     // Action
     Executable action = () -> {
       this.service.deleteItemFromCatalog(targetId, rowVersion);
@@ -451,9 +441,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -478,9 +465,7 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -507,7 +492,6 @@ public class CatalogApplicationServiceTest {
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -532,10 +516,6 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);

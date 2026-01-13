@@ -2,6 +2,7 @@ package com.dressca.cms.announcement.applicationcore.repository;
 
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -39,7 +40,7 @@ public interface AnnouncementRepository {
    * @param id お知らせメッセージID。
    * @return お知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
    */
-  Announcement findByIdWithContents(UUID id);
+  Optional<Announcement> findByIdWithContents(UUID id);
 
   /**
    * お知らせメッセージを更新します。
@@ -47,4 +48,12 @@ public interface AnnouncementRepository {
    * @param announcement お知らせメッセージ。
    */
   void update(Announcement announcement);
+
+  /**
+   * 指定したIDのお知らせメッセージを論理削除します。
+   *
+   * @param id お知らせメッセージID。
+   * @return 論理削除したお知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
+   */
+  Optional<Announcement> delete(UUID id);
 }
