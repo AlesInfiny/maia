@@ -39,7 +39,7 @@ public class MyBatisAnnouncementContentRepository implements AnnouncementContent
     example.createCriteria().andAnnouncementIdEqualTo(announcementId);
     List<AnnouncementContentEntity> entities = announcementContentMapper.selectByExample(example);
     return entities.stream()
-        .map(AnnouncementEntityTranslator::toContent)
+        .map(AnnouncementEntityTranslator::toContentDto)
         .collect(Collectors.toList());
   }
 
