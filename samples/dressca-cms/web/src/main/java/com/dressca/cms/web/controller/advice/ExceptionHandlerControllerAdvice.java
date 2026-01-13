@@ -24,12 +24,11 @@ public class ExceptionHandlerControllerAdvice {
   /**
    * リソースが見つからなかった場合の例外をハンドリングし、Not Found 画面に遷移します。
    * 
-   * @param e     例外。
-   * @param model モデル。
+   * @param e 例外。
    * @return Not Found 画面のビュー名。
    */
   @ExceptionHandler({ AnnouncementNotFoundException.class, NoResourceFoundException.class })
-  public String handleNotFoundException(Exception e, Model model) {
+  public String handleNotFoundException(Exception e) {
     apLog.info(e.getMessage());
     apLog.debug(ExceptionUtils.getStackTrace(e));
     return "not_found";
