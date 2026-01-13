@@ -15,3 +15,5 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）で開発可能な SS
 - [ローカル開発環境の構築](./local-environment/index.md)
 
     AlesInfiny Maia のアプリケーション開発で最低限必要な環境の構築方法を解説します。
+
+これらのアプリケーション開発手順に従って実装したサンプルアプリケーションは、[Dressca-CMS - クイックスタート](../../../samples/dressca-cms/index.md#quick-start) からダウンロードして実行できます。

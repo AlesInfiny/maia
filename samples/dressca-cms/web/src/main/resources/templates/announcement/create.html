@@ -222,7 +222,7 @@
           <div class="col-4">
             <div class="card">
               <div class="card-body d-flex flex-column gap-3">
-                <h5 class="card-title">アクション</h5>
+                <h5 class="card-title" th:text="#{announcement.create.actions}"></h5>
                 <!--/* 全体エラーメッセージ */-->
                 <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
                   <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>

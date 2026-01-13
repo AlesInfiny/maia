@@ -162,11 +162,18 @@ nav:
       - コーディング規約: guidebooks/conventions/coding-conventions.md
   - サンプル解説:
       - samples/index.md
-      - Azure Active Directory B2C を利用したユーザー認証:
-          - samples/azure-ad-b2c/index.md
-          - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/azure-ad-b2c/azure-ad-b2c-consideration.md
-      - Spring Batch を利用したバッチアプリケーション:
-          - samples/spring-batch/index.md
+      - CSR アプリケーション:
+          - samples/dressca/index.md
+          - Azure Active Directory B2C を利用したユーザー認証:
+              - samples/dressca/azure-ad-b2c/index.md
+              - MSAL.js で提供される秘密情報のキャッシュ保存先:
+                  - samples/dressca/azure-ad-b2c/azure-ad-b2c-consideration.md
+      - SSR アプリケーション:
+          - samples/dressca-cms/index.md
+      - 要件別サンプル:
+          - samples/requirement-based/index.md
+          - Spring Batch を利用したバッチアプリケーション:
+              - samples/requirement-based/spring-batch/index.md
   - AlesInfiny Maia OSS Edition について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md

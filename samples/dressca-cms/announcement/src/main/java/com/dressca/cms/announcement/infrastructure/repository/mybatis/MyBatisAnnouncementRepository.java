@@ -8,6 +8,7 @@ import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.mapper.AnnouncementCustomMapper;
 import com.dressca.cms.announcement.infrastructure.translator.AnnouncementEntityTranslator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -37,19 +38,34 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
 
   @Override
   public void add(Announcement announcement) {
-    AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
+    AnnouncementEntity entity = AnnouncementEntityTranslator.toAnnouncementEntity(announcement);
     announcementMapper.insert(entity);
   }
 
   @Override
-  public Announcement findByIdWithContents(UUID id) {
+  public Optional<Announcement> findByIdWithContents(UUID id) {
     // カスタムマッパーでお知らせメッセージとコンテンツを JOIN して取得し、直接 DTO を返却
-    return announcementCustomMapper.findByIdWithContents(id);
+    Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
+    if (announcement == null || announcement.getIsDeleted()) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(announcement);
   }
 
   @Override
   public void update(Announcement announcement) {
-    AnnouncementEntity entity = AnnouncementEntityTranslator.toEntity(announcement);
+    AnnouncementEntity entity = AnnouncementEntityTranslator.toAnnouncementEntity(announcement);
     announcementMapper.updateByPrimaryKey(entity);
+  }
+
+  @Override
+  public Optional<Announcement> delete(UUID id) {
+    Announcement announcement = announcementCustomMapper.findByIdWithContents(id);
+    if (announcement == null || announcement.getIsDeleted()) {
+      return Optional.empty();
+    }
+    announcement.setIsDeleted(true);
+    announcementMapper.updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
+    return Optional.ofNullable(announcement);
   }
 }
