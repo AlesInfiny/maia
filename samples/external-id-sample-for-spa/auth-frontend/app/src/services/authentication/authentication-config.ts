@@ -1,5 +1,7 @@
-/* eslint-disable no-console */
 import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 export const msalConfig = {
   auth: {
@@ -20,16 +22,16 @@ export const msalConfig = {
         }
         switch (level) {
           case LogLevel.Error:
-            console.error(message)
+            logger.error(message)
             return
           case LogLevel.Info:
-            console.info(message)
+            logger.info(message)
             return
           case LogLevel.Verbose:
-            console.debug(message)
+            logger.debug(message)
             return
           case LogLevel.Warning:
-            console.warn(message)
+            logger.warn(message)
             break
           default:
         }

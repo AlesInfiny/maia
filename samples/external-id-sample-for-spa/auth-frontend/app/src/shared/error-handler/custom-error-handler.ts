@@ -1,71 +1,68 @@
-/* eslint-disable no-console */
+import {
+  CustomErrorBase,
+  HttpError,
+  UnauthorizedError,
+  NetworkError,
+  ServerError,
+} from '@/shared/error-handler/custom-error'
+import { useLogger } from '@/composables/use-logger'
+import type { MaybeAsyncFunction, MaybePromise, MaybeAsyncUnaryFunction } from '@/types'
 
-// このサンプルコードでは、ログ出力先としてコンソール、ユーザーへの通知先としてブラウザの標準ダイアログを使用するので、ファイル全体に対して ESLint の設定を無効化しておきます。
-// 実際のアプリケーションでは、適切なログ出力先や、通知先のコンポーネントを使用してください。
-import { UnauthorizedError, NetworkError, ServerError } from '@/shared/custom-errors'
-import { formatError } from '@/shared/helpers/format-error'
+export type handleErrorAsyncFunction = (
+  error: unknown,
+  callback: MaybeAsyncFunction<void>,
+  handlingHttpError?: MaybeAsyncUnaryFunction<HttpError, void> | null,
+  handlingUnauthorizedError?: MaybeAsyncFunction<void> | null,
+  handlingNetworkError?: MaybeAsyncFunction<void> | null,
+  handlingServerError?: MaybeAsyncFunction<void> | null,
+) => MaybePromise<void>
 
 /**
- * カスタムエラーハンドラーのインターフェースです。
+ * カスタムエラーハンドラーを提供します。
+ * HttpError / UnauthorizedError / NetworkError / ServerError などの種類ごとに
+ * 共通処理やイベント通知を行います。
+ * @returns エラーを処理する非同期関数
  */
-export interface CustomErrorHandler {
-  handle(
+export function useCustomErrorHandler(): handleErrorAsyncFunction {
+  const handleErrorAsync = async (
     error: unknown,
-    callback: () => void,
-    handlingUnauthorizedError?: (() => void) | null,
-    handlingNetworkError?: (() => void) | null,
-    handlingServerError?: (() => void) | null,
-  ): void
-}
-
-/**
- * カスタムエラーハンドラーを取得します。
- * @returns カスタムエラーハンドラー。
- */
-export function useCustomErrorHandler(): CustomErrorHandler {
-  const customErrorHandler: CustomErrorHandler = {
-    handle: (
-      error: unknown,
-      callback: () => void,
-      handlingUnauthorizedError: (() => void) | null = null,
-      handlingNetworkError: (() => void) | null = null,
-      handlingServerError: (() => void) | null = null,
-    ) => {
-      if (error instanceof Error) {
-        // Error の発生をログに記録します。
-        console.error(formatError(error))
-
-        // 呼び出し側で指定したコールバック関数をを実行します。
-        callback()
-
-        // エラーの種類によって共通処理を行います。
+    callback: MaybeAsyncFunction<void>,
+    handlingHttpError: MaybeAsyncUnaryFunction<HttpError, void> | null = null,
+    handlingUnauthorizedError: MaybeAsyncFunction<void> | null = null,
+    handlingNetworkError: MaybeAsyncFunction<void> | null = null,
+    handlingServerError: MaybeAsyncFunction<void> | null = null,
+  ) => {
+    const logger = useLogger()
+    // ハンドリングできるエラーの場合はコールバックを実行します。
+    if (error instanceof CustomErrorBase) {
+      await callback()
+      if (error instanceof HttpError) {
+        // 業務処理で発生した HttpError を処理します。
+        if (handlingHttpError) {
+          await handlingHttpError(error)
+        }
+        // エラーの種類によって共通処理を行う
         // switch だと instanceof での判定ができないため if 文で判定します。
         if (error instanceof UnauthorizedError) {
           if (handlingUnauthorizedError) {
-            handlingUnauthorizedError()
-          } else {
-            console.info('401 エラーに対する共通処理を実行します。')
+            await handlingUnauthorizedError()
           }
         } else if (error instanceof NetworkError) {
           if (handlingNetworkError) {
-            handlingNetworkError()
-          } else {
-            console.info('ネットワークエラーに対する共通処理を実行します。')
+            await handlingNetworkError()
           }
         } else if (error instanceof ServerError) {
           if (handlingServerError) {
-            handlingServerError()
-          } else {
-            console.info('500 エラーに対する共通処理を実行します。')
+            await handlingServerError()
           }
+        } else {
+          logger.error('エラーが発生しました。', error)
         }
-      } else {
-        console.error(
-          'Error 型でない想定外のエラーを検出しました、対処できないため再スローします。',
-        )
-        throw error
       }
-    },
+    } else {
+      // ハンドリングできないエラーの場合は上位にエラーを再スローします。
+      throw error
+    }
   }
-  return customErrorHandler
+  return handleErrorAsync
 }

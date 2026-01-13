@@ -1,5 +1,7 @@
-/* eslint-disable no-console */
 import type { App, ComponentPublicInstance } from 'vue'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 export const globalErrorHandler = {
   /* eslint no-param-reassign: 0 */
@@ -9,20 +11,20 @@ export const globalErrorHandler = {
       instance: ComponentPublicInstance | null,
       info: string,
     ) => {
-      // 本サンプルAPではコンソールへログの出力を行います。
+      // 本サンプルAPではログの出力とエラー画面への遷移を行っています。
       // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
-      console.error(err, instance, info)
+      logger.error(err, instance, info)
     }
 
     // Vue.js 以外のエラー
-    // テストやデバッグ時にエラーの発生を検知するために利用します。
+    // テストやデバッグ時にエラーの発生を検知するために利用する
     window.addEventListener('error', (event) => {
-      console.error(event)
+      logger.error(event)
     })
 
-    // テストやデバッグ時に予期せぬ非同期エラーの発生を検知するために利用します。
+    // テストやデバッグ時に予期せぬ非同期エラーの発生を検知するために利用する
     window.addEventListener('unhandledrejection', (event) => {
-      console.error(event)
+      logger.error(event)
     })
   },
 }

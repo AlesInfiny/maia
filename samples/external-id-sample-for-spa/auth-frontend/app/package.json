@@ -9,12 +9,11 @@
   "scripts": {
     "dev": "vite --mode dev",
     "mock": "vite --mode mock",
-    "build:prod": "run-p type-check build-only:prod --print-label",
     "build:dev": "run-p type-check build-only:dev --print-label",
-    "build-only:prod": "vite build --mode prod",
-    "build-only:dev": "vite build --mode dev",
+    "build:prod": "run-p type-check build-only:prod --print-label",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "prepare": "cypress install",
     "type-check": "vue-tsc --build",
     "lint": "run-s eslint stylelint format --print-label",
     "lint:ci": "run-p eslint:ci format:ci stylelint:ci --print-label",
@@ -30,10 +29,17 @@
   "dependencies": {
     "@azure/msal-browser": "4.27.0",
     "@heroicons/vue": "2.2.0",
+    "@vueuse/core": "14.1.0",
     "axios": "1.13.2",
     "msw": "2.12.4",
     "pinia": "3.0.4",
+    "vitest": "3.2.4",
     "vue": "3.5.25"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.25.2",
@@ -70,9 +76,7 @@
     "vite-plugin-vue-devtools": "8.0.5",
     "vue-tsc": "3.1.8"
   },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.53.4"
   }
 }

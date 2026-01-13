@@ -4,7 +4,15 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { InteractionRequiredAuthError } from '@azure/msal-browser'
+import { useLogger } from '@/composables/use-logger'
 
+const logger = useLogger()
+
+/**
+ * 認証関連のサービスを提供します。
+ * 認証ストアを利用してサインイン処理や認証状態の判定を行います。
+ * @returns 認証サービスオブジェクト
+ */
 export function authenticationService() {
   const signIn = async () => {
     const authenticationStore = useAuthenticationStore()
@@ -39,8 +47,8 @@ export function authenticationService() {
         const accessToken = await authenticationStore.getTokenPopup()
         return accessToken
       }
-      // eslint-disable-next-line no-console
-      console.error(error)
+
+      logger.error(error)
       throw error
     }
   }
