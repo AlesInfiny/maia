@@ -41,13 +41,13 @@ public class AssetApplicationService {
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
 
-    apLog.debug(
-        messages.getMessage(MessageIdConstants.D_ASSET_GET_ASSET, new Object[] { assetCode }, Locale.getDefault()));
+    apLog.debug(messages.getMessage(MessageIdConstants.D_ASSET_GET_ASSET, new Object[] {assetCode},
+        Locale.getDefault()));
 
     Asset asset = this.repository.findByAssetCode(assetCode)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));
-    Resource resource = this.store.getResource(asset)
-        .orElseThrow(() -> new AssetNotFoundException(assetCode));
+    Resource resource =
+        this.store.getResource(asset).orElseThrow(() -> new AssetNotFoundException(assetCode));
 
     return new AssetResourceInfo(asset, resource);
   }

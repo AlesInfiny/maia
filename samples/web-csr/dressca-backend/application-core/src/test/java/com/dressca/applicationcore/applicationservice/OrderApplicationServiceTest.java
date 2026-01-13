@@ -119,8 +119,9 @@ public class OrderApplicationServiceTest {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    List<OrderItem> items = List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
-        BigDecimal.valueOf(100_000_000L), 1));
+    List<OrderItem> items =
+        List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
+            BigDecimal.valueOf(100_000_000L), 1));
 
     return items;
   }

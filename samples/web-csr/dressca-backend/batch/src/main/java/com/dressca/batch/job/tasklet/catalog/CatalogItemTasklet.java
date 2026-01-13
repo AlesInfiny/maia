@@ -31,7 +31,8 @@ public class CatalogItemTasklet implements Tasklet {
   String output;
 
   @Override
-  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
+      throws Exception {
     // DB から CatalogItem を全件取得
     List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
@@ -47,18 +48,12 @@ public class CatalogItemTasklet implements Tasklet {
     });
 
     // CSV へ出力する writer の準備
-    String outputPath = (output == null || output.isEmpty())
-        ? "output/catalogItem_tasklet.csv"
+    String outputPath = (output == null || output.isEmpty()) ? "output/catalogItem_tasklet.csv"
         : "output/" + output;
 
     FlatFileItemWriter<CatalogItem> writer = new FlatFileItemWriterBuilder<CatalogItem>()
-        .name("catalogItemTaskletWriter")
-        .resource(new FileSystemResource(outputPath))
-        .append(true)
-        .delimited()
-        .delimiter(",")
-        .names("name", "price", "productCode")
-        .build();
+        .name("catalogItemTaskletWriter").resource(new FileSystemResource(outputPath)).append(true)
+        .delimited().delimiter(",").names("name", "price", "productCode").build();
 
     // CSV 出力
     writer.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());

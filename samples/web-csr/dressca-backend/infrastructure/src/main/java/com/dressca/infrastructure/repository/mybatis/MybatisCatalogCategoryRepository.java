@@ -26,8 +26,7 @@ public class MybatisCatalogCategoryRepository implements CatalogCategoryReposito
   public List<CatalogCategory> getAll() {
     CatalogCategoryEntityExample example = new CatalogCategoryEntityExample();
     return catalogCategoryMapper.selectByExample(example).stream()
-        .map(EntityTranslator::catalogCategoryEntityTranslate)
-        .collect(Collectors.toList());
+        .map(EntityTranslator::catalogCategoryEntityTranslate).collect(Collectors.toList());
   }
 
   @Override

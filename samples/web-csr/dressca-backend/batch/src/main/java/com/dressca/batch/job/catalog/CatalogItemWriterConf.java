@@ -24,19 +24,13 @@ public class CatalogItemWriterConf {
    */
   @Bean
   @StepScope
-  public FlatFileItemWriter<CatalogItem> csvFileItemWriter(@Value("${output:#{null}}") String output)
-      throws Exception {
-    String outputPath = (output == null || output.isEmpty())
-        ? "output/outputData.csv"
-        : "output/" + output;
+  public FlatFileItemWriter<CatalogItem> csvFileItemWriter(
+      @Value("${output:#{null}}") String output) throws Exception {
+    String outputPath =
+        (output == null || output.isEmpty()) ? "output/outputData.csv" : "output/" + output;
 
-    return new FlatFileItemWriterBuilder<CatalogItem>()
-        .name("catalogItemWriter")
-        .resource(new FileSystemResource(outputPath))
-        .append(true)
-        .delimited()
-        .delimiter(",")
-        .names("name", "price", "productCode")
-        .build();
+    return new FlatFileItemWriterBuilder<CatalogItem>().name("catalogItemWriter")
+        .resource(new FileSystemResource(outputPath)).append(true).delimited().delimiter(",")
+        .names("name", "price", "productCode").build();
   }
 }

@@ -87,7 +87,8 @@ public class ExceptionHandlerControllerAdviceTest {
     // application.log のロガーを取り出し、 Appender の設定（ mockAppender にログを出力させる）を行う。
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     Configuration config = ctx.getConfiguration();
-    LoggerConfig loggerConfig = config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+    LoggerConfig loggerConfig =
+        config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
     // テスト毎に Appender を設定するため、一度初期化する。
     loggerConfig.removeAppender(MOCK_APPENDER_NAME);
@@ -109,9 +110,8 @@ public class ExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
-            frontMessageValue, logMessageValue));
+    Mockito.when(assetsController.get(anyString())).thenThrow(new LogicException(
+        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -138,10 +138,8 @@ public class ExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new SystemException(new AssetNotFoundException(assetCode),
-            exceptionId, frontMessageValue,
-            logMessageValue));
+    Mockito.when(assetsController.get(anyString())).thenThrow(new SystemException(
+        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -168,8 +166,7 @@ public class ExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new RuntimeException());
+    Mockito.when(assetsController.get(anyString())).thenThrow(new RuntimeException());
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -186,8 +183,10 @@ public class ExceptionHandlerControllerAdviceTest {
 
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（ 2 行目以降はエラーのスタックトレースのため可変）
   private String createLogMessage(String exceptionId, String[] logMessageValue) {
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+    MessageSource messageSource =
+        (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+    String exceptionMessage =
+        messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 }

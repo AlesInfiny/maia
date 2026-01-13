@@ -50,14 +50,17 @@ public class AssetsController {
    */
   @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
+      @ApiResponse(responseCode = "200", description = "成功。",
+          content = @Content(mediaType = "image/*",
+              schema = @Schema(implementation = Resource.class))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
-  })
+      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。",
+          content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping("{assetCode}")
   public ResponseEntity<Resource> get(
-      @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode") String assetCode)
+      @Parameter(required = true,
+          description = "アセットコード") @PathVariable("assetCode") String assetCode)
       throws LogicException {
     try {
       AssetResourceInfo assetResourceInfo = this.service.getAssetResourceInfo(assetCode);

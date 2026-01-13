@@ -17,8 +17,7 @@ public class CatalogCategory {
   private List<CatalogItem> items = List.of();
 
   /**
-   * カタログカテゴリ名を指定して、
-   * {@link CatalogCategory} クラスのインスタンスを初期化します。
+   * カタログカテゴリ名を指定して、 {@link CatalogCategory} クラスのインスタンスを初期化します。
    * 
    * @param name カタログカテゴリ名。
    */
