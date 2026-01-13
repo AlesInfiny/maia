@@ -21,7 +21,8 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableMethodSecurity
-@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
+@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT",
+    scheme = "bearer")
 public class WebSecurityConfig {
 
   @Value("${cors.allowed.origins:}")
@@ -36,8 +37,7 @@ public class WebSecurityConfig {
    */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.securityMatcher("/api/**")
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+    http.securityMatcher("/api/**").csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);
@@ -45,8 +45,7 @@ public class WebSecurityConfig {
           conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
           conf.setAllowedHeaders(List.of("*"));
           return conf;
-        }))
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
         .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
     return http.build();
   }

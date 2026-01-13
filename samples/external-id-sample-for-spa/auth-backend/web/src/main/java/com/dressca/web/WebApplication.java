@@ -10,11 +10,8 @@ import io.swagger.v3.oas.annotations.info.Info;
  * Microsoft Entra External ID を利用した認証機能を提供するアプリケーションを起動するための main クラスです。
  */
 @SpringBootApplication
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Microsoft Entra External ID ユーザー認証",
-        description = "Microsoft Entra External ID を利用したユーザー認証機能を提供するサンプルアプリケーションです。",
-        version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Microsoft Entra External ID ユーザー認証",
+    description = "Microsoft Entra External ID を利用したユーザー認証機能を提供するサンプルアプリケーションです。", version = "v1"))
 @ComponentScan(basePackages = {"com.dressca"})
 public class WebApplication {
 
