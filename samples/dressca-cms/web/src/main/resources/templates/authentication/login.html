@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>ログイン</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* ログインフォーム */-->
+      <form th:action="@{/account/login}" th:object="${loginViewModel}" method="post">
+        <!--/* メールアドレス */-->
+        <div class="mb-3">
+          <label for="email" class="form-label fs-5">メールアドレス</label>
+          <input
+            type="email"
+            class="form-control"
+            th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+            id="email"
+            th:field="*{email}"
+            style="width: 400px"
+            maxlength="256" />
+          <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+
+        <!--/* パスワード */-->
+        <div class="mb-3">
+          <label for="password" class="form-label fs-5">パスワード</label>
+          <input
+            type="password"
+            class="form-control"
+            th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
+            id="password"
+            th:field="*{password}"
+            style="width: 400px"
+            maxlength="256" />
+          <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+
+        <!--/* 認証エラーメッセージ（全体） */-->
+        <div
+          class="text-danger mb-3"
+          th:if="${loginViewModel.authenticationError != null}"
+          th:text="${loginViewModel.authenticationError}"></div>
+
+        <!--/* ログインボタン */-->
+        <button type="submit" class="btn btn-primary">ログイン</button>
+      </form>
+    </th:block>
+  </body>
+</html>

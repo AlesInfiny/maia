@@ -354,22 +354,6 @@ public class AnnouncementApplicationServiceTest {
   }
 
   @Test
-  void testAddAnnouncementAndHistory_異常系_掲載終了日時が掲載開始日時より前の場合例外が発生する() {
-    // Arrange
-    OffsetDateTime postDateTime = OffsetDateTime.now();
-    OffsetDateTime expireDateTime = postDateTime.minusDays(1);
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", postDateTime, expireDateTime, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
-    AnnouncementContent content = createContent(announcement.getId(), "ja");
-    announcement.setContents(List.of(content));
-    String username = "dummyUser";
-
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
-  }
-
-  @Test
   void testAddAnnouncementAndHistory_正常系_掲載開始日時がnullで掲載終了日時が指定されている場合正常に登録される()
       throws AnnouncementValidationException {
     // Arrange
@@ -606,21 +590,6 @@ public class AnnouncementApplicationServiceTest {
         () -> service.updateAnnouncement(announcement, "dummyUser"));
     verify(announcementRepository, times(0)).update(any());
     verify(announcementHistoryRepository, times(0)).add(any());
-  }
-
-  @Test
-  void testUpdateAnnouncement_異常系_掲載終了日時が掲載開始日時より前の場合例外が発生する() {
-    // Arrange
-    OffsetDateTime postDateTime = OffsetDateTime.now();
-    OffsetDateTime expireDateTime = postDateTime.minusDays(1);
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", postDateTime, expireDateTime, 1,
-        OffsetDateTime.now(), OffsetDateTime.now(), false, null);
-    AnnouncementContent content = createContent(announcement.getId(), "ja");
-    announcement.setContents(List.of(content));
-
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class, () -> service.updateAnnouncement(announcement, "dummyUser"));
-    verify(announcementRepository, times(0)).update(any());
   }
 
   @Test

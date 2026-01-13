@@ -101,7 +101,7 @@ public final class AnnouncementEntityTranslator {
    * @param entity お知らせコンテンツのエンティティ。
    * @return お知らせコンテンツの DTO。
    */
-  public static AnnouncementContent toContentDto(AnnouncementContentEntity entity) {
+  public static AnnouncementContent toContent(AnnouncementContentEntity entity) {
     if (entity == null) {
       return null;
     }

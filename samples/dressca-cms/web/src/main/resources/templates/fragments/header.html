@@ -3,16 +3,15 @@
     <header th:fragment="block-header">
       <nav class="bg-primary navbar navbar-expand-sm">
         <a class="ms-3 navbar-brand text-white" th:href="@{/}">Dressca CMS</a>
-        <div class="d-flex ms-auto">
+        <div th:if="${userName != null}" class="d-flex ms-auto">
           <div class="d-flex align-items-center">
             <i class="bi bi-person-circle fs-5 text-white me-2"></i>
-            <span class="navbar-text text-white me-3" th:text="ダミーユーザー"></span>
+            <span class="navbar-text text-white me-3" th:text="${userName}"></span>
           </div>
-          <button
-            type="button"
-            class="btn btn-primary"
-            th:onclick="|location.href='@{/account/logout}'|"
-            th:text="ログアウト"></button>
+          <!--/* <button type="button" class="btn btn-primary" th:onclick="#" th:text="ログアウト"></button> */-->
+        </div>
+        <div th:if="${userName == null}" class="d-flex ms-auto">
+          <a class="btn btn-primary" th:href="@{/account/login}" th:text="ログイン"></a>
         </div>
       </nav>
     </header>
