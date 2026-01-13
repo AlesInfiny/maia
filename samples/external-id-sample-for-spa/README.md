@@ -137,9 +137,9 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-  - [spring-boot-starter-oauth2-resource-server](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security-oauth2-resource-server)
+    - [spring-boot-starter-oauth2-resource-server](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security-oauth2-resource-server)
 - フロントエンドアプリケーション
-  - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
+    - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
 
@@ -196,7 +196,7 @@ auth-frontend
 #### バックエンドアプリケーションの設定
 
 1. VS Code で `auth-backend\web\src\main\resources\application.properties` を開きます。
-2. 以下のように設定情報を記入します（以下の例では External ID の設定以外は省略しています）。
+1. 以下のように設定情報を記入します（以下の例では External ID の設定以外は省略しています）。
 
     ```properties
     spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{tenant-id}.ciamlogin.com/{tenant-id}/v2.0
