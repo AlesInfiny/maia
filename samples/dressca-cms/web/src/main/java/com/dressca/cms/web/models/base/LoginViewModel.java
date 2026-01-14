@@ -1,4 +1,4 @@
-package com.dressca.cms.web.models;
+package com.dressca.cms.web.models.base;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -17,18 +17,13 @@ public class LoginViewModel {
   /**
    * メールアドレス。
    */
-  @NotBlank(message = "{validation.NotBlank}")
-  @Email(message = "{validation.Email}")
+  @NotBlank(message = "{authentication.login.emailIsRequired}")
+  @Email(message = "{authentication.login.emailIsInvalid}")
   private String email;
 
   /**
    * パスワード。
    */
-  @NotBlank(message = "{validation.NotBlank}")
+  @NotBlank(message = "{authentication.login.passwordIsRequired}")
   private String password;
-
-  /**
-   * 認証エラーメッセージ。
-   */
-  private String authenticationError;
 }
