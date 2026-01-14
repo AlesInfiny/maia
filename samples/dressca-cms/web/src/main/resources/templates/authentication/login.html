@@ -24,7 +24,9 @@
             th:field="*{email}"
             style="width: 400px"
             maxlength="256" />
-          <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+          <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('email')}">
+            <li th:each="error : ${#fields.errors('email')}" th:text="${error}"></li>
+          </ul>
         </div>
 
         <!--/* パスワード */-->
@@ -38,14 +40,15 @@
             th:field="*{password}"
             style="width: 400px"
             maxlength="256" />
-          <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+          <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('password')}">
+            <li th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
+          </ul>
         </div>
 
         <!--/* 認証エラーメッセージ（全体） */-->
-        <div
-          class="text-danger mb-3"
-          th:if="${viewModel.authenticationError != null}"
-          th:text="${viewModel.authenticationError}"></div>
+        <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
+          <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
+        </ul>
 
         <!--/* ログインボタン */-->
         <button type="submit" class="btn btn-primary">ログイン</button>
