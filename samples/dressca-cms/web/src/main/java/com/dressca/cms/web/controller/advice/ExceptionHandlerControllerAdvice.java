@@ -34,6 +34,13 @@ public class ExceptionHandlerControllerAdvice {
     return "not_found";
   }
 
+  /**
+   * 業務例外をハンドリングし、エラー画面に遷移します。
+   * 
+   * @param e     業務例外。
+   * @param model モデル。
+   * @return エラー画面のビュー名。
+   */
   @ExceptionHandler(LogicException.class)
   public String handleLogicException(LogicException e, Model model) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
