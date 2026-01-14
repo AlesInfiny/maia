@@ -3,6 +3,7 @@ package com.dressca.cms.web.controller.advice;
 import com.dressca.cms.announcement.applicationcore.exception.AnnouncementNotFoundException;
 import com.dressca.cms.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.cms.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.cms.systemcommon.exception.LogicException;
 import com.dressca.cms.systemcommon.exception.SystemException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +34,17 @@ public class ExceptionHandlerControllerAdvice {
     return "not_found";
   }
 
+  @ExceptionHandler(LogicException.class)
+  public String handleLogicException(LogicException e, Model model) {
+    apLog.warn(ExceptionUtils.getStackTrace(e));
+    String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_BUSINESS;
+    String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    model.addAttribute("errorCode", errorCode);
+    model.addAttribute("occurredAt", occurredAt);
+
+    return "error";
+  }
+
   /**
    * システム例外をハンドリングし、システムエラー画面に遷移します。
    * 
@@ -43,7 +55,7 @@ public class ExceptionHandlerControllerAdvice {
   @ExceptionHandler(SystemException.class)
   public String handleSystemException(SystemException e, Model model) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
-    String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.SYSTEM_ERROR;
+    String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_SYSTEM;
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
     model.addAttribute("occurredAt", occurredAt);
@@ -62,7 +74,7 @@ public class ExceptionHandlerControllerAdvice {
   public String handleGeneralException(Exception e, Model model) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    model.addAttribute("errorCode", CommonExceptionIdConstants.SYSTEM_ERROR);
+    model.addAttribute("errorCode", CommonExceptionIdConstants.E_SYSTEM);
     model.addAttribute("occurredAt", occurredAt);
 
     return "error";
