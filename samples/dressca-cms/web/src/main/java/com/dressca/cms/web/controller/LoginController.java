@@ -79,7 +79,11 @@ public class LoginController {
       SecurityContextHolder.setContext(context);
       securityContextRepository.saveContext(context, request, null);
 
-      if (returnUrl != null && !returnUrl.isEmpty() && returnUrl.startsWith("/")) {
+      if (returnUrl != null && !returnUrl.isEmpty()
+          && returnUrl.startsWith("/")
+          && !returnUrl.startsWith("//")
+          && !returnUrl.contains("\n")
+          && !returnUrl.contains("\r")) {
         return "redirect:" + returnUrl;
       }
       return "redirect:/top";
