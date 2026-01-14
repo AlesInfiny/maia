@@ -10,13 +10,10 @@
     <th:block layout:fragment="content">
       <!--/* メッセージ */-->
       <div class="mb-3">
-        <p class="mb-4">ご指定のページは見つかりませんでした。</p>
-        <div>
-          <p>アクセスしようとしたページは、削除・更新されたか、現在利用できない可能性があります。</p>
-          <p>トップページまたはメニューから、再度お探しください。</p>
-        </div>
+        <p class="mb-4" th:text="#{not_found.mainMessage}"></p>
+        <p th:text="#{not_found.description}"></p>
         <!--/* トップページに戻るリンク */-->
-        <a th:href="@{/top}" class="btn btn-link">トップページに戻る</a>
+        <a th:href="@{/top}" class="btn btn-link" th:text="#{not_found.backToTop}"></a>
       </div>
     </th:block>
   </body>
