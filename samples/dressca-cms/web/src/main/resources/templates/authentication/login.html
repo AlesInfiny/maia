@@ -15,7 +15,7 @@
 
         <!--/* メールアドレス */-->
         <div class="mb-3">
-          <label for="email" class="form-label fs-5">メールアドレス</label>
+          <label for="email" class="form-label fs-5" th:text="#{authentication.login.email}"></label>
           <input
             type="email"
             class="form-control"
@@ -31,7 +31,7 @@
 
         <!--/* パスワード */-->
         <div class="mb-3">
-          <label for="password" class="form-label fs-5">パスワード</label>
+          <label for="password" class="form-label fs-5" th:text="#{authentication.login.password}"></label>
           <input
             type="password"
             class="form-control"
@@ -51,7 +51,7 @@
         </ul>
 
         <!--/* ログインボタン */-->
-        <button type="submit" class="btn btn-primary">ログイン</button>
+        <button type="submit" class="btn btn-primary" th:text="#{authentication.login.loginButton}">ログイン</button>
       </form>
     </th:block>
   </body>
