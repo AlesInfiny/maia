@@ -10,6 +10,9 @@
     <th:block layout:fragment="content">
       <!--/* ログインフォーム */-->
       <form th:action="@{/account/login}" th:object="${viewModel}" method="post">
+        <!--/* リダイレクト先URL（hiddenフィールド） */-->
+        <input type="hidden" name="return-url" th:value="${param['return-url']}" />
+
         <!--/* メールアドレス */-->
         <div class="mb-3">
           <label for="email" class="form-label fs-5">メールアドレス</label>
