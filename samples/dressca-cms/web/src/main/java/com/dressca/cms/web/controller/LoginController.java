@@ -1,10 +1,7 @@
 package com.dressca.cms.web.controller;
 
-import com.dressca.cms.web.models.LoginViewModel;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Locale;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.dressca.cms.web.models.base.LoginViewModel;
 
 /**
  * ログイン画面のコントローラー。
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
   private final AuthenticationManager authenticationManager;
-  private final MessageSource messageSource;
   private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
   /**
@@ -89,8 +86,7 @@ public class LoginController {
       return "redirect:/top";
 
     } catch (BadCredentialsException e) {
-      String errorMessage = messageSource.getMessage("E00001", null, Locale.getDefault());
-      viewModel.setAuthenticationError(errorMessage);
+      bindingResult.reject("authentication.login.authenticationFailed");
       model.addAttribute("viewModel", viewModel);
       return "authentication/login";
     }
