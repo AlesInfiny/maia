@@ -32,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    // Spring Security では username は一意な識別子として使われるため、email を返します。
+    // Dressca CMS では、一意な識別子としてメールアドレスを使用するため、ここでメールアドレスを返します。
     return email;
   }
 
