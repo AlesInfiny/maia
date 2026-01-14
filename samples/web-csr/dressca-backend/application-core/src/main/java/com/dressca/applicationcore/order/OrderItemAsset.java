@@ -19,7 +19,7 @@ public class OrderItemAsset {
   /**
    * {@link OrderItemAsset} クラスのインスタンスを初期化します。
    * 
-   * @param assetCode   アセットコード。
+   * @param assetCode アセットコード。
    * @param orderItemId 注文アイテム ID 。
    */
   public OrderItemAsset(String assetCode, long orderItemId) {

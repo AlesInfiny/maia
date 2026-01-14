@@ -18,7 +18,8 @@ public class ExceptionIdConstants {
   public static final String E_BASKET_IS_NULL_ON_CHECKOUT = "basketIsNullOnCheckout";
 
   /** 買い物かごID: {0} に商品ID: {1} の商品が見つかりませんでした。 */
-  public static final String E_CATALOG_ITEM_ID_DOES_NOT_EXIST_IN_BASKET = "catalogItemIdDoesNotExistInBasket";
+  public static final String E_CATALOG_ITEM_ID_DOES_NOT_EXIST_IN_BASKET =
+      "catalogItemIdDoesNotExistInBasket";
 
   /** 注文のチェックアウト時に買い物かごが空でした。 */
   public static final String E_BASKET_IS_EMPTY_ON_CHECKOUT = "basketIsEmptyOnCheckout";

@@ -9,14 +9,13 @@ import com.dressca.systemcommon.exception.LogicException;
 public class CatalogNotFoundException extends LogicException {
 
   /**
-   * 見つからなかったカタログ ID を指定して
-   * {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
+   * 見つからなかったカタログ ID を指定して {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
    * 
    * @param catalogId 見つからなかったカタログ ID 。
    */
   public CatalogNotFoundException(long catalogId) {
-    super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND, new String[] { String.valueOf(catalogId) },
-        new String[] { String.valueOf(catalogId) });
+    super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
+        new String[] {String.valueOf(catalogId)}, new String[] {String.valueOf(catalogId)});
   }
 
   /**

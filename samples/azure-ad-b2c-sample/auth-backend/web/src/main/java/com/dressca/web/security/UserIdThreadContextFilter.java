@@ -25,8 +25,8 @@ public class UserIdThreadContextFilter extends OncePerRequestFilter {
    * フィルターの実行クラスです。
    */
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws ServletException, IOException {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null && authentication instanceof JwtAuthenticationToken) {
