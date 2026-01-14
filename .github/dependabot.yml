@@ -126,3 +126,10 @@ updates:
       - "target: Dressca-CMS"
       - "npm"
       - "dependencies"
+    groups:
+      bootstrap-packages:
+        patterns:
+          - "bootstrap*"
+        update-types:
+          - "minor"
+          - "patch"
