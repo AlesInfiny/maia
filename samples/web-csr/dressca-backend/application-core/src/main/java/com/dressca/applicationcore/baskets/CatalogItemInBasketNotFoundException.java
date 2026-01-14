@@ -10,16 +10,16 @@ import com.dressca.systemcommon.exception.LogicException;
  */
 public class CatalogItemInBasketNotFoundException extends LogicException {
   /**
-   * 存在しなかった商品のカタログアイテム ID のリストと買い物かご ID を指定して、
-   * {@link CatalogItemInBasketNotFoundException} クラスの新しいインスタンスを初期化します。
+   * 存在しなかった商品のカタログアイテム ID のリストと買い物かご ID を指定して、 {@link CatalogItemInBasketNotFoundException}
+   * クラスの新しいインスタンスを初期化します。
    * 
    * @param catalogIds カタログアイテム ID のリスト。
-   * @param basketId   買い物かご ID 。
+   * @param basketId 買い物かご ID 。
    */
   public CatalogItemInBasketNotFoundException(List<Long> catalogIds, long basketId) {
     super(null, ExceptionIdConstants.E_CATALOG_ITEM_ID_DOES_NOT_EXIST_IN_BASKET,
-        new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) },
-        new String[] { String.valueOf(basketId), convertCatalogIds(catalogIds) });
+        new String[] {String.valueOf(basketId), convertCatalogIds(catalogIds)},
+        new String[] {String.valueOf(basketId), convertCatalogIds(catalogIds)});
   }
 
   /**
