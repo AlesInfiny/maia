@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-sass": "npx sass ../scss/style.scss ../css/style.css"
+    "build-sass": "npx sass ../scss/style.scss ../css/style.css --silence-deprecation=import --silence-deprecation=global-builtin --silence-deprecation=color-functions"
   },
   "keywords": [],
   "author": "",
