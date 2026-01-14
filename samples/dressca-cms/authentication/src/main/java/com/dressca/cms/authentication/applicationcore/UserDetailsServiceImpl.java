@@ -23,6 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    // Dressca CMS では、ログイン時にメールアドレスを使用するため、
+    // UserRepository を使用してメールアドレスに対応するユーザー情報を取得します。
     UserDetails userDetails = userRepository.findByEmail(username);
     if (userDetails == null) {
       throw new UsernameNotFoundException(
