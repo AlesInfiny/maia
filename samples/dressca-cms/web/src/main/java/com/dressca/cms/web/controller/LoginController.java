@@ -46,7 +46,7 @@ public class LoginController {
   public String index(@RequestParam(value = "email", required = false, defaultValue = "") String email, Model model) {
     LoginViewModel viewModel = new LoginViewModel();
     viewModel.setEmail(email);
-    model.addAttribute("loginViewModel", viewModel);
+    model.addAttribute("viewModel", viewModel);
     return "authentication/login";
   }
 
@@ -61,7 +61,7 @@ public class LoginController {
    * @return リダイレクト先の URL またはログイン画面のビュー名。
    */
   @PostMapping("/login")
-  public String login(@Validated @ModelAttribute("loginViewModel") LoginViewModel viewModel,
+  public String login(@Validated @ModelAttribute("viewModel") LoginViewModel viewModel,
       BindingResult bindingResult, @RequestParam(value = "return-url", required = false) String returnUrl,
       HttpServletRequest request, Model model) {
 
@@ -87,7 +87,7 @@ public class LoginController {
     } catch (BadCredentialsException e) {
       String errorMessage = messageSource.getMessage("E00001", null, Locale.getDefault());
       viewModel.setAuthenticationError(errorMessage);
-      model.addAttribute("loginViewModel", viewModel);
+      model.addAttribute("viewModel", viewModel);
       return "authentication/login";
     }
   }

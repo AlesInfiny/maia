@@ -9,7 +9,7 @@
   <body>
     <th:block layout:fragment="content">
       <!--/* ログインフォーム */-->
-      <form th:action="@{/account/login}" th:object="${loginViewModel}" method="post">
+      <form th:action="@{/account/login}" th:object="${viewModel}" method="post">
         <!--/* メールアドレス */-->
         <div class="mb-3">
           <label for="email" class="form-label fs-5">メールアドレス</label>
@@ -41,8 +41,8 @@
         <!--/* 認証エラーメッセージ（全体） */-->
         <div
           class="text-danger mb-3"
-          th:if="${loginViewModel.authenticationError != null}"
-          th:text="${loginViewModel.authenticationError}"></div>
+          th:if="${viewModel.authenticationError != null}"
+          th:text="${viewModel.authenticationError}"></div>
 
         <!--/* ログインボタン */-->
         <button type="submit" class="btn btn-primary">ログイン</button>
