@@ -79,12 +79,14 @@ public class SecurityConfig {
             .loginPage("/account/login")
             .permitAll()
             .disable())
-        .logout(logout -> logout
-            .logoutUrl("/account/logout")
-            .logoutSuccessUrl("/account/login")
-            .permitAll())
+        // ログアウト機能を有効にする場合は、以下のコメントアウトを外してください。
+        // .logout(logout -> logout
+        // .logoutUrl("/account/logout")
+        // .logoutSuccessUrl("/account/login")
+        // .permitAll())
         .exceptionHandling(exception -> exception
             .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")))
+        // csrf 無効化は本番環境では削除してください。
         .csrf(csrf -> csrf
             .ignoringRequestMatchers("/h2-console/**"))
         .headers(headers -> headers

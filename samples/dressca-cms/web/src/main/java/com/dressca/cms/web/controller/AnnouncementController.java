@@ -357,7 +357,7 @@ public class AnnouncementController {
       OffsetDateTime expireDateTime = AnnouncementViewModelTranslator
           .combineDateTime(viewModel.getAnnouncement().getExpireDate(), viewModel.getAnnouncement().getExpireTime());
       if (expireDateTime.isBefore(postDateTime)) {
-        bindingResult.rejectValue("announcement.expireDate", "announcement.create.expireDateBeforePostDate");
+        bindingResult.rejectValue("announcement.expireDate", "announcement.edit.expireDateBeforePostDate");
       }
     }
 

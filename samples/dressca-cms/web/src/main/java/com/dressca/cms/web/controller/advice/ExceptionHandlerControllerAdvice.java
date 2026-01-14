@@ -29,8 +29,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler({ AnnouncementNotFoundException.class, NoResourceFoundException.class })
   public String handleNotFoundException(Exception e) {
-    apLog.info(e.getMessage());
-    apLog.debug(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     return "not_found";
   }
 
@@ -43,8 +42,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler(SystemException.class)
   public String handleSystemException(SystemException e, Model model) {
-    apLog.info(e.getMessage());
-    apLog.debug(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.SYSTEM_ERROR;
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
@@ -62,8 +60,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler(Exception.class)
   public String handleGeneralException(Exception e, Model model) {
-    apLog.info(e.getMessage());
-    apLog.debug(ExceptionUtils.getStackTrace(e));
+    apLog.warn(ExceptionUtils.getStackTrace(e));
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", CommonExceptionIdConstants.SYSTEM_ERROR);
     model.addAttribute("occurredAt", occurredAt);
