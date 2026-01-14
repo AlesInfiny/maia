@@ -32,11 +32,12 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    return name;
+    // Spring Security では username は一意な識別子として使われるため、email を返します。
+    return email;
   }
 
-  public String getEmail() {
-    return email;
+  public String getDisplayName() {
+    return name;
   }
 
   @Override

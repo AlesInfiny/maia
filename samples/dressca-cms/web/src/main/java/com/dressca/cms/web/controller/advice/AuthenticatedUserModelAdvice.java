@@ -1,9 +1,9 @@
 package com.dressca.cms.web.controller.advice;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.dressca.cms.authentication.infrastructure.UserDetailsImpl;
 
 /**
  * 全コントローラ共通で 認証済みユーザー情報を Model に追加するための ControllerAdvice です。
@@ -19,7 +19,7 @@ public class AuthenticatedUserModelAdvice {
    * @return ユーザー名。
    */
   @ModelAttribute("userName")
-  public String exposeLoginUserToModel(@AuthenticationPrincipal UserDetailsImpl loginUser) {
+  public String exposeLoginUserToModel(@AuthenticationPrincipal UserDetails loginUser) {
     if (loginUser == null) {
       return null;
     }
