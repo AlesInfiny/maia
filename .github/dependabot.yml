@@ -97,3 +97,39 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+
+  # Dressca CMS
+  - package-ecosystem: "gradle"
+    directory: "/samples/dressca-cms"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "gradle-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "npm-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "npm"
+      - "dependencies"
+    groups:
+      bootstrap-packages:
+        patterns:
+          - "bootstrap*"
+        update-types:
+          - "minor"
+          - "patch"
