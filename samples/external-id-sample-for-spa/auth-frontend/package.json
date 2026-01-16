@@ -4,13 +4,16 @@
   "type": "module",
   "private": "true",
   "scripts": {
+    "format:root": "prettier --write ./*.{js,ts,json,yaml}",
+    "format:ci:root": "prettier --check ./*.{js,ts,json,yaml}",
     "lint:ci:app": "npm run lint:ci -w app",
     "type-check:app": "npm run type-check -w app",
     "build-only:dev:app": "npm run build-only:dev -w app",
     "build:prod:app": "npm run build:prod -w app",
+    "test:unit:app": "npm run test:unit -w app",
     "dev:app": "npm run dev -w app",
     "mock:app": "npm run mock -w app",
-    "test:unit:app": "npm run test:unit -w app"
+    "test:coverage:app": "npm run coverage -w app"
   },
   "workspaces": [
     "app"

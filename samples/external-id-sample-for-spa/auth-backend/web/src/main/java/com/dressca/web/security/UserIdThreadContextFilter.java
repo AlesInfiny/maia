@@ -5,20 +5,24 @@ import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.dressca.web.log.DresscaStructuredLoggerImpl;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 /**
  * ユーザー ID を threadLocal に格納するためのフィルタークラスです。
  */
+@Component
+@AllArgsConstructor
 public class UserIdThreadContextFilter extends OncePerRequestFilter {
 
   // ログ出力用（本番では消す）
-  private static final DresscaStructuredLoggerImpl apLog = new DresscaStructuredLoggerImpl();
+  private final AbstractStructuredLogger apLog;
   public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
   /**

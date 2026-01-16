@@ -6,7 +6,7 @@ import {
   UnauthorizedError,
   HttpError,
   UnknownError,
-} from '@/shared/custom-errors'
+} from '@/shared/error-handler/custom-error'
 import axios, { HttpStatusCode } from 'axios'
 
 describe('axiosInstance_レスポンスインターセプター_HTTPステータスに応じた例外をスロー', () => {

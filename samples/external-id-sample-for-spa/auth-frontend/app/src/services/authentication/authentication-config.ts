@@ -42,7 +42,7 @@ export const msalConfig = {
 }
 
 export const apiConfig = {
-  scopes: import.meta.env.VITE_EXTERNAL_ID_SCOPE.split(','),
+  scopes: import.meta.env.VITE_EXTERNAL_ID_SCOPE?.split(',') ?? [],
 }
 
 export const msalInstance = new PublicClientApplication(msalConfig)

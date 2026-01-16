@@ -14,7 +14,23 @@
 
 
 
-export * from './api/actuator-api';
-export * from './api/server-time-api';
-export * from './api/users-api';
+/**
+ * 
+ * @export
+ * @interface Link
+ */
+export interface Link {
+    /**
+     * 
+     * @type {string}
+     * @memberof Link
+     */
+    'href'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Link
+     */
+    'templated'?: boolean;
+}
 

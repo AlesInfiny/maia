@@ -36,17 +36,17 @@ public class WebSecurityConfig {
    * @throws Exception 例外。
    */
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.securityMatcher("/api/**").csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-        .cors(cors -> cors.configurationSource(request -> {
-          CorsConfiguration conf = new CorsConfiguration();
-          conf.setAllowCredentials(true);
-          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-          conf.setAllowedHeaders(List.of("*"));
-          return conf;
-        })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-        .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
+  public SecurityFilterChain filterChain(HttpSecurity http,
+      UserIdThreadContextFilter userIdThreadContextFilter) throws Exception {
+    http.securityMatcher("/api/**").cors(cors -> cors.configurationSource(request -> {
+      CorsConfiguration conf = new CorsConfiguration();
+      conf.setAllowCredentials(true);
+      conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+      conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+      conf.setAllowedHeaders(List.of("*"));
+      return conf;
+    })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        .addFilterAfter(userIdThreadContextFilter, AuthorizationFilter.class);
     return http.build();
   }
 }

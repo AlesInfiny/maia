@@ -5,7 +5,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import fs from 'fs'
 import path from 'path'
-import tailwindcss from '@tailwindcss/vite'
 
 /**
  * Mock Service Worker のワーカースクリプトを削除するプラグインです。
@@ -29,7 +28,7 @@ function excludeMsw(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const plugins = [vue(), vueJsx(), vueDevTools(), tailwindcss()]
+  const plugins = [vue(), vueJsx(), vueDevTools()]
   const env = loadEnv(mode, process.cwd())
 
   return {
