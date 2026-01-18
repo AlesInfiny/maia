@@ -6,11 +6,9 @@
 
 ## このサンプルについて
 
-Microsoft Entra External ID （以降、 Entra External ID ）によるユーザー認証の簡単な実装サンプルを提供します。
+本サンプルは、クライアントサイドレンダリングのシングルページアプリケーション（SPA）において、 Microsoft Entra External ID を利用したユーザー認証を実装するためのコード例を提供します。
 
-本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Entra External ID を利用する場合のコード例として利用できます。
-また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
-これにより、 SPA アプリケーションに Entra External ID を利用したユーザー認証機能を組み込めます。
+あわせて、本ドキュメントでは、 AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca Consumer を対象に、本サンプルのコードを組み込む具体的な手順を説明します。
 
 ## 前提
 
@@ -26,8 +24,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v24.12.0
-- Visual Studio Code 1.102.3
+- Node.js v24.13.0
+- Visual Studio Code 1.108.1
 
 ## サンプルの構成
 
@@ -136,9 +134,10 @@ auth-frontend
 
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
-- バックエンドアプリケーション
+1. バックエンドアプリケーション
     - [spring-boot-starter-oauth2-resource-server](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security-oauth2-resource-server)
-- フロントエンドアプリケーション
+
+1. フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
@@ -176,7 +175,7 @@ auth-frontend
 
 1. [アプリケーションを Microsoft Entra ID に登録する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app) に従って、フロントエンドアプリケーション用のアプリを Entra External ID に登録します。
     - 登録したアプリの名前を、ここでは「 `SampleSPA` 」とします。
-  　<!-- textlint-disable @textlint-ja/no-synonyms -->
+    <!-- textlint-disable @textlint-ja/no-synonyms -->
     - サポートされているアカウントの種類を、「この組織ディレクトリのみに含まれるアカウント」とします。
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
@@ -251,21 +250,32 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 
 ### テストの実行
 
-バックエンドアプリケーションには、認証が必要な Web API および認証不要な Web API の両方についての結合テストが実装されています。
-以下を実行してください。
+バックエンドアプリケーションには、認証が必要な Web API および認証不要な Web API の両方について、結合テストが実装されています。
+以下の Gradle コマンドを実行してください。
 
 ```shell
 ./gradlew web:test
 ```
 
+上記コマンドを実行すると、主に以下の観点でテストが実行されます。
+
+1. 認証不要な Web API
+    - Bearer トークンを付与しないリクエストで、正常にレスポンスが返ること
+
+1. 認証が必要な Web API
+    - Bearer トークンを付与しない場合に、認証エラー（401 / 403）となること
+    - 有効な Bearer トークンを付与した場合に、正常にレスポンスが返ること
+
 ## アプリケーションへの認証機能の組み込み
 
-本サンプルのコードを既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
-なお、対象のアプリケーションは AlesInfiny Maia のクライアントサイドレンダリングアプリケーション (Dressca) です。
+本サンプルのコード例を既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
+本章ではそのコード例を AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca Consumer アプリケーションに組み込む方法を、具体的な手順として説明します。
 
 ### バックエンドアプリケーション
 
-1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `application.properties` を設定、ライブラリを追加します。
+以下、 Dressca Consumer のバックエンドアプリケーションに認証機能を適用する手順を示します。
+
+1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `web-consumer\src\main\resources\application.properties` を設定、ライブラリを追加します。
 1. `dependencies.gradle`を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
@@ -277,7 +287,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     }
     ```
 
-1. `\web-consumer\build.gradle`を開きます。
+1. `web-consumer\build.gradle`を開きます。
 1. 以下のように OSS ライブラリの依存関係を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
     ```gradle
@@ -287,7 +297,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     ```
 
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
-   本例では、 OrderController.java に対して設定した例を示します。
+   以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getById()` メソッドに認証が必要なアノテーションを付与する例です。
 
     ```java
     import org.springframework.security.access.prepost.PreAuthorize;
@@ -299,18 +309,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     @AllArgsConstructor
     @RequestMapping("/api/orders")
     public class OrderController {
-
-      @Autowired
-      private OrderApplicationService orderApplicationService;
-      @Autowired
-      private ShoppingApplicationService shoppingApplicationService;
-
-      @Autowired
-      private ProblemDetailsFactory problemDetailsFactory;
-
-      @Autowired
-      private AbstractStructuredLogger apLog;
-
+      ...
       /**
       * 注文情報を取得します。
       * 
@@ -321,7 +320,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
           summary = "注文情報を取得します。",
           description = "注文情報を取得します。",
           security = {
-              @SecurityRequirement(name = "Bearer")}) // OpenAPI 仕様書に Bearer トークンが必要な旨を設定します
+              @SecurityRequirement(name = "Bearer")})
       @ApiResponses(
           value = {
               @ApiResponse(
@@ -338,104 +337,64 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
                       schema = @Schema(implementation = ProblemDetail.class)))
           })
       @GetMapping("{orderId}")
-      @CrossOrigin // CrossOrigin リクエストを有効化します
-      @PreAuthorize(value = "isAuthenticated()") // 認証が必要な旨のアノテーションを追加します
-      public ResponseEntity<?> getById(@PathVariable("orderId") long orderId,
-          HttpServletRequest req) {
-        String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
-
-        try {
-          Order order = orderApplicationService.getOrder(orderId, buyerId);
-          OrderResponse orderDto = OrderMapper.convert(order);
-          return ResponseEntity.ok().body(orderDto);
-        } catch (OrderNotFoundException e) {
-          apLog.info(e.getMessage());
-          apLog.debug(ExceptionUtils.getStackTrace(e));
-          ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e,
-              e.getExceptionId(),
-              e.getLogMessageValue(), e.getFrontMessageValue());
-          ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
-              errorBuilder,
-              CommonExceptionIdConstants.E_BUSINESS,
-              HttpStatus.NOT_FOUND);
-          return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-              .body(problemDetail);
-        }
-      }
-
-      /**
-      * 買い物かごに登録されている商品を注文します。
-      * 
-      * @param postOrderInput 注文に必要な配送先などの情報。
-      * @return なし。
-      */
-      @Operation(
-          summary = "買い物かごに登録されている商品を注文します。",
-          description = "買い物かごに登録されている商品を注文します。",
-          security = {
-              @SecurityRequirement(name = "Bearer")})
-      @ApiResponses(
-          value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
-              @ApiResponse(
-                  responseCode = "400",
-                  description = "リクエストエラー。",
-                  content = @Content(
-                      mediaType = "application/problem+json",
-                      schema = @Schema(implementation = ProblemDetail.class))),
-              @ApiResponse(
-                  responseCode = "500",
-                  description = "サーバーエラー。",
-                  content = @Content(
-                      mediaType = "application/problem+json",
-                      schema = @Schema(implementation = ProblemDetail.class)))})
-      @PostMapping
       @CrossOrigin
       @PreAuthorize(value = "isAuthenticated()")
-      public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
-          HttpServletRequest req) {
-        String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
-        Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
-            postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
-        ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
-        Order order;
-        try {
-          order = shoppingApplicationService.checkout(buyerId, shipToAddress);
-        } catch (EmptyBasketOnCheckoutException e) {
-          // ここでは発生しえないので、システムエラーとする
-          throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
-        }
-
-        String requestUri = req.getRequestURL().toString();
-        return ResponseEntity.created(URI.create(requestUri + "/" + order.getId())).build();
+      public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+        ...
       }
     }
     ```
 
-1. Dressca サンプルの WebSecurityConfig.java を本サンプルの WebSecurityConfig.java に差し替えます。
-   この際、以下の `.addFilterAfter()` は削除してください。
+    付与するアノテーションの役割は以下の通りです。
+
+    |             アノテーション              | 付与対象 |                                                       役割                                                        |
+    | --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+    | `@PreAuthorize("isAuthenticated()")`    | メソッド | リクエストが**認証済みユーザーによるものか**を Spring Security で判定します。未認証の場合はアクセスを拒否します。 |
+    | `@SecurityRequirement(name = "Bearer")` | メソッド | OpenAPI 仕様書上で、**Bearer トークン（JWT）が必要な API**であることを明示します。                                |
+    | `@CrossOrigin`                          | メソッド | フロントエンド（SPA）からの **CORS リクエストを許可**します。                                                     |
+
+1. 以下のように `web-consumer\src\main\java\...\security\WebSecurityConfig.java` に認証に関する処理を追加します。
 
     ```java
-      @Bean
-      public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/api/**")
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-            .cors(cors -> cors.configurationSource(request -> {
-              CorsConfiguration conf = new CorsConfiguration();
-              conf.setAllowCredentials(true);
-              conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-              conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-              conf.setAllowedHeaders(List.of("*"));
-              return conf;
-            }))
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
-    -       .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
-        return http.build();
+      import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
+      @Configuration(proxyBeanMethods = false)
+      @EnableWebSecurity
+    + @EnableMethodSecurity
+      public class WebSecurityConfig {
+
+        ...
+
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+          http.securityMatcher("/api/**")
+              .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+              .cors(cors -> cors.configurationSource(request -> {
+                CorsConfiguration conf = new CorsConfiguration();
+                conf.setAllowCredentials(true);
+                conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+                conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+                conf.setAllowedHeaders(List.of("*"))
+                conf.addExposedHeader("Location");
+                return conf;
+              }))
+      +       .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+          return http.build();
+        }
       }
     ```
 
+    追加した処理の役割は以下の通りです。
+
+    - `@EnableMethodSecurity`
+      コントローラーのメソッドに付与する `@PreAuthorize` のアノテーションを有効化します。
+      これにより、例えば `@PreAuthorize("isAuthenticated()")` を付与した API は認証済みユーザーのみ実行可能になります。
+
+    - `.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))`
+      本アプリケーションを OAuth 2.0 Resource Server として動作させ、 HTTP リクエストのヘッダーに含まれる Bearer トークンを検証します。
+
 1. 未認証の場合の例外ハンドラを実装します。
-   ExceptionHandlerControllerAdvice.java に対して以下の ExceptionHandler を設定します。
+   `src\main\java\...\controller\advice\ExceptionHandlerControllerAdvice.java` に対して以下の ExceptionHandler を設定します。
 
     ```java
     import org.springframework.security.access.AccessDeniedException;
@@ -453,6 +412,8 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 1. バックエンドアプリケーションをビルドします。
 
 ### フロントエンドアプリケーション
+
+以下、 Dressca Consumer のフロントエンドアプリケーションに認証機能を適用する手順を示します。
 
 1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
 1. ターミナルで`cd ../consumer` 、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
@@ -502,7 +463,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     }
     ```
 
-1. `ログイン` 画面へのリンクを含む Vue ファイルの `<script>` セクションにコードを追加します。
+1. `src\App.vue` に対して、 `<script>` セクションに以下のコードを追加します。
 
     ```typescript
     const { signIn, signOut, isAuthenticated } = authenticationService()
@@ -544,7 +505,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     }
     ```
 
-1. `ログイン` 画面へのリンクを含む Vue ファイルの `<template>` セクションのボタンを以下のように差し替えます。
+1. `src\App.vue` に対して、 `<template>` セクションのボタンを以下のように差し替えます。
 
    ```html
     <header>
@@ -568,8 +529,8 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     </header>
    ```
   
-1. `LoginView.vue` は Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
-1. `authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
+1. `src\views\authentication\LoginView.vue` は Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
+1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
 
     ```typescript
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
@@ -581,14 +542,40 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     }
     ```
 
-1. `router` フォルダーの `index.ts` から、 `authenticationRoutes` を削除します。
+1. `src\router\router` フォルダーの `index.ts` から、 `authenticationRoutes` を削除します。
 
-1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `custom-error-handler.ts` に以下を追加します。
+1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `src\shared\error-handler\custom-error-handler.ts` に以下を追加します。
 
     ```typescript
-    if (error instanceof BrowserAuthError) {
-      await callback()
-      return
+    export function useCustomErrorHandler(): handleErrorAsyncFunction {
+    const { t } = i18n.global
+    const handleErrorAsync = async (
+      error: unknown,
+      callback: MaybeAsyncFunction<void>,
+      handlingHttpError: MaybeAsyncUnaryFunction<HttpError, void> | null = null,
+      handlingUnauthorizedError: MaybeAsyncFunction<void> | null = null,
+      handlingNetworkError: MaybeAsyncFunction<void> | null = null,
+      handlingServerError: MaybeAsyncFunction<void> | null = null,
+    ) => {
+      const logger = useLogger()
+      const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
+      const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
+      // ハンドリングできるエラーの場合はコールバックを実行します。
+      if (error instanceof BrowserAuthError) {
+        await callback()
+        return
+      }
+      if (error instanceof CustomErrorBase) {
+        logger.error(JSON.stringify(error.toJSON()))
+        await callback()
+        if (error instanceof HttpError) {
+          // 業務処理で発生した HttpError を処理します。
+          if (handlingHttpError) {
+            await handlingHttpError(error)
+          }
+          ...
+        }
+      }
     }
     ```
 
