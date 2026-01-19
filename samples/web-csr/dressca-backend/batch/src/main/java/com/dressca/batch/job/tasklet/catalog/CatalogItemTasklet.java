@@ -19,7 +19,7 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 
 /**
- * catalog_item_tasklet_job で実行される Tasklet クラスです。
+ * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。
  */
 @Component
 @StepScope
