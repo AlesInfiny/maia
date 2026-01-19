@@ -33,4 +33,4 @@ Visual Studio Code を利用する場合、 Java アプリケーションを開�
 
 - [Checkstyle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle){ target=_blank }
 
-    Java コードの静的解析を提供します。
+    Checkstyle の違反に関するリアルタイムのフィードバックと、簡単な修正アクションを提供します。
