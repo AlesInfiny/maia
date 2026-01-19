@@ -108,7 +108,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
       @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),})
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
@@ -178,7 +178,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。",
               content = @Content),
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),})
+          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestParam OffsetDateTime rowVersion)
@@ -210,7 +210,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。",
               content = @Content),
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),})
+          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @PutMapping("{catalogItemId}")
   public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
