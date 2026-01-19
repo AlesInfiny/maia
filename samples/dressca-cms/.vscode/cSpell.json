@@ -3,16 +3,32 @@
   "words": [
     "applicationcore",
     "assertj",
+    "buildscript",
+    "configfile",
+    "Dfile",
     "dressca",
+    "Dspring",
     "dtos",
     "esbenp",
+    "fasterxml",
     "gradlew",
+    "jacoco",
     "jdbc",
+    "jvmargs",
     "myBatis",
+    "projectlombok",
+    "puppycrawl",
     "Reloadable",
     "shengchen",
+    "springdoc",
+    "springframework",
+    "spotbugs",
+    "subprojects",
     "systemcommon",
+    "taskdef",
     "Thymeleaf",
-    "vscjava"
+    "ultraq",
+    "vscjava",
+    "webmvc"
   ]
 }

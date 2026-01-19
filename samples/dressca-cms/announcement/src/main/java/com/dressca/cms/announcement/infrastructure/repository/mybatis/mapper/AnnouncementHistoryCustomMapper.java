@@ -14,6 +14,7 @@ public interface AnnouncementHistoryCustomMapper {
 
   /**
    * 指定したお知らせメッセージIDに対応するお知らせメッセージ履歴をお知らせコンテンツ履歴と併せて取得します。
+   * 
    * <p>
    * 取得するお知らせメッセージ履歴は作成日時（更新日時）である created_at カラム日付の降順でソートされます。
    * </p>
