@@ -11,8 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * {@link UserDetailsService} を継承するクラス。
- * 指定された名前のユーザー情報を返します。
+ * {@link UserDetailsService} を継承するクラス。 指定された名前のユーザー情報を返します。
  */
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // UserRepository を使用してメールアドレスに対応するユーザー情報を取得します。
     UserDetails userDetails = userRepository.findByEmail(username);
     if (userDetails == null) {
-      throw new UsernameNotFoundException(
-          messages.getMessage(ExceptionIdConstants.E_USER_NOT_FOUND, new Object[] { username }, Locale.getDefault()));
+      throw new UsernameNotFoundException(messages.getMessage(ExceptionIdConstants.E_USER_NOT_FOUND,
+          new Object[] {username}, Locale.getDefault()));
     }
     return userDetails;
   }

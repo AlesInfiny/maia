@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = { "com.dressca.cms.authentication.infrastructure.repository.mybatis" })
+@MapperScan(basePackages = {"com.dressca.cms.authentication.infrastructure.repository.mybatis"})
 public class AuthenticationMyBatisConfig {
   /**
    * MyBatis の設定をカスタマイズする {@link ConfigurationCustomizer} オブジェクトを Bean 登録します。
