@@ -5,7 +5,6 @@ import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import pluginCypress from 'eslint-plugin-cypress/flat'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
@@ -73,15 +72,6 @@ export default defineConfigWithVueTs(
   {
     ...pluginVitest.configs.recommended,
     files: ['**/src/**/__tests__/**/*'],
-  },
-
-  // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
-  {
-    ...pluginCypress.configs.recommended,
-    files: [
-      '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-      '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-    ],
   },
 
   // TypeScript ファイルに対して JSDoc 形式のドキュメンテーションを強制します。
