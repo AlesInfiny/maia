@@ -36,7 +36,8 @@ public class WebSecurityConfig {
    * @throws Exception 例外。
    */
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http,
+      UserIdThreadContextFilter userIdThreadContextFilter) throws Exception {
     http.securityMatcher("/api/**").cors(cors -> cors.configurationSource(request -> {
       CorsConfiguration conf = new CorsConfiguration();
       conf.setAllowCredentials(true);
@@ -45,7 +46,7 @@ public class WebSecurityConfig {
       conf.setAllowedHeaders(List.of("*"));
       return conf;
     })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-        .addFilterAfter(new UserIdThreadContextFilter(), AuthorizationFilter.class);
+        .addFilterAfter(userIdThreadContextFilter, AuthorizationFilter.class);
     return http.build();
   }
 }
