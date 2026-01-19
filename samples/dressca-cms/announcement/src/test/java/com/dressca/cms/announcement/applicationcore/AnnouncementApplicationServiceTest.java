@@ -43,7 +43,7 @@ import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
  * {@link AnnouncementApplicationService} の単体テストクラスです。
  */
 @ExtendWith({ SpringExtension.class, MockitoExtension.class })
-@TestPropertySource(properties = "spring.messages.basename=i18n/messages")
+@TestPropertySource(properties = "spring.messages.basename=i18n/announcement/messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AnnouncementApplicationServiceTest {
 

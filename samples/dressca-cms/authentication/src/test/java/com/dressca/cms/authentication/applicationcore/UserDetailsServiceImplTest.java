@@ -28,7 +28,7 @@ import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
  * {@link UserDetailsServiceImpl} の単体テストクラスです。
  */
 @ExtendWith({ SpringExtension.class, MockitoExtension.class })
-@TestPropertySource(properties = "spring.messages.basename=i18n/messages")
+@TestPropertySource(properties = "spring.messages.basename=i18n/authentication/messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class UserDetailsServiceImplTest {
 
