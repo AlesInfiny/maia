@@ -36,9 +36,7 @@ public class SecurityConfig {
   /**
    * 認証処理を行う Bean を返します。
    * 
-   * <p>
-   * 認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を使用します。
-   * </p>
+   * <p>認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を使用します。</p>
    * 
    * @param authenticationConfiguration 認証設定。
    * @return 認証マネージャー。

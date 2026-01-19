@@ -14,10 +14,8 @@ public class LocaleConfig {
 
   /**
    * Accept-Language ヘッダをそのまま使う {@link LocaleResolver} オブジェクトを Bean 登録します。
-   *
-   * <p>
    * クッキーや URL パラメータによる切り替えは不要です。
-   * </p>
+   * 
    * 
    * @return {@link LocaleResolver} オブジェクト。
    */

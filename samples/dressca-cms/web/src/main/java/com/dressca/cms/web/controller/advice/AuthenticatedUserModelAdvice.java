@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  * 全コントローラ共通で 認証済みユーザー情報を Model に追加するための ControllerAdvice です。
- * 
- * <p>
  * Thymeleaf のヘッダーなど、全画面共通部品でログインユーザー情報を参照できるようにする目的で使用します。
- * </p>
  */
 @ControllerAdvice
 public class AuthenticatedUserModelAdvice {

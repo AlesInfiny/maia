@@ -10,7 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
- * i18n の設定クラスです。
+ * 国際化対応を行う i18n の設定クラスです。
  */
 @Configuration
 public class I18nConfig {
