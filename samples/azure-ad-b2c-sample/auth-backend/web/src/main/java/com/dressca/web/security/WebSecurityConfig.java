@@ -32,6 +32,7 @@ public class WebSecurityConfig {
    * CORS 設定、JWT トークン検証を設定します。
    *
    * @param http http リクエスト。
+   * @param userIdThreadContextFilter ユーザー ID を ThreadLocal に格納するフィルター。
    * @return フィルターチェーン。
    * @throws Exception 例外。
    */
