@@ -32,20 +32,16 @@ public class I18nConfig {
     // /i18n/messages_ja.properties や
     // /i18n/announcement/register/register_en.properties を拾う
     Resource[] resources = resolver.getResources("classpath*:i18n/**/*.properties");
-    String[] baseNames = Arrays.stream(resources)
-        .map(resource -> {
-          try {
-            String uriStr = resource.getURI().toString();
-            // "classpath:"付きのベース名を抽出
-            return "classpath:" + uriStr
-                .replaceAll("^.*?/i18n/", "i18n/")
-                .replaceAll("(_[a-z]{2}(_[A-Z]{2})?)?\\.properties$", "");
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-        })
-        .distinct()
-        .toArray(String[]::new);
+    String[] baseNames = Arrays.stream(resources).map(resource -> {
+      try {
+        String uriStr = resource.getURI().toString();
+        // "classpath:"付きのベース名を抽出
+        return "classpath:" + uriStr.replaceAll("^.*?/i18n/", "i18n/")
+            .replaceAll("(_[a-z]{2}(_[A-Z]{2})?)?\\.properties$", "");
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }).distinct().toArray(String[]::new);
     ms.setBasenames(baseNames);
     return ms;
   }
