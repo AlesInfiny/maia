@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = { "com.dressca.cms.announcement.infrastructure.repository.mybatis" })
+@MapperScan(basePackages = {"com.dressca.cms.announcement.infrastructure.repository.mybatis"})
 public class AnnouncementMyBatisConfig {
   /**
    * MyBatis の設定をカスタマイズする {@link ConfigurationCustomizer} オブジェクトを Bean 登録します。

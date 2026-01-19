@@ -23,7 +23,8 @@ public class MyBatisAnnouncementHistoryRepository implements AnnouncementHistory
 
   @Override
   public void add(AnnouncementHistory announcementHistory) {
-    AnnouncementHistoryEntity entity = AnnouncementEntityTranslator.toHistoryEntity(announcementHistory);
+    AnnouncementHistoryEntity entity =
+        AnnouncementEntityTranslator.toHistoryEntity(announcementHistory);
     announcementHistoryMapper.insert(entity);
   }
 
