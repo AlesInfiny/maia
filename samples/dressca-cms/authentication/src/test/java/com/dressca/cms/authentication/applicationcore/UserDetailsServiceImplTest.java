@@ -27,7 +27,7 @@ import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 /**
  * {@link UserDetailsServiceImpl} の単体テストクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=i18n/authentication/messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class UserDetailsServiceImplTest {
@@ -53,11 +53,8 @@ public class UserDetailsServiceImplTest {
   void testLoadUserByUsername_正常系_ユーザーが存在する場合UserDetailsが返される() {
     // Arrange
     String username = "test@example.com";
-    UserDetails expectedUserDetails = User
-        .withUsername(username)
-        .password("password")
-        .roles("USER")
-        .build();
+    UserDetails expectedUserDetails =
+        User.withUsername(username).password("password").roles("USER").build();
     when(userRepository.findByEmail(username)).thenReturn(expectedUserDetails);
 
     // Act
