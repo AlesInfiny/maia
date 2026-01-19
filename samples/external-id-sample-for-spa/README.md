@@ -555,7 +555,7 @@ BUILD SUCCESSFUL in 2s
     }
     ```
 
-1. `src\router\router` フォルダーの `index.ts` から、 `authenticationRoutes` を削除します。
+1. `src\router\index.ts` から、 `authenticationRoutes` を削除します。
 
 1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `src\shared\error-handler\custom-error-handler.ts` に以下を追加します。
 
