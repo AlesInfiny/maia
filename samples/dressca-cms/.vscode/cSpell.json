@@ -1,0 +1,18 @@
+{
+  "ignorePaths": ["**/gradlew", "**/gradlew.bat"],
+  "words": [
+    "applicationcore",
+    "assertj",
+    "dressca",
+    "dtos",
+    "esbenp",
+    "gradlew",
+    "jdbc",
+    "myBatis",
+    "Reloadable",
+    "shengchen",
+    "systemcommon",
+    "Thymeleaf",
+    "vscjava"
+  ]
+}
