@@ -3,7 +3,6 @@ package com.dressca.web.controller;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +40,6 @@ public class UserController {
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping
-  @CrossOrigin
   @PreAuthorize(value = "isAuthenticated()")
   public ResponseEntity<UserResponse> getUser() throws Exception {
 

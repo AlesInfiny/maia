@@ -346,7 +346,6 @@ BUILD SUCCESSFUL in 2s
                       schema = @Schema(implementation = ProblemDetail.class)))
           })
       @GetMapping("{orderId}")
-      @CrossOrigin
       @PreAuthorize(value = "isAuthenticated()")
       public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
         // その他のコードは省略
@@ -361,7 +360,6 @@ BUILD SUCCESSFUL in 2s
     | --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
     | `@PreAuthorize("isAuthenticated()")`    | メソッド | リクエストが**認証済みユーザーによるものか**を Spring Security で判定します。未認証の場合はアクセスを拒否します。 |
     | `@SecurityRequirement(name = "Bearer")` | メソッド | OpenAPI 仕様書上で、**Bearer トークン（JWT）が必要な API**であることを明示します。                                |
-    | `@CrossOrigin`                          | メソッド | フロントエンド（SPA）からの **CORS リクエストを許可**します。                                                     |
 
 1. 以下のように `web-consumer\src\main\java\...\security\WebSecurityConfig.java` に認証に関する処理を追加します。
 
