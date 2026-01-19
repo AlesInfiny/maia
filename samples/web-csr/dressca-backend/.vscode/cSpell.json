@@ -1,0 +1,42 @@
+{
+  "ignorePaths": [
+    "checkstyle.xml",
+    "eclipse-formatter.xml",
+    "**/gradlew",
+    "**/gradlew.bat"
+  ],
+  "words": [
+    "Appender",
+    "Appenders",
+    "applicationcore",
+    "applicationservice",
+    "assertj",
+    "Batis",
+    "buildscript",
+    "controlleradvice",
+    "Dfile",
+    "dists",
+    "Dressca",
+    "Dspring",
+    "hikari",
+    "Incrementer",
+    "jacoco",
+    "jdbc",
+    "jvmargs",
+    "Mybatis",
+    "projectlombok",
+    "puppycrawl",
+    "Servlet",
+    "shikuchoson",
+    "skiprows",
+    "springdoc",
+    "springdoc",
+    "springframework",
+    "spotbugs",
+    "subprojects",
+    "systemcommon",
+    "tasklet",
+    "todofuken",
+    "webmvc"
+  ]
+}
