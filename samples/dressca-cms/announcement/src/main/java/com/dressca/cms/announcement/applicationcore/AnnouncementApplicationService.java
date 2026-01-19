@@ -426,6 +426,7 @@ public class AnnouncementApplicationService {
 
   /**
    * お知らせコンテンツを言語コードの優先順位順に並び替えます。
+   * 
    * <p>
    * MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL 文が複雑になるため private メソッドとして実装しています。
    * </p>
@@ -447,6 +448,7 @@ public class AnnouncementApplicationService {
 
   /**
    * お知らせコンテンツ履歴を言語コードの優先順位順に並び替えます。
+   * 
    * <p>
    * MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL 文が複雑になるため private メソッドとして実装しています。
    * </p>

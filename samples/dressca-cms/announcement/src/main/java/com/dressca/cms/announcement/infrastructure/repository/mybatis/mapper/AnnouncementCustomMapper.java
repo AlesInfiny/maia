@@ -14,6 +14,7 @@ public interface AnnouncementCustomMapper {
 
   /**
    * オフセットとリミットから、論理削除されていないお知らせメッセージとコンテンツを JOIN して取得します。
+   * 
    * <p>
    * 取得するお知らせメッセージは掲載開始日時である post_date_time カラム日付の降順でソートされます。
    * </p>
