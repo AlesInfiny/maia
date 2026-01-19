@@ -28,8 +28,8 @@ public enum LanguageCode {
   /**
    * 言語コードの値とラベルのマップです。
    */
-  public static final Map<String, String> LANGUAGE_CODE_LABEL_MAP = Collections
-      .unmodifiableMap(Stream.of(LanguageCode.values())
+  public static final Map<String, String> LANGUAGE_CODE_LABEL_MAP =
+      Collections.unmodifiableMap(Stream.of(LanguageCode.values())
           .collect(Collectors.toMap(LanguageCode::getValue, LanguageCode::getLabel)));
 
   /**

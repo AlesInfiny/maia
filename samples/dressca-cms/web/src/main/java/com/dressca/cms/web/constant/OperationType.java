@@ -26,8 +26,8 @@ public enum OperationType {
   /**
    * 操作種別の値とラベルのマップです。
    */
-  public static final Map<Integer, String> OPERATION_TYPE_LABEL_MAP = Collections
-      .unmodifiableMap(Stream.of(OperationType.values())
+  public static final Map<Integer, String> OPERATION_TYPE_LABEL_MAP =
+      Collections.unmodifiableMap(Stream.of(OperationType.values())
           .collect(Collectors.toMap(OperationType::getValue, OperationType::getLabel)));
 
   /**

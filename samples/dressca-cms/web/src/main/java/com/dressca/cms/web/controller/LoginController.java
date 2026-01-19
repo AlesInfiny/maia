@@ -30,7 +30,8 @@ import com.dressca.cms.web.models.base.LoginViewModel;
 public class LoginController {
 
   private final AuthenticationManager authenticationManager;
-  private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+  private final SecurityContextRepository securityContextRepository =
+      new HttpSessionSecurityContextRepository();
 
   /**
    * ログイン画面を表示します。
@@ -40,7 +41,9 @@ public class LoginController {
    * @return ログイン画面のビュー名。
    */
   @GetMapping("/login")
-  public String index(@RequestParam(value = "email", required = false, defaultValue = "") String email, Model model) {
+  public String index(
+      @RequestParam(value = "email", required = false, defaultValue = "") String email,
+      Model model) {
     LoginViewModel viewModel = new LoginViewModel();
     viewModel.setEmail(email);
     model.addAttribute("viewModel", viewModel);
@@ -50,16 +53,17 @@ public class LoginController {
   /**
    * ログイン処理を行います。
    * 
-   * @param viewModel     ログイン画面のビューモデル。
+   * @param viewModel ログイン画面のビューモデル。
    * @param bindingResult バインディング結果。
-   * @param returnUrl     ログイン後に遷移する URL（クエリ文字列から取得、省略可）。
-   * @param request       HTTP リクエスト。
-   * @param model         モデル。
+   * @param returnUrl ログイン後に遷移する URL（クエリ文字列から取得、省略可）。
+   * @param request HTTP リクエスト。
+   * @param model モデル。
    * @return リダイレクト先の URL またはログイン画面のビュー名。
    */
   @PostMapping("/login")
   public String login(@Validated @ModelAttribute("viewModel") LoginViewModel viewModel,
-      BindingResult bindingResult, @RequestParam(value = "return-url", required = false) String returnUrl,
+      BindingResult bindingResult,
+      @RequestParam(value = "return-url", required = false) String returnUrl,
       HttpServletRequest request, Model model) {
 
     if (bindingResult.hasErrors()) {
@@ -67,8 +71,8 @@ public class LoginController {
     }
 
     try {
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-          viewModel.getEmail(), viewModel.getPassword());
+      UsernamePasswordAuthenticationToken authenticationToken =
+          new UsernamePasswordAuthenticationToken(viewModel.getEmail(), viewModel.getPassword());
       Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
       SecurityContext context = SecurityContextHolder.createEmptyContext();
@@ -76,10 +80,8 @@ public class LoginController {
       SecurityContextHolder.setContext(context);
       securityContextRepository.saveContext(context, request, null);
 
-      if (returnUrl != null && !returnUrl.isEmpty()
-          && returnUrl.startsWith("/")
-          && !returnUrl.startsWith("//")
-          && !returnUrl.contains("\n")
+      if (returnUrl != null && !returnUrl.isEmpty() && returnUrl.startsWith("/")
+          && !returnUrl.startsWith("//") && !returnUrl.contains("\n")
           && !returnUrl.contains("\r")) {
         return "redirect:" + returnUrl;
       }
