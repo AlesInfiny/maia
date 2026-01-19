@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -44,14 +44,12 @@
             <li th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
           </ul>
         </div>
-
+        <!--/* ログインボタン */-->
+        <button type="submit" class="btn btn-primary" th:text="#{authentication.login.loginButton}">ログイン</button>
         <!--/* 認証エラーメッセージ（全体） */-->
         <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
           <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
         </ul>
-
-        <!--/* ログインボタン */-->
-        <button type="submit" class="btn btn-primary" th:text="#{authentication.login.loginButton}">ログイン</button>
       </form>
     </th:block>
   </body>
