@@ -13,4 +13,6 @@
   <suppress checks="AbbreviationAsWordInName" files=".*Test.java$"/>
   <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->
   <suppress checks="IllegalCatch" files=".*Test.java$"/>
+  <!-- バッチジョブの設定クラスのメソッド名はチェックしない -->
+  <suppress checks="MethodName" files="com[\\/]dressca[\\/]batch[\\/]job[\\/]BatchConfiguration.java$"/>
 </suppressions>
