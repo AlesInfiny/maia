@@ -8,7 +8,7 @@
 
 本サンプルは、クライアントサイドレンダリングのシングルページアプリケーション（SPA）において、 Microsoft Entra External ID を利用したユーザー認証を実装するためのコード例を提供します。
 
-あわせて、本ドキュメントでは、 AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca Consumer を対象に、本サンプルのコードを組み込む具体的な手順を説明します。
+あわせて、本ドキュメントでは、 AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca を対象に、本サンプルのコードを組み込む具体的な手順を説明します。
 
 ## 前提
 
@@ -266,14 +266,20 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     - Bearer トークンを付与しない場合に、認証エラー（401 / 403）となること
     - 有効な Bearer トークンを付与した場合に、正常にレスポンスが返ること
 
+以下が表示され、テストが成功していることを確認します。
+
+```shell
+BUILD SUCCESSFUL in 2s
+```
+
 ## アプリケーションへの認証機能の組み込み
 
 本サンプルのコード例を既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
-本章ではそのコード例を AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca Consumer アプリケーションに組み込む方法を、具体的な手順として説明します。
+本章ではそのコード例を AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca アプリケーションに組み込む方法を、具体的な手順として説明します。
 
 ### バックエンドアプリケーション
 
-以下、 Dressca Consumer のバックエンドアプリケーションに認証機能を適用する手順を示します。
+以下、 Dressca アプリケーション (Consumer) のバックエンドアプリケーションに認証機能を適用する手順を示します。
 
 1. [バックエンドアプリケーションの設定](#バックエンドアプリケーションの設定) を参照し、 `web-consumer\src\main\resources\application.properties` を設定、ライブラリを追加します。
 1. `dependencies.gradle`を開きます。
@@ -340,6 +346,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
       @CrossOrigin
       @PreAuthorize(value = "isAuthenticated()")
       public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+        // その他のコードは省略
         ...
       }
     }
@@ -362,7 +369,8 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
       @EnableWebSecurity
     + @EnableMethodSecurity
       public class WebSecurityConfig {
-
+        
+        // その他のコードは省略
         ...
 
         @Bean
@@ -378,7 +386,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
                 conf.addExposedHeader("Location");
                 return conf;
               }))
-      +       .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+    +        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
           return http.build();
         }
       }
@@ -406,6 +414,9 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
       public ResponseEntity<?> accessDeniedHandleException(AccessDeniedException e, HttpServletRequest req) {
         // 以下に、例外ハンドラの詳細を実装
       }
+
+      // その他のコードは省略
+      ...
     }
     ```
 
@@ -413,7 +424,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
 
 ### フロントエンドアプリケーション
 
-以下、 Dressca Consumer のフロントエンドアプリケーションに認証機能を適用する手順を示します。
+以下、 Dressca アプリケーション (Consumer) のフロントエンドアプリケーションに認証機能を適用する手順を示します。
 
 1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
 1. ターミナルで`cd ../consumer` 、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
@@ -440,11 +451,10 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
     - authentication-config.ts
 1. `src\store\authentication` フォルダーの `authentication.ts` を本サンプルのコードに差し替えます。
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-   AlesInfiny Maia のサンプルアプリケーション Dressca の場合、 `src\api-client\index.ts` を編集します。
    本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
+   `src\api-client\index.ts` を以下のように編集します。
 
     ```typescript
-
     // その他のコードは省略
     async function addToken(config: apiClient.Configuration) {
       // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
@@ -573,6 +583,7 @@ Entra External ID に追加したユーザーは、以下の手順で削除で�
           if (handlingHttpError) {
             await handlingHttpError(error)
           }
+          // その他のコードは省略
           ...
         }
       }

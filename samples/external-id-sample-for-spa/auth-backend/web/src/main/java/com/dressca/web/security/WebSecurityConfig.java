@@ -48,7 +48,8 @@ public class WebSecurityConfig {
         conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
         conf.setAllowedHeaders(List.of("*"));
         return conf;
-    })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+      }))
+      .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
         .addFilterAfter(userIdThreadContextFilter, AuthorizationFilter.class);
     return http.build();
   }
