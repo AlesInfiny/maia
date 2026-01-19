@@ -1,7 +1,7 @@
 package com.dressca.web.constant;
 
 /**
- * web プロジェクトで利用する汎用定数クラスです。
+ * ウェブプロジェクト（web）で利用する汎用定数クラスです。
  */
 public class WebConstants {
 
