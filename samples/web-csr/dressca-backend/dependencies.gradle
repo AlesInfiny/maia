@@ -11,7 +11,6 @@ ext {
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springBatchTestVersion = "6.0.0"
     mybatisSpringBootStarterVersion = "4.0.0"
     mybatisSpringBootStarterTestVersion = "4.0.0"
     h2Version = "2.4.240"
@@ -32,10 +31,10 @@ ext {
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
         spring_boot_starter_batch_jdbc : "org.springframework.boot:spring-boot-starter-batch-jdbc",
+        spring_boot_starter_batch_jdbc_test : "org.springframework.boot:spring-boot-starter-batch-jdbc-test",
         spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
-        spring_boot_starter_batch_jdbc_test : "org.springframework.boot:spring-boot-starter-batch-jdbc-test",
-        spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
+        spring_boot_starter_batch_test : "org.springframework.boot:spring-boot-starter-batch-test",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
         mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
