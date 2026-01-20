@@ -12,7 +12,7 @@ ext {
     javaUuidGeneratorVersion = "5.2.0"
     springdocOpenapiVersion = "3.0.1"
 
-    // -- TOOLS
+    // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.0.0"
     jacocoToolVersion = "0.8.14"
     spotbugsToolVersion = "4.8.6"
