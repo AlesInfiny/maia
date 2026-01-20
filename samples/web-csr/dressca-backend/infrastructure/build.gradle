@@ -37,9 +37,10 @@ dependencies {
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.h2database
 	implementation supportDependencies.postgresql
+
 	implementation project(':application-core')
 	implementation project(':system-common')
-	testImplementation supportDependencies.spring_boot_starter_test
+
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 
   mybatisTasks supportDependencies.mybatis_generator_core
@@ -50,8 +51,12 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-bootJar.enabled = false
-jar.enabled = true
+bootJar{
+  enabled = false
+}
+Jar{
+  enabled = true
+}
 
 tasks.register('runMyBatisGenerator') {
   doLast {

@@ -19,8 +19,9 @@ repositories {
 
 dependencies {
 	implementation supportDependencies.spring_boot_starter
-	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_starter_log4j2
+	implementation supportDependencies.commons_lang3
+
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 
@@ -36,5 +37,9 @@ java {
 	}
 }
 
-bootJar.enabled = false
-jar.enabled = true
+bootJar{
+	enabled = false
+}
+Jar{
+	enabled = true
+}
