@@ -37,10 +37,10 @@ dependencies {
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.h2database
 	implementation supportDependencies.postgresql
-	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.mybatis_spring_boot_starter_test
+  
+  implementation project(':system-common')
 
-	implementation project(':system-common')
+	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 
   mybatisTasks supportDependencies.mybatis_generator_core
   mybatisTasks supportDependencies.h2database
