@@ -28,9 +28,9 @@ ext {
         spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
 
         // SPRING BOOT TESTS
+        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
         spring_boot_starter_batch_jdbc_test : "org.springframework.boot:spring-boot-starter-batch-jdbc-test",
         spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
-        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
         spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
         
         // SPRING BOOT MODULES
