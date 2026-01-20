@@ -20,6 +20,7 @@ repositories {
 dependencies {
 	implementation supportDependencies.spring_boot_starter
 	implementation supportDependencies.spring_boot_starter_log4j2
+
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 
@@ -33,5 +34,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-bootJar.enabled = false
-jar.enabled = true
+bootJar{
+	enabled = false
+}
+
+jar{
+	enabled = true
+}
