@@ -34,11 +34,12 @@ ext {
         spring_boot_starter_batch_jdbc : "org.springframework.boot:spring-boot-starter-batch-jdbc",
         spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
-
+        spring_boot_starter_batch_jdbc_test : "org.springframework.boot:spring-boot-starter-batch-jdbc-test",
         spring_batch_test : "org.springframework.batch:spring-batch-test:$springBatchTestVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
         mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
+        spring_boot_starter_jdbc : "org.springframework.boot:spring-boot-starter-jdbc",
         h2database : "com.h2database:h2:$h2Version",
         postgresql : "org.postgresql:postgresql:$postgresqlVersion",
         commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
