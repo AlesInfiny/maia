@@ -1,26 +1,21 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.0"
+    springBootVersion = "4.0.1"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.4.7"
+    spotbugsVersion = "6.4.8"
 
     // -- TOOLS
     jacocoToolVersion = "0.8.14"
-    checkstyleToolVersion = "12.2.0"
+    checkstyleToolVersion = "13.0.0"
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    mybatisSpringBootStarterVersion = "4.0.0"
-    mybatisSpringBootStarterTestVersion = "4.0.0"
-    h2Version = "2.4.240"
-    postgresqlVersion = "42.7.8"
-    springdocOpenapiVersion = "3.0.0"
-    servletApiVersion = "6.1.0"
-    commonsLangVersion = "3.20.0"
+    mybatisSpringBootStarterVersion = "4.0.1"
+    mybatisSpringBootStarterTestVersion = "4.0.1"
+    springdocOpenapiVersion = "3.0.1"
     mybatisGeneratorVersion = "1.4.2"
-    javaUuidGeneratorVersion = "5.1.1"
-    thymeleafLayoutDialectVersion = "3.4.0"
+    javaUuidGeneratorVersion = "5.2.0"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
@@ -37,13 +32,13 @@ ext {
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
         mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
         spring_security_test : "org.springframework.security:spring-security-test",
-        h2database : "com.h2database:h2:$h2Version",
-        postgresql : "org.postgresql:postgresql:$postgresqlVersion",
-        commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
-        servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
+        h2database : "com.h2database:h2",
+        postgresql : "org.postgresql:postgresql",
+        commons_lang3 : "org.apache.commons:commons-lang3",
+        servlet_api : "jakarta.servlet:jakarta.servlet-api",
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
         java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
-        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion",
+        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
