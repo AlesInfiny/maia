@@ -20,18 +20,14 @@ repositories {
 
 dependencies {
 	implementation supportDependencies.spring_boot_starter_webmvc
-	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
-	implementation supportDependencies.spring_cloud_azure_starter
-	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
 	implementation supportDependencies.spring_boot_starter_log4j2
-	implementation supportDependencies.spring_boot_h2console
+	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
+	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 
 	implementation project(':system-common')
-
-	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_boot_starter_log4j2
-	testImplementation supportDependencies.spring_security_test
+	
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
+	testImplementation supportDependencies.spring_boot_starter_security_test
 }
 
 dependencyManagement {
