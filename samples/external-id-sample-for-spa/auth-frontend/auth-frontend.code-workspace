@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "external-id-sample-root",
+      "path": ".",
+    },
+    {
+      "name": "app",
+      "path": "app",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "external-id-sample-root/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.validate.enable": false,
+  },
+}
