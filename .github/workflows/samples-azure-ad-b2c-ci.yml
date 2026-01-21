@@ -36,7 +36,6 @@ jobs:
           check-latest: true
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
           cache: npm
-          
 
       - name: node パッケージのインストール
         run: npm ci
