@@ -47,6 +47,7 @@ jobs:
           echo "current-version-consumer=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/consumer/openapitools.json)" >> $GITHUB_OUTPUT
           echo "current-version-admin=$(jq -r '.["generator-cli"].version' ./samples/web-csr/dressca-frontend/admin/openapitools.json)" >> $GITHUB_OUTPUT
           echo "current-version-azure-ad-b2c=$(jq -r '.["generator-cli"].version' ./samples/azure-ad-b2c-sample/auth-frontend/app/openapitools.json)" >> $GITHUB_OUTPUT
+          echo "current-version-external-id=$(jq -r '.["generator-cli"].version' ./samples/external-id-sample-for-spa/auth-frontend/app/openapitools.json)" >> $GITHUB_OUTPUT
 
       - name: アップデート要否を判定
         id: check-version-update
@@ -66,6 +67,11 @@ jobs:
           else
             echo "update-required-azure-ad-b2c=true" >> $GITHUB_OUTPUT
           fi
+          if [[ ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }} ==  ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }} ]]; then
+            echo "update-required-external-id=false" >> $GITHUB_OUTPUT
+          else
+            echo "update-required-external-id=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: サマリに出力
         run: |
@@ -80,6 +86,9 @@ jobs:
           echo "## "AzureADB2CAuth"" >> $GITHUB_STEP_SUMMARY
           echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }} です。" >> $GITHUB_STEP_SUMMARY
           echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c }} です。">> $GITHUB_STEP_SUMMARY
+          echo "## "ExternalIDAuth"" >> $GITHUB_STEP_SUMMARY
+          echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }} です。" >> $GITHUB_STEP_SUMMARY
+          echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-external-id }} です。">> $GITHUB_STEP_SUMMARY
 
       - name: issue を作成（Dressca-Consumer）
         id: create-issue-consumer
@@ -160,7 +169,7 @@ jobs:
 
       - name: issue を作成（AzureADB2CAuth）
         id: create-issue-azure-ad-b2c-auth
-        if: ${{ steps.check-version-update.outputs.update-required-admin == 'true' }}
+        if: ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c == 'true' }}
         uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
         with:
           action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
@@ -184,6 +193,44 @@ jobs:
           ISSUE_URL: ${{ steps.create-issue-azure-ad-b2c-auth.outputs.outputs && fromJson(steps.create-issue-azure-ad-b2c-auth.outputs.outputs).url }}
         run: |
           echo "# issue の作成結果（AzureADB2CAuth）" >> $GITHUB_STEP_SUMMARY
+          if [ $STATUS = 'created' ]; then
+            echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
+          elif [ $STATUS = 'updated' ]; then
+            echo "同名の issue が存在するため、更新のみ行いました。" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ステータスの値が不正です。" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo issue number: $ISSUE_NUMBER >> $GITHUB_STEP_SUMMARY
+          echo status: $STATUS >> $GITHUB_STEP_SUMMARY
+          echo - $ISSUE_URL >> $GITHUB_STEP_SUMMARY
+
+      - name: issue を作成（ExternalIDAuth）
+        id: create-issue-external-id-auth
+        if: ${{ steps.check-version-update.outputs.update-required-external-id == 'true' }}
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
+        with:
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          with: |
+            filename: util/.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
+            update_existing: true
+            search_existing: open
+          attempt_limit: 3
+          attempt_delay: 300000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_APP_NAME: "ExternalIDAuth"
+          LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
+          CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }}
+
+      - name: issue の情報を出力（ExternalIDAuth）
+        if: ${{ steps.check-version-update.outputs.update-required-external-id  == 'true' }}
+        env:
+          STATUS: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).status }}
+          ISSUE_NUMBER: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).number }}
+          ISSUE_URL: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).url }}
+        run: |
+          echo "# issue の作成結果（ExternalIDAuth）" >> $GITHUB_STEP_SUMMARY
           if [ $STATUS = 'created' ]; then
             echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
           elif [ $STATUS = 'updated' ]; then
