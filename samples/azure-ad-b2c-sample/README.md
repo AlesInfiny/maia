@@ -8,9 +8,10 @@
 
 Azure Active Directory B2C （以降、 Azure AD B2C ）によるユーザー認証の簡単な実装サンプルを提供します。
 
-本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
-これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
+あわせて本ドキュメントでは、以下について説明します。
+
+- 本サンプルの動作確認手順
+- AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca への組み込み手順
 
 ## 前提
 
@@ -26,8 +27,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v22.17.1
-- Visual Studio Code 1.102.2
+- Node.js v24.13.0
+- Visual Studio Code 1.108.1
 
 ## サンプルの構成
 
