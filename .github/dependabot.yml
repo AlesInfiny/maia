@@ -1,4 +1,5 @@
 ---
+# cspell:ignore cooldown
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -95,6 +96,35 @@ updates:
       prefix: "gradle-auth-backend"
     labels:
       - "target: Azure AD B2C Auth"
+      - "gradle"
+      - "dependencies"
+
+  # External ID for SPA
+  - package-ecosystem: "npm"
+    directory: "/samples/external-id-sample-for-spa/auth-frontend"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 40
+    commit-message:
+      prefix: "npm-external-id-auth-frontend"
+    labels:
+      - "target: EntraID External ID"
+      - "npm"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/external-id-sample-for-spa/auth-backend"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "gradle-external-id-auth-backend"
+    labels:
+      - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
 
