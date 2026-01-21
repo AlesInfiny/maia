@@ -11,7 +11,7 @@
     "npm-run-all2": "^8.0.4",
     "sudachi-synonyms-dictionary": "^16.0.0",
     "textlint": "^15.5.0",
-    "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-filter-rule-comments": "^1.3.0",
     "textlint-rule-ja-no-orthographic-variants": "^2.0.0",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2"
