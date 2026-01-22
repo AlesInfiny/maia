@@ -20,7 +20,7 @@ runs:
         cd samples/azure-ad-b2c-sample
         zip -r ${GITHUB_WORKSPACE}/${{ inputs.compressed-source-path }}/azure-ad-b2c.zip .
 
-    - name: external-id-sample-for-spa の作成
+    - name: external-id-sample-for-spa.zip の作成
       shell: bash
       run: |
         cd samples/external-id-sample-for-spa
