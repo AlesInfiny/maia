@@ -15,7 +15,7 @@ ext {
     mybatisSpringBootStarterVersion = "4.0.0"
     mybatisSpringBootStarterTestVersion = "4.0.0"
     h2Version = "2.4.240"
-    postgresqlVersion = "42.7.8"
+    postgresqlVersion = "42.7.9"
     springdocOpenapiVersion = "3.0.0"
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.20.0"
