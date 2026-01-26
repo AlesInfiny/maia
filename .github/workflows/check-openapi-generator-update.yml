@@ -86,7 +86,7 @@ jobs:
           echo "## "AzureADB2CAuth"" >> $GITHUB_STEP_SUMMARY
           echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }} です。" >> $GITHUB_STEP_SUMMARY
           echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c }} です。">> $GITHUB_STEP_SUMMARY
-          echo "## "ExternalIDAuth"" >> $GITHUB_STEP_SUMMARY
+          echo "## "ExternalIDAuthForSPA"" >> $GITHUB_STEP_SUMMARY
           echo "openapitools.json の openapi-generator のバージョンは ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }} です。" >> $GITHUB_STEP_SUMMARY
           echo "アップデート要否の判定結果は ${{ steps.check-version-update.outputs.update-required-external-id }} です。">> $GITHUB_STEP_SUMMARY
 
@@ -205,7 +205,7 @@ jobs:
           echo status: $STATUS >> $GITHUB_STEP_SUMMARY
           echo - $ISSUE_URL >> $GITHUB_STEP_SUMMARY
 
-      - name: issue を作成（ExternalIDAuth）
+      - name: issue を作成（ExternalIDAuthForSPA）
         id: create-issue-external-id-auth
         if: ${{ steps.check-version-update.outputs.update-required-external-id == 'true' }}
         uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
@@ -219,18 +219,18 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_APP_NAME: "ExternalIDAuth"
+          TARGET_APP_NAME: "ExternalIDAuthForSPA"
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }}
 
-      - name: issue の情報を出力（ExternalIDAuth）
+      - name: issue の情報を出力（ExternalIDAuthForSPA）
         if: ${{ steps.check-version-update.outputs.update-required-external-id  == 'true' }}
         env:
           STATUS: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).status }}
           ISSUE_NUMBER: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).number }}
           ISSUE_URL: ${{ steps.create-issue-external-id-auth.outputs.outputs && fromJson(steps.create-issue-external-id-auth.outputs.outputs).url }}
         run: |
-          echo "# issue の作成結果（ExternalIDAuth）" >> $GITHUB_STEP_SUMMARY
+          echo "# issue の作成結果（ExternalIDAuthForSPA）" >> $GITHUB_STEP_SUMMARY
           if [ $STATUS = 'created' ]; then
             echo "issue を新規作成しました。" >> $GITHUB_STEP_SUMMARY
           elif [ $STATUS = 'updated' ]; then
