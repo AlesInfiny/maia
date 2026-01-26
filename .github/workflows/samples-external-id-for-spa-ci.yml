@@ -42,7 +42,7 @@ jobs:
       - id: run-format-root
         name: ルート直下の format の実行
         run: npm run format:ci:root >> /var/tmp/format-root-result.txt 2>&1
-      
+
       - id: run-lint
         name: lintの実行
         run: npm run lint:ci:app >> /var/tmp/lint-result.txt 2>&1
