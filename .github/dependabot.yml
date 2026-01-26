@@ -108,7 +108,7 @@ updates:
       default-days: 7
     open-pull-requests-limit: 40
     commit-message:
-      prefix: "npm-external-id-auth-frontend"
+      prefix: "npm-external-id-for-spa"
     labels:
       - "target: EntraID External ID"
       - "npm"
