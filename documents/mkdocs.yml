@@ -166,10 +166,9 @@ nav:
           - samples/dressca/index.md
           - Azure Active Directory B2C を利用したユーザー認証:
               - samples/dressca/azure-ad-b2c/index.md
-              - MSAL.js で提供される秘密情報のキャッシュ保存先:
-                  - samples/dressca/azure-ad-b2c/azure-ad-b2c-consideration.md
           - Microsoft Entra External ID を利用したユーザー認証:
               - samples/dressca/external-id-sample-for-spa/index.md
+              - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/dressca/external-id-sample-for-spa/msal-consideration.md
       - SSR アプリケーション:
           - samples/dressca-cms/index.md
       - 要件別サンプル:
