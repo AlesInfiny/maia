@@ -11,9 +11,8 @@ description: Azure AD B2C による認証を利用するためのサンプルと
     また、[Microsoft の公開情報 :material-open-in-new:](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/faq?tabs=app-reg-ga){ target=_blank } では、サポート継続期間は **2030 年 5 月** までとなっています。
 
     これに伴い、 **本サンプルについても 2026 年 12 月 31 日** をもってサポートを終了し、今後の機能追加やメンテナンスは予定していません。
-    Azure Active Directory B2C を認証基盤として新規導入することを考えている場合には、現在推奨されている Microsoft Entra External ID への移行を検討してください。
-    AlesInfiny Maia OSS Edition で提供している Microsoft Entra External ID のサンプルについては、
-    [こちら](../external-id-sample-for-spa/index.md) を参照してください。
+    Azure Active Directory B2C を利用した認証の新規導入を考えている場合には、現在推奨されている Microsoft Entra External ID への移行を検討してください。
+    AlesInfiny Maia OSS Edition で提供している Microsoft Entra External ID のサンプルについては、[こちら](../external-id-sample-for-spa/index.md) を参照してください。
 
 ## 概要 {#about-this-sample}
 
