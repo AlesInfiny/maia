@@ -1,0 +1,19 @@
+---
+default: true
+line-length: false
+
+ol-prefix:
+  style: 'one'
+ul-style:
+  style: 'dash'
+
+ol-indent:
+  indent: 4
+ul-indent:
+  indent: 4
+
+MD025:
+  front_matter_title: ''
+
+MD046: false
+MD051: false

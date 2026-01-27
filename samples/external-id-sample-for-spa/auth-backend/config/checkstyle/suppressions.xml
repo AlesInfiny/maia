@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+  <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
+  <suppress checks="MethodName" files=".*Test.java$"/>
+  <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->
+  <suppress checks="IllegalCatch" files=".*Test.java$"/>
+</suppressions>
