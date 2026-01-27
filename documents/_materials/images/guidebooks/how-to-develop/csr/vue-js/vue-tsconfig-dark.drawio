@@ -1,70 +1,70 @@
-<mxfile host="65bd71144e">
-    <diagram id="YaOiJ_ToP4yfoMkgxsuN" name="ページ1">
-        <mxGraphModel dx="1069" dy="495" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
-            <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
-                <mxCell id="9" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="3" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="13" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="5" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="4" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="2" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="120" width="160" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="10" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="3" target="4" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="3" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.vitest.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="200" width="200" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="11" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="4" target="6" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="4" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.app.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="280" width="200" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="14" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="5" target="7" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="5" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.node.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="100" y="200" width="200" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="12" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="6" target="8" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="6" value="&lt;font color=&quot;#ffffff&quot;&gt;@vue/tsconfig/tsconfig.dom.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="440" y="360" width="320" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="7" value="&lt;font color=&quot;#ffffff&quot;&gt;@tsconfig/node22/tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="40" y="360" width="320" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="8" value="&lt;font color=&quot;#ffffff&quot;&gt;@vue/tsconfig/tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="440" y="440" width="320" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="15" value="" style="endArrow=classic;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="470" y="521" as="sourcePoint"/>
-                        <mxPoint x="550" y="521" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="16" value="" style="endArrow=classic;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=12 12;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="150" y="521" as="sourcePoint"/>
-                        <mxPoint x="230" y="521" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="17" value="&lt;font color=&quot;#ffffff&quot;&gt;参照(references)&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="250" y="511" width="60" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="18" value="&lt;font color=&quot;#ffffff&quot;&gt;継承&lt;br&gt;(extends)&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;" parent="1" vertex="1">
-                    <mxGeometry x="570" y="511" width="60" height="30" as="geometry"/>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
+<mxfile host="Electron" modified="2025-12-19T16:03:47.388Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" version="24.2.5" etag="670I78N72wM_UFE74F6t" type="device">
+  <diagram id="YaOiJ_ToP4yfoMkgxsuN" name="ページ1">
+    <mxGraphModel dx="1442" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=8 8;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="2" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="320" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="10" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="3" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.vitest.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="500" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="11" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="4" target="6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.app.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="500" y="280" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="14" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="5" target="7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="&lt;font color=&quot;#ffffff&quot;&gt;tsconfig.node.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="100" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="12" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" source="6" target="8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="&lt;font color=&quot;#ffffff&quot;&gt;@vue/tsconfig/tsconfig.dom.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="440" y="360" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="&lt;font color=&quot;#ffffff&quot;&gt;@tsconfig/node24/tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="40" y="360" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="&lt;font color=&quot;#ffffff&quot;&gt;@vue/tsconfig/tsconfig.json&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="440" y="440" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="" style="endArrow=classic;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="521" as="sourcePoint" />
+            <mxPoint x="550" y="521" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" value="" style="endArrow=classic;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;dashed=1;dashPattern=12 12;strokeColor=#FFFFFF;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="521" as="sourcePoint" />
+            <mxPoint x="230" y="521" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="&lt;font color=&quot;#ffffff&quot;&gt;参照(references)&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="250" y="511" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="&lt;font color=&quot;#ffffff&quot;&gt;継承&lt;br&gt;(extends)&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="570" y="511" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
 </mxfile>
