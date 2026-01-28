@@ -32,9 +32,9 @@
                         targetProject="/dev/repos/AlesInfiny/maia/dressca-cms/authentication/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
-        <!-- <table schema="" tableName="APPLICATION_USER" domainObjectName="ApplicationUserEntity" mapperName="ApplicationUserMapper">
+        <table schema="" tableName="APPLICATION_USERS" domainObjectName="ApplicationUserEntity" mapperName="ApplicationUserMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
             <generatedKey column="ID" sqlStatement="JDBC" identity="true" />
-        </table> -->
+        </table>
     </context>
 </generatorConfiguration>

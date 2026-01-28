@@ -1,0 +1,32 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>システムエラー</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* メッセージ */-->
+      <div class="mb-3">
+        <p class="mb-4" th:text="#{error.mainMessage}"></p>
+        <p th:text="#{error.description}"></p>
+      </div>
+
+      <!--/* エラー情報 */-->
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-1 text-nowrap" th:text="#{error.occurredAtLabel}"></div>
+          <div class="col-11" th:text="${occurredAt}"></div>
+        </div>
+        <div class="row">
+          <div class="col-1 text-nowrap" th:text="#{error.errorCodeLabel}"></div>
+          <div class="col-11" th:text="${errorCode}"></div>
+        </div>
+        <!--/* トップページに戻るリンク */-->
+        <a th:href="@{/top}" class="btn btn-link" th:text="#{error.backToTop}"></a>
+      </div>
+    </th:block>
+  </body>
+</html>

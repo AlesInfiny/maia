@@ -192,7 +192,7 @@ public final class AnnouncementViewModelTranslator {
     if (dto == null) {
       return null;
     }
-    return new com.dressca.cms.web.models.base.AnnouncementHistoryViewModel(
+    return new AnnouncementHistoryViewModel(
         dto.getId(),
         dto.getAnnouncementId(),
         dto.getCategory(),
@@ -244,7 +244,7 @@ public final class AnnouncementViewModelTranslator {
           .collect(Collectors.toList());
     }
 
-    return new com.dressca.cms.web.models.AnnouncementHistoryWithContentHistoriesViewModel(
+    return new AnnouncementHistoryWithContentHistoriesViewModel(
         historyViewModel, contentHistoryViewModels);
   }
 
@@ -255,7 +255,7 @@ public final class AnnouncementViewModelTranslator {
    * @param time 時刻。
    * @return OffsetDateTime。日付または時刻がnullの場合はnullを返します。
    */
-  private static OffsetDateTime combineDateTime(LocalDate date, LocalTime time) {
+  public static OffsetDateTime combineDateTime(LocalDate date, LocalTime time) {
     if (date == null || time == null) {
       return null;
     }

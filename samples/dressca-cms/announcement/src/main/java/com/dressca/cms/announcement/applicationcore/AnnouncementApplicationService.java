@@ -128,13 +128,6 @@ public class AnnouncementApplicationService {
       }
     }
 
-    // 掲載終了日時のチェック
-    if (announcement.getExpireDateTime() != null && announcement.getPostDateTime() != null
-        && announcement.getExpireDateTime().isBefore(announcement.getPostDateTime())) {
-      validationErrors
-          .add(new ValidationError("announcement.expireDate", "announcement.create.expireDateBeforePostDate"));
-    }
-
     // お知らせコンテンツが 1 件以上あることをチェック
     if (announcement.getContents() == null || announcement.getContents().isEmpty()) {
       validationErrors.add(new ValidationError("global", "announcement.create.noLanguageContent"));
@@ -192,7 +185,10 @@ public class AnnouncementApplicationService {
 
   /**
    * 指定したお知らせメッセージ ID に対応するお知らせコンテンツを含むお知らせメッセージと、お知らせコンテンツ履歴を含むお知らせメッセージ履歴を取得します。
+   * 
+   * <p>
    * お知らせコンテンツおよびお知らせコンテンツ履歴は以下の順でソートされます。
+   * </p>
    * <ul>
    * <li>お知らせコンテンツは言語コードの優先順位順（ja > en > zh > es）</li>
    * <li>お知らせメッセージ履歴は作成日時（更新日時）の降順</li>
@@ -249,13 +245,6 @@ public class AnnouncementApplicationService {
           validationErrors.add(new ValidationError("global", "announcement.edit.invalidLanguageCode"));
         }
       }
-    }
-
-    // 掲載終了日時のチェック
-    if (announcement.getExpireDateTime() != null && announcement.getPostDateTime() != null
-        && announcement.getExpireDateTime().isBefore(announcement.getPostDateTime())) {
-      validationErrors
-          .add(new ValidationError("announcement.expireDate", "announcement.edit.expireDateBeforePostDate"));
     }
 
     // お知らせコンテンツが 1 件以上あることをチェック

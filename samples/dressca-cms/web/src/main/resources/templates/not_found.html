@@ -1,0 +1,20 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>404 Not Found</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* メッセージ */-->
+      <div class="mb-3">
+        <p class="mb-4" th:text="#{not_found.mainMessage}"></p>
+        <p th:text="#{not_found.description}"></p>
+        <!--/* トップページに戻るリンク */-->
+        <a th:href="@{/top}" class="btn btn-link" th:text="#{not_found.backToTop}"></a>
+      </div>
+    </th:block>
+  </body>
+</html>
