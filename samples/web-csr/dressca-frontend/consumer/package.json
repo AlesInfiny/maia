@@ -34,7 +34,7 @@
     "@heroicons/vue": "2.2.0",
     "@vueuse/core": "14.1.0",
     "axios": "1.13.2",
-    "msw": "2.12.4",
+    "msw": "2.12.7",
     "pinia": "3.0.4",
     "vee-validate": "4.15.1",
     "vitest": "3.2.4",
