@@ -42,6 +42,14 @@ Microsoft Entra External ID （以降、 Entra External ID ）を利用したユ
 - バックエンド
     - [spring-boot-starter-security-oauth2-resource-server :material-open-in-new:](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security-oauth2-resource-server){ target=_blank }
 
+## 本サンプルを利用する際の検討事項 {#consideration}
+
+本サンプルは MSAL.js を使用しています。
+そのため、利用にあたっては MSAL.js における秘密情報の取り扱いについて、事前に十分な検討が必要です。
+詳細については、以下を参照してください。
+
+- [MSAL.js で提供される秘密情報のキャッシュ保存先](./msal-consideration.md)
+
 ## ダウンロード {#download}
 
 サンプルアプリケーションと詳細な解説は以下からダウンロードできます。
