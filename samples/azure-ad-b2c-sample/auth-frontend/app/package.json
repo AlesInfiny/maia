@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.25.2",
-    "@tsconfig/node24": "24.0.3",
+    "@tsconfig/node24": "24.0.4",
     "@types/jsdom": "27.0.0",
     "@types/node": "25.0.2",
     "@vitejs/plugin-vue": "6.0.3",
