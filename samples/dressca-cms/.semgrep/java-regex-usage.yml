@@ -61,7 +61,7 @@ rules:
     severity: INFO
     pattern: |
       new RegexRequestMatcher(...)
-  
+      
   - id: java.regex.redos.nested-quantifier
     languages: [java]
     message: "ReDoS の可能性があるネスト量指定子"
