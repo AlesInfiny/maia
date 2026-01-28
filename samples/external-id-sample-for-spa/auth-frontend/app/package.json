@@ -60,7 +60,7 @@
     "jiti": "2.6.1",
     "jsdom": "27.3.0",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.7.4",
+    "prettier": "3.8.0",
     "stylelint": "16.26.1",
     "stylelint-config-recommended-vue": "1.6.1",
     "stylelint-config-standard": "39.0.1",
