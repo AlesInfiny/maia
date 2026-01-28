@@ -61,6 +61,9 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 
 - [MSAL.js で提供される秘密情報のキャッシュ保存先](../external-id-sample-for-spa/msal-consideration.md)
 
+なお、 2 つのサンプルでキャッシュの保存先に関する設定内容は同様ですが、その他の設定項目が異なります。
+本サンプルの設定項目については [サンプルアプリケーションをダウンロード](#download) し、コード及び README.md で確認してください。
+
 ## ダウンロード {#download}
 
 サンプルアプリケーションと詳細な解説は以下からダウンロードできます。
