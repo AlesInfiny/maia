@@ -122,7 +122,7 @@ updates:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-external-id-auth-backend"
+      prefix: "gradle-external-id-for-spa"
     labels:
       - "target: EntraID External ID"
       - "gradle"
