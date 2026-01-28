@@ -1,0 +1,63 @@
+rules:
+  - id: java.regex.pattern.compile
+    languages: [java]
+    message: "Pattern.compile() による正規表現の使用"
+    severity: INFO
+    pattern: |
+      java.util.regex.Pattern.compile(...)
+
+  - id: java.regex.string.matches
+    languages: [java]
+    message: "String.matches() による正規表現の使用"
+    severity: INFO
+    pattern: |
+      $STR.matches(...)
+
+  - id: java.regex.string.split
+    languages: [java]
+    message: "String.split() による正規表現の使用"
+    severity: INFO
+    pattern: |
+      $STR.split(...)
+
+  - id: java.regex.string.replaceall
+    languages: [java]
+    message: "String.replaceAll() による正規表現の使用"
+    severity: INFO
+    pattern: |
+      $STR.replaceAll(...)
+
+  - id: java.regex.string.replacefirst
+    languages: [java]
+    message: "String.replaceFirst() による正規表現の使用"
+    severity: INFO
+    pattern: |
+      $STR.replaceFirst(...)
+
+  - id: java.regex.commons-lang
+    languages: [java]
+    message: "commons-lang3 RegExUtils による正規表現の使用"
+    severity: INFO
+    pattern: |
+      org.apache.commons.lang3.RegExUtils.$METHOD(...)
+
+  - id: java.validation.pattern
+    languages: [java]
+    message: "@Pattern による正規表現バリデーション"
+    severity: INFO
+    pattern: |
+      @Pattern(...)
+
+  - id: java.spring.requestmapping.regex
+    languages: [java]
+    message: "@RequestMapping / @GetMapping 等の regex 使用"
+    severity: INFO
+    pattern: |
+      @RequestMapping(...)
+
+  - id: java.spring.security.regexmatcher
+    languages: [java]
+    message: "Spring Security RegexRequestMatcher"
+    severity: INFO
+    pattern: |
+      new RegexRequestMatcher(...)
