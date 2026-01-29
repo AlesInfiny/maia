@@ -1,6 +1,6 @@
 ---
-title: Azure AD B2C を 利用した ユーザー認証
-description: Azure AD B2C による認証を利用するためのサンプルと、 その使い方を解説します。
+title: Microsoft Entra External ID を 利用した ユーザー認証
+description: Microsoft Entra External ID による認証を 利用するためのサンプルと、その使い方を解説します。
 ---
 
 # MSAL.js で提供される秘密情報のキャッシュ保存先 {#top}
@@ -22,10 +22,10 @@ MSAL のインスタンス化に使用する構成オブジェクトをもとに
 ```typescript title="authentication-config.ts" hl_lines="9"
 export const msalConfig = {
   auth: {
-    clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,
-    authority: b2cPolicies.authorities.signUpSignIn.authority,
-    knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: import.meta.env.VITE_ADB2C_APP_URI,
+    clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
+    authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
+    redirectUri: import.meta.env.VITE_EXTERNAL_ID_REDIRECT_URI,
+    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
