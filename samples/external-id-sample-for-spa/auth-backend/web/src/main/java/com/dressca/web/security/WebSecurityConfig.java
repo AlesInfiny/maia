@@ -21,8 +21,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableMethodSecurity
-@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT",
-    scheme = "bearer")
+@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class WebSecurityConfig {
 
   @Value("${cors.allowed.origins:}")
@@ -39,17 +38,20 @@ public class WebSecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http,
       UserIdThreadContextFilter userIdThreadContextFilter) throws Exception {
     http
-      .securityMatcher("/api/**")
-      .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-      .cors(cors -> cors.configurationSource(request -> {
-        CorsConfiguration conf = new CorsConfiguration();
-        conf.setAllowCredentials(true);
-        conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-        conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-        conf.setAllowedHeaders(List.of("*"));
-        return conf;
-      }))
-      .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        .headers(headers -> headers
+            .frameOptions(frameOptions -> frameOptions.deny())
+            .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
+        .securityMatcher("/api/**")
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+        .cors(cors -> cors.configurationSource(request -> {
+          CorsConfiguration conf = new CorsConfiguration();
+          conf.setAllowCredentials(true);
+          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
+          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+          conf.setAllowedHeaders(List.of("*"));
+          return conf;
+        }))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
         .addFilterAfter(userIdThreadContextFilter, AuthorizationFilter.class);
     return http.build();
   }
