@@ -23,7 +23,7 @@ description: アプリケーションセキュリティを 担保するための
 
 ## AlesInfiny Maia OSS Edition でのクリックジャッキング対策 {#measures-against-clickjacking}
 
-### `X-Frame-Options` {#x-frame-options}
+### X-Frame-Options {#x-frame-options}
 
 HTTP レスポンスヘッダーに対して [`X-Frame-Options` ヘッダーフィールド :material-open-in-new:](https://www.ietf.org/rfc/rfc7034.txt){ target=_blank } を出力します。
 これにより、他ドメインのサイトからの `<frame>` 要素や `<iframe>` 要素、 `<embed>` 要素、 `<object>` 要素による読み込みを制限します。
@@ -41,11 +41,11 @@ HTTP レスポンスヘッダーに対して [`X-Frame-Options` ヘッダーフ�
 
 特定のオリジンのみ許可したい場合は、 `Content-Security-Policy` ヘッダーの `frame-ancestors` ディレクティブを使用します。
 
-### `Content-Security-Policy : frame-ancestors` {#content-security-policy}
+### Content-Security-Policy : frame-ancestors {#content-security-policy}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-HTTP レスポンスヘッダーに対して [`Content-Security-Policy` ヘッダーフィールドの `frame-ancestors` ディレクティブ :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors){ target=_blank } を出力します。
+HTTP レスポンスヘッダーに対して [`Content-Security-Policy` ヘッダーフィールド :material-open-in-new:](https://www.ietf.org/rfc/rfc7762.txt){ target=_blank } の [`frame-ancestors` ディレクティブ :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors){ target=_blank } を出力します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -72,17 +72,54 @@ HTTP レスポンスヘッダーに対して [`Content-Security-Policy` ヘッ�
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-AlesInfiny Maia OSS Edition では、 [Spring Security :material-open-in-new:](https://spring.io/projects/spring-security){ target=_blank } を利用して `X-Frame-Options` および `frame-ancestors` を設定します。
+AlesInfiny Maia OSS Edition （以降『AlesInfiny Maia』）では、 [Spring Security :material-open-in-new:](https://spring.io/projects/spring-security){ target=_blank } を利用して `X-Frame-Options` および `frame-ancestors` を設定します。
+具体的には、 Spring Security が提供する [セキュリティ HTTP レスポンスヘッダー :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/headers.html){ target=_blank } により構成します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
+実装例を以下に示します。
 本設定では、後方互換性のために `X-Frame-Options` を設定しつつ、実際のフレーム制御は `frame-ancestors` によって行う構成としています。
 
-```java "WebSecurityConfig.java" hl_lines="41-43"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
-```
+??? example "`SecurityFilterChain` の HTTP レスポンスヘッダー設定例"
 
-| 設定                      | 内容                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| `frameOptions().deny()`   | `X-Frame-Options: DENY` を出力し、旧来のブラウザーに対する最低限のフレーム制御を行います |
-| `frame-ancestors 'none';` | 同一オリジンからのフレーム内表示のみを許可します                                         |
+    ```java title="WebSecurityConfig.java"　hl_lines="33-35"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
+    ```
+
+| 設定                                              | 内容                                                                                                      |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `frameOptions().deny()`                           | `X-Frame-Options: DENY` を設定し、すべてのオリジンからのフレーム内表示を禁止します（旧来ブラウザー向け）  |
+| `csp.policyDirectives("frame-ancestors 'none';")` | `frame-ancestors 'none'` を設定し、すべてのオリジンからのフレーム内表示を禁止します（主要ブラウザー向け） |
+
+### 制限変更の場合 {#when-to-change-restrictions}
+
+前述のとおり、 AlesInfiny Maia ではクリックジャッキング対策としてデフォルトでフレーム内表示をすべて禁止する方針を採用しています。
+ただし、業務要件上正当な理由で `<iframe>` 要素等の埋め込みが必要となる場合に限り、以下のような制限の変更を検討します。
+
+#### 同一オリジン内での埋め込みが必要な場合 {#self-origin-iframe}
+
+- 同一ドメイン内で、共通レイアウトや管理画面シェルが機能画面を `<iframe>` 要素等で読み込む
+- プレビュー画面やウィザード画面で、同一オリジンの別パスを埋め込む
+
+このような場合には、同一オリジンからの埋め込みのみを許可します。
+
+| ヘッダー                | 設定値                    |
+| ----------------------- | ------------------------- |
+| Content-Security-Policy | `frame-ancestors 'self';` |
+| X-Frame-Options         | `SAMEORIGIN`              |
+
+#### 特定の外部オリジンからの埋め込みが必要な場合 {#specific-external-origin}
+
+- 社内ポータルサイトや統合ダッシュボードからの `<iframe>` 埋め込み
+- 同一組織が管理する別ドメインの Web システムとの画面統合
+
+このような場合には、許可するオリジンを明示的に列挙します。
+
+| ヘッダー                | 設定値                                 |
+| ----------------------- | -------------------------------------- |
+| Content-Security-Policy | `frame-ancestors https://example.com;` |
+| X-Frame-Options         | `DENY`                                 |
+
+`X-Frame-Options : ALLOW-FROM` はブラウザー互換性の問題があるため使用せず、 `X-Frame-Options : DENY` に設定します。
+これにより、 `Content-Security-Policy` に対応のブラウザーは `frame-ancestors` により埋め込みが許可され、非対応のブラウザーには埋め込みを許さないようになります。
+また、ワイルドカードによる埋め込み許可は禁止します。
