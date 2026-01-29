@@ -26,7 +26,6 @@ import com.dressca.cms.web.models.base.AnnouncementContentViewModel;
 import com.dressca.cms.web.models.base.AnnouncementViewModel;
 import com.dressca.cms.web.models.validation.AnnouncementValidationGroup;
 import com.dressca.cms.web.session.AnnouncementCreateSession;
-import com.dressca.cms.web.session.AnnouncementDeleteSession;
 import com.dressca.cms.web.session.AnnouncementEditSession;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
 import java.time.LocalTime;
@@ -49,6 +48,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * お知らせメッセージ管理画面のコントローラークラスです。
@@ -61,7 +61,6 @@ public class AnnouncementController {
   private final AnnouncementApplicationService announcementApplicationService;
   private final AnnouncementCreateSession announcementCreateSession;
   private final AnnouncementEditSession announcementEditSession;
-  private final AnnouncementDeleteSession announcementDeleteSession;
 
   /**
    * お知らせメッセージ管理画面を表示します。
@@ -505,15 +504,28 @@ public class AnnouncementController {
    * @return リダイレクト先。
    */
   @PostMapping("{announcementId}/delete/confirm")
-  public String delete(@PathVariable("announcementId") UUID announcementId) {
+  public String delete(@PathVariable("announcementId") UUID announcementId, RedirectAttributes redirectAttributes) {
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを削除
       AnnouncementWithHistory deletedAnnouncementWithHistory = announcementApplicationService
           .deleteAnnouncementAndRecordHistory(announcementId, "DummyUser");
 
-      // 削除したお知らせメッセージと履歴をセッションに保存
-      announcementDeleteSession.setAnnouncement(deletedAnnouncementWithHistory.getAnnouncement());
-      announcementDeleteSession.setHistories(deletedAnnouncementWithHistory.getHistories());
+      Announcement announcement = deletedAnnouncementWithHistory.getAnnouncement();
+      List<AnnouncementHistory> histories = deletedAnnouncementWithHistory.getHistories();
+      List<AnnouncementContent> contents = announcement.getContents();
+
+      AnnouncementViewModel announcementViewModel = AnnouncementViewModelTranslator
+          .toAnnouncementViewModel(announcement);
+      List<AnnouncementContentViewModel> contentViewModels = AnnouncementViewModelTranslator
+          .toContentViewModels(contents);
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
+          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+          .collect(Collectors.toList());
+
+      AnnouncementDeleteCompleteViewModel viewModel = new AnnouncementDeleteCompleteViewModel(
+          announcementViewModel, contentViewModels, historyViewModels);
+
+      redirectAttributes.addFlashAttribute("viewModel", viewModel);
 
       // お知らせメッセージ削除完了画面にリダイレクト
       return "redirect:/announcements/" + announcementId + "/delete/complete";
@@ -534,38 +546,16 @@ public class AnnouncementController {
    * @return お知らせメッセージ削除完了画面のビュー名。
    */
   @GetMapping("{announcementId}/delete/complete")
-  public String deleteComplete(@PathVariable("announcementId") UUID announcementId, Model model) {
-    // セッションからお知らせメッセージと履歴を取得
-    Announcement announcement = announcementDeleteSession.getAnnouncement();
-    List<AnnouncementHistory> histories = announcementDeleteSession.getHistories();
-
-    // セッションに情報がない場合は、お知らせメッセージ管理画面にリダイレクト
-    if (announcement == null || histories == null) {
+  public String deleteComplete(@PathVariable("announcementId") UUID announcementId,
+      @ModelAttribute(value = "viewModel") AnnouncementDeleteCompleteViewModel viewModel,
+      Model model) {
+    if (viewModel.getAnnouncement().getId() == null || viewModel.getHistories().isEmpty()) {
       return "redirect:/announcements";
     }
 
-    // お知らせメッセージと履歴をビューモデルに変換
-    List<AnnouncementContent> contents = announcement.getContents();
-
-    AnnouncementViewModel announcementViewModel = AnnouncementViewModelTranslator
-        .toAnnouncementViewModel(announcement);
-    List<AnnouncementContentViewModel> contentViewModels = AnnouncementViewModelTranslator
-        .toContentViewModels(contents);
-
-    List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-        .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-        .collect(Collectors.toList());
-
-    AnnouncementDeleteCompleteViewModel viewModel = new AnnouncementDeleteCompleteViewModel(
-        announcementViewModel, contentViewModels, historyViewModels);
-
-    model.addAttribute("viewModel", viewModel);
     model.addAttribute("displayPriorityLabelMap", DisplayPriority.DISPLAY_PRIORITY_LABEL_MAP);
     model.addAttribute("languageCodeLabelMap", LanguageCode.LANGUAGE_CODE_LABEL_MAP);
     model.addAttribute("operationTypeLabelMap", OperationType.OPERATION_TYPE_LABEL_MAP);
-
-    // セッションをクリア
-    announcementDeleteSession.clear();
 
     return "announcement/delete_complete";
   }
