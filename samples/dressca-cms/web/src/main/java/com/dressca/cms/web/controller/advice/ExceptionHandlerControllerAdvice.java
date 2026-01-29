@@ -43,7 +43,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler(LogicException.class)
   public String handleLogicException(LogicException e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
+    apLog.error(ExceptionUtils.getStackTrace(e));
     String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_BUSINESS;
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
@@ -61,7 +61,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler(SystemException.class)
   public String handleSystemException(SystemException e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
+    apLog.error(ExceptionUtils.getStackTrace(e));
     String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_SYSTEM;
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
@@ -79,7 +79,7 @@ public class ExceptionHandlerControllerAdvice {
    */
   @ExceptionHandler(Exception.class)
   public String handleGeneralException(Exception e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
+    apLog.error(ExceptionUtils.getStackTrace(e));
     String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", CommonExceptionIdConstants.E_SYSTEM);
     model.addAttribute("occurredAt", occurredAt);
