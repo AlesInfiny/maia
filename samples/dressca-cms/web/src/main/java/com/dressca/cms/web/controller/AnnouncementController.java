@@ -541,13 +541,11 @@ public class AnnouncementController {
   /**
    * お知らせメッセージ削除完了画面を表示します。
    *
-   * @param announcementId お知らせメッセージ ID。
-   * @param model          モデル。
+   * @param model モデル。
    * @return お知らせメッセージ削除完了画面のビュー名。
    */
   @GetMapping("{announcementId}/delete/complete")
-  public String deleteComplete(@PathVariable("announcementId") UUID announcementId,
-      @ModelAttribute(value = "viewModel") AnnouncementDeleteCompleteViewModel viewModel,
+  public String deleteComplete(@ModelAttribute(value = "viewModel") AnnouncementDeleteCompleteViewModel viewModel,
       Model model) {
     if (viewModel.getAnnouncement().getId() == null || viewModel.getHistories().isEmpty()) {
       return "redirect:/announcements";
