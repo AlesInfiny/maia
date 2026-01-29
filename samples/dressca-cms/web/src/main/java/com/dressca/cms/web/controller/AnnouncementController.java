@@ -541,7 +541,8 @@ public class AnnouncementController {
   /**
    * お知らせメッセージ削除完了画面を表示します。
    *
-   * @param model モデル。
+   * @param viewModel お知らせメッセージ削除完了画面のビューモデル。
+   * @param model     モデル。
    * @return お知らせメッセージ削除完了画面のビュー名。
    */
   @GetMapping("{announcementId}/delete/complete")
