@@ -83,7 +83,7 @@ Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用
 
 ??? example "`SecurityFilterChain` の CORS 設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="30-31 40-49"
+    ```java title="WebSecurityConfig.java"　hl_lines="30-31 38-47"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
     ```
 

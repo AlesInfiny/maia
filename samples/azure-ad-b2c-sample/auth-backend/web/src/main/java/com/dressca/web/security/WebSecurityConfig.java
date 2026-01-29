@@ -21,7 +21,8 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableMethodSecurity
-@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
+@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT",
+    scheme = "bearer")
 public class WebSecurityConfig {
 
   @Value("${cors.allowed.origins:}")
@@ -30,7 +31,7 @@ public class WebSecurityConfig {
   /**
    * CORS 設定、JWT トークン検証を設定します。
    *
-   * @param http                      http リクエスト。
+   * @param http http リクエスト。
    * @param userIdThreadContextFilter ユーザー ID を ThreadLocal に格納するフィルター。
    * @return フィルターチェーン。
    * @throws Exception 例外。
@@ -38,20 +39,16 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http,
       UserIdThreadContextFilter userIdThreadContextFilter) throws Exception {
-    http
-        .headers(headers -> headers
-            .frameOptions(frameOptions -> frameOptions.deny())
-            .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
-        .securityMatcher("/api/**")
-        .cors(cors -> cors.configurationSource(request -> {
+    http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
+        .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
+        .securityMatcher("/api/**").cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration conf = new CorsConfiguration();
           conf.setAllowCredentials(true);
           conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
           conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
           conf.setAllowedHeaders(List.of("*"));
           return conf;
-        }))
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        })).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
         .addFilterAfter(userIdThreadContextFilter, AuthorizationFilter.class);
     return http.build();
   }
