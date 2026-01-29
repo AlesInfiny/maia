@@ -19,6 +19,6 @@
   "dependencies": {
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
-    "sass": "^1.89.1"
+    "sass": "^1.97.3"
   }
 }
