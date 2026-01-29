@@ -377,7 +377,9 @@ BUILD SUCCESSFUL in 2s
 
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-          http.securityMatcher("/api/**")
+          http
+              .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+              .securityMatcher("/api/**")
               .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
               .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration conf = new CorsConfiguration();

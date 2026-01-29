@@ -90,6 +90,7 @@ nav:
           - app-architecture/security/index.md
           - CSRF （クロスサイト・リクエスト・フォージェリ）: app-architecture/security/csrf.md
           - XSS （クロスサイト・スクリプティング）: app-architecture/security/xss.md
+          - クリックジャッキング : app-architecture/security/clickjacking.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
