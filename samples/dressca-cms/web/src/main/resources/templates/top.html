@@ -1,15 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layout}">
   <head>
-    <title>404 Not Found</title>
+    <title>トップ</title>
   </head>
   <body>
     <th:block layout:fragment="content">
-      <!--/* ページタイトル */-->
-      <h1 class="display-6 mb-4" th:text="404画面です。"></h1>
+      <!--/* トップ画面メッセージ */-->
+      <div class="mb-3">
+        <p th:text="#{top.message}"></p>
+      </div>
     </th:block>
   </body>
 </html>

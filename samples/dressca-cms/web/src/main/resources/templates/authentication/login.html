@@ -1,0 +1,56 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>ログイン</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* ログインフォーム */-->
+      <form th:action="@{/account/login}" th:object="${viewModel}" method="post">
+        <!--/* リダイレクト先URL（hiddenフィールド） */-->
+        <input type="hidden" name="return-url" th:value="${param['return-url']}" />
+
+        <!--/* メールアドレス */-->
+        <div class="mb-3">
+          <label for="email" class="form-label fs-5" th:text="#{authentication.login.email}"></label>
+          <input
+            type="email"
+            class="form-control"
+            th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+            id="email"
+            th:field="*{email}"
+            style="width: 400px"
+            maxlength="256" />
+          <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('email')}">
+            <li th:each="error : ${#fields.errors('email')}" th:text="${error}"></li>
+          </ul>
+        </div>
+
+        <!--/* パスワード */-->
+        <div class="mb-3">
+          <label for="password" class="form-label fs-5" th:text="#{authentication.login.password}"></label>
+          <input
+            type="password"
+            class="form-control"
+            th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
+            id="password"
+            th:field="*{password}"
+            style="width: 400px"
+            maxlength="256" />
+          <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('password')}">
+            <li th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
+          </ul>
+        </div>
+        <!--/* ログインボタン */-->
+        <button type="submit" class="btn btn-primary" th:text="#{authentication.login.loginButton}">ログイン</button>
+        <!--/* 認証エラーメッセージ（全体） */-->
+        <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
+          <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
+        </ul>
+      </form>
+    </th:block>
+  </body>
+</html>
