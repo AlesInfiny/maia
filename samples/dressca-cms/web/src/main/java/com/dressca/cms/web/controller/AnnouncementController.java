@@ -29,6 +29,7 @@ import com.dressca.cms.web.session.AnnouncementCreateSession;
 import com.dressca.cms.web.session.AnnouncementEditSession;
 import com.dressca.cms.web.translator.AnnouncementViewModelTranslator;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -148,18 +151,13 @@ public class AnnouncementController {
    * @param viewModel     お知らせメッセージ登録画面のビューモデル。
    * @param bindingResult バインディング結果。
    * @param model         モデル。
+   * @param userDetails   認証ユーザー情報。
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("/create")
   public String store(
       @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      BindingResult bindingResult, Model model) {
-    // 宣言的バリデーションでエラーがある場合は画面を再表示
-    if (bindingResult.hasErrors()) {
-      model.addAttribute("displayPriority", DisplayPriority.values());
-      model.addAttribute("languageCode", LanguageCode.values());
-      return "announcement/create";
-    }
+      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -167,13 +165,30 @@ public class AnnouncementController {
     if (viewModel.getAnnouncement().getExpireDate() != null && viewModel.getAnnouncement().getExpireTime() == null) {
       viewModel.getAnnouncement().setExpireTime(LocalTime.of(0, 0, 0));
     }
+    // 掲載終了日時のチェック
+    if (viewModel.getAnnouncement().getExpireDate() != null) {
+      OffsetDateTime postDateTime = AnnouncementViewModelTranslator
+          .combineDateTime(viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
+      OffsetDateTime expireDateTime = AnnouncementViewModelTranslator
+          .combineDateTime(viewModel.getAnnouncement().getExpireDate(), viewModel.getAnnouncement().getExpireTime());
+      if (expireDateTime.isBefore(postDateTime)) {
+        bindingResult.rejectValue("announcement.expireDate", "announcement.create.expireDateBeforePostDate");
+      }
+    }
+    // 宣言的バリデーションでエラーがある場合は画面を再表示
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("displayPriority", DisplayPriority.values());
+      model.addAttribute("languageCode", LanguageCode.values());
+      return "announcement/create";
+    }
 
     Announcement announcement = AnnouncementViewModelTranslator.toAnnouncementDto(viewModel.getAnnouncement(),
         viewModel.getContents());
     try {
 
       // アプリケーションサービスを呼び出してお知らせメッセージを登録
-      UUID announcementId = announcementApplicationService.addAnnouncementAndHistory(announcement, "DummyUser");
+      UUID announcementId = announcementApplicationService.addAnnouncementAndHistory(announcement,
+          userDetails.getUsername());
 
       // セッションをクリア
       announcementCreateSession.clear();
@@ -308,7 +323,7 @@ public class AnnouncementController {
     } catch (AnnouncementNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      return "notfound";
+      return "not_found";
     }
   }
 
@@ -319,19 +334,30 @@ public class AnnouncementController {
    * @param viewModel      お知らせメッセージ編集画面のビューモデル。
    * @param bindingResult  バインディング結果。
    * @param model          モデル。
+   * @param userDetails    認証ユーザー情報。
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("{announcementId}/edit")
   public String update(
       @PathVariable("announcementId") UUID announcementId,
       @Validated(AnnouncementValidationGroup.Update.class) @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
-      BindingResult bindingResult, Model model) {
+      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
     }
     if (viewModel.getAnnouncement().getExpireDate() != null && viewModel.getAnnouncement().getExpireTime() == null) {
       viewModel.getAnnouncement().setExpireTime(LocalTime.of(0, 0, 0));
+    }
+    // 掲載終了日時のチェック
+    if (viewModel.getAnnouncement().getExpireDate() != null) {
+      OffsetDateTime postDateTime = AnnouncementViewModelTranslator
+          .combineDateTime(viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
+      OffsetDateTime expireDateTime = AnnouncementViewModelTranslator
+          .combineDateTime(viewModel.getAnnouncement().getExpireDate(), viewModel.getAnnouncement().getExpireTime());
+      if (expireDateTime.isBefore(postDateTime)) {
+        bindingResult.rejectValue("announcement.expireDate", "announcement.edit.expireDateBeforePostDate");
+      }
     }
 
     // 宣言的バリデーションでエラーがある場合は画面を再表示
@@ -355,7 +381,7 @@ public class AnnouncementController {
         viewModel.getContents());
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを更新
-      announcementApplicationService.updateAnnouncement(announcement, "DummyUser");
+      announcementApplicationService.updateAnnouncement(announcement, userDetails.getUsername());
 
       // セッションをクリア
       announcementEditSession.clear();
@@ -493,7 +519,7 @@ public class AnnouncementController {
     } catch (AnnouncementNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      return "notfound";
+      return "not_found";
     }
   }
 
@@ -501,14 +527,16 @@ public class AnnouncementController {
    * お知らせメッセージを削除します。
    *
    * @param announcementId お知らせメッセージ ID。
+   * @param userDetails    認証ユーザー情報。
    * @return リダイレクト先。
    */
   @PostMapping("{announcementId}/delete/confirm")
-  public String delete(@PathVariable("announcementId") UUID announcementId, RedirectAttributes redirectAttributes) {
+  public String delete(@PathVariable("announcementId") UUID announcementId,
+      @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを削除
       AnnouncementWithHistory deletedAnnouncementWithHistory = announcementApplicationService
-          .deleteAnnouncementAndRecordHistory(announcementId, "DummyUser");
+          .deleteAnnouncementAndRecordHistory(announcementId, userDetails.getUsername());
 
       Announcement announcement = deletedAnnouncementWithHistory.getAnnouncement();
       List<AnnouncementHistory> histories = deletedAnnouncementWithHistory.getHistories();
