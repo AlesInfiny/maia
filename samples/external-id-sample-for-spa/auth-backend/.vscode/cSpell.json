@@ -1,0 +1,25 @@
+{
+  "ignorePaths": [
+    "checkstyle.xml",
+    "eclipse-formatter.xml",
+    "**/gradlew",
+    "**/gradlew.bat"
+  ],
+  "words": [
+    "appender",
+    "Appenders",
+    "controlleradvice",
+    "Dressca",
+    "Dspring",
+    "jacoco",
+    "projectlombok",
+    "puppycrawl",
+    "servertime",
+    "Servlet",
+    "springdoc",
+    "springframework",
+    "spotbugs",
+    "systemcommon",
+    "webmvc"
+  ]
+}
