@@ -18,11 +18,10 @@ public interface AnnouncementRepository {
   long countByIsDeletedFalse();
 
   /**
-   * オフセットとリミットから、論理削除されていないお知らせメッセージを
-   * 掲載開始日時の降順で取得します。
+   * オフセットとリミットから、論理削除されていないお知らせメッセージを掲載開始日時の降順で取得します。
    *
    * @param offset オフセット。
-   * @param limit  リミット。
+   * @param limit リミット。
    * @return お知らせメッセージのリスト。
    */
   List<Announcement> findByOffsetAndLimit(int offset, int limit);

@@ -11,8 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 /**
- * {@link UserRepository} を継承するクラス。
- * ユーザー情報を取得します。
+ * {@link UserRepository} を継承するクラス。 ユーザー情報を取得します。
  */
 @Repository
 @RequiredArgsConstructor
@@ -32,10 +31,7 @@ public class MyBatisUserRepository implements UserRepository {
     }
 
     ApplicationUserEntity entity = entities.get(0);
-    return new UserDetailsImpl(
-        entity.getId(),
-        entity.getName(),
-        entity.getEmail(),
+    return new UserDetailsImpl(entity.getId(), entity.getName(), entity.getEmail(),
         entity.getPassword());
   }
 }

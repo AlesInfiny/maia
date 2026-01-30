@@ -34,8 +34,7 @@ public class SecurityConfig {
   }
 
   /**
-   * 認証処理を行う Bean を返します。
-   * 認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を用いる。
+   * 認証処理を行う Bean を返します。 認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を用いる。
    * 
    * @param authenticationConfiguration 認証設定。
    * @return 認証マネージャー。
@@ -68,17 +67,11 @@ public class SecurityConfig {
    */
   @Bean
   public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-    http
-        .authenticationProvider(authenticationProvider())
-        .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/h2-console/**", "/account/login",
-                "/bootstrap/**", "/css/**", "/scss/**", "/images/**")
-            .permitAll()
+    http.authenticationProvider(authenticationProvider())
+        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/h2-console/**",
+            "/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**").permitAll()
             .anyRequest().authenticated())
-        .formLogin(form -> form
-            .loginPage("/account/login")
-            .permitAll()
-            .disable())
+        .formLogin(form -> form.loginPage("/account/login").permitAll().disable())
         // ログアウト機能を有効にする場合は、以下のコメントアウトを外してください。
         // .logout(logout -> logout
         // .logoutUrl("/account/logout")
@@ -87,10 +80,8 @@ public class SecurityConfig {
         .exceptionHandling(exception -> exception
             .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")))
         // csrf 無効化は本番環境では削除してください。
-        .csrf(csrf -> csrf
-            .ignoringRequestMatchers("/h2-console/**"))
-        .headers(headers -> headers
-            .frameOptions(frameOptions -> frameOptions.sameOrigin()));
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
     return http.build();
   }

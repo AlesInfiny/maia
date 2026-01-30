@@ -14,7 +14,7 @@ public class HomeController {
    * 
    * @return トップ画面のビュー名。
    */
-  @GetMapping({ "/", "/top" })
+  @GetMapping({"/", "/top"})
   public String top() {
     return "top";
   }
