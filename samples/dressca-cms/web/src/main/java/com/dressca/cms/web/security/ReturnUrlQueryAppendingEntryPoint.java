@@ -9,8 +9,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * {@link LoginUrlAuthenticationEntryPoint} を継承するクラス。
- * 未認証ユーザーが認証が必要な画面にアクセスした場合に、
+ * {@link LoginUrlAuthenticationEntryPoint} を継承するクラス。 未認証ユーザーが認証が必要な画面にアクセスした場合に、
  * ログイン画面にリダイレクトする前にクエリ文字列に return-url を追加します。
  */
 public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEntryPoint {
@@ -36,11 +35,8 @@ public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEnt
       returnUrl = requestUri + "?" + queryString;
     }
 
-    String redirectUrl = UriComponentsBuilder
-        .fromPath(getLoginFormUrl())
-        .queryParam("return-url", returnUrl)
-        .build()
-        .toUriString();
+    String redirectUrl = UriComponentsBuilder.fromPath(getLoginFormUrl())
+        .queryParam("return-url", returnUrl).build().toUriString();
 
     response.sendRedirect(redirectUrl);
   }
