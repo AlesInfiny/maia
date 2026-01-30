@@ -6,13 +6,6 @@
     "config_loc": "${workspaceFolder}/config/checkstyle"
   },
   "java.format.settings.url": "./config/formatter/eclipse-formatter.xml",
-  "cSpell.words": [
-    "controlleradvice",
-    "Dressca",
-    "springframework",
-    "Servlet",
-    "systemcommon"
-  ],
   "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
