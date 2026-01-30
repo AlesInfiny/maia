@@ -20,13 +20,13 @@ public class AnnouncementValidationException extends LogicException {
   private final List<ValidationError> validationErrors = new ArrayList<>();
 
   /**
-   * お知らせメッセージのバリデーションエラーを指定して、{@link AnnouncementValidationException}
-   * クラスのインスタンスを初期化します。
+   * お知らせメッセージのバリデーションエラーを指定して、{@link AnnouncementValidationException} クラスのインスタンスを初期化します。
    * 
    * @param validationErrors バリデーションエラーのリスト。
    */
   public AnnouncementValidationException(List<ValidationError> validationErrors) {
-    super(null, ExceptionIdConstants.E_VALIDATION_ERROR, new String[] { joinFieldNames(validationErrors) });
+    super(null, ExceptionIdConstants.E_VALIDATION_ERROR,
+        new String[] {joinFieldNames(validationErrors)});
     this.validationErrors.addAll(validationErrors);
   }
 
@@ -40,10 +40,8 @@ public class AnnouncementValidationException extends LogicException {
     if (errors == null || errors.isEmpty()) {
       return "";
     }
-    return errors.stream()
-        .map(ValidationError::getFieldName)
-        .filter(name -> name != null && !name.isBlank())
-        .distinct()
+    return errors.stream().map(ValidationError::getFieldName)
+        .filter(name -> name != null && !name.isBlank()).distinct()
         .collect(Collectors.joining(", "));
   }
 }

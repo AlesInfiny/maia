@@ -15,7 +15,8 @@ public class AnnouncementNotFoundException extends LogicException {
    * @param announcementId お知らせメッセージ ID。
    */
   public AnnouncementNotFoundException(UUID announcementId) {
-    super(null, ExceptionIdConstants.E_ANNOUNCEMENT_NOT_FOUND, new String[] { announcementId.toString() });
+    super(null, ExceptionIdConstants.E_ANNOUNCEMENT_NOT_FOUND,
+        new String[] {announcementId.toString()});
   }
 
 }

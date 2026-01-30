@@ -30,15 +30,19 @@ public class AnnouncementViewModel {
   /**
    * カテゴリー。
    */
-  @Size(max = 128, groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.categoryTooLong}")
-  @Size(max = 128, groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.categoryTooLong}")
+  @Size(max = 128, groups = AnnouncementValidationGroup.Store.class,
+      message = "{announcement.create.categoryTooLong}")
+  @Size(max = 128, groups = AnnouncementValidationGroup.Update.class,
+      message = "{announcement.edit.categoryTooLong}")
   private String category;
 
   /**
    * 掲載開始日。
    */
-  @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.postDateIsRequired}")
-  @NotNull(groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.postDateIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Store.class,
+      message = "{announcement.create.postDateIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Update.class,
+      message = "{announcement.edit.postDateIsRequired}")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate postDate;
 
@@ -63,8 +67,10 @@ public class AnnouncementViewModel {
   /**
    * 表示優先度。
    */
-  @NotNull(groups = AnnouncementValidationGroup.Store.class, message = "{announcement.create.displayPriorityIsRequired}")
-  @NotNull(groups = AnnouncementValidationGroup.Update.class, message = "{announcement.edit.displayPriorityIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Store.class,
+      message = "{announcement.create.displayPriorityIsRequired}")
+  @NotNull(groups = AnnouncementValidationGroup.Update.class,
+      message = "{announcement.edit.displayPriorityIsRequired}")
   private Integer displayPriority;
 
   /**

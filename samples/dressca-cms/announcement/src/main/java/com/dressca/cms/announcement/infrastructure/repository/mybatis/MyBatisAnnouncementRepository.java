@@ -65,7 +65,8 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
       return Optional.empty();
     }
     announcement.setIsDeleted(true);
-    announcementMapper.updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
+    announcementMapper
+        .updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
     return Optional.ofNullable(announcement);
   }
 }

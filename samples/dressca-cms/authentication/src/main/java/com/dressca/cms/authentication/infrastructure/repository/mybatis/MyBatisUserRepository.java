@@ -32,10 +32,7 @@ public class MyBatisUserRepository implements UserRepository {
     }
 
     ApplicationUserEntity entity = entities.get(0);
-    return new UserDetailsImpl(
-        entity.getId(),
-        entity.getName(),
-        entity.getEmail(),
+    return new UserDetailsImpl(entity.getId(), entity.getName(), entity.getEmail(),
         entity.getPassword());
   }
 }
