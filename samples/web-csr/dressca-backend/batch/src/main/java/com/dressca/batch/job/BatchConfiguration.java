@@ -29,7 +29,7 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 public class BatchConfiguration {
 
   /**
-   * catalogItem_tasklet_job 用の step を設定します。
+   * カタログアイテムのタスクレットジョブ（catalogItem_tasklet_job） 用の step を設定します。
    * 
    * @param jobRepository ジョブのリポジトリ。
    * @param transactionManager トランザクションマネージャー。
@@ -44,7 +44,7 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_tasklet_job を設定します。
+   * カタログアイテムのタスクレットジョブ（catalogItem_tasklet_job） を設定します。
    * 
    * @param jobRepository ジョブのリポジトリ。
    * @param step1 ジョブで実行する step 。
@@ -58,7 +58,7 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_job 用の step を設定します。
+   * カタログアイテムのジョブ（catalogItem_job） 用の step を設定します。
    * 
    * @param jobRepository ジョブのリポジトリ。
    * @param transactionManager トランザクションマネージャー。
@@ -95,7 +95,7 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_job を設定します。
+   * カタログアイテムのジョブ（catalogItem_job） を設定します。
    * 
    * @param listener 設定する Listener 。
    * @param jobRepository ジョブのリポジトリ。

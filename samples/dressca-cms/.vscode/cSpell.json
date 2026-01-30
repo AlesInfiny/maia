@@ -1,9 +1,6 @@
 {
-  "ignorePaths": ["**/gradlew", "**/gradlew.bat"],
-  "ignoreWords": [
-    "AlesInfiny",
-    "Appender",
-    "Appenders",
+  "ignorePaths": ["checkstyle.xml", "eclipse-formatter.xml", "**/gradlew", "**/gradlew.bat"],
+  "words": [
     "applicationcore",
     "assertj",
     "buildscript",
@@ -13,21 +10,14 @@
     "Dspring",
     "dtos",
     "esbenp",
-    "factorypath",
     "fasterxml",
     "gradlew",
-    "hikari",
     "jacoco",
     "jdbc",
     "jvmargs",
-    "MyBatis",
-    "nbbuild",
-    "nbdist",
-    "nbproject",
-    "ored",
+    "myBatis",
     "projectlombok",
     "puppycrawl",
-    "refid",
     "Reloadable",
     "shengchen",
     "springdoc",
@@ -38,9 +28,7 @@
     "taskdef",
     "Thymeleaf",
     "ultraq",
-    "varchar",
     "vscjava",
-    "webmvc",
-    "XMLMAPPER"
+    "webmvc"
   ]
 }

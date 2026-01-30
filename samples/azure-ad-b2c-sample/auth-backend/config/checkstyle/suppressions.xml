@@ -5,8 +5,6 @@
   "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <!-- 自動生成クラスはチェックしない -->
-  <suppress checks=".*" files="com[\\/]dressca[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
   <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
   <suppress checks="MethodName" files=".*Test.java$"/>
   <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->

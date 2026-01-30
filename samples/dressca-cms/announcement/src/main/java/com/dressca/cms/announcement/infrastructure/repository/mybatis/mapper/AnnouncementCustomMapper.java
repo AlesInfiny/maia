@@ -13,9 +13,10 @@ import org.apache.ibatis.annotations.Param;
 public interface AnnouncementCustomMapper {
 
   /**
-   * オフセットとリミットから、論理削除されていないお知らせメッセージとコンテンツを JOIN して取得します。 取得するお知らせメッセージは掲載開始日時である post_date_time
-   * カラム日付の降順でソートされます。
-   *
+   * オフセットとリミットから、論理削除されていないお知らせメッセージとコンテンツを JOIN して取得します。
+   * 
+   * <p>取得するお知らせメッセージは掲載開始日時である post_date_time カラム日付の降順でソートされます。</p>
+   * 
    * @param offset オフセット。
    * @param limit リミット。
    * @return お知らせメッセージとコンテンツを保持する DTO のリスト。
@@ -24,7 +25,9 @@ public interface AnnouncementCustomMapper {
       @Param("limit") int limit);
 
   /**
-   * 指定した ID のお知らせメッセージをお知らせコンテンツと併せて取得します。 取得するお知らせメッセージは論理削除されていないものに限ります。
+   * 指定した ID のお知らせメッセージをお知らせコンテンツと併せて取得します。
+   * 
+   * <p>取得するお知らせメッセージは論理削除されていないものに限ります。</p>
    * 
    * @param id お知らせメッセージID。
    * @return お知らせメッセージとコンテンツを保持する DTO。ID に対応するお知らせメッセージが存在しない、または論理削除済みの場合は null。
