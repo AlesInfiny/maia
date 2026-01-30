@@ -19,7 +19,7 @@ ext {
     servletApiVersion = "6.1.0"
     commonsLangVersion = "3.20.0"
     mybatisGeneratorVersion = "1.4.2"
-    javaUuidGeneratorVersion = "5.1.1"
+    javaUuidGeneratorVersion = "5.2.0"
     thymeleafLayoutDialectVersion = "3.4.0"
 
     supportDependencies = [
