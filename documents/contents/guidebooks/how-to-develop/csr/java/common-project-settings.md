@@ -202,7 +202,11 @@ VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visua
 
 ```json
 {
-  "java.checkstyle.configuration": "ディレクトリパスを含むインプットファイル名"
+  "java.checkstyle.version": "x.x.x",
+  "java.checkstyle.configuration": "ディレクトリパスを含むインプットファイル名",
+  "java.checkstyle.properties": {
+    "config_loc": "ディレクトリパス"
+  }
 }
 ```
 
