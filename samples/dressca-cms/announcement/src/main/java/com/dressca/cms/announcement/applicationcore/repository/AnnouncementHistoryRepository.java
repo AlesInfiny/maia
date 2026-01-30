@@ -17,8 +17,7 @@ public interface AnnouncementHistoryRepository {
   void add(AnnouncementHistory announcementHistory);
 
   /**
-   * 指定したお知らせメッセージIDに対応するお知らせメッセージ履歴を
-   * お知らせコンテンツ履歴と併せて取得します。
+   * 指定したお知らせメッセージIDに対応するお知らせメッセージ履歴をお知らせコンテンツ履歴と併せて取得します。
    *
    * @param announcementId お知らせメッセージID。
    * @return お知らせメッセージ履歴のリスト。
