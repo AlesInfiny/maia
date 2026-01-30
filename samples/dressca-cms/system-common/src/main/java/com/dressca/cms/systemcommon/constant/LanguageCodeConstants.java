@@ -18,9 +18,6 @@ public class LanguageCodeConstants {
   public static final Locale LOCALE_ES = Locale.of("es");
 
   /** 言語コードの優先順位マップです。 */
-  public static final Map<String, Integer> LANGUAGE_CODE_PRIORITY = Map.of(
-      LOCALE_JA.getLanguage(), 1,
-      LOCALE_EN.getLanguage(), 2,
-      LOCALE_ZH.getLanguage(), 3,
-      LOCALE_ES.getLanguage(), 4);
+  public static final Map<String, Integer> LANGUAGE_CODE_PRIORITY = Map.of(LOCALE_JA.getLanguage(),
+      1, LOCALE_EN.getLanguage(), 2, LOCALE_ZH.getLanguage(), 3, LOCALE_ES.getLanguage(), 4);
 }
