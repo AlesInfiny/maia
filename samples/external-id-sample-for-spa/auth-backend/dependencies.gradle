@@ -11,7 +11,7 @@ ext {
     spotbugsToolVersion = "4.8.6"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "3.0.0"
+    springdocOpenapiVersion = "3.0.1"
 
     supportDependencies = [
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
