@@ -36,8 +36,8 @@ public interface AnnouncementRepository {
   /**
    * 指定したIDのお知らせメッセージをお知らせコンテンツと併せて取得します。
    *
-   * @param id お知らせメッセージID。
-   * @return お知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
+   * @param id お知らせメッセージ ID。
+   * @return お知らせメッセージ。ID に対応するお知らせメッセージが存在しない、または論理削除済みの場合は null。
    */
   Optional<Announcement> findByIdWithContents(UUID id);
 
@@ -51,8 +51,8 @@ public interface AnnouncementRepository {
   /**
    * 指定したIDのお知らせメッセージを論理削除します。
    *
-   * @param id お知らせメッセージID。
-   * @return 論理削除したお知らせメッセージ。IDに対応するお知らせメッセージが存在しない、または論理削除済みの場合はnull。
+   * @param id お知らせメッセージ ID。
+   * @return 論理削除したお知らせメッセージ。ID に対応するお知らせメッセージが存在しない、または論理削除済みの場合は null。
    */
   Optional<Announcement> delete(UUID id);
 }

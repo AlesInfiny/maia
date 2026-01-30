@@ -11,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 /**
- * {@link UserRepository} を継承するクラス。 ユーザー情報を取得します。
+ * {@link UserRepository} を継承するクラス。
+ * ユーザー情報を取得します。
  */
 @Repository
 @RequiredArgsConstructor

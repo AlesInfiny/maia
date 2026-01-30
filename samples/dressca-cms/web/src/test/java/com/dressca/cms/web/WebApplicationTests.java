@@ -12,6 +12,5 @@ class WebApplicationTests {
   @Test
   @DisplayName("コンテキストが正常に読み込まれるか確認")
   void contextLoads() {
-
   }
 }

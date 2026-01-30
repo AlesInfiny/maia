@@ -9,8 +9,9 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * {@link LoginUrlAuthenticationEntryPoint} を継承するクラス。 未認証ユーザーが認証が必要な画面にアクセスした場合に、
- * ログイン画面にリダイレクトする前にクエリ文字列に return-url を追加します。
+ * {@link LoginUrlAuthenticationEntryPoint} を継承するクラス。
+ * 
+ * <p>未認証ユーザーが認証が必要な画面にアクセスした場合に、ログイン画面にリダイレクトする前にクエリ文字列に return-url を追加します。</p>
  */
 public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
