@@ -26,3 +26,7 @@ description: アプリケーションセキュリティを 担保するための
 1. [XSS （クロスサイト・スクリプティング）](./xss.md)
 
     XSS 攻撃への AlesInfiny Maia での対策を説明します。
+
+1. [クリックジャッキング](./clickjacking.md)
+
+    クリックジャッキング攻撃への AlesInfiny Maia での対策を説明します。
