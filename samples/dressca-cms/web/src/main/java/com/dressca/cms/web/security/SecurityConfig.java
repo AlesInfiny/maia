@@ -69,7 +69,9 @@ public class SecurityConfig {
    */
   @Bean
   public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-    http.authenticationProvider(authenticationProvider())
+    http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
+        .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
+        .authenticationProvider(authenticationProvider())
         .authorizeHttpRequests(authorize -> authorize.requestMatchers("/h2-console/**",
             "/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**").permitAll()
             .anyRequest().authenticated())
@@ -82,8 +84,7 @@ public class SecurityConfig {
         .exceptionHandling(exception -> exception
             .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")))
         // csrf 無効化は本番環境では削除してください。
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
 
     return http.build();
   }
