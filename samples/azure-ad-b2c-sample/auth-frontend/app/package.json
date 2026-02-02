@@ -27,7 +27,7 @@
   "dependencies": {
     "@azure/msal-browser": "4.27.0",
     "@heroicons/vue": "2.2.0",
-    "axios": "1.13.2",
+    "axios": "1.13.3",
     "msw": "2.12.4",
     "pinia": "3.0.4",
     "vue": "3.5.25"
