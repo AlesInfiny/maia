@@ -14,13 +14,13 @@ description: バックエンドアプリケーションのアーキテクチャ�
 
 ### 単項目チェック {#single-item-check}
 
-単項目チェックは Bean Validation を用いて実装します。
+単項目チェックは Bean Validation 仕様に準拠したバリデーションフレームワークである [Hibernate Validator :material-open-in-new:](https://hibernate.org/validator/){ target=_blank } を用いて実装します。
 API モデルに対してアノテーションを付与し、チェックルールを定義します。
-実装方法については [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#chapter-bean-constraints){ target=_blank } を参照してください。
+実装方法については [こちら :material-open-in-new:](https://docs.hibernate.org/stable/validator/reference/en-US/html_single/#chapter-bean-constraints){ target=_blank } を参照してください。
 
-Hibernate Validator であらかじめ実装されているチェックルールは [こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints){ target=_blank } を参照してください。
+Hibernate Validator であらかじめ実装されているチェックルールは [こちら :material-open-in-new:](https://docs.hibernate.org/stable/validator/reference/en-US/html_single/#section-builtin-constraints){ target=_blank } を参照してください。
 単項目チェックの多くは、これらの実装済みチェックルールを利用するだけで検証を行えます。
-既存のチェックルールでは実現できない場合は、[こちら :material-open-in-new:](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple){ target=_blank } を参照してカスタムルールを実装します。
+既存のチェックルールでは実現できない場合は、[こちら :material-open-in-new:](https://docs.hibernate.org/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple){ target=_blank } を参照してカスタムルールを実装します。
 
 単項目チェックは、コントローラーの引数である API モデルに対して一律実行されるように実装します。
 
@@ -39,7 +39,7 @@ Hibernate Validator で定義済みのチェックルールは、項目間のデ
 汎用的なチェックルールは Bean Validation のカスタムルールとして実装することを推奨します。
 
 汎用的でないチェックルールは、どちらの方法で実装してもかまいません。
-Bean Validation のカスタムルールで実装すると処理方式の統一が図れる半面、カスタムルールの実装は若干煩雑です。
+Bean Validation のカスタムルールで実装すると処理方式の統一が図れる反面、カスタムルールの実装は若干煩雑です。
 
 ## 例外ハンドリング {#exception-handling}
 

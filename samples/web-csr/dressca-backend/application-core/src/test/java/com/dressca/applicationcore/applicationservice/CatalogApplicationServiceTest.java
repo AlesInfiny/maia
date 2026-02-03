@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
@@ -45,7 +46,7 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith(SpringExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
@@ -71,8 +72,8 @@ public class CatalogApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    service = new CatalogApplicationService(messages, catalogRepository, brandRepository, categoryRepository,
-        catalogDomainService, apLog);
+    service = new CatalogApplicationService(messages, catalogRepository, brandRepository,
+        categoryRepository, catalogDomainService, apLog);
     service.setUserStore(this.userStore);
   }
 
@@ -93,7 +94,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItem_正常系_指定したidのカタログアイテムが返却される() throws CatalogNotFoundException, PermissionDeniedException {
+  void testGetCatalogItem_正常系_指定したidのカタログアイテムが返却される()
+      throws CatalogNotFoundException, PermissionDeniedException {
     // Arrange
     long targetId = 1L;
     CatalogItem expectedCatalogItem = createCatalogItem(targetId);
@@ -127,8 +129,6 @@ public class CatalogApplicationServiceTest {
   void testGetCatalogItem_異常系_カタログアイテムを取得する権限がない() {
     // Arrange
     long targetId = 1L;
-    CatalogItem item = createCatalogItem(targetId);
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(item);
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Action
@@ -147,19 +147,18 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     int page = 0;
     int pageSize = 20;
-    when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
     service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
+    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page,
+        pageSize);
   }
 
   @Test
   void testGetCatalogItemsForConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
     // Arrange
-    when(this.userStore.isInRole(anyString())).thenReturn(true);
     long brandId = 1L;
     long categoryId = 1L;
     int page = 0;
@@ -171,14 +170,16 @@ public class CatalogApplicationServiceTest {
         .thenReturn(expectedCatalogItemList);
 
     // Action
-    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
+    List<CatalogItem> actualCatalogItemList =
+        service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
   }
 
   @Test
-  void testGetCatalogItemsForAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() throws PermissionDeniedException {
+  void testGetCatalogItemsForAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す()
+      throws PermissionDeniedException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -190,12 +191,13 @@ public class CatalogApplicationServiceTest {
     service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page,
-        pageSize);
+    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId,
+        categoryId, page, pageSize);
   }
 
   @Test
-  void testGetCatalogItemsForAdmin_正常系_指定した条件のカタログアイテムのリストが返却される() throws PermissionDeniedException {
+  void testGetCatalogItemsForAdmin_正常系_指定した条件のカタログアイテムのリストが返却される()
+      throws PermissionDeniedException {
     // Arrange
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     long brandId = 1L;
@@ -205,11 +207,12 @@ public class CatalogApplicationServiceTest {
     long targetId = 1L;
     CatalogItem catalogItem = createCatalogItem(targetId);
     List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
-    when(this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page, pageSize))
-        .thenReturn(expectedCatalogItemList);
+    when(this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId,
+        page, pageSize)).thenReturn(expectedCatalogItemList);
 
     // Action
-    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+    List<CatalogItem> actualCatalogItemList =
+        service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
@@ -234,8 +237,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す()
-      throws PermissionDeniedException, CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す() throws PermissionDeniedException,
+      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -255,8 +258,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される()
-      throws PermissionDeniedException, CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される() throws PermissionDeniedException,
+      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
@@ -272,8 +275,8 @@ public class CatalogApplicationServiceTest {
     when(this.catalogRepository.add(any())).thenReturn(expectedCatalogItem);
 
     // Action
-    CatalogItem actualCatalogItem = service.addItemToCatalog(name, description, price, productCode, categoryId,
-        brandId);
+    CatalogItem actualCatalogItem =
+        service.addItemToCatalog(name, description, price, productCode, categoryId, brandId);
 
     // Assert
     assertThat(actualCatalogItem).isEqualTo(expectedCatalogItem);
@@ -285,8 +288,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     long categoryId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
     String name = "テストアイテム";
     String description = "テスト用のアイテムです。";
     BigDecimal price = new BigDecimal(123456);
@@ -307,7 +308,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     long categoryId = 999L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
     String name = "テストアイテム";
     String description = "テスト用のアイテムです。";
@@ -346,8 +346,8 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す()
-      throws CatalogNotFoundException, PermissionDeniedException, OptimisticLockingFailureException {
+  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す() throws CatalogNotFoundException,
+      PermissionDeniedException, OptimisticLockingFailureException {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
@@ -369,7 +369,6 @@ public class CatalogApplicationServiceTest {
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
 
     // Action
     Executable action = () -> {
@@ -385,10 +384,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long targetId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(this.catalogRepository.remove(targetId, rowVersion)).thenReturn(1);
-
     // Action
     Executable action = () -> {
       this.service.deleteItemFromCatalog(targetId, rowVersion);
@@ -417,8 +413,9 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testUpdateCatalogItem_正常系_リポジトリのupdateを1回呼出す() throws CatalogNotFoundException, PermissionDeniedException,
-      CatalogBrandNotFoundException, CatalogCategoryNotFoundException, OptimisticLockingFailureException {
+  void testUpdateCatalogItem_正常系_リポジトリのupdateを1回呼出す()
+      throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
+      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
     // Arrange
     long targetId = 1L;
     long categoryId = 1L;
@@ -436,8 +433,8 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Action
-    this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-        isDeleted);
+    this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+        brandId, rowVersion, isDeleted);
 
     // Assert
     verify(this.catalogRepository, times(1)).update(any());
@@ -451,9 +448,6 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(false);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -462,8 +456,8 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-          isDeleted);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+          brandId, rowVersion, isDeleted);
     };
 
     // Assert
@@ -478,9 +472,7 @@ public class CatalogApplicationServiceTest {
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(false);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -489,8 +481,8 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-          isDeleted);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+          brandId, rowVersion, isDeleted);
     };
 
     // Assert
@@ -507,7 +499,6 @@ public class CatalogApplicationServiceTest {
     when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
     when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(false);
     when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -517,8 +508,8 @@ public class CatalogApplicationServiceTest {
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-          isDeleted);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+          brandId, rowVersion, isDeleted);
     };
 
     // Assert
@@ -532,10 +523,6 @@ public class CatalogApplicationServiceTest {
     long categoryId = 1L;
     long brandId = 1L;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
-    when(this.catalogDomainService.existCatalogItem(targetId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogBrand(brandId)).thenReturn(true);
-    when(this.catalogDomainService.existCatalogCategory(categoryId)).thenReturn(true);
-    when(this.catalogRepository.update(any())).thenReturn(1);
     String name = "name";
     String description = "Description.";
     BigDecimal price = BigDecimal.valueOf(100_000_000L);
@@ -545,8 +532,8 @@ public class CatalogApplicationServiceTest {
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-          isDeleted);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+          brandId, rowVersion, isDeleted);
     };
 
     // Assert
@@ -573,8 +560,8 @@ public class CatalogApplicationServiceTest {
 
     // Action
     Executable action = () -> {
-      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId, brandId, rowVersion,
-          isDeleted);
+      this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
+          brandId, rowVersion, isDeleted);
     };
 
     // Assert
@@ -600,13 +587,15 @@ public class CatalogApplicationServiceTest {
     // Arrange
     long brandId = 1L;
     long categoryId = 1L;
-    when(this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(anyLong(), anyLong())).thenReturn(1);
+    when(this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(anyLong(), anyLong()))
+        .thenReturn(1);
 
     // Act
     service.countCatalogItemsForAdmin(brandId, categoryId);
 
     // Assert
-    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(anyLong(), anyLong());
+    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(anyLong(),
+        anyLong());
   }
 
   @Test

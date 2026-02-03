@@ -25,8 +25,7 @@ public class MybatisAssetRepository implements AssetRepository {
     AssetEntityExample example = new AssetEntityExample();
     example.createCriteria().andAssetCodeEqualTo(assetCode);
 
-    return assetMapper.selectByExample(example).stream()
-        .map(EntityTranslator::assetEntityTranslate)
+    return assetMapper.selectByExample(example).stream().map(EntityTranslator::assetEntityTranslate)
         .findFirst();
   }
 }

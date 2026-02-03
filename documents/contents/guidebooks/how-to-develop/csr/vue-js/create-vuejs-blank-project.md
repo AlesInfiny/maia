@@ -6,7 +6,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 # ブランクプロジェクトの作成 {#top}
 
 下記の手順では、 Node.js のルートプロジェクトとワークスペースを作成し、作成したワークスペースに Vue.js のブランクプロジェクトを作成します。
-本ページに記載しているターミナルの出力例は、 Node.js v22.17.1 、 npm v10.9.2 、 create-vue v3.18.1 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
+本ページに記載しているターミナルの出力例は、 Node.js v24 系 、 npm v11 系 、 create-vue v3.18.3 を使用してプロジェクトを作成した際のものです。バージョンが異なる場合、出力内容は異なる可能性があります。
 
 ## プロジェクトの全体像 {#project-overview}
 
@@ -25,7 +25,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 以下のコマンドを実行して、ルートプロジェクトを初期化します。
 
 ```shell
-npm init -y
+npm init -y --init-type=module --init-private
 ```
 
 実行に成功すると、 package.json ファイルが作成されます。
@@ -36,6 +36,7 @@ Wrote to ...\package.json:
 {
   "name": "root-project-name",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -43,9 +44,20 @@ Wrote to ...\package.json:
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "type": "module",
+  "private": true
 }
 ```
+
+!!! info "npm init コマンドのオプションについて"
+    npm init コマンドの実行時に指定しているオプションの目的は下記の通りです。
+
+    - `-y`
+      対話的な質問を省略し、すべて既定値を使って package.json を自動生成するオプションです。
+    - `--init-type=module`
+      package.json に `"type": "module"` を追加し、ESM 形式をデフォルトとして扱うようにします。
+    - `--init-private`
+      package.json に `"private": true` を設定し、誤って npm レジストリへ公開されることを防ぎます。
 
 ## Vue.js およびオプションのインストール {#install-vue-js-and-options}
 

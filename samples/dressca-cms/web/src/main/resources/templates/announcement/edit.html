@@ -1,0 +1,315 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>お知らせメッセージ編集</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* ページタイトル */-->
+      <h1 class="display-6 mb-4" th:text="#{announcement.edit.pageTitle}"></h1>
+
+      <!--/* フォーム */-->
+      <form
+        th:action="@{/announcements/{id}/edit(id=${viewModel.announcement.id})}"
+        th:object="${viewModel}"
+        method="post">
+        <!--/* 基本情報部 */-->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title" th:text="#{announcement.edit.basicInfo}"></h5>
+            <input type="hidden" th:field="*{announcement.id}" />
+            <input type="hidden" th:field="*{announcement.createdAtDate}" />
+            <input type="hidden" th:field="*{announcement.createdAtTime}" />
+            <input type="hidden" th:field="*{announcement.changedAtDate}" />
+            <input type="hidden" th:field="*{announcement.changedAtTime}" />
+            <input type="hidden" th:field="*{announcement.isDeleted}" />
+            <div class="row mb-3">
+              <!--/* 掲載開始日時 */-->
+              <div class="col-3">
+                <label for="postDate" class="form-label fs-5" th:text="#{announcement.edit.postDateTime} + '*'"></label>
+                <div class="row g-2">
+                  <div class="col-7">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="postDate"
+                      th:field="*{announcement.postDate}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                  <div class="col-5">
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="postTime"
+                      th:field="*{announcement.postTime}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  th:if="${#fields.hasErrors('announcement.postDate')}"
+                  th:errors="*{announcement.postDate}"></div>
+              </div>
+
+              <!--/* 掲載終了日時 */-->
+              <div class="col-3">
+                <label for="expireDate" class="form-label fs-5" th:text="#{announcement.edit.expireDateTime}"></label>
+                <div class="row g-2">
+                  <div class="col-7">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="expireDate"
+                      th:field="*{announcement.expireDate}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                  <div class="col-5">
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="expireTime"
+                      th:field="*{announcement.expireTime}"
+                      th:errorclass="is-invalid" />
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  th:if="${#fields.hasErrors('announcement.expireDate')}"
+                  th:errors="*{announcement.expireDate}"></div>
+              </div>
+
+              <!--/* カテゴリー */-->
+              <div class="col-3">
+                <label for="category" class="form-label fs-5" th:text="#{announcement.edit.category}"></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="category"
+                  th:field="*{announcement.category}"
+                  th:errorclass="is-invalid" />
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('announcement.category')}"
+                  th:errors="*{announcement.category}"></div>
+              </div>
+
+              <!--/* 表示優先度 */-->
+              <div class="col-3">
+                <label
+                  for="displayPriority"
+                  class="form-label fs-5"
+                  th:text="#{announcement.edit.displayPriority} + '*'"></label>
+                <select
+                  class="form-select"
+                  id="displayPriority"
+                  th:field="*{announcement.displayPriority}"
+                  th:errorclass="is-invalid">
+                  <option
+                    th:each="entry : ${displayPriority}"
+                    th:value="${entry.value}"
+                    th:text="${entry.label}"></option>
+                </select>
+                <div
+                  class="invalid-feedback"
+                  th:if="${#fields.hasErrors('announcement.displayPriority')}"
+                  th:errors="*{announcement.displayPriority}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <!--/* お知らせメッセージ部 */-->
+          <div class="col-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title mb-0" th:text="#{announcement.edit.announcementMessages}"></h5>
+                  <!--/* 別の言語を追加ボタン */-->
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary mt-2"
+                    name="addLanguageToEdit"
+                    th:text="#{announcement.edit.addLanguage}"></button>
+                </div>
+
+                <!--/* お知らせメッセージが 0 件の場合 */-->
+                <div th:if="${#lists.isEmpty(viewModel.contents)}" th:text="#{announcement.edit.noMessages}"></div>
+
+                <!--/* お知らせメッセージが 1 件以上の場合 */-->
+                <div th:if="${!#lists.isEmpty(viewModel.contents)}">
+                  <div th:each="content, iterStat : *{contents}" class="card mb-3">
+                    <div class="card-body">
+                      <!--/* 削除ボタン */-->
+                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].id}" />
+                      <input type="hidden" th:field="*{contents[__${iterStat.index}__].announcementId}" />
+                      <div class="d-flex justify-content-end mb-3">
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-outline-danger"
+                          name="deleteLanguageFromEdit"
+                          th:value="${content.id}"
+                          th:text="#{announcement.edit.delete}"></button>
+                      </div>
+
+                      <div class="row mb-3">
+                        <!--/* 言語コード */-->
+                        <div class="col-3">
+                          <label class="form-label fs-5" th:text="#{announcement.edit.languageCode} + '*'"></label>
+                          <select
+                            class="form-select"
+                            th:field="*{contents[__${iterStat.index}__].languageCode}"
+                            th:errorclass="is-invalid">
+                            <option
+                              th:each="entry : ${languageCode}"
+                              th:value="${entry.value}"
+                              th:text="${entry.label}"></option>
+                          </select>
+                          <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('contents[' + iterStat.index + '].languageCode')}"
+                            th:errors="*{contents[__${iterStat.index}__].languageCode}"></div>
+                        </div>
+
+                        <!--/* タイトル */-->
+                        <div class="col-9">
+                          <label class="form-label fs-5" th:text="#{announcement.edit.title} + '*'"></label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            th:field="*{contents[__${iterStat.index}__].title}"
+                            th:errorclass="is-invalid" />
+                          <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('contents[' + iterStat.index + '].title')}"
+                            th:errors="*{contents[__${iterStat.index}__].title}"></div>
+                        </div>
+                      </div>
+
+                      <!--/* 表示メッセージ */-->
+                      <div class="mb-3">
+                        <label class="form-label fs-5" th:text="#{announcement.edit.message} + '*'"></label>
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          th:field="*{contents[__${iterStat.index}__].message}"
+                          th:errorclass="is-invalid"></textarea>
+                        <div
+                          class="invalid-feedback"
+                          th:if="${#fields.hasErrors('contents[' + iterStat.index + '].message')}"
+                          th:errors="*{contents[__${iterStat.index}__].message}"></div>
+                      </div>
+
+                      <!--/* リンク先 URL */-->
+                      <div class="mb-3">
+                        <label class="form-label fs-5" th:text="#{announcement.edit.linkUrl}"></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{contents[__${iterStat.index}__].linkUrl}"
+                          th:errorclass="is-invalid" />
+                        <div
+                          class="invalid-feedback"
+                          th:if="${#fields.hasErrors('contents[' + iterStat.index + '].linkUrl')}"
+                          th:errors="*{contents[__${iterStat.index}__].linkUrl}"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--/* アクション部 */-->
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body d-flex flex-column gap-3">
+                <h5 class="card-title" th:text="#{announcement.edit.actions}"></h5>
+                <!--/* 全体エラーメッセージ */-->
+                <ul class="mb-0 text-danger" th:if="${#fields.hasGlobalErrors()}">
+                  <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
+                </ul>
+                <button type="submit" class="btn btn-primary" th:text="#{announcement.edit.save}"></button>
+                <a
+                  th:href="@{/announcements/{id}/delete/confirm(id=${viewModel.announcement.id})}"
+                  class="btn btn-link"
+                  th:text="#{announcement.edit.deleteAnnouncement}"></a>
+                <a th:href="@{/announcements}" class="btn btn-link" th:text="#{announcement.edit.backToList}"></a>
+              </div>
+            </div>
+            <!--/* お知らせメッセージ更新履歴部 */-->
+            <div class="card mt-4">
+              <div class="card-body">
+                <h5 class="card-title" th:text="#{announcement.edit.updateHistory}"></h5>
+
+                <!--/* アコーディオン */-->
+                <div class="accordion" id="historyAccordion" th:if="${!#lists.isEmpty(viewModel.histories)}">
+                  <div th:each="historyWithContents, iterStat : ${viewModel.histories}" class="accordion-item">
+                    <h2 class="accordion-header" th:id="'heading' + ${iterStat.index}">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        th:attr="data-bs-toggle='collapse', data-bs-target='#collapse' + ${iterStat.index}"
+                        th:aria-expanded="false"
+                        th:aria-controls="'collapse' + ${iterStat.index}">
+                        <span
+                          th:text="${#temporals.format(historyWithContents.history.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        &nbsp;
+                        <span th:text="${operationTypeLabelMap[historyWithContents.history.operationType]}"></span>
+                        &nbsp;
+                        <span th:text="${historyWithContents.history.changedBy}"></span>
+                      </button>
+                    </h2>
+                    <div
+                      th:id="'collapse' + ${iterStat.index}"
+                      class="accordion-collapse collapse"
+                      th:attr="aria-labelledby='heading' + ${iterStat.index}"
+                      data-bs-parent="#historyAccordion">
+                      <div class="accordion-body">
+                        <!--/* 基本情報 */-->
+                        <div class="mb-3">
+                          <p>
+                            <span
+                              th:text="${#temporals.format(historyWithContents.history.postDateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                            <span
+                              th:if="${historyWithContents.history.expireDateTime != null}"
+                              th:text="' - ' + ${#temporals.format(historyWithContents.history.expireDateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                          </p>
+                          <p>
+                            <span
+                              th:if="${historyWithContents.history.category != null and !#strings.isEmpty(historyWithContents.history.category)}"
+                              th:text="${historyWithContents.history.category}"></span>
+                            <span
+                              th:if="${historyWithContents.history.category == null or #strings.isEmpty(historyWithContents.history.category)}"
+                              th:text="#{announcement.edit.categoryUnspecified}"></span>
+                          </p>
+                          <p
+                            th:text="#{announcement.edit.displayPriority} + ':' +${displayPriorityLabelMap[historyWithContents.history.displayPriority]}"></p>
+                        </div>
+
+                        <!--/* コンテンツ履歴 */-->
+                        <div th:each="contentHistory : ${historyWithContents.contentHistories}" class="card mb-2">
+                          <div class="card-body">
+                            <p th:text="${languageCodeLabelMap[contentHistory.languageCode]}"></p>
+                            <p th:text="${contentHistory.title}"></p>
+                            <p th:text="${contentHistory.message}"></p>
+                            <p th:if="${contentHistory.linkUrl != null and !#strings.isEmpty(contentHistory.linkUrl)}">
+                              <span th:text="${contentHistory.linkUrl}"></span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </th:block>
+  </body>
+</html>

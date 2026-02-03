@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- UPDATE状況などを確認するURLは以下を参照 -->
-<!-- https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml-->
+<!-- https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml -->
 <!-- formatterの設定内容については以下を参照 -->
 <!-- https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2Fformatter%2FDefaultCodeFormatterConstants.html -->
 <profiles version="13">
@@ -69,7 +69,7 @@
 <setting id="org.eclipse.jdt.core.formatter.comment.format_line_comments" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_after_closing_angle_bracket_in_type_arguments" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_after_comma_in_enum_declarations" value="insert"/>
-<setting id="org.eclipse.jdt.core.formatter.join_wrapped_lines" value="false"/>
+<setting id="org.eclipse.jdt.core.formatter.join_wrapped_lines" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_block" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_explicit_constructor_call" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.wrap_non_simple_local_variable_annotation" value="true"/>
@@ -123,7 +123,10 @@
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_parameters_in_constructor_declaration" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_after_colon_in_labeled_statement" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.brace_position_for_annotation_type_declaration" value="end_of_line"/>
-<setting id="org.eclipse.jdt.core.formatter.insert_new_line_in_empty_method_body" value="do not insert"/>
+<!-- Google Java Style に準拠すると、空メソッドでは独立していない「}」は許容されます。 -->
+<!-- しかし Checkstyle で空メソッド単独での除外設定を行うことができないため、 空のメソッドには空行を挿入する設定を追加します。 -->
+<!-- https://google.github.io/styleguide/javaguide.html#s4.1.3-braces-empty-blocks -->
+<setting id="org.eclipse.jdt.core.formatter.insert_new_line_in_empty_method_body" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_method_declaration" value="0"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_closing_paren_in_try" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_closing_paren_in_method_invocation" value="do not insert"/>
@@ -147,7 +150,10 @@
 <setting id="org.eclipse.jdt.core.compiler.problem.enumIdentifier" value="error"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_generic_type_arguments" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_switch" value="true"/>
-<setting id="org.eclipse.jdt.core.formatter.comment_new_line_at_start_of_html_paragraph" value="true"/>
+<!-- Google Java Style に準拠すると、<p> タグの後には改行を入れません。 -->
+<!-- <p> タグを用いた JavaDoc の段落の先頭に改行を入れない設定を追加します。 -->
+<!-- https://google.github.io/styleguide/javaguide.html#s7.1.2-javadoc-paragraphs -->
+<setting id="org.eclipse.jdt.core.formatter.comment_new_line_at_start_of_html_paragraph" value="false"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_ellipsis" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.brace_position_for_block" value="end_of_line"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_after_comment_prefix" value="do not insert"/>
@@ -259,7 +265,10 @@
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_closing_paren_in_synchronized" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_superinterfaces_in_enum_declaration" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.indent_statements_compare_to_block" value="true"/>
-<setting id="org.eclipse.jdt.core.formatter.join_lines_in_comments" value="true"/>
+<!-- Google Java Style に準拠すると、<p> タグの後にはスペースを入れません。 -->
+<!-- HTML フォーマットを無効化した状態で行を結合する設定を有効にするとレイアウトが崩れるため無効化します。 -->
+<!-- https://google.github.io/styleguide/javaguide.html#s7.1.2-javadoc-paragraphs -->
+<setting id="org.eclipse.jdt.core.formatter.join_lines_in_comments" value="false"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_question_in_conditional" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_comma_in_multiple_field_declarations" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_compact_if" value="16"/>
@@ -272,7 +281,10 @@
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_before_imports" value="0"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_after_colon_in_assert" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_annotations_on_field" value="1585"/>
-<setting id="org.eclipse.jdt.core.formatter.comment.format_html" value="true"/>
+<!-- Google Java Style に準拠すると、<p> タグの後には改行を入れません。 -->
+<!-- HTML フォーマットを有効化すると、<p> タグの後に自動で改行が入るため無効化します。 -->
+<!-- https://google.github.io/styleguide/javaguide.html#s7.1.2-javadoc-paragraphs -->
+<setting id="org.eclipse.jdt.core.formatter.comment.format_html" value="false"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_throws_clause_in_method_declaration" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_closing_angle_bracket_in_type_parameters" value="do not insert"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_opening_bracket_in_array_allocation_expression" value="do not insert"/>
@@ -291,8 +303,7 @@
 <setting id="org.eclipse.jdt.core.compiler.codegen.targetPlatform" value="1.7"/>
 <setting id="org.eclipse.jdt.core.formatter.alignment_for_resources_in_try" value="80"/>
 <setting id="org.eclipse.jdt.core.formatter.use_tabs_only_for_leading_indentations" value="false"/>
-<!-- アノテーションの引数を一行ずつ改行する設定だが、有効に機能していないため CheckStyle の文字数チェックで警告が発生  -->
-<setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_annotation" value="48"/>
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_annotation" value="16"/>
 <setting id="org.eclipse.jdt.core.formatter.comment.format_header" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.comment.format_block_comments" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_space_before_closing_paren_in_enum_constant" value="do not insert"/>

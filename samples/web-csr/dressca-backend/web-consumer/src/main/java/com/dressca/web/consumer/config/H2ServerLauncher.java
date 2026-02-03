@@ -17,14 +17,16 @@ import java.sql.SQLException;
 public class H2ServerLauncher {
 
   private Server tcpServer;
-  private final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private final Logger apLog =
+      LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * {@link H2ServerLauncher} クラスのインスタンスを初期化し、 H2 Database をサーバーモードで起動します。
    */
   public H2ServerLauncher() {
     try {
-      this.tcpServer = Server.createTcpServer("-tcpPort", "9092", "-tcpAllowOthers", "-ifNotExists").start();
+      this.tcpServer =
+          Server.createTcpServer("-tcpPort", "9092", "-tcpAllowOthers", "-ifNotExists").start();
     } catch (SQLException e) {
       apLog.info("H2 Database は既にサーバーモードで起動しています。");
     }

@@ -29,7 +29,8 @@ nav:
               - メッセージ管理方針: app-architecture/overview/java-application-processing-system/message-management-policy.md
               - 入力値検証方針: app-architecture/overview/java-application-processing-system/input-validation-policy.md
               - トランザクション管理方針: app-architecture/overview/java-application-processing-system/transaction-management.md
-              - ヘルスチェックの必要性: app-architecture/overview/java-application-processing-system/health-check-necessity.md
+              - ヘルスチェック機能の方針: app-architecture/overview/java-application-processing-system/health-check-policy.md
+              - 認証・認可方針: app-architecture/overview/java-application-processing-system/authentication-and-authorization-policy.md
           - Java アプリケーションのアーキテクチャ選定基準: app-architecture/overview/java-application-architecture-selection-guideline.md
       - クライアントサイドレンダリング編:
           - app-architecture/client-side-rendering/index.md
@@ -40,7 +41,7 @@ nav:
               - ログ出力方針: app-architecture/client-side-rendering/global-function/logging-policy.md
               - メッセージ管理方針: app-architecture/client-side-rendering/global-function/message-management-policy.md
               - 入力値検査方針: app-architecture/client-side-rendering/global-function/validation-policy.md
-              - ヘルスチェック機能の実装方針: app-architecture/client-side-rendering/global-function/health-check-implementation.md
+              - ヘルスチェック機能の方針: app-architecture/client-side-rendering/global-function/health-check-policy.md
               - ストア設計方針: app-architecture/client-side-rendering/global-function/store-design-policy.md
               - 認証・認可方針: app-architecture/client-side-rendering/global-function/authentication-and-authorization-policy.md
           - フロントエンドアプリケーションのアーキテクチャ:
@@ -56,6 +57,24 @@ nav:
                   - app-architecture/client-side-rendering/test/backend-application/index.md
                   - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/backend-application/unit-test.md
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
+      - サーバーサイドレンダリング編:
+          - app-architecture/server-side-rendering/index.md
+          - SSR アーキテクチャ概要: app-architecture/server-side-rendering/ssr-architecture-overview.md
+          - 全体処理方式:
+              - app-architecture/server-side-rendering/global-function/index.md
+              - 例外処理方針: app-architecture/server-side-rendering/global-function/exception-handling.md
+              - ログ出力方針: app-architecture/server-side-rendering/global-function/logging-policy.md
+              - メッセージ管理方針: app-architecture/server-side-rendering/global-function/message-management-policy.md
+              - 入力値検査方針: app-architecture/server-side-rendering/global-function/validation-policy.md
+              - ヘルスチェック機能の方針: app-architecture/server-side-rendering/global-function/health-check-policy.md
+              - 認証・認可方針: app-architecture/server-side-rendering/global-function/authentication-and-authorization-policy.md
+          - フロントエンドのアーキテクチャ:
+              - app-architecture/server-side-rendering/frontend/index.md
+          - バックエンドのアーキテクチャ:
+              - app-architecture/server-side-rendering/backend/index.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
+              - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
           - バッチアプリケーションの概要: app-architecture/batch-application/batch-application-overview.md
@@ -71,6 +90,7 @@ nav:
           - app-architecture/security/index.md
           - CSRF （クロスサイト・リクエスト・フォージェリ）: app-architecture/security/csrf.md
           - XSS （クロスサイト・スクリプティング）: app-architecture/security/xss.md
+          - クリックジャッキング: app-architecture/security/clickjacking.md
   # - クックブック:
       # - 目次: cook-book/index.md
       # - 帳票印刷: cook-book/~~~
@@ -119,16 +139,43 @@ nav:
               - CORS 環境の構築:
                   - guidebooks/how-to-develop/csr/cors/index.md
                   - Cookie の設定: guidebooks/how-to-develop/csr/cors/cookie.md
+          - SSR 編:
+              - guidebooks/how-to-develop/ssr/index.md
+              - Java 編:
+                  - guidebooks/how-to-develop/ssr/java/index.md
+                  - 事前準備: guidebooks/how-to-develop/ssr/java/preparation.md
+                  - アプリケーションの全体構造: guidebooks/how-to-develop/ssr/java/application-structure.md
+                  - プロジェクトの雛型作成: guidebooks/how-to-develop/ssr/java/create-project.md
+                  - プロジェクトの共通設定: guidebooks/how-to-develop/ssr/java/common-project-settings.md
+                  - サブプロジェクトの個別設定:
+                      - guidebooks/how-to-develop/ssr/java/sub-project-settings/index.md
+                      - web プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/web-project-settings.md
+                      - 機能モジュールのプロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/function-module-project-settings.md
+                      - system-common プロジェクトの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/system-common-project-settings.md
+                      - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/ssr/java/sub-project-settings/project-version-control.md
+                      - メッセージ管理機能の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/message-management.md
+                      - 集約例外ハンドラーの設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/exception-handling.md
+                      - MyBatis Generator の設定: guidebooks/how-to-develop/ssr/java/sub-project-settings/mybatis-generator-settings.md
+              - ローカル開発環境の構築:
+                  - guidebooks/how-to-develop/ssr/local-environment/index.md
       # - 規約:
       #     - guidebooks/conventions/index.md このページができるまで、コーディング規約を一段上のメニューに配置している。
       - コーディング規約: guidebooks/conventions/coding-conventions.md
   - サンプル解説:
       - samples/index.md
-      - Azure Active Directory B2C を利用したユーザー認証:
-          - samples/azure-ad-b2c/index.md
-          - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/azure-ad-b2c/azure-ad-b2c-consideration.md
-      - Spring Batch を利用したバッチアプリケーション:
-          - samples/spring-batch/index.md
+      - CSR アプリケーション:
+          - samples/dressca/index.md
+          - Azure Active Directory B2C を利用したユーザー認証:
+              - samples/dressca/azure-ad-b2c/index.md
+          - Microsoft Entra External ID を利用したユーザー認証:
+              - samples/dressca/external-id-sample-for-spa/index.md
+              - MSAL.js で提供される秘密情報のキャッシュ保存先: samples/dressca/external-id-sample-for-spa/msal-consideration.md
+      - SSR アプリケーション:
+          - samples/dressca-cms/index.md
+      - 要件別サンプル:
+          - samples/requirement-based/index.md
+          - Spring Batch を利用したバッチアプリケーション:
+              - samples/requirement-based/spring-batch/index.md
   - AlesInfiny Maia OSS Edition について:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md

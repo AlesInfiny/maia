@@ -19,8 +19,9 @@ import com.dressca.web.controller.AssetsController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -32,6 +33,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -48,6 +50,7 @@ import java.util.Locale;
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("local")
+@ExtendWith(MockitoExtension.class)
 public class LocalExceptionHandlerControllerAdviceTest {
 
   private static final String MOCK_APPENDER_NAME = "MockAppender";
@@ -76,7 +79,6 @@ public class LocalExceptionHandlerControllerAdviceTest {
     Mockito.when(mockAppender.getName()).thenReturn(MOCK_APPENDER_NAME);
     // Appender として利用できる準備ができていることを設定（下 2 行）
     Mockito.when(mockAppender.isStarted()).thenReturn(true);
-    Mockito.when(mockAppender.isStopped()).thenReturn(false);
 
     this.setLogLevel(Level.INFO);
   }
@@ -85,7 +87,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // application.log のロガーを取り出し、 Appender の設定（ mockAppender にログを出力させる）を行う。
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     Configuration config = ctx.getConfiguration();
-    LoggerConfig loggerConfig = config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+    LoggerConfig loggerConfig =
+        config.getLoggerConfig(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
     // テスト毎に Appender を設定するため、一度初期化する。
     loggerConfig.removeAppender(MOCK_APPENDER_NAME);
@@ -107,9 +110,8 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new LogicException(new AssetNotFoundException(assetCode), exceptionId,
-            frontMessageValue, logMessageValue));
+    Mockito.when(assetsController.get(anyString())).thenThrow(new LogicException(
+        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -137,8 +139,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new SystemException(null, exceptionId, frontMessageValue,
-            logMessageValue));
+        .thenThrow(new SystemException(null, exceptionId, frontMessageValue, logMessageValue));
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -165,8 +166,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString()))
-        .thenThrow(new RuntimeException());
+    Mockito.when(assetsController.get(anyString())).thenThrow(new RuntimeException());
     // API の呼び出しとエラー時のレスポンスであることの確認
     this.mockMvc.perform(get("/api/assets/" + assetCode))
         .andExpect(status().isInternalServerError())
@@ -183,8 +183,10 @@ public class LocalExceptionHandlerControllerAdviceTest {
 
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（ 2 行目以降はエラーのスタックトレースのため可変）
   private String createLogMessage(String exceptionId, String[] logMessageValue) {
-    MessageSource messageSource = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-    String exceptionMessage = messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+    MessageSource messageSource =
+        (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+    String exceptionMessage =
+        messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 }

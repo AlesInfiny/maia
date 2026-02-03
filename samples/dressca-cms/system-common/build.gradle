@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
 	implementation supportDependencies.spring_boot_starter
+	implementation supportDependencies.java_uuid_generator
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 

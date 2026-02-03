@@ -2,6 +2,8 @@ package com.dressca.cms.announcement.applicationcore.repository;
 
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * お知らせメッセージのリポジトリインターフェースです。
@@ -16,12 +18,41 @@ public interface AnnouncementRepository {
   long countByIsDeletedFalse();
 
   /**
-   * オフセットとリミットから、論理削除されていないお知らせメッセージを
-   * 掲載開始日時の降順で取得します。
+   * オフセットとリミットから、論理削除されていないお知らせメッセージを掲載開始日時の降順で取得します。
    *
    * @param offset オフセット。
-   * @param limit  リミット。
+   * @param limit リミット。
    * @return お知らせメッセージのリスト。
    */
   List<Announcement> findByOffsetAndLimit(int offset, int limit);
+
+  /**
+   * お知らせメッセージを追加します。
+   *
+   * @param announcement お知らせメッセージ。
+   */
+  void add(Announcement announcement);
+
+  /**
+   * 指定したIDのお知らせメッセージをお知らせコンテンツと併せて取得します。
+   *
+   * @param id お知らせメッセージ ID。
+   * @return お知らせメッセージ。ID に対応するお知らせメッセージが存在しない、または論理削除済みの場合は null。
+   */
+  Optional<Announcement> findByIdWithContents(UUID id);
+
+  /**
+   * お知らせメッセージを更新します。
+   *
+   * @param announcement お知らせメッセージ。
+   */
+  void update(Announcement announcement);
+
+  /**
+   * 指定したIDのお知らせメッセージを論理削除します。
+   *
+   * @param id お知らせメッセージ ID。
+   * @return 論理削除したお知らせメッセージ。ID に対応するお知らせメッセージが存在しない、または論理削除済みの場合は null。
+   */
+  Optional<Announcement> delete(UUID id);
 }

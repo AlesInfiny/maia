@@ -18,17 +18,11 @@ public class OrderItemMapper {
    * @return {@link OrderItemResponse} オブジェクト。
    */
   public static OrderItemResponse convert(OrderItem item) {
-    return new OrderItemResponse(
-        item.getId(),
-        new CatalogItemSummaryResponse(
-            item.getItemOrdered().getCatalogItemId(),
-            item.getItemOrdered().getProductName(),
-            item.getItemOrdered().getProductCode(),
-            item.getAssets().stream()
-                .map(OrderItemAsset::getAssetCode)
+    return new OrderItemResponse(item.getId(),
+        new CatalogItemSummaryResponse(item.getItemOrdered().getCatalogItemId(),
+            item.getItemOrdered().getProductName(), item.getItemOrdered().getProductCode(),
+            item.getAssets().stream().map(OrderItemAsset::getAssetCode)
                 .collect(Collectors.toList())),
-        item.getQuantity(),
-        item.getUnitPrice(),
-        item.getSubTotal());
+        item.getQuantity(), item.getUnitPrice(), item.getSubTotal());
   }
 }

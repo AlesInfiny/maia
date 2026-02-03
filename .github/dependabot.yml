@@ -1,4 +1,5 @@
 ---
+# cspell:ignore cooldown
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -97,3 +98,68 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+
+  # External ID for SPA
+  - package-ecosystem: "npm"
+    directory: "/samples/external-id-sample-for-spa/auth-frontend"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 40
+    commit-message:
+      prefix: "npm-external-id-for-spa"
+    labels:
+      - "target: EntraID External ID"
+      - "npm"
+      - "dependencies"
+
+  - package-ecosystem: "gradle"
+    directory: "/samples/external-id-sample-for-spa/auth-backend"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "gradle-external-id-for-spa"
+    labels:
+      - "target: EntraID External ID"
+      - "gradle"
+      - "dependencies"
+
+  # Dressca CMS
+  - package-ecosystem: "gradle"
+    directory: "/samples/dressca-cms"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "gradle-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "gradle"
+      - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "npm-dressca-cms"
+    labels:
+      - "target: Dressca-CMS"
+      - "npm"
+      - "dependencies"
+    groups:
+      bootstrap-packages:
+        patterns:
+          - "bootstrap*"
+        update-types:
+          - "minor"
+          - "patch"

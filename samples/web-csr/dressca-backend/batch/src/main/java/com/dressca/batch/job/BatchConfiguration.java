@@ -3,14 +3,14 @@ package com.dressca.batch.job;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.core.job.parameters.RunIdIncrementer;
+import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,50 +24,52 @@ import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
  * Job の定義と各種設定を行うクラスです。
  */
 @Configuration
-@ComponentScan(basePackages = { "com.dressca" })
-@MapperScan(basePackages = { "com.dressca.infrastructure.repository.mybatis" })
+@ComponentScan(basePackages = {"com.dressca"})
+@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
 public class BatchConfiguration {
 
   /**
-   * catalogItem_tasklet_job 用の step を設定します。
+   * カタログアイテムのタスクレットジョブ（catalogItem_tasklet_job） 用の step を設定します。
    * 
-   * @param jobRepository      ジョブのリポジトリ。
+   * @param jobRepository ジョブのリポジトリ。
    * @param transactionManager トランザクションマネージャー。
    * @param catalogItemTasklet ステップで実行する Tasklet 。
    * @return ステップ。
    */
   @Bean
-  public Step catalogItem_tasklet_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
-      CatalogItemTasklet catalogItemTasklet) {
-    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet, transactionManager)
-        .build();
+  public Step catalogItem_tasklet_step1(JobRepository jobRepository,
+      PlatformTransactionManager transactionManager, CatalogItemTasklet catalogItemTasklet) {
+    return new StepBuilder("catalogItem_tasklet_step1", jobRepository).tasklet(catalogItemTasklet)
+        .transactionManager(transactionManager).build();
   }
 
   /**
-   * catalogItem_tasklet_job を設定します。
+   * カタログアイテムのタスクレットジョブ（catalogItem_tasklet_job） を設定します。
    * 
    * @param jobRepository ジョブのリポジトリ。
-   * @param step1         ジョブで実行する step 。
+   * @param step1 ジョブで実行する step 。
    * @return ジョブ。
    */
   @Bean
-  public Job catalogItem_tasklet_job(JobRepository jobRepository, @Qualifier("catalogItem_tasklet_step1") Step step1) {
-    return new JobBuilder("catalogItem_tasklet_job", jobRepository).incrementer(new RunIdIncrementer())
-        .start(step1).build();
+  public Job catalogItem_tasklet_job(JobRepository jobRepository,
+      @Qualifier("catalogItem_tasklet_step1") Step step1) {
+    return new JobBuilder("catalogItem_tasklet_job", jobRepository)
+        .incrementer(new RunIdIncrementer()).start(step1).build();
   }
 
   /**
-   * catalogItem_job 用の step を設定します。
+   * カタログアイテムのジョブ（catalogItem_job） 用の step を設定します。
    * 
-   * @param jobRepository        ジョブのリポジトリ。
-   * @param transactionManager   トランザクションマネージャー。
-   * @param catalogItemReader    ステップで実行する Reader 。
+   * @param jobRepository ジョブのリポジトリ。
+   * @param transactionManager トランザクションマネージャー。
+   * @param catalogItemReader ステップで実行する Reader 。
    * @param catalogItemProcessor ステップで実行する Processor 。
-   * @param catalogItemWriter    ステップで実行する Writer 。
+   * @param catalogItemWriter ステップで実行する Writer 。
    * @return ステップ。
    */
   @Bean
-  public Step catalogItem_step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+  public Step catalogItem_step1(JobRepository jobRepository,
+      PlatformTransactionManager transactionManager,
       MyBatisPagingItemReader<CatalogItem> catalogItemReader,
       CatalogItemProcessor catalogItemProcessor,
       FlatFileItemWriter<CatalogItem> catalogItemWriter) {
@@ -78,10 +80,11 @@ public class BatchConfiguration {
     // itemProcessors.add(catalogItemProcessor);
     // itemProcessors.add(nextProcessor);
     // compositeProcessor.setDelegates(itemProcessors);
-    return new StepBuilder("catalogItem_step1", jobRepository).<CatalogItem, CatalogItem>chunk(2, transactionManager)
+    return new StepBuilder("catalogItem_step1", jobRepository).<CatalogItem, CatalogItem>chunk(2)
         .reader(catalogItemReader)
         // .processor(compositeProcessor)
         .processor(catalogItemProcessor).writer(catalogItemWriter)
+        .transactionManager(transactionManager)
         // .faultTolerant()
         // .skipLimit(10)
         // スキップ可能例外の指定（リトライ設定の場合は代わりに retry で指定する）
@@ -92,11 +95,11 @@ public class BatchConfiguration {
   }
 
   /**
-   * catalogItem_job を設定します。
+   * カタログアイテムのジョブ（catalogItem_job） を設定します。
    * 
-   * @param listener      設定する Listener 。
+   * @param listener 設定する Listener 。
    * @param jobRepository ジョブのリポジトリ。
-   * @param step1         ジョブで実行する step 。
+   * @param step1 ジョブで実行する step 。
    * @return ジョブ。
    */
   @Primary

@@ -1,0 +1,17 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+  <head>
+    <title>トップ</title>
+  </head>
+  <body>
+    <th:block layout:fragment="content">
+      <!--/* トップ画面メッセージ */-->
+      <div class="mb-3">
+        <p th:text="#{top.message}"></p>
+      </div>
+    </th:block>
+  </body>
+</html>

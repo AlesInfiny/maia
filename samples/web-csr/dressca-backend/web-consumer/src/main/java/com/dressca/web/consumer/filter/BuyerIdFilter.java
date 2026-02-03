@@ -47,9 +47,7 @@ public class BuyerIdFilter implements Filter {
     chain.doFilter(request, response);
     buyerId = request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId)
-        .path("/")
-        .httpOnly(cookieSettings.isHttpOnly())
-        .secure(cookieSettings.isSecure())
+        .path("/").httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
         .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
         .sameSite(cookieSettings.getSameSite()).build();
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());

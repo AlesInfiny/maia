@@ -42,14 +42,14 @@ Spring Batch 上でバッチ処理を実行する際の流れを以下に示し�
 
 上図で記載されている各クラスの説明は以下の通りです。
 
-- [BatchAutoConfiguration :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/autoconfigure/batch/BatchAutoConfiguration.html){ target=_blank }
+- [BatchAutoConfiguration :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/batch/autoconfigure/BatchAutoConfiguration.html){ target=_blank }
 
     起動時にコンテキストで `Job` が見つかった場合に、自動的に実行されます。
     複数の `Job` がある場合には、起動時に実行する `Job` 名を `application.properties` の `spring.batch.job.name` で指定できます。
     その後、`Job` を起動するための `JobLauncherApplicationRunner` を呼び出します。
     このクラスは、 `#!java @SpringBootApplication` を使用している場合に自動的に有効となります。
 
-- [JobLauncherApplicationRunner :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/autoconfigure/batch/JobLauncherApplicationRunner.html){ target=_blank }
+- [JobLauncherApplicationRunner :material-open-in-new:](https://spring.pleiades.io/spring-boot/api/java/org/springframework/boot/batch/autoconfigure/JobLauncherApplicationRunner.html){ target=_blank }
 
     Spring Batch アプリケーションの `Job` を起動するための `ApplicationRunner` クラスです。
     `BatchAutoConfiguration` によって自動的に実行されます。

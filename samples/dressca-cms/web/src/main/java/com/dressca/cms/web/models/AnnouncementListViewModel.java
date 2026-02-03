@@ -61,11 +61,11 @@ public class AnnouncementListViewModel {
   /**
    * コンストラクタ。
    *
-   * @param pageNumber     ページ番号
-   * @param pageSize       ページサイズ
-   * @param totalCount     お知らせメッセージの総件数
-   * @param announcements  お知らせメッセージのビューモデルのリスト
-   * @param lastPageNumber 最後のページ番号
+   * @param pageNumber ページ番号。
+   * @param pageSize ページサイズ。
+   * @param totalCount お知らせメッセージの総件数。
+   * @param announcements お知らせメッセージのビューモデルのリスト。
+   * @param lastPageNumber 最後のページ番号。
    */
   public AnnouncementListViewModel(Integer pageNumber, Integer pageSize, Long totalCount,
       List<AnnouncementWithContentsViewModel> announcements, Integer lastPageNumber) {

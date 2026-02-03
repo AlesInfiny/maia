@@ -7,7 +7,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 # メッセージ管理機能の設定 {#top}
 
-バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/overview/java-application-processing-system/message-management-policy.md) をご確認ください。
+バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/client-side-rendering/global-function/message-management-policy.md#backend-application) をご確認ください。
 
 ## 設定方法 {#settings}
 
@@ -33,7 +33,7 @@ systemError=想定外のシステムエラーが発生しました
 businessError=想定外の業務エラーが発生しました
 ```
 
-### プロパティファイルの読込 {#reading-property-files}
+### プロパティファイルの読み込み {#reading-property-files}
 
 以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
 

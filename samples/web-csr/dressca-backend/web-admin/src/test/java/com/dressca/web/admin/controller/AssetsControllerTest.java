@@ -8,7 +8,7 @@ import com.dressca.web.admin.WebApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
-@WithMockUser(roles = { "ADMIN" })
+@WithMockUser(roles = {"ADMIN"})
 public class AssetsControllerTest {
 
   @Autowired
@@ -34,8 +34,7 @@ public class AssetsControllerTest {
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
 
     // 期待する戻り値
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isOk())
+    this.mockMvc.perform(get("/api/assets/" + assetCode)).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
   }
 
@@ -45,7 +44,6 @@ public class AssetsControllerTest {
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isNotFound());
+    this.mockMvc.perform(get("/api/assets/" + assetCode)).andExpect(status().isNotFound());
   }
 }

@@ -98,6 +98,7 @@ infrastructure プロジェクトの `src` 以下にある、 `InfrastructureApp
 
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
+    description = 'プロジェクトの説明'
 
     java {
       toolchain {

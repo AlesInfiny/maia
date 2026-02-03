@@ -10,8 +10,11 @@
   <suppress checks=".*" files="com[\\/]dressca[\\/]cms[\\/]authentication[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
   <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
   <suppress checks="MethodName" files=".*Test.java$"/>
-  <!-- メッセージクラスの文字数はチェックしない -->
-  <suppress checks="LineLength" files=".*MessageIdConstants.java$"/>
+  <!-- テストクラスのメソッド名はチェックしない（英語の略語を使用するため） -->
+  <suppress checks="AbbreviationAsWordInName" files=".*Test.java$"/>
   <!-- テストクラスでは汎用的な例外のキャッチを禁止しない -->
   <suppress checks="IllegalCatch" files=".*Test.java$"/>
+  <!-- メソッド名などに起因するLineLengthの警告を抑制 -->
+  <suppress checks="LineLength" files="com[\\/]dressca[\\/]cms[\\/]web[\\/]translator[\\/]AnnouncementViewModelTranslator.java"/>
+  <suppress checks="LineLength" files="com[\\/]dressca[\\/]cms[\\/]web[\\/]controller[\\/]AnnouncementController.java"/>
 </suppressions>

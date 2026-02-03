@@ -35,7 +35,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   /**
    * 未認証エラーをステータスコード 401 で返却します。
    *
-   * @param e   未認証エラー。
+   * @param e 未認証エラー。
    * @param req リクエスト。
    * @return ステータースコード 401 のレスポンス。
    */
@@ -49,13 +49,13 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   /**
    * 認可エラーをステータスコード 404 で返却します。
    *
-   * @param e   認可エラー。
+   * @param e 認可エラー。
    * @param req リクエスト。
    * @return ステータースコード 404 のレスポンス。
    */
-  @ExceptionHandler({ AuthorizationDeniedException.class, PermissionDeniedException.class })
-  public ResponseEntity<String> handleAuthorizationDeniedException(
-      AuthorizationDeniedException e, HttpServletRequest req) {
+  @ExceptionHandler({AuthorizationDeniedException.class, PermissionDeniedException.class})
+  public ResponseEntity<String> handleAuthorizationDeniedException(AuthorizationDeniedException e,
+      HttpServletRequest req) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
   }
@@ -63,7 +63,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   /**
    * 楽観ロックエラーをステータスコード 409 で返却します。
    * 
-   * @param e   楽観ロックエラー。
+   * @param e 楽観ロックエラー。
    * @param req リクエスト。
    * @return ステータスコード 409 のレスポンス。
    */
@@ -77,59 +77,56 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   /**
    * その他の業務エラーをステータースコード 500 で返却します。
    *
-   * @param e   業務例外。
+   * @param e 業務例外。
    * @param req リクエスト。
    * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(LogicException.class)
-  public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
+  public ResponseEntity<ProblemDetail> handleLogicException(LogicException e,
+      HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
-        errorBuilder,
-        CommonExceptionIdConstants.E_BUSINESS,
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_BUSINESS, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 
   /**
    * その他のシステムエラーをステータースコード 500 で返却します。
    *
-   * @param e   その他の例外。
+   * @param e その他の例外。
    * @param req リクエスト。
    * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(SystemException.class)
-  public ResponseEntity<ProblemDetail> handleSystemException(SystemException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+  public ResponseEntity<ProblemDetail> handleSystemException(SystemException e,
+      HttpServletRequest req) {
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
-        errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM,
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 
   /**
    * 上記のいずれにも当てはまらない例外をステータースコード 500 で返却します。
    *
-   * @param e   その他の例外。
+   * @param e その他の例外。
    * @param req リクエスト。
    * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    ErrorMessageBuilder errorBuilder =
+        new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM,
-        HttpStatus.INTERNAL_SERVER_ERROR);
+        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-        .body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
   }
 }
