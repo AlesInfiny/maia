@@ -1,0 +1,153 @@
+# cspell:ignore mikepenz dorny
+name: external-id-sample-for-spa CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'samples/external-id-sample-for-spa/**'
+      - '.github/workflows/samples-external-id-for-spa-ci.yml'
+  workflow_dispatch:
+
+env:
+  BACKEND_WORKING_DIRECTORY: samples/external-id-sample-for-spa/auth-backend
+  FRONTEND_WORKING_DIRECTORY: samples/external-id-sample-for-spa/auth-frontend
+
+jobs:
+  build-frontend:
+    name: 'フロントエンドアプリケーションのビルド'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+    defaults:
+      run:
+        working-directory: ${{ env.FRONTEND_WORKING_DIRECTORY }}
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+        with:
+          fetch-depth: 1
+
+      - name: Use Node.js LTS
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903  # v6.0.0
+        with:
+          node-version: lts/*
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          cache: npm
+
+      - name: node パッケージのインストール
+        run: npm ci
+
+      - id: run-format-root
+        name: ルート直下の format の実行
+        run: npm run format:ci:root >> /var/tmp/format-root-result.txt 2>&1
+
+      - id: run-lint
+        name: lintの実行
+        run: npm run lint:ci:app >> /var/tmp/lint-result.txt 2>&1
+
+      - id: run-type-check
+        name: TypeScript の型チェック
+        run: npm run type-check:app >> /var/tmp/type-check-result.txt 2>&1
+
+      - id: application-build
+        name: アプリケーションのビルド
+        run: npm run build-only:dev:app >> /var/tmp/build-result.txt 2>&1
+
+      - id: run-unit-tests
+        name: 単体テストの実行
+        run: npm run test:unit:app >> /var/tmp/unit-test-result.txt 2>&1
+
+      - name: formatの結果出力
+        if: ${{ success() || (failure() && steps.run-format-root.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/format-root-result.txt
+          header: 'formatの結果 :pen:'
+
+      - name: lintの結果出力
+        if: ${{ success() || (failure() && steps.run-lint.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/lint-result.txt
+          header: 'lintの結果 :pen:'
+
+      - name: 型チェックの結果出力
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/type-check-result.txt
+          header: '型チェックの結果 :pencil2:'
+
+      - name: ビルドの結果出力
+        if: ${{ success() || (failure() && steps.application-build.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/build-result.txt
+          header: 'ビルドの結果 :gear:'
+
+      - name: 単体テストの結果出力
+        if: ${{ success() || (failure() && steps.run-unit-tests.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/unit-test-result.txt
+          header: '単体テストの結果 :memo:'
+
+  build-backend:
+    name: 'バックエンドアプリケーションのビルド'
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    defaults:
+      run:
+        working-directory: ${{ env.BACKEND_WORKING_DIRECTORY }}
+
+    steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: JDK21のセットアップ
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165  # v5.0.0
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: gradlewに実行権限付与
+        run: chmod +x ./gradlew
+
+      - id: run-build-and-tests
+        name: ビルド（コンパイル, 静的テスト, JUnit）実行
+        run: ./gradlew build > build-result.txt
+        continue-on-error: true
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+        shell: bash
+        if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+        run: |
+          echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+        if: ${{ steps.run-build-and-tests.outcome == 'success' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: コンパイルと静的テストに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+        if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':x: コンパイルまたは静的テストに失敗しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: JUnitレポート
+        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3  # v5.6.2
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'

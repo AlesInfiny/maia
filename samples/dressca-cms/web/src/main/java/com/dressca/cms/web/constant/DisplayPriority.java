@@ -27,8 +27,8 @@ public enum DisplayPriority {
   /**
    * 表示優先度の値とラベルのマップです。
    */
-  public static final Map<Integer, String> DISPLAY_PRIORITY_LABEL_MAP = Collections
-      .unmodifiableMap(Stream.of(DisplayPriority.values())
+  public static final Map<Integer, String> DISPLAY_PRIORITY_LABEL_MAP =
+      Collections.unmodifiableMap(Stream.of(DisplayPriority.values())
           .collect(Collectors.toMap(DisplayPriority::getValue, DisplayPriority::getLabel)));
 
   /**

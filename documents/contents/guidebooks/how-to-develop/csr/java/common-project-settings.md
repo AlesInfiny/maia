@@ -197,6 +197,19 @@ Checkstyle プラグインのその他の設定項目については、[こち�
     }
     ```
 
+VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle) を利用している場合、 Checkstyle プラグインに適用したルールを Checkstyle for Java にも適用します。
+ルートディレクトリ直下の .vscode フォルダーの settings.json に設定を追記します。
+
+```json
+{
+  "java.checkstyle.version": "x.x.x",
+  "java.checkstyle.configuration": "ディレクトリパスを含むインプットファイル名",
+  "java.checkstyle.properties": {
+    "config_loc": "ディレクトリパス"
+  }
+}
+```
+
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
 SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。

@@ -21,7 +21,7 @@ public class ApplicationContextWrapper implements ApplicationContextAware {
   /**
    * 指定されたクラスの Bean を取得します。
    * 
-   * @param <T>   取得する Bean の型。
+   * @param <T> 取得する Bean の型。
    * @param clazz 取得する Bean のクラス。
    * @return 指定されたクラスの Bean 。
    */

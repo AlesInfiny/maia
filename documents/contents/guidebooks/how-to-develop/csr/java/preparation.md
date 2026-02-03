@@ -30,3 +30,7 @@ Visual Studio Code を利用する場合、 Java アプリケーションを開�
 - [Lombok Annotations Support for VS Code :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-lombok){ target=_blank }
 
     Java アプリケーションにおける Lombok アノテーションのサポートを提供します。
+
+- [Checkstyle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle){ target=_blank }
+
+    Checkstyle の違反に関するリアルタイムのフィードバックと、簡単な修正アクションを提供します。

@@ -4,13 +4,25 @@
 
 # Azure Active Directory B2C による認証サンプル
 
+> [!WARNING]
+> Azure Active Directory B2C の販売（新規購入）は、 2025 年 5 月 1 日をもって終了しています。
+> また、[Microsoft の公開情報](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/faq?tabs=app-reg-ga) では、サポート継続期間は **2030 年 5 月** までとなっています。
+>
+> これに伴い、 **本サンプルについても 2026 年 12 月 31 日** をもってサポートを終了し、
+> 今後の機能追加やメンテナンスは予定していません。
+> Azure Active Directory B2C を利用した認証の新規導入を考えている場合には、
+> 現在推奨されている Microsoft Entra External ID への移行を検討してください。
+> AlesInfiny Maia OSS Edition で提供している Microsoft Entra External ID のサンプルについては、
+> [こちら](https://github.com/AlesInfiny/maia/tree/main/samples/external-id-sample-for-spa) を参照してください。
+
 ## このサンプルについて
 
 Azure Active Directory B2C （以降、 Azure AD B2C ）によるユーザー認証の簡単な実装サンプルを提供します。
 
-本サンプルは、クライアントサイドレンダリングアプリケーションにおいて Azure AD B2C を利用する場合のコード例として利用できます。
-また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition（以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
-これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
+あわせて本ドキュメントでは、以下について説明します。
+
+- 本サンプルの動作確認手順
+- AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca への組み込み手順
 
 ## 前提
 
@@ -26,8 +38,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v22.17.1
-- Visual Studio Code 1.102.2
+- Node.js v24.13.0
+- Visual Studio Code 1.108.1
 
 ## サンプルの構成
 

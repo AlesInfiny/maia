@@ -20,7 +20,8 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  */
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
-  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
+  private static final Logger apLog =
+      LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOG_LOGGER);
 
   /**
    * リソースが見つからなかった場合の例外をハンドリングし、Not Found 画面に遷移します。
@@ -28,7 +29,7 @@ public class ExceptionHandlerControllerAdvice {
    * @param e 例外。
    * @return Not Found 画面のビュー名。
    */
-  @ExceptionHandler({ AnnouncementNotFoundException.class, NoResourceFoundException.class })
+  @ExceptionHandler({AnnouncementNotFoundException.class, NoResourceFoundException.class})
   public String handleNotFoundException(Exception e) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return "not_found";
@@ -37,15 +38,17 @@ public class ExceptionHandlerControllerAdvice {
   /**
    * 業務例外をハンドリングし、エラー画面に遷移します。
    * 
-   * @param e     業務例外。
+   * @param e 業務例外。
    * @param model モデル。
    * @return エラー画面のビュー名。
    */
   @ExceptionHandler(LogicException.class)
   public String handleLogicException(LogicException e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
-    String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_BUSINESS;
-    String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    apLog.error(ExceptionUtils.getStackTrace(e));
+    String errorCode =
+        e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_BUSINESS;
+    String occurredAt =
+        ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
     model.addAttribute("occurredAt", occurredAt);
 
@@ -55,15 +58,17 @@ public class ExceptionHandlerControllerAdvice {
   /**
    * システム例外をハンドリングし、システムエラー画面に遷移します。
    * 
-   * @param e     システム例外。
+   * @param e システム例外。
    * @param model モデル。
    * @return システムエラー画面のビュー名。
    */
   @ExceptionHandler(SystemException.class)
   public String handleSystemException(SystemException e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
-    String errorCode = e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_SYSTEM;
-    String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    apLog.error(ExceptionUtils.getStackTrace(e));
+    String errorCode =
+        e.getExceptionId() != null ? e.getExceptionId() : CommonExceptionIdConstants.E_SYSTEM;
+    String occurredAt =
+        ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", errorCode);
     model.addAttribute("occurredAt", occurredAt);
 
@@ -73,14 +78,15 @@ public class ExceptionHandlerControllerAdvice {
   /**
    * その他の例外をハンドリングし、システムエラー画面に遷移します。
    * 
-   * @param e     例外。
+   * @param e 例外。
    * @param model モデル。
    * @return システムエラー画面のビュー名。
    */
   @ExceptionHandler(Exception.class)
   public String handleGeneralException(Exception e, Model model) {
-    apLog.warn(ExceptionUtils.getStackTrace(e));
-    String occurredAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    apLog.error(ExceptionUtils.getStackTrace(e));
+    String occurredAt =
+        ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     model.addAttribute("errorCode", CommonExceptionIdConstants.E_SYSTEM);
     model.addAttribute("occurredAt", occurredAt);
 

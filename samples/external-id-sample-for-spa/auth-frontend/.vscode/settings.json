@@ -1,0 +1,32 @@
+{
+  // Lint の有効化
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+
+  // Formatter を Prettier にする
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "css.validate": false,
+
+  "stylelint.validate": ["vue"],
+
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  "cSpell.words": [
+    "Entra",
+    "dressca",
+    "msal",
+    "openapi",
+    "openapitools",
+    "pinia",
+    "rushstack",
+    "stylelint",
+    "vite",
+    "VITE"
+  ]
+}
