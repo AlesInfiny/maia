@@ -67,3 +67,22 @@ rules:
     message: "ReDoS の可能性があるネスト量指定子"
     severity: WARNING
     pattern-regex: '\(.+\+\)\+|\(\.\*\)\+|\(\.\+\)\+'
+
+  - id: thymeleaf-pattern-attr
+    languages: [generic]
+    message: "Thymeleaf may apply regex via pattern/attr"
+    severity: INFO
+    paths:
+      include:
+        - "**/*.html"
+    pattern-regex: 'th:.*pattern'
+  
+  - id: thymeleaf-regex-like
+    languages: [generic]
+    message: "Possible regex expression in Thymeleaf"
+    severity: INFO
+    paths:
+      include:
+        - "**/*.html"
+    pattern-regex: '\$\{.*(Pattern|regex|matches).*'
+
