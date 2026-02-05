@@ -55,7 +55,7 @@ bootJar {
 }
 
 jar {
-	enabled = true
+  enabled = true
 }
 
 tasks.register('runMyBatisGenerator') {

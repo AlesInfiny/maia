@@ -38,7 +38,7 @@ dependencies {
   implementation supportDependencies.spring_boot_starter_security
 	implementation supportDependencies.h2database
 	implementation supportDependencies.postgresql
-
+  
   implementation project(':system-common')
 
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
