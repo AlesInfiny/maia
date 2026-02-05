@@ -1,8 +1,7 @@
 {
   // Lint の有効化
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
 
   // Formatter を Prettier にする
@@ -12,8 +11,6 @@
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "css.validate": false,
-
-  "stylelint.validate": ["vue"],
 
   "editor.guides.bracketPairs": true,
   "editor.bracketPairColorization.enabled": true,
@@ -25,7 +22,6 @@
     "openapitools",
     "pinia",
     "rushstack",
-    "stylelint",
     "vite",
     "VITE"
   ]
