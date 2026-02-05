@@ -19,19 +19,16 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter_webmvc
 	implementation supportDependencies.spring_boot_starter_actuator
-	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
-	implementation supportDependencies.spring_boot_starter_security_oauth2_resource_server
 	implementation supportDependencies.spring_boot_starter_log4j2
-	implementation supportDependencies.spring_boot_starter_security
+	implementation supportDependencies.spring_boot_starter_security_oauth2_resource_server
+	implementation supportDependencies.spring_boot_starter_webmvc
+	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 
 	implementation project(':system-common')
 
-	testImplementation supportDependencies.spring_boot_starter_webmvc_test
-	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_boot_starter_log4j2
 	testImplementation supportDependencies.spring_boot_starter_security_test
+	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 }
 
 configurations {

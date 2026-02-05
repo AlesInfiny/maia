@@ -1,36 +1,39 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.0"
+    springBootVersion = "4.0.1"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.4.7"
-
-    // -- TOOLS
-    jacocoToolVersion = "0.8.14"
-    checkstyleToolVersion = "13.0.0"
-    spotbugsToolVersion = "4.8.6"
+    spotbugsVersion = "6.4.8"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "3.0.0"
+    springdocOpenapiVersion = "3.0.1"
+
+    // -- GRADLE PLUGIN TOOLS
+    checkstyleToolVersion = "13.0.0"
+    jacocoToolVersion = "0.8.14"
+    spotbugsToolVersion = "4.9.8"
 
     supportDependencies = [
+        // SPRING BOOT STARTERS
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
-        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
-        spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
-        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
-        spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
-
-        springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
+        spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_security_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server",
-        spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
-        spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
+        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
 
+        // SPRING BOOT TESTS
+        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
+        spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
+        spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
+
+        // OTHER LIBRARIES
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
-        
-        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
+        springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
+
+        // GRADLE PLUGIN TOOLS
         checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",
+        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
         spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion"
     ]
 }
