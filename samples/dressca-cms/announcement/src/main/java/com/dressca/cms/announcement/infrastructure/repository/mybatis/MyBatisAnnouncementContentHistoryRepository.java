@@ -20,8 +20,8 @@ public class MyBatisAnnouncementContentHistoryRepository
 
   @Override
   public void add(AnnouncementContentHistory announcementContentHistory) {
-    AnnouncementContentHistoryEntity entity = AnnouncementEntityTranslator
-        .toContentHistoryEntity(announcementContentHistory);
+    AnnouncementContentHistoryEntity entity =
+        AnnouncementEntityTranslator.toContentHistoryEntity(announcementContentHistory);
     announcementContentHistoryMapper.insert(entity);
   }
 }

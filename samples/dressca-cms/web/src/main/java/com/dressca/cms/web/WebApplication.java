@@ -6,14 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * アプリケーションの実行クラスです。
  */
-@SpringBootApplication(scanBasePackages = {
-    "com.dressca.cms.web",
-    "com.dressca.cms.announcement",
-    "com.dressca.cms.authentication",
-    "com.dressca.cms.systemcommon"
-})
+@SpringBootApplication(scanBasePackages = {"com.dressca.cms.web", "com.dressca.cms.announcement",
+    "com.dressca.cms.authentication", "com.dressca.cms.systemcommon"})
 public class WebApplication {
 
+  /**
+   * アプリケーションのエントリーポイント。
+   * 
+   * @param args コマンドライン引数。
+   */
   public static void main(String[] args) {
     SpringApplication.run(WebApplication.class, args);
   }
