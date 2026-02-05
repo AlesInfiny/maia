@@ -217,7 +217,7 @@ VITE_EXTERNAL_ID_AUTHORITY_DOMAIN=https://[テナントサブドメイン].ciaml
 VITE_EXTERNAL_ID_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
 VITE_EXTERNAL_ID_APP_CLIENT_ID=[SampleSPA のクライアント ID]
 VITE_EXTERNAL_ID_REDIRECT_URI=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
-VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの規定では http://localhost:5173]
+VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの既定では http://localhost:5173]
 ```
 
 ### 動作確認
