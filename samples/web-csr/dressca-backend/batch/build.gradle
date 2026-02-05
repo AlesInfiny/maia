@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter_batch
+	implementation supportDependencies.spring_boot_starter_batch_jdbc
 	implementation supportDependencies.mybatis_spring_boot_starter
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_starter_log4j2
@@ -27,9 +27,7 @@ dependencies {
 	implementation project(':infrastructure')
 	implementation project(':system-common')
 
-	testImplementation supportDependencies.spring_boot_starter_test
-	testImplementation supportDependencies.spring_batch_test
-	testImplementation supportDependencies.spring_boot_starter_batch_jdbc
+	testImplementation supportDependencies.spring_boot_starter_batch_jdbc_test
 	testImplementation supportDependencies.h2database
 }
 

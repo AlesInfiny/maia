@@ -1,55 +1,59 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.0"
+    springBootVersion = "4.0.1"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.4.7"
-
-    // -- TOOLS
-    jacocoToolVersion = "0.8.14"
-    checkstyleToolVersion = "13.0.0"
-    spotbugsToolVersion = "4.8.6"
+    spotbugsVersion = "6.4.8"
 
     // -- DEPENDENCIES
-    mybatisSpringBootStarterVersion = "4.0.0"
-    mybatisSpringBootStarterTestVersion = "4.0.0"
-    h2Version = "2.4.240"
-    postgresqlVersion = "42.7.8"
-    springdocOpenapiVersion = "3.0.0"
-    servletApiVersion = "6.1.0"
-    commonsLangVersion = "3.20.0"
     mybatisGeneratorVersion = "1.4.2"
-    javaUuidGeneratorVersion = "5.1.1"
-    thymeleafLayoutDialectVersion = "3.4.0"
+    mybatisSpringBootStarterVersion = "4.0.1"
+    mybatisSpringBootStarterTestVersion = "4.0.1"
+    javaUuidGeneratorVersion = "5.2.0"
+    springdocOpenapiVersion = "3.0.1"
+
+    // -- GRADLE PLUGIN TOOLS
+    checkstyleToolVersion = "13.0.0"
+    jacocoToolVersion = "0.8.14"
+    spotbugsToolVersion = "4.9.8"
 
     supportDependencies = [
+        // SPRING BOOT STARTERS
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
-        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
-        spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
-        spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
-        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
+        spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_thymeleaf : "org.springframework.boot:spring-boot-starter-thymeleaf",
-        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
+        spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
+        spring_boot_starter_webmvc : "org.springframework.boot:spring-boot-starter-webmvc",
+
+        // SPRING BOOT TESTS
+        spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
+        spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
         
-        springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
+        // SPRING BOOT MODULES
+        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
+
+        // MYBATIS DEPENDENCIES
+        mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
         mybatis_spring_boot_starter : "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion",
         mybatis_spring_boot_starter_test : "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$mybatisSpringBootStarterTestVersion",
-        spring_security_test : "org.springframework.security:spring-security-test",
-        h2database : "com.h2database:h2:$h2Version",
-        postgresql : "org.postgresql:postgresql:$postgresqlVersion",
-        commons_lang3 : "org.apache.commons:commons-lang3:$commonsLangVersion",
-        servlet_api : "jakarta.servlet:jakarta.servlet-api:$servletApiVersion",
-        mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
-        java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
-        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion",
+        
+        // DATABASE 
+        h2database : "com.h2database:h2",
+        postgresql : "org.postgresql:postgresql",
 
+        // OTHER LIBRARIES
+        commons_lang3 : "org.apache.commons:commons-lang3",
+        java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
+        springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
+        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
-        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
+        // GRADLE PLUGIN TOOLS
         checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",
+        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
         spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion"
     ]
 }

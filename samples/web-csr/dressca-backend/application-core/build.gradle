@@ -18,11 +18,11 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter
-	implementation supportDependencies.mybatis_spring_boot_starter
-	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.spring_boot_starter_jdbc
 	implementation supportDependencies.commons_lang3
+
 	implementation project(':system-common')
+	
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 
@@ -37,12 +37,9 @@ tasks.named('test') {
 }
 
 bootJar {
-    enabled = false
+	enabled = false
 }
 
 jar {
-    enabled = true
+	enabled = true
 }
-
-bootJar.enabled = false
-jar.enabled = true
