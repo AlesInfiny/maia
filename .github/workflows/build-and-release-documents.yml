@@ -113,7 +113,7 @@ jobs:
           package: "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}"
 
       - name: Teams への通知
-        uses: fjogeleit/http-request-action@c0b95d02a088b47c1f2f4db04fd8af8bd19eee54  # v1.16.6
+        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
         with:
           url: ${{ secrets.ALESINFINY_POST_MESSAGE_TO_TEAMS_URL  }}
           method: POST
@@ -128,7 +128,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
-        uses: fjogeleit/http-request-action@c0b95d02a088b47c1f2f4db04fd8af8bd19eee54  # v1.16.6
+        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
         with:
           url: ${{ secrets.ALESINFINY_APPROVE_REQUEST_TO_TEAMS_URL  }}
           method: POST
