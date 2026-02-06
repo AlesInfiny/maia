@@ -1,4 +1,4 @@
-yamllint==1.37.1
+yamllint==1.38.0
 mkdocs==1.6.1
 mkdocs-material==9.7.1
 pymdown-extensions==10.16.1
