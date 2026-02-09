@@ -62,6 +62,6 @@ jobs:
           echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: JUnitレポート
-        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3  # v5.6.2
+        uses: mikepenz/action-junit-report@74626db7353a25a20a72816467ebf035f674c5f8  # v6.2.0
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
