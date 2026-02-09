@@ -110,7 +110,7 @@ Copyright (c) 2015 - 2017 Maxime Thirouin, David Clark & Richard Hallows
 
 Copyright (c) 2021-Present Vitest Team
 
-## Bootstrap, Bootstrap Icons {#bootstrap style="clear:both;" }
+## Bootstrap {#bootstrap style="clear:both;" }
 
 ![Bootstrap Logo](../images/about-maia/bootstrap-logo.svg){ align="left" width="96" }
 
