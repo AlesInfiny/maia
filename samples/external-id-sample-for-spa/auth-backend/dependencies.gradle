@@ -9,7 +9,7 @@ ext {
     springdocOpenapiVersion = "3.0.1"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.0.0"
+    checkstyleToolVersion = "13.1.0"
     jacocoToolVersion = "0.8.14"
     spotbugsToolVersion = "4.9.8"
 
