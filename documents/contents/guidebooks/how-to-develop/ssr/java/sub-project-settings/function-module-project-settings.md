@@ -24,6 +24,13 @@ dependencies {
 }
 ```
 
+データアクセス処理の実装に MyBatis 以外を利用する場合、適切なライブラリに切り替えてください。
+
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [MyBatis Spring Boot Starter :material-open-in-new:](https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter){ target=_blank }
+    - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
+
 ## 依存プロジェクトの設定 {#config-projects}
 
 機能モジュールのプロジェクトは system-common を参照しています。
