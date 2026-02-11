@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "4.27.0",
-    "axios": "1.13.2",
+    "axios": "1.13.5",
     "msw": "2.12.4",
     "pinia": "3.0.4",
     "vitest": "3.2.4",
