@@ -52,18 +52,18 @@ spring.messages.basename=applicationcore.messages,systemcommon.messages
 
 ??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
 
-    ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34"
+    ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34 35"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
     ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
+また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` やコンストラクタインジェクションによる DI で実装します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 以下は、プロパティファイルからエラーレスポンスに含めるメッセージを整形する `ProblemDetailsFactory.java` クラスの例です。
 
 ??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
 
-    ```java title="ProblemDetailsFactory.java" hl_lines="26 27 39 41"
+    ```java title="ProblemDetailsFactory.java" hl_lines="26 27 40 42"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java
     ```
