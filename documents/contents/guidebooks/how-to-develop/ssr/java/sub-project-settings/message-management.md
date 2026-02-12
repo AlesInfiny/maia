@@ -107,8 +107,16 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 読み込んだプロパティファイルのメッセージを取得するためには、 [`MessageSource` :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html){ target=_blank } インターフェースを利用します。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` による DI で実装します。
+また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` やコンストラクタインジェクションによる DI で実装します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
+
+以下は、ユーザー名やメールアドレスなどの識別情報からユーザーを取得する `UserDetailsServiceImpl.java` クラスの例です。
+
+??? example "サンプルアプリケーションの UserDetailsServiceImpl.java"
+
+    ```java title="UserDetailsServiceImpl.java" hl_lines="17 21 29 30"
+    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/authentication/src/main/java/com/dressca/cms/authentication/applicationcore/UserDetailsServiceImpl.java
+    ```
 
 ### HTML とのバインディング {#binding}
 
