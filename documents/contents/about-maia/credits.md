@@ -110,4 +110,36 @@ Copyright (c) 2015 - 2017 Maxime Thirouin, David Clark & Richard Hallows
 
 Copyright (c) 2021-Present Vitest Team
 
+## Bootstrap {#bootstrap style="clear:both;" }
+
+![Bootstrap Logo](../images/about-maia/bootstrap-logo.svg){ align="left" width="96" }
+
+- Bootstrap
+
+    [MIT License :material-open-in-new:](https://github.com/twbs/bootstrap/blob/main/LICENSE){ target=_blank }
+
+    Copyright (c) 2011-2025 The Bootstrap Authors
+
+- Bootstrap Icons
+
+    [MIT License :material-open-in-new:](https://github.com/twbs/icons/blob/main/LICENSE){ target=_blank }
+
+    Copyright (c) 2019-2024 The Bootstrap Authors
+
+## Dart Sass {#dart-sass style="clear:both;" }
+
+![Dart Sass Logo](../images/about-maia/sass-logo.svg){ align="left" width="96" }
+
+[![CC BY-SA 3.0](../images/about-maia/cc-by-sa.svg)](https://sass-lang.com/community-guidelines/){ target=_blank }
+
+[MIT License :material-open-in-new:](https://github.com/sass/dart-sass/blob/main/LICENSE){ target=_blank }
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+The Sass Community Guidelines are licensed under the [Creative Commons Attribution-Share Alike 3.0 license :material-open-in-new:](https://creativecommons.org/licenses/by-sa/3.0/us/){ target=_blank } . You may re-use it for your own project, and modify it as you wish; just please allow others to use your modifications and give credit to Sass, [Ubuntu :material-open-in-new:](https://ubuntu.com/community/docs/ethos/code-of-conduct){ target=_blank } and [Drupal :material-open-in-new:](https://www.drupal.org/dcoc){ target=_blank } .
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+Copyright (c) 2016, Google Inc.
+
 <!-- textlint-enable @textlint-rule/require-header-id -->
