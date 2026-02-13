@@ -1,5 +1,6 @@
 import axios, { HttpStatusCode } from 'axios'
 import * as apiClient from '@/generated/api-client'
+import { getRequestAbortSignal } from '@/api-client/request-abort-manager'
 import {
   HttpError,
   NetworkError,
@@ -18,21 +19,6 @@ function createConfig(): apiClient.Configuration {
   return config
 }
 
-/**
- * 処理中の API リクエストを一括キャンセルするための AbortController です。
- * ログアウト時などに呼び出し中のリクエストを停止するために使用します。
- */
-let abortController = new AbortController()
-
-/**
- * 処理中のすべての API リクエストを中断し、AbortController を再生成します。
- * ログアウト時に呼び出してください。
- */
-function abortAllRequests() {
-  abortController.abort()
-  abortController = new AbortController()
-}
-
 /** axios の共通の設定があればここに定義します。 */
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
@@ -44,7 +30,7 @@ const axiosInstance = axios.create({
 
 // リクエストインターセプター: すべてのリクエストに AbortController の signal を設定します。
 axiosInstance.interceptors.request.use((config) => {
-  config.signal = abortController.signal
+  config.signal = getRequestAbortSignal()
   return config
 })
 
@@ -133,5 +119,4 @@ export {
   catalogItemsApi,
   ordersApi,
   axiosInstance,
-  abortAllRequests,
 }

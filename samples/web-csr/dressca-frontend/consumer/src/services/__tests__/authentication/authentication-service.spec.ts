@@ -20,10 +20,13 @@ const { abortAllRequestsMock, getBasketItemsMock } = vi.hoisted(() => {
 })
 
 vi.mock('@/api-client', () => ({
-  abortAllRequests: abortAllRequestsMock,
   basketItemsApi: () => ({
     getBasketItems: getBasketItemsMock,
   }),
+}))
+
+vi.mock('@/api-client/request-abort-manager', () => ({
+  abortAllRequests: abortAllRequestsMock,
 }))
 
 /**
