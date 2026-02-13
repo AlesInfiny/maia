@@ -42,7 +42,7 @@ export function authenticationService() {
     // 1. 処理中の API リクエスト／レスポンスを停止
     abortAllRequests()
 
-    // 2. 認証状態を false に変更 + 3. セッションストレージ削除
+    // 2. 認証状態を false に変更し、セッションストレージを削除
     const authenticationStore = useAuthenticationStore()
     authenticationStore.resetState()
 
@@ -53,7 +53,7 @@ export function authenticationService() {
     const catalogStore = useCatalogStore()
     catalogStore.resetState()
 
-    // 6. エラーメッセージ通知等のストアの中身を消す（最後に実行）
+    // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
     const notificationStore = useNotificationStore()
     notificationStore.resetState()
   }

@@ -50,7 +50,7 @@ unauthorizedErrorEventBus.on(() => {
             <router-link v-if="!isAuthenticated()" to="/authentication/login">
               ログイン
             </router-link>
-            <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>
+            <button v-else type="button" @click="logout">ログアウト</button>
           </div>
         </div>
       </nav>
