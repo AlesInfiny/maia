@@ -76,6 +76,14 @@ export const useBasketStore = defineStore('basket', {
     deleteAddedItemId() {
       this.addedItemId = undefined
     },
+    /**
+     * 買い物かごストアの状態を初期値にリセットします。
+     */
+    resetState() {
+      this.basket = {} as BasketResponse
+      this.addedItemId = undefined
+      this.deletedItemIds = []
+    },
   },
   getters: {
     /**

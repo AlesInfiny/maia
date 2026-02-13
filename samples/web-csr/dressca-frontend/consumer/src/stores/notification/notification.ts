@@ -57,5 +57,13 @@ export const useNotificationStore = defineStore('notification', {
       this.detail = ''
       this.status = 0
     },
+    /**
+     * 通知ストアの状態を初期値にリセットします。
+     * `clearMessage` に加え、`timeout` も初期値に戻します。
+     */
+    resetState() {
+      this.clearMessage()
+      this.timeout = 5000
+    },
   },
 })

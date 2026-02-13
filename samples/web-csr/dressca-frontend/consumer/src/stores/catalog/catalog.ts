@@ -47,6 +47,14 @@ export const useCatalogStore = defineStore('catalog', {
       )
       this.catalogItemPage = response.data
     },
+    /**
+     * カタログストアの状態を初期値にリセットします。
+     */
+    resetState() {
+      this.categories = []
+      this.brands = []
+      this.catalogItemPage = {} as PagedListOfCatalogItemResponse
+    },
   },
   getters: {
     /**

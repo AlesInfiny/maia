@@ -19,6 +19,15 @@ export const useAuthenticationStore = defineStore('authentication', {
       this.authenticationState = true
       sessionStorage.setItem('isAuthenticated', JSON.stringify(this.authenticationState))
     },
+    /**
+     * 認証ストアの状態を初期値にリセットします。
+     * `authenticationState` を `false` に設定し、
+     * セッションストレージから認証情報を削除します。
+     */
+    resetState() {
+      this.authenticationState = false
+      sessionStorage.removeItem('isAuthenticated')
+    },
   },
   getters: {
     /**
