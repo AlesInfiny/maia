@@ -7,6 +7,7 @@ import { useBasketStore } from '@/stores/basket/basket'
 import { useCatalogStore } from '@/stores/catalog/catalog'
 import { useNotificationStore } from '@/stores/notification/notification'
 import type { BasketResponse } from '@/generated/api-client'
+import axios from 'axios'
 
 /**
  * vi.mock はファイルの先頭に巻き上げられるので、
@@ -63,7 +64,7 @@ describe('authenticationService_signOut', () => {
       // abortAllRequests が呼ばれたら、ペンディング中の API を CanceledError で reject する
       // 実際の振る舞いを再現: AbortController.abort() により axios がリクエストをキャンセルする
       abortAllRequestsMock.mockImplementation(() => {
-        rejectApi(new Error('canceled'))
+        rejectApi(new axios.CanceledError('canceled'))
       })
 
       // API 呼び出しを開始（完了を待たない）
