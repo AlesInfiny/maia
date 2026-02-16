@@ -8,6 +8,9 @@ import {
   UnauthorizedError,
   UnknownError,
 } from '@/shared/error-handler/custom-error'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 /**
  * api-client の共通の Configuration を生成します。
@@ -38,6 +41,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isCancel(error)) {
+      logger.info(error, 'リクエストがキャンセルされました。')
       return // リクエストがキャンセルされた場合は、何もしません。
     }
     if (axios.isAxiosError(error)) {
