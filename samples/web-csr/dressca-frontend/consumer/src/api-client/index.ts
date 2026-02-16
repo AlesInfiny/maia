@@ -37,9 +37,8 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // キャンセルされたリクエストは独自例外へラップせず、そのまま伝播させます。
     if (axios.isCancel(error)) {
-      return Promise.reject(error)
+      return // リクエストがキャンセルされた場合は、何もしません。
     }
     if (axios.isAxiosError(error)) {
       if (!error.response) {

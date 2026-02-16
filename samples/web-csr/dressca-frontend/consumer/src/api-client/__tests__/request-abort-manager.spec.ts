@@ -37,14 +37,14 @@ describe('axiosInstance_リクエスト中断制御', () => {
     expect(signalAfterAbort?.aborted).toBe(false)
   })
 
-  it('キャンセルエラーは独自例外へラップせずそのまま伝播する', async () => {
+  it('リクエストがキャンセルされた場合はエラーと判断しない', async () => {
     // Arrange
     axiosInstance.defaults.adapter = vi.fn().mockRejectedValue(new axios.CanceledError('canceled'))
 
     // Act
     const responsePromise = axiosInstance.get('/test')
 
-    // Assert
-    await expect(responsePromise).rejects.toBeInstanceOf(axios.CanceledError)
+    // Assert: キャンセル時はインターセプターはエラーと判断しない
+    await expect(responsePromise).resolves.not.toThrow()
   })
 })
