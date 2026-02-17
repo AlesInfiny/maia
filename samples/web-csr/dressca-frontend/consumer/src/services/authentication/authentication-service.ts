@@ -48,14 +48,14 @@ export function authenticationService() {
 
     // 3. ストアの中身をリセット
     const basketStore = useBasketStore()
-    basketStore.resetState()
+    basketStore.$reset()
 
     const catalogStore = useCatalogStore()
-    catalogStore.resetState()
+    catalogStore.$reset()
 
     // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
     const notificationStore = useNotificationStore()
-    notificationStore.resetState()
+    notificationStore.$reset()
   }
 
   return {
