@@ -31,10 +31,12 @@ const logout = () => {
   router.push({ name: 'authentication/login' })
 }
 
+// メニューの外側がクリックされたとき、メニューを閉じます。
 onClickOutside(menuRef, () => {
   showLoginMenu.value = false
 })
 
+// 画面遷移したとき、メニューを閉じます。
 watch(
   () => router.currentRoute.value.fullPath,
   () => {
