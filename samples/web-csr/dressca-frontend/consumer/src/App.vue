@@ -6,7 +6,12 @@ import NotificationToast from './components/common/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from './shared/events'
 import { authenticationService } from './services/authentication/authentication-service'
 
-const { isAuthenticated } = authenticationService()
+const { isAuthenticated, signOut } = authenticationService()
+
+const logout = () => {
+  signOut()
+  router.push({ name: 'authentication/login' })
+}
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 
@@ -45,6 +50,7 @@ unauthorizedErrorEventBus.on(() => {
             <router-link v-if="!isAuthenticated()" to="/authentication/login">
               ログイン
             </router-link>
+            <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>
           </div>
         </div>
       </nav>
