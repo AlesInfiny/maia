@@ -1,5 +1,6 @@
 import axios, { HttpStatusCode } from 'axios'
 import * as apiClient from '@/generated/api-client'
+import { getRequestAbortSignal } from '@/api-client/request-abort-manager'
 import {
   HttpError,
   NetworkError,
@@ -7,6 +8,9 @@ import {
   UnauthorizedError,
   UnknownError,
 } from '@/shared/error-handler/custom-error'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 /**
  * api-client の共通の Configuration を生成します。
@@ -26,9 +30,20 @@ const axiosInstance = axios.create({
   },
   withCredentials: true,
 })
+
+// リクエストインターセプター: すべてのリクエストに AbortController の signal を設定します。
+axiosInstance.interceptors.request.use((config) => {
+  config.signal = getRequestAbortSignal()
+  return config
+})
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (axios.isCancel(error)) {
+      logger.info(error, 'リクエストがキャンセルされました。')
+      return // リクエストがキャンセルされた場合は、何もしません。
+    }
     if (axios.isAxiosError(error)) {
       if (!error.response) {
         return Promise.reject(new NetworkError(error.message, error))
