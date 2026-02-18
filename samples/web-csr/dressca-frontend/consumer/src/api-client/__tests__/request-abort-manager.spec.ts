@@ -37,14 +37,15 @@ describe('axiosInstance_リクエスト中断制御', () => {
     expect(signalAfterAbort?.aborted).toBe(false)
   })
 
-  it('リクエストがキャンセルされた場合はエラーと判断しない', async () => {
+  it('リクエストがキャンセルされた場合は CanceledError で reject される', async () => {
     // Arrange
-    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue(new axios.CanceledError('canceled'))
+    const canceledError = new axios.CanceledError('canceled')
+    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue(canceledError)
 
     // Act
     const responsePromise = axiosInstance.get('/test')
 
-    // Assert: キャンセル時はインターセプターはエラーと判断しない
-    await expect(responsePromise).resolves.not.toThrow()
+    // Assert: キャンセル時はカスタムエラーに変換されず CanceledError のまま reject される
+    await expect(responsePromise).rejects.toBe(canceledError)
   })
 })

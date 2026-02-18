@@ -30,14 +30,23 @@ export const useAuthenticationStore = defineStore('authentication', {
     /**
      * アプリケーションからログアウトします。
      * セッションストレージから認証状態を削除します。
+     * @deprecated サービス層の `logout()` 経由で `resetState()` を使用してください。
      */
     signOut() {
-      this.userName = ''
-      this.userRoles = ''
-      this.authenticationState = false
+      this.resetState()
+    },
+    /**
+     * 認証ストアの状態を初期値にリセットします。
+     * セッションストレージから認証情報を削除した後、
+     * `$reset()` で state を再初期化します。
+     * state ファクトリが `sessionStorage` を参照するため、
+     * 先に `sessionStorage` をクリアする必要があります。
+     */
+    resetState() {
       sessionStorage.removeItem('isAuthenticated')
       sessionStorage.removeItem('userName')
       sessionStorage.removeItem('userRoles')
+      this.$reset()
     },
   },
   getters: {

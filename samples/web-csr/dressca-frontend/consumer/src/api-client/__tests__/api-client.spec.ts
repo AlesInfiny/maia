@@ -78,4 +78,16 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
     // Assert
     await expect(responsePromise).rejects.toThrow(UnknownError)
   })
+
+  it('リクエストキャンセル時_CanceledErrorをスロー', async () => {
+    // Arrange
+    const canceledError = new axios.CanceledError('canceled')
+    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue(canceledError)
+
+    // Act
+    const responsePromise = axiosInstance.get('/test')
+
+    // Assert
+    await expect(responsePromise).rejects.toBe(canceledError)
+  })
 })
