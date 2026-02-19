@@ -18,7 +18,8 @@ repositories {
 }
 
 dependencies {
-	implementation supportDependencies.spring_boot_starter_jdbc
+	implementation supportDependencies.spring_boot_starter
+	implementation supportDependencies.spring_boot_transaction
 	implementation supportDependencies.commons_lang3
 
 	implementation project(':system-common')
