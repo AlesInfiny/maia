@@ -14,13 +14,15 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 機能モジュールのプロジェクトで利用を推奨するライブラリは以下の通りです。
 
 - `mybatis-spring-boot-starter`： MyBatis と Spring Boot を統合するためのスターター
-
 - `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+- `mybatis-spring-boot-starter-test`： MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
 
 ```groovy title="a-function/build.gradle"
 dependencies {
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
-  implementation 'com.h2database:h2:x.x.x'
+  implementation 'com.h2database:h2'
+
+  testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:x.x.x'
 }
 ```
 
@@ -29,7 +31,7 @@ dependencies {
 ??? info "各依存ライブラリのバージョンの参照先"
 
     - [MyBatis Spring Boot Starter :material-open-in-new:](https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter){ target=_blank }
-    - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
+    - [MyBatis Spring Boot Starter Test :material-open-in-new:](https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter-test){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
 
@@ -114,6 +116,8 @@ a-function プロジェクトの `src` 以下にある、 `AFunctionApplication.
       implementation 'com.h2database:h2:x.x.x'
       
       implementation project(':system-common')
+
+      testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:x.x.x'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
