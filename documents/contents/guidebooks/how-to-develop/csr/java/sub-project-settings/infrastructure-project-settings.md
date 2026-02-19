@@ -14,8 +14,8 @@ infrastructure プロジェクトで必要になるライブラリは、主に�
 infrastructure プロジェクトで利用を推奨するライブラリは以下の通りです。
 
 - `mybatis-spring-boot-starter`： MyBatis と Spring Boot を統合するためのスターター
-- `mybatis-spring-boot-starter-test`： MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
 - `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+- `mybatis-spring-boot-starter-test`： MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
 
 ```groovy title="infrastructure/build.gradle"
 dependencies {
