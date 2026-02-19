@@ -41,7 +41,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isCancel(error)) {
-      return Promise.reject(error)
+      return Promise.reject(error) // CanceledError を呼び出し元で処理させます。
     }
     if (axios.isAxiosError(error)) {
       if (!error.response) {
