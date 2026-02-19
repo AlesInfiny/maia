@@ -113,7 +113,7 @@ a-function プロジェクトの `src` 以下にある、 `AFunctionApplication.
 
     dependencies {
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
-      implementation 'com.h2database:h2:x.x.x'
+      implementation 'com.h2database:h2'
       
       implementation project(':system-common')
 
