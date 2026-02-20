@@ -1,9 +1,11 @@
 package com.dressca.web.consumer.filter;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.dressca.web.consumer.WebApplication;
 import com.dressca.web.consumer.security.CookieSettings;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -89,5 +92,39 @@ public class BuyerIdFilterTest {
     assertTrue(setCookieHeader.contains("Secure"));
     assertTrue(setCookieHeader.contains("Max-Age=604800"));
     assertTrue(setCookieHeader.contains("SameSite=None"));
+  }
+
+  @Test
+  @DisplayName("Dressca-Bid Cookie が有効な UUID の場合はその値が維持される")
+  void testDoFilter_03() throws Exception {
+
+    String validBuyerId = UUID.randomUUID().toString();
+    ((MockHttpServletRequest) this.request).setCookies(new Cookie("Dressca-Bid", validBuyerId));
+    CookieSettings cookieSettings = new CookieSettings();
+    BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
+
+    filter.doFilter(request, response, chain);
+    String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
+
+    assertNotNull(setCookieHeader);
+    assertTrue(setCookieHeader.startsWith("Dressca-Bid=" + validBuyerId + ";"));
+  }
+
+  @Test
+  @DisplayName("Dressca-Bid Cookie が無効な値の場合は新しい UUID が払い出される")
+  void testDoFilter_04() throws Exception {
+
+    String invalidBuyerId = "invalid-buyer-id";
+    ((MockHttpServletRequest) this.request).setCookies(new Cookie("Dressca-Bid", invalidBuyerId));
+    CookieSettings cookieSettings = new CookieSettings();
+    BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
+
+    filter.doFilter(request, response, chain);
+    String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
+    String issuedBuyerId = setCookieHeader.split(";")[0].split("=")[1];
+
+    assertNotNull(setCookieHeader);
+    assertNotEquals(invalidBuyerId, issuedBuyerId);
+    assertNotNull(UUID.fromString(issuedBuyerId));
   }
 }
