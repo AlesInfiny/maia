@@ -32,24 +32,39 @@ public class BuyerIdFilter implements Filter {
 
     Cookie[] cookies = ((HttpServletRequest) request).getCookies();
     String buyerId = null;
+
     if (cookies != null) {
       for (Cookie cookie : cookies) {
-        if (cookie.getName().equals(DEFAULT_BUYER_COOKIE_NAME)) {
+        if (DEFAULT_BUYER_COOKIE_NAME.equals(cookie.getName())) {
           buyerId = cookie.getValue();
+          break;
         }
       }
     }
-    if (StringUtils.isBlank(buyerId)) {
+
+    if (StringUtils.isBlank(buyerId) || !isValidUuid(buyerId)) {
       buyerId = UUID.randomUUID().toString();
     }
+
     request.setAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID, buyerId);
 
     chain.doFilter(request, response);
+
     buyerId = request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId)
         .path("/").httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
         .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
         .sameSite(cookieSettings.getSameSite()).build();
+
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+  }
+
+  private static boolean isValidUuid(String value) {
+    try {
+      UUID.fromString(value);
+      return true;
+    } catch (IllegalArgumentException ex) {
+      return false;
+    }
   }
 }
