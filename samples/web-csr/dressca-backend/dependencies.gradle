@@ -21,7 +21,6 @@ ext {
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
         spring_boot_starter_batch_jdbc : "org.springframework.boot:spring-boot-starter-batch-jdbc",
-        spring_boot_starter_jdbc : "org.springframework.boot:spring-boot-starter-jdbc",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
@@ -35,6 +34,7 @@ ext {
         
         // SPRING BOOT MODULES
         spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
+        spring_boot_transaction : "org.springframework.boot:spring-boot-transaction",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
