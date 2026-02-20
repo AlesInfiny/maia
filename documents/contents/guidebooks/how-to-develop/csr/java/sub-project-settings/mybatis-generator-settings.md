@@ -101,7 +101,6 @@ configurations {
 次に、 build.gradle の dependencies に以下のような MyBatis Generator を利用するための依存関係を追加します。
 
 - `mybatis-generator-core`：MyBatis Generator のタスクを実行するためのライブラリ
-
 - `h2`：コードの自動生成で利用する組み込みの H2 データベース
 
 この際、依存関係は前述の configurations で定義したカスタム構成である mybatisTasks を利用します。
@@ -109,7 +108,7 @@ configurations {
 ```groovy title="build.gradle"
 dependencies {
   mybatisTasks "org.mybatis.generator:mybatis-generator-core:x.x.x"
-  mybatisTasks "com.h2database:h2:x.x.x"
+  mybatisTasks "com.h2database:h2"
 }
 ```
 
@@ -187,12 +186,15 @@ tasks.register('runMyBatisGenerator') {
 
     dependencies {
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
-      implementation 'com.h2database:h2:x.x.x'
+      implementation 'com.h2database:h2'
+
       implementation project(':application-core')
       implementation project(':system-common')
 
+      testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:x.x.x'
+
       mybatisTasks "org.mybatis.generator:mybatis-generator-core:x.x.x"
-      mybatisTasks "com.h2database:h2:x.x.x"
+      mybatisTasks "com.h2database:h2"
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 

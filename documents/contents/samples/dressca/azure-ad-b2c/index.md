@@ -49,7 +49,6 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 - フロントエンド
     - [MSAL.js :material-open-in-new:](https://www.npmjs.com/package/@azure/msal-browser){ target=_blank }
 - バックエンド
-    - [spring-cloud-azure-starter :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter){ target=_blank }
     - [spring-cloud-azure-starter-active-directory-b2c :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c){ target=_blank }
     - [spring-cloud-azure-dependencies :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies){ target=_blank }
 

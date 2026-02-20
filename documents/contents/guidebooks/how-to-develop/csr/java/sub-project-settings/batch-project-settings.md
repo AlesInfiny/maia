@@ -15,25 +15,17 @@ batch プロジェクトで必要になるライブラリは、バッチ処理�
 batch プロジェクトで利用を推奨するライブラリは以下の通りです。
 
 - `spring-boot-starter-batch`： Spring Batch アプリケーションを構築するための依存関係を提供するスターター
-
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-
-- `spring-batch-test`： Spring Batch アプリケーションのテストのライブラリ
-
-- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
+- `spring-boot-starter-batch-test`：Spring Batch アプリケーションをテストするためのスターター
 
 ```groovy title="batch/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-batch'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-  testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
 }
 ```
-
-??? info "各依存ライブラリのバージョンの参照先"
-
-    - [Spring Batch Test :material-open-in-new:](https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-test){ target=_blank }
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
@@ -56,7 +48,7 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
+- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -185,11 +177,12 @@ class BatchApplicationTests {
     dependencies {
       implementation 'org.springframework.boot:spring-boot-starter-batch'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-      testImplementation 'org.springframework.batch:spring-batch-test:x.x.x'
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
+
+      testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 

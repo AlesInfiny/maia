@@ -149,7 +149,6 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-    - [spring-cloud-azure-starter](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter)
     - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
     - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
 - フロントエンドアプリケーション
@@ -270,10 +269,9 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     ext {
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 5.22.0]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 7.0.0]"
 
       supportDependencies = [
-        spring_cloud_azure_starter : "com.azure.spring:spring-cloud-azure-starter",
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c",
         spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
       ]
@@ -285,7 +283,6 @@ Azure AD B2C に追加したユーザーは、以下の手順で削除できま�
 
     ```gradle
     dependencies {
-      implementation supportDependencies.spring_cloud_azure_starter
       implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
     }
 

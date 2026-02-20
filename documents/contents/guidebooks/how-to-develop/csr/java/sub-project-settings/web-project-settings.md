@@ -13,39 +13,30 @@ web プロジェクトで必要な設定を解説します。
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
 - `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
-
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-
-- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
-
-- `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
-
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
-
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-
-- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
-
-- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
+- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
+- `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
+- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
+- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのスターター
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
 ```groovy title="web/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-  implementation 'com.h2database:h2:x.x.x'
-  implementation 'org.springframework.boot:spring-boot-h2console'
-  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  implementation 'org.springframework.boot:spring-boot-h2console'
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+  implementation 'com.h2database:h2'
+
   testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
 ```
 
 ??? info "各依存ライブラリのバージョンの参照先"
 
-    - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
     - [SpringDoc OpenAPI Starter WebMVC UI :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
@@ -69,7 +60,7 @@ web プロジェクトの `src/main/resource` 以下に `application.properties`
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [myBatis-spring-boot-starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
+- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -242,17 +233,16 @@ build.dependsOn("generateOpenApiDocs")
 
     dependencies {
       implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-      implementation 'com.h2database:h2:x.x.x'
-      implementation 'org.springframework.boot:spring-boot-h2console'
-      implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'org.springframework.boot:spring-boot-starter-actuator'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-      
+      implementation 'org.springframework.boot:spring-boot-h2console'
+      implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
+      implementation 'com.h2database:h2'
+
       implementation project(':application-core')
       implementation project(':infrastructure')
       implementation project(':system-common')
-
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      
       testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }

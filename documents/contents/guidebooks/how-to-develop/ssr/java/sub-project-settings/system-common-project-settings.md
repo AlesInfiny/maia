@@ -5,8 +5,21 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 
 # system-common プロジェクトの設定 {#top}
 
-system-common プロジェクトの依存ライブラリについては、特に必須や推奨するライブラリはありません。
+system-common プロジェクトの依存ライブラリについては、 Spring Boot アプリケーションを実装する上で必要なライブラリを除き、必須または推奨するライブラリはありません。
 開発するシステム共通部品で必要なライブラリを適宜追加します。
+system-common プロジェクトで利用を推奨するライブラリは以下の通りです。
+
+- `spring-boot-starter`： Spring Boot アプリケーションを構築するための依存関係を提供するスターター
+- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
+
+```groovy title="system-common/build.gradle"
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
 
 また、 system-common プロジェクトは他のプロジェクトを参照する想定はないので、他のプロジェクトを依存関係に含める必要はありません。
 
@@ -53,6 +66,9 @@ system-common プロジェクトの依存ライブラリについては、特に
     }
 
     dependencies {
+      implementation 'org.springframework.boot:spring-boot-starter'
+      
+      testImplementation 'org.springframework.boot:spring-boot-starter-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
