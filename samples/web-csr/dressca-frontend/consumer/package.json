@@ -67,7 +67,7 @@
     "eslint": "9.39.2",
     "eslint-plugin-cypress": "5.2.0",
     "eslint-plugin-jsdoc": "61.5.0",
-    "eslint-plugin-vue": "10.6.2",
+    "eslint-plugin-vue": "10.8.0",
     "jiti": "2.6.1",
     "jsdom": "27.3.0",
     "npm-run-all2": "8.0.4",
