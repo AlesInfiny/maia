@@ -79,7 +79,7 @@ jar {
 ```
 
 また、併せて不要なファイルを削除します。
-a-function プロジェクトの `src` 以下にある、 `AFunctionApplication.java` と `AFunctionApplicationTest.java` を削除してください。
+機能モジュールプロジェクトの `src` 以下にある、アプリケーション起動クラス（`{機能モジュール名}Application.java`）とテストクラス（`{機能モジュール名}ApplicationTest.java`）を削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。

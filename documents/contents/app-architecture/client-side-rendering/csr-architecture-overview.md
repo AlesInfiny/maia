@@ -11,8 +11,8 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
 本アーキテクチャを構成する主なライブラリを以下に示します。
 
-![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-light.png#only-light){ loading=lazy }
-![構成ライブラリ一覧](../../images/app-architecture/client-side-rendering/csr-library-dark.png#only-dark){ loading=lazy }
+![技術スタック一覧](../../images/app-architecture/client-side-rendering/tech-stack-light.png#only-light){ loading=lazy }
+![技術スタック一覧](../../images/app-architecture/client-side-rendering/tech-stack-dark.png#only-dark){ loading=lazy }
 
 !!! note ""
 
