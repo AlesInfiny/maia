@@ -13,6 +13,7 @@ rules:
   commas: enable
   comments:
     level: warning
+    min-spaces-from-content: 1
   comments-indentation:
     level: warning
   document-end: disable
@@ -29,6 +30,7 @@ rules:
   octal-values: disable
   quoted-strings:
     quote-type: single
+    required: false
   trailing-spaces: enable
   truthy:
     check-keys: false
