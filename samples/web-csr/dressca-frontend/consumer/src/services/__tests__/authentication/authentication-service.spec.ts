@@ -45,6 +45,7 @@ function setupPinia() {
 
 describe('authenticationService_signOut', () => {
   beforeEach(() => {
+    vi.clearAllMocks()
     sessionStorage.clear()
     setupPinia()
   })
