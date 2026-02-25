@@ -1,13 +1,34 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { axiosInstance } from '@/api-client'
 import { abortAllRequests } from '@/api-client/request-abort-manager'
 import axios, { HttpStatusCode } from 'axios'
+
+/**
+ * vi.mock はファイルの先頭に巻き上げられるので、
+ * vi.hoisted を使用してモックの参照を先に確保します。
+ */
+const { adapterMock } = vi.hoisted(() => ({
+  adapterMock: vi.fn(),
+}))
+
+const defaultAdapter = axiosInstance.defaults.adapter
+
+beforeEach(() => {
+  adapterMock.mockReset()
+  axiosInstance.defaults.adapter = adapterMock
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+  adapterMock.mockReset()
+  axiosInstance.defaults.adapter = defaultAdapter
+})
 
 describe('axiosInstance_リクエスト中断制御', () => {
   it('abortAllRequests 実行後は新しい AbortSignal が使われる', async () => {
     // Arrange
     const capturedSignals: Array<AbortSignal | undefined> = []
-    axiosInstance.defaults.adapter = vi.fn().mockImplementation((config) => {
+    adapterMock.mockImplementation((config) => {
       capturedSignals.push(config.signal)
       return Promise.resolve({
         data: {},
@@ -40,7 +61,7 @@ describe('axiosInstance_リクエスト中断制御', () => {
   it('リクエストがキャンセルされた場合は CanceledError で reject される', async () => {
     // Arrange
     const canceledError = new axios.CanceledError('canceled')
-    axiosInstance.defaults.adapter = vi.fn().mockRejectedValue(canceledError)
+    adapterMock.mockRejectedValue(canceledError)
 
     // Act
     const responsePromise = axiosInstance.get('/test')
