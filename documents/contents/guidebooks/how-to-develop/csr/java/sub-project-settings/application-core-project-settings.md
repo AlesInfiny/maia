@@ -10,6 +10,20 @@ application-core プロジェクトで必要な設定を解説します。
 ## 依存ライブラリの設定 {#config-dependencies}
 
 外部ライブラリの脆弱性などの影響を受けて、アプリケーションコア層が変更されるような事態を避けるため、 application-core プロジェクトはできる限り外部のライブラリに依存しないよう構成しておくことを推奨します。
+application-core プロジェクトで利用を推奨するライブラリは以下の通りです。
+
+- `spring-boot-starter`： Spring Boot アプリケーションを構築するための依存関係を提供するスターター
+- `spring-boot-transaction`: Spring Boot アプリケーションでトランザクションを管理するスターター
+- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
+
+```groovy title="application-core/build.gradle"
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter'
+  implementation 'org.springframework.boot:spring-boot-transaction'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
 
 ## 依存プロジェクトの設定 {#config-projects}
 
@@ -90,7 +104,12 @@ application-core プロジェクトの `src` 以下にある、 `ApplicationCore
     }
 
     dependencies {
+      implementation 'org.springframework.boot:spring-boot-starter'
+      implementation 'org.springframework.boot:spring-boot-transaction'
+
       implementation project(':system-common')
+
+      testImplementation 'org.springframework.boot:spring-boot-starter-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 

@@ -13,19 +13,11 @@ web プロジェクトで必要な設定を解説します。
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
 - `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
-
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-
-- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
-
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
-
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-
 - `spring-boot-starter-thymeleaf`：Thymeleaf テンプレートエンジンを使用して Web アプリケーションを構築するためのスターター
-
-- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
-
+- `spring-boot-h2console`：H2 Database の Web コンソールを有効化するためのライブラリ
+- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
 - `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
@@ -33,19 +25,15 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 ```groovy title="web/build.gradle"
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-  implementation 'com.h2database:h2:x.x.x'
-  implementation 'org.springframework.boot:spring-boot-h2console'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  implementation 'org.springframework.boot:spring-boot-h2console'
+  implementation 'com.h2database:h2'
+
   testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
 ```
-
-??? info "各依存ライブラリのバージョンの参照先"
-
-    - [H2 Database Engine :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
 
@@ -110,17 +98,16 @@ Spring Boot の設定は CSR 編と同様です。
 
     dependencies {
       implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-      implementation 'com.h2database:h2:x.x.x'
-      implementation 'org.springframework.boot:spring-boot-h2console'
       implementation 'org.springframework.boot:spring-boot-starter-actuator'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
       implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+      implementation 'org.springframework.boot:spring-boot-h2console'
+      implementation 'com.h2database:h2'
       
       implementation project(':a-function')
       implementation project(':b-function')
       implementation project(':system-common')
 
-      testImplementation 'org.springframework.boot:spring-boot-starter-test'
       testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
