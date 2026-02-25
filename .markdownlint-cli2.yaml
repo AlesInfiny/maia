@@ -5,11 +5,11 @@ gitignore: true
 
 # 全ての md ファイルを対象に markdownlint-cli2 を実行する
 globs:
-  - "**/*.md"
+  - '**/*.md'
 
 # markdownlint の除外対象を以下に記載する
 ignores:
-  - "third-party-licenses/**"
-  - "LICENSE"
-  - "LICENSE-CODE"
-  - "**/src/generated/api-client/docs/*.md"
+  - 'third-party-licenses/**'
+  - 'LICENSE'
+  - 'LICENSE-CODE'
+  - '**/src/generated/api-client/docs/*.md'

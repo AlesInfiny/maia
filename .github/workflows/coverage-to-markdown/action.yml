@@ -3,24 +3,23 @@ description: Vitest の テストカバレッジファイル coverage-summary.js
 
 inputs:
   coverage_json:
-    description: "入力となる coverage-summary.json のパス"
+    description: '入力となる coverage-summary.json のパス'
     required: true
   output_md:
-    description: "整形した Markdown を出力するファイルパス"
+    description: '整形した Markdown を出力するファイルパス'
     required: true
   prefix:
-    description: "ファイル名のプレフィックス"
+    description: 'ファイル名のプレフィックス'
     required: false
-    default: ""
-
+    default: ''
 
 outputs:
   markdown_path:
-    description: "生成された Markdown ファイルのパス"
+    description: '生成された Markdown ファイルのパス'
     value: ${{ steps.set-outputs.outputs.markdown_path }}
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - id: coverage-to-md-by-jq
       name: jq で Markdown を生成

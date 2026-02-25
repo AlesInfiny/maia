@@ -20,17 +20,17 @@ jobs:
     permissions:
       contents: read
     env:
-      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+      NO_COLOR: '1' # 文字化け防止のためカラーコードを出力しない
     defaults:
       run:
         working-directory: ${{ env.FRONTEND_WORKING_DIRECTORY }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
 
       - name: Use Node.js LTS
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238  # v6.2.0
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
@@ -105,12 +105,12 @@ jobs:
 
     steps:
       - name: ブランチのチェックアウト
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
       - name: JDK21のセットアップ
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654  # v5.2.0
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'adopt'
           java-version: '21'
@@ -146,6 +146,6 @@ jobs:
           echo ':x: コンパイルまたは静的テストに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: JUnitレポート
-        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3  # v5.6.2
+        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3 # v5.6.2
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'

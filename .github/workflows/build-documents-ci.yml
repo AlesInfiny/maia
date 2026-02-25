@@ -9,24 +9,24 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "documents/**"
-      - "iis-files/**"
-      - "samples/**"
-      - ".github/workflows/build-documents-ci.yml"
-      - ".github/workflows/build-and-release-documents.yml"
-      - ".github/workflows/lint-documents/action.yml"
-      - ".github/workflows/compress-sample-source/action.yml"
-      - ".github/workflows/build-documents/action.yml"
-      - ".github/workflows/pack-and-upload/action.yml"
-      - ".markdownlint-cli2.yaml"
-      - ".markdownlint.yaml"
-      - ".textlintignore"
-      - ".textlintrc"
-      - ".yaml-lint.yml"
-      - ".yamlignore"
-      - "package-lock.json"
-      - "package.json"
-      - "requirements.txt"
+      - 'documents/**'
+      - 'iis-files/**'
+      - 'samples/**'
+      - '.github/workflows/build-documents-ci.yml'
+      - '.github/workflows/build-and-release-documents.yml'
+      - '.github/workflows/lint-documents/action.yml'
+      - '.github/workflows/compress-sample-source/action.yml'
+      - '.github/workflows/build-documents/action.yml'
+      - '.github/workflows/pack-and-upload/action.yml'
+      - '.markdownlint-cli2.yaml'
+      - '.markdownlint.yaml'
+      - '.textlintignore'
+      - '.textlintrc'
+      - '.yaml-lint.yml'
+      - '.yamlignore'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'requirements.txt'
   workflow_dispatch:
 
 env:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ブランチのチェックアウト
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 

@@ -3,9 +3,9 @@ default: true
 line-length: false
 
 ol-prefix:
-  style: "one"
+  style: 'one'
 ul-style:
-  style: "dash"
+  style: 'dash'
 
 ol-indent:
   indent: 4
@@ -13,10 +13,10 @@ ul-indent:
   indent: 4
 
 table:
-  style: "aligned"
+  style: 'aligned'
 
 MD025:
-  front_matter_title: ""
+  front_matter_title: ''
 
 MD046: false
 MD051: false

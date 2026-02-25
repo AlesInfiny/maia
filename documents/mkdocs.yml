@@ -12,6 +12,7 @@ repo_url: https://github.com/AlesInfiny/maia
 edit_uri: edit/main/documents/contents/
 
 # yamllint disable rule:comments-indentation
+# prettier-ignore
 nav:
   - AlesInfiny Maia OSS Edition にようこそ:
       - index.md
@@ -203,14 +204,14 @@ theme:
   language: ja
   logo: assets/maia-logo.png
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
       primary: teal
       accent: green
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       toggle:
         icon: material/weather-night
@@ -253,7 +254,7 @@ extra:
     credits: about-maia/credits/
     rss_created: feed_rss_created.xml
     rss_updated: feed_rss_updated.xml
-  version: !ENV [VERSION, "Local Version"]
+  version: !ENV [VERSION, 'Local Version']
 
 extra_css:
   - stylesheets/overrides.css

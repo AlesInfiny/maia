@@ -2,164 +2,164 @@
 # cspell:ignore cooldown
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: 'github-actions'
     directories:
-      - "/.github/workflows"
-      - "/.github/workflows/**/action.yml"
+      - '/.github/workflows'
+      - '/.github/workflows/**/action.yml'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     commit-message:
-      prefix: "github-actions"
+      prefix: 'github-actions'
     labels:
-      - "CI/CD"
-      - "dependencies"
+      - 'CI/CD'
+      - 'dependencies'
 
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: 'pip'
+    directory: '/'
     schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 7
-    open-pull-requests-limit: 10
-    commit-message:
-      prefix: "python"
-    labels:
-      - "pip"
-      - "dependencies"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 10
     commit-message:
-      prefix: "npm-root"
+      prefix: 'python'
     labels:
-      - "npm"
-      - "dependencies"
+      - 'pip'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/samples/web-csr/dressca-frontend"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'npm-root'
+    labels:
+      - 'npm'
+      - 'dependencies'
+
+  - package-ecosystem: 'npm'
+    directory: '/samples/web-csr/dressca-frontend'
+    schedule:
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 60
     commit-message:
-      prefix: "npm-dressca-frontend"
+      prefix: 'npm-dressca-frontend'
     labels:
-      - "target: Dressca"
-      - "npm"
-      - "dependencies"
+      - 'target: Dressca'
+      - 'npm'
+      - 'dependencies'
 
-  - package-ecosystem: "gradle"
-    directory: "/samples/web-csr/dressca-backend"
+  - package-ecosystem: 'gradle'
+    directory: '/samples/web-csr/dressca-backend'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-dressca-backend"
+      prefix: 'gradle-dressca-backend'
     labels:
-      - "target: Dressca"
-      - "gradle"
-      - "dependencies"
+      - 'target: Dressca'
+      - 'gradle'
+      - 'dependencies'
 
   # Azure AD B2C
-  - package-ecosystem: "npm"
-    directory: "/samples/azure-ad-b2c-sample/auth-frontend"
+  - package-ecosystem: 'npm'
+    directory: '/samples/azure-ad-b2c-sample/auth-frontend'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 40
     commit-message:
-      prefix: "npm-auth-frontend"
+      prefix: 'npm-auth-frontend'
     labels:
-      - "target: Azure AD B2C Auth"
-      - "npm"
-      - "dependencies"
+      - 'target: Azure AD B2C Auth'
+      - 'npm'
+      - 'dependencies'
 
-  - package-ecosystem: "gradle"
-    directory: "/samples/azure-ad-b2c-sample/auth-backend"
+  - package-ecosystem: 'gradle'
+    directory: '/samples/azure-ad-b2c-sample/auth-backend'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-auth-backend"
+      prefix: 'gradle-auth-backend'
     labels:
-      - "target: Azure AD B2C Auth"
-      - "gradle"
-      - "dependencies"
+      - 'target: Azure AD B2C Auth'
+      - 'gradle'
+      - 'dependencies'
 
   # External ID for SPA
-  - package-ecosystem: "npm"
-    directory: "/samples/external-id-sample-for-spa/auth-frontend"
+  - package-ecosystem: 'npm'
+    directory: '/samples/external-id-sample-for-spa/auth-frontend'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 40
     commit-message:
-      prefix: "npm-external-id-for-spa"
+      prefix: 'npm-external-id-for-spa'
     labels:
-      - "target: EntraID External ID"
-      - "npm"
-      - "dependencies"
+      - 'target: EntraID External ID'
+      - 'npm'
+      - 'dependencies'
 
-  - package-ecosystem: "gradle"
-    directory: "/samples/external-id-sample-for-spa/auth-backend"
+  - package-ecosystem: 'gradle'
+    directory: '/samples/external-id-sample-for-spa/auth-backend'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-external-id-for-spa"
+      prefix: 'gradle-external-id-for-spa'
     labels:
-      - "target: EntraID External ID"
-      - "gradle"
-      - "dependencies"
+      - 'target: EntraID External ID'
+      - 'gradle'
+      - 'dependencies'
 
   # Dressca CMS
-  - package-ecosystem: "gradle"
-    directory: "/samples/dressca-cms"
+  - package-ecosystem: 'gradle'
+    directory: '/samples/dressca-cms'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "gradle-dressca-cms"
+      prefix: 'gradle-dressca-cms'
     labels:
-      - "target: Dressca-CMS"
-      - "gradle"
-      - "dependencies"
+      - 'target: Dressca-CMS'
+      - 'gradle'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
+  - package-ecosystem: 'npm'
+    directory: '/samples/dressca-cms/web/src/main/resources/static/bootstrap'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     cooldown:
       default-days: 7
     open-pull-requests-limit: 20
     commit-message:
-      prefix: "npm-dressca-cms"
+      prefix: 'npm-dressca-cms'
     labels:
-      - "target: Dressca-CMS"
-      - "npm"
-      - "dependencies"
+      - 'target: Dressca-CMS'
+      - 'npm'
+      - 'dependencies'
     groups:
       bootstrap-packages:
         patterns:
-          - "bootstrap*"
+          - 'bootstrap*'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'

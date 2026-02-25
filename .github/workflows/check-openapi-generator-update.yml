@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: GitHub API経由でリポジトリの情報を取得
         id: get-repo-info-via-github-api
-        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
+        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495 # v2.0.0
         with:
           url: 'https://api.github.com/repos/OpenAPITools/openapi-generator/releases/latest'
           method: 'GET'
@@ -33,10 +33,10 @@ jobs:
           echo "latest-version=$(echo ${{ fromJson(steps.get-repo-info-via-github-api.outputs.response).tag_name }} |sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: チェックアウト
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Issue Template を使用するため .github リポジトリをチェックアウト
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: 'AlesInfiny/.github'
           path: 'util'
@@ -93,9 +93,9 @@ jobs:
       - name: issue を作成（Dressca-Consumer）
         id: create-issue-consumer
         if: ${{ steps.check-version-update.outputs.update-required-consumer == 'true' }}
-        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38 # v3.2.0
           with: |
             filename: util/.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -104,10 +104,9 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_APP_NAME: "Dressca-Consumer"
+          TARGET_APP_NAME: 'Dressca-Consumer'
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-consumer }}
-
 
       - name: issue の情報を出力（Dressca-Consumer）
         if: ${{ steps.check-version-update.outputs.update-required-consumer  == 'true' }}
@@ -132,9 +131,9 @@ jobs:
       - name: issue を作成（Dressca-Admin）
         id: create-issue-admin
         if: ${{ steps.check-version-update.outputs.update-required-admin == 'true' }}
-        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38 # v3.2.0
           with: |
             filename: util/.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -143,7 +142,7 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_APP_NAME: "Dressca-Admin"
+          TARGET_APP_NAME: 'Dressca-Admin'
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-admin }}
 
@@ -170,9 +169,9 @@ jobs:
       - name: issue を作成（AzureADB2CAuth）
         id: create-issue-azure-ad-b2c-auth
         if: ${{ steps.check-version-update.outputs.update-required-azure-ad-b2c == 'true' }}
-        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38 # v3.2.0
           with: |
             filename: util/.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -181,7 +180,7 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_APP_NAME: "AzureADB2CAuth"
+          TARGET_APP_NAME: 'AzureADB2CAuth'
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-azure-ad-b2c }}
 
@@ -208,9 +207,9 @@ jobs:
       - name: issue を作成（ExternalIDAuthForSPA）
         id: create-issue-external-id-auth
         if: ${{ steps.check-version-update.outputs.update-required-external-id == 'true' }}
-        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea  # v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38  # v3.2.0
+          action: dblock/create-a-github-issue@c5e54b8762a0c4c2cd9330750e30b81bcc369c38 # v3.2.0
           with: |
             filename: util/.github/ISSUE_TEMPLATE/99-openapi-generator-update-issue.md
             update_existing: true
@@ -219,7 +218,7 @@ jobs:
           attempt_delay: 300000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_APP_NAME: "ExternalIDAuthForSPA"
+          TARGET_APP_NAME: 'ExternalIDAuthForSPA'
           LATEST_VERSION: ${{ steps.get-latest-openapi-generator-version.outputs.latest-version }}
           CURRENT_VERSION: ${{ steps.get-current-openapi-generator-version.outputs.current-version-external-id }}
 

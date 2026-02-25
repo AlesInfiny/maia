@@ -1,12 +1,12 @@
-name: "サンプルアプリケーションのソースコード圧縮"
-description: "サンプルアプリケーションのソースコードを圧縮します。"
+name: 'サンプルアプリケーションのソースコード圧縮'
+description: 'サンプルアプリケーションのソースコードを圧縮します。'
 inputs:
   compressed-source-path:
-    description: "圧縮したソースコードを配置するフォルダのGITHUB_WORKSPACEからの相対パス"
+    description: '圧縮したソースコードを配置するフォルダのGITHUB_WORKSPACEからの相対パス'
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: dressca.zip の作成
       shell: bash

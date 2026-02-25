@@ -1,15 +1,15 @@
 # cspell:ignore pngquant
-name: "ドキュメントのビルド"
-description: "ドキュメントをビルドします。"
+name: 'ドキュメントのビルド'
+description: 'ドキュメントをビルドします。'
 inputs:
   document-base-path:
-    description: "ドキュメントのベースフォルダパス"
+    description: 'ドキュメントのベースフォルダパス'
     required: true
   output-folder-name:
-    description: "ビルドしたドキュメントの出力先フォルダ名"
+    description: 'ビルドしたドキュメントの出力先フォルダ名'
     required: true
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: ドキュメントのバージョン設定
       shell: bash
