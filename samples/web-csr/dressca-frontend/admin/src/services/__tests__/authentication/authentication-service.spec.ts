@@ -124,10 +124,6 @@ describe('logout', () => {
       sessionStorage.setItem('userName', JSON.stringify('テストユーザー'))
       sessionStorage.setItem('userRoles', JSON.stringify('ROLE_ADMIN'))
 
-      expect(sessionStorage.getItem('isAuthenticated')).toBe('true')
-      expect(sessionStorage.getItem('userName')).toBe('"テストユーザー"')
-      expect(sessionStorage.getItem('userRoles')).toBe('"ROLE_ADMIN"')
-
       // Act
       logout()
 
