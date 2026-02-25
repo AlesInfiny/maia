@@ -95,6 +95,20 @@ npm run generate-client
 
 `"outputDir"` に定義した出力先へ、クライアントコードが生成されます。
 
+このとき、クライアントコードと一緒にドキュメントも自動生成されます。ドキュメントが不要な場合は、.openapi-generator-ignore の指示に従って docs/*.md を追加し、生成を無効化してください。
+AlesInfiny Maia では、ドキュメントの生成を無効化しています。
+
+```text title="サンプルアプリケーションの .openapi-generator-ignore "hl_lines="2"
+# For example, you can ignore all files in a docs folder with the file extension .md:
+docs/*.md
+```
+
+設定を変更したら、再度以下を実行してドキュメントが生成されなくなったことを確認してください。
+
+```shell
+npm run generate-client
+```
+
 ## クライアントコードの設定 {#set-client-code}
 
 `./src/api-client/index.ts` というファイルを作成し、以下のように設定します。
