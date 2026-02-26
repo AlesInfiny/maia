@@ -12,4 +12,3 @@ ignores:
   - "third-party-licenses/**"
   - "LICENSE"
   - "LICENSE-CODE"
-  - "**/src/generated/api-client/docs/*.md"
