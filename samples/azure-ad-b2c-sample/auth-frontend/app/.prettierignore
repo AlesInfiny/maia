@@ -29,6 +29,6 @@ coverage
 *.sw?
 
 # 自動生成されるファイル
-src/generated/*
+src/generated/**
 **/mockServiceWorker.js
 openapitools.json
