@@ -2,6 +2,7 @@ package com.dressca.web.consumer.filter;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,8 @@ import com.dressca.web.consumer.security.CookieSettings;
 public class BuyerIdFilter implements Filter {
 
   private static final String DEFAULT_BUYER_COOKIE_NAME = "Dressca-Bid";
+  private static final Pattern UUID_PATTERN = Pattern
+      .compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
   private final CookieSettings cookieSettings;
 
   @Override
@@ -32,24 +35,34 @@ public class BuyerIdFilter implements Filter {
 
     Cookie[] cookies = ((HttpServletRequest) request).getCookies();
     String buyerId = null;
+
     if (cookies != null) {
       for (Cookie cookie : cookies) {
-        if (cookie.getName().equals(DEFAULT_BUYER_COOKIE_NAME)) {
+        if (DEFAULT_BUYER_COOKIE_NAME.equals(cookie.getName())) {
           buyerId = cookie.getValue();
+          break;
         }
       }
     }
-    if (StringUtils.isBlank(buyerId)) {
+
+    if (StringUtils.isBlank(buyerId) || !isValidUuid(buyerId)) {
       buyerId = UUID.randomUUID().toString();
     }
+
     request.setAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID, buyerId);
 
     chain.doFilter(request, response);
+
     buyerId = request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId)
         .path("/").httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
         .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
         .sameSite(cookieSettings.getSameSite()).build();
+
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+  }
+
+  private static boolean isValidUuid(String value) {
+    return UUID_PATTERN.matcher(value).matches();
   }
 }
