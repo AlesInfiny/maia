@@ -7,13 +7,6 @@ api/users-api.ts
 base.ts
 common.ts
 configuration.ts
-docs/ActuatorApi.md
-docs/Link.md
-docs/ProblemDetail.md
-docs/ServerTimeApi.md
-docs/ServerTimeResponse.md
-docs/UserResponse.md
-docs/UsersApi.md
 git_push.sh
 index.ts
 models/index.ts

@@ -1,5 +1,0 @@
-gitignore: true
-
-# 全ての md ファイルを対象に markdownlint-cli2 を実行する
-globs:
-  - '**/*.md'
