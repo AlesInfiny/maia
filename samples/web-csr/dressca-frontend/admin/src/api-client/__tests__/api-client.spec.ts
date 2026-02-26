@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import {
   HttpError,
   NetworkError,
@@ -12,6 +12,27 @@ import { axiosInstance } from '@/api-client'
 import { http, HttpResponse } from 'msw'
 import axios, { HttpStatusCode } from 'axios'
 import { server } from '../../../mock/node'
+
+/**
+ * vi.mock はファイルの先頭に巻き上げられるので、
+ * vi.hoisted を使用してモックの参照を先に確保します。
+ */
+const { adapterMock } = vi.hoisted(() => ({
+  adapterMock: vi.fn(),
+}))
+
+const defaultAdapter = axiosInstance.defaults.adapter
+
+beforeEach(() => {
+  adapterMock.mockReset()
+  axiosInstance.defaults.adapter = defaultAdapter
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+  adapterMock.mockReset()
+  axiosInstance.defaults.adapter = defaultAdapter
+})
 
 describe('axiosInstance_レスポンスインターセプター_HTTPステータスに応じた例外をスロー', () => {
   it('HTTP500レスポンス_ServerErrorをスロー', async () => {
@@ -104,5 +125,21 @@ describe('axiosInstance_レスポンスインターセプター_HTTPステータ
 
     // Assert
     await expect(responsePromise).rejects.toThrow(UnknownError)
+  })
+
+  it('リクエストキャンセル時_CanceledErrorをスロー', async () => {
+    // Arrange: キャンセルエラーを再現するアダプターを差し替えます。
+    const canceledError = new axios.CanceledError('canceled')
+    adapterMock.mockImplementation(() => {
+      return new Promise((_resolve, reject) => {
+        setTimeout(() => reject(canceledError), 0)
+      })
+    })
+    axiosInstance.defaults.adapter = adapterMock
+
+    const responsePromise = axiosInstance.get('/test')
+
+    // Assert: axios の CanceledError で reject される
+    await expect(responsePromise).rejects.toBe(canceledError)
   })
 })

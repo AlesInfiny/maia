@@ -1,3 +1,4 @@
+import { CanceledError } from 'axios'
 import { useEventBus } from '@vueuse/core'
 import { CustomErrorBase, UnauthorizedError, NetworkError, ServerError } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
@@ -31,6 +32,14 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     const logger = useLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
+
+    // リクエストキャンセルはユーザー操作（ログアウト等）による意図的な中断のため、
+    // エラーとして扱わず何もせず終了します。
+    if (error instanceof CanceledError) {
+      logger.info(JSON.stringify(error.toJSON()))
+      return
+    }
+
     // ハンドリングできるエラーの場合はコールバックを実行します。
     if (error instanceof CustomErrorBase) {
       logger.error(JSON.stringify(error.toJSON()))
