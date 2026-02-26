@@ -42,13 +42,14 @@ function setupPinia() {
 
 describe('logout', () => {
   beforeEach(() => {
+    vi.clearAllMocks()
     sessionStorage.clear()
+    setupPinia()
   })
 
   describe('ログアウト中に実行中だった API がログアウト後に完了して store の state を書き戻さない', () => {
     it('logout 実行後に API がキャンセルされてもストアの state は初期値のまま', async () => {
       // Arrange
-      setupPinia()
       const authenticationStore = useAuthenticationStore()
 
       // API が遅延して解決される Promise を用意
@@ -85,7 +86,6 @@ describe('logout', () => {
   describe('ログアウト後に store が初期化される', () => {
     it('全ストアの state が初期値にリセットされる', () => {
       // Arrange
-      setupPinia()
       const authenticationStore = useAuthenticationStore()
       const notificationStore = useNotificationStore()
 
@@ -115,7 +115,6 @@ describe('logout', () => {
   describe('ログアウト後にストレージが初期化される', () => {
     it('sessionStorage から認証関連キーがすべて削除される', () => {
       // Arrange
-      setupPinia()
       const authenticationStore = useAuthenticationStore()
       authenticationStore.authenticationState = true
       authenticationStore.userName = 'テストユーザー'
