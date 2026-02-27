@@ -4,7 +4,7 @@ import type { TypedSchema } from 'vee-validate'
 
 // バリデーション定義（一元化）
 export const validationItems = {
-  email: yup.string().email(),
+  email: yup.string().email('メールアドレスの形式で入力してください。'),
 }
 
 /**
