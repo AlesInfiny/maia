@@ -86,6 +86,7 @@ jobs:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
           prerelease: ${{ needs.build.outputs.is_pre_release }}
+          draft: ${{ needs.build.outputs.is_pre_release }}
 
   release-documents:
     name: ドキュメントのリリース
