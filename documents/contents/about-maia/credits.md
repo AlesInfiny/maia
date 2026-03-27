@@ -84,7 +84,7 @@ Copyright (c) 2019-present Eduardo San Martin Morote
 
 [MIT LICENSE :material-open-in-new:](https://github.com/axios/axios-docs/blob/master/LICENSE){ target=_blank }
 
-Copyright 2020-present John Jakob "Jake" Sarjeant
+Copyright (c) 2014-present Matt Zabriskie & Collaborators
 
 ## Prettier {#prettier style="clear:both;" }
 
@@ -108,7 +108,7 @@ Copyright (c) 2015 - 2017 Maxime Thirouin, David Clark & Richard Hallows
 
 [MIT License :material-open-in-new:](https://github.com/vitest-dev/vitest/blob/main/LICENSE){ target=_blank }
 
-Copyright (c) 2021-Present Vitest Team
+Copyright (c) 2021-Present VoidZero Inc. and Vitest contributors
 
 ## Bootstrap {#bootstrap style="clear:both;" }
 
