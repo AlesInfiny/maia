@@ -30,6 +30,13 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Use Node.js LTS
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
+        with:
+          node-version: lts/*
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          cache: npm
+
       - name: gradlewに実行権限付与
         run: chmod +x samples/dressca-cms/gradlew
 
@@ -38,6 +45,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y language-pack-ja
           sudo update-locale LANG=ja_JP.UTF-8
+
+      - name: Sass ビルド用 npm パッケージのインストール
+        run: npm ci
+        working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
+
+      - id: run-build-sass
+        name: Sass ビルドの実行
+        run: npm run build-sass > sass-build-result.txt 2>&1
+        shell: bash
+        working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
+
+      - name: Sass ビルド結果の表示
+        shell: bash
+        working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
+        if: ${{ always() && steps.run-build-sass.outcome != 'skipped' }}
+        run: |
+          echo '# Sass Build Result :art:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat sass-build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
