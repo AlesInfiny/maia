@@ -4,8 +4,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directories:
-      - "/.github/workflows"
-      - "/.github/workflows/**/action.yml"
+      - "/"
+      - "/.github/workflows/*"
     schedule:
       interval: "daily"
     cooldown:
