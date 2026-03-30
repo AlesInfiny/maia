@@ -7,3 +7,4 @@ $font-family-sans-serif: "Noto Sans", "Noto Sans JP" !default;
 $headings-font-family: "Noto Sans", "Noto Sans JP" !default;
 // Bootstrap 本体を読み込む
 @import "../bootstrap/node_modules/bootstrap/scss/bootstrap";
+.this-will-break {
