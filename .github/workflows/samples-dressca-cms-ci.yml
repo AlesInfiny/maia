@@ -55,16 +55,29 @@ jobs:
         run: npm run build-sass > sass-build-result.txt 2>&1
         shell: bash
         working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
+        continue-on-error: true
 
       - name: Sass ビルド結果の表示
         shell: bash
         working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
-        if: ${{ always() && steps.run-build-sass.outcome != 'skipped' }}
+        if: ${{ success() || (failure() && steps.run-build-sass.outcome == 'failure') }}
         run: |
           echo '# Sass Build Result :art:' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat sass-build-result.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Sass ビルド成功
+        if: ${{ steps.run-build-sass.outcome == 'success' }}
+        run: |
+          echo '## Sass Build Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: Sass ビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: Sass ビルド失敗
+        if: ${{ steps.run-build-sass.outcome == 'failure' }}
+        run: |
+          echo '## Sass Build Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':x: Sass ビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
