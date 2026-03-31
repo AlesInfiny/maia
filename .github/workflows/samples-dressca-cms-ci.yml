@@ -79,7 +79,7 @@ jobs:
         run: |
           echo '## Sass Build Result :memo:' >> $GITHUB_STEP_SUMMARY
           echo ':x: Sass ビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
-      
+
       - name: Sass ビルド失敗時にジョブを失敗させる
         if: ${{ steps.run-build-sass.outcome == 'failure' }}
         run: exit 1
