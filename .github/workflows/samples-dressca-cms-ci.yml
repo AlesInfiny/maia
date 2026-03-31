@@ -36,6 +36,7 @@ jobs:
           node-version: lts/*
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
           cache: npm
+          cache-dependency-path: samples/dressca-cms/web/src/main/resources/static/bootstrap/package-lock.json
 
       - name: gradlewに実行権限付与
         run: chmod +x samples/dressca-cms/gradlew
