@@ -11,28 +11,25 @@ import { BrowserAuthError } from '@azure/msal-browser'
 import { fetchUser } from './services/user/user-service'
 import { useServerTimeStore } from './stores/server-time/server-time'
 import { useUserStore } from './stores/user/user'
-import { useAuthenticationStore } from './stores/authentication/authentication'
 import { useLogger } from './composables/use-logger'
 
 const userStore = useUserStore()
 const { getUserId } = storeToRefs(userStore)
 const serverTimeStore = useServerTimeStore()
 const { getServerTime } = storeToRefs(serverTimeStore)
-const authenticationStore = useAuthenticationStore()
-const { isAuthenticated } = storeToRefs(authenticationStore)
 const handleErrorAsync = useCustomErrorHandler()
+const { signIn, isAuthenticated } = authenticationService()
 const logger = useLogger()
 
-const signIn = async () => {
+const signInButtonClicked = async () => {
   try {
-    await authenticationService.signInAzureADB2C()
+    await signIn()
   } catch (error) {
     // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
     if (error instanceof BrowserAuthError) {
       // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
       await handleErrorAsync(error, () => {
         logger.info('ユーザーが認証処理を中断しました。')
-        authenticationStore.updateAuthenticated(false)
       })
     } else {
       await handleErrorAsync(error, () => {
@@ -85,7 +82,7 @@ onMounted(async () => {
     <button type="submit" @click="updateServerTime()">更新</button>
   </div>
   <div>
-    <button v-if="!isAuthenticated" type="submit" @click="signIn()">ログイン</button>
-    <span v-if="isAuthenticated">ユーザーID: {{ getUserId }}</span>
+    <button v-if="!isAuthenticated()" type="submit" @click="signInButtonClicked">ログイン</button>
+    <span v-if="isAuthenticated()">ユーザーID: {{ getUserId }}</span>
   </div>
 </template>
