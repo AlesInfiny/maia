@@ -2,12 +2,7 @@
   "name": "auth-frontend",
   "version": "1.0.0",
   "type": "module",
-  "private": "true",
-  "packageManager": "npm@11.6.2",
-  "engines": {
-    "node": "^24.13.0",
-    "npm": "^11.6.2"
-  },
+  "private": true,
   "scripts": {
     "format:root": "prettier --write ./*.{js,ts,json,yaml}",
     "format:ci:root": "prettier --check ./*.{js,ts,json,yaml}",
@@ -22,5 +17,10 @@
   },
   "workspaces": [
     "app"
-  ]
+  ],
+  "packageManager": "npm@11.9.0",
+  "engines": {
+    "node": "^24.14.0",
+    "npm": "^11.9.0"
+  }
 }

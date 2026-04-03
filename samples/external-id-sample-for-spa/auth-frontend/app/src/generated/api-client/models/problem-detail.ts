@@ -14,47 +14,12 @@
 
 
 
-/**
- * 
- * @export
- * @interface ProblemDetail
- */
 export interface ProblemDetail {
-    /**
-     * 
-     * @type {string}
-     * @memberof ProblemDetail
-     */
     'detail'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProblemDetail
-     */
     'instance'?: string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof ProblemDetail
-     */
     'properties'?: { [key: string]: any; };
-    /**
-     * 
-     * @type {number}
-     * @memberof ProblemDetail
-     */
     'status'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProblemDetail
-     */
     'title'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProblemDetail
-     */
     'type'?: string;
 }
 
