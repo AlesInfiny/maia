@@ -2,10 +2,6 @@
   "name": "app",
   "version": "0.0.0",
   "type": "module",
-  "engines": {
-    "node": "^24.13.0",
-    "npm": "^11.6.2"
-  },
   "scripts": {
     "dev": "vite --mode dev",
     "mock": "vite --mode mock",
@@ -26,9 +22,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "4.27.0",
-    "@heroicons/vue": "2.2.0",
     "axios": "1.13.5",
-    "msw": "2.12.4",
     "pinia": "3.0.4",
     "vue": "3.5.25"
   },
@@ -45,11 +39,11 @@
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.7.0",
     "eslint": "9.39.2",
-    "eslint-plugin-cypress": "5.2.0",
     "eslint-plugin-jsdoc": "61.5.0",
     "eslint-plugin-vue": "10.6.2",
     "jiti": "2.6.1",
     "jsdom": "27.3.0",
+    "msw": "2.12.4",
     "npm-run-all2": "8.0.4",
     "prettier": "3.7.4",
     "typescript": "5.8.3",
@@ -62,5 +56,9 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "engines": {
+    "node": "^24.13.0",
+    "npm": "^11.6.2"
   }
 }
