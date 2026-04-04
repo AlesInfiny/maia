@@ -6,7 +6,7 @@ ext {
     spotbugsVersion = "6.4.8"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "3.0.1"
+    springdocOpenapiVersion = "3.0.2"
     springCloudAzureVersion = "7.0.0"
 
     // -- GRADLE PLUGIN TOOLS
