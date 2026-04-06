@@ -14,17 +14,7 @@
 
 
 
-/**
- * 
- * @export
- * @interface UserResponse
- */
 export interface UserResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof UserResponse
-     */
     'userId': string;
 }
 

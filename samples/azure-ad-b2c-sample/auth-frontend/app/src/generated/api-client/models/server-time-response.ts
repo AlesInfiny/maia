@@ -14,17 +14,7 @@
 
 
 
-/**
- * 
- * @export
- * @interface ServerTimeResponse
- */
 export interface ServerTimeResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerTimeResponse
-     */
     'serverTime': string;
 }
 
