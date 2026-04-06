@@ -11,3 +11,12 @@ export type MaybePromise<T> = T | Promise<T>
  * @see MaybePromise
  */
 export type MaybeAsyncFunction<R> = () => MaybePromise<R>
+
+/**
+ * 引数が 1 つ(unary)で、戻り値が同期/非同期のいずれでもよい関数を表すユーティリティ型です。
+ * @template T - 引数（`source`）の型。
+ * @template R - 解決後の戻り値の型。
+ * @param source - 関数の引数。
+ * @returns `R` または `Promise<R>`。
+ */
+export type MaybeAsyncUnaryFunction<T, R> = (source: T) => MaybePromise<R>

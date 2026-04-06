@@ -12,7 +12,8 @@
     "build:prod:app": "npm run build:prod -w app",
     "dev:app": "npm run dev -w app",
     "mock:app": "npm run mock -w app",
-    "test:unit:app": "npm run test:unit -w app"
+    "test:unit:app": "npm run test:unit -w app",
+    "test:coverage:app": "npm run coverage -w app"
   },
   "workspaces": [
     "app"

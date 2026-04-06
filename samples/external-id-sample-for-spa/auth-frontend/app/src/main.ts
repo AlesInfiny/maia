@@ -34,6 +34,7 @@ if (import.meta.env.MODE === 'mock') {
 const app = createApp(App)
 
 app.use(createPinia())
+
 app.use(globalErrorHandler)
 
 app.mount('#app')

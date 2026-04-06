@@ -1,8 +1,8 @@
 import { useServerTimeStore } from '@/stores/server-time/server-time'
 
 /**
- * サーバー時刻を取得します。
- * @returns Promise<void>
+ * サーバーから現在時刻を取得し、サーバータイムストアに反映します。
+ * @returns 非同期処理の完了を表す Promise。
  */
 export async function fetchServerTime() {
   const serverTimeStore = useServerTimeStore()
