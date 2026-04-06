@@ -1,11 +1,9 @@
 import { globalIgnores } from 'eslint/config'
-import tseslint from 'typescript-eslint'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import skipFormatting from 'eslint-config-prettier/flat'
+import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
 
@@ -26,10 +24,10 @@ export default defineConfigWithVueTs(
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
-  pluginVue.configs['flat/recommended'],
+  ...pluginVue.configs['flat/recommended'],
 
   // TypeScript + Vue.js 向けの型情報を使用した推奨ルールを適用します。
-  // .vue .ts .mts .ts .vue ファイルを Lint の対象とします。
+  // .vue .ts .mts .tsx ファイルを Lint の対象とします。
   vueTsConfigs.recommendedTypeChecked,
 
   // 型情報を使用した Lint を実行するために、 tsconfig ファイルを探すための設定をします。
@@ -52,7 +50,7 @@ export default defineConfigWithVueTs(
   // 必要に応じて対象のファイルやルールを設定します。
   {
     name: 'auth-frontend/additional-rules',
-    files: ['**/*.{ts,mts,tsx,vue}'],
+    files: ['**/*.{vue,ts,mts,tsx}'],
     rules: {
       'no-console': 'warn',
       'no-alert': 'warn',
