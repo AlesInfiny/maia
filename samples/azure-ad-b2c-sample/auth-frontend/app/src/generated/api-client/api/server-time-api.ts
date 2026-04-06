@@ -18,14 +18,13 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import type { ServerTimeResponse } from '../models';
 /**
  * ServerTimeApi - axios parameter creator
- * @export
  */
 export const ServerTimeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -48,8 +47,8 @@ export const ServerTimeApiAxiosParamCreator = function (configuration?: Configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -64,7 +63,6 @@ export const ServerTimeApiAxiosParamCreator = function (configuration?: Configur
 
 /**
  * ServerTimeApi - functional programming interface
- * @export
  */
 export const ServerTimeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ServerTimeApiAxiosParamCreator(configuration)
@@ -86,7 +84,6 @@ export const ServerTimeApiFp = function(configuration?: Configuration) {
 
 /**
  * ServerTimeApi - factory interface
- * @export
  */
 export const ServerTimeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = ServerTimeApiFp(configuration)
@@ -105,9 +102,6 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
 
 /**
  * ServerTimeApi - object-oriented interface
- * @export
- * @class ServerTimeApi
- * @extends {BaseAPI}
  */
 export class ServerTimeApi extends BaseAPI {
     /**
@@ -115,7 +109,6 @@ export class ServerTimeApi extends BaseAPI {
      * @summary サーバーの現在時刻を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ServerTimeApi
      */
     public getServerTime(options?: RawAxiosRequestConfig) {
         return ServerTimeApiFp(this.configuration).getServerTime(options).then((request) => request(this.axios, this.basePath));
