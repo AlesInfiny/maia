@@ -9,10 +9,7 @@
     <p>認証結果を処理しています...</p>
     <script type="module">
       import { broadcastResponseToMainFrame } from '@azure/msal-browser/redirect-bridge'
-
-      broadcastResponseToMainFrame().catch((error) => {
-        console.error('Error broadcasting response to main frame:', error)
-      })
+      broadcastResponseToMainFrame()
     </script>
   </body>
 </html>
