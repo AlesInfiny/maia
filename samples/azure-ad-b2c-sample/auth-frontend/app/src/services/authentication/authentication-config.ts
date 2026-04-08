@@ -1,5 +1,7 @@
-import { useLogger } from '@/composables/use-logger'
 import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 export const b2cPolicies = {
   names: {
@@ -34,7 +36,6 @@ export const msalConfig = {
         if (containsPii) {
           return
         }
-        const logger = useLogger()
         switch (level) {
           case LogLevel.Error:
             logger.error(message)
