@@ -1,5 +1,9 @@
-import { InteractionRequiredAuthError } from '@azure/msal-browser'
+/* eslint @typescript-eslint/no-floating-promises: ["error", { "ignoreIIFE": true }] */
+// Safari および Safari on iOS で top-level await が Partial support のため、
+// 代替として即時実行関数式 ( IIFE ) で記述を許可するよう ESLint の設定を変更します。
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { InteractionRequiredAuthError } from '@azure/msal-browser'
 import { useLogger } from '@/composables/use-logger'
 
 const logger = useLogger()
@@ -18,8 +22,8 @@ export function authenticationService() {
 
   const isAuthenticated = (): boolean => {
     const authenticationStore = useAuthenticationStore()
-    authenticationStore.updateAuthenticated()
-    return authenticationStore.isAuthenticated
+    const result = authenticationStore.isAuthenticated
+    return result
   }
 
   const getToken = async () => {
@@ -37,6 +41,7 @@ export function authenticationService() {
         const accessToken = await authenticationStore.getTokenPopup()
         return accessToken
       }
+
       logger.error(error)
       throw error
     }

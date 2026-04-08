@@ -1,17 +1,15 @@
 <!-- eslint-disable no-alert -->
-<!--  このサンプルコードでは、ログ出力先としてコンソール、ユーザーへの通知先としてブラウザの標準ダイアログを使用するので、ファイル全体に対して ESLint の設定を無効化しておきます。
-実際のアプリケーションでは、適切なログ出力先や、通知先のコンポーネントを使用してください。-->
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { authenticationService } from '@/services/authentication/authentication-service'
 import { fetchServerTime } from '@/services/server-time/server-time-service'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
-import { BrowserAuthError } from '@azure/msal-browser'
 import { fetchUser } from './services/user/user-service'
+import { useLogger } from './composables/use-logger'
 import { useServerTimeStore } from './stores/server-time/server-time'
 import { useUserStore } from './stores/user/user'
-import { useLogger } from './composables/use-logger'
+import { BrowserAuthError } from '@azure/msal-browser'
 
 const userStore = useUserStore()
 const { getUserId } = storeToRefs(userStore)
@@ -83,6 +81,6 @@ onMounted(async () => {
   </div>
   <div>
     <button v-if="!isAuthenticated()" type="submit" @click="signInButtonClicked">ログイン</button>
-    <span v-if="isAuthenticated()">ユーザーID: {{ getUserId }}</span>
+    <span v-if="isAuthenticated()"> ユーザーID: {{ getUserId }} </span>
   </div>
 </template>
