@@ -24,10 +24,6 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_test
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 bootJar {
   enabled = false
 }
