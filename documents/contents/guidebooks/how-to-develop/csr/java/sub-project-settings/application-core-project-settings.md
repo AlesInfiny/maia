@@ -70,6 +70,16 @@ jar {
 }
 ```
 
+## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
+
+[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+
+```gradle title="application-core/build.gradle" hl_lines="1 2 3"
+tasks.named('test') {
+  useJUnitPlatform()
+}
+```
+
 また、併せて不要なファイルを削除します。
 application-core プロジェクトの `src` 以下にある、 `ApplicationCoreApplication.java` と `ApplicationCoreApplicationTest.java` を削除してください。
 
@@ -117,11 +127,6 @@ application-core プロジェクトの `src` 以下にある、 `ApplicationCore
       all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
       }
-    }
-
-
-    tasks.named('test') {
-      useJUnitPlatform()
     }
 
     bootJar {

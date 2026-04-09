@@ -115,6 +115,16 @@ configurations {
 }
 ```
 
+## 不要な設定の削除 {#remove-unnecessary-settings}
+
+[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+
+```gradle title="application-core/build.gradle" hl_lines="1 2 3"
+tasks.named('test') {
+  useJUnitPlatform()
+}
+```
+
 ## バッチアプリケーションとして動作させる設定 {#config-batch-application}
 
 batch プロジェクトをウェブアプリケーションではなく、バッチアプリケーションとして動作させるためクラスファイルを書き換えます。
@@ -191,9 +201,4 @@ class BatchApplicationTests {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
       }
     }
-
-    tasks.named('test') {
-      useJUnitPlatform()
-    }
-
     ```
