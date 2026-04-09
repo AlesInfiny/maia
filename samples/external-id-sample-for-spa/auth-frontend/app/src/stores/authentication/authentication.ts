@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import {
   msalInstance,
   loginRequest,
+  logoutRequest,
   tokenRequest,
 } from '@/services/authentication/authentication-config'
 // IIFE 構文が行頭に来る場合、自動セミコロン挿入( ASI )の誤動作防止のため Prettier がセミコロンを挿入します。
@@ -20,7 +21,8 @@ export const useAuthenticationStore = defineStore('authentication', {
       msalInstance.setActiveAccount(response.account)
     },
     async signOut() {
-      await msalInstance.logoutPopup()
+      logoutRequest.account = msalInstance.getActiveAccount() ?? undefined
+      await msalInstance.logoutPopup(logoutRequest)
       msalInstance.setActiveAccount(null)
     },
     async getTokenSilent() {
