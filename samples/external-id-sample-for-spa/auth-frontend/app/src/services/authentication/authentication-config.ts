@@ -55,9 +55,7 @@ export const msalInstance = new PublicClientApplication(msalConfig)
 export const loginRequest: PopupRequest = {
   scopes: ['openId', 'email', ...apiConfig.scopes],
 }
-export const logoutRequest: EndSessionPopupRequest = {
-  postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI,
-}
+export const logoutRequest: EndSessionPopupRequest = {}
 export const tokenRequest: SilentRequest = {
   scopes: ['openId', 'email', ...apiConfig.scopes],
 }
