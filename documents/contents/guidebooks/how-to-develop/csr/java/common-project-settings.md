@@ -254,6 +254,20 @@ subprojects {
 
 JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
+また、 test タスクの実行後に JaCoCo のカバレッジ・レポートが自動的に生成されるようにする場合、 test タスクの設定に以下の記述を追加してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="7"  
+subprojects {
+  test {
+    // UTテスト時はtestプロファイルを利用
+    jvmArgs=['-Dspring.profiles.active=test']
+
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+  }
+}
+```
+
 ### フォーマッターの設定 {#formatter-settings}
 
 ソースコードのフォーマットの一貫性を保つために、統合開発環境で提供されている自動フォーマット機能を利用します。
@@ -321,7 +335,9 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       test {
         // UTテスト時はtestプロファイルを利用
         jvmArgs=['-Dspring.profiles.active=test']
+
         useJUnitPlatform()
+        finalizedBy jacocoTestReport
       }
 
       checkstyle {
