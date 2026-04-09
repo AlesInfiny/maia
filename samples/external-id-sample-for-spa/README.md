@@ -134,6 +134,11 @@ auth-frontend
 - code_verifier の生成・送信
 - code_challenge の生成・送信
 
+また、`MSAL.js v5` 以降、すべての認証フローにおいて MSAL リダイレクトブリッジを実装した専用のリダイレクトページが必要になりました。
+これは、 [COOP（Cross-Origin-Opener-Policy）ヘッダー](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy) をサポートし、ポップアップウィンドウとメインアプリケーション間の安全な通信を可能にするためです。
+そのため、本サンプルでは認証結果の受け取り先として `redirect.html` を用意しています。
+詳細については、 [こちら](https://learn.microsoft.com/ja-jp/entra/msal/javascript/browser/login-user#redirecturi-considerations) を参照してください。
+
 ## 前提となる OSS ライブラリ
 
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
@@ -184,7 +189,10 @@ auth-frontend
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleSPA 」を選択します。
-1. 「認証」ブレードを選択し、「リダイレクト URI の追加」をクリックします。「シングルページアプリケーション」を選択し、リダイレクト URI に「 `http://localhost:5173` 」を設定します。
+1. 「認証」ブレードを選択し、「リダイレクト URI の追加」をクリックします。「シングルページアプリケーション」を選択し、リダイレクト URI に以下を設定します。
+    - `http://localhost:5173`
+    - `http://localhost:5173/redirect.html`
+    - `http://localhost:5173/logout-complete.html`
 1. [Web API にアクセスするためのアクセス許可を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-configure-app-access-web-apis#add-permissions-to-access-your-web-api) に従って、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 `api.read` 」へのアクセス許可を付与します。
 1. [管理者の同意を付与する (外部テナントのみ)](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app#grant-admin-consent-external-tenants-only) に従って、 SampleSPA に管理者の同意を付与します。
 
@@ -216,8 +224,8 @@ auth-frontend
 VITE_EXTERNAL_ID_AUTHORITY_DOMAIN=https://[テナントサブドメイン].ciamlogin.com/
 VITE_EXTERNAL_ID_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
 VITE_EXTERNAL_ID_APP_CLIENT_ID=[SampleSPA のクライアント ID]
-VITE_EXTERNAL_ID_REDIRECT_URI=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
-VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの既定では http://localhost:5173]
+VITE_EXTERNAL_ID_REDIRECT_URI=[クライアントアプリケーションのリダイレクトURI。サンプルの既定では http://localhost:5173/redirect.html]
+VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの既定では http://localhost:5173/logout-complate.html]
 ```
 
 ### 動作確認
