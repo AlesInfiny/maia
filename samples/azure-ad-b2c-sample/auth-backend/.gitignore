@@ -1,5 +1,6 @@
 # Gradle キャッシュ
-.gradle
+.gradle/
 
 # ビルド成果物
-build
+build/
+bin/
