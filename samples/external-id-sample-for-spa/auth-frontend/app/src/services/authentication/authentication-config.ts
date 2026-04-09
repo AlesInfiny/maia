@@ -1,4 +1,10 @@
-import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
+import {
+  type EndSessionPopupRequest,
+  LogLevel,
+  PublicClientApplication,
+  type PopupRequest,
+  type SilentRequest,
+} from '@azure/msal-browser'
 import { useLogger } from '@/composables/use-logger'
 
 const logger = useLogger()
@@ -12,7 +18,6 @@ export const msalConfig = {
   },
   cache: {
     cacheLocation: 'sessionStorage',
-    storeAuthStateInCookie: true,
   },
   system: {
     loggerOptions: {
@@ -47,9 +52,10 @@ export const apiConfig = {
 
 export const msalInstance = new PublicClientApplication(msalConfig)
 
-export const loginRequest: SilentRequest = {
+export const loginRequest: PopupRequest = {
   scopes: ['openId', 'email', ...apiConfig.scopes],
 }
+export const logoutRequest: EndSessionPopupRequest = {}
 export const tokenRequest: SilentRequest = {
   scopes: ['openId', 'email', ...apiConfig.scopes],
 }
