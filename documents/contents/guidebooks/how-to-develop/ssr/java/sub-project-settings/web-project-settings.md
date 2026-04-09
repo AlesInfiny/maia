@@ -60,6 +60,12 @@ Spring Boot の設定は CSR 編と同様です。
 
 [こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-library-exclusion-settings) を参照して、ロギングライブラリの除外設定を追記してください。
 
+## 不要な設定の削除 {#remove-unnecessary-settings}
+
+不要な設定の削除は CSR 編と同様です。
+
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#remove-unnecessary-settings) を参照して、不要な設定を削除してください。
+
 ## ログの設定 {#logging-configuration}
 
 ログの設定は CSR 編と同様です。
@@ -116,10 +122,6 @@ Spring Boot の設定は CSR 編と同様です。
       all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
       }
-    }
-
-    tasks.named('test') {
-      useJUnitPlatform()
     }
     ```
 
