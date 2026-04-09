@@ -91,7 +91,7 @@ VS Code のターミナルで、「dressca\\dressca-frontend」にいること�
 
     <http://localhost:5173>
 
-    [![Dressca トップページ](../../images/samples/dressca-top.png){ width="600" loading=lazy }](../../images/samples/dressca-top.png)
+    ![Dressca トップページ](../../images/samples/dressca-top.png){ width="600" loading=lazy }
 
 ### バックエンドエンドアプリケーションの実行手順 {#backend-operation}
 
@@ -155,7 +155,7 @@ VS Code のターミナルで、「dressca\\dressca-frontend」にいること�
 
     <http://localhost:6173>
 
-    [![Dressca トップページ](../../images/samples/dressca-top.png){ width="600" loading=lazy }](../../images/samples/dressca-top.png)
+    ![Dressca トップページ](../../images/samples/dressca-admin-top.png){ width="600" loading=lazy }
 
 ### バックエンドエンドアプリケーションの実行手順 {#admin-backend-operation}
 
