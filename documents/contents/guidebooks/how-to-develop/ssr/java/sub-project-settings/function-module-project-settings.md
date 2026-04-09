@@ -82,7 +82,7 @@ jar {
 
 [こちら](../../../csr/java/common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
 
-```gradle title="application-core/build.gradle" hl_lines="1 2 3"
+```groovy title="a-function/build.gradle" hl_lines="1 2 3"
 tasks.named('test') {
   useJUnitPlatform()
 }
