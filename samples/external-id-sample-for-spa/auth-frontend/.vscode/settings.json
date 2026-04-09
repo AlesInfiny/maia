@@ -13,16 +13,5 @@
   "css.validate": false,
 
   "editor.guides.bracketPairs": true,
-  "editor.bracketPairColorization.enabled": true,
-  "cSpell.words": [
-    "Entra",
-    "dressca",
-    "msal",
-    "openapi",
-    "openapitools",
-    "pinia",
-    "rushstack",
-    "vite",
-    "VITE"
-  ]
+  "editor.bracketPairColorization.enabled": true
 }
