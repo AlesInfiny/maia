@@ -47,10 +47,6 @@ dependencies {
   mybatisTasks supportDependencies.h2database
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 bootJar{
   enabled = false
 }
