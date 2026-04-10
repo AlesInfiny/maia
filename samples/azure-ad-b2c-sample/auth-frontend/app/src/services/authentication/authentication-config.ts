@@ -1,5 +1,12 @@
+import {
+  LogLevel,
+  PublicClientApplication,
+  type PopupRequest,
+  type SilentRequest,
+} from '@azure/msal-browser'
 import { useLogger } from '@/composables/use-logger'
-import { LogLevel, PublicClientApplication, type SilentRequest } from '@azure/msal-browser'
+
+const logger = useLogger()
 
 export const b2cPolicies = {
   names: {
@@ -22,11 +29,10 @@ export const msalConfig = {
     clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: import.meta.env.VITE_ADB2C_APP_URI,
+    redirectUri: import.meta.env.VITE_ADB2C_REDIRECT_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
-    storeAuthStateInCookie: true,
   },
   system: {
     loggerOptions: {
@@ -34,7 +40,6 @@ export const msalConfig = {
         if (containsPii) {
           return
         }
-        const logger = useLogger()
         switch (level) {
           case LogLevel.Error:
             logger.error(message)
@@ -58,7 +63,7 @@ export const msalConfig = {
 
 export const msalInstance = new PublicClientApplication(msalConfig)
 
-export const loginRequest: SilentRequest = {
+export const loginRequest: PopupRequest = {
   scopes: ['openId', ...apiConfig.b2cScopes],
 }
 
