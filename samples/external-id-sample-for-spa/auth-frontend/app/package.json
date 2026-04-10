@@ -25,7 +25,7 @@
     "@azure/msal-browser": "5.6.3",
     "axios": "1.13.6",
     "pinia": "3.0.4",
-    "vue": "3.5.30"
+    "vue": "3.5.32"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.31.0",
