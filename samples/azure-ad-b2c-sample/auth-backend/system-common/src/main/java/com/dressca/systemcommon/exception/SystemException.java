@@ -20,7 +20,8 @@ public class SystemException extends RuntimeException {
   private String[] logMessageValue = null;
 
   /**
-   * {@link SystemException} クラスのインスタンスを初期化します。
+   * 原因例外、例外 ID 、メッセージ用プレースフォルダ（フロント用）、メッセージ用プレースフォルダ（ログ用）を指定して、 {@link SystemException}
+   * クラスのインスタンスを初期化します。
    *
    * @param cause 原因例外。
    * @param exceptionId 例外 ID 。
