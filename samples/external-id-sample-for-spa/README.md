@@ -27,8 +27,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v24.13.0
-- Visual Studio Code 1.108.1
+- Node.js v24.14.1
+- Visual Studio Code 1.115.0
 
 ## サンプルの構成
 
@@ -84,6 +84,8 @@ auth-frontend
 └ app
   ├ .env.dev .............................. Entra External ID への接続情報を記載する設定ファイル
   ├ env.d.ts .............................. 環境変数の型定義をする TypeScript ファイル
+  ├ redirect.html ......................... Redirect Bridge Page 用の HTML ファイル
+  ├ logout-complete.html .................. ログアウト完了後リダイレクトページ用の HTML ファイル
   └ src
   　 ├ App.vue ............................ 画面。本サンプルでは画面は App.vue のみ。
   　 ├ api-client
