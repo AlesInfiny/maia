@@ -181,7 +181,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @DeleteMapping("{catalogItemId}")
   public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
-      @RequestParam OffsetDateTime rowVersion)
+      @RequestParam(name = "rowVersion") OffsetDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
       this.service.deleteItemFromCatalog(catalogItemId, rowVersion);
