@@ -23,7 +23,8 @@
             id="email"
             th:field="*{email}"
             style="width: 400px"
-            maxlength="256" />
+            maxlength="256"
+            autocomplete="username" />
           <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('email')}">
             <li th:each="error : ${#fields.errors('email')}" th:text="${error}"></li>
           </ul>
@@ -39,7 +40,8 @@
             id="password"
             th:field="*{password}"
             style="width: 400px"
-            maxlength="256" />
+            maxlength="256"
+            autocomplete="current-password" />
           <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('password')}">
             <li th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
           </ul>
