@@ -75,8 +75,8 @@ public class AnnouncementController {
    * @return ビュー名。
    */
   @GetMapping
-  public String index(@RequestParam(required = false) String pageNumber,
-      @RequestParam(required = false) String pageSize, Model model) {
+  public String index(@RequestParam(name = "pageNumber", required = false) String pageNumber,
+      @RequestParam(name = "pageSize", required = false) String pageSize, Model model) {
 
     // クエリ文字列から値を取得し、数値以外の値は未指定にする
     Integer pageNumberInt = parseInteger(pageNumber);
