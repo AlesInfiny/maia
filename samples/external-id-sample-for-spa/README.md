@@ -172,7 +172,7 @@ auth-frontend
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 
-    <!-- textlint-enable ja-technical-writing/sentence-length -->
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 1. [委任されたアクセス許可 (スコープ) を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-web-api-dotnet-protect-app?tabs=aspnet-core#add-delegated-permissions-scopes) に従って、アプリにスコープを追加します。
     - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
@@ -407,12 +407,16 @@ BUILD SUCCESSFUL in 2s
 
     追加した処理の役割は以下の通りです。
 
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
     - `@EnableMethodSecurity`
       コントローラーのメソッドに付与する `@PreAuthorize` のアノテーションを有効化します。
       これにより、例えば `@PreAuthorize("isAuthenticated()")` を付与した API は認証済みユーザーのみ実行可能になります。
 
     - `.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))`
       本アプリケーションを OAuth 2.0 Resource Server として動作させ、 HTTP リクエストのヘッダーに含まれる Bearer トークンを検証します。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 1. 未認証の場合の例外ハンドラを実装します。
    `src\main\java\...\controller\advice\ExceptionHandlerControllerAdvice.java` に対して以下の ExceptionHandler を設定します。
@@ -469,11 +473,11 @@ BUILD SUCCESSFUL in 2s
 
     ```typescript
     // その他のコードは省略
-    async function addToken(config: apiClient.Configuration) {
-      // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
-      if (await authenticationService.isAuthenticated()) {
-        const token = await authenticationService.getTokenEntraExternalId();
-        config.accessToken = token;
+    async function addToken(config: apiClient.Configuration): Promise<void> {
+      const { isAuthenticated, getToken } = authenticationService()
+      if (isAuthenticated()) {
+        const token = await getToken()
+        config.accessToken = token
       }
     }
 
