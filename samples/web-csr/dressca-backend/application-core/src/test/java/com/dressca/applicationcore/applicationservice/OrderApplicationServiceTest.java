@@ -16,6 +16,7 @@ import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -32,7 +34,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * {@link OrderApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class OrderApplicationServiceTest {
@@ -40,6 +42,8 @@ public class OrderApplicationServiceTest {
   private OrderRepository orderRepository;
   @Autowired
   private MessageSource messages;
+  @Autowired
+  private ApplicationContext applicationContext;
   @Mock
   private AbstractStructuredLogger apLog;
 
@@ -47,6 +51,7 @@ public class OrderApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
+    new ApplicationContextWrapper().setApplicationContext(applicationContext);
     service = new OrderApplicationService(messages, orderRepository, apLog);
   }
 

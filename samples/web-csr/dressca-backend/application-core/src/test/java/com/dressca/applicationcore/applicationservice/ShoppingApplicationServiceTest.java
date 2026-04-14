@@ -28,6 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -47,11 +48,12 @@ import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
@@ -66,6 +68,8 @@ public class ShoppingApplicationServiceTest {
 
   @Autowired
   private MessageSource messages;
+  @Autowired
+  private ApplicationContext applicationContext;
 
   @Mock
   private AbstractStructuredLogger apLog;
@@ -76,6 +80,7 @@ public class ShoppingApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
+    new ApplicationContextWrapper().setApplicationContext(applicationContext);
     service = new ShoppingApplicationService(messages, basketRepository, catalogRepository,
         orderRepository, catalogDomainService, apLog);
   }

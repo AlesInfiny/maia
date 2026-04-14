@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -26,6 +27,7 @@ import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。
@@ -41,6 +43,8 @@ public class AssetApplicationServiceTest {
   private AssetStore store;
   @Autowired
   private MessageSource messages;
+  @Autowired
+  private ApplicationContext applicationContext;
   @Mock
   private AbstractStructuredLogger apLog;
 
@@ -48,6 +52,7 @@ public class AssetApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
+    new ApplicationContextWrapper().setApplicationContext(applicationContext);
     service = new AssetApplicationService(repository, store, messages, apLog);
   }
 
