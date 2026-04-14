@@ -46,7 +46,7 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
@@ -73,8 +73,7 @@ public class CatalogApplicationServiceTest {
   @BeforeEach
   void setUp() {
     service = new CatalogApplicationService(messages, catalogRepository, brandRepository,
-        categoryRepository, catalogDomainService, apLog);
-    service.setUserStore(this.userStore);
+        categoryRepository, catalogDomainService, apLog, userStore);
   }
 
   @Test
