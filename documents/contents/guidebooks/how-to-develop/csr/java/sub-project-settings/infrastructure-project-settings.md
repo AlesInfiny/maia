@@ -79,6 +79,16 @@ jar {
 }
 ```
 
+## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
+
+[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+
+```groovy title="infrastructure/build.gradle" hl_lines="1 2 3"
+tasks.named('test') {
+  useJUnitPlatform()
+}
+```
+
 また、併せて不要なファイルを削除します。
 infrastructure プロジェクトの `src` 以下にある、 `InfrastructureApplication.java` と `InfrastructureApplicationTest.java` を削除してください。
 
@@ -128,7 +138,6 @@ infrastructure プロジェクトの `src` 以下にある、 `InfrastructureApp
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
       }
     }
-
 
     bootJar {
       enabled = false
