@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,6 +43,20 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
   public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
       AuthenticationCredentialsNotFoundException e, HttpServletRequest req) {
+    apLog.warn(ExceptionUtils.getStackTrace(e));
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+  }
+
+  /**
+   * 未認証エラーをステータスコード 401 で返却します。
+   *
+   * @param e 未認証エラー。
+   * @param req リクエスト。
+   * @return ステータースコード 401 のレスポンス。
+   */
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<String> accessDeniedHandleException(AccessDeniedException e,
+      HttpServletRequest req) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }

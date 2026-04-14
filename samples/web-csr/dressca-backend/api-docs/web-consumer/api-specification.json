@@ -523,6 +523,11 @@
             "description": "注文 ID が存在しません。"
           }
         },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "注文情報を取得します。",
         "tags": [
           "Orders"

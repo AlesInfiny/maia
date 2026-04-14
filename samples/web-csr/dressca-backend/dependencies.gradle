@@ -54,6 +54,9 @@ ext {
         // GRADLE PLUGIN TOOLS
         checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",
         jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
-        spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion"
+        spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion",
+
+        // AZURE AUTHENTICATION
+        spring_boot_starter_security_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server",
     ]
 }

@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /**
  * {@link Order} の情報にアクセスする API コントローラーです。
@@ -65,7 +67,8 @@ public class OrderController {
    * @param orderId 注文 ID 。
    * @return 注文情報。
    */
-  @Operation(summary = "注文情報を取得します。", description = "注文情報を取得します。")
+  @Operation(summary = "注文情報を取得します。", description = "注文情報を取得します。",
+      security = {@SecurityRequirement(name = "Bearer")})
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
@@ -74,6 +77,7 @@ public class OrderController {
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
+  @PreAuthorize(value = "isAuthenticated()")
   public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
