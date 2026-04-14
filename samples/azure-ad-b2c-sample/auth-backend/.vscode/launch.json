@@ -4,7 +4,7 @@
       "type": "java",
       "name": "Spring Boot-WebApplication<web>",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/web",
       "console": "internalConsole",
       "mainClass": "com.dressca.web.WebApplication",
       "projectName": "web",
