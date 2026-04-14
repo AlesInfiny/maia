@@ -25,9 +25,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.net.URI;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -44,20 +43,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
 
-  @Autowired
-  private OrderApplicationService orderApplicationService;
-  @Autowired
-  private ShoppingApplicationService shoppingApplicationService;
-
-  @Autowired
-  private ProblemDetailsFactory problemDetailsFactory;
-
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final OrderApplicationService orderApplicationService;
+  private final ShoppingApplicationService shoppingApplicationService;
+  private final ProblemDetailsFactory problemDetailsFactory;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * 注文情報を取得します。

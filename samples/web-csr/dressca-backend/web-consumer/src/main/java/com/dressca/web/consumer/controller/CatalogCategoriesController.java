@@ -6,7 +6,6 @@ import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogCategoryResponse;
 import com.dressca.web.consumer.mapper.CatalogCategoryMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CatalogCategory} の情報にアクセスする API コントローラーです。
@@ -26,11 +25,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "CatalogCategories", description = "カタログカテゴリの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-categories")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CatalogCategoriesController {
 
-  @Autowired
-  private CatalogApplicationService service;
+  private final CatalogApplicationService service;
 
   /**
    * カタログカテゴリの一覧を取得します。

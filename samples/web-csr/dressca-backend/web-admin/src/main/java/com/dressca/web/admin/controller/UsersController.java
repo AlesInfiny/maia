@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Tag(name = "Users", description = "ログイン中のユーザーの情報にアクセスする API です。")
 @RequestMapping("/api/users")
 @PreAuthorize(value = "isAuthenticated()")
+@RequiredArgsConstructor
 public class UsersController {
 
-  @Autowired(required = false)
-  private UserStore userStore;
+  private final UserStore userStore;
 
   /**
    * ログイン中のユーザーの情報を取得します。

@@ -7,7 +7,6 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.consumer.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.consumer.mapper.CatalogItemMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
@@ -28,11 +27,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CatalogItemsController {
 
-  @Autowired
-  private CatalogApplicationService service;
+  private final CatalogApplicationService service;
 
   /**
    * カタログアイテムを検索して返します。

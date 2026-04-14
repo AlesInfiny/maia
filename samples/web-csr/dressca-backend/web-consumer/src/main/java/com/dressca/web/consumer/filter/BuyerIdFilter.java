@@ -11,7 +11,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -21,7 +21,7 @@ import com.dressca.web.consumer.security.CookieSettings;
 /**
  * 購入者 ID にフィルターをかけるクラスです。
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BuyerIdFilter implements Filter {
 
   private static final String DEFAULT_BUYER_COOKIE_NAME = "Dressca-Bid";
