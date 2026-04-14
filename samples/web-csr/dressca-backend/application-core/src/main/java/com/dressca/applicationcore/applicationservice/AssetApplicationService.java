@@ -1,7 +1,6 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -13,24 +12,20 @@ import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
 import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * アセット情報に関するビジネスユースケースを実現するサービスです。
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class AssetApplicationService {
 
-  @Autowired
-  private AssetRepository repository;
-  @Autowired
-  private AssetStore store;
-  @Autowired
-  private MessageSource messages;
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final AssetRepository repository;
+  private final AssetStore store;
+  private final MessageSource messages;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。

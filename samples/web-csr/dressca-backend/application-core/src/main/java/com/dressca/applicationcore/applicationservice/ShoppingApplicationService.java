@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,26 +29,22 @@ import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 買い物かご情報に関するビジネスユースケースを実現するサービスです。
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class ShoppingApplicationService {
 
-  @Autowired
-  private MessageSource messages;
-
-  private BasketRepository basketRepository;
-  private CatalogRepository catalogRepository;
-  private OrderRepository orderRepository;
-  private CatalogDomainService catalogDomainService;
-
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final MessageSource messages;
+  private final BasketRepository basketRepository;
+  private final CatalogRepository catalogRepository;
+  private final OrderRepository orderRepository;
+  private final CatalogDomainService catalogDomainService;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * 買い物かごに商品を追加します。
