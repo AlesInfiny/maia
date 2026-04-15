@@ -11,7 +11,7 @@ import com.dressca.systemcommon.util.ApplicationContextWrapper;
 @TestConfiguration
 public class ApplicationCoreTestConfig {
   @Bean
-  ApplicationContextWrapper applicationContextWrapper() {
+  public ApplicationContextWrapper applicationContextWrapper() {
     return new ApplicationContextWrapper();
   }
 }
