@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface CatalogCategoryResponse
- */
 export interface CatalogCategoryResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogCategoryResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogCategoryResponse
-     */
     'name': string;
 }
 

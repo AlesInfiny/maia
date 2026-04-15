@@ -14,59 +14,14 @@
 
 
 
-/**
- * 
- * @export
- * @interface CatalogItemResponse
- */
 export interface CatalogItemResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof CatalogItemResponse
-     */
     'assetCodes'?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemResponse
-     */
     'catalogBrandId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemResponse
-     */
     'catalogCategoryId': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemResponse
-     */
     'description': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemResponse
-     */
     'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemResponse
-     */
     'price': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemResponse
-     */
     'productCode': string;
 }
 
