@@ -56,9 +56,9 @@ public class TestProfileDummyUserInjectionFilterTest {
   }
 
   /**
-   * アプリケーションコンテキスト内に {@link DummyUserInjectionFilter} が含まれているかを確認します。
+   * セキュリティフィルターチェイン に {@link DummyUserInjectionFilter} が含まれているかを確認します。
    * 
-   * @return ダミーフィルターが含まれている場合は true、そうでない場合は false。
+   * @return {@link DummyUserInjectionFilter} が含まれている場合は true、そうでない場合は false。
    */
   private boolean hasDummyUserInjectionFilter() {
     return springSecurityFilterChain.getFilterChains().stream()
