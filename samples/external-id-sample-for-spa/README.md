@@ -460,7 +460,7 @@ BUILD SUCCESSFUL in 2s
 1. 本サンプルの以下のファイルを `consumer` フォルダーにコピーします。
     - redirect.html
     - logout-complete.html
-1. 本サンプルの `auth-frontend\app\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
+1. 本サンプルの `.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
     ```typescript
