@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface GetCatalogBrandsResponse
- */
 export interface GetCatalogBrandsResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCatalogBrandsResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCatalogBrandsResponse
-     */
     'name': string;
 }
 
