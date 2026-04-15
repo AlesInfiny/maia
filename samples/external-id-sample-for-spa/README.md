@@ -380,10 +380,13 @@ BUILD SUCCESSFUL in 2s
 
     ```java
       import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+      import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+      import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
       @Configuration(proxyBeanMethods = false)
       @EnableWebSecurity
     + @EnableMethodSecurity
+    + @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
       public class WebSecurityConfig {
         
         // その他のコードは省略
@@ -418,6 +421,10 @@ BUILD SUCCESSFUL in 2s
       コントローラーのメソッドに付与する `@PreAuthorize` のアノテーションを有効化します。
       これにより、例えば `@PreAuthorize("isAuthenticated()")` を付与した API は認証済みユーザーのみ実行可能になります。
 
+    - `@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")`
+      OpenAPI 仕様書に Bearer 認証方式を定義します。
+      これにより、 `@SecurityRequirement(name = "Bearer")` を付与した API とひも付けられ、後続の `npm run generate-client` で生成するクライアントコードにも Bearer トークン付与処理が反映されます。
+
     - `.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))`
       本アプリケーションを OAuth 2.0 Resource Server として動作させ、 HTTP リクエストのヘッダーに含まれる Bearer トークンを検証します。
 
@@ -448,9 +455,12 @@ BUILD SUCCESSFUL in 2s
 
 以下、 Dressca アプリケーション (Consumer) のフロントエンドアプリケーションに認証機能を適用する手順を示します。
 
-1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
-1. ターミナルで`cd ../consumer` 、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
-1. `auth-frontend\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
+1. VS Code で `dressca-frontend` のフォルダーの `dressca-frontend.code-workspace` ファイルを開きます。
+1. ターミナルで `consumer` フォルダーに移動し、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
+1. 本サンプルの以下のファイルを `consumer` フォルダーにコピーします。
+    - redirect.html
+    - logout-complete.html
+1. 本サンプルの `auth-frontend\app\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
     ```typescript
@@ -468,15 +478,16 @@ BUILD SUCCESSFUL in 2s
     ```
 
 1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
-1. `src\services\authentication` フォルダーを作成し、本サンプルの以下のコードをコピー・差し替えします。
+1. `src\services\authentication` フォルダーで、本サンプルの以下のコードをコピー・差し替えします。
     - authentication-services.ts
     - authentication-config.ts
-1. `src\store\authentication` フォルダーの `authentication.ts` を本サンプルのコードに差し替えます。
+1. `src\store\authentication\authentication.ts` を本サンプルのコードに差し替えます。
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
    本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
    `src\api-client\index.ts` を以下のように編集します。
 
     ```typescript
+    import { authenticationService } from '@/services/authentication/authentication-service'
     // その他のコードは省略
     async function addToken(config: apiClient.Configuration): Promise<void> {
       const { isAuthenticated, getToken } = authenticationService()
@@ -498,7 +509,13 @@ BUILD SUCCESSFUL in 2s
 1. `src\App.vue` に対して、 `<script>` セクションに以下のコードを追加します。
 
     ```typescript
+    import { useLogger } from './composables/use-logger'
+    import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+    import { BrowserAuthError } from '@azure/msal-browser'
+
     const { signIn, signOut, isAuthenticated } = authenticationService()
+    const logger = useLogger()
+    const handleErrorAsync = useCustomErrorHandler()
 
     const signInButtonClicked = async () => {
       try {
@@ -507,11 +524,11 @@ BUILD SUCCESSFUL in 2s
         // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
         if (error instanceof BrowserAuthError) {
           // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            console.info('ユーザーが認証処理を中断しました。')
+          await handleErrorAsync(error, () => {
+            logger.info('ユーザーが認証処理を中断しました。')
           })
         } else {
-          customErrorHandler.handle(error, () => {
+          await handleErrorAsync(error, () => {
             window.alert('Microsoft Entra External Id での認証に失敗しました。')
           })
         }
@@ -525,11 +542,11 @@ BUILD SUCCESSFUL in 2s
         // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
         if (error instanceof BrowserAuthError) {
           // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            console.info('ユーザーが認証処理を中断しました。')
+          await handleErrorAsync(error, () => {
+            logger.info('ユーザーが認証処理を中断しました。')
           })
         } else {
-          customErrorHandler.handle(error, () => {
+          await handleErrorAsync(error, () => {
             window.alert('Microsoft Entra External Id での認証に失敗しました。')
           })
         }
@@ -565,6 +582,8 @@ BUILD SUCCESSFUL in 2s
 1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
 
     ```typescript
+    // その他のコードは省略
+    import { authenticationService } from '@/services/authentication/authentication-service'
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
       try {
         await authenticationService().signIn()
@@ -579,6 +598,8 @@ BUILD SUCCESSFUL in 2s
 1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `src\shared\error-handler\custom-error-handler.ts` に以下を追加します。
 
     ```typescript
+    import { BrowserAuthError } from '@azure/msal-browser'
+
     export function useCustomErrorHandler(): handleErrorAsyncFunction {
     const { t } = i18n.global
     const handleErrorAsync = async (
@@ -593,10 +614,10 @@ BUILD SUCCESSFUL in 2s
       const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
       const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
       // ハンドリングできるエラーの場合はコールバックを実行します。
-      if (error instanceof BrowserAuthError) {
-        await callback()
-        return
-      }
+    + if (error instanceof BrowserAuthError) {
+    +   await callback()
+    +   return
+    + }
       if (error instanceof CustomErrorBase) {
         logger.error(JSON.stringify(error.toJSON()))
         await callback()
