@@ -1,0 +1,72 @@
+import { describe, it, expect, beforeEach } from 'vitest'
+import { mount } from '@vue/test-utils'
+import type { BasketItemResponse } from '@/common/generated/api-client'
+import { i18n } from '@/common/locales/i18n'
+import BasketItem from '@/basket/components/BasketItem.vue'
+
+/**
+ * バスケットアイテムのレスポンスを生成します。
+ * 主にテストやモックデータとして利用することを想定しています。
+ * @returns `BasketItemResponse` 型のオブジェクト
+ */
+function createBasketItemResponse(): BasketItemResponse {
+  return {
+    catalogItemId: 10,
+    quantity: 2,
+    subTotal: 100000,
+    unitPrice: 50000,
+  }
+}
+
+describe('BasketItem', () => {
+  beforeEach(() => {
+    i18n.global.locale.value = 'ja'
+  })
+
+  it('小計が日本円形式で表示できる', () => {
+    // Arrange
+    const basketItemResponse = createBasketItemResponse()
+    const available = true
+
+    // Act
+    const wrapper = mount(BasketItem, {
+      props: { item: basketItemResponse, available },
+      global: { plugins: [i18n] },
+    })
+
+    // Assert
+    expect(wrapper.text()).toContain('￥100,000')
+  })
+
+  it('単価が日本円形式で表示できる', () => {
+    // Arrange
+    const basketItemResponse = createBasketItemResponse()
+    const available = true
+
+    // Act
+    const wrapper = mount(BasketItem, {
+      props: { item: basketItemResponse, available },
+      global: { plugins: [i18n] },
+    })
+
+    // Assert
+    expect(wrapper.text()).toContain('￥50,000')
+  })
+
+  it('販売中止中のメッセージが表示できる', () => {
+    // Arrange
+    const basketItemResponse = createBasketItemResponse()
+    const available = false
+
+    // Act
+    const wrapper = mount(BasketItem, {
+      props: { item: basketItemResponse, available },
+      global: { plugins: [i18n] },
+    })
+
+    // Assert
+    expect(wrapper.text()).toContain(
+      'こちらの商品は現在販売しておりません。買い物かごから削除してください。',
+    )
+  })
+})

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import NotificationToast from '@/components/NotificationToast.vue'
-import LoginMenu from '@/components/LoginMenu.vue'
+import NotificationToast from '@/notification/components/NotificationToast.vue'
+import LoginMenu from '@/authentication/components/LoginMenu.vue'
 import { storeToRefs } from 'pinia'
 import { router as importedRouter } from '@/router'
 import { ref } from 'vue'
-import { useNotificationStore } from '@/stores/notification/notification'
+import { useNotificationStore } from '@/notification/stores/notification'
 import { useEventBus } from '@vueuse/core'
-import { showToast as showToastByService } from '@/services/notification/notificationService'
-import { unauthorizedErrorEventKey } from './shared/events'
+import { showToast as showToastByService } from '@/notification/services/notificationService'
+import { unauthorizedErrorEventKey } from '@/common/events'
 
 const notificationStore = useNotificationStore()
 const { message, timeout } = storeToRefs(notificationStore)

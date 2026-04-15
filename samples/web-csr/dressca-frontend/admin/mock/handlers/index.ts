@@ -1,13 +1,13 @@
-import { catalogItemsHandlers } from './catalog-items-handler'
-import { catalogBrandsHandlers } from './catalog-brands-handler'
-import { catalogCategoriesHandlers } from './catalog-categories-handler'
-import { assetsHandlers } from './assets-handler'
-import { usersHandlers } from './users-handler'
+import { usersHandlers } from '../authentication/handlers/users-handler'
+import { catalogBrandsHandlers } from '../catalog/handlers/catalog-brands-handler'
+import { catalogCategoriesHandlers } from '../catalog/handlers/catalog-categories-handler'
+import { catalogItemsHandlers } from '../catalog/handlers/catalog-items-handler'
+import { assetsHandlers } from '../common/handlers/assets-handler'
 
 export const handlers = [
+  ...usersHandlers,
   ...catalogItemsHandlers,
   ...catalogBrandsHandlers,
   ...catalogCategoriesHandlers,
   ...assetsHandlers,
-  ...usersHandlers,
 ]

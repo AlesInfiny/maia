@@ -1,0 +1,104 @@
+import axios, { HttpStatusCode } from 'axios'
+import * as apiClient from '@/common/generated/api-client'
+import { getRequestAbortSignal } from '@/common/api-client/request-abort-manager'
+import {
+  ConflictError,
+  HttpError,
+  NetworkError,
+  NotFoundError,
+  ServerError,
+  UnauthorizedError,
+  UnknownError,
+} from '@/common/error/custom-error'
+
+/**
+ * api-client の共通の Configuration を生成します。
+ * 共通の Configuration があればここに定義してください。
+ * @returns 新しい Configuration インスタンス。
+ */
+function createConfig(): apiClient.Configuration {
+  const config = new apiClient.Configuration()
+  return config
+}
+
+/** axios の共通の設定があればここに定義します。 */
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+})
+
+// リクエストインターセプター: すべてのリクエストに AbortController の signal を設定します。
+axiosInstance.interceptors.request.use((config) => {
+  config.signal = getRequestAbortSignal()
+  return config
+})
+
+/** レスポンスのステータスコードに応じてカスタムエラーを割り当てます。 */
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (axios.isCancel(error)) {
+      return Promise.reject(error) // CanceledError を呼び出し元で処理させます。
+    }
+    if (axios.isAxiosError(error)) {
+      if (!error.response) {
+        return Promise.reject(new NetworkError(error.message, error))
+      }
+      if (error.response.status === Number(HttpStatusCode.InternalServerError)) {
+        return Promise.reject(new ServerError(error.message, error))
+      }
+      if (error.response.status === Number(HttpStatusCode.Unauthorized)) {
+        return Promise.reject(new UnauthorizedError(error.message, error))
+      }
+      if (error.response.status === Number(HttpStatusCode.NotFound)) {
+        return Promise.reject(new NotFoundError(error.message, error))
+      }
+      if (error.response.status === Number(HttpStatusCode.Conflict)) {
+        return Promise.reject(new ConflictError(error.message, error))
+      }
+      return Promise.reject(new HttpError(error.message, error))
+    }
+    return Promise.reject(new UnknownError('Unknown Error', error))
+  },
+)
+
+/**
+ * カタログブランド API のクライアントを生成します。
+ * @returns CatalogBrandsApi インスタンス
+ */
+function catalogBrandsApi() {
+  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
+  return catalogBrandsApi
+}
+
+/**
+ * カタログカテゴリ API のクライアントを生成します。
+ * @returns CatalogCategoriesApi インスタンス
+ */
+function catalogCategoriesApi() {
+  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
+  return catalogCategoriesApi
+}
+
+/**
+ * カタログアイテム API のクライアントを生成します。
+ * @returns CatalogItemsApi インスタンス
+ */
+function catalogItemsApi() {
+  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
+  return catalogItemsApi
+}
+
+/**
+ * ユーザー API のクライアントを生成します。
+ * @returns UsersApi インスタンス
+ */
+function usersApi() {
+  const usersApi = new apiClient.UsersApi(createConfig(), '', axiosInstance)
+  return usersApi
+}
+
+export { axiosInstance, catalogBrandsApi, catalogCategoriesApi, catalogItemsApi, usersApi }

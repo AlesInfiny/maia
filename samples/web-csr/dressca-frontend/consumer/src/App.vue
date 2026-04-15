@@ -2,9 +2,9 @@
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import { router } from '@/router'
 import { useEventBus } from '@vueuse/core'
-import NotificationToast from './components/common/NotificationToast.vue'
-import { unauthorizedErrorEventKey } from './shared/events'
-import { authenticationService } from './services/authentication/authentication-service'
+import NotificationToast from '@/notification/components/NotificationToast.vue'
+import { unauthorizedErrorEventKey } from '@/common/events'
+import { authenticationService } from '@/authentication/services/authentication-service'
 
 const { isAuthenticated, signOut } = authenticationService()
 

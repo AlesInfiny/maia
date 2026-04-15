@@ -20,6 +20,7 @@ export default defineConfigWithVueTs(
     '**/dist-ssr/**',
     '**/coverage/**',
     '**/src/generated/**',
+    '**/src/common/generated/**',
     '**/mockServiceWorker.js',
   ]),
 
@@ -79,7 +80,7 @@ export default defineConfigWithVueTs(
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
     ...pluginVitest.configs.recommended,
-    files: ['**/src/**/__tests__/**/*'],
+    files: ['**/src/**/__tests__/**/*', '**/src/**/tests/**/*'],
   },
 
   // TypeScript ファイルに対して JSDoc 形式のドキュメンテーションを強制します。

@@ -1,9 +1,9 @@
-import { assetsHandlers } from './assets-handler'
-import { basketsHandlers } from './baskets-handler'
-import { catalogItemsHandlers } from './catalog-items-handler'
-import { catalogBrandsHandlers } from './catalog-brands-handler'
-import { catalogCategoriesHandlers } from './catalog-categories-handler'
-import { orderingHandlers } from './ordering-handler'
+import { basketsHandlers } from '../basket/handlers/baskets-handler'
+import { catalogBrandsHandlers } from '../catalog/handlers/catalog-brands-handler'
+import { catalogCategoriesHandlers } from '../catalog/handlers/catalog-categories-handler'
+import { catalogItemsHandlers } from '../catalog/handlers/catalog-items-handler'
+import { assetsHandlers } from '../common/handlers/assets-handler'
+import { orderingHandlers } from '../ordering/handlers/ordering-handler'
 
 export const handlers = [
   ...assetsHandlers,

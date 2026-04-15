@@ -1,2 +1,3 @@
 # openapi-generator で自動生成されるファイルをテスト対象から除外
-**/src/generated/api-client/docs/*.md
+
+\*_/src/common/generated/api-client/docs/_.md

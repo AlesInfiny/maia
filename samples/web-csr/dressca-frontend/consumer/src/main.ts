@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/shared/authentication/authentication-guard'
-import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
+import { authenticationGuard } from '@/common/authentication/authentication-guard'
+import { globalErrorHandler } from '@/common/error/global-error-handler'
 import App from './App.vue'
 import { router } from './router'
-import { i18n } from './locales/i18n'
-import { useLogger } from './composables/use-logger'
+import { i18n } from '@/common/locales/i18n'
+import { useLogger } from '@/common/composables/use-logger'
 import '@/assets/base.css'
 
 const logger = useLogger()

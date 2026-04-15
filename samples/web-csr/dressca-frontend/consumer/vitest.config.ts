@@ -15,7 +15,7 @@ export default defineConfig((configEnv) =>
           provider: 'v8',
           reporter: ['json-summary', 'html'],
           include: ['src/**/*.{ts,vue}'],
-          exclude: ['src/generated/**'],
+          exclude: ['src/common/generated/**'],
         },
       },
     }),
