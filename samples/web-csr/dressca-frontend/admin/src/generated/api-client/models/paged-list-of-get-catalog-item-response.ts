@@ -17,53 +17,13 @@
 // @ts-ignore
 import type { GetCatalogItemResponse } from './get-catalog-item-response';
 
-/**
- * 
- * @export
- * @interface PagedListOfGetCatalogItemResponse
- */
 export interface PagedListOfGetCatalogItemResponse {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'hasNext'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'hasPrevious'?: boolean;
-    /**
-     * 
-     * @type {Array<GetCatalogItemResponse>}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'items'?: Array<GetCatalogItemResponse>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'page'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'pageSize'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'totalCount'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PagedListOfGetCatalogItemResponse
-     */
     'totalPages'?: number;
 }
 

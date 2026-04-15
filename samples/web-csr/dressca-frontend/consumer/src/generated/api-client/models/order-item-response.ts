@@ -17,41 +17,11 @@
 // @ts-ignore
 import type { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 
-/**
- * 
- * @export
- * @interface OrderItemResponse
- */
 export interface OrderItemResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {CatalogItemSummaryResponse}
-     * @memberof OrderItemResponse
-     */
     'itemOrdered'?: CatalogItemSummaryResponse;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemResponse
-     */
     'quantity': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemResponse
-     */
     'subTotal': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemResponse
-     */
     'unitPrice': number;
 }
 

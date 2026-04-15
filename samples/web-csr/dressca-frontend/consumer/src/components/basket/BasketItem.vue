@@ -66,8 +66,9 @@ const remove = () => {
     <div class="grid grid-cols-1 lg:grid-cols-3">
       <div class="grid place-items-end lg:col-span-2 lg:flex lg:flex-row lg:items-center">
         <div class="mt-2 mr-2 ml-2 basis-3/5 text-right lg:pr-10">
-          <label>
+          <label :for="`quantity-input-${item.catalogItemId}`">
             <input
+              :id="`quantity-input-${item.catalogItemId}`"
               v-model.number="quantity"
               type="number"
               min="1"

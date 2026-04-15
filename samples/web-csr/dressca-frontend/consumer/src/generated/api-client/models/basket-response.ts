@@ -20,35 +20,10 @@ import type { AccountResponse } from './account-response';
 // @ts-ignore
 import type { BasketItemResponse } from './basket-item-response';
 
-/**
- * 
- * @export
- * @interface BasketResponse
- */
 export interface BasketResponse {
-    /**
-     * 
-     * @type {AccountResponse}
-     * @memberof BasketResponse
-     */
     'account'?: AccountResponse;
-    /**
-     * 
-     * @type {Array<BasketItemResponse>}
-     * @memberof BasketResponse
-     */
     'basketItems'?: Array<BasketItemResponse>;
-    /**
-     * 
-     * @type {string}
-     * @memberof BasketResponse
-     */
     'buyerId': string;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof BasketResponse
-     */
     'deletedItemIds'?: Array<number>;
 }
 

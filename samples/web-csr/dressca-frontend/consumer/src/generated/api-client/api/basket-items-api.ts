@@ -18,7 +18,7 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -31,7 +31,6 @@ import type { ProblemDetail } from '../models';
 import type { PutBasketItemsRequest } from '../models';
 /**
  * BasketItemsApi - axios parameter creator
- * @export
  */
 export const BasketItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -58,8 +57,8 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/problem+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -88,8 +87,8 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -121,9 +120,8 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/problem+json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -157,9 +155,8 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/problem+json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -176,7 +173,6 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
 
 /**
  * BasketItemsApi - functional programming interface
- * @export
  */
 export const BasketItemsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BasketItemsApiAxiosParamCreator(configuration)
@@ -237,7 +233,6 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
 
 /**
  * BasketItemsApi - factory interface
- * @export
  */
 export const BasketItemsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = BasketItemsApiFp(configuration)
@@ -286,9 +281,6 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
 
 /**
  * BasketItemsApi - object-oriented interface
- * @export
- * @class BasketItemsApi
- * @extends {BaseAPI}
  */
 export class BasketItemsApi extends BaseAPI {
     /**
@@ -297,7 +289,6 @@ export class BasketItemsApi extends BaseAPI {
      * @param {number} catalogItemId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BasketItemsApi
      */
     public deleteBasketItem(catalogItemId: number, options?: RawAxiosRequestConfig) {
         return BasketItemsApiFp(this.configuration).deleteBasketItem(catalogItemId, options).then((request) => request(this.axios, this.basePath));
@@ -308,7 +299,6 @@ export class BasketItemsApi extends BaseAPI {
      * @summary 買い物かごアイテムの一覧を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BasketItemsApi
      */
     public getBasketItems(options?: RawAxiosRequestConfig) {
         return BasketItemsApiFp(this.configuration).getBasketItems(options).then((request) => request(this.axios, this.basePath));
@@ -320,7 +310,6 @@ export class BasketItemsApi extends BaseAPI {
      * @param {PostBasketItemsRequest} postBasketItemsRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BasketItemsApi
      */
     public postBasketItem(postBasketItemsRequest: PostBasketItemsRequest, options?: RawAxiosRequestConfig) {
         return BasketItemsApiFp(this.configuration).postBasketItem(postBasketItemsRequest, options).then((request) => request(this.axios, this.basePath));
@@ -332,7 +321,6 @@ export class BasketItemsApi extends BaseAPI {
      * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BasketItemsApi
      */
     public putBasketItems(putBasketItemsRequest: Array<PutBasketItemsRequest>, options?: RawAxiosRequestConfig) {
         return BasketItemsApiFp(this.configuration).putBasketItems(putBasketItemsRequest, options).then((request) => request(this.axios, this.basePath));
