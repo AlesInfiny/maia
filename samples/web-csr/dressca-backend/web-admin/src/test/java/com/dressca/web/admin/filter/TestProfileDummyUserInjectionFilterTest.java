@@ -58,7 +58,6 @@ public class TestProfileDummyUserInjectionFilterTest {
   /**
    * アプリケーションコンテキスト内に {@link DummyUserInjectionFilter} が含まれているかを確認します。
    * 
-   * @param context アプリケーションコンテキスト。
    * @return ダミーフィルターが含まれている場合は true、そうでない場合は false。
    */
   private boolean hasDummyUserInjectionFilter() {
