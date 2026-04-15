@@ -83,7 +83,7 @@ auth-backend
 　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
 　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
-　 |  |  |  └ WebSecurityConfiguration.java ............. 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
+　 |  |  |  └ WebSecurityConfig.java ..................... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
 　 |  |  └ WebApplication.java .......................... アプリケーションの起動クラス
 　 |  └ resources
 　 |     └ application.properties ....................... Azure AD B2C への接続情報を記載する設定ファイル
@@ -201,7 +201,7 @@ auth-frontend
 1. 「認証」ブレードを選択し、「シングルページアプリケーション」の「リダイレクト URI」に以下の URI を追加します。
    - `http://localhost:5173`
    - `http://localhost:5173/redirect.html`
-. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 api.read 」へのアクセス許可を付与します。
+1. [Microsoft のチュートリアル「[アクセス許可の付与]」](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga#grant-permissions) に従い、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 `api.read` 」へのアクセス許可を付与します。
 
 ### ユーザーフローの作成
 
@@ -490,11 +490,11 @@ BUILD SUCCESSFUL in 2s
 
 1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
 1. `src\services\authentication` フォルダーで、本サンプルの以下のコードをコピー・差し替えします。
-    - authentication-services.ts
+    - authentication-service.ts
     - authentication-config.ts
-1. `src\store\authentication\authentication.ts` を本サンプルのコードに差し替えます。
+1. `src\stores\authentication\authentication.ts` を本サンプルのコードに差し替えます。
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-   本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
+   本例では、 OrdersApi アクセス時に Bearer トークンを付与する例を示します。
    `src\api-client\index.ts` を以下のように編集します。
 
     ```typescript
@@ -571,7 +571,7 @@ BUILD SUCCESSFUL in 2s
    ```
   
 1. `src\views\authentication\LoginView.vue` は Azure AD B2C の LoginPopup ウィンドウに切り替わるため削除します。
-1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Azure AD B2C の LoginPopUp を表示させるように変更します。
+1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Azure AD B2C の LoginPopup を表示させるように変更します。
 
     ```typescript
     // その他のコードは省略
