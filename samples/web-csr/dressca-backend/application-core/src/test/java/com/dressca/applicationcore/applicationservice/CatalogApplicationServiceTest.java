@@ -27,6 +27,7 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.authorization.UserStore;
@@ -41,11 +42,13 @@ import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
+import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
  */
+@Import(ApplicationCoreTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)

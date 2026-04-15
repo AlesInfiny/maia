@@ -16,12 +16,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
 
 /**
  * {@link CatalogDomainService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@Import(ApplicationCoreTestConfig.class)
 public class CatalogDomainServiceTest {
   @Mock
   private CatalogRepository catalogRepository;
