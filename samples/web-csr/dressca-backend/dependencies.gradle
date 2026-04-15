@@ -16,6 +16,9 @@ ext {
     jacocoToolVersion = "0.8.14"
     spotbugsToolVersion = "4.9.8"
 
+    // -- AZURE DEPENDENCIES
+    springCloudAzureVersion = "7.0.0"
+
     supportDependencies = [
         // SPRING BOOT STARTERS
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
@@ -58,5 +61,7 @@ ext {
 
         // AZURE AUTHENTICATION
         spring_boot_starter_security_oauth2_resource_server : "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server",
+        spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c",
+        spring_cloud_azure_dependencies : "com.azure.spring:spring-cloud-azure-dependencies:$springCloudAzureVersion",
     ]
 }

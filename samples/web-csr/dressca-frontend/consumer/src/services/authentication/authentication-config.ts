@@ -1,5 +1,66 @@
+// import {
+//   type EndSessionPopupRequest,
+//   LogLevel,
+//   PublicClientApplication,
+//   type PopupRequest,
+//   type SilentRequest,
+// } from '@azure/msal-browser'
+// import { useLogger } from '@/composables/use-logger'
+
+// const logger = useLogger()
+
+// export const msalConfig = {
+//   auth: {
+//     clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
+//     authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
+//     redirectUri: import.meta.env.VITE_EXTERNAL_ID_REDIRECT_URI,
+//     postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI,
+//   },
+//   cache: {
+//     cacheLocation: 'sessionStorage',
+//   },
+//   system: {
+//     loggerOptions: {
+//       loggerCallback: (level: LogLevel, message: string, containsPii: boolean) => {
+//         if (containsPii) {
+//           return
+//         }
+//         switch (level) {
+//           case LogLevel.Error:
+//             logger.error(message)
+//             return
+//           case LogLevel.Info:
+//             logger.info(message)
+//             return
+//           case LogLevel.Verbose:
+//             logger.debug(message)
+//             return
+//           case LogLevel.Warning:
+//             logger.warn(message)
+//             break
+//           default:
+//         }
+//       },
+//       logLevel: LogLevel.Verbose,
+//     },
+//   },
+// }
+
+// export const apiConfig = {
+//   scopes: import.meta.env.VITE_EXTERNAL_ID_SCOPE?.split(',') ?? [],
+// }
+
+// export const msalInstance = new PublicClientApplication(msalConfig)
+
+// export const loginRequest: PopupRequest = {
+//   scopes: ['openId', 'email', ...apiConfig.scopes],
+// }
+// export const logoutRequest: EndSessionPopupRequest = {}
+// export const tokenRequest: SilentRequest = {
+//   scopes: ['openId', 'email', ...apiConfig.scopes],
+// }
+
 import {
-  type EndSessionPopupRequest,
   LogLevel,
   PublicClientApplication,
   type PopupRequest,
@@ -9,12 +70,28 @@ import { useLogger } from '@/composables/use-logger'
 
 const logger = useLogger()
 
+export const b2cPolicies = {
+  names: {
+    signUpSignIn: import.meta.env.VITE_ADB2C_USER_FLOW_SIGN_IN,
+  },
+  authorities: {
+    signUpSignIn: {
+      authority: import.meta.env.VITE_ADB2C_SIGN_IN_URI,
+    },
+  },
+  authorityDomain: import.meta.env.VITE_ADB2C_AUTHORITY_DOMAIN,
+}
+
+export const apiConfig = {
+  b2cScopes: [import.meta.env.VITE_ADB2C_SCOPE],
+}
+
 export const msalConfig = {
   auth: {
-    clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
-    authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
-    redirectUri: import.meta.env.VITE_EXTERNAL_ID_REDIRECT_URI,
-    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI,
+    clientId: import.meta.env.VITE_ADB2C_APP_CLIENT_ID,
+    authority: b2cPolicies.authorities.signUpSignIn.authority,
+    knownAuthorities: [b2cPolicies.authorityDomain],
+    redirectUri: import.meta.env.VITE_ADB2C_REDIRECT_URI,
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -46,16 +123,12 @@ export const msalConfig = {
   },
 }
 
-export const apiConfig = {
-  scopes: import.meta.env.VITE_EXTERNAL_ID_SCOPE?.split(',') ?? [],
-}
-
 export const msalInstance = new PublicClientApplication(msalConfig)
 
 export const loginRequest: PopupRequest = {
-  scopes: ['openId', 'email', ...apiConfig.scopes],
+  scopes: ['openId', ...apiConfig.b2cScopes],
 }
-export const logoutRequest: EndSessionPopupRequest = {}
+
 export const tokenRequest: SilentRequest = {
-  scopes: ['openId', 'email', ...apiConfig.scopes],
+  scopes: [...apiConfig.b2cScopes],
 }

@@ -28,7 +28,8 @@ dependencies {
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
-	implementation supportDependencies.spring_boot_starter_security_oauth2_resource_server
+	// implementation supportDependencies.spring_boot_starter_security_oauth2_resource_server
+	implementation supportDependencies.spring_cloud_azure_starter_ad_b2c
 
 	implementation project(':application-core')
 	implementation project(':infrastructure')
@@ -37,6 +38,12 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test
+}
+
+dependencyManagement {
+	imports {
+		mavenBom supportDependencies.spring_cloud_azure_dependencies
+	}
 }
 
 configurations {

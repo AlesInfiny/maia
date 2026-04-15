@@ -9,6 +9,12 @@ interface ImportMetaEnv {
   readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
   readonly VITE_EXTERNAL_ID_REDIRECT_URI: string
   readonly VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI: string
+  readonly VITE_ADB2C_USER_FLOW_SIGN_IN: string
+  readonly VITE_ADB2C_SIGN_IN_URI: string
+  readonly VITE_ADB2C_AUTHORITY_DOMAIN: string
+  readonly VITE_ADB2C_SCOPE: string
+  readonly VITE_ADB2C_APP_CLIENT_ID: string
+  readonly VITE_ADB2C_REDIRECT_URI: string
 }
 
 interface ImportMeta {
