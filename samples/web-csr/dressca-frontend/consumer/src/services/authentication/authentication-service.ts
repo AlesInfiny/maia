@@ -1,8 +1,12 @@
+/* eslint @typescript-eslint/no-floating-promises: ["error", { "ignoreIIFE": true }] */
+// Safari および Safari on iOS で top-level await が Partial support のため、
+// 代替として即時実行関数式 ( IIFE ) で記述を許可するよう ESLint の設定を変更します。
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#browser_compatibility
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
-import { useBasketStore } from '@/stores/basket/basket'
-import { useCatalogStore } from '@/stores/catalog/catalog'
-import { useNotificationStore } from '@/stores/notification/notification'
-import { abortAllRequests } from '@/api-client/request-abort-manager'
+import { InteractionRequiredAuthError } from '@azure/msal-browser'
+import { useLogger } from '@/composables/use-logger'
+
+const logger = useLogger()
 
 /**
  * 認証関連のサービスを提供します。
@@ -10,19 +14,17 @@ import { abortAllRequests } from '@/api-client/request-abort-manager'
  * @returns 認証サービスオブジェクト
  */
 export function authenticationService() {
-  /**
-   * サインイン処理を実行します。
-   * 認証ストアの `signIn` を呼び出します。
-   */
-  const signIn = () => {
+  const signIn = async () => {
     const authenticationStore = useAuthenticationStore()
-    authenticationStore.signIn()
+    await authenticationStore.signIn()
+    authenticationStore.updateAuthenticated()
   }
 
-  /**
-   * 現在のユーザーが認証済みかどうかを判定します。
-   * @returns 認証されていれば true、されていなければ false
-   */
+  const signOut = async () => {
+    const authenticationStore = useAuthenticationStore()
+    await authenticationStore.signOut()
+    authenticationStore.updateAuthenticated()
+  }
 
   const isAuthenticated = (): boolean => {
     const authenticationStore = useAuthenticationStore()
@@ -30,37 +32,31 @@ export function authenticationService() {
     return result
   }
 
-  /**
-   * サインアウト処理を実行します。
-   * 以下の順序で処理を行います:
-   * 1. 処理中の API リクエストを中断
-   * 2. 認証状態を false に変更し、セッションストレージを削除
-   * 3. 各ストア（basket, catalog）の状態をリセット
-   * 4. 通知ストアの状態をリセット（最後に実行）
-   */
-  const signOut = () => {
-    // 1. 処理中の API リクエスト／レスポンスを停止
-    abortAllRequests()
-
-    // 2. 認証状態を false に変更し、セッションストレージを削除
+  const getToken = async () => {
     const authenticationStore = useAuthenticationStore()
-    authenticationStore.resetState()
+    try {
+      const accessToken = await authenticationStore.getTokenSilent()
 
-    // 3. ストアの中身をリセット
-    const basketStore = useBasketStore()
-    basketStore.$reset()
+      if (!accessToken || accessToken === '') {
+        throw new InteractionRequiredAuthError('accessToken is null or empty.')
+      }
+      return accessToken
+    } catch (error) {
+      if (error instanceof InteractionRequiredAuthError) {
+        // ユーザーによる操作が必要な場合にスローされるエラーがスローされた場合、トークン呼び出しポップアップ画面を表示する。
+        const accessToken = await authenticationStore.getTokenPopup()
+        return accessToken
+      }
 
-    const catalogStore = useCatalogStore()
-    catalogStore.$reset()
-
-    // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
-    const notificationStore = useNotificationStore()
-    notificationStore.$reset()
+      logger.error(error)
+      throw error
+    }
   }
 
   return {
     signIn,
-    isAuthenticated,
     signOut,
+    isAuthenticated,
+    getToken,
   }
 }

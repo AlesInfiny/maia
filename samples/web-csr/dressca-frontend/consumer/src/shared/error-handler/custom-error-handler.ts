@@ -9,6 +9,7 @@ import {
   NetworkError,
   ServerError,
 } from './custom-error'
+import { BrowserAuthError } from '@azure/msal-browser'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
 import { useLogger } from '@/composables/use-logger'
 import type { MaybeAsyncFunction, MaybePromise, MaybeAsyncUnaryFunction } from '@/types'
@@ -55,6 +56,11 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     // エラーとして扱わず何もせず終了します。
     if (error instanceof CanceledError) {
       logger.info(JSON.stringify(error.toJSON()))
+      return
+    }
+
+    if (error instanceof BrowserAuthError) {
+      await callback()
       return
     }
 

@@ -1,9 +1,18 @@
 import type { Router, RouteRecordName } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { authenticationService } from '@/services/authentication/authentication-service'
 
 export const authenticationGuard = (router: Router) => {
-  router.beforeEach((to, from) => {
+  router.beforeEach(async (to, from) => {
     const authenticationStore = useAuthenticationStore()
+
+    if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
+      try {
+        await authenticationService().signIn()
+      } catch {
+        return false
+      }
+    }
 
     const orderingPaths: (RouteRecordName | null | undefined)[] = [
       'ordering/checkout',
@@ -12,18 +21,6 @@ export const authenticationGuard = (router: Router) => {
     if (orderingPaths.includes(to.name) && !from.name) {
       return { name: 'catalog' }
     }
-
-    if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
-      return {
-        name: 'authentication/login',
-        query: {
-          redirectName: to.name?.toString(),
-          redirectParams: JSON.stringify(to.params),
-          redirectQuery: JSON.stringify(to.query),
-        },
-      }
-    }
-
     return true
   })
 }

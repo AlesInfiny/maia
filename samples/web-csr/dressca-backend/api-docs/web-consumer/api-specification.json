@@ -931,6 +931,13 @@
           "quantity"
         ]
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
     }
   }
 }

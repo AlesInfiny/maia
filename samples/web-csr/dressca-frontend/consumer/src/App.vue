@@ -1,3 +1,4 @@
+<!-- eslint-disable no-alert -->
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import { router } from '@/router'
@@ -5,12 +6,48 @@ import { useEventBus } from '@vueuse/core'
 import NotificationToast from './components/common/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from './shared/events'
 import { authenticationService } from './services/authentication/authentication-service'
+import { useLogger } from './composables/use-logger'
+import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+import { BrowserAuthError } from '@azure/msal-browser'
 
-const { isAuthenticated, signOut } = authenticationService()
+const { signIn, signOut, isAuthenticated } = authenticationService()
+const logger = useLogger()
+const handleErrorAsync = useCustomErrorHandler()
 
-const logout = () => {
-  signOut()
-  router.push({ name: 'authentication/login' })
+const signInButtonClicked = async () => {
+  try {
+    await signIn()
+  } catch (error) {
+    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+    if (error instanceof BrowserAuthError) {
+      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+      await handleErrorAsync(error, () => {
+        logger.info('ユーザーが認証処理を中断しました。')
+      })
+    } else {
+      await handleErrorAsync(error, () => {
+        window.alert('Microsoft Entra External Id での認証に失敗しました。')
+      })
+    }
+  }
+}
+
+const signOutButtonClicked = async () => {
+  try {
+    await signOut()
+  } catch (error) {
+    // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
+    if (error instanceof BrowserAuthError) {
+      // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
+      await handleErrorAsync(error, () => {
+        logger.info('ユーザーが認証処理を中断しました。')
+      })
+    } else {
+      await handleErrorAsync(error, () => {
+        window.alert('Microsoft Entra External Id での認証に失敗しました。')
+      })
+    }
+  }
 }
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
@@ -47,10 +84,8 @@ unauthorizedErrorEventBus.on(() => {
             <router-link to="/basket">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated()" to="/authentication/login">
-              ログイン
-            </router-link>
-            <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>
+            <button v-if="!isAuthenticated()" @click="signInButtonClicked">ログイン</button>
+            <button v-if="isAuthenticated()" @click="signOutButtonClicked">ログアウト</button>
           </div>
         </div>
       </nav>

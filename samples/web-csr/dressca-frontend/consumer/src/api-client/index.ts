@@ -1,6 +1,7 @@
 import axios, { HttpStatusCode } from 'axios'
 import * as apiClient from '@/generated/api-client'
 import { getRequestAbortSignal } from '@/api-client/request-abort-manager'
+import { authenticationService } from '@/services/authentication/authentication-service'
 import {
   HttpError,
   NetworkError,
@@ -57,6 +58,18 @@ axiosInstance.interceptors.response.use(
 )
 
 /**
+ * 認証済みの場合、アクセストークンを取得して Configuration に設定します。
+ * @param config 新しい Configuration インスタンス
+ */
+async function addToken(config: apiClient.Configuration): Promise<void> {
+  const { isAuthenticated, getToken } = authenticationService()
+  if (isAuthenticated()) {
+    const token = await getToken()
+    config.accessToken = token
+  }
+}
+
+/**
  * アセット関連 API のクライアントを生成します。
  * @returns AssetsApi インスタンス
  */
@@ -105,8 +118,11 @@ function catalogItemsApi() {
  * 注文関連 API のクライアントを生成します。
  * @returns OrdersApi インスタンス
  */
-function ordersApi() {
-  const ordersApi = new apiClient.OrdersApi(createConfig(), '', axiosInstance)
+async function ordersApi() {
+  const config = createConfig()
+  // 認証が必要な API では、addToken を呼び出します。
+  await addToken(config)
+  const ordersApi = new apiClient.OrdersApi(config, '', axiosInstance)
   return ordersApi
 }
 
