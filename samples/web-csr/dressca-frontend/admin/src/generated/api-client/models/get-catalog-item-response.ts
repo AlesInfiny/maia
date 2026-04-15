@@ -14,71 +14,16 @@
 
 
 
-/**
- * 
- * @export
- * @interface GetCatalogItemResponse
- */
 export interface GetCatalogItemResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetCatalogItemResponse
-     */
     'assetCodes'?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCatalogItemResponse
-     */
     'catalogBrandId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCatalogItemResponse
-     */
     'catalogCategoryId': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCatalogItemResponse
-     */
     'description': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCatalogItemResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetCatalogItemResponse
-     */
     'isDeleted': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCatalogItemResponse
-     */
     'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCatalogItemResponse
-     */
     'price': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCatalogItemResponse
-     */
     'productCode': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCatalogItemResponse
-     */
     'rowVersion': string;
 }
 

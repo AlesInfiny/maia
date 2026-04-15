@@ -20,71 +20,16 @@ import type { AccountResponse } from './account-response';
 // @ts-ignore
 import type { OrderItemResponse } from './order-item-response';
 
-/**
- * 
- * @export
- * @interface OrderResponse
- */
 export interface OrderResponse {
-    /**
-     * 
-     * @type {AccountResponse}
-     * @memberof OrderResponse
-     */
     'account'?: AccountResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'azanaAndOthers': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'buyerId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'fullName': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'orderDate': string;
-    /**
-     * 
-     * @type {Array<OrderItemResponse>}
-     * @memberof OrderResponse
-     */
     'orderItems'?: Array<OrderItemResponse>;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'postalCode': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'shikuchoson': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderResponse
-     */
     'todofuken': string;
 }
 
