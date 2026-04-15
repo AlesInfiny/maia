@@ -10,6 +10,9 @@ import com.dressca.systemcommon.util.ApplicationContextWrapper;
  */
 @TestConfiguration
 public class ApplicationCoreTestConfig {
+  /**
+   * テスト用に {@link ApplicationContextWrapper} を Bean として登録します。
+   */
   @Bean
   public ApplicationContextWrapper applicationContextWrapper() {
     return new ApplicationContextWrapper();
