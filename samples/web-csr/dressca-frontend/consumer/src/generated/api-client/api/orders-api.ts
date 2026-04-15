@@ -18,7 +18,7 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -29,7 +29,6 @@ import type { PostOrderRequest } from '../models';
 import type { ProblemDetail } from '../models';
 /**
  * OrdersApi - axios parameter creator
- * @export
  */
 export const OrdersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -56,8 +55,8 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/problem+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -89,9 +88,8 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/problem+json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -108,7 +106,6 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
 
 /**
  * OrdersApi - functional programming interface
- * @export
  */
 export const OrdersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = OrdersApiAxiosParamCreator(configuration)
@@ -144,7 +141,6 @@ export const OrdersApiFp = function(configuration?: Configuration) {
 
 /**
  * OrdersApi - factory interface
- * @export
  */
 export const OrdersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = OrdersApiFp(configuration)
@@ -174,9 +170,6 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
 
 /**
  * OrdersApi - object-oriented interface
- * @export
- * @class OrdersApi
- * @extends {BaseAPI}
  */
 export class OrdersApi extends BaseAPI {
     /**
@@ -185,7 +178,6 @@ export class OrdersApi extends BaseAPI {
      * @param {number} orderId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof OrdersApi
      */
     public getById(orderId: number, options?: RawAxiosRequestConfig) {
         return OrdersApiFp(this.configuration).getById(orderId, options).then((request) => request(this.axios, this.basePath));
@@ -197,7 +189,6 @@ export class OrdersApi extends BaseAPI {
      * @param {PostOrderRequest} postOrderRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof OrdersApi
      */
     public postOrder(postOrderRequest: PostOrderRequest, options?: RawAxiosRequestConfig) {
         return OrdersApiFp(this.configuration).postOrder(postOrderRequest, options).then((request) => request(this.axios, this.basePath));

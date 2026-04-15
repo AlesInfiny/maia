@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface CatalogBrandResponse
- */
 export interface CatalogBrandResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogBrandResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogBrandResponse
-     */
     'name': string;
 }
 
