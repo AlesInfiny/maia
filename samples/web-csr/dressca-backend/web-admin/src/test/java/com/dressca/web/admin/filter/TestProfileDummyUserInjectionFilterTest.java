@@ -63,7 +63,7 @@ public class TestProfileDummyUserInjectionFilterTest {
   private boolean hasDummyUserInjectionFilter() {
     return springSecurityFilterChain.getFilterChains().stream()
         .filter(DefaultSecurityFilterChain.class::isInstance)
-        .map(DefaultSecurityFilterChain.class::cast).flatMap(chain -> chain.getFilters().stream())
-        .anyMatch(filter -> filter instanceof DummyUserInjectionFilter);
+        .map(DefaultSecurityFilterChain.class::cast).anyMatch(chain -> chain.getFilters().stream()
+            .anyMatch(DummyUserInjectionFilter.class::isInstance));
   }
 }
