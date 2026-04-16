@@ -83,7 +83,7 @@ auth-backend
 　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
 　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
-　 |  |  |  └ WebSecurityConfig.java ..................... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
+　 |  |  |  └ WebSecurityConfig.java .................... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
 　 |  |  └ WebApplication.java .......................... アプリケーションの起動クラス
 　 |  └ resources
 　 |     └ application.properties ....................... Azure AD B2C への接続情報を記載する設定ファイル
