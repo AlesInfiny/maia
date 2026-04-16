@@ -26,7 +26,7 @@ dependencies {
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
-	implementation project(':system-common')
+	implementation project(':modules')
 	
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test
