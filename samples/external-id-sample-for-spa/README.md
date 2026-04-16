@@ -543,7 +543,7 @@ BUILD SUCCESSFUL in 2s
           })
         } else {
           await handleErrorAsync(error, () => {
-            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+            window.alert('Microsoft Entra External ID での認証に失敗しました。')
           })
         }
       }
