@@ -18,7 +18,7 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -27,7 +27,6 @@ import type { PagedListOfCatalogItemResponse } from '../models';
 import type { ProblemDetail } from '../models';
 /**
  * CatalogItemsApi - axios parameter creator
- * @export
  */
 export const CatalogItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -70,8 +69,8 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['pageSize'] = pageSize;
             }
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/problem+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -86,7 +85,6 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
 
 /**
  * CatalogItemsApi - functional programming interface
- * @export
  */
 export const CatalogItemsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CatalogItemsApiAxiosParamCreator(configuration)
@@ -112,7 +110,6 @@ export const CatalogItemsApiFp = function(configuration?: Configuration) {
 
 /**
  * CatalogItemsApi - factory interface
- * @export
  */
 export const CatalogItemsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = CatalogItemsApiFp(configuration)
@@ -135,9 +132,6 @@ export const CatalogItemsApiFactory = function (configuration?: Configuration, b
 
 /**
  * CatalogItemsApi - object-oriented interface
- * @export
- * @class CatalogItemsApi
- * @extends {BaseAPI}
  */
 export class CatalogItemsApi extends BaseAPI {
     /**
@@ -149,7 +143,6 @@ export class CatalogItemsApi extends BaseAPI {
      * @param {number} [pageSize] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CatalogItemsApi
      */
     public getByQuery(brandId?: number, categoryId?: number, page?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
         return CatalogItemsApiFp(this.configuration).getByQuery(brandId, categoryId, page, pageSize, options).then((request) => request(this.axios, this.basePath));

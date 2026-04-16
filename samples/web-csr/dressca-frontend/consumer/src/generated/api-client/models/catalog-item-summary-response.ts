@@ -14,35 +14,10 @@
 
 
 
-/**
- * 
- * @export
- * @interface CatalogItemSummaryResponse
- */
 export interface CatalogItemSummaryResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof CatalogItemSummaryResponse
-     */
     'assetCodes'?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof CatalogItemSummaryResponse
-     */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemSummaryResponse
-     */
     'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CatalogItemSummaryResponse
-     */
     'productCode': string;
 }
 
