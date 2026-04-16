@@ -323,50 +323,50 @@ BUILD SUCCESSFUL in 2s
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
    以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getById()` メソッドに認証が必要なアノテーションを付与する例です。
 
-    ```java
-    import org.springframework.security.access.prepost.PreAuthorize;
-    import org.springframework.web.bind.annotation.CrossOrigin;
-    import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+    ```diff
+      import org.springframework.security.access.prepost.PreAuthorize;
+      import org.springframework.web.bind.annotation.CrossOrigin;
+      import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-    @RestController
-    @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
-    @AllArgsConstructor
-    @RequestMapping("/api/orders")
-    public class OrderController {
-      ...
-      /**
-      * 注文情報を取得します。
-      * 
-      * @param orderId 注文 ID 。
-      * @return 注文情報。
-      */
-      @Operation(
-          summary = "注文情報を取得します。",
-          description = "注文情報を取得します。",
-          security = {
-              @SecurityRequirement(name = "Bearer")})
-      @ApiResponses(
-          value = {
-              @ApiResponse(
-                  responseCode = "200",
-                  description = "成功。",
-                  content = @Content(
-                      mediaType = "application/json",
-                      schema = @Schema(implementation = OrderResponse.class))),
-              @ApiResponse(
-                  responseCode = "404",
-                  description = "注文 ID が存在しません。",
-                  content = @Content(
-                      mediaType = "application/problem+json",
-                      schema = @Schema(implementation = ProblemDetail.class)))
-          })
-      @GetMapping("{orderId}")
-      @PreAuthorize(value = "isAuthenticated()")
-      public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
-        // その他のコードは省略
+      @RestController
+      @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
+      @AllArgsConstructor
+      @RequestMapping("/api/orders")
+      public class OrderController {
         ...
+        /**
+        * 注文情報を取得します。
+        * 
+        * @param orderId 注文 ID 。
+        * @return 注文情報。
+        */
+        @Operation(
+            summary = "注文情報を取得します。",
+            description = "注文情報を取得します。",
+    +       security = {
+    +           @SecurityRequirement(name = "Bearer")})
+        @ApiResponses(
+            value = {
+                @ApiResponse(
+                    responseCode = "200",
+                    description = "成功。",
+                    content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = OrderResponse.class))),
+                @ApiResponse(
+                    responseCode = "404",
+                    description = "注文 ID が存在しません。",
+                    content = @Content(
+                        mediaType = "application/problem+json",
+                        schema = @Schema(implementation = ProblemDetail.class)))
+            })
+        @GetMapping("{orderId}")
+    +   @PreAuthorize(value = "isAuthenticated()")
+        public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+          // その他のコードは省略
+          ...
+        }
       }
-    }
     ```
 
     付与するアノテーションの役割は以下の通りです。
@@ -378,7 +378,7 @@ BUILD SUCCESSFUL in 2s
 
 1. 以下のように `web-consumer\src\main\java\...\security\WebSecurityConfig.java` に認証に関する処理を追加します。
 
-    ```java
+    ```diff
       import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
       import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
       import io.swagger.v3.oas.annotations.security.SecurityScheme;
@@ -463,7 +463,7 @@ BUILD SUCCESSFUL in 2s
 1. 本サンプルの `.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
-    ```typescript
+    ```diff
     interface ImportMetaEnv {
       readonly VITE_NO_ASSET_URL: string
       readonly VITE_ASSET_URL: string
@@ -597,7 +597,7 @@ BUILD SUCCESSFUL in 2s
 
 1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `src\shared\error-handler\custom-error-handler.ts` に以下を追加します。
 
-    ```typescript
+    ```diff
     import { BrowserAuthError } from '@azure/msal-browser'
 
     export function useCustomErrorHandler(): handleErrorAsyncFunction {
