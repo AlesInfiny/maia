@@ -167,8 +167,6 @@ auth-frontend
 
 ### Entra External ID テナントを利用するアプリの登録（バックエンドアプリケーション）
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-
 1. [アプリケーションを Microsoft Entra ID に登録する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app) に従って、バックエンドアプリケーション用のアプリを Entra External ID に登録します。
 
     - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
@@ -176,8 +174,6 @@ auth-frontend
     - サポートされているアカウントの種類を、「この組織ディレクトリのみに含まれるアカウント」とします。
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
-
-<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 1. [委任されたアクセス許可 (スコープ) を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-web-api-dotnet-protect-app?tabs=aspnet-core#add-delegated-permissions-scopes) に従って、アプリにスコープを追加します。
     - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
