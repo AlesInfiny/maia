@@ -66,7 +66,7 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 ```text
 auth-backend
-├ build.gradle .......................................... バックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
+├ build.gradle .......................................... プロジェクトのビルド設定やバックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
 ├ dependencies.gradle ................................... ライブラリのバージョン管理を行う設定ファイル
 └ web
 　 ├ src\main
@@ -78,9 +78,9 @@ auth-backend
 　 |  |  |  |  ├ auth
 　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
 　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
-　 |  |  |  └ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
-　 |  |  ├ controllerAdvice
-　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
+　 |  |  |  ├ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
+　 |  |  |  └ advice
+　 |  |  |     └ ExceptionHandlerControllerAdvice.java .. 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
 　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
 　 |  |  |  └ WebSecurityConfig.java .................... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
@@ -97,7 +97,7 @@ auth-backend
 ```text
 auth-frontend
 └ app
-  ├ .env.dev .............................. Azure AD B2C への接続情報を記載する設定ファイル
+  ├ .env.dev .............................. 開発環境での Azure AD B2C への接続情報を記載する設定ファイル
   ├ env.d.ts .............................. 環境変数の型定義をする TypeScript ファイル
   ├ redirect.html ......................... Redirect Bridge Page 用の HTML ファイル
   └ src
