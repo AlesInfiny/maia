@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface PutBasketItemsRequest
- */
 export interface PutBasketItemsRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof PutBasketItemsRequest
-     */
     'catalogItemId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PutBasketItemsRequest
-     */
     'quantity': number;
 }
 

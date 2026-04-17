@@ -1,5 +1,9 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Gradle キャッシュ
+.gradle/
 
-# Ignore Gradle build output directory
-build
+# ビルド成果物
+build/
+bin/
+
+# バッチアプリケーションの出力ディレクトリ
+output/

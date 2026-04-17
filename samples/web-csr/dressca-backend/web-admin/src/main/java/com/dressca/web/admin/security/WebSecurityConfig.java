@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +27,8 @@ public class WebSecurityConfig {
   @Value("${cors.allowed.origins:}")
   private String allowedOrigins;
 
-  @Autowired(required = false)
-  private DummyUserInjectionFilter dummyUserInjectionFilter;
+  @Autowired
+  private Environment environment;
 
   /**
    * CORS 設定、認可機能を設定します。
@@ -53,8 +55,9 @@ public class WebSecurityConfig {
         })).anonymous(anon -> anon.disable());
 
     // 開発環境においてはダミーユーザを注入する
-    if (dummyUserInjectionFilter != null) {
-      http.addFilterBefore(dummyUserInjectionFilter, UsernamePasswordAuthenticationFilter.class);
+    if (environment.acceptsProfiles(Profiles.of("local"))) {
+      http.addFilterBefore(new DummyUserInjectionFilter(),
+          UsernamePasswordAuthenticationFilter.class);
     }
 
     return http.build();

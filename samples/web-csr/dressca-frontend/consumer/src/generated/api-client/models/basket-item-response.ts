@@ -17,41 +17,11 @@
 // @ts-ignore
 import type { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 
-/**
- * 
- * @export
- * @interface BasketItemResponse
- */
 export interface BasketItemResponse {
-    /**
-     * 
-     * @type {CatalogItemSummaryResponse}
-     * @memberof BasketItemResponse
-     */
     'catalogItem'?: CatalogItemSummaryResponse;
-    /**
-     * 
-     * @type {number}
-     * @memberof BasketItemResponse
-     */
     'catalogItemId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BasketItemResponse
-     */
     'quantity': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BasketItemResponse
-     */
     'subTotal': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BasketItemResponse
-     */
     'unitPrice': number;
 }
 
