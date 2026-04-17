@@ -61,7 +61,7 @@
     "jsdom": "29.0.0",
     "msw": "2.12.12",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "prettier-plugin-tailwindcss": "0.7.2",
     "start-server-and-test": "2.1.5",
     "stylelint": "16.26.1",
