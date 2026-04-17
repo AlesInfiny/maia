@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -50,14 +49,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(name = "BasketItems", description = "買い物かごアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/basket-items")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BasketItemController {
-
-  @Autowired
-  private ShoppingApplicationService shoppingApplicationService;
-
-  @Autowired
-  private ProblemDetailsFactory problemDetailsFactory;
+  private final ShoppingApplicationService shoppingApplicationService;
+  private final ProblemDetailsFactory problemDetailsFactory;
 
   /**
    * 買い物かごアイテムの一覧を取得します。

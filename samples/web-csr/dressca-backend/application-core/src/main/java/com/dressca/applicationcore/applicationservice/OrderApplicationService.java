@@ -5,9 +5,8 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
  * 注文に関連するビジネスユースケースを実現するサービスです。
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class OrderApplicationService {
 
-  @Autowired
-  private MessageSource messages;
-
-  private OrderRepository orderRepository;
-
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final MessageSource messages;
+  private final OrderRepository orderRepository;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * 指定した注文 ID 、購入者 ID の注文情報を取得します。

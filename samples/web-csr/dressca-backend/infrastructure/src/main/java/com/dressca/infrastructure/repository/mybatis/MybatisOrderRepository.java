@@ -4,19 +4,17 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
  * 注文情報のリポジトリです。
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MybatisOrderRepository implements OrderRepository {
 
-  @Autowired
-  JoinedOrderMapper mapper;
+  private final JoinedOrderMapper mapper;
 
   @Override
   public Order add(Order order) {

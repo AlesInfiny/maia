@@ -9,22 +9,19 @@ import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMap
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
 import java.time.OffsetDateTime;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
  * カタログのリポジトリです。
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MybatisCatalogRepository implements CatalogRepository {
 
-  @Autowired
-  private JoinedCatalogItemMapper mapper;
+  private final JoinedCatalogItemMapper mapper;
 
-  @Autowired
-  private CatalogItemMapper catalogItemMapper;
+  private final CatalogItemMapper catalogItemMapper;
 
   @Override
   public List<CatalogItem> findByCategoryIdIn(List<Long> categoryIds) {

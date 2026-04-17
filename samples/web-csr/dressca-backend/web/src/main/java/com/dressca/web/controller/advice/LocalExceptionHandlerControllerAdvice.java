@@ -1,6 +1,7 @@
 package com.dressca.web.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import com.dressca.applicationcore.authorization.PermissionDeniedException;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
@@ -9,7 +10,6 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -24,13 +24,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * サーバーエラーのハンドリングを行うクラスです。
  */
 @ControllerAdvice(basePackages = "com.dressca")
+@RequiredArgsConstructor
 public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
-  @Autowired
-  private AbstractStructuredLogger apLog;
-
-  @Autowired
-  private ProblemDetailsFactory problemDetailsFactory;
+  private final AbstractStructuredLogger apLog;
+  private final ProblemDetailsFactory problemDetailsFactory;
 
   /**
    * 未認証エラーをステータスコード 401 で返却します。
