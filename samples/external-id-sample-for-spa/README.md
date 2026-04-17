@@ -6,19 +6,23 @@
 
 ## このサンプルについて
 
-本サンプルは、クライアントサイドレンダリングのシングルページアプリケーション（SPA）において、 Microsoft Entra External ID を利用したユーザー認証を実装するためのコード例を提供します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+本サンプルは、クライアントサイドレンダリングのシングルページアプリケーション（SPA）において、 Microsoft Entra External ID  （以降、 Entra External ID ）を利用したユーザー認証を実装するためのコード例を提供します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 あわせて本ドキュメントでは、以下について説明します。
 
 - 本サンプルの動作確認手順
-- AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca への組み込み手順
+- AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）のサンプルアプリケーションである Dressca への組み込み手順
 
 ## 前提
 
 本サンプルを動作させるためには、以下が必要です。
 
 - Azure サブスクリプション
-- サブスクリプション内、またはサブスクリプション内のリソース グループ内で共同作成者以上のロールが割り当てられている Azure アカウント
+- サブスクリプション内、またはサブスクリプション内のリソースグループ内で共同作成者以上のロールが割り当てられている Azure アカウント
 
 Azure サブスクリプションを持っていない場合、 [無料アカウントを作成](https://azure.microsoft.com/ja-jp/free) できます。
 
@@ -27,8 +31,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v24.13.0
-- Visual Studio Code 1.108.1
+- Node.js v24.14.1
+- Visual Studio Code 1.115.0
 
 ## サンプルの構成
 
@@ -43,15 +47,15 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 ```
 
 バックエンドアプリケーションは Spring Boot 、フロントエンドアプリケーションは Vue.js (TypeScript) で作成されています。
-また、 AlesInfiny Maia のサンプルアプリケーション Dressca をベースとしており、フォルダー構造、参照する OSS 、名前空間等は Dressca に準拠しています。
+また、 AlesInfiny Maia のクライアントサイドレンダリングのサンプルアプリケーション Dressca をベースとしており、フォルダー構造、参照する OSS 、名前空間等は Dressca に準拠しています。
 
-### バックエンドアプリケーションの構成
+## バックエンドアプリケーションの構成
 
 バックエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
 
 ```text
 auth-backend
-├ build.gradle .......................................... バックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
+├ build.gradle .......................................... プロジェクトのビルド設定やバックエンドアプリケーション全体で利用するライブラリの依存関係を記載する設定ファイル
 ├ dependencies.gradle ................................... ライブラリのバージョン管理を行う設定ファイル
 └ web
 　 ├ src\main
@@ -63,27 +67,29 @@ auth-backend
 　 |  |  |  |  ├ auth
 　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
 　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
-　 |  |  |  └ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
-　 |  |  ├ controllerAdvice
-　 |  |  |  └ ExceptionHandlerControllerAdvice.java ..... 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
+　 |  |  |  ├ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
+　 |  |  |  └ advice
+　 |  |  |     └ ExceptionHandlerControllerAdvice.java .. 未認証の場合の例外ハンドラを実装するコントローラーアドバイス
 　 |  |  ├ security
 　 |  |  |  ├ UserIdThreadContextFilter.java ............ JWT Token のユーザー情報を Thread Context に格納するフィルター
-　 |  |  |  └ WebSecurityConfiguration.java ............. 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
+　 |  |  |  └ WebSecurityConfig.java .................... 認証が必要な Web API を設定し、リクエストヘッダーから認証情報を取得するためのフィルター
 　 |  |  └ WebApplication.java .......................... アプリケーションの起動クラス
 　 |  └ resources
 　 |     └ application.properties ....................... Entra External ID への接続情報を記載する設定ファイル
 　 └ build.gradle ....................................... web 層で利用するライブラリの依存関係を記載する設定ファイル
 ```
 
-### フロントエンドアプリケーションの構成
+## フロントエンドアプリケーションの構成
 
 フロントエンドアプリケーションを構成するファイルやフォルダーのうち、認証機能に関係があるものを以下に示します。
 
 ```text
 auth-frontend
 └ app
-  ├ .env.dev .............................. Entra External ID への接続情報を記載する設定ファイル
+  ├ .env.dev .............................. 開発環境での Entra External ID への接続情報を記載する設定ファイル
   ├ env.d.ts .............................. 環境変数の型定義をする TypeScript ファイル
+  ├ redirect.html ......................... Redirect Bridge Page 用の HTML ファイル
+  ├ logout-complete.html .................. ログアウト完了後リダイレクトページ用の HTML ファイル
   └ src
   　 ├ App.vue ............................ 画面。本サンプルでは画面は App.vue のみ。
   　 ├ api-client
@@ -129,19 +135,23 @@ auth-frontend
 
 本サンプルでは、 Microsoft 認証ライブラリ（ MSAL ）の使用によって、 [OAuth 2.0 承認コードフロー with PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) を実現しています。
 
-なお、以下の処理はフロントエンドの MSAL.js (JavaScript 用 Microsoft Authentication Library) によって行われます。
+なお、以下の処理はフロントエンドの [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser) (JavaScript 用 Microsoft Authentication Library) によって行われます。
 
 - code_verifier の生成・送信
 - code_challenge の生成・送信
+
+また、`MSAL.js v5` 以降、すべての認証フローにおいて MSAL リダイレクトブリッジを実装した専用のリダイレクトページが必要になりました。
+これは、 [COOP（Cross-Origin-Opener-Policy）ヘッダー](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy) をサポートし、ポップアップウィンドウとメインアプリケーション間の安全な通信を可能にするためです。
+そのため、本サンプルでは認証結果の受け取り先として `redirect.html` を用意しています。
+詳細については、 [こちら](https://learn.microsoft.com/ja-jp/entra/msal/javascript/browser/login-user#redirecturi-considerations) を参照してください。
 
 ## 前提となる OSS ライブラリ
 
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
-1. バックエンドアプリケーション
+- バックエンドアプリケーション
     - [spring-boot-starter-oauth2-resource-server](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security-oauth2-resource-server)
-
-1. フロントエンドアプリケーション
+- フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
@@ -157,8 +167,6 @@ auth-frontend
 
 ### Entra External ID テナントを利用するアプリの登録（バックエンドアプリケーション）
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-
 1. [アプリケーションを Microsoft Entra ID に登録する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app) に従って、バックエンドアプリケーション用のアプリを Entra External ID に登録します。
 
     - 登録したアプリの名前を、ここでは「 `SampleWebAPI` 」とします。
@@ -166,8 +174,6 @@ auth-frontend
     - サポートされているアカウントの種類を、「この組織ディレクトリのみに含まれるアカウント」とします。
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
-
-    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 1. [委任されたアクセス許可 (スコープ) を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-web-api-dotnet-protect-app?tabs=aspnet-core#add-delegated-permissions-scopes) に従って、アプリにスコープを追加します。
     - チュートリアルの手順では読み取りと書き込み 2 つのスコープを作成していますが、本サンプルのシナリオでは作成するスコープは 1 つで良いです。
@@ -184,7 +190,10 @@ auth-frontend
     <!-- textlint-enable @textlint-ja/no-synonyms -->
     - 登録したアプリの `クライアント ID` （アプリケーション ID ）をメモします。
 1. 「アプリの登録」ブレードを選択し、「すべてのアプリケーション」から「 SampleSPA 」を選択します。
-1. 「認証」ブレードを選択し、「リダイレクト URI の追加」をクリックします。「シングルページアプリケーション」を選択し、リダイレクト URI に「 `http://localhost:5173` 」を設定します。
+1. 「認証」ブレードを選択し、「リダイレクト URI の追加」をクリックします。「シングルページアプリケーション」を選択し、リダイレクト URI に以下を設定します。
+    - `http://localhost:5173`
+    - `http://localhost:5173/redirect.html`
+    - `http://localhost:5173/logout-complete.html`
 1. [Web API にアクセスするためのアクセス許可を追加する](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-configure-app-access-web-apis#add-permissions-to-access-your-web-api) に従って、 SampleSPA に、前の手順で追加した SampleWebAPI のスコープ「 `api.read` 」へのアクセス許可を付与します。
 1. [管理者の同意を付与する (外部テナントのみ)](https://learn.microsoft.com/ja-jp/entra/identity-platform/quickstart-register-app#grant-admin-consent-external-tenants-only) に従って、 SampleSPA に管理者の同意を付与します。
 
@@ -199,7 +208,7 @@ auth-frontend
 #### バックエンドアプリケーションの設定
 
 1. VS Code で `auth-backend\web\src\main\resources\application.properties` を開きます。
-1. 以下のように設定情報を記入します（以下の例では External ID の設定以外は省略しています）。
+1. 以下のように設定情報を記入します（以下の例では Entra External ID の設定以外は省略しています）。
 
     ```properties
     spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{tenant-id}.ciamlogin.com/{tenant-id}/v2.0
@@ -216,8 +225,8 @@ auth-frontend
 VITE_EXTERNAL_ID_AUTHORITY_DOMAIN=https://[テナントサブドメイン].ciamlogin.com/
 VITE_EXTERNAL_ID_SCOPE=[SampleWebAPI のアプリケーション ID の URI]/[Web APIに追加したスコープの名前]
 VITE_EXTERNAL_ID_APP_CLIENT_ID=[SampleSPA のクライアント ID]
-VITE_EXTERNAL_ID_REDIRECT_URI=[フロントエンドアプリケーションのベースとなるURL。サンプルの既定では http://localhost:5173]
-VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの既定では http://localhost:5173]
+VITE_EXTERNAL_ID_REDIRECT_URI=[クライアントアプリケーションのリダイレクトURI。サンプルの既定では http://localhost:5173/redirect.html]
+VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーションのログアウト後のリダイレクトURL。サンプルの既定では http://localhost:5173/logout-complete.html]
 ```
 
 ### 動作確認
@@ -238,15 +247,15 @@ VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI=[フロントエンドアプリケーショ
 
 1. ブラウザーを開き、以下のアドレスにアクセスします。
     - <http://localhost:5173>
-1. 画面の「 `ログイン` 」をクリックします。 Entra External ID のサインイン画面がポップアップで表示されます。
+1. 画面の「 `ログイン` 」をクリックします。 Entra External ID の `サインイン` 画面がポップアップで表示されます。
 1. 「アカウントをお持ちでない場合、作成できます」リンクをクリックします。
 1. 使用可能なメールアドレスを入力し、「次へ」をクリックします。
 1. 上の手順で入力したメールアドレス宛にアカウント確認コードが送信されるので、画面に入力して「次へ」をクリックします。
 1. 画面に新しいパスワード等の必要事項を入力し、「次へ」をクリックします。
-1. サインインが成功し、画面上に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードでサインインできるようになります。
+1. `サインイン` が成功し、画面上に「ユーザー ID 」が表示されれば成功です。以降は入力したメールアドレスとパスワードでサインインできるようになります。
 1. 画面上の「 `ログアウト` 」をクリックします。 Entra External ID のサインアウト画面がポップアップで表示されます。
-1. サインアウトするアカウントをクリックします。
-1. サインアウトに成功すると、画面上から「ユーザー ID 」 の表示が消え、「 `ログイン` 」が表示されます。
+1. `サインアウト` するアカウントをクリックします。
+1. `サインアウト` に成功すると、画面上から「ユーザー ID 」 の表示が消え、「 `ログイン` 」が表示されます。
 
 Entra External ID に追加したユーザーは、以下の手順で削除できます。
 
@@ -280,7 +289,7 @@ BUILD SUCCESSFUL in 2s
 ## Dressca アプリケーションへの認証機能の組み込み手順
 
 本サンプルのコード例を既存のアプリケーションへコピーすることで、 Entra External ID の認証機能を組み込むことができます。
-本章ではそのコード例を AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca アプリケーションに組み込む方法を、具体的な手順として説明します。
+本章ではそのコード例を AlesInfiny Maia のサンプルアプリケーションである Dressca アプリケーションに組み込む方法を、具体的な手順として説明します。
 
 ### バックエンドアプリケーション
 
@@ -310,67 +319,70 @@ BUILD SUCCESSFUL in 2s
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
    以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getById()` メソッドに認証が必要なアノテーションを付与する例です。
 
-    ```java
-    import org.springframework.security.access.prepost.PreAuthorize;
-    import org.springframework.web.bind.annotation.CrossOrigin;
-    import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+    ```diff
+      import org.springframework.security.access.prepost.PreAuthorize;
+      import org.springframework.web.bind.annotation.CrossOrigin;
+      import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-    @RestController
-    @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
-    @AllArgsConstructor
-    @RequestMapping("/api/orders")
-    public class OrderController {
-      ...
-      /**
-      * 注文情報を取得します。
-      * 
-      * @param orderId 注文 ID 。
-      * @return 注文情報。
-      */
-      @Operation(
-          summary = "注文情報を取得します。",
-          description = "注文情報を取得します。",
-          security = {
-              @SecurityRequirement(name = "Bearer")})
-      @ApiResponses(
-          value = {
-              @ApiResponse(
-                  responseCode = "200",
-                  description = "成功。",
-                  content = @Content(
-                      mediaType = "application/json",
-                      schema = @Schema(implementation = OrderResponse.class))),
-              @ApiResponse(
-                  responseCode = "404",
-                  description = "注文 ID が存在しません。",
-                  content = @Content(
-                      mediaType = "application/problem+json",
-                      schema = @Schema(implementation = ProblemDetail.class)))
-          })
-      @GetMapping("{orderId}")
-      @PreAuthorize(value = "isAuthenticated()")
-      public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
-        // その他のコードは省略
+      @RestController
+      @Tag(name = "Orders", description = "注文の情報にアクセスする API です。")
+      @AllArgsConstructor
+      @RequestMapping("/api/orders")
+      public class OrderController {
         ...
+        /**
+        * 注文情報を取得します。
+        * 
+        * @param orderId 注文 ID 。
+        * @return 注文情報。
+        */
+        @Operation(
+            summary = "注文情報を取得します。",
+            description = "注文情報を取得します。",
+    +       security = {
+    +           @SecurityRequirement(name = "Bearer")})
+        @ApiResponses(
+            value = {
+                @ApiResponse(
+                    responseCode = "200",
+                    description = "成功。",
+                    content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = OrderResponse.class))),
+                @ApiResponse(
+                    responseCode = "404",
+                    description = "注文 ID が存在しません。",
+                    content = @Content(
+                        mediaType = "application/problem+json",
+                        schema = @Schema(implementation = ProblemDetail.class)))
+            })
+        @GetMapping("{orderId}")
+    +   @PreAuthorize(value = "isAuthenticated()")
+        public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+          // その他のコードは省略
+          ...
+        }
       }
-    }
     ```
 
     付与するアノテーションの役割は以下の通りです。
 
-    |             アノテーション              | 付与対象 |                                                       役割                                                        |
-    | --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-    | `@PreAuthorize("isAuthenticated()")`    | メソッド | リクエストが**認証済みユーザーによるものか**を Spring Security で判定します。未認証の場合はアクセスを拒否します。 |
-    | `@SecurityRequirement(name = "Bearer")` | メソッド | OpenAPI 仕様書上で、**Bearer トークン（JWT）が必要な API**であることを明示します。                                |
+    |             アノテーション              | 付与対象 |                                                        役割                                                         |
+    | --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+    | `@PreAuthorize("isAuthenticated()")`    | メソッド | リクエストが **認証済みユーザーによるものか** を Spring Security で判定します。未認証の場合はアクセスを拒否します。 |
+    | `@SecurityRequirement(name = "Bearer")` | メソッド | OpenAPI 仕様書上で、 **Bearer トークン（JWT）が必要な API** であることを明示します。                                |
 
 1. 以下のように `web-consumer\src\main\java\...\security\WebSecurityConfig.java` に認証に関する処理を追加します。
 
-    ```java
+    ```diff
       import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+      import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+      import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
       @Configuration(proxyBeanMethods = false)
       @EnableWebSecurity
     + @EnableMethodSecurity
+    + @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
       public class WebSecurityConfig {
         
         // その他のコードは省略
@@ -399,12 +411,20 @@ BUILD SUCCESSFUL in 2s
 
     追加した処理の役割は以下の通りです。
 
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
     - `@EnableMethodSecurity`
       コントローラーのメソッドに付与する `@PreAuthorize` のアノテーションを有効化します。
       これにより、例えば `@PreAuthorize("isAuthenticated()")` を付与した API は認証済みユーザーのみ実行可能になります。
 
+    - `@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")`
+      OpenAPI 仕様書に Bearer 認証方式を定義します。
+      これにより、 `@SecurityRequirement(name = "Bearer")` を付与した API とひも付けられ、後続の `npm run generate-client` で生成するクライアントコードにも Bearer トークン付与処理が反映されます。
+
     - `.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))`
       本アプリケーションを OAuth 2.0 Resource Server として動作させ、 HTTP リクエストのヘッダーに含まれる Bearer トークンを検証します。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 1. 未認証の場合の例外ハンドラを実装します。
    `src\main\java\...\controller\advice\ExceptionHandlerControllerAdvice.java` に対して以下の ExceptionHandler を設定します。
@@ -431,41 +451,45 @@ BUILD SUCCESSFUL in 2s
 
 以下、 Dressca アプリケーション (Consumer) のフロントエンドアプリケーションに認証機能を適用する手順を示します。
 
-1. VS Code で `auth-frontend` のフォルダーの `auth-frontend.code-workspace` ファイルを開きます。
-1. ターミナルで`cd ../consumer` 、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
-1. `auth-frontend\.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
+1. VS Code で `dressca-frontend` のフォルダーの `dressca-frontend.code-workspace` ファイルを開きます。
+1. ターミナルで `consumer` フォルダーに移動し、 `npm install @azure/msal-browser` を順に実行し、フロントエンドアプリケーションに MSAL.js をインストールします。
+1. 本サンプルの以下のファイルを `consumer` フォルダーにコピーします。
+    - redirect.html
+    - logout-complete.html
+1. 本サンプルの `.env.dev` に記述した Entra External ID の設定をフロントエンドアプリケーションの `.env.dev` にコピーします。
 1. `env.d.ts` のインターフェースに、前の手順で `.env.dev` に追加したプロパティを追加します。
 
-    ```typescript
-      interface ImportMetaEnv {
-        readonly VITE_NO_ASSET_URL: string
-        readonly VITE_ASSET_URL: string
-        readonly VITE_AXIOS_BASE_ENDPOINT_ORIGIN: string
-        readonly VITE_PROXY_ENDPOINT_ORIGIN: string
-    +   readonly VITE_EXTERNAL_ID_AUTHORITY_DOMAIN: string
-    +   readonly VITE_EXTERNAL_ID_SCOPE: string
-    +   readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
-    +   readonly VITE_EXTERNAL_ID_REDIRECT_URI: string
-    +   readonly VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI: string
-      }
+    ```diff
+    interface ImportMetaEnv {
+      readonly VITE_NO_ASSET_URL: string
+      readonly VITE_ASSET_URL: string
+      readonly VITE_AXIOS_BASE_ENDPOINT_ORIGIN: string
+      readonly VITE_PROXY_ENDPOINT_ORIGIN: string
+    + readonly VITE_EXTERNAL_ID_AUTHORITY_DOMAIN: string
+    + readonly VITE_EXTERNAL_ID_SCOPE: string
+    + readonly VITE_EXTERNAL_ID_APP_CLIENT_ID: string
+    + readonly VITE_EXTERNAL_ID_REDIRECT_URI: string
+    + readonly VITE_EXTERNAL_ID_LOGOUT_REDIRECT_URI: string
+    }
     ```
 
 1. `npm run generate-client` を実行し、 Axios のクライアントコードを再生成します。
-1. `src\services\authentication` フォルダーを作成し、本サンプルの以下のコードをコピー・差し替えします。
-    - authentication-services.ts
+1. `src\services\authentication` フォルダーで、本サンプルの以下のコードをコピー・差し替えします。
+    - authentication-service.ts
     - authentication-config.ts
-1. `src\store\authentication` フォルダーの `authentication.ts` を本サンプルのコードに差し替えます。
+1. `src\stores\authentication\authentication.ts` を本サンプルのコードに差し替えます。
 1. 認証が成功したら、認証が必要な Web API リクエストヘッダーに Bearer トークンを付与する必要があります。
-   本例では、 OrderApi アクセス時に Bearer トークンを付与する例を示します。
+   本例では、 OrdersApi アクセス時に Bearer トークンを付与する例を示します。
    `src\api-client\index.ts` を以下のように編集します。
 
     ```typescript
+    import { authenticationService } from '@/services/authentication/authentication-service'
     // その他のコードは省略
-    async function addToken(config: apiClient.Configuration) {
-      // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
-      if (await authenticationService.isAuthenticated()) {
-        const token = await authenticationService.getTokenEntraExternalId();
-        config.accessToken = token;
+    async function addToken(config: apiClient.Configuration): Promise<void> {
+      const { isAuthenticated, getToken } = authenticationService()
+      if (isAuthenticated()) {
+        const token = await getToken()
+        config.accessToken = token
       }
     }
 
@@ -481,7 +505,13 @@ BUILD SUCCESSFUL in 2s
 1. `src\App.vue` に対して、 `<script>` セクションに以下のコードを追加します。
 
     ```typescript
+    import { useLogger } from './composables/use-logger'
+    import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+    import { BrowserAuthError } from '@azure/msal-browser'
+
     const { signIn, signOut, isAuthenticated } = authenticationService()
+    const logger = useLogger()
+    const handleErrorAsync = useCustomErrorHandler()
 
     const signInButtonClicked = async () => {
       try {
@@ -490,11 +520,11 @@ BUILD SUCCESSFUL in 2s
         // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
         if (error instanceof BrowserAuthError) {
           // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            console.info('ユーザーが認証処理を中断しました。')
+          await handleErrorAsync(error, () => {
+            logger.info('ユーザーが認証処理を中断しました。')
           })
         } else {
-          customErrorHandler.handle(error, () => {
+          await handleErrorAsync(error, () => {
             window.alert('Microsoft Entra External Id での認証に失敗しました。')
           })
         }
@@ -508,12 +538,12 @@ BUILD SUCCESSFUL in 2s
         // ポップアップ画面をユーザーが×ボタンで閉じると、 BrowserAuthError が発生します。
         if (error instanceof BrowserAuthError) {
           // 認証途中でポップアップを閉じることはよくあるユースケースなので、ユーザーには特に通知しません。
-          customErrorHandler.handle(error, () => {
-            console.info('ユーザーが認証処理を中断しました。')
+          await handleErrorAsync(error, () => {
+            logger.info('ユーザーが認証処理を中断しました。')
           })
         } else {
-          customErrorHandler.handle(error, () => {
-            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+          await handleErrorAsync(error, () => {
+            window.alert('Microsoft Entra External ID での認証に失敗しました。')
           })
         }
       }
@@ -545,9 +575,11 @@ BUILD SUCCESSFUL in 2s
    ```
   
 1. `src\views\authentication\LoginView.vue` は Entra External ID の LoginPopup ウィンドウに切り替わるため削除します。
-1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Entra External ID の LoginPopUp を表示させるように変更します。
+1. `src\shared\authentication\authentication-guard.ts` はログインページではなく Entra External ID の LoginPopup を表示させるように変更します。
 
     ```typescript
+    // その他のコードは省略
+    import { authenticationService } from '@/services/authentication/authentication-service'
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
       try {
         await authenticationService().signIn()
@@ -561,7 +593,9 @@ BUILD SUCCESSFUL in 2s
 
 1. BrowserAuthError が発生した場合は、エラーページに遷移させないように `src\shared\error-handler\custom-error-handler.ts` に以下を追加します。
 
-    ```typescript
+    ```diff
+    import { BrowserAuthError } from '@azure/msal-browser'
+
     export function useCustomErrorHandler(): handleErrorAsyncFunction {
     const { t } = i18n.global
     const handleErrorAsync = async (
@@ -576,10 +610,10 @@ BUILD SUCCESSFUL in 2s
       const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
       const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
       // ハンドリングできるエラーの場合はコールバックを実行します。
-      if (error instanceof BrowserAuthError) {
-        await callback()
-        return
-      }
+    + if (error instanceof BrowserAuthError) {
+    +   await callback()
+    +   return
+    + }
       if (error instanceof CustomErrorBase) {
         logger.error(JSON.stringify(error.toJSON()))
         await callback()
