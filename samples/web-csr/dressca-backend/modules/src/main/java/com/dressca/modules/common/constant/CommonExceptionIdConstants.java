@@ -1,4 +1,4 @@
-package com.dressca.systemcommon.constant;
+package com.dressca.modules.common.constant;
 
 /**
  * 例外 ID 用の定数クラスです。
