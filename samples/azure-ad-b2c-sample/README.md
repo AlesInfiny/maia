@@ -26,14 +26,14 @@
 あわせて本ドキュメントでは、以下について説明します。
 
 - 本サンプルの動作確認手順
-- AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca への組み込み手順
+- AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）のサンプルアプリケーションである Dressca への組み込み手順
 
 ## 前提
 
 本サンプルを動作させるためには、以下が必要です。
 
 - Azure サブスクリプション
-- サブスクリプション内、またはサブスクリプション内のリソース グループ内で共同作成者以上のロールが割り当てられている Azure アカウント
+- サブスクリプション内、またはサブスクリプション内のリソースグループ内で共同作成者以上のロールが割り当てられている Azure アカウント
 
 Azure サブスクリプションを持っていない場合、 [無料アカウントを作成](https://azure.microsoft.com/ja-jp/free) できます。
 
@@ -296,7 +296,7 @@ BUILD SUCCESSFUL in 2s
 ## Dressca アプリケーションへの認証機能の組み込み手順
 
 本サンプルのコード例を既存のアプリケーションへコピーすることで、 Azure AD B2C の認証機能を組み込むことができます。
-本章ではそのコード例を AlesInfiny Maia OSS Edition のサンプルアプリケーションである Dressca アプリケーションに組み込む方法を、具体的な手順として説明します。
+本章ではそのコード例を AlesInfiny Maia のサンプルアプリケーションである Dressca アプリケーションに組み込む方法を、具体的な手順として説明します。
 
 ### バックエンドアプリケーション
 
@@ -481,6 +481,7 @@ BUILD SUCCESSFUL in 2s
       readonly VITE_AXIOS_BASE_ENDPOINT_ORIGIN: string
       readonly VITE_PROXY_ENDPOINT_ORIGIN: string
     + readonly VITE_ADB2C_USER_FLOW_SIGN_IN: string
+    + readonly VITE_ADB2C_SIGN_IN_URI: string
     + readonly VITE_ADB2C_AUTHORITY_DOMAIN: string
     + readonly VITE_ADB2C_SCOPE: string
     + readonly VITE_ADB2C_APP_CLIENT_ID: string
