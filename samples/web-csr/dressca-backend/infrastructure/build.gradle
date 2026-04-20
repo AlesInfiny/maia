@@ -45,6 +45,7 @@ dependencies {
 
   mybatisTasks supportDependencies.mybatis_generator_core
   mybatisTasks supportDependencies.h2database
+  mybatisTasks 'com.github.javaparser:javaparser-core:3.28.0'
 }
 
 bootJar{
@@ -66,6 +67,7 @@ tasks.register('runMyBatisGenerator') {
     // MyBatis Generator による自動生成を実行します。
     ant.mybatisGenerator(
       overwrite: true,
+      javaMergeEnabled: true,
       configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
       verbose: true
     )
