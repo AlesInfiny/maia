@@ -77,7 +77,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItem");
     }
 
@@ -122,7 +122,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItemsForAdmin");
     }
 
@@ -152,7 +152,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
         new Object[] {}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
 
@@ -188,7 +188,7 @@ public class CatalogApplicationService {
         new Object[] {id}, Locale.getDefault()));
 
     final String operationName = "deleteItemFromCatalog";
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
 
@@ -229,7 +229,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
     final String operationName = "updateCatalogItem";
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
 
