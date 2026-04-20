@@ -6,7 +6,7 @@ ext {
     spotbugsVersion = "6.4.8"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "3.0.1"
+    springdocOpenapiVersion = "3.0.3"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.0.0"
