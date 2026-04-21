@@ -22,7 +22,6 @@ import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +39,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
@@ -48,15 +47,12 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @PreAuthorize(value = "hasAuthority('" + UserRoleConstants.ADMIN + "')")
 public class CatalogItemsController {
 
-  @Autowired
-  private CatalogApplicationService service;
-
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final CatalogApplicationService service;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * 指定した ID のカタログアイテムを返します。

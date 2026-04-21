@@ -11,24 +11,24 @@ import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.infrastructure.repeat.RepeatStatus;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
+import lombok.RequiredArgsConstructor;
 
 /**
  * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。
  */
 @Component
 @StepScope
+@RequiredArgsConstructor
 public class CatalogItemTasklet implements Tasklet {
 
-  @Autowired
-  private CatalogRepository repository;
+  private final CatalogRepository repository;
   @Value("${output:#{null}}")
-  String output;
+  private String output;
 
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)

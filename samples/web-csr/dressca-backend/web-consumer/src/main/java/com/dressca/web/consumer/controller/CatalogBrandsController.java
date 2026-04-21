@@ -6,7 +6,6 @@ import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogBrandResponse;
 import com.dressca.web.consumer.mapper.CatalogBrandMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
@@ -26,11 +25,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "CatalogBrands", description = "カタログブランドの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-brands")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CatalogBrandsController {
 
-  @Autowired
-  private CatalogApplicationService service;
+  private final CatalogApplicationService service;
 
   /**
    * カタログブランドの一覧を取得します。

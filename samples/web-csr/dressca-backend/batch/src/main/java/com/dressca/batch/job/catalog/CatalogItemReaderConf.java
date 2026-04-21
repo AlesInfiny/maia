@@ -3,19 +3,19 @@ package com.dressca.batch.job.catalog;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.dressca.applicationcore.catalog.CatalogItem;
+import lombok.RequiredArgsConstructor;
 
 /**
  * CATALOG_ITEM テーブルからデータ一覧を取得する Reader の設定です。
  */
 @Configuration
+@RequiredArgsConstructor
 public class CatalogItemReaderConf {
 
-  @Autowired
-  SqlSessionFactory sqlSessionFactory;
+  private final SqlSessionFactory sqlSessionFactory;
 
   /**
    * CATALOG_ITEM テーブルからデータ一覧を取得する Reader を設定します。
