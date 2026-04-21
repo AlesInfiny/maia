@@ -46,7 +46,7 @@
     "eslint-plugin-vue": "10.8.0",
     "jiti": "2.6.1",
     "jsdom": "29.0.0",
-    "msw": "2.12.12",
+    "msw": "2.13.3",
     "npm-run-all2": "8.0.4",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
