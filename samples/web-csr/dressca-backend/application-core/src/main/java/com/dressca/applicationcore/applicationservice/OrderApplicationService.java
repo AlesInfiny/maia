@@ -4,7 +4,7 @@ import com.dressca.applicationcore.constant.MessageIdConstants;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
-import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import lombok.AllArgsConstructor;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;

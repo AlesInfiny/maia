@@ -22,7 +22,7 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
-import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import com.dressca.applicationcore.constant.MessageIdConstants;
 
 /**

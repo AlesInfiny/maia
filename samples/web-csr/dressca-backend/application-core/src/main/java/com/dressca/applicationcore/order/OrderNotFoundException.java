@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.order;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.modules.common.exception.LogicException;
 
 /**
  * 注文情報が存在しないことを表す例外クラスです。

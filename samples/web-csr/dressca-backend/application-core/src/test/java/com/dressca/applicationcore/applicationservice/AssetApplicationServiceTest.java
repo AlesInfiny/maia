@@ -27,7 +27,7 @@ import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetStore;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 
 /**
  * {@link AssetApplicationService}の動作をテストするクラスです。

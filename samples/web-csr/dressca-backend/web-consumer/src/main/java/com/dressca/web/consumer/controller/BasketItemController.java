@@ -7,7 +7,7 @@ import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;

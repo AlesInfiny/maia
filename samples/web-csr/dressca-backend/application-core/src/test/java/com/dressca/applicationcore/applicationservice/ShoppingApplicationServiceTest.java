@@ -48,7 +48,7 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
