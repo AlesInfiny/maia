@@ -1,21 +1,27 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.1"
+    springBootVersion = "4.0.5"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
     spotbugsVersion = "6.4.8"
 
     // -- DEPENDENCIES
-    mybatisGeneratorVersion = "1.4.2"
+    mybatisGeneratorVersion = "2.0.0"
     mybatisSpringBootStarterVersion = "4.0.1"
     mybatisSpringBootStarterTestVersion = "4.0.1"
     javaUuidGeneratorVersion = "5.2.0"
-    springdocOpenapiVersion = "3.0.1"
+    springdocOpenapiVersion = "3.0.3"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.0.0"
+    checkstyleToolVersion = "13.4.0"
     jacocoToolVersion = "0.8.14"
     spotbugsToolVersion = "4.9.8"
+
+    // -- TEMPORARY GRADLE PLUGIN TOOLS
+    // 以下 Issue 対応のため、 Spring Boot の管理バージョンを上書きして 4.0.1 を指定する。
+    // Spring Boot 側で修正版が取り込まれたら、この上書きは削除する。
+    // https://github.com/ultraq/thymeleaf-layout-dialect/issues/251
+    thymeleafLayoutDialectVersion = "4.0.1"
 
     supportDependencies = [
         // SPRING BOOT STARTERS
@@ -49,7 +55,7 @@ ext {
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
-        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
+        thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion",
 
         // GRADLE PLUGIN TOOLS
         checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",

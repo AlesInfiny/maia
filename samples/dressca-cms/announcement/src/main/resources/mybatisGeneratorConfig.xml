@@ -22,13 +22,13 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
-        <javaModelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
+        <modelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java" />
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/resources" />
         <!-- Mapper.java作成先 -->
-        <javaClientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
+        <clientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
