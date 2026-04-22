@@ -12,13 +12,13 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * ユーザー ID を threadLocal に格納するためのフィルタークラスです。
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserIdThreadContextFilter extends OncePerRequestFilter {
 
   // ログ出力用（本番では消す）

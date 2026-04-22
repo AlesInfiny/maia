@@ -76,8 +76,7 @@ public class CatalogApplicationServiceTest {
   @BeforeEach
   void setUp() {
     service = new CatalogApplicationService(messages, catalogRepository, brandRepository,
-        categoryRepository, catalogDomainService, apLog);
-    service.setUserStore(this.userStore);
+        categoryRepository, catalogDomainService, apLog, userStore);
   }
 
   @Test

@@ -44,7 +44,7 @@ public class LogicException extends Exception {
    * @return 取得したメッセージ。
    */
   private static String resolveMessage(String exceptionId, String[] logMessageValue) {
-    MessageSource messageSource = ApplicationContextWrapper.getBean(MessageSource.class);
-    return messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+    MessageSource messages = ApplicationContextWrapper.getBean(MessageSource.class);
+    return messages.getMessage(exceptionId, logMessageValue, Locale.getDefault());
   }
 }
