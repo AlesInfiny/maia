@@ -18,8 +18,8 @@ ext {
     spotbugsToolVersion = "4.9.8"
 
     // -- TEMPORARY GRADLE PLUGIN TOOLS
-    // 以下 Issue 対応のため、 Spring Boot の管理バージョンを上書きして 4.0.1 を指定する。
-    // Spring Boot 側で修正版が取り込まれたら、この上書きは削除する。
+    // 以下 Issue 対応のため、thymeleaf-layout-dialect の依存バージョンを上書きして 4.0.1 を指定する。
+    // 修正版が取り込まれたら、この上書きは削除する。
     // https://github.com/ultraq/thymeleaf-layout-dialect/issues/251
     thymeleafLayoutDialectVersion = "4.0.1"
 
