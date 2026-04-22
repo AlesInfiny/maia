@@ -2,8 +2,6 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <context id="local"  targetRuntime="MyBatis3">
-        <property name="nullCatalogMeansCurrent" value="true"/>
-        <property name="useInformationSchema" value="true"/>
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
         <!-- 自動生成される各要素のコメントに生成時刻が出力されないように設定する -->
@@ -17,10 +15,6 @@
                         connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
                         userId=""
                         password="" />
-        <javaTypeResolver>
-            <property name="forceBigDecimals" value="false"/>
-            <property name="useJSR310Types" value="true"/>
-        </javaTypeResolver>
         <!-- Model(Entity)作成先 -->
         <modelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java" />
