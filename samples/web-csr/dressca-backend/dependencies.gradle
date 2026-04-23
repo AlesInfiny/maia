@@ -21,6 +21,7 @@ ext {
         spring_boot_starter : "org.springframework.boot:spring-boot-starter",
         spring_boot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
         spring_boot_starter_batch_jdbc : "org.springframework.boot:spring-boot-starter-batch-jdbc",
+        spring_boot_configuration_processor : "org.springframework.boot:spring-boot-configuration-processor",
         spring_boot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
         spring_boot_starter_security : "org.springframework.boot:spring-boot-starter-security",
         spring_boot_starter_validation : "org.springframework.boot:spring-boot-starter-validation",
