@@ -79,7 +79,7 @@ tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
 
     // MyBatis Generator で生成されたマッパーの xml ファイルがあるディレクトリ
-    def generatedDirectory = 'src/main/resources/com/dressca/infrastructure/repository/mybatis/generated/mapper/'
+    def generatedDirectory = 'src/main/java/com/dressca/modules/catalog/mapper/'
 
     // 楽観ロック対応させるマッパーの xml ファイルのリスト
     def xmlFilePaths = ['CatalogItemMapper.xml']

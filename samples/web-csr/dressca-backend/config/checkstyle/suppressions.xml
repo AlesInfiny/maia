@@ -6,7 +6,8 @@
 
 <suppressions>
   <!-- 自動生成クラスはチェックしない -->
-  <suppress checks=".*" files="com[\\/]dressca[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
+  <suppress checks=".*" files="com[\\/]dressca[\\/]modules[\\/].*[\\/]entity[\\/]"/>
+  <suppress checks=".*" files="com[\\/]dressca[\\/]modules[\\/].*[\\/]mapper[\\/]"/>
   <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
   <suppress checks="MethodName" files=".*Test.java$"/>
   <!-- テストクラスのメソッド名はチェックしない（英語の略語を使用するため） -->

@@ -19,7 +19,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.modules.assets.Asset;
 import com.dressca.modules.assets.AssetNotFoundException;

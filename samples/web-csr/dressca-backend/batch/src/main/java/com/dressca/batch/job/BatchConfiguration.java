@@ -25,7 +25,9 @@ import com.dressca.modules.catalog.CatalogItem;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
+@MapperScan(
+    basePackages = {"com.dressca.modules.assets.mapper", "com.dressca.modules.baskets.mapper",
+        "com.dressca.modules.catalog.mapper", "com.dressca.modules.order.mapper"})
 public class BatchConfiguration {
 
   /**

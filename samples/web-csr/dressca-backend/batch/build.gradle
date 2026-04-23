@@ -23,8 +23,7 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_starter_log4j2
 	
-	implementation project(':infrastructure')
-	implementation project(':modules')
+implementation project(':modules')
 
 	testImplementation supportDependencies.spring_boot_starter_batch_jdbc_test
 	testImplementation supportDependencies.h2database
