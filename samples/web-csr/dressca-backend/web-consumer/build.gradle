@@ -36,6 +36,12 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_security_test
 }
 
+dependencyManagement {
+	imports {
+		mavenBom supportDependencies.spring_modulith_bom
+	}
+}
+
 configurations {
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'

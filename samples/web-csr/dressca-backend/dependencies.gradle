@@ -10,6 +10,7 @@ ext {
     mybatisSpringBootStarterVersion = "4.0.1"
     mybatisSpringBootStarterTestVersion = "4.0.1"
     springdocOpenapiVersion = "3.0.1"
+    springModulithVersion = "2.0.5"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.0.0"
@@ -35,6 +36,11 @@ ext {
         // SPRING BOOT MODULES
         spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         spring_boot_transaction : "org.springframework.boot:spring-boot-transaction",
+
+        // SPRING MODULITH
+        spring_modulith_bom : "org.springframework.modulith:spring-modulith-bom:$springModulithVersion",
+        spring_modulith_starter_core : "org.springframework.modulith:spring-modulith-starter-core",
+        spring_modulith_starter_test : "org.springframework.modulith:spring-modulith-starter-test:$springModulithVersion",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",

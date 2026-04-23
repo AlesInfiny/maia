@@ -38,11 +38,19 @@ dependencies {
 	implementation supportDependencies.h2database
 	implementation supportDependencies.postgresql
 	implementation supportDependencies.commons_lang3
+  implementation supportDependencies.spring_modulith_starter_core
 
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
+  testImplementation supportDependencies.spring_modulith_starter_test
 
   mybatisTasks supportDependencies.mybatis_generator_core
   mybatisTasks supportDependencies.h2database
+}
+
+dependencyManagement {
+  imports {
+    mavenBom supportDependencies.spring_modulith_bom
+  }
 }
 
 bootJar{
