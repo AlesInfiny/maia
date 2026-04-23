@@ -36,7 +36,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @Import(ApplicationCoreTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
-@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class OrderApplicationServiceTest {
   @Mock

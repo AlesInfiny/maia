@@ -34,7 +34,6 @@ import com.dressca.modules.config.ApplicationCoreTestConfig;
  */
 @Import(ApplicationCoreTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
-@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 

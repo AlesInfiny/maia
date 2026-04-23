@@ -56,7 +56,6 @@ import com.dressca.modules.order.ShipTo;
  */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationCoreTestConfig.class)
-@TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock

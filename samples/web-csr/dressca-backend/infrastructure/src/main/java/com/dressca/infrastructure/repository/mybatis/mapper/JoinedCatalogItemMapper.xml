@@ -34,7 +34,7 @@
     )
   </sql>
 
-  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.applicationcore.catalog.CatalogItem">
+  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.modules.catalog.CatalogItem">
     <id property="id" column="ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
@@ -44,15 +44,15 @@
     <result property="catalogBrandId" column="CATALOG_BRAND_ID"/>
     <result property="rowVersion" column="ROW_VERSION"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.applicationcore.catalog.CatalogItemAsset" resultMap="assetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.modules.catalog.CatalogItemAsset" resultMap="assetsResultMap"/>
   </resultMap>
 
-  <resultMap id="assetsResultMap" type="com.dressca.applicationcore.catalog.CatalogItemAsset">
+  <resultMap id="assetsResultMap" type="com.dressca.modules.catalog.CatalogItemAsset">
     <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>
 
-  <select id="findByCategoryIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
+  <select id="findByCategoryIdIn" resultType="com.dressca.modules.catalog.CatalogItem" parameterType="List">
     <include refid="selectCatalogItems"/>
     WHERE CATALOG_CATEGORY_ID IN 
     <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">

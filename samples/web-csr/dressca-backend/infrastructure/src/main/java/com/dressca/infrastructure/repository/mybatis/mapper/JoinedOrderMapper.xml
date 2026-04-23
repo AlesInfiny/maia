@@ -34,7 +34,7 @@
     )
   </sql>
 
-  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.applicationcore.order.Order">
+  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.modules.order.Order">
     <id property="id" column="ID"/>
     <result property="buyerId" column="BUYER_ID"/>
     <result property="orderDate" column="ORDER_DATE"/>
@@ -43,37 +43,37 @@
     <result property="deliveryCharge" column="DELIVERY_CHARGE"/>
     <result property="consumptionTax" column="CONSUMPTION_TAX"/>
     <result property="totalPrice" column="TOTAL_PRICE"/>
-    <association property="shipToAddress" javaType="com.dressca.applicationcore.order.ShipTo" resultMap="shipToResultMap"/>
-    <collection property="orderItems" ofType="com.dressca.applicationcore.order.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
+    <association property="shipToAddress" javaType="com.dressca.modules.order.ShipTo" resultMap="shipToResultMap"/>
+    <collection property="orderItems" ofType="com.dressca.modules.order.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
   </resultMap>
 
-  <resultMap id="shipToResultMap" type="com.dressca.applicationcore.order.ShipTo">
+  <resultMap id="shipToResultMap" type="com.dressca.modules.order.ShipTo">
     <result property="fullName" column="SHIP_TO_FULL_NAME"/>
-    <association property="address" javaType="com.dressca.applicationcore.order.Address" resultMap="addressResultMap"/>
+    <association property="address" javaType="com.dressca.modules.order.Address" resultMap="addressResultMap"/>
   </resultMap>
 
-  <resultMap id="addressResultMap" type="com.dressca.applicationcore.order.Address">
+  <resultMap id="addressResultMap" type="com.dressca.modules.order.Address">
     <result property="postalCode" column="SHIP_TO_POSTAL_CODE"/>
     <result property="todofuken" column="SHIP_TO_TODOFUKEN"/>
     <result property="shikuchoson" column="SHIP_TO_SHIKUCHOSON"/>
     <result property="azanaAndOthers" column="SHIP_TO_AZANA_AND_OTHERS"/>
   </resultMap>
 
-  <resultMap id="orderItemsResultMap" type="com.dressca.applicationcore.order.OrderItem">
+  <resultMap id="orderItemsResultMap" type="com.dressca.modules.order.OrderItem">
     <id property="id" column="ID"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
-    <association property="itemOrdered" javaType="com.dressca.applicationcore.order.CatalogItemOrdered" resultMap="catalogItemOrderedResultMap"/>
-    <collection property="assets" ofType="com.dressca.applicationcore.order.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
+    <association property="itemOrdered" javaType="com.dressca.modules.order.CatalogItemOrdered" resultMap="catalogItemOrderedResultMap"/>
+    <collection property="assets" ofType="com.dressca.modules.order.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
   </resultMap>
 
-  <resultMap id="catalogItemOrderedResultMap" type="com.dressca.applicationcore.order.CatalogItemOrdered">
+  <resultMap id="catalogItemOrderedResultMap" type="com.dressca.modules.order.CatalogItemOrdered">
     <result property="catalogItemId" column="ORDERED_CATALOG_ITEM_ID"/>
     <result property="productName" column="ORDERED_PRODUCT_NAME"/>
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
-  <resultMap id="orderItemAssetsResultMap" type="com.dressca.applicationcore.order.OrderItemAsset">
+  <resultMap id="orderItemAssetsResultMap" type="com.dressca.modules.order.OrderItemAsset">
     <id property="id" column="ASSET_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

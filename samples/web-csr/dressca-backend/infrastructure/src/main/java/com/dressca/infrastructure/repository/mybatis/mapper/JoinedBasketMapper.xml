@@ -17,13 +17,13 @@
     )
   </sql>
 
-  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.applicationcore.baskets.Basket">
+  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.modules.baskets.Basket">
     <id property="id" column="ID"/>
     <result property="buyerId" column="BUYER_ID"/>
-    <collection property="items" ofType="com.dressca.applicationcore.baskets.BasketItem" resultMap="itemsResultMap"/>
+    <collection property="items" ofType="com.dressca.modules.baskets.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
-  <resultMap id="itemsResultMap" type="com.dressca.applicationcore.baskets.BasketItem">
+  <resultMap id="itemsResultMap" type="com.dressca.modules.baskets.BasketItem">
     <id property="id" column="ITEM_ID"/>
     <result property="basketId" column="BASKET_ID"/>
     <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
