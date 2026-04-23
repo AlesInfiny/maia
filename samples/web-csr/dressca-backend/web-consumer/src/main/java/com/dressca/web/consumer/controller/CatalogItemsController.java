@@ -2,8 +2,8 @@ package com.dressca.web.consumer.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogItem;
+import com.dressca.modules.orchestrator.CatalogApplicationService;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemResponse;
 import com.dressca.web.consumer.controller.dto.catalog.PagedListOfCatalogItemResponse;
 import com.dressca.web.consumer.mapper.CatalogItemMapper;

@@ -7,13 +7,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
-
+import com.dressca.modules.assets.AssetNotFoundException;
 import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.constant.SystemPropertyConstants;
 import com.dressca.modules.common.exception.LogicException;
 import com.dressca.modules.common.exception.SystemException;
 import com.dressca.modules.common.util.ApplicationContextWrapper;
-import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
 import com.dressca.web.controller.AssetsController;
 import org.junit.jupiter.api.BeforeEach;

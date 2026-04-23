@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogRepository;
+import com.dressca.modules.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogRepository;
 
 /**
  * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。

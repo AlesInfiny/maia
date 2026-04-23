@@ -1,14 +1,5 @@
 package com.dressca.infrastructure.repository.mybatis.translator;
 
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketItem;
-import com.dressca.applicationcore.catalog.CatalogBrand;
-import com.dressca.applicationcore.catalog.CatalogCategory;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
@@ -18,6 +9,15 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogIte
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
+import com.dressca.modules.assets.Asset;
+import com.dressca.modules.baskets.Basket;
+import com.dressca.modules.baskets.BasketItem;
+import com.dressca.modules.catalog.CatalogBrand;
+import com.dressca.modules.catalog.CatalogCategory;
+import com.dressca.modules.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogItemAsset;
+import com.dressca.modules.order.Order;
+import com.dressca.modules.order.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 /**

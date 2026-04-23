@@ -1,12 +1,12 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+import com.dressca.modules.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogRepository;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;

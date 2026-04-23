@@ -3,11 +3,11 @@ package com.dressca.infrastructure.store;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Optional;
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetStore;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import com.dressca.modules.assets.Asset;
+import com.dressca.modules.assets.AssetStore;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 

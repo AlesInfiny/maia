@@ -1,11 +1,11 @@
 package com.dressca.infrastructure.repository.mybatis;
 
 import java.util.Optional;
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.AssetMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+import com.dressca.modules.assets.Asset;
+import com.dressca.modules.assets.AssetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;

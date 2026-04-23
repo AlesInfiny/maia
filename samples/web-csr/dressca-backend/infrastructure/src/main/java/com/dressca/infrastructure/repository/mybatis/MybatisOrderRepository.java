@@ -1,8 +1,8 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
+import com.dressca.modules.order.Order;
+import com.dressca.modules.order.OrderRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

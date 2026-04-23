@@ -6,7 +6,7 @@ import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogItem;
 
 /**
  * CATALOG_ITEM テーブルからデータ一覧を取得する Reader の設定です。

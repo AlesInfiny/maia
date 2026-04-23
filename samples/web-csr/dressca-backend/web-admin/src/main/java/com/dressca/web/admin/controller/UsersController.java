@@ -2,7 +2,7 @@ package com.dressca.web.admin.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.dressca.applicationcore.authorization.UserStore;
+import com.dressca.modules.authorization.UserStore;
 import com.dressca.web.admin.controller.dto.user.GetLoginUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

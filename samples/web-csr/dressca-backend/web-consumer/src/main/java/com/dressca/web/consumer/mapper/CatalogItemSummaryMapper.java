@@ -2,8 +2,8 @@ package com.dressca.web.consumer.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
+import com.dressca.modules.catalog.CatalogItem;
+import com.dressca.modules.catalog.CatalogItemAsset;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
 
 /**

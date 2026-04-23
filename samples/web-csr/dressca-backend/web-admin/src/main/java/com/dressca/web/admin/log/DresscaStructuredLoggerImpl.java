@@ -3,7 +3,7 @@ package com.dressca.web.admin.log;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.authorization.UserStore;
+import com.dressca.modules.authorization.UserStore;
 import com.dressca.modules.common.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 

@@ -2,8 +2,8 @@ package com.dressca.web.admin.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.modules.catalog.CatalogCategory;
+import com.dressca.modules.orchestrator.CatalogApplicationService;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogCategoriesResponse;
 import com.dressca.web.admin.mapper.CatalogCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;

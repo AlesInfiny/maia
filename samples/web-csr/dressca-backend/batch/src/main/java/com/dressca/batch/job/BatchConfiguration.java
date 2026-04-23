@@ -16,9 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.batch.job.catalog.CatalogItemProcessor;
 import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
+import com.dressca.modules.catalog.CatalogItem;
 
 /**
  * Job の定義と各種設定を行うクラスです。

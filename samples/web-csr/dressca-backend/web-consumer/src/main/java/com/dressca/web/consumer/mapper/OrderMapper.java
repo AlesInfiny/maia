@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.order.Order;
+import com.dressca.modules.order.Order;
 import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
 import com.dressca.web.consumer.controller.dto.order.OrderResponse;
 

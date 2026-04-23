@@ -3,8 +3,6 @@ package com.dressca.infrastructure.repository.mybatis;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
@@ -13,6 +11,8 @@ import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketItem
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
+import com.dressca.modules.baskets.Basket;
+import com.dressca.modules.baskets.BasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import lombok.AllArgsConstructor;

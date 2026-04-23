@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.modules.catalog.CatalogCategory;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogCategoryResponse;
 
 /**

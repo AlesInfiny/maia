@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.baskets.BasketItem;
+import com.dressca.modules.baskets.BasketItem;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
 
 /**

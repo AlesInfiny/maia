@@ -2,8 +2,8 @@ package com.dressca.web.consumer.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.modules.catalog.CatalogBrand;
+import com.dressca.modules.orchestrator.CatalogApplicationService;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogBrandResponse;
 import com.dressca.web.consumer.mapper.CatalogBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;

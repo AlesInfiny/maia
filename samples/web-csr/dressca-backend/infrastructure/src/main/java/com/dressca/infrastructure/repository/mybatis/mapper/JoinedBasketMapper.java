@@ -1,8 +1,8 @@
 package com.dressca.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.applicationcore.baskets.Basket;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.dressca.modules.baskets.Basket;
 
 /**
  * 買い物かごのテーブルにアクセスするためのマッパーのインターフェースです。

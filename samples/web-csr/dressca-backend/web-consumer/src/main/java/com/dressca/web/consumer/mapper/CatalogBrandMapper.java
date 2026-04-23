@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.modules.catalog.CatalogBrand;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogBrandResponse;
 
 /**

@@ -1,12 +1,12 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.applicationcore.applicationservice.AssetApplicationService;
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetNotFoundException;
-import com.dressca.applicationcore.assets.AssetResourceInfo;
-import com.dressca.applicationcore.assets.AssetTypes;
+import com.dressca.modules.assets.Asset;
+import com.dressca.modules.assets.AssetNotFoundException;
+import com.dressca.modules.assets.AssetResourceInfo;
+import com.dressca.modules.assets.AssetTypes;
 import com.dressca.modules.common.exception.LogicException;
 import com.dressca.modules.common.log.AbstractStructuredLogger;
+import com.dressca.modules.orchestrator.AssetApplicationService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
