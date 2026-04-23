@@ -29,7 +29,6 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
 
-	implementation project(':infrastructure')
 	implementation project(':modules')
 	implementation project(':web')
 

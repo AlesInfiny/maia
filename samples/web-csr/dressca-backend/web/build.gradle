@@ -24,8 +24,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.commons_lang3
 	
-	implementation project(':infrastructure')
-	implementation project(':modules')
+implementation project(':modules')
 	
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test
