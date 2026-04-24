@@ -19,21 +19,11 @@ MSAL.js で提供されている  `loginPopup()` や `loginRedirect()` といっ
 MSAL のインスタンス化に使用する構成オブジェクトをもとに、キャッシュストレージの保存先を設定できます。
 本サンプルでは、 `src/services/authentication/authentication-config.ts` の以下の部分で設定します。
 
-```typescript title="authentication-config.ts" hl_lines="9"
-export const msalConfig = {
-  auth: {
-    clientId: import.meta.env.VITE_EXTERNAL_ID_APP_CLIENT_ID,
-    authority: import.meta.env.VITE_EXTERNAL_ID_AUTHORITY_DOMAIN,
-    redirectUri: import.meta.env.VITE_EXTERNAL_ID_REDIRECT_URI,
-    postLogoutRedirectUri: import.meta.env.VITE_EXTERNAL_ID_LOGOUT_URI,
-  },
-  cache: {
-    cacheLocation: 'sessionStorage',
-    storeAuthStateInCookie: true,
-  },
-  ...
-}
-```
+!!! example "authentication-config.ts の実装例"
+
+    ```typescript title="authentication-config.ts" hl_lines="9"
+    https://github.com/AlesInfiny/maia/blob/main/samples/external-id-sample-for-spa/auth-frontend/app/src/services/authentication/authentication-config.ts#L12-L21
+    ```
 
 キャッシュストレージの保存先として指定できる値は以下の通りです。
 
