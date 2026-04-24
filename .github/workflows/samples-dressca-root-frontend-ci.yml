@@ -32,7 +32,7 @@ jobs:
           # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
           cache: npm
       - name: node パッケージのインストール
-        run: npm ci
+        run: npm ci --ignore-scripts
       - id: run-format
         name: format の実行
         run: npm run format:ci:root >> /var/tmp/format-result.txt 2>&1
