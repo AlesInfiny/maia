@@ -20,6 +20,7 @@
 <!-- https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml -->
 
 <module name="Checker">
+
   <property name="charset" value="UTF-8"/>
 
   <property name="severity" value="${org.checkstyle.google.severity}" default="warning"/>
@@ -67,6 +68,11 @@
     <property name="offCommentFormat" value='^.*"""\s*$'/>
     <property name="onCommentFormat" value='^\s*"""\s*(?:[,;]|.+)$'/>
   </module>
+  <module name="SuppressWithPlainTextCommentFilter">
+    <property name="checkFormat" value="IndentationCheck"/>
+    <property name="offCommentFormat" value='^""".?'/>
+    <property name="onCommentFormat" value='.'/>
+  </module>
   <module name="TreeWalker">
     <module name="OuterTypeFilename"/>
     <module name="MatchXpath">
@@ -80,7 +86,7 @@
     <module name="IllegalTokenText">
       <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL, TEXT_BLOCK_CONTENT"/>
       <property name="format"
-          value="\\u00(09|0(a|A)|0(b|B)|(0|1)(c|C)|(0|1)(d|D)|1(d|D)|1(e|E)|1(f|F)|22|27|5(C|c))|\\u1680|\\u3000|\\u20(00|0(a|A)|28|29|(2|5)(f|F))|\\(0(10|11|12|14|15|40|42|47)|134)"/>
+          value="\\u00(08|09|0(a|A)|0(c|C)|0(d|D)|20|22|27|5(C|c))|\\(0(10|11|12|14|15|40|42|47)|134)"/>
       <property name="message"
                value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
     </module>
@@ -105,7 +111,7 @@
                     INTERFACE_DEF, LAMBDA, LITERAL_CATCH,
                     LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
                     LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF,
-                    OBJBLOCK, STATIC_INIT, RECORD_DEF, COMPACT_CTOR_DEF"/>
+                    OBJBLOCK, STATIC_INIT, RECORD_DEF, COMPACT_CTOR_DEF, SWITCH_RULE"/>
     </module>
     <module name="LeftCurly">
       <property name="id" value="LeftCurlyNl"/>
@@ -255,12 +261,7 @@
       <message key="name.invalidPattern"
              value="Type name ''{0}'' must match pattern ''{1}''."/>
     </module>
-    <module name="MemberName">
-      <property name="format"
-        value="^(?![a-z]$)(?![a-z][A-Z])[a-z][a-zA-Z0-9]*(?:_[0-9]+)*$"/>
-      <message key="name.invalidPattern"
-             value="Member name ''{0}'' must match pattern ''{1}''."/>
-    </module>
+    <module name="GoogleNonConstantFieldName"/>
     <module name="ParameterName">
       <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
       <message key="name.invalidPattern"
@@ -348,7 +349,6 @@
       <!-- <property name="sortImportsInGroupAlphabetically" value="true"/> -->
       <property name="separateLineBetweenGroups" value="true"/>
       <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
-      <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
     </module>
     <module name="MethodParamPad">
       <property name="tokens"
@@ -383,16 +383,22 @@
                     TYPE_EXTENSION_AND "/>
     </module>
     <module name="AnnotationLocation">
-      <property name="id" value="AnnotationLocationMostCases"/>
+      <property name="id" value="AnnotationLocationTypeAndPackage"/>
       <property name="tokens"
-               value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
-                      RECORD_DEF, COMPACT_CTOR_DEF, PACKAGE_DEF"/>
+               value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, RECORD_DEF, PACKAGE_DEF"/>
+      <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+    </module>
+    <module name="AnnotationLocation">
+      <property name="id" value="AnnotationLocationMethodsAndCtors"/>
+      <property name="tokens"
+               value="METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF"/>
     </module>
     <module name="AnnotationLocation">
       <property name="id" value="AnnotationLocationVariables"/>
       <property name="tokens" value="VARIABLE_DEF"/>
       <property name="allowSamelineMultipleAnnotations" value="true"/>
     </module>
+    <module name="MissingOverrideOnRecordAccessor"/>
     <module name="NonEmptyAtclauseDescription"/>
     <module name="InvalidJavadocPosition"/>
     <module name="JavadocTagContinuationIndentation"/>
@@ -408,8 +414,8 @@
     <module name="RequireEmptyLineBeforeBlockTagGroup"/>
     <module name="AtclauseOrder">
       <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-      <property name="target"
-               value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+      <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
+                                  VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
     </module>
     <module name="JavadocMethod">
       <property name="accessModifiers" value="public"/>

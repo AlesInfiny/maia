@@ -15,8 +15,11 @@ java {
 
 sourceSets {
     main {
-        // mybatis SQL map XML ファイルを java 以下でも検知する
-        resources.srcDirs = ["src/main/java", "src/main/resources"]
+      // mybatis SQL map XML ファイルを java 以下でも検知する
+      resources {
+        srcDir 'src/main/java'
+        exclude '**/*.java'
+      }
     }
 }
 
