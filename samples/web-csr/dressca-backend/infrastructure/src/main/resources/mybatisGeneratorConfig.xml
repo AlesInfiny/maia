@@ -14,13 +14,13 @@
                         userId=""
                         password="" />
         <!-- Model(Entity)作成先 -->
-        <javaModelGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.entity"
+        <modelGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.entity"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java" />
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/resources" />
         <!-- Mapper.java作成先 -->
-        <javaClientGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
+        <clientGenerator targetPackage="com.dressca.infrastructure.repository.mybatis.generated.mapper"
                         targetProject="/dev/repos/AlesInfiny/maia/samples/web-csr/dressca-backend/infrastructure/src/main/java"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
