@@ -253,7 +253,7 @@ public class AnnouncementController {
   @PostMapping(value = "create", params = "deleteLanguageFromCreate")
   public String deleteLanguageFromCreate(
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      @RequestParam("deleteLanguageFromCreate") UUID announcementContentId) {
+      @RequestParam(name = "deleteLanguageFromCreate") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator
@@ -458,7 +458,7 @@ public class AnnouncementController {
   @PostMapping(value = "{announcementId}/edit", params = "deleteLanguageFromEdit")
   public String deleteLanguageFromEdit(@PathVariable("announcementId") UUID announcementId,
       @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
-      @RequestParam("deleteLanguageFromEdit") UUID announcementContentId) {
+      @RequestParam(name = "deleteLanguageFromEdit") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator
