@@ -13,7 +13,7 @@ public class CorsAllowedOriginsProperties {
   private List<String> origins = new ArrayList<>();
 
   public List<String> getOrigins() {
-    return origins;
+    return List.copyOf(origins);
   }
 
   public void setOrigins(List<String> origins) {

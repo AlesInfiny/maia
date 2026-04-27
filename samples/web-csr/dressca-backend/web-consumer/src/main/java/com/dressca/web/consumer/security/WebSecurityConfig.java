@@ -23,9 +23,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-  private static final List<String> ALLOWED_METHODS =
-      List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS");
-
   private final CorsAllowedOriginsProperties corsAllowedOriginsProperties;
 
   /**
@@ -58,7 +55,7 @@ public class WebSecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowCredentials(true);
     configuration.setAllowedOrigins(corsAllowedOriginsProperties.getOrigins());
-    configuration.setAllowedMethods(ALLOWED_METHODS);
+    configuration.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(List.of("*"));
     // 注文情報の確定にLocationを利用するため公開ヘッダーとして設定
     configuration.addExposedHeader("Location");

@@ -29,9 +29,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-  private static final List<String> ALLOWED_METHODS =
-      List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS");
-
   private final CorsAllowedOriginsProperties corsAllowedOriginsProperties;
 
   private final Environment environment;
@@ -44,7 +41,7 @@ public class WebSecurityConfig {
    * @throws Exception 例外。
    */
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
         .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
         .securityMatcher("/api/**")
@@ -72,7 +69,7 @@ public class WebSecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowCredentials(true);
     configuration.setAllowedOrigins(corsAllowedOriginsProperties.getOrigins());
-    configuration.setAllowedMethods(ALLOWED_METHODS);
+    configuration.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(List.of("*"));
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
