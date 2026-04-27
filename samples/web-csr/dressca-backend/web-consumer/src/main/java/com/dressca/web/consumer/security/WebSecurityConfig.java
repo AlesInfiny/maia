@@ -26,7 +26,7 @@ public class WebSecurityConfig {
   private final CorsAllowedOriginsProperties corsAllowedOriginsProperties;
 
   /**
-   * CORS の設定をします。
+   * CORS 有効化、JWT トークン検証を設定します。
    *
    * @param http http リクエスト。
    * @return フィルターチェーン。

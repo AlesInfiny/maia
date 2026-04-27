@@ -34,7 +34,7 @@ public class WebSecurityConfig {
   private final Environment environment;
 
   /**
-   * CORS 設定、認可機能を設定します。
+   * CORS 有効化、認可機能を設定します。
    *
    * @param http 認証認可の設定クラス。
    * @return フィルターチェーン。
