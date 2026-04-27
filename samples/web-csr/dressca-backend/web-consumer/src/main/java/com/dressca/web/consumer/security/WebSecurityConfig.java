@@ -1,5 +1,6 @@
 package com.dressca.web.consumer.security;
 
+import com.dressca.web.security.CorsAllowedOriginsProperties;
 import java.util.List;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

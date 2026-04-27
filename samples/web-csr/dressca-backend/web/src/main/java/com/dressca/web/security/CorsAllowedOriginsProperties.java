@@ -1,4 +1,4 @@
-package com.dressca.web.admin.security;
+package com.dressca.web.security;
 
 import java.util.ArrayList;
 import java.util.List;

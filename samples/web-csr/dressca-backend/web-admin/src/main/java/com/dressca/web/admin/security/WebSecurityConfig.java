@@ -1,6 +1,7 @@
 package com.dressca.web.admin.security;
 
 import com.dressca.web.admin.filter.DummyUserInjectionFilter;
+import com.dressca.web.security.CorsAllowedOriginsProperties;
 import java.util.List;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
