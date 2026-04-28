@@ -1,5 +1,6 @@
 package com.dressca.cms.systemcommon.exception;
 
+import java.util.Arrays;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
@@ -25,7 +26,8 @@ public class LogicException extends Exception {
   public LogicException(Throwable cause, String exceptionId, String[] logMessageValue) {
     super(resolveMessage(exceptionId, logMessageValue), cause);
     this.exceptionId = exceptionId;
-    this.logMessageValue = logMessageValue;
+    this.logMessageValue =
+        logMessageValue == null ? null : Arrays.copyOf(logMessageValue, logMessageValue.length);
   }
 
   /**
