@@ -5,16 +5,14 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 業務例外を表す例外クラスです。
  */
 @Getter
-@Setter
 public class LogicException extends Exception {
-  private String exceptionId = null;
-  private String[] logMessageValue = null;
+  private final String exceptionId;
+  private final String[] logMessageValue;
 
   /**
    * 原因例外、例外 ID 、メッセージ用プレースホルダー（ログ用）を指定して、 {@link LogicException} クラスのインスタンスを初期化します。
@@ -28,6 +26,16 @@ public class LogicException extends Exception {
     this.exceptionId = exceptionId;
     this.logMessageValue =
         logMessageValue == null ? null : Arrays.copyOf(logMessageValue, logMessageValue.length);
+  }
+
+  /**
+   * 外部参照による内部配列の破壊を防ぐため、配列の複製を返却します。
+   *
+   * @return メッセージ用プレースフォルダ（ログ用）。
+   */
+  public String[] getLogMessageValue() {
+    return this.logMessageValue == null ? null
+        : Arrays.copyOf(this.logMessageValue, this.logMessageValue.length);
   }
 
   /**
