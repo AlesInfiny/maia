@@ -1,5 +1,6 @@
 package com.dressca.systemcommon.exception;
 
+import java.util.Arrays;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
@@ -32,8 +33,10 @@ public class SystemException extends RuntimeException {
       String[] logMessageValue) {
     super(resolveMessage(exceptionId, logMessageValue), cause);
     this.exceptionId = exceptionId;
-    this.frontMessageValue = frontMessageValue;
-    this.logMessageValue = logMessageValue;
+    this.frontMessageValue = frontMessageValue == null ? null
+        : Arrays.copyOf(frontMessageValue, frontMessageValue.length);
+    this.logMessageValue =
+        logMessageValue == null ? null : Arrays.copyOf(logMessageValue, logMessageValue.length);
   }
 
   /**
