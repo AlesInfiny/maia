@@ -33,6 +33,10 @@ subprojects {
     // SpotBugsの警告対策
     // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
     spotbugsSlf4j  supportDependencies.slf4j
+
+    // lombok による自動生成されたコードに対するSpotBugsの警告を抑制するため、
+    // SpotBugsのアノテーションを追加
+    implementation supportDependencies.spotbugs_annotations
   }
 
   jacoco {
