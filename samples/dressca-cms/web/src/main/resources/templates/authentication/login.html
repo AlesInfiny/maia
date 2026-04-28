@@ -11,7 +11,7 @@
       <!--/* ログインフォーム */-->
       <form th:action="@{/account/login}" th:object="${viewModel}" method="post">
         <!--/* リダイレクト先URL（hiddenフィールド） */-->
-        <input type="hidden" name="return-url" th:value="${param['return-url']}" />
+        <input type="hidden" name="returnUrl" th:value="${param['returnUrl']}" />
 
         <!--/* メールアドレス */-->
         <div class="mb-3">
