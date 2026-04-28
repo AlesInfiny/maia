@@ -16,19 +16,29 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogRepository;
-import lombok.RequiredArgsConstructor;
 
 /**
  * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。
  */
 @Component
 @StepScope
-@RequiredArgsConstructor
 public class CatalogItemTasklet implements Tasklet {
 
   private final CatalogRepository repository;
-  @Value("${output:#{null}}")
-  private String output;
+
+  private final String output;
+
+  /**
+   * Tasklet の依存関係と出力先設定を受け取ります。
+   *
+   * @param repository カタログ商品を取得するリポジトリ。
+   * @param output 出力ファイル名。 Job パラメータから取得します。
+   */
+  public CatalogItemTasklet(CatalogRepository repository,
+      @Value("${output:#{null}}") String output) {
+    this.repository = repository;
+    this.output = output;
+  }
 
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)

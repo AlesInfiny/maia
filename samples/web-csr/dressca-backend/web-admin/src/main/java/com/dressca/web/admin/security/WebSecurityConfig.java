@@ -1,20 +1,22 @@
 package com.dressca.web.admin.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import com.dressca.web.admin.filter.DummyUserInjectionFilter;
+import com.dressca.web.security.CorsAllowedOriginsProperties;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import com.dressca.web.admin.filter.DummyUserInjectionFilter;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import lombok.RequiredArgsConstructor;
 
 /**
  * セキュリティ関連の実行クラスです。
@@ -22,17 +24,16 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-  @Value("${cors.allowed.origins:}")
-  private String allowedOrigins;
+  private final CorsAllowedOriginsProperties corsAllowedOriginsProperties;
 
-  @Autowired
-  private Environment environment;
+  private final Environment environment;
 
   /**
-   * CORS 設定、認可機能を設定します。
-   * 
+   * CORS 有効化、認可機能を設定します。
+   *
    * @param http 認証認可の設定クラス。
    * @return フィルターチェーン。
    * @throws Exception 例外。
@@ -44,15 +45,8 @@ public class WebSecurityConfig {
         .securityMatcher("/api/**")
         // CSRF トークンを利用したリクエストの検証を無効化（ OAuth2.0 による認証認可を利用する前提のため）
         // OAuth2.0 によるリクエストの検証を利用しない場合は、有効化して CSRF 対策を施す
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-        .cors(cors -> cors.configurationSource(request -> {
-          CorsConfiguration conf = new CorsConfiguration();
-          conf.setAllowCredentials(true);
-          conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-          conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-          conf.setAllowedHeaders(List.of("*"));
-          return conf;
-        })).anonymous(anon -> anon.disable());
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")).cors(Customizer.withDefaults())
+        .anonymous(anon -> anon.disable());
 
     // 開発環境においてはダミーユーザを注入する
     if (environment.acceptsProfiles(Profiles.of("local"))) {
@@ -61,5 +55,23 @@ public class WebSecurityConfig {
     }
 
     return http.build();
+  }
+
+  /**
+   * CORS 設定を Spring Security へ提供します。
+   *
+   * @return CORS 設定ソース。
+   */
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowCredentials(true);
+    configuration.setAllowedOrigins(corsAllowedOriginsProperties.getOrigins());
+    configuration.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedHeaders(List.of("*"));
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/api/**", configuration);
+    return source;
   }
 }

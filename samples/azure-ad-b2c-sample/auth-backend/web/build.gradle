@@ -27,6 +27,8 @@ dependencies {
 
 	implementation project(':system-common')
 	
+	annotationProcessor supportDependencies.spring_boot_configuration_processor
+
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test
 }
