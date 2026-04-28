@@ -3,7 +3,6 @@ package com.dressca.web.admin.security;
 import com.dressca.web.admin.filter.DummyUserInjectionFilter;
 import com.dressca.web.security.CorsAllowedOriginsProperties;
 import java.util.List;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -25,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@EnableConfigurationProperties(CorsAllowedOriginsProperties.class)
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 

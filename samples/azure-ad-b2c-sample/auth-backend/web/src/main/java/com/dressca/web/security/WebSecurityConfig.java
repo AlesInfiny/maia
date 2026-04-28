@@ -3,7 +3,6 @@ package com.dressca.web.security;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import java.util.List;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableMethodSecurity
-@EnableConfigurationProperties(CorsAllowedOriginsProperties.class)
 @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT",
     scheme = "bearer")
 @RequiredArgsConstructor
