@@ -37,6 +37,7 @@ subprojects {
     // lombok による自動生成されたコードに対するSpotBugsの警告を抑制するため、
     // SpotBugsのアノテーションを追加
     compileOnly supportDependencies.spotbugs_annotations
+    testCompileOnly supportDependencies.spotbugs_annotations
   }
 
   jacoco {
