@@ -188,7 +188,8 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
+        .thenReturn(List.of(createCatalogItem(catalogItemIds.get(0))));
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -197,6 +198,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdInIncludingDeleted(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
@@ -213,7 +215,8 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
+        .thenReturn(List.of(createCatalogItem(catalogItemIds.get(0))));
 
     // テストメソッドの実行
     int newQuantity = 5;
@@ -222,6 +225,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogRepository, times(1)).findByCatalogItemIdInIncludingDeleted(catalogItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -238,7 +242,8 @@ public class ShoppingApplicationServiceTest {
     Long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
+        .thenReturn(List.of());
 
     try {
       // テストメソッドの実行
@@ -249,6 +254,8 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogRepository, times(1))
+          .findByCatalogItemIdInIncludingDeleted(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
@@ -266,7 +273,8 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
+    when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
+        .thenReturn(List.of(createCatalogItem(catalogItemIds.get(0))));
 
     try {
       // テストメソッドの実行
@@ -277,6 +285,8 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogItemInBasketNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogRepository, times(1))
+          .findByCatalogItemIdInIncludingDeleted(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
