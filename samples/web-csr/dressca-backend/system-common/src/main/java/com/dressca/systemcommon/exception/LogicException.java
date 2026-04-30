@@ -17,13 +17,13 @@ public class LogicException extends Exception {
   private final String[] logMessageValue;
 
   /**
-   * 原因例外、例外 ID 、メッセージ用プレースフォルダ（フロント用）、メッセージ用プレースフォルダ（ログ用）を指定して、
+   * 原因例外、例外 ID 、メッセージ用プレースホルダー（フロント用）、メッセージ用プレースホルダー（ログ用）を指定して、
    * {@link LogicException} クラスのインスタンスを初期化します。
    *
    * @param cause 原因例外。
    * @param exceptionId 例外 ID 。
-   * @param frontMessageValue メッセージ用プレースフォルダ（フロント用）。
-   * @param logMessageValue メッセージ用プレースフォルダ（ログ用）。
+   * @param frontMessageValue メッセージ用プレースホルダー（フロント用）。
+   * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    */
   public LogicException(Throwable cause, String exceptionId, String[] frontMessageValue,
       String[] logMessageValue) {
@@ -38,7 +38,7 @@ public class LogicException extends Exception {
   /**
    * 外部参照による内部配列の破壊を防ぐため、配列の複製を返却します。
    *
-   * @return メッセージ用プレースフォルダ（フロント用）。
+   * @return メッセージ用プレースホルダー（フロント用）。
    */
   public String[] getFrontMessageValue() {
     return this.frontMessageValue == null ? null
@@ -48,7 +48,7 @@ public class LogicException extends Exception {
   /**
    * 外部参照による内部配列の破壊を防ぐため、配列の複製を返却します。
    *
-   * @return メッセージ用プレースフォルダ（ログ用）。
+   * @return メッセージ用プレースホルダー（ログ用）。
    */
   public String[] getLogMessageValue() {
     return this.logMessageValue == null ? null
@@ -59,7 +59,7 @@ public class LogicException extends Exception {
    * メッセージソースからメッセージを取得します。
    * 
    * @param exceptionId 例外 ID 。
-   * @param logMessageValue メッセージ用プレースフォルダ（ログ用）。
+   * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    * @return 取得したメッセージ。
    */
   private static String resolveMessage(String exceptionId, String[] logMessageValue) {
