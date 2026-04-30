@@ -72,6 +72,8 @@ buildscript {
         testAnnotationProcessor 'org.projectlombok:lombok'
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
+
+        compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
       }
 
       test {
