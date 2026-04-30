@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
@@ -88,9 +89,17 @@ public class ShoppingApplicationService {
         new Object[] {buyerId, quantities}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-    if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
-      throw new CatalogNotFoundException();
+
+    Set<Long> existingCatalogItemIds = this.catalogRepository
+        .findByCatalogItemIdInIncludingDeleted(new ArrayList<>(quantities.keySet())).stream()
+        .map(CatalogItem::getId).collect(Collectors.toSet());
+
+    long[] notExistsCatalogItemIds = quantities.keySet().stream()
+        .filter(catalogItemId -> !existingCatalogItemIds.contains(catalogItemId))
+        .mapToLong(Long::longValue).toArray();
+
+    if (notExistsCatalogItemIds.length > 0) {
+      throw new CatalogNotFoundException(notExistsCatalogItemIds);
     }
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
@@ -129,7 +138,7 @@ public class ShoppingApplicationService {
     Basket basket = getOrCreateBasketForUser(buyerId);
 
     if (!catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)) {
-      throw new CatalogNotFoundException();
+      throw new CatalogNotFoundException(catalogItemId);
     }
 
     BasketItem basketItem =
