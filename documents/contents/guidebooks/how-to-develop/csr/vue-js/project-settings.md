@@ -119,6 +119,13 @@ Project Reference 機能については [Project References :material-open-in-ne
     モジュール解決の方針を設定するプロパティです。
     tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。 `Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
 
+- `compilerOptions.types`
+
+    読み込む型定義パッケージを指定するプロパティです。
+    既定値は空配列であるため、必要な型定義パッケージは明示的に指定する必要があります。
+    たとえば Vitest を用いたテストでは、`node` や `jsdom` の型定義を使用するので、 tsconfig.vitest.json にこれらを設定します。
+    詳細は[Compiler Options - Types :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#types){ target=_blank }を参照してください。
+
 ### 型チェックの実行 {#type-check-execution}
 
 tsconfig の設定が完了したら、ワークスペース直下で以下のコマンドを実行し、型チェックが実行できることを確認してください。
