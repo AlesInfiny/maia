@@ -151,7 +151,7 @@ tasks.register('runMyBatisGenerator') {
 
 MyBatis Generator によって自動生成されたコードは、既定の SpotBugs のルールに違反しているため、警告が出力されます。
 そのため、 MyBatis Generator によって自動生成されたコードを SpotBugs の検査対象から除外します。
-[こちら](../common-project-settings.md#spotbugs-plugin) で作成した SpotBugs の除外設定ファイルに、 MyBatis Generator によって自動生成されたコードが配置されたパッケージを追加してください。
+[こちら](../common-project-settings.md#spotbugs-plugin) で作成した SpotBugs の除外設定ファイルに、以下を追加してください。
 
 ```xml title="SpotBugs の除外設定ファイルの例"
 <?xml version="1.0" encoding="UTF-8"?>
