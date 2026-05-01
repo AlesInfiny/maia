@@ -34,6 +34,7 @@ ext {
         // OTHER LIBRARIES
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
+        spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         
         // GRADLE PLUGIN TOOLS
