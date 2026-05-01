@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -90,9 +91,9 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
 
-    Set<Long> existingCatalogItemIds = this.catalogRepository
-        .findByCatalogItemIdInIncludingDeleted(new ArrayList<>(quantities.keySet())).stream()
-        .map(CatalogItem::getId).collect(Collectors.toSet());
+    Set<Long> existingCatalogItemIds =
+        this.catalogRepository.findByCatalogItemIdIn(new ArrayList<>(quantities.keySet())).stream()
+            .map(CatalogItem::getId).collect(Collectors.toSet());
 
     long[] notExistsCatalogItemIds = quantities.keySet().stream()
         .filter(catalogItemId -> !existingCatalogItemIds.contains(catalogItemId))
