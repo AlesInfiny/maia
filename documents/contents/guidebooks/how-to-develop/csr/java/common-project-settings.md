@@ -244,7 +244,7 @@ subprojects {
     次に、SpotBugs のアノテーションを利用できるようにするため、`build.gradle` の全サブプロジェクトの依存関係に `spotbugs-annotations` を追加してください。
     これにより、Lombok が自動生成するコードにもアノテーションベースの SpotBugs 警告抑制が適用されます。
     
-    ```gradle title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
     subprojects {
       dependencies {
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
