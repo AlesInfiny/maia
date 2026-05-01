@@ -234,15 +234,16 @@ subprojects {
 
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
-    Lombok を利用している場合、Lombok が自動生成するコードに対して SpotBugs の警告が出力されます。
-
-    この警告を抑制するには、まず `lombok.config` ファイルをプロジェクトのルートディレクトリに配置し、以下の設定を追加してください。
+    Lombok を利用している場合、Lombok が自動生成するコードに対して SpotBugs の警告が出力される場合があります。
+    この警告を抑制するには、Lombok の設定ファイル（`lombok.config`）と [SpotBugs Annotations :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/annotations.html){ target=_blank } を利用します。
+    
+    まず `lombok.config` ファイルをプロジェクトのルートディレクトリに配置し、Lombok の自動生成コードに対して SpotBugs の警告を抑制するアノテーションを付与する設定を追加します。
     ```properties title="{ルートプロジェクト}/lombok.config"
     lombok.extern.findbugs.addSuppressFBWarnings = true
     ```
     
-    次に、SpotBugs のアノテーションを利用できるようにするため、`build.gradle` の全サブプロジェクトの依存関係に `spotbugs-annotations` を追加してください。
-    これにより、Lombok が自動生成するコードにもアノテーションベースの SpotBugs 警告抑制が適用されます。
+    次に、SpotBugs Annotations の依存関係を追加します。
+    `build.gradle` の全サブプロジェクトの依存関係に以下を追加してください。
     
     ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
     subprojects {
