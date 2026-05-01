@@ -93,6 +93,7 @@ describe('authenticationService_signOut', () => {
       const authenticationStore = useAuthenticationStore()
       const basketStore = useBasketStore()
       const catalogStore = useCatalogStore()
+      const initialCatalogItemPage = catalogStore.catalogItemPage
       const notificationStore = useNotificationStore()
 
       // 各ストアにデータを設定
@@ -129,7 +130,7 @@ describe('authenticationService_signOut', () => {
 
       expect(catalogStore.categories).toEqual([])
       expect(catalogStore.brands).toEqual([])
-      expect(catalogStore.catalogItemPage).toEqual({})
+      expect(catalogStore.catalogItemPage).toEqual(initialCatalogItemPage)
 
       expect(notificationStore.message).toBe('')
       expect(notificationStore.id).toBe('')

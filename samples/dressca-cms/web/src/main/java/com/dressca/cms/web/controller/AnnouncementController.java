@@ -225,10 +225,12 @@ public class AnnouncementController {
     // 登録済みの言語コードを取得
     List<String> existingLanguageCodes = new ArrayList<>();
     List<AnnouncementContent> contents = announcement.getContents();
-    if (contents != null) {
-      for (AnnouncementContent content : contents) {
-        existingLanguageCodes.add(content.getLanguageCode());
-      }
+    if (contents == null) {
+      contents = new ArrayList<>();
+      announcement.setContents(contents);
+    }
+    for (AnnouncementContent content : contents) {
+      existingLanguageCodes.add(content.getLanguageCode());
     }
 
     // 未登録の最も優先度の高い言語コードを追加

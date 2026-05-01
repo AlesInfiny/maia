@@ -11,6 +11,7 @@
     "dtos",
     "esbenp",
     "fasterxml",
+    "findbugs",
     "gradlew",
     "jacoco",
     "jdbc",
