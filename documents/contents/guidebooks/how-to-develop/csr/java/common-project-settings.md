@@ -248,6 +248,7 @@ subprojects {
     subprojects {
       dependencies {
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
       }
     }
     ```
@@ -357,6 +358,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
         testCompileOnly 'org.projectlombok:lombok'
 
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
       }
 
       test {
