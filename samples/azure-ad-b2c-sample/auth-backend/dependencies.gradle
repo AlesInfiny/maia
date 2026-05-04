@@ -10,7 +10,7 @@ ext {
     springCloudAzureVersion = "7.2.0"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.4.0"
+    checkstyleToolVersion = "13.4.1"
     jacocoToolVersion = "0.8.14"
     spotbugsToolVersion = "4.9.8"
 
