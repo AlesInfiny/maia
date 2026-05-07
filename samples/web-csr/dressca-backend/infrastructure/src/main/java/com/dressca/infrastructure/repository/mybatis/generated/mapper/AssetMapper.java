@@ -9,36 +9,36 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AssetMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     long countByExample(AssetEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByExample(AssetEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(AssetEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insertSelective(AssetEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     List<AssetEntity> selectByExample(AssetEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     AssetEntity selectByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") AssetEntity row, @Param("example") AssetEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExample(@Param("row") AssetEntity row, @Param("example") AssetEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKeySelective(AssetEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: assets")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKey(AssetEntity row);
 }

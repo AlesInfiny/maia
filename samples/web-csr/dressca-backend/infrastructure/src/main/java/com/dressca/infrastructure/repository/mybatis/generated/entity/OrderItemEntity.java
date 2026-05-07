@@ -4,93 +4,93 @@ import jakarta.annotation.Generated;
 import java.math.BigDecimal;
 
 public class OrderItemEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_catalog_item_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long orderedCatalogItemId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String orderedProductName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String orderedProductCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.unit_price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private BigDecimal unitPrice;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.quantity")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Integer quantity;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.order_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long orderId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_catalog_item_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getOrderedCatalogItemId() {
         return orderedCatalogItemId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_catalog_item_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setOrderedCatalogItemId(Long orderedCatalogItemId) {
         this.orderedCatalogItemId = orderedCatalogItemId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getOrderedProductName() {
         return orderedProductName;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setOrderedProductName(String orderedProductName) {
         this.orderedProductName = orderedProductName;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getOrderedProductCode() {
         return orderedProductCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.ordered_product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setOrderedProductCode(String orderedProductCode) {
         this.orderedProductCode = orderedProductCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.unit_price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.unit_price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.quantity")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Integer getQuantity() {
         return quantity;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.quantity")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.order_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getOrderId() {
         return orderId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: order_items.order_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }

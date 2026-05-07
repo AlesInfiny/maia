@@ -6,58 +6,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasketItemEntityExample {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected String orderByClause;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected boolean distinct;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected List<Criteria> oredCriteria;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public BasketItemEntityExample() {
         oredCriteria = new ArrayList<>();
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public boolean isDistinct() {
         return distinct;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
         if (oredCriteria.size() == 0) {
@@ -66,20 +66,20 @@ public class BasketItemEntityExample {
         return criteria;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
         return criteria;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -422,7 +422,7 @@ public class BasketItemEntityExample {
         }
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: basket_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public static class Criterion {
         private String condition;
 
@@ -509,6 +509,7 @@ public class BasketItemEntityExample {
         }
     }
     
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="do_not_delete_during_merge")
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
             super();
