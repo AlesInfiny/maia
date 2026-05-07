@@ -10,7 +10,7 @@
         </commentGenerator>
         <!-- 接続先DB情報 -->
         <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:file:~/stapler;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
+                        connectionURL="jdbc:h2:file:~/test;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;"
                         userId=""
                         password="" />
         <!-- Model(Entity)作成先 -->

@@ -422,6 +422,13 @@ public class BasketItemEntityExample {
         }
     }
 
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="do_not_delete_during_merge")
+    public static class Criteria extends GeneratedCriteria {
+        protected Criteria() {
+            super();
+        }
+    }
+
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public static class Criterion {
         private String condition;
@@ -506,13 +513,6 @@ public class BasketItemEntityExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-    }
-    
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="do_not_delete_during_merge")
-    public static class Criteria extends GeneratedCriteria {
-        protected Criteria() {
-            super();
         }
     }
 }
