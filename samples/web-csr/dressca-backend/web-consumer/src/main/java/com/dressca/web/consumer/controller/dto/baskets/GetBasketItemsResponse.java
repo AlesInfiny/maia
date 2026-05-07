@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketResponse {
+public class GetBasketItemsResponse {
   @NotNull
   private String buyerId;
   private AccountResponse account;
-  private List<BasketItemResponse> basketItems;
+  private List<BasketItemApiModel> basketItems;
   private List<Long> deletedItemIds;
 }

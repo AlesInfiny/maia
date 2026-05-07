@@ -148,7 +148,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BasketResponse"
+                  "$ref": "#/components/schemas/GetBasketItemsResponse"
                 }
               }
             },
@@ -297,7 +297,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CatalogBrandResponse"
+                    "$ref": "#/components/schemas/GetCatalogBrandsResponse"
                   }
                 }
               }
@@ -322,7 +322,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CatalogCategoryResponse"
+                    "$ref": "#/components/schemas/GetCatalogCategoriesResponse"
                   }
                 }
               }
@@ -339,7 +339,7 @@
     "/api/catalog-items": {
       "get": {
         "description": "カタログアイテムを検索して返します。",
-        "operationId": "getByQuery",
+        "operationId": "getCatalogItemsByQuery",
         "parameters": [
           {
             "in": "query",
@@ -387,7 +387,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedListOfCatalogItemResponse"
+                  "$ref": "#/components/schemas/GetCatalogItemsByQueryResponse"
                 }
               }
             },
@@ -489,7 +489,7 @@
     "/api/orders/{orderId}": {
       "get": {
         "description": "注文情報を取得します。",
-        "operationId": "getById",
+        "operationId": "getOrderById",
         "parameters": [
           {
             "in": "path",
@@ -506,7 +506,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/GetOrderByIdResponse"
                 }
               }
             },
@@ -560,11 +560,11 @@
           "totalPrice"
         ]
       },
-      "BasketItemResponse": {
+      "BasketItemApiModel": {
         "type": "object",
         "properties": {
           "catalogItem": {
-            "$ref": "#/components/schemas/CatalogItemSummaryResponse"
+            "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
           },
           "catalogItemId": {
             "type": "integer",
@@ -588,66 +588,7 @@
           "unitPrice"
         ]
       },
-      "BasketResponse": {
-        "type": "object",
-        "properties": {
-          "account": {
-            "$ref": "#/components/schemas/AccountResponse"
-          },
-          "basketItems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BasketItemResponse"
-            }
-          },
-          "buyerId": {
-            "type": "string"
-          },
-          "deletedItemIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "required": [
-          "buyerId"
-        ]
-      },
-      "CatalogBrandResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
-      },
-      "CatalogCategoryResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
-      },
-      "CatalogItemResponse": {
+      "CatalogItemApiModel": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -691,7 +632,7 @@
           "productCode"
         ]
       },
-      "CatalogItemSummaryResponse": {
+      "CatalogItemSummaryApiModel": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -717,46 +658,77 @@
           "productCode"
         ]
       },
-      "Link": {
+      "GetBasketItemsResponse": {
         "type": "object",
         "properties": {
-          "href": {
+          "account": {
+            "$ref": "#/components/schemas/AccountResponse"
+          },
+          "basketItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BasketItemApiModel"
+            }
+          },
+          "buyerId": {
             "type": "string"
           },
-          "templated": {
-            "type": "boolean"
+          "deletedItemIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        }
+        },
+        "required": [
+          "buyerId"
+        ]
       },
-      "OrderItemResponse": {
+      "GetCatalogBrandsResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
-          "itemOrdered": {
-            "$ref": "#/components/schemas/CatalogItemSummaryResponse"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "subTotal": {
-            "type": "number"
-          },
-          "unitPrice": {
-            "type": "number"
+          "name": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "quantity",
-          "subTotal",
-          "unitPrice"
+          "name"
         ]
       },
-      "OrderResponse": {
+      "GetCatalogCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "GetCatalogItemsByQueryResponse": {
+        "type": "object",
+        "properties": {
+          "catalogItems": {
+            "$ref": "#/components/schemas/PagedListOfCatalogItemApiModel"
+          }
+        },
+        "required": [
+          "catalogItems"
+        ]
+      },
+      "GetOrderByIdResponse": {
         "type": "object",
         "properties": {
           "account": {
@@ -782,7 +754,7 @@
           "orderItems": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OrderItemResponse"
+              "$ref": "#/components/schemas/OrderItemApiModel"
             }
           },
           "postalCode": {
@@ -806,7 +778,46 @@
           "todofuken"
         ]
       },
-      "PagedListOfCatalogItemResponse": {
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrderItemApiModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemOrdered": {
+            "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subTotal": {
+            "type": "number"
+          },
+          "unitPrice": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "quantity",
+          "subTotal",
+          "unitPrice"
+        ]
+      },
+      "PagedListOfCatalogItemApiModel": {
         "type": "object",
         "properties": {
           "hasNext": {
@@ -818,7 +829,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CatalogItemResponse"
+              "$ref": "#/components/schemas/CatalogItemApiModel"
             }
           },
           "page": {

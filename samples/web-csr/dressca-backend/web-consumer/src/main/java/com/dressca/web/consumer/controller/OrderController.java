@@ -12,7 +12,7 @@ import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
-import com.dressca.web.consumer.controller.dto.order.OrderResponse;
+import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;
 import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.consumer.mapper.OrderMapper;
@@ -62,17 +62,17 @@ public class OrderController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = OrderResponse.class))),
+              schema = @Schema(implementation = GetOrderByIdResponse.class))),
       @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。",
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+  public ResponseEntity<?> getOrderById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
       Order order = orderApplicationService.getOrder(orderId, buyerId);
-      OrderResponse orderDto = OrderMapper.convert(order);
+      GetOrderByIdResponse orderDto = OrderMapper.convert(order);
       return ResponseEntity.ok().body(orderDto);
     } catch (OrderNotFoundException e) {
       apLog.info(e.getMessage());

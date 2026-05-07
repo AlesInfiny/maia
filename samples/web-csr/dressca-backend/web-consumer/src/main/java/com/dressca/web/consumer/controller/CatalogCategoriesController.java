@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogCategoryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.GetCatalogCategoriesResponse;
 import com.dressca.web.consumer.mapper.CatalogCategoryMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,10 +38,10 @@ public class CatalogCategoriesController {
   @Operation(summary = "カタログカテゴリの一覧を取得します。", description = "カタログカテゴリの一覧を取得します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
-          array = @ArraySchema(schema = @Schema(implementation = CatalogCategoryResponse.class))))})
+          array = @ArraySchema(schema = @Schema(implementation = GetCatalogCategoriesResponse.class))))})
   @GetMapping()
-  public ResponseEntity<List<CatalogCategoryResponse>> getCatalogCategories() {
-    List<CatalogCategoryResponse> categories = this.service.getCategories().stream()
+  public ResponseEntity<List<GetCatalogCategoriesResponse>> getCatalogCategories() {
+    List<GetCatalogCategoriesResponse> categories = this.service.getCategories().stream()
         .map(CatalogCategoryMapper::convert).collect(Collectors.toList());
 
     return ResponseEntity.ok().body(categories);

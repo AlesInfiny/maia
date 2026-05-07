@@ -6,21 +6,21 @@ import java.util.stream.Collectors;
 import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
-import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
-import com.dressca.web.consumer.controller.dto.baskets.BasketResponse;
+import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
+import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 
 /**
- * {@link Basket} と {@link BasketResponse} のマッパーです。
+ * {@link Basket} と {@link GetBasketItemsResponse} のマッパーです。
  */
 public class BasketMapper {
 
   /**
-   * {@link Basket} オブジェクトを {@link BasketResponse} に変換します。
+   * {@link Basket} オブジェクトを {@link GetBasketItemsResponse} に変換します。
    * 
    * @param basket {@link Basket} オブジェクト。
-   * @return {@link BasketResponse} オブジェクト。
+   * @return {@link GetBasketItemsResponse} オブジェクト。
    */
-  public static BasketResponse convert(Basket basket) {
+  public static GetBasketItemsResponse convert(Basket basket) {
     if (basket == null) {
       return null;
     }
@@ -30,10 +30,10 @@ public class BasketMapper {
         new AccountResponse(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
             account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
 
-    List<BasketItemResponse> basketItems =
+    List<BasketItemApiModel> basketItems =
         basket.getItems().stream().map(BasketItemMapper::convert).collect(Collectors.toList());
 
-    return new BasketResponse(basket.getBuyerId(), accountDto, basketItems,
+    return new GetBasketItemsResponse(basket.getBuyerId(), accountDto, basketItems,
         Collections.emptyList());
   }
 }

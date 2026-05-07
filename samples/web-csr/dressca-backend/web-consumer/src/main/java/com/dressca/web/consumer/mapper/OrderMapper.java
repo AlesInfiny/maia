@@ -3,21 +3,21 @@ package com.dressca.web.consumer.mapper;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
-import com.dressca.web.consumer.controller.dto.order.OrderResponse;
+import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 
 /**
- * {@link Order} と {@link OrderResponse} のマッパーです。
+ * {@link Order} と {@link GetOrderByIdResponse} のマッパーです。
  */
 public class OrderMapper {
 
   /**
-   * {@link Order} オブジェクトを {@link OrderResponse} に変換します。
+   * {@link Order} オブジェクトを {@link GetOrderByIdResponse} に変換します。
    * 
    * @param order {@link Order} オブジェクト。
-   * @return {@link OrderResponse} オブジェクト。
+   * @return {@link GetOrderByIdResponse} オブジェクト。
    */
-  public static OrderResponse convert(Order order) {
-    return new OrderResponse(order.getId(), order.getBuyerId(), order.getOrderDate(),
+  public static GetOrderByIdResponse convert(Order order) {
+    return new GetOrderByIdResponse(order.getId(), order.getBuyerId(), order.getOrderDate(),
         order.getShipToAddress().getFullName(),
         order.getShipToAddress().getAddress().getPostalCode(),
         order.getShipToAddress().getAddress().getTodofuken(),

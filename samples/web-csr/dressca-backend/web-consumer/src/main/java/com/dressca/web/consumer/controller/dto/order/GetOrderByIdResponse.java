@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderResponse {
+public class GetOrderByIdResponse {
   @NotNull
   private long id;
   @NotNull
@@ -32,5 +32,5 @@ public class OrderResponse {
   @NotNull
   private String azanaAndOthers;
   private AccountResponse account;
-  private List<OrderItemResponse> orderItems;
+  private List<OrderItemApiModel> orderItems;
 }

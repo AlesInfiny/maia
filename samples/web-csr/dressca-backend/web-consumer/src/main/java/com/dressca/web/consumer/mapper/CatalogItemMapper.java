@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemResponse;
+import com.dressca.web.consumer.controller.dto.catalog.CatalogItemApiModel;
 
 /**
- * {@link CatalogItem} と {@link CatalogItemResponse} のマッパーです。
+ * {@link CatalogItem} と {@link CatalogItemApiModel} のマッパーです。
  */
 public class CatalogItemMapper {
 
   /**
-   * {@link CatalogItem} オブジェクトを {@link CatalogItemResponse} に変換します。
+   * {@link CatalogItem} オブジェクトを {@link CatalogItemApiModel} に変換します。
    * 
    * @param item {@link CatalogItem} オブジェクト。
-   * @return {@link CatalogItemResponse} オブジェクト。
+   * @return {@link CatalogItemApiModel} オブジェクト。
    */
-  public static CatalogItemResponse convert(CatalogItem item) {
+  public static CatalogItemApiModel convert(CatalogItem item) {
     if (item == null) {
       return null;
     }
@@ -25,7 +25,7 @@ public class CatalogItemMapper {
     List<String> assetCodes =
         item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new CatalogItemResponse(item.getId(), item.getName(), item.getProductCode(), assetCodes,
+    return new CatalogItemApiModel(item.getId(), item.getName(), item.getProductCode(), assetCodes,
         item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
         item.getCatalogBrandId());
   }
