@@ -39,11 +39,12 @@ public class Order {
    */
   public Order(String buyerId, ShipTo shipToAddress, List<OrderItem> orderItems) {
     this.buyerId = buyerId;
-    this.shipToAddress = shipToAddress;
-    this.orderItems = orderItems;
-    this.account = new Account(
-        orderItems.stream().map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
-            .collect(Collectors.toList()));
+    this.shipToAddress = shipToAddress == null ? null
+        : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
+    this.orderItems = new ArrayList<>(orderItems);
+    this.account = new Account(this.orderItems.stream()
+        .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
+        .collect(Collectors.toList()));
     this.consumptionTaxRate = Account.CONSUMPTION_TAX_RATE;
     this.totalItemsPrice = this.account.getItemTotalPrice();
     this.deliveryCharge = this.account.getDeliveryCharge();
@@ -70,11 +71,12 @@ public class Order {
       BigDecimal consumptionTax, BigDecimal totalPrice, List<OrderItem> orderItems) {
     this.id = id;
     this.buyerId = buyerId;
-    this.shipToAddress = shipToAddress;
-    this.orderItems = orderItems;
-    this.account = new Account(
-        orderItems.stream().map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
-            .collect(Collectors.toList()));
+    this.shipToAddress = shipToAddress == null ? null
+        : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
+    this.orderItems = new ArrayList<>(orderItems);
+    this.account = new Account(this.orderItems.stream()
+        .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
+        .collect(Collectors.toList()));
     this.consumptionTaxRate = Account.CONSUMPTION_TAX_RATE;
     this.totalItemsPrice = this.account.getItemTotalPrice();
     this.deliveryCharge = this.account.getDeliveryCharge();

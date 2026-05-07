@@ -48,6 +48,7 @@ ext {
         java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
+        spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
         thymeleaf_layout_dialect : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
