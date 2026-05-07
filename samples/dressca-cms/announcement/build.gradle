@@ -77,7 +77,6 @@ tasks.register('runMyBatisGenerator') {
       propertyset {
         propertyref(name: 'mbg.java.targetProject')
         propertyref(name: 'mbg.resources.targetProject')
-        propertyref(name: 'mbg.h2.db.path')
       }
     }
   }

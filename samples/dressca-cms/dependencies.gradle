@@ -10,7 +10,7 @@ ext {
     mybatisSpringBootStarterVersion = "4.0.1"
     mybatisSpringBootStarterTestVersion = "4.0.1"
     javaUuidGeneratorVersion = "5.2.0"
-    javaParserCoreVersion = "3.28.0"
+    javaParserCoreVersion = "3.28.1"
     springdocOpenapiVersion = "3.0.3"
 
     // -- GRADLE PLUGIN TOOLS
