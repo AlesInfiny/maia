@@ -3,7 +3,7 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cSpell:ignore configfile taskdef -->
+<!-- cSpell:ignore configfile taskdef OredCriteria -->
 
 # MyBatis Generator の設定 {#top}
 
@@ -146,6 +146,23 @@ tasks.register('runMyBatisGenerator') {
 ```
 
 実行後、 mybatisGeneratorConfig.xml の `<javaModelGenerator>` や `<sqlMapGenerator>` 等で設定した配置場所にファイルが自動生成されていることを確認してください。
+
+## 自動生成コードのSpotBugsの除外設定 {#spotbugs-exclusion-settings}
+
+MyBatis Generator によって自動生成されたコードは、既定の SpotBugs のルールに違反しているため、警告が出力されます。
+本警告は、 MyBatis Generator の仕様により出力されるため、自動生成されたコードを SpotBugs の検査対象から除外します。
+[こちら](../common-project-settings.md#spotbugs-plugin) で作成した SpotBugs の除外設定ファイルに、以下を追加してください。
+
+```xml title="SpotBugs の除外設定ファイルの例"
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Class name="~com\.dressca\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
+    <Method name="~get(OredCriteria|AllCriteria|Criteria)" />
+    <Bug code="EI" />
+  </Match>
+</FindBugsFilter>
+```
 
 ??? info "ここまでの手順を実行した際の `infrastructure/build.gradle` の例"
 
