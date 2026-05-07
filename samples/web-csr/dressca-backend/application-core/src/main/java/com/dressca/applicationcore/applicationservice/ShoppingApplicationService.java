@@ -1,12 +1,10 @@
 package com.dressca.applicationcore.applicationservice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
@@ -92,9 +90,10 @@ public class ShoppingApplicationService {
     Basket basket = getOrCreateBasketForUser(buyerId);
 
     List<Long> catalogItemIds = new ArrayList<>(quantities.keySet());
-    List<CatalogItem> deletedCatalogItems =
-        this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
-    if (!deletedCatalogItems.isEmpty()) {
+
+    if (!this.catalogDomainService.existAll(catalogItemIds)) {
+      List<CatalogItem> deletedCatalogItems =
+          this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
       throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
           .mapToLong(Long::longValue).toArray());
     }

@@ -124,10 +124,10 @@ public interface CatalogRepository {
   int update(CatalogItem item);
 
   /**
-   * 削除済みのカタログアイテムを、カタログアイテム ID のリストに一致するカタログのリストを取得します。
+   * 削除済みのカタログアイテムを、カタログアイテム ID のリストに一致するカタログアイテムのリストを取得します。
    * 
-   * @param catalogItemIds カタログアイテム ID 。
-   * @return 条件に一致する削除済みカタログのリスト。存在しない場合、空のリスト。
+   * @param catalogItemIds カタログアイテム ID のリスト。
+   * @return 条件に一致する削除済みカタログアイテムのリスト。存在しない場合、空のリスト。
    */
   List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<Long> catalogItemIds);
 }
