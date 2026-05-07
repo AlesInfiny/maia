@@ -112,7 +112,7 @@
     from catalog_items
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--
       Generated Code - @mbg.generated
     -->
