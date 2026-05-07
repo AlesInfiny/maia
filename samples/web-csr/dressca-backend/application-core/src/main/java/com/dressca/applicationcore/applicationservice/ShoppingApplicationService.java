@@ -192,8 +192,8 @@ public class ShoppingApplicationService {
 
     List<Long> catalogItemIds =
         basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-
+    List<CatalogItem> catalogItems =
+        this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
     if (!this.catalogDomainService.existAll(catalogItemIds)) {
       List<CatalogItem> deletedCatalogItems =
           catalogItems.stream().filter(CatalogItem::isDeleted).collect(Collectors.toList());
