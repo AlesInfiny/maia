@@ -234,7 +234,7 @@ public class ShoppingApplicationServiceTest {
   void testSetQuantities_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
-    Long deletedCatalogItemId = 1L;
+    long deletedCatalogItemId = 1L;
     List<Long> catalogItemIds = List.of(deletedCatalogItemId);
 
     // モックの設定
