@@ -156,4 +156,15 @@
       CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
+
+  <select id="findDeletedItemsByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+    <if test="catalogItemIds.size != 0">
+      WHERE CATALOG_ITEMS.ID IN 
+      <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
+        #{catalogItemId}
+      </foreach>
+      AND CATALOG_ITEMS.IS_DELETED = true
+    </if>
+  </select>
 </mapper>

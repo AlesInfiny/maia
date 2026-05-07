@@ -91,16 +91,12 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
 
-    Set<Long> existingCatalogItemIds =
-        this.catalogRepository.findByCatalogItemIdIn(new ArrayList<>(quantities.keySet())).stream()
-            .map(CatalogItem::getId).collect(Collectors.toSet());
-
-    long[] notExistsCatalogItemIds = quantities.keySet().stream()
-        .filter(catalogItemId -> !existingCatalogItemIds.contains(catalogItemId))
-        .mapToLong(Long::longValue).toArray();
-
-    if (notExistsCatalogItemIds.length > 0) {
-      throw new CatalogNotFoundException(notExistsCatalogItemIds);
+    List<Long> catalogItemIds = new ArrayList<>(quantities.keySet());
+    List<CatalogItem> deletedCatalogItems =
+        this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
+    if (!deletedCatalogItems.isEmpty()) {
+      throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
+          .mapToLong(Long::longValue).toArray());
     }
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
