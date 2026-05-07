@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "https://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <context id="local"  targetRuntime="MyBatis3">
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
-        <!-- 自動生成される各要素のコメントに生成時刻が出力されないように設定する -->
+        <!-- 自動生成される各要素のコメントを最小化するように設定する -->
         <commentGenerator>
             <property name="minimizeComments" value="true" />
         </commentGenerator>

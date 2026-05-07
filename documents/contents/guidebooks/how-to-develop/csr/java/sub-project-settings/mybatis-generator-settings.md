@@ -104,9 +104,9 @@ configurations {
 
 次に、 build.gradle の dependencies に以下のような MyBatis Generator を利用するための依存関係を追加します。
 
-- `mybatis-generator-core`：MyBatis Generator のタスクを実行するためのライブラリ
-- `h2`：コードの自動生成で利用する組み込みの H2 データベース
-- `javaparser-core`：`javaMergeEnabled` を利用した Java ファイルのマージ処理で利用するライブラリ
+- [`mybatis-generator-core` :material-open-in-new:](https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core){ target=_blank } ：MyBatis Generator のタスクを実行するためのライブラリ
+- [`h2` :material-open-in-new:](https://mvnrepository.com/artifact/com.h2database/h2){ target=_blank } ：コードの自動生成で利用する組み込みの H2 データベース
+- [`javaparser-core` :material-open-in-new:](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core){ target=_blank } ：`javaMergeEnabled` を利用した Java ファイルのマージ処理で利用するライブラリ
 
 この際、依存関係は前述の configurations で定義したカスタム構成である mybatisTasks を利用します。
 
@@ -147,7 +147,7 @@ tasks.register('runMyBatisGenerator') {
         propertyref(name: 'mbg.java.targetProject')
         propertyref(name: 'mbg.resources.targetProject')
       }
-    )
+    }
   }
 }
 ```
