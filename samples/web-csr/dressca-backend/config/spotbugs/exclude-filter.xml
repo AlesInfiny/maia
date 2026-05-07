@@ -22,6 +22,11 @@
     <Method name="&lt;init&gt;" />
     <Bug pattern="EI_EXPOSE_REP2" />
   </Match>
+  <Match>
+    <Class name="com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet" />
+    <Method name="&lt;init&gt;" />
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
 
   <!--
     MyBatis Generator が生成する Example/Criteria クラスでは、
