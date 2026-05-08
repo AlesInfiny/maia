@@ -3,7 +3,7 @@ package com.dressca.applicationcore.assets;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.modules.util.ApplicationContextWrapper;
+import com.dressca.modules.common.util.ApplicationContextWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

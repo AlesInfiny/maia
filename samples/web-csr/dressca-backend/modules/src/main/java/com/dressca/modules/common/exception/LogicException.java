@@ -3,7 +3,7 @@ package com.dressca.modules.common.exception;
 import java.util.Arrays;
 import java.util.Locale;
 import org.springframework.context.MessageSource;
-import com.dressca.modules.util.ApplicationContextWrapper;
+import com.dressca.modules.common.util.ApplicationContextWrapper;
 import lombok.Getter;
 
 /**

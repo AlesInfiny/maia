@@ -12,7 +12,7 @@ import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.constant.SystemPropertyConstants;
 import com.dressca.modules.common.exception.LogicException;
 import com.dressca.modules.common.exception.SystemException;
-import com.dressca.modules.util.ApplicationContextWrapper;
+import com.dressca.modules.common.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
 import com.dressca.web.controller.AssetsController;
