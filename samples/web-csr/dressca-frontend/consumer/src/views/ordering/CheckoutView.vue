@@ -34,15 +34,20 @@ const checkout = async () => {
       getAddress.value.shikuchoson,
       getAddress.value.azanaAndOthers,
     )
+    await fetchBasket()
     router.push({ name: 'ordering/done', params: { orderId } })
   } catch (error) {
     await handleErrorAsync(
       error,
       () => {
-        router.push({ name: 'error' })
+        if (!(error instanceof HttpError && error.response?.status === 404)) {
+          router.push({ name: 'error' })
+        }
       },
       (httpError: HttpError) => {
-        if (!httpError.response?.exceptionId) {
+        if (httpError.response?.status === 404) {
+          showToast(t('itemUnavailable'))
+        } else if (!httpError.response?.exceptionId) {
           showToast(t('failedToOrderItems'))
         } else {
           const message = errorMessageFormat(
