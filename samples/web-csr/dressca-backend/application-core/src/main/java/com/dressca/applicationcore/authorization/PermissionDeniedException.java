@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.authorization;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.modules.exception.LogicException;
 
 /**
  * ユーザーに実行権限がないことを表す例外クラスです。

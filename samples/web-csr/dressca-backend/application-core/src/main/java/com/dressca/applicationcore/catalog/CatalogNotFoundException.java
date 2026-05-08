@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.modules.exception.LogicException;
 
 /**
  * 商品が存在しないことを表す例外です。

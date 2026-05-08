@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.baskets;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.modules.exception.LogicException;
 
 /**
  * 買い物かごが存在しないことを表す例外クラスです。

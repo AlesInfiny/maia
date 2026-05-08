@@ -3,7 +3,7 @@ package com.dressca.applicationcore.baskets;
 import java.util.List;
 import java.util.StringJoiner;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.modules.exception.LogicException;
 
 /**
  * 買い物かご内に想定する商品が存在しないことを表す例外クラスです。

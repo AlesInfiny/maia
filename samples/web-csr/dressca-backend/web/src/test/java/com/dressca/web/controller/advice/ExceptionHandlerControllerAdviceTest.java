@@ -8,11 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 
-import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import com.dressca.systemcommon.exception.LogicException;
-import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.util.ApplicationContextWrapper;
+import com.dressca.modules.constant.CommonExceptionIdConstants;
+import com.dressca.modules.constant.SystemPropertyConstants;
+import com.dressca.modules.exception.LogicException;
+import com.dressca.modules.exception.SystemException;
+import com.dressca.modules.util.ApplicationContextWrapper;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.web.WebApplication;
 import com.dressca.web.controller.AssetsController;

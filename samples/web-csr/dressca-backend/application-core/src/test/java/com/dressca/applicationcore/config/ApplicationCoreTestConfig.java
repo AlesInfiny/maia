@@ -2,7 +2,7 @@ package com.dressca.applicationcore.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import com.dressca.systemcommon.util.ApplicationContextWrapper;
+import com.dressca.modules.util.ApplicationContextWrapper;
 
 /**
  * アプリケーションコア層のテスト用設定クラスです。

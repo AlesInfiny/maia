@@ -35,7 +35,6 @@
     "springframework",
     "spotbugs",
     "subprojects",
-    "systemcommon",
     "tasklet",
     "todofuken",
     "webmvc"
