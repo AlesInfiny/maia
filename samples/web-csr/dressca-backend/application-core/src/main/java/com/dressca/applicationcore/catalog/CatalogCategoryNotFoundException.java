@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.modules.exception.LogicException;
+import com.dressca.modules.common.exception.LogicException;
 
 /**
  * カタログカテゴリが存在しないことを表す例外です。

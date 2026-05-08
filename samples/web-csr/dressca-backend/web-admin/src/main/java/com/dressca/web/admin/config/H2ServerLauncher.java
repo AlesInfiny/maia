@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import com.dressca.modules.constant.SystemPropertyConstants;
+import com.dressca.modules.common.constant.SystemPropertyConstants;
 import jakarta.annotation.PreDestroy;
 import java.sql.SQLException;
 

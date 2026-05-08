@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.order;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.modules.exception.LogicException;
+import com.dressca.modules.common.exception.LogicException;
 
 /**
  * 注文のチェックアウト処理開始時に買い物かごが空であることを表す例外クラスです。

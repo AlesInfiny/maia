@@ -5,7 +5,7 @@ import com.dressca.applicationcore.assets.Asset;
 import com.dressca.applicationcore.assets.AssetNotFoundException;
 import com.dressca.applicationcore.assets.AssetResourceInfo;
 import com.dressca.applicationcore.assets.AssetTypes;
-import com.dressca.modules.exception.LogicException;
+import com.dressca.modules.common.exception.LogicException;
 import com.dressca.modules.log.AbstractStructuredLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.core.io.Resource;

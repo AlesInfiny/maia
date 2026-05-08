@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.assets;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
-import com.dressca.modules.exception.LogicException;
+import com.dressca.modules.common.exception.LogicException;
 
 /**
  * アセットが存在しないことを表す例外クラスです。
