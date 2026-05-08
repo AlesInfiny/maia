@@ -99,6 +99,9 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "404", description = "買い物かご内のカタログアイテムがカタログに存在しません。",
+              content = @Content(mediaType = "application/problem+json",
+                  schema = @Schema(implementation = ProblemDetail.class))),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class)))})
