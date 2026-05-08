@@ -1,4 +1,4 @@
-package com.dressca.modules.exception;
+package com.dressca.modules.common.exception;
 
 import java.util.Arrays;
 import java.util.Locale;
