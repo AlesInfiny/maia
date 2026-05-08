@@ -42,7 +42,7 @@ dependencies {
 	implementation supportDependencies.postgresql
 
 	implementation project(':application-core')
-	implementation project(':system-common')
+	implementation project(':modules')
 
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 

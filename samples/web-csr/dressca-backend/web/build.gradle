@@ -26,7 +26,7 @@ dependencies {
 	
 	implementation project(':application-core')
 	implementation project(':infrastructure')
-	implementation project(':system-common')
+	implementation project(':modules')
 
 	annotationProcessor supportDependencies.spring_boot_configuration_processor
 	
