@@ -9,7 +9,7 @@ import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.exception.SystemException;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.order.OrderResponse;

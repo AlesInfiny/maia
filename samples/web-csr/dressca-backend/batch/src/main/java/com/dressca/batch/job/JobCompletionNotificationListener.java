@@ -4,7 +4,7 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.job.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListener;
 import org.springframework.stereotype.Component;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import lombok.RequiredArgsConstructor;
 
 /**

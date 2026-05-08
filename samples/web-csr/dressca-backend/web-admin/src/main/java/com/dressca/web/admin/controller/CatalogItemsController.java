@@ -15,7 +15,7 @@ import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.constant.UserRoleConstants;
 import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.exception.SystemException;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;

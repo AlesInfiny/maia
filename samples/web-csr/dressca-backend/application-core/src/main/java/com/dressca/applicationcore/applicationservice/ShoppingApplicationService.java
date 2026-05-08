@@ -28,7 +28,7 @@ import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.exception.SystemException;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import lombok.RequiredArgsConstructor;
 
 /**

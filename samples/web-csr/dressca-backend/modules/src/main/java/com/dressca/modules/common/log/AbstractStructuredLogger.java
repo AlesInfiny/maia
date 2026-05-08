@@ -1,4 +1,4 @@
-package com.dressca.modules.log;
+package com.dressca.modules.common.log;
 
 import java.util.Map;
 import org.slf4j.Logger;

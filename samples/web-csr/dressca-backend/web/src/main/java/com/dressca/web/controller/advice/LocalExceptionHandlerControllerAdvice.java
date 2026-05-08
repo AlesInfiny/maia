@@ -7,7 +7,7 @@ import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.modules.common.constant.CommonExceptionIdConstants;
 import com.dressca.modules.common.exception.LogicException;
 import com.dressca.modules.common.exception.SystemException;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;

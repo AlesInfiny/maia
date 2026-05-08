@@ -1,7 +1,7 @@
 package com.dressca.web.log;
 
 import org.springframework.stereotype.Component;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 
 /**

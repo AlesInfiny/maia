@@ -43,7 +43,7 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
 import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.modules.log.AbstractStructuredLogger;
+import com.dressca.modules.common.log.AbstractStructuredLogger;
 
 /**
  * {@link CatalogApplicationService}の動作をテストするクラスです。
