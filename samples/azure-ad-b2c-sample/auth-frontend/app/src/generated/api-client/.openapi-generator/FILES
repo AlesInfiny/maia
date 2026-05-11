@@ -9,8 +9,8 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/get-server-time-response.ts
+models/get-user-response.ts
 models/index.ts
 models/link.ts
 models/problem-detail.ts
-models/server-time-response.ts
-models/user-response.ts
