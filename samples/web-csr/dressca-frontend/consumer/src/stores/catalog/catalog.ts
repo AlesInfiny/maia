@@ -57,7 +57,7 @@ export const useCatalogStore = defineStore('catalog', {
         page,
         undefined,
       )
-      this.catalogItemPage = response.data.catalogItems ?? {}
+      this.catalogItemPage = response.data.catalogItems
     },
   },
   getters: {
