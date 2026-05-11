@@ -9,36 +9,36 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface OrderItemMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     long countByExample(OrderItemEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByExample(OrderItemEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(OrderItemEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insertSelective(OrderItemEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     List<OrderItemEntity> selectByExample(OrderItemEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     OrderItemEntity selectByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") OrderItemEntity row, @Param("example") OrderItemEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExample(@Param("row") OrderItemEntity row, @Param("example") OrderItemEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKeySelective(OrderItemEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: order_items")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKey(OrderItemEntity row);
 }

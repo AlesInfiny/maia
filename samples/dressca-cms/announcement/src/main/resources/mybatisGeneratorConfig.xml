@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "https://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <context id="local"  targetRuntime="MyBatis3">
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
-        <!-- 自動生成される各要素のコメントに生成時刻が出力されないように設定する -->
+        <!-- 自動生成される各要素のコメントを最小化するように設定する -->
         <commentGenerator>
-            <property name="suppressDate" value="true" />
+            <property name="minimizeComments" value="true" />
         </commentGenerator>
         <!-- 接続先DB情報 -->
         <jdbcConnection driverClass="org.h2.Driver"
@@ -15,13 +15,13 @@
                         password="" />
         <!-- Model(Entity)作成先 -->
         <modelGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java" />
+                        targetProject="${mbg.java.targetProject}" />
         <!-- Mapper.xml作成先 -->
         <sqlMapGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/resources" />
+                        targetProject="${mbg.resources.targetProject}" />
         <!-- Mapper.java作成先 -->
         <clientGenerator targetPackage="com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.mapper"
-                        targetProject="/dev/repos/AlesInfiny/maia/samples/dressca-cms/announcement/src/main/java"
+                        targetProject="${mbg.java.targetProject}"
                         type="XMLMAPPER" />
         <!-- 生成対象テーブル -->
         <table schema="" tableName="ANNOUNCEMENTS" domainObjectName="AnnouncementEntity" mapperName="AnnouncementMapper">

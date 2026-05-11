@@ -3,54 +3,54 @@ package com.dressca.cms.authentication.infrastructure.repository.mybatis.generat
 import jakarta.annotation.Generated;
 
 public class ApplicationUserEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String name;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.email")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String email;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.password")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String password;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Integer getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getName() {
         return name;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setName(String name) {
         this.name = name;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.email")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getEmail() {
         return email;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.email")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.password")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getPassword() {
         return password;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: application_users.password")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setPassword(String password) {
         this.password = password;
     }
