@@ -317,7 +317,7 @@ BUILD SUCCESSFUL in 2s
     ```
 
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
-   以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getById()` メソッドに認証が必要なアノテーションを付与する例です。
+   以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getOrderById()` メソッドに認証が必要なアノテーションを付与する例です。
 
     ```diff
       import org.springframework.security.access.prepost.PreAuthorize;
@@ -358,7 +358,7 @@ BUILD SUCCESSFUL in 2s
             })
         @GetMapping("{orderId}")
     +   @PreAuthorize(value = "isAuthenticated()")
-        public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+        public ResponseEntity<?> getOrderById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
           // その他のコードは省略
           ...
         }
