@@ -156,4 +156,21 @@
       CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
+
+  <select id="findDeletedItemsByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectCatalogItemsIncludeAsset"/>
+     <choose>
+       <when test="catalogItemIds != null and catalogItemIds.size != 0">
+         WHERE CATALOG_ITEMS.ID IN 
+         <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
+           #{catalogItemId}
+         </foreach>
+         AND CATALOG_ITEMS.IS_DELETED = true
+       </when>
+       <otherwise>
+         <!-- catalogItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+         WHERE 1 = 0
+       </otherwise>
+     </choose>
+  </select>
 </mapper>
