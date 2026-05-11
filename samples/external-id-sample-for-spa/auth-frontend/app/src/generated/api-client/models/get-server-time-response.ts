@@ -14,7 +14,7 @@
 
 
 
-export interface ServerTimeResponse {
+export interface GetServerTimeResponse {
     'serverTime': string;
 }
 
