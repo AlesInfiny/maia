@@ -97,4 +97,9 @@ public class MybatisCatalogRepository implements CatalogRepository {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
     return this.catalogItemMapper.updateByPrimaryKey(entity);
   }
+
+  @Override
+  public List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<Long> catalogItemIds) {
+    return mapper.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
+  }
 }
