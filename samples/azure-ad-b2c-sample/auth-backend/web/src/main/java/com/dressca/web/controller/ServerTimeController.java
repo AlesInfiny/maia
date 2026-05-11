@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.dressca.web.controller.dto.time.ServerTimeResponse;
+import com.dressca.web.controller.dto.time.GetServerTimeResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,13 +31,13 @@ public class ServerTimeController {
   @Operation(summary = "サーバーの現在時刻を取得します。", description = "サーバーの現在時刻を取得します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
-          schema = @Schema(implementation = ServerTimeResponse.class)))})
+          schema = @Schema(implementation = GetServerTimeResponse.class)))})
   @GetMapping
-  public ResponseEntity<ServerTimeResponse> getServerTime() throws Exception {
+  public ResponseEntity<GetServerTimeResponse> getServerTime() throws Exception {
 
     LocalDateTime nowDate = LocalDateTime.now();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-    ServerTimeResponse response = new ServerTimeResponse(nowDate.format(dateTimeFormatter));
+    GetServerTimeResponse response = new GetServerTimeResponse(nowDate.format(dateTimeFormatter));
     return ResponseEntity.ok().body(response);
   }
 }
