@@ -35,8 +35,8 @@ export async function postOrder(
     shikuchoson,
     azanaAndOthers,
   }
-  const getOrderByIdResponse = await ordersApi().postOrder(postOrderInput)
-  const url = new URL(getOrderByIdResponse.headers.location)
+  const postOrderResponse = await ordersApi().postOrder(postOrderInput)
+  const url = new URL(postOrderResponse.headers.location)
   return Number(url.pathname.split('/').pop())
 }
 

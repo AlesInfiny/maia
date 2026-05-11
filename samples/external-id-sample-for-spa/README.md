@@ -348,7 +348,7 @@ BUILD SUCCESSFUL in 2s
                     description = "成功。",
                     content = @Content(
                         mediaType = "application/json",
-                        schema = @Schema(implementation = OrderResponse.class))),
+                        schema = @Schema(implementation = GetOrderByIdResponse.class))),
                 @ApiResponse(
                     responseCode = "404",
                     description = "注文 ID が存在しません。",

@@ -1,4 +1,4 @@
-package main.java.com.dressca.web.consumer.controller.dto.catalog;
+package com.dressca.web.consumer.controller.dto.catalog;
 
 import com.dressca.web.consumer.controller.dto.catalog.PagedListOfCatalogItemApiModel;
 

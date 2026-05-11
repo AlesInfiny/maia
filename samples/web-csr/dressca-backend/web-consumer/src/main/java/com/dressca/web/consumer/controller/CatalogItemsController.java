@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import main.java.com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemsByQueryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemsByQueryResponse;
 
 /**
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
