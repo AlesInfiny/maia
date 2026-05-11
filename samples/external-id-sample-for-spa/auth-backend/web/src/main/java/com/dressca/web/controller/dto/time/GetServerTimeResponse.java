@@ -1,4 +1,4 @@
-package com.dressca.web.controller.dto.auth;
+package com.dressca.web.controller.dto.time;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ログインに成功した際のユーザ ID を格納するクラスです。
+ * サーバーの現在時刻を格納するクラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
+public class GetServerTimeResponse {
   @NotNull
-  private String userId;
+  private String serverTime;
 }
