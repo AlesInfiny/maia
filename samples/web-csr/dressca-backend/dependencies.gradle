@@ -10,6 +10,7 @@ ext {
     mybatisSpringBootStarterVersion = "4.0.1"
     mybatisSpringBootStarterTestVersion = "4.0.1"
     springdocOpenapiVersion = "3.0.3"
+    javaParserCoreVersion = "3.28.1"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.4.0"
@@ -48,8 +49,10 @@ ext {
 
         // OTHER LIBRARIES
         commons_lang3 : "org.apache.commons:commons-lang3",
+        java_parser_core : "com.github.javaparser:javaparser-core:$javaParserCoreVersion",
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
+        spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
 
         // GRADLE PLUGIN TOOLS

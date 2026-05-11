@@ -9,36 +9,36 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CatalogBrandMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     long countByExample(CatalogBrandEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByExample(CatalogBrandEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int deleteByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(CatalogBrandEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insertSelective(CatalogBrandEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     List<CatalogBrandEntity> selectByExample(CatalogBrandEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     CatalogBrandEntity selectByPrimaryKey(Long id);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") CatalogBrandEntity row, @Param("example") CatalogBrandEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExample(@Param("row") CatalogBrandEntity row, @Param("example") CatalogBrandEntityExample example);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKeySelective(CatalogBrandEntity row);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: catalog_brands")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByPrimaryKey(CatalogBrandEntity row);
 }

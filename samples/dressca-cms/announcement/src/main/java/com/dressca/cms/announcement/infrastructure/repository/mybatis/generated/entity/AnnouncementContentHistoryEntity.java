@@ -4,80 +4,80 @@ import jakarta.annotation.Generated;
 import java.util.UUID;
 
 public class AnnouncementContentHistoryEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private UUID id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.announcement_history_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private UUID announcementHistoryId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.language_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String languageCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.title")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String title;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.message")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String message;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.link_url")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String linkUrl;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public UUID getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(UUID id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.announcement_history_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public UUID getAnnouncementHistoryId() {
         return announcementHistoryId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.announcement_history_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setAnnouncementHistoryId(UUID announcementHistoryId) {
         this.announcementHistoryId = announcementHistoryId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.language_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getLanguageCode() {
         return languageCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.language_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.title")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getTitle() {
         return title;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.title")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.message")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getMessage() {
         return message;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.message")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setMessage(String message) {
         this.message = message;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.link_url")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getLinkUrl() {
         return linkUrl;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcement_content_history.link_url")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
     }
