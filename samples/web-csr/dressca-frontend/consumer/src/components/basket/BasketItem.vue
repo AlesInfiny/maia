@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import * as yup from 'yup'
@@ -32,15 +32,20 @@ const { value: quantity } = useField<number>('quantity')
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 
-const isUpdateDisabled = computed(() => !(meta.value.valid && meta.value.dirty))
+const isUpdateDisabled = computed(() => !props.available || !(meta.value.valid && meta.value.dirty))
+
+watch(
+  () => props.item,
+  (item) => {
+    resetForm({ values: { quantity: item.quantity } })
+  },
+)
 
 const update = () => {
-  resetForm({ values: { quantity: quantity.value } })
   emit('update', props.item.catalogItemId, quantity.value)
 }
 
 const remove = () => {
-  resetForm({ values: { quantity: props.item.quantity } })
   emit('remove', props.item.catalogItemId)
 }
 </script>
