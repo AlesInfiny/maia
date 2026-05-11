@@ -13,9 +13,11 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { PagedListOfCatalogItemApiModel } from './paged-list-of-catalog-item-api-model';
 
-export interface CatalogBrandResponse {
-    'id': number;
-    'name': string;
+export interface GetCatalogItemsByQueryResponse {
+    'catalogItems': PagedListOfCatalogItemApiModel;
 }
 

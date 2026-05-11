@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response'
+import type { BasketItemApiModel } from '@/generated/api-client'
 import { i18n } from '@/locales/i18n'
 import BasketItem from '../basket/BasketItem.vue'
 
 /**
  * バスケットアイテムのレスポンスを生成します。
  * 主にテストやモックデータとして利用することを想定しています。
- * @returns `BasketItemResponse` 型のオブジェクト
+ * @returns `BasketItemApiModel` 型のオブジェクト
  */
-function createBasketItemResponse(): BasketItemResponse {
+function createBasketItemApiModel(): BasketItemApiModel {
   return {
     catalogItemId: 10,
     quantity: 2,
@@ -25,12 +25,12 @@ describe('BasketItem', () => {
 
   it('小計が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketItemResponse()
+    const basketItemApiModel = createBasketItemApiModel()
     const available = true
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemApiModel, available },
       global: { plugins: [i18n] },
     })
 
@@ -40,12 +40,12 @@ describe('BasketItem', () => {
 
   it('単価が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketItemResponse()
+    const basketItemApiModel = createBasketItemApiModel()
     const available = true
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemApiModel, available },
       global: { plugins: [i18n] },
     })
 
@@ -55,12 +55,12 @@ describe('BasketItem', () => {
 
   it('販売中止中のメッセージが表示できる', () => {
     // Arrange
-    const basketItemResponse = createBasketItemResponse()
+    const basketItemApiModel = createBasketItemApiModel()
     const available = false
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemApiModel, available },
       global: { plugins: [i18n] },
     })
 

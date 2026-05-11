@@ -2,7 +2,7 @@ import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
 import type {
   AccountResponse,
-  BasketItemResponse,
+  BasketItemApiModel,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client'
@@ -14,7 +14,7 @@ import { basket, basketItems } from '../data/basket-items'
  * @param originalBasketItems 買い物かごアイテムのリスト。
  * @returns 小計金額が計算済みの買い物かごアイテムのリスト。
  */
-function calcBasketItemsSubTotal(originalBasketItems: BasketItemResponse[]): BasketItemResponse[] {
+function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): BasketItemApiModel[] {
   if (!originalBasketItems) {
     return originalBasketItems
   }

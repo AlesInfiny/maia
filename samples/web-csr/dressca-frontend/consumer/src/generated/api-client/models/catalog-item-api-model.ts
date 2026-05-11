@@ -14,8 +14,14 @@
 
 
 
-export interface CatalogCategoryResponse {
+export interface CatalogItemApiModel {
+    'assetCodes'?: Array<string>;
+    'catalogBrandId': number;
+    'catalogCategoryId': number;
+    'description': string;
     'id': number;
     'name': string;
+    'price': number;
+    'productCode': string;
 }
 

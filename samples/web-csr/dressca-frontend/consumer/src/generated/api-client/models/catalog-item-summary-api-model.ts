@@ -14,7 +14,7 @@
 
 
 
-export interface CatalogItemSummaryResponse {
+export interface CatalogItemSummaryApiModel {
     'assetCodes'?: Array<string>;
     'id': number;
     'name': string;

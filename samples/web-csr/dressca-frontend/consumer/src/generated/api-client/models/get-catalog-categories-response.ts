@@ -13,15 +13,9 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import type { CatalogItemSummaryResponse } from './catalog-item-summary-response';
 
-export interface OrderItemResponse {
+export interface GetCatalogCategoriesResponse {
     'id': number;
-    'itemOrdered'?: CatalogItemSummaryResponse;
-    'quantity': number;
-    'subTotal': number;
-    'unitPrice': number;
+    'name': string;
 }
 

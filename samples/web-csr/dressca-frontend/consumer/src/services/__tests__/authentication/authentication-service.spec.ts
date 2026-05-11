@@ -6,7 +6,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useCatalogStore } from '@/stores/catalog/catalog'
 import { useNotificationStore } from '@/stores/notification/notification'
-import type { BasketResponse } from '@/generated/api-client'
+import type { GetBasketItemsResponse } from '@/generated/api-client'
 import axios from 'axios'
 
 /**
@@ -57,9 +57,11 @@ describe('authenticationService_signOut', () => {
 
       // API が遅延して解決される Promise を用意
       let rejectApi!: (reason: unknown) => void
-      const delayedApiPromise = new Promise<{ data: BasketResponse }>((_resolve, reject) => {
-        rejectApi = reject
-      })
+      const delayedApiPromise = new Promise<{ data: GetBasketItemsResponse }>(
+        (_resolve, reject) => {
+          rejectApi = reject
+        },
+      )
       getBasketItemsMock.mockReturnValue(delayedApiPromise)
 
       // abortAllRequests が呼ばれたら、ペンディング中の API を CanceledError で reject する

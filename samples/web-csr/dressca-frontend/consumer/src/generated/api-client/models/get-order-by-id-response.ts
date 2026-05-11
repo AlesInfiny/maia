@@ -18,12 +18,18 @@
 import type { AccountResponse } from './account-response';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { BasketItemResponse } from './basket-item-response';
+import type { OrderItemApiModel } from './order-item-api-model';
 
-export interface BasketResponse {
+export interface GetOrderByIdResponse {
     'account'?: AccountResponse;
-    'basketItems'?: Array<BasketItemResponse>;
+    'azanaAndOthers': string;
     'buyerId': string;
-    'deletedItemIds'?: Array<number>;
+    'fullName': string;
+    'id': number;
+    'orderDate': string;
+    'orderItems'?: Array<OrderItemApiModel>;
+    'postalCode': string;
+    'shikuchoson': string;
+    'todofuken': string;
 }
 

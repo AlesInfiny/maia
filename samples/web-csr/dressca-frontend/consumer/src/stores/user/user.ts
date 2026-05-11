@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { Address } from '@/stores/user/user.model'
 
 /**
  * ユーザー情報を管理する Pinia ストアです。
@@ -13,7 +14,7 @@ export const useUserStore = defineStore('user', {
       todofuken: '東京都',
       shikuchoson: '千代田区',
       azanaAndOthers: '永田町1-10-1',
-    },
+    } as Address,
   }),
   getters: {
     /**

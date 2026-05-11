@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import type {
-  CatalogCategoryResponse,
-  CatalogBrandResponse,
-  PagedListOfCatalogItemResponse,
+  GetCatalogCategoriesResponse,
+  GetCatalogBrandsResponse,
+  PagedListOfCatalogItemApiModel,
 } from '@/generated/api-client'
 import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-client'
 
@@ -11,9 +11,9 @@ import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-c
  */
 export const useCatalogStore = defineStore('catalog', {
   state: (): {
-    categories: CatalogCategoryResponse[]
-    brands: CatalogBrandResponse[]
-    catalogItemPage: PagedListOfCatalogItemResponse
+    categories: GetCatalogCategoriesResponse[]
+    brands: GetCatalogBrandsResponse[]
+    catalogItemPage: PagedListOfCatalogItemApiModel
   } => ({
     categories: [],
     brands: [],
@@ -51,13 +51,13 @@ export const useCatalogStore = defineStore('catalog', {
      * @param page ページ番号（任意）。
      */
     async fetchItems(categoryId: number, brandId: number, page?: number) {
-      const response = await catalogItemsApi().getByQuery(
+      const response = await catalogItemsApi().getCatalogItemsByQuery(
         brandId === 0 ? undefined : brandId,
         categoryId === 0 ? undefined : categoryId,
         page,
         undefined,
       )
-      this.catalogItemPage = response.data
+      this.catalogItemPage = response.data.catalogItems ?? {}
     },
   },
   getters: {

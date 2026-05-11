@@ -8,12 +8,12 @@ import { defineStore } from 'pinia'
  */
 export const useNotificationStore = defineStore('notification', {
   state: () => ({
-    message: '',
-    id: '',
-    title: '',
-    detail: '',
-    status: 0,
-    timeout: 5000,
+    message: '' as string,
+    id: '' as string,
+    title: '' as string,
+    detail: '' as string,
+    status: 0 as number,
+    timeout: 5000 as number,
   }),
   actions: {
     /**

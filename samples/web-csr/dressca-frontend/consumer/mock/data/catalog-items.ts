@@ -1,9 +1,9 @@
-import type { CatalogItemResponse, PagedListOfCatalogItemResponse } from '@/generated/api-client'
+import type { CatalogItemApiModel, PagedListOfCatalogItemApiModel } from '@/generated/api-client'
 
 /** カタログから削除済みのアイテムの ID です。 */
 export const deletedItemId: number = 99
 
-export const catalogItems: CatalogItemResponse[] = [
+export const catalogItems: CatalogItemApiModel[] = [
   {
     id: 1,
     catalogCategoryId: 1,
@@ -127,7 +127,7 @@ export const catalogItems: CatalogItemResponse[] = [
   },
 ]
 
-export const pagedListCatalogItem: PagedListOfCatalogItemResponse = {
+export const pagedListCatalogItem: PagedListOfCatalogItemApiModel = {
   hasNext: false,
   hasPrevious: false,
   page: 1,
