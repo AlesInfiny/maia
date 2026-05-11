@@ -5,106 +5,106 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class AnnouncementEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private UUID id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.category")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String category;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.post_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime postDateTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.expire_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime expireDateTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.display_priority")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Integer displayPriority;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.created_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime createdAt;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.changed_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime changedAt;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Boolean isDeleted;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public UUID getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(UUID id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.category")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getCategory() {
         return category;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.category")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setCategory(String category) {
         this.category = category;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.post_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public OffsetDateTime getPostDateTime() {
         return postDateTime;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.post_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setPostDateTime(OffsetDateTime postDateTime) {
         this.postDateTime = postDateTime;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.expire_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public OffsetDateTime getExpireDateTime() {
         return expireDateTime;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.expire_date_time")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setExpireDateTime(OffsetDateTime expireDateTime) {
         this.expireDateTime = expireDateTime;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.display_priority")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Integer getDisplayPriority() {
         return displayPriority;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.display_priority")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setDisplayPriority(Integer displayPriority) {
         this.displayPriority = displayPriority;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.created_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.created_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.changed_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public OffsetDateTime getChangedAt() {
         return changedAt;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.changed_at")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setChangedAt(OffsetDateTime changedAt) {
         this.changedAt = changedAt;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: announcements.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
