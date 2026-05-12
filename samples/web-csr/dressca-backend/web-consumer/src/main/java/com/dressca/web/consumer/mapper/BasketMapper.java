@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
+import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 
@@ -26,8 +26,8 @@ public class BasketMapper {
     }
 
     Account account = basket.getAccount();
-    AccountResponse accountDto =
-        new AccountResponse(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
+    AccountApiModel accountDto =
+        new AccountApiModel(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
             account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
 
     List<BasketItemApiModel> basketItems =

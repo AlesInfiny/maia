@@ -1,10 +1,10 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
-import { pagedListCatalogItem } from '../data/catalog-items'
+import { getCatalogItemsByQueryResponse } from '../data/catalog-items'
 
 export const catalogItemsHandlers = [
   http.get('/api/catalog-items', () => {
-    return HttpResponse.json(pagedListCatalogItem, {
+    return HttpResponse.json(getCatalogItemsByQueryResponse, {
       status: HttpStatusCode.Ok,
     })
   }),

@@ -13,7 +13,7 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
-models/account-response.ts
+models/account-api-model.ts
 models/basket-item-api-model.ts
 models/catalog-item-api-model.ts
 models/catalog-item-summary-api-model.ts

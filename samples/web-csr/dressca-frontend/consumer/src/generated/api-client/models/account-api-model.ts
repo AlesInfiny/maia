@@ -14,7 +14,7 @@
 
 
 
-export interface AccountResponse {
+export interface AccountApiModel {
     'consumptionTax': number;
     'consumptionTaxRate': number;
     'deliveryCharge': number;

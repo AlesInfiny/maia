@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { AccountResponse } from './account-response';
+import type { AccountApiModel } from './account-api-model';
 // May contain unused imports in some cases
 // @ts-ignore
 import type { BasketItemApiModel } from './basket-item-api-model';
 
 export interface GetBasketItemsResponse {
-    'account'?: AccountResponse;
+    'account'?: AccountApiModel;
     'basketItems'?: Array<BasketItemApiModel>;
     'buyerId': string;
     'deletedItemIds'?: Array<number>;

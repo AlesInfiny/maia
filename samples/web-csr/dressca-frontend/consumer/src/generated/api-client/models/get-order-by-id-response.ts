@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { AccountResponse } from './account-response';
+import type { AccountApiModel } from './account-api-model';
 // May contain unused imports in some cases
 // @ts-ignore
 import type { OrderItemApiModel } from './order-item-api-model';
 
 export interface GetOrderByIdResponse {
-    'account'?: AccountResponse;
+    'account'?: AccountApiModel;
     'azanaAndOthers': string;
     'buyerId': string;
     'fullName': string;

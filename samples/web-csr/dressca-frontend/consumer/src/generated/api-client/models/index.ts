@@ -1,4 +1,4 @@
-export * from './account-response';
+export * from './account-api-model';
 export * from './basket-item-api-model';
 export * from './catalog-item-api-model';
 export * from './catalog-item-summary-api-model';

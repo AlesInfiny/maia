@@ -2,7 +2,7 @@ package com.dressca.web.consumer.mapper;
 
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.order.Order;
-import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
+import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 
 /**
@@ -23,7 +23,7 @@ public class OrderMapper {
         order.getShipToAddress().getAddress().getTodofuken(),
         order.getShipToAddress().getAddress().getShikuchoson(),
         order.getShipToAddress().getAddress().getAzanaAndOthers(),
-        new AccountResponse(order.getConsumptionTaxRate(), order.getTotalItemsPrice(),
+        new AccountApiModel(order.getConsumptionTaxRate(), order.getTotalItemsPrice(),
             order.getDeliveryCharge(), order.getConsumptionTax(), order.getTotalPrice()),
         order.getOrderItems().stream().map(OrderItemMapper::convert).collect(Collectors.toList()));
   }

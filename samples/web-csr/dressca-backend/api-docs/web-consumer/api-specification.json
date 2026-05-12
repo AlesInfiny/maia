@@ -532,7 +532,7 @@
   },
   "components": {
     "schemas": {
-      "AccountResponse": {
+      "AccountApiModel": {
         "type": "object",
         "properties": {
           "consumptionTax": {
@@ -662,7 +662,7 @@
         "type": "object",
         "properties": {
           "account": {
-            "$ref": "#/components/schemas/AccountResponse"
+            "$ref": "#/components/schemas/AccountApiModel"
           },
           "basketItems": {
             "type": "array",
@@ -732,7 +732,7 @@
         "type": "object",
         "properties": {
           "account": {
-            "$ref": "#/components/schemas/AccountResponse"
+            "$ref": "#/components/schemas/AccountApiModel"
           },
           "azanaAndOthers": {
             "type": "string"

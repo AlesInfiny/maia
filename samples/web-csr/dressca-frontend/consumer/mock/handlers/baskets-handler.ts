@@ -1,7 +1,7 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
 import type {
-  AccountResponse,
+  AccountApiModel,
   BasketItemApiModel,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
@@ -32,7 +32,7 @@ function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): Bas
  * @param subTotals 小計金額のリスト。
  * @returns 買い物かごの会計情報。
  */
-function calcBasketAccount(subTotals: number[]): AccountResponse {
+function calcBasketAccount(subTotals: number[]): AccountApiModel {
   const totalItemsPrice = subTotals.reduce((total, subTotal) => total + subTotal, 0)
   const consumptionTaxRate = 0.1
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500
