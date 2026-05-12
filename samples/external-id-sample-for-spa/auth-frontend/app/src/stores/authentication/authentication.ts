@@ -13,7 +13,7 @@ void (async function () {
 
 export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({
-    authenticated: false as boolean,
+    authenticated: false,
   }),
   actions: {
     async signIn() {

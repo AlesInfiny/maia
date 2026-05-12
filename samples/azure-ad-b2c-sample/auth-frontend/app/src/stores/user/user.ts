@@ -3,7 +3,7 @@ import { getUsersApi } from '@/api-client'
 
 export const useUserStore = defineStore('user-id', {
   state: () => ({
-    userId: '' as string,
+    userId: '',
   }),
   actions: {
     async fetchUserResponse() {
