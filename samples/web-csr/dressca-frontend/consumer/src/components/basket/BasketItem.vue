@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, watch } from 'vue'
 import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import * as yup from 'yup'
@@ -12,6 +12,7 @@ const { t } = i18n.global
 const props = defineProps<{
   item: BasketItemResponse
   available: boolean
+  submitting: boolean
 }>()
 
 const emit = defineEmits<{
@@ -33,30 +34,25 @@ const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 
 const isUpdateDisabled = computed(() => !(meta.value.valid && meta.value.dirty))
-// 更新・削除処理の多重実行を防止するためのフラグです。
-const isSubmitting = ref(false)
 
 watch(
   () => props.item,
   (item) => {
-    isSubmitting.value = false
     resetForm({ values: { quantity: item.quantity } })
   },
 )
 
 const update = () => {
-  if (isSubmitting.value) {
+  if (props.submitting) {
     return
   }
-  isSubmitting.value = true
   emit('update', props.item.catalogItemId, quantity.value)
 }
 
 const remove = () => {
-  if (isSubmitting.value) {
+  if (props.submitting) {
     return
   }
-  isSubmitting.value = true
   emit('remove', props.item.catalogItemId)
 }
 </script>

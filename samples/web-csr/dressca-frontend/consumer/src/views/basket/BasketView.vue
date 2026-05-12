@@ -29,6 +29,9 @@ const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 
+// アイテムの更新・削除を二重実行させないためのフラグ
+const isSubmitting = ref(false)
+
 const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0
 }
@@ -38,6 +41,11 @@ const goCatalog = () => {
 }
 
 const update = async (catalogItemId: number, newQuantity: number) => {
+  if (isSubmitting.value) {
+    return
+  }
+
+  isSubmitting.value = true
   try {
     await updateItemInBasket(catalogItemId, newQuantity)
   } catch (error) {
@@ -63,11 +71,18 @@ const update = async (catalogItemId: number, newQuantity: number) => {
         }
       },
     )
+  } finally {
+    isSubmitting.value = false
   }
 }
 
 // 削除に失敗した通知を出す
 const remove = async (catalogItemId: number) => {
+  if (isSubmitting.value) {
+    return
+  }
+
+  isSubmitting.value = true
   try {
     await removeItemFromBasket(catalogItemId)
   } catch (error) {
@@ -93,6 +108,8 @@ const remove = async (catalogItemId: number) => {
         }
       },
     )
+  } finally {
+    isSubmitting.value = false
   }
 }
 
@@ -188,6 +205,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
           <BasketItem
             :item="item"
             :available="!getDeletedItemIds.includes(item.catalogItemId)"
+            :submitting="isSubmitting"
             @update="update"
             @remove="remove"
           ></BasketItem>
