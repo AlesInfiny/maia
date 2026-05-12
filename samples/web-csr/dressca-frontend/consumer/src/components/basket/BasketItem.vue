@@ -42,10 +42,12 @@ watch(
 )
 
 const update = () => {
+  resetForm({ values: { quantity: quantity.value } })
   emit('update', props.item.catalogItemId, quantity.value)
 }
 
 const remove = () => {
+  resetForm({ values: { quantity: props.item.quantity } })
   emit('remove', props.item.catalogItemId)
 }
 </script>
