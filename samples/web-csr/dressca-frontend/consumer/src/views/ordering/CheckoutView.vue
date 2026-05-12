@@ -155,9 +155,10 @@ onMounted(async () => {
         v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
         class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
+        :class="getDeletedItemIds.includes(item.catalogItemId) && 'bg-red-100'"
       >
         <div class="col-span-4 lg:col-span-5">
-          <div class="grid grid-cols-2">
+          <div class="grid grid-cols-3">
             <img
               :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
               :alt="item.catalogItem?.name"
@@ -175,10 +176,7 @@ onMounted(async () => {
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>
             </div>
-            <p
-              v-if="getDeletedItemIds.includes(item.catalogItemId)"
-              class="mt-4 font-bold text-red-500"
-            >
+            <p v-if="getDeletedItemIds.includes(item.catalogItemId)" class="font-bold text-red-500">
               {{ t('itemUnavailable') }}
             </p>
           </div>
