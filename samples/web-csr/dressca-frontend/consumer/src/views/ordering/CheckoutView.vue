@@ -154,7 +154,7 @@ onMounted(async () => {
       <div
         v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
-        class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
+        class="mt-4 grid grid-cols-4 items-center lg:grid-cols-6"
         :class="getDeletedItemIds.includes(item.catalogItemId) && 'bg-red-100'"
       >
         <div class="col-span-4 lg:col-span-5">
