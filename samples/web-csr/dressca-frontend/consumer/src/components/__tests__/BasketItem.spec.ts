@@ -27,10 +27,11 @@ describe('BasketItem', () => {
     // Arrange
     const basketItemResponse = createBasketItemResponse()
     const available = true
+    const isSubmitting = false
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemResponse, available, submitting: isSubmitting },
       global: { plugins: [i18n] },
     })
 
@@ -42,10 +43,11 @@ describe('BasketItem', () => {
     // Arrange
     const basketItemResponse = createBasketItemResponse()
     const available = true
+    const isSubmitting = false
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemResponse, available, submitting: isSubmitting },
       global: { plugins: [i18n] },
     })
 
@@ -57,10 +59,11 @@ describe('BasketItem', () => {
     // Arrange
     const basketItemResponse = createBasketItemResponse()
     const available = false
+    const isSubmitting = false
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemResponse, available },
+      props: { item: basketItemResponse, available, submitting: isSubmitting },
       global: { plugins: [i18n] },
     })
 

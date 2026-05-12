@@ -29,7 +29,7 @@ const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 
-// アイテムの更新・削除を二重実行させないためのフラグ
+// アイテムの更新・削除を二重実行させないためのフラグです。
 const isSubmitting = ref(false)
 
 const isEmpty = () => {
