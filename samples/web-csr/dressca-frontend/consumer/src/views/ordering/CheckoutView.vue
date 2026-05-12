@@ -115,7 +115,7 @@ onMounted(async () => {
       <div class="flex flex-col items-center gap-2 lg:col-end-3">
         <button
           class="w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300/50"
-          type="submit"
+          type="button"
           :disabled="getDeletedItemIds.length > 0"
           @click="checkout()"
         >
