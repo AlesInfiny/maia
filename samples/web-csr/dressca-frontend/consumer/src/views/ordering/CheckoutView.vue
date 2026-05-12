@@ -151,34 +151,30 @@ onMounted(async () => {
       </table>
     </div>
     <div class="mx-2 mt-8">
-      <div v-for="item in getBasket.basketItems" :key="item.catalogItemId" class="mt-4">
-        <div
-          class="grid grid-cols-2"
-          :class="{ 'bg-red-100': getDeletedItemIds.includes(item.catalogItemId) }"
-        >
-          <img
-            :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
-            :alt="item.catalogItem?.name"
-            class="pointer-events-none h-40"
-          />
-          <div class="ml-2 flex flex-col gap-2">
-            <p class="font-medium">{{ item.catalogItem?.name }}</p>
-            <table class="text-sm">
-              <tbody>
-                <tr>
-                  <th class="pr-4 text-left font-normal text-gray-500">価格</th>
-                  <td>{{ toCurrencyJPY(item.unitPrice) }}</td>
-                </tr>
-                <tr>
-                  <th class="pr-4 text-left font-normal text-gray-500">数量</th>
-                  <td>{{ item.quantity }}</td>
-                </tr>
-                <tr>
-                  <th class="pr-4 text-left font-normal text-gray-500">小計</th>
-                  <td class="font-bold">{{ toCurrencyJPY(item.subTotal) }}</td>
-                </tr>
-              </tbody>
-            </table>
+      <div
+        v-for="item in getBasket.basketItems"
+        :key="item.catalogItemId"
+        class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
+      >
+        <div class="col-span-4 lg:col-span-5">
+          <div class="grid grid-cols-2">
+            <img
+              :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
+              :alt="item.catalogItem?.name"
+              class="pointer-events-none h-40"
+            />
+            <div class="ml-2">
+              <p>{{ item.catalogItem?.name }}</p>
+              <p class="mt-4">
+                {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
+              </p>
+              <p class="mt-4">
+                {{ `数量: ${item.quantity}` }}
+              </p>
+              <p class="mt-4">
+                {{ toCurrencyJPY(item.subTotal) }}
+              </p>
+            </div>
             <p
               v-if="getDeletedItemIds.includes(item.catalogItemId)"
               class="mt-4 font-bold text-red-500"
