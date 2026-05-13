@@ -5,119 +5,119 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public class CatalogItemEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String name;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.description")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String description;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private BigDecimal price;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String productCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_category_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long catalogCategoryId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_brand_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long catalogBrandId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Boolean isDeleted;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.row_version")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime rowVersion;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getName() {
         return name;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.name")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setName(String name) {
         this.name = name;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.description")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getDescription() {
         return description;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.description")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public BigDecimal getPrice() {
         return price;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.price")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getProductCode() {
         return productCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.product_code")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_category_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getCatalogCategoryId() {
         return catalogCategoryId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_category_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setCatalogCategoryId(Long catalogCategoryId) {
         this.catalogCategoryId = catalogCategoryId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_brand_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getCatalogBrandId() {
         return catalogBrandId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.catalog_brand_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setCatalogBrandId(Long catalogBrandId) {
         this.catalogBrandId = catalogBrandId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.is_deleted")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.row_version")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public OffsetDateTime getRowVersion() {
         return rowVersion;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: catalog_items.row_version")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setRowVersion(OffsetDateTime rowVersion) {
         this.rowVersion = rowVersion;
     }

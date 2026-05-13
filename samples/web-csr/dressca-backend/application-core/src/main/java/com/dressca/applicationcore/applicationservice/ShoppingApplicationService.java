@@ -88,9 +88,14 @@ public class ShoppingApplicationService {
         new Object[] {buyerId, quantities}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
-    if (!this.catalogDomainService.existAll(List.copyOf(quantities.keySet()))) {
-      throw new CatalogNotFoundException();
+
+    List<Long> catalogItemIds = new ArrayList<>(quantities.keySet());
+
+    if (!this.catalogDomainService.existAll(catalogItemIds)) {
+      List<CatalogItem> deletedCatalogItems =
+          this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
+      throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
+          .mapToLong(Long::longValue).toArray());
     }
 
     // 買い物かごに入っていないカタログアイテムが指定されていないか確認
@@ -129,7 +134,7 @@ public class ShoppingApplicationService {
     Basket basket = getOrCreateBasketForUser(buyerId);
 
     if (!catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId)) {
-      throw new CatalogNotFoundException();
+      throw new CatalogNotFoundException(catalogItemId);
     }
 
     BasketItem basketItem =

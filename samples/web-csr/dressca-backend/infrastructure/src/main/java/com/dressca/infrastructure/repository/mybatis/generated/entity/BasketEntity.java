@@ -3,28 +3,28 @@ package com.dressca.infrastructure.repository.mybatis.generated.entity;
 import jakarta.annotation.Generated;
 
 public class BasketEntity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Long id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.buyer_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String buyerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getId() {
         return id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.buyer_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public String getBuyerId() {
         return buyerId;
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source field: baskets.buyer_id")
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }

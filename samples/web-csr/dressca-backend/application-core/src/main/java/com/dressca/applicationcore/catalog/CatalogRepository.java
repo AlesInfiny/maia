@@ -122,4 +122,12 @@ public interface CatalogRepository {
    * @return 更新できたら 1 、できなければ 0 を返す。
    */
   int update(CatalogItem item);
+
+  /**
+   * 削除済みのカタログアイテムを、カタログアイテム ID のリストに一致するカタログアイテムのリストを取得します。
+   * 
+   * @param catalogItemIds カタログアイテム ID のリスト。
+   * @return 条件に一致する削除済みカタログアイテムのリスト。存在しない場合、空のリスト。
+   */
+  List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<Long> catalogItemIds);
 }

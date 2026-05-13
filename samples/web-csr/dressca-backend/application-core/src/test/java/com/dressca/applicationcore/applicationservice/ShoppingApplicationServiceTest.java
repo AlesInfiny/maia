@@ -197,6 +197,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
@@ -222,6 +223,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -232,13 +234,17 @@ public class ShoppingApplicationServiceTest {
   void testSetQuantities_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
-    List<Long> catalogItemIds = List.of(1L);
+    long deletedCatalogItemId = 1L;
+    List<Long> catalogItemIds = List.of(deletedCatalogItemId);
 
     // モックの設定
     Long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
+    CatalogItem deletedCatalogItem = createCatalogItem(deletedCatalogItemId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+    when(this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds))
+        .thenReturn(List.of(deletedCatalogItem));
 
     try {
       // テストメソッドの実行
@@ -249,6 +255,8 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
+      verify(this.catalogRepository, times(1)).findDeletedItemsByCatalogItemIdIn(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
@@ -277,6 +285,7 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogItemInBasketNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
