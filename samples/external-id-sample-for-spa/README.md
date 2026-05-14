@@ -63,9 +63,9 @@ auth-backend
 　 |  |  ├ controller
 　 |  |  |  ├ dto
 　 |  |  |  |  ├ time
-　 |  |  |  |  |  └ ServerTimeResponse.java ............. 認証を必要としない現在時刻を取得する Web API の戻り値の型
+　 |  |  |  |  |  └ GetServerTimeResponse.java ............. 認証を必要としない現在時刻を取得する Web API の戻り値の型
 　 |  |  |  |  ├ auth
-　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
+　 |  |  |  |  └  └ GetUserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
 　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
 　 |  |  |  ├ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
 　 |  |  |  └ advice
