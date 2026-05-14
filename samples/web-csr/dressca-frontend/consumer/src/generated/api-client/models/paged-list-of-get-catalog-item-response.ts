@@ -15,9 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { PagedListOfCatalogItemApiModel } from './paged-list-of-catalog-item-api-model';
+import type { GetCatalogItemResponse } from './get-catalog-item-response';
 
-export interface GetCatalogItemsByQueryResponse {
-    'catalogItems': PagedListOfCatalogItemApiModel;
+export interface PagedListOfGetCatalogItemResponse {
+    'hasNext'?: boolean;
+    'hasPrevious'?: boolean;
+    'items'?: Array<GetCatalogItemResponse>;
+    'page'?: number;
+    'pageSize'?: number;
+    'totalCount'?: number;
+    'totalPages'?: number;
 }
 

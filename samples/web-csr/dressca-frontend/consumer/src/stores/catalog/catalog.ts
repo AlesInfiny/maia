@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type {
   GetCatalogCategoriesResponse,
   GetCatalogBrandsResponse,
-  PagedListOfCatalogItemApiModel,
+  PagedListOfGetCatalogItemResponse,
 } from '@/generated/api-client'
 import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-client'
 
@@ -13,7 +13,7 @@ export const useCatalogStore = defineStore('catalog', {
   state: (): {
     categories: GetCatalogCategoriesResponse[]
     brands: GetCatalogBrandsResponse[]
-    catalogItemPage: PagedListOfCatalogItemApiModel
+    catalogItemPage: PagedListOfGetCatalogItemResponse
   } => ({
     categories: [],
     brands: [],
@@ -51,13 +51,13 @@ export const useCatalogStore = defineStore('catalog', {
      * @param page ページ番号（任意）。
      */
     async fetchItems(categoryId: number, brandId: number, page?: number) {
-      const response = await catalogItemsApi().getCatalogItemsByQuery(
+      const response = await catalogItemsApi().getByQuery(
         brandId === 0 ? undefined : brandId,
         categoryId === 0 ? undefined : categoryId,
         page,
         undefined,
       )
-      this.catalogItemPage = response.data.catalogItems
+      this.catalogItemPage = response.data
     },
   },
   getters: {

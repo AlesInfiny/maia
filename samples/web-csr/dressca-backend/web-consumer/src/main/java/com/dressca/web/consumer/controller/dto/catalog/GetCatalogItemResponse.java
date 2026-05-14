@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogItemApiModel {
+public class GetCatalogItemResponse {
 
   @NotNull
   private long id;

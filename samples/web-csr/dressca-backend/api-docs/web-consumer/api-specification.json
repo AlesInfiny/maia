@@ -339,7 +339,7 @@
     "/api/catalog-items": {
       "get": {
         "description": "カタログアイテムを検索して返します。",
-        "operationId": "getCatalogItemsByQuery",
+        "operationId": "getByQuery",
         "parameters": [
           {
             "in": "query",
@@ -387,7 +387,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetCatalogItemsByQueryResponse"
+                  "$ref": "#/components/schemas/PagedListOfGetCatalogItemResponse"
                 }
               }
             },
@@ -588,50 +588,6 @@
           "unitPrice"
         ]
       },
-      "CatalogItemApiModel": {
-        "type": "object",
-        "properties": {
-          "assetCodes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "catalogBrandId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "catalogCategoryId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": {
-            "type": "string"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "productCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "catalogBrandId",
-          "catalogCategoryId",
-          "description",
-          "id",
-          "name",
-          "price",
-          "productCode"
-        ]
-      },
       "CatalogItemSummaryApiModel": {
         "type": "object",
         "properties": {
@@ -717,15 +673,48 @@
           "name"
         ]
       },
-      "GetCatalogItemsByQueryResponse": {
+      "GetCatalogItemResponse": {
         "type": "object",
         "properties": {
-          "catalogItems": {
-            "$ref": "#/components/schemas/PagedListOfCatalogItemApiModel"
+          "assetCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "catalogBrandId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "catalogCategoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "productCode": {
+            "type": "string"
           }
         },
         "required": [
-          "catalogItems"
+          "catalogBrandId",
+          "catalogCategoryId",
+          "description",
+          "id",
+          "name",
+          "price",
+          "productCode"
         ]
       },
       "GetOrderByIdResponse": {
@@ -817,7 +806,7 @@
           "unitPrice"
         ]
       },
-      "PagedListOfCatalogItemApiModel": {
+      "PagedListOfGetCatalogItemResponse": {
         "type": "object",
         "properties": {
           "hasNext": {
@@ -829,7 +818,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CatalogItemApiModel"
+              "$ref": "#/components/schemas/GetCatalogItemResponse"
             }
           },
           "page": {

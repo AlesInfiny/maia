@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
 import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemApiModel;
-import com.dressca.web.consumer.controller.dto.catalog.PagedListOfCatalogItemApiModel;
+import com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemResponse;
+import com.dressca.web.consumer.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.consumer.mapper.CatalogItemMapper;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemsByQueryResponse;
 
 /**
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
@@ -46,24 +45,23 @@ public class CatalogItemsController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = GetCatalogItemsByQueryResponse.class))),
+              schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。",
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping()
-  public ResponseEntity<GetCatalogItemsByQueryResponse> getCatalogItemsByQuery(
+  public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", defaultValue = "0") long brandId,
       @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<CatalogItemApiModel> items =
+    List<GetCatalogItemResponse> items =
         service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize).stream()
             .map(CatalogItemMapper::convert).collect(Collectors.toList());
     int totalCount = service.countCatalogItemsForConsumer(brandId, categoryId);
 
-    GetCatalogItemsByQueryResponse returnValue =
-        new GetCatalogItemsByQueryResponse(
-            new PagedListOfCatalogItemApiModel(items, totalCount, page, pageSize));
+    PagedListOfGetCatalogItemResponse returnValue =
+            new PagedListOfGetCatalogItemResponse(items, totalCount, page, pageSize);
     return ResponseEntity.ok().body(returnValue);
   }
 }
