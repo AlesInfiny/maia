@@ -1,7 +1,7 @@
-import type { BasketResponse, BasketItemResponse } from '@/generated/api-client'
+import type { GetBasketItemsResponse, BasketItemApiModel } from '@/generated/api-client'
 import { deletedItemId } from './catalog-items'
 
-export const basket: BasketResponse = {
+export const basket: GetBasketItemsResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
   account: {
     consumptionTaxRate: 0.1,
@@ -14,7 +14,7 @@ export const basket: BasketResponse = {
   deletedItemIds: [],
 }
 
-export const basketItems: BasketItemResponse[] = [
+export const basketItems: BasketItemApiModel[] = [
   {
     catalogItemId: 1,
     quantity: 0,

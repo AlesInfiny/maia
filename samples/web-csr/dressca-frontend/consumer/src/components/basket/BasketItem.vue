@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response'
+import type { BasketItemApiModel } from '@/generated/api-client'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import * as yup from 'yup'
 import { useField, useForm } from 'vee-validate'
@@ -10,7 +10,7 @@ import { i18n } from '@/locales/i18n'
 
 const { t } = i18n.global
 const props = defineProps<{
-  item: BasketItemResponse
+  item: BasketItemApiModel
   available: boolean
 }>()
 

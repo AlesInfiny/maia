@@ -1,8 +1,8 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
 import type {
-  AccountResponse,
-  BasketItemResponse,
+  AccountApiModel,
+  BasketItemApiModel,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client'
@@ -14,7 +14,7 @@ import { basket, basketItems } from '../data/basket-items'
  * @param originalBasketItems 買い物かごアイテムのリスト。
  * @returns 小計金額が計算済みの買い物かごアイテムのリスト。
  */
-function calcBasketItemsSubTotal(originalBasketItems: BasketItemResponse[]): BasketItemResponse[] {
+function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): BasketItemApiModel[] {
   if (!originalBasketItems) {
     return originalBasketItems
   }
@@ -32,7 +32,7 @@ function calcBasketItemsSubTotal(originalBasketItems: BasketItemResponse[]): Bas
  * @param subTotals 小計金額のリスト。
  * @returns 買い物かごの会計情報。
  */
-function calcBasketAccount(subTotals: number[]): AccountResponse {
+function calcBasketAccount(subTotals: number[]): AccountApiModel {
   const totalItemsPrice = subTotals.reduce((total, subTotal) => total + subTotal, 0)
   const consumptionTaxRate = 0.1
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500

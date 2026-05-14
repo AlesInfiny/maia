@@ -14,7 +14,7 @@
 
 
 
-export interface UserResponse {
+export interface GetUserResponse {
     'userId': string;
 }
 

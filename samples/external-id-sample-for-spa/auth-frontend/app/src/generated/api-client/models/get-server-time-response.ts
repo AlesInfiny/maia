@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Dressca
- * ECサイトDressca
+ * Microsoft Entra External ID ユーザー認証
+ * Microsoft Entra External ID を利用したユーザー認証機能を提供するサンプルアプリケーションです。
  *
  * The version of the OpenAPI document: v1
  * 
@@ -14,8 +14,7 @@
 
 
 
-export interface CatalogBrandResponse {
-    'id': number;
-    'name': string;
+export interface GetServerTimeResponse {
+    'serverTime': string;
 }
 

@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import type {
-  CatalogCategoryResponse,
-  CatalogBrandResponse,
-  PagedListOfCatalogItemResponse,
+  GetCatalogCategoriesResponse,
+  GetCatalogBrandsResponse,
+  PagedListOfGetCatalogItemResponse,
 } from '@/generated/api-client'
 import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-client'
 
@@ -11,9 +11,9 @@ import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-c
  */
 export const useCatalogStore = defineStore('catalog', {
   state: (): {
-    categories: CatalogCategoryResponse[]
-    brands: CatalogBrandResponse[]
-    catalogItemPage: PagedListOfCatalogItemResponse
+    categories: GetCatalogCategoriesResponse[]
+    brands: GetCatalogBrandsResponse[]
+    catalogItemPage: PagedListOfGetCatalogItemResponse
   } => ({
     categories: [],
     brands: [],

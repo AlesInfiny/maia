@@ -2,7 +2,7 @@ package com.dressca.web.consumer.controller.dto.order;
 
 import java.math.BigDecimal;
 import jakarta.validation.constraints.NotNull;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItemResponse {
+public class OrderItemApiModel {
   @NotNull
   private long id;
-  private CatalogItemSummaryResponse itemOrdered;
+  private CatalogItemSummaryApiModel itemOrdered;
   @NotNull
   private int quantity;
   @NotNull

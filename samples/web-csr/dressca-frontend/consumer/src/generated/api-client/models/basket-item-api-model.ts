@@ -15,15 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { CatalogItemResponse } from './catalog-item-response';
+import type { CatalogItemSummaryApiModel } from './catalog-item-summary-api-model';
 
-export interface PagedListOfCatalogItemResponse {
-    'hasNext'?: boolean;
-    'hasPrevious'?: boolean;
-    'items'?: Array<CatalogItemResponse>;
-    'page'?: number;
-    'pageSize'?: number;
-    'totalCount'?: number;
-    'totalPages'?: number;
+export interface BasketItemApiModel {
+    'catalogItem'?: CatalogItemSummaryApiModel;
+    'catalogItemId': number;
+    'quantity': number;
+    'subTotal': number;
+    'unitPrice': number;
 }
 

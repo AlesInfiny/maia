@@ -3,7 +3,7 @@ package com.dressca.web.consumer.controller.dto.order;
 import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
-import com.dressca.web.consumer.controller.dto.accounting.AccountResponse;
+import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderResponse {
+public class GetOrderByIdResponse {
   @NotNull
   private long id;
   @NotNull
@@ -31,6 +31,6 @@ public class OrderResponse {
   private String shikuchoson;
   @NotNull
   private String azanaAndOthers;
-  private AccountResponse account;
-  private List<OrderItemResponse> orderItems;
+  private AccountApiModel account;
+  private List<OrderItemApiModel> orderItems;
 }

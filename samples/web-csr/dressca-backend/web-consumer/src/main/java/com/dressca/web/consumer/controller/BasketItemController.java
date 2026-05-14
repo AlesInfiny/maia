@@ -10,11 +10,11 @@ import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
-import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
-import com.dressca.web.consumer.controller.dto.baskets.BasketResponse;
+import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
+import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.baskets.PutBasketItemsRequest;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
 import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.consumer.mapper.BasketMapper;
 import com.dressca.web.consumer.mapper.CatalogItemSummaryMapper;
@@ -62,16 +62,16 @@ public class BasketItemController {
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
-          schema = @Schema(implementation = BasketResponse.class)))})
+          schema = @Schema(implementation = GetBasketItemsResponse.class)))})
   @GetMapping
-  public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
+  public ResponseEntity<GetBasketItemsResponse> getBasketItems(HttpServletRequest req) {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
     BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
     Basket basket = basketItemsForUser.getBasket();
     List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
-    BasketResponse basketDto = BasketMapper.convert(basket);
+    GetBasketItemsResponse basketDto = BasketMapper.convert(basket);
 
-    for (BasketItemResponse item : basketDto.getBasketItems()) {
+    for (BasketItemApiModel item : basketDto.getBasketItems()) {
       item.setCatalogItem(this.getCatalogItemResponse(item.getCatalogItemId(), catalogItems));
     }
     List<Long> deletedItemIds = basketItemsForUser.getDeletedItemIds();
@@ -221,7 +221,7 @@ public class BasketItemController {
     return ResponseEntity.noContent().build();
   }
 
-  private CatalogItemSummaryResponse getCatalogItemResponse(long catalogItemId,
+  private CatalogItemSummaryApiModel getCatalogItemResponse(long catalogItemId,
       List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream().filter(item -> item.getId() == catalogItemId)
         .findFirst().orElse(null);
@@ -229,7 +229,7 @@ public class BasketItemController {
     return convertCatalogItemDto(catalogItem);
   }
 
-  private CatalogItemSummaryResponse convertCatalogItemDto(CatalogItem catalogItem) {
+  private CatalogItemSummaryApiModel convertCatalogItemDto(CatalogItem catalogItem) {
     if (catalogItem == null) {
       return null;
     }

@@ -15,15 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { AccountResponse } from './account-response';
-// May contain unused imports in some cases
-// @ts-ignore
-import type { BasketItemResponse } from './basket-item-response';
+import type { GetCatalogItemResponse } from './get-catalog-item-response';
 
-export interface BasketResponse {
-    'account'?: AccountResponse;
-    'basketItems'?: Array<BasketItemResponse>;
-    'buyerId': string;
-    'deletedItemIds'?: Array<number>;
+export interface PagedListOfGetCatalogItemResponse {
+    'hasNext'?: boolean;
+    'hasPrevious'?: boolean;
+    'items'?: Array<GetCatalogItemResponse>;
+    'page'?: number;
+    'pageSize'?: number;
+    'totalCount'?: number;
+    'totalPages'?: number;
 }
 

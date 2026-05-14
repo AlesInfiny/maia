@@ -14,11 +14,8 @@
 
 
 
-export interface AccountResponse {
-    'consumptionTax': number;
-    'consumptionTaxRate': number;
-    'deliveryCharge': number;
-    'totalItemsPrice': number;
-    'totalPrice': number;
+export interface GetCatalogBrandsResponse {
+    'id': number;
+    'name': string;
 }
 
