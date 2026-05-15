@@ -38,7 +38,8 @@ public class CatalogBrandsController {
   @Operation(summary = "カタログブランドの一覧を取得します。", description = "カタログブランドの一覧を取得します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
-          array = @ArraySchema(schema = @Schema(implementation = GetCatalogBrandsResponse.class))))})
+          array = @ArraySchema(
+              schema = @Schema(implementation = GetCatalogBrandsResponse.class))))})
   @GetMapping()
   public ResponseEntity<List<GetCatalogBrandsResponse>> getCatalogBrands() {
     List<GetCatalogBrandsResponse> brands = this.service.getBrands().stream()
