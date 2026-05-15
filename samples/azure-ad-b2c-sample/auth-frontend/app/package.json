@@ -22,7 +22,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@azure/msal-browser": "5.6.3",
+    "@azure/msal-browser": "5.10.0",
     "axios": "1.15.2",
     "pinia": "3.0.4",
     "vue": "3.5.30"
