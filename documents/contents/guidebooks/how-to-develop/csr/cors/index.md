@@ -81,7 +81,7 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
     ```
 
 まず、[`#!java @EnableWebSecurity` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を付与することで、このクラスが Spring Security の設定クラスであることを示します。
-また、 `application.properties` から読み込んだ許可対象オリジンの一覧を CORS のポリシー設定に渡すため、 `CorsAllowedOriginsProperties` を定義します。
+また、 `application-prd.properties` から読み込んだ許可対象オリジンの一覧を CORS のポリシー設定に渡すため、 `CorsAllowedOriginsProperties` を定義します。
 
 さらに、上記の実装は `securityFilterChain` メソッドと `corsConfigurationSource` メソッドがそれぞれ別の役割を持っています。
 
