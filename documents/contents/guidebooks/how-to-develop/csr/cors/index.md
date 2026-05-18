@@ -36,7 +36,7 @@ CORS の仕組みの詳細は「 [オリジン間リソース共有 (CORS) - HTT
 ## バックエンドアプリケーション（ Spring Boot ） {#backend}
 
 Spring Boot アプリケーションでは、 [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/architecture.html#servlet-securityfilterchain){ target=_blank } で CORS に関するポリシーを設定します。
-AlesInfiny Maia OSS Edition （以降『 AlesInfiny Maia 』）では、許可するオリジンの一覧をアプリケーション設定ファイル `application.properties` から取得します。
+AlesInfiny Maia OSS Edition （以降『 AlesInfiny Maia 』）では、許可するオリジンの一覧をアプリケーション設定ファイル `application-<環境名>.properties` から取得します。
 
 ### 許可するオリジンの追加 {#application-properties}
 
@@ -58,7 +58,7 @@ cors.allowed.origins=https://dev.frontend.example.com
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
 まず、アプリケーション設定ファイルに記述した許可対象オリジンを読み込む設定を実施します。
-具体的には、[`#!java @ConfigurationProperties` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用し、 `cors.allowed.origins` に設定した値を `CorsAllowedOriginsProperties` クラスに対応付けています。
+具体的には、[`#!java @ConfigurationProperties` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用し、 `application-<環境名>.properties` の `cors.allowed.origins` に設定した値を `CorsAllowedOriginsProperties` クラスに対応付けています。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -76,7 +76,7 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
 
 ??? example "`WebSecurityConfig.java` の CORS 設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="40 50-62"
+    ```java title="WebSecurityConfig.java"　hl_lines="40 51-63"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
     ```
 
@@ -107,7 +107,7 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
 - `setAllowedOrigins` メソッド
 
     CORS でリソースへのアクセスを許可するオリジンを設定します。
-    AlesInfiny Maia では `CorsAllowedOriginsProperties` が `application.properties` から読み込んだ値を引数に渡します。
+    AlesInfiny Maia では `CorsAllowedOriginsProperties` が `application-<環境名>.properties` から読み込んだ値を引数に渡します。
 
 - `setAllowedMethods` メソッド
 
