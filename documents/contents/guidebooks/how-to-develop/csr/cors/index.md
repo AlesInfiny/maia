@@ -70,7 +70,7 @@ cors.allowed.origins=https://dev.frontend.example.com
 
 ### CORS ポリシーの設定 {#configure-cors-policy}
 
-Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :material-open-in-new:](https://docs.spring.io/spring-security/reference/servlet/architecture.html#servlet-securityfilterchain){ target=_blank } を利用して実装します。
+Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用して実装します。
 
 以下は、サンプルアプリケーションにおける CORS の設定を実現する `WebSecurityConfig.java` の実装例です。
 
