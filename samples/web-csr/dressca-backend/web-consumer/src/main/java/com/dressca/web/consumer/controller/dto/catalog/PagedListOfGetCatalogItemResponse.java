@@ -24,8 +24,8 @@ public class PagedListOfGetCatalogItemResponse {
    * @param page 現在のページ番号。
    * @param pageSize ページ数の合計。
    */
-  public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount, int page,
-      int pageSize) {
+  public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount,
+      int page, int pageSize) {
     this.items = List.copyOf(items);
     this.totalCount = totalCount;
     this.page = page;

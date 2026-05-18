@@ -67,7 +67,8 @@ public class OrderController {
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getOrderById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+  public ResponseEntity<?> getOrderById(@PathVariable("orderId") long orderId,
+      HttpServletRequest req) {
     String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
 
     try {
