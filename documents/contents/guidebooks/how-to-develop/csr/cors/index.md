@@ -35,7 +35,7 @@ CORS の仕組みの詳細は「 [オリジン間リソース共有 (CORS) - HTT
 
 ## バックエンドアプリケーション（ Spring Boot ） {#backend}
 
-Spring Boot アプリケーションでは、 [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/web/SecurityFilterChain.html){ target=_blank } で CORS に関するポリシーを設定します。
+Spring Boot アプリケーションでは、 [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/architecture.html#servlet-securityfilterchain){ target=_blank } で CORS に関するポリシーを設定します。
 AlesInfiny Maia OSS Edition （以降『 AlesInfiny Maia 』）では、許可するオリジンの一覧をアプリケーション設定ファイル `application.properties` から取得します。
 
 ### 許可するオリジンの追加 {#application-properties}
@@ -55,37 +55,45 @@ cors.allowed.origins=https://dev.frontend.example.com
 
 ### 許可するオリジンの読み込み {#reading-allowed-origins}
 
-まず、 CORS による設定を有効化するために、[`#!java @EnableWebSecurity` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を記述します。
-また、`application.properties` で許可したオリジンを読み込むために、 [`#!java @Value` :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/core/beans/annotation-config/value-annotations.html){ target=_blank } を利用します。
-なお、`#!java @Value` 内で記述したプロパティ名は `application.properties` で設定した名称と一致させる必要があります。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
-```java title="WebSecurityConfig.java"
-@Configuration(proxyBeanMethods = false)
-@EnableWebSecurity
-public class WebSecurityConfig {
+まず、アプリケーション設定ファイルに記述した許可対象オリジンを読み込む設定を実施します。
+具体的には、[`#!java @ConfigurationProperties` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用し、 `cors.allowed.origins` に設定した値を `CorsAllowedOriginsProperties` クラスに対応付けています。
 
-  @Value("${cors.allowed.origins:}")
-  private String[] allowedOrigins;
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
-  ...
-}
-```
+!!! example "許可するオリジンを読み込む `CorsAllowedOriginsProperties.java` の実装例"
 
-!!! note "プロパティ名の後に `:` を記述して空の配列を設定"
-    `#!java @Value` 内に記述したプロパティ名が application.properties に記述されていない場合、エラーが発生します。
-    AlesInfiny Maia のサンプルアプリケーションでは、プロパティ名の後に `:` を記述することで初期値に空の配列を設定し、エラーを回避しています。
+    ```java title="CorsAllowedOriginsProperties.java"
+    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/security/CorsAllowedOriginsProperties.java#L10-L22
+    ```
 
 ### CORS ポリシーの設定 {#configure-cors-policy}
 
-Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用して実装します。
+Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用して実装します。
 
 以下は、サンプルアプリケーションにおける CORS の設定を実現する `WebSecurityConfig.java` の実装例です。
 
-??? example "`SecurityFilterChain` の CORS 設定例"
+??? example "`WebSecurityConfig.java` の CORS 設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="30-31 38-47"
+    ```java title="WebSecurityConfig.java"　hl_lines="40 50-62"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
     ```
+
+まず、[`#!java @EnableWebSecurity` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を付与することで、このクラスが Spring Security の設定クラスであることを示します。
+また、 `application-prd.properties` から読み込んだ許可対象オリジンの一覧を CORS のポリシー設定に渡すため、 `CorsAllowedOriginsProperties` を定義します。
+
+さらに、上記の実装は `securityFilterChain` メソッドと `corsConfigurationSource` メソッドがそれぞれ別の役割を持っています。
+
+- `securityFilterChain` メソッド
+
+    Spring Security のフィルターチェーンを構成するメソッドです。
+    `#!java .cors(Customizer.withDefaults())` を指定することで、 Spring Security に対して CORS の処理を有効化し、 `CorsConfigurationSource` Bean から設定を取得するようにしています。
+
+- `corsConfigurationSource` メソッド
+
+    CORS で許可するオリジン、 HTTP メソッド、 HTTP ヘッダーなどの具体的なポリシーを定義するメソッドです。
+    `securityFilterChain` メソッドで有効化された CORS 処理は、このメソッドが返す `CorsConfigurationSource` の内容に従って動作します。
 
 ### CORS のポリシー設定についての詳細 {#detail-of-cors-policy}
 
@@ -99,7 +107,7 @@ Spring Boot では、 CORS に関する設定を `SecurityFilterChain` を利用
 - `setAllowedOrigins` メソッド
 
     CORS でリソースへのアクセスを許可するオリジンを設定します。
-    AlesInfiny Maia ではアプリケーション設定ファイルから値を取得して引数に渡します。
+    AlesInfiny Maia では `CorsAllowedOriginsProperties` が `application.properties` から読み込んだ値を引数に渡します。
 
 - `setAllowedMethods` メソッド
 
