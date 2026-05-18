@@ -35,7 +35,7 @@ CORS の仕組みの詳細は「 [オリジン間リソース共有 (CORS) - HTT
 
 ## バックエンドアプリケーション（ Spring Boot ） {#backend}
 
-Spring Boot アプリケーションでは、 [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/web/SecurityFilterChain.html){ target=_blank } で CORS に関するポリシーを設定します。
+Spring Boot アプリケーションでは、 [`SecurityFilterChain` :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/architecture.html#servlet-securityfilterchain){ target=_blank } で CORS に関するポリシーを設定します。
 AlesInfiny Maia OSS Edition （以降『 AlesInfiny Maia 』）では、許可するオリジンの一覧をアプリケーション設定ファイル `application.properties` から取得します。
 
 ### 許可するオリジンの追加 {#application-properties}
@@ -58,7 +58,7 @@ cors.allowed.origins=https://dev.frontend.example.com
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
 まず、アプリケーション設定ファイルに記述した許可対象オリジンを読み込む設定を実施します。
-具体的には、[`#!java @ConfigurationProperties` :material-open-in-new:](https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用し、 `cors.allowed.origins` に設定した値を `CorsAllowedOriginsProperties` クラスに対応付けています。
+具体的には、[`#!java @ConfigurationProperties` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用し、 `cors.allowed.origins` に設定した値を `CorsAllowedOriginsProperties` クラスに対応付けています。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
