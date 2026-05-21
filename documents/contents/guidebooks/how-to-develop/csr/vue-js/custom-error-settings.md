@@ -20,7 +20,7 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 
 他方で、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で導入した Axios には、 HTTP 通信で発生するエラーを表現するために、 `Error` 型を拡張した `AxiosError` 型が用意されています。
 `AxiosError` 型には、リクエスト設定 ( `config` )、レスポンス ( `response` )、エラーコード ( `code` ) などが含まれ、 `toJSON()` メソッドでこれらを JSON 形式に変換できます。
-`AxiosError` の一般的な構造については、 Axios 公式ドキュメントの [Handling Errors :material-open-in-new:](https://axios-http.com/docs/handling_errors){ target=_blank } を参照ください。
+`AxiosError` の一般的な構造については、 Axios 公式ドキュメントの [Handling Errors :material-open-in-new:](https://axios.rest/pages/advanced/error-handling){ target=_blank } を参照ください。
 
 エラーハンドリングに `AxiosError` 型をそのまま用いることも考えられますが、業務例外の構造が直接外部ライブラリに依存しないクリーンなコードを保つため、 `AxiosError` 型をカスタムエラーへ変換します。
 
@@ -109,7 +109,7 @@ export class NotFoundError extends HttpError {
 
 ## AxiosError をカスタムエラーに変換する {#convert-axios-error}
 
-Axios の [Interceptors :material-open-in-new:](https://axios-http.com/docs/interceptors){ target=_blank } を用いて、 `AxiosError` をカスタムエラーに変換します。 Axios の Interceptors は、 HTTP リクエストおよびレスポンスが処理される前に、任意のハンドリング処理を挟み込んで実行できる機能です。
+Axios の [Interceptors :material-open-in-new:](https://axios.rest/pages/advanced/interceptors){ target=_blank } を用いて、 `AxiosError` をカスタムエラーに変換します。 Axios の Interceptors は、 HTTP リクエストおよびレスポンスが処理される前に、任意のハンドリング処理を挟み込んで実行できる機能です。
 
 この機能を用いて、 HTTP ステータスコードに対応した適切なカスタムエラーへ変換する処理を一箇所に集約して実装します。
 HTTP ステータスコードは `AxiosError` の `response.status` へ格納されています。

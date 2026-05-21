@@ -119,7 +119,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ServerTimeResponse"
+                  "$ref": "#/components/schemas/GetServerTimeResponse"
                 }
               }
             },
@@ -141,7 +141,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
+                  "$ref": "#/components/schemas/GetUserResponse"
                 }
               }
             },
@@ -172,6 +172,28 @@
   },
   "components": {
     "schemas": {
+      "GetServerTimeResponse": {
+        "type": "object",
+        "properties": {
+          "serverTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "serverTime"
+        ]
+      },
+      "GetUserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
       "Link": {
         "type": "object",
         "properties": {
@@ -209,28 +231,6 @@
             "format": "uri"
           }
         }
-      },
-      "ServerTimeResponse": {
-        "type": "object",
-        "properties": {
-          "serverTime": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "serverTime"
-        ]
-      },
-      "UserResponse": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "userId"
-        ]
       }
     },
     "securitySchemes": {

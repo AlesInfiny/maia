@@ -55,3 +55,4 @@ Microsoft Entra External ID （以降、 Entra External ID ）を利用したユ
 サンプルアプリケーションと詳細な解説は以下からダウンロードできます。
 
 - [サンプルアプリケーションのダウンロード](../../downloads/external-id-sample-for-spa.zip)
+- [サンプルアプリケーションのダウンロード(BIPROGYグループ向け) :material-open-in-new:](https://forms.office.com/r/eFY95qfNNf){ target=_blank }

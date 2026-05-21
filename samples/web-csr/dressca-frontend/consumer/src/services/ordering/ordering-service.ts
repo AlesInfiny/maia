@@ -1,4 +1,4 @@
-import type { OrderResponse, PostOrderRequest } from '@/generated/api-client'
+import type { GetOrderByIdResponse, PostOrderRequest } from '@/generated/api-client'
 import { ordersApi } from '@/api-client'
 
 /**
@@ -35,8 +35,8 @@ export async function postOrder(
     shikuchoson,
     azanaAndOthers,
   }
-  const orderResponse = await ordersApi().postOrder(postOrderInput)
-  const url = new URL(orderResponse.headers.location)
+  const postOrderResponse = await ordersApi().postOrder(postOrderInput)
+  const url = new URL(postOrderResponse.headers.location)
   return Number(url.pathname.split('/').pop())
 }
 
@@ -44,12 +44,12 @@ export async function postOrder(
  * 注文 ID を指定して注文情報を取得します。
  * `ordering/done/:orderId` の onMounted() から呼び出されることを想定しています。
  * @param orderId - 取得対象の注文 ID
- * @returns 注文情報 (`OrderResponse`)
+ * @returns 注文情報 (`GetOrderByIdResponse`)
  * @example
  * const order = await getOrder(123)
  * console.log(order.fullName) // 注文者の名前
  */
-export async function getOrder(orderId: number): Promise<OrderResponse> {
-  const orderResultResponse = await ordersApi().getById(orderId)
+export async function getOrder(orderId: number): Promise<GetOrderByIdResponse> {
+  const orderResultResponse = await ordersApi().getOrderById(orderId)
   return orderResultResponse.data
 }

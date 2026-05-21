@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import type {
-  BasketResponse,
+  GetBasketItemsResponse,
   PutBasketItemsRequest,
   PostBasketItemsRequest,
-  BasketItemResponse,
+  BasketItemApiModel,
 } from '@/generated/api-client'
 import { basketItemsApi } from '@/api-client'
 
@@ -18,7 +18,7 @@ import { basketItemsApi } from '@/api-client'
  */
 export const useBasketStore = defineStore('basket', {
   state: () => ({
-    basket: {} as BasketResponse,
+    basket: {} as GetBasketItemsResponse,
     addedItemId: undefined as number | undefined,
     deletedItemIds: [] as Array<number>,
   }),
@@ -81,15 +81,15 @@ export const useBasketStore = defineStore('basket', {
     /**
      * 現在の買い物かご全体の情報を取得します。
      * @param state 状態。
-     * @returns バスケットレスポンス (`BasketResponse`)
+     * @returns バスケットレスポンス (`GetBasketItemsResponse`)
      */
-    getBasket(state): BasketResponse {
+    getBasket(state): GetBasketItemsResponse {
       return state.basket
     },
     /**
      * 直近に買い物かごに追加されたカタログアイテムの情報を取得します。
      * @param state 状態。
-     * @returns 追加された `BasketItemResponse` または `undefined` 。
+     * @returns 追加された `BasketItemApiModel` または `undefined` 。
      */
     getAddedItemId(state): number | undefined {
       return state.addedItemId
@@ -97,9 +97,9 @@ export const useBasketStore = defineStore('basket', {
     /**
      * 直近に買い物かごに追加されたカタログアイテムの情報を取得します。
      * @param state 状態。
-     * @returns 追加された `BasketItemResponse` または `undefined`
+     * @returns 追加された `BasketItemApiModel` または `undefined`
      */
-    getAddedItem(state): BasketItemResponse | undefined {
+    getAddedItem(state): BasketItemApiModel | undefined {
       return state.basket.basketItems?.find((item) => item.catalogItemId === state.addedItemId)
     },
     /**

@@ -14,7 +14,7 @@
 
 
 
-export interface ServerTimeResponse {
-    'serverTime': string;
+export interface GetUserResponse {
+    'userId': string;
 }
 

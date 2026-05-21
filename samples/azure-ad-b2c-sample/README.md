@@ -74,9 +74,9 @@ auth-backend
 　 |  |  ├ controller
 　 |  |  |  ├ dto
 　 |  |  |  |  ├ time
-　 |  |  |  |  |  └ ServerTimeResponse.java ............. 認証を必要としない現在時刻を取得する Web API の戻り値の型
+　 |  |  |  |  |  └ GetServerTimeResponse.java ............. 認証を必要としない現在時刻を取得する Web API の戻り値の型
 　 |  |  |  |  ├ auth
-　 |  |  |  |  └  └ UserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
+　 |  |  |  |  └  └ GetUserResponse.java ................... 認証を必要とする ユーザー ID を取得する Web API の戻り値の型
 　 |  |  |  ├ ServerTimeController.java ................. 認証を必要としない Web API を配置するコントローラー
 　 |  |  |  ├ UserController.java ....................... 認証を必要とする Web API を配置するコントローラー
 　 |  |  |  └ advice
@@ -333,7 +333,7 @@ BUILD SUCCESSFUL in 2s
     ```
 
 1. 認証を必要とするコントローラークラスで、 認証が必要であることを表すアノテーションを付与します。
-   以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getById()` メソッドに認証が必要なアノテーションを付与する例です。
+   以下は、 `web-consumer\src\main\java\...\controller\OrderController.java` の `getOrderById()` メソッドに認証が必要なアノテーションを付与する例です。
 
     ```diff
       import org.springframework.security.access.prepost.PreAuthorize;
@@ -364,7 +364,7 @@ BUILD SUCCESSFUL in 2s
                     description = "成功。",
                     content = @Content(
                         mediaType = "application/json",
-                        schema = @Schema(implementation = OrderResponse.class))),
+                        schema = @Schema(implementation = GetOrderByIdResponse.class))),
                 @ApiResponse(
                     responseCode = "404",
                     description = "注文 ID が存在しません。",
@@ -374,7 +374,7 @@ BUILD SUCCESSFUL in 2s
             })
         @GetMapping("{orderId}")
     +   @PreAuthorize(value = "isAuthenticated()")
-        public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
+        public ResponseEntity<?> getOrderById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
           // その他のコードは省略
           ...
         }
@@ -410,16 +410,8 @@ BUILD SUCCESSFUL in 2s
               .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
               .securityMatcher("/api/**")
               .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-              .cors(cors -> cors.configurationSource(request -> {
-                CorsConfiguration conf = new CorsConfiguration();
-                conf.setAllowCredentials(true);
-                conf.setAllowedOrigins(Arrays.asList(allowedOrigins));
-                conf.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-                conf.setAllowedHeaders(List.of("*"))
-                conf.addExposedHeader("Location");
-                return conf;
-              }))
-    +        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+              .cors(Customizer.withDefaults())
+    +         .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
           return http.build();
         }
       }

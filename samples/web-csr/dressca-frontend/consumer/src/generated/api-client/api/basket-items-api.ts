@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { BasketResponse } from '../models';
+import type { GetBasketItemsResponse } from '../models';
 // @ts-ignore
 import type { PostBasketItemsRequest } from '../models';
 // @ts-ignore
@@ -196,7 +196,7 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBasketItems(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BasketResponse>> {
+        async getBasketItems(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBasketItemsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBasketItems(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['BasketItemsApi.getBasketItems']?.[localVarOperationServerIndex]?.url;
@@ -253,7 +253,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBasketItems(options?: RawAxiosRequestConfig): AxiosPromise<BasketResponse> {
+        getBasketItems(options?: RawAxiosRequestConfig): AxiosPromise<GetBasketItemsResponse> {
             return localVarFp.getBasketItems(options).then((request) => request(axios, basePath));
         },
         /**
