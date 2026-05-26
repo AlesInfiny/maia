@@ -79,6 +79,9 @@ onMounted(async () => {
     <span class="text-lg font-medium text-green-500">
       {{ t('orderingCheckAndComplete') }}
     </span>
+    <p v-if="getDeletedItemIds.length > 0" class="mt-2 font-bold text-red-500">
+      {{ t('orderingBlockedByUnavailableItems') }}
+    </p>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
     <div class="mx-2 grid grid-cols-2 items-center lg:grid-cols-3 lg:gap-x-12">

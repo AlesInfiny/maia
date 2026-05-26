@@ -22,6 +22,7 @@
   "failedToOrderItems": "注文に失敗しました。",
   "itemUnavailable": "こちらの商品は現在販売しておりません。買い物かごから削除してください。",
   "noItemsInBasket": "買い物かごに商品がありません。",
+  "orderingBlockedByUnavailableItems": "現在販売していない商品が買い物かごに含まれているため、注文を完了できません。",
   "orderingCheckAndComplete": "注文内容を確認して「注文を確定する」ボタンを押してください。",
   "orderingCompleted": "注文が完了しました。",
   "pageNotFound": "ご指定のページが見つかりませんでした。"
