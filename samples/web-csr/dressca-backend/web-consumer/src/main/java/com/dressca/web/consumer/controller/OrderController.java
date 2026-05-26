@@ -17,6 +17,7 @@ import com.dressca.web.consumer.mapper.OrderMapper;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -68,7 +69,10 @@ public class OrderController {
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getOrderById(@PathVariable("orderId") UUID orderId,
+  public ResponseEntity<?> getOrderById(
+      @Parameter(description = "注文 ID 。",
+          schema = @Schema(type = "string", format = "uuid"))
+      @PathVariable("orderId") UUID orderId,
       HttpServletRequest req) {
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 

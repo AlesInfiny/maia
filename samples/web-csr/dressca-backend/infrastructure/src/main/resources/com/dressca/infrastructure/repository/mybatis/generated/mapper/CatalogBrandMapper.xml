@@ -5,7 +5,7 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -140,14 +140,14 @@
     select 
     <include refid="Base_Column_List" />
     from catalog_brands
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from catalog_brands
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntityExample">
     <!--
@@ -164,7 +164,7 @@
     -->
     insert into catalog_brands (id, 
       name)
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity">
@@ -182,7 +182,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -205,7 +205,7 @@
     update catalog_brands
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
@@ -220,7 +220,7 @@
       Generated Code - @mbg.generated
     -->
     update catalog_brands
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       name = #{row.name,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,7 +236,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity">
     <!--
@@ -244,6 +244,6 @@
     -->
     update catalog_brands
     set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

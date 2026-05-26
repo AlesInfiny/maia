@@ -246,16 +246,6 @@ public class BasketItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(UUID value) {
-            addIdCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(UUID value) {
-            addIdCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
         public Criteria andIdIn(List<UUID> values) {
             addIdCriterion("id in", values, "id");
             return (Criteria) this;
@@ -316,16 +306,6 @@ public class BasketItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andBasketIdLike(UUID value) {
-            addBasketIdCriterion("basket_id like", value, "basketId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBasketIdNotLike(UUID value) {
-            addBasketIdCriterion("basket_id not like", value, "basketId");
-            return (Criteria) this;
-        }
-
         public Criteria andBasketIdIn(List<UUID> values) {
             addBasketIdCriterion("basket_id in", values, "basketId");
             return (Criteria) this;
@@ -383,16 +363,6 @@ public class BasketItemEntityExample {
 
         public Criteria andCatalogItemIdLessThanOrEqualTo(UUID value) {
             addCatalogItemIdCriterion("catalog_item_id <=", value, "catalogItemId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogItemIdLike(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id like", value, "catalogItemId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogItemIdNotLike(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id not like", value, "catalogItemId");
             return (Criteria) this;
         }
 

@@ -247,16 +247,6 @@ public class CatalogItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(UUID value) {
-            addIdCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(UUID value) {
-            addIdCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
         public Criteria andIdIn(List<UUID> values) {
             addIdCriterion("id in", values, "id");
             return (Criteria) this;
@@ -587,16 +577,6 @@ public class CatalogItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andCatalogCategoryIdLike(UUID value) {
-            addCatalogCategoryIdCriterion("catalog_category_id like", value, "catalogCategoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogCategoryIdNotLike(UUID value) {
-            addCatalogCategoryIdCriterion("catalog_category_id not like", value, "catalogCategoryId");
-            return (Criteria) this;
-        }
-
         public Criteria andCatalogCategoryIdIn(List<UUID> values) {
             addCatalogCategoryIdCriterion("catalog_category_id in", values, "catalogCategoryId");
             return (Criteria) this;
@@ -654,16 +634,6 @@ public class CatalogItemEntityExample {
 
         public Criteria andCatalogBrandIdLessThanOrEqualTo(UUID value) {
             addCatalogBrandIdCriterion("catalog_brand_id <=", value, "catalogBrandId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogBrandIdLike(UUID value) {
-            addCatalogBrandIdCriterion("catalog_brand_id like", value, "catalogBrandId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogBrandIdNotLike(UUID value) {
-            addCatalogBrandIdCriterion("catalog_brand_id not like", value, "catalogBrandId");
             return (Criteria) this;
         }
 

@@ -220,16 +220,6 @@ public class BasketEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(UUID value) {
-            addIdCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(UUID value) {
-            addIdCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
         public Criteria andIdIn(List<UUID> values) {
             addIdCriterion("id in", values, "id");
             return (Criteria) this;
@@ -287,16 +277,6 @@ public class BasketEntityExample {
 
         public Criteria andBuyerIdLessThanOrEqualTo(UUID value) {
             addBuyerIdCriterion("buyer_id <=", value, "buyerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyerIdLike(UUID value) {
-            addBuyerIdCriterion("buyer_id like", value, "buyerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyerIdNotLike(UUID value) {
-            addBuyerIdCriterion("buyer_id not like", value, "buyerId");
             return (Criteria) this;
         }
 
