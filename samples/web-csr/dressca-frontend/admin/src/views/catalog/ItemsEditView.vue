@@ -413,11 +413,7 @@ const updateItemAsync = async () => {
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option
-                v-for="category in catalogCategories"
-                :key="category.id"
-                :value="category.id"
-              >
+              <option v-for="category in catalogCategories" :key="category.id" :value="category.id">
                 {{ category.name }}
               </option>
             </select>
@@ -431,11 +427,7 @@ const updateItemAsync = async () => {
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option
-                v-for="brand in catalogBrands"
-                :key="brand.id"
-                :value="brand.id"
-              >
+              <option v-for="brand in catalogBrands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>
@@ -520,11 +512,7 @@ const updateItemAsync = async () => {
               name="category"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option
-                v-for="category in catalogCategories"
-                :key="category.id"
-                :value="category.id"
-              >
+              <option v-for="category in catalogCategories" :key="category.id" :value="category.id">
                 {{ category.name }}
               </option>
             </select>
@@ -537,11 +525,7 @@ const updateItemAsync = async () => {
               name="brand"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option
-                v-for="brand in catalogBrands"
-                :key="brand.id"
-                :value="brand.id"
-              >
+              <option v-for="brand in catalogBrands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>

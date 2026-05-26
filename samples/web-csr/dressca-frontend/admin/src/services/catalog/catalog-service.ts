@@ -50,12 +50,7 @@ export async function fetchItems(
   brandId?: string,
   page?: number,
 ): Promise<PagedListOfGetCatalogItemResponse> {
-  const response = await catalogItemsApi().getByQuery(
-    brandId,
-    categoryId,
-    page,
-    undefined,
-  )
+  const response = await catalogItemsApi().getByQuery(brandId, categoryId, page, undefined)
   return response.data
 }
 

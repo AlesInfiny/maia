@@ -9,6 +9,11 @@ import type {
 import { deletedItemId } from '../data/catalog-items'
 import { basket, basketItems } from '../data/basket-items'
 
+/**
+ * 買い物かごアイテムのリストからアイテム毎の小計金額を計算します。
+ * @param originalBasketItems 買い物かごアイテムのリスト。
+ * @returns 小計金額が計算済みの買い物かごアイテムのリスト。
+ */
 function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): BasketItemApiModel[] {
   if (!originalBasketItems) {
     return originalBasketItems
@@ -22,6 +27,11 @@ function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): Bas
   }))
 }
 
+/**
+ * 小計金額から買い物かごの会計情報を計算します。
+ * @param subTotals 小計金額のリスト。
+ * @returns 買い物かごの会計情報。
+ */
 function calcBasketAccount(subTotals: number[]): AccountApiModel {
   const totalItemsPrice = subTotals.reduce((total, subTotal) => total + subTotal, 0)
   const consumptionTaxRate = 0.1
