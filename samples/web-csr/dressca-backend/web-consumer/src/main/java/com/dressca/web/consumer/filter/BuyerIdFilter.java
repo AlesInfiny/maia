@@ -55,10 +55,14 @@ public class BuyerIdFilter implements Filter {
     chain.doFilter(request, response);
 
     buyerId = (UUID) request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
-    ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString())
-        .path("/").httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
-        .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
-        .sameSite(cookieSettings.getSameSite()).build();
+    ResponseCookie responseCookie =
+        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString())
+            .path("/")
+            .httpOnly(cookieSettings.isHttpOnly())
+            .secure(cookieSettings.isSecure())
+            .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
+            .sameSite(cookieSettings.getSameSite())
+            .build();
 
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }

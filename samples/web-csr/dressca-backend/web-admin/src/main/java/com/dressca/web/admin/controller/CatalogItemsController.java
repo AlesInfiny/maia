@@ -55,7 +55,15 @@ public class CatalogItemsController {
   private final CatalogApplicationService service;
   private final AbstractStructuredLogger apLog;
 
-  @Operation(summary = "指定した ID のカタログアイテムを返します。", description = "指定した ID のカタログアイテムを返します。")
+  /**
+   * 指定した ID のカタログアイテムを取得します。
+   * 
+   * @param id カタログアイテム ID 。
+   * @return カタログアイテム。
+   * @throws PermissionDeniedException 権限がない場合。
+   */
+  @Operation(summary = "指定した ID のカタログアイテムを返します。",
+      description = "指定した ID のカタログアイテムを返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
@@ -80,7 +88,18 @@ public class CatalogItemsController {
     return ResponseEntity.ok().body(returnValue);
   }
 
-  @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
+  /**
+   * 条件に一致するカタログアイテムを検索します。
+   * 
+   * @param brandId カタログブランド ID 。
+   * @param categoryId カタログカテゴリ ID 。
+   * @param page ページ番号。
+   * @param pageSize 1 ページ当たりの件数。
+   * @return 検索結果。
+   * @throws PermissionDeniedException 権限がない場合。
+   */
+  @Operation(summary = "カタログアイテムを検索して返します。",
+      description = "カタログアイテムを検索して返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
@@ -107,7 +126,15 @@ public class CatalogItemsController {
     return ResponseEntity.ok().body(returnValue);
   }
 
-  @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
+  /**
+   * カタログにアイテムを追加します。
+   * 
+   * @param postCatalogItemRequest 登録内容。
+   * @return 作成結果。
+   * @throws PermissionDeniedException 権限がない場合。
+   */
+  @Operation(summary = "カタログにアイテムを追加します。",
+      description = "カタログにアイテムを追加します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
@@ -132,6 +159,15 @@ public class CatalogItemsController {
     }
   }
 
+  /**
+   * 指定したカタログアイテムを削除します。
+   * 
+   * @param catalogItemId カタログアイテム ID 。
+   * @param rowVersion 行バージョン。
+   * @return 削除結果。
+   * @throws PermissionDeniedException 権限がない場合。
+   * @throws OptimisticLockingFailureException 楽観ロックに失敗した場合。
+   */
   @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。",
       description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponses(
@@ -156,7 +192,17 @@ public class CatalogItemsController {
     return ResponseEntity.noContent().build();
   }
 
-  @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。", description = "指定した ID のカタログアイテムの情報を更新します。")
+  /**
+   * 指定したカタログアイテムの情報を更新します。
+   * 
+   * @param catalogItemId カタログアイテム ID 。
+   * @param putCatalogItemRequest 更新内容。
+   * @return 更新結果。
+   * @throws PermissionDeniedException 権限がない場合。
+   * @throws OptimisticLockingFailureException 楽観ロックに失敗した場合。
+   */
+  @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。",
+      description = "指定した ID のカタログアイテムの情報を更新します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),

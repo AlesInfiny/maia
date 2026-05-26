@@ -10,7 +10,19 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface JoinedBasketMapper {
+  /**
+   * ID を条件に買い物かごを取得します。
+   * 
+   * @param id 買い物かご ID 。
+   * @return 買い物かご。
+   */
   Basket findById(@Param("id") UUID id);
 
+  /**
+   * 購入者 ID を条件に買い物かごを取得します。
+   * 
+   * @param buyerId 購入者 ID 。
+   * @return 買い物かご。
+   */
   Basket findByBuyerId(@Param("buyerId") UUID buyerId);
 }
