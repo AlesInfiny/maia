@@ -5,13 +5,13 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="ordered_catalog_item_id" jdbcType="BIGINT" property="orderedCatalogItemId" />
+    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="ordered_catalog_item_id" jdbcType="VARCHAR" property="orderedCatalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="ordered_product_name" jdbcType="VARCHAR" property="orderedProductName" />
     <result column="ordered_product_code" jdbcType="VARCHAR" property="orderedProductCode" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -36,6 +36,63 @@
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.orderedCatalogItemIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.orderIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -72,6 +129,63 @@
                 </when>
               </choose>
             </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.orderedCatalogItemIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.orderIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
           </trim>
         </if>
       </foreach>
@@ -101,21 +215,21 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.util.UUID" resultMap="BaseResultMap">
     <!--
       Generated Code - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
     from order_items
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from order_items
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntityExample">
     <!--
@@ -126,23 +240,30 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
-    insert into order_items (ordered_catalog_item_id, ordered_product_name, 
-      ordered_product_code, unit_price, quantity, 
-      order_id)
-    values (#{orderedCatalogItemId,jdbcType=BIGINT}, #{orderedProductName,jdbcType=VARCHAR}, 
-      #{orderedProductCode,jdbcType=VARCHAR}, #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=BIGINT})
+    insert into order_items (id, 
+      ordered_catalog_item_id, 
+      ordered_product_name, ordered_product_code, 
+      unit_price, quantity, order_id
+      )
+    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{orderedProductName,jdbcType=VARCHAR}, #{orderedProductCode,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     insert into order_items
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="orderedCatalogItemId != null">
         ordered_catalog_item_id,
       </if>
@@ -163,8 +284,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      </if>
       <if test="orderedCatalogItemId != null">
-        #{orderedCatalogItemId,jdbcType=BIGINT},
+        #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         #{orderedProductName,jdbcType=VARCHAR},
@@ -179,7 +303,7 @@
         #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        #{orderId,jdbcType=BIGINT},
+        #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -199,10 +323,10 @@
     update order_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=BIGINT},
+        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=BIGINT},
+        ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.orderedProductName != null">
         ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
@@ -217,7 +341,7 @@
         quantity = #{row.quantity,jdbcType=INTEGER},
       </if>
       <if test="row.orderId != null">
-        order_id = #{row.orderId,jdbcType=BIGINT},
+        order_id = #{row.orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -229,13 +353,13 @@
       Generated Code - @mbg.generated
     -->
     update order_items
-    set id = #{row.id,jdbcType=BIGINT},
-      ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=BIGINT},
+    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{row.orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
       quantity = #{row.quantity,jdbcType=INTEGER},
-      order_id = #{row.orderId,jdbcType=BIGINT}
+      order_id = #{row.orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -247,7 +371,7 @@
     update order_items
     <set>
       <if test="orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=BIGINT},
+        ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
@@ -262,22 +386,22 @@
         quantity = #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        order_id = #{orderId,jdbcType=BIGINT},
+        order_id = #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update order_items
-    set ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=BIGINT},
+    set ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{unitPrice,jdbcType=NUMERIC},
       quantity = #{quantity,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+      order_id = #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

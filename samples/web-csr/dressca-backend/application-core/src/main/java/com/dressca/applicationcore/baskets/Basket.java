@@ -1,12 +1,14 @@
 package com.dressca.applicationcore.baskets;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.accounting.Account;
 import com.dressca.applicationcore.accounting.AccountItem;
+import com.dressca.systemcommon.util.UuidGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -17,17 +19,18 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 public class Basket {
-  private long id;
+  private UUID id;
   private List<BasketItem> items = new ArrayList<>();
   @NonNull
-  private String buyerId;
+  private UUID buyerId;
 
   /**
    * 購入者 ID を指定して、 {@link Basket} クラスのインスタンスを初期化します。
    * 
    * @param buyerId 購入者 ID 。
    */
-  public Basket(@NonNull String buyerId) {
+  public Basket(@NonNull UUID buyerId) {
+    this.id = UuidGenerator.generate();
     this.buyerId = buyerId;
   }
 
@@ -37,7 +40,7 @@ public class Basket {
    * @param id 買い物かご ID 。
    * @param buyerId 購入者 ID 。
    */
-  public Basket(long id, @NonNull String buyerId) {
+  public Basket(UUID id, @NonNull UUID buyerId) {
     this.id = id;
     this.buyerId = buyerId;
   }
@@ -49,12 +52,14 @@ public class Basket {
    * @param unitPrice 単価。
    * @param quantity 数量。
    */
-  public void addItem(long catalogItemId, BigDecimal unitPrice, int quantity) {
+  public void addItem(UUID catalogItemId, BigDecimal unitPrice, int quantity) {
     Optional<BasketItem> existingItem =
-        this.items.stream().filter(item -> item.getCatalogItemId() == catalogItemId).findFirst();
+        this.items.stream().filter(item -> item.getCatalogItemId().equals(catalogItemId))
+            .findFirst();
 
     existingItem.ifPresentOrElse(item -> item.addQuantity(quantity),
-        () -> this.items.add(new BasketItem(0, id, catalogItemId, unitPrice, quantity)));
+        () -> this.items.add(new BasketItem(UuidGenerator.generate(), id, catalogItemId, unitPrice,
+            quantity)));
   }
 
   /**
@@ -70,8 +75,8 @@ public class Basket {
    * @param catalogItemId カタログアイテム ID 。
    * @return 買い物かごに存在する場合は true 、存在しない場合は false 。
    */
-  public boolean isInCatalogItem(long catalogItemId) {
-    return this.items.stream().anyMatch(item -> item.getCatalogItemId() == catalogItemId);
+  public boolean isInCatalogItem(UUID catalogItemId) {
+    return this.items.stream().anyMatch(item -> item.getCatalogItemId().equals(catalogItemId));
   }
 
   /**

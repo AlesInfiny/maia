@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
+import com.dressca.systemcommon.util.UuidGenerator;
 
 /**
  * カタログアイテムのエンティティです。
@@ -14,7 +17,7 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 public class CatalogItem {
-  private long id;
+  private UUID id;
   private List<CatalogItemAsset> assets = new ArrayList<>();
   private CatalogCategory catalogCategory;
   private CatalogBrand catalogBrand;
@@ -26,8 +29,8 @@ public class CatalogItem {
   private BigDecimal price;
   @NonNull
   private String productCode;
-  private long catalogCategoryId;
-  private long catalogBrandId;
+  private UUID catalogCategoryId;
+  private UUID catalogBrandId;
   private boolean isDeleted;
   private OffsetDateTime rowVersion;
 
@@ -43,9 +46,9 @@ public class CatalogItem {
    * @param catalogBrandId カタログブランド ID 。
    * @param isDeleted 削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
-  public CatalogItem(long id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, long catalogCategoryId,
-      long catalogBrandId, boolean isDeleted) {
+  public CatalogItem(UUID id, @NonNull String name, @NonNull String description,
+      @NonNull BigDecimal price, @NonNull String productCode, UUID catalogCategoryId,
+      UUID catalogBrandId, boolean isDeleted) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -69,9 +72,9 @@ public class CatalogItem {
    */
   public static CatalogItem createCatalogItemForRegistration(@NonNull String name,
       @NonNull String description, @NonNull BigDecimal price, @NonNull String productCode,
-      long catalogCategoryId, long catalogBrandId, boolean isDeleted) {
-    CatalogItem item = new CatalogItem(0, name, description, price, productCode, catalogCategoryId,
-        catalogBrandId, isDeleted);
+      UUID catalogCategoryId, UUID catalogBrandId, boolean isDeleted) {
+    CatalogItem item = new CatalogItem(UuidGenerator.generate(), name, description, price,
+        productCode, catalogCategoryId, catalogBrandId, isDeleted);
     return item;
   }
 }

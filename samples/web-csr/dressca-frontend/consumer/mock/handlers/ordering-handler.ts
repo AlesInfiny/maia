@@ -12,7 +12,7 @@ export const orderingHandlers = [
     order.shikuchoson = dto.shikuchoson
     order.azanaAndOthers = dto.azanaAndOthers
 
-    const id = Math.floor(Math.random() * 1000) + 1
+    const id = '018f25d7-0000-7000-8000-0000000006ff'
 
     return new HttpResponse(null, {
       headers: {
@@ -23,7 +23,7 @@ export const orderingHandlers = [
   }),
   http.get('/api/orders/:orderId', ({ params }) => {
     const { orderId } = params
-    order.id = Number(orderId)
+    order.id = String(orderId)
     order.orderDate = new Date().toISOString()
     return HttpResponse.json(order, { status: HttpStatusCode.Ok })
   }),

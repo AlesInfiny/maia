@@ -1,9 +1,11 @@
 package com.dressca.applicationcore.assets;
 
 import java.util.Locale;
+import java.util.UUID;
 import org.springframework.context.MessageSource;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
+import com.dressca.systemcommon.util.UuidGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -15,7 +17,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Asset {
 
-  private long id;
+  private UUID id;
   @NonNull
   private String assetCode;
   @NonNull
@@ -28,6 +30,7 @@ public class Asset {
    * @param assetType アセットタイプ。
    */
   public Asset(@NonNull String assetCode, @NonNull String assetType) {
+    this.id = UuidGenerator.generate();
     this.assetCode = assetCode;
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       MessageSource messages =

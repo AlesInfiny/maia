@@ -17,7 +17,7 @@ export async function fetchBasket() {
  * @example
  * await addItemToBasket(123)
  */
-export async function addItemToBasket(itemId: number) {
+export async function addItemToBasket(itemId: string) {
   const basketStore = useBasketStore()
   await basketStore.add(itemId)
   await basketStore.fetch()
@@ -32,7 +32,7 @@ export async function addItemToBasket(itemId: number) {
  * @example
  * await updateItemInBasket(123, 5)
  */
-export async function updateItemInBasket(catalogItemId: number, newQuantity: number) {
+export async function updateItemInBasket(catalogItemId: string, newQuantity: number) {
   const basketStore = useBasketStore()
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId()
@@ -52,7 +52,7 @@ export async function updateItemInBasket(catalogItemId: number, newQuantity: num
  * @example
  * await removeItemFromBasket(123)
  */
-export async function removeItemFromBasket(catalogItemId: number) {
+export async function removeItemFromBasket(catalogItemId: string) {
   const basketStore = useBasketStore()
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId()

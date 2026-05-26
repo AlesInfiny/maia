@@ -46,13 +46,13 @@ export async function fetchCategoriesAndBrands(): Promise<
  * @returns ページネーションされたカタログアイテムのリスト。
  */
 export async function fetchItems(
-  categoryId: number,
-  brandId: number,
+  categoryId?: string,
+  brandId?: string,
   page?: number,
 ): Promise<PagedListOfGetCatalogItemResponse> {
   const response = await catalogItemsApi().getByQuery(
-    brandId === 0 ? undefined : brandId,
-    categoryId === 0 ? undefined : categoryId,
+    brandId,
+    categoryId,
     page,
     undefined,
   )
@@ -64,7 +64,7 @@ export async function fetchItems(
  * @param itemId アイテム ID。
  * @returns カタログアイテムの情報。
  */
-export async function fetchItem(itemId: number): Promise<GetCatalogItemResponse> {
+export async function fetchItem(itemId: string): Promise<GetCatalogItemResponse> {
   const itemResponse = await catalogItemsApi().getCatalogItem(itemId)
   return itemResponse.data
 }
@@ -83,8 +83,8 @@ export async function postCatalogItem(
   description: string,
   price: number,
   productCode: string,
-  catalogCategoryId: number,
-  catalogBrandId: number,
+  catalogCategoryId: string,
+  catalogBrandId: string,
 ) {
   const postCatalogItemInput: PostCatalogItemRequest = {
     name,
@@ -110,13 +110,13 @@ export async function postCatalogItem(
  * @param isDeleted　削除済みかどうか。
  */
 export async function updateCatalogItem(
-  id: number,
+  id: string,
   name: string,
   description: string,
   price: number,
   productCode: string,
-  catalogCategoryId: number,
-  catalogBrandId: number,
+  catalogCategoryId: string,
+  catalogBrandId: string,
   rowVersion: string,
   isDeleted: boolean,
 ) {
@@ -138,6 +138,6 @@ export async function updateCatalogItem(
  * @param id アイテム ID 。
  * @param rowVersion 排他制御のための行バージョン。
  */
-export async function deleteCatalogItem(id: number, rowVersion: string) {
+export async function deleteCatalogItem(id: string, rowVersion: string) {
   await catalogItemsApi().deleteCatalogItem(id, rowVersion)
 }

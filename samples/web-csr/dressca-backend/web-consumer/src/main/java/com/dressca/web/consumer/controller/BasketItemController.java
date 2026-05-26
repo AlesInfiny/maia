@@ -8,27 +8,28 @@ import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.baskets.PutBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
-import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.consumer.mapper.BasketMapper;
 import com.dressca.web.consumer.mapper.CatalogItemSummaryMapper;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
+import com.dressca.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,7 +57,7 @@ public class BasketItemController {
 
   /**
    * 買い物かごアイテムの一覧を取得します。
-   * 
+   *
    * @return 買い物かごアイテムの一覧。
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
@@ -65,7 +66,7 @@ public class BasketItemController {
           schema = @Schema(implementation = GetBasketItemsResponse.class)))})
   @GetMapping
   public ResponseEntity<GetBasketItemsResponse> getBasketItems(HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
     Basket basket = basketItemsForUser.getBasket();
     List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
@@ -74,18 +75,18 @@ public class BasketItemController {
     for (BasketItemApiModel item : basketDto.getBasketItems()) {
       item.setCatalogItem(this.getCatalogItemResponse(item.getCatalogItemId(), catalogItems));
     }
-    List<Long> deletedItemIds = basketItemsForUser.getDeletedItemIds();
+    List<UUID> deletedItemIds = basketItemsForUser.getDeletedItemIds();
     basketDto.setDeletedItemIds(deletedItemIds);
     return ResponseEntity.ok().body(basketDto);
   }
 
   /**
    * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。
-   * 
+   *
    * <p>この API では、買い物かご内に存在する商品の数量を変更できます。
    * 買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。
    * またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。</p>
-   * 
+   *
    * @param putBasketItems 変更する買い物かごアイテムのデータリスト。
    * @return なし。
    */
@@ -104,9 +105,9 @@ public class BasketItemController {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
-    Map<Long, Integer> quantities = putBasketItems.stream().collect(Collectors
+    Map<UUID, Integer> quantities = putBasketItems.stream().collect(Collectors
         .toMap(PutBasketItemsRequest::getCatalogItemId, PutBasketItemsRequest::getQuantity));
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
@@ -130,13 +131,13 @@ public class BasketItemController {
 
   /**
    * 買い物かごに商品を追加します。
-   * 
+   *
    * <p>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。
    * また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。
    * すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。</p>
-   * 
+   *
    * <p>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。</p>
-   * 
+   *
    * @param postBasketItem 追加する商品の情報。
    * @return なし。
    */
@@ -157,7 +158,7 @@ public class BasketItemController {
   @PostMapping
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     try {
       this.shoppingApplicationService.addItemToBasket(buyerId, postBasketItem.getCatalogItemId(),
           postBasketItem.getAddedQuantity());
@@ -174,20 +175,12 @@ public class BasketItemController {
 
   /**
    * 買い物かごから指定したカタログアイテム ID の商品を削除します。
-   * 
-   * <p>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。
-   * カタログアイテム ID は 1 以上の整数です。
-   * 0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。
-   * 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。</p>
-   * 
+   *
    * @param catalogItemId カタログアイテム ID 。
    * @return なし。
    */
   @Operation(summary = "買い物かごから指定したカタログアイテム ID の商品を削除します。",
-      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。<br>"
-          + "catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。"
-          + "0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。"
-          + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。")
+      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
@@ -197,9 +190,9 @@ public class BasketItemController {
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class)))})
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") UUID catalogItemId,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       this.shoppingApplicationService.deleteItemFromBasket(buyerId, catalogItemId);
@@ -221,10 +214,10 @@ public class BasketItemController {
     return ResponseEntity.noContent().build();
   }
 
-  private CatalogItemSummaryApiModel getCatalogItemResponse(long catalogItemId,
+  private CatalogItemSummaryApiModel getCatalogItemResponse(UUID catalogItemId,
       List<CatalogItem> catalogItems) {
-    CatalogItem catalogItem = catalogItems.stream().filter(item -> item.getId() == catalogItemId)
-        .findFirst().orElse(null);
+    CatalogItem catalogItem = catalogItems.stream()
+        .filter(item -> item.getId().equals(catalogItemId)).findFirst().orElse(null);
 
     return convertCatalogItemDto(catalogItem);
   }

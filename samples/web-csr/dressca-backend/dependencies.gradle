@@ -11,6 +11,7 @@ ext {
     mybatisSpringBootStarterTestVersion = "4.0.1"
     springdocOpenapiVersion = "3.0.3"
     javaParserCoreVersion = "3.28.1"
+    javaUuidGeneratorVersion = "5.2.0"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.4.0"
@@ -50,6 +51,7 @@ ext {
         // OTHER LIBRARIES
         commons_lang3 : "org.apache.commons:commons-lang3",
         java_parser_core : "com.github.javaparser:javaparser-core:$javaParserCoreVersion",
+        java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
         spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",

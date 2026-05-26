@@ -40,22 +40,22 @@ const isInvalid = () => {
 /**
  * 選択されているカタログカテゴリの ID です。
  */
-const selectedCategoryId = ref(1)
+const selectedCategoryId = ref('')
 
 /**
  * 選択されているカタログブランドの ID です。
  */
-const selectedBrandId = ref(1)
+const selectedBrandId = ref('')
 
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなモーダルの開閉状態です。
@@ -108,6 +108,8 @@ onMounted(async () => {
   showLoading.value = true
   try {
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
+    selectedCategoryId.value = catalogCategories.value[0]?.id ?? ''
+    selectedBrandId.value = catalogBrands.value[0]?.id ?? ''
   } catch (error) {
     await handleErrorAsync(error, () => {
       showToast('カテゴリとブランド情報の取得に失敗しました。')
@@ -184,7 +186,7 @@ onMounted(async () => {
           class="w-full border border-gray-300 px-4 py-2"
         >
           <option
-            v-for="category in catalogCategories.filter((category) => category.id !== 0)"
+            v-for="category in catalogCategories"
             :key="category.id"
             :value="category.id"
           >
@@ -197,12 +199,12 @@ onMounted(async () => {
         <label for="brand" class="mb-2 block font-bold">ブランド</label>
         <select
           id="brand"
-          v-model.number="selectedBrandId"
+          v-model="selectedBrandId"
           name="brand"
           class="w-full border border-gray-300 px-4 py-2"
         >
           <option
-            v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
+            v-for="brand in catalogBrands"
             :key="brand.id"
             :value="brand.id"
           >

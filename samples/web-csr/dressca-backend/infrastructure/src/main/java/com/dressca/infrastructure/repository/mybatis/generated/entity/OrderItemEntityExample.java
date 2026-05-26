@@ -4,6 +4,7 @@ import jakarta.annotation.Generated;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderItemEntityExample {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
@@ -81,19 +82,100 @@ public class OrderItemEntityExample {
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected abstract static class GeneratedCriteria {
+        protected List<Criterion> idCriteria;
+
+        protected List<Criterion> orderedCatalogItemIdCriteria;
+
+        protected List<Criterion> orderIdCriteria;
+
+        protected List<Criterion> allCriteria;
+
         protected List<Criterion> criteria;
 
         protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<>();
+            idCriteria = new ArrayList<>();
+            orderedCatalogItemIdCriteria = new ArrayList<>();
+            orderIdCriteria = new ArrayList<>();
+        }
+
+        public List<Criterion> getIdCriteria() {
+            return idCriteria;
+        }
+
+        protected void addIdCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            idCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addIdCriterion(String condition, UUID value1, UUID value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        public List<Criterion> getOrderedCatalogItemIdCriteria() {
+            return orderedCatalogItemIdCriteria;
+        }
+
+        protected void addOrderedCatalogItemIdCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            orderedCatalogItemIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addOrderedCatalogItemIdCriterion(String condition, UUID value1, UUID value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            orderedCatalogItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        public List<Criterion> getOrderIdCriteria() {
+            return orderIdCriteria;
+        }
+
+        protected void addOrderIdCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            orderIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addOrderIdCriterion(String condition, UUID value1, UUID value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            orderIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
         }
 
         public boolean isValid() {
-            return criteria.size() > 0;
+            return criteria.size() > 0
+                || idCriteria.size() > 0
+                || orderedCatalogItemIdCriteria.size() > 0
+                || orderIdCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
-            return criteria;
+            if (allCriteria == null) {
+                allCriteria = new ArrayList<>();
+                allCriteria.addAll(criteria);
+                allCriteria.addAll(idCriteria);
+                allCriteria.addAll(orderedCatalogItemIdCriteria);
+                allCriteria.addAll(orderIdCriteria);
+            }
+            return allCriteria;
         }
 
         public List<Criterion> getCriteria() {
@@ -105,6 +187,7 @@ public class OrderItemEntityExample {
                 throw new RuntimeException("Value for condition cannot be null");
             }
             criteria.add(new Criterion(condition));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value, String property) {
@@ -112,6 +195,7 @@ public class OrderItemEntityExample {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value1, Object value2, String property) {
@@ -119,6 +203,7 @@ public class OrderItemEntityExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+            allCriteria = null;
         }
 
         public Criteria andIdIsNull() {
@@ -131,53 +216,63 @@ public class OrderItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
-            addCriterion("id =", value, "id");
+        public Criteria andIdEqualTo(UUID value) {
+            addIdCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andIdNotEqualTo(UUID value) {
+            addIdCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
-            addCriterion("id >", value, "id");
+        public Criteria andIdGreaterThan(UUID value) {
+            addIdCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andIdGreaterThanOrEqualTo(UUID value) {
+            addIdCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
-            addCriterion("id <", value, "id");
+        public Criteria andIdLessThan(UUID value) {
+            addIdCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andIdLessThanOrEqualTo(UUID value) {
+            addIdCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andIdLike(UUID value) {
+            addIdCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andIdNotLike(UUID value) {
+            addIdCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andIdIn(List<UUID> values) {
+            addIdCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andIdNotIn(List<UUID> values) {
+            addIdCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(UUID value1, UUID value2) {
+            addIdCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(UUID value1, UUID value2) {
+            addIdCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
@@ -191,53 +286,63 @@ public class OrderItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdEqualTo(Long value) {
-            addCriterion("ordered_catalog_item_id =", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdEqualTo(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id =", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotEqualTo(Long value) {
-            addCriterion("ordered_catalog_item_id <>", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdNotEqualTo(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <>", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdGreaterThan(Long value) {
-            addCriterion("ordered_catalog_item_id >", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdGreaterThan(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id >", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("ordered_catalog_item_id >=", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdGreaterThanOrEqualTo(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id >=", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdLessThan(Long value) {
-            addCriterion("ordered_catalog_item_id <", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdLessThan(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdLessThanOrEqualTo(Long value) {
-            addCriterion("ordered_catalog_item_id <=", value, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdLessThanOrEqualTo(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <=", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdIn(List<Long> values) {
-            addCriterion("ordered_catalog_item_id in", values, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdLike(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id like", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotIn(List<Long> values) {
-            addCriterion("ordered_catalog_item_id not in", values, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdNotLike(UUID value) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not like", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdBetween(Long value1, Long value2) {
-            addCriterion("ordered_catalog_item_id between", value1, value2, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdIn(List<UUID> values) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id in", values, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotBetween(Long value1, Long value2) {
-            addCriterion("ordered_catalog_item_id not between", value1, value2, "orderedCatalogItemId");
+        public Criteria andOrderedCatalogItemIdNotIn(List<UUID> values) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not in", values, "orderedCatalogItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedCatalogItemIdBetween(UUID value1, UUID value2) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id between", value1, value2, "orderedCatalogItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedCatalogItemIdNotBetween(UUID value1, UUID value2) {
+            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not between", value1, value2, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
@@ -511,53 +616,63 @@ public class OrderItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdEqualTo(Long value) {
-            addCriterion("order_id =", value, "orderId");
+        public Criteria andOrderIdEqualTo(UUID value) {
+            addOrderIdCriterion("order_id =", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotEqualTo(Long value) {
-            addCriterion("order_id <>", value, "orderId");
+        public Criteria andOrderIdNotEqualTo(UUID value) {
+            addOrderIdCriterion("order_id <>", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThan(Long value) {
-            addCriterion("order_id >", value, "orderId");
+        public Criteria andOrderIdGreaterThan(UUID value) {
+            addOrderIdCriterion("order_id >", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("order_id >=", value, "orderId");
+        public Criteria andOrderIdGreaterThanOrEqualTo(UUID value) {
+            addOrderIdCriterion("order_id >=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThan(Long value) {
-            addCriterion("order_id <", value, "orderId");
+        public Criteria andOrderIdLessThan(UUID value) {
+            addOrderIdCriterion("order_id <", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThanOrEqualTo(Long value) {
-            addCriterion("order_id <=", value, "orderId");
+        public Criteria andOrderIdLessThanOrEqualTo(UUID value) {
+            addOrderIdCriterion("order_id <=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIn(List<Long> values) {
-            addCriterion("order_id in", values, "orderId");
+        public Criteria andOrderIdLike(UUID value) {
+            addOrderIdCriterion("order_id like", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotIn(List<Long> values) {
-            addCriterion("order_id not in", values, "orderId");
+        public Criteria andOrderIdNotLike(UUID value) {
+            addOrderIdCriterion("order_id not like", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdBetween(Long value1, Long value2) {
-            addCriterion("order_id between", value1, value2, "orderId");
+        public Criteria andOrderIdIn(List<UUID> values) {
+            addOrderIdCriterion("order_id in", values, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotBetween(Long value1, Long value2) {
-            addCriterion("order_id not between", value1, value2, "orderId");
+        public Criteria andOrderIdNotIn(List<UUID> values) {
+            addOrderIdCriterion("order_id not in", values, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdBetween(UUID value1, UUID value2) {
+            addOrderIdCriterion("order_id between", value1, value2, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdNotBetween(UUID value1, UUID value2) {
+            addOrderIdCriterion("order_id not between", value1, value2, "orderId");
             return (Criteria) this;
         }
     }

@@ -1,15 +1,5 @@
 package com.dressca.applicationcore.applicationservice;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.BasketRepository;
@@ -29,7 +19,18 @@ import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 買い物かご情報に関するビジネスユースケースを実現するサービスです。
@@ -46,62 +47,41 @@ public class ShoppingApplicationService {
   private final CatalogDomainService catalogDomainService;
   private final AbstractStructuredLogger apLog;
 
-  /**
-   * 買い物かごに商品を追加します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @param catalogItemId カタログアイテム ID 。
-   * @param quantity 数量。
-   * @throws CatalogNotFoundException 存在しないカタログアイテムが指定された場合。
-   */
-  public void addItemToBasket(String buyerId, long catalogItemId, int quantity)
+  public void addItemToBasket(UUID buyerId, UUID catalogItemId, int quantity)
       throws CatalogNotFoundException {
-
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_ADD_ITEM_TO_BASKET,
         new Object[] {buyerId, catalogItemId, quantity}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    // カタログリポジトリに存在しないカタログアイテムが指定されていないか確認
     if (!this.catalogDomainService.existAll(List.of(catalogItemId))) {
       throw new CatalogNotFoundException(catalogItemId);
     }
-    CatalogItem catalogItem =
-        this.catalogDomainService.getExistCatalogItems(List.of(catalogItemId)).get(0);
+    CatalogItem catalogItem = this.catalogDomainService.getExistCatalogItems(List.of(catalogItemId))
+        .get(0);
 
     basket.addItem(catalogItemId, catalogItem.getPrice(), quantity);
     basket.removeEmptyItems();
     this.basketRepository.update(basket);
   }
 
-  /**
-   * 買い物かご内の商品の数量を設定します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @param quantities キーにカタログアイテム ID 、値に数量を設定した Map 。
-   * @throws CatalogNotFoundException 存在しないカタログアイテムが指定された場合。
-   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合。
-   */
-  public void setQuantities(String buyerId, Map<Long, Integer> quantities)
+  public void setQuantities(UUID buyerId, Map<UUID, Integer> quantities)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
-
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
         new Object[] {buyerId, quantities}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-
-    List<Long> catalogItemIds = new ArrayList<>(quantities.keySet());
+    List<UUID> catalogItemIds = new ArrayList<>(quantities.keySet());
 
     if (!this.catalogDomainService.existAll(catalogItemIds)) {
       List<CatalogItem> deletedCatalogItems =
           this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
       throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
-          .mapToLong(Long::longValue).toArray());
+          .toArray(UUID[]::new));
     }
 
-    // 買い物かごに入っていないカタログアイテムが指定されていないか確認
-    List<Long> notExistsInBasketCatalogIds =
-        quantities.keySet().stream().filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
-            .collect(Collectors.toList());
+    List<UUID> notExistsInBasketCatalogIds = quantities.keySet().stream()
+        .filter(catalogItemId -> !basket.isInCatalogItem(catalogItemId))
+        .collect(Collectors.toList());
     if (!notExistsInBasketCatalogIds.isEmpty()) {
       throw new CatalogItemInBasketNotFoundException(notExistsInBasketCatalogIds, basket.getId());
     }
@@ -117,17 +97,8 @@ public class ShoppingApplicationService {
     this.basketRepository.update(basket);
   }
 
-  /**
-   * 買い物かごから商品を削除します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @param catalogItemId 削除対象のカタログアイテムの ID 。
-   * @throws CatalogNotFoundException 存在しないカタログアイテムが指定された場合。
-   * @throws CatalogItemInBasketNotFoundException 買い物かごに存在しないカタログアイテムが指定された場合。
-   */
-  public void deleteItemFromBasket(String buyerId, long catalogItemId)
+  public void deleteItemFromBasket(UUID buyerId, UUID catalogItemId)
       throws CatalogNotFoundException, CatalogItemInBasketNotFoundException {
-
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_DELETE_ITEM_FROM_BASKET,
         new Object[] {buyerId, catalogItemId}, Locale.getDefault()));
 
@@ -137,50 +108,34 @@ public class ShoppingApplicationService {
       throw new CatalogNotFoundException(catalogItemId);
     }
 
-    BasketItem basketItem =
-        basket.getItems().stream().filter(item -> item.getCatalogItemId() == catalogItemId)
-            .findFirst().orElseThrow(() -> new CatalogItemInBasketNotFoundException(
-                Collections.singletonList(Long.valueOf(catalogItemId)), basket.getId()));
+    BasketItem basketItem = basket.getItems().stream()
+        .filter(item -> item.getCatalogItemId().equals(catalogItemId)).findFirst()
+        .orElseThrow(() -> new CatalogItemInBasketNotFoundException(
+            Collections.singletonList(catalogItemId), basket.getId()));
 
     basketItem.setQuantity(0);
     basket.removeEmptyItems();
     this.basketRepository.update(basket);
   }
 
-  /**
-   * 購入者 ID に対応する買い物かごと情報とその商品一覧を取得します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @return 買い物かごとその商品一覧。
-   */
-  public BasketDetail getBasketDetail(String buyerId) {
-
+  public BasketDetail getBasketDetail(UUID buyerId) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
         new Object[] {buyerId}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    List<Long> catalogItemIds =
-        basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems = new ArrayList<CatalogItem>();
+    List<UUID> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+        .collect(Collectors.toList());
+    List<CatalogItem> catalogItems = new ArrayList<>();
     if (!catalogItemIds.isEmpty()) {
       catalogItems = this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
     }
-    List<Long> deletedItemIds = catalogItems.stream().filter(CatalogItem::isDeleted)
+    List<UUID> deletedItemIds = catalogItems.stream().filter(CatalogItem::isDeleted)
         .map(CatalogItem::getId).collect(Collectors.toList());
     return new BasketDetail(basket, catalogItems, deletedItemIds);
   }
 
-  /**
-   * 注文を確定します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @param shipToAddress お届け先。
-   * @return 作成した注文情報。
-   * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
-   */
-  public Order checkout(String buyerId, ShipTo shipToAddress)
+  public Order checkout(UUID buyerId, ShipTo shipToAddress)
       throws EmptyBasketOnCheckoutException {
-
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
         new Object[] {buyerId, shipToAddress}, Locale.getDefault()));
 
@@ -189,58 +144,41 @@ public class ShoppingApplicationService {
       throw new EmptyBasketOnCheckoutException(null);
     }
 
-    List<Long> catalogItemIds =
-        basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
+    List<UUID> catalogItemIds = basket.getItems().stream().map(BasketItem::getCatalogItemId)
+        .collect(Collectors.toList());
     List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
         .collect(Collectors.toList());
     Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
+    UUID orderId = order.getId();
+    orderItems.forEach(item -> item.setOrderId(orderId));
     order = this.orderRepository.add(order);
     this.basketRepository.remove(basket);
     return order;
   }
 
-  /**
-   * 購入者 ID に対応する買い物かご情報を取得するか、無ければ新規作成します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @return 買い物かご情報。
-   */
-  private Basket getOrCreateBasketForUser(String buyerId) {
-    if (StringUtils.isBlank(buyerId)) {
+  private Basket getOrCreateBasketForUser(UUID buyerId) {
+    if (buyerId == null || StringUtils.isBlank(buyerId.toString())) {
       throw new IllegalArgumentException("buyerIdがnullまたは空文字");
     }
 
     return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));
   }
 
-  /**
-   * 購入者 ID を指定して、買い物かごを新規で作成します。
-   * 
-   * @param buyerId 購入者 ID 。
-   * @return 買い物かご。
-   */
-  private Basket createBasket(String buyerId) {
+  private Basket createBasket(UUID buyerId) {
     Basket basket = new Basket(buyerId);
     return this.basketRepository.add(basket);
   }
 
-  /**
-   * 買い物かごアイテムを注文アイテムに変換します。
-   * 
-   * @param basketItem 買い物かごアイテム。
-   * @param catalogItems カタログアイテムのリスト。
-   * @return 変換された注文アイテム。
-   */
   private OrderItem mapToOrderItem(BasketItem basketItem, List<CatalogItem> catalogItems) {
     CatalogItem catalogItem = catalogItems.stream()
-        .filter(c -> c.getId() == basketItem.getCatalogItemId()).findFirst().orElseThrow(
+        .filter(c -> c.getId().equals(basketItem.getCatalogItemId())).findFirst().orElseThrow(
             () -> new SystemException(null, CommonExceptionIdConstants.E_BUSINESS, null, null));
     CatalogItemOrdered itemOrdered = new CatalogItemOrdered(catalogItem.getId(),
         catalogItem.getName(), catalogItem.getProductCode());
-    OrderItem orderItem =
-        new OrderItem(itemOrdered, basketItem.getUnitPrice(), basketItem.getQuantity());
+    OrderItem orderItem = new OrderItem(itemOrdered, basketItem.getUnitPrice(),
+        basketItem.getQuantity());
     List<OrderItemAsset> orderItemAssets = catalogItem.getAssets().stream()
         .map(asset -> new OrderItemAsset(asset.getAssetCode(), orderItem.getId()))
         .collect(Collectors.toList());

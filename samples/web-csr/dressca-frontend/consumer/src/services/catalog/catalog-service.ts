@@ -22,7 +22,7 @@ export async function fetchCategoriesAndBrands() {
  * @example
  * await fetchItems(1, 10)
  */
-export async function fetchItems(categoryId: number, brandsId: number) {
+export async function fetchItems(categoryId?: string, brandsId?: string) {
   const catalogStore = useCatalogStore()
   await catalogStore.fetchItems(categoryId, brandsId)
 }
