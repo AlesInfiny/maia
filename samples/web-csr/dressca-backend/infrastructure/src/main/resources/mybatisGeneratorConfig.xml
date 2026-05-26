@@ -26,84 +26,84 @@
         <!-- 生成対象テーブル -->
         <table schema="" tableName="assets" domainObjectName="AssetEntity" mapperName="AssetMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="AssetDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="assets" /> -->
         </table>
         <table schema="" tableName="baskets" domainObjectName="BasketEntity" mapperName="BasketMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="BasketDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="baskets" /> -->
         </table>
         <table schema="" tableName="catalog_brands" domainObjectName="CatalogBrandEntity" mapperName="CatalogBrandMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogBrandDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogBrands" /> -->
         </table>
         <table schema="" tableName="catalog_categories" domainObjectName="CatalogCategoryEntity" mapperName="CatalogCategoryMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogCategoryDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogCategories" /> -->
         </table>
         <table schema="" tableName="orders" domainObjectName="OrderEntity" mapperName="OrderMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="OrderDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="orders" /> -->
         </table>
         <table schema="" tableName="basket_items" domainObjectName="BasketItemEntity" mapperName="BasketItemMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="basket_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="basket_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="catalog_item_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="catalog_item_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="BasketItemDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="basketItems" /> -->
         </table>
         <table schema="" tableName="catalog_items" domainObjectName="CatalogItemEntity" mapperName="CatalogItemMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <columnOverride column="catalog_category_id" javaType="java.util.UUID"
-                jdbcType="VARCHAR"
+                jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="catalog_brand_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="catalog_brand_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogItems" /> -->
         </table>
         <table schema="" tableName="order_items" domainObjectName="OrderItemEntity" mapperName="OrderItemMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <columnOverride column="ordered_catalog_item_id" javaType="java.util.UUID"
-                jdbcType="VARCHAR"
+                jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="order_id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="order_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="OrderItemDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="orderItems" /> -->
         </table>
         <table schema="" tableName="catalog_item_assets" domainObjectName="CatalogItemAssetEntity" mapperName="CatalogItemAssetMapper">
             <property name="mapUnderscoreToCamelCase" value="true" />
-            <columnOverride column="id" javaType="java.util.UUID" jdbcType="VARCHAR"
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <columnOverride column="catalog_item_id" javaType="java.util.UUID"
-                jdbcType="VARCHAR"
+                jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemAssetDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogItemAssets" /> -->

@@ -5,13 +5,13 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="ordered_catalog_item_id" jdbcType="VARCHAR" property="orderedCatalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="ordered_catalog_item_id" jdbcType="OTHER" property="orderedCatalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="ordered_product_name" jdbcType="VARCHAR" property="orderedProductName" />
     <result column="ordered_product_code" jdbcType="VARCHAR" property="orderedProductCode" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="order_id" jdbcType="OTHER" property="orderId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -222,14 +222,14 @@
     select 
     <include refid="Base_Column_List" />
     from order_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from order_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntityExample">
     <!--
@@ -249,10 +249,10 @@
       ordered_product_name, ordered_product_code, 
       unit_price, quantity, order_id
       )
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{orderedProductName,jdbcType=VARCHAR}, #{orderedProductCode,jdbcType=VARCHAR}, 
-      #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
@@ -285,10 +285,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderedCatalogItemId != null">
-        #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         #{orderedProductName,jdbcType=VARCHAR},
@@ -303,7 +303,7 @@
         #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -323,10 +323,10 @@
     update order_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.orderedProductName != null">
         ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
@@ -341,7 +341,7 @@
         quantity = #{row.quantity,jdbcType=INTEGER},
       </if>
       <if test="row.orderId != null">
-        order_id = #{row.orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -353,13 +353,13 @@
       Generated Code - @mbg.generated
     -->
     update order_items
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{row.orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
       quantity = #{row.quantity,jdbcType=INTEGER},
-      order_id = #{row.orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -371,7 +371,7 @@
     update order_items
     <set>
       <if test="orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
@@ -386,22 +386,22 @@
         quantity = #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        order_id = #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update order_items
-    set ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{unitPrice,jdbcType=NUMERIC},
       quantity = #{quantity,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

@@ -5,8 +5,8 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="buyer_id" jdbcType="VARCHAR" property="buyerId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="buyer_id" jdbcType="OTHER" property="buyerId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -178,14 +178,14 @@
     select 
     <include refid="Base_Column_List" />
     from baskets
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from baskets
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntityExample">
     <!--
@@ -203,8 +203,8 @@
     insert into baskets (id, 
       buyer_id
       )
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntity">
@@ -222,10 +222,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="buyerId != null">
-        #{buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -245,10 +245,10 @@
     update baskets
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.buyerId != null">
-        buyer_id = #{row.buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        buyer_id = #{row.buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -260,8 +260,8 @@
       Generated Code - @mbg.generated
     -->
     update baskets
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      buyer_id = #{row.buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      buyer_id = #{row.buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -273,17 +273,17 @@
     update baskets
     <set>
       <if test="buyerId != null">
-        buyer_id = #{buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        buyer_id = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update baskets
-    set buyer_id = #{buyerId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    set buyer_id = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

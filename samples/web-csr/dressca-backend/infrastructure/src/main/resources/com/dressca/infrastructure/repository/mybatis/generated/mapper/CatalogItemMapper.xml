@@ -5,13 +5,13 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="price" jdbcType="NUMERIC" property="price" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
-    <result column="catalog_category_id" jdbcType="VARCHAR" property="catalogCategoryId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="catalog_brand_id" jdbcType="VARCHAR" property="catalogBrandId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="catalog_category_id" jdbcType="OTHER" property="catalogCategoryId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="catalog_brand_id" jdbcType="OTHER" property="catalogBrandId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
     <result column="row_version" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="rowVersion" />
   </resultMap>
@@ -224,14 +224,14 @@
     select 
     <include refid="Base_Column_List" />
     from catalog_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from catalog_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample">
     <!--
@@ -251,10 +251,10 @@
       product_code, catalog_category_id, 
       catalog_brand_id, 
       is_deleted, row_version)
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
-      #{productCode,jdbcType=VARCHAR}, #{catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{productCode,jdbcType=VARCHAR}, #{catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{isDeleted,jdbcType=BOOLEAN}, #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE})
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
@@ -293,7 +293,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -308,10 +308,10 @@
         #{productCode,jdbcType=VARCHAR},
       </if>
       <if test="catalogCategoryId != null">
-        #{catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="catalogBrandId != null">
-        #{catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="isDeleted != null">
         #{isDeleted,jdbcType=BOOLEAN},
@@ -337,7 +337,7 @@
     update catalog_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
@@ -352,10 +352,10 @@
         product_code = #{row.productCode,jdbcType=VARCHAR},
       </if>
       <if test="row.catalogCategoryId != null">
-        catalog_category_id = #{row.catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_category_id = #{row.catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.catalogBrandId != null">
-        catalog_brand_id = #{row.catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_brand_id = #{row.catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.isDeleted != null">
         is_deleted = #{row.isDeleted,jdbcType=BOOLEAN},
@@ -373,13 +373,13 @@
       Generated Code - @mbg.generated
     -->
     update catalog_items
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       name = #{row.name,jdbcType=VARCHAR},
       description = #{row.description,jdbcType=VARCHAR},
       price = #{row.price,jdbcType=NUMERIC},
       product_code = #{row.productCode,jdbcType=VARCHAR},
-      catalog_category_id = #{row.catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_brand_id = #{row.catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_category_id = #{row.catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_brand_id = #{row.catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       is_deleted = #{row.isDeleted,jdbcType=BOOLEAN},
       row_version = CURRENT_TIMESTAMP
     <if test="example != null">
@@ -405,10 +405,10 @@
         product_code = #{productCode,jdbcType=VARCHAR},
       </if>
       <if test="catalogCategoryId != null">
-        catalog_category_id = #{catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_category_id = #{catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="catalogBrandId != null">
-        catalog_brand_id = #{catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_brand_id = #{catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=BOOLEAN},
@@ -417,7 +417,7 @@
         row_version = CURRENT_TIMESTAMP,
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
       and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
@@ -429,11 +429,11 @@
       description = #{description,jdbcType=VARCHAR},
       price = #{price,jdbcType=NUMERIC},
       product_code = #{productCode,jdbcType=VARCHAR},
-      catalog_category_id = #{catalogCategoryId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_brand_id = #{catalogBrandId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_category_id = #{catalogCategoryId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_brand_id = #{catalogBrandId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       is_deleted = #{isDeleted,jdbcType=BOOLEAN},
       row_version = CURRENT_TIMESTAMP
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
       and row_version = #{rowVersion,jdbcType=TIMESTAMP_WITH_TIMEZONE}
   </update>
 </mapper>

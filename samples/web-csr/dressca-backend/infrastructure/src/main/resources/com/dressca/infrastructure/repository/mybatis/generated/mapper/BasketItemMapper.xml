@@ -5,9 +5,9 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="basket_id" jdbcType="VARCHAR" property="basketId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="catalog_item_id" jdbcType="VARCHAR" property="catalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="basket_id" jdbcType="OTHER" property="basketId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="catalog_item_id" jdbcType="OTHER" property="catalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
   </resultMap>
@@ -219,14 +219,14 @@
     select 
     <include refid="Base_Column_List" />
     from basket_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from basket_items
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntityExample">
     <!--
@@ -245,9 +245,9 @@
       basket_id, 
       catalog_item_id, 
       unit_price, quantity)
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntity">
@@ -274,13 +274,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="basketId != null">
-        #{basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="catalogItemId != null">
-        #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="unitPrice != null">
         #{unitPrice,jdbcType=NUMERIC},
@@ -306,13 +306,13 @@
     update basket_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.basketId != null">
-        basket_id = #{row.basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        basket_id = #{row.basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.catalogItemId != null">
-        catalog_item_id = #{row.catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.unitPrice != null">
         unit_price = #{row.unitPrice,jdbcType=NUMERIC},
@@ -330,9 +330,9 @@
       Generated Code - @mbg.generated
     -->
     update basket_items
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      basket_id = #{row.basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_item_id = #{row.catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      basket_id = #{row.basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
       quantity = #{row.quantity,jdbcType=INTEGER}
     <if test="example != null">
@@ -346,10 +346,10 @@
     update basket_items
     <set>
       <if test="basketId != null">
-        basket_id = #{basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        basket_id = #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="catalogItemId != null">
-        catalog_item_id = #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="unitPrice != null">
         unit_price = #{unitPrice,jdbcType=NUMERIC},
@@ -358,17 +358,17 @@
         quantity = #{quantity,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update basket_items
-    set basket_id = #{basketId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_item_id = #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set basket_id = #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       unit_price = #{unitPrice,jdbcType=NUMERIC},
       quantity = #{quantity,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

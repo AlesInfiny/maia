@@ -246,16 +246,6 @@ public class OrderItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(UUID value) {
-            addIdCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(UUID value) {
-            addIdCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
         public Criteria andIdIn(List<UUID> values) {
             addIdCriterion("id in", values, "id");
             return (Criteria) this;
@@ -313,16 +303,6 @@ public class OrderItemEntityExample {
 
         public Criteria andOrderedCatalogItemIdLessThanOrEqualTo(UUID value) {
             addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <=", value, "orderedCatalogItemId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderedCatalogItemIdLike(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id like", value, "orderedCatalogItemId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderedCatalogItemIdNotLike(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not like", value, "orderedCatalogItemId");
             return (Criteria) this;
         }
 
@@ -643,16 +623,6 @@ public class OrderItemEntityExample {
 
         public Criteria andOrderIdLessThanOrEqualTo(UUID value) {
             addOrderIdCriterion("order_id <=", value, "orderId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderIdLike(UUID value) {
-            addOrderIdCriterion("order_id like", value, "orderId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderIdNotLike(UUID value) {
-            addOrderIdCriterion("order_id not like", value, "orderId");
             return (Criteria) this;
         }
 

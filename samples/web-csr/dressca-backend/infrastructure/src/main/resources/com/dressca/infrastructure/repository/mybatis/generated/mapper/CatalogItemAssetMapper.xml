@@ -5,9 +5,9 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="asset_code" jdbcType="VARCHAR" property="assetCode" />
-    <result column="catalog_item_id" jdbcType="VARCHAR" property="catalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="catalog_item_id" jdbcType="OTHER" property="catalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -179,14 +179,14 @@
     select 
     <include refid="Base_Column_List" />
     from catalog_item_assets
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from catalog_item_assets
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemAssetEntityExample">
     <!--
@@ -204,8 +204,8 @@
     insert into catalog_item_assets (id, 
       asset_code, catalog_item_id
       )
-    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{assetCode,jdbcType=VARCHAR}, #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{assetCode,jdbcType=VARCHAR}, #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemAssetEntity">
@@ -226,13 +226,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="assetCode != null">
         #{assetCode,jdbcType=VARCHAR},
       </if>
       <if test="catalogItemId != null">
-        #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -252,13 +252,13 @@
     update catalog_item_assets
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.assetCode != null">
         asset_code = #{row.assetCode,jdbcType=VARCHAR},
       </if>
       <if test="row.catalogItemId != null">
-        catalog_item_id = #{row.catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -270,9 +270,9 @@
       Generated Code - @mbg.generated
     -->
     update catalog_item_assets
-    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       asset_code = #{row.assetCode,jdbcType=VARCHAR},
-      catalog_item_id = #{row.catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,10 +287,10 @@
         asset_code = #{assetCode,jdbcType=VARCHAR},
       </if>
       <if test="catalogItemId != null">
-        catalog_item_id = #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+        catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemAssetEntity">
     <!--
@@ -298,7 +298,7 @@
     -->
     update catalog_item_assets
     set asset_code = #{assetCode,jdbcType=VARCHAR},
-      catalog_item_id = #{catalogItemId,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
-    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+      catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

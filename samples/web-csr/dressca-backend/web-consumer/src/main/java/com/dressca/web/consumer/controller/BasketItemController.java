@@ -19,6 +19,7 @@ import com.dressca.web.consumer.mapper.CatalogItemSummaryMapper;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -194,7 +195,10 @@ public class BasketItemController {
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class)))})
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") UUID catalogItemId,
+  public ResponseEntity<?> deleteBasketItem(
+      @Parameter(description = "カタログアイテム ID 。",
+          schema = @Schema(type = "string", format = "uuid"))
+      @PathVariable("catalogItemId") UUID catalogItemId,
       HttpServletRequest req) {
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
