@@ -629,8 +629,11 @@
             "format": "uuid"
           },
           "deletedItemIds": {
-            "type": "string",
-            "format": "uuid"
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         },
         "required": [

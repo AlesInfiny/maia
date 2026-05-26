@@ -24,6 +24,6 @@ export interface GetBasketItemsResponse {
     'account'?: AccountApiModel;
     'basketItems'?: Array<BasketItemApiModel>;
     'buyerId': string;
-    'deletedItemIds'?: string;
+    'deletedItemIds'?: Array<string>;
 }
 
