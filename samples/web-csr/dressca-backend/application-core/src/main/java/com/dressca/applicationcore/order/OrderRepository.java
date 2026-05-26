@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface OrderRepository {
   /**
    * 注文を追加します。
-   *
+   * 
    * @param order 注文。
    * @return 追加された注文情報。
    */
@@ -17,7 +17,7 @@ public interface OrderRepository {
 
   /**
    * 指定した ID の注文情報を取得します。
-   *
+   * 
    * @param id ID 。
    * @return 注文情報。存在しない場合は空の Optional 。
    */

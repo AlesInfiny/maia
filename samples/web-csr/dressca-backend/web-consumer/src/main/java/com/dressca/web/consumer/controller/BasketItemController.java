@@ -57,7 +57,7 @@ public class BasketItemController {
 
   /**
    * 買い物かごアイテムの一覧を取得します。
-   *
+   * 
    * @return 買い物かごアイテムの一覧。
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
@@ -175,6 +175,10 @@ public class BasketItemController {
 
   /**
    * 買い物かごから指定したカタログアイテム ID の商品を削除します。
+   * 
+   * <p>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。
+   * 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。</p>
+   * 
    *
    * @param catalogItemId カタログアイテム ID 。
    * @return なし。

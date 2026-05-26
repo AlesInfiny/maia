@@ -1,5 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
+import com.dressca.systemcommon.util.UuidGenerator;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.UUID;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-import com.dressca.systemcommon.util.UuidGenerator;
 
 /**
  * カタログアイテムのエンティティです。
