@@ -30,7 +30,7 @@ const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 const router = useRouter()
 const route = useRoute()
-const id = Number(route.params.itemId)
+const id = String(route.params.itemId)
 const { getFirstAssetUrl } = assetHelper()
 
 /**
@@ -38,13 +38,13 @@ const { getFirstAssetUrl } = assetHelper()
  * リアクティブな状態を型付けするために必要です。
  */
 interface ItemState {
-  id: number
+  id: string
   name: string
   description: string
   price: string
   productCode: string
-  categoryId: number
-  brandId: number
+  categoryId: string
+  brandId: string
   assetCodes: string[] | undefined
   rowVersion: string
   isDeleted: boolean
@@ -73,13 +73,13 @@ const isInvalid = () => {
  * 編集中のアイテムの状態です。
  */
 const editingItemState = ref<ItemState>({
-  id: 0,
+  id: '',
   name: '',
   description: '',
   price: '',
   productCode: '',
-  categoryId: 0,
-  brandId: 0,
+  categoryId: '',
+  brandId: '',
   assetCodes: [''],
   rowVersion: '',
   isDeleted: false,
@@ -89,13 +89,13 @@ const editingItemState = ref<ItemState>({
  * 現在のアイテムの状態です。
  */
 const currentItemState = ref<ItemState>({
-  id: 0,
+  id: '',
   name: '',
   description: '',
   price: '',
   productCode: '',
-  categoryId: 0,
-  brandId: 0,
+  categoryId: '',
+  brandId: '',
   assetCodes: [''],
   rowVersion: '',
   isDeleted: false,
@@ -104,12 +104,12 @@ const currentItemState = ref<ItemState>({
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
 
 /**
  * 削除確認モーダルの開閉状態です。
@@ -174,7 +174,7 @@ const setCurrentItemState = (item: GetCatalogItemResponse) => {
  * カタログアイテムの情報を取得します。
  * @param itemId カタログアイテムID
  */
-const getItem = async (itemId: number) => {
+const getItem = async (itemId: string) => {
   try {
     setCurrentItemState(await fetchItem(itemId))
   } catch (error) {
@@ -205,7 +205,7 @@ const getCategoriesAndBrands = async () => {
  * 対象の ID のアイテムの状態を初期化します。
  * @param itemId カタログアイテムID
  */
-const initItemAsync = async (itemId: number) => {
+const initItemAsync = async (itemId: string) => {
   await getCategoriesAndBrands()
   await getItem(itemId)
   setValues({
@@ -227,7 +227,7 @@ const initItemAsync = async (itemId: number) => {
  * 編集中のアイテムの行バージョンのみを最新化します。
  * @param itemId
  */
-const reFetchItemAndInitRowVersionAsync = async (itemId: number) => {
+const reFetchItemAndInitRowVersionAsync = async (itemId: string) => {
   await getCategoriesAndBrands()
   await getItem(itemId)
   editingItemState.value.rowVersion = currentItemState.value.rowVersion
@@ -362,7 +362,7 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">アイテムID</label>
             <input
               id="item-id"
-              v-model.number="currentItemState.id"
+              v-model="currentItemState.id"
               type="text"
               name="item-id"
               class="w-full border border-gray-300 px-4 py-2"
@@ -394,7 +394,7 @@ const updateItemAsync = async () => {
             <label for="unit-price" class="mb-2 block font-bold">単価</label>
             <input
               id="unit-price"
-              v-model.number="currentItemState.price"
+              v-model="currentItemState.price"
               name="unit-price"
               class="w-full border border-gray-300 px-4 py-2"
               disabled
@@ -414,13 +414,13 @@ const updateItemAsync = async () => {
             <label for="category" class="mb-2 block font-bold">カテゴリ</label>
             <select
               id="category"
-              v-model.number="currentItemState.categoryId"
+              v-model="currentItemState.categoryId"
               name="category"
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
               <option
-                v-for="category in catalogCategories.filter((category) => category.id !== 0)"
+                v-for="category in catalogCategories"
                 :key="category.id"
                 :value="category.id"
               >
@@ -432,13 +432,13 @@ const updateItemAsync = async () => {
             <label for="brand" class="mb-2 block font-bold">ブランド</label>
             <select
               id="brand"
-              v-model.number="currentItemState.brandId"
+              v-model="currentItemState.brandId"
               name="brand"
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
               <option
-                v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
+                v-for="brand in catalogBrands"
                 :key="brand.id"
                 :value="brand.id"
               >
@@ -464,7 +464,7 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">アイテムID</label>
             <input
               id="item-id"
-              v-model.number="editingItemState.id"
+              v-model="editingItemState.id"
               type="text"
               name="item-id"
               class="w-full border border-gray-300 px-4 py-2"
@@ -522,12 +522,12 @@ const updateItemAsync = async () => {
             <label for="category" class="mb-2 block font-bold">カテゴリ</label>
             <select
               id="category"
-              v-model.number="editingItemState.categoryId"
+              v-model="editingItemState.categoryId"
               name="category"
               class="w-full border border-gray-300 px-4 py-2"
             >
               <option
-                v-for="category in catalogCategories.filter((category) => category.id !== 0)"
+                v-for="category in catalogCategories"
                 :key="category.id"
                 :value="category.id"
               >
@@ -539,12 +539,12 @@ const updateItemAsync = async () => {
             <label for="brand" class="mb-2 block font-bold">ブランド</label>
             <select
               id="brand"
-              v-model.number="editingItemState.brandId"
+              v-model="editingItemState.brandId"
               name="brand"
               class="w-full border border-gray-300 px-4 py-2"
             >
               <option
-                v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
+                v-for="brand in catalogBrands"
                 :key="brand.id"
                 :value="brand.id"
               >

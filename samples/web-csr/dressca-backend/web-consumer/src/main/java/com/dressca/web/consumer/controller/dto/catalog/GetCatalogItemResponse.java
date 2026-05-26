@@ -1,8 +1,10 @@
 package com.dressca.web.consumer.controller.dto.catalog;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
-import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
 public class GetCatalogItemResponse {
 
   @NotNull
-  private long id;
+  @Schema(type = "string", format = "uuid")
+  private UUID id;
   @NotNull
   private String name;
   @NotNull
@@ -27,8 +30,9 @@ public class GetCatalogItemResponse {
   @NotNull
   private BigDecimal price;
   @NotNull
-  private long catalogCategoryId;
+  @Schema(type = "string", format = "uuid")
+  private UUID catalogCategoryId;
   @NotNull
-  private long catalogBrandId;
-
+  @Schema(type = "string", format = "uuid")
+  private UUID catalogBrandId;
 }

@@ -33,9 +33,9 @@ const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
     {
       description: '',
       price: 0,
-      catalogCategoryId: 0,
-      catalogBrandId: 0,
-      id: 0,
+      catalogCategoryId: '',
+      catalogBrandId: '',
+      id: '',
       name: '',
       productCode: '',
       rowVersion: '',
@@ -47,12 +47,12 @@ const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
 
 /**
  * ローディングスピナーの表示の状態です。
@@ -63,7 +63,7 @@ const showLoading = ref(true)
  * カタログブランドの名前を取得します。
  * @param id カタログブランドID
  */
-const getBrandName = (id: number) => {
+const getBrandName = (id: string) => {
   return catalogBrands.value.find((item) => item.id === id)?.name
 }
 
@@ -71,7 +71,7 @@ const getBrandName = (id: number) => {
  * カタログカテゴリの名前を取得します。
  * @param id カタログカテゴリID
  */
-const getCategoryName = (id: number) => {
+const getCategoryName = (id: string) => {
   return catalogCategories.value.find((item) => item.id === id)?.name
 }
 
@@ -84,7 +84,7 @@ const getCategoryName = (id: number) => {
 onMounted(async () => {
   showLoading.value = true
   try {
-    pagedListOfCatalogItem.value = await fetchItems(0, 0)
+    pagedListOfCatalogItem.value = await fetchItems()
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
   } catch (error) {
     await handleErrorAsync(error, () => {
@@ -106,7 +106,7 @@ const goToAddItem = () => {
  * アイテム編集画面に遷移します。
  * @param id カタログアイテムID
  */
-const goToEditItem = (id: number) => {
+const goToEditItem = (id: string) => {
   router.push({ name: 'catalog/items/edit', params: { itemId: id } })
 }
 </script>

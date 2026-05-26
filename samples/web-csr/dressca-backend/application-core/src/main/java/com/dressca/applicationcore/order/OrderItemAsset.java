@@ -3,6 +3,7 @@ package com.dressca.applicationcore.order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.UUID;
 
 /**
  * 注文アイテムアセットのエンティティです。
@@ -11,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItemAsset {
-  private long id;
+  private UUID id;
   private String assetCode;
-  private long orderItemId;
+  private UUID orderItemId;
   private OrderItem orderItem;
 
   /**
@@ -22,7 +23,7 @@ public class OrderItemAsset {
    * @param assetCode アセットコード。
    * @param orderItemId 注文アイテム ID 。
    */
-  public OrderItemAsset(String assetCode, long orderItemId) {
+  public OrderItemAsset(String assetCode, UUID orderItemId) {
     this.assetCode = assetCode;
     this.orderItemId = orderItemId;
   }

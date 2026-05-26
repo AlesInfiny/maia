@@ -27,7 +27,7 @@ export async function postOrder(
   todofuken: string,
   shikuchoson: string,
   azanaAndOthers: string,
-): Promise<number> {
+): Promise<string> {
   const postOrderInput: PostOrderRequest = {
     fullName,
     postalCode,
@@ -37,7 +37,7 @@ export async function postOrder(
   }
   const postOrderResponse = await ordersApi().postOrder(postOrderInput)
   const url = new URL(postOrderResponse.headers.location)
-  return Number(url.pathname.split('/').pop())
+  return url.pathname.split('/').pop() ?? ''
 }
 
 /**
@@ -49,7 +49,7 @@ export async function postOrder(
  * const order = await getOrder(123)
  * console.log(order.fullName) // 注文者の名前
  */
-export async function getOrder(orderId: number): Promise<GetOrderByIdResponse> {
+export async function getOrder(orderId: string): Promise<GetOrderByIdResponse> {
   const orderResultResponse = await ordersApi().getOrderById(orderId)
   return orderResultResponse.data
 }

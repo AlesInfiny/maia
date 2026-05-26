@@ -242,7 +242,7 @@
     },
     "/api/basket-items/{catalogItemId}": {
       "delete": {
-        "description": "買い物かごから指定したカタログアイテム ID の商品を削除します。\u003cbr\u003ecatalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。",
+        "description": "買い物かごから指定したカタログアイテム ID の商品を削除します。",
         "operationId": "deleteBasketItem",
         "parameters": [
           {
@@ -250,8 +250,8 @@
             "name": "catalogItemId",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -346,9 +346,8 @@
             "name": "brandId",
             "required": false,
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "default": 0
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -356,9 +355,8 @@
             "name": "categoryId",
             "required": false,
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "default": 0
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -496,8 +494,8 @@
             "name": "orderId",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -567,8 +565,8 @@
             "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
           },
           "catalogItemId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "quantity": {
             "type": "integer",
@@ -598,8 +596,8 @@
             }
           },
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -627,14 +625,12 @@
             }
           },
           "buyerId": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "deletedItemIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "type": "string",
+            "format": "uuid"
           }
         },
         "required": [
@@ -645,8 +641,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -661,8 +657,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -683,19 +679,19 @@
             }
           },
           "catalogBrandId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "catalogCategoryId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "description": {
             "type": "string"
           },
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -727,14 +723,15 @@
             "type": "string"
           },
           "buyerId": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "fullName": {
             "type": "string"
           },
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "orderDate": {
             "type": "string",
@@ -782,8 +779,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "itemOrdered": {
             "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
@@ -847,8 +844,8 @@
             "format": "int32"
           },
           "catalogItemId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           }
         },
         "required": [
@@ -913,8 +910,8 @@
         "type": "object",
         "properties": {
           "catalogItemId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "uuid"
           },
           "quantity": {
             "type": "integer",

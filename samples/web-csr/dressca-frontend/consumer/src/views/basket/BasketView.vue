@@ -36,7 +36,7 @@ const goCatalog = () => {
   router.push({ name: 'catalog' })
 }
 
-const update = async (catalogItemId: number, newQuantity: number) => {
+const update = async (catalogItemId: string, newQuantity: number) => {
   try {
     await updateItemInBasket(catalogItemId, newQuantity)
   } catch (error) {
@@ -63,7 +63,7 @@ const update = async (catalogItemId: number, newQuantity: number) => {
 }
 
 // 削除に失敗した通知を出す
-const remove = async (catalogItemId: number) => {
+const remove = async (catalogItemId: string) => {
   try {
     await removeItemFromBasket(catalogItemId)
   } catch (error) {

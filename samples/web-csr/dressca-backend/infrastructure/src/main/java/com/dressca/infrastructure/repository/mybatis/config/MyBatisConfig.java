@@ -1,5 +1,8 @@
 package com.dressca.infrastructure.repository.mybatis.config;
 
+import com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler;
+import java.util.UUID;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +24,10 @@ public class MyBatisConfig {
    */
   @Bean
   ConfigurationCustomizer mybatisConfigurationCustomizer() {
-    return new ConfigurationCustomizer() {
-      @Override
-      public void customize(org.apache.ibatis.session.Configuration configuration) {
-        configuration.setMapUnderscoreToCamelCase(true);
-      }
+    return configuration -> {
+      configuration.setMapUnderscoreToCamelCase(true);
+      configuration.getTypeHandlerRegistry().register(UUID.class, JdbcType.VARCHAR,
+          new UuidTypeHandler());
     };
   }
 }

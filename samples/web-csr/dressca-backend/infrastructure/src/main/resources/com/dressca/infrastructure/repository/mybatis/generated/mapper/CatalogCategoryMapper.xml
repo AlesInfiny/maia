@@ -5,7 +5,7 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -31,6 +31,25 @@
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -67,6 +86,25 @@
                 </when>
               </choose>
             </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
           </trim>
         </if>
       </foreach>
@@ -95,21 +133,21 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.util.UUID" resultMap="BaseResultMap">
     <!--
       Generated Code - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
     from catalog_categories
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from catalog_categories
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample">
     <!--
@@ -120,24 +158,32 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity">
     <!--
       Generated Code - @mbg.generated
     -->
-    insert into catalog_categories (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into catalog_categories (id, 
+      name)
+    values (#{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     insert into catalog_categories
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="name != null">
         name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -159,7 +205,7 @@
     update catalog_categories
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=BIGINT},
+        id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
@@ -174,7 +220,7 @@
       Generated Code - @mbg.generated
     -->
     update catalog_categories
-    set id = #{row.id,jdbcType=BIGINT},
+    set id = #{row.id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       name = #{row.name,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +236,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity">
     <!--
@@ -198,6 +244,6 @@
     -->
     update catalog_categories
     set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>
