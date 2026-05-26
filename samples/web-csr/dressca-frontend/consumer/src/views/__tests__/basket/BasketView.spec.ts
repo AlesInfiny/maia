@@ -85,6 +85,15 @@ const { getBasketItemsMock } = vi.hoisted(() => {
   }
 })
 
+vi.mock('@/composables/use-logger', () => ({
+  useLogger: () => ({
+    debug: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  }),
+}))
+
 vi.mock('@/api-client', () => ({
   // basketItemsApi() を呼ぶと { getBasketItems: getBasketItemsMock } が返る
   basketItemsApi: () => ({
