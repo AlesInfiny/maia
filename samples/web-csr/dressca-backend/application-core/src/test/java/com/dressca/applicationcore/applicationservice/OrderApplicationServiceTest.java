@@ -4,10 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.CatalogItemOrdered;
@@ -17,6 +13,10 @@ import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.applicationcore.order.ShipTo;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -55,51 +55,43 @@ public class OrderApplicationServiceTest {
 
   @Test
   void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
-    // Arrange
-    long orderId = 1L;
-    String buyerId = UUID.randomUUID().toString();
+    UUID orderId = UUID.randomUUID();
+    UUID buyerId = UUID.randomUUID();
     ShipTo shipToAddress = createDefaultShipTo();
     Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
+    order.setId(orderId);
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
-    // Act
-    Order actual = null;
-    actual = service.getOrder(orderId, buyerId);
+    Order actual = service.getOrder(orderId, buyerId);
 
-    // Assert
     assertThat(actual).isEqualTo(order);
   }
 
   @Test
   void testGetOrder_異常系_注文リポジトリから取得した情報と指定した購入者IDが異なる場合例外になる() {
-    // Arrange
-    long orderId = 1L;
-    String buyerId = UUID.randomUUID().toString();
+    UUID orderId = UUID.randomUUID();
+    UUID buyerId = UUID.randomUUID();
     ShipTo shipToAddress = createDefaultShipTo();
     Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
+    order.setId(orderId);
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
-    // Act
-    Executable action = () -> service.getOrder(orderId, "dummy");
+    Executable action = () -> service.getOrder(orderId, UUID.randomUUID());
 
-    // Assert
     assertThrows(OrderNotFoundException.class, action);
   }
 
   @Test
   void testGetOrder_異常系_注文リポジトリから注文情報を取得できない場合例外になる() {
-    // Arrange
-    long orderId = 1L;
-    String buyerId = UUID.randomUUID().toString();
+    UUID orderId = UUID.randomUUID();
+    UUID buyerId = UUID.randomUUID();
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.empty());
 
-    // Act
     Executable action = () -> service.getOrder(orderId, buyerId);
 
-    // Assert
     assertThrows(OrderNotFoundException.class, action);
   }
 
@@ -122,10 +114,8 @@ public class OrderApplicationServiceTest {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    List<OrderItem> items =
-        List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
-            BigDecimal.valueOf(100_000_000L), 1));
-
-    return items;
+    return List.of(new OrderItem(
+        new CatalogItemOrdered(UUID.randomUUID(), productName, productCode),
+        BigDecimal.valueOf(100_000_000L), 1));
   }
 }
