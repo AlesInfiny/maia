@@ -34,6 +34,8 @@ import com.dressca.batch.job.BatchConfiguration;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
+  private static final String TEST_CATALOG_BRAND_ID = "018f25d7-0000-7000-8000-000000000101";
+  private static final String TEST_CATALOG_CATEGORY_ID = "018f25d7-0000-7000-8000-000000000201";
   @Autowired
   private JobOperatorTestUtils jobOperatorTestUtils;
 
@@ -136,13 +138,16 @@ public class CatalogItemJobTest {
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
+      String catalogItemId = String.format("018f25d7-0000-7000-8000-0000000005%02d", i + 1);
+      String catalogItemAssetId = String.format("018f25d7-0000-7000-8000-0000000006%02d", i + 1);
       String insertItem = "insert into catalog_items" + " (id,name,description,price,product_code,"
           + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
-          + " values (?,?,?,1000,'C000000001'," + "1,1,false,'2024-01-01 00:00:00')";
+          + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";
       String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id)"
           + " values (?,'dummy',?)";
-      jdbcTemplate.update(insertItem, 101 + i, "sample" + i, "商品説明" + i);
-      jdbcTemplate.update(insertItemAsset, 101 + i, 101 + i);
+      jdbcTemplate.update(insertItem, catalogItemId, "sample" + i, "商品説明" + i,
+          TEST_CATALOG_CATEGORY_ID, TEST_CATALOG_BRAND_ID);
+      jdbcTemplate.update(insertItemAsset, catalogItemAssetId, catalogItemId);
     }
   }
 }
