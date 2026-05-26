@@ -35,7 +35,6 @@
   -->
   <Match>
     <Class name="~com\.dressca\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
-    <Method name="~get(OredCriteria|AllCriteria|Criteria)" />
     <Bug code="EI" />
   </Match>
   <!-- 
