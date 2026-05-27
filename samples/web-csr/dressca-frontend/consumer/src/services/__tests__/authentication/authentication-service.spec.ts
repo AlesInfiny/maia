@@ -111,14 +111,14 @@ describe('authenticationService_signOut', () => {
         },
         basketItems: [],
       }
-      basketStore.addedItemId = '018f25d7-0000-7000-8000-000000000342'
+      basketStore.addedItemId = 'd0000000-0000-7000-8000-000000000001'
       basketStore.deletedItemIds = [
-        '018f25d7-0000-7000-8000-000000000381',
-        '018f25d7-0000-7000-8000-000000000382',
-        '018f25d7-0000-7000-8000-000000000383',
+        'd0000000-0000-7000-8000-000000000002',
+        'd0000000-0000-7000-8000-000000000003',
+        'd0000000-0000-7000-8000-000000000004',
       ]
-      catalogStore.categories = [{ id: '018f25d7-0000-7000-8000-000000000211', name: 'カテゴリ1' }]
-      catalogStore.brands = [{ id: '018f25d7-0000-7000-8000-000000000111', name: 'ブランド1' }]
+      catalogStore.categories = [{ id: 'c0000000-0000-7000-8000-000000000001', name: 'カテゴリ1' }]
+      catalogStore.brands = [{ id: 'b0000000-0000-7000-8000-000000000001', name: 'ブランド1' }]
       catalogStore.catalogItemPage = { items: [], totalCount: 10 }
       notificationStore.setMessage('エラー', 'id-1', 'タイトル', '詳細', 500, 10000)
 
