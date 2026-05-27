@@ -49,9 +49,7 @@ const checkout = async () => {
         }
       },
       (httpError: HttpError) => {
-        if (httpError.response?.status === 404) {
-          showToast(t('basketContainsUnavailableItem'))
-        } else if (!httpError.response?.exceptionId) {
+        if (!httpError.response?.exceptionId) {
           showToast(t('failedToOrderItems'))
         } else {
           const message = errorMessageFormat(
