@@ -64,6 +64,8 @@ export const basketsHandlers = [
           addBasketItem.quantity = dto.addedQuantity ?? 0
           basket.basketItems?.push(addBasketItem)
 
+          // 追加したアイテムがカタログから削除済みのアイテムだった場合、
+          // 買い物かごの削除済みアイテム ID リストに ID を追加します。
           if (addBasketItem.catalogItemId === deletedItemId) {
             basket.deletedItemIds?.push(addBasketItem.catalogItemId)
           }
@@ -107,6 +109,8 @@ export const basketsHandlers = [
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
     const subTotals = basket.basketItems.map((item) => item.subTotal)
     basket.account = calcBasketAccount(subTotals)
+    // 削除したアイテムがカタログから削除済みのアイテムだった場合、
+    // 買い物かごの削除済みアイテム ID リストを空にします。
     if (catalogItemId === deletedItemId) {
       basket.deletedItemIds = []
     }

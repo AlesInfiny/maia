@@ -82,6 +82,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testAddItemToBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws CatalogNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -98,9 +99,11 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds))
         .thenReturn(List.of(catalogItem));
 
+    // Act
     // テストメソッドの実行
     service.addItemToBasket(buyerId, catalogItemId, 1);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -110,6 +113,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testAddItemToBasket_正常系_商品追加処理後に数量が0となる場合買い物かごアイテムは削除される() throws CatalogNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -125,9 +129,11 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.getExistCatalogItems(catalogItemIds))
         .thenReturn(List.of(catalogItem));
 
+    // Act
     // テストメソッドの実行
     service.addItemToBasket(buyerId, catalogItemId, -1);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -140,6 +146,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testAddItemToBasket_異常系_カタログに存在しない商品が指定された場合は例外が発生する() {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -151,10 +158,12 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
 
     try {
+      // Act
       // テストメソッドの実行
       service.addItemToBasket(buyerId, catalogItemId, 1);
       fail("CatalogNotFoundException が発生しなければ失敗");
     } catch (CatalogNotFoundException e) {
+      // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -168,6 +177,7 @@ public class ShoppingApplicationServiceTest {
   @Test
   void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
       CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -179,11 +189,13 @@ public class ShoppingApplicationServiceTest {
     List<UUID> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
+    // Act
     // テストメソッドの実行
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(catalogItemId, newQuantity);
     service.setQuantities(buyerId, quantities);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -193,6 +205,7 @@ public class ShoppingApplicationServiceTest {
   @Test
   void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException,
       CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -204,11 +217,13 @@ public class ShoppingApplicationServiceTest {
     List<UUID> catalogItemIds = List.of(catalogItemId);
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
+    // Act
     // テストメソッドの実行
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(catalogItemId, newQuantity);
     service.setQuantities(buyerId, quantities);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -220,6 +235,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testSetQuantities_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID deletedCatalogItemId = UUID.randomUUID();
@@ -234,11 +250,13 @@ public class ShoppingApplicationServiceTest {
         .thenReturn(List.of(deletedCatalogItem));
 
     try {
+      // Act
       // テストメソッドの実行
       Map<UUID, Integer> quantities = Map.of(deletedCatalogItemId, 5);
       service.setQuantities(buyerId, quantities);
       fail("CatalogNotFoundException が発生しなければ失敗");
     } catch (CatalogNotFoundException e) {
+      // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -251,6 +269,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testSetQuantities_異常系_買い物かごに入っていない商品が指定された場合は例外が発生する() {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -263,11 +282,13 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(true);
 
     try {
+      // Act
       // テストメソッドの実行
       Map<UUID, Integer> quantities = Map.of(catalogItemId, 5);
       service.setQuantities(buyerId, quantities);
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     } catch (CatalogItemInBasketNotFoundException e) {
+      // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
@@ -280,6 +301,7 @@ public class ShoppingApplicationServiceTest {
   @Test
   void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
       CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -291,9 +313,11 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
         .thenReturn(true);
 
+    // Act
     // テストメソッドの実行
     service.deleteItemFromBasket(buyerId, catalogItemId);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     verify(this.basketRepository, times(1)).update(basket);
@@ -302,6 +326,7 @@ public class ShoppingApplicationServiceTest {
   @Test
   void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている() throws BasketNotFoundException,
       CatalogNotFoundException, CatalogItemInBasketNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -313,9 +338,11 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
         .thenReturn(true);
 
+    // Act
     // テストメソッドの実行
     service.deleteItemFromBasket(buyerId, catalogItemId);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
@@ -326,6 +353,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testDeleteItemFromBasket_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -337,10 +365,12 @@ public class ShoppingApplicationServiceTest {
         .thenReturn(false);
 
     try {
+      // Act
       // テストメソッドの実行
       service.deleteItemFromBasket(buyerId, catalogItemId);
       fail("CatalogNotFoundException が発生しなければ失敗");
     } catch (CatalogNotFoundException e) {
+      // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.basketRepository, times(0)).update(any());
@@ -351,6 +381,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testDeleteItemFromBasket_異常系_買い物かごに入っていない商品が指定された場合は例外が発生する() {
+    // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
     UUID catalogItemId = UUID.randomUUID();
@@ -362,10 +393,12 @@ public class ShoppingApplicationServiceTest {
         .thenReturn(true);
 
     try {
+      // Act
       // テストメソッドの実行
       service.deleteItemFromBasket(buyerId, catalogItemId);
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
     } catch (CatalogItemInBasketNotFoundException e) {
+      // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
       verify(this.basketRepository, times(0)).update(any());
@@ -376,6 +409,7 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testGetBasketDetail_正常系_カタログIDに対応するカタログ情報が取得されること() throws BasketNotFoundException {
+    // Arrange
     // テスト用の入力データ
     UUID dummyBuyerId = UUID.randomUUID();
 
@@ -395,12 +429,14 @@ public class ShoppingApplicationServiceTest {
     when(this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds))
         .thenReturn(items);
 
+    // Act
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
     assertThat(actual.catalogItems.size()).isEqualTo(2);
     assertThat(actual.catalogItems.get(0).getId()).isEqualTo(itemId1);
     assertThat(actual.catalogItems.get(1).getId()).isEqualTo(itemId2);
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(1)).findByCatalogItemIdInIncludingDeleted(catalogItemIds);
   }
@@ -409,13 +445,16 @@ public class ShoppingApplicationServiceTest {
   @MethodSource("blankBuyerIdSource")
   void testGetBasketDetail_異常系_購入者IDがnullまたは空白なら例外が発生する(UUID buyerId)
       throws IllegalArgumentException {
+    // Act
     // テストメソッドの実行
     try {
       service.getBasketDetail(buyerId);
     } catch (IllegalArgumentException e) {
+      // Assert
       assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
     }
 
+    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.catalogRepository, times(0)).findByCatalogItemIdInIncludingDeleted(any());
   }
@@ -491,8 +530,10 @@ public class ShoppingApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new CatalogItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
-        UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
+        defaultProductCode, UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    // catalogItem.setId(id);
+    return catalogItem;
   }
 
   private static Stream<UUID> blankBuyerIdSource() {

@@ -5,7 +5,7 @@ import com.dressca.systemcommon.exception.LogicException;
 import java.util.UUID;
 
 /**
- * 買い物かごが存在しないことを表す例外です。
+ * 買い物かごが存在しないことを表す例外クラスです。
  */
 public class BasketNotFoundException extends LogicException {
 

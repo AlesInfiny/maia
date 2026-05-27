@@ -1,5 +1,6 @@
 import type { GetOrderByIdResponse } from '@/generated/api-client'
 
+// mock のため、注文データは id と orderDate 以外固定値を返却する
 export const order: GetOrderByIdResponse = {
   id: 'f1000000-0000-7000-8000-000000000001',
   buyerId: 'f0000000-0000-7000-8000-000000000001',
