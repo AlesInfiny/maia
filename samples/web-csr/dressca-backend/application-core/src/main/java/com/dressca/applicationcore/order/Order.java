@@ -74,6 +74,7 @@ public class Order {
       BigDecimal consumptionTax, BigDecimal totalPrice, List<OrderItem> orderItems) {
     this.id = id;
     this.buyerId = buyerId;
+    this.orderDate = orderDate;
     this.shipToAddress = shipToAddress == null ? null
         : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
     this.orderItems = new ArrayList<>(orderItems);
