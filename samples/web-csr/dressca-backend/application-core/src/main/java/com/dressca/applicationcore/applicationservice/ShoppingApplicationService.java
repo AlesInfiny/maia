@@ -192,17 +192,20 @@ public class ShoppingApplicationService {
 
     List<Long> catalogItemIds =
         basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems =
+    List<CatalogItem> catalogItemsIncludingDeleted =
         this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
-    if (!this.catalogDomainService.existAll(catalogItemIds)) {
-      List<CatalogItem> deletedCatalogItems =
-          catalogItems.stream().filter(CatalogItem::isDeleted).collect(Collectors.toList());
+
+    List<CatalogItem> deletedCatalogItems = catalogItemsIncludingDeleted.stream()
+        .filter(c -> c.isDeleted()).collect(Collectors.toList());
+    if (!deletedCatalogItems.isEmpty()) {
       throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
           .mapToLong(Long::longValue).toArray());
     }
 
+    List<CatalogItem> existCatalogItems = catalogItemsIncludingDeleted.stream()
+        .filter(c -> !c.isDeleted()).collect(Collectors.toList());
     List<OrderItem> orderItems = basket.getItems().stream()
-        .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
+        .map(basketItems -> this.mapToOrderItem(basketItems, existCatalogItems))
         .collect(Collectors.toList());
     Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
     order = this.orderRepository.add(order);
