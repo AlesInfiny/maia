@@ -184,7 +184,9 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごから指定したカタログアイテム ID の商品を削除します。",
-      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。")
+      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。<br>"
+          + "catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。"
+          + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",

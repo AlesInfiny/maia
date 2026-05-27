@@ -55,6 +55,7 @@ public class OrderApplicationServiceTest {
 
   @Test
   void testGetOrder_正常系_注文リポジトリから取得した情報と指定した購入者IDが合致する場合注文情報を取得できる() throws Exception {
+    // Arrange
     UUID orderId = UUID.randomUUID();
     UUID buyerId = UUID.randomUUID();
     ShipTo shipToAddress = createDefaultShipTo();
@@ -63,13 +64,16 @@ public class OrderApplicationServiceTest {
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
+    // Act
     Order actual = service.getOrder(orderId, buyerId);
 
+    // Assert
     assertThat(actual).isEqualTo(order);
   }
 
   @Test
   void testGetOrder_異常系_注文リポジトリから取得した情報と指定した購入者IDが異なる場合例外になる() {
+    // Arrange
     UUID orderId = UUID.randomUUID();
     UUID buyerId = UUID.randomUUID();
     ShipTo shipToAddress = createDefaultShipTo();
@@ -78,20 +82,25 @@ public class OrderApplicationServiceTest {
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
+    // Act
     Executable action = () -> service.getOrder(orderId, UUID.randomUUID());
 
+    // Assert
     assertThrows(OrderNotFoundException.class, action);
   }
 
   @Test
   void testGetOrder_異常系_注文リポジトリから注文情報を取得できない場合例外になる() {
+    // Arrange
     UUID orderId = UUID.randomUUID();
     UUID buyerId = UUID.randomUUID();
 
     when(this.orderRepository.findById(orderId)).thenReturn(Optional.empty());
 
+    // Act
     Executable action = () -> service.getOrder(orderId, buyerId);
 
+    // Assert
     assertThrows(OrderNotFoundException.class, action);
   }
 

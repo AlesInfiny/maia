@@ -248,6 +248,7 @@ public class CatalogDomainServiceTest {
 
     CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
         defaultProductCode, UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    // catalogItem.setId(id);
     return catalogItem;
   }
 

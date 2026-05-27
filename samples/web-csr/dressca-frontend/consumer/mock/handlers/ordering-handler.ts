@@ -12,6 +12,7 @@ export const orderingHandlers = [
     order.shikuchoson = dto.shikuchoson
     order.azanaAndOthers = dto.azanaAndOthers
 
+    // mock のため、注文データは id と orderDate 以外固定値を返却する
     const id = 'f1000000-0000-7000-8000-0000000000ff'
 
     return new HttpResponse(null, {

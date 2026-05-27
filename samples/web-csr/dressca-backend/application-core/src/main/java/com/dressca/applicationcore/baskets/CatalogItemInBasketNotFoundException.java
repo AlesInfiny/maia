@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 /**
- * 買い物かごに商品が存在しないことを表す例外です。
+ * 買い物かご内に想定する商品が存在しないことを表す例外クラスです。
  */
 public class CatalogItemInBasketNotFoundException extends LogicException {
 
