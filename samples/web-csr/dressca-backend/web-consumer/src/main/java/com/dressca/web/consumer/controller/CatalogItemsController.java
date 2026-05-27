@@ -6,7 +6,6 @@ import com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.consumer.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.consumer.mapper.CatalogItemMapper;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -53,11 +52,7 @@ public class CatalogItemsController {
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping()
   public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
-      @Parameter(description = "ブランド ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
       @RequestParam(name = "brandId", required = false) UUID brandId,
-      @Parameter(description = "カテゴリ ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
       @RequestParam(name = "categoryId", required = false) UUID categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {

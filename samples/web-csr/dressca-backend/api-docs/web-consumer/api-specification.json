@@ -246,7 +246,6 @@
         "operationId": "deleteBasketItem",
         "parameters": [
           {
-            "description": "カタログアイテム ID 。",
             "in": "path",
             "name": "catalogItemId",
             "required": true,
@@ -343,7 +342,6 @@
         "operationId": "getByQuery",
         "parameters": [
           {
-            "description": "ブランド ID 。",
             "in": "query",
             "name": "brandId",
             "required": false,
@@ -353,7 +351,6 @@
             }
           },
           {
-            "description": "カテゴリ ID 。",
             "in": "query",
             "name": "categoryId",
             "required": false,
@@ -493,7 +490,6 @@
         "operationId": "getOrderById",
         "parameters": [
           {
-            "description": "注文 ID 。",
             "in": "path",
             "name": "orderId",
             "required": true,

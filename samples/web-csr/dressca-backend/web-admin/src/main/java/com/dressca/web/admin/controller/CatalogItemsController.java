@@ -17,7 +17,6 @@ import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -75,9 +74,7 @@ public class CatalogItemsController {
           content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping("{id}")
-  public ResponseEntity<GetCatalogItemResponse> getCatalogItem(
-      @Parameter(description = "カタログアイテム ID 。",
-          schema = @Schema(type = "string", format = "uuid")) @PathVariable("id") UUID id)
+  public ResponseEntity<GetCatalogItemResponse> getCatalogItem(@PathVariable("id") UUID id)
       throws PermissionDeniedException {
     CatalogItem item;
     try {
@@ -113,11 +110,7 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
-      @Parameter(description = "ブランド ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
       @RequestParam(name = "brandId", required = false) UUID brandId,
-      @Parameter(description = "カテゴリ ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
       @RequestParam(name = "categoryId", required = false) UUID categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize)
@@ -187,10 +180,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteCatalogItem(
-      @Parameter(description = "カタログアイテム ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
-      @PathVariable("catalogItemId") UUID catalogItemId,
+  public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
       @RequestParam(name = "rowVersion") OffsetDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
@@ -223,10 +213,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<?> putCatalogItem(
-      @Parameter(description = "カタログアイテム ID 。",
-          schema = @Schema(type = "string", format = "uuid"))
-      @PathVariable("catalogItemId") UUID catalogItemId,
+  public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
