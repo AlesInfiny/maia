@@ -202,7 +202,6 @@
         "operationId": "getByQuery",
         "parameters": [
           {
-            "description": "ブランド ID 。",
             "in": "query",
             "name": "brandId",
             "required": false,
@@ -212,7 +211,6 @@
             }
           },
           {
-            "description": "カテゴリ ID 。",
             "in": "query",
             "name": "categoryId",
             "required": false,
@@ -313,7 +311,6 @@
         "operationId": "deleteCatalogItem",
         "parameters": [
           {
-            "description": "カタログアイテム ID 。",
             "in": "path",
             "name": "catalogItemId",
             "required": true,
@@ -362,7 +359,6 @@
         "operationId": "putCatalogItem",
         "parameters": [
           {
-            "description": "カタログアイテム ID 。",
             "in": "path",
             "name": "catalogItemId",
             "required": true,
@@ -414,7 +410,6 @@
         "operationId": "getCatalogItem",
         "parameters": [
           {
-            "description": "カタログアイテム ID 。",
             "in": "path",
             "name": "id",
             "required": true,
