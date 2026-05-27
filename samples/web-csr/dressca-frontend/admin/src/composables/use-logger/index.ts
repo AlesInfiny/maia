@@ -63,7 +63,7 @@ function initializeLogger() {
       error: (...args) => console.error(...args),
     }
     _logger = logger
-  } else {
+  } else if (import.meta.env.PROD) {
     // 本番環境用のロガーを注入します。
     // 適切な出力先を設定してください。
     const logger: Logger = {
@@ -71,6 +71,15 @@ function initializeLogger() {
       info: doNothing,
       warn: doNothing,
       error: (...args) => console.error(...args),
+    }
+    _logger = logger
+  } else {
+    // モック環境用のロガーを注入します。
+    const logger: Logger = {
+      debug: doNothing,
+      info: doNothing,
+      warn: doNothing,
+      error: doNothing,
     }
     _logger = logger
   }

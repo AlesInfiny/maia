@@ -9,15 +9,6 @@ vi.mock('@vueuse/core', () => ({
   useEventBus: () => ({ emit: emitMock }),
 }))
 
-// useLogger のモック
-vi.mock('@/composables/use-logger', () => ({
-  useLogger: () => ({
-    info: vi.fn(),
-    error: vi.fn(),
-    warn: vi.fn(),
-  }),
-}))
-
 describe('useCustomErrorHandler', () => {
   let handleErrorAsync: ReturnType<typeof useCustomErrorHandler>
 
