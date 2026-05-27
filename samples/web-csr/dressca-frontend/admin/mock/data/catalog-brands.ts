@@ -2,15 +2,15 @@ import type { GetCatalogBrandsResponse } from '@/generated/api-client'
 
 export const catalogBrands: GetCatalogBrandsResponse[] = [
   {
-    id: '018f25d7-0000-7000-8000-000000000101',
+    id: 'b0000000-0000-7000-8000-000000000001',
     name: '高級なブランド',
   },
   {
-    id: '018f25d7-0000-7000-8000-000000000102',
+    id: 'b0000000-0000-7000-8000-000000000002',
     name: 'カジュアルなブランド',
   },
   {
-    id: '018f25d7-0000-7000-8000-000000000103',
+    id: 'b0000000-0000-7000-8000-000000000003',
     name: 'ノーブランド',
   },
 ]

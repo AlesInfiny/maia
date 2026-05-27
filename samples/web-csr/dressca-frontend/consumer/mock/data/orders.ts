@@ -1,8 +1,8 @@
 import type { GetOrderByIdResponse } from '@/generated/api-client'
 
 export const order: GetOrderByIdResponse = {
-  id: '018f25d7-0000-7000-8000-000000000601',
-  buyerId: '018f25d7-0000-7000-8000-000000000501',
+  id: 'f1000000-0000-7000-8000-000000000001',
+  buyerId: 'f0000000-0000-7000-8000-000000000001',
   orderDate: '',
   fullName: '国会　太郎',
   postalCode: '100-8924',
@@ -11,24 +11,24 @@ export const order: GetOrderByIdResponse = {
   azanaAndOthers: '永田町1-10-1',
   orderItems: [
     {
-      id: '018f25d7-0000-7000-8000-000000000701',
+      id: 'f2000000-0000-7000-8000-000000000001',
       quantity: 2,
       subTotal: 3960,
       unitPrice: 1980,
       itemOrdered: {
-        id: '018f25d7-0000-7000-8000-000000000301',
+        id: 'd0000000-0000-7000-8000-000000000001',
         name: 'クルーネック Tシャツ - ブラック',
         productCode: 'C000000001',
         assetCodes: ['45c22ba3da064391baac91341067ffe9'],
       },
     },
     {
-      id: '018f25d7-0000-7000-8000-000000000702',
+      id: 'f2000000-0000-7000-8000-000000000002',
       quantity: 1,
       subTotal: 2800,
       unitPrice: 2800,
       itemOrdered: {
-        id: '018f25d7-0000-7000-8000-000000000304',
+        id: 'd0000000-0000-7000-8000-000000000004',
         name: '無地 ボタンダウンシャツ',
         productCode: 'C000000004',
         assetCodes: [],

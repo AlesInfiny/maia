@@ -12,7 +12,7 @@ export const orderingHandlers = [
     order.shikuchoson = dto.shikuchoson
     order.azanaAndOthers = dto.azanaAndOthers
 
-    const id = '018f25d7-0000-7000-8000-0000000006ff'
+    const id = 'f1000000-0000-7000-8000-0000000000ff'
 
     return new HttpResponse(null, {
       headers: {

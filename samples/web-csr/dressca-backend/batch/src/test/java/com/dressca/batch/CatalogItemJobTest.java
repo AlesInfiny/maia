@@ -34,8 +34,8 @@ import com.dressca.batch.job.BatchConfiguration;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
-  private static final String TEST_CATALOG_BRAND_ID = "018f25d7-0000-7000-8000-000000000101";
-  private static final String TEST_CATALOG_CATEGORY_ID = "018f25d7-0000-7000-8000-000000000201";
+  private static final String TEST_CATALOG_BRAND_ID = "b0000000-0000-7000-8000-000000000001";
+  private static final String TEST_CATALOG_CATEGORY_ID = "c0000000-0000-7000-8000-000000000001";
   @Autowired
   private JobOperatorTestUtils jobOperatorTestUtils;
 
@@ -138,8 +138,9 @@ public class CatalogItemJobTest {
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
-      String catalogItemId = String.format("018f25d7-0000-7000-8000-0000000005%02d", i + 1);
-      String catalogItemAssetId = String.format("018f25d7-0000-7000-8000-0000000006%02d", i + 1);
+      String catalogItemId = String.format("d0000000-0000-7000-8000-0000000000%02x", i + 0xc1);
+      String catalogItemAssetId =
+          String.format("e0000000-0000-7000-8000-0000000000%02x", i + 0xc1);
       String insertItem = "insert into catalog_items" + " (id,name,description,price,product_code,"
           + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
           + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";
