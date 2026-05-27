@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
 
 /**
- * {@link CatalogItem} と {@link CatalogItemSummaryResponse} のマッパーです。
+ * {@link CatalogItem} と {@link CatalogItemSummaryApiModel} のマッパーです。
  */
 public class CatalogItemSummaryMapper {
   /**
-   * {@link CatalogItem} オブジェクトを {@link CatalogItemSummaryResponse} に変換します。
+   * {@link CatalogItem} オブジェクトを {@link CatalogItemSummaryApiModel} に変換します。
    * 
    * @param item {@link CatalogItem} オブジェクト。
-   * @return {@link CatalogItemSummaryResponse} オブジェクト。
+   * @return {@link CatalogItemSummaryApiModel} オブジェクト。
    */
-  public static CatalogItemSummaryResponse convert(CatalogItem item) {
+  public static CatalogItemSummaryApiModel convert(CatalogItem item) {
     if (item == null) {
       return null;
     }
@@ -24,7 +24,7 @@ public class CatalogItemSummaryMapper {
     List<String> assetCodes =
         item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new CatalogItemSummaryResponse(item.getId(), item.getName(), item.getProductCode(),
+    return new CatalogItemSummaryApiModel(item.getId(), item.getName(), item.getProductCode(),
         assetCodes);
   }
 }

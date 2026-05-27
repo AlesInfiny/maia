@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountResponse {
+public class AccountApiModel {
   @NotNull
   private double consumptionTaxRate;
   @NotNull

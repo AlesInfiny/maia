@@ -2,7 +2,7 @@ package com.dressca.web.consumer.controller.dto.baskets;
 
 import java.math.BigDecimal;
 import jakarta.validation.constraints.NotNull;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
+import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketItemResponse {
+public class BasketItemApiModel {
   @NotNull
   private long catalogItemId;
   @NotNull
@@ -22,5 +22,5 @@ public class BasketItemResponse {
   private int quantity;
   @NotNull
   private BigDecimal subTotal;
-  private CatalogItemSummaryResponse catalogItem;
+  private CatalogItemSummaryApiModel catalogItem;
 }

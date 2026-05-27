@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { ServerTimeResponse } from '../models';
+import type { GetServerTimeResponse } from '../models';
 /**
  * ServerTimeApi - axios parameter creator
  */
@@ -73,7 +73,7 @@ export const ServerTimeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getServerTime(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServerTimeResponse>> {
+        async getServerTime(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetServerTimeResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getServerTime(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ServerTimeApi.getServerTime']?.[localVarOperationServerIndex]?.url;
@@ -94,7 +94,7 @@ export const ServerTimeApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServerTime(options?: RawAxiosRequestConfig): AxiosPromise<ServerTimeResponse> {
+        getServerTime(options?: RawAxiosRequestConfig): AxiosPromise<GetServerTimeResponse> {
             return localVarFp.getServerTime(options).then((request) => request(axios, basePath));
         },
     };
