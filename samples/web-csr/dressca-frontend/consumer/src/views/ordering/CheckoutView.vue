@@ -119,7 +119,11 @@ onMounted(async () => {
       </table>
       <div class="flex flex-col items-center gap-2 lg:col-end-3">
         <button
-          class="w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300/50"
+          class="w-36 rounded-sm px-4 py-2 font-bold text-white"
+          :class="{
+            'bg-teal-500 hover:bg-teal-700 disabled:bg-teal-300/50': hasUnavailableItems,
+            'bg-orange-500 hover:bg-amber-700 disabled:bg-orange-300/50': !hasUnavailableItems,
+          }"
           type="button"
           :disabled="hasUnavailableItems"
           @click="checkout()"
@@ -127,7 +131,11 @@ onMounted(async () => {
           注文を確定する
         </button>
         <button
-          class="w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
+          class="w-36 rounded-sm px-4 py-2 font-bold text-white"
+          :class="{
+            'bg-orange-500 hover:bg-amber-700': hasUnavailableItems,
+            'bg-teal-500 hover:bg-teal-700': !hasUnavailableItems,
+          }"
           type="button"
           @click="goBasket()"
         >
