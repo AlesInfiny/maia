@@ -11,7 +11,7 @@ import { assetHelper } from '@/shared/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@/locales/i18n'
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
-import { HttpError } from '@/shared/error-handler/custom-error'
+import { HttpError, NotFoundError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const userStore = useUserStore()
@@ -30,6 +30,7 @@ const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
 const goBasket = () => {
   router.push({ name: 'basket' })
 }
+
 const checkout = async () => {
   try {
     const orderId = await postOrder(
@@ -44,7 +45,7 @@ const checkout = async () => {
     await handleErrorAsync(
       error,
       () => {
-        if (!(error instanceof HttpError && error.response?.status === 404)) {
+        if (!(error instanceof NotFoundError)) {
           router.push({ name: 'error' })
         }
       },
