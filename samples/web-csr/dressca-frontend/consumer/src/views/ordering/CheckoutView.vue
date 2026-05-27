@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useUserStore } from '@/stores/user/user'
 import { postOrder } from '@/services/ordering/ordering-service'
@@ -24,6 +24,8 @@ const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
+
+const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
 
 const goBasket = () => {
   router.push({ name: 'basket' })
@@ -76,10 +78,10 @@ onMounted(async () => {
 
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
-    <span class="text-lg font-medium text-green-500">
+    <p v-if="!hasUnavailableItems" class="mx-2 text-lg font-medium text-green-500">
       {{ t('orderingCheckAndComplete') }}
-    </span>
-    <p v-if="getDeletedItemIds.length > 0" class="mt-2 font-bold text-red-500">
+    </p>
+    <p v-if="hasUnavailableItems" class="mx-2 text-lg font-medium text-red-500">
       {{ t('orderingBlockedByUnavailableItems') }}
     </p>
   </div>
@@ -119,7 +121,7 @@ onMounted(async () => {
         <button
           class="w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 disabled:bg-orange-300/50"
           type="button"
-          :disabled="getDeletedItemIds.length > 0"
+          :disabled="hasUnavailableItems"
           @click="checkout()"
         >
           注文を確定する
@@ -158,7 +160,9 @@ onMounted(async () => {
         v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
         class="mt-4 grid grid-cols-4 items-center lg:grid-cols-6"
-        :class="getDeletedItemIds.includes(item.catalogItemId) && 'bg-red-100'"
+        :class="{
+          'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
+        }"
       >
         <div class="col-span-4 lg:col-span-5">
           <div class="grid grid-cols-3">
