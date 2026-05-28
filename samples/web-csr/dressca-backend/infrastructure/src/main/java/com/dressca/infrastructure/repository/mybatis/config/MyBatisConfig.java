@@ -26,7 +26,7 @@ public class MyBatisConfig {
   ConfigurationCustomizer mybatisConfigurationCustomizer() {
     return configuration -> {
       configuration.setMapUnderscoreToCamelCase(true);
-      configuration.getTypeHandlerRegistry().register(UUID.class, JdbcType.VARCHAR,
+      configuration.getTypeHandlerRegistry().register(UUID.class, JdbcType.OTHER,
           new UuidTypeHandler());
     };
   }
