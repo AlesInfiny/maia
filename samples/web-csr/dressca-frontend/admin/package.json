@@ -62,7 +62,7 @@
     "msw": "2.12.12",
     "npm-run-all2": "8.0.4",
     "prettier": "3.8.1",
-    "prettier-plugin-tailwindcss": "0.7.2",
+    "prettier-plugin-tailwindcss": "0.8.0",
     "start-server-and-test": "2.1.5",
     "stylelint": "16.26.1",
     "stylelint-config-recommended-vue": "1.6.1",
