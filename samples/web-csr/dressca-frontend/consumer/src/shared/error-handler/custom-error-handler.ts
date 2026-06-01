@@ -1,6 +1,5 @@
 import { CanceledError } from 'axios'
 import { i18n } from '@/locales/i18n'
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
 import { useEventBus } from '@vueuse/core'
 import {
   CustomErrorBase,
@@ -82,10 +81,7 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
                 message: t('loginRequiredError'),
               })
             } else {
-              const message = errorMessageFormat(
-                error.response.exceptionId,
-                error.response.exceptionValues,
-              )
+              const message = t(error.response.exceptionId, error.response.exceptionValues)
               unhandledErrorEventBus.emit({
                 message,
                 id: error.response.exceptionId,
@@ -114,10 +110,7 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
               message: t('serverError'),
             })
           } else {
-            const message = errorMessageFormat(
-              error.response.exceptionId,
-              error.response.exceptionValues,
-            )
+            const message = t(error.response.exceptionId, error.response.exceptionValues)
             unhandledErrorEventBus.emit({
               message,
               id: error.response.exceptionId,

@@ -65,16 +65,16 @@ describe('Authentication validation', () => {
 
 it('英語でメール形式メッセージを返す', async () => {
   setLocale('en')
-    const { email, required } = ValidationItems()
-    const schema = z.object({
-      email: z.string().pipe(required).pipe(email),
-      password: z.string().pipe(required),
-    })
+  const { email, required } = ValidationItems()
+  const schema = z.object({
+    email: z.string().pipe(required).pipe(email),
+    password: z.string().pipe(required),
+  })
 
-    const result = await schema.safeParseAsync({
-      email: 'invalid-email',
-      password: 'aaa',
-    })
+  const result = await schema.safeParseAsync({
+    email: 'invalid-email',
+    password: 'aaa',
+  })
 
   expect(result.success).toBe(false)
   expect(result.error?.issues[0]?.message).toBe('invalid email format')
