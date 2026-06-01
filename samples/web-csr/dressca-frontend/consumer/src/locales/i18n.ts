@@ -17,7 +17,7 @@ const langPackage = {
 
 export type MessageSchema = typeof langPackage.ja
 
-const i18n = createI18n<[MessageSchema], 'ja' | 'en'>({
+const i18n = createI18n<[MessageSchema], 'ja' | 'en', false>({
   legacy: false,
   locale: window.navigator.language,
   fallbackLocale: 'en',

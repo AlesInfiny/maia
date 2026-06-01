@@ -21,7 +21,7 @@ function createBasketItemApiModel(): BasketItemApiModel {
 
 describe('BasketItem', () => {
   beforeEach(() => {
-    ;(i18n.global.locale as unknown as Ref<string>).value = 'ja'
+    i18n.global.locale.value = 'ja'
   })
 
   it('小計が日本円形式で表示できる', () => {

@@ -1,16 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { type Ref } from 'vue'
 import { z } from 'zod'
 import { i18n } from '@/locales/i18n'
 import { ValidationItems } from '@/validation/validation-items'
 
-const setLocale = (locale: string) => {
-  ;(i18n.global.locale as unknown as Ref<string>).value = locale
-}
-
 describe('Authentication validation', () => {
   it('日本語で必須メッセージを返す', async () => {
-    setLocale('ja')
+    i18n.global.locale.value = 'ja'
     const { email, required } = ValidationItems()
     const schema = z.object({
       email: z.string().pipe(required).pipe(email),
@@ -28,7 +23,7 @@ describe('Authentication validation', () => {
   })
 
   it('日本語でメール形式メッセージを返す', async () => {
-    setLocale('ja')
+    i18n.global.locale.value = 'ja'
     const { email, required } = ValidationItems()
     const schema = z.object({
       email: z.string().pipe(required).pipe(email),
@@ -45,7 +40,7 @@ describe('Authentication validation', () => {
   })
 
   it('英語で必須メッセージを返す', async () => {
-    setLocale('en')
+    i18n.global.locale.value = 'en'
     const { email, required } = ValidationItems()
     const schema = z.object({
       email: z.string().pipe(required).pipe(email),
@@ -64,7 +59,7 @@ describe('Authentication validation', () => {
 })
 
 it('英語でメール形式メッセージを返す', async () => {
-  setLocale('en')
+  i18n.global.locale.value = 'en'
   const { email, required } = ValidationItems()
   const schema = z.object({
     email: z.string().pipe(required).pipe(email),
