@@ -49,7 +49,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * @return ステータースコード 404 のレスポンス。
    */
   @ExceptionHandler({AuthorizationDeniedException.class, PermissionDeniedException.class})
-  public ResponseEntity<String> handleAuthorizationDeniedException(AuthorizationDeniedException e) {
+  public ResponseEntity<String> handleAuthorizationDeniedException(Exception e) {
     apLog.warn(ExceptionUtils.getStackTrace(e));
     return ResponseEntity.notFound().build();
   }
