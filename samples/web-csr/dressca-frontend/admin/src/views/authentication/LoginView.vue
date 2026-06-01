@@ -12,7 +12,10 @@ import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handl
 // フォーム固有のバリデーション定義
 const formSchema = toTypedSchema(
   z.object({
-    userName: z.string().pipe(validationItems.required('ユーザー名は必須です。')).pipe(validationItems.email),
+    userName: z
+      .string()
+      .pipe(validationItems.required('ユーザー名は必須です。'))
+      .pipe(validationItems.email),
     password: z.string().pipe(validationItems.required('パスワードは必須です。')),
   }),
 )

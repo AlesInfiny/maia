@@ -70,8 +70,6 @@ describe('validation-items', () => {
     })
 
     expect(result.success).toBe(false)
-    expect(result.error?.flatten().fieldErrors.price).toContain(
-      '単価は必須です。',
-    )
+    expect(result.error?.flatten().fieldErrors.price).toContain('単価は必須です。')
   })
 })

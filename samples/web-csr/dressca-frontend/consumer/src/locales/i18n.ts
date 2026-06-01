@@ -17,7 +17,10 @@ const langPackage = {
 
 type SupportedLocale = 'ja' | 'en'
 
-// ブラウザの言語設定を取得して、サポートされているロケールにマッピングします。
+/**
+ * ブラウザの言語設定を取得して、サポートされているロケールにマッピングします。
+ * @returns サポートされているロケール（'ja' または 'en'）
+ */
 function getLocale(): SupportedLocale {
   const lang = window.navigator.language.split('-')[0]
   return lang === 'ja' ? 'ja' : 'en'

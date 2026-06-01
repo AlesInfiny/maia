@@ -9,7 +9,6 @@ import { ServerError } from '@/shared/error-handler/custom-error'
 import { useNotificationStore } from '@/stores/notification/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
-import type { Ref } from 'vue'
 
 /**
  * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。

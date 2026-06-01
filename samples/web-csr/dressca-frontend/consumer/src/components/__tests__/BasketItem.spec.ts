@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
-import type { Ref } from 'vue'
 import type { BasketItemApiModel } from '@/generated/api-client'
 import { i18n } from '@/locales/i18n'
 import BasketItem from '../basket/BasketItem.vue'
