@@ -56,21 +56,21 @@ describe('Authentication validation', () => {
     expect(result.error?.flatten().fieldErrors.email).toContain('this field is required')
     expect(result.error?.flatten().fieldErrors.password).toContain('this field is required')
   })
-})
 
-it('英語でメール形式メッセージを返す', async () => {
-  i18n.global.locale.value = 'en'
-  const { email, required } = ValidationItems()
-  const schema = z.object({
-    email: z.string().pipe(required).pipe(email),
-    password: z.string().pipe(required),
+  it('英語でメール形式メッセージを返す', async () => {
+    i18n.global.locale.value = 'en'
+    const { email, required } = ValidationItems()
+    const schema = z.object({
+      email: z.string().pipe(required).pipe(email),
+      password: z.string().pipe(required),
+    })
+
+    const result = await schema.safeParseAsync({
+      email: 'invalid-email',
+      password: 'aaa',
+    })
+
+    expect(result.success).toBe(false)
+    expect(result.error?.issues[0]?.message).toBe('invalid email format')
   })
-
-  const result = await schema.safeParseAsync({
-    email: 'invalid-email',
-    password: 'aaa',
-  })
-
-  expect(result.success).toBe(false)
-  expect(result.error?.issues[0]?.message).toBe('invalid email format')
 })

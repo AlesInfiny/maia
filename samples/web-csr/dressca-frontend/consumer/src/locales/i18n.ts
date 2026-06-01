@@ -15,11 +15,18 @@ const langPackage = {
   },
 }
 
-export type MessageSchema = typeof langPackage.ja
+type SupportedLocale = 'ja' | 'en'
 
+// ブラウザの言語設定を取得して、サポートされているロケールにマッピングします。
+function getLocale(): SupportedLocale {
+  const lang = window.navigator.language.split('-')[0]
+  return lang === 'ja' ? 'ja' : 'en'
+}
+
+type MessageSchema = typeof langPackage.ja
 const i18n = createI18n<[MessageSchema], 'ja' | 'en', false>({
   legacy: false,
-  locale: window.navigator.language,
+  locale: getLocale(),
   fallbackLocale: 'en',
   messages: langPackage,
 })
