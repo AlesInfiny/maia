@@ -64,7 +64,8 @@ function initializeLogger() {
     }
     _logger = logger
   } else {
-    // モック環境用のロガーを注入します。
+    // 本番環境用のロガーを注入します。
+    // 適切な出力先を設定してください。
     const logger: Logger = {
       debug: doNothing,
       info: doNothing,
