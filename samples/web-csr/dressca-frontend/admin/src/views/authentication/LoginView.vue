@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
-import * as yup from 'yup'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
 import { validationItems } from '@/validation/validation-items'
 import { loginAsync } from '@/services/authentication/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
@@ -9,10 +10,12 @@ import { showToast } from '@/services/notification/notificationService'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 // フォーム固有のバリデーション定義
-const formSchema = yup.object({
-  userName: validationItems.email.required('ユーザー名は必須です。'),
-  password: yup.string().required('パスワードは必須です。'),
-})
+const formSchema = toTypedSchema(
+  z.object({
+    userName: z.string().pipe(validationItems.required('ユーザー名は必須です。')).pipe(validationItems.email),
+    password: z.string().pipe(validationItems.required('パスワードは必須です。')),
+  }),
+)
 
 const router = useRouter()
 const route = useRoute()

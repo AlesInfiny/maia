@@ -1,4 +1,4 @@
 {
-  "email": "email must be a valid email",
+  "email": "invalid email format",
   "required": "this field is required"
 }

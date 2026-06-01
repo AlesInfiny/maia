@@ -9,6 +9,7 @@ import { ServerError } from '@/shared/error-handler/custom-error'
 import { useNotificationStore } from '@/stores/notification/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
+import type { Ref } from 'vue'
 
 /**
  * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。
@@ -103,7 +104,7 @@ function getWrapper() {
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
   })
-  i18n.global.locale.value = 'ja' // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
+  ;(i18n.global.locale as unknown as Ref<string>).value = 'ja' // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
   return mount(BasketView, {
     global: { plugins: [pinia, router, i18n] },
   })
