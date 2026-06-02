@@ -93,7 +93,6 @@ export const basketsHandlers = [
           response = new HttpResponse(null, {
             status: HttpStatusCode.BadRequest,
           })
-          return
         }
         target[0].quantity = putBasketItem.quantity
       }
