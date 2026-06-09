@@ -27,11 +27,11 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
     },
     basketItems: [
       {
-        catalogItemId: 'd0000000-0000-7000-8000-000000000001',
+        catalogItemId: '01971a00-0000-7000-d000-000000000001',
         quantity: 1,
         unitPrice: 1980,
         catalogItem: {
-          id: 'd0000000-0000-7000-8000-000000000001',
+          id: '01971a00-0000-7000-d000-000000000001',
           name: 'クルーネック Tシャツ - ブラック',
           productCode: 'C000000001',
           assetCodes: [],
@@ -39,11 +39,11 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
         subTotal: 1980,
       },
       {
-        catalogItemId: 'd0000000-0000-7000-8000-000000000002',
+        catalogItemId: '01971a00-0000-7000-d000-000000000002',
         quantity: 2,
         unitPrice: 4800,
         catalogItem: {
-          id: 'd0000000-0000-7000-8000-000000000002',
+          id: '01971a00-0000-7000-d000-000000000002',
           name: '裏起毛 スキニーデニム',
           productCode: 'C000000002',
           assetCodes: ['4aed07c4ed5d45a5b97f11acedfbb601'],
@@ -84,15 +84,6 @@ const { getBasketItemsMock } = vi.hoisted(() => {
     getBasketItemsMock: vi.fn(),
   }
 })
-
-vi.mock('@/composables/use-logger', () => ({
-  useLogger: () => ({
-    debug: vi.fn(),
-    info: vi.fn(),
-    warn: vi.fn(),
-    error: vi.fn(),
-  }),
-}))
 
 vi.mock('@/api-client', () => ({
   // basketItemsApi() を呼ぶと { getBasketItems: getBasketItemsMock } が返る

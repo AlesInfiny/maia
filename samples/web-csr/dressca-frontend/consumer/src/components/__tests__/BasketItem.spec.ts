@@ -11,7 +11,7 @@ import BasketItem from '../basket/BasketItem.vue'
  */
 function createBasketItemApiModel(): BasketItemApiModel {
   return {
-    catalogItemId: 'd0000000-0000-7000-8000-00000000000a',
+    catalogItemId: '01971a00-0000-7000-d000-00000000000a',
     quantity: 2,
     subTotal: 100000,
     unitPrice: 50000,
