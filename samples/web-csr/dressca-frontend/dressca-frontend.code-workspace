@@ -16,6 +16,6 @@
   "settings": {
     "js/ts.tsdk.path": "dressca-root/node_modules/typescript/lib",
     "js/ts.tsdk.promptToUseWorkspaceVersion": true,
-    "js/ts.validate.enable": false,
+    "js/ts.validate.enabled": false,
   },
 }
