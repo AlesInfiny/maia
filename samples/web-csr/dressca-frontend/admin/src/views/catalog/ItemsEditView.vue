@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import {
   fetchItem,
@@ -104,6 +104,14 @@ const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
  * リアクティブなカタログカテゴリの状態です。
  */
 const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
+
+const availableCatalogBrands = computed(() =>
+  catalogBrands.value.filter((brand) => brand.id !== ''),
+)
+
+const availableCatalogCategories = computed(() =>
+  catalogCategories.value.filter((category) => category.id !== ''),
+)
 
 /**
  * 削除確認モーダルの開閉状態です。
@@ -413,7 +421,11 @@ const updateItemAsync = async () => {
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option v-for="category in catalogCategories" :key="category.id" :value="category.id">
+              <option
+                v-for="category in availableCatalogCategories"
+                :key="category.id"
+                :value="category.id"
+              >
                 {{ category.name }}
               </option>
             </select>
@@ -427,7 +439,7 @@ const updateItemAsync = async () => {
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option v-for="brand in catalogBrands" :key="brand.id" :value="brand.id">
+              <option v-for="brand in availableCatalogBrands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>
@@ -512,7 +524,11 @@ const updateItemAsync = async () => {
               name="category"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option v-for="category in catalogCategories" :key="category.id" :value="category.id">
+              <option
+                v-for="category in availableCatalogCategories"
+                :key="category.id"
+                :value="category.id"
+              >
                 {{ category.name }}
               </option>
             </select>
@@ -525,7 +541,7 @@ const updateItemAsync = async () => {
               name="brand"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option v-for="brand in catalogBrands" :key="brand.id" :value="brand.id">
+              <option v-for="brand in availableCatalogBrands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>

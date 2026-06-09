@@ -4,13 +4,13 @@ import type {
 } from '@/generated/api-client'
 
 /** カタログから削除済みのアイテムの ID です。 */
-export const deletedItemId = 'd0000000-0000-7000-8000-0000000000ff'
+export const deletedItemId = '01971a00-0000-7000-d000-000000000099'
 
 export const catalogItems: GetCatalogItemResponse[] = [
   {
-    id: 'd0000000-0000-7000-8000-000000000001',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000001',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000003',
+    id: '01971a00-0000-7000-d000-000000000001',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000001',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000003',
     description: '定番の無地ロングTシャツです。',
     name: 'クルーネック Tシャツ - ブラック',
     price: 1980,
@@ -18,9 +18,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: [],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000002',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000001',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000002',
+    id: '01971a00-0000-7000-d000-000000000002',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000001',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000002',
     description: '暖かいのに着膨れしない起毛デニムです。',
     name: '裏起毛 スキニーデニム',
     price: 4800,
@@ -28,9 +28,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['4aed07c4ed5d45a5b97f11acedfbb601'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000003',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000001',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000001',
+    id: '01971a00-0000-7000-d000-000000000003',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000001',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000001',
     description: 'あたたかく肌ざわりも良いウール100%のロングコートです。',
     name: 'ウールコート',
     price: 49800,
@@ -38,9 +38,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['082b37439ecc44919626ba00fc60ee85'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000004',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000001',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000002',
+    id: '01971a00-0000-7000-d000-000000000004',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000001',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000002',
     description: 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
     name: '無地 ボタンダウンシャツ',
     price: 2800,
@@ -48,9 +48,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['f5f89954281747fa878129c29e1e0f83'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000005',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000002',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000003',
+    id: '01971a00-0000-7000-d000-000000000005',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000002',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000003',
     description: 'コンパクトサイズのバッグですが収納力は抜群です。',
     name: 'レザーハンドバッグ',
     price: 18800,
@@ -58,9 +58,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['a8291ef2e8e14869a7048e272915f33c'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000006',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000002',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000002',
+    id: '01971a00-0000-7000-d000-000000000006',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000002',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000002',
     description: 'エイジング加工したレザーを使用しています。',
     name: 'ショルダーバッグ',
     price: 38000,
@@ -68,9 +68,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['66237018c769478a90037bd877f5fba1'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000007',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000002',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000003',
+    id: '01971a00-0000-7000-d000-000000000007',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000002',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000003',
     description:
       '春の季節にぴったりのトートバッグです。インナーポーチまたは単体でも使用可能なポーチ付。',
     name: 'トートバッグ ポーチ付き',
@@ -79,9 +79,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['d136d4c81b86478990984dcafbf08244'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000008',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000002',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000001',
+    id: '01971a00-0000-7000-d000-000000000008',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000002',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000001',
     description: 'さらりと気軽に纏える、キュートなミニサイズショルダー。',
     name: 'ショルダーバッグ',
     price: 2800,
@@ -89,9 +89,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['47183f32f6584d7fb661f9216e11318b'],
   },
   {
-    id: 'd0000000-0000-7000-8000-000000000009',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000002',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000001',
+    id: '01971a00-0000-7000-d000-000000000009',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000002',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000001',
     description: 'エレガントな雰囲気を放つキルティングデザインです。',
     name: 'レザー チェーンショルダーバッグ',
     price: 258000,
@@ -99,9 +99,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['cf151206efd344e1b86854f4aa49fdef'],
   },
   {
-    id: 'd0000000-0000-7000-8000-00000000000a',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000003',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000002',
+    id: '01971a00-0000-7000-d000-00000000000a',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000003',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000002',
     description: '柔らかいソールは快適な履き心地で、ランニングに最適です。',
     name: 'ランニングシューズ - ブルー',
     price: 12800,
@@ -109,9 +109,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['ab2e78eb7fe3408aadbf1e17a9945a8c'],
   },
   {
-    id: 'd0000000-0000-7000-8000-00000000000b',
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000003',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000001',
+    id: '01971a00-0000-7000-d000-00000000000b',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000003',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000001',
     description: 'イタリアの職人が丁寧に手作業で作り上げた一品です。',
     name: 'メダリオン ストレートチップ ドレスシューズ',
     price: 23800,
@@ -120,8 +120,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: deletedItemId,
-    catalogCategoryId: 'c0000000-0000-7000-8000-000000000001',
-    catalogBrandId: 'b0000000-0000-7000-8000-000000000001',
+    catalogCategoryId: '01971a00-0000-7000-c000-000000000001',
+    catalogBrandId: '01971a00-0000-7000-b000-000000000001',
     description: '削除済みアイテムの動作確認用アイテムです。',
     name: '削除済みアイテム',
     price: 1980,

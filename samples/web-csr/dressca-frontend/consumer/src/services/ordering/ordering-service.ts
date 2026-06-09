@@ -46,7 +46,7 @@ export async function postOrder(
  * @param orderId - 取得対象の注文 ID
  * @returns 注文情報 (`GetOrderByIdResponse`)
  * @example
- * const order = await getOrder(123)
+ * const order = await getOrder('order-id')
  * console.log(order.fullName) // 注文者の名前
  */
 export async function getOrder(orderId: string): Promise<GetOrderByIdResponse> {

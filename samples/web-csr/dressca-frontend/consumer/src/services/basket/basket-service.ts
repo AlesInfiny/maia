@@ -15,7 +15,7 @@ export async function fetchBasket() {
  * @param itemId - 追加するカタログアイテムの ID
  * @returns Promise<void>
  * @example
- * await addItemToBasket(123)
+ * await addItemToBasket('catalog-item-id')
  */
 export async function addItemToBasket(itemId: string) {
   const basketStore = useBasketStore()
@@ -30,7 +30,7 @@ export async function addItemToBasket(itemId: string) {
  * @param newQuantity - 新しい数量
  * @returns Promise<void>
  * @example
- * await updateItemInBasket(123, 5)
+ * await updateItemInBasket('catalog-item-id', 5)
  */
 export async function updateItemInBasket(catalogItemId: string, newQuantity: number) {
   const basketStore = useBasketStore()
@@ -50,7 +50,7 @@ export async function updateItemInBasket(catalogItemId: string, newQuantity: num
  * @param catalogItemId - 削除するカタログアイテム ID
  * @returns Promise<void>
  * @example
- * await removeItemFromBasket(123)
+ * await removeItemFromBasket('catalog-item-id')
  */
 export async function removeItemFromBasket(catalogItemId: string) {
   const basketStore = useBasketStore()
