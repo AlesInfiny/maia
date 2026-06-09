@@ -1,6 +1,7 @@
 package com.dressca.web.consumer.controller;
 
 import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
+import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.applicationservice.OrderApplicationService;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -99,6 +100,9 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "404", description = "買い物かご内のカタログアイテムがカタログに存在しません。",
+              content = @Content(mediaType = "application/problem+json",
+                  schema = @Schema(implementation = ProblemDetail.class))),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class)))})
@@ -115,6 +119,15 @@ public class OrderController {
     } catch (EmptyBasketOnCheckoutException e) {
       // ここでは発生しえないので、システムエラーとする
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
+    } catch (CatalogNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
     }
 
     String requestUri = req.getRequestURL().toString();

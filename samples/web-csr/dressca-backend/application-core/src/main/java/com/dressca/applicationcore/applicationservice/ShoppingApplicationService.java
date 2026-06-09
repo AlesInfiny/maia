@@ -177,9 +177,10 @@ public class ShoppingApplicationService {
    * @param shipToAddress お届け先。
    * @return 作成した注文情報。
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
+   * @throws CatalogNotFoundException 買い物かご内のカタログアイテムのうち、存在しないものがある場合。
    */
   public Order checkout(String buyerId, ShipTo shipToAddress)
-      throws EmptyBasketOnCheckoutException {
+      throws EmptyBasketOnCheckoutException, CatalogNotFoundException {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
         new Object[] {buyerId, shipToAddress}, Locale.getDefault()));
@@ -191,9 +192,20 @@ public class ShoppingApplicationService {
 
     List<Long> catalogItemIds =
         basket.getItems().stream().map(BasketItem::getCatalogItemId).collect(Collectors.toList());
-    List<CatalogItem> catalogItems = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
+    List<CatalogItem> catalogItemsIncludingDeleted =
+        this.catalogRepository.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
+
+    List<CatalogItem> deletedCatalogItems = catalogItemsIncludingDeleted.stream()
+        .filter(c -> c.isDeleted()).collect(Collectors.toList());
+    if (!deletedCatalogItems.isEmpty()) {
+      throw new CatalogNotFoundException(deletedCatalogItems.stream().map(CatalogItem::getId)
+          .mapToLong(Long::longValue).toArray());
+    }
+
+    List<CatalogItem> existCatalogItems = catalogItemsIncludingDeleted.stream()
+        .filter(c -> !c.isDeleted()).collect(Collectors.toList());
     List<OrderItem> orderItems = basket.getItems().stream()
-        .map(basketItems -> this.mapToOrderItem(basketItems, catalogItems))
+        .map(basketItems -> this.mapToOrderItem(basketItems, existCatalogItems))
         .collect(Collectors.toList());
     Order order = new Order(basket.getBuyerId(), shipToAddress, orderItems);
     order = this.orderRepository.add(order);

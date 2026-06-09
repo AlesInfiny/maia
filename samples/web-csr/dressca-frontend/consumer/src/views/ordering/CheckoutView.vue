@@ -11,7 +11,7 @@ import { assetHelper } from '@/shared/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@/locales/i18n'
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
-import { HttpError } from '@/shared/error-handler/custom-error'
+import { HttpError, NotFoundError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const userStore = useUserStore()
@@ -45,7 +45,9 @@ const checkout = async () => {
     await handleErrorAsync(
       error,
       () => {
-        router.push({ name: 'error' })
+        if (!(error instanceof NotFoundError)) {
+          router.push({ name: 'error' })
+        }
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
@@ -66,6 +68,8 @@ const checkout = async () => {
         }
       },
     )
+  } finally {
+    await fetchBasket()
   }
 }
 onMounted(async () => {
