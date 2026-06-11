@@ -15,7 +15,7 @@ describe('validation-items', () => {
   it('必須入力を検証できる', async () => {
     i18n.global.locale.value = 'ja'
     const { required } = ValidationItems()
-    const result = await required.safeParseAsync('')
+    const result = await required().safeParseAsync('')
 
     expect(result.success).toBe(false)
     expect(result.error?.issues[0]?.message).toBe('値を入力してください')

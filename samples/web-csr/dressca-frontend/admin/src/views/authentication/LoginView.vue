@@ -71,7 +71,7 @@ const login = async () => {
             class="border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-gray-500 focus:outline-hidden"
           />
         </div>
-        <p class="px-8 py-2 text-sm text-red-800">{{ userNameError }}</p>
+        <p id="username-error" class="px-8 py-2 text-sm text-red-800">{{ userNameError }}</p>
       </div>
       <div class="form-group mt-4">
         <div class="flex justify-between">
@@ -86,7 +86,7 @@ const login = async () => {
           />
         </div>
 
-        <p class="px-8 py-2 text-sm text-red-800">{{ passwordError }}</p>
+        <p id="password-error" class="px-8 py-2 text-sm text-red-800">{{ passwordError }}</p>
       </div>
       <div class="form-group mt-8">
         <button

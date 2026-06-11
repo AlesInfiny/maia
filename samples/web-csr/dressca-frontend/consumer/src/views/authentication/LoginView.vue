@@ -75,7 +75,7 @@ const signInOnClick = () => {
           />
         </div>
 
-        <p class="px-8 py-2 text-sm text-red-500">{{ passwordError }}</p>
+        <p id="password-error" class="px-8 py-2 text-sm text-red-500">{{ passwordError }}</p>
       </div>
       <div class="form-group mt-8">
         <button
