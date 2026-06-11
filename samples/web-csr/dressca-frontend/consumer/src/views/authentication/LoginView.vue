@@ -8,11 +8,11 @@ import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { ValidationItems } from '@/validation/validation-items'
 
 // フォーム固有のバリデーション定義
-const { required: requiredRule, email: emailRule } = ValidationItems()
+const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
 const formSchema = toTypedSchema(
   z.object({
-    email: z.string().pipe(requiredRule).pipe(emailRule),
-    password: z.string().pipe(requiredRule),
+    email: requiredEmailRule(),
+    password: requiredRule(),
   }),
 )
 
@@ -60,7 +60,7 @@ const signInOnClick = () => {
             class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
           />
         </div>
-        <p class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
+        <p id="email-error" class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
       </div>
       <div class="form-group mt-4">
         <div class="flex justify-between">
