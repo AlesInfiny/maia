@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
-import * as yup from 'yup'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
 import { authenticationService } from '@/services/authentication/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { configureYup } from '@/config/yup.config'
 import { ValidationItems } from '@/validation/validation-items'
 
-// yup設定の有効化
-configureYup()
-
 // フォーム固有のバリデーション定義
-const formSchema = yup.object({
-  email: ValidationItems().email.required(),
-  password: yup.string().required(),
-})
+const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
+const formSchema = toTypedSchema(
+  z.object({
+    email: requiredEmailRule(),
+    password: requiredRule(),
+  }),
+)
 
 const router = useRouter()
 const route = useRoute()
@@ -60,7 +60,7 @@ const signInOnClick = () => {
             class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500 focus:outline-hidden"
           />
         </div>
-        <p class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
+        <p id="email-error" class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
       </div>
       <div class="form-group mt-4">
         <div class="flex justify-between">
@@ -75,7 +75,7 @@ const signInOnClick = () => {
           />
         </div>
 
-        <p class="px-8 py-2 text-sm text-red-500">{{ passwordError }}</p>
+        <p id="password-error" class="px-8 py-2 text-sm text-red-500">{{ passwordError }}</p>
       </div>
       <div class="form-group mt-8">
         <button
