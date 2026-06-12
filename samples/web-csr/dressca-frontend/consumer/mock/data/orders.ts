@@ -1,8 +1,8 @@
 import type { GetOrderByIdResponse } from '@/generated/api-client'
 
-// mock のため、注文データはidとorderDate以外固定値を返却する
+// mock のため、注文データは id と orderDate 以外固定値を返却する
 export const order: GetOrderByIdResponse = {
-  id: 0,
+  id: '01971a00-0000-7000-f000-000000000001',
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
   orderDate: '',
   fullName: '国会　太郎',
@@ -12,24 +12,24 @@ export const order: GetOrderByIdResponse = {
   azanaAndOthers: '永田町1-10-1',
   orderItems: [
     {
-      id: 100,
+      id: '01971a00-0000-7000-f000-000000000100',
       quantity: 2,
       subTotal: 3960,
       unitPrice: 1980,
       itemOrdered: {
-        id: 1,
+        id: '01971a00-0000-7000-d000-000000000001',
         name: 'クルーネック Tシャツ - ブラック',
         productCode: 'C000000001',
         assetCodes: ['45c22ba3da064391baac91341067ffe9'],
       },
     },
     {
-      id: 101,
+      id: '01971a00-0000-7000-f000-000000000101',
       quantity: 1,
       subTotal: 2800,
       unitPrice: 2800,
       itemOrdered: {
-        id: 4,
+        id: '01971a00-0000-7000-d000-000000000004',
         name: '無地 ボタンダウンシャツ',
         productCode: 'C000000004',
         assetCodes: [],

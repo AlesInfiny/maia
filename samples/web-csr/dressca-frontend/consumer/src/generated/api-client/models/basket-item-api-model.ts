@@ -19,7 +19,7 @@ import type { CatalogItemSummaryApiModel } from './catalog-item-summary-api-mode
 
 export interface BasketItemApiModel {
     'catalogItem'?: CatalogItemSummaryApiModel;
-    'catalogItemId': number;
+    'catalogItemId': string;
     'quantity': number;
     'subTotal': number;
     'unitPrice': number;

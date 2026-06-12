@@ -6,10 +6,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.dressca.systemcommon.util.UuidGenerator;
 
 /**
  * 注文のエンティティです。
@@ -18,10 +20,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-  private long id;
+  private UUID id;
   private List<OrderItem> orderItems = new ArrayList<>();
   private Account account;
-  private String buyerId;
+  private UUID buyerId;
   private LocalDateTime orderDate = LocalDateTime.now();
   private ShipTo shipToAddress;
   private double consumptionTaxRate;
@@ -37,7 +39,8 @@ public class Order {
    * @param shipToAddress 宛先住所。
    * @param orderItems 商品リスト。
    */
-  public Order(String buyerId, ShipTo shipToAddress, List<OrderItem> orderItems) {
+  public Order(UUID buyerId, ShipTo shipToAddress, List<OrderItem> orderItems) {
+    this.id = UuidGenerator.generate();
     this.buyerId = buyerId;
     this.shipToAddress = shipToAddress == null ? null
         : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());

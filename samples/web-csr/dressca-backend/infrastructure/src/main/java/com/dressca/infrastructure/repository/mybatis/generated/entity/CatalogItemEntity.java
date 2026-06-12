@@ -3,10 +3,11 @@ package com.dressca.infrastructure.repository.mybatis.generated.entity;
 import jakarta.annotation.Generated;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 public class CatalogItemEntity {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long id;
+    private UUID id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String name;
@@ -21,10 +22,10 @@ public class CatalogItemEntity {
     private String productCode;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long catalogCategoryId;
+    private UUID catalogCategoryId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long catalogBrandId;
+    private UUID catalogBrandId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private Boolean isDeleted;
@@ -33,12 +34,12 @@ public class CatalogItemEntity {
     private OffsetDateTime rowVersion;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -83,22 +84,22 @@ public class CatalogItemEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getCatalogCategoryId() {
+    public UUID getCatalogCategoryId() {
         return catalogCategoryId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setCatalogCategoryId(Long catalogCategoryId) {
+    public void setCatalogCategoryId(UUID catalogCategoryId) {
         this.catalogCategoryId = catalogCategoryId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getCatalogBrandId() {
+    public UUID getCatalogBrandId() {
         return catalogBrandId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setCatalogBrandId(Long catalogBrandId) {
+    public void setCatalogBrandId(UUID catalogBrandId) {
         this.catalogBrandId = catalogBrandId;
     }
 

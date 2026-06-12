@@ -25,14 +25,14 @@ const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const { t } = i18n.global
 
-const selectedCategory = ref(0)
-const selectedBrand = ref(0)
+const selectedCategory = ref('')
+const selectedBrand = ref('')
 const showLoading = ref(true)
 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 
-const addBasket = async (catalogItemId: number) => {
+const addBasket = async (catalogItemId: string) => {
   try {
     await addItemToBasket(catalogItemId)
     router.push({ name: 'basket' })

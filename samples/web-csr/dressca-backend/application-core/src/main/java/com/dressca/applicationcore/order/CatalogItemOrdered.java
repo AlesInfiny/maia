@@ -2,6 +2,7 @@ package com.dressca.applicationcore.order;
 
 import lombok.NonNull;
 import lombok.Value;
+import java.util.UUID;
 
 /**
  * 注文されたカタログアイテムを管理する値オブジェクトです。
@@ -13,7 +14,7 @@ import lombok.Value;
  */
 @Value
 public class CatalogItemOrdered {
-  private long catalogItemId;
+  private UUID catalogItemId;
   @NonNull
   private String productName;
   @NonNull

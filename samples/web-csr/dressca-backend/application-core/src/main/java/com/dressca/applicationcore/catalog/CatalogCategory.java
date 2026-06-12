@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.catalog;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -11,7 +12,7 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 public class CatalogCategory {
-  private long id;
+  private UUID id;
   @NonNull
   private String name;
   private List<CatalogItem> items = List.of();

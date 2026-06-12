@@ -4,6 +4,7 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogIte
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample;
 import jakarta.annotation.Generated;
 import java.util.List;
+import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ public interface CatalogItemMapper {
     int deleteByExample(CatalogItemEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(CatalogItemEntity row);
@@ -28,7 +29,7 @@ public interface CatalogItemMapper {
     List<CatalogItemEntity> selectByExample(CatalogItemEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    CatalogItemEntity selectByPrimaryKey(Long id);
+    CatalogItemEntity selectByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") CatalogItemEntity row, @Param("example") CatalogItemEntityExample example);

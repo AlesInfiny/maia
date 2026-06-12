@@ -19,8 +19,8 @@ import { basketItemsApi } from '@/api-client'
 export const useBasketStore = defineStore('basket', {
   state: () => ({
     basket: {} as GetBasketItemsResponse,
-    addedItemId: undefined as number | undefined,
-    deletedItemIds: [] as Array<number>,
+    addedItemId: undefined as string | undefined,
+    deletedItemIds: [] as Array<string>,
   }),
   actions: {
     /**
@@ -28,7 +28,7 @@ export const useBasketStore = defineStore('basket', {
      * @param catalogItemId カタログアイテム ID 。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async add(catalogItemId: number) {
+    async add(catalogItemId: string) {
       const params: PostBasketItemsRequest = {
         catalogItemId,
         addedQuantity: 1,
@@ -42,7 +42,7 @@ export const useBasketStore = defineStore('basket', {
      * @param newQuantity - 新しい数量。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async update(catalogItemId: number, newQuantity: number) {
+    async update(catalogItemId: string, newQuantity: number) {
       const params: PutBasketItemsRequest[] = [
         {
           catalogItemId,
@@ -56,7 +56,7 @@ export const useBasketStore = defineStore('basket', {
      * @param catalogItemId - 削除するアイテムのカタログアイテム ID 。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async remove(catalogItemId: number) {
+    async remove(catalogItemId: string) {
       await basketItemsApi().deleteBasketItem(catalogItemId)
     },
     /**
@@ -91,7 +91,7 @@ export const useBasketStore = defineStore('basket', {
      * @param state 状態。
      * @returns 追加された `BasketItemApiModel` または `undefined` 。
      */
-    getAddedItemId(state): number | undefined {
+    getAddedItemId(state): string | undefined {
       return state.addedItemId
     },
     /**
@@ -107,7 +107,7 @@ export const useBasketStore = defineStore('basket', {
      * @param state 状態。
      * @returns 削除されたカタログアイテム ID の配列 。
      */
-    getDeletedItemIds(state): Array<number> {
+    getDeletedItemIds(state): Array<string> {
       return state.deletedItemIds
     },
   },

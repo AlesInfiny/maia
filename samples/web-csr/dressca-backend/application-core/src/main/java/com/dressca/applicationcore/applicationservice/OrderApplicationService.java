@@ -5,8 +5,9 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderNotFoundException;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import lombok.RequiredArgsConstructor;
 import java.util.Locale;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,7 @@ public class OrderApplicationService {
    * @return 注文情報。
    * @throws OrderNotFoundException 注文情報が見つからない場合。
    */
-  public Order getOrder(long orderId, String buyerId) throws OrderNotFoundException {
-
+  public Order getOrder(UUID orderId, UUID buyerId) throws OrderNotFoundException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER,
         new Object[] {orderId, buyerId}, Locale.getDefault()));
 

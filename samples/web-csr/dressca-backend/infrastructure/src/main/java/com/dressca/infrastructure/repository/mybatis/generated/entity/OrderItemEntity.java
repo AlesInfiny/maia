@@ -2,13 +2,14 @@ package com.dressca.infrastructure.repository.mybatis.generated.entity;
 
 import jakarta.annotation.Generated;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class OrderItemEntity {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long id;
+    private UUID id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long orderedCatalogItemId;
+    private UUID orderedCatalogItemId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String orderedProductName;
@@ -23,25 +24,25 @@ public class OrderItemEntity {
     private Integer quantity;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long orderId;
+    private UUID orderId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getOrderedCatalogItemId() {
+    public UUID getOrderedCatalogItemId() {
         return orderedCatalogItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setOrderedCatalogItemId(Long orderedCatalogItemId) {
+    public void setOrderedCatalogItemId(UUID orderedCatalogItemId) {
         this.orderedCatalogItemId = orderedCatalogItemId;
     }
 
@@ -86,12 +87,12 @@ public class OrderItemEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getOrderId() {
+    public UUID getOrderId() {
         return orderId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setOrderId(Long orderId) {
+    public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
 }

@@ -8,12 +8,12 @@ export const orderingRoutes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/ordering/done/:orderId(\\d+)',
+    path: '/ordering/done/:orderId',
     name: 'ordering/done',
     component: () => import('@/views/ordering/DoneView.vue'),
     meta: { requiresAuth: true },
     props: (route) => ({
-      orderId: Number(route.params.orderId),
+      orderId: String(route.params.orderId),
     }),
   },
 ]

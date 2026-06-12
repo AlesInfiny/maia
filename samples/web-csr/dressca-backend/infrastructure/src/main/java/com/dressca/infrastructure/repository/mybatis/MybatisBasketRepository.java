@@ -1,8 +1,5 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntity;
@@ -13,8 +10,12 @@ import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketItem
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 /**
  * 買い物かごのリポジトリです。
@@ -24,18 +25,16 @@ import lombok.RequiredArgsConstructor;
 public class MybatisBasketRepository implements BasketRepository {
 
   private final BasketMapper basketMapper;
-
   private final BasketItemMapper basketItemMapper;
-
   private final JoinedBasketMapper joinedBasketMapper;
 
   @Override
-  public Optional<Basket> findById(long id) {
+  public Optional<Basket> findById(UUID id) {
     return Optional.ofNullable(joinedBasketMapper.findById(id));
   }
 
   @Override
-  public Optional<Basket> findByBuyerId(String buyerId) {
+  public Optional<Basket> findByBuyerId(UUID buyerId) {
     return Optional.ofNullable(joinedBasketMapper.findByBuyerId(buyerId));
   }
 
@@ -59,9 +58,8 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntityExample basketExample = new BasketEntityExample();
     basketExample.createCriteria().andBuyerIdEqualTo(basket.getBuyerId());
 
-    // 子要素（ BasketItem ）の削除
     List<BasketEntity> baskets = basketMapper.selectByExample(basketExample);
-    baskets.stream().mapToLong(BasketEntity::getId).distinct().forEach(id -> removeBasketItem(id));
+    baskets.stream().map(BasketEntity::getId).distinct().forEach(this::removeBasketItem);
 
     basketMapper.deleteByExample(basketExample);
   }
@@ -71,14 +69,15 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.updateByPrimaryKey(row);
 
+    // 子要素（ BasketItem ）の削除
+    removeBasketItem(basket.getId());
     // 子要素（ BasketItem ）の更新
     // 削除された BasketItem にも対応できるように DELETE-INSERT する
-    removeBasketItem(basket.getId());
     basket.getItems().stream().map(EntityTranslator::createBasketItemEntity)
         .forEach(basketItemMapper::insert);
   }
 
-  private void removeBasketItem(long basketId) {
+  private void removeBasketItem(UUID basketId) {
     BasketItemEntityExample basketItemExample = new BasketItemEntityExample();
     basketItemExample.createCriteria().andBasketIdEqualTo(basketId);
     basketItemMapper.deleteByExample(basketItemExample);

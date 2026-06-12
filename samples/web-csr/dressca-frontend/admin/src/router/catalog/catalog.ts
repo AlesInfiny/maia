@@ -11,7 +11,7 @@ export const catalogRoutes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/catalog/items/edit/:itemId(\\d+)',
+    path: '/catalog/items/edit/:itemId',
     name: 'catalog/items/edit',
     component: () => import('@/views/catalog/ItemsEditView.vue'),
     meta: { requiresAuth: true },

@@ -2,14 +2,15 @@ package com.dressca.applicationcore.catalog;
 
 import lombok.Data;
 import lombok.NonNull;
+import java.util.UUID;
 
 /**
  * カタログアイテムアセットのエンティティです。
  */
 @Data
 public class CatalogItemAsset {
-  private long id;
-  private long catalogItemId;
+  private UUID id;
+  private UUID catalogItemId;
   private String assetCode;
 
   /**
@@ -24,7 +25,7 @@ public class CatalogItemAsset {
    * @param catalogItemId カタログアイテム ID 。
    * @param assetCode アセットコード 。
    */
-  public CatalogItemAsset(long catalogItemId, @NonNull String assetCode) {
+  public CatalogItemAsset(UUID catalogItemId, @NonNull String assetCode) {
     this.catalogItemId = catalogItemId;
     this.assetCode = assetCode;
   }
@@ -36,7 +37,7 @@ public class CatalogItemAsset {
    * @param catalogItemId カタログアイテム ID 。
    * @param assetCode アセットコード。
    */
-  public CatalogItemAsset(long id, long catalogItemId, @NonNull String assetCode) {
+  public CatalogItemAsset(UUID id, UUID catalogItemId, @NonNull String assetCode) {
     this.id = id;
     this.catalogItemId = catalogItemId;
     this.assetCode = assetCode;

@@ -4,6 +4,7 @@ import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderRepository;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,13 +20,13 @@ public class MybatisOrderRepository implements OrderRepository {
   @Override
   public Order add(Order order) {
     mapper.add(order);
-    long orderId = order.getId();
+    UUID orderId = order.getId();
     mapper.addItems(orderId, order.getOrderItems());
-    return mapper.findById(order.getId());
+    return mapper.findById(orderId);
   }
 
   @Override
-  public Optional<Order> findById(long id) {
+  public Optional<Order> findById(UUID id) {
     Order order = mapper.findById(id);
     return Optional.ofNullable(order);
   }

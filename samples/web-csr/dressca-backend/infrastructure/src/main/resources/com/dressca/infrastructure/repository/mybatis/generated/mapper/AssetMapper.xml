@@ -5,7 +5,7 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="asset_code" jdbcType="VARCHAR" property="assetCode" />
     <result column="asset_type" jdbcType="VARCHAR" property="assetType" />
   </resultMap>
@@ -32,6 +32,25 @@
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -68,6 +87,25 @@
                 </when>
               </choose>
             </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
           </trim>
         </if>
       </foreach>
@@ -96,21 +134,21 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.util.UUID" resultMap="BaseResultMap">
     <!--
       Generated Code - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
     from assets
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from assets
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntityExample">
     <!--
@@ -121,19 +159,24 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity">
     <!--
       Generated Code - @mbg.generated
     -->
-    insert into assets (asset_code, asset_type)
-    values (#{assetCode,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR})
+    insert into assets (id, 
+      asset_code, asset_type)
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{assetCode,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     insert into assets
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="assetCode != null">
         asset_code,
       </if>
@@ -142,6 +185,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      </if>
       <if test="assetCode != null">
         #{assetCode,jdbcType=VARCHAR},
       </if>
@@ -166,7 +212,7 @@
     update assets
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=BIGINT},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.assetCode != null">
         asset_code = #{row.assetCode,jdbcType=VARCHAR},
@@ -184,7 +230,7 @@
       Generated Code - @mbg.generated
     -->
     update assets
-    set id = #{row.id,jdbcType=BIGINT},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       asset_code = #{row.assetCode,jdbcType=VARCHAR},
       asset_type = #{row.assetType,jdbcType=VARCHAR}
     <if test="example != null">
@@ -204,7 +250,7 @@
         asset_type = #{assetType,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity">
     <!--
@@ -213,6 +259,6 @@
     update assets
     set asset_code = #{assetCode,jdbcType=VARCHAR},
       asset_type = #{assetType,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>
