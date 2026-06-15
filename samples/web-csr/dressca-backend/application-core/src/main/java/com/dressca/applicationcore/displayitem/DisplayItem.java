@@ -3,6 +3,7 @@ package com.dressca.applicationcore.displayitem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -10,6 +11,7 @@ import lombok.NonNull;
  * 掲載品のエンティティです。
  */
 @Data
+@AllArgsConstructor
 public class DisplayItem {
   private Long id;
   private Long catalogItemId;
