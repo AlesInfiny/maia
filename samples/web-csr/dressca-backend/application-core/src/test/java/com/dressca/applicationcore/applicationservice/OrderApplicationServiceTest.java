@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
 import com.dressca.applicationcore.order.Address;
-import com.dressca.applicationcore.order.CatalogItemOrdered;
+import com.dressca.applicationcore.order.DisplayItemOrdered;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderNotFoundException;
@@ -123,7 +123,7 @@ public class OrderApplicationServiceTest {
     String productCode = "C000000001";
 
     List<OrderItem> items =
-        List.of(new OrderItem(new CatalogItemOrdered(1L, productName, productCode),
+        List.of(new OrderItem(new DisplayItemOrdered(1L, productName, productCode),
             BigDecimal.valueOf(100_000_000L), 1));
 
     return items;
