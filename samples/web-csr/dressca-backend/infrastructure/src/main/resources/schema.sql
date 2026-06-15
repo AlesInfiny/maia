@@ -93,3 +93,11 @@ CREATE TABLE catalog_item_assets
   catalog_item_id BIGINT NOT NULL,
   CONSTRAINT FK_catalog_item_assets_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS display_items CASCADE;
+CREATE TABLE display_items
+(
+  id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
+  catalog_item_id BIGINT NOT NULL,
+  CONSTRAINT FK_display_items_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
+);

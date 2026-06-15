@@ -59,3 +59,18 @@ VALUES
     (10, 'ab2e78eb7fe3408aadbf1e17a9945a8c', 10),
     (11, '0e557e96bc054f10bc91c27405a83e85', 11);
 ALTER TABLE catalog_item_assets ALTER COLUMN id RESTART WITH 12;
+
+INSERT INTO display_items (id, catalog_item_id) 
+VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10),
+    (11, 11);
+ALTER TABLE display_items ALTER COLUMN id RESTART WITH 12;
