@@ -2,7 +2,7 @@ package com.dressca.applicationcore.applicationservice;
 
 import java.util.List;
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationcore.displayitem.DisplayItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +13,6 @@ import lombok.Getter;
 @Getter
 public class BasketDetail {
   Basket basket;
-  List<CatalogItem> catalogItems;
+  List<DisplayItem> displayItems;
   List<Long> deletedItemIds;
 }
