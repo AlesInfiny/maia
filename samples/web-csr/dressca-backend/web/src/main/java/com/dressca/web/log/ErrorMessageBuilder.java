@@ -16,7 +16,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ErrorMessageBuilder {
 
-  private static final MessageSource messageSource =
+  private static final MessageSource messages =
       (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
 
   private Exception ex;
@@ -32,7 +32,7 @@ public class ErrorMessageBuilder {
   public String createLogMessageStackTrace() {
     StringBuilder builder = new StringBuilder();
     String exceptionMessage =
-        messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+        messages.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     builder.append(exceptionId).append(" ").append(exceptionMessage)
         .append(SystemPropertyConstants.LINE_SEPARATOR);
     StringWriter writer = new StringWriter();

@@ -15,8 +15,11 @@ java {
 
 sourceSets {
     main {
-        // mybatis SQL map XML ファイルを java 以下でも検知する
-        resources.srcDirs = ["src/main/java", "src/main/resources"]
+      // mybatis SQL map XML ファイルを java 以下でも検知する
+      resources {
+        srcDir 'src/main/java'
+        exclude '**/*.java'
+      }
     }
 }
 
@@ -45,10 +48,7 @@ dependencies {
 
   mybatisTasks supportDependencies.mybatis_generator_core
   mybatisTasks supportDependencies.h2database
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
+  mybatisTasks supportDependencies.java_parser_core
 }
 
 bootJar{
@@ -61,6 +61,8 @@ jar{
 
 tasks.register('runMyBatisGenerator') {
   doLast {
+    ant.project.setProperty('mbg.java.targetProject', file('src/main/java').absolutePath)
+    ant.project.setProperty('mbg.resources.targetProject', file('src/main/resources').absolutePath)
     // MyBatis Generator のタスクを定義します。
     ant.taskdef(
       name: 'mybatisGenerator',
@@ -69,10 +71,15 @@ tasks.register('runMyBatisGenerator') {
     )
     // MyBatis Generator による自動生成を実行します。
     ant.mybatisGenerator(
-      overwrite: true,
+      javaMergeEnabled: true,
       configfile: file('src/main/resources/mybatisGeneratorConfig.xml'),
       verbose: true
-    )
+    ) {
+      propertyset {
+        propertyref(name: 'mbg.java.targetProject')
+        propertyref(name: 'mbg.resources.targetProject')
+      }
+    }
   }
 }
 

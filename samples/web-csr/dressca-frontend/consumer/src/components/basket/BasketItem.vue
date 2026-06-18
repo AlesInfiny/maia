@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { BasketItemResponse } from '@/generated/api-client/models/basket-item-response'
+import type { BasketItemApiModel } from '@/generated/api-client'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import * as yup from 'yup'
 import { useField, useForm } from 'vee-validate'
@@ -10,7 +10,7 @@ import { i18n } from '@/locales/i18n'
 
 const { t } = i18n.global
 const props = defineProps<{
-  item: BasketItemResponse
+  item: BasketItemApiModel
   available: boolean
 }>()
 
@@ -66,8 +66,9 @@ const remove = () => {
     <div class="grid grid-cols-1 lg:grid-cols-3">
       <div class="grid place-items-end lg:col-span-2 lg:flex lg:flex-row lg:items-center">
         <div class="mt-2 mr-2 ml-2 basis-3/5 text-right lg:pr-10">
-          <label>
+          <label :for="`quantity-input-${item.catalogItemId}`">
             <input
+              :id="`quantity-input-${item.catalogItemId}`"
               v-model.number="quantity"
               type="number"
               min="1"

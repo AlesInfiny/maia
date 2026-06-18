@@ -4,7 +4,7 @@ import { router } from '@/router'
 import { i18n } from '@/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
 import BasketView from '@/views/basket/BasketView.vue'
-import type { BasketResponse } from '@/generated/api-client'
+import type { GetBasketItemsResponse } from '@/generated/api-client'
 import { ServerError } from '@/shared/error-handler/custom-error'
 import { useNotificationStore } from '@/stores/notification/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
@@ -13,9 +13,9 @@ import { createAxiosError, createProblemDetails } from '../helpers'
 /**
  * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。
  * 主にテストやスタブデータとして利用することを想定しています。
- * @returns `BasketResponse` 型のオブジェクト
+ * @returns `GetBasketItemsResponse` 型のオブジェクト
  */
-function createBasketResponse(): BasketResponse {
+function createGetBasketItemsResponse(): GetBasketItemsResponse {
   return {
     buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
     account: {
@@ -57,9 +57,9 @@ function createBasketResponse(): BasketResponse {
 /**
  * 空の買い物かご状態のモックレスポンスを生成します。
  * 主に「商品未追加時の画面」やテストケースに利用されます。
- * @returns `BasketResponse` 型のオブジェクト
+ * @returns `GetBasketItemsResponse` 型のオブジェクト
  */
-function createEmptyBasketResponse(): BasketResponse {
+function createEmptyGetBasketItemsResponse(): GetBasketItemsResponse {
   return {
     buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
     account: {
@@ -114,13 +114,13 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
 
   beforeAll(() => {
     // onMounted のタイミングで API コールを行っているので、wrapper の作成よりも先にモックする必要があります。
-    getBasketItemsMock.mockResolvedValue({ data: createBasketResponse() })
+    getBasketItemsMock.mockResolvedValue({ data: createGetBasketItemsResponse() })
     wrapper = getWrapper()
   })
 
   it('取得したアイテムの情報が表示される', async () => {
     // Arrange
-    const expectCount = createBasketResponse().basketItems!.length
+    const expectCount = createGetBasketItemsResponse().basketItems!.length
     // Act
     await flushPromises()
     // Assert
@@ -151,7 +151,7 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
   let wrapper: VueWrapper
 
   beforeAll(() => {
-    getBasketItemsMock.mockResolvedValue({ data: createEmptyBasketResponse() })
+    getBasketItemsMock.mockResolvedValue({ data: createEmptyGetBasketItemsResponse() })
     wrapper = getWrapper()
   })
 

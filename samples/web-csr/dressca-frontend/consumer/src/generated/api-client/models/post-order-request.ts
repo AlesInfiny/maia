@@ -14,41 +14,11 @@
 
 
 
-/**
- * 
- * @export
- * @interface PostOrderRequest
- */
 export interface PostOrderRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'azanaAndOthers': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'fullName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'postalCode': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'shikuchoson': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostOrderRequest
-     */
     'todofuken': string;
 }
 

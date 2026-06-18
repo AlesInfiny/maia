@@ -11,7 +11,6 @@ import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.infrastructure.repeat.RepeatStatus;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
@@ -25,10 +24,21 @@ import com.dressca.applicationcore.catalog.CatalogRepository;
 @StepScope
 public class CatalogItemTasklet implements Tasklet {
 
-  @Autowired
-  private CatalogRepository repository;
-  @Value("${output:#{null}}")
-  String output;
+  private final CatalogRepository repository;
+
+  private final String output;
+
+  /**
+   * Tasklet の依存関係と出力先設定を受け取ります。
+   *
+   * @param repository カタログ商品を取得するリポジトリ。
+   * @param output 出力ファイル名。 Job パラメータから取得します。
+   */
+  public CatalogItemTasklet(CatalogRepository repository,
+      @Value("${output:#{null}}") String output) {
+    this.repository = repository;
+    this.output = output;
+  }
 
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)

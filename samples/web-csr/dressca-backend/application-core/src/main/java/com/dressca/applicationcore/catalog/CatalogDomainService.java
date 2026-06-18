@@ -3,17 +3,17 @@ package com.dressca.applicationcore.catalog;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * カタログに関するドメインサービスです。
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CatalogDomainService {
-  private CatalogRepository catalogRepository;
-  private CatalogBrandRepository brandRepository;
-  private CatalogCategoryRepository categoryRepository;
+  private final CatalogRepository catalogRepository;
+  private final CatalogBrandRepository brandRepository;
+  private final CatalogCategoryRepository categoryRepository;
 
   /**
    * 指定したカタログアイテム ID のうち、存在するカタログアイテムの一覧を取得します。

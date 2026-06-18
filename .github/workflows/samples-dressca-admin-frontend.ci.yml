@@ -34,7 +34,7 @@ jobs:
           cache: npm
 
       - name: node パッケージのインストール
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - id: run-lint
         name: lintの実行

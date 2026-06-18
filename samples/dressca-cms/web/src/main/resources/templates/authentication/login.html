@@ -11,7 +11,7 @@
       <!--/* ログインフォーム */-->
       <form th:action="@{/account/login}" th:object="${viewModel}" method="post">
         <!--/* リダイレクト先URL（hiddenフィールド） */-->
-        <input type="hidden" name="return-url" th:value="${param['return-url']}" />
+        <input type="hidden" name="returnUrl" th:value="${param['returnUrl']}" />
 
         <!--/* メールアドレス */-->
         <div class="mb-3">
@@ -23,7 +23,8 @@
             id="email"
             th:field="*{email}"
             style="width: 400px"
-            maxlength="256" />
+            maxlength="256"
+            autocomplete="username" />
           <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('email')}">
             <li th:each="error : ${#fields.errors('email')}" th:text="${error}"></li>
           </ul>
@@ -39,7 +40,8 @@
             id="password"
             th:field="*{password}"
             style="width: 400px"
-            maxlength="256" />
+            maxlength="256"
+            autocomplete="current-password" />
           <ul class="mb-0 text-danger" th:if="${#fields.hasErrors('password')}">
             <li th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
           </ul>

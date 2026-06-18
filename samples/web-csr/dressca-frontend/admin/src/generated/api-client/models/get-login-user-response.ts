@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface GetLoginUserResponse
- */
 export interface GetLoginUserResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetLoginUserResponse
-     */
     'roles': Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLoginUserResponse
-     */
     'userName': string;
 }
 

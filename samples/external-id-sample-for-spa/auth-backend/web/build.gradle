@@ -27,6 +27,8 @@ dependencies {
 
 	implementation project(':system-common')
 
+	annotationProcessor supportDependencies.spring_boot_configuration_processor
+
 	testImplementation supportDependencies.spring_boot_starter_security_test
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 }
@@ -46,9 +48,7 @@ openApi {
     outputDir.set(file("$rootDir/api-docs"))
     outputFileName.set("api-specification.json")
 }
-tasks.named('test') {
-	useJUnitPlatform()
-}
+
 tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	group = 'application'
 	description = 'Runs this project as a Spring Boot Application using local profile.'

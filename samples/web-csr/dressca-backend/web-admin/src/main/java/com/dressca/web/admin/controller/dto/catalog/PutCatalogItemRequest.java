@@ -4,12 +4,14 @@ import java.time.OffsetDateTime;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * カタログアイテムを変更する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PutCatalogItemRequest {
   @NotNull
   private String name = "";

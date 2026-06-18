@@ -35,6 +35,12 @@ dependencies {
 
 [こちら](../../../csr/java/sub-project-settings/system-common-project-settings.md#config-build) を参照して、ビルド方法の設定を追記してください。
 
+## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
+
+不要な設定やファイルの削除は CSR 編と同様です。
+
+[こちら](../../../csr/java/sub-project-settings/system-common-project-settings.md#remove-unnecessary-settings-and-files) を参照して、不要な設定やファイルを削除してください。
+
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
@@ -77,7 +83,6 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
       }
     }
-
 
     bootJar {
       enabled = false

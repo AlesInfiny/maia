@@ -18,14 +18,13 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import type { Link } from '../models';
 /**
  * ActuatorApi - axios parameter creator
- * @export
  */
 export const ActuatorApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -48,8 +47,8 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/vnd.spring-boot.actuator.v2+json,application/vnd.spring-boot.actuator.v3+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -78,8 +77,8 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/vnd.spring-boot.actuator.v2+json,application/vnd.spring-boot.actuator.v3+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -94,7 +93,6 @@ export const ActuatorApiAxiosParamCreator = function (configuration?: Configurat
 
 /**
  * ActuatorApi - functional programming interface
- * @export
  */
 export const ActuatorApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ActuatorApiAxiosParamCreator(configuration)
@@ -128,7 +126,6 @@ export const ActuatorApiFp = function(configuration?: Configuration) {
 
 /**
  * ActuatorApi - factory interface
- * @export
  */
 export const ActuatorApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = ActuatorApiFp(configuration)
@@ -156,9 +153,6 @@ export const ActuatorApiFactory = function (configuration?: Configuration, baseP
 
 /**
  * ActuatorApi - object-oriented interface
- * @export
- * @class ActuatorApi
- * @extends {BaseAPI}
  */
 export class ActuatorApi extends BaseAPI {
     /**
@@ -166,7 +160,6 @@ export class ActuatorApi extends BaseAPI {
      * @summary Actuator web endpoint \'health\'
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ActuatorApi
      */
     public health(options?: RawAxiosRequestConfig) {
         return ActuatorApiFp(this.configuration).health(options).then((request) => request(this.axios, this.basePath));
@@ -177,7 +170,6 @@ export class ActuatorApi extends BaseAPI {
      * @summary Actuator root web endpoint
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ActuatorApi
      */
     public links(options?: RawAxiosRequestConfig) {
         return ActuatorApiFp(this.configuration).links(options).then((request) => request(this.axios, this.basePath));

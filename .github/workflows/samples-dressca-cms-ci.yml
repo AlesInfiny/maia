@@ -48,7 +48,7 @@ jobs:
           sudo update-locale LANG=ja_JP.UTF-8
 
       - name: Sass ビルド用 npm パッケージのインストール
-        run: npm ci
+        run: npm ci --ignore-scripts
         working-directory: ./samples/dressca-cms/web/src/main/resources/static/bootstrap
 
       - id: run-build-sass
@@ -116,6 +116,6 @@ jobs:
           echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
 
       - name: JUnitレポート
-        uses: mikepenz/action-junit-report@3585e9575db828022551b4231f165eb59a0e74e3  # v5.6.2
+        uses: mikepenz/action-junit-report@bccf2e31636835cf0874589931c4116687171386  # v6.4.0
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'

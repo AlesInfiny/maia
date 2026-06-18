@@ -72,12 +72,17 @@ buildscript {
         testAnnotationProcessor 'org.projectlombok:lombok'
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
+
+        compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
       }
 
       test {
         // UTテスト時はtestプロファイルを利用
         jvmArgs=['-Dspring.profiles.active=test']
+
         useJUnitPlatform()
+        finalizedBy jacocoTestReport
       }
 
       checkstyle {
@@ -198,10 +203,6 @@ dependencies {
 
     // ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
     build.dependsOn("generateOpenApiDocs")
-
-    tasks.named('test') {
-      useJUnitPlatform()
-    }
     ```
 
 バージョン定義一元化を実行した後に、適切にビルドが実行できるかを確認します。

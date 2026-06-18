@@ -75,8 +75,8 @@ public class AnnouncementController {
    * @return ビュー名。
    */
   @GetMapping
-  public String index(@RequestParam(required = false) String pageNumber,
-      @RequestParam(required = false) String pageSize, Model model) {
+  public String index(@RequestParam(name = "pageNumber", required = false) String pageNumber,
+      @RequestParam(name = "pageSize", required = false) String pageSize, Model model) {
 
     // クエリ文字列から値を取得し、数値以外の値は未指定にする
     Integer pageNumberInt = parseInteger(pageNumber);
@@ -225,10 +225,12 @@ public class AnnouncementController {
     // 登録済みの言語コードを取得
     List<String> existingLanguageCodes = new ArrayList<>();
     List<AnnouncementContent> contents = announcement.getContents();
-    if (contents != null) {
-      for (AnnouncementContent content : contents) {
-        existingLanguageCodes.add(content.getLanguageCode());
-      }
+    if (contents == null) {
+      contents = new ArrayList<>();
+      announcement.setContents(contents);
+    }
+    for (AnnouncementContent content : contents) {
+      existingLanguageCodes.add(content.getLanguageCode());
     }
 
     // 未登録の最も優先度の高い言語コードを追加
@@ -253,7 +255,7 @@ public class AnnouncementController {
   @PostMapping(value = "create", params = "deleteLanguageFromCreate")
   public String deleteLanguageFromCreate(
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      @RequestParam("deleteLanguageFromCreate") UUID announcementContentId) {
+      @RequestParam(name = "deleteLanguageFromCreate") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator
@@ -458,7 +460,7 @@ public class AnnouncementController {
   @PostMapping(value = "{announcementId}/edit", params = "deleteLanguageFromEdit")
   public String deleteLanguageFromEdit(@PathVariable("announcementId") UUID announcementId,
       @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
-      @RequestParam("deleteLanguageFromEdit") UUID announcementContentId) {
+      @RequestParam(name = "deleteLanguageFromEdit") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
     Announcement announcement = AnnouncementViewModelTranslator

@@ -3,7 +3,7 @@ import { getServerTimeApi } from '@/api-client'
 
 export const useServerTimeStore = defineStore('serverTime', {
   state: () => ({
-    serverTime: '' as string,
+    serverTime: '',
   }),
   actions: {
     async fetchServerTimeResponse() {

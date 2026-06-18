@@ -52,7 +52,6 @@ dependencies {
 tasks.named('test') {
   useJUnitPlatform()
 }
-
 ```
 
 ## ビルドスクリプトの共通化 {#common-build-script}

@@ -8,7 +8,6 @@ import com.dressca.applicationcore.assets.AssetTypes;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link Asset} の情報にアクセスする API コントローラーです。
@@ -32,15 +31,12 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @PreAuthorize(value = "isAuthenticated()")
 public class AssetsController {
 
-  @Autowired
-  private AssetApplicationService service;
-
-  @Autowired
-  private AbstractStructuredLogger apLog;
+  private final AssetApplicationService service;
+  private final AbstractStructuredLogger apLog;
 
   /**
    * アセットを取得します。

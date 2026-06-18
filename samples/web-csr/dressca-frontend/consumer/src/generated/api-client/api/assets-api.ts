@@ -18,14 +18,13 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import type { ProblemDetail } from '../models';
 /**
  * AssetsApi - axios parameter creator
- * @export
  */
 export const AssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -52,8 +51,8 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'image/*,application/problem+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -68,7 +67,6 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
 
 /**
  * AssetsApi - functional programming interface
- * @export
  */
 export const AssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
@@ -91,7 +89,6 @@ export const AssetsApiFp = function(configuration?: Configuration) {
 
 /**
  * AssetsApi - factory interface
- * @export
  */
 export const AssetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = AssetsApiFp(configuration)
@@ -111,9 +108,6 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
 
 /**
  * AssetsApi - object-oriented interface
- * @export
- * @class AssetsApi
- * @extends {BaseAPI}
  */
 export class AssetsApi extends BaseAPI {
     /**
@@ -122,7 +116,6 @@ export class AssetsApi extends BaseAPI {
      * @param {string} assetCode アセットコード
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AssetsApi
      */
     public get(assetCode: string, options?: RawAxiosRequestConfig) {
         return AssetsApiFp(this.configuration).get(assetCode, options).then((request) => request(this.axios, this.basePath));

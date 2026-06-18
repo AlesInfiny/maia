@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketNotFoundException;
@@ -39,6 +40,7 @@ import com.dressca.applicationcore.catalog.CatalogDomainService;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogNotFoundException;
 import com.dressca.applicationcore.catalog.CatalogRepository;
+import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.CatalogItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -51,7 +53,8 @@ import com.dressca.systemcommon.log.AbstractStructuredLogger;
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@Import(ApplicationCoreTestConfig.class)
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
@@ -91,7 +94,7 @@ public class ShoppingApplicationServiceTest {
     // なし
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     CatalogItem catalogItem = createCatalogItem(catalogItemId);
@@ -119,7 +122,7 @@ public class ShoppingApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(1000);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, price, 1);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -150,7 +153,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<Long> catalogItemIds = List.of(catalogItemId);
@@ -181,7 +184,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -194,6 +197,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
@@ -206,7 +210,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -219,6 +223,7 @@ public class ShoppingApplicationServiceTest {
 
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -229,13 +234,17 @@ public class ShoppingApplicationServiceTest {
   void testSetQuantities_異常系_カタログリポジトリに存在しない商品が指定された場合は例外が発生する() {
     // テスト用の入力データ
     String buyerId = UUID.randomUUID().toString();
-    List<Long> catalogItemIds = List.of(1L);
+    long deletedCatalogItemId = 1L;
+    List<Long> catalogItemIds = List.of(deletedCatalogItemId);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
+    CatalogItem deletedCatalogItem = createCatalogItem(deletedCatalogItemId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existAll(catalogItemIds)).thenReturn(false);
+    when(this.catalogRepository.findDeletedItemsByCatalogItemIdIn(catalogItemIds))
+        .thenReturn(List.of(deletedCatalogItem));
 
     try {
       // テストメソッドの実行
@@ -246,6 +255,8 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
+      verify(this.catalogRepository, times(1)).findDeletedItemsByCatalogItemIdIn(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogNotFoundException が発生しなければ失敗");
@@ -259,7 +270,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -274,6 +285,7 @@ public class ShoppingApplicationServiceTest {
     } catch (CatalogItemInBasketNotFoundException e) {
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+      verify(this.catalogDomainService, times(1)).existAll(catalogItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("CatalogItemInBasketNotFoundException が発生しなければ失敗");
@@ -289,7 +301,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -313,7 +325,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -338,7 +350,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
@@ -363,7 +375,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))

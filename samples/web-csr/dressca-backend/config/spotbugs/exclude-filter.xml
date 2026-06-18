@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
+  
   <!-- 
-    Lombokによる自動作成された各メソッドで発生している警告であるが
-    spotBugsとの整合性が取れない警告であるため警告を無視する設定としている。
+    Lombok により生成されるコンストラクタにおいて、フィールドの検証処理などにより
+    例外がスローされる場合があり、SpotBugs の CT_CONSTRUCTOR_THROW に該当する。
+    本プロジェクトではこれらは入力検証のための意図的な実装であり、オブジェクトの
+    不正状態を防ぐために必要であるため警告を除外する。
   -->
   <Match>
-    <Or>
-      <Bug code="CT, EI, EI2, NP, RCN" />
-    </Or>
+    <Class name="~com\.dressca\.applicationcore(\..*)?" />
+    <Method name="&lt;init&gt;" />
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
+
+  <!--
+    Spring DI により注入される Repository は不変参照として保持される設計であり、
+    外部から変更されることはないため EI_EXPOSE_REP2 の警告を除外する。
+  -->
+  <Match>
+    <Class name="com.dressca.applicationcore.applicationservice.CatalogApplicationService" />
+    <Method name="&lt;init&gt;" />
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  <Match>
+    <Class name="com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet" />
+    <Method name="&lt;init&gt;" />
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+
+  <!--
+    MyBatis Generator が生成する Example/Criteria クラスでは、
+    条件リストを参照で返す実装がフレームワークの仕様である。
+    呼び出し側でも不変として扱う前提のため EI 警告を除外する。
+  -->
+  <Match>
+    <Class name="~com\.dressca\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
+    <Method name="~get(OredCriteria|AllCriteria|Criteria)" />
+    <Bug code="EI" />
   </Match>
   <!-- 
     staticフィールドにinstanceメソッドの引数（ApplicationContext）を代入しているが

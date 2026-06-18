@@ -1,0 +1,19 @@
+{
+  "ignorePaths": [
+    "**/generated/**",
+    "**/mockServiceWorker.js"
+  ],
+  "words": [
+    "axios",
+    "Entra",
+    "dressca",
+    "msal",
+    "openapi",
+    "openapitools",
+    "pinia",
+    "rushstack",
+    "servertime",
+    "styl",
+    "vite"
+  ]
+}

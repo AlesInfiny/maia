@@ -2,10 +2,10 @@
   "recommendations": [
     "Vue.volar",
     "vitest.explorer",
+    "cpylua.language-postcss",
     "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "stylelint.vscode-stylelint",
     "ms-vsliveshare.vsliveshare",
     "pflannery.vscode-versionlens",
     "wmaurer.change-case",

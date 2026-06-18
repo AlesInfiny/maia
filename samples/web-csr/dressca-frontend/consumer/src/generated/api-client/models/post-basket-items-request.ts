@@ -14,23 +14,8 @@
 
 
 
-/**
- * 
- * @export
- * @interface PostBasketItemsRequest
- */
 export interface PostBasketItemsRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof PostBasketItemsRequest
-     */
     'addedQuantity'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PostBasketItemsRequest
-     */
     'catalogItemId': number;
 }
 

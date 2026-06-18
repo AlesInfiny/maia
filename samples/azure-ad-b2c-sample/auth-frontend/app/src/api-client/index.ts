@@ -7,7 +7,7 @@ import {
   ServerError,
   UnauthorizedError,
   UnknownError,
-} from '@/shared/custom-errors'
+} from '@/shared/error-handler/custom-error'
 
 /** axios の共通の設定があればここに定義します。 */
 export const axiosInstance = axios.create({
@@ -41,7 +41,7 @@ axiosInstance.interceptors.response.use(
 /**
  * api-client の共通の Configuration を生成します。
  * 共通の Configuration があればここに定義してください。
- * @returns 新しい Configuration インスタンス。
+ * @returns 新しい Configuration インスタンス
  */
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration()
@@ -49,36 +49,33 @@ function createConfig(): apiClient.Configuration {
 }
 
 /**
- * 認証済みであれば、Azure AD B2C からアクセストークンを取得し、
- * 指定された Configuration に設定します。
- * @param config 設定対象の Configuration インスタンス。
- * @returns 非同期処理の完了を表す Promise。
+ * 認証済みの場合、アクセストークンを取得して Configuration に設定します。
+ * @param config 新しい Configuration インスタンス
  */
-async function addTokenAsync(config: apiClient.Configuration): Promise<void> {
-  // 認証済みの場合、アクセストークンを取得して Configuration に設定します。
-  if (authenticationService.isAuthenticated()) {
-    const token = await authenticationService.getTokenAzureADB2C()
+async function addToken(config: apiClient.Configuration): Promise<void> {
+  const { isAuthenticated, getToken } = authenticationService()
+  if (isAuthenticated()) {
+    const token = await getToken()
     config.accessToken = token
   }
 }
 
 /**
- * 認証付きの UsersApi インスタンスを生成して返します。
- * UsersApi の呼び出しには認証が必要なため、内部でトークンを付与します。
- * @returns 認証済みの UsersApi インスタンス。
+ * ユーザー API のクライアントを生成します。
+ * @returns UsersApi インスタンス
  */
 export async function getUsersApi(): Promise<apiClient.UsersApi> {
   const config = createConfig()
 
-  // UsersApi は認証が必要な API なので、addTokenAsync を呼び出します。
-  await addTokenAsync(config)
+  // UsersApi は認証が必要な API なので、addToken を呼び出します。
+  await addToken(config)
   const userApi = new apiClient.UsersApi(config, '', axiosInstance)
   return userApi
 }
 
 /**
- * 認証不要な ServerTimeApi インスタンスを生成して返します。
- * @returns ServerTimeApi インスタンス。
+ * サーバー時刻 API のクライアントを生成します。
+ * @returns ServerTimeApi インスタンス
  */
 export function getServerTimeApi(): apiClient.ServerTimeApi {
   const config = createConfig()

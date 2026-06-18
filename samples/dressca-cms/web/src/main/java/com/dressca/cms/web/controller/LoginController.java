@@ -42,7 +42,7 @@ public class LoginController {
    */
   @GetMapping("/login")
   public String index(
-      @RequestParam(value = "email", required = false, defaultValue = "") String email,
+      @RequestParam(name = "email", required = false, defaultValue = "") String email,
       Model model) {
     LoginViewModel viewModel = new LoginViewModel();
     viewModel.setEmail(email);
@@ -63,7 +63,7 @@ public class LoginController {
   @PostMapping("/login")
   public String login(@Validated @ModelAttribute("viewModel") LoginViewModel viewModel,
       BindingResult bindingResult,
-      @RequestParam(value = "return-url", required = false) String returnUrl,
+      @RequestParam(name = "returnUrl", required = false) String returnUrl,
       HttpServletRequest request, Model model) {
 
     if (bindingResult.hasErrors()) {

@@ -11,6 +11,7 @@
     "controlleradvice",
     "Dressca",
     "Dspring",
+    "findbugs",
     "jacoco",
     "projectlombok",
     "puppycrawl",

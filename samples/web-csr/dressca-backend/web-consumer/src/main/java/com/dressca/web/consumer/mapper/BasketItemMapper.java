@@ -1,25 +1,25 @@
 package com.dressca.web.consumer.mapper;
 
 import com.dressca.applicationcore.baskets.BasketItem;
-import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
+import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 
 /**
- * {@link BasketItem} と {@link BasketItemResponse} のマッパーです。
+ * {@link BasketItem} と {@link BasketItemApiModel} のマッパーです。
  */
 public class BasketItemMapper {
 
   /**
-   * {@link BasketItem} オブジェクトを {@link BasketItemResponse} に変換します。
+   * {@link BasketItem} オブジェクトを {@link BasketItemApiModel} に変換します。
    * 
    * @param basketItem {@link BasketItem} オブジェクト。
-   * @return {@link BasketItemResponse} オブジェクト。
+   * @return {@link BasketItemApiModel} オブジェクト。
    */
-  public static BasketItemResponse convert(BasketItem basketItem) {
+  public static BasketItemApiModel convert(BasketItem basketItem) {
     if (basketItem == null) {
       return null;
     }
 
-    return new BasketItemResponse(basketItem.getCatalogItemId(), basketItem.getUnitPrice(),
+    return new BasketItemApiModel(basketItem.getCatalogItemId(), basketItem.getUnitPrice(),
         basketItem.getQuantity(), basketItem.getSubtotal(), null);
   }
 }

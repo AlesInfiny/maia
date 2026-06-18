@@ -1,8 +1,7 @@
 {
   // Lint の有効化
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
 
   // Formatter を Prettier にする
@@ -13,18 +12,6 @@
   "editor.formatOnType": true,
   "css.validate": false,
 
-  "stylelint.validate": ["vue"],
-
   "editor.guides.bracketPairs": true,
-  "editor.bracketPairColorization.enabled": true,
-  "cSpell.words": [
-    "dressca",
-    "msal",
-    "openapi",
-    "openapitools",
-    "pinia",
-    "rushstack",
-    "stylelint",
-    "vite"
-  ]
+  "editor.bracketPairColorization.enabled": true
 }

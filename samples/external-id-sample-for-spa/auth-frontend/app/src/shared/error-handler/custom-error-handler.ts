@@ -7,6 +7,7 @@ import {
 } from '@/shared/error-handler/custom-error'
 import { useLogger } from '@/composables/use-logger'
 import type { MaybeAsyncFunction, MaybePromise, MaybeAsyncUnaryFunction } from '@/types'
+import { BrowserAuthError } from '@azure/msal-browser'
 
 export type handleErrorAsyncFunction = (
   error: unknown,
@@ -34,6 +35,10 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
   ) => {
     const logger = useLogger()
     // ハンドリングできるエラーの場合はコールバックを実行します。
+    if (error instanceof BrowserAuthError) {
+      await callback()
+      return
+    }
     if (error instanceof CustomErrorBase) {
       await callback()
       if (error instanceof HttpError) {

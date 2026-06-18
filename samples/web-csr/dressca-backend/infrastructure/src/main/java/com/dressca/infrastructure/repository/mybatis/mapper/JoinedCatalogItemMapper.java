@@ -103,4 +103,13 @@ public interface JoinedCatalogItemMapper {
    * @return 条件に一致するカタログアイテム。
    */
   CatalogItem findByIdIncludingDeleted(@Param("id") long id);
+
+  /**
+   * 削除済みカタログアイテムを取得します。
+   *
+   * @param catalogItemIds カタログアイテムIDのリスト。
+   * @return 条件に一致する削除済みカタログアイテムのリスト。
+   */
+  List<CatalogItem> findDeletedItemsByCatalogItemIdIn(
+      @Param("catalogItemIds") List<Long> catalogItemIds);
 }

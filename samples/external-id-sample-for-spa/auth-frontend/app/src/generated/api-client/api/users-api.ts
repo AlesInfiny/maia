@@ -18,16 +18,15 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { ProblemDetail } from '../models';
+import type { GetUserResponse } from '../models';
 // @ts-ignore
-import type { UserResponse } from '../models';
+import type { ProblemDetail } from '../models';
 /**
  * UsersApi - axios parameter creator
- * @export
  */
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
@@ -54,8 +53,8 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/problem+json';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -70,7 +69,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
 
 /**
  * UsersApi - functional programming interface
- * @export
  */
 export const UsersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
@@ -81,7 +79,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
+        async getUser(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UsersApi.getUser']?.[localVarOperationServerIndex]?.url;
@@ -92,7 +90,6 @@ export const UsersApiFp = function(configuration?: Configuration) {
 
 /**
  * UsersApi - factory interface
- * @export
  */
 export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = UsersApiFp(configuration)
@@ -103,7 +100,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(options?: RawAxiosRequestConfig): AxiosPromise<UserResponse> {
+        getUser(options?: RawAxiosRequestConfig): AxiosPromise<GetUserResponse> {
             return localVarFp.getUser(options).then((request) => request(axios, basePath));
         },
     };
@@ -111,9 +108,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
 
 /**
  * UsersApi - object-oriented interface
- * @export
- * @class UsersApi
- * @extends {BaseAPI}
  */
 export class UsersApi extends BaseAPI {
     /**
@@ -121,7 +115,6 @@ export class UsersApi extends BaseAPI {
      * @summary ログインに成功したユーザ ID を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersApi
      */
     public getUser(options?: RawAxiosRequestConfig) {
         return UsersApiFp(this.configuration).getUser(options).then((request) => request(this.axios, this.basePath));

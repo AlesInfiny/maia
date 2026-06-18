@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
-  <!-- 
-    Lombokによる自動作成された各メソッドで発生している警告であるが
-    spotBugsとの整合性が取れない警告であるため警告を無視する設定としている。
+  <!--
+    MyBatis Generator が生成する Example/Criteria クラスでは、
+    条件リストを参照で返す実装がフレームワークの仕様である。
+    呼び出し側でも不変として扱う前提のため EI 警告を除外する。
   -->
   <Match>
-    <Or>
-      <Bug code="CT, EI, EI2, NP, RCN" />
-    </Or>
+    <Class name="~com\.dressca\.cms\.[^.]+\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
+    <Method name="~get.*Criteria" />
+    <Bug code="EI" />
   </Match>
+
   <!-- 
     staticフィールドにinstanceメソッドの引数（ApplicationContext）を代入しているが
     意図した設計であるため警告を無視する設定としている。
@@ -16,6 +18,6 @@
   <Match>
     <Class name="com.dressca.cms.systemcommon.util.ApplicationContextWrapper"/>
     <Method name="setApplicationContext" />
-      <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
 </FindBugsFilter>

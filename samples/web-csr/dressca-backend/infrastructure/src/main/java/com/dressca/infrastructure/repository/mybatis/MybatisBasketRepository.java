@@ -13,25 +13,21 @@ import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketItem
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 買い物かごのリポジトリです。
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MybatisBasketRepository implements BasketRepository {
 
-  @Autowired
-  BasketMapper basketMapper;
+  private final BasketMapper basketMapper;
 
-  @Autowired
-  BasketItemMapper basketItemMapper;
+  private final BasketItemMapper basketItemMapper;
 
-  @Autowired
-  JoinedBasketMapper joinedBasketMapper;
+  private final JoinedBasketMapper joinedBasketMapper;
 
   @Override
   public Optional<Basket> findById(long id) {

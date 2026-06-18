@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { i18n } from '@/locales/i18n'
 import { getOrder } from '@/services/ordering/ordering-service'
 import { showToast } from '@/services/notification/notificationService'
-import type { OrderResponse } from '@/generated/api-client/models/order-response'
+import type { GetOrderByIdResponse } from '@/generated/api-client/models'
 import { currencyHelper } from '@/shared/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
@@ -18,7 +18,7 @@ const props = defineProps<{
   orderId: number
 }>()
 
-const lastOrdered = ref<OrderResponse>()
+const lastOrdered = ref<GetOrderByIdResponse>()
 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()

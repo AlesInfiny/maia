@@ -51,7 +51,3 @@ tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	mainClass = 'com.dressca.cms.web.WebApplication'
 	classpath = sourceSets.main.runtimeClasspath
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}

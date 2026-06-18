@@ -36,7 +36,3 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}

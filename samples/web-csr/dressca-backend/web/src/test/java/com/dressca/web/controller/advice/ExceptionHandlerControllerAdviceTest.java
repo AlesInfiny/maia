@@ -183,10 +183,9 @@ public class ExceptionHandlerControllerAdviceTest {
 
   // エラー時のアプリケーションログ出力メッセージの先頭行を返す（ 2 行目以降はエラーのスタックトレースのため可変）
   private String createLogMessage(String exceptionId, String[] logMessageValue) {
-    MessageSource messageSource =
-        (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
+    MessageSource messages = (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
     String exceptionMessage =
-        messageSource.getMessage(exceptionId, logMessageValue, Locale.getDefault());
+        messages.getMessage(exceptionId, logMessageValue, Locale.getDefault());
     return exceptionId + " " + exceptionMessage + SystemPropertyConstants.LINE_SEPARATOR;
   }
 }

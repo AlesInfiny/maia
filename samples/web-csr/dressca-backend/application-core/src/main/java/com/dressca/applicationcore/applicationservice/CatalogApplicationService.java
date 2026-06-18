@@ -31,14 +31,13 @@ import com.dressca.applicationcore.constant.MessageIdConstants;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CatalogApplicationService {
-  @Autowired
-  private MessageSource messages;
-  private CatalogRepository catalogRepository;
-  private CatalogBrandRepository brandRepository;
-  private CatalogCategoryRepository categoryRepository;
-  private CatalogDomainService catalogDomainService;
-  private UserStore userStore;
-  private AbstractStructuredLogger apLog;
+  private final MessageSource messages;
+  private final CatalogRepository catalogRepository;
+  private final CatalogBrandRepository brandRepository;
+  private final CatalogCategoryRepository categoryRepository;
+  private final CatalogDomainService catalogDomainService;
+  private final AbstractStructuredLogger apLog;
+  private final UserStore userStore;
 
   /**
    * {@link CatalogApplicationService} クラスの新しいインスタンスを初期化します。
@@ -49,30 +48,23 @@ public class CatalogApplicationService {
    * @param categoryRepository カタログカテゴリリポジトリ。
    * @param catalogDomainService カタログドメインサービス。
    * @param apLog ロガー。
+   * @param userStore ユーザーストア。管理アプリでのみ利用されるため、オプションで注入されます。
    */
   public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
       CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
-      CatalogDomainService catalogDomainService, AbstractStructuredLogger apLog) {
+      CatalogDomainService catalogDomainService, AbstractStructuredLogger apLog,
+      @Autowired(required = false) UserStore userStore) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
     this.brandRepository = brandRepository;
     this.categoryRepository = categoryRepository;
     this.catalogDomainService = catalogDomainService;
     this.apLog = apLog;
-  }
-
-  /**
-   * {@link UserStore} をセットします。
-   * 
-   * @param userStore ユーザーのセッション情報。
-   */
-  @Autowired(required = false)
-  public void setUserStore(UserStore userStore) {
     this.userStore = userStore;
   }
 
   /**
-   * 削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
+   * 管理者が削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
    * 
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
@@ -85,7 +77,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItem");
     }
 
@@ -130,7 +122,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItemsForAdmin");
     }
 
@@ -160,7 +152,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
         new Object[] {}, Locale.getDefault()));
 
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
     }
 
@@ -196,7 +188,7 @@ public class CatalogApplicationService {
         new Object[] {id}, Locale.getDefault()));
 
     final String operationName = "deleteItemFromCatalog";
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
 
@@ -237,7 +229,7 @@ public class CatalogApplicationService {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
     final String operationName = "updateCatalogItem";
-    if (!this.userStore.isInRole(UserRoleConstants.ADMIN)) {
+    if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
     }
 

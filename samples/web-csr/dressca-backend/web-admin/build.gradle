@@ -61,8 +61,4 @@ tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
 	classpath = sourceSets.main.runtimeClasspath
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 build.dependsOn("generateOpenApiDocs")

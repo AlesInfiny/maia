@@ -6,19 +6,17 @@ import com.dressca.applicationcore.assets.AssetRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.AssetMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * アセットのリポジトリです。
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MybatisAssetRepository implements AssetRepository {
 
-  @Autowired
-  private AssetMapper assetMapper;
+  private final AssetMapper assetMapper;
 
   @Override
   public Optional<Asset> findByAssetCode(String assetCode) {

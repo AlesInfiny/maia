@@ -26,7 +26,7 @@ public class PagedListOfGetCatalogItemResponse {
    */
   public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount,
       int page, int pageSize) {
-    this.items = items;
+    this.items = items == null ? null : List.copyOf(items);
     this.totalCount = totalCount;
     this.page = page;
     this.pageSize = pageSize;

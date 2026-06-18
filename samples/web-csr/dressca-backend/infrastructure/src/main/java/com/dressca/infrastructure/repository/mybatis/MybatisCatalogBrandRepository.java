@@ -8,19 +8,17 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBra
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogBrandMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * カタログブランドのリポジトリです。
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
 
-  @Autowired
-  CatalogBrandMapper catalogBrandMapper;
+  private final CatalogBrandMapper catalogBrandMapper;
 
   @Override
   public List<CatalogBrand> getAll() {

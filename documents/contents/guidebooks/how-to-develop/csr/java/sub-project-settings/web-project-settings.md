@@ -120,6 +120,16 @@ configurations {
 }
 ```
 
+## 不要な設定の削除 {#remove-unnecessary-settings}
+
+[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+
+```groovy title="web/build.gradle" hl_lines="1 2 3"
+tasks.named('test') {
+  useJUnitPlatform()
+}
+```
+
 ## ログの設定 {#logging-configuration}
 
 `src/main/resource` に `log4j2.xml` ファイルを配置しログの設定を記述します。
@@ -270,10 +280,6 @@ build.dependsOn("generateOpenApiDocs")
 
     // ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
     build.dependsOn("generateOpenApiDocs")
-
-    tasks.named('test') {
-      useJUnitPlatform()
-    }
     ```
 
 ## CORS （クロスオリジンリソース共有）環境の設定 {#cors-environment}

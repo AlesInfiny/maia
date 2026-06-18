@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useUserStore } from '@/stores/user/user'
 import { postOrder } from '@/services/ordering/ordering-service'
@@ -17,13 +17,19 @@ import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handl
 const userStore = useUserStore()
 const basketStore = useBasketStore()
 
-const { getBasket } = storeToRefs(basketStore)
+const { getBasket, getDeletedItemIds } = storeToRefs(basketStore)
 const { getAddress } = storeToRefs(userStore)
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
+
+const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
+
+const goBasket = () => {
+  router.push({ name: 'basket' })
+}
 
 const checkout = async () => {
   try {
@@ -72,9 +78,12 @@ onMounted(async () => {
 
 <template>
   <div class="container mx-auto my-4 max-w-4xl">
-    <span class="text-lg font-medium text-green-500">
+    <p v-if="!hasUnavailableItems" class="mx-2 text-lg font-medium text-green-500">
       {{ t('orderingCheckAndComplete') }}
-    </span>
+    </p>
+    <p v-if="hasUnavailableItems" class="mx-2 text-lg font-medium text-red-500">
+      {{ t('orderingBlockedByUnavailableItems') }}
+    </p>
   </div>
   <div class="container mx-auto my-4 max-w-4xl">
     <div class="mx-2 grid grid-cols-2 items-center lg:grid-cols-3 lg:gap-x-12">
@@ -108,13 +117,31 @@ onMounted(async () => {
           </tr>
         </tbody>
       </table>
-      <button
-        class="mx-auto w-36 rounded-sm bg-orange-500 px-4 py-2 font-bold text-white hover:bg-amber-700 lg:col-end-3"
-        type="submit"
-        @click="checkout()"
-      >
-        注文を確定する
-      </button>
+      <div class="flex flex-col items-center gap-2 lg:col-end-3">
+        <button
+          class="w-36 rounded-sm px-4 py-2 font-bold text-white"
+          :class="{
+            'bg-teal-500 hover:bg-teal-700 disabled:bg-teal-300/50': hasUnavailableItems,
+            'bg-orange-500 hover:bg-amber-700 disabled:bg-orange-300/50': !hasUnavailableItems,
+          }"
+          type="button"
+          :disabled="hasUnavailableItems"
+          @click="checkout()"
+        >
+          注文を確定する
+        </button>
+        <button
+          class="w-36 rounded-sm px-4 py-2 font-bold text-white"
+          :class="{
+            'bg-orange-500 hover:bg-amber-700': hasUnavailableItems,
+            'bg-teal-500 hover:bg-teal-700': !hasUnavailableItems,
+          }"
+          type="button"
+          @click="goBasket()"
+        >
+          買い物かごに戻る
+        </button>
+      </div>
       <table class="mt-2 table-fixed border-t border-b lg:col-span-3 lg:mt-4 lg:border">
         <tbody>
           <tr>
@@ -140,10 +167,13 @@ onMounted(async () => {
       <div
         v-for="item in getBasket.basketItems"
         :key="item.catalogItemId"
-        class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
+        class="mt-4 grid grid-cols-4 items-center lg:grid-cols-6"
+        :class="{
+          'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
+        }"
       >
         <div class="col-span-4 lg:col-span-5">
-          <div class="grid grid-cols-2">
+          <div class="grid grid-cols-3">
             <img
               :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
               :alt="item.catalogItem?.name"
@@ -161,6 +191,9 @@ onMounted(async () => {
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>
             </div>
+            <p v-if="getDeletedItemIds.includes(item.catalogItemId)" class="font-bold text-red-500">
+              {{ t('itemUnavailable') }}
+            </p>
           </div>
         </div>
       </div>

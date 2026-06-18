@@ -118,24 +118,20 @@ watch([selectedCategory, selectedBrand], async () => {
       <div class="flex justify-center">
         <div class="my-4 grid grid-cols-1 text-lg lg:grid-cols-2 lg:gap-24">
           <div>
-            <label class="mr-2 font-bold">
-              カテゴリ
-              <select v-model="selectedCategory" class="w-48 border-2">
-                <option v-for="category in getCategories" :key="category.id" :value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
-            </label>
+            <label for="category-select" class="mr-2 font-bold"> カテゴリ </label>
+            <select id="category-select" v-model="selectedCategory" class="w-48 border-2">
+              <option v-for="category in getCategories" :key="category.id" :value="category.id">
+                {{ category.name }}
+              </option>
+            </select>
           </div>
           <div class="mt-2 lg:mt-0">
-            <label class="mr-2 font-bold">
-              ブランド
-              <select v-model="selectedBrand" class="w-48 border-2">
-                <option v-for="brand in getBrands" :key="brand.id" :value="brand.id">
-                  {{ brand.name }}
-                </option>
-              </select>
-            </label>
+            <label for="brand-select" class="mr-2 font-bold"> ブランド </label>
+            <select id="brand-select" v-model="selectedBrand" class="w-48 border-2">
+              <option v-for="brand in getBrands" :key="brand.id" :value="brand.id">
+                {{ brand.name }}
+              </option>
+            </select>
           </div>
         </div>
       </div>

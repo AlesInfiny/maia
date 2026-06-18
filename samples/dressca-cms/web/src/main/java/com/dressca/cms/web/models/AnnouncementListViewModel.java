@@ -72,7 +72,7 @@ public class AnnouncementListViewModel {
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.totalCount = totalCount;
-    this.announcements = announcements;
+    this.announcements = announcements == null ? null : List.copyOf(announcements);
     this.lastPageNumber = lastPageNumber;
 
     // 開始件数と終了件数を計算

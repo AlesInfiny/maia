@@ -14,47 +14,12 @@
 
 
 
-/**
- * 
- * @export
- * @interface PostCatalogItemRequest
- */
 export interface PostCatalogItemRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof PostCatalogItemRequest
-     */
     'catalogBrandId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PostCatalogItemRequest
-     */
     'catalogCategoryId': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostCatalogItemRequest
-     */
     'description': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostCatalogItemRequest
-     */
     'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PostCatalogItemRequest
-     */
     'price': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostCatalogItemRequest
-     */
     'productCode': string;
 }
 

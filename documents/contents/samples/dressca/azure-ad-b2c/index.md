@@ -27,7 +27,7 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 本サンプルを動作させるためには、以下が必要です。
 
 - Azure サブスクリプション
-- サブスクリプション内、またはサブスクリプション内のリソース グループ内で共同作成者以上のロールが割り当てられている Azure アカウント
+- サブスクリプション内、またはサブスクリプション内のリソースグループ内で共同作成者以上のロールが割り当てられている Azure アカウント
 
 ## 本サンプルを利用する前の準備 {#preparations}
 
@@ -68,3 +68,4 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 サンプルアプリケーションと詳細な解説は以下からダウンロードできます。
 
 - [サンプルアプリケーションのダウンロード](../../downloads/azure-ad-b2c.zip)
+- [サンプルアプリケーションのダウンロード(BIPROGYグループ向け) :material-open-in-new:](https://forms.office.com/r/eFY95qfNNf){ target=_blank }
