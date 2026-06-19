@@ -22,6 +22,10 @@ subprojects {
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
   
+  configurations {
+    mockitoAgent
+  }
+
   dependencies {  
     // Lombokの設定
     // annotationProcessorの設定を加えないとcompileJavaでエラーが発生する
@@ -38,6 +42,12 @@ subprojects {
     // SpotBugsのアノテーションを追加
     compileOnly supportDependencies.spotbugs_annotations
     testCompileOnly supportDependencies.spotbugs_annotations
+
+    // MockitoのAgentを利用するための設定
+    // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+    mockitoAgent(supportDependencies.mockito_core) {
+      transitive = false
+    }
   }
 
   jacoco {
@@ -56,8 +66,9 @@ subprojects {
   // testタスクの後にjacocoTestReportタスクを実施する
   test {
     // UTテスト時はtestプロファイルを利用
-    jvmArgs=['-Dspring.profiles.active=test']
-
+    jvmArgumentProviders.add({
+      ['-Dspring.profiles.active=test', "-javaagent:${configurations.mockitoAgent.asPath}"]
+    } as org.gradle.process.CommandLineArgumentProvider)
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
