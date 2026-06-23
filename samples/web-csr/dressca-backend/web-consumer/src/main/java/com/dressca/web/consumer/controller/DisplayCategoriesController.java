@@ -3,7 +3,6 @@ package com.dressca.web.consumer.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.DisplayApplicationService;
-import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayCategoryResponse;
 import com.dressca.web.consumer.mapper.DisplayCategoryMapper;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 /**
- * {@link CatalogCategory} の情報にアクセスする API コントローラーです。
+ * {@link DisplayCategory} の情報にアクセスする API コントローラーです。
  */
 @RestController
 @Tag(name = "DisplayCategories", description = "掲載カテゴリの情報にアクセスする API です。")

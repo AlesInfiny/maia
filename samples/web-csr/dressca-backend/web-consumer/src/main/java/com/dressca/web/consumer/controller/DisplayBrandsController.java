@@ -3,7 +3,6 @@ package com.dressca.web.consumer.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.DisplayApplicationService;
-import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayBrandResponse;
 import com.dressca.web.consumer.mapper.DisplayBrandMapper;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 /**
- * {@link CatalogBrand} の情報にアクセスする API コントローラーです。
+ * {@link DisplayBrand} の情報にアクセスする API コントローラーです。
  */
 @RestController
 @Tag(name = "DisplayBrands", description = "掲載ブランドの情報にアクセスする API です。")

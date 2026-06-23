@@ -29,8 +29,8 @@ public class GetDisplayItemResponse {
   @NotNull
   private BigDecimal price;
   @NotNull
-  private long catalogCategoryId;
+  private long displayCategoryId;
   @NotNull
-  private long catalogBrandId;
+  private long displayBrandId;
 
 }
