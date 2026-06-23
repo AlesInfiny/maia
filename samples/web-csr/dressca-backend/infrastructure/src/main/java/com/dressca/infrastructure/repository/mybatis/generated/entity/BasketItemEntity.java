@@ -11,7 +11,7 @@ public class BasketItemEntity {
     private Long basketId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long catalogItemId;
+    private Long displayItemId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private BigDecimal unitPrice;
@@ -40,13 +40,13 @@ public class BasketItemEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getCatalogItemId() {
-        return catalogItemId;
+    public Long getDisplayItemId() {
+        return displayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setCatalogItemId(Long catalogItemId) {
-        this.catalogItemId = catalogItemId;
+    public void setDisplayItemId(Long displayItemId) {
+        this.displayItemId = displayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")

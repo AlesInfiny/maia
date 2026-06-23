@@ -2,10 +2,10 @@ package com.dressca.web.consumer.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
+import com.dressca.applicationcore.applicationservice.DisplayApplicationService;
 import com.dressca.applicationcore.catalog.CatalogCategory;
-import com.dressca.web.consumer.controller.dto.catalog.GetCatalogCategoriesResponse;
-import com.dressca.web.consumer.mapper.CatalogCategoryMapper;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayCategoryResponse;
+import com.dressca.web.consumer.mapper.DisplayCategoryMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,27 +23,27 @@ import lombok.RequiredArgsConstructor;
  * {@link CatalogCategory} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogCategories", description = "カタログカテゴリの情報にアクセスする API です。")
-@RequestMapping("/api/catalog-categories")
+@Tag(name = "DisplayCategories", description = "掲載カテゴリの情報にアクセスする API です。")
+@RequestMapping("/api/display-categories")
 @RequiredArgsConstructor
-public class CatalogCategoriesController {
+public class DisplayCategoriesController {
 
-  private final CatalogApplicationService service;
+  private final DisplayApplicationService service;
 
   /**
-   * カタログカテゴリの一覧を取得します。
+   * 掲載カテゴリの一覧を取得します。
    * 
-   * @return カタログカテゴリの一覧。
+   * @return 掲載カテゴリの一覧。
    */
-  @Operation(summary = "カタログカテゴリの一覧を取得します。", description = "カタログカテゴリの一覧を取得します。")
+  @Operation(summary = "掲載カテゴリの一覧を取得します。", description = "掲載カテゴリの一覧を取得します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
           array = @ArraySchema(
-              schema = @Schema(implementation = GetCatalogCategoriesResponse.class))))})
+              schema = @Schema(implementation = GetDisplayCategoryResponse.class))))})
   @GetMapping()
-  public ResponseEntity<List<GetCatalogCategoriesResponse>> getCatalogCategories() {
-    List<GetCatalogCategoriesResponse> categories = this.service.getCategories().stream()
-        .map(CatalogCategoryMapper::convert).collect(Collectors.toList());
+  public ResponseEntity<List<GetDisplayCategoryResponse>> getDisplayCategories() {
+    List<GetDisplayCategoryResponse> categories = this.service.getCategories().stream()
+        .map(DisplayCategoryMapper::convert).collect(Collectors.toList());
 
     return ResponseEntity.ok().body(categories);
   }

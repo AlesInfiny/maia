@@ -114,9 +114,9 @@ public class CatalogItemsController {
       throws PermissionDeniedException {
 
     List<GetCatalogItemResponse> items =
-        this.service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize).stream()
+        this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
             .map(CatalogItemMapper::convert).collect(Collectors.toList());
-    int totalCount = this.service.countCatalogItemsForAdmin(brandId, categoryId);
+    int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
     PagedListOfGetCatalogItemResponse returnValue =
         new PagedListOfGetCatalogItemResponse(items, totalCount, page, pageSize);

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PutBasketItemsRequest {
   @NotNull
-  private long catalogItemId;
+  private long displayItemId;
   @NotNull
   private int quantity;
 }

@@ -13,10 +13,6 @@
   ],
   "tags": [
     {
-      "description": "カタログアイテムの情報にアクセスする API です。",
-      "name": "CatalogItems"
-    },
-    {
       "description": "Monitor and interact",
       "externalDocs": {
         "description": "Spring Boot Actuator Web API Documentation",
@@ -25,16 +21,20 @@
       "name": "Actuator"
     },
     {
-      "description": "カタログカテゴリの情報にアクセスする API です。",
-      "name": "CatalogCategories"
+      "description": "掲載カテゴリの情報にアクセスする API です。",
+      "name": "DisplayCategories"
+    },
+    {
+      "description": "掲載ブランドの情報にアクセスする API です。",
+      "name": "DisplayBrands"
     },
     {
       "description": "注文の情報にアクセスする API です。",
       "name": "Orders"
     },
     {
-      "description": "カタログブランドの情報にアクセスする API です。",
-      "name": "CatalogBrands"
+      "description": "掲載品の情報にアクセスする API です。",
+      "name": "DisplayItems"
     },
     {
       "description": "買い物かごアイテムの情報にアクセスする API です。",
@@ -240,14 +240,14 @@
         ]
       }
     },
-    "/api/basket-items/{catalogItemId}": {
+    "/api/basket-items/{displayItemId}": {
       "delete": {
-        "description": "買い物かごから指定したカタログアイテム ID の商品を削除します。\u003cbr\u003ecatalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。",
+        "description": "買い物かごから指定した掲載品 ID の商品を削除します。\u003cbr\u003edisplayItemId には買い物かご内に存在する掲載品 ID を指定してください。掲載品 ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定した掲載品の商品が存在しない場合、 HTTP 404 を返却します。",
         "operationId": "deleteBasketItem",
         "parameters": [
           {
             "in": "path",
-            "name": "catalogItemId",
+            "name": "displayItemId",
             "required": true,
             "schema": {
               "type": "integer",
@@ -277,19 +277,19 @@
                 }
               }
             },
-            "description": "買い物かご内に指定したカタログアイテム ID がありません。"
+            "description": "買い物かご内に指定した掲載品 ID がありません。"
           }
         },
-        "summary": "買い物かごから指定したカタログアイテム ID の商品を削除します。",
+        "summary": "買い物かごから指定した掲載品 ID の商品を削除します。",
         "tags": [
           "BasketItems"
         ]
       }
     },
-    "/api/catalog-brands": {
+    "/api/display-brands": {
       "get": {
-        "description": "カタログブランドの一覧を取得します。",
-        "operationId": "getCatalogBrands",
+        "description": "掲載ブランドの一覧を取得します。",
+        "operationId": "getDisplayBrands",
         "responses": {
           "200": {
             "content": {
@@ -297,7 +297,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetCatalogBrandsResponse"
+                    "$ref": "#/components/schemas/GetDisplayBrandResponse"
                   }
                 }
               }
@@ -305,16 +305,16 @@
             "description": "成功。"
           }
         },
-        "summary": "カタログブランドの一覧を取得します。",
+        "summary": "掲載ブランドの一覧を取得します。",
         "tags": [
-          "CatalogBrands"
+          "DisplayBrands"
         ]
       }
     },
-    "/api/catalog-categories": {
+    "/api/display-categories": {
       "get": {
-        "description": "カタログカテゴリの一覧を取得します。",
-        "operationId": "getCatalogCategories",
+        "description": "掲載カテゴリの一覧を取得します。",
+        "operationId": "getDisplayCategories",
         "responses": {
           "200": {
             "content": {
@@ -322,7 +322,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetCatalogCategoriesResponse"
+                    "$ref": "#/components/schemas/GetDisplayCategoryResponse"
                   }
                 }
               }
@@ -330,15 +330,15 @@
             "description": "成功。"
           }
         },
-        "summary": "カタログカテゴリの一覧を取得します。",
+        "summary": "掲載カテゴリの一覧を取得します。",
         "tags": [
-          "CatalogCategories"
+          "DisplayCategories"
         ]
       }
     },
-    "/api/catalog-items": {
+    "/api/display-items": {
       "get": {
-        "description": "カタログアイテムを検索して返します。",
+        "description": "掲載品を検索して返します。",
         "operationId": "getByQuery",
         "parameters": [
           {
@@ -387,7 +387,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedListOfGetCatalogItemResponse"
+                  "$ref": "#/components/schemas/PagedListOfGetDisplayItemResponse"
                 }
               }
             },
@@ -404,9 +404,9 @@
             "description": "リクエストエラー。"
           }
         },
-        "summary": "カタログアイテムを検索して返します。",
+        "summary": "掲載品を検索して返します。",
         "tags": [
-          "CatalogItems"
+          "DisplayItems"
         ]
       }
     },
@@ -563,12 +563,12 @@
       "BasketItemApiModel": {
         "type": "object",
         "properties": {
-          "catalogItem": {
-            "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
-          },
-          "catalogItemId": {
+          "displayItemId": {
             "type": "integer",
             "format": "int64"
+          },
+          "displayItemSummary": {
+            "$ref": "#/components/schemas/DisplayItemSummaryApiModel"
           },
           "quantity": {
             "type": "integer",
@@ -582,13 +582,13 @@
           }
         },
         "required": [
-          "catalogItemId",
+          "displayItemId",
           "quantity",
           "subTotal",
           "unitPrice"
         ]
       },
-      "CatalogItemSummaryApiModel": {
+      "DisplayItemSummaryApiModel": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -641,7 +641,7 @@
           "buyerId"
         ]
       },
-      "GetCatalogBrandsResponse": {
+      "GetDisplayBrandResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -657,7 +657,7 @@
           "name"
         ]
       },
-      "GetCatalogCategoriesResponse": {
+      "GetDisplayCategoryResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -673,7 +673,7 @@
           "name"
         ]
       },
-      "GetCatalogItemResponse": {
+      "GetDisplayItemResponse": {
         "type": "object",
         "properties": {
           "assetCodes": {
@@ -687,6 +687,10 @@
             "format": "int64"
           },
           "catalogCategoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "catalogItemId": {
             "type": "integer",
             "format": "int64"
           },
@@ -710,6 +714,7 @@
         "required": [
           "catalogBrandId",
           "catalogCategoryId",
+          "catalogItemId",
           "description",
           "id",
           "name",
@@ -786,7 +791,7 @@
             "format": "int64"
           },
           "itemOrdered": {
-            "$ref": "#/components/schemas/CatalogItemSummaryApiModel"
+            "$ref": "#/components/schemas/DisplayItemSummaryApiModel"
           },
           "quantity": {
             "type": "integer",
@@ -806,7 +811,7 @@
           "unitPrice"
         ]
       },
-      "PagedListOfGetCatalogItemResponse": {
+      "PagedListOfGetDisplayItemResponse": {
         "type": "object",
         "properties": {
           "hasNext": {
@@ -818,7 +823,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetCatalogItemResponse"
+              "$ref": "#/components/schemas/GetDisplayItemResponse"
             }
           },
           "page": {
@@ -846,13 +851,13 @@
             "type": "integer",
             "format": "int32"
           },
-          "catalogItemId": {
+          "displayItemId": {
             "type": "integer",
             "format": "int64"
           }
         },
         "required": [
-          "catalogItemId"
+          "displayItemId"
         ]
       },
       "PostOrderRequest": {
@@ -912,7 +917,7 @@
       "PutBasketItemsRequest": {
         "type": "object",
         "properties": {
-          "catalogItemId": {
+          "displayItemId": {
             "type": "integer",
             "format": "int64"
           },
@@ -922,7 +927,7 @@
           }
         },
         "required": [
-          "catalogItemId",
+          "displayItemId",
           "quantity"
         ]
       }

@@ -7,6 +7,8 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
+import com.dressca.applicationcore.displayitem.DisplayBrand;
+import com.dressca.applicationcore.displayitem.DisplayCategory;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity;
@@ -169,5 +171,23 @@ public class EntityTranslator {
     OrderItem orderItem = new OrderItem();
     BeanUtils.copyProperties(entity, orderItem);
     return orderItem;
+  }
+
+  /**
+   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link DisplayCategory} に変換します。
+   */
+  public static DisplayCategory displayCategoryEntityTranslate(CatalogCategoryEntity entity) {
+    DisplayCategory displayCategory = new DisplayCategory();
+    BeanUtils.copyProperties(entity, displayCategory);
+    return displayCategory;
+  }
+
+  /**
+   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ： {@link DisplayBrand} に変換します。
+   */
+  public static DisplayBrand displayBrandEntityTranslate(CatalogBrandEntity entity) {
+    DisplayBrand displayBrand = new DisplayBrand();
+    BeanUtils.copyProperties(entity, displayBrand);
+    return displayBrand;
   }
 }

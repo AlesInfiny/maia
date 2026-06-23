@@ -2,12 +2,14 @@ package com.dressca.applicationcore.displayitem;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 /**
  * 掲載品のドメインサービスです。
  */
 @RequiredArgsConstructor
+@Service
 public class DisplayDomainService {
   private final DisplayRepository displayRepository;
 

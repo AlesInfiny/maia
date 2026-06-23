@@ -8,7 +8,7 @@ public class OrderItemEntity {
     private Long id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long orderedCatalogItemId;
+    private Long orderedDisplayItemId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String orderedProductName;
@@ -36,13 +36,13 @@ public class OrderItemEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getOrderedCatalogItemId() {
-        return orderedCatalogItemId;
+    public Long getOrderedDisplayItemId() {
+        return orderedDisplayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setOrderedCatalogItemId(Long orderedCatalogItemId) {
-        this.orderedCatalogItemId = orderedCatalogItemId;
+    public void setOrderedDisplayItemId(Long orderedDisplayItemId) {
+        this.orderedDisplayItemId = orderedDisplayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")

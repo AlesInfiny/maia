@@ -1,14 +1,14 @@
-package com.dressca.web.consumer.controller.dto.catalog;
+package com.dressca.web.consumer.controller.dto.displayitem;
 
 import java.util.List;
 import lombok.Data;
 
 /**
- * 検索したカタログアイテムの情報を取得する際に用いる dto クラスです。
+ * 検索した掲載品の情報を取得する際に用いる dto クラスです。
  */
 @Data
-public class PagedListOfGetCatalogItemResponse {
-  private List<GetCatalogItemResponse> items;
+public class PagedListOfGetDisplayItemResponse {
+  private List<GetDisplayItemResponse> items;
   private int totalCount;
   private int page;
   private int pageSize;
@@ -17,14 +17,14 @@ public class PagedListOfGetCatalogItemResponse {
   private boolean hasNext;
 
   /**
-   * {@link PagedListOfGetCatalogItemResponse} クラスのインスタンスを初期化します。
+   * {@link PagedListOfGetDisplayItemResponse} クラスのインスタンスを初期化します。
    * 
-   * @param items カタログアイテムのリスト。
-   * @param totalCount カタログアイテムの合計数。
+   * @param items 掲載品のリスト。
+   * @param totalCount 掲載品の合計数。
    * @param page 現在のページ番号。
    * @param pageSize ページ数の合計。
    */
-  public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount,
+  public PagedListOfGetDisplayItemResponse(List<GetDisplayItemResponse> items, int totalCount,
       int page, int pageSize) {
     this.items = List.copyOf(items);
     this.totalCount = totalCount;

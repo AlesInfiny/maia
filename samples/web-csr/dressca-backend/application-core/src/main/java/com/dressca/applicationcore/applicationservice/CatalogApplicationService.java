@@ -64,7 +64,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者が削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
+   * 削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
    * 
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
@@ -89,25 +89,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 利用者が条件に一致するカタログ情報を取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @param page ページ。
-   * @param pageSize ページサイズ。
-   * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
-   */
-  public List<CatalogItem> getCatalogItemsForConsumer(long brandId, long categoryId, int page,
-      int pageSize) {
-
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
-        new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
-
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
-  }
-
-  /**
-   * 管理者が条件に一致するカタログ情報を取得します。
+   * 削除済みアイテムも含むリポジトリから、条件に一致するカタログ情報を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
@@ -116,8 +98,8 @@ public class CatalogApplicationService {
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
-  public List<CatalogItem> getCatalogItemsForAdmin(long brandId, long categoryId, int page,
-      int pageSize) throws PermissionDeniedException {
+  public List<CatalogItem> getCatalogItems(long brandId, long categoryId, int page, int pageSize)
+      throws PermissionDeniedException {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
@@ -257,28 +239,13 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 利用者が条件に一致するカテゴリの件数を取得します。
+   * 条件に一致するカテゴリの件数を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログ情報の件数。
    */
-  public int countCatalogItemsForConsumer(long brandId, long categoryId) {
-
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
-        new Object[] {brandId, categoryId}, Locale.getDefault()));
-
-    return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
-  }
-
-  /**
-   * 管理者が条件に一致するカテゴリの件数を取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @return 条件に一致するカタログ情報の件数。
-   */
-  public int countCatalogItemsForAdmin(long brandId, long categoryId) {
+  public int countCatalogItems(long brandId, long categoryId) {
 
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
         new Object[] {brandId, categoryId}, Locale.getDefault()));

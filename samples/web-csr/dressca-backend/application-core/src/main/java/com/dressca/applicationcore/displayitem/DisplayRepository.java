@@ -37,4 +37,25 @@ public interface DisplayRepository {
    * @return 条件に一致する掲載品。
    */
   DisplayItem findByIdIncludingDeleted(long id);
+
+  /**
+   * ブランド ID とカテゴリ ID に一致する掲載品のリストを取得します。
+   * 
+   * @param brandId ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @param page ページ。
+   * @param pageSize ページサイズ。
+   * @return 条件に一致する掲載品のリスト。存在しない場合、空のリスト。
+   */
+  List<DisplayItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page,
+      int pageSize);
+
+  /**
+   * ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
+   * 
+   * @param brandId ブランド ID 。
+   * @param categoryId カテゴリ ID 。
+   * @return 条件に一致するカタログの件数。
+   */
+  int countByBrandIdAndCategoryId(long brandId, long categoryId);
 }

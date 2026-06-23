@@ -241,63 +241,63 @@ public class BasketItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIsNull() {
-            addCriterion("catalog_item_id is null");
+        public Criteria andDisplayItemIdIsNull() {
+            addCriterion("display_item_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIsNotNull() {
-            addCriterion("catalog_item_id is not null");
+        public Criteria andDisplayItemIdIsNotNull() {
+            addCriterion("display_item_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdEqualTo(Long value) {
-            addCriterion("catalog_item_id =", value, "catalogItemId");
+        public Criteria andDisplayItemIdEqualTo(Long value) {
+            addCriterion("display_item_id =", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotEqualTo(Long value) {
-            addCriterion("catalog_item_id <>", value, "catalogItemId");
+        public Criteria andDisplayItemIdNotEqualTo(Long value) {
+            addCriterion("display_item_id <>", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdGreaterThan(Long value) {
-            addCriterion("catalog_item_id >", value, "catalogItemId");
+        public Criteria andDisplayItemIdGreaterThan(Long value) {
+            addCriterion("display_item_id >", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("catalog_item_id >=", value, "catalogItemId");
+        public Criteria andDisplayItemIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("display_item_id >=", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdLessThan(Long value) {
-            addCriterion("catalog_item_id <", value, "catalogItemId");
+        public Criteria andDisplayItemIdLessThan(Long value) {
+            addCriterion("display_item_id <", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdLessThanOrEqualTo(Long value) {
-            addCriterion("catalog_item_id <=", value, "catalogItemId");
+        public Criteria andDisplayItemIdLessThanOrEqualTo(Long value) {
+            addCriterion("display_item_id <=", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIn(List<Long> values) {
-            addCriterion("catalog_item_id in", values, "catalogItemId");
+        public Criteria andDisplayItemIdIn(List<Long> values) {
+            addCriterion("display_item_id in", values, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotIn(List<Long> values) {
-            addCriterion("catalog_item_id not in", values, "catalogItemId");
+        public Criteria andDisplayItemIdNotIn(List<Long> values) {
+            addCriterion("display_item_id not in", values, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdBetween(Long value1, Long value2) {
-            addCriterion("catalog_item_id between", value1, value2, "catalogItemId");
+        public Criteria andDisplayItemIdBetween(Long value1, Long value2) {
+            addCriterion("display_item_id between", value1, value2, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotBetween(Long value1, Long value2) {
-            addCriterion("catalog_item_id not between", value1, value2, "catalogItemId");
+        public Criteria andDisplayItemIdNotBetween(Long value1, Long value2) {
+            addCriterion("display_item_id not between", value1, value2, "displayItemId");
             return (Criteria) this;
         }
 

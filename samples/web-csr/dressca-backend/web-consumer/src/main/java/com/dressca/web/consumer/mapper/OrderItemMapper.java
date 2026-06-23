@@ -3,7 +3,7 @@ package com.dressca.web.consumer.mapper;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderItemAsset;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
+import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.controller.dto.order.OrderItemApiModel;
 
 /**
@@ -19,7 +19,7 @@ public class OrderItemMapper {
    */
   public static OrderItemApiModel convert(OrderItem item) {
     return new OrderItemApiModel(item.getId(),
-        new CatalogItemSummaryApiModel(item.getItemOrdered().getCatalogItemId(),
+        new DisplayItemSummaryApiModel(item.getItemOrdered().getDisplayItemId(),
             item.getItemOrdered().getProductName(), item.getItemOrdered().getProductCode(),
             item.getAssets().stream().map(OrderItemAsset::getAssetCode)
                 .collect(Collectors.toList())),

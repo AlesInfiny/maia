@@ -1,4 +1,4 @@
-package com.dressca.web.consumer.controller.dto.catalog;
+package com.dressca.web.consumer.controller.dto.displayitem;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,15 +8,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログアイテムを取得する際に用いる dto クラスです。
+ * 掲載品を取得する際に用いる dto クラスです。
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetCatalogItemResponse {
+public class GetDisplayItemResponse {
 
   @NotNull
   private long id;
+  @NotNull
+  private long catalogItemId;
   @NotNull
   private String name;
   @NotNull

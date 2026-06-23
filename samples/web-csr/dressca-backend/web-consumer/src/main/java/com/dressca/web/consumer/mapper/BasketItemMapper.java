@@ -19,7 +19,7 @@ public class BasketItemMapper {
       return null;
     }
 
-    return new BasketItemApiModel(basketItem.getCatalogItemId(), basketItem.getUnitPrice(),
+    return new BasketItemApiModel(basketItem.getDisplayItemId(), basketItem.getUnitPrice(),
         basketItem.getQuantity(), basketItem.getSubtotal(), null);
   }
 }

@@ -6,7 +6,7 @@
       Generated Code - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="ordered_catalog_item_id" jdbcType="BIGINT" property="orderedCatalogItemId" />
+    <result column="ordered_display_item_id" jdbcType="BIGINT" property="orderedDisplayItemId" />
     <result column="ordered_product_name" jdbcType="VARCHAR" property="orderedProductName" />
     <result column="ordered_product_code" jdbcType="VARCHAR" property="orderedProductCode" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
@@ -81,7 +81,7 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    id, ordered_catalog_item_id, ordered_product_name, ordered_product_code, unit_price, 
+    id, ordered_display_item_id, ordered_product_name, ordered_product_code, unit_price, 
     quantity, order_id
   </sql>
   <select id="selectByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntityExample" resultMap="BaseResultMap">
@@ -130,10 +130,10 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    insert into order_items (ordered_catalog_item_id, ordered_product_name, 
+    insert into order_items (ordered_display_item_id, ordered_product_name, 
       ordered_product_code, unit_price, quantity, 
       order_id)
-    values (#{orderedCatalogItemId,jdbcType=BIGINT}, #{orderedProductName,jdbcType=VARCHAR}, 
+    values (#{orderedDisplayItemId,jdbcType=BIGINT}, #{orderedProductName,jdbcType=VARCHAR}, 
       #{orderedProductCode,jdbcType=VARCHAR}, #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, 
       #{orderId,jdbcType=BIGINT})
   </insert>
@@ -143,8 +143,8 @@
     -->
     insert into order_items
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderedCatalogItemId != null">
-        ordered_catalog_item_id,
+      <if test="orderedDisplayItemId != null">
+        ordered_display_item_id,
       </if>
       <if test="orderedProductName != null">
         ordered_product_name,
@@ -163,8 +163,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderedCatalogItemId != null">
-        #{orderedCatalogItemId,jdbcType=BIGINT},
+      <if test="orderedDisplayItemId != null">
+        #{orderedDisplayItemId,jdbcType=BIGINT},
       </if>
       <if test="orderedProductName != null">
         #{orderedProductName,jdbcType=VARCHAR},
@@ -201,8 +201,8 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="row.orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=BIGINT},
+      <if test="row.orderedDisplayItemId != null">
+        ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=BIGINT},
       </if>
       <if test="row.orderedProductName != null">
         ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
@@ -230,7 +230,7 @@
     -->
     update order_items
     set id = #{row.id,jdbcType=BIGINT},
-      ordered_catalog_item_id = #{row.orderedCatalogItemId,jdbcType=BIGINT},
+      ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=BIGINT},
       ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{row.orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
@@ -246,8 +246,8 @@
     -->
     update order_items
     <set>
-      <if test="orderedCatalogItemId != null">
-        ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=BIGINT},
+      <if test="orderedDisplayItemId != null">
+        ordered_display_item_id = #{orderedDisplayItemId,jdbcType=BIGINT},
       </if>
       <if test="orderedProductName != null">
         ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
@@ -272,7 +272,7 @@
       Generated Code - @mbg.generated
     -->
     update order_items
-    set ordered_catalog_item_id = #{orderedCatalogItemId,jdbcType=BIGINT},
+    set ordered_display_item_id = #{orderedDisplayItemId,jdbcType=BIGINT},
       ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{unitPrice,jdbcType=NUMERIC},

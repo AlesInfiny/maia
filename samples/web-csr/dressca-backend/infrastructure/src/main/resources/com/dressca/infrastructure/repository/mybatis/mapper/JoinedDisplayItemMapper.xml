@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper">
+<mapper namespace="com.dressca.infrastructure.repository.mybatis.mapper.JoinedDisplayItemMapper">
 
-  <sql id="selectCatalogItems">
+  <sql id="selectDisplayItems">
     SELECT
       ID,
       NAME,
@@ -14,7 +14,7 @@
     FROM CATALOG_ITEMS
   </sql>
 
-  <sql id="selectCatalogItemsIncludeAsset">
+  <sql id="selectDisplayItemsIncludeAsset">
     SELECT
       CATALOG_ITEMS.ID,
       CATALOG_ITEMS.NAME,
@@ -53,7 +53,7 @@
   </resultMap>
 
   <select id="findByCategoryIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
-    <include refid="selectCatalogItems"/>
+    <include refid="selectDisplayItems"/>
     WHERE CATALOG_CATEGORY_ID IN 
     <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
       #{categoryId}
@@ -62,7 +62,7 @@
   </select>
 
   <select id="findByBrandIdAndCategoryId" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+    <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       <if test="brandId != 0">
         CATALOG_BRAND_ID = #{brandId}
@@ -76,7 +76,7 @@
   </select>
 
   <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+    <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       <if test="brandId != 0">
         CATALOG_BRAND_ID = #{brandId}
@@ -88,23 +88,23 @@
     LIMIT #{limit} OFFSET #{offset}
   </select>
 
-  <select id="findByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
-    <include refid="selectCatalogItemsIncludeAsset"/>
-    <if test="catalogItemIds.size != 0">
+  <select id="findByDisplayItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <if test="displayItemIds.size != 0">
       WHERE CATALOG_ITEMS.ID IN 
-      <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
-        #{catalogItemId}
+      <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+        #{displayItemId}
       </foreach>
       AND CATALOG_ITEMS.IS_DELETED = false
     </if>
   </select>
 
-  <select id="findByCatalogItemIdInIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
-    <include refid="selectCatalogItemsIncludeAsset"/>
-    <if test="catalogItemIds.size != 0">
+  <select id="findByDisplayItemIdInIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <if test="displayItemIds.size != 0">
       WHERE CATALOG_ITEMS.ID IN 
-      <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
-        #{catalogItemId}
+      <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+        #{displayItemId}
       </foreach>
     </if>
   </select>
@@ -135,7 +135,7 @@
   </select>
   
   <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+    <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       IS_DELETED = false
     </where>
@@ -143,7 +143,7 @@
   </select>
 
   <select id="findById" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+    <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       CATALOG_ITEMS.ID = #{id}
       AND CATALOG_ITEMS.IS_DELETED = false
@@ -151,24 +151,24 @@
   </select>
 
   <select id="findByIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+    <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       CATALOG_ITEMS.ID = #{id}
     </where>
   </select>
 
-  <select id="findDeletedItemsByCatalogItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
-    <include refid="selectCatalogItemsIncludeAsset"/>
+  <select id="findDeletedItemsByDisplayItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
      <choose>
-       <when test="catalogItemIds != null and catalogItemIds.size != 0">
+       <when test="displayItemIds != null and displayItemIds.size != 0">
          WHERE CATALOG_ITEMS.ID IN 
-         <foreach item="catalogItemId" collection="catalogItemIds" open="(" separator="," close=")">
-           #{catalogItemId}
+         <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+           #{displayItemId}
          </foreach>
          AND CATALOG_ITEMS.IS_DELETED = true
        </when>
        <otherwise>
-         <!-- catalogItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+         <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
          WHERE 1 = 0
        </otherwise>
      </choose>

@@ -143,43 +143,6 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsForConsumer_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
-    // Arrange
-    long brandId = 1L;
-    long categoryId = 1L;
-    int page = 0;
-    int pageSize = 20;
-
-    // Action
-    service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page,
-        pageSize);
-  }
-
-  @Test
-  void testGetCatalogItemsForConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
-    // Arrange
-    long brandId = 1L;
-    long categoryId = 1L;
-    int page = 0;
-    int pageSize = 20;
-    long targetId = 1L;
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
-    when(this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize))
-        .thenReturn(expectedCatalogItemList);
-
-    // Action
-    List<CatalogItem> actualCatalogItemList =
-        service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
-
-    // Assert
-    assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
-  }
-
-  @Test
   void testGetCatalogItemsForAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す()
       throws PermissionDeniedException {
     // Arrange
@@ -190,7 +153,7 @@ public class CatalogApplicationServiceTest {
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Action
-    service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+    service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId,
@@ -214,7 +177,7 @@ public class CatalogApplicationServiceTest {
 
     // Action
     List<CatalogItem> actualCatalogItemList =
-        service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+        service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
@@ -231,7 +194,7 @@ public class CatalogApplicationServiceTest {
 
     // Action
     Executable action = () -> {
-      service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+      service.getCatalogItems(brandId, categoryId, page, pageSize);
     };
 
     // Assert
@@ -571,20 +534,6 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void countCatalogItemsForConsumer_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
-    // Arrange
-    long brandId = 1L;
-    long categoryId = 1L;
-    when(this.catalogRepository.countByBrandIdAndCategoryId(anyLong(), anyLong())).thenReturn(1);
-
-    // Act
-    service.countCatalogItemsForConsumer(brandId, categoryId);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(anyLong(), anyLong());
-  }
-
-  @Test
   void countCatalogItemsForAdmin_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
     // Arrange
     long brandId = 1L;
@@ -593,7 +542,7 @@ public class CatalogApplicationServiceTest {
         .thenReturn(1);
 
     // Act
-    service.countCatalogItemsForAdmin(brandId, categoryId);
+    service.countCatalogItems(brandId, categoryId);
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(anyLong(),
