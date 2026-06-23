@@ -19,7 +19,10 @@ const formSchema = toTypedSchema(
 const router = useRouter()
 const route = useRoute()
 
-const { meta } = useForm({ validationSchema: formSchema })
+const { meta } = useForm({
+  validationSchema: formSchema,
+  initialValues: { email: '', password: '' },
+})
 const { value: email, errorMessage: emailError } = useField<string>('email')
 const { value: password, errorMessage: passwordError } = useField('password')
 

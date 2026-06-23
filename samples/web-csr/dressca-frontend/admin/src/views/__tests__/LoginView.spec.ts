@@ -81,12 +81,6 @@ describe('LoginView', () => {
     expect(emailErr).toBe('ユーザー名は必須です。')
   })
 
-  it('ユーザー名がundefinedのときエラーメッセージが表示される', async () => {
-    await setValuesAndValidate(wrapper, undefined, 'password123')
-    const emailErr = wrapper.find('#username-error').text()
-    expect(emailErr).toBe('ユーザー名は必須です。')
-  })
-
   it('ユーザー名が空白のときエラーメッセージが表示される', async () => {
     await setValuesAndValidate(wrapper, ' ', 'password123')
     const emailErr = wrapper.find('#username-error').text()
@@ -101,12 +95,6 @@ describe('LoginView', () => {
 
   it('パスワードが空文字のときエラーメッセージが表示される', async () => {
     await setValuesAndValidate(wrapper, 'aaa@example.com', '')
-    const passwordErr = wrapper.find('#password-error').text()
-    expect(passwordErr).toBe('パスワードは必須です。')
-  })
-
-  it('パスワードがundefinedのときエラーメッセージが表示される', async () => {
-    await setValuesAndValidate(wrapper, 'aaa@example.com', undefined)
     const passwordErr = wrapper.find('#password-error').text()
     expect(passwordErr).toBe('パスワードは必須です。')
   })

@@ -2,11 +2,8 @@ import { z } from 'zod'
 import { i18n } from '@/locales/i18n'
 import * as zod from 'zod'
 
-// undefined を空文字に変換し、前後の空白を削除する基底スキーマ（共通処理）
-const stringSchema = z
-  .string()
-  .optional()
-  .transform((val) => val?.trim() ?? '')
+// 前後の空白を削除する基底スキーマ（共通処理）
+const stringSchema = z.string().transform((val) => val?.trim() ?? '')
 
 // 必須バリデーション関数
 const required = (message: string) => z.string().min(1, message)
@@ -39,23 +36,24 @@ export function ValidationItems() {
  * @returns カスタムエラーメッセージ
  */
 const customErrorMap: zod.ZodErrorMap = (issue, ctx) => {
+  const { t } = i18n.global
   switch (issue.code) {
     // 型に誤り
     case zod.ZodIssueCode.invalid_type:
-      return { message: '正しい形式で入力してください。' }
+      return { message: t('invalidFormat') }
 
     case zod.ZodIssueCode.too_big:
-      return { message: `${issue.maximum}文字以下で入力してください。` }
+      return { message: t('tooBig', [issue.maximum]) }
 
     case zod.ZodIssueCode.too_small:
       if (issue.minimum === 1) {
-        return { message: '必須項目です。' }
+        return { message: t('required') }
       }
-      return { message: `${issue.minimum}文字以上で入力してください。` }
+      return { message: t('tooSmall', [issue.minimum]) }
 
     // 文字列のフォーマット違反
     case zod.ZodIssueCode.invalid_string:
-      return { message: '正しい形式で入力してください。' }
+      return { message: t('invalidFormat') }
   }
 
   // デフォルトのメッセージを返す

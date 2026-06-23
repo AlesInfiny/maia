@@ -21,7 +21,10 @@ const router = useRouter()
 const route = useRoute()
 const handleErrorAsync = useCustomErrorHandler()
 
-const { meta } = useForm({ validationSchema: formSchema })
+const { meta } = useForm({
+  validationSchema: formSchema,
+  initialValues: { userName: '', password: '' },
+})
 const { value: userName, errorMessage: userNameError } = useField<string>('userName')
 const { value: password, errorMessage: passwordError } = useField<string>('password')
 

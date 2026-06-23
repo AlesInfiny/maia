@@ -90,16 +90,6 @@ describe('Authentication validation', () => {
     expect(passwordErr).toBe('値を入力してください')
   })
 
-  it('入力値がundefinedの場合、日本語で必須メッセージを返す', async () => {
-    const wrapper = getWrapperJa()
-    await setValuesAndValidate(wrapper, undefined, undefined)
-
-    const emailErr = wrapper.find('#email-error').text()
-    expect(emailErr).toBe('値を入力してください')
-    const passwordErr = wrapper.find('#password-error').text()
-    expect(passwordErr).toBe('値を入力してください')
-  })
-
   it('入力値が空白の場合、日本語で必須メッセージを返す', async () => {
     const wrapper = getWrapperJa()
     await setValuesAndValidate(wrapper, ' ', ' ')
@@ -119,16 +109,6 @@ describe('Authentication validation', () => {
   it('入力値が空の場合、英語で必須メッセージを返す', async () => {
     const wrapper = getWrapperEn()
     await setValuesAndValidate(wrapper, '', '')
-
-    const emailErr = wrapper.find('#email-error').text()
-    expect(emailErr).toBe('this field is required')
-    const passwordErr = wrapper.find('#password-error').text()
-    expect(passwordErr).toBe('this field is required')
-  })
-
-  it('入力値がundefinedの場合、英語で必須メッセージを返す', async () => {
-    const wrapper = getWrapperEn()
-    await setValuesAndValidate(wrapper, undefined, undefined)
 
     const emailErr = wrapper.find('#email-error').text()
     expect(emailErr).toBe('this field is required')

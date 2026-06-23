@@ -2,11 +2,8 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import * as zod from 'zod'
 
-// undefined を空文字に変換し、前後の空白を削除する基底スキーマ（共通処理）
-export const stringSchema = z
-  .string()
-  .optional()
-  .transform((val) => val?.trim() ?? '')
+// 前後の空白を削除する基底スキーマ（共通処理）
+export const stringSchema = z.string().transform((val) => val?.trim() ?? '')
 
 // 必須バリデーション関数
 const required = (message: string) => z.string().min(1, message)
