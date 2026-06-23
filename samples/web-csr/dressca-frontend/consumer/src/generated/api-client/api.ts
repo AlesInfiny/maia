@@ -17,8 +17,8 @@
 export * from './api/actuator-api';
 export * from './api/assets-api';
 export * from './api/basket-items-api';
-export * from './api/catalog-brands-api';
-export * from './api/catalog-categories-api';
-export * from './api/catalog-items-api';
+export * from './api/display-brands-api';
+export * from './api/display-categories-api';
+export * from './api/display-items-api';
 export * from './api/orders-api';
 

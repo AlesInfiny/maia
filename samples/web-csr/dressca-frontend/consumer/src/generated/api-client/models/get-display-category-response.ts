@@ -14,14 +14,8 @@
 
 
 
-export interface GetCatalogItemResponse {
-    'assetCodes'?: Array<string>;
-    'catalogBrandId': number;
-    'catalogCategoryId': number;
-    'description': string;
+export interface GetDisplayCategoryResponse {
     'id': number;
     'name': string;
-    'price': number;
-    'productCode': string;
 }
 

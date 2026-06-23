@@ -15,11 +15,11 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { CatalogItemSummaryApiModel } from './catalog-item-summary-api-model';
+import type { DisplayItemSummaryApiModel } from './display-item-summary-api-model';
 
 export interface OrderItemApiModel {
     'id': number;
-    'itemOrdered'?: CatalogItemSummaryApiModel;
+    'itemOrdered'?: DisplayItemSummaryApiModel;
     'quantity': number;
     'subTotal': number;
     'unitPrice': number;

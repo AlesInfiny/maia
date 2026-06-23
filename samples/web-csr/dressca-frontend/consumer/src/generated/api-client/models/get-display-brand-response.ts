@@ -14,7 +14,7 @@
 
 
 
-export interface GetCatalogBrandsResponse {
+export interface GetDisplayBrandResponse {
     'id': number;
     'name': string;
 }

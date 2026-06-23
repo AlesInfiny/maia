@@ -14,10 +14,15 @@
 
 
 
-export interface CatalogItemSummaryApiModel {
+export interface GetDisplayItemResponse {
     'assetCodes'?: Array<string>;
+    'catalogBrandId': number;
+    'catalogCategoryId': number;
+    'catalogItemId': number;
+    'description': string;
     'id': number;
     'name': string;
+    'price': number;
     'productCode': string;
 }
 

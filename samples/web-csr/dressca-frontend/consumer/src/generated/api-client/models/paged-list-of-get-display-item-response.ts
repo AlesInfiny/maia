@@ -15,12 +15,12 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { GetCatalogItemResponse } from './get-catalog-item-response';
+import type { GetDisplayItemResponse } from './get-display-item-response';
 
-export interface PagedListOfGetCatalogItemResponse {
+export interface PagedListOfGetDisplayItemResponse {
     'hasNext'?: boolean;
     'hasPrevious'?: boolean;
-    'items'?: Array<GetCatalogItemResponse>;
+    'items'?: Array<GetDisplayItemResponse>;
     'page'?: number;
     'pageSize'?: number;
     'totalCount'?: number;

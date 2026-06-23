@@ -15,11 +15,11 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { CatalogItemSummaryApiModel } from './catalog-item-summary-api-model';
+import type { DisplayItemSummaryApiModel } from './display-item-summary-api-model';
 
 export interface BasketItemApiModel {
-    'catalogItem'?: CatalogItemSummaryApiModel;
-    'catalogItemId': number;
+    'displayItemId': number;
+    'displayItemSummary'?: DisplayItemSummaryApiModel;
     'quantity': number;
     'subTotal': number;
     'unitPrice': number;
