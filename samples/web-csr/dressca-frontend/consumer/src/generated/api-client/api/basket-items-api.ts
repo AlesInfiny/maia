@@ -99,7 +99,7 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていない掲載品 ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していない掲載品を指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されている掲載品を指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内の掲載品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -134,7 +134,7 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない掲載品 ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない掲載品 ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていない掲載品 ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -203,7 +203,7 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていない掲載品 ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していない掲載品を指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されている掲載品を指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内の掲載品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -216,7 +216,7 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない掲載品 ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない掲載品 ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていない掲載品 ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -257,7 +257,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getBasketItems(options).then((request) => request(axios, basePath));
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていない掲載品 ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していない掲載品を指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されている掲載品を指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内の掲載品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -267,7 +267,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.postBasketItem(postBasketItemsRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない掲載品 ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない掲載品 ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていない掲載品 ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -305,7 +305,7 @@ export class BasketItemsApi extends BaseAPI {
     }
 
     /**
-     * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+     * 買い物かごに商品を追加します。<br>この API では、システムに登録されていない掲載品 ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していない掲載品を指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されている掲載品を指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内の掲載品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
      * @summary 買い物かごに商品を追加します。
      * @param {PostBasketItemsRequest} postBasketItemsRequest 
      * @param {*} [options] Override http request option.
@@ -316,7 +316,7 @@ export class BasketItemsApi extends BaseAPI {
     }
 
     /**
-     * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+     * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない掲載品 ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない掲載品 ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていない掲載品 ID を指定した場合も HTTP 400 を返却します。
      * @summary 買い物かごアイテム内の数量を変更します。
      * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
      * @param {*} [options] Override http request option.

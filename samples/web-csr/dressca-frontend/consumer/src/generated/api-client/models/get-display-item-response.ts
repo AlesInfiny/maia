@@ -16,10 +16,10 @@
 
 export interface GetDisplayItemResponse {
     'assetCodes'?: Array<string>;
-    'catalogBrandId': number;
-    'catalogCategoryId': number;
     'catalogItemId': number;
     'description': string;
+    'displayBrandId': number;
+    'displayCategoryId': number;
     'id': number;
     'name': string;
     'price': number;
