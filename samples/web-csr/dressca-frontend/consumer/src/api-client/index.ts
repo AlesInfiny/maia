@@ -76,29 +76,29 @@ function basketItemsApi() {
 
 /**
  * カタログブランド関連 API のクライアントを生成します。
- * @returns CatalogBrandsApi インスタンス
+ * @returns DisplayBrandsApi インスタンス
  */
-function catalogBrandsApi() {
-  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
-  return catalogBrandsApi
+function displayBrandsApi() {
+  const displayBrandsApi = new apiClient.DisplayBrandsApi(createConfig(), '', axiosInstance)
+  return displayBrandsApi
 }
 
 /**
  * カタログカテゴリ関連 API のクライアントを生成します。
- * @returns CatalogCategoriesApi インスタンス
+ * @returns DisplayCategoriesApi インスタンス
  */
-function catalogCategoriesApi() {
-  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
-  return catalogCategoriesApi
+function displayCategoriesApi() {
+  const displayCategoriesApi = new apiClient.DisplayCategoriesApi(createConfig(), '', axiosInstance)
+  return displayCategoriesApi
 }
 
 /**
  * カタログアイテム関連 API のクライアントを生成します。
- * @returns CatalogItemsApi インスタンス
+ * @returns DisplayItemsApi インスタンス
  */
-function catalogItemsApi() {
-  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
-  return catalogItemsApi
+function displayItemsApi() {
+  const displayItemsApi = new apiClient.DisplayItemsApi(createConfig(), '', axiosInstance)
+  return displayItemsApi
 }
 
 /**
@@ -113,9 +113,9 @@ function ordersApi() {
 export {
   assetsApi,
   basketItemsApi,
-  catalogBrandsApi,
-  catalogCategoriesApi,
-  catalogItemsApi,
+  displayBrandsApi,
+  displayCategoriesApi,
+  displayItemsApi,
   ordersApi,
   axiosInstance,
 }

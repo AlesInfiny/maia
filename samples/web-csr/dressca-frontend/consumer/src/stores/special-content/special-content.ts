@@ -19,7 +19,7 @@ export const useSpecialContentStore = defineStore('special-content', {
         assetCode: '05d38fad5693422c8a27dd5b14070ec8',
       },
       {
-        productCode: 14,
+        displayItemId: 14,
         assetCode: '80bc8e167ccb4543b2f9d51913073492',
       },
     ] as SpecialContent[],

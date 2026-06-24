@@ -11,7 +11,7 @@ import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
 
 /**
- * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。
+ * 買い物かごに掲載品が入っている状態のモックレスポンスを生成します。
  * 主にテストやスタブデータとして利用することを想定しています。
  * @returns `GetBasketItemsResponse` 型のオブジェクト
  */
@@ -27,10 +27,10 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
     },
     basketItems: [
       {
-        catalogItemId: 1,
+        displayItemId: 1,
         quantity: 1,
         unitPrice: 1980,
-        catalogItem: {
+        displayItemSummary: {
           id: 1,
           name: 'クルーネック Tシャツ - ブラック',
           productCode: 'C000000001',
@@ -39,10 +39,10 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
         subTotal: 1980,
       },
       {
-        catalogItemId: 2,
+        displayItemId: 2,
         quantity: 2,
         unitPrice: 4800,
-        catalogItem: {
+        displayItemSummary: {
           id: 2,
           name: '裏起毛 スキニーデニム',
           productCode: 'C000000002',

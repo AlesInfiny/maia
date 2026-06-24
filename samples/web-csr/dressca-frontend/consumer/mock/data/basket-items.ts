@@ -1,5 +1,5 @@
 import type { GetBasketItemsResponse, BasketItemApiModel } from '@/generated/api-client'
-import { deletedItemId } from './catalog-items'
+import { deletedItemId } from './display-items'
 
 export const basket: GetBasketItemsResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -16,10 +16,10 @@ export const basket: GetBasketItemsResponse = {
 
 export const basketItems: BasketItemApiModel[] = [
   {
-    catalogItemId: 1,
+    displayItemId: 1,
     quantity: 0,
     unitPrice: 1980,
-    catalogItem: {
+    displayItemSummary: {
       id: 1,
       name: 'クルーネック Tシャツ - ブラック',
       productCode: 'C000000001',
@@ -28,10 +28,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 2,
+    displayItemId: 2,
     quantity: 0,
     unitPrice: 4800,
-    catalogItem: {
+    displayItemSummary: {
       id: 2,
       name: '裏起毛 スキニーデニム',
       productCode: 'C000000002',
@@ -40,10 +40,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 3,
+    displayItemId: 3,
     quantity: 0,
     unitPrice: 49800,
-    catalogItem: {
+    displayItemSummary: {
       id: 3,
       name: 'ウールコート',
       productCode: 'C000000003',
@@ -52,10 +52,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 4,
+    displayItemId: 4,
     quantity: 0,
     unitPrice: 2800,
-    catalogItem: {
+    displayItemSummary: {
       id: 4,
       name: '無地 ボタンダウンシャツ',
       productCode: 'C000000004',
@@ -64,10 +64,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 5,
+    displayItemId: 5,
     quantity: 0,
     unitPrice: 18800,
-    catalogItem: {
+    displayItemSummary: {
       id: 5,
       name: 'レザーハンドバッグ',
       productCode: 'B000000001',
@@ -76,10 +76,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 6,
+    displayItemId: 6,
     quantity: 0,
     unitPrice: 38000,
-    catalogItem: {
+    displayItemSummary: {
       id: 6,
       name: 'ショルダーバッグ',
       productCode: 'B000000002',
@@ -88,10 +88,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 7,
+    displayItemId: 7,
     quantity: 0,
     unitPrice: 24800,
-    catalogItem: {
+    displayItemSummary: {
       id: 7,
       name: 'トートバッグ ポーチ付き',
       productCode: 'B000000003',
@@ -100,10 +100,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 8,
+    displayItemId: 8,
     quantity: 0,
     unitPrice: 2800,
-    catalogItem: {
+    displayItemSummary: {
       id: 8,
       name: 'ショルダーバッグ',
       productCode: 'B000000004',
@@ -112,10 +112,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 9,
+    displayItemId: 9,
     quantity: 0,
     unitPrice: 258000,
-    catalogItem: {
+    displayItemSummary: {
       id: 9,
       name: 'レザー チェーンショルダーバッグ',
       productCode: 'B000000005',
@@ -124,10 +124,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 10,
+    displayItemId: 10,
     quantity: 0,
     unitPrice: 12800,
-    catalogItem: {
+    displayItemSummary: {
       id: 10,
       name: 'ランニングシューズ - ブルー',
       productCode: 'S000000001',
@@ -136,10 +136,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: 11,
+    displayItemId: 11,
     quantity: 0,
     unitPrice: 23800,
-    catalogItem: {
+    displayItemSummary: {
       id: 11,
       name: 'メダリオン ストレートチップ ドレスシューズ',
       productCode: 'S000000002',
@@ -148,10 +148,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: deletedItemId,
+    displayItemId: deletedItemId,
     quantity: 0,
     unitPrice: 1980,
-    catalogItem: {
+    displayItemSummary: {
       id: deletedItemId,
       name: '削除済みアイテム',
       productCode: 'C999999999',

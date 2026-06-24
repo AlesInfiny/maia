@@ -1,16 +1,17 @@
 import type {
-  GetCatalogItemResponse,
-  PagedListOfGetCatalogItemResponse,
+  GetDisplayItemResponse,
+  PagedListOfGetDisplayItemResponse,
 } from '@/generated/api-client'
 
-/** カタログから削除済みのアイテムの ID です。 */
+/** 掲載から削除済みのアイテムの ID です。 */
 export const deletedItemId: number = 99
 
-export const catalogItems: GetCatalogItemResponse[] = [
+export const displayItems: GetDisplayItemResponse[] = [
   {
     id: 1,
-    catalogCategoryId: 1,
-    catalogBrandId: 3,
+    catalogItemId: 1,
+    displayCategoryId: 1,
+    displayBrandId: 3,
     description: '定番の無地ロングTシャツです。',
     name: 'クルーネック Tシャツ - ブラック',
     price: 1980,
@@ -19,8 +20,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 2,
-    catalogCategoryId: 1,
-    catalogBrandId: 2,
+    catalogItemId: 2,
+    displayCategoryId: 1,
+    displayBrandId: 2,
     description: '暖かいのに着膨れしない起毛デニムです。',
     name: '裏起毛 スキニーデニム',
     price: 4800,
@@ -29,8 +31,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 3,
-    catalogCategoryId: 1,
-    catalogBrandId: 1,
+    catalogItemId: 3,
+    displayCategoryId: 1,
+    displayBrandId: 1,
     description: 'あたたかく肌ざわりも良いウール100%のロングコートです。',
     name: 'ウールコート',
     price: 49800,
@@ -39,8 +42,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 4,
-    catalogCategoryId: 1,
-    catalogBrandId: 2,
+    catalogItemId: 4,
+    displayCategoryId: 1,
+    displayBrandId: 2,
     description: 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
     name: '無地 ボタンダウンシャツ',
     price: 2800,
@@ -49,8 +53,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 5,
-    catalogCategoryId: 2,
-    catalogBrandId: 3,
+    catalogItemId: 5,
+    displayCategoryId: 2,
+    displayBrandId: 3,
     description: 'コンパクトサイズのバッグですが収納力は抜群です。',
     name: 'レザーハンドバッグ',
     price: 18800,
@@ -59,8 +64,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 6,
-    catalogCategoryId: 2,
-    catalogBrandId: 2,
+    catalogItemId: 6,
+    displayCategoryId: 2,
+    displayBrandId: 2,
     description: 'エイジング加工したレザーを使用しています。',
     name: 'ショルダーバッグ',
     price: 38000,
@@ -69,8 +75,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 7,
-    catalogCategoryId: 2,
-    catalogBrandId: 3,
+    catalogItemId: 7,
+    displayCategoryId: 2,
+    displayBrandId: 3,
     description:
       '春の季節にぴったりのトートバッグです。インナーポーチまたは単体でも使用可能なポーチ付。',
     name: 'トートバッグ ポーチ付き',
@@ -80,8 +87,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 8,
-    catalogCategoryId: 2,
-    catalogBrandId: 1,
+    catalogItemId: 8,
+    displayCategoryId: 2,
+    displayBrandId: 1,
     description: 'さらりと気軽に纏える、キュートなミニサイズショルダー。',
     name: 'ショルダーバッグ',
     price: 2800,
@@ -90,8 +98,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 9,
-    catalogCategoryId: 2,
-    catalogBrandId: 1,
+    catalogItemId: 9,
+    displayCategoryId: 2,
+    displayBrandId: 1,
     description: 'エレガントな雰囲気を放つキルティングデザインです。',
     name: 'レザー チェーンショルダーバッグ',
     price: 258000,
@@ -100,8 +109,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 10,
-    catalogCategoryId: 3,
-    catalogBrandId: 2,
+    catalogItemId: 10,
+    displayCategoryId: 3,
+    displayBrandId: 2,
     description: '柔らかいソールは快適な履き心地で、ランニングに最適です。',
     name: 'ランニングシューズ - ブルー',
     price: 12800,
@@ -110,8 +120,9 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: 11,
-    catalogCategoryId: 3,
-    catalogBrandId: 1,
+    catalogItemId: 11,
+    displayCategoryId: 3,
+    displayBrandId: 1,
     description: 'イタリアの職人が丁寧に手作業で作り上げた一品です。',
     name: 'メダリオン ストレートチップ ドレスシューズ',
     price: 23800,
@@ -119,9 +130,10 @@ export const catalogItems: GetCatalogItemResponse[] = [
     assetCodes: ['0e557e96bc054f10bc91c27405a83e85'],
   },
   {
-    id: deletedItemId,
-    catalogCategoryId: 1,
-    catalogBrandId: 1,
+    id: 12,
+    catalogItemId: deletedItemId,
+    displayCategoryId: 1,
+    displayBrandId: 1,
     description: '削除済みアイテムの動作確認用アイテムです。',
     name: '削除済みアイテム',
     price: 1980,
@@ -130,12 +142,12 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
 ]
 
-export const pagedListCatalogItem: PagedListOfGetCatalogItemResponse = {
+export const pagedListDisplayItem: PagedListOfGetDisplayItemResponse = {
   hasNext: false,
   hasPrevious: false,
   page: 1,
   pageSize: 20,
   totalCount: 3,
   totalPages: 1,
-  items: catalogItems,
+  items: displayItems,
 }

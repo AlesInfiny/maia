@@ -1,6 +1,6 @@
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
-import { useCatalogStore } from '@/stores/catalog/catalog'
+import { useDisplayStore } from '@/stores/display/display'
 import { useNotificationStore } from '@/stores/notification/notification'
 import { abortAllRequests } from '@/api-client/request-abort-manager'
 
@@ -35,7 +35,7 @@ export function authenticationService() {
    * 以下の順序で処理を行います:
    * 1. 処理中の API リクエストを中断
    * 2. 認証状態を false に変更し、セッションストレージを削除
-   * 3. 各ストア（basket, catalog）の状態をリセット
+   * 3. 各ストア（basket, 掲載）の状態をリセット
    * 4. 通知ストアの状態をリセット（最後に実行）
    */
   const signOut = () => {
@@ -50,8 +50,8 @@ export function authenticationService() {
     const basketStore = useBasketStore()
     basketStore.$reset()
 
-    const catalogStore = useCatalogStore()
-    catalogStore.$reset()
+    const displayStore = useDisplayStore()
+    displayStore.$reset()
 
     // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
     const notificationStore = useNotificationStore()

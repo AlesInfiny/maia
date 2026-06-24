@@ -15,8 +15,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'update', catalogItemId: number, quantity: number): void
-  (e: 'remove', catalogItemId: number): void
+  (e: 'update', displayItemId: number, quantity: number): void
+  (e: 'remove', displayItemId: number): void
 }>()
 
 // フォーム固有のバリデーション定義
@@ -36,12 +36,12 @@ const isUpdateDisabled = computed(() => !(meta.value.valid && meta.value.dirty))
 
 const update = () => {
   resetForm({ values: { quantity: quantity.value } })
-  emit('update', props.item.catalogItemId, quantity.value)
+  emit('update', props.item.displayItemId, quantity.value)
 }
 
 const remove = () => {
   resetForm({ values: { quantity: props.item.quantity } })
-  emit('remove', props.item.catalogItemId)
+  emit('remove', props.item.displayItemId)
 }
 </script>
 
@@ -49,12 +49,12 @@ const remove = () => {
   <div class="col-span-4 lg:col-span-5">
     <div class="grid grid-cols-2">
       <img
-        :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
-        :alt="item.catalogItem?.name"
+        :src="getFirstAssetUrl(item.displayItemSummary?.assetCodes)"
+        :alt="item.displayItemSummary?.name"
         class="pointer-events-none h-40"
       />
       <div class="ml-2">
-        <p>{{ item.catalogItem?.name }}</p>
+        <p>{{ item.displayItemSummary?.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
         <p v-if="!available" class="mt-4 font-bold text-red-500">
           {{ t('itemUnavailable') }}
@@ -66,9 +66,9 @@ const remove = () => {
     <div class="grid grid-cols-1 lg:grid-cols-3">
       <div class="grid place-items-end lg:col-span-2 lg:flex lg:flex-row lg:items-center">
         <div class="mt-2 mr-2 ml-2 basis-3/5 text-right lg:pr-10">
-          <label :for="`quantity-input-${item.catalogItemId}`">
+          <label :for="`quantity-input-${item.displayItemId}`">
             <input
-              :id="`quantity-input-${item.catalogItemId}`"
+              :id="`quantity-input-${item.displayItemId}`"
               v-model.number="quantity"
               type="number"
               min="1"

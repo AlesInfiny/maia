@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { fetchCategoriesAndBrands, fetchItems } from '@/services/catalog/catalog-service'
+import { fetchCategoriesAndBrands, fetchItems } from '@/services/display/display-service'
 import { addItemToBasket } from '@/services/basket/basket-service'
 import { showToast } from '@/services/notification/notificationService'
 import { storeToRefs } from 'pinia'
 import { useSpecialContentStore } from '@/stores/special-content/special-content'
-import { useCatalogStore } from '@/stores/catalog/catalog'
+import { useDisplayStore } from '@/stores/display/display'
 import CarouselSlider from '@/components/common/CarouselSlider.vue'
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
@@ -17,10 +17,10 @@ import { HttpError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const specialContentStore = useSpecialContentStore()
-const catalogStore = useCatalogStore()
+const displayStore = useDisplayStore()
 
 const { getSpecialContents } = storeToRefs(specialContentStore)
-const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(catalogStore)
+const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(displayStore)
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const { t } = i18n.global
@@ -32,9 +32,9 @@ const showLoading = ref(true)
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 
-const addBasket = async (catalogItemId: number) => {
+const addBasket = async (displayItemId: number) => {
   try {
-    await addItemToBasket(catalogItemId)
+    await addItemToBasket(displayItemId)
     router.push({ name: 'basket' })
   } catch (error) {
     await handleErrorAsync(
@@ -142,7 +142,7 @@ watch([selectedCategory, selectedBrand], async () => {
               <img class="h-45" :src="getFirstAssetUrl(item.assetCodes)" :alt="item.name" />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">
-                  {{ getBrandName(item.catalogBrandId) }}
+                  {{ getBrandName(item.displayBrandId) }}
                 </p>
                 <p class="text-lg font-bold">
                   {{ toCurrencyJPY(item.price) }}

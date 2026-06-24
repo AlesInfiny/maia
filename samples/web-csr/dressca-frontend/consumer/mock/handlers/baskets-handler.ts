@@ -6,7 +6,7 @@ import type {
   PostBasketItemsRequest,
   PutBasketItemsRequest,
 } from '@/generated/api-client'
-import { deletedItemId } from '../data/catalog-items'
+import { deletedItemId } from '../data/display-items'
 import { basket, basketItems } from '../data/basket-items'
 
 /**
@@ -18,9 +18,9 @@ function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): Bas
   if (!originalBasketItems) {
     return originalBasketItems
   }
-  return originalBasketItems.map(({ catalogItem, catalogItemId, quantity, unitPrice }) => ({
-    catalogItem,
-    catalogItemId,
+  return originalBasketItems.map(({ displayItemId, displayItemSummary, quantity, unitPrice }) => ({
+    displayItemSummary,
+    displayItemId,
     quantity,
     unitPrice,
     subTotal: unitPrice * quantity,
@@ -57,19 +57,19 @@ export const basketsHandlers = [
     const dto: PostBasketItemsRequest = await request.json()
 
     const target = basket.basketItems?.filter(
-      (item) => item.catalogItemId === Number(dto.catalogItemId),
+      (item) => item.displayItemId === Number(dto.displayItemId),
     )
     if (target) {
       if (target.length === 0) {
-        const addBasketItem = basketItems.find((item) => item.catalogItemId === dto.catalogItemId)
+        const addBasketItem = basketItems.find((item) => item.displayItemId === dto.displayItemId)
         if (typeof addBasketItem !== 'undefined') {
           addBasketItem.quantity = dto.addedQuantity ?? 0
           basket.basketItems?.push(addBasketItem)
 
           // 追加したアイテムがカタログから削除済みのアイテムだった場合、
           // 買い物かごの削除済みアイテム ID リストに ID を追加します。
-          if (addBasketItem.catalogItemId === deletedItemId) {
-            basket.deletedItemIds?.push(addBasketItem.catalogItemId)
+          if (addBasketItem.displayItemId === deletedItemId) {
+            basket.deletedItemIds?.push(addBasketItem.displayItemId)
           }
         }
       } else {
@@ -88,7 +88,7 @@ export const basketsHandlers = [
     })
     dto.forEach((putBasketItem) => {
       const target = basket.basketItems?.filter(
-        (item) => item.catalogItemId === putBasketItem.catalogItemId,
+        (item) => item.displayItemId === putBasketItem.displayItemId,
       )
       if (target) {
         if (target.length === 0) {
@@ -104,17 +104,17 @@ export const basketsHandlers = [
     basket.account = calcBasketAccount(subTotals)
     return response
   }),
-  http.delete('/api/basket-items/:catalogItemId', ({ params }) => {
-    const { catalogItemId } = params
+  http.delete('/api/basket-items/:displayItemId', ({ params }) => {
+    const { displayItemId } = params
     basket.basketItems = basket.basketItems?.filter(
-      (item) => item.catalogItemId !== Number(catalogItemId),
+      (item) => item.displayItemId !== Number(displayItemId),
     )
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
     const subTotals = basket.basketItems.map((item) => item.subTotal)
     basket.account = calcBasketAccount(subTotals)
     // 削除したアイテムがカタログから削除済みのアイテムだった場合、
     // 買い物かごの削除済みアイテム ID リストを空にします。
-    if (Number(catalogItemId) === deletedItemId) {
+    if (Number(displayItemId) === deletedItemId) {
       basket.deletedItemIds = []
     }
     return new HttpResponse(null, { status: HttpStatusCode.NoContent })

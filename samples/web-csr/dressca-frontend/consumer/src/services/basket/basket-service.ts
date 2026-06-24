@@ -10,9 +10,9 @@ export async function fetchBasket() {
 }
 
 /**
- * 指定したカタログアイテムを買い物かごに追加します。
+ * 指定した掲載品を買い物かごに追加します。
  * 追加後は最新の状態を取得してストアを更新します。
- * @param itemId - 追加するカタログアイテムの ID
+ * @param itemId - 追加する掲載品の ID
  * @returns Promise<void>
  * @example
  * await addItemToBasket(123)
@@ -24,40 +24,40 @@ export async function addItemToBasket(itemId: number) {
 }
 
 /**
- * 買い物かご内のカタログアイテムの数量を更新します。
+ * 買い物かご内の掲載品の数量を更新します。
  * 更新後は最新の状態を取得してストアを更新します。
- * @param catalogItemId - 更新対象のカタログアイテム ID
+ * @param displayItemId - 更新対象の掲載品 ID
  * @param newQuantity - 新しい数量
  * @returns Promise<void>
  * @example
  * await updateItemInBasket(123, 5)
  */
-export async function updateItemInBasket(catalogItemId: number, newQuantity: number) {
+export async function updateItemInBasket(displayItemId: number, newQuantity: number) {
   const basketStore = useBasketStore()
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId()
 
   try {
-    await basketStore.update(catalogItemId, newQuantity)
+    await basketStore.update(displayItemId, newQuantity)
   } finally {
     await basketStore.fetch()
   }
 }
 
 /**
- * 買い物かごから指定したカタログアイテムを削除します。
+ * 買い物かごから指定した掲載品を削除します。
  * 削除後は最新の状態を取得してストアを更新します。
- * @param catalogItemId - 削除するカタログアイテム ID
+ * @param displayItemId - 削除する掲載品 ID
  * @returns Promise<void>
  * @example
  * await removeItemFromBasket(123)
  */
-export async function removeItemFromBasket(catalogItemId: number) {
+export async function removeItemFromBasket(displayItemId: number) {
   const basketStore = useBasketStore()
   // 直前に追加された商品の表示を更新するためIDを削除
   basketStore.deleteAddedItemId()
   try {
-    await basketStore.remove(catalogItemId)
+    await basketStore.remove(displayItemId)
   } finally {
     await basketStore.fetch()
   }

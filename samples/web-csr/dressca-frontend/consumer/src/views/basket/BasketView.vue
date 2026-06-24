@@ -33,13 +33,13 @@ const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0
 }
 
-const goCatalog = () => {
-  router.push({ name: 'catalog' })
+const goDisplay = () => {
+  router.push({ name: 'display' })
 }
 
-const update = async (catalogItemId: number, newQuantity: number) => {
+const update = async (displayItemId: number, newQuantity: number) => {
   try {
-    await updateItemInBasket(catalogItemId, newQuantity)
+    await updateItemInBasket(displayItemId, newQuantity)
   } catch (error) {
     await handleErrorAsync(
       error,
@@ -67,9 +67,9 @@ const update = async (catalogItemId: number, newQuantity: number) => {
 }
 
 // 削除に失敗した通知を出す
-const remove = async (catalogItemId: number) => {
+const remove = async (displayItemId: number) => {
   try {
-    await removeItemFromBasket(catalogItemId)
+    await removeItemFromBasket(displayItemId)
   } catch (error) {
     await handleErrorAsync(
       error,
@@ -153,12 +153,12 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         </span>
         <div class="mt-4 grid grid-cols-1 items-center lg:grid-cols-3">
           <img
-            :src="getFirstAssetUrl(getAddedItem.catalogItem?.assetCodes)"
-            :alt="getAddedItem.catalogItem?.name"
+            :src="getFirstAssetUrl(getAddedItem.displayItemSummary?.assetCodes)"
+            :alt="getAddedItem.displayItemSummary?.name"
             class="pointer-events-none m-auto h-40"
           />
           <span class="text-center lg:text-left">
-            {{ getAddedItem.catalogItem?.name }}
+            {{ getAddedItem.displayItemSummary?.name }}
           </span>
           <span class="text-center lg:text-left">
             {{ toCurrencyJPY(getAddedItem.unitPrice) }}
@@ -179,15 +179,15 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         </div>
         <div
           v-for="item in getBasket.basketItems"
-          :key="item.catalogItemId"
+          :key="item.displayItemId"
           class="mt-4 grid grid-cols-5 items-center lg:grid-cols-8"
           :class="{
-            'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
+            'bg-red-100': getDeletedItemIds.includes(item.displayItemId),
           }"
         >
           <BasketItem
             :item="item"
-            :available="!getDeletedItemIds.includes(item.catalogItemId)"
+            :available="!getDeletedItemIds.includes(item.displayItemId)"
             @update="update"
             @remove="remove"
           ></BasketItem>
@@ -222,7 +222,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <button
           class="mt-4 ml-4 w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
-          @click="goCatalog()"
+          @click="goDisplay()"
         >
           買い物を続ける
         </button>

@@ -166,21 +166,21 @@ onMounted(async () => {
     <div class="mx-2 mt-8">
       <div
         v-for="item in getBasket.basketItems"
-        :key="item.catalogItemId"
+        :key="item.displayItemId"
         class="mt-4 grid grid-cols-4 items-center lg:grid-cols-6"
         :class="{
-          'bg-red-100': getDeletedItemIds.includes(item.catalogItemId),
+          'bg-red-100': getDeletedItemIds.includes(item.displayItemId),
         }"
       >
         <div class="col-span-4 lg:col-span-5">
           <div class="grid grid-cols-3">
             <img
-              :src="getFirstAssetUrl(item.catalogItem?.assetCodes)"
-              :alt="item.catalogItem?.name"
+              :src="getFirstAssetUrl(item.displayItemSummary?.assetCodes)"
+              :alt="item.displayItemSummary?.name"
               class="pointer-events-none h-40"
             />
             <div class="ml-2">
-              <p>{{ item.catalogItem?.name }}</p>
+              <p>{{ item.displayItemSummary?.name }}</p>
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
               </p>
@@ -191,7 +191,7 @@ onMounted(async () => {
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>
             </div>
-            <p v-if="getDeletedItemIds.includes(item.catalogItemId)" class="font-bold text-red-500">
+            <p v-if="getDeletedItemIds.includes(item.displayItemId)" class="font-bold text-red-500">
               {{ t('itemUnavailable') }}
             </p>
           </div>

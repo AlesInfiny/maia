@@ -9,12 +9,12 @@ export interface Campaign {
 }
 
 /**
- * セール対象アイテムの情報を表します。
+ * セール対象掲載品の情報を表します。
  *
- * カタログアイテム ID と関連アセットコードを保持します。
+ * 掲載品 ID と関連アセットコードを保持します。
  */
 export interface SaleItem {
-  catalogItemId: number
+  displayItemId: number
   assetCode: string
 }
 
