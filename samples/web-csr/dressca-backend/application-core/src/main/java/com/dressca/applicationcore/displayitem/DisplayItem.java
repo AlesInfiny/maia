@@ -6,12 +6,14 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 /**
  * 掲載品のエンティティです。
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DisplayItem {
   private Long id;
   private Long catalogItemId;

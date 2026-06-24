@@ -4,94 +4,98 @@
 
   <sql id="selectDisplayItems">
     SELECT
-      ID,
-      NAME,
-      DESCRIPTION,
-      PRICE,
-      PRODUCT_CODE,
-      CATALOG_CATEGORY_ID,
-      CATALOG_BRAND_ID
-    FROM CATALOG_ITEMS
-  </sql>
-
-  <sql id="selectDisplayItemsIncludeAsset">
-    SELECT
-      CATALOG_ITEMS.ID,
+      DISPLAY_ITEMS.ID AS DISPLAY_ITEM_ID,
+      DISPLAY_ITEMS.CATALOG_ITEM_ID,
       CATALOG_ITEMS.NAME,
       CATALOG_ITEMS.DESCRIPTION,
       CATALOG_ITEMS.PRICE,
       CATALOG_ITEMS.PRODUCT_CODE,
-      CATALOG_ITEMS.CATALOG_CATEGORY_ID,
-      CATALOG_ITEMS.CATALOG_BRAND_ID,
-      CATALOG_ITEMS.ROW_VERSION,
+      CATALOG_ITEMS.CATALOG_CATEGORY_ID AS DISPLAY_CATEGORY_ID,
+      CATALOG_ITEMS.CATALOG_BRAND_ID AS DISPLAY_BRAND_ID,
+      CATALOG_ITEMS.IS_DELETED
+    FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
+  </sql>
+
+  <sql id="selectDisplayItemsIncludeAsset">
+    SELECT
+      DISPLAY_ITEMS.ID AS DISPLAY_ITEM_ID,
+      DISPLAY_ITEMS.CATALOG_ITEM_ID,
+      CATALOG_ITEMS.NAME,
+      CATALOG_ITEMS.DESCRIPTION,
+      CATALOG_ITEMS.PRICE,
+      CATALOG_ITEMS.PRODUCT_CODE,
+      CATALOG_ITEMS.CATALOG_CATEGORY_ID AS DISPLAY_CATEGORY_ID,
+      CATALOG_ITEMS.CATALOG_BRAND_ID AS DISPLAY_BRAND_ID,
       CATALOG_ITEMS.IS_DELETED,
-      ASSETS.ID,
-      ASSETS.CATALOG_ITEM_ID,
-      ASSETS.ASSET_CODE
-    FROM CATALOG_ITEMS
+      ASSETS.ID AS DISPLAY_ITEM_ASSET_ID,
+      ASSETS.ASSET_CODE AS DISPLAY_ITEM_ASSET_CODE
+    FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
       LEFT OUTER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
-      CATALOG_ITEMS.ID = ASSETS.CATALOG_ITEM_ID
+      DISPLAY_ITEMS.CATALOG_ITEM_ID = ASSETS.CATALOG_ITEM_ID
     )
   </sql>
 
-  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.applicationcore.catalog.CatalogItem">
-    <id property="id" column="ID"/>
+  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.applicationcore.displayitem.DisplayItem">
+    <id property="id" column="DISPLAY_ITEM_ID"/>
+    <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
     <result property="price" column="PRICE"/>
     <result property="productCode" column="PRODUCT_CODE"/>
-    <result property="catalogCategoryId" column="CATALOG_CATEGORY_ID"/>
-    <result property="catalogBrandId" column="CATALOG_BRAND_ID"/>
-    <result property="rowVersion" column="ROW_VERSION"/>
+    <result property="displayCategoryId" column="DISPLAY_CATEGORY_ID"/>
+    <result property="displayBrandId" column="DISPLAY_BRAND_ID"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.applicationcore.catalog.CatalogItemAsset" resultMap="assetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.applicationcore.displayitem.DisplayItemAsset" resultMap="assetsResultMap"/>
   </resultMap>
 
-  <resultMap id="assetsResultMap" type="com.dressca.applicationcore.catalog.CatalogItemAsset">
-    <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
-    <result property="assetCode" column="ASSET_CODE"/>
+  <resultMap id="assetsResultMap" type="com.dressca.applicationcore.displayitem.DisplayItemAsset">
+    <id property="id" column="DISPLAY_ITEM_ASSET_ID"/>
+    <result property="displayItemId" column="DISPLAY_ITEM_ID"/>
+    <result property="assetCode" column="DISPLAY_ITEM_ASSET_CODE"/>
   </resultMap>
 
-  <select id="findByCategoryIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
+  <select id="findByCategoryIdIn" resultType="com.dressca.applicationcore.displayitem.DisplayItem" parameterType="List">
     <include refid="selectDisplayItems"/>
-    WHERE CATALOG_CATEGORY_ID IN 
+    WHERE CATALOG_ITEMS.CATALOG_CATEGORY_ID IN 
     <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
       #{categoryId}
     </foreach>
-    AND IS_DELETED = false
+    AND CATALOG_ITEMS.IS_DELETED = false
   </select>
 
-  <select id="findByBrandIdAndCategoryId" resultMap="catalogItemsIncludeAssetResultMap">
+  <select id="findByBrandIdAndCategoryId" resultMap="displayItemsIncludeAssetResultMap">
     <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
       </if>
       <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
       </if>
-      AND IS_DELETED = false
+      AND CATALOG_ITEMS.IS_DELETED = false
     </where>
     LIMIT #{limit} OFFSET #{offset}
   </select>
 
-  <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+  <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="displayItemsIncludeAssetResultMap">
     <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
       <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
       </if>
       <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
       </if>
     </where>
     LIMIT #{limit} OFFSET #{offset}
   </select>
 
-  <select id="findByDisplayItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+  <select id="findByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectDisplayItemsIncludeAsset"/>
     <if test="displayItemIds.size != 0">
-      WHERE CATALOG_ITEMS.ID IN 
+      WHERE DISPLAY_ITEMS.ID IN 
       <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
         #{displayItemId}
       </foreach>
@@ -99,10 +103,10 @@
     </if>
   </select>
 
-  <select id="findByDisplayItemIdInIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+  <select id="findByDisplayItemIdInIncludingDeleted" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectDisplayItemsIncludeAsset"/>
     <if test="displayItemIds.size != 0">
-      WHERE CATALOG_ITEMS.ID IN 
+      WHERE DISPLAY_ITEMS.ID IN 
       <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
         #{displayItemId}
       </foreach>
@@ -110,58 +114,60 @@
   </select>
 
   <select id="countByBrandIdAndCategoryId" resultType="Integer">
-    SELECT COUNT(*) FROM CATALOG_ITEMS
+    SELECT COUNT(*) FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
     <where>
       <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
       </if>
       <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
       </if>
-      AND IS_DELETED = false
-    </where>
-  </select>
-
-  <select id="countByBrandIdAndCategoryIdIncludingDeleted" resultType="Integer">
-    SELECT COUNT(*) FROM CATALOG_ITEMS
-    <where>
-      <if test="brandId != 0">
-        CATALOG_BRAND_ID = #{brandId}
-      </if>
-      <if test="categoryId != 0">
-        AND CATALOG_CATEGORY_ID = #{categoryId}
-      </if>
-    </where>
-  </select>
-  
-  <select id="findWithPaging" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectDisplayItemsIncludeAsset"/>
-    <where>
-      IS_DELETED = false
-    </where>
-    LIMIT #{_skiprows}, #{_pagesize}
-  </select>
-
-  <select id="findById" resultMap="catalogItemsIncludeAssetResultMap">
-    <include refid="selectDisplayItemsIncludeAsset"/>
-    <where>
-      CATALOG_ITEMS.ID = #{id}
       AND CATALOG_ITEMS.IS_DELETED = false
     </where>
   </select>
 
-  <select id="findByIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
+  <select id="countByBrandIdAndCategoryIdIncludingDeleted" resultType="Integer">
+    SELECT COUNT(*) FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
+    <where>
+      <if test="brandId != 0">
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
+      </if>
+      <if test="categoryId != 0">
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
+      </if>
+    </where>
+  </select>
+  
+  <select id="findWithPaging" resultMap="displayItemsIncludeAssetResultMap">
     <include refid="selectDisplayItemsIncludeAsset"/>
     <where>
-      CATALOG_ITEMS.ID = #{id}
+      CATALOG_ITEMS.IS_DELETED = false
+    </where>
+    LIMIT #{_skiprows}, #{_pagesize}
+  </select>
+
+  <select id="findById" resultMap="displayItemsIncludeAssetResultMap">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <where>
+      DISPLAY_ITEMS.ID = #{id}
+      AND CATALOG_ITEMS.IS_DELETED = false
     </where>
   </select>
 
-  <select id="findDeletedItemsByDisplayItemIdIn" resultMap="catalogItemsIncludeAssetResultMap" parameterType="List">
+  <select id="findByIdIncludingDeleted" resultMap="displayItemsIncludeAssetResultMap">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <where>
+      DISPLAY_ITEMS.ID = #{id}
+    </where>
+  </select>
+
+  <select id="findDeletedItemsByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectDisplayItemsIncludeAsset"/>
      <choose>
        <when test="displayItemIds != null and displayItemIds.size != 0">
-         WHERE CATALOG_ITEMS.ID IN 
+         WHERE DISPLAY_ITEMS.ID IN 
          <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
            #{displayItemId}
          </foreach>
