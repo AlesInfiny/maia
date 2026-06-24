@@ -21,6 +21,10 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  configurations {
+    mockitoAgent
+  }
   
   dependencies {  
     // Lombokの設定
@@ -38,6 +42,12 @@ subprojects {
     // SpotBugsのアノテーションを追加
     compileOnly supportDependencies.spotbugs_annotations
     testCompileOnly supportDependencies.spotbugs_annotations
+
+    // MockitoのAgentを利用するための設定
+    // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+    mockitoAgent(supportDependencies.mockito_core) {
+      transitive = false
+    }
   }
 
   jacoco {
@@ -57,7 +67,10 @@ subprojects {
   test {
     // UTテスト時はtestプロファイルを利用
     jvmArgs=['-Dspring.profiles.active=test']
-
+    // MockitoのAgentを利用するための設定
+    doFirst {
+      jvmArgs.add("-javaagent:${configurations.mockitoAgent.asPath}")
+    }
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
