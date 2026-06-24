@@ -66,9 +66,11 @@ subprojects {
   // testタスクの後にjacocoTestReportタスクを実施する
   test {
     // UTテスト時はtestプロファイルを利用
-    jvmArgumentProviders.add({
-      ['-Dspring.profiles.active=test', "-javaagent:${configurations.mockitoAgent.asPath}"]
-    } as org.gradle.process.CommandLineArgumentProvider)
+    jvmArgs=['-Dspring.profiles.active=test']
+    // MockitoのAgentを利用するための設定
+    doFirst {
+      jvmArgs.add("-javaagent:${configurations.mockitoAgent.asPath}")
+    }
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
