@@ -94,7 +94,7 @@ public class ShoppingApplicationServiceTest {
     // なし
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     CatalogItem catalogItem = createCatalogItem(catalogItemId);
@@ -122,7 +122,7 @@ public class ShoppingApplicationServiceTest {
     BigDecimal price = BigDecimal.valueOf(1000);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, price, 1);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -153,7 +153,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<Long> catalogItemIds = List.of(catalogItemId);
@@ -184,7 +184,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -210,7 +210,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemIds.get(0), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -238,7 +238,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(deletedCatalogItemId);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     CatalogItem deletedCatalogItem = createCatalogItem(deletedCatalogItemId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -270,7 +270,7 @@ public class ShoppingApplicationServiceTest {
     List<Long> catalogItemIds = List.of(1L);
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(2L, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -301,7 +301,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -325,7 +325,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     basket.addItem(catalogItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
@@ -350,7 +350,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
@@ -375,7 +375,7 @@ public class ShoppingApplicationServiceTest {
     long catalogItemId = 1L;
 
     // モックの設定
-    Long basketId = 1L;
+    long basketId = 1L;
     Basket basket = new Basket(basketId, buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     when(this.catalogDomainService.existCatalogItemIncludingDeleted(catalogItemId))
