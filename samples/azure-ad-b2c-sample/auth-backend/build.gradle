@@ -4,6 +4,9 @@
  * This is a general purpose Gradle build.
  * To learn more about Gradle by exploring our Samples at https://docs.gradle.org/9.4.1/samples
  */
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.process.CommandLineArgumentProvider
+
 buildscript {
   apply from: 'dependencies.gradle'
   configurations {
@@ -86,11 +89,9 @@ subprojects {
     // UTテスト時はtestプロファイルを利用
     jvmArgs '-Dspring.profiles.active=test'
     // MockitoのAgentを利用するための設定
-    jvmArgumentProviders.add(
-      objects.newInstance(MockitoAgentArgumentProvider).tap {
-        mockitoAgent.from(configurations.mockitoAgent)
-      }
-    )
+    def provider = objects.newInstance(MockitoAgentArgumentProvider)
+    provider.mockitoAgent.from(configurations.mockitoAgent)
+    jvmArgumentProviders.add(provider)
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
