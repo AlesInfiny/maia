@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "5.6.3",
-    "axios": "1.15.2",
+    "axios": "1.18.0",
     "pinia": "3.0.4",
     "vue": "3.5.30"
   },
@@ -50,7 +50,7 @@
     "npm-run-all2": "8.0.4",
     "prettier": "3.8.1",
     "typescript": "6.0.3",
-    "vite": "7.3.2",
+    "vite": "7.3.5",
     "vite-plugin-vue-devtools": "8.1.0",
     "vitest": "4.1.8",
     "vue-tsc": "3.2.7"
