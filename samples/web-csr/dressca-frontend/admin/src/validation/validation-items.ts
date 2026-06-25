@@ -2,34 +2,30 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import * as zod from 'zod'
 
-// 前後の空白を削除する基底スキーマ（共通処理）
-export const stringSchema = z.string().transform((val) => val?.trim() ?? '')
-
 // 必須バリデーション関数
-const required = (message: string) => z.string().min(1, message)
+const required = (message: string) => z.string().trim().min(1, message)
 
 // バリデーション定義（一元化）
 export const validationItems = {
-  email: stringSchema.pipe(z.string().email('メールアドレスの形式で入力してください。')),
-  required: (requiredMessage: string) => stringSchema.pipe(required(requiredMessage)),
+  email: z.string().email('メールアドレスの形式で入力してください。'),
+  required: (requiredMessage: string) => required(requiredMessage),
   requiredEmail: (requiredMessage: string = '必須項目です。') =>
-    stringSchema.pipe(required(requiredMessage).email('メールアドレスの形式で入力してください。')),
+    required(requiredMessage).email('メールアドレスの形式で入力してください。'),
 }
 
 /**
  * カタログアイテムのバリデーションを定義する Zod スキーマです。
  */
 export const catalogItemZodSchema = z.object({
-  itemName: stringSchema.pipe(required('アイテム名は必須です。').max(256)),
-  itemDescription: stringSchema.pipe(required('説明は必須です。').max(1024)),
-  price: stringSchema.pipe(
-    required('単価は必須です。').regex(/^[1-9]\d*$/, '1以上の整数を半角数字で入力してください'),
+  itemName: required('アイテム名は必須です。').max(256),
+  itemDescription: required('説明は必須です。').max(1024),
+  price: required('単価は必須です。').regex(
+    /^[1-9]\d*$/,
+    '1以上の整数を半角数字で入力してください',
   ),
-  productCode: stringSchema.pipe(
-    required('商品コードは必須です。')
-      .max(128)
-      .regex(/^[0-9a-zA-Z]+$/, '半角英数字で入力してください。'),
-  ),
+  productCode: required('商品コードは必須です。')
+    .max(128)
+    .regex(/^[0-9a-zA-Z]+$/, '半角英数字で入力してください。'),
 })
 
 export type CatalogItemFormValues = z.infer<typeof catalogItemZodSchema>

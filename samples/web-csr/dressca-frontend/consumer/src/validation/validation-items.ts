@@ -2,11 +2,8 @@ import { z } from 'zod'
 import { i18n } from '@/locales/i18n'
 import * as zod from 'zod'
 
-// 前後の空白を削除する基底スキーマ（共通処理）
-const stringSchema = z.string().transform((val) => val?.trim() ?? '')
-
 // 必須バリデーション関数
-const required = (message: string) => z.string().min(1, message)
+const required = (message: string) => z.string().trim().min(1, message)
 
 /**
  * Zod を利用したバリデーションルールを返します。
@@ -20,11 +17,10 @@ const required = (message: string) => z.string().min(1, message)
 export function ValidationItems() {
   const { t } = i18n.global
   const validationItems = {
-    email: stringSchema.pipe(z.string().email(t('email'))),
-    required: (requiredMessage: string = t('required')) =>
-      stringSchema.pipe(required(requiredMessage)),
+    email: z.string().email(t('email')),
+    required: (requiredMessage: string = t('required')) => required(requiredMessage),
     requiredEmail: (requiredMessage: string = t('required')) =>
-      stringSchema.pipe(required(requiredMessage).email(t('email'))),
+      required(requiredMessage).email(t('email')),
   }
   return validationItems
 }
