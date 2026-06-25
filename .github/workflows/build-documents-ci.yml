@@ -7,7 +7,7 @@ permissions:
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - "documents/**"
       - "iis-files/**"
@@ -17,6 +17,7 @@ on:
       - ".github/workflows/lint-documents/action.yml"
       - ".github/workflows/compress-sample-source/action.yml"
       - ".github/workflows/build-documents/action.yml"
+      - ".github/workflows/validate-pr-branch-combination/action.yml"
       - ".github/workflows/pack-and-upload/action.yml"
       - ".markdownlint-cli2.yaml"
       - ".markdownlint.yaml"
@@ -44,6 +45,9 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           fetch-depth: 0
+
+      - name: PRのブランチ組み合わせを検証
+        uses: ./.github/workflows/validate-pr-branch-combination
 
       - id: lint-documents
         name: ドキュメントの Lint

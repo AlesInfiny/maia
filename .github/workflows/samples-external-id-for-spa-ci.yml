@@ -3,7 +3,7 @@ name: external-id-sample-for-spa CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - 'samples/external-id-sample-for-spa/**'
       - '.github/workflows/samples-external-id-for-spa-ci.yml'
@@ -28,6 +28,9 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           fetch-depth: 1
+
+      - name: PRのブランチ組み合わせを検証
+        uses: ./.github/workflows/validate-pr-branch-combination
 
       - name: Use Node.js LTS
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0

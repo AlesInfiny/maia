@@ -7,7 +7,7 @@ permissions:
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - 'samples/web-csr/dressca-frontend/*.*'
       - 'samples/web-csr/dressca-frontend/admin/**'
@@ -26,6 +26,10 @@ jobs:
       NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: PRのブランチ組み合わせを検証
+        uses: ./.github/workflows/validate-pr-branch-combination
+
       - name: Use Node.js LTS
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
         with:
