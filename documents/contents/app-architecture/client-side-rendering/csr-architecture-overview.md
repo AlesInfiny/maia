@@ -47,10 +47,10 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
     - [VeeValidate :material-open-in-new:](https://vee-validate.logaretm.com/v4/){ target=_blank }
 
           Vue.js 用のリアルタイムバリデーションコンポーネントライブラリです。
-          
-    - [yup :material-open-in-new:](https://github.com/jquense/yup){ target=_blank }
 
-          JavaScript でフォームのバリデーションルールを宣言的に記述できるライブラリです。
+    - [Zod :material-open-in-new:](https://github.com/colinhacks/zod){ target=_blank }
+
+          TypeScript でバリデーションルールを宣言的に記述し、型を自動生成できるライブラリです。
 
     - [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
 
