@@ -17,6 +17,19 @@ plugins {
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
 }
 
+// MockitoのAgentを -javaagent 引数として提供する CommandLineArgumentProvider
+// @Classpath によりビルドキャッシュの入力として追跡される
+// https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+abstract class MockitoAgentArgumentProvider implements CommandLineArgumentProvider {
+  @Classpath
+  abstract ConfigurableFileCollection getMockitoAgent()
+
+  @Override
+  Iterable<String> asArguments() {
+    mockitoAgent.files.collect { "-javaagent:${it.absolutePath}" }
+  }
+}
+
 subprojects {
   apply plugin: 'java'
   apply plugin: 'jacoco'
@@ -73,9 +86,11 @@ subprojects {
     // UTテスト時はtestプロファイルを利用
     jvmArgs '-Dspring.profiles.active=test'
     // MockitoのAgentを利用するための設定
-    doFirst {
-      jvmArgs "-javaagent:${configurations.mockitoAgent.asPath}"
-    }
+    jvmArgumentProviders.add(
+      objects.newInstance(MockitoAgentArgumentProvider).tap {
+        mockitoAgent.from(configurations.mockitoAgent)
+      }
+    )
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }
