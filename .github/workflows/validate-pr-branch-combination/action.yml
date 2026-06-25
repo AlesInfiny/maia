@@ -13,11 +13,17 @@ runs:
           exit 0;
         fi
 
-        if [[ ("${{ github.head_ref }}" == feature/* && "${{ github.base_ref }}" == develop) || ("${{ github.head_ref }}" == hotfix/* && ("${{ github.base_ref }}" == develop || "${{ github.base_ref }}" == main || "${{ github.base_ref }}" == release/*)) || ("${{ github.head_ref }}" == release/* && ("${{ github.base_ref }}" == develop || "${{ github.base_ref }}" == main)) ]]; then
-          echo "許可されたブランチ組み合わせです。"
-          exit 0;
-        fi
+        head="${{ github.head_ref }}"
+        base="${{ github.base_ref }}"
 
-        echo "許可されていないブランチ組み合わせです: head=${{ github.head_ref }}, base=${{ github.base_ref }}"
-        echo "許可条件: (head=feature/* かつ base=develop) または (head=hotfix/* かつ base=develop/main/release/*) または (head=release/* かつ base=develop/main)"
-        exit 1;
+        case "${head}:${base}" in
+          feature/*:develop|hotfix/*:develop|hotfix/*:main|hotfix/*:release/*|release/*:develop|release/*:main)
+            echo "許可されたブランチ組み合わせです。"
+            exit 0;
+            ;;
+          *)
+            echo "許可されていないブランチ組み合わせです: head=${head}, base=${base}"
+            echo "許可条件: (head=feature/* かつ base=develop) または (head=hotfix/* かつ base=develop/main/release/*) または (head=release/* かつ base=develop/main)"
+            exit 1;
+            ;;
+        esac
