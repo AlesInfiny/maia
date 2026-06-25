@@ -11,6 +11,7 @@ on:
     paths:
       - 'samples/web-csr/dressca-frontend/*.*'
       - '.github/workflows/samples-dressca-root-frontend-ci.yml'
+      - '.github/workflows/validate-pr-branch-combination/action.yml'
   workflow_dispatch:
 
 defaults:
