@@ -13,8 +13,8 @@ runs:
           exit 0;
         fi
 
-        head="${{ github.head_ref }}"
-        base="${{ github.base_ref }}"
+        head="${GITHUB_HEAD_REF}"
+        base="${GITHUB_BASE_REF}"
 
         case "${head}:${base}" in
           feature/*:develop|hotfix/*:develop|hotfix/*:main|hotfix/*:release/*|release/*:develop|release/*:main)
