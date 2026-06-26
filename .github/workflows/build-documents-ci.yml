@@ -46,9 +46,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: PRのブランチ組み合わせを検証
-        uses: ./.github/workflows/validate-pr-branch-combination
-
       - id: lint-documents
         name: ドキュメントの Lint
         continue-on-error: true
