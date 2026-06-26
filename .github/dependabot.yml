@@ -15,7 +15,6 @@ updates:
     labels:
       - "CI/CD"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -29,7 +28,6 @@ updates:
     labels:
       - "pip"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -43,7 +41,6 @@ updates:
     labels:
       - "npm"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "npm"
     directory: "/samples/web-csr/dressca-frontend"
@@ -58,7 +55,6 @@ updates:
       - "target: Dressca"
       - "npm"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "gradle"
     directory: "/samples/web-csr/dressca-backend"
@@ -73,7 +69,6 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
-    target-branch: "main"
 
   # Azure AD B2C
   - package-ecosystem: "npm"
@@ -89,7 +84,6 @@ updates:
       - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "gradle"
     directory: "/samples/azure-ad-b2c-sample/auth-backend"
@@ -104,7 +98,6 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
-    target-branch: "main"
 
   # External ID for SPA
   - package-ecosystem: "npm"
@@ -120,7 +113,6 @@ updates:
       - "target: EntraID External ID"
       - "npm"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "gradle"
     directory: "/samples/external-id-sample-for-spa/auth-backend"
@@ -135,7 +127,6 @@ updates:
       - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
-    target-branch: "main"
 
   # Dressca CMS
   - package-ecosystem: "gradle"
@@ -151,7 +142,6 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
-    target-branch: "main"
 
   - package-ecosystem: "npm"
     directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
@@ -173,4 +163,3 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    target-branch: "main"
