@@ -1,0 +1,29 @@
+name: "PRのブランチ組み合わせを検証"
+description: "許可された head/base 組み合わせのみ許可します。"
+
+runs:
+  using: "composite"
+  steps:
+    - name: 許可された組み合わせかを判定
+      shell: bash
+      run: |
+        # pull_request 以外では何もしない
+        if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+          echo "pull_request 以外のイベントのため検証をスキップします。"
+          exit 0;
+        fi
+
+        head="${GITHUB_HEAD_REF}"
+        base="${GITHUB_BASE_REF}"
+
+        case "${head}:${base}" in
+          feature/*:develop|hotfix/*:develop|hotfix/*:main|hotfix/*:release/*|release/*:develop|release/*:main)
+            echo "許可されたブランチ組み合わせです。"
+            exit 0;
+            ;;
+          *)
+            echo "許可されていないブランチ組み合わせです: head=${head}, base=${base}"
+            echo "許可条件: (head=feature/* かつ base=develop) または (head=hotfix/* かつ base=develop/main/release/*) または (head=release/* かつ base=develop/main)"
+            exit 1;
+            ;;
+        esac
