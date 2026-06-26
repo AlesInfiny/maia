@@ -17,13 +17,13 @@ runs:
         base="${GITHUB_BASE_REF}"
 
         case "${head}:${base}" in
-          feature/*:develop|hotfix/*:develop|hotfix/*:main|hotfix/*:release/*|release/*:develop|release/*:main)
+          feature/*:develop|hotfix/*:develop|hotfix/*:main|hotfix/*:release/*|release/*:develop|release/*:main|dependabot/*:main)
             echo "許可されたブランチ組み合わせです。"
             exit 0;
             ;;
           *)
             echo "許可されていないブランチ組み合わせです: head=${head}, base=${base}"
-            echo "許可条件: (head=feature/* かつ base=develop) または (head=hotfix/* かつ base=develop/main/release/*) または (head=release/* かつ base=develop/main)"
+            echo "許可条件: (head=feature/* かつ base=develop) または (head=hotfix/* かつ base=develop/main/release/*) または (head=release/* かつ base=develop/main) または (head=dependabot/* かつ base=main)"
             exit 1;
             ;;
         esac
