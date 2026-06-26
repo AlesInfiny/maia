@@ -10,10 +10,11 @@ import { showToast } from '@/services/notification/notificationService'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 // フォーム固有のバリデーション定義
+const { requiredEmail: requiredEmailRule, required: requiredRule } = validationItems()
 const formSchema = toTypedSchema(
   z.object({
-    userName: validationItems.requiredEmail('ユーザー名は必須です。'),
-    password: validationItems.required('パスワードは必須です。'),
+    userName: requiredEmailRule('ユーザー名は必須です。'),
+    password: requiredRule('パスワードは必須です。'),
   }),
 )
 
