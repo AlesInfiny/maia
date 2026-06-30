@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.baskets;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import com.dressca.applicationcore.accounting.AccountItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,9 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BasketItem {
-  private long id;
-  private long basketId;
-  private long catalogItemId;
+  private UUID id;
+  private UUID basketId;
+  private UUID catalogItemId;
   private BigDecimal unitPrice;
   private int quantity;
 

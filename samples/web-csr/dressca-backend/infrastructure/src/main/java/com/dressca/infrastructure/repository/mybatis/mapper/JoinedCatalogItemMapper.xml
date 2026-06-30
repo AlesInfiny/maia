@@ -64,10 +64,10 @@
   <select id="findByBrandIdAndCategoryId" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
     <where>
-      <if test="brandId != 0">
+      <if test="brandId != null">
         CATALOG_BRAND_ID = #{brandId}
       </if>
-      <if test="categoryId != 0">
+      <if test="categoryId != null">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
       AND IS_DELETED = false
@@ -78,10 +78,10 @@
   <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">
     <include refid="selectCatalogItemsIncludeAsset"/>
     <where>
-      <if test="brandId != 0">
+      <if test="brandId != null">
         CATALOG_BRAND_ID = #{brandId}
       </if>
-      <if test="categoryId != 0">
+      <if test="categoryId != null">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
     </where>
@@ -112,10 +112,10 @@
   <select id="countByBrandIdAndCategoryId" resultType="Integer">
     SELECT COUNT(*) FROM CATALOG_ITEMS
     <where>
-      <if test="brandId != 0">
+      <if test="brandId != null">
         CATALOG_BRAND_ID = #{brandId}
       </if>
-      <if test="categoryId != 0">
+      <if test="categoryId != null">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
       AND IS_DELETED = false
@@ -125,10 +125,10 @@
   <select id="countByBrandIdAndCategoryIdIncludingDeleted" resultType="Integer">
     SELECT COUNT(*) FROM CATALOG_ITEMS
     <where>
-      <if test="brandId != 0">
+      <if test="brandId != null">
         CATALOG_BRAND_ID = #{brandId}
       </if>
-      <if test="categoryId != 0">
+      <if test="categoryId != null">
         AND CATALOG_CATEGORY_ID = #{categoryId}
       </if>
     </where>

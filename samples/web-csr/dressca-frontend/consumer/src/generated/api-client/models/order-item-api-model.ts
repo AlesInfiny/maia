@@ -18,7 +18,7 @@
 import type { CatalogItemSummaryApiModel } from './catalog-item-summary-api-model';
 
 export interface OrderItemApiModel {
-    'id': number;
+    'id': string;
     'itemOrdered'?: CatalogItemSummaryApiModel;
     'quantity': number;
     'subTotal': number;

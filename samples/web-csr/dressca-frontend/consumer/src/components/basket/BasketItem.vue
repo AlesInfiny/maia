@@ -15,8 +15,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'update', catalogItemId: number, quantity: number): void
-  (e: 'remove', catalogItemId: number): void
+  (e: 'update', catalogItemId: string, quantity: number): void
+  (e: 'remove', catalogItemId: string): void
 }>()
 
 // フォーム固有のバリデーション定義

@@ -15,7 +15,7 @@ import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handl
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const props = defineProps<{
-  orderId: number
+  orderId: string
 }>()
 
 const lastOrdered = ref<GetOrderByIdResponse>()

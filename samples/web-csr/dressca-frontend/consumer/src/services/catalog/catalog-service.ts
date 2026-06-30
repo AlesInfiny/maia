@@ -20,9 +20,9 @@ export async function fetchCategoriesAndBrands() {
  * @param brandsId - 絞り込み対象のブランド ID
  * @returns Promise<void>
  * @example
- * await fetchItems(1, 10)
+ * await fetchItems('category-id', 'brand-id')
  */
-export async function fetchItems(categoryId: number, brandsId: number) {
+export async function fetchItems(categoryId?: string, brandsId?: string) {
   const catalogStore = useCatalogStore()
   await catalogStore.fetchItems(categoryId, brandsId)
 }

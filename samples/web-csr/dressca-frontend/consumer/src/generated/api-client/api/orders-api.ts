@@ -35,11 +35,11 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 注文情報を取得します。
          * @summary 注文情報を取得します。
-         * @param {number} orderId 
+         * @param {string} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrderById: async (orderId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getOrderById: async (orderId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'orderId' is not null or undefined
             assertParamExists('getOrderById', 'orderId', orderId)
             const localVarPath = `/api/orders/{orderId}`
@@ -113,11 +113,11 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         /**
          * 注文情報を取得します。
          * @summary 注文情報を取得します。
-         * @param {number} orderId 
+         * @param {string} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOrderById(orderId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOrderByIdResponse>> {
+        async getOrderById(orderId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOrderByIdResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrderById(orderId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['OrdersApi.getOrderById']?.[localVarOperationServerIndex]?.url;
@@ -148,11 +148,11 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
         /**
          * 注文情報を取得します。
          * @summary 注文情報を取得します。
-         * @param {number} orderId 
+         * @param {string} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrderById(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<GetOrderByIdResponse> {
+        getOrderById(orderId: string, options?: RawAxiosRequestConfig): AxiosPromise<GetOrderByIdResponse> {
             return localVarFp.getOrderById(orderId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -175,11 +175,11 @@ export class OrdersApi extends BaseAPI {
     /**
      * 注文情報を取得します。
      * @summary 注文情報を取得します。
-     * @param {number} orderId 
+     * @param {string} orderId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getOrderById(orderId: number, options?: RawAxiosRequestConfig) {
+    public getOrderById(orderId: string, options?: RawAxiosRequestConfig) {
         return OrdersApiFp(this.configuration).getOrderById(orderId, options).then((request) => request(this.axios, this.basePath));
     }
 

@@ -2,15 +2,15 @@ import type { GetCatalogCategoriesResponse } from '@/generated/api-client'
 
 export const catalogCategories: GetCatalogCategoriesResponse[] = [
   {
-    id: 1,
+    id: '01971a00-0000-7000-c000-000000000001',
     name: '服',
   },
   {
-    id: 2,
+    id: '01971a00-0000-7000-c000-000000000002',
     name: 'バッグ',
   },
   {
-    id: 3,
+    id: '01971a00-0000-7000-c000-000000000003',
     name: 'シューズ',
   },
 ]

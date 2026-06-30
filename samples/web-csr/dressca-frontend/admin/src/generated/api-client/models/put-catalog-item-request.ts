@@ -15,8 +15,8 @@
 
 
 export interface PutCatalogItemRequest {
-    'catalogBrandId': number;
-    'catalogCategoryId': number;
+    'catalogBrandId': string;
+    'catalogCategoryId': string;
     'description': string;
     'isDeleted': boolean;
     'name': string;

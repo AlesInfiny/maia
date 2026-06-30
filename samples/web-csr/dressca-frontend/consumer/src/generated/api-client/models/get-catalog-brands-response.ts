@@ -15,7 +15,7 @@
 
 
 export interface GetCatalogBrandsResponse {
-    'id': number;
+    'id': string;
     'name': string;
 }
 

@@ -4,6 +4,7 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemE
 import com.dressca.infrastructure.repository.mybatis.generated.entity.OrderItemEntityExample;
 import jakarta.annotation.Generated;
 import java.util.List;
+import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ public interface OrderItemMapper {
     int deleteByExample(OrderItemEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(OrderItemEntity row);
@@ -28,7 +29,7 @@ public interface OrderItemMapper {
     List<OrderItemEntity> selectByExample(OrderItemEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    OrderItemEntity selectByPrimaryKey(Long id);
+    OrderItemEntity selectByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") OrderItemEntity row, @Param("example") OrderItemEntityExample example);

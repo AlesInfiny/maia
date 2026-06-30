@@ -4,6 +4,7 @@ import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import ItemsEditView from '@/views/catalog/ItemsEditView.vue'
 import { router } from '@/router'
 import { Roles } from '@/shared/constants/roles'
+import { catalogItems } from '@/../mock/data/catalog-items'
 
 /**
  * テスト用の Pinia ストアを生成します。
@@ -30,7 +31,7 @@ function CreateLoginState(userRoles: string[]) {
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 async function getWrapper(pinia: TestingPinia) {
-  router.push({ name: 'catalog/items/edit', params: { itemId: 1 } })
+  router.push({ name: 'catalog/items/edit', params: { itemId: catalogItems[0].id } })
   await router.isReady()
   return mount(ItemsEditView, {
     global: { plugins: [pinia, router] },

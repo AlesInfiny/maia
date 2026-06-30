@@ -1,24 +1,25 @@
 package com.dressca.infrastructure.repository.mybatis.generated.entity;
 
 import jakarta.annotation.Generated;
+import java.util.UUID;
 
 public class CatalogItemAssetEntity {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long id;
+    private UUID id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String assetCode;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long catalogItemId;
+    private UUID catalogItemId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -33,12 +34,12 @@ public class CatalogItemAssetEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getCatalogItemId() {
+    public UUID getCatalogItemId() {
         return catalogItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setCatalogItemId(Long catalogItemId) {
+    public void setCatalogItemId(UUID catalogItemId) {
         this.catalogItemId = catalogItemId;
     }
 }

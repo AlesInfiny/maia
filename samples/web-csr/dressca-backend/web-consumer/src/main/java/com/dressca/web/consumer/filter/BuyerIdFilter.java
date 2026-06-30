@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import com.dressca.systemcommon.util.UuidGenerator;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.security.CookieSettings;
 
@@ -34,35 +35,46 @@ public class BuyerIdFilter implements Filter {
       throws IOException, ServletException {
 
     Cookie[] cookies = ((HttpServletRequest) request).getCookies();
-    String buyerId = null;
+    UUID buyerId = null;
 
     if (cookies != null) {
       for (Cookie cookie : cookies) {
         if (DEFAULT_BUYER_COOKIE_NAME.equals(cookie.getName())) {
-          buyerId = cookie.getValue();
+          buyerId = parseUuid(cookie.getValue());
           break;
         }
       }
     }
 
-    if (StringUtils.isBlank(buyerId) || !isValidUuid(buyerId)) {
-      buyerId = UUID.randomUUID().toString();
+    if (buyerId == null) {
+      buyerId = UuidGenerator.generate();
     }
 
     request.setAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID, buyerId);
 
     chain.doFilter(request, response);
 
-    buyerId = request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
-    ResponseCookie responseCookie = ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId)
-        .path("/").httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
-        .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
-        .sameSite(cookieSettings.getSameSite()).build();
+    buyerId = (UUID) request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
+    ResponseCookie responseCookie =
+        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString())
+            .path("/")
+            .httpOnly(cookieSettings.isHttpOnly())
+            .secure(cookieSettings.isSecure())
+            .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
+            .sameSite(cookieSettings.getSameSite())
+            .build();
 
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }
 
   private static boolean isValidUuid(String value) {
     return UUID_PATTERN.matcher(value).matches();
+  }
+
+  private static UUID parseUuid(String value) {
+    if (StringUtils.isBlank(value) || !isValidUuid(value)) {
+      return null;
+    }
+    return UUID.fromString(value);
   }
 }
