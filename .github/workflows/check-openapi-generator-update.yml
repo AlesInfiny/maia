@@ -2,7 +2,7 @@
 name: openapi-generatorのバージョンアップ確認
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - '.github/workflows/check-openapi-generator-update.yml'
   workflow_dispatch:

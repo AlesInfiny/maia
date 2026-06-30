@@ -4,12 +4,28 @@
  * This is a general purpose Gradle build.
  * To learn more about Gradle by exploring our Samples at https://docs.gradle.org/9.4.1/samples
  */
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.process.CommandLineArgumentProvider
+
 buildscript {
   apply from: 'dependencies.gradle'
 }
 
 plugins {
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
+}
+
+// MockitoのAgentを -javaagent 引数として提供する CommandLineArgumentProvider
+// @Classpath によりビルドキャッシュの入力として追跡される
+// https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+abstract class MockitoAgentArgumentProvider implements CommandLineArgumentProvider {
+  @Classpath
+  abstract ConfigurableFileCollection getMockitoAgent()
+
+  @Override
+  Iterable<String> asArguments() {
+    mockitoAgent.files.collect { "-javaagent:${it.absolutePath}" }
+  }
 }
 
 subprojects {
@@ -21,6 +37,10 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  configurations {
+    mockitoAgent
+  }
   
   dependencies {  
     // Lombokの設定
@@ -38,6 +58,12 @@ subprojects {
     // SpotBugsのアノテーションを追加
     compileOnly supportDependencies.spotbugs_annotations
     testCompileOnly supportDependencies.spotbugs_annotations
+
+    // MockitoのAgentを利用するための設定
+    // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+    mockitoAgent(supportDependencies.mockito_core) {
+      transitive = false
+    }
   }
 
   jacoco {
@@ -56,8 +82,11 @@ subprojects {
   // testタスクの後にjacocoTestReportタスクを実施する
   test {
     // UTテスト時はtestプロファイルを利用
-    jvmArgs=['-Dspring.profiles.active=test']
-
+    jvmArgs '-Dspring.profiles.active=test'
+    // MockitoのAgentを利用するための設定
+    def provider = objects.newInstance(MockitoAgentArgumentProvider)
+    provider.mockitoAgent.from(configurations.mockitoAgent)
+    jvmArgumentProviders.add(provider)
     useJUnitPlatform()
     finalizedBy jacocoTestReport
   }

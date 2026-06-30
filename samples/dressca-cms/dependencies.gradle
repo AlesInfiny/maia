@@ -1,6 +1,6 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.6"
+    springBootVersion = "4.0.7"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
     spotbugsVersion = "6.5.1"
@@ -49,6 +49,7 @@ ext {
         java_parser_core : "com.github.javaparser:javaparser-core:$javaParserCoreVersion",
         java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         lombok : "org.projectlombok:lombok",
+        mockito_core : "org.mockito:mockito-core",
         slf4j : "org.slf4j:slf4j-simple",
         spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",

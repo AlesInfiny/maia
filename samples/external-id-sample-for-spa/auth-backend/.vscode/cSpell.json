@@ -13,6 +13,7 @@
     "Dspring",
     "findbugs",
     "jacoco",
+    "javaagent",
     "projectlombok",
     "puppycrawl",
     "servertime",

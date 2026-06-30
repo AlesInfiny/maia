@@ -3,7 +3,7 @@ name: external-id-sample-for-spa CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - 'samples/external-id-sample-for-spa/**'
       - '.github/workflows/samples-external-id-for-spa-ci.yml'
