@@ -7,7 +7,7 @@ ext {
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "3.0.3"
-    springCloudAzureVersion = "7.2.0"
+    springCloudAzureVersion = "7.3.0"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.4.0"
