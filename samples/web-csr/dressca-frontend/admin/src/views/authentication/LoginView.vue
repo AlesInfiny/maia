@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
-import * as yup from 'yup'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
 import { validationItems } from '@/validation/validation-items'
 import { loginAsync } from '@/services/authentication/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
@@ -9,16 +10,22 @@ import { showToast } from '@/services/notification/notificationService'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 // フォーム固有のバリデーション定義
-const formSchema = yup.object({
-  userName: validationItems.email.required('ユーザー名は必須です。'),
-  password: yup.string().required('パスワードは必須です。'),
-})
+const { requiredEmail: requiredEmailRule, required: requiredRule } = validationItems()
+const formSchema = toTypedSchema(
+  z.object({
+    userName: requiredEmailRule('ユーザー名は必須です。'),
+    password: requiredRule('パスワードは必須です。'),
+  }),
+)
 
 const router = useRouter()
 const route = useRoute()
 const handleErrorAsync = useCustomErrorHandler()
 
-const { meta } = useForm({ validationSchema: formSchema })
+const { meta } = useForm({
+  validationSchema: formSchema,
+  initialValues: { userName: '', password: '' },
+})
 const { value: userName, errorMessage: userNameError } = useField<string>('userName')
 const { value: password, errorMessage: passwordError } = useField<string>('password')
 
@@ -68,7 +75,7 @@ const login = async () => {
             class="border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-gray-500 focus:outline-hidden"
           />
         </div>
-        <p class="px-8 py-2 text-sm text-red-800">{{ userNameError }}</p>
+        <p id="username-error" class="px-8 py-2 text-sm text-red-800">{{ userNameError }}</p>
       </div>
       <div class="form-group mt-4">
         <div class="flex justify-between">
@@ -83,7 +90,7 @@ const login = async () => {
           />
         </div>
 
-        <p class="px-8 py-2 text-sm text-red-800">{{ passwordError }}</p>
+        <p id="password-error" class="px-8 py-2 text-sm text-red-800">{{ passwordError }}</p>
       </div>
       <div class="form-group mt-8">
         <button

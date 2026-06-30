@@ -1,4 +1,7 @@
 {
-  "email": "email must be a valid email",
-  "required": "this field is required"
+  "email": "invalid email format",
+  "required": "this field is required",
+  "tooBig": "enter {0} characters or less",
+  "tooSmall": "enter {0} characters or more",
+  "invalidFormat": "invalid format"
 }

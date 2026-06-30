@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { BasketItemApiModel } from '@/generated/api-client'
 import { TrashIcon } from '@heroicons/vue/24/outline'
-import * as yup from 'yup'
-import { useField, useForm } from 'vee-validate'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
 import { currencyHelper } from '@/shared/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { i18n } from '@/locales/i18n'
@@ -20,19 +21,38 @@ const emit = defineEmits<{
 }>()
 
 // フォーム固有のバリデーション定義
-const formSchema = yup.object({
-  quantity: yup.number().integer().min(1).max(999),
-})
+const formSchema = toTypedSchema(
+  z.object({
+    quantity: z.number().int().min(1).max(999),
+  }),
+)
 
-const { meta, resetForm } = useForm({
+const { meta, resetForm, defineField, validate } = useForm<{ quantity: number }>({
   validationSchema: formSchema,
   initialValues: { quantity: props.item.quantity },
 })
-const { value: quantity } = useField<number>('quantity')
+const [quantity] = defineField('quantity')
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 
-const isUpdateDisabled = computed(() => !(meta.value.valid && meta.value.dirty))
+// Keep an explicit range guard because meta.valid does not update early enough
+// for out-of-range numeric input in this component.
+const isQuantityValid = computed(
+  () =>
+    typeof quantity.value === 'number' &&
+    Number.isInteger(quantity.value) &&
+    quantity.value >= 1 &&
+    quantity.value <= 999,
+)
+
+const isUpdateDisabled = computed(
+  () => !(meta.value.valid && meta.value.dirty && isQuantityValid.value),
+)
+
+// v-model.number can yield NaN while editing, so revalidate immediately on change.
+watch(quantity, () => {
+  void validate()
+})
 
 const update = () => {
   resetForm({ values: { quantity: quantity.value } })
