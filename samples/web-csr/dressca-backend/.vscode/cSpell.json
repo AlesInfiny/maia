@@ -23,6 +23,7 @@
     "hikari",
     "Incrementer",
     "jacoco",
+    "javaagent",
     "javaparser",
     "jdbc",
     "jvmargs",
