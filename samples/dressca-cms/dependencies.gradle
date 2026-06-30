@@ -16,7 +16,7 @@ ext {
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.4.0"
     jacocoToolVersion = "0.8.14"
-    spotbugsToolVersion = "4.9.8"
+    spotbugsToolVersion = "4.10.2"
 
     supportDependencies = [
         // SPRING BOOT STARTERS
