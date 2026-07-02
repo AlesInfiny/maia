@@ -37,7 +37,15 @@
       ac.message,
       ac.link_url
     FROM (
-      SELECT *
+      SELECT 
+        id,
+        category,
+        post_date_time,
+        expire_date_time,
+        display_priority,
+        created_at,
+        changed_at,
+        is_deleted
       FROM announcements
       WHERE is_deleted = false
       ORDER BY post_date_time DESC, id
