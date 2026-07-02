@@ -318,7 +318,7 @@ Web API を公開するオリジンと、呼び出し元となるクライアン
        */
       public H2ServerLauncher() {
         try {
-          this.tcpServer = Server.createTcpServer("-tcpPort", "9092", "-tcpAllowOthers", "-ifNotExists").start();
+          this.tcpServer = Server.createTcpServer("-tcpPort", "9092", "-ifNotExists").start();
         } catch (SQLException e) {
           apLog.info("H2 Database は既にサーバーモードで起動しています。");
         }
