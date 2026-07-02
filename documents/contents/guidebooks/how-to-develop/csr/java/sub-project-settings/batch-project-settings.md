@@ -72,9 +72,6 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
     spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
-    spring.h2.console.enabled=true
-    spring.h2.console.path=/h2-console
-    spring.h2.console.settings.web-allow-others=true
     spring.sql.init.mode=embedded
     mybatis.configuration.map-underscore-to-camel-case=true
     ```

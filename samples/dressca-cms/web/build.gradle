@@ -27,7 +27,6 @@ dependencies {
 	
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
-	implementation supportDependencies.spring_boot_h2console
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.thymeleaf_layout_dialect
 	
