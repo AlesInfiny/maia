@@ -165,9 +165,9 @@ auth-frontend
 - フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
 
-> [!NOTE]
-> 本サンプルでサポートしている `com.azure.spring:spring-cloud-azure-starter-active-directory-b2c` および `com.azure.spring:spring-cloud-azure-dependencies` のバージョンは 7.2.0 です。
-> `com.azure.spring:spring-cloud-azure-starter-active-directory-b2c` および `com.azure.spring:spring-cloud-azure-dependencies` の 7.3.0 以降では [`tid` claim の検証が追加されました](https://github.com/Azure/azure-sdk-for-java/releases/tag/spring-cloud-azure_7.3.0) が、本サンプルで採用している User Flow のアクセストークンには `tid` claim が含まれません。
+> [!WARNING]
+> 本サンプルでサポートしている Spring Cloud Azure (`com.azure.spring:spring-cloud-azure-starter-active-directory-b2c` および `com.azure.spring:spring-cloud-azure-dependencies`) のバージョンは 7.2.0 です。
+> Spring Cloud Azure 7.3.0 以降では [`tid` claim の検証が必須化されました](https://github.com/Azure/azure-sdk-for-java/releases/tag/spring-cloud-azure_7.3.0) が、本サンプルで採用している User Flow で発行されるアクセストークンは `tid` claim が含まれません。
 > 7.3.0 以降へ更新する場合は、 [Custom Policy](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/custom-policy-get-started) への切り替えなど、別途対応が必要です。
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
