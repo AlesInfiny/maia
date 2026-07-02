@@ -52,7 +52,7 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
     - [spring-cloud-azure-starter-active-directory-b2c :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c/7.2.0){ target=_blank }
     - [spring-cloud-azure-dependencies :material-open-in-new:](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies/7.2.0){ target=_blank }
 
-!!! warning
+!!! warning "Spring Cloud Azure のサポートバージョンについて"
 
     本サンプルでサポートしている Spring Cloud Azure (`com.azure.spring:spring-cloud-azure-starter-active-directory-b2c` および `com.azure.spring:spring-cloud-azure-dependencies`) のバージョンは 7.2.0 です。
     Spring Cloud Azure 7.3.0 以降では [`tid` claim の検証が追加されました :material-open-in-new:](https://github.com/Azure/azure-sdk-for-java/releases/tag/spring-cloud-azure_7.3.0){ target=_blank } が、本サンプルで採用している User Flow で発行されるアクセストークンには `tid` claim が含まれません。
