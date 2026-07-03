@@ -42,8 +42,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 本サンプルは以下の環境で動作確認を行っています。
 
 - Java 21
-- Node.js v24.14.1
-- Visual Studio Code 1.115.0
+- Node.js v24.18.0
+- Visual Studio Code 1.127.0
 
 ## サンプルの構成
 
@@ -160,10 +160,15 @@ auth-frontend
 本サンプルでは、バックエンド、フロントエンドアプリケーションそれぞれで OSS を使用しています。
 
 - バックエンドアプリケーション
-    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c)
-    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies)
+    - [spring-cloud-azure-starter-active-directory-b2c](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-starter-active-directory-b2c/7.2.0)
+    - [spring-cloud-azure-dependencies](https://central.sonatype.com/artifact/com.azure.spring/spring-cloud-azure-dependencies/7.2.0)
 - フロントエンドアプリケーション
     - [MSAL.js](https://www.npmjs.com/package/@azure/msal-browser)
+
+> [!WARNING]
+> 本サンプルでサポートしている Spring Cloud Azure (`com.azure.spring:spring-cloud-azure-starter-active-directory-b2c` および `com.azure.spring:spring-cloud-azure-dependencies`) のバージョンは 7.2.0 です。
+> Spring Cloud Azure 7.3.0 以降では [`tid` claim の検証が追加されました](https://github.com/Azure/azure-sdk-for-java/releases/tag/spring-cloud-azure_7.3.0) が、本サンプルで採用している User Flow で発行されるアクセストークンには `tid` claim が含まれません。
+> 7.3.0 以降へ更新する場合は、 [Custom Policy](https://learn.microsoft.com/ja-jp/azure/active-directory-b2c/custom-policy-get-started) への切り替えなど、別途対応が必要です。
 
 その他の使用 OSS は、 AlesInfiny Maia のサンプルアプリケーションに準じます。
 
@@ -308,7 +313,7 @@ BUILD SUCCESSFUL in 2s
 
     ```gradle
     ext {
-      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 7.x.x]"
+      springCloudAzureVersion = "[使用するライブラリのバージョン番号を記述。サンプルでは 7.2.0]"
 
       supportDependencies = [
         spring_cloud_azure_starter_ad_b2c : "com.azure.spring:spring-cloud-azure-starter-active-directory-b2c",
