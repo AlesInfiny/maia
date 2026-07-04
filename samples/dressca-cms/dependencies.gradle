@@ -31,9 +31,6 @@ ext {
         // SPRING BOOT TESTS
         spring_boot_starter_test : "org.springframework.boot:spring-boot-starter-test",
         spring_boot_starter_security_test : "org.springframework.boot:spring-boot-starter-security-test",
-        
-        // SPRING BOOT MODULES
-        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",

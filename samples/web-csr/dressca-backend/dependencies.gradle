@@ -35,7 +35,6 @@ ext {
         spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
         
         // SPRING BOOT MODULES
-        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         spring_boot_transaction : "org.springframework.boot:spring-boot-transaction",
 
         // MYBATIS DEPENDENCIES
