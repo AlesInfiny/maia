@@ -39,7 +39,7 @@
     "zod": "3.24.4"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.38.0",
+    "@openapitools/openapi-generator-cli": "2.39.1",
     "@pinia/testing": "1.0.3",
     "@tailwindcss/vite": "4.2.1",
     "@tsconfig/node24": "24.0.4",
