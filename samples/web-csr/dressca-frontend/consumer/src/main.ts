@@ -7,6 +7,8 @@ import { router } from './router'
 import { i18n } from './locales/i18n'
 import { useLogger } from './composables/use-logger'
 import '@/assets/base.css'
+import { z } from 'zod'
+import { customErrorMap } from '@/validation/zod-settings'
 
 const logger = useLogger()
 
@@ -34,6 +36,8 @@ if (import.meta.env.MODE === 'mock') {
     logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
+
+z.setErrorMap(customErrorMap)
 
 const app = createApp(App)
 
