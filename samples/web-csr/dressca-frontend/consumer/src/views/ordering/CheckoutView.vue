@@ -10,7 +10,6 @@ import { currencyHelper } from '@/shared/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@/locales/i18n'
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
 import { HttpError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
@@ -51,10 +50,7 @@ const checkout = async () => {
         if (!httpError.response?.exceptionId) {
           showToast(t('failedToOrderItems'))
         } else {
-          const message = errorMessageFormat(
-            httpError.response.exceptionId,
-            httpError.response.exceptionValues,
-          )
+          const message = t(httpError.response.exceptionId, httpError.response.exceptionValues)
           showToast(
             message,
             httpError.response.exceptionId,

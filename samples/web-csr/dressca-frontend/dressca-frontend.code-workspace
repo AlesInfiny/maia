@@ -14,8 +14,7 @@
     },
   ],
   "settings": {
-    "typescript.tsdk": "dressca-root/node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "typescript.validate.enable": false,
+    "js/ts.tsdk.path": "dressca-root/node_modules/typescript/lib",
+    "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   },
 }

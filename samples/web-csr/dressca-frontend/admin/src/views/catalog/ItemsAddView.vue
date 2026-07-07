@@ -6,7 +6,7 @@ import { showToast } from '@/services/notification/notificationService'
 import NotificationModal from '@/components/NotificationModal.vue'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
-import { catalogItemSchema } from '@/validation/validation-items'
+import { catalogItemSchema, type CatalogItemFormValues } from '@/validation/validation-items'
 import type { GetCatalogBrandsResponse, GetCatalogCategoriesResponse } from '@/generated/api-client'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { Roles } from '@/shared/constants/roles'
@@ -18,7 +18,7 @@ const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 
-const { errors, values, meta, defineField } = useForm({
+const { errors, values, meta, defineField } = useForm<CatalogItemFormValues>({
   validationSchema: catalogItemSchema,
   initialValues: {
     itemName: 'テスト用アイテム',
@@ -76,7 +76,7 @@ const AddItem = async () => {
     await postCatalogItem(
       values.itemName,
       values.itemDescription,
-      values.price,
+      Number(values.price),
       values.productCode,
       selectedCategoryId.value,
       selectedBrandId.value,

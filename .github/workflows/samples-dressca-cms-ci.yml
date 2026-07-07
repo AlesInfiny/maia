@@ -4,7 +4,7 @@ name: Dressca CMSに対するプルリクエスト時の単体テスト実行
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - 'samples/dressca-cms/**'
       - '.github/workflows/samples-dressca-cms-ci.yml'

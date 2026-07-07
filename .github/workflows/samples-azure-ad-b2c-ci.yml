@@ -3,7 +3,7 @@ name: azure-ad-b2c-sample CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, 'release/*']
     paths:
       - 'samples/azure-ad-b2c-sample/**'
       - '.github/workflows/samples-azure-ad-b2c-ci.yml'
