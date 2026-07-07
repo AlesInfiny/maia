@@ -40,7 +40,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -144,13 +144,13 @@ public class AnnouncementController {
    * @param viewModel お知らせメッセージ登録画面のビューモデル。
    * @param bindingResult バインディング結果。
    * @param model モデル。
-   * @param userDetails 認証ユーザー情報。
+   * @param oidcUser 認証ユーザー情報。
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("/create")
   public String store(
       @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+      BindingResult bindingResult, Model model, @AuthenticationPrincipal OidcUser oidcUser) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -183,7 +183,7 @@ public class AnnouncementController {
 
       // アプリケーションサービスを呼び出してお知らせメッセージを登録
       UUID announcementId = announcementApplicationService.addAnnouncementAndHistory(announcement,
-          userDetails.getUsername());
+          resolveAuditUserName(oidcUser));
 
       // セッションをクリア
       announcementCreateSession.clear();
@@ -331,13 +331,13 @@ public class AnnouncementController {
    * @param viewModel お知らせメッセージ編集画面のビューモデル。
    * @param bindingResult バインディング結果。
    * @param model モデル。
-   * @param userDetails 認証ユーザー情報。
+   * @param oidcUser 認証ユーザー情報。
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("{announcementId}/edit")
   public String update(@PathVariable("announcementId") UUID announcementId,
       @Validated(AnnouncementValidationGroup.Update.class) @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
-      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+      BindingResult bindingResult, Model model, @AuthenticationPrincipal OidcUser oidcUser) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -379,7 +379,8 @@ public class AnnouncementController {
         .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを更新
-      announcementApplicationService.updateAnnouncement(announcement, userDetails.getUsername());
+      announcementApplicationService.updateAnnouncement(announcement,
+          resolveAuditUserName(oidcUser));
 
       // セッションをクリア
       announcementEditSession.clear();
@@ -525,16 +526,16 @@ public class AnnouncementController {
    * お知らせメッセージを削除します。
    *
    * @param announcementId お知らせメッセージ ID。
-   * @param userDetails 認証ユーザー情報。
+   * @param oidcUser 認証ユーザー情報。
    * @return リダイレクト先。
    */
   @PostMapping("{announcementId}/delete/confirm")
   public String delete(@PathVariable("announcementId") UUID announcementId,
-      @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
+      @AuthenticationPrincipal OidcUser oidcUser, RedirectAttributes redirectAttributes) {
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを削除
       AnnouncementWithHistory deletedAnnouncementWithHistory = announcementApplicationService
-          .deleteAnnouncementAndRecordHistory(announcementId, userDetails.getUsername());
+          .deleteAnnouncementAndRecordHistory(announcementId, resolveAuditUserName(oidcUser));
 
       Announcement announcement = deletedAnnouncementWithHistory.getAnnouncement();
       List<AnnouncementHistory> histories = deletedAnnouncementWithHistory.getHistories();
@@ -618,5 +619,23 @@ public class AnnouncementController {
       }
     }
     return LanguageCodeConstants.LOCALE_JA.getLanguage();
+  }
+
+  /**
+   * 監査記録に使用するユーザー名を取得します。
+   *
+   * @param oidcUser OIDC ユーザー情報。
+   * @return 監査記録に使用するユーザー名。
+   */
+  private String resolveAuditUserName(OidcUser oidcUser) {
+    String email = oidcUser.getEmail();
+    if (email != null && !email.isBlank()) {
+      return email;
+    }
+    String preferredUsername = oidcUser.getClaimAsString("preferred_username");
+    if (preferredUsername != null && !preferredUsername.isBlank()) {
+      return preferredUsername;
+    }
+    return oidcUser.getSubject();
   }
 }
