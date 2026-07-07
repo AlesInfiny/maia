@@ -35,8 +35,7 @@ const [quantity] = defineField('quantity')
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 
-// Keep an explicit range guard because meta.valid does not update early enough
-// for out-of-range numeric input in this component.
+// 範囲外の数値入力に対してmeta.validが更新されないため、明示的な範囲ガードを追加
 const isQuantityValid = computed(
   () =>
     typeof quantity.value === 'number' &&
@@ -49,7 +48,7 @@ const isUpdateDisabled = computed(
   () => !(meta.value.valid && meta.value.dirty && isQuantityValid.value),
 )
 
-// v-model.number can yield NaN while editing, so revalidate immediately on change.
+// v-model.number は編集中に NaN を返すことがあるため、変更時に即座に再検証する
 watch(quantity, () => {
   void validate()
 })

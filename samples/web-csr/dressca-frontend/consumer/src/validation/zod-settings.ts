@@ -1,5 +1,8 @@
-import * as zod from 'zod'
+import { type ZodErrorMap, ZodIssueCode } from 'zod'
 import { i18n } from '@/locales/i18n'
+
+// 必須入力項目の最小文字数
+const RequiredMinLength = 1
 
 /**
  * カスタムエラーマップ
@@ -7,24 +10,24 @@ import { i18n } from '@/locales/i18n'
  * @param ctx コンテキスト情報
  * @returns カスタムエラーメッセージ
  */
-export const customErrorMap: zod.ZodErrorMap = (issue, ctx) => {
+export const customErrorMap: ZodErrorMap = (issue, ctx) => {
   const { t } = i18n.global
   switch (issue.code) {
     // 型に誤り
-    case zod.ZodIssueCode.invalid_type:
+    case ZodIssueCode.invalid_type:
       return { message: t('invalidFormat') }
 
-    case zod.ZodIssueCode.too_big:
+    case ZodIssueCode.too_big:
       return { message: t('tooBig', [issue.maximum]) }
 
-    case zod.ZodIssueCode.too_small:
-      if (issue.minimum === 1) {
+    case ZodIssueCode.too_small:
+      if (issue.minimum === RequiredMinLength) {
         return { message: t('required') }
       }
       return { message: t('tooSmall', [issue.minimum]) }
 
     // 文字列のフォーマット違反
-    case zod.ZodIssueCode.invalid_string:
+    case ZodIssueCode.invalid_string:
       return { message: t('invalidFormat') }
   }
 
