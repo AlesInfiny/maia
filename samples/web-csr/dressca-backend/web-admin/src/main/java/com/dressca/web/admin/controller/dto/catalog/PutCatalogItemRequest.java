@@ -1,6 +1,5 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -24,10 +23,8 @@ public class PutCatalogItemRequest {
   @NotNull
   private String productCode;
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID catalogCategoryId;
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID catalogBrandId;
   @NotNull
   private OffsetDateTime rowVersion;

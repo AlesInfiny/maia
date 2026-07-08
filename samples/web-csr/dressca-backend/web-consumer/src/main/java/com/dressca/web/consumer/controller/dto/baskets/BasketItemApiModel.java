@@ -1,7 +1,6 @@
 package com.dressca.web.consumer.controller.dto.baskets;
 
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BasketItemApiModel {
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID catalogItemId;
   @NotNull
   private BigDecimal unitPrice;

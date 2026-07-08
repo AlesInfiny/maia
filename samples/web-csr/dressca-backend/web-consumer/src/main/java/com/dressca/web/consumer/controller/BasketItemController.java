@@ -91,8 +91,8 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごアイテム内の数量を変更します。",
-      description = "買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>"
-          + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>"
+      description = "買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。"
+          + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。"
           + "またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
@@ -142,10 +142,10 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごに商品を追加します。",
-      description = "買い物かごに商品を追加します。<br>"
+      description = "買い物かごに商品を追加します。"
           + "この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。"
           + "また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。"
-          + "すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>"
+          + "すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。"
           + "買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "201", description = "作成完了。", content = @Content),
@@ -185,7 +185,7 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごから指定したカタログアイテム ID の商品を削除します。",
-      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。<br>"
+      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。"
           + "catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。"
           + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。"
           + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。")

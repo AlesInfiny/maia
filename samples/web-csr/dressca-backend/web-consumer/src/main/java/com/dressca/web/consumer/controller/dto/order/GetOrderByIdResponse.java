@@ -1,7 +1,6 @@
 package com.dressca.web.consumer.controller.dto.order;
 
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,10 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetOrderByIdResponse {
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID id;
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID buyerId;
   @NotNull
   private LocalDateTime orderDate;

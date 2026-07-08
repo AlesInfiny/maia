@@ -1,6 +1,5 @@
 package com.dressca.web.consumer.controller.dto.baskets;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PutBasketItemsRequest {
   @NotNull
-  @Schema(type = "string", format = "uuid")
   private UUID catalogItemId;
   @NotNull
   private int quantity;
