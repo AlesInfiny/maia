@@ -12,7 +12,6 @@ import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/shared/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { i18n } from '@/locales/i18n'
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
 import { HttpError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
@@ -44,10 +43,7 @@ const addBasket = async (catalogItemId: number) => {
         if (!httpError.response?.exceptionId) {
           showToast(t('failedToAddItemToCarts'))
         } else {
-          const message = errorMessageFormat(
-            httpError.response.exceptionId,
-            httpError.response.exceptionValues,
-          )
+          const message = t(httpError.response.exceptionId, httpError.response.exceptionValues)
           showToast(
             message,
             httpError.response.exceptionId,
@@ -75,10 +71,7 @@ onMounted(async () => {
         if (!httpError.response?.exceptionId) {
           showToast(t('failedToGetItems'))
         } else {
-          const message = errorMessageFormat(
-            httpError.response.exceptionId,
-            httpError.response.exceptionValues,
-          )
+          const message = t(httpError.response.exceptionId, httpError.response.exceptionValues)
           showToast(
             message,
             httpError.response.exceptionId,

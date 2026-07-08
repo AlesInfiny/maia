@@ -27,11 +27,6 @@ vi.mock('@/locales/i18n', () => ({
   },
 }))
 
-// errorMessageFormat のモック
-vi.mock('@/shared/error-handler/error-message-format', () => ({
-  errorMessageFormat: vi.fn().mockReturnValue('formatted error'),
-}))
-
 describe('useCustomErrorHandler', () => {
   let handleErrorAsync: ReturnType<typeof useCustomErrorHandler>
 
