@@ -17,7 +17,7 @@ BIPROGY 株式会社（以下、『当社』といいます）は、 AlesInfiny 
 <!-- textlint-enable @textlint-ja/no-synonyms -->
 ## 3. アクセス解析ツール {#analytics-tool}
 
-当サイトでは、サイトの利用状況を把握し、コンテンツの改善に役立てるため、 Google LLC が提供するアクセス解析ツール Google Analytics を利用しています。
+本サイトでは、サイトの利用状況を把握し、コンテンツの改善に役立てるため、 Google LLC が提供するアクセス解析ツール Google Analytics を利用しています。
 <!-- textlint-disable @textlint-ja/no-synonyms, ja-technical-writing/no-doubled-joshi -->
 Google Analytics は Cookie を使用して、当サイトへのアクセス情報を収集します。収集される情報には、閲覧ページ、アクセス日時、ブラウザー・端末情報、 IP アドレス等が含まれる場合があります。これらの情報は、個人を直接特定する目的では利用しません。
 <!-- textlint-enable @textlint-ja/no-synonyms, ja-technical-writing/no-doubled-joshi -->
