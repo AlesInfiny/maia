@@ -22,9 +22,9 @@ BIPROGY 株式会社（以下、『当社』といいます）は、 AlesInfiny 
 Google Analytics は Cookie を使用して、当サイトへのアクセス情報を収集します。収集される情報には、閲覧ページ、アクセス日時、ブラウザー・端末情報、 IP アドレス等が含まれる場合があります。これらの情報は、個人を直接特定する目的では利用しません。
 <!-- textlint-enable @textlint-ja/no-synonyms, ja-technical-writing/no-doubled-joshi -->
 Google Analytics により収集されたデータは、 Google のプライバシーポリシーおよび Google Analytics の利用規約に基づいて管理されます。 Google による情報の利用については、 Google の [Google のサービスを使用するサイトやアプリから収集した情報の Google による使用 – ポリシーと規約 – Google :material-open-in-new:](https://policies.google.com/technologies/partner-sites?hl=ja){target=_blank} をご確認ください。
-
-利用者は、ブラウザーの設定により Cookie を無効にできます。また、 Google Analytics オプトアウトアドオンを利用することで、 Google Analytics によるデータ収集を無効化もできます。
-
+<!-- textlint-disable ja-technical-writing/ja-no-redundant-expression -->
+利用者は、ブラウザーの設定により Cookie を無効にすることができます。また、 Google Analytics オプトアウトアドオンを利用することで、 Google Analytics によるデータ収集を無効にすることもできます。
+<!-- textlint-enable ja-technical-writing/ja-no-redundant-expression -->
 ## 4. Cookie の利用について {#cookie}
 
 本サイトでは、 Google Analytics によるアクセス解析のために Cookie を使用しています。

@@ -252,9 +252,9 @@ extra:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
     credits: about-maia/credits/
+    privacy_policy: about-maia/privacy-policy/
     rss_created: feed_rss_created.xml
     rss_updated: feed_rss_updated.xml
-    privacy_policy: about-maia/privacy-policy/
   version: !ENV [VERSION, "Local Version"]
   analytics:
     provider: google
