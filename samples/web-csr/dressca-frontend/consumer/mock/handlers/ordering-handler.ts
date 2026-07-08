@@ -13,7 +13,7 @@ export const orderingHandlers = [
     order.azanaAndOthers = dto.azanaAndOthers
 
     // mock のため、注文データは id と orderDate 以外固定値を返却する
-    const id = '01971a00-0000-7000-f000-000000000001'
+    const id = '019b76da-a800-7006-8001-000000000001'
 
     return new HttpResponse(null, {
       headers: {

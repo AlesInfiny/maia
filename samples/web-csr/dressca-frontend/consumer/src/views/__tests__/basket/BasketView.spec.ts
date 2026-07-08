@@ -27,11 +27,11 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
     },
     basketItems: [
       {
-        catalogItemId: '01971a00-0000-7000-d000-000000000001',
+        catalogItemId: '019b76da-a800-7004-8001-000000000001',
         quantity: 1,
         unitPrice: 1980,
         catalogItem: {
-          id: '01971a00-0000-7000-d000-000000000001',
+          id: '019b76da-a800-7004-8001-000000000001',
           name: 'クルーネック Tシャツ - ブラック',
           productCode: 'C000000001',
           assetCodes: [],
@@ -39,11 +39,11 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
         subTotal: 1980,
       },
       {
-        catalogItemId: '01971a00-0000-7000-d000-000000000002',
+        catalogItemId: '019b76da-a800-7004-8001-000000000002',
         quantity: 2,
         unitPrice: 4800,
         catalogItem: {
-          id: '01971a00-0000-7000-d000-000000000002',
+          id: '019b76da-a800-7004-8001-000000000002',
           name: '裏起毛 スキニーデニム',
           productCode: 'C000000002',
           assetCodes: ['4aed07c4ed5d45a5b97f11acedfbb601'],
