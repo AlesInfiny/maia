@@ -58,6 +58,7 @@ public class MybatisBasketRepository implements BasketRepository {
     BasketEntityExample basketExample = new BasketEntityExample();
     basketExample.createCriteria().andBuyerIdEqualTo(basket.getBuyerId());
 
+    // 子要素（ BasketItem ）の削除
     List<BasketEntity> baskets = basketMapper.selectByExample(basketExample);
     baskets.stream().map(BasketEntity::getId).distinct().forEach(this::removeBasketItem);
 
@@ -68,11 +69,10 @@ public class MybatisBasketRepository implements BasketRepository {
   public void update(Basket basket) {
     BasketEntity row = EntityTranslator.createBasketEntity(basket);
     basketMapper.updateByPrimaryKey(row);
-
-    // 子要素（ BasketItem ）の削除
-    removeBasketItem(basket.getId());
+  
     // 子要素（ BasketItem ）の更新
     // 削除された BasketItem にも対応できるように DELETE-INSERT する
+    removeBasketItem(basket.getId());
     basket.getItems().stream().map(EntityTranslator::createBasketItemEntity)
         .forEach(basketItemMapper::insert);
   }
