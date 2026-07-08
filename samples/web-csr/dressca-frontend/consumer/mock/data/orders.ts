@@ -32,7 +32,7 @@ export const order: GetOrderByIdResponse = {
         id: '019b76da-a800-7004-8001-000000000004',
         name: '無地 ボタンダウンシャツ',
         productCode: 'C000000004',
-        assetCodes: [],
+        assetCodes: ['f5f89954281747fa878129c29e1e0f83'],
       },
     },
   ],
