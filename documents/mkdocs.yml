@@ -180,6 +180,7 @@ nav:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md
+      - プライバシーポリシー: about-maia/privacy-policy.md
 # yamllint enable rule:comments-indentation
 
 theme:
@@ -253,7 +254,11 @@ extra:
     credits: about-maia/credits/
     rss_created: feed_rss_created.xml
     rss_updated: feed_rss_updated.xml
+    privacy_policy: about-maia/privacy-policy/
   version: !ENV [VERSION, "Local Version"]
+  analytics:
+    provider: google
+    property: G-QE3N792P2D
 
 extra_css:
   - stylesheets/overrides.css
