@@ -23,7 +23,7 @@ export const basketItems: BasketItemApiModel[] = [
       id: '019b76da-a800-7004-8001-000000000001',
       name: 'クルーネック Tシャツ - ブラック',
       productCode: 'C000000001',
-      assetCodes: ['45c22ba3da064391baac91341067ffe9'],
+      assetCodes: [],
     },
     subTotal: 0,
   },
