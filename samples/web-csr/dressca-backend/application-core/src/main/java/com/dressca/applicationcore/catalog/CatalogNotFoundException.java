@@ -1,8 +1,9 @@
 package com.dressca.applicationcore.catalog;
 
-import java.util.Arrays;
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
+import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * 商品が存在しないことを表す例外です。
@@ -14,7 +15,7 @@ public class CatalogNotFoundException extends LogicException {
    * 
    * @param catalogId 見つからなかったカタログ ID 。
    */
-  public CatalogNotFoundException(long catalogId) {
+  public CatalogNotFoundException(UUID catalogId) {
     super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
         new String[] {String.valueOf(catalogId)}, new String[] {String.valueOf(catalogId)});
   }
@@ -24,7 +25,7 @@ public class CatalogNotFoundException extends LogicException {
    * 
    * @param catalogIds 見つからなかった複数のカタログ ID 。
    */
-  public CatalogNotFoundException(long... catalogIds) {
+  public CatalogNotFoundException(UUID... catalogIds) {
     super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
         new String[] {joinCatalogIds(catalogIds)}, new String[] {joinCatalogIds(catalogIds)});
   }
@@ -35,8 +36,7 @@ public class CatalogNotFoundException extends LogicException {
    * @param catalogIds カタログ ID の配列。
    * @return カタログ ID をカンマ区切りの文字列に変換した結果。
    */
-  private static String joinCatalogIds(long... catalogIds) {
-    return String.join(", ",
-        Arrays.stream(catalogIds).mapToObj(String::valueOf).toArray(String[]::new));
+  private static String joinCatalogIds(UUID... catalogIds) {
+    return String.join(", ", Arrays.stream(catalogIds).map(String::valueOf).toArray(String[]::new));
   }
 }

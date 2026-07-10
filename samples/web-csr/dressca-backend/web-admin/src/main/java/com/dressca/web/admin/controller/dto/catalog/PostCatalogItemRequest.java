@@ -1,6 +1,7 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
 import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class PostCatalogItemRequest {
   @NotNull
   private String productCode;
   @NotNull
-  private long catalogCategoryId;
+  private UUID catalogCategoryId;
   @NotNull
-  private long catalogBrandId;
+  private UUID catalogBrandId;
 }

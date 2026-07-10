@@ -5,8 +5,8 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="buyer_id" jdbcType="VARCHAR" property="buyerId" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="buyer_id" jdbcType="OTHER" property="buyerId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="order_date" jdbcType="TIMESTAMP_WITH_TIMEZONE" property="orderDate" />
     <result column="ship_to_full_name" jdbcType="VARCHAR" property="shipToFullName" />
     <result column="ship_to_postal_code" jdbcType="VARCHAR" property="shipToPostalCode" />
@@ -46,6 +46,44 @@
                 </when>
               </choose>
             </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.buyerIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
           </trim>
         </if>
       </foreach>
@@ -74,6 +112,44 @@
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.idCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.buyerIdCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -108,21 +184,21 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.util.UUID" resultMap="BaseResultMap">
     <!--
       Generated Code - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
     from orders
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from orders
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntityExample">
     <!--
@@ -133,27 +209,34 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity">
     <!--
       Generated Code - @mbg.generated
     -->
-    insert into orders (buyer_id, order_date, 
-      ship_to_full_name, ship_to_postal_code, ship_to_todofuken, 
-      ship_to_shikuchoson, ship_to_azana_and_others, 
-      consumption_tax_rate, total_items_price, delivery_charge, 
-      consumption_tax, total_price)
-    values (#{buyerId,jdbcType=VARCHAR}, #{orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE}, 
-      #{shipToFullName,jdbcType=VARCHAR}, #{shipToPostalCode,jdbcType=VARCHAR}, #{shipToTodofuken,jdbcType=VARCHAR}, 
-      #{shipToShikuchoson,jdbcType=VARCHAR}, #{shipToAzanaAndOthers,jdbcType=VARCHAR}, 
-      #{consumptionTaxRate,jdbcType=NUMERIC}, #{totalItemsPrice,jdbcType=NUMERIC}, #{deliveryCharge,jdbcType=NUMERIC}, 
-      #{consumptionTax,jdbcType=NUMERIC}, #{totalPrice,jdbcType=NUMERIC})
+    insert into orders (id, 
+      buyer_id, 
+      order_date, ship_to_full_name, 
+      ship_to_postal_code, ship_to_todofuken, ship_to_shikuchoson, 
+      ship_to_azana_and_others, consumption_tax_rate, 
+      total_items_price, delivery_charge, consumption_tax, 
+      total_price)
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE}, #{shipToFullName,jdbcType=VARCHAR}, 
+      #{shipToPostalCode,jdbcType=VARCHAR}, #{shipToTodofuken,jdbcType=VARCHAR}, #{shipToShikuchoson,jdbcType=VARCHAR}, 
+      #{shipToAzanaAndOthers,jdbcType=VARCHAR}, #{consumptionTaxRate,jdbcType=NUMERIC}, 
+      #{totalItemsPrice,jdbcType=NUMERIC}, #{deliveryCharge,jdbcType=NUMERIC}, #{consumptionTax,jdbcType=NUMERIC}, 
+      #{totalPrice,jdbcType=NUMERIC})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="buyerId != null">
         buyer_id,
       </if>
@@ -192,8 +275,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      </if>
       <if test="buyerId != null">
-        #{buyerId,jdbcType=VARCHAR},
+        #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderDate != null">
         #{orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE},
@@ -246,10 +332,10 @@
     update orders
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=BIGINT},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.buyerId != null">
-        buyer_id = #{row.buyerId,jdbcType=VARCHAR},
+        buyer_id = #{row.buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.orderDate != null">
         order_date = #{row.orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE},
@@ -294,8 +380,8 @@
       Generated Code - @mbg.generated
     -->
     update orders
-    set id = #{row.id,jdbcType=BIGINT},
-      buyer_id = #{row.buyerId,jdbcType=VARCHAR},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      buyer_id = #{row.buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       order_date = #{row.orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE},
       ship_to_full_name = #{row.shipToFullName,jdbcType=VARCHAR},
       ship_to_postal_code = #{row.shipToPostalCode,jdbcType=VARCHAR},
@@ -318,7 +404,7 @@
     update orders
     <set>
       <if test="buyerId != null">
-        buyer_id = #{buyerId,jdbcType=VARCHAR},
+        buyer_id = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="orderDate != null">
         order_date = #{orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE},
@@ -354,14 +440,14 @@
         total_price = #{totalPrice,jdbcType=NUMERIC},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.OrderEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update orders
-    set buyer_id = #{buyerId,jdbcType=VARCHAR},
+    set buyer_id = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       order_date = #{orderDate,jdbcType=TIMESTAMP_WITH_TIMEZONE},
       ship_to_full_name = #{shipToFullName,jdbcType=VARCHAR},
       ship_to_postal_code = #{shipToPostalCode,jdbcType=VARCHAR},
@@ -373,6 +459,6 @@
       delivery_charge = #{deliveryCharge,jdbcType=NUMERIC},
       consumption_tax = #{consumptionTax,jdbcType=NUMERIC},
       total_price = #{totalPrice,jdbcType=NUMERIC}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </update>
 </mapper>

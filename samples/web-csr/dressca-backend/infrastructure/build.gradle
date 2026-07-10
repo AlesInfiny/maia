@@ -63,6 +63,8 @@ tasks.register('runMyBatisGenerator') {
   doLast {
     ant.project.setProperty('mbg.java.targetProject', file('src/main/java').absolutePath)
     ant.project.setProperty('mbg.resources.targetProject', file('src/main/resources').absolutePath)
+    ant.project.setProperty('mbg.schema.path',
+        file('src/main/resources/schema.sql').absolutePath.replace('\\', '/'))
     // MyBatis Generator のタスクを定義します。
     ant.taskdef(
       name: 'mybatisGenerator',
@@ -78,6 +80,7 @@ tasks.register('runMyBatisGenerator') {
       propertyset {
         propertyref(name: 'mbg.java.targetProject')
         propertyref(name: 'mbg.resources.targetProject')
+        propertyref(name: 'mbg.schema.path')
       }
     }
   }

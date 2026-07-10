@@ -16,6 +16,6 @@
 
 export interface PostBasketItemsRequest {
     'addedQuantity'?: number;
-    'catalogItemId': number;
+    'catalogItemId': string;
 }
 

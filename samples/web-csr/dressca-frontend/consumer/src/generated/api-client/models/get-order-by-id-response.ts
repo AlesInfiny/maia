@@ -25,7 +25,7 @@ export interface GetOrderByIdResponse {
     'azanaAndOthers': string;
     'buyerId': string;
     'fullName': string;
-    'id': number;
+    'id': string;
     'orderDate': string;
     'orderItems'?: Array<OrderItemApiModel>;
     'postalCode': string;

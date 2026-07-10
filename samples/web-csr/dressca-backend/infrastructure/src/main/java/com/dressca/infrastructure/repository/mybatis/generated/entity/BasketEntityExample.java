@@ -3,6 +3,7 @@ package com.dressca.infrastructure.repository.mybatis.generated.entity;
 import jakarta.annotation.Generated;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BasketEntityExample {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
@@ -80,19 +81,75 @@ public class BasketEntityExample {
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     protected abstract static class GeneratedCriteria {
+        protected List<Criterion> idCriteria;
+
+        protected List<Criterion> buyerIdCriteria;
+
+        protected List<Criterion> allCriteria;
+
         protected List<Criterion> criteria;
 
         protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<>();
+            idCriteria = new ArrayList<>();
+            buyerIdCriteria = new ArrayList<>();
+        }
+
+        public List<Criterion> getIdCriteria() {
+            return idCriteria;
+        }
+
+        protected void addIdCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            idCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addIdCriterion(String condition, UUID value1, UUID value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        public List<Criterion> getBuyerIdCriteria() {
+            return buyerIdCriteria;
+        }
+
+        protected void addBuyerIdCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            buyerIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addBuyerIdCriterion(String condition, UUID value1, UUID value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            buyerIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            allCriteria = null;
         }
 
         public boolean isValid() {
-            return criteria.size() > 0;
+            return criteria.size() > 0
+                || idCriteria.size() > 0
+                || buyerIdCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
-            return criteria;
+            if (allCriteria == null) {
+                allCriteria = new ArrayList<>();
+                allCriteria.addAll(criteria);
+                allCriteria.addAll(idCriteria);
+                allCriteria.addAll(buyerIdCriteria);
+            }
+            return allCriteria;
         }
 
         public List<Criterion> getCriteria() {
@@ -104,6 +161,7 @@ public class BasketEntityExample {
                 throw new RuntimeException("Value for condition cannot be null");
             }
             criteria.add(new Criterion(condition));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value, String property) {
@@ -111,6 +169,7 @@ public class BasketEntityExample {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value1, Object value2, String property) {
@@ -118,6 +177,7 @@ public class BasketEntityExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+            allCriteria = null;
         }
 
         public Criteria andIdIsNull() {
@@ -130,53 +190,53 @@ public class BasketEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
-            addCriterion("id =", value, "id");
+        public Criteria andIdEqualTo(UUID value) {
+            addIdCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andIdNotEqualTo(UUID value) {
+            addIdCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
-            addCriterion("id >", value, "id");
+        public Criteria andIdGreaterThan(UUID value) {
+            addIdCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andIdGreaterThanOrEqualTo(UUID value) {
+            addIdCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
-            addCriterion("id <", value, "id");
+        public Criteria andIdLessThan(UUID value) {
+            addIdCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andIdLessThanOrEqualTo(UUID value) {
+            addIdCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andIdIn(List<UUID> values) {
+            addIdCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andIdNotIn(List<UUID> values) {
+            addIdCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andIdBetween(UUID value1, UUID value2) {
+            addIdCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andIdNotBetween(UUID value1, UUID value2) {
+            addIdCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
@@ -190,63 +250,53 @@ public class BasketEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdEqualTo(String value) {
-            addCriterion("buyer_id =", value, "buyerId");
+        public Criteria andBuyerIdEqualTo(UUID value) {
+            addBuyerIdCriterion("buyer_id =", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdNotEqualTo(String value) {
-            addCriterion("buyer_id <>", value, "buyerId");
+        public Criteria andBuyerIdNotEqualTo(UUID value) {
+            addBuyerIdCriterion("buyer_id <>", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdGreaterThan(String value) {
-            addCriterion("buyer_id >", value, "buyerId");
+        public Criteria andBuyerIdGreaterThan(UUID value) {
+            addBuyerIdCriterion("buyer_id >", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdGreaterThanOrEqualTo(String value) {
-            addCriterion("buyer_id >=", value, "buyerId");
+        public Criteria andBuyerIdGreaterThanOrEqualTo(UUID value) {
+            addBuyerIdCriterion("buyer_id >=", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdLessThan(String value) {
-            addCriterion("buyer_id <", value, "buyerId");
+        public Criteria andBuyerIdLessThan(UUID value) {
+            addBuyerIdCriterion("buyer_id <", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdLessThanOrEqualTo(String value) {
-            addCriterion("buyer_id <=", value, "buyerId");
+        public Criteria andBuyerIdLessThanOrEqualTo(UUID value) {
+            addBuyerIdCriterion("buyer_id <=", value, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdLike(String value) {
-            addCriterion("buyer_id like", value, "buyerId");
+        public Criteria andBuyerIdIn(List<UUID> values) {
+            addBuyerIdCriterion("buyer_id in", values, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdNotLike(String value) {
-            addCriterion("buyer_id not like", value, "buyerId");
+        public Criteria andBuyerIdNotIn(List<UUID> values) {
+            addBuyerIdCriterion("buyer_id not in", values, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdIn(List<String> values) {
-            addCriterion("buyer_id in", values, "buyerId");
+        public Criteria andBuyerIdBetween(UUID value1, UUID value2) {
+            addBuyerIdCriterion("buyer_id between", value1, value2, "buyerId");
             return (Criteria) this;
         }
 
-        public Criteria andBuyerIdNotIn(List<String> values) {
-            addCriterion("buyer_id not in", values, "buyerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyerIdBetween(String value1, String value2) {
-            addCriterion("buyer_id between", value1, value2, "buyerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyerIdNotBetween(String value1, String value2) {
-            addCriterion("buyer_id not between", value1, value2, "buyerId");
+        public Criteria andBuyerIdNotBetween(UUID value1, UUID value2) {
+            addBuyerIdCriterion("buyer_id not between", value1, value2, "buyerId");
             return (Criteria) this;
         }
     }

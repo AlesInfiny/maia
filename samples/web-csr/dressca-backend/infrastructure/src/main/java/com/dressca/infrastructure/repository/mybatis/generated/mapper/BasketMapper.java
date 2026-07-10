@@ -4,6 +4,7 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEnti
 import com.dressca.infrastructure.repository.mybatis.generated.entity.BasketEntityExample;
 import jakarta.annotation.Generated;
 import java.util.List;
+import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ public interface BasketMapper {
     int deleteByExample(BasketEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(BasketEntity row);
@@ -28,7 +29,7 @@ public interface BasketMapper {
     List<BasketEntity> selectByExample(BasketEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    BasketEntity selectByPrimaryKey(Long id);
+    BasketEntity selectByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") BasketEntity row, @Param("example") BasketEntityExample example);

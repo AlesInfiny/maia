@@ -1,15 +1,16 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogBrandRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogBrandMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 /**
  * カタログブランドのリポジトリです。
@@ -28,9 +29,8 @@ public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
   }
 
   @Override
-  public CatalogBrand findById(long id) {
+  public CatalogBrand findById(UUID id) {
     CatalogBrandEntity entity = catalogBrandMapper.selectByPrimaryKey(id);
-    CatalogBrand brand = EntityTranslator.catalogBrandEntityTranslate(entity);
-    return brand;
+    return entity == null ? null : EntityTranslator.catalogBrandEntityTranslate(entity);
   }
 }

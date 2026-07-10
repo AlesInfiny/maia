@@ -15,7 +15,7 @@
 
 
 export interface GetCatalogCategoriesResponse {
-    'id': number;
+    'id': string;
     'name': string;
 }
 
