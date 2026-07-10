@@ -54,6 +54,9 @@ jobs:
 
       - name: ドキュメントのビルド
         uses: ./.github/workflows/build-documents
+        env:
+          GOOGLE_ANALYTICS_PROVIDER: ${{ startsWith(github.ref, 'refs/tags/v') && steps.setup-variables.outputs.is_pre_release == 'false' && 'google' || '' }}
+          GOOGLE_ANALYTICS_PROPERTY: ${{ startsWith(github.ref, 'refs/tags/v') && steps.setup-variables.outputs.is_pre_release == 'false' && 'G-QE3N792P2D' || '' }}
         with:
           document-base-path: ${{ env.DOCUMENT_BASE_PATH }}
           output-folder-name: ${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
