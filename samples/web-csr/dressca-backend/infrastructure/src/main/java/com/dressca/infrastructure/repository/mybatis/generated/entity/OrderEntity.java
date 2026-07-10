@@ -3,13 +3,14 @@ package com.dressca.infrastructure.repository.mybatis.generated.entity;
 import jakarta.annotation.Generated;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 public class OrderEntity {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Long id;
+    private UUID id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private String buyerId;
+    private UUID buyerId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private OffsetDateTime orderDate;
@@ -45,22 +46,22 @@ public class OrderEntity {
     private BigDecimal totalPrice;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public String getBuyerId() {
+    public UUID getBuyerId() {
         return buyerId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setBuyerId(String buyerId) {
+    public void setBuyerId(UUID buyerId) {
         this.buyerId = buyerId;
     }
 

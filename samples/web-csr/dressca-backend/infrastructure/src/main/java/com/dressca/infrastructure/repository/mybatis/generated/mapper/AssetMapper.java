@@ -4,6 +4,7 @@ import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntit
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntityExample;
 import jakarta.annotation.Generated;
 import java.util.List;
+import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ public interface AssetMapper {
     int deleteByExample(AssetEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int insert(AssetEntity row);
@@ -28,7 +29,7 @@ public interface AssetMapper {
     List<AssetEntity> selectByExample(AssetEntityExample example);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    AssetEntity selectByPrimaryKey(Long id);
+    AssetEntity selectByPrimaryKey(UUID id);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     int updateByExampleSelective(@Param("row") AssetEntity row, @Param("example") AssetEntityExample example);

@@ -18,26 +18,26 @@
   </sql>
 
   <resultMap id="basketsIncludeItemResultMap" type="com.dressca.applicationcore.baskets.Basket">
-    <id property="id" column="ID"/>
-    <result property="buyerId" column="BUYER_ID"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <collection property="items" ofType="com.dressca.applicationcore.baskets.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
   <resultMap id="itemsResultMap" type="com.dressca.applicationcore.baskets.BasketItem">
-    <id property="id" column="ITEM_ID"/>
-    <result property="basketId" column="BASKET_ID"/>
-    <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
+    <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+    <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+    <result property="catalogItemId" column="CATALOG_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
   </resultMap>
 
   <select id="findById" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.ID = #{id}
+    WHERE BASKETS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
 
   <select id="findByBuyerId" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.BUYER_ID = #{buyerId}
+    WHERE BASKETS.BUYER_ID = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
 </mapper>

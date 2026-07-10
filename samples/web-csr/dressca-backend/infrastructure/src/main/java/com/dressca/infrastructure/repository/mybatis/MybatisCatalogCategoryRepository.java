@@ -1,15 +1,16 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogCategoryRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 /**
  * カタログカテゴリのリポジトリです。
@@ -28,9 +29,8 @@ public class MybatisCatalogCategoryRepository implements CatalogCategoryReposito
   }
 
   @Override
-  public CatalogCategory findById(long id) {
+  public CatalogCategory findById(UUID id) {
     CatalogCategoryEntity entity = catalogCategoryMapper.selectByPrimaryKey(id);
-    CatalogCategory category = EntityTranslator.catalogCategoryEntityTranslate(entity);
-    return category;
+    return entity == null ? null : EntityTranslator.catalogCategoryEntityTranslate(entity);
   }
 }

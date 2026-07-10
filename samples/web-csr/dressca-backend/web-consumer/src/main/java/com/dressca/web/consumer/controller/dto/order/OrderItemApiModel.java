@@ -1,8 +1,9 @@
 package com.dressca.web.consumer.controller.dto.order;
 
-import java.math.BigDecimal;
-import jakarta.validation.constraints.NotNull;
 import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
+import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItemApiModel {
   @NotNull
-  private long id;
+  private UUID id;
   private CatalogItemSummaryApiModel itemOrdered;
   @NotNull
   private int quantity;

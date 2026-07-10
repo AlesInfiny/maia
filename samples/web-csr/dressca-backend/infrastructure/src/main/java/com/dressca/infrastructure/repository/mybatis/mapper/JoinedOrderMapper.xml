@@ -35,8 +35,8 @@
   </sql>
 
   <resultMap id="ordersIncludeItemResultMap" type="com.dressca.applicationcore.order.Order">
-    <id property="id" column="ID"/>
-    <result property="buyerId" column="BUYER_ID"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="orderDate" column="ORDER_DATE"/>
     <result property="consumptionTaxRate" column="CONSUMPTION_TAX_RATE"/>
     <result property="totalItemsPrice" column="TOTAL_ITEMS_PRICE"/>
@@ -60,7 +60,7 @@
   </resultMap>
 
   <resultMap id="orderItemsResultMap" type="com.dressca.applicationcore.order.OrderItem">
-    <id property="id" column="ID"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
     <association property="itemOrdered" javaType="com.dressca.applicationcore.order.CatalogItemOrdered" resultMap="catalogItemOrderedResultMap"/>
@@ -68,26 +68,27 @@
   </resultMap>
 
   <resultMap id="catalogItemOrderedResultMap" type="com.dressca.applicationcore.order.CatalogItemOrdered">
-    <result property="catalogItemId" column="ORDERED_CATALOG_ITEM_ID"/>
+    <result property="catalogItemId" column="ORDERED_CATALOG_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="productName" column="ORDERED_PRODUCT_NAME"/>
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
   <resultMap id="orderItemAssetsResultMap" type="com.dressca.applicationcore.order.OrderItemAsset">
-    <id property="id" column="ASSET_ID"/>
+    <id property="id" column="ASSET_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>
 
   <select id="findById" resultMap="ordersIncludeItemResultMap">
     <include refid="selectOrdersIncludeItemAndAsset"/>
-    WHERE ORDERS.ID = #{id}
+    WHERE ORDERS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
   </select>
 
-  <insert id="add" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO ORDERS 
+  <insert id="add">
+    INSERT INTO ORDERS
     (
-      BUYER_ID, 
-      ORDER_DATE, 
+      ID,
+      BUYER_ID,
+      ORDER_DATE,
       SHIP_TO_FULL_NAME,
       SHIP_TO_POSTAL_CODE,
       SHIP_TO_TODOFUKEN,
@@ -99,9 +100,10 @@
       CONSUMPTION_TAX,
       TOTAL_PRICE
     )
-    VALUES 
+    VALUES
     (
-      #{order.buyerId},
+      #{order.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      #{order.buyerId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       #{order.orderDate},
       #{order.shipToAddress.fullName},
       #{order.shipToAddress.address.postalCode},
@@ -116,25 +118,27 @@
     )
   </insert>
 
-  <insert id="addItems" useGeneratedKeys="true" parameterType="List">
-    INSERT INTO ORDER_ITEMS 
+  <insert id="addItems" parameterType="List">
+    INSERT INTO ORDER_ITEMS
     (
-      ORDERED_CATALOG_ITEM_ID, 
-      ORDERED_PRODUCT_NAME, 
-      ORDERED_PRODUCT_CODE, 
+      ID,
+      ORDERED_CATALOG_ITEM_ID,
+      ORDERED_PRODUCT_NAME,
+      ORDERED_PRODUCT_CODE,
       UNIT_PRICE,
       QUANTITY,
       ORDER_ID
     )
-    VALUES 
+    VALUES
     <foreach collection="orderItems" item="orderItem" separator=",">
     (
-      #{orderItem.itemOrdered.catalogItemId},
+      #{orderItem.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      #{orderItem.itemOrdered.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       #{orderItem.itemOrdered.productName},
       #{orderItem.itemOrdered.productCode},
       #{orderItem.unitPrice},
       #{orderItem.quantity},
-      #{orderId}
+      #{orderId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}
     )
     </foreach>
   </insert>

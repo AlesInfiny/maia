@@ -4,6 +4,8 @@ import com.dressca.applicationcore.accounting.AccountItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import com.dressca.systemcommon.util.UuidGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItem {
-  private long id;
+  private UUID id;
   private CatalogItemOrdered itemOrdered;
   private BigDecimal unitPrice;
   private int quantity;
-  private long orderId;
+  private UUID orderId;
   private List<OrderItemAsset> assets = new ArrayList<>();
   private Order order;
 
@@ -31,6 +33,7 @@ public class OrderItem {
    * @param quantity 数量。
    */
   public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
+    this.id = UuidGenerator.generate();
     this.itemOrdered = itemOrdered;
     this.unitPrice = bigDecimal;
     this.quantity = quantity;

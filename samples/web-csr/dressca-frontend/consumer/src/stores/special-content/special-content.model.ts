@@ -14,7 +14,7 @@ export interface Campaign {
  * カタログアイテム ID と関連アセットコードを保持します。
  */
 export interface SaleItem {
-  catalogItemId: number
+  catalogItemId: string
   assetCode: string
 }
 
