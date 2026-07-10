@@ -257,9 +257,9 @@ extra:
     rss_updated: feed_rss_updated.xml
   version: !ENV [VERSION, "Local Version"]
   analytics:
-        # Set both values only in release builds to avoid tracking local test traffic.
-        provider: !ENV [GOOGLE_ANALYTICS_PROVIDER, ""]
-        property: !ENV [GOOGLE_ANALYTICS_PROPERTY, ""]
+    # Set both values only in release builds to avoid tracking local test traffic.
+    provider: !ENV [GOOGLE_ANALYTICS_PROVIDER, ""]
+    property: !ENV [GOOGLE_ANALYTICS_PROPERTY, ""]
 
 extra_css:
   - stylesheets/overrides.css
