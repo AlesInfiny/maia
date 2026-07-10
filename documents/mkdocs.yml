@@ -180,6 +180,7 @@ nav:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md
+      - プライバシーポリシー: about-maia/privacy-policy.md
 # yamllint enable rule:comments-indentation
 
 theme:
@@ -251,9 +252,14 @@ extra:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
     credits: about-maia/credits/
+    privacy_policy: about-maia/privacy-policy/
     rss_created: feed_rss_created.xml
     rss_updated: feed_rss_updated.xml
   version: !ENV [VERSION, "Local Version"]
+  analytics:
+    # Set both values only in release builds to avoid tracking local test traffic.
+    provider: !ENV [GOOGLE_ANALYTICS_PROVIDER, ""]
+    property: !ENV [GOOGLE_ANALYTICS_PROPERTY, ""]
 
 extra_css:
   - stylesheets/overrides.css
