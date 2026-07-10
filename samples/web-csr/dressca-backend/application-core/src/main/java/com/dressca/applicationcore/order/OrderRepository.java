@@ -1,6 +1,7 @@
 package com.dressca.applicationcore.order;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * 注文のリポジトリのインターフェースです。
@@ -20,5 +21,5 @@ public interface OrderRepository {
    * @param id ID 。
    * @return 注文情報。存在しない場合は空の Optional 。
    */
-  Optional<Order> findById(long id);
+  Optional<Order> findById(UUID id);
 }

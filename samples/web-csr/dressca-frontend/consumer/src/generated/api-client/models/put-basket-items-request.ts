@@ -15,7 +15,7 @@
 
 
 export interface PutBasketItemsRequest {
-    'catalogItemId': number;
+    'catalogItemId': string;
     'quantity': number;
 }
 

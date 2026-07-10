@@ -1,7 +1,8 @@
 package com.dressca.web.admin.controller.dto.catalog;
 
-import java.time.OffsetDateTime;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,9 @@ public class PutCatalogItemRequest {
   @NotNull
   private String productCode;
   @NotNull
-  private long catalogCategoryId;
+  private UUID catalogCategoryId;
   @NotNull
-  private long catalogBrandId;
+  private UUID catalogBrandId;
   @NotNull
   private OffsetDateTime rowVersion;
   @NotNull

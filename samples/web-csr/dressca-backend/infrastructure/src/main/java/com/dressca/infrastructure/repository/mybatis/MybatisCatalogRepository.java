@@ -9,6 +9,7 @@ import com.dressca.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMap
 import com.dressca.infrastructure.repository.mybatis.translator.EntityTranslator;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,45 +21,45 @@ import org.springframework.stereotype.Repository;
 public class MybatisCatalogRepository implements CatalogRepository {
 
   private final JoinedCatalogItemMapper mapper;
-
   private final CatalogItemMapper catalogItemMapper;
 
   @Override
-  public List<CatalogItem> findByCategoryIdIn(List<Long> categoryIds) {
+  public List<CatalogItem> findByCategoryIdIn(List<UUID> categoryIds) {
     return mapper.findByCategoryIdIn(categoryIds);
   }
 
   @Override
-  public List<CatalogItem> findByBrandIdAndCategoryId(long brandId, long categoryId, int page,
+  public List<CatalogItem> findByBrandIdAndCategoryId(UUID brandId, UUID categoryId, int page,
       int pageSize) {
     int offset = pageSize * (page - 1);
     return mapper.findByBrandIdAndCategoryId(brandId, categoryId, pageSize, offset);
   }
 
   @Override
-  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId,
-      int page, int pageSize) {
+  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId,
+      UUID categoryId, int page, int pageSize) {
     int offset = pageSize * (page - 1);
-    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize, offset);
+    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize,
+        offset);
   }
 
   @Override
-  public List<CatalogItem> findByCatalogItemIdIn(List<Long> catalogItemIds) {
+  public List<CatalogItem> findByCatalogItemIdIn(List<UUID> catalogItemIds) {
     return mapper.findByCatalogItemIdIn(catalogItemIds);
   }
 
   @Override
-  public List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<Long> catalogItemIds) {
+  public List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<UUID> catalogItemIds) {
     return mapper.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
   }
 
   @Override
-  public int countByBrandIdAndCategoryId(long brandId, long categoryId) {
+  public int countByBrandIdAndCategoryId(UUID brandId, UUID categoryId) {
     return mapper.countByBrandIdAndCategoryId(brandId, categoryId);
   }
 
   @Override
-  public int countByBrandIdAndCategoryIdIncludingDeleted(long brandId, long categoryId) {
+  public int countByBrandIdAndCategoryIdIncludingDeleted(UUID brandId, UUID categoryId) {
     return mapper.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
   }
 
@@ -68,12 +69,12 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public CatalogItem findById(long id) {
+  public CatalogItem findById(UUID id) {
     return mapper.findById(id);
   }
 
   @Override
-  public CatalogItem findByIdIncludingDeleted(long id) {
+  public CatalogItem findByIdIncludingDeleted(UUID id) {
     return mapper.findByIdIncludingDeleted(id);
   }
 
@@ -81,12 +82,11 @@ public class MybatisCatalogRepository implements CatalogRepository {
   public CatalogItem add(CatalogItem item) {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
     catalogItemMapper.insert(entity);
-    item.setId(entity.getId());
     return item;
   }
 
   @Override
-  public int remove(Long id, OffsetDateTime rowVersion) {
+  public int remove(UUID id, OffsetDateTime rowVersion) {
     CatalogItemEntityExample catalogItemExample = new CatalogItemEntityExample();
     catalogItemExample.createCriteria().andIdEqualTo(id).andRowVersionEqualTo(rowVersion);
     return catalogItemMapper.deleteByExample(catalogItemExample);
@@ -99,7 +99,7 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<Long> catalogItemIds) {
+  public List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<UUID> catalogItemIds) {
     return mapper.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
   }
 }
