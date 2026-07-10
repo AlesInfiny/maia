@@ -13,7 +13,7 @@ import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import NotificationModal from '@/components/NotificationModal.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
-import { catalogItemSchema } from '@/validation/validation-items'
+import { catalogItemSchema, type CatalogItemFormValues } from '@/validation/validation-items'
 import { ConflictError, NotFoundError } from '@/shared/error-handler/custom-error'
 import type {
   GetCatalogBrandsResponse,
@@ -50,8 +50,14 @@ interface ItemState {
   isDeleted: boolean
 }
 
-const { errors, values, meta, defineField, setValues } = useForm({
+const { errors, values, meta, defineField, setValues } = useForm<CatalogItemFormValues>({
   validationSchema: catalogItemSchema,
+  initialValues: {
+    itemName: '',
+    itemDescription: '',
+    price: '',
+    productCode: '',
+  },
 })
 
 const [itemName] = defineField('itemName')
@@ -277,7 +283,7 @@ const updateItemAsync = async () => {
       editingItemState.value.id,
       values.itemName,
       values.itemDescription,
-      values.price,
+      Number(values.price),
       values.productCode,
       editingItemState.value.categoryId,
       editingItemState.value.brandId,
@@ -551,7 +557,7 @@ const updateItemAsync = async () => {
             <img
               class="flex h-auto max-w-xs justify-center"
               :src="getFirstAssetUrl(editingItemState.assetCodes)"
-              :alt="values.name"
+              :alt="values.itemName"
             />
           </div>
           <div class="flex justify-end">
