@@ -108,5 +108,15 @@
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemAssetDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogItemAssets" /> -->
         </table>
+        <table schema="" tableName="display_items" domainObjectName="DisplayItemEntity" mapperName="DisplayItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+            <columnOverride column="catalog_item_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+            <!-- <property name="dynamicSqlSupportClassName" value="DisplayItemDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="displayItems" /> -->
+        </table>
     </context>
 </generatorConfiguration>
