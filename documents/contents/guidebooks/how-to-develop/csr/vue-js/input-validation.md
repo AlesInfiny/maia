@@ -14,7 +14,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
 
 ```shell
-npm install vee-validate zod vue-i18n
+npm install vee-validate zod @vee-validate/zod vue-i18n
 ```
 
 ## メッセージの定義 {#definition-messages}
@@ -41,6 +41,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
+import { ValidationItems } from '@/validation/validation-items'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
@@ -79,7 +80,9 @@ VeeValidate v4 と zod をつなぐための @vee-validate/zod が Zod 4 系と�
 
 ??? example "コードの全体像"
 
-    ```vue
+    画面の実装例は以下の通りです。 `ValidationItems` の実装については[バリデーションルールの共通化](#sharing-validation-rules) の共通スキーマの定義例を参照してください。
+
+    ```vue title="TestRegister.vue"
     <script setup lang="ts">
     import { useField, useForm } from 'vee-validate'
     import { toTypedSchema } from '@vee-validate/zod'
@@ -209,7 +212,7 @@ VeeValidate v4 と zod をつなぐための @vee-validate/zod が Zod 4 系と�
 
 作成する画面の「ユーザー名（メールアドレス）」の検証をする場合、以下のように実装します。
 
-??? example "共通スキーマの定義例"
+??? example "実装例"
 
     ```vue hl_lines="8-11"
     <script setup lang="ts">
@@ -270,7 +273,7 @@ VeeValidate v4 と zod をつなぐための @vee-validate/zod が Zod 4 系と�
 ここでは、「生年月日」に入力された日付が今日よりも前の日付であることを検証し、検証失敗した場合にエラーメッセージを表示します。
 
 ```typescript
-const birthdateSchema = z.string().refine((date) => date < new Date(), {
+const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
   message: "生年月日は今日より前の日付を指定してください",
 })
 ```
@@ -298,7 +301,7 @@ const schema = z
 
     以下の共通スキーマの定義例では、必須バリデーションを他のバリデーションルールよりも先に実行するために必須バリデーションを関数化しています。
 
-    ```typescript title="共通スキーマの定義"
+    ```typescript title="validation-items.ts"
     import { z } from 'zod'
     import { i18n } from '@/locales/i18n'
 
@@ -334,9 +337,9 @@ const schema = z
     import { useField, useForm } from 'vee-validate'
     import { toTypedSchema } from '@vee-validate/zod'
     import { z } from 'zod'
-    import { validationItems } from '@/validation/validation-items'
+    import { ValidationItems } from '@/validation/validation-items'
 
-    const { requiredEmail: requiredEmailRule, required: requiredRule } = validationItems()
+    const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
     const formSchema = toTypedSchema(
       z.object({
         userName: requiredEmailRule('ユーザー名は必須です。'),
@@ -369,6 +372,7 @@ Zod は内部的にデフォルトのエラーマップを使ってエラーメ�
     ??? example "ZodErrorMap の適用"
 
         ```typescript title="main.ts"
+        import { z } from 'zod'
         import { customErrorMap } from '@/validation/zod-settings'
 
         // createApp() の前に呼び出す
