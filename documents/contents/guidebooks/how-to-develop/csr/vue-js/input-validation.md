@@ -57,7 +57,7 @@ const formSchema = toTypedSchema(
 ## 入力値検証の実行 {#input-validation}
 
 AlesInfiny Maia ではフロントエンドの入力値検証に VeeValidate と Zod を利用しています。
-VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と互換性がなく、対応予定の時期が記載時点で未定のため、 Zod 3 系を利用しています。
+VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と互換性がなく、対応予定の時期が執筆時点で未定のため、 Zod 3 系を利用しています。
 
 入力値検証の実装は、以下の流れで行います。
 
@@ -66,9 +66,9 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
   
   VeeValidate の API については [公式ドキュメント :material-open-in-new:](https://vee-validate.logaretm.com/v4/guide/components/validation/){ target=_blank } を参照してください。
 
-### 前提：本章で説明に使用する画面の概要 {#assumption}
+### 前提：実装例で使用する画面の概要 {#assumption}
 
-本章では、例として以下のような画面を作成します。
+以下のような画面を実装例として使用します。
 
 1. 作成する画面のイメージ：エラーがない状態
 
@@ -275,7 +275,7 @@ const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
 
 ### 項目間チェックの実装 {#cross-item-validation}
 
-`refine()` を使用して複数の項目の入力値に関わる検証を実装可能です。
+`refine()` を使用して複数の項目の入力値に関わる検証を実装できます。
 単項目チェックでは `z.string()` のような単独のフィールドにチェーンする形で `refine()` を使用していましたが、
 項目間チェックで`refine()` を使用する際は `z.object()` にチェーンする形で実装します。
 なお、 `z.object()` にチェーンした `refine()` は各項目の型チェックの後に評価されるため、各項目の型チェックが成功していない時点では項目間チェックのエラーは表示されません。
@@ -292,7 +292,8 @@ const schema = z
 
 公式ドキュメントでの実装例は [こちら :material-open-in-new:](https://v3.zod.dev/?id=customize-error-path) です。
 
-項目間チェックを行う場合、 [superRefine() :material-open-in-new:](https://v3.zod.dev/?id=superrefine){ target=_blank } も使用可能です。複数エラーを同時に出したい場合、項目ごとに異なるエラーを出したい場合等、細かなカスタマイズが必要な場合に `superRefine()` の使用が効果的です。
+項目間チェックには [superRefine() :material-open-in-new:](https://v3.zod.dev/?id=superrefine){ target=_blank } も使用できます。
+複数エラーを同時に出したい場合や、項目ごとに異なるエラーを出したい場合など、細かなカスタマイズが必要なときは `superRefine()` が適しています。
 
 ### バリデーションルールの共通化 {#sharing-validation-rules}
 
@@ -355,10 +356,10 @@ const schema = z
 
 ### 共通のエラーメッセージのカスタマイズ {#customize-error-message}
 
-Zod 3 系では `ZodErrorMap` を独自に定義して適用することで、適用範囲に対してエラーメッセージのカスタマイズが可能です。
+Zod 3 系では `ZodErrorMap` を独自に定義して適用することで、適用範囲のエラーメッセージをカスタマイズできます。
 `ZodErrorMap` は、検証失敗の情報 (`issue`) を受け取ってカスタムメッセージを返す関数です。
 Zod は内部的にデフォルトのエラーマップを使ってエラーメッセージを生成しているため、独自のエラーマップに差し替えることで、エラーメッセージを一括でカスタマイズできます。
-これにより、エラーメッセージの共通化と設定漏れの防止が可能です。
+これにより、エラーメッセージを共通化し、設定漏れを防げます。
 
 1. エラーごとにエラーメッセージを指定し、 `ZodErrorMap` を定義します。
 
@@ -419,4 +420,4 @@ Zod は内部的にデフォルトのエラーマップを使ってエラーメ�
 
         ```
 
-個々のフィールドに個別でエラーメッセージを指定している場合は、`ZodErrorMap` で定義した内容よりも優先されます。
+各フィールドにエラーメッセージを個別に指定している場合は、`ZodErrorMap` で定義した内容よりも優先されます。
