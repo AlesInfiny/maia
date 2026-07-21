@@ -5,7 +5,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 # 入力値検証 {#top}
 
-フロントエンドのアーキテクチャに基づき、入力値検証には VeeValidate と zod を使用します。
+フロントエンドのアーキテクチャに基づき、入力値検証には VeeValidate と Zod を使用します。
 また、入力値検証失敗時のメッセージを管理するために、 Vue I18n を使用します。
 メッセージ管理機能の実装方法の詳細に関しては、[こちら](./message-management.md) を確認してください。
 
@@ -57,7 +57,7 @@ const formSchema = toTypedSchema(
 ## 入力値検証の実行 {#input-validation}
 
 AlesInfiny Maia ではフロントエンドの入力値検証に VeeValidate と Zod を利用しています。
-VeeValidate v4 と zod をつなぐための @vee-validate/zod が Zod 4 系と互換性がなく、対応予定の時期が記載時点で未定のため、 Zod 3 系を利用しています。
+VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と互換性がなく、対応予定の時期が記載時点で未定のため、 Zod 3 系を利用しています。
 
 入力値検証の実装は、以下の流れで行います。
 
@@ -264,13 +264,8 @@ VeeValidate v4 と zod をつなぐための @vee-validate/zod が Zod 4 系と�
 
 #### 検証ロジックのカスタマイズ {#customize-validation-rules}
 
-独自の検証ロジックを使用して単項目チェックを行う場合は、以下の 2 通りの方法が考えられます。
-
-- [refine() :material-open-in-new:](https://v3.zod.dev/?id=refine){ target=_blank } を使用して検証ロジックを実装
-- 複数の組み込みルールを使用するスキーマを実装(「[バリデーションルールの共通化](#sharing-validation-rules)」参照)
-
-`refine()` を使用して検証ロジックを実装する場合、以下のように実装します。
-ここでは、「生年月日」に入力された日付が今日よりも前の日付であることを検証し、検証失敗した場合にエラーメッセージを表示します。
+独自の検証ロジックを使用して単項目チェックを行う場合は、 [refine() :material-open-in-new:](https://v3.zod.dev/?id=refine){ target=_blank } を使用して検証ロジックを実装します。
+以下は、「生年月日」に入力された日付が今日よりも前の日付であることを検証し、検証失敗した場合にエラーメッセージを表示する例です。
 
 ```typescript
 const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
@@ -281,6 +276,10 @@ const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
 ### 項目間チェックの実装 {#cross-item-validation}
 
 `refine()` を使用して複数の項目の入力値に関わる検証を実装可能です。
+単項目チェックでは `z.string()` のような単独のフィールドにチェーンする形で `refine()` を使用していましたが、
+項目間チェックで`refine()` を使用する際は `z.object()` にチェーンする形で実装します。
+なお、 `z.object()` にチェーンした `refine()` は各項目の型チェックの後に評価されるため、各項目の型チェックが成功していない時点では項目間チェックのエラーは表示されません。
+
 以下はパスワードと確認用パスワードの入力値が一致するか確認する例です。
 
 ```typescript
@@ -290,6 +289,8 @@ const schema = z
     message: "パスワードが一致しません",
   })
 ```
+
+公式ドキュメントでの実装例は [こちら :material-open-in-new:](https://v3.zod.dev/?id=customize-error-path) です。
 
 項目間チェックを行う場合、 [superRefine() :material-open-in-new:](https://v3.zod.dev/?id=superrefine){ target=_blank } も使用可能です。複数エラーを同時に出したい場合、項目ごとに異なるエラーを出したい場合等、細かなカスタマイズが必要な場合に `superRefine()` の使用が効果的です。
 
@@ -364,7 +365,42 @@ Zod は内部的にデフォルトのエラーマップを使ってエラーメ�
     ??? example "ZodErrorMap の定義例"
 
         ```typescript title="zod-settings.ts"
-        https://github.com/AlesInfiny/maia/blob/develop/samples/web-csr/dressca-frontend/consumer/src/validation/zod-settings.ts
+        import { type ZodErrorMap, ZodIssueCode } from 'zod'
+        import { i18n } from '@/locales/i18n'
+
+        // 必須入力項目の最小文字数
+        const RequiredMinLength = 1
+
+        /**
+         * カスタムエラーマップ
+         * @param issue Zodのエラー情報
+         * @param ctx コンテキスト情報
+         * @returns カスタムエラーメッセージ
+         */
+        export const customErrorMap: ZodErrorMap = (issue, ctx) => {
+          const { t } = i18n.global
+          switch (issue.code) {
+            // 型に誤り
+            case ZodIssueCode.invalid_type:
+              return { message: t('invalidFormat') }
+
+            case ZodIssueCode.too_big:
+              return { message: t('tooBig', [issue.maximum]) }
+
+            case ZodIssueCode.too_small:
+              if (issue.minimum === RequiredMinLength) {
+                return { message: t('required') }
+              }
+              return { message: t('tooSmall', [issue.minimum]) }
+
+            // 文字列のフォーマット違反
+            case ZodIssueCode.invalid_string:
+              return { message: t('invalidFormat') }
+          }
+
+          // デフォルトのメッセージを返す
+          return { message: ctx.defaultError }
+        }        
         ```
 
 1. `setErrorMap()` を呼び出し、定義した `ZodErrorMap` をグローバルに適用します。
