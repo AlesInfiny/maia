@@ -1,4 +1,4 @@
-package com.dressca.web.consumer.controller.dto.catalog;
+package com.dressca.web.consumer.controller.dto.display;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
@@ -7,12 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログカテゴリの情報を取得する際に用いる dto クラスです。
+ * 陳列カテゴリの情報を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCatalogCategoriesResponse {
+public class GetDisplayCategoriesResponse {
   @NotNull
   private UUID id;
   @NotNull

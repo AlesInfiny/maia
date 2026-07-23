@@ -58,4 +58,22 @@ public class MessageIdConstants {
   /** カタログアイテム ID: {0} のカタログアイテムを更新します。 */
   public static final String D_CATALOG_UPDATE_CATALOG_ITEM =
       "catalogApplicationServiceUpdateCatalogItem";
+
+  /** 条件（ブランドID: {0}, カテゴリID: {1}, ページ: {2}, ページサイズ: {3}）に一致する陳列品情報を取得します。 */
+  public static final String D_DISPLAY_GET_DISPLAY_ITEMS =
+      "displayApplicationServiceGetDisplayItems";
+
+  /** 条件（ブランドID: {0}, カテゴリID: {1}）に一致する陳列品の件数を取得します。 */
+  public static final String D_DISPLAY_COUNT_DISPLAY_ITEMS =
+      "displayApplicationServiceCountDisplayItems";
+
+  /** 陳列品 ID 一覧: {0} に一致する陳列品情報を取得します。 */
+  public static final String D_DISPLAY_GET_DISPLAY_ITEMS_BY_IDS =
+      "displayApplicationServiceGetDisplayItemsByIds";
+
+  /** フィルタリング用の陳列ブランドリストを取得します。 */
+  public static final String D_DISPLAY_GET_BRANDS = "displayApplicationServiceGetBrands";
+
+  /** フィルタリング用の陳列カテゴリリストを取得します。 */
+  public static final String D_DISPLAY_GET_CATEGORIES = "displayApplicationServiceGetCategories";
 }

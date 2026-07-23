@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class BasketItem {
   private UUID id;
   private UUID basketId;
-  private UUID catalogItemId;
+  private UUID displayItemId;
   private BigDecimal unitPrice;
   private int quantity;
 

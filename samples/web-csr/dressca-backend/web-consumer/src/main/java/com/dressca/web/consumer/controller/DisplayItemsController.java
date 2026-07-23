@@ -1,10 +1,10 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.web.consumer.controller.dto.catalog.GetCatalogItemResponse;
-import com.dressca.web.consumer.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
-import com.dressca.web.consumer.mapper.CatalogItemMapper;
+import com.dressca.applicationcore.applicationservice.DisplayApplicationService;
+import com.dressca.applicationcore.display.DisplayItem;
+import com.dressca.web.consumer.controller.dto.display.GetDisplayItemResponse;
+import com.dressca.web.consumer.controller.dto.display.PagedListOfGetDisplayItemResponse;
+import com.dressca.web.consumer.mapper.DisplayItemMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,46 +23,46 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * {@link CatalogItem} の情報にアクセスする API コントローラーです。
+ * {@link DisplayItem} の情報にアクセスする API コントローラーです。
  */
 @RestController
-@Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
-@RequestMapping("/api/catalog-items")
+@Tag(name = "DisplayItems", description = "陳列品の情報にアクセスする API です。")
+@RequestMapping("/api/display-items")
 @RequiredArgsConstructor
-public class CatalogItemsController {
+public class DisplayItemsController {
 
-  private final CatalogApplicationService service;
+  private final DisplayApplicationService service;
 
   /**
-   * カタログアイテムを検索して返します。
+   * 陳列品を検索して返します。
    *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @param page ページ番号。未指定の場合は 1 。
    * @param pageSize ページサイズ。未指定の場合は 20 。
-   * @return カタログアイテムの一覧。
+   * @return 陳列品の一覧。
    */
-  @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
+  @Operation(summary = "陳列品を検索して返します。", description = "陳列品を検索して返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
+              schema = @Schema(implementation = PagedListOfGetDisplayItemResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。",
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping()
-  public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
+  public ResponseEntity<PagedListOfGetDisplayItemResponse> getByQuery(
       @RequestParam(name = "brandId", required = false) UUID brandId,
       @RequestParam(name = "categoryId", required = false) UUID categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-    List<GetCatalogItemResponse> items =
-        service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize).stream()
-            .map(CatalogItemMapper::convert).collect(Collectors.toList());
-    int totalCount = service.countCatalogItemsForConsumer(brandId, categoryId);
+    List<GetDisplayItemResponse> items =
+        service.getDisplayItems(brandId, categoryId, page, pageSize).stream()
+            .map(DisplayItemMapper::convert).collect(Collectors.toList());
+    int totalCount = service.countDisplayItems(brandId, categoryId);
 
-    PagedListOfGetCatalogItemResponse returnValue =
-        new PagedListOfGetCatalogItemResponse(items, totalCount, page, pageSize);
+    PagedListOfGetDisplayItemResponse returnValue =
+        new PagedListOfGetDisplayItemResponse(items, totalCount, page, pageSize);
     return ResponseEntity.ok().body(returnValue);
   }
 }

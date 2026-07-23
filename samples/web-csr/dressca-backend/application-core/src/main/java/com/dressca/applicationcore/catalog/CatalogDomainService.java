@@ -1,8 +1,6 @@
 package com.dressca.applicationcore.catalog;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +13,6 @@ public class CatalogDomainService {
   private final CatalogRepository catalogRepository;
   private final CatalogBrandRepository brandRepository;
   private final CatalogCategoryRepository categoryRepository;
-
-  /**
-   * 指定したカタログアイテム ID のうち、存在するカタログアイテムの一覧を取得します。
-   * 
-   * @param catalogItemIds カタログアイテム ID のリスト。
-   * @return 存在するカタログアイテムの一覧。
-   */
-  public List<CatalogItem> getExistCatalogItems(List<UUID> catalogItemIds) {
-    return this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-  }
-
-  /**
-   * 指定したカタログアイテム ID がリポジトリ内にすべて存在するかを取得します。
-   * 
-   * @param catalogItemIds カタログアイテム ID のリスト。
-   * @return すべて存在する場合は true 、一部でも不在の場合は false 。
-   */
-  public boolean existAll(List<UUID> catalogItemIds) {
-    List<CatalogItem> items = this.catalogRepository.findByCatalogItemIdIn(catalogItemIds);
-    List<UUID> notExistCatalogItemIds = catalogItemIds.stream()
-        .filter(catalogItemId -> !this.existCatalogItemIdInItems(items, catalogItemId))
-        .collect(Collectors.toList());
-
-    return notExistCatalogItemIds.isEmpty();
-  }
 
   /**
    * 指定した ID のカタログブランドがリポジトリ内に存在するかどうかを示す真理値を取得します。
@@ -69,19 +42,5 @@ public class CatalogDomainService {
    */
   public boolean existCatalogItem(UUID catalogItemId) {
     return this.catalogRepository.findById(catalogItemId) != null;
-  }
-
-  /**
-   * 指定した ID のカタログアイテムが、削除済みカタログアイテムを含むリポジトリ内に存在するかどうかを示す真理値を取得します。
-   * 
-   * @param catalogItemId カタログアイテム ID 。
-   * @return 指定したカタログアイテムがリポジトリ内に存在する場合は true 、存在しない場合は false 。
-   */
-  public boolean existCatalogItemIncludingDeleted(UUID catalogItemId) {
-    return this.catalogRepository.findByIdIncludingDeleted(catalogItemId) != null;
-  }
-
-  private boolean existCatalogItemIdInItems(List<CatalogItem> items, UUID catalogItemId) {
-    return items.stream().anyMatch(catalogItem -> catalogItem.getId().equals(catalogItemId));
   }
 }

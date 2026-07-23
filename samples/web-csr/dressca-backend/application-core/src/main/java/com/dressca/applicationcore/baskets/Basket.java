@@ -46,37 +46,37 @@ public class Basket {
   }
 
   /**
-   * カタログアイテムを追加します。
-   * 
-   * @param catalogItemId カタログアイテム ID 。
+   * 陳列品を追加します。
+   *
+   * @param displayItemId 陳列品 ID 。
    * @param unitPrice 単価。
    * @param quantity 数量。
    */
-  public void addItem(UUID catalogItemId, BigDecimal unitPrice, int quantity) {
+  public void addItem(UUID displayItemId, BigDecimal unitPrice, int quantity) {
     Optional<BasketItem> existingItem =
-        this.items.stream().filter(item -> item.getCatalogItemId().equals(catalogItemId))
+        this.items.stream().filter(item -> item.getDisplayItemId().equals(displayItemId))
             .findFirst();
 
     existingItem.ifPresentOrElse(item -> item.addQuantity(quantity),
-        () -> this.items.add(new BasketItem(UuidGenerator.generate(), id, catalogItemId, unitPrice,
+        () -> this.items.add(new BasketItem(UuidGenerator.generate(), id, displayItemId, unitPrice,
             quantity)));
   }
 
   /**
-   * 数量が 0 のカタログアイテムを削除します。
+   * 数量が 0 の陳列品を削除します。
    */
   public void removeEmptyItems() {
     this.items.removeIf(item -> item.getQuantity() == 0);
   }
 
   /**
-   * 指定した ID のカタログアイテムが買い物かごに存在するかを判定します。
-   * 
-   * @param catalogItemId カタログアイテム ID 。
+   * 指定した ID の陳列品が買い物かごに存在するかを判定します。
+   *
+   * @param displayItemId 陳列品 ID 。
    * @return 買い物かごに存在する場合は true 、存在しない場合は false 。
    */
-  public boolean isInCatalogItem(UUID catalogItemId) {
-    return this.items.stream().anyMatch(item -> item.getCatalogItemId().equals(catalogItemId));
+  public boolean isInDisplayItem(UUID displayItemId) {
+    return this.items.stream().anyMatch(item -> item.getDisplayItemId().equals(displayItemId));
   }
 
   /**

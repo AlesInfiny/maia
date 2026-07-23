@@ -1,4 +1,4 @@
-package com.dressca.web.consumer.controller.dto.catalog;
+package com.dressca.web.consumer.controller.dto.display;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -8,12 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * カタログアイテムの概要を取得する際に用いる dto クラスです。
+ * 陳列品の概要を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatalogItemSummaryApiModel {
+public class DisplayItemSummaryApiModel {
   @NotNull
   private UUID id;
   @NotNull

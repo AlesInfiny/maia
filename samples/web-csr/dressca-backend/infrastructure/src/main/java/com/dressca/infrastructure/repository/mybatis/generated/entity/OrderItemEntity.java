@@ -9,7 +9,7 @@ public class OrderItemEntity {
     private UUID id;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private UUID orderedCatalogItemId;
+    private UUID orderedDisplayItemId;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     private String orderedProductName;
@@ -37,13 +37,13 @@ public class OrderItemEntity {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public UUID getOrderedCatalogItemId() {
-        return orderedCatalogItemId;
+    public UUID getOrderedDisplayItemId() {
+        return orderedDisplayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setOrderedCatalogItemId(UUID orderedCatalogItemId) {
-        this.orderedCatalogItemId = orderedCatalogItemId;
+    public void setOrderedDisplayItemId(UUID orderedDisplayItemId) {
+        this.orderedDisplayItemId = orderedDisplayItemId;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")

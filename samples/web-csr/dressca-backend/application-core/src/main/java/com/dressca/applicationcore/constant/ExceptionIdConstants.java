@@ -18,8 +18,8 @@ public class ExceptionIdConstants {
   public static final String E_BASKET_IS_NULL_ON_CHECKOUT = "basketIsNullOnCheckout";
 
   /** 買い物かごID: {0} に商品ID: {1} の商品が見つかりませんでした。 */
-  public static final String E_CATALOG_ITEM_ID_DOES_NOT_EXIST_IN_BASKET =
-      "catalogItemIdDoesNotExistInBasket";
+  public static final String E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET =
+      "displayItemIdDoesNotExistInBasket";
 
   /** 注文のチェックアウト時に買い物かごが空でした。 */
   public static final String E_BASKET_IS_EMPTY_ON_CHECKOUT = "basketIsEmptyOnCheckout";
@@ -41,4 +41,7 @@ public class ExceptionIdConstants {
 
   /** カタログアイテム ID: {0} の {1} 実行時に楽観ロックエラーが発生しました。 */
   public static final String E_OPTIMISTIC_LOCKING_FAILURE = "optimisticLockingFailure";
+
+  /** 陳列品ID: {0} の陳列品が見つかりませんでした。 */
+  public static final String E_DISPLAY_ID_NOT_FOUND = "displayIdNotFound";
 }
