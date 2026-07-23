@@ -10,7 +10,7 @@ export const authenticationGuard = (router: Router) => {
       'ordering/done',
     ]
     if (orderingPaths.includes(to.name) && !from.name) {
-      return { name: 'catalog' }
+      return { name: 'display' }
     }
 
     if (to.meta.requiresAuth && !authenticationStore.isAuthenticated) {
