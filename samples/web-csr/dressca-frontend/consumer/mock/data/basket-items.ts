@@ -1,5 +1,5 @@
 import type { BasketItemApiModel, GetBasketItemsResponse } from '@/generated/api-client'
-import { deletedItemId } from './catalog-items'
+import { deletedItemId } from './display-items'
 
 export const basket: GetBasketItemsResponse = {
   buyerId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -16,10 +16,10 @@ export const basket: GetBasketItemsResponse = {
 
 export const basketItems: BasketItemApiModel[] = [
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000001',
+    displayItemId: '019b76da-a800-7004-8001-000000000001',
     quantity: 0,
     unitPrice: 1980,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000001',
       name: 'クルーネック Tシャツ - ブラック',
       productCode: 'C000000001',
@@ -28,10 +28,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000002',
+    displayItemId: '019b76da-a800-7004-8001-000000000002',
     quantity: 0,
     unitPrice: 4800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000002',
       name: '裏起毛 スキニーデニム',
       productCode: 'C000000002',
@@ -40,10 +40,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000003',
+    displayItemId: '019b76da-a800-7004-8001-000000000003',
     quantity: 0,
     unitPrice: 49800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000003',
       name: 'ウールコート',
       productCode: 'C000000003',
@@ -52,10 +52,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000004',
+    displayItemId: '019b76da-a800-7004-8001-000000000004',
     quantity: 0,
     unitPrice: 2800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000004',
       name: '無地 ボタンダウンシャツ',
       productCode: 'C000000004',
@@ -64,10 +64,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000005',
+    displayItemId: '019b76da-a800-7004-8001-000000000005',
     quantity: 0,
     unitPrice: 18800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000005',
       name: 'レザーハンドバッグ',
       productCode: 'B000000001',
@@ -76,10 +76,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000006',
+    displayItemId: '019b76da-a800-7004-8001-000000000006',
     quantity: 0,
     unitPrice: 38000,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000006',
       name: 'ショルダーバッグ',
       productCode: 'B000000002',
@@ -88,10 +88,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000007',
+    displayItemId: '019b76da-a800-7004-8001-000000000007',
     quantity: 0,
     unitPrice: 24800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000007',
       name: 'トートバッグ ポーチ付き',
       productCode: 'B000000003',
@@ -100,10 +100,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000008',
+    displayItemId: '019b76da-a800-7004-8001-000000000008',
     quantity: 0,
     unitPrice: 2800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000008',
       name: 'ショルダーバッグ',
       productCode: 'B000000004',
@@ -112,10 +112,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-000000000009',
+    displayItemId: '019b76da-a800-7004-8001-000000000009',
     quantity: 0,
     unitPrice: 258000,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-000000000009',
       name: 'レザー チェーンショルダーバッグ',
       productCode: 'B000000005',
@@ -124,10 +124,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-00000000000a',
+    displayItemId: '019b76da-a800-7004-8001-00000000000a',
     quantity: 0,
     unitPrice: 12800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-00000000000a',
       name: 'ランニングシューズ - ブルー',
       productCode: 'S000000001',
@@ -136,10 +136,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: '019b76da-a800-7004-8001-00000000000b',
+    displayItemId: '019b76da-a800-7004-8001-00000000000b',
     quantity: 0,
     unitPrice: 23800,
-    catalogItem: {
+    displayItem: {
       id: '019b76da-a800-7004-8001-00000000000b',
       name: 'メダリオン ストレートチップ ドレスシューズ',
       productCode: 'S000000002',
@@ -148,10 +148,10 @@ export const basketItems: BasketItemApiModel[] = [
     subTotal: 0,
   },
   {
-    catalogItemId: deletedItemId,
+    displayItemId: deletedItemId,
     quantity: 0,
     unitPrice: 1980,
-    catalogItem: {
+    displayItem: {
       id: deletedItemId,
       name: '削除済みアイテム',
       productCode: 'C999999999',

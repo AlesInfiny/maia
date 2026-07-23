@@ -1,16 +1,16 @@
 import type {
-  GetCatalogItemResponse,
-  PagedListOfGetCatalogItemResponse,
+  GetDisplayItemResponse,
+  PagedListOfGetDisplayItemResponse,
 } from '@/generated/api-client'
 
 /** カタログから削除済みのアイテムの ID です。 */
 export const deletedItemId = '019b76da-a800-7004-8001-000000000099'
 
-export const catalogItems: GetCatalogItemResponse[] = [
+export const displayItems: GetDisplayItemResponse[] = [
   {
     id: '019b76da-a800-7004-8001-000000000001',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000001',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000003',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000001',
+    displayBrandId: '019b76da-a800-7002-8001-000000000003',
     description: '定番の無地ロングTシャツです。',
     name: 'クルーネック Tシャツ - ブラック',
     price: 1980,
@@ -19,8 +19,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000002',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000001',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000002',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000001',
+    displayBrandId: '019b76da-a800-7002-8001-000000000002',
     description: '暖かいのに着膨れしない起毛デニムです。',
     name: '裏起毛 スキニーデニム',
     price: 4800,
@@ -29,8 +29,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000003',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000001',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000001',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000001',
+    displayBrandId: '019b76da-a800-7002-8001-000000000001',
     description: 'あたたかく肌ざわりも良いウール100%のロングコートです。',
     name: 'ウールコート',
     price: 49800,
@@ -39,8 +39,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000004',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000001',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000002',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000001',
+    displayBrandId: '019b76da-a800-7002-8001-000000000002',
     description: 'コットン100%の柔らかい着心地で、春先から夏、秋口まで万能に使いやすいです。',
     name: '無地 ボタンダウンシャツ',
     price: 2800,
@@ -49,8 +49,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000005',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000002',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000003',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000002',
+    displayBrandId: '019b76da-a800-7002-8001-000000000003',
     description: 'コンパクトサイズのバッグですが収納力は抜群です。',
     name: 'レザーハンドバッグ',
     price: 18800,
@@ -59,8 +59,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000006',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000002',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000002',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000002',
+    displayBrandId: '019b76da-a800-7002-8001-000000000002',
     description: 'エイジング加工したレザーを使用しています。',
     name: 'ショルダーバッグ',
     price: 38000,
@@ -69,8 +69,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000007',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000002',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000003',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000002',
+    displayBrandId: '019b76da-a800-7002-8001-000000000003',
     description:
       '春の季節にぴったりのトートバッグです。インナーポーチまたは単体でも使用可能なポーチ付。',
     name: 'トートバッグ ポーチ付き',
@@ -80,8 +80,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000008',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000002',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000001',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000002',
+    displayBrandId: '019b76da-a800-7002-8001-000000000001',
     description: 'さらりと気軽に纏える、キュートなミニサイズショルダー。',
     name: 'ショルダーバッグ',
     price: 2800,
@@ -90,8 +90,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-000000000009',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000002',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000001',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000002',
+    displayBrandId: '019b76da-a800-7002-8001-000000000001',
     description: 'エレガントな雰囲気を放つキルティングデザインです。',
     name: 'レザー チェーンショルダーバッグ',
     price: 258000,
@@ -100,8 +100,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-00000000000a',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000003',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000002',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000003',
+    displayBrandId: '019b76da-a800-7002-8001-000000000002',
     description: '柔らかいソールは快適な履き心地で、ランニングに最適です。',
     name: 'ランニングシューズ - ブルー',
     price: 12800,
@@ -110,8 +110,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: '019b76da-a800-7004-8001-00000000000b',
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000003',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000001',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000003',
+    displayBrandId: '019b76da-a800-7002-8001-000000000001',
     description: 'イタリアの職人が丁寧に手作業で作り上げた一品です。',
     name: 'メダリオン ストレートチップ ドレスシューズ',
     price: 23800,
@@ -120,8 +120,8 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
   {
     id: deletedItemId,
-    catalogCategoryId: '019b76da-a800-7003-8001-000000000001',
-    catalogBrandId: '019b76da-a800-7002-8001-000000000001',
+    displayCategoryId: '019b76da-a800-7003-8001-000000000001',
+    displayBrandId: '019b76da-a800-7002-8001-000000000001',
     description: '削除済みアイテムの動作確認用アイテムです。',
     name: '削除済みアイテム',
     price: 1980,
@@ -130,12 +130,12 @@ export const catalogItems: GetCatalogItemResponse[] = [
   },
 ]
 
-export const pagedListCatalogItem: PagedListOfGetCatalogItemResponse = {
+export const pagedListDisplayItem: PagedListOfGetDisplayItemResponse = {
   hasNext: false,
   hasPrevious: false,
   page: 1,
   pageSize: 20,
   totalCount: 3,
   totalPages: 1,
-  items: catalogItems,
+  items: displayItems,
 }

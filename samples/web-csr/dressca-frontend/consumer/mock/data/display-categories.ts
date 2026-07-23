@@ -1,6 +1,6 @@
-import type { GetCatalogCategoriesResponse } from '@/generated/api-client'
+import type { GetDisplayCategoriesResponse } from '@/generated/api-client'
 
-export const catalogCategories: GetCatalogCategoriesResponse[] = [
+export const displayCategories: GetDisplayCategoriesResponse[] = [
   {
     id: '019b76da-a800-7003-8001-000000000001',
     name: '服',

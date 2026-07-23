@@ -14,8 +14,10 @@
 
 
 
-export interface GetCatalogBrandsResponse {
+export interface DisplayItemSummaryApiModel {
+    'assetCodes'?: Array<string>;
     'id': string;
     'name': string;
+    'productCode': string;
 }
 

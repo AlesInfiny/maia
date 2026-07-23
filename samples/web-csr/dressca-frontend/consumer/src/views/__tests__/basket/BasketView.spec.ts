@@ -11,7 +11,7 @@ import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
 
 /**
- * 買い物かごにカタログアイテムが入っている状態のモックレスポンスを生成します。
+ * 買い物かごに陳列品が入っている状態のモックレスポンスを生成します。
  * 主にテストやスタブデータとして利用することを想定しています。
  * @returns `GetBasketItemsResponse` 型のオブジェクト
  */
@@ -27,10 +27,10 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
     },
     basketItems: [
       {
-        catalogItemId: '019b76da-a800-7004-8001-000000000001',
+        displayItemId: '019b76da-a800-7004-8001-000000000001',
         quantity: 1,
         unitPrice: 1980,
-        catalogItem: {
+        displayItem: {
           id: '019b76da-a800-7004-8001-000000000001',
           name: 'クルーネック Tシャツ - ブラック',
           productCode: 'C000000001',
@@ -39,10 +39,10 @@ function createGetBasketItemsResponse(): GetBasketItemsResponse {
         subTotal: 1980,
       },
       {
-        catalogItemId: '019b76da-a800-7004-8001-000000000002',
+        displayItemId: '019b76da-a800-7004-8001-000000000002',
         quantity: 2,
         unitPrice: 4800,
-        catalogItem: {
+        displayItem: {
           id: '019b76da-a800-7004-8001-000000000002',
           name: '裏起毛 スキニーデニム',
           productCode: 'C000000002',

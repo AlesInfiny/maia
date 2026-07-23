@@ -1,23 +1,23 @@
 import { defineStore } from 'pinia'
 import type {
-  GetCatalogCategoriesResponse,
-  GetCatalogBrandsResponse,
-  PagedListOfGetCatalogItemResponse,
+  GetDisplayCategoriesResponse,
+  GetDisplayBrandsResponse,
+  PagedListOfGetDisplayItemResponse,
 } from '@/generated/api-client'
-import { catalogCategoriesApi, catalogBrandsApi, catalogItemsApi } from '@/api-client'
+import { displayCategoriesApi, displayBrandsApi, displayItemsApi } from '@/api-client'
 
 /**
- * カタログ情報（カテゴリ・ブランド・アイテム）を管理するストアです。
+ * 陳列情報（カテゴリ・ブランド・アイテム）を管理するストアです。
  */
-export const useCatalogStore = defineStore('catalog', {
+export const useDisplayStore = defineStore('display', {
   state: (): {
-    categories: GetCatalogCategoriesResponse[]
-    brands: GetCatalogBrandsResponse[]
-    catalogItemPage: PagedListOfGetCatalogItemResponse
+    categories: GetDisplayCategoriesResponse[]
+    brands: GetDisplayBrandsResponse[]
+    displayItemPage: PagedListOfGetDisplayItemResponse
   } => ({
     categories: [],
     brands: [],
-    catalogItemPage: {
+    displayItemPage: {
       page: 0,
       totalPages: 0,
       pageSize: 0,
@@ -32,7 +32,7 @@ export const useCatalogStore = defineStore('catalog', {
      * カテゴリ一覧を取得します。
      */
     async fetchCategories() {
-      const response = await catalogCategoriesApi().getCatalogCategories()
+      const response = await displayCategoriesApi().getDisplayCategories()
       this.categories = response.data
       this.categories.unshift({ id: '', name: 'すべて' })
     },
@@ -40,24 +40,24 @@ export const useCatalogStore = defineStore('catalog', {
      * ブランド一覧を取得します。
      */
     async fetchBrands() {
-      const response = await catalogBrandsApi().getCatalogBrands()
+      const response = await displayBrandsApi().getDisplayBrands()
       this.brands = response.data
       this.brands.unshift({ id: '', name: 'すべて' })
     },
     /**
-     * カタログアイテム一覧を取得します。
+    * 陳列品一覧を取得します。
      * @param categoryId カテゴリID 。
      * @param brandId ブランドID 。
      * @param page ページ番号（任意）。
      */
     async fetchItems(categoryId?: string, brandId?: string, page?: number) {
-      const response = await catalogItemsApi().getByQuery(
+      const response = await displayItemsApi().getByQuery(
         brandId || undefined,
         categoryId || undefined,
         page,
         undefined,
       )
-      this.catalogItemPage = response.data
+      this.displayItemPage = response.data
     },
   },
   getters: {
@@ -78,12 +78,12 @@ export const useCatalogStore = defineStore('catalog', {
       return state.brands
     },
     /**
-     * カタログアイテムの一覧を取得します。
+     * 陳列品の一覧を取得します。
      * @param state 状態。
-     * @returns カタログアイテム一覧。
+     * @returns 陳列品一覧。
      */
     getItems(state) {
-      return state.catalogItemPage.items
+      return state.displayItemPage.items
     },
     /**
      * ブランドID からブランド名を検索する関数を取得します。
@@ -92,9 +92,9 @@ export const useCatalogStore = defineStore('catalog', {
      * @param state 状態。
      * @returns ブランド名。存在しない ID を指定した場合は undefined 。
      * @example
-     * const catalogStore = useCatalogStore()
-     * const { getBrandName } = storeToRefs(catalogStore)
-     * const brandName = getBrandName(item.catalogBrandId)
+    * const displayStore = useDisplayStore()
+    * const { getBrandName } = storeToRefs(displayStore)
+    * const brandName = getBrandName(item.displayBrandId)
      */
     getBrandName: (state) => {
       return (id: string) => state.brands.find((brand) => brand.id === id)?.name
