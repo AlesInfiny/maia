@@ -269,7 +269,12 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
 以下は、「生年月日」に入力された日付が今日よりも前の日付であることを検証し、検証失敗した場合にエラーメッセージを表示する例です。
 
 ```typescript
-const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
+const birthdateSchema = z.string().refine((val) => {
+  const inputDate = new Date(val)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return inputDate < today
+}, {
   message: "生年月日は今日より前の日付を指定してください",
 })
 ```
@@ -323,7 +328,12 @@ const schema = z
             message: "パスワードが一致しません",
             path: ["passwordConfirm"],
           }),
-        birthdateSchema: z.string().refine((val) => new Date(val) < new Date(), {
+        birthdateSchema: z.string().refine((val) => {
+          const inputDate = new Date(val)
+          const today = new Date()
+          today.setHours(0, 0, 0, 0)
+          return inputDate < today
+        }, {
           message: "生年月日は今日より前の日付を指定してください",
         }),
       }

@@ -77,7 +77,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 - [Zod :material-open-in-new:](https://github.com/colinhacks/zod){ target=_blank }
 
-    TypeScript でバリデーションルールを宣言的に記述し、型を自動生成できるライブラリ（[インストール方法](input-validation.md#install-packages)）
+    TypeScript でバリデーションルールを宣言的に記述し、スキーマから型を推論できるライブラリ（[インストール方法](input-validation.md#install-packages)）
 
 - [Vue I18n :material-open-in-new:](https://vue-i18n.intlify.dev/){ target=_blank }
 

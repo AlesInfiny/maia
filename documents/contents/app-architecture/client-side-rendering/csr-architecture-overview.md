@@ -50,7 +50,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
     - [Zod :material-open-in-new:](https://github.com/colinhacks/zod){ target=_blank }
 
-          TypeScript でバリデーションルールを宣言的に記述し、型を自動生成できるライブラリです。
+          TypeScript でバリデーションルールを宣言的に記述し、スキーマから型を推論できるライブラリです。
 
     - [Tailwind CSS :material-open-in-new:](https://tailwindcss.com/){ target=_blank }
 
