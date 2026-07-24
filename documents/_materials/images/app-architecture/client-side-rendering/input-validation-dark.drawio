@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="XG1jiC4Kkd6LNDLryj3X" name="ページ1">
-        <mxGraphModel dx="925" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="759" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -94,7 +94,7 @@
                 <mxCell id="31" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fontColor=default;strokeColor=#FFFFFF;" parent="1" source="29" target="23" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" value="②提出ボタンを非表示に" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fontColor=#FFFFFF;" parent="1" vertex="1">
+                <mxCell id="29" value="②提出ボタンを無効化" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fontColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="1170" y="220" width="240" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" value="" style="endArrow=classic;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fontColor=default;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;" parent="1" source="28" target="27" edge="1">
@@ -112,7 +112,7 @@
                 <mxCell id="33" value="Zod&lt;br&gt;検証スキーム" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;strokeWidth=3;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#E6E6E6;" parent="1" vertex="1">
                     <mxGeometry x="570" y="190" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="Vee Validate" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fillColor=#d5e8d4;strokeColor=#FFFFFF;" parent="1" vertex="1">
+                <mxCell id="10" value="VeeValidate" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fillColor=#d5e8d4;strokeColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="430" y="120" width="190" height="100" as="geometry"/>
                 </mxCell>
             </root>

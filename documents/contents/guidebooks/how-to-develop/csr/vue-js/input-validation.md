@@ -14,7 +14,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ターミナルを開き、対象プロジェクトのワークスペースフォルダーで以下のコマンドを実行します。
 
 ```shell
-npm install vee-validate zod @vee-validate/zod vue-i18n
+npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 ```
 
 ## メッセージの定義 {#definition-messages}
@@ -240,7 +240,7 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
     </script>
 
     <template>
-      // ...
+      <!-- ... -->
       <input
         id="email"
         v-model="email"
@@ -250,7 +250,7 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
         class="w-full border-b px-4 py-2 placeholder-gray-500/50 focus:border-b-2 focus:border-indigo-500   focus:outline-hidden"
       />
       <p id="email-error" class="px-8 py-2 text-sm text-red-500">{{ emailError }}</p>
-      // ...
+      <!-- ... -->
       <button
         type="button"
         class="w-full rounded-sm bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
@@ -283,8 +283,8 @@ const birthdateSchema = z.string().refine((val) => new Date(val) < new Date(), {
 
 ```typescript
 const schema = z
-  .object({ password: z.string(), confirmPassword: z.string() })
-  .refine((data) => data.password === data.confirmPassword, {
+  .object({ password: z.string(), passwordConfirm: z.string() })
+  .refine((data) => data.password === data.passwordConfirm, {
     message: "パスワードが一致しません",
   })
 ```
@@ -317,10 +317,10 @@ const schema = z
         requiredEmail: (requiredMessage: string = t('required')) =>
           required(requiredMessage).email(t('email')),
         samePasswordSchema: z
-          .object({ password: z.string(), confirmPassword: z.string() })
-          .refine((data) => data.password === data.confirmPassword, {
+          .object({ password: z.string(), passwordConfirm: z.string() })
+          .refine((data) => data.password === data.passwordConfirm, {
             message: "パスワードが一致しません",
-            path: ["confirmPassword"],
+            path: ["passwordConfirm"],
           }),
         birthdateSchema: z.date().refine((val) => new Date(val) < new Date(), {
           message: "生年月日は今日より前の日付を指定してください",
