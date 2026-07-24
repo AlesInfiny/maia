@@ -103,6 +103,7 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
         })
         .refine((data) => data.password === data.passwordConfirm, {
           message: "パスワードが一致しません",
+          path: ["passwordConfirm"],
         }),
     )
 
@@ -322,7 +323,7 @@ const schema = z
             message: "パスワードが一致しません",
             path: ["passwordConfirm"],
           }),
-        birthdateSchema: z.date().refine((val) => new Date(val) < new Date(), {
+        birthdateSchema: z.string().refine((val) => new Date(val) < new Date(), {
           message: "生年月日は今日より前の日付を指定してください",
         }),
       }
