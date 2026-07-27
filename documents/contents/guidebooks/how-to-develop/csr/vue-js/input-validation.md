@@ -238,6 +238,10 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
       // 検証の成功/失敗を判定
       return !meta.value.valid
     }
+
+    const registerOnClick = () => {
+      // 登録処理
+    }
     </script>
 
     <template>
@@ -256,7 +260,7 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
         type="button"
         class="w-full rounded-sm bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-blue-500/50"
         :disabled="isInvalid()"
-        @click="signInOnClick"
+        @click="registerOnClick"
       >
         登録
       </button>
