@@ -121,10 +121,10 @@ public class BuyerIdFilterTest {
     // doFilter の実行
     filter.doFilter(request, response, chain);
     Cookie responseCookie = response.getCookie("Dressca-Bid");
-    String issuedBuyerId = responseCookie.getValue();
 
     // Cookie が存在し、無効な値から新しい UUID が払い出されていることを確認
     assertNotNull(responseCookie);
+    String issuedBuyerId = responseCookie.getValue();
     assertNotEquals(invalidBuyerId, issuedBuyerId);
     assertNotNull(UUID.fromString(issuedBuyerId));
   }
