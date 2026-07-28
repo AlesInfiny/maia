@@ -75,9 +75,9 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js 用のリアルタイムバリデーションコンポーネントライブラリ（[インストール方法](input-validation.md#install-packages)）
 
-- [yup :material-open-in-new:](https://github.com/jquense/yup){ target=_blank }
+- [Zod :material-open-in-new:](https://github.com/colinhacks/zod){ target=_blank }
 
-    JavaScript でフォームのバリデーションルールを宣言的に記述できるライブラリ（[インストール方法](input-validation.md#install-packages)）
+    TypeScript でバリデーションルールを宣言的に記述し、スキーマから型を推論できるライブラリ（[インストール方法](input-validation.md#install-packages)）
 
 - [Vue I18n :material-open-in-new:](https://vue-i18n.intlify.dev/){ target=_blank }
 
