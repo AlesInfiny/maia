@@ -63,8 +63,8 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
 
 1. Zod 組み込みのルールを組み合わせたり、独自にロジックを実装したりしてバリデーションルールを定義する。
 1. VeeValidate の API (`useField()`, `useForm()` 等)を使用して入力値のフィールドとバリデーションルールを対応させる。
-  
-  VeeValidate の API については [公式ドキュメント :material-open-in-new:](https://vee-validate.logaretm.com/v4/guide/components/validation/){ target=_blank } を参照してください。
+
+VeeValidate の API については [公式ドキュメント :material-open-in-new:](https://vee-validate.logaretm.com/v4/guide/components/validation/){ target=_blank } を参照してください。
 
 ### 前提：実装例で使用する画面の概要 {#assumption}
 
