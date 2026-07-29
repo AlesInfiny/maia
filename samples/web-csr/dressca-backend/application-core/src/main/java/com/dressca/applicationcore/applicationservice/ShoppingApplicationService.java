@@ -65,8 +65,8 @@ public class ShoppingApplicationService {
     if (!this.displayDomainService.existAll(List.of(displayItemId))) {
       throw new DisplayItemNotFoundException(displayItemId);
     }
-    DisplayItem displayItem = this.displayDomainService.getExistDisplayItems(List.of(displayItemId))
-        .get(0);
+    DisplayItem displayItem =
+        this.displayDomainService.getExistDisplayItems(List.of(displayItemId)).get(0);
 
     basket.addItem(displayItemId, displayItem.getPrice(), quantity);
     basket.removeEmptyItems();
@@ -92,16 +92,16 @@ public class ShoppingApplicationService {
     if (!this.displayDomainService.existAll(displayItemIds)) {
       List<DisplayItem> deletedDisplayItems =
           this.displayRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds);
-      throw new DisplayItemNotFoundException(deletedDisplayItems.stream().map(DisplayItem::getId)
-          .toArray(UUID[]::new));
+      throw new DisplayItemNotFoundException(
+          deletedDisplayItems.stream().map(DisplayItem::getId).toArray(UUID[]::new));
     }
 
     // 買い物かごに入っていない陳列品が指定されていないか確認
-    List<UUID> notExistsInBasketDisplayIds = quantities.keySet().stream()
-        .filter(displayItemId -> !basket.isInDisplayItem(displayItemId))
-        .collect(Collectors.toList());
+    List<UUID> notExistsInBasketDisplayIds =
+        quantities.keySet().stream().filter(displayItemId -> !basket.isInDisplayItem(displayItemId))
+            .collect(Collectors.toList());
     if (!notExistsInBasketDisplayIds.isEmpty()) {
-      throw new DisplayItemInBasketNotFoundException(notExistsInBasketDisplayIds, basket.getId());
+      throw new DisplayItemInBasketNotFoundException(basket.getId(), notExistsInBasketDisplayIds);
     }
 
     for (BasketItem item : basket.getItems()) {
@@ -134,10 +134,10 @@ public class ShoppingApplicationService {
       throw new DisplayItemNotFoundException(displayItemId);
     }
 
-    BasketItem basketItem = basket.getItems().stream()
-        .filter(item -> item.getDisplayItemId().equals(displayItemId)).findFirst()
-        .orElseThrow(() -> new DisplayItemInBasketNotFoundException(
-            Collections.singletonList(displayItemId), basket.getId()));
+    BasketItem basketItem =
+        basket.getItems().stream().filter(item -> item.getDisplayItemId().equals(displayItemId))
+            .findFirst().orElseThrow(() -> new DisplayItemInBasketNotFoundException(basket.getId(),
+                Collections.singletonList(displayItemId)));
 
     basketItem.setQuantity(0);
     basket.removeEmptyItems();
@@ -155,8 +155,8 @@ public class ShoppingApplicationService {
         new Object[] {buyerId}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
-    List<UUID> displayItemIds = basket.getItems().stream().map(BasketItem::getDisplayItemId)
-        .collect(Collectors.toList());
+    List<UUID> displayItemIds =
+        basket.getItems().stream().map(BasketItem::getDisplayItemId).collect(Collectors.toList());
     List<DisplayItem> displayItems = new ArrayList<>();
     if (!displayItemIds.isEmpty()) {
       displayItems = this.displayRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds);
@@ -174,8 +174,7 @@ public class ShoppingApplicationService {
    * @return 作成した注文情報。
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
    */
-  public Order checkout(UUID buyerId, ShipTo shipToAddress)
-      throws EmptyBasketOnCheckoutException {
+  public Order checkout(UUID buyerId, ShipTo shipToAddress) throws EmptyBasketOnCheckoutException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
         new Object[] {buyerId, shipToAddress}, Locale.getDefault()));
 
@@ -184,8 +183,8 @@ public class ShoppingApplicationService {
       throw new EmptyBasketOnCheckoutException(null);
     }
 
-    List<UUID> displayItemIds = basket.getItems().stream().map(BasketItem::getDisplayItemId)
-        .collect(Collectors.toList());
+    List<UUID> displayItemIds =
+        basket.getItems().stream().map(BasketItem::getDisplayItemId).collect(Collectors.toList());
     List<DisplayItem> displayItems = this.displayRepository.findByDisplayItemIdIn(displayItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, displayItems))
@@ -236,8 +235,8 @@ public class ShoppingApplicationService {
             () -> new SystemException(null, CommonExceptionIdConstants.E_BUSINESS, null, null));
     DisplayItemOrdered itemOrdered = new DisplayItemOrdered(displayItem.getId(),
         displayItem.getName(), displayItem.getProductCode());
-    OrderItem orderItem = new OrderItem(itemOrdered, basketItem.getUnitPrice(),
-        basketItem.getQuantity());
+    OrderItem orderItem =
+        new OrderItem(itemOrdered, basketItem.getUnitPrice(), basketItem.getQuantity());
     List<OrderItemAsset> orderItemAssets = displayItem.getAssets().stream()
         .map(asset -> new OrderItemAsset(asset.getAssetCode(), orderItem.getId()))
         .collect(Collectors.toList());

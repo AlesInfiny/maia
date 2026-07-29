@@ -17,12 +17,12 @@ export async function fetchCategoriesAndBrands() {
  * 指定したカテゴリとブランドに基づいて陳列品一覧を取得します。
  * ストアの状態が該当する陳列品一覧に更新されます。
  * @param categoryId - 陳列品を取得するカテゴリ ID
- * @param brandsId - 絞り込み対象のブランド ID
+ * @param brandId - 絞り込み対象のブランド ID
  * @returns Promise<void>
  * @example
  * await fetchItems('category-id', 'brand-id')
  */
-export async function fetchItems(categoryId?: string, brandsId?: string) {
+export async function fetchItems(categoryId?: string, brandId?: string) {
   const displayStore = useDisplayStore()
-  await displayStore.fetchItems(categoryId, brandsId)
+  await displayStore.fetchItems(categoryId, brandId)
 }

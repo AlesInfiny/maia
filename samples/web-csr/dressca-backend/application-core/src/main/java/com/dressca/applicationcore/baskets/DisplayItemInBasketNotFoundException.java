@@ -12,20 +12,20 @@ import java.util.UUID;
 public class DisplayItemInBasketNotFoundException extends LogicException {
 
   /**
-   * 存在しなかった商品の陳列品 ID のリストと買い物かご ID を指定して、
+   * 買い物かご ID と存在しなかった陳列品の陳列品 ID のリストを指定して、
    * {@link DisplayItemInBasketNotFoundException} クラスの新しいインスタンスを初期化します。
    *
-   * @param displayItemIds 陳列品 ID のリスト。
    * @param basketId 買い物かご ID 。
+   * @param displayItemIds 陳列品 ID のリスト。
    */
-  public DisplayItemInBasketNotFoundException(List<UUID> displayItemIds, UUID basketId) {
+  public DisplayItemInBasketNotFoundException(UUID basketId, List<UUID> displayItemIds) {
     super(null, ExceptionIdConstants.E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET,
-        new String[] {convertDisplayItemIds(displayItemIds), String.valueOf(basketId)},
-        new String[] {convertDisplayItemIds(displayItemIds), String.valueOf(basketId)});
+        new String[] {String.valueOf(basketId), convertDisplayItemIds(displayItemIds)},
+        new String[] {String.valueOf(basketId), convertDisplayItemIds(displayItemIds)});
   }
 
   /**
-   * 陳列品 ID を文字列に変換します。
+   * 陳列品 ID のリストを文字列に変換します。
    *
    * @param displayItemIds 陳列品 ID のリスト。
    * @return 文字列に変換された陳列品 ID のリスト。
