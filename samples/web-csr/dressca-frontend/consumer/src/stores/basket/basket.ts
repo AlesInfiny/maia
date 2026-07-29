@@ -62,7 +62,7 @@ export const useBasketStore = defineStore('basket', {
     /**
      * サーバーから最新の買い物かご情報を取得します。
      * API レスポンスの内容を `basket` に格納し、
-    * 同時に削除済みの陳列品 ID (`deletedItemIds`) を更新します。
+     * 同時に削除済みの陳列品 ID (`deletedItemIds`) を更新します。
      * @returns 非同期処理の完了を表す Promise 。
      */
     async fetch() {
@@ -105,7 +105,7 @@ export const useBasketStore = defineStore('basket', {
     /**
      * 削除済み商品の ID 一覧を取得します。
      * @param state 状態。
-    * @returns 削除された陳列品 ID の配列 。
+     * @returns 削除された陳列品 ID の配列 。
      */
     getDeletedItemIds(state): Array<string> {
       return state.deletedItemIds

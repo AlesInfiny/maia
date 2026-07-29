@@ -45,7 +45,7 @@ export const useDisplayStore = defineStore('display', {
       this.brands.unshift({ id: '', name: 'すべて' })
     },
     /**
-    * 陳列品一覧を取得します。
+     * 陳列品一覧を取得します。
      * @param categoryId カテゴリID 。
      * @param brandId ブランドID 。
      * @param page ページ番号（任意）。
@@ -92,9 +92,9 @@ export const useDisplayStore = defineStore('display', {
      * @param state 状態。
      * @returns ブランド名。存在しない ID を指定した場合は undefined 。
      * @example
-    * const displayStore = useDisplayStore()
-    * const { getBrandName } = storeToRefs(displayStore)
-    * const brandName = getBrandName(item.displayBrandId)
+     * const displayStore = useDisplayStore()
+     * const { getBrandName } = storeToRefs(displayStore)
+     * const brandName = getBrandName(item.displayBrandId)
      */
     getBrandName: (state) => {
       return (id: string) => state.brands.find((brand) => brand.id === id)?.name
