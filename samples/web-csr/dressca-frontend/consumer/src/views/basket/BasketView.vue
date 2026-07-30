@@ -32,8 +32,8 @@ const isEmpty = () => {
   return getBasket.value.basketItems?.length === 0
 }
 
-const goDisplay = () => {
-  router.push({ name: 'display' })
+const goDisplayItem = () => {
+  router.push({ name: 'display-item' })
 }
 
 const update = async (displayItemId: string, newQuantity: number) => {
@@ -212,7 +212,7 @@ onUnmounted(() => basketStore.deleteAddedItemId())
         <button
           class="mt-4 ml-4 w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
-          @click="goDisplay()"
+          @click="goDisplayItem()"
         >
           買い物を続ける
         </button>

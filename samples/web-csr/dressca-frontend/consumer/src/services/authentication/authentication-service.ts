@@ -35,7 +35,7 @@ export function authenticationService() {
    * 以下の順序で処理を行います:
    * 1. 処理中の API リクエストを中断
    * 2. 認証状態を false に変更し、セッションストレージを削除
-   * 3. 各ストア（basket, display）の状態をリセット
+   * 3. 各ストア（basket, displayItem）の状態をリセット
    * 4. 通知ストアの状態をリセット（最後に実行）
    */
   const signOut = () => {
