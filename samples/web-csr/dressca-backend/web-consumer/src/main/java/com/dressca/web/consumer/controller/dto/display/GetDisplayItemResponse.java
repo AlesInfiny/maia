@@ -28,7 +28,7 @@ public class GetDisplayItemResponse {
   @NotNull
   private BigDecimal price;
   @NotNull
-  private UUID displayCategoryId;
+  private UUID displayItemCategoryId;
   @NotNull
-  private UUID displayBrandId;
+  private UUID displayItemBrandId;
 }

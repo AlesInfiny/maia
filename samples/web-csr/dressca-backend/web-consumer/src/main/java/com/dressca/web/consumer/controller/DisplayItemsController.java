@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.DisplayApplicationService;
-import com.dressca.applicationcore.display.DisplayItem;
+import com.dressca.applicationcore.applicationservice.DisplayItemApplicationService;
+import com.dressca.applicationcore.displayitem.DisplayItem;
 import com.dressca.web.consumer.controller.dto.display.GetDisplayItemResponse;
 import com.dressca.web.consumer.controller.dto.display.PagedListOfGetDisplayItemResponse;
 import com.dressca.web.consumer.mapper.DisplayItemMapper;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class DisplayItemsController {
 
-  private final DisplayApplicationService service;
+  private final DisplayItemApplicationService service;
 
   /**
    * 陳列品を検索して返します。

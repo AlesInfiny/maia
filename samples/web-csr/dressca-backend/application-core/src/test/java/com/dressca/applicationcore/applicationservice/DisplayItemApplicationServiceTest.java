@@ -155,8 +155,8 @@ public class DisplayItemApplicationServiceTest {
   }
 
   private DisplayItem createDisplayItem(UUID id) {
-    UUID defaultDisplayBrandId = UUID.randomUUID();
-    UUID defaultDisplayCategoryId = UUID.randomUUID();
+    UUID defaultDisplayItemBrandId = UUID.randomUUID();
+    UUID defaultDisplayItemCategoryId = UUID.randomUUID();
     String defaultDescription = "Description.";
     String defaultName = "Name";
     BigDecimal defaultPrice = BigDecimal.valueOf(100_000_000L);
@@ -164,6 +164,6 @@ public class DisplayItemApplicationServiceTest {
     boolean defaultIsDeleted = false;
 
     return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
-        defaultDisplayCategoryId, defaultDisplayBrandId, defaultIsDeleted);
+        defaultDisplayItemCategoryId, defaultDisplayItemBrandId, defaultIsDeleted);
   }
 }

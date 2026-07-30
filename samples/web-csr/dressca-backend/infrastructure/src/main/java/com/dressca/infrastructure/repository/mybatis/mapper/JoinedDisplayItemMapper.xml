@@ -22,19 +22,19 @@
       )
   </sql>
 
-  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.applicationcore.display.DisplayItem">
+  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.applicationcore.displayitem.DisplayItem">
     <id property="id" column="DISPLAY_ITEM_ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
     <result property="price" column="PRICE"/>
     <result property="productCode" column="PRODUCT_CODE"/>
-    <result property="displayCategoryId" column="CATALOG_CATEGORY_ID"/>
-    <result property="displayBrandId" column="CATALOG_BRAND_ID"/>
+    <result property="displayItemCategoryId" column="CATALOG_CATEGORY_ID"/>
+    <result property="displayItemBrandId" column="CATALOG_BRAND_ID"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.applicationcore.display.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.applicationcore.displayitem.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
   </resultMap>
 
-  <resultMap id="displayAssetsResultMap" type="com.dressca.applicationcore.display.DisplayItemAsset">
+  <resultMap id="displayAssetsResultMap" type="com.dressca.applicationcore.displayitem.DisplayItemAsset">
     <result property="displayItemId" column="DISPLAY_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

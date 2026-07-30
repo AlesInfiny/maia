@@ -7,12 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 陳列カテゴリの情報を取得する際に用いる dto クラスです。
+ * 陳列品カテゴリの情報を取得する際に用いる dto クラスです。
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetDisplayCategoriesResponse {
+public class GetDisplayItemCategoriesResponse {
   @NotNull
   private UUID id;
   @NotNull

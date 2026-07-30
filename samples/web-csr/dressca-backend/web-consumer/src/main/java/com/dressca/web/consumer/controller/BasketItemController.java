@@ -5,8 +5,8 @@ import com.dressca.applicationcore.applicationservice.ShoppingApplicationService
 import com.dressca.applicationcore.baskets.Basket;
 import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.DisplayItemInBasketNotFoundException;
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayItemNotFoundException;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
@@ -142,8 +142,7 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごに商品を追加します。",
-      description = "買い物かごに商品を追加します。"
-          + "この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。"
+      description = "買い物かごに商品を追加します。" + "この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。"
           + "また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。"
           + "すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。"
           + "買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
@@ -185,10 +184,8 @@ public class BasketItemController {
    * @return なし。
    */
   @Operation(summary = "買い物かごから指定した陳列品 ID の商品を削除します。",
-      description = "買い物かごから指定した陳列品 ID の商品を削除します。"
-          + "displayItemId には買い物かご内に存在する陳列品 ID を指定してください。"
-          + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。"
-          + "買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。")
+      description = "買い物かごから指定した陳列品 ID の商品を削除します。" + "displayItemId には買い物かご内に存在する陳列品 ID を指定してください。"
+          + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。" + "買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",

@@ -13,12 +13,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
- * 陳列カテゴリのリポジトリです。
- * 陳列カテゴリ専用のテーブルは持たず、カタログカテゴリ（catalog_categories）を源泉として陳列カテゴリを解決します。
+ * 陳列品カテゴリのリポジトリです。
+ * 陳列品カテゴリ専用のテーブルは持たず、カタログカテゴリ（catalog_categories）を源泉として陳列品カテゴリを解決します。
  */
 @Repository
 @RequiredArgsConstructor
-public class MybatisDisplayCategoryRepository implements DisplayItemCategoryRepository {
+public class MybatisDisplayItemCategoryRepository implements DisplayItemCategoryRepository {
 
   private final CatalogCategoryMapper catalogCategoryMapper;
 

@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayItemAsset;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemAsset;
 import com.dressca.web.consumer.controller.dto.display.GetDisplayItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,17 +22,11 @@ public class DisplayItemMapper {
       return null;
     }
 
-    List<String> assetCodes = item.getAssets().stream().map(DisplayItemAsset::getAssetCode)
-        .collect(Collectors.toList());
+    List<String> assetCodes =
+        item.getAssets().stream().map(DisplayItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new GetDisplayItemResponse(
-        item.getId(),
-        item.getName(),
-        item.getProductCode(),
-        assetCodes,
-        item.getDescription(),
-        item.getPrice(),
-        item.getDisplayCategoryId(),
-        item.getDisplayBrandId());
+    return new GetDisplayItemResponse(item.getId(), item.getName(), item.getProductCode(),
+        assetCodes, item.getDescription(), item.getPrice(), item.getDisplayItemCategoryId(),
+        item.getDisplayItemBrandId());
   }
 }

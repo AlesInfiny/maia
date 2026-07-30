@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayItemAsset;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemAsset;
 import com.dressca.web.consumer.controller.dto.display.DisplayItemSummaryApiModel;
 import java.util.List;
 import java.util.stream.Collectors;

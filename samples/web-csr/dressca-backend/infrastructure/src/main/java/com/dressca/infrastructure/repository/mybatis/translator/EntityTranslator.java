@@ -163,17 +163,17 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link DisplayCategory} に変換します。
-   * 陳列カテゴリ専用テーブルを持たないため、カタログカテゴリを源泉に陳列カテゴリを構築します。
+   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link DisplayItemCategory} に変換します。
+   * 陳列品カテゴリ専用テーブルを持たないため、カタログカテゴリを源泉に陳列品カテゴリを構築します。
    *
    * @param entity {@link CatalogCategoryEntity} オブジェクト。
-   * @return {@link DisplayCategory} オブジェクト。
+   * @return {@link DisplayItemCategory} オブジェクト。
    */
   public static DisplayItemCategory displayItemCategoryEntityTranslate(
       CatalogCategoryEntity entity) {
-    DisplayItemCategory displayCategory = new DisplayItemCategory();
-    BeanUtils.copyProperties(entity, displayCategory);
-    return displayCategory;
+    DisplayItemCategory displayItemCategory = new DisplayItemCategory();
+    BeanUtils.copyProperties(entity, displayItemCategory);
+    return displayItemCategory;
   }
 
   /**

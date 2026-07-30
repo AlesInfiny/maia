@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
- * 陳列ブランドのリポジトリです。
- * 陳列ブランド専用のテーブルは持たず、カタログブランド（catalog_brands）を源泉として陳列ブランドを解決します。
+ * 陳列品ブランドのリポジトリです。
+ * 陳列品ブランド専用のテーブルは持たず、カタログブランド（catalog_brands）を源泉として陳列品ブランドを解決します。
  */
 @Repository
 @RequiredArgsConstructor

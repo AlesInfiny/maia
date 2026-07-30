@@ -41,10 +41,10 @@ public class MessageIdConstants {
   public static final String D_DISPLAY_COUNT_DISPLAY_ITEMS =
       "displayApplicationServiceCountDisplayItems";
 
-  /** フィルタリング用の陳列ブランドリストを取得します。 */
+  /** フィルタリング用の陳列品ブランドリストを取得します。 */
   public static final String D_DISPLAY_GET_BRANDS = "displayApplicationServiceGetBrands";
 
-  /** フィルタリング用の陳列カテゴリリストを取得します。 */
+  /** フィルタリング用の陳列品カテゴリリストを取得します。 */
   public static final String D_DISPLAY_GET_CATEGORIES = "displayApplicationServiceGetCategories";
 
   /** 条件（ブランドID: {0}, カテゴリID: {1}, ページ: {2}, ページサイズ: {3}）に一致する陳列品情報を取得します。 */

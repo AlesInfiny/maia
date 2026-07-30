@@ -13,8 +13,8 @@
   ],
   "tags": [
     {
-      "description": "陳列カテゴリの情報にアクセスする API です。",
-      "name": "DisplayCategories"
+      "description": "陳列品ブランドの情報にアクセスする API です。",
+      "name": "DisplayItemBrands"
     },
     {
       "description": "Monitor and interact",
@@ -25,12 +25,12 @@
       "name": "Actuator"
     },
     {
-      "description": "注文の情報にアクセスする API です。",
-      "name": "Orders"
+      "description": "陳列品カテゴリの情報にアクセスする API です。",
+      "name": "DisplayItemCategories"
     },
     {
-      "description": "陳列ブランドの情報にアクセスする API です。",
-      "name": "DisplayBrands"
+      "description": "注文の情報にアクセスする API です。",
+      "name": "Orders"
     },
     {
       "description": "陳列品の情報にアクセスする API です。",
@@ -286,10 +286,10 @@
         ]
       }
     },
-    "/api/display-brands": {
+    "/api/display-item-brands": {
       "get": {
-        "description": "陳列ブランドの一覧を取得します。",
-        "operationId": "getDisplayBrands",
+        "description": "陳列品ブランドの一覧を取得します。",
+        "operationId": "getDisplayItemBrands",
         "responses": {
           "200": {
             "content": {
@@ -297,7 +297,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetDisplayBrandsResponse"
+                    "$ref": "#/components/schemas/GetDisplayItemBrandsResponse"
                   }
                 }
               }
@@ -305,16 +305,16 @@
             "description": "成功。"
           }
         },
-        "summary": "陳列ブランドの一覧を取得します。",
+        "summary": "陳列品ブランドの一覧を取得します。",
         "tags": [
-          "DisplayBrands"
+          "DisplayItemBrands"
         ]
       }
     },
-    "/api/display-categories": {
+    "/api/display-item-categories": {
       "get": {
-        "description": "陳列カテゴリの一覧を取得します。",
-        "operationId": "getDisplayCategories",
+        "description": "陳列品カテゴリの一覧を取得します。",
+        "operationId": "getDisplayItemCategories",
         "responses": {
           "200": {
             "content": {
@@ -322,7 +322,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetDisplayCategoriesResponse"
+                    "$ref": "#/components/schemas/GetDisplayItemCategoriesResponse"
                   }
                 }
               }
@@ -330,9 +330,9 @@
             "description": "成功。"
           }
         },
-        "summary": "陳列カテゴリの一覧を取得します。",
+        "summary": "陳列品カテゴリの一覧を取得します。",
         "tags": [
-          "DisplayCategories"
+          "DisplayItemCategories"
         ]
       }
     },
@@ -640,7 +640,7 @@
           "buyerId"
         ]
       },
-      "GetDisplayBrandsResponse": {
+      "GetDisplayItemBrandsResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -656,7 +656,7 @@
           "name"
         ]
       },
-      "GetDisplayCategoriesResponse": {
+      "GetDisplayItemCategoriesResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -684,11 +684,11 @@
           "description": {
             "type": "string"
           },
-          "displayBrandId": {
+          "displayItemBrandId": {
             "type": "string",
             "format": "uuid"
           },
-          "displayCategoryId": {
+          "displayItemCategoryId": {
             "type": "string",
             "format": "uuid"
           },
@@ -708,8 +708,8 @@
         },
         "required": [
           "description",
-          "displayBrandId",
-          "displayCategoryId",
+          "displayItemBrandId",
+          "displayItemCategoryId",
           "id",
           "name",
           "price",

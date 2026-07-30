@@ -24,8 +24,8 @@ public class DisplayItem {
   private BigDecimal price;
   @NonNull
   private String productCode;
-  private UUID displayCategoryId;
-  private UUID displayBrandId;
+  private UUID displayItemCategoryId;
+  private UUID displayItemBrandId;
   private boolean isDeleted;
 
   /**
@@ -36,20 +36,20 @@ public class DisplayItem {
    * @param description 商品説明。
    * @param price 単価。
    * @param productCode プロダクトコード。
-   * @param displayCategoryId 陳列カテゴリ ID 。
-   * @param displayBrandId 陳列ブランド ID 。
+   * @param displayItemCategoryId 陳列品カテゴリ ID 。
+   * @param displayItemBrandId 陳列品ブランド ID 。
    * @param isDeleted 削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
   public DisplayItem(UUID id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, UUID displayCategoryId,
-      UUID displayBrandId, boolean isDeleted) {
+      @NonNull BigDecimal price, @NonNull String productCode, UUID displayItemCategoryId,
+      UUID displayItemBrandId, boolean isDeleted) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;
     this.productCode = productCode;
-    this.displayCategoryId = displayCategoryId;
-    this.displayBrandId = displayBrandId;
+    this.displayItemCategoryId = displayItemCategoryId;
+    this.displayItemBrandId = displayItemBrandId;
     this.isDeleted = isDeleted;
   }
 }
