@@ -32,8 +32,8 @@ public class DisplayItem {
    * {@link DisplayItem} クラスのインスタンスを初期化します。
    *
    * @param id ID 。
-   * @param name 商品名。
-   * @param description 商品説明。
+   * @param name 陳列品の名前。
+   * @param description 陳列品の説明。
    * @param price 単価。
    * @param productCode プロダクトコード。
    * @param displayItemCategoryId 陳列品カテゴリ ID 。
