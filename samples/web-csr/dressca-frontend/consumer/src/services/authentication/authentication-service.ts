@@ -50,8 +50,8 @@ export function authenticationService() {
     const basketStore = useBasketStore()
     basketStore.$reset()
 
-    const displayStore = useDisplayItemStore()
-    displayStore.$reset()
+    const displayItemStore = useDisplayItemStore()
+    displayItemStore.$reset()
 
     // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
     const notificationStore = useNotificationStore()

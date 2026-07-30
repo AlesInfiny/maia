@@ -16,10 +16,10 @@ import { HttpError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const specialContentStore = useSpecialContentStore()
-const displayStore = useDisplayItemStore()
+const displayItemStore = useDisplayItemStore()
 
 const { getSpecialContents } = storeToRefs(specialContentStore)
-const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(displayStore)
+const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(displayItemStore)
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const { t } = i18n.global

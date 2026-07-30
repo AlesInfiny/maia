@@ -8,9 +8,9 @@ import { useDisplayItemStore } from '@/stores/display-item/display-item'
  * await fetchCategoriesAndBrands()
  */
 export async function fetchCategoriesAndBrands() {
-  const displayStore = useDisplayItemStore()
-  await displayStore.fetchCategories()
-  await displayStore.fetchBrands()
+  const displayItemStore = useDisplayItemStore()
+  await displayItemStore.fetchCategories()
+  await displayItemStore.fetchBrands()
 }
 
 /**
@@ -23,6 +23,6 @@ export async function fetchCategoriesAndBrands() {
  * await fetchItems('category-id', 'brand-id')
  */
 export async function fetchItems(categoryId?: string, brandId?: string) {
-  const displayStore = useDisplayItemStore()
-  await displayStore.fetchItems(categoryId, brandId)
+  const displayItemStore = useDisplayItemStore()
+  await displayItemStore.fetchItems(categoryId, brandId)
 }
