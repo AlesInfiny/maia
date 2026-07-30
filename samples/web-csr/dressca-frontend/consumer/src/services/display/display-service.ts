@@ -1,4 +1,4 @@
-import { useDisplayStore } from '@/stores/display/display'
+import { useDisplayStore } from '@/stores/displayitem/display'
 
 /**
  * 陳列ストアからカテゴリとブランド情報を取得します。

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { authenticationRoutes } from '@/router/authentication/authentication'
-import { displayRoutes } from '@/router/display/display'
+import { displayRoutes } from '@/router/displayitem/displayitem'
 import { basketRoutes } from '@/router/basket/basket'
 import { orderingRoutes } from '@/router/ordering/ordering'
 import { errorRoutes } from '@/router/error/error'

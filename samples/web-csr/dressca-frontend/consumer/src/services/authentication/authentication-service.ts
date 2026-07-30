@@ -1,6 +1,6 @@
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
-import { useDisplayStore } from '@/stores/display/display'
+import { useDisplayStore } from '@/stores/displayitem/display'
 import { useNotificationStore } from '@/stores/notification/notification'
 import { abortAllRequests } from '@/api-client/request-abort-manager'
 
