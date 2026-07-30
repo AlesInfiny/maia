@@ -29,11 +29,10 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId,
-      UUID categoryId, int page, int pageSize) {
+  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId, UUID categoryId,
+      int page, int pageSize) {
     int offset = pageSize * (page - 1);
-    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize,
-        offset);
+    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize, offset);
   }
 
   @Override

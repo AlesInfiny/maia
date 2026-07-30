@@ -1,6 +1,6 @@
 package com.dressca.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.applicationcore.display.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,8 +24,7 @@ public interface JoinedDisplayItemMapper {
    * @return 陳列品一覧。
    */
   List<DisplayItem> findByBrandIdAndCategoryId(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId, @Param("limit") int limit,
-      @Param("offset") int offset);
+      @Param("categoryId") UUID categoryId, @Param("limit") int limit, @Param("offset") int offset);
 
   /**
    * ブランド ID とカテゴリ ID を条件に件数を取得します。

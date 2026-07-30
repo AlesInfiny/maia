@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemRepository;
 import com.dressca.infrastructure.repository.mybatis.mapper.JoinedDisplayItemMapper;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @RequiredArgsConstructor
-public class MybatisDisplayRepository implements DisplayRepository {
+public class MybatisDisplayItemRepository implements DisplayItemRepository {
 
   private final JoinedDisplayItemMapper mapper;
 

@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import com.dressca.applicationcore.display.DisplayCategory;
-import com.dressca.applicationcore.display.DisplayCategoryRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemCategory;
+import com.dressca.applicationcore.displayitem.DisplayItemCategoryRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;
@@ -18,20 +18,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @RequiredArgsConstructor
-public class MybatisDisplayCategoryRepository implements DisplayCategoryRepository {
+public class MybatisDisplayCategoryRepository implements DisplayItemCategoryRepository {
 
   private final CatalogCategoryMapper catalogCategoryMapper;
 
   @Override
-  public List<DisplayCategory> getAll() {
+  public List<DisplayItemCategory> getAll() {
     CatalogCategoryEntityExample example = new CatalogCategoryEntityExample();
     return catalogCategoryMapper.selectByExample(example).stream()
-        .map(EntityTranslator::displayCategoryEntityTranslate).collect(Collectors.toList());
+        .map(EntityTranslator::displayItemCategoryEntityTranslate).collect(Collectors.toList());
   }
 
   @Override
-  public DisplayCategory findById(UUID id) {
+  public DisplayItemCategory findById(UUID id) {
     CatalogCategoryEntity entity = catalogCategoryMapper.selectByPrimaryKey(id);
-    return entity == null ? null : EntityTranslator.displayCategoryEntityTranslate(entity);
+    return entity == null ? null : EntityTranslator.displayItemCategoryEntityTranslate(entity);
   }
 }

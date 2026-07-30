@@ -1,7 +1,7 @@
 package com.dressca.infrastructure.repository.mybatis;
 
-import com.dressca.applicationcore.display.DisplayBrand;
-import com.dressca.applicationcore.display.DisplayBrandRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemBrand;
+import com.dressca.applicationcore.displayitem.DisplayItemBrandRepository;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntityExample;
 import com.dressca.infrastructure.repository.mybatis.generated.mapper.CatalogBrandMapper;
@@ -18,20 +18,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @RequiredArgsConstructor
-public class MybatisDisplayBrandRepository implements DisplayBrandRepository {
+public class MybatisDisplayItemBrandRepository implements DisplayItemBrandRepository {
 
   private final CatalogBrandMapper catalogBrandMapper;
 
   @Override
-  public List<DisplayBrand> getAll() {
+  public List<DisplayItemBrand> getAll() {
     CatalogBrandEntityExample example = new CatalogBrandEntityExample();
     return catalogBrandMapper.selectByExample(example).stream()
-        .map(EntityTranslator::displayBrandEntityTranslate).collect(Collectors.toList());
+        .map(EntityTranslator::displayItemBrandEntityTranslate).collect(Collectors.toList());
   }
 
   @Override
-  public DisplayBrand findById(UUID id) {
+  public DisplayItemBrand findById(UUID id) {
     CatalogBrandEntity entity = catalogBrandMapper.selectByPrimaryKey(id);
-    return entity == null ? null : EntityTranslator.displayBrandEntityTranslate(entity);
+    return entity == null ? null : EntityTranslator.displayItemBrandEntityTranslate(entity);
   }
 }

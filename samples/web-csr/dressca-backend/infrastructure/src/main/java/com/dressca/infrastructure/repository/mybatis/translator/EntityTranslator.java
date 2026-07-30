@@ -7,8 +7,8 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.applicationcore.display.DisplayBrand;
-import com.dressca.applicationcore.display.DisplayCategory;
+import com.dressca.applicationcore.displayitem.DisplayItemBrand;
+import com.dressca.applicationcore.displayitem.DisplayItemCategory;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity;
@@ -150,16 +150,16 @@ public class EntityTranslator {
   }
 
   /**
-   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ： {@link DisplayBrand} に変換します。
-   * 陳列ブランド専用テーブルを持たないため、カタログブランドを源泉に陳列ブランドを構築します。
+   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ： {@link DisplayItemBrand} に変換します。
+   * 陳列アイテムブランド専用テーブルを持たないため、カタログブランドを源泉に陳列アイテムブランドを構築します。
    *
    * @param entity {@link CatalogBrandEntity} オブジェクト。
-   * @return {@link DisplayBrand} オブジェクト。
+   * @return {@link DisplayItemBrand} オブジェクト。
    */
-  public static DisplayBrand displayBrandEntityTranslate(CatalogBrandEntity entity) {
-    DisplayBrand displayBrand = new DisplayBrand();
-    BeanUtils.copyProperties(entity, displayBrand);
-    return displayBrand;
+  public static DisplayItemBrand displayItemBrandEntityTranslate(CatalogBrandEntity entity) {
+    DisplayItemBrand displayItemBrand = new DisplayItemBrand();
+    BeanUtils.copyProperties(entity, displayItemBrand);
+    return displayItemBrand;
   }
 
   /**
@@ -169,8 +169,9 @@ public class EntityTranslator {
    * @param entity {@link CatalogCategoryEntity} オブジェクト。
    * @return {@link DisplayCategory} オブジェクト。
    */
-  public static DisplayCategory displayCategoryEntityTranslate(CatalogCategoryEntity entity) {
-    DisplayCategory displayCategory = new DisplayCategory();
+  public static DisplayItemCategory displayItemCategoryEntityTranslate(
+      CatalogCategoryEntity entity) {
+    DisplayItemCategory displayCategory = new DisplayItemCategory();
     BeanUtils.copyProperties(entity, displayCategory);
     return displayCategory;
   }
