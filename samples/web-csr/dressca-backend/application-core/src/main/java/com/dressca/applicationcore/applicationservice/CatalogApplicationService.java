@@ -65,7 +65,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者権限を持つユーザーが、削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
+   * 管理者が削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
    * 
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
@@ -89,7 +89,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者権限を持つユーザーが、削除済みアイテムも含むリポジトリから、条件に一致するカタログアイテムを取得します。
+   * 管理者が条件に一致するカタログ情報を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
@@ -112,7 +112,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者権限を持つユーザーが、カタログにアイテムを追加します。
+   * カタログにアイテムを追加します。
    * 
    * @param name 商品名。
    * @param description 説明。
@@ -151,7 +151,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者権限を持つユーザーが、カタログからアイテムを削除します。
+   * カタログからアイテムを削除します。
    * 
    * @param id 削除対象のカタログアイテムの ID 。
    * @param rowVersion 行バージョン。
@@ -181,7 +181,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者権限を持つユーザーが、カタログアイテムの情報を更新します。
+   * カタログアイテムを更新します。
    * 
    * @param id 更新対象のカタログアイテム ID 。
    * @param name 商品名。
@@ -234,7 +234,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 削除済みアイテムも含むリポジトリから、条件に一致するカタログアイテムの件数を取得します。
+   * 管理者が条件に一致するカテゴリの件数を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
