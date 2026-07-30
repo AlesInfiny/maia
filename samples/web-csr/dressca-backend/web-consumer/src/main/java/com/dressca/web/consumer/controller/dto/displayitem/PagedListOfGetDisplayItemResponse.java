@@ -1,4 +1,4 @@
-package com.dressca.web.consumer.controller.dto.display;
+package com.dressca.web.consumer.controller.dto.displayitem;
 
 import java.util.List;
 import lombok.Data;

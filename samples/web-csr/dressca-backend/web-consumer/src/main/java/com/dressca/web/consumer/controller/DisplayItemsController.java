@@ -2,8 +2,8 @@ package com.dressca.web.consumer.controller;
 
 import com.dressca.applicationcore.applicationservice.DisplayItemApplicationService;
 import com.dressca.applicationcore.displayitem.DisplayItem;
-import com.dressca.web.consumer.controller.dto.display.GetDisplayItemResponse;
-import com.dressca.web.consumer.controller.dto.display.PagedListOfGetDisplayItemResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.PagedListOfGetDisplayItemResponse;
 import com.dressca.web.consumer.mapper.DisplayItemMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

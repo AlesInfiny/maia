@@ -3,7 +3,7 @@ package com.dressca.web.consumer.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.applicationservice.DisplayItemApplicationService;
-import com.dressca.web.consumer.controller.dto.display.GetDisplayItemCategoriesResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemCategoriesResponse;
 import com.dressca.web.consumer.mapper.DisplayItemCategoryMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -13,7 +13,7 @@ import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.baskets.PutBasketItemsRequest;
-import com.dressca.web.consumer.controller.dto.display.DisplayItemSummaryApiModel;
+import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.mapper.BasketMapper;
 import com.dressca.web.consumer.mapper.DisplayItemSummaryMapper;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;

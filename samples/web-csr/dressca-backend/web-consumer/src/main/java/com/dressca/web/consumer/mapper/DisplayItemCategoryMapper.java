@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
 import com.dressca.applicationcore.displayitem.DisplayItemCategory;
-import com.dressca.web.consumer.controller.dto.display.GetDisplayItemCategoriesResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemCategoriesResponse;
 
 /**
  * {@link DisplayItemCategory} と {@link GetDisplayItemCategoriesResponse} のマッパーです。

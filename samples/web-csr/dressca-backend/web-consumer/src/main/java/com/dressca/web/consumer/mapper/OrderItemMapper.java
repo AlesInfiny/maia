@@ -3,7 +3,7 @@ package com.dressca.web.consumer.mapper;
 import java.util.stream.Collectors;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.applicationcore.order.OrderItemAsset;
-import com.dressca.web.consumer.controller.dto.display.DisplayItemSummaryApiModel;
+import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.controller.dto.order.OrderItemApiModel;
 
 /**

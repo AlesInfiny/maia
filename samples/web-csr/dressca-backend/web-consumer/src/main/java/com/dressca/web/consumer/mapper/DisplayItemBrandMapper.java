@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
 import com.dressca.applicationcore.displayitem.DisplayItemBrand;
-import com.dressca.web.consumer.controller.dto.display.GetDisplayItemBrandsResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemBrandsResponse;
 
 /**
  * {@link DisplayItemBrand} と {@link GetDisplayItemBrandsResponse} のマッパーです。

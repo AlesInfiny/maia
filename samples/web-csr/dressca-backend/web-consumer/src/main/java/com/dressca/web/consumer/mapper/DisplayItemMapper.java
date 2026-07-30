@@ -2,7 +2,7 @@ package com.dressca.web.consumer.mapper;
 
 import com.dressca.applicationcore.displayitem.DisplayItem;
 import com.dressca.applicationcore.displayitem.DisplayItemAsset;
-import com.dressca.web.consumer.controller.dto.display.GetDisplayItemResponse;
+import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
