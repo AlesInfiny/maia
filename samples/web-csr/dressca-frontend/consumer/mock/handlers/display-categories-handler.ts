@@ -1,9 +1,9 @@
 import { HttpStatusCode } from 'axios'
 import { HttpResponse, http } from 'msw'
-import { displayCategories } from '../data/display-categories'
+import { displayItemCategories } from '../data/display-item-categories'
 
 export const displayCategoriesHandlers = [
   http.get('/api/display-categories', () => {
-    return HttpResponse.json(displayCategories, { status: HttpStatusCode.Ok })
+    return HttpResponse.json(displayItemCategories, { status: HttpStatusCode.Ok })
   }),
 ]
