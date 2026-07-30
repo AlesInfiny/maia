@@ -4,7 +4,7 @@ import type {
   GetDisplayItemBrandsResponse,
   PagedListOfGetDisplayItemResponse,
 } from '@/generated/api-client'
-import { displayCategoriesApi, displayBrandsApi, displayItemsApi } from '@/api-client'
+import { displayItemCategoriesApi, displayItemBrandsApi, displayItemsApi } from '@/api-client'
 
 /**
  * 陳列情報（カテゴリ・ブランド・アイテム）を管理するストアです。
@@ -32,7 +32,7 @@ export const useDisplayStore = defineStore('display', {
      * カテゴリ一覧を取得します。
      */
     async fetchCategories() {
-      const response = await displayCategoriesApi().getDisplayItemCategories()
+      const response = await displayItemCategoriesApi().getDisplayItemCategories()
       this.categories = response.data
       this.categories.unshift({ id: '', name: 'すべて' })
     },
@@ -40,7 +40,7 @@ export const useDisplayStore = defineStore('display', {
      * ブランド一覧を取得します。
      */
     async fetchBrands() {
-      const response = await displayBrandsApi().getDisplayItemBrands()
+      const response = await displayItemBrandsApi().getDisplayItemBrands()
       this.brands = response.data
       this.brands.unshift({ id: '', name: 'すべて' })
     },

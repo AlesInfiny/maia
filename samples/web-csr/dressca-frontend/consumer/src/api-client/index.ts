@@ -75,25 +75,25 @@ function basketItemsApi() {
 }
 
 /**
- * 陳列ブランド関連 API のクライアントを生成します。
+ * 陳列品ブランド関連 API のクライアントを生成します。
  * @returns DisplayItemBrandsApi インスタンス
  */
-function displayBrandsApi() {
-  const displayBrandsApi = new apiClient.DisplayItemBrandsApi(createConfig(), '', axiosInstance)
-  return displayBrandsApi
+function displayItemBrandsApi() {
+  const displayItemBrandsApi = new apiClient.DisplayItemBrandsApi(createConfig(), '', axiosInstance)
+  return displayItemBrandsApi
 }
 
 /**
- * 陳列カテゴリ関連 API のクライアントを生成します。
+ * 陳列品カテゴリ関連 API のクライアントを生成します。
  * @returns DisplayItemCategoriesApi インスタンス
  */
-function displayCategoriesApi() {
-  const displayCategoriesApi = new apiClient.DisplayItemCategoriesApi(
+function displayItemCategoriesApi() {
+  const displayItemCategoriesApi = new apiClient.DisplayItemCategoriesApi(
     createConfig(),
     '',
     axiosInstance,
   )
-  return displayCategoriesApi
+  return displayItemCategoriesApi
 }
 
 /**
@@ -117,8 +117,8 @@ function ordersApi() {
 export {
   assetsApi,
   basketItemsApi,
-  displayBrandsApi,
-  displayCategoriesApi,
+  displayItemBrandsApi,
+  displayItemCategoriesApi,
   displayItemsApi,
   ordersApi,
   axiosInstance,
