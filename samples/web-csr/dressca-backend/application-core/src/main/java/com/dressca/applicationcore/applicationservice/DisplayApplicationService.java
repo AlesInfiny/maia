@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 陳列品情報に関するビジネスユースケースを実現するサービスです。
- * 利用者（web-consumer）向けの参照系ユースケースのみを提供します。
+ * 陳列情報に関するビジネスユースケースを実現するサービスです。
  */
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class DisplayApplicationService {
   private final AbstractStructuredLogger apLog;
 
   /**
-   * 利用者が条件に一致する陳列品情報を取得します。
+   * 条件に一致する陳列品を取得します。
    *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
@@ -47,7 +46,7 @@ public class DisplayApplicationService {
   }
 
   /**
-   * 利用者が条件に一致する陳列品の件数を取得します。
+   * 条件に一致する陳列品の件数を取得します。
    *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
@@ -61,10 +60,10 @@ public class DisplayApplicationService {
   }
 
   /**
-   * 陳列品 ID のリストに一致する陳列品情報を取得します。買い物かご・注文との突合に利用します。
+   * 陳列品 ID のリストに一致する陳列品を取得します。
    *
    * @param displayItemIds 陳列品 ID のリスト。
-   * @return 条件に一致する陳列品情報のリスト。存在しない場合は空のリスト。
+   * @return 条件に一致する陳列品のリスト。存在しない場合は空のリスト。
    */
   public List<DisplayItem> getDisplayItemsByIds(List<UUID> displayItemIds) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_GET_DISPLAY_ITEMS_BY_IDS,
@@ -74,7 +73,7 @@ public class DisplayApplicationService {
   }
 
   /**
-   * フィルタリング用の陳列ブランドリストを取得します。
+   * フィルタリング用の陳列ブランドのリストを取得します。
    *
    * @return 陳列ブランドのリスト。
    */
@@ -86,7 +85,7 @@ public class DisplayApplicationService {
   }
 
   /**
-   * フィルタリング用の陳列カテゴリリストを取得します。
+   * フィルタリング用の陳列カテゴリのリストを取得します。
    *
    * @return 陳列カテゴリのリスト。
    */

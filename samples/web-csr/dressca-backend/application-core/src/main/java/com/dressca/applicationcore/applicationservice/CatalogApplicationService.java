@@ -65,7 +65,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 管理者が削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
+   * 管理者権限を持つユーザーが、削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
    * 
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
@@ -89,13 +89,13 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 条件に一致するカタログ情報を取得します。
+   * 管理者権限を持つユーザーが、削除済みアイテムも含むリポジトリから、条件に一致するカタログアイテムを取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @param page ページ。
    * @param pageSize ページサイズ。
-   * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
+   * @return 条件に一致するカタログアイテムのリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
   public List<CatalogItem> getCatalogItems(UUID brandId, UUID categoryId, int page, int pageSize)
@@ -112,7 +112,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * カタログにアイテムを追加します。
+   * 管理者権限を持つユーザーが、カタログにアイテムを追加します。
    * 
    * @param name 商品名。
    * @param description 説明。
@@ -151,7 +151,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * カタログからアイテムを削除します。
+   * 管理者権限を持つユーザーが、カタログからアイテムを削除します。
    * 
    * @param id 削除対象のカタログアイテムの ID 。
    * @param rowVersion 行バージョン。
@@ -181,7 +181,7 @@ public class CatalogApplicationService {
   }
 
   /**
-   * カタログアイテムを更新します。
+   * 管理者権限を持つユーザーが、カタログアイテムの情報を更新します。
    * 
    * @param id 更新対象のカタログアイテム ID 。
    * @param name 商品名。
@@ -234,11 +234,11 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 条件に一致するカテゴリの件数を取得します。
+   * 削除済みアイテムも含むリポジトリから、条件に一致するカタログアイテムの件数を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
-   * @return 条件に一致するカタログ情報の件数。
+   * @return 条件に一致するカタログアイテムの件数。
    */
   public int countCatalogItems(UUID brandId, UUID categoryId) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
