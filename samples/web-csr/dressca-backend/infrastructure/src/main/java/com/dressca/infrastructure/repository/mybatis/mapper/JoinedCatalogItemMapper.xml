@@ -54,11 +54,19 @@
 
   <select id="findByCategoryIdIn" resultType="com.dressca.applicationcore.catalog.CatalogItem" parameterType="List">
     <include refid="selectCatalogItems"/>
-    WHERE CATALOG_CATEGORY_ID IN 
-    <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
-      #{categoryId}
-    </foreach>
-    AND IS_DELETED = false
+    <choose>
+      <when test="categoryIds != null and categoryIds.size != 0">
+        WHERE CATALOG_CATEGORY_ID IN
+        <foreach item="categoryId" collection="categoryIds" open="(" separator="," close=")">
+          #{categoryId}
+        </foreach>
+        AND IS_DELETED = false
+      </when>
+      <otherwise>
+        <!-- categoryIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
   </select>
 
   <select id="findByBrandIdAndCategoryIdIncludingDeleted" resultMap="catalogItemsIncludeAssetResultMap">

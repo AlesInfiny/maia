@@ -72,23 +72,35 @@
 
   <select id="findByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectDisplayItemsIncludeAsset"/>
-    <if test="displayItemIds.size != 0">
-      WHERE DISPLAY_ITEMS.ID IN
-      <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
-        #{displayItemId}
-      </foreach>
-      AND CATALOG_ITEMS.IS_DELETED = false
-    </if>
+    <choose>
+      <when test="displayItemIds != null and displayItemIds.size != 0">
+        WHERE DISPLAY_ITEMS.ID IN
+        <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+          #{displayItemId}
+        </foreach>
+        AND CATALOG_ITEMS.IS_DELETED = false
+      </when>
+      <otherwise>
+        <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
   </select>
 
   <select id="findByDisplayItemIdInIncludingDeleted" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
     <include refid="selectDisplayItemsIncludeAsset"/>
-    <if test="displayItemIds.size != 0">
-      WHERE DISPLAY_ITEMS.ID IN
-      <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
-        #{displayItemId}
-      </foreach>
-    </if>
+    <choose>
+      <when test="displayItemIds != null and displayItemIds.size != 0">
+        WHERE DISPLAY_ITEMS.ID IN
+        <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+          #{displayItemId}
+        </foreach>
+      </when>
+      <otherwise>
+        <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
   </select>
 
   <select id="findDeletedItemsByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
