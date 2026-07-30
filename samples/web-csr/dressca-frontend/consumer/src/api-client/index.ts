@@ -76,19 +76,23 @@ function basketItemsApi() {
 
 /**
  * 陳列ブランド関連 API のクライアントを生成します。
- * @returns DisplayBrandsApi インスタンス
+ * @returns DisplayItemBrandsApi インスタンス
  */
 function displayBrandsApi() {
-  const displayBrandsApi = new apiClient.DisplayBrandsApi(createConfig(), '', axiosInstance)
+  const displayBrandsApi = new apiClient.DisplayItemBrandsApi(createConfig(), '', axiosInstance)
   return displayBrandsApi
 }
 
 /**
  * 陳列カテゴリ関連 API のクライアントを生成します。
- * @returns DisplayCategoriesApi インスタンス
+ * @returns DisplayItemCategoriesApi インスタンス
  */
 function displayCategoriesApi() {
-  const displayCategoriesApi = new apiClient.DisplayCategoriesApi(createConfig(), '', axiosInstance)
+  const displayCategoriesApi = new apiClient.DisplayItemCategoriesApi(
+    createConfig(),
+    '',
+    axiosInstance,
+  )
   return displayCategoriesApi
 }
 

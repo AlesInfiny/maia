@@ -135,7 +135,7 @@ watch([selectedCategory, selectedBrand], async () => {
               <img class="h-45" :src="getFirstAssetUrl(item.assetCodes)" :alt="item.name" />
               <div class="w-full">
                 <p class="text-md mb-2 w-full">
-                  {{ getBrandName(item.displayBrandId) }}
+                  {{ getBrandName(item.displayItemBrandId) }}
                 </p>
                 <p class="text-lg font-bold">
                   {{ toCurrencyJPY(item.price) }}

@@ -1,6 +1,6 @@
-import type { GetDisplayBrandsResponse } from '@/generated/api-client'
+import type { GetDisplayItemBrandsResponse } from '@/generated/api-client'
 
-export const displayBrands: GetDisplayBrandsResponse[] = [
+export const displayBrands: GetDisplayItemBrandsResponse[] = [
   {
     id: '019b76da-a800-7002-8001-000000000001',
     name: '高級なブランド',

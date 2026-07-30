@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type {
-  GetDisplayCategoriesResponse,
-  GetDisplayBrandsResponse,
+  GetDisplayItemCategoriesResponse,
+  GetDisplayItemBrandsResponse,
   PagedListOfGetDisplayItemResponse,
 } from '@/generated/api-client'
 import { displayCategoriesApi, displayBrandsApi, displayItemsApi } from '@/api-client'
@@ -11,8 +11,8 @@ import { displayCategoriesApi, displayBrandsApi, displayItemsApi } from '@/api-c
  */
 export const useDisplayStore = defineStore('display', {
   state: (): {
-    categories: GetDisplayCategoriesResponse[]
-    brands: GetDisplayBrandsResponse[]
+    categories: GetDisplayItemCategoriesResponse[]
+    brands: GetDisplayItemBrandsResponse[]
     displayItemPage: PagedListOfGetDisplayItemResponse
   } => ({
     categories: [],
@@ -32,7 +32,7 @@ export const useDisplayStore = defineStore('display', {
      * カテゴリ一覧を取得します。
      */
     async fetchCategories() {
-      const response = await displayCategoriesApi().getDisplayCategories()
+      const response = await displayCategoriesApi().getDisplayItemCategories()
       this.categories = response.data
       this.categories.unshift({ id: '', name: 'すべて' })
     },
@@ -40,7 +40,7 @@ export const useDisplayStore = defineStore('display', {
      * ブランド一覧を取得します。
      */
     async fetchBrands() {
-      const response = await displayBrandsApi().getDisplayBrands()
+      const response = await displayBrandsApi().getDisplayItemBrands()
       this.brands = response.data
       this.brands.unshift({ id: '', name: 'すべて' })
     },
@@ -94,7 +94,7 @@ export const useDisplayStore = defineStore('display', {
      * @example
      * const displayStore = useDisplayStore()
      * const { getBrandName } = storeToRefs(displayStore)
-     * const brandName = getBrandName(item.displayBrandId)
+     * const brandName = getBrandName(item.displayItemBrandId)
      */
     getBrandName: (state) => {
       return (id: string) => state.brands.find((brand) => brand.id === id)?.name
