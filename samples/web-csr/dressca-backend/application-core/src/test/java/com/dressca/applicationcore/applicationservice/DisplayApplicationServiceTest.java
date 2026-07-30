@@ -65,7 +65,7 @@ public class DisplayApplicationServiceTest {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
 
     // Act
@@ -81,7 +81,7 @@ public class DisplayApplicationServiceTest {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     UUID targetId = UUID.randomUUID();
     DisplayItem displayItem = createDisplayItem(targetId);
@@ -163,7 +163,7 @@ public class DisplayApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, defaultDisplayCategoryId, defaultDisplayBrandId, defaultIsDeleted);
+    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
+        defaultDisplayCategoryId, defaultDisplayBrandId, defaultIsDeleted);
   }
 }

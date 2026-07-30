@@ -141,7 +141,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
@@ -154,13 +154,12 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItems_正常系_指定した条件のカタログアイテムのリストが返却される()
-      throws PermissionDeniedException {
+  void testGetCatalogItems_正常系_指定した条件のカタログアイテムのリストが返却される() throws PermissionDeniedException {
     // Arrange
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     UUID targetId = UUID.randomUUID();
     CatalogItem catalogItem = createCatalogItem(targetId);
@@ -181,7 +180,7 @@ public class CatalogApplicationServiceTest {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
