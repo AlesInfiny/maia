@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class DisplayDomainService {
-  private final DisplayRepository displayRepository;
+public class DisplayItemDomainService {
+  private final DisplayItemRepository displayItemRepository;
 
   /**
    * 指定した陳列品 ID のうち、存在する陳列品の一覧を取得します。
@@ -21,7 +21,7 @@ public class DisplayDomainService {
    * @return 存在する陳列品の一覧。
    */
   public List<DisplayItem> getExistDisplayItems(List<UUID> displayItemIds) {
-    return this.displayRepository.findByDisplayItemIdIn(displayItemIds);
+    return this.displayItemRepository.findByDisplayItemIdIn(displayItemIds);
   }
 
   /**
@@ -31,7 +31,7 @@ public class DisplayDomainService {
    * @return すべて存在する場合は true 、一部でも不在の場合は false 。
    */
   public boolean existAll(List<UUID> displayItemIds) {
-    List<DisplayItem> items = this.displayRepository.findByDisplayItemIdIn(displayItemIds);
+    List<DisplayItem> items = this.displayItemRepository.findByDisplayItemIdIn(displayItemIds);
     List<UUID> notExistDisplayItemIds = displayItemIds.stream()
         .filter(displayItemId -> !this.existDisplayItemIdInItems(items, displayItemId))
         .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class DisplayDomainService {
    * @return 指定した陳列品がリポジトリ内に存在する場合は true 、存在しない場合は false 。
    */
   public boolean existDisplayItemIncludingDeleted(UUID displayItemId) {
-    return !this.displayRepository.findByDisplayItemIdInIncludingDeleted(List.of(displayItemId))
+    return !this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(List.of(displayItemId))
         .isEmpty();
   }
 

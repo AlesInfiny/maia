@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * 陳列品のリポジトリのインターフェースです。
  */
-public interface DisplayRepository {
+public interface DisplayItemRepository {
 
   /**
    * ブランド ID とカテゴリ ID に一致する陳列品のリストを取得します。

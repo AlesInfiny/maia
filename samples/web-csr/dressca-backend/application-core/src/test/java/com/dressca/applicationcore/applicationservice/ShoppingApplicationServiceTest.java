@@ -14,10 +14,10 @@ import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.baskets.BasketRepository;
 import com.dressca.applicationcore.baskets.DisplayItemInBasketNotFoundException;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.applicationcore.displayitem.DisplayDomainService;
 import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemDomainService;
 import com.dressca.applicationcore.displayitem.DisplayItemNotFoundException;
-import com.dressca.applicationcore.displayitem.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemRepository;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.DisplayItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -62,9 +62,9 @@ public class ShoppingApplicationServiceTest {
   @Mock
   private BasketRepository basketRepository;
   @Mock
-  private DisplayRepository displayRepository;
+  private DisplayItemRepository displayItemRepository;
   @Mock
-  private DisplayDomainService displayDomainService;
+  private DisplayItemDomainService displayItemDomainService;
 
   @Autowired
   private MessageSource messages;
@@ -76,8 +76,8 @@ public class ShoppingApplicationServiceTest {
 
   @BeforeEach
   void setUp() {
-    service = new ShoppingApplicationService(messages, basketRepository, displayRepository,
-        orderRepository, displayDomainService, apLog);
+    service = new ShoppingApplicationService(messages, basketRepository, displayItemRepository,
+        orderRepository, displayItemDomainService, apLog);
   }
 
   @Test
@@ -95,8 +95,8 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     DisplayItem displayItem = createDisplayItem(displayItemId);
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(true);
-    when(this.displayDomainService.getExistDisplayItems(displayItemIds))
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
+    when(this.displayItemDomainService.getExistDisplayItems(displayItemIds))
         .thenReturn(List.of(displayItem));
 
     // Act
@@ -106,8 +106,8 @@ public class ShoppingApplicationServiceTest {
     // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-    verify(this.displayDomainService, times(1)).existAll(displayItemIds);
-    verify(this.displayDomainService, times(1)).getExistDisplayItems(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).getExistDisplayItems(displayItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
@@ -126,8 +126,8 @@ public class ShoppingApplicationServiceTest {
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     DisplayItem displayItem = createDisplayItem(displayItemId);
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(true);
-    when(this.displayDomainService.getExistDisplayItems(displayItemIds))
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
+    when(this.displayItemDomainService.getExistDisplayItems(displayItemIds))
         .thenReturn(List.of(displayItem));
 
     // Act
@@ -137,8 +137,8 @@ public class ShoppingApplicationServiceTest {
     // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-    verify(this.displayDomainService, times(1)).existAll(displayItemIds);
-    verify(this.displayDomainService, times(1)).getExistDisplayItems(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).getExistDisplayItems(displayItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -156,7 +156,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(UUID.randomUUID(), buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(false);
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(false);
 
     try {
       // Act
@@ -167,8 +167,8 @@ public class ShoppingApplicationServiceTest {
       // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayDomainService, times(1)).existAll(displayItemIds);
-      verify(this.displayDomainService, times(0)).getExistDisplayItems(any());
+      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+      verify(this.displayItemDomainService, times(0)).getExistDisplayItems(any());
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("DisplayItemNotFoundException が発生しなければ失敗");
@@ -188,7 +188,7 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(displayItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(true);
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
     // Act
     // テストメソッドの実行
@@ -199,7 +199,7 @@ public class ShoppingApplicationServiceTest {
     // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-    verify(this.displayDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
     verify(this.basketRepository, times(1)).update(basket);
   }
 
@@ -216,7 +216,7 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(displayItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(true);
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
     // Act
     // テストメソッドの実行
@@ -227,7 +227,7 @@ public class ShoppingApplicationServiceTest {
     // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-    verify(this.displayDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
@@ -246,8 +246,8 @@ public class ShoppingApplicationServiceTest {
     DisplayItem deletedDisplayItem = createDisplayItem(deletedDisplayItemId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<UUID> displayItemIds = List.of(deletedDisplayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(false);
-    when(this.displayRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds))
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(false);
+    when(this.displayItemRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds))
         .thenReturn(List.of(deletedDisplayItem));
 
     try {
@@ -260,8 +260,9 @@ public class ShoppingApplicationServiceTest {
       // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayDomainService, times(1)).existAll(displayItemIds);
-      verify(this.displayRepository, times(1)).findDeletedItemsByDisplayItemIdIn(displayItemIds);
+      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+      verify(this.displayItemRepository, times(1))
+          .findDeletedItemsByDisplayItemIdIn(displayItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("DisplayItemNotFoundException が発生しなければ失敗");
@@ -280,7 +281,7 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(UUID.randomUUID(), BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
     List<UUID> displayItemIds = List.of(displayItemId);
-    when(this.displayDomainService.existAll(displayItemIds)).thenReturn(true);
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
     try {
       // Act
@@ -292,7 +293,7 @@ public class ShoppingApplicationServiceTest {
       // Assert
       // モックが想定通り呼び出されていることの確認
       verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayDomainService, times(1)).existAll(displayItemIds);
+      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
       verify(this.basketRepository, times(0)).update(any());
     } catch (Exception e) {
       fail("DisplayItemInBasketNotFoundException が発生しなければ失敗");
@@ -311,7 +312,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(UUID.randomUUID(), buyerId);
     basket.addItem(displayItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.displayDomainService.existDisplayItemIncludingDeleted(displayItemId))
+    when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(true);
 
     // Act
@@ -336,7 +337,7 @@ public class ShoppingApplicationServiceTest {
     Basket basket = new Basket(UUID.randomUUID(), buyerId);
     basket.addItem(displayItemId, BigDecimal.valueOf(1000), 100);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.displayDomainService.existDisplayItemIncludingDeleted(displayItemId))
+    when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(true);
 
     // Act
@@ -362,7 +363,7 @@ public class ShoppingApplicationServiceTest {
     // モックの設定
     Basket basket = new Basket(UUID.randomUUID(), buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.displayDomainService.existDisplayItemIncludingDeleted(displayItemId))
+    when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(false);
 
     try {
@@ -390,7 +391,7 @@ public class ShoppingApplicationServiceTest {
     // モックの設定
     Basket basket = new Basket(UUID.randomUUID(), buyerId);
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.displayDomainService.existDisplayItemIncludingDeleted(displayItemId))
+    when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(true);
 
     try {
@@ -427,7 +428,7 @@ public class ShoppingApplicationServiceTest {
         new DisplayItem(itemId2, "name2", "desc2", BigDecimal.valueOf(2000), "code2",
             UUID.randomUUID(), UUID.randomUUID(), false));
     List<UUID> displayItemIds = List.of(itemId1, itemId2);
-    when(this.displayRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds))
+    when(this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds))
         .thenReturn(items);
 
     // Act
@@ -439,7 +440,8 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     // モックが想定通り呼び出されていることの確認
-    verify(this.displayRepository, times(1)).findByDisplayItemIdInIncludingDeleted(displayItemIds);
+    verify(this.displayItemRepository, times(1))
+        .findByDisplayItemIdInIncludingDeleted(displayItemIds);
   }
 
   @ParameterizedTest
@@ -457,7 +459,7 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     // モックが想定通り呼び出されていることの確認
-    verify(this.displayRepository, times(0)).findByDisplayItemIdInIncludingDeleted(any());
+    verify(this.displayItemRepository, times(0)).findByDisplayItemIdInIncludingDeleted(any());
   }
 
   @Test
@@ -472,7 +474,7 @@ public class ShoppingApplicationServiceTest {
     Order order = new Order(buyerId, shipToAddress, createDefaultOrderItems());
 
     when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
-    when(this.displayRepository.findByDisplayItemIdIn(List.of(displayItemId)))
+    when(this.displayItemRepository.findByDisplayItemIdIn(List.of(displayItemId)))
         .thenReturn(displayItems);
     when(this.orderRepository.add(any())).thenReturn(order);
 

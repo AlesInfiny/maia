@@ -5,10 +5,10 @@ import com.dressca.applicationcore.baskets.BasketItem;
 import com.dressca.applicationcore.baskets.BasketRepository;
 import com.dressca.applicationcore.baskets.DisplayItemInBasketNotFoundException;
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.applicationcore.displayitem.DisplayDomainService;
+import com.dressca.applicationcore.displayitem.DisplayItemDomainService;
 import com.dressca.applicationcore.displayitem.DisplayItem;
 import com.dressca.applicationcore.displayitem.DisplayItemNotFoundException;
-import com.dressca.applicationcore.displayitem.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemRepository;
 import com.dressca.applicationcore.order.DisplayItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
 import com.dressca.applicationcore.order.Order;
@@ -42,13 +42,13 @@ public class ShoppingApplicationService {
 
   private final MessageSource messages;
   private final BasketRepository basketRepository;
-  private final DisplayRepository displayRepository;
+  private final DisplayItemRepository displayItemRepository;
   private final OrderRepository orderRepository;
-  private final DisplayDomainService displayDomainService;
+  private final DisplayItemDomainService displayItemDomainService;
   private final AbstractStructuredLogger apLog;
 
   /**
-   * 買い物かごに商品を追加します。
+   * 買い物かごに陳列品を追加します。
    *
    * @param buyerId 購入者 ID 。
    * @param displayItemId 陳列品 ID 。
@@ -62,11 +62,11 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     // 陳列品リポジトリに存在しない陳列品が指定されていないか確認
-    if (!this.displayDomainService.existAll(List.of(displayItemId))) {
+    if (!this.displayItemDomainService.existAll(List.of(displayItemId))) {
       throw new DisplayItemNotFoundException(displayItemId);
     }
     DisplayItem displayItem =
-        this.displayDomainService.getExistDisplayItems(List.of(displayItemId)).get(0);
+        this.displayItemDomainService.getExistDisplayItems(List.of(displayItemId)).get(0);
 
     basket.addItem(displayItemId, displayItem.getPrice(), quantity);
     basket.removeEmptyItems();
@@ -74,7 +74,7 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 買い物かご内の商品の数量を設定します。
+   * 買い物かご内の陳列品の数量を設定します。
    *
    * @param buyerId 購入者 ID 。
    * @param quantities キーに陳列品 ID 、値に数量を設定した Map 。
@@ -89,9 +89,9 @@ public class ShoppingApplicationService {
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<UUID> displayItemIds = new ArrayList<>(quantities.keySet());
 
-    if (!this.displayDomainService.existAll(displayItemIds)) {
+    if (!this.displayItemDomainService.existAll(displayItemIds)) {
       List<DisplayItem> deletedDisplayItems =
-          this.displayRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds);
+          this.displayItemRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds);
       throw new DisplayItemNotFoundException(
           deletedDisplayItems.stream().map(DisplayItem::getId).toArray(UUID[]::new));
     }
@@ -116,10 +116,10 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 買い物かごから商品を削除します。
+   * 買い物かごから陳列品を削除します。
    *
    * @param buyerId 購入者 ID 。
-   * @param displayItemId 削除対象の陳列品の ID 。
+   * @param displayItemId 削除対象の陳列品 ID 。
    * @throws DisplayItemNotFoundException 存在しない陳列品が指定された場合。
    * @throws DisplayItemInBasketNotFoundException 買い物かごに存在しない陳列品が指定された場合。
    */
@@ -130,7 +130,7 @@ public class ShoppingApplicationService {
 
     Basket basket = getOrCreateBasketForUser(buyerId);
 
-    if (!displayDomainService.existDisplayItemIncludingDeleted(displayItemId)) {
+    if (!displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId)) {
       throw new DisplayItemNotFoundException(displayItemId);
     }
 
@@ -145,10 +145,10 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 購入者 ID に対応する買い物かごと情報とその商品一覧を取得します。
+   * 購入者 ID に対応する買い物かごと情報とその陳列品一覧を取得します。
    *
    * @param buyerId 購入者 ID 。
-   * @return 買い物かごとその商品一覧。
+   * @return 買い物かごとその陳列品一覧。
    */
   public BasketDetail getBasketDetail(UUID buyerId) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
@@ -159,7 +159,8 @@ public class ShoppingApplicationService {
         basket.getItems().stream().map(BasketItem::getDisplayItemId).collect(Collectors.toList());
     List<DisplayItem> displayItems = new ArrayList<>();
     if (!displayItemIds.isEmpty()) {
-      displayItems = this.displayRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds);
+      displayItems =
+          this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds);
     }
     List<UUID> deletedItemIds = displayItems.stream().filter(DisplayItem::isDeleted)
         .map(DisplayItem::getId).collect(Collectors.toList());
@@ -185,7 +186,8 @@ public class ShoppingApplicationService {
 
     List<UUID> displayItemIds =
         basket.getItems().stream().map(BasketItem::getDisplayItemId).collect(Collectors.toList());
-    List<DisplayItem> displayItems = this.displayRepository.findByDisplayItemIdIn(displayItemIds);
+    List<DisplayItem> displayItems =
+        this.displayItemRepository.findByDisplayItemIdIn(displayItemIds);
     List<OrderItem> orderItems = basket.getItems().stream()
         .map(basketItems -> this.mapToOrderItem(basketItems, displayItems))
         .collect(Collectors.toList());

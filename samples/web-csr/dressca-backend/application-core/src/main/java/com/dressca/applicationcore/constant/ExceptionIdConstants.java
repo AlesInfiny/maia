@@ -33,7 +33,8 @@ public class ExceptionIdConstants {
   public static final String E_DISPLAY_ID_NOT_FOUND = "displayIdNotFound";
 
   /** 買い物かごID: {0} に陳列品ID: {1} の陳列品が見つかりませんでした。 */
-  public static final String E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET = "displayItemIdDoesNotExistInBasket";
+  public static final String E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET =
+      "displayItemIdDoesNotExistInBasket";
 
   /** カタログアイテム ID: {0} の {1} 実行時に楽観ロックエラーが発生しました。 */
   public static final String E_OPTIMISTIC_LOCKING_FAILURE = "optimisticLockingFailure";

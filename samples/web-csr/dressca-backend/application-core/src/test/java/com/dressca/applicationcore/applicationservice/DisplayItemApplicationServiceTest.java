@@ -7,12 +7,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.applicationcore.displayitem.DisplayBrand;
-import com.dressca.applicationcore.displayitem.DisplayBrandRepository;
-import com.dressca.applicationcore.displayitem.DisplayCategory;
-import com.dressca.applicationcore.displayitem.DisplayCategoryRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemBrandRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemCategory;
+import com.dressca.applicationcore.displayitem.DisplayItemCategoryRepository;
 import com.dressca.applicationcore.displayitem.DisplayItem;
-import com.dressca.applicationcore.displayitem.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayItemBrand;
+import com.dressca.applicationcore.displayitem.DisplayItemRepository;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,31 +33,31 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * {@link DisplayApplicationService}の動作をテストするクラスです。
+ * {@link DisplayItemApplicationService}の動作をテストするクラスです。
  */
 @Import(ApplicationCoreTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
-public class DisplayApplicationServiceTest {
+public class DisplayItemApplicationServiceTest {
   @Mock
-  private DisplayRepository displayRepository;
+  private DisplayItemRepository displayItemRepository;
   @Mock
-  private DisplayBrandRepository brandRepository;
+  private DisplayItemBrandRepository displayItemBrandRepository;
   @Mock
-  private DisplayCategoryRepository categoryRepository;
+  private DisplayItemCategoryRepository displayItemCategoryRepository;
   @Mock
   private AbstractStructuredLogger apLog;
 
   @Autowired
   private MessageSource messages;
 
-  private DisplayApplicationService service;
+  private DisplayItemApplicationService service;
 
   @BeforeEach
   void setUp() {
-    service = new DisplayApplicationService(messages, displayRepository, brandRepository,
-        categoryRepository, apLog);
+    service = new DisplayItemApplicationService(messages, displayItemRepository,
+        displayItemBrandRepository, displayItemCategoryRepository, apLog);
   }
 
   @Test
@@ -72,8 +72,8 @@ public class DisplayApplicationServiceTest {
     service.getDisplayItems(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.displayRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page,
-        pageSize);
+    verify(this.displayItemRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId,
+        page, pageSize);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class DisplayApplicationServiceTest {
     UUID targetId = UUID.randomUUID();
     DisplayItem displayItem = createDisplayItem(targetId);
     List<DisplayItem> expectedDisplayItemList = new ArrayList<>(Arrays.asList(displayItem));
-    when(this.displayRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize))
+    when(this.displayItemRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize))
         .thenReturn(expectedDisplayItemList);
 
     // Act
@@ -102,13 +102,13 @@ public class DisplayApplicationServiceTest {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    when(this.displayRepository.countByBrandIdAndCategoryId(any(), any())).thenReturn(1);
+    when(this.displayItemRepository.countByBrandIdAndCategoryId(any(), any())).thenReturn(1);
 
     // Act
     service.countDisplayItems(brandId, categoryId);
 
     // Assert
-    verify(this.displayRepository, times(1)).countByBrandIdAndCategoryId(any(), any());
+    verify(this.displayItemRepository, times(1)).countByBrandIdAndCategoryId(any(), any());
   }
 
   @Test
@@ -118,40 +118,40 @@ public class DisplayApplicationServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> displayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = displayItemIds.stream().map(this::createDisplayItem).toList();
-    when(this.displayRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
+    when(this.displayItemRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
 
     // Act
     List<DisplayItem> actual = service.getDisplayItemsByIds(displayItemIds);
 
     // Assert
     assertThat(actual).isEqualTo(displayItems);
-    verify(this.displayRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
+    verify(this.displayItemRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
   }
 
   @Test
   void testGetBrands_正常系_リポジトリのgetAllを1回呼出す() {
     // Arrange
-    List<DisplayBrand> brands = List.of(new DisplayBrand("dummy"));
-    when(this.brandRepository.getAll()).thenReturn(brands);
+    List<DisplayItemBrand> brands = List.of(new DisplayItemBrand("dummy"));
+    when(this.displayItemBrandRepository.getAll()).thenReturn(brands);
 
     // Act
     service.getBrands();
 
     // Assert
-    verify(this.brandRepository, times(1)).getAll();
+    verify(this.displayItemBrandRepository, times(1)).getAll();
   }
 
   @Test
   void testGetCategories_正常系_リポジトリのgetAllを1回呼出す() {
     // Arrange
-    List<DisplayCategory> categories = List.of(new DisplayCategory("dummy"));
-    when(this.categoryRepository.getAll()).thenReturn(categories);
+    List<DisplayItemCategory> categories = List.of(new DisplayItemCategory("dummy"));
+    when(this.displayItemCategoryRepository.getAll()).thenReturn(categories);
 
     // Act
     service.getCategories();
 
     // Assert
-    verify(this.categoryRepository, times(1)).getAll();
+    verify(this.displayItemCategoryRepository, times(1)).getAll();
   }
 
   private DisplayItem createDisplayItem(UUID id) {

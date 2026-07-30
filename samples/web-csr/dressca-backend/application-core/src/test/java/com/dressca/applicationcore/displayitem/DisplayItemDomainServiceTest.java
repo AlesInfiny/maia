@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.display;
+package com.dressca.applicationcore.displayitem;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
@@ -6,9 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.applicationcore.displayitem.DisplayDomainService;
-import com.dressca.applicationcore.displayitem.DisplayItem;
-import com.dressca.applicationcore.displayitem.DisplayRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -21,15 +18,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * {@link DisplayDomainService}の動作をテストするクラスです。
+ * {@link DisplayItemDomainService}の動作をテストするクラスです。
  */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationCoreTestConfig.class)
-public class DisplayDomainServiceTest {
+public class DisplayItemDomainServiceTest {
   @Mock
-  private DisplayRepository displayRepository;
+  private DisplayItemRepository displayItemRepository;
   @InjectMocks
-  private DisplayDomainService service;
+  private DisplayItemDomainService displayItemDomainService;
 
   @Test
   void testGetExistDisplayItems_正常系_リポジトリのfindByDisplayItemIdInを1度だけ呼出す() {
@@ -38,13 +35,13 @@ public class DisplayDomainServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> displayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = displayItemIds.stream().map(this::createDisplayItem).toList();
-    when(this.displayRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
+    when(this.displayItemRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
 
     // Act
-    service.getExistDisplayItems(displayItemIds);
+    displayItemDomainService.getExistDisplayItems(displayItemIds);
 
     // Assert
-    verify(this.displayRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
+    verify(this.displayItemRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
   }
 
   @Test
@@ -54,11 +51,12 @@ public class DisplayDomainServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> requestedDisplayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = List.of(createDisplayItem(secondDisplayItemId));
-    when(this.displayRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
+    when(this.displayItemRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
         .thenReturn(displayItems);
 
     // Act
-    List<DisplayItem> actualItems = service.getExistDisplayItems(requestedDisplayItemIds);
+    List<DisplayItem> actualItems =
+        displayItemDomainService.getExistDisplayItems(requestedDisplayItemIds);
 
     // Assert
     assertThat(actualItems).hasSize(1);
@@ -72,13 +70,13 @@ public class DisplayDomainServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> displayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = displayItemIds.stream().map(this::createDisplayItem).toList();
-    when(this.displayRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
+    when(this.displayItemRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
 
     // Act
-    service.existAll(displayItemIds);
+    displayItemDomainService.existAll(displayItemIds);
 
     // Assert
-    verify(this.displayRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
+    verify(this.displayItemRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
   }
 
   @Test
@@ -88,10 +86,10 @@ public class DisplayDomainServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> displayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = displayItemIds.stream().map(this::createDisplayItem).toList();
-    when(this.displayRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
+    when(this.displayItemRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
 
     // Act
-    boolean existAll = service.existAll(displayItemIds);
+    boolean existAll = displayItemDomainService.existAll(displayItemIds);
 
     // Assert
     assertThat(existAll).isTrue();
@@ -104,11 +102,11 @@ public class DisplayDomainServiceTest {
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> requestedDisplayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
     List<DisplayItem> displayItems = List.of(createDisplayItem(secondDisplayItemId));
-    when(this.displayRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
+    when(this.displayItemRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
         .thenReturn(displayItems);
 
     // Act
-    boolean existAll = service.existAll(requestedDisplayItemIds);
+    boolean existAll = displayItemDomainService.existAll(requestedDisplayItemIds);
 
     // Assert
     assertThat(existAll).isFalse();
@@ -120,11 +118,11 @@ public class DisplayDomainServiceTest {
     UUID firstDisplayItemId = UUID.randomUUID();
     UUID secondDisplayItemId = UUID.randomUUID();
     List<UUID> requestedDisplayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
-    when(this.displayRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
+    when(this.displayItemRepository.findByDisplayItemIdIn(requestedDisplayItemIds))
         .thenReturn(List.of());
 
     // Act
-    boolean existAll = service.existAll(requestedDisplayItemIds);
+    boolean existAll = displayItemDomainService.existAll(requestedDisplayItemIds);
 
     // Assert
     assertThat(existAll).isFalse();
@@ -134,11 +132,11 @@ public class DisplayDomainServiceTest {
   void testExistDisplayItemIncludingDeleted_正常系_指定した陳列品が存在する場合trueを返す() {
     // Arrange
     UUID targetId = UUID.randomUUID();
-    when(this.displayRepository.findByDisplayItemIdInIncludingDeleted(List.of(targetId)))
+    when(this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(List.of(targetId)))
         .thenReturn(List.of(createDisplayItem(targetId)));
 
     // Act
-    boolean existDisplayItem = service.existDisplayItemIncludingDeleted(targetId);
+    boolean existDisplayItem = displayItemDomainService.existDisplayItemIncludingDeleted(targetId);
 
     // Assert
     assertThat(existDisplayItem).isTrue();
@@ -148,11 +146,11 @@ public class DisplayDomainServiceTest {
   void testExistDisplayItemIncludingDeleted_正常系_指定した陳列品が存在しない場合falseを返す() {
     // Arrange
     UUID targetId = UUID.randomUUID();
-    when(this.displayRepository.findByDisplayItemIdInIncludingDeleted(List.of(targetId)))
+    when(this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(List.of(targetId)))
         .thenReturn(List.of());
 
     // Act
-    boolean existDisplayItem = service.existDisplayItemIncludingDeleted(targetId);
+    boolean existDisplayItem = displayItemDomainService.existDisplayItemIncludingDeleted(targetId);
 
     // Assert
     assertThat(existDisplayItem).isFalse();
