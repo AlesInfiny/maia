@@ -17,8 +17,8 @@
 export interface GetDisplayItemResponse {
     'assetCodes'?: Array<string>;
     'description': string;
-    'displayBrandId': string;
-    'displayCategoryId': string;
+    'displayItemBrandId': string;
+    'displayItemCategoryId': string;
     'id': string;
     'name': string;
     'price': number;

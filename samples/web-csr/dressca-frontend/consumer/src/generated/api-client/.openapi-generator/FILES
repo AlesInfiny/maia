@@ -4,8 +4,8 @@ api.ts
 api/actuator-api.ts
 api/assets-api.ts
 api/basket-items-api.ts
-api/display-brands-api.ts
-api/display-categories-api.ts
+api/display-item-brands-api.ts
+api/display-item-categories-api.ts
 api/display-items-api.ts
 api/orders-api.ts
 base.ts
@@ -17,8 +17,8 @@ models/account-api-model.ts
 models/basket-item-api-model.ts
 models/display-item-summary-api-model.ts
 models/get-basket-items-response.ts
-models/get-display-brands-response.ts
-models/get-display-categories-response.ts
+models/get-display-item-brands-response.ts
+models/get-display-item-categories-response.ts
 models/get-display-item-response.ts
 models/get-order-by-id-response.ts
 models/index.ts
