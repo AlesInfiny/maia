@@ -95,7 +95,7 @@ public class CatalogApplicationService {
    * @param categoryId カテゴリ ID 。
    * @param page ページ。
    * @param pageSize ページサイズ。
-   * @return 条件に一致するカタログアイテムのリスト。存在しない場合は空のリスト。
+   * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
   public List<CatalogItem> getCatalogItems(UUID brandId, UUID categoryId, int page, int pageSize)
@@ -238,7 +238,7 @@ public class CatalogApplicationService {
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
-   * @return 条件に一致するカタログアイテムの件数。
+   * @return 条件に一致するカタログ情報の件数。
    */
   public int countCatalogItems(UUID brandId, UUID categoryId) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
