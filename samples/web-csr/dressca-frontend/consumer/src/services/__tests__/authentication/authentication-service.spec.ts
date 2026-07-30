@@ -4,7 +4,7 @@ import { setActivePinia } from 'pinia'
 import { authenticationService } from '@/services/authentication/authentication-service'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
-import { useDisplayStore } from '@/stores/display/display'
+import { useDisplayItemStore } from '@/stores/displayitem/display-item'
 import { useNotificationStore } from '@/stores/notification/notification'
 import type { GetBasketItemsResponse } from '@/generated/api-client'
 import axios from 'axios'
@@ -94,7 +94,7 @@ describe('authenticationService_signOut', () => {
       // Arrange
       const authenticationStore = useAuthenticationStore()
       const basketStore = useBasketStore()
-      const displayStore = useDisplayStore()
+      const displayStore = useDisplayItemStore()
       const initialDisplayItemPage = displayStore.displayItemPage
       const notificationStore = useNotificationStore()
 

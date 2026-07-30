@@ -1,4 +1,4 @@
-import { useDisplayStore } from '@/stores/displayitem/display'
+import { useDisplayItemStore } from '@/stores/display-item/display-item'
 
 /**
  * 陳列ストアからカテゴリとブランド情報を取得します。
@@ -8,7 +8,7 @@ import { useDisplayStore } from '@/stores/displayitem/display'
  * await fetchCategoriesAndBrands()
  */
 export async function fetchCategoriesAndBrands() {
-  const displayStore = useDisplayStore()
+  const displayStore = useDisplayItemStore()
   await displayStore.fetchCategories()
   await displayStore.fetchBrands()
 }
@@ -23,6 +23,6 @@ export async function fetchCategoriesAndBrands() {
  * await fetchItems('category-id', 'brand-id')
  */
 export async function fetchItems(categoryId?: string, brandId?: string) {
-  const displayStore = useDisplayStore()
+  const displayStore = useDisplayItemStore()
   await displayStore.fetchItems(categoryId, brandId)
 }

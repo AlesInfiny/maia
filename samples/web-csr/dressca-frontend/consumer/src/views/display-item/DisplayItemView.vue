@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { fetchCategoriesAndBrands, fetchItems } from '@/services/display/display-service'
+import { fetchCategoriesAndBrands, fetchItems } from '@/services/display-item/display-service'
 import { addItemToBasket } from '@/services/basket/basket-service'
 import { showToast } from '@/services/notification/notificationService'
 import { storeToRefs } from 'pinia'
 import { useSpecialContentStore } from '@/stores/special-content/special-content'
-import { useDisplayStore } from '@/stores/displayitem/display'
+import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import CarouselSlider from '@/components/common/CarouselSlider.vue'
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
@@ -16,7 +16,7 @@ import { HttpError } from '@/shared/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
 
 const specialContentStore = useSpecialContentStore()
-const displayStore = useDisplayStore()
+const displayStore = useDisplayItemStore()
 
 const { getSpecialContents } = storeToRefs(specialContentStore)
 const { getCategories, getBrands, getItems, getBrandName } = storeToRefs(displayStore)

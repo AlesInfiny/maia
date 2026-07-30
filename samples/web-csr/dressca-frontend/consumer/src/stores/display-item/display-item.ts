@@ -7,9 +7,9 @@ import type {
 import { displayItemCategoriesApi, displayItemBrandsApi, displayItemsApi } from '@/api-client'
 
 /**
- * 陳列情報（カテゴリ・ブランド・アイテム）を管理するストアです。
+ * 陳列品情報（カテゴリ・ブランド・アイテム）を管理するストアです。
  */
-export const useDisplayStore = defineStore('display', {
+export const useDisplayItemStore = defineStore('displayItem', {
   state: (): {
     categories: GetDisplayItemCategoriesResponse[]
     brands: GetDisplayItemBrandsResponse[]
@@ -92,8 +92,8 @@ export const useDisplayStore = defineStore('display', {
      * @param state 状態。
      * @returns ブランド名。存在しない ID を指定した場合は undefined 。
      * @example
-     * const displayStore = useDisplayStore()
-     * const { getBrandName } = storeToRefs(displayStore)
+     * const displayItemStore = useDisplayItemStore()
+     * const { getBrandName } = storeToRefs(displayItemStore)
      * const brandName = getBrandName(item.displayItemBrandId)
      */
     getBrandName: (state) => {

@@ -1,10 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-export const displayRoutes: RouteRecordRaw[] = [
+export const displayItemRoutes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'display',
-    component: () => import('@/views/display/DisplayView.vue'),
+    path: '/display-item',
+    name: 'displayItem',
+    component: () => import('@/views/displayitem/DisplayItemView.vue'),
     meta: { requiresAuth: false },
   },
 ]

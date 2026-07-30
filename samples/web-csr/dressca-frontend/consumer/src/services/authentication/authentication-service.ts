@@ -1,6 +1,6 @@
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
-import { useDisplayStore } from '@/stores/displayitem/display'
+import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import { useNotificationStore } from '@/stores/notification/notification'
 import { abortAllRequests } from '@/api-client/request-abort-manager'
 
@@ -50,7 +50,7 @@ export function authenticationService() {
     const basketStore = useBasketStore()
     basketStore.$reset()
 
-    const displayStore = useDisplayStore()
+    const displayStore = useDisplayItemStore()
     displayStore.$reset()
 
     // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
