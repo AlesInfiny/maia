@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.display;
+package com.dressca.applicationcore.displayitem;
 
 import java.util.UUID;
 import lombok.Data;

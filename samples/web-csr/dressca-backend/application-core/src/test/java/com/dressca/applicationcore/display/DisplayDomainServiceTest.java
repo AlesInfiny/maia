@@ -6,6 +6,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
+import com.dressca.applicationcore.displayitem.DisplayDomainService;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -162,7 +165,7 @@ public class DisplayDomainServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
+        UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
   }
 }

@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.display;
+package com.dressca.applicationcore.displayitem;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.dressca.applicationcore.applicationservice;
 
 import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.display.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

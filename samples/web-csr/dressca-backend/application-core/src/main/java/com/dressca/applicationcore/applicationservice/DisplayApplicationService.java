@@ -1,12 +1,12 @@
 package com.dressca.applicationcore.applicationservice;
 
 import com.dressca.applicationcore.constant.MessageIdConstants;
-import com.dressca.applicationcore.display.DisplayBrand;
-import com.dressca.applicationcore.display.DisplayBrandRepository;
-import com.dressca.applicationcore.display.DisplayCategory;
-import com.dressca.applicationcore.display.DisplayCategoryRepository;
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayBrand;
+import com.dressca.applicationcore.displayitem.DisplayBrandRepository;
+import com.dressca.applicationcore.displayitem.DisplayCategory;
+import com.dressca.applicationcore.displayitem.DisplayCategoryRepository;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayRepository;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.util.List;
 import java.util.Locale;

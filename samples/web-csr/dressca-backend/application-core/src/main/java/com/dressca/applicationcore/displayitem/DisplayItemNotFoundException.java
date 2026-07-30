@@ -1,4 +1,4 @@
-package com.dressca.applicationcore.display;
+package com.dressca.applicationcore.displayitem;
 
 import com.dressca.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
@@ -17,8 +17,7 @@ public class DisplayItemNotFoundException extends LogicException {
    */
   public DisplayItemNotFoundException(UUID displayItemId) {
     super(null, ExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
-        new String[] {String.valueOf(displayItemId)},
-        new String[] {String.valueOf(displayItemId)});
+        new String[] {String.valueOf(displayItemId)}, new String[] {String.valueOf(displayItemId)});
   }
 
   /**

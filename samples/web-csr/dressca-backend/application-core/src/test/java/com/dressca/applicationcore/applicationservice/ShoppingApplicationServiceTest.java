@@ -14,10 +14,10 @@ import com.dressca.applicationcore.baskets.BasketNotFoundException;
 import com.dressca.applicationcore.baskets.BasketRepository;
 import com.dressca.applicationcore.baskets.DisplayItemInBasketNotFoundException;
 import com.dressca.applicationcore.config.ApplicationCoreTestConfig;
-import com.dressca.applicationcore.display.DisplayDomainService;
-import com.dressca.applicationcore.display.DisplayItem;
-import com.dressca.applicationcore.display.DisplayItemNotFoundException;
-import com.dressca.applicationcore.display.DisplayRepository;
+import com.dressca.applicationcore.displayitem.DisplayDomainService;
+import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationcore.displayitem.DisplayItemNotFoundException;
+import com.dressca.applicationcore.displayitem.DisplayRepository;
 import com.dressca.applicationcore.order.Address;
 import com.dressca.applicationcore.order.DisplayItemOrdered;
 import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
@@ -52,7 +52,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * {@link ShoppingApplicationService}の動作をテストするクラスです。
  */
-@ExtendWith({ SpringExtension.class, MockitoExtension.class })
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationCoreTestConfig.class)
 @TestPropertySource(properties = "spring.messages.basename=applicationcore.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
@@ -204,9 +204,8 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される()
-      throws BasketNotFoundException, DisplayItemNotFoundException,
-      DisplayItemInBasketNotFoundException {
+  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException,
+      DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -520,9 +519,9 @@ public class ShoppingApplicationServiceTest {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    return List.of(new OrderItem(
-        new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
-        BigDecimal.valueOf(100_000_000L), 1));
+    return List
+        .of(new OrderItem(new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
+            BigDecimal.valueOf(100_000_000L), 1));
   }
 
   private DisplayItem createDisplayItem(UUID id) {
@@ -532,8 +531,8 @@ public class ShoppingApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
+        UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
   }
 
   private static Stream<UUID> blankBuyerIdSource() {
