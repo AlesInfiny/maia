@@ -120,7 +120,7 @@ jobs:
             --slot staging \
             --src-path "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}" \
             --type zip \
-            --track-status false
+            --track-status true
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
