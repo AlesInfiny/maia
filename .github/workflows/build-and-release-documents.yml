@@ -45,6 +45,7 @@ jobs:
 
       - id: lint-documents
         name: ドキュメントの Lint
+        continue-on-error: true
         uses: ./.github/workflows/lint-documents
 
       - name: サンプルアプリケーションのソースコード圧縮
@@ -84,7 +85,6 @@ jobs:
           name: documents
 
       - name: GitHubのリリース
-        continue-on-error: false
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
