@@ -1,4 +1,4 @@
-# cspell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintrc
 name: ドキュメントのビルドとリリース
 
 on:
@@ -45,7 +45,6 @@ jobs:
 
       - id: lint-documents
         name: ドキュメントの Lint
-        continue-on-error: true
         uses: ./.github/workflows/lint-documents
 
       - name: サンプルアプリケーションのソースコード圧縮
