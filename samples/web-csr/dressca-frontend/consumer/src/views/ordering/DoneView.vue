@@ -7,7 +7,6 @@ import { showToast } from '@/services/notification/notificationService'
 import type { GetOrderByIdResponse } from '@/generated/api-client/models'
 import { currencyHelper } from '@/shared/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
-import { errorMessageFormat } from '@/shared/error-handler/error-message-format'
 import { HttpError } from '@/shared/error-handler/custom-error'
 import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
@@ -15,7 +14,7 @@ import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handl
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
 const props = defineProps<{
-  orderId: number
+  orderId: string
 }>()
 
 const lastOrdered = ref<GetOrderByIdResponse>()
@@ -44,10 +43,7 @@ onMounted(async () => {
         if (!httpError.response?.exceptionId) {
           showToast(t('failedToOrderInformation'))
         } else {
-          const message = errorMessageFormat(
-            httpError.response.exceptionId,
-            httpError.response.exceptionValues,
-          )
+          const message = t(httpError.response.exceptionId, httpError.response.exceptionValues)
           showToast(
             message,
             httpError.response.exceptionId,

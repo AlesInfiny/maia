@@ -1,17 +1,17 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.7"
+    springBootVersion = "4.1.0"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.5.1"
+    spotbugsVersion = "6.5.9"
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "3.0.3"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.4.0"
-    jacocoToolVersion = "0.8.14"
-    spotbugsToolVersion = "4.9.8"
+    checkstyleToolVersion = "13.9.0"
+    jacocoToolVersion = "0.8.15"
+    spotbugsToolVersion = "4.10.3"
 
     supportDependencies = [
         // SPRING BOOT STARTERS
@@ -29,6 +29,7 @@ ext {
 
         // OTHER LIBRARIES
         lombok : "org.projectlombok:lombok",
+        mockito_core : "org.mockito:mockito-core",
         slf4j : "org.slf4j:slf4j-simple",
         spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",

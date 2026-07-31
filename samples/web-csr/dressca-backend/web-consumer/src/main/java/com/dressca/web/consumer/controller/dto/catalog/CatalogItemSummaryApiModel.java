@@ -1,7 +1,8 @@
 package com.dressca.web.consumer.controller.dto.catalog;
 
-import java.util.List;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CatalogItemSummaryApiModel {
   @NotNull
-  private long id;
+  private UUID id;
   @NotNull
   private String name;
   @NotNull

@@ -6,6 +6,8 @@ import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
 import { useLogger } from '@/composables/use-logger'
 import { router } from './router'
 import App from './App.vue'
+import { z } from 'zod'
+import { customErrorMap } from '@/validation/zod-settings'
 
 const logger = useLogger()
 
@@ -33,6 +35,8 @@ if (import.meta.env.MODE === 'mock') {
     logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
+
+z.setErrorMap(customErrorMap)
 
 const app = createApp(App)
 

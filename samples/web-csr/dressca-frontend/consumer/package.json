@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "2.2.0",
+    "@vee-validate/zod": "4.15.1",
     "@vueuse/core": "14.2.1",
     "axios": "1.18.0",
     "pinia": "3.0.4",
@@ -35,10 +36,10 @@
     "vue": "3.5.30",
     "vue-i18n": "11.3.0",
     "vue-router": "5.0.3",
-    "yup": "1.7.1"
+    "zod": "3.24.4"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.38.0",
+    "@openapitools/openapi-generator-cli": "2.40.1",
     "@pinia/testing": "1.0.3",
     "@tailwindcss/vite": "4.2.1",
     "@tsconfig/node24": "24.0.4",
@@ -49,13 +50,13 @@
     "@vitest/coverage-v8": "4.1.8",
     "@vitest/eslint-plugin": "1.6.12",
     "@vue/eslint-config-typescript": "14.7.0",
-    "@vue/test-utils": "2.4.6",
+    "@vue/test-utils": "2.4.11",
     "@vue/tsconfig": "0.9.1",
     "cypress": "15.17.0",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-cypress": "5.3.0",
-    "eslint-plugin-jsdoc": "63.0.2",
+    "eslint-plugin-jsdoc": "63.2.0",
     "eslint-plugin-vue": "10.8.0",
     "jiti": "2.6.1",
     "jsdom": "29.0.0",

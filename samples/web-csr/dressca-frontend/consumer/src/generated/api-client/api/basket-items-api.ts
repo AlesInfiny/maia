@@ -35,13 +35,13 @@ import type { PutBasketItemsRequest } from '../models';
 export const BasketItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 買い物かごから指定したカタログアイテム ID の商品を削除します。<br>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
+         * 買い物かごから指定したカタログアイテム ID の商品を削除します。catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。UUID 形式でない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
          * @summary 買い物かごから指定したカタログアイテム ID の商品を削除します。
-         * @param {number} catalogItemId 
+         * @param {string} catalogItemId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteBasketItem: async (catalogItemId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteBasketItem: async (catalogItemId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'catalogItemId' is not null or undefined
             assertParamExists('deleteBasketItem', 'catalogItemId', catalogItemId)
             const localVarPath = `/api/basket-items/{catalogItemId}`
@@ -99,7 +99,7 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -134,7 +134,7 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -178,13 +178,13 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BasketItemsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 買い物かごから指定したカタログアイテム ID の商品を削除します。<br>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
+         * 買い物かごから指定したカタログアイテム ID の商品を削除します。catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。UUID 形式でない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
          * @summary 買い物かごから指定したカタログアイテム ID の商品を削除します。
-         * @param {number} catalogItemId 
+         * @param {string} catalogItemId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteBasketItem(catalogItemId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteBasketItem(catalogItemId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBasketItem(catalogItemId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['BasketItemsApi.deleteBasketItem']?.[localVarOperationServerIndex]?.url;
@@ -203,7 +203,7 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -216,7 +216,7 @@ export const BasketItemsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -238,13 +238,13 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
     const localVarFp = BasketItemsApiFp(configuration)
     return {
         /**
-         * 買い物かごから指定したカタログアイテム ID の商品を削除します。<br>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
+         * 買い物かごから指定したカタログアイテム ID の商品を削除します。catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。UUID 形式でない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
          * @summary 買い物かごから指定したカタログアイテム ID の商品を削除します。
-         * @param {number} catalogItemId 
+         * @param {string} catalogItemId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteBasketItem(catalogItemId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        deleteBasketItem(catalogItemId: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteBasketItem(catalogItemId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -257,7 +257,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getBasketItems(options).then((request) => request(axios, basePath));
         },
         /**
-         * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+         * 買い物かごに商品を追加します。この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
          * @summary 買い物かごに商品を追加します。
          * @param {PostBasketItemsRequest} postBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -267,7 +267,7 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.postBasketItem(postBasketItemsRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+         * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
          * @summary 買い物かごアイテム内の数量を変更します。
          * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
          * @param {*} [options] Override http request option.
@@ -284,13 +284,13 @@ export const BasketItemsApiFactory = function (configuration?: Configuration, ba
  */
 export class BasketItemsApi extends BaseAPI {
     /**
-     * 買い物かごから指定したカタログアイテム ID の商品を削除します。<br>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
+     * 買い物かごから指定したカタログアイテム ID の商品を削除します。catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。UUID 形式でない値を指定した場合 HTTP 400 を返却します。買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。
      * @summary 買い物かごから指定したカタログアイテム ID の商品を削除します。
-     * @param {number} catalogItemId 
+     * @param {string} catalogItemId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public deleteBasketItem(catalogItemId: number, options?: RawAxiosRequestConfig) {
+    public deleteBasketItem(catalogItemId: string, options?: RawAxiosRequestConfig) {
         return BasketItemsApiFp(this.configuration).deleteBasketItem(catalogItemId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -305,7 +305,7 @@ export class BasketItemsApi extends BaseAPI {
     }
 
     /**
-     * 買い物かごに商品を追加します。<br>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
+     * 買い物かごに商品を追加します。この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
      * @summary 買い物かごに商品を追加します。
      * @param {PostBasketItemsRequest} postBasketItemsRequest 
      * @param {*} [options] Override http request option.
@@ -316,7 +316,7 @@ export class BasketItemsApi extends BaseAPI {
     }
 
     /**
-     * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
+     * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。
      * @summary 買い物かごアイテム内の数量を変更します。
      * @param {Array<PutBasketItemsRequest>} putBasketItemsRequest 
      * @param {*} [options] Override http request option.

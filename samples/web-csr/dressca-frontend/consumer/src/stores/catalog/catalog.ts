@@ -34,7 +34,7 @@ export const useCatalogStore = defineStore('catalog', {
     async fetchCategories() {
       const response = await catalogCategoriesApi().getCatalogCategories()
       this.categories = response.data
-      this.categories.unshift({ id: 0, name: 'すべて' })
+      this.categories.unshift({ id: '', name: 'すべて' })
     },
     /**
      * ブランド一覧を取得します。
@@ -42,7 +42,7 @@ export const useCatalogStore = defineStore('catalog', {
     async fetchBrands() {
       const response = await catalogBrandsApi().getCatalogBrands()
       this.brands = response.data
-      this.brands.unshift({ id: 0, name: 'すべて' })
+      this.brands.unshift({ id: '', name: 'すべて' })
     },
     /**
      * カタログアイテム一覧を取得します。
@@ -50,10 +50,10 @@ export const useCatalogStore = defineStore('catalog', {
      * @param brandId ブランドID 。
      * @param page ページ番号（任意）。
      */
-    async fetchItems(categoryId: number, brandId: number, page?: number) {
+    async fetchItems(categoryId?: string, brandId?: string, page?: number) {
       const response = await catalogItemsApi().getByQuery(
-        brandId === 0 ? undefined : brandId,
-        categoryId === 0 ? undefined : categoryId,
+        brandId || undefined,
+        categoryId || undefined,
         page,
         undefined,
       )
@@ -97,7 +97,7 @@ export const useCatalogStore = defineStore('catalog', {
      * const brandName = getBrandName(item.catalogBrandId)
      */
     getBrandName: (state) => {
-      return (id: number) => state.brands.find((brand) => brand.id === id)?.name
+      return (id: string) => state.brands.find((brand) => brand.id === id)?.name
     },
   },
 })

@@ -6,7 +6,7 @@ import { showToast } from '@/services/notification/notificationService'
 import NotificationModal from '@/components/NotificationModal.vue'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
-import { catalogItemSchema } from '@/validation/validation-items'
+import { catalogItemSchema, type CatalogItemFormValues } from '@/validation/validation-items'
 import type { GetCatalogBrandsResponse, GetCatalogCategoriesResponse } from '@/generated/api-client'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { Roles } from '@/shared/constants/roles'
@@ -18,7 +18,7 @@ const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 
-const { errors, values, meta, defineField } = useForm({
+const { errors, values, meta, defineField } = useForm<CatalogItemFormValues>({
   validationSchema: catalogItemSchema,
   initialValues: {
     itemName: 'テスト用アイテム',
@@ -40,22 +40,22 @@ const isInvalid = () => {
 /**
  * 選択されているカタログカテゴリの ID です。
  */
-const selectedCategoryId = ref(1)
+const selectedCategoryId = ref('')
 
 /**
  * 選択されているカタログブランドの ID です。
  */
-const selectedBrandId = ref(1)
+const selectedBrandId = ref('')
 
 /**
  * リアクティブなカタログブランドの状態です。
  */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: 0, name: '' }])
+const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなカタログカテゴリの状態です。
  */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: 0, name: '' }])
+const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
 
 /**
  * リアクティブなモーダルの開閉状態です。
@@ -76,7 +76,7 @@ const AddItem = async () => {
     await postCatalogItem(
       values.itemName,
       values.itemDescription,
-      values.price,
+      Number(values.price),
       values.productCode,
       selectedCategoryId.value,
       selectedBrandId.value,
@@ -108,6 +108,8 @@ onMounted(async () => {
   showLoading.value = true
   try {
     ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
+    selectedCategoryId.value = catalogCategories.value[0]?.id ?? ''
+    selectedBrandId.value = catalogBrands.value[0]?.id ?? ''
   } catch (error) {
     await handleErrorAsync(error, () => {
       showToast('カテゴリとブランド情報の取得に失敗しました。')
@@ -183,11 +185,7 @@ onMounted(async () => {
           v-model="selectedCategoryId"
           class="w-full border border-gray-300 px-4 py-2"
         >
-          <option
-            v-for="category in catalogCategories.filter((category) => category.id !== 0)"
-            :key="category.id"
-            :value="category.id"
-          >
+          <option v-for="category in catalogCategories" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
         </select>
@@ -197,15 +195,11 @@ onMounted(async () => {
         <label for="brand" class="mb-2 block font-bold">ブランド</label>
         <select
           id="brand"
-          v-model.number="selectedBrandId"
+          v-model="selectedBrandId"
           name="brand"
           class="w-full border border-gray-300 px-4 py-2"
         >
-          <option
-            v-for="brand in catalogBrands.filter((brand) => brand.id !== 0)"
-            :key="brand.id"
-            :value="brand.id"
-          >
+          <option v-for="brand in catalogBrands" :key="brand.id" :value="brand.id">
             {{ brand.name }}
           </option>
         </select>
