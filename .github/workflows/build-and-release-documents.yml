@@ -84,6 +84,7 @@ jobs:
           name: documents
 
       - name: GitHubのリリース
+        continue-on-error: true
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
@@ -110,11 +111,25 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: ステージング環境へのデプロイ
-        uses: azure/webapps-deploy@02a81bead70021f5284939794bcec79c271ab383  # v3.0.8
-        with:
-          app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
-          slot-name: staging
-          package: "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}"
+        shell: bash
+        run: |
+          resource_group=$(az webapp show \
+            --name "${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" \
+            --query resourceGroup \
+            --output tsv)
+
+          if [ -z "$resource_group" ]; then
+            echo "Failed to resolve resource group for ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" >&2
+            exit 1
+          fi
+
+          az webapp deploy \
+            --resource-group "$resource_group" \
+            --name "${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" \
+            --slot staging \
+            --src-path "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}" \
+            --type zip \
+            --track-status false
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
