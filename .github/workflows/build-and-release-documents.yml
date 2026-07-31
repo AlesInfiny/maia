@@ -18,6 +18,7 @@ env:
   DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
   COMPRESSED_SOURCE_PATH: contents/samples/downloads
+  RESOURCE_GROUP: rg-alesinfiny-maia
 
 jobs:
   build:
@@ -113,18 +114,8 @@ jobs:
       - name: ステージング環境へのデプロイ
         shell: bash
         run: |
-          resource_group=$(az webapp show \
-            --name "${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" \
-            --query resourceGroup \
-            --output tsv)
-
-          if [ -z "$resource_group" ]; then
-            echo "Failed to resolve resource group for ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" >&2
-            exit 1
-          fi
-
           az webapp deploy \
-            --resource-group "$resource_group" \
+            --resource-group "${{ env.RESOURCE_GROUP }}" \
             --name "${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" \
             --slot staging \
             --src-path "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}" \
