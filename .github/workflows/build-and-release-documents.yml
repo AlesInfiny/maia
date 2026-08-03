@@ -1,4 +1,4 @@
-# cspell:ignore endgroup fjogeleit markdownlint softprops textlintrc webapps
+# cspell:ignore endgroup fjogeleit markdownlint softprops textlintrc
 name: ドキュメントのビルドとリリース
 
 on:
@@ -18,6 +18,7 @@ env:
   DOCUMENT_OUTPUT_FOLDER_NAME: build-artifacts
   DOCUMENT_ARTIFACTS_FILENAME: docs.zip
   COMPRESSED_SOURCE_PATH: contents/samples/downloads
+  RESOURCE_GROUP: rg-alesinfiny-maia
 
 jobs:
   build:
@@ -110,11 +111,15 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: ステージング環境へのデプロイ
-        uses: azure/webapps-deploy@02a81bead70021f5284939794bcec79c271ab383  # v3.0.8
-        with:
-          app-name: ${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}
-          slot-name: staging
-          package: "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}"
+        shell: bash
+        run: |
+          az webapp deploy \
+            --resource-group "${{ env.RESOURCE_GROUP }}" \
+            --name "${{ env.APP_ALESINFINY_MAIA_WEBAPP_NAME }}" \
+            --slot staging \
+            --src-path "${{ env.DOCUMENT_ARTIFACTS_FILENAME }}" \
+            --type zip \
+            --track-status true
 
       - name: Teams への通知
         uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
