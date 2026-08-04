@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { fetchCategoriesAndBrands, fetchItems } from '@/services/display-item/display-service'
+import { fetchCategoriesAndBrands, fetchItems } from '@/services/display-item/display-item-service'
 import { addItemToBasket } from '@/services/basket/basket-service'
 import { showToast } from '@/services/notification/notificationService'
 import { storeToRefs } from 'pinia'
