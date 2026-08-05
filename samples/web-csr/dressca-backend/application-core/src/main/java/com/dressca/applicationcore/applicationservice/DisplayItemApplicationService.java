@@ -61,19 +61,6 @@ public class DisplayItemApplicationService {
   }
 
   /**
-   * 陳列品 ID のリストに一致する陳列品を取得します。
-   *
-   * @param displayItemIds 陳列品 ID のリスト。
-   * @return 条件に一致する陳列品のリスト。存在しない場合は空のリスト。
-   */
-  public List<DisplayItem> getDisplayItemsByIds(List<UUID> displayItemIds) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_GET_DISPLAY_ITEMS_BY_IDS,
-        new Object[] {displayItemIds}, Locale.getDefault()));
-
-    return this.displayItemRepository.findByDisplayItemIdIn(displayItemIds);
-  }
-
-  /**
    * フィルタリング用の陳列品ブランドのリストを取得します。
    *
    * @return 陳列品ブランドのリスト。

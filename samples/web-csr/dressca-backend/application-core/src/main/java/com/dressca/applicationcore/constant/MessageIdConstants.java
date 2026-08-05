@@ -51,10 +51,6 @@ public class MessageIdConstants {
   public static final String D_DISPLAY_GET_DISPLAY_ITEMS =
       "displayApplicationServiceGetDisplayItems";
 
-  /** 陳列品 ID 一覧: {0} に一致する陳列品情報を取得します。 */
-  public static final String D_DISPLAY_GET_DISPLAY_ITEMS_BY_IDS =
-      "displayApplicationServiceGetDisplayItemsByIds";
-
   /** 指定した注文ID: {0}, 購入者ID: {1} の注文情報を取得します。 */
   public static final String D_ORDER_GET_ORDER = "orderApplicationServiceGetOrder";
 

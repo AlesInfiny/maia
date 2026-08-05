@@ -112,23 +112,6 @@ public class DisplayItemApplicationServiceTest {
   }
 
   @Test
-  void testGetDisplayItemsByIds_正常系_リポジトリのfindByDisplayItemIdInを1回呼出す() {
-    // Arrange
-    UUID firstDisplayItemId = UUID.randomUUID();
-    UUID secondDisplayItemId = UUID.randomUUID();
-    List<UUID> displayItemIds = List.of(firstDisplayItemId, secondDisplayItemId);
-    List<DisplayItem> displayItems = displayItemIds.stream().map(this::createDisplayItem).toList();
-    when(this.displayItemRepository.findByDisplayItemIdIn(displayItemIds)).thenReturn(displayItems);
-
-    // Act
-    List<DisplayItem> actual = service.getDisplayItemsByIds(displayItemIds);
-
-    // Assert
-    assertThat(actual).isEqualTo(displayItems);
-    verify(this.displayItemRepository, times(1)).findByDisplayItemIdIn(displayItemIds);
-  }
-
-  @Test
   void testGetBrands_正常系_リポジトリのgetAllを1回呼出す() {
     // Arrange
     List<DisplayItemBrand> brands = List.of(new DisplayItemBrand("dummy"));
