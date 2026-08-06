@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.translator;
+package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator;
 
 import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntity;

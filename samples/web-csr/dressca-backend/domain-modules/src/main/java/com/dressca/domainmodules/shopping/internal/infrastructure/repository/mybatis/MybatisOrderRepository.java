@@ -1,7 +1,7 @@
-package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repository;
+package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis;
 
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
-import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedOrderMapper;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
 import com.dressca.domainmodules.shopping.models.Order;
 import java.util.Optional;
 import java.util.UUID;

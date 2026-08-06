@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis.mapper;
+package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.mapper;
 
 import java.util.List;
 import java.util.UUID;

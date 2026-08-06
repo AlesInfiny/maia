@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis.translator;
+package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator;
 
 import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
 import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;

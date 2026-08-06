@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper;
+package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper;
 
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;

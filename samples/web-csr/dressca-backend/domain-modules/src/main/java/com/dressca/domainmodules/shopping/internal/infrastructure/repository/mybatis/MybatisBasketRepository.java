@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repository;
+package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis;
 
 import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntityExample;
@@ -7,8 +7,8 @@ import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntit
 import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketItemMapper;
 import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketMapper;
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
-import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedBasketMapper;
-import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.translator.ShoppingEntityTranslator;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator.ShoppingEntityTranslator;
 import com.dressca.domainmodules.shopping.models.Basket;
 import java.util.List;
 import java.util.Optional;
