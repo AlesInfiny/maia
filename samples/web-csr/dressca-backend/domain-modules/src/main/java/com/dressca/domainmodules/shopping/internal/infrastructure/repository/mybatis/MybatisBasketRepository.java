@@ -1,11 +1,11 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis;
 
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntityExample;
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntityExample;
-import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketItemMapper;
-import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketMapper;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntityExample;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketItemEntityExample;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.mapper.BasketItemMapper;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator.ShoppingEntityTranslator;

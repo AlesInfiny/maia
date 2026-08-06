@@ -4,9 +4,9 @@ import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.Ca
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator.CatalogEntityTranslator;
 import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogItemEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogItemEntityExample;
-import com.dressca.domainmodules.common.mybatis.generated.mapper.CatalogItemMapper;
+import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity;
+import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample;
+import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper.CatalogItemMapper;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;

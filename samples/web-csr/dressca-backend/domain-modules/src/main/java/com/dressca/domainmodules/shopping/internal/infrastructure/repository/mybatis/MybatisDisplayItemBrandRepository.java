@@ -1,38 +1,31 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis;
 
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntityExample;
-import com.dressca.domainmodules.common.mybatis.generated.mapper.CatalogBrandMapper;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
-import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator.ShoppingEntityTranslator;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.DisplayItemBrandQueryMapper;
 import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
  * 陳列品ブランドのリポジトリです。
  * 陳列品ブランド専用のテーブルは持たず、カタログブランド（catalog_brands）を源泉として陳列品ブランドを解決します。
+ * カタログ管理コンテキストのテーブルは読み取り専用マッパー経由で参照し、更新は行いません。
  */
 @Repository
 @RequiredArgsConstructor
 public class MybatisDisplayItemBrandRepository implements DisplayItemBrandRepository {
 
-  private final CatalogBrandMapper catalogBrandMapper;
+  private final DisplayItemBrandQueryMapper mapper;
 
   @Override
   public List<DisplayItemBrand> getAll() {
-    CatalogBrandEntityExample example = new CatalogBrandEntityExample();
-    return catalogBrandMapper.selectByExample(example).stream()
-        .map(ShoppingEntityTranslator::displayItemBrandEntityTranslate)
-        .collect(Collectors.toList());
+    return mapper.selectAll();
   }
 
   @Override
   public DisplayItemBrand findById(UUID id) {
-    CatalogBrandEntity entity = catalogBrandMapper.selectByPrimaryKey(id);
-    return entity == null ? null : ShoppingEntityTranslator.displayItemBrandEntityTranslate(entity);
+    return mapper.selectById(id);
   }
 }

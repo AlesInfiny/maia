@@ -1,15 +1,11 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator;
 
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogCategoryEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.OrderEntity;
-import com.dressca.domainmodules.common.mybatis.generated.entity.OrderItemEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderEntity;
+import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
 import com.dressca.domainmodules.shopping.models.Basket;
 import com.dressca.domainmodules.shopping.models.BasketItem;
-import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
-import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
 import com.dressca.domainmodules.shopping.models.Order;
 import com.dressca.domainmodules.shopping.models.OrderItem;
 import org.springframework.beans.BeanUtils;
@@ -65,33 +61,6 @@ public class ShoppingEntityTranslator {
     BasketItemEntity entity = new BasketItemEntity();
     BeanUtils.copyProperties(basketItem, entity);
     return entity;
-  }
-
-  /**
-   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ： {@link DisplayItemBrand} に変換します。
-   * 陳列アイテムブランド専用テーブルを持たないため、カタログブランドを源泉に陳列アイテムブランドを構築します。
-   *
-   * @param entity {@link CatalogBrandEntity} オブジェクト。
-   * @return {@link DisplayItemBrand} オブジェクト。
-   */
-  public static DisplayItemBrand displayItemBrandEntityTranslate(CatalogBrandEntity entity) {
-    DisplayItemBrand displayItemBrand = new DisplayItemBrand();
-    BeanUtils.copyProperties(entity, displayItemBrand);
-    return displayItemBrand;
-  }
-
-  /**
-   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link DisplayItemCategory} に変換します。
-   * 陳列品カテゴリ専用テーブルを持たないため、カタログカテゴリを源泉に陳列品カテゴリを構築します。
-   *
-   * @param entity {@link CatalogCategoryEntity} オブジェクト。
-   * @return {@link DisplayItemCategory} オブジェクト。
-   */
-  public static DisplayItemCategory displayItemCategoryEntityTranslate(
-      CatalogCategoryEntity entity) {
-    DisplayItemCategory displayItemCategory = new DisplayItemCategory();
-    BeanUtils.copyProperties(entity, displayItemCategory);
-    return displayItemCategory;
   }
 
   /**

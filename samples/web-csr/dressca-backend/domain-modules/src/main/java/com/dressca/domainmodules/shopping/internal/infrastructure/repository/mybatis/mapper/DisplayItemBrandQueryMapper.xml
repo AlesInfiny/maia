@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.DisplayItemBrandQueryMapper">
+
+  <!--
+    カタログ管理コンテキストが所有する CATALOG_BRANDS を参照します。
+    買い物コンテキストからは読み取りのみを行い、更新系のステートメントは定義しません。
+  -->
+  <resultMap id="displayItemBrandResultMap" type="com.dressca.domainmodules.shopping.models.DisplayItemBrand">
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
+    <result property="name" column="NAME"/>
+  </resultMap>
+
+  <select id="selectAll" resultMap="displayItemBrandResultMap">
+    SELECT
+      CATALOG_BRANDS.ID,
+      CATALOG_BRANDS.NAME
+    FROM CATALOG_BRANDS
+  </select>
+
+  <select id="selectById" resultMap="displayItemBrandResultMap">
+    SELECT
+      CATALOG_BRANDS.ID,
+      CATALOG_BRANDS.NAME
+    FROM CATALOG_BRANDS
+    WHERE CATALOG_BRANDS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+  </select>
+</mapper>

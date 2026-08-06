@@ -3,8 +3,8 @@ package com.dressca.domainmodules.assetsmanagement.internal.infrastructure.repos
 import com.dressca.domainmodules.assetsmanagement.internal.domain.repository.AssetRepository;
 import com.dressca.domainmodules.assetsmanagement.internal.infrastructure.repository.mybatis.translator.AssetEntityTranslator;
 import com.dressca.domainmodules.assetsmanagement.models.Asset;
-import com.dressca.domainmodules.common.mybatis.generated.entity.AssetEntityExample;
-import com.dressca.domainmodules.common.mybatis.generated.mapper.AssetMapper;
+import com.dressca.domainmodules.assetsmanagement.internal.infrastructure.repository.mybatis.generated.entity.AssetEntityExample;
+import com.dressca.domainmodules.assetsmanagement.internal.infrastructure.repository.mybatis.generated.mapper.AssetMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
