@@ -3,6 +3,8 @@
  *
  * <p>内部を隠蔽しないオープンモジュールとして宣言し、他モジュールへの依存は一切許可しません。</p>
  */
-@org.springframework.modulith.ApplicationModule(displayName = "共通部品",
-    type = org.springframework.modulith.ApplicationModule.Type.OPEN, allowedDependencies = {})
+@ApplicationModule(displayName = "共通部品", type = ApplicationModule.Type.OPEN,
+    allowedDependencies = {})
 package com.dressca.domainmodules.common;
+
+import org.springframework.modulith.ApplicationModule;
