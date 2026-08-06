@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedDisplayItemMapper">
+<mapper namespace="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedDisplayItemMapper">
 
   <sql id="selectDisplayItemsIncludeAsset">
     SELECT
@@ -22,7 +22,7 @@
       )
   </sql>
 
-  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.domainmodules.shopping.displayitem.DisplayItem">
+  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.domainmodules.shopping.models.DisplayItem">
     <id property="id" column="DISPLAY_ITEM_ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
@@ -31,10 +31,10 @@
     <result property="displayItemCategoryId" column="CATALOG_CATEGORY_ID"/>
     <result property="displayItemBrandId" column="CATALOG_BRAND_ID"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.domainmodules.shopping.displayitem.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.domainmodules.shopping.models.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
   </resultMap>
 
-  <resultMap id="displayAssetsResultMap" type="com.dressca.domainmodules.shopping.displayitem.DisplayItemAsset">
+  <resultMap id="displayAssetsResultMap" type="com.dressca.domainmodules.shopping.models.DisplayItemAsset">
     <result property="displayItemId" column="DISPLAY_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

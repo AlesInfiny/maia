@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis.mapper.JoinedCatalogItemMapper">
+<mapper namespace="com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.mapper.JoinedCatalogItemMapper">
 
   <sql id="selectCatalogItems">
     SELECT
@@ -34,7 +34,7 @@
     )
   </sql>
 
-  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem">
+  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.domainmodules.catalogmanagement.models.CatalogItem">
     <id property="id" column="ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
@@ -44,15 +44,15 @@
     <result property="catalogBrandId" column="CATALOG_BRAND_ID"/>
     <result property="rowVersion" column="ROW_VERSION"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItemAsset" resultMap="assetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset" resultMap="assetsResultMap"/>
   </resultMap>
 
-  <resultMap id="assetsResultMap" type="com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItemAsset">
+  <resultMap id="assetsResultMap" type="com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset">
     <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>
 
-  <select id="findByCategoryIdIn" resultType="com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem" parameterType="List">
+  <select id="findByCategoryIdIn" resultType="com.dressca.domainmodules.catalogmanagement.models.CatalogItem" parameterType="List">
     <include refid="selectCatalogItems"/>
     <choose>
       <when test="categoryIds != null and categoryIds.size != 0">

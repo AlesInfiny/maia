@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedBasketMapper">
+<mapper namespace="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedBasketMapper">
 
   <sql id="selectBasketsIncludeItem">
     SELECT
@@ -17,13 +17,13 @@
     )
   </sql>
 
-  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.domainmodules.shopping.basket.Basket">
+  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.domainmodules.shopping.models.Basket">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
-    <collection property="items" ofType="com.dressca.domainmodules.shopping.basket.BasketItem" resultMap="itemsResultMap"/>
+    <collection property="items" ofType="com.dressca.domainmodules.shopping.models.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
-  <resultMap id="itemsResultMap" type="com.dressca.domainmodules.shopping.basket.BasketItem">
+  <resultMap id="itemsResultMap" type="com.dressca.domainmodules.shopping.models.BasketItem">
     <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>

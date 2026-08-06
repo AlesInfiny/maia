@@ -1,9 +1,8 @@
-package com.dressca.domainmodules.catalogmanagement;
+package com.dressca.domainmodules.catalogmanagement.internal.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.catalogmanagement.internal.domain.CatalogDomainService;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogRepository;
