@@ -1,8 +1,6 @@
 package com.dressca.web.admin.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.dressca.applicationcore.authorization.UserStore;
+import com.dressca.domainmodules.authorization.UserStore;
 import com.dressca.web.admin.controller.dto.user.GetLoginUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * {@link UserStore} の情報にアクセスする API コントローラです。

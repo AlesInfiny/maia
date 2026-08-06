@@ -1,8 +1,8 @@
 package com.dressca.web.consumer.filter;
 
-import java.io.IOException;
-import java.util.UUID;
-import java.util.regex.Pattern;
+import com.dressca.domainmodules.common.util.UuidGenerator;
+import com.dressca.web.constant.WebConstants;
+import com.dressca.web.consumer.security.CookieSettings;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,13 +11,13 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.UUID;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import com.dressca.systemcommon.util.UuidGenerator;
-import com.dressca.web.constant.WebConstants;
-import com.dressca.web.consumer.security.CookieSettings;
 
 /**
  * 購入者 ID にフィルターをかけるクラスです。
@@ -56,13 +56,10 @@ public class BuyerIdFilter implements Filter {
 
     buyerId = (UUID) request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     ResponseCookie responseCookie =
-        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString())
-            .path("/")
-            .httpOnly(cookieSettings.isHttpOnly())
-            .secure(cookieSettings.isSecure())
+        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString()).path("/")
+            .httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
             .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
-            .sameSite(cookieSettings.getSameSite())
-            .build();
+            .sameSite(cookieSettings.getSameSite()).build();
 
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }

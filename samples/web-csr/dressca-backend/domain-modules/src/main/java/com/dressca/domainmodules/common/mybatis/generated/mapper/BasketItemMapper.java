@@ -1,0 +1,45 @@
+package com.dressca.domainmodules.common.mybatis.generated.mapper;
+
+import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntity;
+import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntityExample;
+import jakarta.annotation.Generated;
+import java.util.List;
+import java.util.UUID;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+@Mapper
+public interface BasketItemMapper {
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    long countByExample(BasketItemEntityExample example);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int deleteByExample(BasketItemEntityExample example);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int deleteByPrimaryKey(UUID id);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int insert(BasketItemEntity row);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int insertSelective(BasketItemEntity row);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    List<BasketItemEntity> selectByExample(BasketItemEntityExample example);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    BasketItemEntity selectByPrimaryKey(UUID id);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int updateByExampleSelective(@Param("row") BasketItemEntity row, @Param("example") BasketItemEntityExample example);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int updateByExample(@Param("row") BasketItemEntity row, @Param("example") BasketItemEntityExample example);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int updateByPrimaryKeySelective(BasketItemEntity row);
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    int updateByPrimaryKey(BasketItemEntity row);
+}

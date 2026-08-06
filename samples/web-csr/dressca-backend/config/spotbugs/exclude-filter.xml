@@ -8,7 +8,7 @@
     不正状態を防ぐために必要であるため警告を除外する。
   -->
   <Match>
-    <Class name="~com\.dressca\.applicationcore(\..*)?" />
+    <Class name="~com\.dressca\.domainmodules(\..*)?" />
     <Method name="&lt;init&gt;" />
     <Bug pattern="CT_CONSTRUCTOR_THROW" />
   </Match>
@@ -18,7 +18,7 @@
     外部から変更されることはないため EI_EXPOSE_REP2 の警告を除外する。
   -->
   <Match>
-    <Class name="com.dressca.applicationcore.applicationservice.CatalogApplicationService" />
+    <Class name="com.dressca.domainmodules.catalogmanagement.CatalogApplicationService" />
     <Method name="&lt;init&gt;" />
     <Bug pattern="EI_EXPOSE_REP2" />
   </Match>
@@ -34,7 +34,7 @@
     呼び出し側でも不変として扱う前提のため EI 警告を除外する。
   -->
   <Match>
-    <Class name="~com\.dressca\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
+    <Class name="~com\.dressca\.domainmodules\.common\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
     <Bug code="EI" />
   </Match>
   <!-- 
@@ -42,7 +42,7 @@
     意図した設計であるため警告を無視する設定としている。
   -->
   <Match>
-    <Class name="com.dressca.systemcommon.util.ApplicationContextWrapper"/>
+    <Class name="com.dressca.domainmodules.common.util.ApplicationContextWrapper"/>
     <Method name="setApplicationContext" />
       <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>

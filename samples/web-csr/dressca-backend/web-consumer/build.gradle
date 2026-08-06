@@ -28,9 +28,7 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
 
-	implementation project(':application-core')
-	implementation project(':infrastructure')
-	implementation project(':system-common')
+	implementation project(':domain-modules')
 	implementation project(':web')
 
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test

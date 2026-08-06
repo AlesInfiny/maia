@@ -1,9 +1,9 @@
 package com.dressca.web.consumer.mapper;
 
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.order.Order;
+import com.dressca.domainmodules.shopping.order.Order;
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
+import java.util.stream.Collectors;
 
 /**
  * {@link Order} と {@link GetOrderByIdResponse} のマッパーです。

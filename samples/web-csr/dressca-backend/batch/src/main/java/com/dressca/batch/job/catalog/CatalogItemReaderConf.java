@@ -1,12 +1,12 @@
 package com.dressca.batch.job.catalog;
 
+import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import lombok.RequiredArgsConstructor;
 
 /**
  * CATALOG_ITEM テーブルからデータ一覧を取得する Reader の設定です。
@@ -25,8 +25,8 @@ public class CatalogItemReaderConf {
   @Bean
   public MyBatisPagingItemReader<CatalogItem> catalogItemReader() {
     return new MyBatisPagingItemReaderBuilder<CatalogItem>().sqlSessionFactory(sqlSessionFactory)
-        .queryId("com.dressca.infrastructure.repository.mybatis.mapper."
-            + "JoinedCatalogItemMapper.findWithPaging")
+        .queryId("com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis"
+            + ".mapper.JoinedCatalogItemMapper.findWithPaging")
         .pageSize(10).build();
   }
 }

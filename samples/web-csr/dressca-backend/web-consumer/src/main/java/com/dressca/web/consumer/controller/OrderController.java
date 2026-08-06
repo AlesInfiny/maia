@@ -1,15 +1,15 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.OrderApplicationService;
-import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
-import com.dressca.applicationcore.order.Address;
-import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
-import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderNotFoundException;
-import com.dressca.applicationcore.order.ShipTo;
-import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.systemcommon.exception.SystemException;
-import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
+import com.dressca.domainmodules.common.exception.SystemException;
+import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.shopping.OrderApplicationService;
+import com.dressca.domainmodules.shopping.ShoppingApplicationService;
+import com.dressca.domainmodules.shopping.order.Order;
+import com.dressca.domainmodules.shopping.order.exception.EmptyBasketOnCheckoutException;
+import com.dressca.domainmodules.shopping.order.exception.OrderNotFoundException;
+import com.dressca.domainmodules.shopping.order.valueobject.Address;
+import com.dressca.domainmodules.shopping.order.valueobject.ShipTo;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;

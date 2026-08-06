@@ -7,6 +7,7 @@ ext {
 
     // -- DEPENDENCIES
     mybatisGeneratorVersion = "2.0.0"
+    springModulithVersion = "2.1.0"
     mybatisSpringBootStarterVersion = "4.1.0"
     mybatisSpringBootStarterTestVersion = "4.1.0"
     springdocOpenapiVersion = "3.0.3"
@@ -37,6 +38,12 @@ ext {
         
         // SPRING BOOT MODULES
         spring_boot_transaction : "org.springframework.boot:spring-boot-transaction",
+
+        // SPRING MODULITH
+        spring_modulith_bom : "org.springframework.modulith:spring-modulith-bom:$springModulithVersion",
+        spring_modulith_api : "org.springframework.modulith:spring-modulith-api",
+        spring_modulith_core : "org.springframework.modulith:spring-modulith-core",
+        spring_modulith_docs : "org.springframework.modulith:spring-modulith-docs",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",

@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.displayitem.DisplayItemCategory;
+import com.dressca.domainmodules.shopping.displayitem.DisplayItemCategory;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemCategoriesResponse;
 
 /**

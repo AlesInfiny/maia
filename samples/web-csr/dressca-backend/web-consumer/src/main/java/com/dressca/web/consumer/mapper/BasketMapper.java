@@ -1,13 +1,13 @@
 package com.dressca.web.consumer.mapper;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.accounting.Account;
-import com.dressca.applicationcore.baskets.Basket;
+import com.dressca.domainmodules.shopping.basket.Basket;
+import com.dressca.domainmodules.shopping.valueobject.Account;
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * {@link Basket} と {@link GetBasketItemsResponse} のマッパーです。

@@ -1,14 +1,8 @@
 package com.dressca.web.consumer.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.DisplayItemApplicationService;
+import com.dressca.domainmodules.shopping.DisplayItemApplicationService;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemBrandsResponse;
 import com.dressca.web.consumer.mapper.DisplayItemBrandMapper;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,7 +10,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * {@link DisplayItemBrand} の情報にアクセスする API コントローラーです。

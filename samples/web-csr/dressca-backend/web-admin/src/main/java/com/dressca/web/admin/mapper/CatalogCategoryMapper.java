@@ -1,6 +1,6 @@
 package com.dressca.web.admin.mapper;
 
-import com.dressca.applicationcore.catalog.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.catalogcategory.CatalogCategory;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogCategoriesResponse;
 
 /**

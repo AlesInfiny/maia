@@ -1,10 +1,10 @@
 package com.dressca.batch.job.catalog;
 
+import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
+import org.jspecify.annotations.NonNull;
 import org.springframework.batch.infrastructure.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.catalog.CatalogItem;
 
 /**
  * {@link CatalogItem} の商品名をバッチ出力用に先頭 10 文字にする processor です。

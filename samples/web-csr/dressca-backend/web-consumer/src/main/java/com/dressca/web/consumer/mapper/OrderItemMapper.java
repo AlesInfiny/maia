@@ -1,10 +1,10 @@
 package com.dressca.web.consumer.mapper;
 
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.order.OrderItem;
-import com.dressca.applicationcore.order.OrderItemAsset;
+import com.dressca.domainmodules.shopping.order.OrderItem;
+import com.dressca.domainmodules.shopping.order.OrderItemAsset;
 import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.controller.dto.order.OrderItemApiModel;
+import java.util.stream.Collectors;
 
 /**
  * {@link OrderItem} と {@link OrderItemApiModel} のマッパーです。
