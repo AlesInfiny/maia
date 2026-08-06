@@ -27,6 +27,7 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_batch_jdbc_test
 	testImplementation supportDependencies.h2database
+	testImplementation supportDependencies.archunit
 }
 
 configurations {
