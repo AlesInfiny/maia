@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.assetsmanagement;
+package com.dressca.domainmodules.assetsmanagement.dto;
 
 import lombok.Data;
 import lombok.NonNull;

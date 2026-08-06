@@ -1,5 +1,6 @@
 package com.dressca.domainmodules.assetsmanagement;
 
+import com.dressca.domainmodules.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.Asset;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.exception.AssetNotFoundException;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.repository.AssetRepository;
