@@ -8,6 +8,7 @@
   "words": [
     "Appender",
     "Appenders",
+    "archunit",
     "assertj",
     "assetsmanagement",
     "Batis",
@@ -24,6 +25,7 @@
     "domainmodules",
     "Dressca",
     "Dspring",
+    "fasterxml",
     "findbugs",
     "hikari",
     "Incrementer",
@@ -47,6 +49,7 @@
     "subprojects",
     "taskdef",
     "tasklet",
+    "tngtech",
     "todofuken",
     "valueobject",
     "VARCHAR",
