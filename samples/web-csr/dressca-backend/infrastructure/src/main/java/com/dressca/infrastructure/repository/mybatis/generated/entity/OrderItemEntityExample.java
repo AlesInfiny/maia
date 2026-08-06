@@ -84,7 +84,7 @@ public class OrderItemEntityExample {
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> idCriteria;
 
-        protected List<Criterion> orderedCatalogItemIdCriteria;
+        protected List<Criterion> orderedDisplayItemIdCriteria;
 
         protected List<Criterion> orderIdCriteria;
 
@@ -96,7 +96,7 @@ public class OrderItemEntityExample {
             super();
             criteria = new ArrayList<>();
             idCriteria = new ArrayList<>();
-            orderedCatalogItemIdCriteria = new ArrayList<>();
+            orderedDisplayItemIdCriteria = new ArrayList<>();
             orderIdCriteria = new ArrayList<>();
         }
 
@@ -120,23 +120,23 @@ public class OrderItemEntityExample {
             allCriteria = null;
         }
 
-        public List<Criterion> getOrderedCatalogItemIdCriteria() {
-            return orderedCatalogItemIdCriteria;
+        public List<Criterion> getOrderedDisplayItemIdCriteria() {
+            return orderedDisplayItemIdCriteria;
         }
 
-        protected void addOrderedCatalogItemIdCriterion(String condition, Object value, String property) {
+        protected void addOrderedDisplayItemIdCriterion(String condition, Object value, String property) {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            orderedCatalogItemIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            orderedDisplayItemIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
             allCriteria = null;
         }
 
-        protected void addOrderedCatalogItemIdCriterion(String condition, UUID value1, UUID value2, String property) {
+        protected void addOrderedDisplayItemIdCriterion(String condition, UUID value1, UUID value2, String property) {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            orderedCatalogItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            orderedDisplayItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -163,7 +163,7 @@ public class OrderItemEntityExample {
         public boolean isValid() {
             return criteria.size() > 0
                 || idCriteria.size() > 0
-                || orderedCatalogItemIdCriteria.size() > 0
+                || orderedDisplayItemIdCriteria.size() > 0
                 || orderIdCriteria.size() > 0;
         }
 
@@ -172,7 +172,7 @@ public class OrderItemEntityExample {
                 allCriteria = new ArrayList<>();
                 allCriteria.addAll(criteria);
                 allCriteria.addAll(idCriteria);
-                allCriteria.addAll(orderedCatalogItemIdCriteria);
+                allCriteria.addAll(orderedDisplayItemIdCriteria);
                 allCriteria.addAll(orderIdCriteria);
             }
             return allCriteria;
@@ -266,63 +266,63 @@ public class OrderItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdIsNull() {
-            addCriterion("ordered_catalog_item_id is null");
+        public Criteria andOrderedDisplayItemIdIsNull() {
+            addCriterion("ordered_display_item_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdIsNotNull() {
-            addCriterion("ordered_catalog_item_id is not null");
+        public Criteria andOrderedDisplayItemIdIsNotNull() {
+            addCriterion("ordered_display_item_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdEqualTo(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id =", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdEqualTo(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id =", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotEqualTo(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <>", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdNotEqualTo(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id <>", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdGreaterThan(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id >", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdGreaterThan(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id >", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdGreaterThanOrEqualTo(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id >=", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdGreaterThanOrEqualTo(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id >=", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdLessThan(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdLessThan(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id <", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdLessThanOrEqualTo(UUID value) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id <=", value, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdLessThanOrEqualTo(UUID value) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id <=", value, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdIn(List<UUID> values) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id in", values, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdIn(List<UUID> values) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id in", values, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotIn(List<UUID> values) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not in", values, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdNotIn(List<UUID> values) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id not in", values, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdBetween(UUID value1, UUID value2) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id between", value1, value2, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdBetween(UUID value1, UUID value2) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id between", value1, value2, "orderedDisplayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderedCatalogItemIdNotBetween(UUID value1, UUID value2) {
-            addOrderedCatalogItemIdCriterion("ordered_catalog_item_id not between", value1, value2, "orderedCatalogItemId");
+        public Criteria andOrderedDisplayItemIdNotBetween(UUID value1, UUID value2) {
+            addOrderedDisplayItemIdCriterion("ordered_display_item_id not between", value1, value2, "orderedDisplayItemId");
             return (Criteria) this;
         }
 

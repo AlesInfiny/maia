@@ -89,23 +89,6 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 利用者が条件に一致するカタログ情報を取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @param page ページ。
-   * @param pageSize ページサイズ。
-   * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
-   */
-  public List<CatalogItem> getCatalogItemsForConsumer(UUID brandId, UUID categoryId, int page,
-      int pageSize) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
-        new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
-
-    return this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
-  }
-
-  /**
    * 管理者が条件に一致するカタログ情報を取得します。
    * 
    * @param brandId ブランド ID 。
@@ -115,13 +98,13 @@ public class CatalogApplicationService {
    * @return 条件に一致するカタログ情報のリスト。存在しない場合は空のリスト。
    * @throws PermissionDeniedException 取得権限がない場合。
    */
-  public List<CatalogItem> getCatalogItemsForAdmin(UUID brandId, UUID categoryId, int page,
-      int pageSize) throws PermissionDeniedException {
+  public List<CatalogItem> getCatalogItems(UUID brandId, UUID categoryId, int page, int pageSize)
+      throws PermissionDeniedException {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
-      throw new PermissionDeniedException("getCatalogItemsForAdmin");
+      throw new PermissionDeniedException("getCatalogItems");
     }
 
     return this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId,
@@ -239,8 +222,8 @@ public class CatalogApplicationService {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    CatalogItem item = new CatalogItem(id, name, description, price, productCode,
-        catalogCategoryId, catalogBrandId, isDeleted);
+    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId,
+        catalogBrandId, isDeleted);
     // 変更前の行バージョンを、変更対象のカタログアイテムに追加
     item.setRowVersion(rowVersion);
 
@@ -251,32 +234,17 @@ public class CatalogApplicationService {
   }
 
   /**
-   * 利用者が条件に一致するカテゴリの件数を取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @return 条件に一致するカタログ情報の件数。
-   */
-  public int countCatalogItemsForConsumer(UUID brandId, UUID categoryId) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
-        new Object[] {brandId, categoryId}, Locale.getDefault()));
-
-    return this.catalogRepository.countByBrandIdAndCategoryId(brandId, categoryId);
-  }
-
-  /**
    * 管理者が条件に一致するカテゴリの件数を取得します。
    * 
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログ情報の件数。
    */
-  public int countCatalogItemsForAdmin(UUID brandId, UUID categoryId) {
+  public int countCatalogItems(UUID brandId, UUID categoryId) {
     apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
         new Object[] {brandId, categoryId}, Locale.getDefault()));
 
-    return this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(brandId,
-        categoryId);
+    return this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
   }
 
   /**

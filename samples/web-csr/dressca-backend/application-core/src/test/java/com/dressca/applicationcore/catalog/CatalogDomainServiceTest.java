@@ -1,12 +1,9 @@
 package com.dressca.applicationcore.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,105 +28,6 @@ public class CatalogDomainServiceTest {
   private CatalogCategoryRepository catalogCategoryRepository;
   @InjectMocks
   private CatalogDomainService service;
-
-  @Test
-  void testGetExistCatalogItems_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> catalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).toList();
-    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
-
-    // Act
-    service.getExistCatalogItems(catalogItemIds);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
-  }
-
-  @Test
-  void testExistAll_正常系_リポジトリ内に存在するアイテムのリストを返す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> requestedCatalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    List<CatalogItem> catalogItems = List.of(createCatalogItem(secondCatalogItemId));
-    when(this.catalogRepository.findByCatalogItemIdIn(requestedCatalogItemIds))
-        .thenReturn(catalogItems);
-
-    // Act
-    List<CatalogItem> actualItems = service.getExistCatalogItems(requestedCatalogItemIds);
-
-    // Assert
-    assertThat(actualItems).hasSize(1);
-    assertThat(actualItems.get(0).getId()).isEqualTo(secondCatalogItemId);
-  }
-
-  @Test
-  void testExistAll_正常系_リポジトリのfindByCategoryIdInを1度だけ呼出す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> catalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).toList();
-    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
-
-    // Act
-    service.existAll(catalogItemIds);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findByCatalogItemIdIn(catalogItemIds);
-  }
-
-  @Test
-  void testExistAll_正常系_カタログアイテムIdがすべて存在する場合trueを返す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> catalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    List<CatalogItem> catalogItems = catalogItemIds.stream().map(this::createCatalogItem).toList();
-    when(this.catalogRepository.findByCatalogItemIdIn(catalogItemIds)).thenReturn(catalogItems);
-
-    // Act
-    boolean existAll = service.existAll(catalogItemIds);
-
-    // Assert
-    assertThat(existAll).isTrue();
-  }
-
-  @Test
-  void testExistAll_正常系_カタログアイテムIdが一部だけ存在する場合falseを返す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> requestedCatalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    List<CatalogItem> catalogItems = List.of(createCatalogItem(secondCatalogItemId));
-    when(this.catalogRepository.findByCatalogItemIdIn(requestedCatalogItemIds))
-        .thenReturn(catalogItems);
-
-    // Act
-    boolean existAll = service.existAll(requestedCatalogItemIds);
-
-    // Assert
-    assertThat(existAll).isFalse();
-  }
-
-  @Test
-  void testExistAll_正常系_カタログアイテムIdが1件も存在しない場合falseを返す() {
-    // Arrange
-    UUID firstCatalogItemId = UUID.randomUUID();
-    UUID secondCatalogItemId = UUID.randomUUID();
-    List<UUID> requestedCatalogItemIds = List.of(firstCatalogItemId, secondCatalogItemId);
-    when(this.catalogRepository.findByCatalogItemIdIn(requestedCatalogItemIds))
-        .thenReturn(List.of());
-
-    // Act
-    boolean existAll = service.existAll(requestedCatalogItemIds);
-
-    // Assert
-    assertThat(existAll).isFalse();
-  }
 
   @Test
   void testExistCatalogBrand_正常系_指定したカタログブランドが存在する場合trueを返す() {
@@ -207,33 +105,6 @@ public class CatalogDomainServiceTest {
 
     // Act
     boolean existCatalogItem = service.existCatalogItem(targetId);
-
-    // Assert
-    assertThat(existCatalogItem).isFalse();
-  }
-
-  @Test
-  void testExistCatalogItemIncludingDeleted_正常系_指定したカタログアイテムが存在する場合trueを返す() {
-    // Arrange
-    UUID targetId = UUID.randomUUID();
-    CatalogItem catalogItem = this.createCatalogItem(targetId);
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(catalogItem);
-
-    // Act
-    boolean existCatalogItem = service.existCatalogItemIncludingDeleted(targetId);
-
-    // Assert
-    assertThat(existCatalogItem).isTrue();
-  }
-
-  @Test
-  void testExistCatalogItemIncludingDeleted_正常系_指定したカタログアイテムが存在しない場合falseを返す() {
-    // Arrange
-    UUID targetId = UUID.randomUUID();
-    when(this.catalogRepository.findByIdIncludingDeleted(targetId)).thenReturn(null);
-
-    // Act
-    boolean existCatalogItem = service.existCatalogItemIncludingDeleted(targetId);
 
     // Assert
     assertThat(existCatalogItem).isFalse();

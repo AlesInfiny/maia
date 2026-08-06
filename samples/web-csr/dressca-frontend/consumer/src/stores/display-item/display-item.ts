@@ -1,0 +1,103 @@
+import { defineStore } from 'pinia'
+import type {
+  GetDisplayItemCategoriesResponse,
+  GetDisplayItemBrandsResponse,
+  PagedListOfGetDisplayItemResponse,
+} from '@/generated/api-client'
+import { displayItemCategoriesApi, displayItemBrandsApi, displayItemsApi } from '@/api-client'
+
+/**
+ * 陳列品情報（カテゴリ・ブランド・アイテム）を管理するストアです。
+ */
+export const useDisplayItemStore = defineStore('displayItem', {
+  state: (): {
+    categories: GetDisplayItemCategoriesResponse[]
+    brands: GetDisplayItemBrandsResponse[]
+    displayItemPage: PagedListOfGetDisplayItemResponse
+  } => ({
+    categories: [],
+    brands: [],
+    displayItemPage: {
+      page: 0,
+      totalPages: 0,
+      pageSize: 0,
+      totalCount: 0,
+      hasPrevious: false,
+      hasNext: false,
+      items: [],
+    },
+  }),
+  actions: {
+    /**
+     * カテゴリ一覧を取得します。
+     */
+    async fetchCategories() {
+      const response = await displayItemCategoriesApi().getDisplayItemCategories()
+      this.categories = response.data
+      this.categories.unshift({ id: '', name: 'すべて' })
+    },
+    /**
+     * ブランド一覧を取得します。
+     */
+    async fetchBrands() {
+      const response = await displayItemBrandsApi().getDisplayItemBrands()
+      this.brands = response.data
+      this.brands.unshift({ id: '', name: 'すべて' })
+    },
+    /**
+     * 陳列品一覧を取得します。
+     * @param categoryId カテゴリID 。
+     * @param brandId ブランドID 。
+     * @param page ページ番号（任意）。
+     */
+    async fetchItems(categoryId?: string, brandId?: string, page?: number) {
+      const response = await displayItemsApi().getByQuery(
+        brandId || undefined,
+        categoryId || undefined,
+        page,
+        undefined,
+      )
+      this.displayItemPage = response.data
+    },
+  },
+  getters: {
+    /**
+     * カテゴリ一覧を取得します。
+     * @param state 状態。
+     * @returns カテゴリ一覧。
+     */
+    getCategories(state) {
+      return state.categories
+    },
+    /**
+     * ブランド一覧を取得します。
+     * @param state 状態。
+     * @returns ブランド一覧。
+     */
+    getBrands(state) {
+      return state.brands
+    },
+    /**
+     * 陳列品の一覧を取得します。
+     * @param state 状態。
+     * @returns 陳列品一覧。
+     */
+    getItems(state) {
+      return state.displayItemPage.items
+    },
+    /**
+     * ブランドID からブランド名を検索する関数を取得します。
+     * Pinia で引数つきの getter を実装する場合は関数を経由してください。
+     * @see  {@link https://pinia.vuejs.org/core-concepts/getters.html#Passing-arguments-to-getters}
+     * @param state 状態。
+     * @returns ブランド名。存在しない ID を指定した場合は undefined 。
+     * @example
+     * const displayItemStore = useDisplayItemStore()
+     * const { getBrandName } = storeToRefs(displayItemStore)
+     * const brandName = getBrandName(item.displayItemBrandId)
+     */
+    getBrandName: (state) => {
+      return (id: string) => state.brands.find((brand) => brand.id === id)?.name
+    },
+  },
+})

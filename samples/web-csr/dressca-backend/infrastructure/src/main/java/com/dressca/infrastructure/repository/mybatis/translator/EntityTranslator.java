@@ -7,6 +7,8 @@ import com.dressca.applicationcore.catalog.CatalogBrand;
 import com.dressca.applicationcore.catalog.CatalogCategory;
 import com.dressca.applicationcore.catalog.CatalogItem;
 import com.dressca.applicationcore.catalog.CatalogItemAsset;
+import com.dressca.applicationcore.displayitem.DisplayItemBrand;
+import com.dressca.applicationcore.displayitem.DisplayItemCategory;
 import com.dressca.applicationcore.order.Order;
 import com.dressca.applicationcore.order.OrderItem;
 import com.dressca.infrastructure.repository.mybatis.generated.entity.AssetEntity;
@@ -145,6 +147,33 @@ public class EntityTranslator {
     CatalogItemAsset catalogItemAsset = new CatalogItemAsset();
     BeanUtils.copyProperties(entity, catalogItemAsset);
     return catalogItemAsset;
+  }
+
+  /**
+   * テーブルエンティティ： {@link CatalogBrandEntity} をエンティティ： {@link DisplayItemBrand} に変換します。
+   * 陳列アイテムブランド専用テーブルを持たないため、カタログブランドを源泉に陳列アイテムブランドを構築します。
+   *
+   * @param entity {@link CatalogBrandEntity} オブジェクト。
+   * @return {@link DisplayItemBrand} オブジェクト。
+   */
+  public static DisplayItemBrand displayItemBrandEntityTranslate(CatalogBrandEntity entity) {
+    DisplayItemBrand displayItemBrand = new DisplayItemBrand();
+    BeanUtils.copyProperties(entity, displayItemBrand);
+    return displayItemBrand;
+  }
+
+  /**
+   * テーブルエンティティ： {@link CatalogCategoryEntity} をエンティティ： {@link DisplayItemCategory} に変換します。
+   * 陳列品カテゴリ専用テーブルを持たないため、カタログカテゴリを源泉に陳列品カテゴリを構築します。
+   *
+   * @param entity {@link CatalogCategoryEntity} オブジェクト。
+   * @return {@link DisplayItemCategory} オブジェクト。
+   */
+  public static DisplayItemCategory displayItemCategoryEntityTranslate(
+      CatalogCategoryEntity entity) {
+    DisplayItemCategory displayItemCategory = new DisplayItemCategory();
+    BeanUtils.copyProperties(entity, displayItemCategory);
+    return displayItemCategory;
   }
 
   /**

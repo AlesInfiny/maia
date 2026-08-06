@@ -4,7 +4,7 @@ import { setActivePinia } from 'pinia'
 import { authenticationService } from '@/services/authentication/authentication-service'
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
-import { useCatalogStore } from '@/stores/catalog/catalog'
+import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import { useNotificationStore } from '@/stores/notification/notification'
 import type { GetBasketItemsResponse } from '@/generated/api-client'
 import axios from 'axios'
@@ -94,8 +94,8 @@ describe('authenticationService_signOut', () => {
       // Arrange
       const authenticationStore = useAuthenticationStore()
       const basketStore = useBasketStore()
-      const catalogStore = useCatalogStore()
-      const initialCatalogItemPage = catalogStore.catalogItemPage
+      const displayItemStore = useDisplayItemStore()
+      const initialDisplayItemPage = displayItemStore.displayItemPage
       const notificationStore = useNotificationStore()
 
       // 各ストアにデータを設定
@@ -117,9 +117,11 @@ describe('authenticationService_signOut', () => {
         '019b76da-a800-7004-8001-000000000002',
         '019b76da-a800-7004-8001-000000000003',
       ]
-      catalogStore.categories = [{ id: '019b76da-a800-7003-8001-000000000001', name: 'カテゴリ1' }]
-      catalogStore.brands = [{ id: '019b76da-a800-7002-8001-000000000001', name: 'ブランド1' }]
-      catalogStore.catalogItemPage = { items: [], totalCount: 10 }
+      displayItemStore.categories = [
+        { id: '019b76da-a800-7003-8001-000000000001', name: 'カテゴリ1' },
+      ]
+      displayItemStore.brands = [{ id: '019b76da-a800-7002-8001-000000000001', name: 'ブランド1' }]
+      displayItemStore.displayItemPage = { items: [], totalCount: 10 }
       notificationStore.setMessage('エラー', 'id-1', 'タイトル', '詳細', 500, 10000)
 
       // Act
@@ -134,9 +136,9 @@ describe('authenticationService_signOut', () => {
       expect(basketStore.addedItemId).toBeUndefined()
       expect(basketStore.deletedItemIds).toEqual([])
 
-      expect(catalogStore.categories).toEqual([])
-      expect(catalogStore.brands).toEqual([])
-      expect(catalogStore.catalogItemPage).toEqual(initialCatalogItemPage)
+      expect(displayItemStore.categories).toEqual([])
+      expect(displayItemStore.brands).toEqual([])
+      expect(displayItemStore.displayItemPage).toEqual(initialDisplayItemPage)
 
       expect(notificationStore.message).toBe('')
       expect(notificationStore.id).toBe('')

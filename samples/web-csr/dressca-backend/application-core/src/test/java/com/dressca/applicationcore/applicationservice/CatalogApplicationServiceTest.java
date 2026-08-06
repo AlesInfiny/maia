@@ -136,54 +136,17 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsForConsumer_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す() {
-    // Arrange
-    UUID brandId = UUID.randomUUID();
-    UUID categoryId = UUID.randomUUID();
-    int page = 0;
-    int pageSize = 20;
-
-    // Act
-    service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId, page,
-        pageSize);
-  }
-
-  @Test
-  void testGetCatalogItemsForConsumer_正常系_指定した条件のカタログアイテムのリストが返却される() {
-    // Arrange
-    UUID brandId = UUID.randomUUID();
-    UUID categoryId = UUID.randomUUID();
-    int page = 0;
-    int pageSize = 20;
-    UUID targetId = UUID.randomUUID();
-    CatalogItem catalogItem = createCatalogItem(targetId);
-    List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
-    when(this.catalogRepository.findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize))
-        .thenReturn(expectedCatalogItemList);
-
-    // Act
-    List<CatalogItem> actualCatalogItemList =
-        service.getCatalogItemsForConsumer(brandId, categoryId, page, pageSize);
-
-    // Assert
-    assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
-  }
-
-  @Test
-  void testGetCatalogItemsForAdmin_正常系_リポジトリのfindByBrandIdAndCategoryIdを1回呼出す()
+  void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdIncludingDeletedを1回呼出す()
       throws PermissionDeniedException {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     when(this.userStore.isInRole(anyString())).thenReturn(true);
 
     // Act
-    service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+    service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId,
@@ -191,13 +154,12 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testGetCatalogItemsForAdmin_正常系_指定した条件のカタログアイテムのリストが返却される()
-      throws PermissionDeniedException {
+  void testGetCatalogItems_正常系_指定した条件のカタログアイテムのリストが返却される() throws PermissionDeniedException {
     // Arrange
     when(this.userStore.isInRole(anyString())).thenReturn(true);
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     UUID targetId = UUID.randomUUID();
     CatalogItem catalogItem = createCatalogItem(targetId);
@@ -207,23 +169,23 @@ public class CatalogApplicationServiceTest {
 
     // Act
     List<CatalogItem> actualCatalogItemList =
-        service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+        service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
   }
 
   @Test
-  void testGetCatalogItemsForAdmin_異常系_カタログアイテムの一覧を取得する権限がない() {
+  void testGetCatalogItems_異常系_カタログアイテムの一覧を取得する権限がない() {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
-    int page = 0;
+    int page = 1;
     int pageSize = 20;
     when(this.userStore.isInRole(anyString())).thenReturn(false);
 
     // Act
-    Executable action = () -> service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize);
+    Executable action = () -> service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
@@ -546,21 +508,7 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void countCatalogItemsForConsumer_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
-    // Arrange
-    UUID brandId = UUID.randomUUID();
-    UUID categoryId = UUID.randomUUID();
-    when(this.catalogRepository.countByBrandIdAndCategoryId(any(), any())).thenReturn(1);
-
-    // Act
-    service.countCatalogItemsForConsumer(brandId, categoryId);
-
-    // Assert
-    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryId(any(), any());
-  }
-
-  @Test
-  void countCatalogItemsForAdmin_正常系_リポジトリのcountByBrandIdAndCategoryIdを1回呼出す() {
+  void countCatalogItems_正常系_リポジトリのcountByBrandIdAndCategoryIdIncludingDeletedを1回呼出す() {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
@@ -568,7 +516,7 @@ public class CatalogApplicationServiceTest {
         .thenReturn(1);
 
     // Act
-    service.countCatalogItemsForAdmin(brandId, categoryId);
+    service.countCatalogItems(brandId, categoryId);
 
     // Assert
     verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(any(),

@@ -75,30 +75,34 @@ function basketItemsApi() {
 }
 
 /**
- * カタログブランド関連 API のクライアントを生成します。
- * @returns CatalogBrandsApi インスタンス
+ * 陳列品ブランド関連 API のクライアントを生成します。
+ * @returns DisplayItemBrandsApi インスタンス
  */
-function catalogBrandsApi() {
-  const catalogBrandsApi = new apiClient.CatalogBrandsApi(createConfig(), '', axiosInstance)
-  return catalogBrandsApi
+function displayItemBrandsApi() {
+  const displayItemBrandsApi = new apiClient.DisplayItemBrandsApi(createConfig(), '', axiosInstance)
+  return displayItemBrandsApi
 }
 
 /**
- * カタログカテゴリ関連 API のクライアントを生成します。
- * @returns CatalogCategoriesApi インスタンス
+ * 陳列品カテゴリ関連 API のクライアントを生成します。
+ * @returns DisplayItemCategoriesApi インスタンス
  */
-function catalogCategoriesApi() {
-  const catalogCategoriesApi = new apiClient.CatalogCategoriesApi(createConfig(), '', axiosInstance)
-  return catalogCategoriesApi
+function displayItemCategoriesApi() {
+  const displayItemCategoriesApi = new apiClient.DisplayItemCategoriesApi(
+    createConfig(),
+    '',
+    axiosInstance,
+  )
+  return displayItemCategoriesApi
 }
 
 /**
- * カタログアイテム関連 API のクライアントを生成します。
- * @returns CatalogItemsApi インスタンス
+ * 陳列品関連 API のクライアントを生成します。
+ * @returns DisplayItemsApi インスタンス
  */
-function catalogItemsApi() {
-  const catalogItemsApi = new apiClient.CatalogItemsApi(createConfig(), '', axiosInstance)
-  return catalogItemsApi
+function displayItemsApi() {
+  const displayItemsApi = new apiClient.DisplayItemsApi(createConfig(), '', axiosInstance)
+  return displayItemsApi
 }
 
 /**
@@ -113,9 +117,9 @@ function ordersApi() {
 export {
   assetsApi,
   basketItemsApi,
-  catalogBrandsApi,
-  catalogCategoriesApi,
-  catalogItemsApi,
+  displayItemBrandsApi,
+  displayItemCategoriesApi,
+  displayItemsApi,
   ordersApi,
   axiosInstance,
 }

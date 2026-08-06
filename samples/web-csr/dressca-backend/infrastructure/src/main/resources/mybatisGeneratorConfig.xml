@@ -69,7 +69,7 @@
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <columnOverride column="basket_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="catalog_item_id" javaType="java.util.UUID" jdbcType="OTHER"
+            <columnOverride column="display_item_id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="BasketItemDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="basketItems" /> -->
@@ -90,7 +90,7 @@
             <property name="mapUnderscoreToCamelCase" value="true" />
             <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-            <columnOverride column="ordered_catalog_item_id" javaType="java.util.UUID"
+            <columnOverride column="ordered_display_item_id" javaType="java.util.UUID"
                 jdbcType="OTHER"
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <columnOverride column="order_id" javaType="java.util.UUID" jdbcType="OTHER"
@@ -107,6 +107,16 @@
                 typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
             <!-- <property name="dynamicSqlSupportClassName" value="CatalogItemAssetDynamicSqlSupport" />
             <property name="dynamicSqlTableObjectName" value="catalogItemAssets" /> -->
+        </table>
+        <table schema="" tableName="display_items" domainObjectName="DisplayItemEntity" mapperName="DisplayItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+            <columnOverride column="catalog_item_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+            <!-- <property name="dynamicSqlSupportClassName" value="DisplayItemDynamicSqlSupport" />
+            <property name="dynamicSqlTableObjectName" value="displayItems" /> -->
         </table>
     </context>
 </generatorConfiguration>

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItem {
   private UUID id;
-  private CatalogItemOrdered itemOrdered;
+  private DisplayItemOrdered itemOrdered;
   private BigDecimal unitPrice;
   private int quantity;
   private UUID orderId;
@@ -26,13 +26,13 @@ public class OrderItem {
   private Order order;
 
   /**
-   * 注文されたカタログアイテム、単価、数量を指定して、 {@link OrderItem} クラスのインスタンスを初期化します。
-   * 
-   * @param itemOrdered 注文されたカタログアイテム。
+   * 注文された陳列品、単価、数量を指定して、 {@link OrderItem} クラスのインスタンスを初期化します。
+   *
+   * @param itemOrdered 注文された陳列品。
    * @param bigDecimal 単価。
    * @param quantity 数量。
    */
-  public OrderItem(CatalogItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
+  public OrderItem(DisplayItemOrdered itemOrdered, BigDecimal bigDecimal, int quantity) {
     this.id = UuidGenerator.generate();
     this.itemOrdered = itemOrdered;
     this.unitPrice = bigDecimal;

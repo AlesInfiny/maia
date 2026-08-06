@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="basket_id" jdbcType="OTHER" property="basketId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
-    <result column="catalog_item_id" jdbcType="OTHER" property="catalogItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
+    <result column="display_item_id" jdbcType="OTHER" property="displayItemId" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
   </resultMap>
@@ -76,7 +76,7 @@
                 </when>
               </choose>
             </foreach>
-            <foreach collection="criteria.catalogItemIdCriteria" item="criterion">
+            <foreach collection="criteria.displayItemIdCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}
@@ -165,7 +165,7 @@
                 </when>
               </choose>
             </foreach>
-            <foreach collection="criteria.catalogItemIdCriteria" item="criterion">
+            <foreach collection="criteria.displayItemIdCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}
@@ -193,7 +193,7 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    id, basket_id, catalog_item_id, unit_price, quantity
+    id, basket_id, display_item_id, unit_price, quantity
   </sql>
   <select id="selectByExample" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntityExample" resultMap="BaseResultMap">
     <!--
@@ -243,11 +243,11 @@
     -->
     insert into basket_items (id, 
       basket_id, 
-      catalog_item_id, 
+      display_item_id, 
       unit_price, quantity)
     values (#{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
-      #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
+      #{displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}, 
       #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.infrastructure.repository.mybatis.generated.entity.BasketItemEntity">
@@ -262,8 +262,8 @@
       <if test="basketId != null">
         basket_id,
       </if>
-      <if test="catalogItemId != null">
-        catalog_item_id,
+      <if test="displayItemId != null">
+        display_item_id,
       </if>
       <if test="unitPrice != null">
         unit_price,
@@ -279,8 +279,8 @@
       <if test="basketId != null">
         #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
-      <if test="catalogItemId != null">
-        #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      <if test="displayItemId != null">
+        #{displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="unitPrice != null">
         #{unitPrice,jdbcType=NUMERIC},
@@ -311,8 +311,8 @@
       <if test="row.basketId != null">
         basket_id = #{row.basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
-      <if test="row.catalogItemId != null">
-        catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      <if test="row.displayItemId != null">
+        display_item_id = #{row.displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="row.unitPrice != null">
         unit_price = #{row.unitPrice,jdbcType=NUMERIC},
@@ -332,7 +332,7 @@
     update basket_items
     set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       basket_id = #{row.basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      display_item_id = #{row.displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
       quantity = #{row.quantity,jdbcType=INTEGER}
     <if test="example != null">
@@ -348,8 +348,8 @@
       <if test="basketId != null">
         basket_id = #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
-      <if test="catalogItemId != null">
-        catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      <if test="displayItemId != null">
+        display_item_id = #{displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       </if>
       <if test="unitPrice != null">
         unit_price = #{unitPrice,jdbcType=NUMERIC},
@@ -366,7 +366,7 @@
     -->
     update basket_items
     set basket_id = #{basketId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      display_item_id = #{displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       unit_price = #{unitPrice,jdbcType=NUMERIC},
       quantity = #{quantity,jdbcType=INTEGER}
     where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler}

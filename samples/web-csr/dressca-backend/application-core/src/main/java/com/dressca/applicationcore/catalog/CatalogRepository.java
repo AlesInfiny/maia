@@ -18,18 +18,6 @@ public interface CatalogRepository {
   List<CatalogItem> findByCategoryIdIn(List<UUID> categoryIds);
 
   /**
-   * ブランド ID とカテゴリ ID に一致するカタログのリストを取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @param page ページ。
-   * @param pageSize ページサイズ。
-   * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
-   */
-  List<CatalogItem> findByBrandIdAndCategoryId(UUID brandId, UUID categoryId, int page,
-      int pageSize);
-
-  /**
    * 削除済みのカタログアイテムを含めて、ブランドIDとカテゴリIDに一致するカタログのリストを取得します。
    * 
    * @param brandId ブランド ID 。
@@ -40,31 +28,6 @@ public interface CatalogRepository {
    */
   List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId, UUID categoryId,
       int page, int pageSize);
-
-  /**
-   * カタログアイテム ID のリストに一致するカタログのリストを取得します。
-   * 
-   * @param catalogItemIds カタログアイテム ID 。
-   * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
-   */
-  List<CatalogItem> findByCatalogItemIdIn(List<UUID> catalogItemIds);
-
-  /**
-   * 削除済みのカタログアイテムを含めて、カタログアイテム ID のリストに一致するカタログのリストを取得します。
-   * 
-   * @param catalogItemIds カタログアイテム ID 。
-   * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
-   */
-  List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<UUID> catalogItemIds);
-
-  /**
-   * ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
-   * 
-   * @param brandId ブランド ID 。
-   * @param categoryId カテゴリ ID 。
-   * @return 条件に一致するカタログの件数。
-   */
-  int countByBrandIdAndCategoryId(UUID brandId, UUID categoryId);
 
   /**
    * 削除済みカタログアイテムを含めて、ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
@@ -118,17 +81,9 @@ public interface CatalogRepository {
 
   /**
    * カタログアイテムを更新します。
-   * 
+   *
    * @param item カタログアイテム。
    * @return 更新できたら 1 、できなければ 0 を返す。
    */
   int update(CatalogItem item);
-
-  /**
-   * 削除済みのカタログアイテムを、カタログアイテム ID のリストに一致するカタログアイテムのリストを取得します。
-   * 
-   * @param catalogItemIds カタログアイテム ID のリスト。
-   * @return 条件に一致する削除済みカタログアイテムのリスト。存在しない場合、空のリスト。
-   */
-  List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<UUID> catalogItemIds);
 }

@@ -29,33 +29,10 @@ public class MybatisCatalogRepository implements CatalogRepository {
   }
 
   @Override
-  public List<CatalogItem> findByBrandIdAndCategoryId(UUID brandId, UUID categoryId, int page,
-      int pageSize) {
+  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId, UUID categoryId,
+      int page, int pageSize) {
     int offset = pageSize * (page - 1);
-    return mapper.findByBrandIdAndCategoryId(brandId, categoryId, pageSize, offset);
-  }
-
-  @Override
-  public List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId,
-      UUID categoryId, int page, int pageSize) {
-    int offset = pageSize * (page - 1);
-    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize,
-        offset);
-  }
-
-  @Override
-  public List<CatalogItem> findByCatalogItemIdIn(List<UUID> catalogItemIds) {
-    return mapper.findByCatalogItemIdIn(catalogItemIds);
-  }
-
-  @Override
-  public List<CatalogItem> findByCatalogItemIdInIncludingDeleted(List<UUID> catalogItemIds) {
-    return mapper.findByCatalogItemIdInIncludingDeleted(catalogItemIds);
-  }
-
-  @Override
-  public int countByBrandIdAndCategoryId(UUID brandId, UUID categoryId) {
-    return mapper.countByBrandIdAndCategoryId(brandId, categoryId);
+    return mapper.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, pageSize, offset);
   }
 
   @Override
@@ -96,10 +73,5 @@ public class MybatisCatalogRepository implements CatalogRepository {
   public int update(CatalogItem item) {
     CatalogItemEntity entity = EntityTranslator.createCatalogItemEntity(item);
     return this.catalogItemMapper.updateByPrimaryKey(entity);
-  }
-
-  @Override
-  public List<CatalogItem> findDeletedItemsByCatalogItemIdIn(List<UUID> catalogItemIds) {
-    return mapper.findDeletedItemsByCatalogItemIdIn(catalogItemIds);
   }
 }

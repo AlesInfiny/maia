@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PutBasketItemsRequest {
   @NotNull
-  private UUID catalogItemId;
+  private UUID displayItemId;
   @NotNull
   private int quantity;
 }

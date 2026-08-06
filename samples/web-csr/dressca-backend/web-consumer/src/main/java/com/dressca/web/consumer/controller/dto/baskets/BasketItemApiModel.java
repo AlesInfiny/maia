@@ -1,9 +1,9 @@
 package com.dressca.web.consumer.controller.dto.baskets;
 
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryApiModel;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;
+import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BasketItemApiModel {
   @NotNull
-  private UUID catalogItemId;
+  private UUID displayItemId;
   @NotNull
   private BigDecimal unitPrice;
   @NotNull
   private int quantity;
   @NotNull
   private BigDecimal subTotal;
-  private CatalogItemSummaryApiModel catalogItem;
+  private DisplayItemSummaryApiModel displayItem;
 }

@@ -86,7 +86,7 @@ public class BasketItemEntityExample {
 
         protected List<Criterion> basketIdCriteria;
 
-        protected List<Criterion> catalogItemIdCriteria;
+        protected List<Criterion> displayItemIdCriteria;
 
         protected List<Criterion> allCriteria;
 
@@ -97,7 +97,7 @@ public class BasketItemEntityExample {
             criteria = new ArrayList<>();
             idCriteria = new ArrayList<>();
             basketIdCriteria = new ArrayList<>();
-            catalogItemIdCriteria = new ArrayList<>();
+            displayItemIdCriteria = new ArrayList<>();
         }
 
         public List<Criterion> getIdCriteria() {
@@ -140,23 +140,23 @@ public class BasketItemEntityExample {
             allCriteria = null;
         }
 
-        public List<Criterion> getCatalogItemIdCriteria() {
-            return catalogItemIdCriteria;
+        public List<Criterion> getDisplayItemIdCriteria() {
+            return displayItemIdCriteria;
         }
 
-        protected void addCatalogItemIdCriterion(String condition, Object value, String property) {
+        protected void addDisplayItemIdCriterion(String condition, Object value, String property) {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            catalogItemIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            displayItemIdCriteria.add(new Criterion(condition, value, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
             allCriteria = null;
         }
 
-        protected void addCatalogItemIdCriterion(String condition, UUID value1, UUID value2, String property) {
+        protected void addDisplayItemIdCriterion(String condition, UUID value1, UUID value2, String property) {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            catalogItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
+            displayItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -164,7 +164,7 @@ public class BasketItemEntityExample {
             return criteria.size() > 0
                 || idCriteria.size() > 0
                 || basketIdCriteria.size() > 0
-                || catalogItemIdCriteria.size() > 0;
+                || displayItemIdCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
@@ -173,7 +173,7 @@ public class BasketItemEntityExample {
                 allCriteria.addAll(criteria);
                 allCriteria.addAll(idCriteria);
                 allCriteria.addAll(basketIdCriteria);
-                allCriteria.addAll(catalogItemIdCriteria);
+                allCriteria.addAll(displayItemIdCriteria);
             }
             return allCriteria;
         }
@@ -326,63 +326,63 @@ public class BasketItemEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIsNull() {
-            addCriterion("catalog_item_id is null");
+        public Criteria andDisplayItemIdIsNull() {
+            addCriterion("display_item_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIsNotNull() {
-            addCriterion("catalog_item_id is not null");
+        public Criteria andDisplayItemIdIsNotNull() {
+            addCriterion("display_item_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdEqualTo(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id =", value, "catalogItemId");
+        public Criteria andDisplayItemIdEqualTo(UUID value) {
+            addDisplayItemIdCriterion("display_item_id =", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotEqualTo(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id <>", value, "catalogItemId");
+        public Criteria andDisplayItemIdNotEqualTo(UUID value) {
+            addDisplayItemIdCriterion("display_item_id <>", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdGreaterThan(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id >", value, "catalogItemId");
+        public Criteria andDisplayItemIdGreaterThan(UUID value) {
+            addDisplayItemIdCriterion("display_item_id >", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdGreaterThanOrEqualTo(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id >=", value, "catalogItemId");
+        public Criteria andDisplayItemIdGreaterThanOrEqualTo(UUID value) {
+            addDisplayItemIdCriterion("display_item_id >=", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdLessThan(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id <", value, "catalogItemId");
+        public Criteria andDisplayItemIdLessThan(UUID value) {
+            addDisplayItemIdCriterion("display_item_id <", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdLessThanOrEqualTo(UUID value) {
-            addCatalogItemIdCriterion("catalog_item_id <=", value, "catalogItemId");
+        public Criteria andDisplayItemIdLessThanOrEqualTo(UUID value) {
+            addDisplayItemIdCriterion("display_item_id <=", value, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdIn(List<UUID> values) {
-            addCatalogItemIdCriterion("catalog_item_id in", values, "catalogItemId");
+        public Criteria andDisplayItemIdIn(List<UUID> values) {
+            addDisplayItemIdCriterion("display_item_id in", values, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotIn(List<UUID> values) {
-            addCatalogItemIdCriterion("catalog_item_id not in", values, "catalogItemId");
+        public Criteria andDisplayItemIdNotIn(List<UUID> values) {
+            addDisplayItemIdCriterion("display_item_id not in", values, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdBetween(UUID value1, UUID value2) {
-            addCatalogItemIdCriterion("catalog_item_id between", value1, value2, "catalogItemId");
+        public Criteria andDisplayItemIdBetween(UUID value1, UUID value2) {
+            addDisplayItemIdCriterion("display_item_id between", value1, value2, "displayItemId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogItemIdNotBetween(UUID value1, UUID value2) {
-            addCatalogItemIdCriterion("catalog_item_id not between", value1, value2, "catalogItemId");
+        public Criteria andDisplayItemIdNotBetween(UUID value1, UUID value2) {
+            addDisplayItemIdCriterion("display_item_id not between", value1, value2, "displayItemId");
             return (Criteria) this;
         }
 

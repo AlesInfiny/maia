@@ -25,8 +25,8 @@ const { t } = i18n.global
 
 const showLoading = ref(true)
 
-const goCatalog = () => {
-  router.push({ name: 'catalog' })
+const goDisplayItem = () => {
+  router.push({ name: 'display-item' })
 }
 
 onMounted(async () => {
@@ -155,7 +155,7 @@ onMounted(async () => {
         <button
           class="mt-4 ml-4 w-36 rounded-sm bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-700"
           type="submit"
-          @click="goCatalog()"
+          @click="goDisplayItem()"
         >
           買い物を続ける
         </button>

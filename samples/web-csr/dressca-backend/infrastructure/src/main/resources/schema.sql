@@ -50,7 +50,7 @@ CREATE TABLE basket_items
 (
   id UUID NOT NULL PRIMARY KEY, -- primary key column
   basket_id UUID NOT NULL,
-  catalog_item_id UUID NOT NULL,
+  display_item_id UUID NOT NULL,
   unit_price NUMERIC(18,6) NOT NULL,
   quantity INT NOT NULL,
   CONSTRAINT FK_basket_items_baskets FOREIGN KEY (basket_id) REFERENCES baskets(id) ON DELETE CASCADE
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS order_items CASCADE;
 CREATE TABLE order_items
 (
   id UUID NOT NULL PRIMARY KEY, -- primary key column
-  ordered_catalog_item_id UUID NOT NULL,
+  ordered_display_item_id UUID NOT NULL,
   ordered_product_name VARCHAR(512) NOT NULL,
   ordered_product_code VARCHAR(128) NOT NULL,
   unit_price NUMERIC(18,6) NOT NULL,
@@ -92,4 +92,13 @@ CREATE TABLE catalog_item_assets
   asset_code VARCHAR(32) NOT NULL,
   catalog_item_id UUID NOT NULL,
   CONSTRAINT FK_catalog_item_assets_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
+);
+
+
+DROP TABLE IF EXISTS display_items CASCADE;
+CREATE TABLE display_items
+(
+  id UUID NOT NULL PRIMARY KEY, -- primary key column
+  catalog_item_id UUID NOT NULL,
+  CONSTRAINT FK_display_items_catalog_items FOREIGN KEY (catalog_item_id) REFERENCES catalog_items(id) ON DELETE CASCADE
 );

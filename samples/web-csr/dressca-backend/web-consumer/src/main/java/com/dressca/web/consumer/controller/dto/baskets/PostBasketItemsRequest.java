@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostBasketItemsRequest {
   @NotNull
-  private UUID catalogItemId;
+  private UUID displayItemId;
   private int addedQuantity = 1;
 }

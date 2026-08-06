@@ -24,45 +24,45 @@ export const useBasketStore = defineStore('basket', {
   }),
   actions: {
     /**
-     * 指定されたカタログアイテム ID のアイテムを買い物かごに追加します。
-     * @param catalogItemId カタログアイテム ID 。
+     * 指定された陳列品 ID のアイテムを買い物かごに追加します。
+     * @param displayItemId 陳列品 ID 。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async add(catalogItemId: string) {
+    async add(displayItemId: string) {
       const params: PostBasketItemsRequest = {
-        catalogItemId,
+        displayItemId,
         addedQuantity: 1,
       }
       await basketItemsApi().postBasketItem(params)
-      this.addedItemId = catalogItemId
+      this.addedItemId = displayItemId
     },
     /**
-     * 指定されたカタログアイテム ID のアイテムの数量を指定した値に更新します。
-     * @param catalogItemId - 更新対象のカタログアイテムの ID。
+     * 指定された陳列品 ID のアイテムの数量を指定した値に更新します。
+     * @param displayItemId - 更新対象の陳列品 ID。
      * @param newQuantity - 新しい数量。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async update(catalogItemId: string, newQuantity: number) {
+    async update(displayItemId: string, newQuantity: number) {
       const params: PutBasketItemsRequest[] = [
         {
-          catalogItemId,
+          displayItemId,
           quantity: newQuantity,
         },
       ]
       await basketItemsApi().putBasketItems(params)
     },
     /**
-     * 指定されたカタログアイテムID のアイテムを買い物かごから削除します。
-     * @param catalogItemId - 削除するアイテムのカタログアイテム ID 。
+     * 指定された陳列品 ID のアイテムを買い物かごから削除します。
+     * @param displayItemId - 削除するアイテムの陳列品 ID 。
      * @returns 非同期処理の完了を表す Promise 。
      */
-    async remove(catalogItemId: string) {
-      await basketItemsApi().deleteBasketItem(catalogItemId)
+    async remove(displayItemId: string) {
+      await basketItemsApi().deleteBasketItem(displayItemId)
     },
     /**
      * サーバーから最新の買い物かご情報を取得します。
      * API レスポンスの内容を `basket` に格納し、
-     * 同時に削除済みのカタログアイテム ID (`deletedItemIds`) を更新します。
+     * 同時に削除済みの陳列品 ID (`deletedItemIds`) を更新します。
      * @returns 非同期処理の完了を表す Promise 。
      */
     async fetch() {
@@ -87,25 +87,25 @@ export const useBasketStore = defineStore('basket', {
       return state.basket
     },
     /**
-     * 直近に買い物かごに追加されたカタログアイテムの情報を取得します。
+     * 直近に買い物かごに追加された陳列品の ID を取得します。
      * @param state 状態。
-     * @returns 追加された `BasketItemApiModel` または `undefined` 。
+     * @returns 追加された陳列品 ID または `undefined` 。
      */
     getAddedItemId(state): string | undefined {
       return state.addedItemId
     },
     /**
-     * 直近に買い物かごに追加されたカタログアイテムの情報を取得します。
+     * 直近に買い物かごに追加された陳列品の情報を取得します。
      * @param state 状態。
      * @returns 追加された `BasketItemApiModel` または `undefined`
      */
     getAddedItem(state): BasketItemApiModel | undefined {
-      return state.basket.basketItems?.find((item) => item.catalogItemId === state.addedItemId)
+      return state.basket.basketItems?.find((item) => item.displayItemId === state.addedItemId)
     },
     /**
      * 削除済み商品の ID 一覧を取得します。
      * @param state 状態。
-     * @returns 削除されたカタログアイテム ID の配列 。
+     * @returns 削除された陳列品 ID の配列 。
      */
     getDeletedItemIds(state): Array<string> {
       return state.deletedItemIds

@@ -11,10 +11,10 @@ export interface Campaign {
 /**
  * セール対象アイテムの情報を表します。
  *
- * カタログアイテム ID と関連アセットコードを保持します。
+ * 陳列品 ID と関連アセットコードを保持します。
  */
 export interface SaleItem {
-  catalogItemId: string
+  displayItemId: string
   assetCode: string
 }
 

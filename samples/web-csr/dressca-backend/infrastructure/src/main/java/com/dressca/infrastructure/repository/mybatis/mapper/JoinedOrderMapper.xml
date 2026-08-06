@@ -18,7 +18,7 @@
       ORDERS.CONSUMPTION_TAX,
       ORDERS.TOTAL_PRICE,
       ORDER_ITEMS.ID AS ORDER_ITEMS_ID,
-      ORDER_ITEMS.ORDERED_CATALOG_ITEM_ID AS ORDER_ITEMS_ORDERED_CATALOG_ITEM_ID,
+      ORDER_ITEMS.ORDERED_DISPLAY_ITEM_ID AS ORDER_ITEMS_ORDERED_DISPLAY_ITEM_ID,
       ORDER_ITEMS.ORDERED_PRODUCT_NAME AS ORDER_ITEMS_ORDERED_PRODUCT_NAME,
       ORDER_ITEMS.ORDERED_PRODUCT_CODE AS ORDER_ITEMS_ORDERED_PRODUCT_CODE,
       ORDER_ITEMS.UNIT_PRICE AS ORDER_ITEMS_UNIT_PRICE,
@@ -29,8 +29,11 @@
     INNER JOIN ORDER_ITEMS AS ORDER_ITEMS ON (
       ORDERS.ID = ORDER_ITEMS.ORDER_ID
     )
+    INNER JOIN DISPLAY_ITEMS ON (
+      ORDER_ITEMS.ORDERED_DISPLAY_ITEM_ID = DISPLAY_ITEMS.ID
+    )
     INNER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
-      ORDER_ITEMS.ORDERED_CATALOG_ITEM_ID = ASSETS.CATALOG_ITEM_ID
+      DISPLAY_ITEMS.CATALOG_ITEM_ID = ASSETS.CATALOG_ITEM_ID
     )
   </sql>
 
@@ -63,12 +66,12 @@
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
-    <association property="itemOrdered" javaType="com.dressca.applicationcore.order.CatalogItemOrdered" resultMap="catalogItemOrderedResultMap"/>
+    <association property="itemOrdered" javaType="com.dressca.applicationcore.order.DisplayItemOrdered" resultMap="displayItemOrderedResultMap"/>
     <collection property="assets" ofType="com.dressca.applicationcore.order.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
   </resultMap>
 
-  <resultMap id="catalogItemOrderedResultMap" type="com.dressca.applicationcore.order.CatalogItemOrdered">
-    <result property="catalogItemId" column="ORDERED_CATALOG_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
+  <resultMap id="displayItemOrderedResultMap" type="com.dressca.applicationcore.order.DisplayItemOrdered">
+    <result property="displayItemId" column="ORDERED_DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler"/>
     <result property="productName" column="ORDERED_PRODUCT_NAME"/>
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
@@ -122,7 +125,7 @@
     INSERT INTO ORDER_ITEMS
     (
       ID,
-      ORDERED_CATALOG_ITEM_ID,
+      ORDERED_DISPLAY_ITEM_ID,
       ORDERED_PRODUCT_NAME,
       ORDERED_PRODUCT_CODE,
       UNIT_PRICE,
@@ -133,7 +136,7 @@
     <foreach collection="orderItems" item="orderItem" separator=",">
     (
       #{orderItem.id,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
-      #{orderItem.itemOrdered.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
+      #{orderItem.itemOrdered.displayItemId,jdbcType=OTHER,typeHandler=com.dressca.infrastructure.repository.mybatis.handler.UuidTypeHandler},
       #{orderItem.itemOrdered.productName},
       #{orderItem.itemOrdered.productCode},
       #{orderItem.unitPrice},
