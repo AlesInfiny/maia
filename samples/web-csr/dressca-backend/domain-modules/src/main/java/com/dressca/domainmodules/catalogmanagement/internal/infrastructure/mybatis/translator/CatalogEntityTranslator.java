@@ -1,9 +1,9 @@
 package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis.translator;
 
-import com.dressca.domainmodules.catalogmanagement.catalogbrand.CatalogBrand;
-import com.dressca.domainmodules.catalogmanagement.catalogcategory.CatalogCategory;
-import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
-import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItemAsset;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset;
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogItemAssetEntity;

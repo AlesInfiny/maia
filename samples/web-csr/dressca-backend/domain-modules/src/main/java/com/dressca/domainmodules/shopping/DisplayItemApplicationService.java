@@ -2,12 +2,12 @@ package com.dressca.domainmodules.shopping;
 
 import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemBrand;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemCategory;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
+import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
+import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;

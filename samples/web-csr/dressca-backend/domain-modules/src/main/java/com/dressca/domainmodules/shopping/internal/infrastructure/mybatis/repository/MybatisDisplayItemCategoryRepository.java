@@ -3,9 +3,9 @@ package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repos
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.domainmodules.common.mybatis.generated.mapper.CatalogCategoryMapper;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemCategory;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.translator.ShoppingEntityTranslator;
+import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

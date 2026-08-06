@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.shopping.internal.domain.repository;
 
-import com.dressca.domainmodules.shopping.basket.Basket;
 import java.util.Optional;
 import java.util.UUID;
+import com.dressca.domainmodules.shopping.models.Basket;
 
 /**
  * 買い物かごのリポジトリのインターフェースです。

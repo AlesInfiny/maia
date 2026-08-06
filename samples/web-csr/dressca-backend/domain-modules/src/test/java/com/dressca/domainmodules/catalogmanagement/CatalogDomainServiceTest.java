@@ -3,13 +3,13 @@ package com.dressca.domainmodules.catalogmanagement;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.catalogmanagement.catalogbrand.CatalogBrand;
-import com.dressca.domainmodules.catalogmanagement.catalogcategory.CatalogCategory;
-import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.CatalogDomainService;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogRepository;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
 import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
 import java.math.BigDecimal;
 import java.util.UUID;

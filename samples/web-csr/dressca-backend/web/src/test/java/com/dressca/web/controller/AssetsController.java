@@ -2,9 +2,9 @@ package com.dressca.web.controller;
 
 import com.dressca.domainmodules.assetsmanagement.AssetApplicationService;
 import com.dressca.domainmodules.assetsmanagement.dto.AssetResourceInfo;
-import com.dressca.domainmodules.assetsmanagement.internal.domain.Asset;
-import com.dressca.domainmodules.assetsmanagement.internal.domain.AssetTypes;
-import com.dressca.domainmodules.assetsmanagement.internal.domain.exception.AssetNotFoundException;
+import com.dressca.domainmodules.assetsmanagement.exception.AssetNotFoundException;
+import com.dressca.domainmodules.assetsmanagement.models.Asset;
+import com.dressca.domainmodules.assetsmanagement.models.AssetTypes;
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
 import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;

@@ -1,13 +1,13 @@
 package com.dressca.web.consumer.controller;
 
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.shopping.BasketDetail;
 import com.dressca.domainmodules.shopping.ShoppingApplicationService;
-import com.dressca.domainmodules.shopping.basket.Basket;
-import com.dressca.domainmodules.shopping.basket.BasketItem;
-import com.dressca.domainmodules.shopping.basket.exception.DisplayItemInBasketNotFoundException;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
-import com.dressca.domainmodules.shopping.displayitem.exception.DisplayItemNotFoundException;
+import com.dressca.domainmodules.shopping.dto.BasketDetail;
+import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;
+import com.dressca.domainmodules.shopping.exception.DisplayItemNotFoundException;
+import com.dressca.domainmodules.shopping.models.Basket;
+import com.dressca.domainmodules.shopping.models.BasketItem;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;

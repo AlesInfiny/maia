@@ -6,9 +6,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
 import com.dressca.domainmodules.shopping.internal.domain.DisplayItemDomainService;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;

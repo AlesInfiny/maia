@@ -3,7 +3,7 @@ package com.dressca.batch.job;
 
 import com.dressca.batch.job.catalog.CatalogItemProcessor;
 import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
-import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;

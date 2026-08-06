@@ -6,10 +6,10 @@ import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntit
 import com.dressca.domainmodules.common.mybatis.generated.entity.BasketItemEntityExample;
 import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketItemMapper;
 import com.dressca.domainmodules.common.mybatis.generated.mapper.BasketMapper;
-import com.dressca.domainmodules.shopping.basket.Basket;
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.translator.ShoppingEntityTranslator;
+import com.dressca.domainmodules.shopping.models.Basket;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

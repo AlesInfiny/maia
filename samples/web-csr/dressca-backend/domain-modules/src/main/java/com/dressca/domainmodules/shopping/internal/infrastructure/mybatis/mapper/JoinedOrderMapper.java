@@ -1,11 +1,11 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper;
 
-import com.dressca.domainmodules.shopping.order.Order;
-import com.dressca.domainmodules.shopping.order.OrderItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.models.OrderItem;
 
 /**
  * 注文情報のテーブルにアクセスするためのマッパーのインターフェースです。

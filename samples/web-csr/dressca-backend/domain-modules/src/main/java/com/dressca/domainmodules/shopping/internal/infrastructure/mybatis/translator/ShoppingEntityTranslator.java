@@ -6,12 +6,12 @@ import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEnt
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.OrderEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.OrderItemEntity;
-import com.dressca.domainmodules.shopping.basket.Basket;
-import com.dressca.domainmodules.shopping.basket.BasketItem;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemBrand;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemCategory;
-import com.dressca.domainmodules.shopping.order.Order;
-import com.dressca.domainmodules.shopping.order.OrderItem;
+import com.dressca.domainmodules.shopping.models.Basket;
+import com.dressca.domainmodules.shopping.models.BasketItem;
+import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
+import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
+import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.models.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 /**

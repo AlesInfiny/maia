@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.assetsmanagement.internal.infrastructure.repository.mybatis.translator;
 
-import com.dressca.domainmodules.assetsmanagement.internal.domain.Asset;
+import com.dressca.domainmodules.assetsmanagement.models.Asset;
 import com.dressca.domainmodules.common.mybatis.generated.entity.AssetEntity;
 import org.springframework.beans.BeanUtils;
 

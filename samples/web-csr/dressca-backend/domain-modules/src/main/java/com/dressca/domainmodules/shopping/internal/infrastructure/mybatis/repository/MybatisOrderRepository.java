@@ -2,7 +2,7 @@ package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repos
 
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedOrderMapper;
-import com.dressca.domainmodules.shopping.order.Order;
+import com.dressca.domainmodules.shopping.models.Order;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

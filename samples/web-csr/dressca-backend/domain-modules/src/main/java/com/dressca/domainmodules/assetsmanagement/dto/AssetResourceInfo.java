@@ -3,7 +3,7 @@ package com.dressca.domainmodules.assetsmanagement.dto;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.core.io.Resource;
-import com.dressca.domainmodules.assetsmanagement.internal.domain.Asset;
+import com.dressca.domainmodules.assetsmanagement.models.Asset;
 
 /**
  * アセット情報とそのリソースの情報です。

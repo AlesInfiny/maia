@@ -1,10 +1,10 @@
 package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.mybatis.mapper;
 
-import com.dressca.domainmodules.catalogmanagement.catalogitem.CatalogItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
 
 /**
  * カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。
@@ -29,8 +29,7 @@ public interface JoinedCatalogItemMapper {
    * @return カタログアイテム一覧。
    */
   List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId, @Param("limit") int limit,
-      @Param("offset") int offset);
+      @Param("categoryId") UUID categoryId, @Param("limit") int limit, @Param("offset") int offset);
 
   /**
    * 削除済みを含めて、ブランド ID とカテゴリ ID を条件に件数を取得します。

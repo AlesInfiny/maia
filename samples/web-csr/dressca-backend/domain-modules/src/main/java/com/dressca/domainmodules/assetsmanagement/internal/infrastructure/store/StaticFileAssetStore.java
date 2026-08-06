@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.assetsmanagement.internal.infrastructure.store;
 
-import com.dressca.domainmodules.assetsmanagement.internal.domain.Asset;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.store.AssetStore;
+import com.dressca.domainmodules.assetsmanagement.models.Asset;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Optional;

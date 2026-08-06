@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.catalogmanagement.internal.domain.repository;
 
-import com.dressca.domainmodules.catalogmanagement.catalogcategory.CatalogCategory;
 import java.util.List;
 import java.util.UUID;
+import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
 
 /**
  * カタログカテゴリのリポジトリのインターフェースです。

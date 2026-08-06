@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 
 import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemBrand;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemCategory;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
+import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
+import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;

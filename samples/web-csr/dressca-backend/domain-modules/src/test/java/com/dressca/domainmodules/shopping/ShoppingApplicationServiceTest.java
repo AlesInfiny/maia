@@ -11,21 +11,22 @@ import static org.mockito.Mockito.when;
 
 import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
-import com.dressca.domainmodules.shopping.basket.Basket;
-import com.dressca.domainmodules.shopping.basket.exception.BasketNotFoundException;
-import com.dressca.domainmodules.shopping.basket.exception.DisplayItemInBasketNotFoundException;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
-import com.dressca.domainmodules.shopping.displayitem.exception.DisplayItemNotFoundException;
+import com.dressca.domainmodules.shopping.dto.BasketDetail;
+import com.dressca.domainmodules.shopping.exception.BasketNotFoundException;
+import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;
+import com.dressca.domainmodules.shopping.exception.DisplayItemNotFoundException;
+import com.dressca.domainmodules.shopping.exception.EmptyBasketOnCheckoutException;
 import com.dressca.domainmodules.shopping.internal.domain.DisplayItemDomainService;
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
-import com.dressca.domainmodules.shopping.order.DisplayItemOrdered;
-import com.dressca.domainmodules.shopping.order.Order;
-import com.dressca.domainmodules.shopping.order.OrderItem;
-import com.dressca.domainmodules.shopping.order.exception.EmptyBasketOnCheckoutException;
-import com.dressca.domainmodules.shopping.order.valueobject.Address;
-import com.dressca.domainmodules.shopping.order.valueobject.ShipTo;
+import com.dressca.domainmodules.shopping.models.Basket;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
+import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.models.OrderItem;
+import com.dressca.domainmodules.shopping.valueobject.Address;
+import com.dressca.domainmodules.shopping.valueobject.DisplayItemOrdered;
+import com.dressca.domainmodules.shopping.valueobject.ShipTo;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -434,9 +435,9 @@ public class ShoppingApplicationServiceTest {
     // Act
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
-    assertThat(actual.displayItems.size()).isEqualTo(2);
-    assertThat(actual.displayItems.get(0).getId()).isEqualTo(itemId1);
-    assertThat(actual.displayItems.get(1).getId()).isEqualTo(itemId2);
+    assertThat(actual.getDisplayItems().size()).isEqualTo(2);
+    assertThat(actual.getDisplayItems().get(0).getId()).isEqualTo(itemId1);
+    assertThat(actual.getDisplayItems().get(1).getId()).isEqualTo(itemId2);
 
     // Assert
     // モックが想定通り呼び出されていることの確認

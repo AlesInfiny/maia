@@ -1,7 +1,7 @@
 package com.dressca.web.controller.advice;
 
 import com.dressca.domainmodules.authorization.exception.PermissionDeniedException;
-import com.dressca.domainmodules.catalogmanagement.catalogitem.exception.OptimisticLockingFailureException;
+import com.dressca.domainmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 import com.dressca.domainmodules.common.exception.SystemException;

@@ -3,9 +3,9 @@ package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repos
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.domainmodules.common.mybatis.generated.entity.CatalogBrandEntityExample;
 import com.dressca.domainmodules.common.mybatis.generated.mapper.CatalogBrandMapper;
-import com.dressca.domainmodules.shopping.displayitem.DisplayItemBrand;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.translator.ShoppingEntityTranslator;
+import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

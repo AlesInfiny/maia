@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.repository;
 
-import com.dressca.domainmodules.shopping.displayitem.DisplayItem;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.mybatis.mapper.JoinedDisplayItemMapper;
+import com.dressca.domainmodules.shopping.models.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
