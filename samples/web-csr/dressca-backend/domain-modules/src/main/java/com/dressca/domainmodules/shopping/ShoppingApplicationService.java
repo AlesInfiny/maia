@@ -15,11 +15,11 @@ import com.dressca.domainmodules.shopping.internal.domain.repository.OrderReposi
 import com.dressca.domainmodules.shopping.model.Basket;
 import com.dressca.domainmodules.shopping.model.BasketItem;
 import com.dressca.domainmodules.shopping.model.DisplayItem;
+import com.dressca.domainmodules.shopping.model.DisplayItemOrdered;
 import com.dressca.domainmodules.shopping.model.Order;
 import com.dressca.domainmodules.shopping.model.OrderItem;
 import com.dressca.domainmodules.shopping.model.OrderItemAsset;
-import com.dressca.domainmodules.shopping.valueobject.DisplayItemOrdered;
-import com.dressca.domainmodules.shopping.valueobject.ShipTo;
+import com.dressca.domainmodules.shopping.model.ShipTo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,9 +84,9 @@ public class ShoppingApplicationService {
    */
   public void setQuantities(UUID buyerId, Map<UUID, Integer> quantities)
       throws DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
-    apLog.debug(messages.getMessage(
-        ShoppingMessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
-        new Object[] {buyerId, quantities}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(ShoppingMessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
+            new Object[] {buyerId, quantities}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
     List<UUID> displayItemIds = new ArrayList<>(quantities.keySet());

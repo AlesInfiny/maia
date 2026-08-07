@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.catalogmanagement;
 
-import com.dressca.domainmodules.authorization.UserRoleConstants;
 import com.dressca.domainmodules.authorization.UserStore;
+import com.dressca.domainmodules.authorization.constant.UserRoleConstants;
 import com.dressca.domainmodules.authorization.exception.PermissionDeniedException;
 import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementMessageIdConstants;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogBrandNotFoundException;

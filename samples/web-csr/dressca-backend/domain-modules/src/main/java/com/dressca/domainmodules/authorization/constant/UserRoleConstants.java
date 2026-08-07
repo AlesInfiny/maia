@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.authorization;
+package com.dressca.domainmodules.authorization.constant;
 
 /**
  * ユーザーのロール用の定数クラスです。

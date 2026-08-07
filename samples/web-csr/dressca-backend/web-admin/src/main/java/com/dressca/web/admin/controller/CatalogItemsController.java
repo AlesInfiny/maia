@@ -1,6 +1,6 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.domainmodules.authorization.UserRoleConstants;
+import com.dressca.domainmodules.authorization.constant.UserRoleConstants;
 import com.dressca.domainmodules.authorization.exception.PermissionDeniedException;
 import com.dressca.domainmodules.catalogmanagement.CatalogApplicationService;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogBrandNotFoundException;

@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.valueobject;
+package com.dressca.domainmodules.shopping.model;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;

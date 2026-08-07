@@ -1,8 +1,6 @@
 package com.dressca.domainmodules.shopping.model;
 
 import com.dressca.domainmodules.common.util.UuidGenerator;
-import com.dressca.domainmodules.shopping.valueobject.Account;
-import com.dressca.domainmodules.shopping.valueobject.AccountItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

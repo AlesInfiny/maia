@@ -1,6 +1,5 @@
 package com.dressca.domainmodules.shopping.model;
 
-import com.dressca.domainmodules.shopping.valueobject.AccountItem;
 import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

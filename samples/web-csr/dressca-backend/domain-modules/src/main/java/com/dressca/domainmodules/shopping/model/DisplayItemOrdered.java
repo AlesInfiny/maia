@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.valueobject;
+package com.dressca.domainmodules.shopping.model;
 
 import java.util.UUID;
 import lombok.NonNull;

@@ -1,9 +1,6 @@
 package com.dressca.domainmodules.shopping.model;
 
 import com.dressca.domainmodules.common.util.UuidGenerator;
-import com.dressca.domainmodules.shopping.valueobject.Account;
-import com.dressca.domainmodules.shopping.valueobject.AccountItem;
-import com.dressca.domainmodules.shopping.valueobject.ShipTo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
