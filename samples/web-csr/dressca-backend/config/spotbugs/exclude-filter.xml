@@ -32,9 +32,6 @@
     MyBatis Generator が生成する Example/Criteria クラスでは、
     条件リストを参照で返す実装がフレームワークの仕様である。
     呼び出し側でも不変として扱う前提のため EI 警告を除外する。
-    生成物はテーブルを所有するコンテキストの
-    internal.infrastructure.repository.mybatis.generated.entity 配下に出力されるため、
-    コンテキスト名に依存しないパターンで指定する。
   -->
   <Match>
     <Class name="~com\.dressca\.domainmodules\..*\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
