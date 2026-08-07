@@ -13,9 +13,6 @@
     "assetsmanagement",
     "Batis",
     "buildscript",
-    "catalogbrand",
-    "catalogcategory",
-    "catalogitem",
     "catalogmanagement",
     "configfile",
     "controlleradvice",
@@ -51,7 +48,6 @@
     "tasklet",
     "tngtech",
     "todofuken",
-    "valueobject",
     "VARCHAR",
     "webmvc"
   ]
