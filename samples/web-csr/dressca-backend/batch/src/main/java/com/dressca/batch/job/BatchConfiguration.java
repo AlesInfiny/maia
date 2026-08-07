@@ -26,9 +26,8 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.dressca"})
-// annotationClass を指定しないと、基底パッケージ配下の全インターフェース
-// （UserStore やリポジトリのアウトバウンドポート）までマッパーとして登録されてしまう。
-@MapperScan(basePackages = "com.dressca.domainmodules", annotationClass = Mapper.class)
+@MapperScan(basePackages = "com.dressca.domainmodules"
+    + ".catalogmanagement.internal.infrastructure.repository.mybatis")
 public class BatchConfiguration {
 
   /**
