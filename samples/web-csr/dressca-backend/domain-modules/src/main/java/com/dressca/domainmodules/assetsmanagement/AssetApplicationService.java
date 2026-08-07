@@ -1,11 +1,11 @@
 package com.dressca.domainmodules.assetsmanagement;
 
+import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementMessageIdConstants;
 import com.dressca.domainmodules.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.domainmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.repository.AssetRepository;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.store.AssetStore;
 import com.dressca.domainmodules.assetsmanagement.model.Asset;
-import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import java.util.Locale;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +36,8 @@ public class AssetApplicationService {
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
 
-    apLog.debug(messages.getMessage(MessageIdConstants.D_ASSET_GET_ASSET, new Object[] {assetCode},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(AssetManagementMessageIdConstants.D_ASSET_GET_ASSET,
+        new Object[] {assetCode}, Locale.getDefault()));
 
     Asset asset = this.repository.findByAssetCode(assetCode)
         .orElseThrow(() -> new AssetNotFoundException(assetCode));

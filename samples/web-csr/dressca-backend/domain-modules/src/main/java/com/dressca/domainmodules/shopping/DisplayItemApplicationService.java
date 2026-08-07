@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping;
 
-import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
@@ -39,7 +39,7 @@ public class DisplayItemApplicationService {
    * @return 条件に一致する陳列品のリスト。存在しない場合は空のリスト。
    */
   public List<DisplayItem> getDisplayItems(UUID brandId, UUID categoryId, int page, int pageSize) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_GET_DISPLAY_ITEMS,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_DISPLAY_GET_DISPLAY_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
 
     return this.displayItemRepository.findByBrandIdAndCategoryId(brandId, categoryId, page,
@@ -54,7 +54,7 @@ public class DisplayItemApplicationService {
    * @return 条件に一致する陳列品の件数。
    */
   public int countDisplayItems(UUID brandId, UUID categoryId) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_COUNT_DISPLAY_ITEMS,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_DISPLAY_COUNT_DISPLAY_ITEMS,
         new Object[] {brandId, categoryId}, Locale.getDefault()));
 
     return this.displayItemRepository.countByBrandIdAndCategoryId(brandId, categoryId);
@@ -66,8 +66,8 @@ public class DisplayItemApplicationService {
    * @return 陳列品ブランドのリスト。
    */
   public List<DisplayItemBrand> getBrands() {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_GET_BRANDS, new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_DISPLAY_GET_BRANDS,
+        new Object[] {}, Locale.getDefault()));
 
     return this.displayItemBrandRepository.getAll();
   }
@@ -78,8 +78,8 @@ public class DisplayItemApplicationService {
    * @return 陳列品カテゴリのリスト。
    */
   public List<DisplayItemCategory> getCategories() {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_DISPLAY_GET_CATEGORIES, new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_DISPLAY_GET_CATEGORIES,
+        new Object[] {}, Locale.getDefault()));
 
     return this.displayItemCategoryRepository.getAll();
   }

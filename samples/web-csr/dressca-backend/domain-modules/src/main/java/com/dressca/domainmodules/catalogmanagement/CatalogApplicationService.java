@@ -3,6 +3,7 @@ package com.dressca.domainmodules.catalogmanagement;
 import com.dressca.domainmodules.authorization.UserRoleConstants;
 import com.dressca.domainmodules.authorization.UserStore;
 import com.dressca.domainmodules.authorization.exception.PermissionDeniedException;
+import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementMessageIdConstants;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogBrandNotFoundException;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogNotFoundException;
@@ -14,7 +15,6 @@ import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.Ca
 import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
-import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -74,7 +74,7 @@ public class CatalogApplicationService {
    */
   public CatalogItem getCatalogItem(UUID id)
       throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
+    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
@@ -100,7 +100,7 @@ public class CatalogApplicationService {
    */
   public List<CatalogItem> getCatalogItems(UUID brandId, UUID categoryId, int page, int pageSize)
       throws PermissionDeniedException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
+    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
         new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
@@ -129,7 +129,8 @@ public class CatalogApplicationService {
       String productCode, UUID catalogCategoryId, UUID catalogBrandId)
       throws PermissionDeniedException, CatalogCategoryNotFoundException,
       CatalogBrandNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
+    apLog.debug(messages.getMessage(
+        CatalogManagementMessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
         new Object[] {}, Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
@@ -162,7 +163,8 @@ public class CatalogApplicationService {
   public void deleteItemFromCatalog(UUID id, OffsetDateTime rowVersion)
       throws PermissionDeniedException, CatalogNotFoundException,
       OptimisticLockingFailureException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG,
+    apLog.debug(messages.getMessage(
+        CatalogManagementMessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG,
         new Object[] {id}, Locale.getDefault()));
 
     final String operationName = "deleteItemFromCatalog";
@@ -203,7 +205,8 @@ public class CatalogApplicationService {
       boolean isDeleted)
       throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
       CatalogBrandNotFoundException, OptimisticLockingFailureException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
+    apLog.debug(messages.getMessage(
+        CatalogManagementMessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
         new Object[] {id}, Locale.getDefault()));
     final String operationName = "updateCatalogItem";
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
@@ -241,7 +244,8 @@ public class CatalogApplicationService {
    * @return 条件に一致するカタログ情報の件数。
    */
   public int countCatalogItems(UUID brandId, UUID categoryId) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
+    apLog.debug(messages.getMessage(
+        CatalogManagementMessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
         new Object[] {brandId, categoryId}, Locale.getDefault()));
 
     return this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
@@ -253,8 +257,8 @@ public class CatalogApplicationService {
    * @return カタログブランドのリスト。
    */
   public List<CatalogBrand> getBrands() {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_BRANDS, new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_BRANDS,
+        new Object[] {}, Locale.getDefault()));
 
     return this.brandRepository.getAll();
   }
@@ -265,8 +269,8 @@ public class CatalogApplicationService {
    * @return カタログカテゴリのリスト。
    */
   public List<CatalogCategory> getCategories() {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_CATALOG_GET_CATEGORIES, new Object[] {},
-        Locale.getDefault()));
+    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATEGORIES,
+        new Object[] {}, Locale.getDefault()));
 
     return this.categoryRepository.getAll();
   }

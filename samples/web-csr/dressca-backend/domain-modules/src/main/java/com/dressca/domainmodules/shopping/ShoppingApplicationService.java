@@ -1,9 +1,9 @@
 package com.dressca.domainmodules.shopping;
 
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.exception.SystemException;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.domainmodules.shopping.dto.BasketDetail;
 import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;
 import com.dressca.domainmodules.shopping.exception.DisplayItemNotFoundException;
@@ -58,7 +58,7 @@ public class ShoppingApplicationService {
    */
   public void addItemToBasket(UUID buyerId, UUID displayItemId, int quantity)
       throws DisplayItemNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_ADD_ITEM_TO_BASKET,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_SHOPPING_ADD_ITEM_TO_BASKET,
         new Object[] {buyerId, displayItemId, quantity}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -84,7 +84,8 @@ public class ShoppingApplicationService {
    */
   public void setQuantities(UUID buyerId, Map<UUID, Integer> quantities)
       throws DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
+    apLog.debug(messages.getMessage(
+        ShoppingMessageIdConstants.D_SHOPPING_SET_BASKET_ITEMS_QUANTITIES,
         new Object[] {buyerId, quantities}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -126,7 +127,7 @@ public class ShoppingApplicationService {
    */
   public void deleteItemFromBasket(UUID buyerId, UUID displayItemId)
       throws DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_DELETE_ITEM_FROM_BASKET,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_SHOPPING_DELETE_ITEM_FROM_BASKET,
         new Object[] {buyerId, displayItemId}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -152,7 +153,7 @@ public class ShoppingApplicationService {
    * @return 買い物かごとその陳列品一覧。
    */
   public BasketDetail getBasketDetail(UUID buyerId) {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_SHOPPING_GET_BASKET_ITEMS,
         new Object[] {buyerId}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);
@@ -177,7 +178,7 @@ public class ShoppingApplicationService {
    * @throws EmptyBasketOnCheckoutException basketId に該当する買い物かごが空の場合。
    */
   public Order checkout(UUID buyerId, ShipTo shipToAddress) throws EmptyBasketOnCheckoutException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_SHOPPING_CHECKOUT,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_SHOPPING_CHECKOUT,
         new Object[] {buyerId, shipToAddress}, Locale.getDefault()));
 
     Basket basket = getOrCreateBasketForUser(buyerId);

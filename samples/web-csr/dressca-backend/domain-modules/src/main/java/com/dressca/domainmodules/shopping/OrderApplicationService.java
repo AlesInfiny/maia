@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping;
 
-import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.domainmodules.shopping.exception.OrderNotFoundException;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.domainmodules.shopping.model.Order;
@@ -33,7 +33,7 @@ public class OrderApplicationService {
    * @throws OrderNotFoundException 注文情報が見つからない場合。
    */
   public Order getOrder(UUID orderId, UUID buyerId) throws OrderNotFoundException {
-    apLog.debug(messages.getMessage(MessageIdConstants.D_ORDER_GET_ORDER,
+    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_ORDER_GET_ORDER,
         new Object[] {orderId, buyerId}, Locale.getDefault()));
 
     Order order = this.orderRepository.findById(orderId)
