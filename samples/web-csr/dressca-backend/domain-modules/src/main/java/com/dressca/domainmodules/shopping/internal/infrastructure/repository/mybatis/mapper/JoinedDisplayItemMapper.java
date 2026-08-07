@@ -1,10 +1,10 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper;
 
+import com.dressca.domainmodules.shopping.model.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.dressca.domainmodules.shopping.model.DisplayItem;
 
 /**
  * 陳列品のテーブルにアクセスするためのマッパーのインターフェースです。

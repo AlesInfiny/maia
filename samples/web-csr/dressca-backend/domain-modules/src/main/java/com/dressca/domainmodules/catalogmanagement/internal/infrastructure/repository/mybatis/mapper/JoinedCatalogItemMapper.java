@@ -1,10 +1,10 @@
 package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.mapper;
 
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 
 /**
  * カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。

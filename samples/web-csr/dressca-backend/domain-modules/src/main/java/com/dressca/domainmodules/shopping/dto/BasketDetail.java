@@ -1,9 +1,9 @@
 package com.dressca.domainmodules.shopping.dto;
 
-import java.util.List;
-import java.util.UUID;
 import com.dressca.domainmodules.shopping.model.Basket;
 import com.dressca.domainmodules.shopping.model.DisplayItem;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

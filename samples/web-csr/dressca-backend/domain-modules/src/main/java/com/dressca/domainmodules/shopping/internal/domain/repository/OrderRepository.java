@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.shopping.internal.domain.repository;
 
+import com.dressca.domainmodules.shopping.model.Order;
 import java.util.Optional;
 import java.util.UUID;
-import com.dressca.domainmodules.shopping.model.Order;
 
 /**
  * 注文のリポジトリのインターフェースです。

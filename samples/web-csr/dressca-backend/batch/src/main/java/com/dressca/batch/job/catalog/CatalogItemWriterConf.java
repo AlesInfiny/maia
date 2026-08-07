@@ -1,5 +1,6 @@
 package com.dressca.batch.job.catalog;
 
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 
 /**
  * {@link CatalogItem} の情報をローカルの CSV に出力する Writer の設定です。

@@ -1,11 +1,11 @@
 package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis;
 
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
-import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator.CatalogEntityTranslator;
-import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;
+import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator.CatalogEntityTranslator;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
