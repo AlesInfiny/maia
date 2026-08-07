@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ public class DisplayItemNotFoundException extends LogicException {
    * @param displayItemId 見つからなかった陳列品 ID 。
    */
   public DisplayItemNotFoundException(UUID displayItemId) {
-    super(null, ExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
+    super(null, ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
         new String[] {String.valueOf(displayItemId)}, new String[] {String.valueOf(displayItemId)});
   }
 
@@ -26,7 +26,7 @@ public class DisplayItemNotFoundException extends LogicException {
    * @param displayItemIds 見つからなかった複数の陳列品 ID 。
    */
   public DisplayItemNotFoundException(UUID... displayItemIds) {
-    super(null, ExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
+    super(null, ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
         new String[] {joinDisplayItemIds(displayItemIds)},
         new String[] {joinDisplayItemIds(displayItemIds)});
   }

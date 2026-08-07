@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.catalogmanagement.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
+import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 import java.util.Arrays;
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class CatalogNotFoundException extends LogicException {
    * @param catalogId 見つからなかったカタログ ID 。
    */
   public CatalogNotFoundException(UUID catalogId) {
-    super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
+    super(null, CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
         new String[] {String.valueOf(catalogId)}, new String[] {String.valueOf(catalogId)});
   }
 
@@ -26,7 +26,7 @@ public class CatalogNotFoundException extends LogicException {
    * @param catalogIds 見つからなかった複数のカタログ ID 。
    */
   public CatalogNotFoundException(UUID... catalogIds) {
-    super(null, ExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
+    super(null, CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
         new String[] {joinCatalogIds(catalogIds)}, new String[] {joinCatalogIds(catalogIds)});
   }
 

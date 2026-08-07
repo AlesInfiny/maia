@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 import java.util.UUID;
 
 /**
@@ -17,7 +17,7 @@ public class OrderNotFoundException extends LogicException {
    * @param buyerId 見つからなかった購入者 ID 。
    */
   public OrderNotFoundException(Throwable cause, UUID orderId, UUID buyerId) {
-    super(cause, ExceptionIdConstants.E_ORDER_NOT_FOUND,
+    super(cause, ShoppingExceptionIdConstants.E_ORDER_NOT_FOUND,
         new String[] {String.valueOf(orderId), String.valueOf(buyerId)},
         new String[] {String.valueOf(orderId), String.valueOf(buyerId)});
   }

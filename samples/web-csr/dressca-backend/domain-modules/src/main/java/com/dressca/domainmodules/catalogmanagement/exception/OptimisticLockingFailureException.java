@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.catalogmanagement.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
+import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 import java.util.UUID;
 
@@ -15,7 +15,7 @@ public class OptimisticLockingFailureException extends LogicException {
    * @param catalogItemId 更新処理を試みたカタログアイテム ID 。
    */
   public OptimisticLockingFailureException(UUID catalogItemId, String operationName) {
-    super(null, ExceptionIdConstants.E_OPTIMISTIC_LOCKING_FAILURE,
+    super(null, CatalogManagementExceptionIdConstants.E_OPTIMISTIC_LOCKING_FAILURE,
         new String[] {String.valueOf(catalogItemId), operationName},
         new String[] {String.valueOf(catalogItemId), operationName});
   }

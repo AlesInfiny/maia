@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.assetsmanagement.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
+import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 
 /**
@@ -11,10 +11,10 @@ public class AssetNotFoundException extends LogicException {
   /**
    * 見つからなかったアセットコードを指定して、 {@link AssetNotFoundException} クラスのインスタンスを初期化します。
    * 
-   * @param assetCode 見つからなかった買い物かご ID 。
+   * @param assetCode 見つからなかったアセットコード。
    */
   public AssetNotFoundException(String assetCode) {
-    super(null, ExceptionIdConstants.E_ASSET_NOT_FOUND, new String[] {assetCode},
+    super(null, AssetManagementExceptionIdConstants.E_ASSET_NOT_FOUND, new String[] {assetCode},
         new String[] {assetCode});
   }
 }

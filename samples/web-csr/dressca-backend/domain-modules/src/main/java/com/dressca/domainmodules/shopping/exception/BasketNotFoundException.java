@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 import java.util.UUID;
 
 /**
@@ -15,7 +15,7 @@ public class BasketNotFoundException extends LogicException {
    * @param basketId 見つからなかった買い物かご ID 。
    */
   public BasketNotFoundException(UUID basketId) {
-    super(null, ExceptionIdConstants.E_BASKET_IS_NULL_ON_CHECKOUT,
+    super(null, ShoppingExceptionIdConstants.E_BASKET_IS_NULL_ON_CHECKOUT,
         new String[] {String.valueOf(basketId)}, new String[] {String.valueOf(basketId)});
   }
 }

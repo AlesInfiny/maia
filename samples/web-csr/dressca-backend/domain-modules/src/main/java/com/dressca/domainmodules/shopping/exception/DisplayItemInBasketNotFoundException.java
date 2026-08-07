@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class DisplayItemInBasketNotFoundException extends LogicException {
    * @param displayItemIds 陳列品 ID のリスト。
    */
   public DisplayItemInBasketNotFoundException(UUID basketId, List<UUID> displayItemIds) {
-    super(null, ExceptionIdConstants.E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET,
+    super(null, ShoppingExceptionIdConstants.E_DISPLAY_ITEM_ID_DOES_NOT_EXIST_IN_BASKET,
         new String[] {String.valueOf(basketId), convertDisplayItemIds(displayItemIds)},
         new String[] {String.valueOf(basketId), convertDisplayItemIds(displayItemIds)});
   }

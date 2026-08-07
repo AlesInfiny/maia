@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 
 /**
  * 注文のチェックアウト処理開始時に買い物かごが空であることを表す例外クラスです。
@@ -14,6 +14,6 @@ public class EmptyBasketOnCheckoutException extends LogicException {
    * @param cause 原因例外。
    */
   public EmptyBasketOnCheckoutException(Throwable cause) {
-    super(cause, ExceptionIdConstants.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
+    super(cause, ShoppingExceptionIdConstants.E_BASKET_IS_EMPTY_ON_CHECKOUT, null, null);
   }
 }

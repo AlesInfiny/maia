@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.catalogmanagement.exception;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
+import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 import java.util.UUID;
 
@@ -10,13 +10,13 @@ import java.util.UUID;
 public class CatalogBrandNotFoundException extends LogicException {
 
   /**
-   * 見つからなかったカタログブランド ID を指定して、 {@link CatalogItemNotExistingInRepositoryException}
+   * 見つからなかったカタログブランド ID を指定して、 {@link CatalogBrandNotFoundException}
    * クラスの新しいインスタンスを初期化します。
    * 
    * @param catalogBrandId 見つからなかったカタログブランド ID 。
    */
   public CatalogBrandNotFoundException(UUID catalogBrandId) {
-    super(null, ExceptionIdConstants.E_CATALOG_BRAND_NOT_FOUND,
+    super(null, CatalogManagementExceptionIdConstants.E_CATALOG_BRAND_NOT_FOUND,
         new String[] {String.valueOf(catalogBrandId)},
         new String[] {String.valueOf(catalogBrandId)});
   }

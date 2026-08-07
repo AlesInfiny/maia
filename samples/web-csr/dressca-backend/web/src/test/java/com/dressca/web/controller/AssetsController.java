@@ -1,12 +1,12 @@
 package com.dressca.web.controller;
 
 import com.dressca.domainmodules.assetsmanagement.AssetApplicationService;
+import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
 import com.dressca.domainmodules.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.domainmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.domainmodules.assetsmanagement.model.Asset;
 import com.dressca.domainmodules.assetsmanagement.model.AssetTypes;
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.LogicException;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
@@ -92,8 +92,9 @@ public class AssetsController {
       case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
-        String errorMessage = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
-            new String[] {asset.getAssetType()}, Locale.getDefault());
+        String errorMessage =
+            messages.getMessage(AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()}, Locale.getDefault());
         throw new IllegalArgumentException(errorMessage);
     }
   }

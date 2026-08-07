@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.assetsmanagement.model;
 
-import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
+import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
 import com.dressca.domainmodules.common.util.ApplicationContextWrapper;
 import com.dressca.domainmodules.common.util.UuidGenerator;
 import java.util.Locale;
@@ -35,8 +35,9 @@ public class Asset {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       MessageSource messages =
           (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-      String message = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-          new String[] {assetType}, Locale.getDefault());
+      String message =
+          messages.getMessage(AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+              new String[] {assetType}, Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }
@@ -52,8 +53,9 @@ public class Asset {
     if (!AssetTypes.isSupportedAssetTypes(assetType)) {
       MessageSource messages =
           (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
-      String message = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-          new String[] {assetType}, Locale.getDefault());
+      String message =
+          messages.getMessage(AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+              new String[] {assetType}, Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }
