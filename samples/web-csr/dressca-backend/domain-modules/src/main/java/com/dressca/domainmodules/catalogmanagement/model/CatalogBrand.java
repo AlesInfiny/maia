@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.catalogmanagement.models;
+package com.dressca.domainmodules.catalogmanagement.model;
 
 import java.util.ArrayList;
 import java.util.List;

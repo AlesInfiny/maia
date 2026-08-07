@@ -11,9 +11,9 @@ import com.dressca.domainmodules.catalogmanagement.internal.domain.CatalogDomain
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogRepository;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import java.math.BigDecimal;

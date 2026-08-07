@@ -10,7 +10,7 @@ import com.dressca.domainmodules.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.domainmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.repository.AssetRepository;
 import com.dressca.domainmodules.assetsmanagement.internal.domain.store.AssetStore;
-import com.dressca.domainmodules.assetsmanagement.models.Asset;
+import com.dressca.domainmodules.assetsmanagement.model.Asset;
 import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import java.util.Optional;

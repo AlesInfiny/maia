@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.models;
+package com.dressca.domainmodules.shopping.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

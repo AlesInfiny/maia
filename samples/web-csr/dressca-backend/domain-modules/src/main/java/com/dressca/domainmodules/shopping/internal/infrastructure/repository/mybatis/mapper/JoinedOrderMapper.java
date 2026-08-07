@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.dressca.domainmodules.shopping.models.Order;
-import com.dressca.domainmodules.shopping.models.OrderItem;
+import com.dressca.domainmodules.shopping.model.Order;
+import com.dressca.domainmodules.shopping.model.OrderItem;
 
 /**
  * 注文情報のテーブルにアクセスするためのマッパーのインターフェースです。

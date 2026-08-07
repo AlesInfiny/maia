@@ -7,7 +7,7 @@ import com.dressca.domainmodules.shopping.OrderApplicationService;
 import com.dressca.domainmodules.shopping.ShoppingApplicationService;
 import com.dressca.domainmodules.shopping.exception.EmptyBasketOnCheckoutException;
 import com.dressca.domainmodules.shopping.exception.OrderNotFoundException;
-import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.model.Order;
 import com.dressca.domainmodules.shopping.valueobject.Address;
 import com.dressca.domainmodules.shopping.valueobject.ShipTo;
 import com.dressca.web.constant.WebConstants;

@@ -3,7 +3,7 @@ package com.dressca.domainmodules.shopping.internal.infrastructure.repository.my
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.dressca.domainmodules.shopping.models.Basket;
+import com.dressca.domainmodules.shopping.model.Basket;
 
 /**
  * 買い物かごのテーブルにアクセスするためのマッパーのインターフェースです。

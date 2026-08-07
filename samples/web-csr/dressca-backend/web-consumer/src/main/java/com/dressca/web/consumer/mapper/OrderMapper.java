@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.model.Order;
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 import java.util.stream.Collectors;

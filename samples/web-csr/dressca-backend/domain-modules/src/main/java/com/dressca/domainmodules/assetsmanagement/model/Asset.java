@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.assetsmanagement.models;
+package com.dressca.domainmodules.assetsmanagement.model;
 
 import com.dressca.domainmodules.common.constant.ExceptionIdConstants;
 import com.dressca.domainmodules.common.util.ApplicationContextWrapper;

@@ -34,7 +34,7 @@
     )
   </sql>
 
-  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.domainmodules.catalogmanagement.models.CatalogItem">
+  <resultMap id="catalogItemsIncludeAssetResultMap" type="com.dressca.domainmodules.catalogmanagement.model.CatalogItem">
     <id property="id" column="ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
@@ -44,15 +44,15 @@
     <result property="catalogBrandId" column="CATALOG_BRAND_ID"/>
     <result property="rowVersion" column="ROW_VERSION"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset" resultMap="assetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.domainmodules.catalogmanagement.model.CatalogItemAsset" resultMap="assetsResultMap"/>
   </resultMap>
 
-  <resultMap id="assetsResultMap" type="com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset">
+  <resultMap id="assetsResultMap" type="com.dressca.domainmodules.catalogmanagement.model.CatalogItemAsset">
     <result property="catalogItemId" column="CATALOG_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>
 
-  <select id="findByCategoryIdIn" resultType="com.dressca.domainmodules.catalogmanagement.models.CatalogItem" parameterType="List">
+  <select id="findByCategoryIdIn" resultType="com.dressca.domainmodules.catalogmanagement.model.CatalogItem" parameterType="List">
     <include refid="selectCatalogItems"/>
     <choose>
       <when test="categoryIds != null and categoryIds.size != 0">

@@ -2,7 +2,7 @@ package com.dressca.domainmodules.shopping.internal.domain.repository;
 
 import java.util.List;
 import java.util.UUID;
-import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
+import com.dressca.domainmodules.shopping.model.DisplayItemBrand;
 
 /**
  * 陳列品ブランドのリポジトリのインターフェースです。

@@ -6,7 +6,7 @@
     カタログ管理コンテキストが所有する CATALOG_CATEGORIES を参照します。
     買い物コンテキストからは読み取りのみを行い、更新系のステートメントは定義しません。
   -->
-  <resultMap id="displayItemCategoryResultMap" type="com.dressca.domainmodules.shopping.models.DisplayItemCategory">
+  <resultMap id="displayItemCategoryResultMap" type="com.dressca.domainmodules.shopping.model.DisplayItemCategory">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="name" column="NAME"/>
   </resultMap>

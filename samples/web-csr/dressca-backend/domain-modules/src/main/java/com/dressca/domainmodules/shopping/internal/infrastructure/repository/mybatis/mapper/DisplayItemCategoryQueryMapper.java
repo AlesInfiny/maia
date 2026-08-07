@@ -1,10 +1,10 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.dressca.domainmodules.shopping.model.DisplayItemCategory;
 
 /**
  * 陳列品カテゴリを取得するための読み取り専用マッパーのインターフェースです。

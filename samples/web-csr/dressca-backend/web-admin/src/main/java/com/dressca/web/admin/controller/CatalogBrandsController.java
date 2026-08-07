@@ -1,7 +1,7 @@
 package com.dressca.web.admin.controller;
 
 import com.dressca.domainmodules.catalogmanagement.CatalogApplicationService;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogBrandsResponse;
 import com.dressca.web.admin.mapper.CatalogBrandMapper;
 import io.swagger.v3.oas.annotations.Operation;

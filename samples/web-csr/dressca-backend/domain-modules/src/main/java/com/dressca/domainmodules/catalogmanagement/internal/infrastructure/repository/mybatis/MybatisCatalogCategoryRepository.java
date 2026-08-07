@@ -2,7 +2,7 @@ package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repo
 
 import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator.CatalogEntityTranslator;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntityExample;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper.CatalogCategoryMapper;

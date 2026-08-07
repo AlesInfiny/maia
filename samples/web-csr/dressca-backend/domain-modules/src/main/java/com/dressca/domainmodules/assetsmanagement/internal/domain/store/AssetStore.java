@@ -3,7 +3,7 @@ package com.dressca.domainmodules.assetsmanagement.internal.domain.store;
 
 import java.util.Optional;
 import org.springframework.core.io.Resource;
-import com.dressca.domainmodules.assetsmanagement.models.Asset;
+import com.dressca.domainmodules.assetsmanagement.model.Asset;
 
 /**
  * アセットのストアのインターフェースです。

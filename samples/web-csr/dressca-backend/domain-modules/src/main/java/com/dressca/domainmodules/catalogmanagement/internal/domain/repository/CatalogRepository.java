@@ -3,7 +3,7 @@ package com.dressca.domainmodules.catalogmanagement.internal.domain.repository;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 
 /**
  * カタログのリポジトリのインターフェースです。

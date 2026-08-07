@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.shopping.internal.domain;
 
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
-import com.dressca.domainmodules.shopping.models.DisplayItem;
+import com.dressca.domainmodules.shopping.model.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

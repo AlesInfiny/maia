@@ -7,7 +7,7 @@ import com.dressca.domainmodules.catalogmanagement.exception.CatalogBrandNotFoun
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogNotFoundException;
 import com.dressca.domainmodules.catalogmanagement.exception.OptimisticLockingFailureException;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
 import com.dressca.domainmodules.common.exception.SystemException;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;

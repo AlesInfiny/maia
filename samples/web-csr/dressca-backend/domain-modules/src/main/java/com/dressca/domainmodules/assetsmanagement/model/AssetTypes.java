@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.assetsmanagement.models;
+package com.dressca.domainmodules.assetsmanagement.model;
 
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;

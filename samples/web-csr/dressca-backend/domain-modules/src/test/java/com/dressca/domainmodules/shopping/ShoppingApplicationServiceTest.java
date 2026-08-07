@@ -20,10 +20,10 @@ import com.dressca.domainmodules.shopping.internal.domain.DisplayItemDomainServi
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
-import com.dressca.domainmodules.shopping.models.Basket;
-import com.dressca.domainmodules.shopping.models.DisplayItem;
-import com.dressca.domainmodules.shopping.models.Order;
-import com.dressca.domainmodules.shopping.models.OrderItem;
+import com.dressca.domainmodules.shopping.model.Basket;
+import com.dressca.domainmodules.shopping.model.DisplayItem;
+import com.dressca.domainmodules.shopping.model.Order;
+import com.dressca.domainmodules.shopping.model.OrderItem;
 import com.dressca.domainmodules.shopping.valueobject.Address;
 import com.dressca.domainmodules.shopping.valueobject.DisplayItemOrdered;
 import com.dressca.domainmodules.shopping.valueobject.ShipTo;

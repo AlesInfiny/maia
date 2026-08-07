@@ -4,10 +4,10 @@ import com.dressca.domainmodules.shopping.internal.infrastructure.repository.myb
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderEntity;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
-import com.dressca.domainmodules.shopping.models.Basket;
-import com.dressca.domainmodules.shopping.models.BasketItem;
-import com.dressca.domainmodules.shopping.models.Order;
-import com.dressca.domainmodules.shopping.models.OrderItem;
+import com.dressca.domainmodules.shopping.model.Basket;
+import com.dressca.domainmodules.shopping.model.BasketItem;
+import com.dressca.domainmodules.shopping.model.Order;
+import com.dressca.domainmodules.shopping.model.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 /**

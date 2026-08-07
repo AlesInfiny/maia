@@ -1,13 +1,13 @@
 package com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.translator;
 
-import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogCategory;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItemAsset;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogCategoryEntity;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemAssetEntity;
 import com.dressca.domainmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItemAsset;
 import org.springframework.beans.BeanUtils;
 
 /**

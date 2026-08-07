@@ -37,7 +37,7 @@
     )
   </sql>
 
-  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.domainmodules.shopping.models.Order">
+  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.domainmodules.shopping.model.Order">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="orderDate" column="ORDER_DATE"/>
@@ -47,7 +47,7 @@
     <result property="consumptionTax" column="CONSUMPTION_TAX"/>
     <result property="totalPrice" column="TOTAL_PRICE"/>
     <association property="shipToAddress" javaType="com.dressca.domainmodules.shopping.valueobject.ShipTo" resultMap="shipToResultMap"/>
-    <collection property="orderItems" ofType="com.dressca.domainmodules.shopping.models.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
+    <collection property="orderItems" ofType="com.dressca.domainmodules.shopping.model.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
   </resultMap>
 
   <resultMap id="shipToResultMap" type="com.dressca.domainmodules.shopping.valueobject.ShipTo">
@@ -62,12 +62,12 @@
     <result property="azanaAndOthers" column="SHIP_TO_AZANA_AND_OTHERS"/>
   </resultMap>
 
-  <resultMap id="orderItemsResultMap" type="com.dressca.domainmodules.shopping.models.OrderItem">
+  <resultMap id="orderItemsResultMap" type="com.dressca.domainmodules.shopping.model.OrderItem">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
     <association property="itemOrdered" javaType="com.dressca.domainmodules.shopping.valueobject.DisplayItemOrdered" resultMap="displayItemOrderedResultMap"/>
-    <collection property="assets" ofType="com.dressca.domainmodules.shopping.models.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
+    <collection property="assets" ofType="com.dressca.domainmodules.shopping.model.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
   </resultMap>
 
   <resultMap id="displayItemOrderedResultMap" type="com.dressca.domainmodules.shopping.valueobject.DisplayItemOrdered">
@@ -76,7 +76,7 @@
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
-  <resultMap id="orderItemAssetsResultMap" type="com.dressca.domainmodules.shopping.models.OrderItemAsset">
+  <resultMap id="orderItemAssetsResultMap" type="com.dressca.domainmodules.shopping.model.OrderItemAsset">
     <id property="id" column="ASSET_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

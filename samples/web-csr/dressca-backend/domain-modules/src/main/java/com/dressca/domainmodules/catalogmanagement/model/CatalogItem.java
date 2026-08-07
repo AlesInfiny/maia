@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.catalogmanagement.models;
+package com.dressca.domainmodules.catalogmanagement.model;
 
 import com.dressca.domainmodules.common.util.UuidGenerator;
 import java.math.BigDecimal;

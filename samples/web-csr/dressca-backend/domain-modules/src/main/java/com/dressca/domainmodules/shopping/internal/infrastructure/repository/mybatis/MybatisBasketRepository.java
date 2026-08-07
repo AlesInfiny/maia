@@ -9,7 +9,7 @@ import com.dressca.domainmodules.shopping.internal.infrastructure.repository.myb
 import com.dressca.domainmodules.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.translator.ShoppingEntityTranslator;
-import com.dressca.domainmodules.shopping.models.Basket;
+import com.dressca.domainmodules.shopping.model.Basket;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

@@ -2,7 +2,7 @@ package com.dressca.domainmodules.catalogmanagement.internal.domain.repository;
 
 import java.util.List;
 import java.util.UUID;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogBrand;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
 
 /**
  * カタログブランドのリポジトリのインターフェースです。

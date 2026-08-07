@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.dressca.domainmodules.catalogmanagement.models.CatalogItem;
+import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
 
 /**
  * カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。

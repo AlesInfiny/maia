@@ -4,7 +4,7 @@ import com.dressca.domainmodules.common.constant.MessageIdConstants;
 import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.exception.OrderNotFoundException;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
-import com.dressca.domainmodules.shopping.models.Order;
+import com.dressca.domainmodules.shopping.model.Order;
 import java.util.Locale;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

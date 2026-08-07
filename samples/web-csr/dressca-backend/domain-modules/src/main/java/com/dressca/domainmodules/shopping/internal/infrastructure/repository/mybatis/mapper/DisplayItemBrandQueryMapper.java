@@ -1,10 +1,10 @@
 package com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.domainmodules.shopping.models.DisplayItemBrand;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.dressca.domainmodules.shopping.model.DisplayItemBrand;
 
 /**
  * 陳列品ブランドを取得するための読み取り専用マッパーのインターフェースです。

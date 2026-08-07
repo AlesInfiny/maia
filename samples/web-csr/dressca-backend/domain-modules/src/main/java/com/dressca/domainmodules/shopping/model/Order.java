@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.shopping.models;
+package com.dressca.domainmodules.shopping.model;
 
 import com.dressca.domainmodules.common.util.UuidGenerator;
 import com.dressca.domainmodules.shopping.valueobject.Account;

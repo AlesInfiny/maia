@@ -2,7 +2,7 @@ package com.dressca.domainmodules.shopping.internal.infrastructure.repository.my
 
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.mapper.DisplayItemCategoryQueryMapper;
-import com.dressca.domainmodules.shopping.models.DisplayItemCategory;
+import com.dressca.domainmodules.shopping.model.DisplayItemCategory;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
