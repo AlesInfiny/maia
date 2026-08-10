@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-// annotationClass を指定しないと、基底パッケージ配下の全インターフェース
-// （UserStore やリポジトリのアウトバウンドポート）までマッパーとして登録されてしまう。
 @MapperScan(basePackages = "com.dressca.domainmodules", annotationClass = Mapper.class)
 public class MyBatisConfig {
 
