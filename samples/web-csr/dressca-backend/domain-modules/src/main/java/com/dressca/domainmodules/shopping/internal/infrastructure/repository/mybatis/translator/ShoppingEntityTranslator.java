@@ -11,7 +11,7 @@ import com.dressca.domainmodules.shopping.model.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 /**
- * 購買の文脈において、テーブルエンティティとエンティティを相互に変換するクラスです。
+ * 買い物コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
  */
 public class ShoppingEntityTranslator {
 
