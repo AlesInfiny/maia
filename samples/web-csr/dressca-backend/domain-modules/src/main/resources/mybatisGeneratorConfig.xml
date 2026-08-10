@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "https://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
-<!--
-    テーブルの所有権（そのテーブルに書き込むコンテキストは誰か）を単位として context を分割しています。
-    生成されたテーブルエンティティとマッパーは所有コンテキストの internal パッケージ配下に出力されるため、
-    他コンテキストからは参照できません。
-
-    他コンテキストのテーブルを参照する必要がある場合は、生成マッパーを共有せず、
-    参照する側が読み取り専用の手書きマッパーを自身の internal 配下に持ちます。
-    （例： 買い物コンテキストの DisplayItemBrandQueryMapper が catalog_brands を SELECT のみで参照）
--->
 <generatorConfiguration>
 
     <!-- ============================================================
@@ -46,7 +37,6 @@
 
     <!-- ============================================================
          カタログ管理コンテキストが所有するテーブル
-         買い物コンテキストからは読み取り専用マッパー経由で参照されます。
          ============================================================ -->
     <context id="catalogmanagement" targetRuntime="MyBatis3">
         <!-- 自動生成MapperにはMapperアノテーションを付与する -->
