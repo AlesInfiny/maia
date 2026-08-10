@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 陳列品ブランドのリポジトリです。
- * 陳列品ブランド専用のテーブルは持たず、カタログブランド（catalog_brands）を源泉として陳列品ブランドを解決します。
- * カタログ管理コンテキストのテーブルは読み取り専用マッパー経由で参照し、更新は行いません。
  */
 @Repository
 @RequiredArgsConstructor

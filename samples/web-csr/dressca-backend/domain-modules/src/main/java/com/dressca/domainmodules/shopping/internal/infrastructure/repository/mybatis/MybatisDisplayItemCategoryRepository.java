@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 陳列品カテゴリのリポジトリです。
- * 陳列品カテゴリ専用のテーブルは持たず、カタログカテゴリ（catalog_categories）を源泉として陳列品カテゴリを解決します。
- * カタログ管理コンテキストのテーブルは読み取り専用マッパー経由で参照し、更新は行いません。
  */
 @Repository
 @RequiredArgsConstructor
