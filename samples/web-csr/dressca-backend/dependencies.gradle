@@ -41,9 +41,8 @@ ext {
 
         // SPRING MODULITH
         spring_modulith_bom : "org.springframework.modulith:spring-modulith-bom:$springModulithVersion",
-        spring_modulith_api : "org.springframework.modulith:spring-modulith-api",
-        spring_modulith_core : "org.springframework.modulith:spring-modulith-core",
-        spring_modulith_docs : "org.springframework.modulith:spring-modulith-docs",
+        spring_modulith_starter_core : "org.springframework.modulith:spring-modulith-starter-core",
+        spring_modulith_starter_test : "org.springframework.modulith:spring-modulith-starter-test",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
