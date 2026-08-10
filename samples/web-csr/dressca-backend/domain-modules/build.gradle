@@ -39,7 +39,6 @@ configurations {
 dependencies {
 	implementation platform(supportDependencies.spring_modulith_bom)
 
-	implementation supportDependencies.spring_boot_starter
 	implementation supportDependencies.spring_boot_starter_log4j2
 	implementation supportDependencies.spring_boot_transaction
 	implementation supportDependencies.commons_lang3
@@ -49,7 +48,6 @@ dependencies {
 	implementation supportDependencies.postgresql
 	implementation supportDependencies.spring_modulith_api
 
-	testImplementation platform(supportDependencies.spring_modulith_bom)
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 	testImplementation supportDependencies.spring_modulith_core
@@ -104,7 +102,6 @@ tasks.register('updateMyBatisGeneratorMapperForOptimisticLocking') {
   doLast {
 
     // MyBatis Generator で生成されたマッパーの xml ファイルがあるディレクトリ
-    // 生成物はテーブルを所有するコンテキストの internal 配下に出力されます。
     def generatedDirectory = 'src/main/resources/com/dressca/domainmodules/catalogmanagement/internal/infrastructure/repository/mybatis/generated/mapper/'
 
     // 楽観ロック対応させるマッパーの xml ファイルのリスト
