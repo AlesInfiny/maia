@@ -8,7 +8,6 @@
   "words": [
     "Appender",
     "Appenders",
-    "archunit",
     "assertj",
     "assetsmanagement",
     "Batis",
@@ -46,7 +45,6 @@
     "subprojects",
     "taskdef",
     "tasklet",
-    "tngtech",
     "todofuken",
     "VARCHAR",
     "webmvc"

@@ -6,7 +6,6 @@ ext {
     spotbugsVersion = "6.5.9"
 
     // -- DEPENDENCIES
-    archunitVersion = "1.4.2"
     javaParserCoreVersion = "3.28.2"
     javaUuidGeneratorVersion = "5.2.0"
     mybatisGeneratorVersion = "2.0.0"
@@ -56,7 +55,6 @@ ext {
         postgresql : "org.postgresql:postgresql",
 
         // OTHER LIBRARIES
-        archunit : "com.tngtech.archunit:archunit:$archunitVersion",
         commons_lang3 : "org.apache.commons:commons-lang3",
         java_parser_core : "com.github.javaparser:javaparser-core:$javaParserCoreVersion",
         java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",

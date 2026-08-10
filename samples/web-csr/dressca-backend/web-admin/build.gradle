@@ -33,7 +33,6 @@ dependencies {
 
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test
-	testImplementation supportDependencies.archunit
 }
 
 configurations {
