@@ -39,14 +39,12 @@ dependencies {
 
 ## 依存プロジェクトの設定 {#config-projects}
 
-web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+web プロジェクトは domain-modules を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
-  implementation project(':system-common')
+  implementation project(':domain-modules')
 }
 ```
 
@@ -243,10 +241,8 @@ build.dependsOn("generateOpenApiDocs")
       implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'com.h2database:h2'
 
-      implementation project(':application-core')
-      implementation project(':infrastructure')
-      implementation project(':system-common')
-      
+      implementation project(':domain-modules')
+
       testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
