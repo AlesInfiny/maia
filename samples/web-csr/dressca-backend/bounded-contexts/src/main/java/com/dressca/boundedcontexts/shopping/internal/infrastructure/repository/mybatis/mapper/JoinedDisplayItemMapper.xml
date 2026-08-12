@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedDisplayItemMapper">
+
+  <sql id="selectDisplayItemsIncludeAsset">
+    SELECT
+      DISPLAY_ITEMS.ID AS DISPLAY_ITEM_ID,
+      CATALOG_ITEMS.NAME,
+      CATALOG_ITEMS.DESCRIPTION,
+      CATALOG_ITEMS.PRICE,
+      CATALOG_ITEMS.PRODUCT_CODE,
+      CATALOG_ITEMS.CATALOG_CATEGORY_ID,
+      CATALOG_ITEMS.CATALOG_BRAND_ID,
+      CATALOG_ITEMS.IS_DELETED,
+      ASSETS.ASSET_CODE
+    FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON (
+        DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
+      )
+      LEFT OUTER JOIN CATALOG_ITEM_ASSETS AS ASSETS ON (
+        CATALOG_ITEMS.ID = ASSETS.CATALOG_ITEM_ID
+      )
+  </sql>
+
+  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItem">
+    <id property="id" column="DISPLAY_ITEM_ID"/>
+    <result property="name" column="NAME"/>
+    <result property="description" column="DESCRIPTION"/>
+    <result property="price" column="PRICE"/>
+    <result property="productCode" column="PRODUCT_CODE"/>
+    <result property="displayItemCategoryId" column="CATALOG_CATEGORY_ID"/>
+    <result property="displayItemBrandId" column="CATALOG_BRAND_ID"/>
+    <result property="isDeleted" column="IS_DELETED"/>
+    <collection property="assets" ofType="com.dressca.boundedcontexts.shopping.model.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
+  </resultMap>
+
+  <resultMap id="displayAssetsResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItemAsset">
+    <result property="displayItemId" column="DISPLAY_ITEM_ID"/>
+    <result property="assetCode" column="ASSET_CODE"/>
+  </resultMap>
+
+  <select id="findByBrandIdAndCategoryId" resultMap="displayItemsIncludeAssetResultMap">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <where>
+      <if test="brandId != null">
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
+      </if>
+      <if test="categoryId != null">
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
+      </if>
+      AND CATALOG_ITEMS.IS_DELETED = false
+    </where>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+
+  <select id="countByBrandIdAndCategoryId" resultType="Integer">
+    SELECT COUNT(*)
+    FROM DISPLAY_ITEMS
+      INNER JOIN CATALOG_ITEMS ON (
+        DISPLAY_ITEMS.CATALOG_ITEM_ID = CATALOG_ITEMS.ID
+      )
+    <where>
+      <if test="brandId != null">
+        CATALOG_ITEMS.CATALOG_BRAND_ID = #{brandId}
+      </if>
+      <if test="categoryId != null">
+        AND CATALOG_ITEMS.CATALOG_CATEGORY_ID = #{categoryId}
+      </if>
+      AND CATALOG_ITEMS.IS_DELETED = false
+    </where>
+  </select>
+
+  <select id="findByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <choose>
+      <when test="displayItemIds != null and displayItemIds.size != 0">
+        WHERE DISPLAY_ITEMS.ID IN
+        <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+          #{displayItemId}
+        </foreach>
+        AND CATALOG_ITEMS.IS_DELETED = false
+      </when>
+      <otherwise>
+        <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="findByDisplayItemIdInIncludingDeleted" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <choose>
+      <when test="displayItemIds != null and displayItemIds.size != 0">
+        WHERE DISPLAY_ITEMS.ID IN
+        <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+          #{displayItemId}
+        </foreach>
+      </when>
+      <otherwise>
+        <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="findDeletedItemsByDisplayItemIdIn" resultMap="displayItemsIncludeAssetResultMap" parameterType="List">
+    <include refid="selectDisplayItemsIncludeAsset"/>
+    <choose>
+      <when test="displayItemIds != null and displayItemIds.size != 0">
+        WHERE DISPLAY_ITEMS.ID IN
+        <foreach item="displayItemId" collection="displayItemIds" open="(" separator="," close=")">
+          #{displayItemId}
+        </foreach>
+        AND CATALOG_ITEMS.IS_DELETED = true
+      </when>
+      <otherwise>
+        <!-- displayItemIds が空の場合に全件検索にならないよう、常に false となる条件を設定 -->
+        WHERE 1 = 0
+      </otherwise>
+    </choose>
+  </select>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "https://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- ============================================================
+         アセット管理コンテキストが所有するテーブル
+         ============================================================ -->
+    <context id="assetsmanagement" targetRuntime="MyBatis3">
+        <!-- 自動生成MapperにはMapperアノテーションを付与する -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- 自動生成される各要素のコメントを最小化するように設定する -->
+        <commentGenerator>
+            <property name="minimizeComments" value="true" />
+        </commentGenerator>
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:mem:dressca-mbg;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;INIT=RUNSCRIPT FROM '${mbg.schema.path}'"
+                        userId=""
+                        password="" />
+        <!-- Model(Entity)作成先 -->
+        <modelGenerator targetPackage="com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.entity"
+                        targetProject="${mbg.java.targetProject}" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.resources.targetProject}" />
+        <!-- Mapper.java作成先 -->
+        <clientGenerator targetPackage="com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.java.targetProject}"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table schema="" tableName="assets" domainObjectName="AssetEntity" mapperName="AssetMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+    </context>
+
+    <!-- ============================================================
+         カタログ管理コンテキストが所有するテーブル
+         ============================================================ -->
+    <context id="catalogmanagement" targetRuntime="MyBatis3">
+        <!-- 自動生成MapperにはMapperアノテーションを付与する -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- 自動生成される各要素のコメントを最小化するように設定する -->
+        <commentGenerator>
+            <property name="minimizeComments" value="true" />
+        </commentGenerator>
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:mem:dressca-mbg;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;INIT=RUNSCRIPT FROM '${mbg.schema.path}'"
+                        userId=""
+                        password="" />
+        <!-- Model(Entity)作成先 -->
+        <modelGenerator targetPackage="com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity"
+                        targetProject="${mbg.java.targetProject}" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.resources.targetProject}" />
+        <!-- Mapper.java作成先 -->
+        <clientGenerator targetPackage="com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.java.targetProject}"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table schema="" tableName="catalog_brands" domainObjectName="CatalogBrandEntity" mapperName="CatalogBrandMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="catalog_categories" domainObjectName="CatalogCategoryEntity" mapperName="CatalogCategoryMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="catalog_items" domainObjectName="CatalogItemEntity" mapperName="CatalogItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="catalog_category_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="catalog_brand_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="catalog_item_assets" domainObjectName="CatalogItemAssetEntity" mapperName="CatalogItemAssetMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="catalog_item_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+    </context>
+
+    <!-- ============================================================
+         買い物コンテキストが所有するテーブル
+         ============================================================ -->
+    <context id="shopping" targetRuntime="MyBatis3">
+        <!-- 自動生成MapperにはMapperアノテーションを付与する -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- 自動生成される各要素のコメントを最小化するように設定する -->
+        <commentGenerator>
+            <property name="minimizeComments" value="true" />
+        </commentGenerator>
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:mem:dressca-mbg;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;INIT=RUNSCRIPT FROM '${mbg.schema.path}'"
+                        userId=""
+                        password="" />
+        <!-- Model(Entity)作成先 -->
+        <modelGenerator targetPackage="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity"
+                        targetProject="${mbg.java.targetProject}" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.resources.targetProject}" />
+        <!-- Mapper.java作成先 -->
+        <clientGenerator targetPackage="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.mapper"
+                        targetProject="${mbg.java.targetProject}"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table schema="" tableName="baskets" domainObjectName="BasketEntity" mapperName="BasketMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="basket_items" domainObjectName="BasketItemEntity" mapperName="BasketItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="basket_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="display_item_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="orders" domainObjectName="OrderEntity" mapperName="OrderMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="buyer_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="order_items" domainObjectName="OrderItemEntity" mapperName="OrderItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="ordered_display_item_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="order_id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+        <table schema="" tableName="display_items" domainObjectName="DisplayItemEntity" mapperName="DisplayItemMapper">
+            <property name="mapUnderscoreToCamelCase" value="true" />
+            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+            <columnOverride column="catalog_item_id" javaType="java.util.UUID"
+                jdbcType="OTHER"
+                typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+        </table>
+    </context>
+</generatorConfiguration>

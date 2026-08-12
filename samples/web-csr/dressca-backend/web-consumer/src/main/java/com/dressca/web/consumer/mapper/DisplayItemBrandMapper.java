@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.domainmodules.shopping.model.DisplayItemBrand;
+import com.dressca.boundedcontexts.shopping.model.DisplayItemBrand;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemBrandsResponse;
 
 /**

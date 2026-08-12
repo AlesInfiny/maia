@@ -23,7 +23,7 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.spring_boot_starter_log4j2
 	
-	implementation project(':domain-modules')
+	implementation project(':bounded-contexts')
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_batch_jdbc_test

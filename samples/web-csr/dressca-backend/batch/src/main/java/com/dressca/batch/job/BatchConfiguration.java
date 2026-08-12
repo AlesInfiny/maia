@@ -3,7 +3,7 @@ package com.dressca.batch.job;
 
 import com.dressca.batch.job.catalog.CatalogItemProcessor;
 import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
-import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.job.Job;
@@ -25,7 +25,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = "com.dressca.domainmodules"
+@MapperScan(basePackages = "com.dressca.boundedcontexts"
     + ".catalogmanagement.internal.infrastructure.repository.mybatis")
 public class BatchConfiguration {
 

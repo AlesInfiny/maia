@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.domainmodules.shopping.model.OrderItem;
-import com.dressca.domainmodules.shopping.model.OrderItemAsset;
+import com.dressca.boundedcontexts.shopping.model.OrderItem;
+import com.dressca.boundedcontexts.shopping.model.OrderItemAsset;
 import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.controller.dto.order.OrderItemApiModel;
 import java.util.stream.Collectors;

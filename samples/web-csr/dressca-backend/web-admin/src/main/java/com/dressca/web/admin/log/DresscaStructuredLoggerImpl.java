@@ -1,6 +1,6 @@
 package com.dressca.web.admin.log;
 
-import com.dressca.domainmodules.authorization.UserStore;
+import com.dressca.boundedcontexts.authorization.UserStore;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;

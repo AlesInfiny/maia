@@ -24,7 +24,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.commons_lang3
 	
-	implementation project(':domain-modules')
+	implementation project(':bounded-contexts')
 	implementation project(':system-common')
 
 	annotationProcessor supportDependencies.spring_boot_configuration_processor

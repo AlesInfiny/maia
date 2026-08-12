@@ -1,6 +1,6 @@
 package com.dressca.web.admin.filter;
 
-import com.dressca.domainmodules.authorization.constant.UserRoleConstants;
+import com.dressca.boundedcontexts.authorization.constant.UserRoleConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

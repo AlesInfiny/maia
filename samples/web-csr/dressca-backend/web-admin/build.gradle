@@ -28,7 +28,7 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
 
-	implementation project(':domain-modules')
+	implementation project(':bounded-contexts')
 	implementation project(':system-common')
 	implementation project(':web')
 
