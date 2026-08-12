@@ -9,7 +9,7 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
 /**
- * MyBatis の UUID 型を解決するハンドラークラスです。
+ * MyBatis の {@link UUID} 型を解決するハンドラークラスです。
  */
 public class UuidTypeHandler extends BaseTypeHandler<UUID> {
 
