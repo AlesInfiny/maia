@@ -1,7 +1,7 @@
 package com.dressca.boundedcontexts.authorization.constant;
 
 /**
- * 認可機能の業務例外 ID 用の定数クラスです。
+ * 認可コンテキストの業務例外 ID 用の定数クラスです。
  */
 public class AuthorizationExceptionIdConstants {
   /** {0} を実行する権限がありません。 */
