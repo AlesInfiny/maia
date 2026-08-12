@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -208,8 +207,8 @@ public class ShoppingApplicationService {
    * @return 買い物かご情報。
    */
   private Basket getOrCreateBasketForUser(UUID buyerId) {
-    if (buyerId == null || StringUtils.isBlank(buyerId.toString())) {
-      throw new IllegalArgumentException("buyerIdがnullまたは空文字");
+    if (buyerId == null) {
+      throw new IllegalArgumentException("buyerIdがnull");
     }
 
     return this.basketRepository.findByBuyerId(buyerId).orElseGet(() -> this.createBasket(buyerId));

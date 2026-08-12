@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.boundedcontexts.BoundedContextsTestConfig;
+import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.boundedcontexts.shopping.dto.BasketDetail;
 import com.dressca.boundedcontexts.shopping.exception.BasketNotFoundException;
@@ -22,7 +23,9 @@ import com.dressca.boundedcontexts.shopping.internal.domain.repository.DisplayIt
 import com.dressca.boundedcontexts.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.boundedcontexts.shopping.model.Address;
 import com.dressca.boundedcontexts.shopping.model.Basket;
+import com.dressca.boundedcontexts.shopping.model.BasketItem;
 import com.dressca.boundedcontexts.shopping.model.DisplayItem;
+import com.dressca.boundedcontexts.shopping.model.DisplayItemAsset;
 import com.dressca.boundedcontexts.shopping.model.DisplayItemOrdered;
 import com.dressca.boundedcontexts.shopping.model.Order;
 import com.dressca.boundedcontexts.shopping.model.OrderItem;
@@ -32,13 +35,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -55,7 +55,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(BoundedContextsTestConfig.class)
-@TestPropertySource(properties = "spring.messages.basename=boundedcontexts.messages")
+@TestPropertySource(
+    properties = "spring.messages.basename=boundedcontexts.messages,systemcommon.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
   @Mock
@@ -233,6 +234,42 @@ public class ShoppingApplicationServiceTest {
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
     assertThat(argBasket.getItems().get(0).getQuantity()).isEqualTo(newQuantity);
+  }
+
+  @Test
+  void testSetQuantities_正常系_数量が指定されていない買い物かごアイテムの数量は変更されない()
+      throws BasketNotFoundException, DisplayItemNotFoundException,
+      DisplayItemInBasketNotFoundException {
+    // Arrange
+    // テスト用の入力データ
+    UUID buyerId = UUID.randomUUID();
+    UUID targetDisplayItemId = UUID.randomUUID();
+    UUID untouchedDisplayItemId = UUID.randomUUID();
+    int untouchedQuantity = 200;
+
+    // モックの設定
+    Basket basket = new Basket(UUID.randomUUID(), buyerId);
+    basket.addItem(targetDisplayItemId, BigDecimal.valueOf(1000), 100);
+    basket.addItem(untouchedDisplayItemId, BigDecimal.valueOf(2000), untouchedQuantity);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    List<UUID> displayItemIds = List.of(targetDisplayItemId);
+    when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
+
+    // Act
+    // テストメソッドの実行
+    int newQuantity = 5;
+    Map<UUID, Integer> quantities = Map.of(targetDisplayItemId, newQuantity);
+    service.setQuantities(buyerId, quantities);
+
+    // Assert
+    // モックが想定通り呼び出されていることの確認
+    ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
+    verify(this.basketRepository, times(1)).update(captor.capture());
+    List<BasketItem> actualItems = captor.getValue().getItems();
+    assertThat(actualItems).hasSize(2);
+    // 数量を指定したアイテムは更新され、指定していないアイテムは元の数量を維持する
+    assertThat(findQuantity(actualItems, targetDisplayItemId)).isEqualTo(newQuantity);
+    assertThat(findQuantity(actualItems, untouchedDisplayItemId)).isEqualTo(untouchedQuantity);
   }
 
   @Test
@@ -445,20 +482,58 @@ public class ShoppingApplicationServiceTest {
         .findByDisplayItemIdInIncludingDeleted(displayItemIds);
   }
 
-  @ParameterizedTest
-  @MethodSource("blankBuyerIdSource")
-  void testGetBasketDetail_異常系_購入者IDがnullまたは空白なら例外が発生する(UUID buyerId)
-      throws IllegalArgumentException {
+  @Test
+  void testGetBasketDetail_正常系_買い物かごが存在しない場合は新規作成される() throws BasketNotFoundException {
+    // Arrange
+    // テスト用の入力データ
+    UUID buyerId = UUID.randomUUID();
+
+    // モックの設定
+    Basket createdBasket = new Basket(buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.empty());
+    when(this.basketRepository.add(any())).thenReturn(createdBasket);
+
     // Act
     // テストメソッドの実行
-    try {
-      service.getBasketDetail(buyerId);
-    } catch (IllegalArgumentException e) {
-      // Assert
-      assertThat(e.getMessage()).startsWith("buyerIdがnullまたは空文字");
-    }
+    BasketDetail actual = service.getBasketDetail(buyerId);
 
     // Assert
+    assertThat(actual.getBasket()).isEqualTo(createdBasket);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.basketRepository, times(1)).add(any());
+  }
+
+  @Test
+  void testGetBasketDetail_正常系_買い物かごが空の場合は陳列品を取得しない() throws BasketNotFoundException {
+    // Arrange
+    // テスト用の入力データ
+    UUID buyerId = UUID.randomUUID();
+
+    // モックの設定
+    Basket basket = new Basket(buyerId);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+
+    // Act
+    // テストメソッドの実行
+    BasketDetail actual = service.getBasketDetail(buyerId);
+
+    // Assert
+    assertThat(actual.getDisplayItems()).isEmpty();
+    assertThat(actual.getDeletedItemIds()).isEmpty();
+    // モックが想定通り呼び出されていることの確認
+    verify(this.displayItemRepository, times(0)).findByDisplayItemIdInIncludingDeleted(any());
+  }
+
+  @Test
+  void testGetBasketDetail_異常系_購入者IDがnullなら例外が発生する() {
+    // Act
+    // テストメソッドの実行
+    Executable action = () -> service.getBasketDetail(null);
+
+    // Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, action);
+    assertThat(exception.getMessage()).startsWith("buyerIdがnull");
     // モックが想定通り呼び出されていることの確認
     verify(this.displayItemRepository, times(0)).findByDisplayItemIdInIncludingDeleted(any());
   }
@@ -489,6 +564,41 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
+  void testCheckout_正常系_陳列品のアセットが注文アイテムのアセットに引き継がれる() throws Exception {
+    // Arrange
+    // テスト用の入力データ
+    UUID buyerId = UUID.randomUUID();
+    UUID displayItemId = UUID.randomUUID();
+    String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
+
+    // モックの設定
+    Basket basket = new Basket(buyerId);
+    basket.addItem(displayItemId, BigDecimal.valueOf(100_000_000), 1);
+    DisplayItem displayItem = createDisplayItem(displayItemId);
+    displayItem.setAssets(List.of(new DisplayItemAsset(displayItemId, assetCode)));
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.displayItemRepository.findByDisplayItemIdIn(List.of(displayItemId)))
+        .thenReturn(List.of(displayItem));
+    ShipTo shipToAddress = createDefaultShipTo();
+    when(this.orderRepository.add(any()))
+        .thenReturn(new Order(buyerId, shipToAddress, createDefaultOrderItems()));
+
+    // Act
+    // テストメソッドの実行
+    service.checkout(buyerId, shipToAddress);
+
+    // Assert
+    // モックが想定通り呼び出されていることの確認
+    ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
+    verify(this.orderRepository, times(1)).add(captor.capture());
+    OrderItem actualOrderItem = captor.getValue().getOrderItems().get(0);
+    assertThat(actualOrderItem.getAssets()).hasSize(1);
+    assertThat(actualOrderItem.getAssets().get(0).getAssetCode()).isEqualTo(assetCode);
+    assertThat(actualOrderItem.getAssets().get(0).getOrderItemId())
+        .isEqualTo(actualOrderItem.getId());
+  }
+
+  @Test
   void testCheckout_異常系_指定した買い物かごが空の場合は業務例外が発生する() {
     // Arrange
     UUID buyerId = UUID.randomUUID();
@@ -501,6 +611,50 @@ public class ShoppingApplicationServiceTest {
 
     // Assert
     assertThrows(EmptyBasketOnCheckoutException.class, action);
+  }
+
+  @Test
+  void testCheckout_異常系_買い物かごアイテムがnullの場合は業務例外が発生する() {
+    // Arrange
+    UUID buyerId = UUID.randomUUID();
+    Basket basket = new Basket(buyerId);
+    basket.setItems(null);
+    ShipTo shipToAddress = createDefaultShipTo();
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+
+    // Act
+    Executable action = () -> service.checkout(buyerId, shipToAddress);
+
+    // Assert
+    assertThrows(EmptyBasketOnCheckoutException.class, action);
+    verify(this.orderRepository, times(0)).add(any());
+  }
+
+  @Test
+  void testCheckout_異常系_買い物かごアイテムに対応する陳列品が取得できない場合はシステム例外が発生する() {
+    // Arrange
+    UUID buyerId = UUID.randomUUID();
+    UUID displayItemId = UUID.randomUUID();
+
+    // モックの設定
+    Basket basket = new Basket(buyerId);
+    basket.addItem(displayItemId, BigDecimal.valueOf(100_000_000), 1);
+    when(this.basketRepository.findByBuyerId(buyerId)).thenReturn(Optional.of(basket));
+    when(this.displayItemRepository.findByDisplayItemIdIn(List.of(displayItemId)))
+        .thenReturn(List.of());
+    ShipTo shipToAddress = createDefaultShipTo();
+
+    // Act
+    Executable action = () -> service.checkout(buyerId, shipToAddress);
+
+    // Assert
+    assertThrows(SystemException.class, action);
+    verify(this.orderRepository, times(0)).add(any());
+  }
+
+  private static int findQuantity(List<BasketItem> items, UUID displayItemId) {
+    return items.stream().filter(item -> item.getDisplayItemId().equals(displayItemId)).findFirst()
+        .orElseThrow(() -> new AssertionError("買い物かごに対象の陳列品が存在しません。")).getQuantity();
   }
 
   private ShipTo createDefaultShipTo() {
@@ -538,7 +692,4 @@ public class ShoppingApplicationServiceTest {
         UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
   }
 
-  private static Stream<UUID> blankBuyerIdSource() {
-    return Stream.<UUID>of((UUID) null);
-  }
 }

@@ -136,6 +136,19 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
+  void testGetCatalogItem_異常系_ユーザーストアが注入されていない場合は権限がない() {
+    // Arrange
+    UUID targetId = UUID.randomUUID();
+    CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
+
+    // Act
+    Executable action = () -> serviceWithoutUserStore.getCatalogItem(targetId);
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
   void testGetCatalogItems_正常系_リポジトリのfindByBrandIdAndCategoryIdIncludingDeletedを1回呼出す()
       throws PermissionDeniedException {
     // Arrange
@@ -186,6 +199,23 @@ public class CatalogApplicationServiceTest {
 
     // Act
     Executable action = () -> service.getCatalogItems(brandId, categoryId, page, pageSize);
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testGetCatalogItems_異常系_ユーザーストアが注入されていない場合は権限がない() {
+    // Arrange
+    UUID brandId = UUID.randomUUID();
+    UUID categoryId = UUID.randomUUID();
+    int page = 1;
+    int pageSize = 20;
+    CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
+
+    // Act
+    Executable action =
+        () -> serviceWithoutUserStore.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
@@ -298,6 +328,25 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
+  void testAddItemToCatalog_異常系_ユーザーストアが注入されていない場合は権限がない() {
+    // Arrange
+    UUID brandId = UUID.randomUUID();
+    UUID categoryId = UUID.randomUUID();
+    String name = "テストアイテム";
+    String description = "テスト用のアイテムです。";
+    BigDecimal price = new BigDecimal(123456);
+    String productCode = "TEST001";
+    CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
+
+    // Act
+    Executable action = () -> serviceWithoutUserStore.addItemToCatalog(name, description, price,
+        productCode, categoryId, brandId);
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
   void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す() throws CatalogNotFoundException,
       PermissionDeniedException, OptimisticLockingFailureException {
     // Arrange
@@ -357,6 +406,20 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     assertThrows(OptimisticLockingFailureException.class, action);
+  }
+
+  @Test
+  void testDeleteItemFromCatalog_異常系_ユーザーストアが注入されていない場合は権限がない() {
+    // Arrange
+    UUID targetId = UUID.randomUUID();
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
+
+    // Act
+    Executable action = () -> serviceWithoutUserStore.deleteItemFromCatalog(targetId, rowVersion);
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
   }
 
   @Test
@@ -508,6 +571,32 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
+  void testUpdateCatalogItem_異常系_ユーザーストアが注入されていない場合は権限がない() {
+    // Arrange
+    UUID targetId = UUID.randomUUID();
+    UUID categoryId = UUID.randomUUID();
+    UUID brandId = UUID.randomUUID();
+    String name = "name";
+    String description = "Description.";
+    BigDecimal price = BigDecimal.valueOf(100_000_000L);
+    String productCode = "C000000001";
+    OffsetDateTime rowVersion = OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+    boolean isDeleted = false;
+    CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
+
+    // Act
+    Executable action = () -> serviceWithoutUserStore.updateCatalogItem(targetId, name, description,
+        price, productCode, categoryId, brandId, rowVersion, isDeleted);
+
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  /**
+   * ユーザーストアが注入されていない（コンシューマーアプリなど）状態のサービスを生成します。
+   */
+
+  @Test
   void countCatalogItems_正常系_リポジトリのcountByBrandIdAndCategoryIdIncludingDeletedを1回呼出す() {
     // Arrange
     UUID brandId = UUID.randomUUID();
@@ -547,6 +636,11 @@ public class CatalogApplicationServiceTest {
 
     // Assert
     verify(this.categoryRepository, times(1)).getAll();
+  }
+
+  private CatalogApplicationService createServiceWithoutUserStore() {
+    return new CatalogApplicationService(messages, catalogRepository, brandRepository,
+        categoryRepository, catalogDomainService, apLog, null);
   }
 
   private CatalogItem createCatalogItem(UUID id) {
