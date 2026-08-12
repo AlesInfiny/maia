@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.persistence;
+package com.dressca.boundedcontexts.shared.mybatis;
 
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;

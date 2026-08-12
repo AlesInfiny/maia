@@ -5,8 +5,8 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
-    <result column="catalog_item_id" jdbcType="OTHER" property="catalogItemId" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler" />
+    <result column="catalog_item_id" jdbcType="OTHER" property="catalogItemId" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -41,15 +41,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -60,15 +60,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -111,15 +111,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -130,15 +130,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -178,14 +178,14 @@
     select 
     <include refid="Base_Column_List" />
     from display_items
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from display_items
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.DisplayItemEntityExample">
     <!--
@@ -203,8 +203,8 @@
     insert into display_items (id, 
       catalog_item_id
       )
-    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}, 
-      #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}, 
+      #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.DisplayItemEntity">
@@ -222,10 +222,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       </if>
       <if test="catalogItemId != null">
-        #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+        #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -245,10 +245,10 @@
     update display_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       </if>
       <if test="row.catalogItemId != null">
-        catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+        catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -260,8 +260,8 @@
       Generated Code - @mbg.generated
     -->
     update display_items
-    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
-      catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
+      catalog_item_id = #{row.catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -273,17 +273,17 @@
     update display_items
     <set>
       <if test="catalogItemId != null">
-        catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+        catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.DisplayItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update display_items
-    set catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    set catalog_item_id = #{catalogItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </update>
 </mapper>

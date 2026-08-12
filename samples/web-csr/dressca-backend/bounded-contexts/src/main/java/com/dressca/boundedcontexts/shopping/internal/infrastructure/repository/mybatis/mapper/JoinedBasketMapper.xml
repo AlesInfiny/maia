@@ -18,26 +18,26 @@
   </sql>
 
   <resultMap id="basketsIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.model.Basket">
-    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
-    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
+    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <collection property="items" ofType="com.dressca.boundedcontexts.shopping.model.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
   <resultMap id="itemsResultMap" type="com.dressca.boundedcontexts.shopping.model.BasketItem">
-    <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
-    <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
-    <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
+    <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
+    <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
   </resultMap>
 
   <select id="findById" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    WHERE BASKETS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </select>
 
   <select id="findByBuyerId" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.BUYER_ID = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    WHERE BASKETS.BUYER_ID = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </select>
 </mapper>

@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.persistence;
+package com.dressca.boundedcontexts.shared.mybatis;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

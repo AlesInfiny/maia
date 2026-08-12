@@ -38,8 +38,8 @@
   </sql>
 
   <resultMap id="ordersIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.model.Order">
-    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
-    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
+    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="orderDate" column="ORDER_DATE"/>
     <result property="consumptionTaxRate" column="CONSUMPTION_TAX_RATE"/>
     <result property="totalItemsPrice" column="TOTAL_ITEMS_PRICE"/>
@@ -63,7 +63,7 @@
   </resultMap>
 
   <resultMap id="orderItemsResultMap" type="com.dressca.boundedcontexts.shopping.model.OrderItem">
-    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
     <association property="itemOrdered" javaType="com.dressca.boundedcontexts.shopping.model.DisplayItemOrdered" resultMap="displayItemOrderedResultMap"/>
@@ -71,19 +71,19 @@
   </resultMap>
 
   <resultMap id="displayItemOrderedResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItemOrdered">
-    <result property="displayItemId" column="ORDERED_DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <result property="displayItemId" column="ORDERED_DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="productName" column="ORDERED_PRODUCT_NAME"/>
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
   <resultMap id="orderItemAssetsResultMap" type="com.dressca.boundedcontexts.shopping.model.OrderItemAsset">
-    <id property="id" column="ASSET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.persistence.UuidTypeHandler"/>
+    <id property="id" column="ASSET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>
 
   <select id="findById" resultMap="ordersIncludeItemResultMap">
     <include refid="selectOrdersIncludeItemAndAsset"/>
-    WHERE ORDERS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+    WHERE ORDERS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
   </select>
 
   <insert id="add">
@@ -105,8 +105,8 @@
     )
     VALUES
     (
-      #{order.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
-      #{order.buyerId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+      #{order.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
+      #{order.buyerId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       #{order.orderDate},
       #{order.shipToAddress.fullName},
       #{order.shipToAddress.address.postalCode},
@@ -135,13 +135,13 @@
     VALUES
     <foreach collection="orderItems" item="orderItem" separator=",">
     (
-      #{orderItem.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
-      #{orderItem.itemOrdered.displayItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler},
+      #{orderItem.id,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
+      #{orderItem.itemOrdered.displayItemId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler},
       #{orderItem.itemOrdered.productName},
       #{orderItem.itemOrdered.productCode},
       #{orderItem.unitPrice},
       #{orderItem.quantity},
-      #{orderId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.persistence.UuidTypeHandler}
+      #{orderId,jdbcType=OTHER,typeHandler=com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler}
     )
     </foreach>
   </insert>
