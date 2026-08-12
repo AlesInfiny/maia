@@ -1,6 +1,6 @@
 package com.dressca.web.admin.config;
 
-import com.dressca.domainmodules.common.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import jakarta.annotation.PreDestroy;
 import java.sql.SQLException;
 import org.h2.tools.Server;

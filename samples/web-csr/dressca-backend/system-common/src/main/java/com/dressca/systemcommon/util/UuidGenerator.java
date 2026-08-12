@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.common.util;
+package com.dressca.systemcommon.util;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;

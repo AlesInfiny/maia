@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.shopping.model;
 
-import com.dressca.domainmodules.common.util.UuidGenerator;
+import com.dressca.systemcommon.util.UuidGenerator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

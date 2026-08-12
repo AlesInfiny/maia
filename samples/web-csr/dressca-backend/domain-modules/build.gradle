@@ -47,6 +47,8 @@ dependencies {
 	implementation supportDependencies.h2database
 	implementation supportDependencies.postgresql
 
+  implementation project(':system-common')
+
 	testImplementation supportDependencies.spring_boot_starter_test
 	testImplementation supportDependencies.mybatis_spring_boot_starter_test
 	testImplementation supportDependencies.spring_modulith_starter_test

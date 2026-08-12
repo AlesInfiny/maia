@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.DomainModulesTestConfig;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.exception.OrderNotFoundException;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.domainmodules.shopping.model.Address;

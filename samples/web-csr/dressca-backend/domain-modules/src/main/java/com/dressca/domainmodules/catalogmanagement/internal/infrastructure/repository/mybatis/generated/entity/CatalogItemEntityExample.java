@@ -109,7 +109,7 @@ public class CatalogItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            idCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            idCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -117,7 +117,7 @@ public class CatalogItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -129,7 +129,7 @@ public class CatalogItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            catalogCategoryIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            catalogCategoryIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -137,7 +137,7 @@ public class CatalogItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            catalogCategoryIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            catalogCategoryIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -149,7 +149,7 @@ public class CatalogItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            catalogBrandIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            catalogBrandIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -157,7 +157,7 @@ public class CatalogItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            catalogBrandIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            catalogBrandIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 

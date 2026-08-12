@@ -1,8 +1,8 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.exception.SystemException;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.OrderApplicationService;
 import com.dressca.domainmodules.shopping.ShoppingApplicationService;
 import com.dressca.domainmodules.shopping.exception.EmptyBasketOnCheckoutException;

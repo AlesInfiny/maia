@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.domainmodules.shopping.ShoppingApplicationService;
 import com.dressca.domainmodules.shopping.dto.BasketDetail;
 import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;

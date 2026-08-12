@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.DomainModulesTestConfig;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.dto.BasketDetail;
 import com.dressca.domainmodules.shopping.exception.BasketNotFoundException;
 import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;

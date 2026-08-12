@@ -1,7 +1,7 @@
 package com.dressca.web.log;
 
-import com.dressca.domainmodules.common.constant.SystemPropertyConstants;
-import com.dressca.domainmodules.common.util.ApplicationContextWrapper;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Locale;

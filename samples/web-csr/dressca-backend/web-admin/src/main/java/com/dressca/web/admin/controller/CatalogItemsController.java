@@ -8,9 +8,9 @@ import com.dressca.domainmodules.catalogmanagement.exception.CatalogCategoryNotF
 import com.dressca.domainmodules.catalogmanagement.exception.CatalogNotFoundException;
 import com.dressca.domainmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
-import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.exception.SystemException;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemResponse;
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;

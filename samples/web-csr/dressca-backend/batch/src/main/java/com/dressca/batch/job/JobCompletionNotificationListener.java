@@ -1,6 +1,6 @@
 package com.dressca.batch.job;
 
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.job.JobExecution;

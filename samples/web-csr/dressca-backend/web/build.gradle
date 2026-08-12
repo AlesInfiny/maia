@@ -25,6 +25,7 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	
 	implementation project(':domain-modules')
+	implementation project(':system-common')
 
 	annotationProcessor supportDependencies.spring_boot_configuration_processor
 	

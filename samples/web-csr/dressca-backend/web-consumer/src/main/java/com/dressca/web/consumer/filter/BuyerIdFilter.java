@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.filter;
 
-import com.dressca.domainmodules.common.util.UuidGenerator;
+import com.dressca.systemcommon.util.UuidGenerator;
 import com.dressca.web.constant.WebConstants;
 import com.dressca.web.consumer.security.CookieSettings;
 import jakarta.servlet.Filter;

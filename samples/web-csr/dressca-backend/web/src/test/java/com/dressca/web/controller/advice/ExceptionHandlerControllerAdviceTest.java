@@ -9,11 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.dressca.domainmodules.assetsmanagement.exception.AssetNotFoundException;
-import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.constant.SystemPropertyConstants;
-import com.dressca.domainmodules.common.exception.LogicException;
-import com.dressca.domainmodules.common.exception.SystemException;
-import com.dressca.domainmodules.common.util.ApplicationContextWrapper;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import com.dressca.systemcommon.exception.LogicException;
+import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.web.WebApplication;
 import com.dressca.web.controller.AssetsController;
 import java.util.Locale;

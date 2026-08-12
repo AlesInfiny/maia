@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.catalogmanagement.model;
 
-import com.dressca.domainmodules.common.util.UuidGenerator;
+import com.dressca.systemcommon.util.UuidGenerator;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

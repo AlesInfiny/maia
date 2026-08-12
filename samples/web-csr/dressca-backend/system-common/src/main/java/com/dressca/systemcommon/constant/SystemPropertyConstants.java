@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.common.constant;
+package com.dressca.systemcommon.constant;
 
 /**
  * システムプロパティ用の定数クラスです。

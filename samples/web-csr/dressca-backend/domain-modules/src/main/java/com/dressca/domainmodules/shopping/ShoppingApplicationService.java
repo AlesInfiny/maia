@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.shopping;
 
-import com.dressca.domainmodules.common.constant.CommonExceptionIdConstants;
-import com.dressca.domainmodules.common.exception.SystemException;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
+import com.dressca.systemcommon.exception.SystemException;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.domainmodules.shopping.dto.BasketDetail;
 import com.dressca.domainmodules.shopping.exception.DisplayItemInBasketNotFoundException;

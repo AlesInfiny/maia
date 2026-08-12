@@ -29,6 +29,7 @@ dependencies {
 	implementation supportDependencies.h2database
 
 	implementation project(':domain-modules')
+	implementation project(':system-common')
 	implementation project(':web')
 
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test

@@ -1,6 +1,5 @@
-package com.dressca.domainmodules.common.mybatis.config;
+package com.dressca.domainmodules.persistence;
 
-import com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.type.JdbcType;
@@ -20,7 +19,7 @@ public class MyBatisConfig {
 
   /**
    * MyBatis の設定をカスタマイズします。
-   * 
+   *
    * @return カスタマイズされた MyBatis 設定 。
    */
   @Bean

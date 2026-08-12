@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.catalogmanagement.exception;
 
 import com.dressca.domainmodules.catalogmanagement.constant.CatalogManagementExceptionIdConstants;
-import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.systemcommon.exception.LogicException;
 import java.util.UUID;
 
 /**

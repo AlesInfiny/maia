@@ -1,6 +1,6 @@
 package com.dressca.batch.log;
 
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -6,8 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.DomainModulesTestConfig;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;

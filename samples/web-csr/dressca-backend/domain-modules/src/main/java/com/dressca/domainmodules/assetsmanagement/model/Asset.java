@@ -1,8 +1,8 @@
 package com.dressca.domainmodules.assetsmanagement.model;
 
 import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
-import com.dressca.domainmodules.common.util.ApplicationContextWrapper;
-import com.dressca.domainmodules.common.util.UuidGenerator;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
+import com.dressca.systemcommon.util.UuidGenerator;
 import java.util.Locale;
 import java.util.UUID;
 import lombok.Data;

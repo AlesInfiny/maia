@@ -18,26 +18,26 @@
   </sql>
 
   <resultMap id="basketsIncludeItemResultMap" type="com.dressca.domainmodules.shopping.model.Basket">
-    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
-    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler"/>
+    <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler"/>
     <collection property="items" ofType="com.dressca.domainmodules.shopping.model.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
   <resultMap id="itemsResultMap" type="com.dressca.domainmodules.shopping.model.BasketItem">
-    <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
-    <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
-    <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"/>
+    <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler"/>
+    <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler"/>
+    <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
   </resultMap>
 
   <select id="findById" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+    WHERE BASKETS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </select>
 
   <select id="findByBuyerId" resultMap="basketsIncludeItemResultMap">
     <include refid="selectBasketsIncludeItem"/>
-    WHERE BASKETS.BUYER_ID = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+    WHERE BASKETS.BUYER_ID = #{buyerId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </select>
 </mapper>

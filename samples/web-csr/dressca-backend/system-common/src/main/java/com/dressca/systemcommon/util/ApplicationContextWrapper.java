@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.common.util;
+package com.dressca.systemcommon.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

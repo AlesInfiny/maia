@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.shopping;
 
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.domainmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.domainmodules.shopping.exception.OrderNotFoundException;
 import com.dressca.domainmodules.shopping.internal.domain.repository.OrderRepository;

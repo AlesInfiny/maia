@@ -1,6 +1,6 @@
-package com.dressca.domainmodules.common.config;
+package com.dressca.domainmodules;
 
-import com.dressca.domainmodules.common.util.ApplicationContextWrapper;
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 

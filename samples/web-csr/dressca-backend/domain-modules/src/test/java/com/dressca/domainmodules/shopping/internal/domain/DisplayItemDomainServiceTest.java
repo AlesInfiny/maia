@@ -5,7 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
+import com.dressca.domainmodules.DomainModulesTestConfig;
 import com.dressca.domainmodules.shopping.internal.domain.repository.DisplayItemRepository;
 import com.dressca.domainmodules.shopping.model.DisplayItem;
 import java.math.BigDecimal;

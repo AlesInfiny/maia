@@ -5,13 +5,13 @@
     <!--
       Generated Code - @mbg.generated
     -->
-    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler" />
-    <result column="ordered_display_item_id" jdbcType="OTHER" property="orderedDisplayItemId" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler" />
+    <id column="id" jdbcType="OTHER" property="id" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler" />
+    <result column="ordered_display_item_id" jdbcType="OTHER" property="orderedDisplayItemId" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler" />
     <result column="ordered_product_name" jdbcType="VARCHAR" property="orderedProductName" />
     <result column="ordered_product_code" jdbcType="VARCHAR" property="orderedProductCode" />
     <result column="unit_price" jdbcType="NUMERIC" property="unitPrice" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="order_id" jdbcType="OTHER" property="orderId" typeHandler="com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler" />
+    <result column="order_id" jdbcType="OTHER" property="orderId" typeHandler="com.dressca.domainmodules.persistence.UuidTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -46,15 +46,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -65,15 +65,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -84,15 +84,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -135,15 +135,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -154,15 +154,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -173,15 +173,15 @@
                   and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler} and #{criterion.secondValue,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+                    #{listItem,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
                   </foreach>
                 </when>
               </choose>
@@ -222,14 +222,14 @@
     select 
     <include refid="Base_Column_List" />
     from order_items
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
     delete from order_items
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </delete>
   <delete id="deleteByExample" parameterType="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntityExample">
     <!--
@@ -249,10 +249,10 @@
       ordered_product_name, ordered_product_code, 
       unit_price, quantity, order_id
       )
-    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}, 
-      #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}, 
+    values (#{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}, 
+      #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}, 
       #{orderedProductName,jdbcType=VARCHAR}, #{orderedProductCode,jdbcType=VARCHAR}, 
-      #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+      #{unitPrice,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
@@ -285,10 +285,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
       <if test="orderedDisplayItemId != null">
-        #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         #{orderedProductName,jdbcType=VARCHAR},
@@ -303,7 +303,7 @@
         #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
     </trim>
   </insert>
@@ -323,10 +323,10 @@
     update order_items
     <set>
       <if test="row.id != null">
-        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
       <if test="row.orderedDisplayItemId != null">
-        ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
       <if test="row.orderedProductName != null">
         ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
@@ -341,7 +341,7 @@
         quantity = #{row.quantity,jdbcType=INTEGER},
       </if>
       <if test="row.orderId != null">
-        order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
     </set>
     <if test="example != null">
@@ -353,13 +353,13 @@
       Generated Code - @mbg.generated
     -->
     update order_items
-    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
-      ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+    set id = #{row.id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
+      ordered_display_item_id = #{row.orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       ordered_product_name = #{row.orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{row.orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{row.unitPrice,jdbcType=NUMERIC},
       quantity = #{row.quantity,jdbcType=INTEGER},
-      order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+      order_id = #{row.orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -371,7 +371,7 @@
     update order_items
     <set>
       <if test="orderedDisplayItemId != null">
-        ordered_display_item_id = #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        ordered_display_item_id = #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
       <if test="orderedProductName != null">
         ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
@@ -386,22 +386,22 @@
         quantity = #{quantity,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+        order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       </if>
     </set>
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dressca.domainmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity">
     <!--
       Generated Code - @mbg.generated
     -->
     update order_items
-    set ordered_display_item_id = #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler},
+    set ordered_display_item_id = #{orderedDisplayItemId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler},
       ordered_product_name = #{orderedProductName,jdbcType=VARCHAR},
       ordered_product_code = #{orderedProductCode,jdbcType=VARCHAR},
       unit_price = #{unitPrice,jdbcType=NUMERIC},
       quantity = #{quantity,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
-    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler}
+      order_id = #{orderId,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
+    where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.domainmodules.persistence.UuidTypeHandler}
   </update>
 </mapper>

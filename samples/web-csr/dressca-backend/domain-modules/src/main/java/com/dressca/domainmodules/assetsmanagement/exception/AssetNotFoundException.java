@@ -1,7 +1,7 @@
 package com.dressca.domainmodules.assetsmanagement.exception;
 
 import com.dressca.domainmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
-import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.systemcommon.exception.LogicException;
 
 /**
  * アセットが存在しないことを表す例外クラスです。

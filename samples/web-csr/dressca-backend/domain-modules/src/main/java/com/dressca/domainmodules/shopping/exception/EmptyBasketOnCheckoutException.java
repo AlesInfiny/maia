@@ -1,6 +1,6 @@
 package com.dressca.domainmodules.shopping.exception;
 
-import com.dressca.domainmodules.common.exception.LogicException;
+import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.domainmodules.shopping.constant.ShoppingExceptionIdConstants;
 
 /**

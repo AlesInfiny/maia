@@ -9,7 +9,7 @@ import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.Ca
 import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
+import com.dressca.domainmodules.DomainModulesTestConfig;
 import java.math.BigDecimal;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;

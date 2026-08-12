@@ -21,8 +21,8 @@ import com.dressca.domainmodules.catalogmanagement.internal.domain.repository.Ca
 import com.dressca.domainmodules.catalogmanagement.model.CatalogBrand;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogCategory;
 import com.dressca.domainmodules.catalogmanagement.model.CatalogItem;
-import com.dressca.domainmodules.common.config.DomainModulesTestConfig;
-import com.dressca.domainmodules.common.log.AbstractStructuredLogger;
+import com.dressca.domainmodules.DomainModulesTestConfig;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;

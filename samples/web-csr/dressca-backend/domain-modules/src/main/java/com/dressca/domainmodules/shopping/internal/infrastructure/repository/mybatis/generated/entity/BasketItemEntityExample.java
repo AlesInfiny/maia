@@ -108,7 +108,7 @@ public class BasketItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            idCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            idCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -116,7 +116,7 @@ public class BasketItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            idCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -128,7 +128,7 @@ public class BasketItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            basketIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            basketIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -136,7 +136,7 @@ public class BasketItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            basketIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            basketIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -148,7 +148,7 @@ public class BasketItemEntityExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            displayItemIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            displayItemIdCriteria.add(new Criterion(condition, value, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 
@@ -156,7 +156,7 @@ public class BasketItemEntityExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            displayItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.common.mybatis.handler.UuidTypeHandler"));
+            displayItemIdCriteria.add(new Criterion(condition, value1, value2, "com.dressca.domainmodules.persistence.UuidTypeHandler"));
             allCriteria = null;
         }
 

@@ -1,4 +1,4 @@
-package com.dressca.domainmodules.common.mybatis.handler;
+package com.dressca.domainmodules.persistence;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
