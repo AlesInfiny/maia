@@ -1,13 +1,13 @@
 package com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.translator;
 
+import com.dressca.boundedcontexts.shopping.entity.Basket;
+import com.dressca.boundedcontexts.shopping.entity.BasketItem;
+import com.dressca.boundedcontexts.shopping.entity.Order;
+import com.dressca.boundedcontexts.shopping.entity.OrderItem;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntity;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketItemEntity;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderEntity;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
-import com.dressca.boundedcontexts.shopping.model.Basket;
-import com.dressca.boundedcontexts.shopping.model.BasketItem;
-import com.dressca.boundedcontexts.shopping.model.Order;
-import com.dressca.boundedcontexts.shopping.model.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 /**

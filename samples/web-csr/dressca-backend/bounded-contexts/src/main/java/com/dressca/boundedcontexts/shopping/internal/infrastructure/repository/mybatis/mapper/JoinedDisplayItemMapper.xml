@@ -22,7 +22,7 @@
       )
   </sql>
 
-  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItem">
+  <resultMap id="displayItemsIncludeAssetResultMap" type="com.dressca.boundedcontexts.shopping.entity.DisplayItem">
     <id property="id" column="DISPLAY_ITEM_ID"/>
     <result property="name" column="NAME"/>
     <result property="description" column="DESCRIPTION"/>
@@ -31,10 +31,10 @@
     <result property="displayItemCategoryId" column="CATALOG_CATEGORY_ID"/>
     <result property="displayItemBrandId" column="CATALOG_BRAND_ID"/>
     <result property="isDeleted" column="IS_DELETED"/>
-    <collection property="assets" ofType="com.dressca.boundedcontexts.shopping.model.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
+    <collection property="assets" ofType="com.dressca.boundedcontexts.shopping.entity.DisplayItemAsset" resultMap="displayAssetsResultMap"/>
   </resultMap>
 
-  <resultMap id="displayAssetsResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItemAsset">
+  <resultMap id="displayAssetsResultMap" type="com.dressca.boundedcontexts.shopping.entity.DisplayItemAsset">
     <result property="displayItemId" column="DISPLAY_ITEM_ID"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

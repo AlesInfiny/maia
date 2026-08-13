@@ -1,7 +1,7 @@
 package com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.store;
 
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.assetsmanagement.internal.domain.store.AssetStore;
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Optional;

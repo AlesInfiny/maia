@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.boundedcontexts.shopping.model.Account;
-import com.dressca.boundedcontexts.shopping.model.Basket;
+import com.dressca.boundedcontexts.shopping.entity.Basket;
+import com.dressca.boundedcontexts.shopping.valueobject.Account;
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;

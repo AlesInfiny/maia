@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dressca.boundedcontexts.BoundedContextsTestConfig;
+import com.dressca.boundedcontexts.shopping.entity.DisplayItem;
 import com.dressca.boundedcontexts.shopping.internal.domain.repository.DisplayItemRepository;
-import com.dressca.boundedcontexts.shopping.model.DisplayItem;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;

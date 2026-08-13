@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository;
 
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;

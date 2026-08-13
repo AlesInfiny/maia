@@ -10,7 +10,7 @@ import com.dressca.boundedcontexts.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.boundedcontexts.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.boundedcontexts.assetsmanagement.internal.domain.repository.AssetRepository;
 import com.dressca.boundedcontexts.assetsmanagement.internal.domain.store.AssetStore;
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.BoundedContextsTestConfig;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.util.Optional;

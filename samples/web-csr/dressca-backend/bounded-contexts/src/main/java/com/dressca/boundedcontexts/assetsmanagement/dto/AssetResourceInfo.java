@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.assetsmanagement.dto;
 
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.core.io.Resource;

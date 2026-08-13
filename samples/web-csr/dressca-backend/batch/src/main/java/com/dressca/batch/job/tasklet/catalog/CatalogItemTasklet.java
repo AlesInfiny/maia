@@ -1,7 +1,7 @@
 package com.dressca.batch.job.tasklet.catalog;
 
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
 import com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository.CatalogRepository;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.batch.core.configuration.annotation.StepScope;

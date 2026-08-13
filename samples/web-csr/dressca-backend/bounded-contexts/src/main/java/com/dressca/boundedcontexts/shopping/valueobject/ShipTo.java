@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.shopping.model;
+package com.dressca.boundedcontexts.shopping.valueobject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

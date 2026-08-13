@@ -1,5 +1,6 @@
 package com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis;
 
+import com.dressca.boundedcontexts.shopping.entity.Basket;
 import com.dressca.boundedcontexts.shopping.internal.domain.repository.BasketRepository;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntity;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.entity.BasketEntityExample;
@@ -9,7 +10,6 @@ import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.m
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.generated.mapper.BasketMapper;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedBasketMapper;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.translator.ShoppingEntityTranslator;
-import com.dressca.boundedcontexts.shopping.model.Basket;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

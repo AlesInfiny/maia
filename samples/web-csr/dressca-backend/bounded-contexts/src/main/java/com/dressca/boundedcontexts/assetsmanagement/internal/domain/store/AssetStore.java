@@ -1,7 +1,7 @@
 
 package com.dressca.boundedcontexts.assetsmanagement.internal.domain.store;
 
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import java.util.Optional;
 import org.springframework.core.io.Resource;
 

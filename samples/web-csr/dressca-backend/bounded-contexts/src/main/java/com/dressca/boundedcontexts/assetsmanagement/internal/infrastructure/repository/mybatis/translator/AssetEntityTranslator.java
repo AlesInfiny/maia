@@ -1,7 +1,7 @@
 package com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.translator;
 
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.entity.AssetEntity;
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
 import org.springframework.beans.BeanUtils;
 
 /**

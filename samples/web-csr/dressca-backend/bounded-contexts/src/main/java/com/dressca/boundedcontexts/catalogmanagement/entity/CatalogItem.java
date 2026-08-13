@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.catalogmanagement.model;
+package com.dressca.boundedcontexts.catalogmanagement.entity;
 
 import com.dressca.systemcommon.util.UuidGenerator;
 import java.math.BigDecimal;

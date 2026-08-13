@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.shopping.model;
+package com.dressca.boundedcontexts.shopping.valueobject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
 import java.util.List;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.shopping.internal.domain.repository;
 
-import com.dressca.boundedcontexts.shopping.model.DisplayItem;
+import com.dressca.boundedcontexts.shopping.entity.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 

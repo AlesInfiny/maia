@@ -1,11 +1,11 @@
 package com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis;
 
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogBrand;
 import com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntity;
 import com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogBrandEntityExample;
 import com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.generated.mapper.CatalogBrandMapper;
 import com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository.mybatis.translator.CatalogEntityTranslator;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogBrand;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

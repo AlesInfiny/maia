@@ -18,9 +18,9 @@ import com.dressca.boundedcontexts.catalogmanagement.internal.domain.CatalogDoma
 import com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository.CatalogRepository;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogBrand;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogCategory;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogBrand;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogCategory;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
 import com.dressca.boundedcontexts.BoundedContextsTestConfig;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.math.BigDecimal;

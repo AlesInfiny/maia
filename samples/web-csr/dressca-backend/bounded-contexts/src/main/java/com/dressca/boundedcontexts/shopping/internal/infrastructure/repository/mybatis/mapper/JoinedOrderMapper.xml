@@ -37,7 +37,7 @@
     )
   </sql>
 
-  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.model.Order">
+  <resultMap id="ordersIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.entity.Order">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="orderDate" column="ORDER_DATE"/>
@@ -46,37 +46,37 @@
     <result property="deliveryCharge" column="DELIVERY_CHARGE"/>
     <result property="consumptionTax" column="CONSUMPTION_TAX"/>
     <result property="totalPrice" column="TOTAL_PRICE"/>
-    <association property="shipToAddress" javaType="com.dressca.boundedcontexts.shopping.model.ShipTo" resultMap="shipToResultMap"/>
-    <collection property="orderItems" ofType="com.dressca.boundedcontexts.shopping.model.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
+    <association property="shipToAddress" javaType="com.dressca.boundedcontexts.shopping.valueobject.ShipTo" resultMap="shipToResultMap"/>
+    <collection property="orderItems" ofType="com.dressca.boundedcontexts.shopping.entity.OrderItem" resultMap="orderItemsResultMap" columnPrefix="ORDER_ITEMS_"/>
   </resultMap>
 
-  <resultMap id="shipToResultMap" type="com.dressca.boundedcontexts.shopping.model.ShipTo">
+  <resultMap id="shipToResultMap" type="com.dressca.boundedcontexts.shopping.valueobject.ShipTo">
     <result property="fullName" column="SHIP_TO_FULL_NAME"/>
-    <association property="address" javaType="com.dressca.boundedcontexts.shopping.model.Address" resultMap="addressResultMap"/>
+    <association property="address" javaType="com.dressca.boundedcontexts.shopping.valueobject.Address" resultMap="addressResultMap"/>
   </resultMap>
 
-  <resultMap id="addressResultMap" type="com.dressca.boundedcontexts.shopping.model.Address">
+  <resultMap id="addressResultMap" type="com.dressca.boundedcontexts.shopping.valueobject.Address">
     <result property="postalCode" column="SHIP_TO_POSTAL_CODE"/>
     <result property="todofuken" column="SHIP_TO_TODOFUKEN"/>
     <result property="shikuchoson" column="SHIP_TO_SHIKUCHOSON"/>
     <result property="azanaAndOthers" column="SHIP_TO_AZANA_AND_OTHERS"/>
   </resultMap>
 
-  <resultMap id="orderItemsResultMap" type="com.dressca.boundedcontexts.shopping.model.OrderItem">
+  <resultMap id="orderItemsResultMap" type="com.dressca.boundedcontexts.shopping.entity.OrderItem">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="unitPrice" column="UNIT_PRICE"/>
     <result property="quantity" column="QUANTITY"/>
-    <association property="itemOrdered" javaType="com.dressca.boundedcontexts.shopping.model.DisplayItemOrdered" resultMap="displayItemOrderedResultMap"/>
-    <collection property="assets" ofType="com.dressca.boundedcontexts.shopping.model.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
+    <association property="itemOrdered" javaType="com.dressca.boundedcontexts.shopping.valueobject.DisplayItemOrdered" resultMap="displayItemOrderedResultMap"/>
+    <collection property="assets" ofType="com.dressca.boundedcontexts.shopping.entity.OrderItemAsset" resultMap="orderItemAssetsResultMap" />
   </resultMap>
 
-  <resultMap id="displayItemOrderedResultMap" type="com.dressca.boundedcontexts.shopping.model.DisplayItemOrdered">
+  <resultMap id="displayItemOrderedResultMap" type="com.dressca.boundedcontexts.shopping.valueobject.DisplayItemOrdered">
     <result property="displayItemId" column="ORDERED_DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="productName" column="ORDERED_PRODUCT_NAME"/>
     <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
   </resultMap>
 
-  <resultMap id="orderItemAssetsResultMap" type="com.dressca.boundedcontexts.shopping.model.OrderItemAsset">
+  <resultMap id="orderItemAssetsResultMap" type="com.dressca.boundedcontexts.shopping.entity.OrderItemAsset">
     <id property="id" column="ASSET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="assetCode" column="ASSET_CODE"/>
   </resultMap>

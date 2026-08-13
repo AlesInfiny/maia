@@ -1,7 +1,7 @@
 package com.dressca.web.admin.mapper;
 
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItemAsset;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItemAsset;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;

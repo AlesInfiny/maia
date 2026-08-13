@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.mapper;
 
-import com.dressca.boundedcontexts.shopping.model.Basket;
+import com.dressca.boundedcontexts.shopping.entity.Basket;
 import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

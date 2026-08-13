@@ -1,6 +1,6 @@
 package com.dressca.batch.job.catalog;
 
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogItem;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;

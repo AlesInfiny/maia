@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.assetsmanagement.model;
+package com.dressca.boundedcontexts.assetsmanagement.constant;
 
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;

@@ -1,10 +1,10 @@
 package com.dressca.web.admin.controller;
 
 import com.dressca.boundedcontexts.assetsmanagement.AssetApplicationService;
+import com.dressca.boundedcontexts.assetsmanagement.constant.AssetTypes;
 import com.dressca.boundedcontexts.assetsmanagement.dto.AssetResourceInfo;
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.assetsmanagement.exception.AssetNotFoundException;
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
-import com.dressca.boundedcontexts.assetsmanagement.model.AssetTypes;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import io.swagger.v3.oas.annotations.Operation;

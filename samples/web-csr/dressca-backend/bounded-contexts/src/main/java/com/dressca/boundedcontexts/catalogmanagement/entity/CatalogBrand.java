@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.catalogmanagement.model;
+package com.dressca.boundedcontexts.catalogmanagement.entity;
 
 import java.util.ArrayList;
 import java.util.List;

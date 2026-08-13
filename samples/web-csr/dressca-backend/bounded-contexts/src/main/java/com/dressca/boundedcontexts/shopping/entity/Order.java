@@ -1,5 +1,8 @@
-package com.dressca.boundedcontexts.shopping.model;
+package com.dressca.boundedcontexts.shopping.entity;
 
+import com.dressca.boundedcontexts.shopping.valueobject.Account;
+import com.dressca.boundedcontexts.shopping.valueobject.AccountItem;
+import com.dressca.boundedcontexts.shopping.valueobject.ShipTo;
 import com.dressca.systemcommon.util.UuidGenerator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

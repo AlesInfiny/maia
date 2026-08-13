@@ -1,5 +1,6 @@
-package com.dressca.boundedcontexts.shopping.model;
+package com.dressca.boundedcontexts.shopping.entity;
 
+import com.dressca.boundedcontexts.shopping.valueobject.AccountItem;
 import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

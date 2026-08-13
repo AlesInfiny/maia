@@ -1,8 +1,8 @@
 package com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis;
 
+import com.dressca.boundedcontexts.shopping.entity.DisplayItemBrand;
 import com.dressca.boundedcontexts.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.mapper.DisplayItemBrandQueryMapper;
-import com.dressca.boundedcontexts.shopping.model.DisplayItemBrand;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

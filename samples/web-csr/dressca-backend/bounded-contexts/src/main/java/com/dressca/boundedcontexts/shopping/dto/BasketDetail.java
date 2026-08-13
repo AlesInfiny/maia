@@ -1,7 +1,7 @@
 package com.dressca.boundedcontexts.shopping.dto;
 
-import com.dressca.boundedcontexts.shopping.model.Basket;
-import com.dressca.boundedcontexts.shopping.model.DisplayItem;
+import com.dressca.boundedcontexts.shopping.entity.Basket;
+import com.dressca.boundedcontexts.shopping.entity.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.dressca.boundedcontexts.shopping.model;
+package com.dressca.boundedcontexts.shopping.entity;
 
 import java.util.UUID;
 import lombok.Data;

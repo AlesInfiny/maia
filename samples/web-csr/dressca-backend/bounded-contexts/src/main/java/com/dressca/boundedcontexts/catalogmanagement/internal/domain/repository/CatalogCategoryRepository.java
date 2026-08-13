@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.catalogmanagement.internal.domain.repository;
 
-import com.dressca.boundedcontexts.catalogmanagement.model.CatalogCategory;
+import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogCategory;
 import java.util.List;
 import java.util.UUID;
 

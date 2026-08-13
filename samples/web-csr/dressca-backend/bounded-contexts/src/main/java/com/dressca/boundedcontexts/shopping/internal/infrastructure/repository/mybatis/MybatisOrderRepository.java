@@ -1,8 +1,8 @@
 package com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis;
 
+import com.dressca.boundedcontexts.shopping.entity.Order;
 import com.dressca.boundedcontexts.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.boundedcontexts.shopping.internal.infrastructure.repository.mybatis.mapper.JoinedOrderMapper;
-import com.dressca.boundedcontexts.shopping.model.Order;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

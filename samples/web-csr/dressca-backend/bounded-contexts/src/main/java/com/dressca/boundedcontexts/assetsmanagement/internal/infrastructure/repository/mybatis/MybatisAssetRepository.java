@@ -1,10 +1,10 @@
 package com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis;
 
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.assetsmanagement.internal.domain.repository.AssetRepository;
 import com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.entity.AssetEntityExample;
 import com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.generated.mapper.AssetMapper;
 import com.dressca.boundedcontexts.assetsmanagement.internal.infrastructure.repository.mybatis.translator.AssetEntityTranslator;
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

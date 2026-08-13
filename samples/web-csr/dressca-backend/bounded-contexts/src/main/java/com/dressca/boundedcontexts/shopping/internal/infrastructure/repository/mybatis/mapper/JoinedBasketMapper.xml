@@ -17,13 +17,13 @@
     )
   </sql>
 
-  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.model.Basket">
+  <resultMap id="basketsIncludeItemResultMap" type="com.dressca.boundedcontexts.shopping.entity.Basket">
     <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="buyerId" column="BUYER_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
-    <collection property="items" ofType="com.dressca.boundedcontexts.shopping.model.BasketItem" resultMap="itemsResultMap"/>
+    <collection property="items" ofType="com.dressca.boundedcontexts.shopping.entity.BasketItem" resultMap="itemsResultMap"/>
   </resultMap>
 
-  <resultMap id="itemsResultMap" type="com.dressca.boundedcontexts.shopping.model.BasketItem">
+  <resultMap id="itemsResultMap" type="com.dressca.boundedcontexts.shopping.entity.BasketItem">
     <id property="id" column="ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="basketId" column="BASKET_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>
     <result property="displayItemId" column="DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.boundedcontexts.shared.mybatis.UuidTypeHandler"/>

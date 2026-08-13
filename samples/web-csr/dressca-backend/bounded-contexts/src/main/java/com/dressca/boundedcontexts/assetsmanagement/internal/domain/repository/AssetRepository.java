@@ -1,6 +1,6 @@
 package com.dressca.boundedcontexts.assetsmanagement.internal.domain.repository;
 
-import com.dressca.boundedcontexts.assetsmanagement.model.Asset;
+import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import java.util.Optional;
 
 /**
