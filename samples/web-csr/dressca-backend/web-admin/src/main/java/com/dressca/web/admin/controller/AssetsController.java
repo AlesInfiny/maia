@@ -1,7 +1,7 @@
 package com.dressca.web.admin.controller;
 
 import com.dressca.boundedcontexts.assetsmanagement.AssetApplicationService;
-import com.dressca.boundedcontexts.assetsmanagement.constant.AssetTypes;
+import com.dressca.boundedcontexts.assetsmanagement.AssetTypes;
 import com.dressca.boundedcontexts.assetsmanagement.dto.AssetResourceInfo;
 import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
 import com.dressca.boundedcontexts.assetsmanagement.exception.AssetNotFoundException;

@@ -1,7 +1,7 @@
 package com.dressca.boundedcontexts.assetsmanagement.entity;
 
+import com.dressca.boundedcontexts.assetsmanagement.AssetTypes;
 import com.dressca.boundedcontexts.assetsmanagement.constant.AssetManagementExceptionIdConstants;
-import com.dressca.boundedcontexts.assetsmanagement.constant.AssetTypes;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.systemcommon.util.UuidGenerator;
 import java.util.Locale;
