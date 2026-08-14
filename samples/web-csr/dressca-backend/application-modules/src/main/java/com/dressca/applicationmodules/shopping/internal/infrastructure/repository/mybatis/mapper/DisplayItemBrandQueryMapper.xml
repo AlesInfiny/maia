@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dressca.applicationmodules.shopping.internal.infrastructure.repository.mybatis.mapper.DisplayItemBrandQueryMapper">
+  <resultMap id="displayItemBrandResultMap" type="com.dressca.applicationmodules.shopping.entity.DisplayItemBrand">
+    <id property="id" column="ID" jdbcType="OTHER" typeHandler="com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler"/>
+    <result property="name" column="NAME"/>
+  </resultMap>
+
+  <select id="selectAll" resultMap="displayItemBrandResultMap">
+    SELECT
+      CATALOG_BRANDS.ID,
+      CATALOG_BRANDS.NAME
+    FROM CATALOG_BRANDS
+  </select>
+
+  <select id="selectById" resultMap="displayItemBrandResultMap">
+    SELECT
+      CATALOG_BRANDS.ID,
+      CATALOG_BRANDS.NAME
+    FROM CATALOG_BRANDS
+    WHERE CATALOG_BRANDS.ID = #{id,jdbcType=OTHER,typeHandler=com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler}
+  </select>
+</mapper>

@@ -1,6 +1,6 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.boundedcontexts.authorization.UserStore;
+import com.dressca.applicationmodules.authorization.UserStore;
 import com.dressca.web.admin.controller.dto.user.GetLoginUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

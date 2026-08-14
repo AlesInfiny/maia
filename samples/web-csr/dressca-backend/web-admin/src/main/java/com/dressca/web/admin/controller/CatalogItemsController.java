@@ -1,13 +1,13 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.boundedcontexts.authorization.constant.UserRoleConstants;
-import com.dressca.boundedcontexts.authorization.exception.PermissionDeniedException;
-import com.dressca.boundedcontexts.catalogmanagement.CatalogApplicationService;
-import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
-import com.dressca.boundedcontexts.catalogmanagement.exception.CatalogBrandNotFoundException;
-import com.dressca.boundedcontexts.catalogmanagement.exception.CatalogCategoryNotFoundException;
-import com.dressca.boundedcontexts.catalogmanagement.exception.CatalogNotFoundException;
-import com.dressca.boundedcontexts.catalogmanagement.exception.OptimisticLockingFailureException;
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.exception.PermissionDeniedException;
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogBrandNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;

@@ -24,7 +24,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.commons_lang3
 	
-	implementation project(':bounded-contexts')
+	implementation project(':application-modules')
 	implementation project(':system-common')
 
 	annotationProcessor supportDependencies.spring_boot_configuration_processor
@@ -33,6 +33,8 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_security_test
 	testImplementation supportDependencies.spring_boot_starter_log4j2
   testImplementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+	
+	testRuntimeOnly supportDependencies.h2database
 }
 
 configurations {

@@ -1,6 +1,6 @@
 package com.dressca.batch.job.catalog;
 
-import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
 import org.jspecify.annotations.NonNull;
 import org.springframework.batch.infrastructure.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;

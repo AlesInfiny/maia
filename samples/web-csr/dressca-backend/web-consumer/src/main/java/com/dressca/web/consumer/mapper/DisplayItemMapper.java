@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.boundedcontexts.shopping.entity.DisplayItem;
-import com.dressca.boundedcontexts.shopping.entity.DisplayItemAsset;
+import com.dressca.applicationmodules.shopping.entity.DisplayItem;
+import com.dressca.applicationmodules.shopping.entity.DisplayItemAsset;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;

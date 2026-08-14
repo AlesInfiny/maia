@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.boundedcontexts.shopping.DisplayItemApplicationService;
+import com.dressca.applicationmodules.shopping.DisplayItemApplicationService;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemCategoriesResponse;
 import com.dressca.web.consumer.mapper.DisplayItemCategoryMapper;
 import io.swagger.v3.oas.annotations.Operation;

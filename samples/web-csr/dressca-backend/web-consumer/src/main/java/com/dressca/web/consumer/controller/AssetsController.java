@@ -1,11 +1,11 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.boundedcontexts.assetsmanagement.AssetApplicationService;
-import com.dressca.boundedcontexts.assetsmanagement.AssetTypes;
-import com.dressca.boundedcontexts.assetsmanagement.constant.AssetManagementExceptionIdConstants;
-import com.dressca.boundedcontexts.assetsmanagement.dto.AssetResourceInfo;
-import com.dressca.boundedcontexts.assetsmanagement.entity.Asset;
-import com.dressca.boundedcontexts.assetsmanagement.exception.AssetNotFoundException;
+import com.dressca.applicationmodules.assetsmanagement.AssetApplicationService;
+import com.dressca.applicationmodules.assetsmanagement.AssetTypes;
+import com.dressca.applicationmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
+import com.dressca.applicationmodules.assetsmanagement.dto.AssetResourceInfo;
+import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
+import com.dressca.applicationmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;

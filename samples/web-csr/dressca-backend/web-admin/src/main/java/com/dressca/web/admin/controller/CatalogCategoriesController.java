@@ -1,7 +1,7 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.boundedcontexts.catalogmanagement.CatalogApplicationService;
-import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogCategory;
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogCategory;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogCategoriesResponse;
 import com.dressca.web.admin.mapper.CatalogCategoryMapper;
 import io.swagger.v3.oas.annotations.Operation;

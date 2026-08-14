@@ -1,6 +1,6 @@
 package com.dressca.batch.job.catalog;
 
-import com.dressca.boundedcontexts.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
@@ -25,8 +25,9 @@ public class CatalogItemReaderConf {
   @Bean
   public MyBatisPagingItemReader<CatalogItem> catalogItemReader() {
     return new MyBatisPagingItemReaderBuilder<CatalogItem>().sqlSessionFactory(sqlSessionFactory)
-        .queryId("com.dressca.boundedcontexts.catalogmanagement.internal.infrastructure.repository"
-            + ".mybatis.mapper.JoinedCatalogItemMapper.findWithPaging")
+        .queryId(
+            "com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository"
+                + ".mybatis.mapper.JoinedCatalogItemMapper.findWithPaging")
         .pageSize(10).build();
   }
 }

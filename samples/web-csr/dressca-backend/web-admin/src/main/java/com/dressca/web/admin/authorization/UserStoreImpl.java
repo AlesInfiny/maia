@@ -1,6 +1,6 @@
 package com.dressca.web.admin.authorization;
 
-import com.dressca.boundedcontexts.authorization.UserStore;
+import com.dressca.applicationmodules.authorization.UserStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
