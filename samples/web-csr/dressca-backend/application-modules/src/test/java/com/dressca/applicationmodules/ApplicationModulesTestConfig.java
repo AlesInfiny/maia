@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * ドメインモジュールのテスト用設定クラスです。
+ * アプリケーションモジュールズプロジェクトのテスト用設定クラスです。
  * テスト用の Bean 定義などを記述します。
  */
 @TestConfiguration
