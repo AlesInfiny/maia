@@ -24,14 +24,9 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Job の定義と各種設定を行うクラスです。
  */
 @Configuration
-// このバッチが利用するコンテキストと技術基盤のみをスキャン対象とします。
-// なお com.dressca.batch は、この設定クラス単体でコンテキストを構築するテスト
-// （ CatalogItemJobTest ）が BatchApplication の自動設定を必要とするため、明示的に含めています。
-@ComponentScan(basePackages = {"com.dressca.batch",
-    "com.dressca.applicationmodules.catalogmanagement",
-    "com.dressca.applicationmodules.shared", "com.dressca.systemcommon"})
-@MapperScan(basePackages = "com.dressca.applicationmodules"
-    + ".catalogmanagement.internal.infrastructure.repository.mybatis")
+@ComponentScan(basePackages = {"com.dressca"})
+@MapperScan(basePackages = {
+    "com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis"})
 public class BatchConfiguration {
 
   /**
