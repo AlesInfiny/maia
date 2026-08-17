@@ -14,7 +14,7 @@ ext {
     javaUuidGeneratorVersion = "5.2.0"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.9.0"
+    checkstyleToolVersion = "13.10.0"
     jacocoToolVersion = "0.8.15"
     spotbugsToolVersion = "4.10.3"
 
