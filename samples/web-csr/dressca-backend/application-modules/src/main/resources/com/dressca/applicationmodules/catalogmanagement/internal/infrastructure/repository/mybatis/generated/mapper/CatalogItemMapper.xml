@@ -226,22 +226,24 @@
     from catalog_items
     where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.util.UUID">
+  <update id="deleteByPrimaryKey" parameterType="java.util.UUID">
     <!--
       Generated Code - @mbg.generated
     -->
-    delete from catalog_items
+    update catalog_items
+    set is_deleted = true
     where id = #{id,jdbcType=OTHER,typeHandler=com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample">
+  </update>
+  <update id="deleteByExample" parameterType="com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntityExample">
     <!--
       Generated Code - @mbg.generated
     -->
-    delete from catalog_items
+    update catalog_items
+    set is_deleted = true
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-  </delete>
+  </update>
   <insert id="insert" parameterType="com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity">
     <!--
       Generated Code - @mbg.generated
