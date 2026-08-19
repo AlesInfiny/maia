@@ -1,8 +1,8 @@
 package com.dressca.applicationmodules.shopping;
 
-import com.dressca.applicationmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.applicationmodules.shopping.entity.Order;
 import com.dressca.applicationmodules.shopping.exception.OrderNotFoundException;
+import com.dressca.applicationmodules.shopping.internal.domain.constant.ShoppingMessageIdConstants;
 import com.dressca.applicationmodules.shopping.internal.domain.repository.OrderRepository;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import java.util.Locale;

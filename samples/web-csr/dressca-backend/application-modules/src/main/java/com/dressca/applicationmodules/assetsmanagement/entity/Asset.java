@@ -1,7 +1,7 @@
 package com.dressca.applicationmodules.assetsmanagement.entity;
 
 import com.dressca.applicationmodules.assetsmanagement.AssetTypes;
-import com.dressca.applicationmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
+import com.dressca.applicationmodules.assetsmanagement.internal.domain.constant.AssetManagementExceptionIdConstants;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.systemcommon.util.UuidGenerator;
 import java.util.Locale;

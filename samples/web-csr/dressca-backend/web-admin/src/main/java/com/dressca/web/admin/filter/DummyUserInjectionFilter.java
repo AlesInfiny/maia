@@ -1,6 +1,5 @@
 package com.dressca.web.admin.filter;
 
-import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.dressca.applicationmodules.authorization.internal.domain.constant.UserRoleConstants;
 
 /**
  * ダミーユーザーを {@link SecurityContextHolder} に詰めるためのフィルタークラスです。

@@ -1,4 +1,4 @@
-package com.dressca.applicationmodules.assetsmanagement.constant;
+package com.dressca.applicationmodules.assetsmanagement.internal.domain.constant;
 
 /**
  * アセット管理コンテキストの業務例外 ID 用の定数クラスです。

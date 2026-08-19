@@ -1,9 +1,9 @@
 package com.dressca.applicationmodules.shopping;
 
-import com.dressca.applicationmodules.shopping.constant.ShoppingMessageIdConstants;
 import com.dressca.applicationmodules.shopping.entity.DisplayItem;
 import com.dressca.applicationmodules.shopping.entity.DisplayItemBrand;
 import com.dressca.applicationmodules.shopping.entity.DisplayItemCategory;
+import com.dressca.applicationmodules.shopping.internal.domain.constant.ShoppingMessageIdConstants;
 import com.dressca.applicationmodules.shopping.internal.domain.repository.DisplayItemBrandRepository;
 import com.dressca.applicationmodules.shopping.internal.domain.repository.DisplayItemCategoryRepository;
 import com.dressca.applicationmodules.shopping.internal.domain.repository.DisplayItemRepository;

@@ -1,6 +1,6 @@
 package com.dressca.applicationmodules.assetsmanagement.exception;
 
-import com.dressca.applicationmodules.assetsmanagement.constant.AssetManagementExceptionIdConstants;
+import com.dressca.applicationmodules.assetsmanagement.internal.domain.constant.AssetManagementExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**

@@ -1,4 +1,4 @@
-package com.dressca.applicationmodules.catalogmanagement.constant;
+package com.dressca.applicationmodules.catalogmanagement.internal.domain.constant;
 
 /**
  * カタログ管理コンテキストの業務例外 ID 用の定数クラスです。

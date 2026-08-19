@@ -1,4 +1,4 @@
-package com.dressca.applicationmodules.shopping.constant;
+package com.dressca.applicationmodules.shopping.internal.domain.constant;
 
 /**
  * 買い物コンテキストの業務メッセージ ID 用の定数クラスです。
