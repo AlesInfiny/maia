@@ -3,7 +3,7 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon -->
+<!-- cspell:ignore applicationmodules systemcommon -->
 
 # メッセージ管理機能の設定 {#top}
 
@@ -15,8 +15,8 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-core/src/main/resource
- │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
+ ├ application-modules/src/main/resource
+ │ └ applicationmodules ------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
  │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resource
    └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一元管理するフォルダー
@@ -25,10 +25,10 @@ root/ ------------------------------------------- root フォルダー
 
 ### プロパティファイルの作成 {#creating-property-file}
 
-メッセージに関するプロパティファイルは各サブプロジェクトの `/src/main/resource/<サブプロジェクト名>` フォルダーに集約します。
+メッセージに関するプロパティファイルは各サブプロジェクトの `/src/main/resources/<サブプロジェクト名>` フォルダーに集約します。
 以下のように、メッセージ本体を格納するプロパティファイルを作成します。
 
-```properties title="message.properties"
+```properties title="messages.properties"
 systemError=想定外のシステムエラーが発生しました
 businessError=想定外の業務エラーが発生しました
 ```
@@ -38,10 +38,10 @@ businessError=想定外の業務エラーが発生しました
 以下のように、 web プロジェクトなどエントリーポイントとなるサブプロジェクトの application.properties にプロパティファイルを読み込む設定を記載します。
 
 ```properties title="application.properties"
-spring.messages.basename=applicationcore.messages,systemcommon.messages
+spring.messages.basename=applicationmodules.messages,systemcommon.messages
 ```
 
-読み込むプロパティファイルは `src/main/resource` 配下の `<フォルダー名>.<ファイル名>` で指定します。
+読み込むプロパティファイルは `src/main/resources` 配下の `<フォルダー名>.<ファイル名>` で指定します。
 プロパティファイルが複数ある場合は、ファイルの間をカンマで区切ります。
 
 ### メッセージの取得 {#getting-messages}
