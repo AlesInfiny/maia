@@ -7,6 +7,7 @@ import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
 import com.dressca.applicationmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.web.constant.WebExceptionIdConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +16,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import java.util.Locale;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AssetsController {
 
   private final AssetApplicationService service;
+  private final MessageSource messages;
   private final AbstractStructuredLogger apLog;
 
   /**
@@ -81,7 +85,10 @@ public class AssetsController {
       case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
-        throw new IllegalArgumentException("指定したアセットのアセットタイプは Content-Type に変換できません。");
+        String errorMessage =
+            messages.getMessage(WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()}, Locale.getDefault());
+        throw new IllegalArgumentException(errorMessage);
     }
   }
 }

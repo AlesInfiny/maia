@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.dressca.applicationmodules.authorization.internal.domain.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 
 /**
  * ダミーユーザーを {@link SecurityContextHolder} に詰めるためのフィルタークラスです。

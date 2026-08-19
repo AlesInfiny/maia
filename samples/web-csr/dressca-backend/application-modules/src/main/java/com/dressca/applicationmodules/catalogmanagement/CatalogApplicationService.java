@@ -1,8 +1,8 @@
 package com.dressca.applicationmodules.catalogmanagement;
 
 import com.dressca.applicationmodules.authorization.UserStore;
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 import com.dressca.applicationmodules.authorization.exception.PermissionDeniedException;
-import com.dressca.applicationmodules.authorization.internal.domain.constant.UserRoleConstants;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogBrand;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogCategory;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;

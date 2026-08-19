@@ -1,6 +1,6 @@
 package com.dressca.applicationmodules.authorization.exception;
 
-import com.dressca.applicationmodules.authorization.internal.domain.constant.AuthorizationExceptionIdConstants;
+import com.dressca.applicationmodules.authorization.constant.AuthorizationExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
 /**

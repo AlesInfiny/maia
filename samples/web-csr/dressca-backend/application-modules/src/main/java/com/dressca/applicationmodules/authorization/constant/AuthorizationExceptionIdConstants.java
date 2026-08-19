@@ -1,4 +1,4 @@
-package com.dressca.applicationmodules.authorization.internal.domain.constant;
+package com.dressca.applicationmodules.authorization.constant;
 
 /**
  * 認可コンテキストの業務例外 ID 用の定数クラスです。
