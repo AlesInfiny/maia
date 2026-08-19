@@ -1,6 +1,6 @@
 package com.dressca.applicationmodules.shopping.exception;
 
-import com.dressca.applicationmodules.shopping.internal.domain.constant.ShoppingExceptionIdConstants;
+import com.dressca.applicationmodules.shopping.internal.constant.ShoppingExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import java.util.Arrays;
 import java.util.UUID;

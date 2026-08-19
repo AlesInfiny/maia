@@ -10,8 +10,8 @@ import com.dressca.applicationmodules.catalogmanagement.exception.CatalogBrandNo
 import com.dressca.applicationmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
 import com.dressca.applicationmodules.catalogmanagement.exception.CatalogNotFoundException;
 import com.dressca.applicationmodules.catalogmanagement.exception.OptimisticLockingFailureException;
+import com.dressca.applicationmodules.catalogmanagement.internal.constant.CatalogManagementMessageIdConstants;
 import com.dressca.applicationmodules.catalogmanagement.internal.domain.CatalogDomainService;
-import com.dressca.applicationmodules.catalogmanagement.internal.domain.constant.CatalogManagementMessageIdConstants;
 import com.dressca.applicationmodules.catalogmanagement.internal.domain.repository.CatalogBrandRepository;
 import com.dressca.applicationmodules.catalogmanagement.internal.domain.repository.CatalogCategoryRepository;
 import com.dressca.applicationmodules.catalogmanagement.internal.domain.repository.CatalogRepository;

@@ -1,4 +1,4 @@
-package com.dressca.applicationmodules.shopping.internal.domain.constant;
+package com.dressca.applicationmodules.shopping.internal.constant;
 
 /**
  * 買い物コンテキストの業務例外 ID 用の定数クラスです。
