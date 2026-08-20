@@ -99,11 +99,12 @@ tasks.named('test') {
 }
 ```
 
-また、併せて不要なファイルを削除します。
-application-modules プロジェクトの `src` 以下にある、以下のファイルを削除してください。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
-- `ApplicationModulesApplication.java`
-- `ApplicationModulesApplicationTest.java`
+また、併せて不要なファイルを削除します。
+application-modules プロジェクトの `src` 以下にある、 `ApplicationModulesApplication.java` と `ApplicationModulesApplicationTest.java` を削除してください。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
@@ -170,7 +171,6 @@ MyBatis Generator は、 MyBatis を使用する際に、データベースの�
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-自動生成したクラスは、コンテキストの `internal/infrastructure/repository/mybatis/generated` パッケージへ出力します。
 具体的な設定方法については、[こちら](./mybatis-generator-settings.md) を参照してください。
 
 ## メッセージ管理の設定 {#message-management-settings}
