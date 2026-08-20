@@ -1,31 +1,32 @@
 
 package com.dressca.batch.job;
 
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.batch.job.catalog.CatalogItemProcessor;
+import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.job.Job;
-import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.batch.core.job.parameters.RunIdIncrementer;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.Step;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.batch.job.catalog.CatalogItemProcessor;
-import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
+import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Job の定義と各種設定を行うクラスです。
  */
 @Configuration
 @ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = {"com.dressca.infrastructure.repository.mybatis"})
+@MapperScan(basePackages = {
+    "com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis"})
 public class BatchConfiguration {
 
   /**

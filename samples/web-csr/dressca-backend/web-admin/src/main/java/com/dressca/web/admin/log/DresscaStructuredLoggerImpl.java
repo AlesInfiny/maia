@@ -1,10 +1,10 @@
 package com.dressca.web.admin.log;
 
-import org.slf4j.MDC;
-import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.authorization.UserStore;
+import com.dressca.applicationmodules.authorization.UserStore;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
 
 /**
  * アプリケーション固有のログ出力を実装した構造化ロガーです。

@@ -1,10 +1,12 @@
 package com.dressca.batch.job.tasklet.catalog;
 
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.internal.domain.repository.CatalogRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.infrastructure.item.Chunk;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
@@ -14,8 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogRepository;
 
 /**
  * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。

@@ -1,13 +1,13 @@
 package com.dressca.web.controller.advice;
 
-import lombok.RequiredArgsConstructor;
-import com.dressca.applicationcore.authorization.PermissionDeniedException;
-import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
+import com.dressca.applicationmodules.authorization.exception.PermissionDeniedException;
+import com.dressca.applicationmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

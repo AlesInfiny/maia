@@ -1,12 +1,12 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.OrderApplicationService;
-import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
-import com.dressca.applicationcore.order.Address;
-import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
-import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderNotFoundException;
-import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.applicationmodules.shopping.OrderApplicationService;
+import com.dressca.applicationmodules.shopping.ShoppingApplicationService;
+import com.dressca.applicationmodules.shopping.entity.Order;
+import com.dressca.applicationmodules.shopping.exception.EmptyBasketOnCheckoutException;
+import com.dressca.applicationmodules.shopping.exception.OrderNotFoundException;
+import com.dressca.applicationmodules.shopping.valueobject.Address;
+import com.dressca.applicationmodules.shopping.valueobject.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;

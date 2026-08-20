@@ -1,21 +1,13 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.applicationcore.applicationservice.AssetApplicationService;
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetNotFoundException;
-import com.dressca.applicationcore.assets.AssetResourceInfo;
-import com.dressca.applicationcore.assets.AssetTypes;
+import com.dressca.applicationmodules.assetsmanagement.AssetApplicationService;
+import com.dressca.applicationmodules.assetsmanagement.AssetTypes;
+import com.dressca.applicationmodules.assetsmanagement.dto.AssetResourceInfo;
+import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
+import com.dressca.applicationmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.dressca.web.constant.WebExceptionIdConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,6 +16,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import java.util.Locale;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.context.MessageSource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * {@link Asset} の情報にアクセスする API コントローラーです。
@@ -36,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 public class AssetsController {
 
   private final AssetApplicationService service;
+  private final MessageSource messages;
   private final AbstractStructuredLogger apLog;
 
   /**
@@ -81,7 +85,10 @@ public class AssetsController {
       case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
-        throw new IllegalArgumentException("指定したアセットのアセットタイプは Content-Type に変換できません。");
+        String errorMessage =
+            messages.getMessage(WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()}, Locale.getDefault());
+        throw new IllegalArgumentException(errorMessage);
     }
   }
 }

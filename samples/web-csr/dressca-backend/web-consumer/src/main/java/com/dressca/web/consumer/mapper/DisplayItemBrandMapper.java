@@ -1,6 +1,6 @@
 package com.dressca.web.consumer.mapper;
 
-import com.dressca.applicationcore.displayitem.DisplayItemBrand;
+import com.dressca.applicationmodules.shopping.entity.DisplayItemBrand;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemBrandsResponse;
 
 /**

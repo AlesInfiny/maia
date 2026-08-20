@@ -2,6 +2,7 @@ package com.dressca.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.dressca.batch.job.BatchConfiguration;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -23,7 +24,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import com.dressca.batch.job.BatchConfiguration;
 
 /**
  * CatalogItem の Job の動作テストクラスです。
@@ -138,10 +138,8 @@ public class CatalogItemJobTest {
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
-      String catalogItemId =
-          String.format("019b76da-a800-7004-8001-0000000000%02x", i + 0xc1);
-      String catalogItemAssetId =
-          String.format("019b76da-a800-7005-8001-0000000000%02x", i + 0xc1);
+      String catalogItemId = String.format("019b76da-a800-7004-8001-0000000000%02x", i + 0xc1);
+      String catalogItemAssetId = String.format("019b76da-a800-7005-8001-0000000000%02x", i + 0xc1);
       String insertItem = "insert into catalog_items" + " (id,name,description,price,product_code,"
           + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
           + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";

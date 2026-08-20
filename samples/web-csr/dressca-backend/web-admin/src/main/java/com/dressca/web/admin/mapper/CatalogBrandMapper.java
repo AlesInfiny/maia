@@ -1,6 +1,6 @@
 package com.dressca.web.admin.mapper;
 
-import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogBrand;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogBrandsResponse;
 
 /**
