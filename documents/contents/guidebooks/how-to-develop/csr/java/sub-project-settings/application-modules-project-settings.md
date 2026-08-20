@@ -12,7 +12,7 @@ application-modules プロジェクトには、コンテキストごとの業務
 
 ## 依存ライブラリの設定 {#config-dependencies}
 
-機能モジュールのプロジェクトで必要になるライブラリは、データアクセス処理やモジュラーモノリスアーキテクチャの実装に必要なライブラリです。
+application-modules プロジェクトで必要になるライブラリは、データアクセス処理やモジュラーモノリスアーキテクチャの実装に必要なライブラリです。
 データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 application-modules プロジェクトで利用を推奨するライブラリは以下の通りです。
 

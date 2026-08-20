@@ -13,10 +13,10 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-modules/src/main/resource
+ ├ application-modules/src/main/resources
  │ └ applicationmodules ------------------------- 業務メッセージのプロパティファイルを一元管理するフォルダー
  │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
- └ system-common/src/main/resource
+ └ system-common/src/main/resources
    └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一元管理するフォルダー
       └ messages.properties --------------------- 共通メッセージのプロパティファイル
 ```

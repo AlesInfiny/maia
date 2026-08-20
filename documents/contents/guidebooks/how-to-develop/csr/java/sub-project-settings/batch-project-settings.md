@@ -42,7 +42,7 @@ dependencies {
 ## Spring Boot の設定 {#config-spring}
 
 batch プロジェクトに関する Spring Boot のプロパティ等を設定します。
-batch プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+batch プロジェクトの `src/main/resources` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
 設定できる項目については、以下を参照してください。
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
