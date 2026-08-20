@@ -173,6 +173,76 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
     }
     ```
 
+## 業務モジュールの追加 {#add-application-module}
+
+application-modules プロジェクトに、区切られた文脈単位の業務モジュールを追加する手順を解説します。
+業務モジュールは、 Spring Modulith のアプリケーションモジュールとして定義します。
+アプリケーションモジュールとして定義することで、業務モジュール間の依存関係を Spring Modulith で検証できます。
+アプリケーションモジュールの詳細は、[Spring Modulith のリファレンスドキュメント :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/fundamentals.html){ target=_blank } を参照してください。
+
+### 業務モジュールのパッケージ作成 {#create-module-package}
+
+`{ プロジェクトのグループ名 }.applicationmodules` パッケージの直下に、業務モジュールごとのパッケージを作成します。
+ここで作成したパッケージが、業務モジュールのルートパッケージです。
+ルートパッケージの直下には、他の業務モジュールへ公開する型のみを配置します。
+公開しない型は `internal` パッケージ以下に配置します。
+
+```text
+application-modules/
+ └ src/main/java/{ プロジェクトのグループ名 }/applicationmodules
+   └ xxcontext --------------------------------- Xxコンテキストのルートパッケージ
+     ├ package-info.java ----------------------- 業務モジュールを定義するファイル
+     └ internal -------------------------------- 他の業務モジュールへ公開しない型を配置するパッケージ
+```
+
+### package-info.java の配置 {#create-package-info}
+
+業務モジュールのルートパッケージ直下に `package-info.java` を配置し、 `#!java @ApplicationModule` アノテーションを付与します。
+このアノテーションは、[依存ライブラリの設定](#config-dependencies) で追加した `spring-modulith-starter-core` に含まれます。
+
+```java title="xxcontext/package-info.java"
+@ApplicationModule(
+    displayName = "Xx コンテキスト",
+    allowedDependencies = { "shared" },
+    type = Type.CLOSED)
+package com.example.applicationmodules.xxcontext;
+
+import org.springframework.modulith.ApplicationModule;
+import org.springframework.modulith.ApplicationModule.Type;
+```
+
+主な属性は以下の通りです。
+
+- `displayName`: 業務モジュールの表示名です。省略した場合はルートパッケージ名を使用します。
+- `allowedDependencies`: 依存を許可する業務モジュールを指定します。省略した場合はすべての業務モジュールへの依存を許可します。すべての業務モジュールへの依存を禁止する場合は、空の配列を指定します。
+- `type`: 業務モジュールの公開範囲を指定します。指定できる値は [オープンモジュールとクローズドモジュールの指定](#specify-module-type) を参照してください。
+
+### オープンモジュールとクローズドモジュールの指定 {#specify-module-type}
+
+`type` 属性には、業務モジュールをオープンモジュールとクローズドモジュールのどちらとするかを指定します。
+それぞれの違いは以下の通りです。
+
+- クローズドモジュール（ `#!java Type.CLOSED` ）: 既定値です。他の業務モジュールから参照できる型は、ルートパッケージ直下の型だけです。
+- オープンモジュール（ `#!java Type.OPEN` ）: サブパッケージに配置した型を含め、すべての型を他の業務モジュールから参照できます。
+
+業務モジュールは、原則としてクローズドモジュールとし、内部実装を他の業務モジュールから隠蔽します。
+複数の業務モジュールから共有する `shared` パッケージのように、サブパッケージの型も公開する場合は、オープンモジュールとします。
+
+```java title="shared/package-info.java" hl_lines="3"
+@ApplicationModule(
+    displayName = "共有モジュール",
+    type = Type.OPEN)
+package com.example.applicationmodules.shared;
+
+import org.springframework.modulith.ApplicationModule;
+import org.springframework.modulith.ApplicationModule.Type;
+```
+
+!!! warning "オープンモジュールの利用"
+
+    オープンモジュールは内部実装を隠蔽できないため、業務モジュール間の結合度が高くなりやすい定義方法です。
+    オープンモジュールとして定義する業務モジュールは、必要最小限にとどめてください。
+
 ## MyBatis Generator によるコードの自動生成 {#code-generation-with-mybatis-generator}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->

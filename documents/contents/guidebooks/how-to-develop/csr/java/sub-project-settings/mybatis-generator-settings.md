@@ -3,18 +3,19 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset -->
+<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset xxcontext-->
 
 # MyBatis Generator の設定 {#top}
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-
 application-modules プロジェクトにおいて、 MyBatis Generator を利用してテーブルエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
 
-<!-- textlint-enable ja-technical-writing/sentence-length -->
-
 自動生成したクラスは、コンテキストの内部実装に該当します。
-そのため、対象コンテキストの `internal/infrastructure/repository/mybatis/generated` パッケージへ出力します。
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+そのため、対象コンテキストの `src/main/java/{ プロジェクトのグループ名 }/applicationmodules/xxcontext/internal/infrastructure/repository/mybatis/generated` パッケージへ出力します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ## 事前準備 {#preparation}
 
