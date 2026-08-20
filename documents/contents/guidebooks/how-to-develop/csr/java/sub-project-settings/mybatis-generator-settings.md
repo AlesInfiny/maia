@@ -3,7 +3,7 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset xxcontext -->
+<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset -->
 
 # MyBatis Generator の設定 {#top}
 

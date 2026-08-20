@@ -8,7 +8,6 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 application-modules プロジェクトで必要な設定を解説します。
 
 application-modules プロジェクトには、コンテキストごとの業務モジュールを配置します。
-業務モジュールは業務ロジックとデータアクセス処理の双方を含むため、両方の実装に必要なライブラリを設定します。
 なお、システム共通機能は system-common プロジェクトに配置し、 application-modules プロジェクトには含めません。
 
 ## 依存ライブラリの設定 {#config-dependencies}
