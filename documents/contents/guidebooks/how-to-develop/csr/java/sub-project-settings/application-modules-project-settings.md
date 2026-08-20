@@ -3,11 +3,21 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
+<!-- cspell:ignore xxcontext yycontext -->
+
 # application-modules プロジェクトの設定 {#top}
 
 application-modules プロジェクトで必要な設定を解説します。
+application-modules プロジェクトには、区切られた文脈単位に分割された業務モジュールを配置します。
 
-application-modules プロジェクトには、コンテキストごとの業務モジュールを配置します。
+```text
+application-modules/
+ └ src/main/java/{ プロジェクトのグループ名 }/applicationmodules
+   ├ xxcontext --------------------------------- Xxコンテキストのルートパッケージ 
+   ├ yycontext --------------------------------- Yyコンテキストのルートパッケージ
+   └ shared ------------------------------------ 複数のコンテキスト間で共有するパッケージ
+```
+
 なお、システム共通機能は system-common プロジェクトに配置し、 application-modules プロジェクトには含めません。
 
 ## 依存ライブラリの設定 {#config-dependencies}
