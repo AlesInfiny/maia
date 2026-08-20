@@ -22,7 +22,7 @@ include 'application-modules', 'web', 'batch', 'system-common' // サブプロ�
 
 次に、ルートプロジェクトにある不要な記述を取り除きます。`build.gradle`から以下の項目を削除してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2 3 4 7 8 9 11 12 13 14 15 17 18 19 22 23 24 27 28 29"
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-4 7-9 11-15 17-19 22-24 27-29"
 plugins {
   id 'java'
   id 'org.springframework.boot' version 'x.x.x'
@@ -264,7 +264,7 @@ JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
-```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6 7 8 9 10"
+```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6-10"
 subprojects {
   jacocoTestReport {
     reports {

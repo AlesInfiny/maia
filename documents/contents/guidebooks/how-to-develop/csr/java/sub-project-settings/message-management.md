@@ -3,8 +3,6 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cspell:ignore applicationmodules systemcommon -->
-
 # メッセージ管理機能の設定 {#top}
 
 バックエンドのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/client-side-rendering/global-function/message-management-policy.md#backend-application) をご確認ください。
@@ -64,6 +62,6 @@ spring.messages.basename=applicationmodules.messages,systemcommon.messages
 
 ??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
 
-    ```java title="ProblemDetailsFactory.java" hl_lines="26 27 40 42"
+    ```java title="ProblemDetailsFactory.java" hl_lines="24 25 38 40"
     https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java
     ```

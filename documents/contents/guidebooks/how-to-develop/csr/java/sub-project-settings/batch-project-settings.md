@@ -29,13 +29,12 @@ dependencies {
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
-batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+batch プロジェクトは application-modules 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
 
 ```groovy title="batch/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
+  implementation project(':application-modules')
   implementation project(':system-common')
 }
 ```
@@ -116,7 +115,7 @@ configurations {
 
 [こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
 
-```groovy title="batch/build.gradle" hl_lines="1 2 3"
+```groovy title="batch/build.gradle" hl_lines="1-3"
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -185,8 +184,7 @@ class BatchApplicationTests {
       implementation 'org.springframework.boot:spring-boot-starter-batch'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-      implementation project(':application-core')
-      implementation project(':infrastructure')
+      implementation project(':application-modules')
       implementation project(':system-common')
 
       testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'

@@ -3,15 +3,22 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset -->
+<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset xxcontext -->
 
 # MyBatis Generator の設定 {#top}
 
-infrastructure プロジェクトにおいて、 MyBatis Generator を利用してテーブルエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+application-modules プロジェクトにおいて、 MyBatis Generator を利用してテーブルエンティティやマッパーインターフェース、 SQL マッピングファイルを自動的に生成するための設定について解説します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+自動生成したクラスは、コンテキストの内部実装に該当します。
+そのため、対象コンテキストの `internal/infrastructure/repository/mybatis/generated` パッケージへ出力します。
 
 ## 事前準備 {#preparation}
 
-本手順を実行する前に [infrastructure プロジェクトの設定](./infrastructure-project-settings.md) を完了してください。
+本手順を実行する前に [application-modules プロジェクトの設定](./application-modules-project-settings.md) を完了してください。
 
 MyBatis Generator を実行する際は、生成対象となるテーブルが作成されたデータベースを稼働させる必要があります。
 本設定では [H2 Console :material-open-in-new:](https://www.h2database.com/html/download.html){ target=_blank } を利用して H2 Database に以下の DDL と DML を実行し、テーブルを作成しています。
@@ -54,8 +61,17 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
 
 ## MyBatis Generator の設定ファイルの作成 {#generator-files-settings}
 
-infrastructure プロジェクトの src/main/resources フォルダーに設定ファイルである mybatisGeneratorConfig.xml を追加します。
+application-modules プロジェクトの src/main/resources フォルダーに設定ファイルである mybatisGeneratorConfig.xml を追加します。
 mybatisGeneratorConfig.xml に設定する各要素については、[こちら :material-open-in-new:](https://mybatis.org/generator/configreference/xmlconfig.html){ target=_blank } を参照してください。
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+モジュラーモノリスアーキテクチャでは、テーブルはいずれかのコンテキストに属します。
+自動生成したクラスがコンテキストの境界をまたがないよう、 `targetPackage` にはコンテキストごとの generated パッケージを指定します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+`<context>` 要素はコンテキストごとに定義し、対象テーブルと出力先パッケージを対応付けます。
 
 サンプルアプリケーションにおける設定例は以下の通りです。
 
@@ -77,7 +93,7 @@ mybatisGeneratorConfig.xml に設定する各要素については、[こちら 
     また、`<modelGenerator>` や `<sqlMapGenerator>` 等の `targetPackage` や `targetProject` の設定はフォルダー構成に合わせて修正してください。
 
 MyBatis Generator が生成する Mapper XML は `src/main/resources` に出力し、開発者が手動で管理する Mapper XML は `src/main/java` 配下に配置しています。
-そのため、 `src/main/java` 配下の XML ファイルもリソースとして読み込めるように、以下の設定を infrastructure プロジェクトの build.gradle に記述します。
+そのため、 `src/main/java` 配下の XML ファイルもリソースとして読み込めるように、以下の設定を application-modules プロジェクトの build.gradle に記述します。
 
 ```groovy title="build.gradle"
 sourceSets {
@@ -93,7 +109,7 @@ sourceSets {
 
 ## 依存ライブラリの設定 {#config-dependencies}
 
-infrastructure プロジェクトの build.gradle の configurations に MyBatis Generator 実行用の依存関係のカスタム構成を定義します。
+application-modules プロジェクトの build.gradle の configurations に MyBatis Generator 実行用の依存関係のカスタム構成を定義します。
 
 ```groovy title="build.gradle"
 configurations {
@@ -158,7 +174,7 @@ tasks.register('runMyBatisGenerator') {
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="自動生成タスクの実行コマンド"
-./gradlew infrastructure:runMyBatisGenerator
+./gradlew application-modules:runMyBatisGenerator
 ```
 
 実行後、 mybatisGeneratorConfig.xml の `<modelGenerator>` や `<sqlMapGenerator>` 等で設定した配置場所にファイルが自動生成されていることを確認してください。
@@ -173,16 +189,16 @@ MyBatis Generator によって自動生成されたコードは、既定の Spot
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
   <Match>
-    <Class name="~com\.dressca\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
+    <Class name="~com\.dressca\.applicationmodules\..*\.internal\.infrastructure\.repository\.mybatis\.generated\.entity\..*EntityExample(\$GeneratedCriteria)?" />
     <Method name="~get(OredCriteria|AllCriteria|Criteria)" />
     <Bug code="EI" />
   </Match>
 </FindBugsFilter>
 ```
 
-??? info "ここまでの手順を実行した際の `infrastructure/build.gradle` の例"
+??? info "ここまでの手順を実行した際の `application-modules/build.gradle` の例"
 
-    ```groovy title="infrastructure/build.gradle"
+    ```groovy title="application-modules/build.gradle"
     plugins {
       id 'java'
       id 'org.springframework.boot' version 'x.x.x'
@@ -221,12 +237,13 @@ MyBatis Generator によって自動生成されたコードは、既定の Spot
     }
 
     dependencies {
+      implementation platform("org.springframework.modulith:spring-modulith-bom:x.x.x")
+      implementation 'org.springframework.boot:spring-boot-transaction'
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
-      implementation 'com.h2database:h2'
 
-      implementation project(':application-core')
-      implementation project(':system-common')
+      compileOnly 'org.springframework.modulith:spring-modulith-starter-core'
 
+      testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
       testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:x.x.x'
 
       mybatisTasks "org.mybatis.generator:mybatis-generator-core:x.x.x"
