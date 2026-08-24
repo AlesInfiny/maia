@@ -2,8 +2,8 @@ package com.dressca.batch.job.catalog;
 
 import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.infrastructure.item.database.AbstractPagingItemReader;
 
@@ -20,7 +20,7 @@ public class CatalogItemPagingItemReader extends AbstractPagingItemReader<Catalo
     List<CatalogItem> items = catalogApplicationService
         .getCatalogItemsWithPaging(getPage() * getPageSize(), getPageSize());
     if (results == null) {
-      results = new CopyOnWriteArrayList<>();
+      results = new ArrayList<>();
     } else {
       results.clear();
     }
