@@ -15,7 +15,7 @@ ext {
     springModulithVersion = "2.1.0"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.9.0"
+    checkstyleToolVersion = "13.11.0"
     jacocoToolVersion = "0.8.15"
     spotbugsToolVersion = "4.10.3"
 
