@@ -14,7 +14,7 @@
   </Match>
 
   <!--
-    Spring DI により注入される Repository は不変参照として保持される設計であり、
+    Spring DI により注入される Repository、Service は不変参照として保持される設計であり、
     外部から変更されることはないため EI_EXPOSE_REP2 の警告を除外する。
   -->
   <Match>
