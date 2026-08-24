@@ -1,7 +1,7 @@
 package com.dressca.batch.job.tasklet.catalog;
 
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
-import com.dressca.applicationmodules.catalogmanagement.internal.domain.repository.CatalogRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -24,19 +24,19 @@ import org.springframework.stereotype.Component;
 @StepScope
 public class CatalogItemTasklet implements Tasklet {
 
-  private final CatalogRepository repository;
+  private final CatalogApplicationService catalogApplicationService;
 
   private final String output;
 
   /**
    * Tasklet の依存関係と出力先設定を受け取ります。
    *
-   * @param repository カタログ商品を取得するリポジトリ。
+   * @param catalogApplicationService カタログ商品を取得するアプリケーションサービス。
    * @param output 出力ファイル名。 Job パラメータから取得します。
    */
-  public CatalogItemTasklet(CatalogRepository repository,
+  public CatalogItemTasklet(CatalogApplicationService catalogApplicationService,
       @Value("${output:#{null}}") String output) {
-    this.repository = repository;
+    this.catalogApplicationService = catalogApplicationService;
     this.output = output;
   }
 
@@ -44,7 +44,8 @@ public class CatalogItemTasklet implements Tasklet {
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
       throws Exception {
     // DB から CatalogItem を全件取得
-    List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
+    List<CatalogItem> catalogItemList =
+        catalogApplicationService.getCatalogItemsWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
     // 商品名を先頭 10 文字にする
     catalogItemList.forEach(it -> {

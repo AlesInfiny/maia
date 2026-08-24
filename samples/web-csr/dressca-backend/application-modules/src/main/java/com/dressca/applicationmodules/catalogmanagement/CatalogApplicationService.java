@@ -112,6 +112,21 @@ public class CatalogApplicationService {
   }
 
   /**
+   * バッチ処理向けに、ページング条件を指定してカタログアイテムを取得します。
+   * 
+   * @param skipRows データ取得をスキップする行数。
+   * @param pageSize データ取得行数の最大値。
+   * @return 条件に一致するカタログアイテムのリスト。存在しない場合は空のリスト。
+   */
+  public List<CatalogItem> getCatalogItemsWithPaging(int skipRows, int pageSize) {
+    apLog.debug(messages.getMessage(
+        CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS_WITH_PAGING,
+        new Object[] {skipRows, pageSize}, Locale.getDefault()));
+
+    return this.catalogRepository.findWithPaging(skipRows, pageSize);
+  }
+
+  /**
    * カタログにアイテムを追加します。
    * 
    * @param name 商品名。

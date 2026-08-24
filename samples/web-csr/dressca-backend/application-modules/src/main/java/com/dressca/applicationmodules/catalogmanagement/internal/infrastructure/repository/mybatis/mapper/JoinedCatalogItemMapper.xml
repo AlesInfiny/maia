@@ -99,7 +99,7 @@
     <where>
       IS_DELETED = false
     </where>
-    LIMIT #{_skiprows}, #{_pagesize}
+    LIMIT #{pageSize} OFFSET #{skipRows}
   </select>
 
   <select id="findById" resultMap="catalogItemsIncludeAssetResultMap">

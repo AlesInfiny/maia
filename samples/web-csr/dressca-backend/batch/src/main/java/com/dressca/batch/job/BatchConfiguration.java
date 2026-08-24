@@ -2,10 +2,9 @@
 package com.dressca.batch.job;
 
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.batch.job.catalog.CatalogItemPagingItemReader;
 import com.dressca.batch.job.catalog.CatalogItemProcessor;
 import com.dressca.batch.job.tasklet.catalog.CatalogItemTasklet;
-import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.job.parameters.RunIdIncrementer;
@@ -25,8 +24,6 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.dressca"})
-@MapperScan(basePackages = {
-    "com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis"})
 public class BatchConfiguration {
 
   /**
@@ -70,8 +67,7 @@ public class BatchConfiguration {
    */
   @Bean
   public Step catalogItem_step1(JobRepository jobRepository,
-      PlatformTransactionManager transactionManager,
-      MyBatisPagingItemReader<CatalogItem> catalogItemReader,
+      PlatformTransactionManager transactionManager, CatalogItemPagingItemReader catalogItemReader,
       CatalogItemProcessor catalogItemProcessor,
       FlatFileItemWriter<CatalogItem> catalogItemWriter) {
     // 複数の Processor を連結する場合は下記のように CompositeItemProcessor を利用する
