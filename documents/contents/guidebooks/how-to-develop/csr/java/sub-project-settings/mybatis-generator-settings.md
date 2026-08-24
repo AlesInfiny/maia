@@ -65,13 +65,6 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
 application-modules プロジェクトの src/main/resources フォルダーに設定ファイルである mybatisGeneratorConfig.xml を追加します。
 mybatisGeneratorConfig.xml に設定する各要素については、[こちら :material-open-in-new:](https://mybatis.org/generator/configreference/xmlconfig.html){ target=_blank } を参照してください。
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-
-モジュラーモノリスアーキテクチャでは、テーブルはいずれかのコンテキストに属します。
-自動生成したクラスがコンテキストの境界をまたがないよう、 `targetPackage` にはコンテキストごとの generated パッケージを指定します。
-
-<!-- textlint-enable ja-technical-writing/sentence-length -->
-
 `<context>` 要素はコンテキストごとに定義し、対象テーブルと出力先パッケージを対応付けます。
 
 サンプルアプリケーションにおける設定例は以下の通りです。
