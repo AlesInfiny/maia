@@ -42,7 +42,7 @@ public interface JoinedCatalogItemMapper {
       @Param("categoryId") UUID categoryId);
 
   /**
-   * ページング条件を指定して、カタログアイテム ID の昇順でカタログアイテムを取得します。
+   * ページング条件を指定してカタログアイテムを取得します。
    * 
    * @param skipRows 読み飛ばす行数。
    * @param pageSize 取得件数。
