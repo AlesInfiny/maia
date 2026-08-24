@@ -27,6 +27,10 @@ public class CatalogManagementMessageIdConstants {
   public static final String D_CATALOG_GET_CATALOG_ITEMS =
       "catalogApplicationServiceGetCatalogItems";
 
+  /** 条件（スキップ行数: {0}, ページサイズ: {1}）に一致するカタログ情報を取得します。 */
+  public static final String D_CATALOG_GET_CATALOG_ITEMS_WITH_PAGING =
+      "catalogApplicationServiceGetCatalogItemsWithPaging";
+
   /** フィルタリング用のカタログカテゴリリストを取得します。 */
   public static final String D_CATALOG_GET_CATEGORIES = "catalogApplicationServiceGetCategories";
 

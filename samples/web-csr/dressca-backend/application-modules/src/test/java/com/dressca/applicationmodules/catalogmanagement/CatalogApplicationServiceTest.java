@@ -222,6 +222,36 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
+  void testGetCatalogItemsWithPaging_正常系_リポジトリのfindWithPagingを1回呼出す() {
+    // Arrange
+    int skipRows = 0;
+    int pageSize = 10;
+
+    // Act
+    service.getCatalogItemsWithPaging(skipRows, pageSize);
+
+    // Assert
+    verify(this.catalogRepository, times(1)).findWithPaging(skipRows, pageSize);
+  }
+
+  @Test
+  void testGetCatalogItemsWithPaging_正常系_指定したページングの条件のカタログアイテムのリストが返却される() {
+    // Arrange
+    int skipRows = 0;
+    int pageSize = 10;
+    CatalogItem catalogItem = createCatalogItem(UUID.randomUUID());
+    List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
+    when(this.catalogRepository.findWithPaging(skipRows, pageSize))
+        .thenReturn(expectedCatalogItemList);
+
+    // Act
+    List<CatalogItem> actualCatalogItemList = service.getCatalogItemsWithPaging(skipRows, pageSize);
+
+    // Assert
+    assertThat(actualCatalogItemList).isEqualTo(expectedCatalogItemList);
+  }
+
+  @Test
   void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す() throws PermissionDeniedException,
       CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
     // Arrange
