@@ -1,11 +1,3 @@
-buildscript {
-	// buildscript クラスパス（Gradle プラグインとその推移的依存）もロック対象とします。
-	// ロック状態は buildscript-gradle.lockfile に出力されます。
-	configurations.classpath {
-		resolutionStrategy.activateDependencyLocking()
-	}
-}
-
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version "${springBootVersion}"

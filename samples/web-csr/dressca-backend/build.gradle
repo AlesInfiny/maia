@@ -40,6 +40,10 @@ subprojects {
   apply plugin: 'checkstyle'
   apply plugin: 'com.github.spotbugs'
 
+  compileJava.options.encoding = 'UTF-8'
+  compileTestJava.options.encoding = 'UTF-8'
+  javadoc.options.encoding = 'UTF-8'
+  
   // 依存関係のバージョンをロックファイル（gradle.lockfile）で固定します。
   // https://docs.gradle.org/current/userguide/dependency_locking.html
   dependencyLocking {
@@ -47,11 +51,15 @@ subprojects {
     // ロック状態が存在しない configuration があればビルドを失敗させます。
     lockMode = LockMode.STRICT
   }
-
-  compileJava.options.encoding = 'UTF-8'
-  compileTestJava.options.encoding = 'UTF-8'
-  javadoc.options.encoding = 'UTF-8'
   
+  // 各サブプロジェクトの buildscript クラスパスを
+  // プロジェクトごとの buildscript-gradle.lockfile でロックします。
+  buildscript {
+    configurations.classpath {
+      resolutionStrategy.activateDependencyLocking()
+    }
+  }
+
   configurations {
     mockitoAgent
   }
