@@ -28,10 +28,11 @@ dependencies {
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
 
-	implementation project(':application-core')
-	implementation project(':infrastructure')
+	implementation project(':application-modules')
 	implementation project(':system-common')
 	implementation project(':web')
+
+	runtimeOnly supportDependencies.postgresql
 
 	testImplementation supportDependencies.spring_boot_starter_webmvc_test
 	testImplementation supportDependencies.spring_boot_starter_security_test

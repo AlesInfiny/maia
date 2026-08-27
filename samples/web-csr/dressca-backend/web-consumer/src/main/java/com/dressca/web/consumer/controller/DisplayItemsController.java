@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.DisplayItemApplicationService;
-import com.dressca.applicationcore.displayitem.DisplayItem;
+import com.dressca.applicationmodules.shopping.DisplayItemApplicationService;
+import com.dressca.applicationmodules.shopping.entity.DisplayItem;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemResponse;
 import com.dressca.web.consumer.controller.dto.displayitem.PagedListOfGetDisplayItemResponse;
 import com.dressca.web.consumer.mapper.DisplayItemMapper;

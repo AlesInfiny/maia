@@ -5,8 +5,13 @@
   "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <!-- 自動生成クラスはチェックしない -->
-  <suppress checks=".*" files="com[\\/]dressca[\\/]infrastructure[\\/]repository[\\/]mybatis[\\/]generated"/>
+  <!--
+    自動生成クラスはチェックしない。
+    MyBatis Generator の生成物はテーブルを所有するコンテキストの
+    internal/infrastructure/repository/mybatis/generated 配下に出力されるため、
+    コンテキスト名に依存しないパターンで指定する。
+  -->
+  <suppress checks=".*" files="[\\/]mybatis[\\/]generated[\\/]"/>
   <!-- テストクラスのメソッド名はチェックしない（日本語を使用するため） -->
   <suppress checks="MethodName" files=".*Test.java$"/>
   <!-- テストクラスのメソッド名はチェックしない（英語の略語を使用するため） -->
