@@ -9,6 +9,12 @@ import org.gradle.process.CommandLineArgumentProvider
 
 buildscript {
   apply from: 'dependencies.gradle'
+
+  // buildscript クラスパス（Gradle プラグインとその推移的依存）もロック対象とします。
+  // ロック状態は buildscript-gradle.lockfile に出力されます。
+  configurations.classpath {
+    resolutionStrategy.activateDependencyLocking()
+  }
 }
 
 plugins {
@@ -37,6 +43,22 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  // 依存関係のバージョンをロックファイル（gradle.lockfile）で固定します。
+  // https://docs.gradle.org/current/userguide/dependency_locking.html
+  dependencyLocking {
+    lockAllConfigurations()
+    // ロック状態が存在しない configuration があればビルドを失敗させます。
+    lockMode = LockMode.STRICT
+  }
+
+  // 各サブプロジェクトの buildscript クラスパスを
+  // プロジェクトごとの buildscript-gradle.lockfile でロックします。
+  buildscript {
+    configurations.classpath {
+      resolutionStrategy.activateDependencyLocking()
+    }
+  }
 
   configurations {
     mockitoAgent
@@ -108,4 +130,15 @@ subprojects {
       }
     }
   }
+}
+
+// 全プロジェクトの依存関係を解決するタスクです。
+// `./gradlew allDependencies --write-locks` を実行することで、
+// 各プロジェクトの gradle.lockfile を一括で生成・更新できます。
+// dependencies タスクはルートプロジェクトのみを対象とするため、集約タスクを定義しています。
+tasks.register('allDependencies') {
+  group = 'help'
+  description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+  dependsOn tasks.named('dependencies')
+  dependsOn subprojects.collect { "${it.path}:dependencies" }
 }
