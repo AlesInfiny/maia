@@ -9,6 +9,7 @@
     "Appender",
     "Appenders",
     "applicationmodules",
+    "archunit",
     "assertj",
     "assetsmanagement",
     "Batis",
@@ -46,6 +47,7 @@
     "systemcommon",
     "taskdef",
     "tasklet",
+    "tngtech",
     "todofuken",
     "VARCHAR",
     "webmvc"
