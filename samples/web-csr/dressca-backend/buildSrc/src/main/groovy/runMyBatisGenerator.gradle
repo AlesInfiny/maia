@@ -1,0 +1,48 @@
+// 呼び出し元のプロジェクトから、MyBatis Generator の実行に必要なパス・クラスパスを設定するための拡張です。
+interface RunMyBatisGeneratorConfig {
+  // MyBatis Generator が生成した Java ファイルの格納先ディレクトリ
+  DirectoryProperty getJavaTargetProjectDirectory()
+  // MyBatis Generator が生成したリソースファイル（マッパー XML 等）の格納先ディレクトリ
+  DirectoryProperty getResourcesTargetProjectDirectory()
+  // テーブル定義を読み込むための schema.sql ファイル
+  RegularFileProperty getSchemaFile()
+  // MyBatis Generator の設定ファイル
+  RegularFileProperty getConfigFile()
+  // MyBatis Generator の Ant タスク実行に使用するクラスパス
+  ConfigurableFileCollection getGeneratorClasspath()
+}
+
+def runMyBatisGeneratorConfig =
+    project.extensions.create('runMyBatisGeneratorConfig', RunMyBatisGeneratorConfig)
+
+tasks.register('runMyBatisGenerator') {
+  doLast {
+    def javaTargetProjectDirectory = runMyBatisGeneratorConfig.javaTargetProjectDirectory.get().asFile
+    def resourcesTargetProjectDirectory = runMyBatisGeneratorConfig.resourcesTargetProjectDirectory.get().asFile
+    def schemaFile = runMyBatisGeneratorConfig.schemaFile.get().asFile
+    def configFile = runMyBatisGeneratorConfig.configFile.get().asFile
+
+    ant.project.setProperty('mbg.java.targetProject', javaTargetProjectDirectory.absolutePath)
+    ant.project.setProperty('mbg.resources.targetProject', resourcesTargetProjectDirectory.absolutePath)
+    ant.project.setProperty('mbg.schema.path', schemaFile.absolutePath.replace('\\', '/'))
+
+    // MyBatis Generator のタスクを定義します。
+    ant.taskdef(
+      name: 'mybatisGenerator',
+      classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+      classpath: runMyBatisGeneratorConfig.generatorClasspath.asPath
+    )
+    // MyBatis Generator による自動生成を実行します。
+    ant.mybatisGenerator(
+      javaMergeEnabled: true,
+      configfile: configFile,
+      verbose: true
+    ) {
+      propertyset {
+        propertyref(name: 'mbg.java.targetProject')
+        propertyref(name: 'mbg.resources.targetProject')
+        propertyref(name: 'mbg.schema.path')
+      }
+    }
+  }
+}
