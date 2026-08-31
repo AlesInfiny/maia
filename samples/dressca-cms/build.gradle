@@ -9,10 +9,24 @@ import org.gradle.process.CommandLineArgumentProvider
 
 buildscript {
   apply from: 'dependencies.gradle'
+
+  // ルートプロジェクトの plugins ブロックで宣言したプラグインとその推移的依存を固定
+  // ロック状態はルートプロジェクトの buildscript-gradle.lockfile に出力
+  configurations.classpath {
+    resolutionStrategy.activateDependencyLocking()
+  }
 }
 
 plugins {
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
+}
+
+// ルートプロジェクトが依存するライブラリとその推移的依存を固定
+// ロック状態はルートプロジェクトの gradle.lockfile に出力
+dependencyLocking {
+  lockAllConfigurations()
+  // ロック状態が存在しない configuration があればビルドを失敗させる
+  lockMode = LockMode.STRICT
 }
 
 // MockitoのAgentを -javaagent 引数として提供する CommandLineArgumentProvider
@@ -37,6 +51,23 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  // 各サブプロジェクトの plugins ブロックで宣言したプラグインとその推移的依存を固定
+  // ロック状態はサブプロジェクトごとの buildscript-gradle.lockfile に出力
+  buildscript {
+    configurations.classpath {
+      resolutionStrategy.activateDependencyLocking()
+    }
+  }
+
+  // 各サブプロジェクトが依存するライブラリとその推移的依存を固定
+  // ロック状態はサブプロジェクトごとの gradle.lockfile に出力
+  // https://docs.gradle.org/current/userguide/dependency_locking.html
+  dependencyLocking {
+    lockAllConfigurations()
+    // ロック状態が存在しない configuration があればビルドを失敗させる
+    lockMode = LockMode.STRICT
+  }
 
   configurations {
     mockitoAgent
@@ -108,4 +139,12 @@ subprojects {
       }
     }
   }
+}
+
+// `./gradlew allDependencies --write-locks` で各プロジェクトのロックファイルを一括生成・更新
+tasks.register('allDependencies') {
+  group = 'help'
+  description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+  dependsOn tasks.named('dependencies')
+  dependsOn subprojects.collect { "${it.path}:dependencies" }
 }
