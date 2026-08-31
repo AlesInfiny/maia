@@ -5,7 +5,7 @@ import com.dressca.applicationmodules.assetsmanagement.internal.infrastructure.r
 import org.springframework.beans.BeanUtils;
 
 /**
- * 静的アセット管理の文脈において、テーブルエンティティとエンティティを相互に変換するクラスです。
+ * アセット管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
  */
 public class AssetEntityTranslator {
 
