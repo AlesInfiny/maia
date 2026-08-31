@@ -11,4 +11,5 @@ MyBatis Generator の設定は CSR 編と同様です。
 
 [こちら](../../../csr/java/sub-project-settings/mybatis-generator-settings.md) を参照してください。
 
-MyBatis Generator の設定ファイルの配置および Gradle タスクの定義は infrastructure プロジェクトではなく、機能モジュールのプロジェクトに配置してください。
+MyBatis Generator の設定ファイルの配置および Gradle タスクの定義は application-modules プロジェクトではなく、機能モジュールのプロジェクトに配置してください。
+また、 SSR 編ではコンテキスト単位でパッケージを分割しないため、出力先のパッケージは機能モジュールのフォルダー構成に合わせて指定してください。

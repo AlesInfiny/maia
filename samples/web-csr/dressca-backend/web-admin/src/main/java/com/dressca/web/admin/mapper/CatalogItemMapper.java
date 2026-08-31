@@ -1,10 +1,10 @@
 package com.dressca.web.admin.mapper;
 
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItemAsset;
+import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogItemAsset;
-import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 
 /**
  * {@link CatalogItem} と {@link GetCatalogItemResponse} のマッパーです。

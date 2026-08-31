@@ -3,7 +3,7 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-## system-common プロジェクトの設定 {#top}
+# system-common プロジェクトの設定 {#top}
 
 system-common プロジェクトの依存ライブラリについては、 Spring Boot アプリケーションを実装する上で必要なライブラリを除き、必須または推奨するライブラリはありません。
 開発するシステム共通部品で必要なライブラリを適宜追加します。
@@ -68,7 +68,7 @@ tasks.named('test') {
 ```
 
 また、併せて不要なファイルを削除します。
-system-common プロジェクトの `src` 以下にある、 `SystemCommonApplication.java` と `SystemCommonApplicationTest.java` を削除してください。
+system-common プロジェクトの `src` 以下にある、 `SystemCommonApplication.java` と `SystemCommonApplicationTests.java` を削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。

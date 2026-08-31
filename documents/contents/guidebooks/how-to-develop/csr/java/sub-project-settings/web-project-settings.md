@@ -39,13 +39,12 @@ dependencies {
 
 ## 依存プロジェクトの設定 {#config-projects}
 
-web プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+web プロジェクトは application-modules 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
   
 ```groovy title="web/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
+  implementation project(':application-modules')
   implementation project(':system-common')
 }
 ```
@@ -53,7 +52,7 @@ dependencies {
 ## Spring Boot の設定 {#config-spring}
 
 web プロジェクトに関する Spring Boot のプロパティ等を設定します。
-web プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+web プロジェクトの `src/main/resources` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
 設定できる項目については、以下を参照してください。
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
@@ -127,7 +126,7 @@ tasks.named('test') {
 
 ## ログの設定 {#logging-configuration}
 
-`src/main/resource` に `log4j2.xml` ファイルを配置しログの設定を記述します。
+`src/main/resources` に `log4j2.xml` ファイルを配置しログの設定を記述します。
 以下は、ログの設定例です。
 
 ```xml title="log4j2.xml"
@@ -177,7 +176,7 @@ OpenAPI 仕様書のファイルがビルド時に出力されるようプロジ
 以下に、 `application.properties` と `build.gradle` への設定内容を例示します。
 SpringDoc OpenAPI Gradle Plugin のバージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-gradle-plugin){ target=_blank } を参照してください。
 
-```properties title="web/src/main/resource/application.properties"
+```properties title="web/src/main/resources/application.properties"
 # springdoc-openapi用のURLを指定
 springdoc.api-docs.path=/api-docs
 ```
@@ -243,10 +242,9 @@ build.dependsOn("generateOpenApiDocs")
       implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:x.x.x'
       implementation 'com.h2database:h2'
 
-      implementation project(':application-core')
-      implementation project(':infrastructure')
+      implementation project(':application-modules')
       implementation project(':system-common')
-      
+
       testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }

@@ -1,13 +1,13 @@
 package com.dressca.web.admin.controller;
 
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.authorization.PermissionDeniedException;
-import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogNotFoundException;
-import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
-import com.dressca.applicationcore.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.exception.PermissionDeniedException;
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogBrandNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
@@ -62,8 +62,7 @@ public class CatalogItemsController {
    * @return カタログアイテム。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "指定した ID のカタログアイテムを返します。",
-      description = "指定した ID のカタログアイテムを返します。")
+  @Operation(summary = "指定した ID のカタログアイテムを返します。", description = "指定した ID のカタログアイテムを返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
@@ -98,8 +97,7 @@ public class CatalogItemsController {
    * @return カタログアイテムの一覧。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "カタログアイテムを検索して返します。",
-      description = "カタログアイテムを検索して返します。")
+  @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
@@ -133,8 +131,7 @@ public class CatalogItemsController {
    * @return なし。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "カタログにアイテムを追加します。",
-      description = "カタログにアイテムを追加します。")
+  @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
@@ -202,8 +199,7 @@ public class CatalogItemsController {
    * @throws OptimisticLockingFailureException 楽観ロックエラー。
    * @throws PermissionDeniedException 認可エラー。
    */
-  @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。",
-      description = "指定した ID のカタログアイテムの情報を更新します。")
+  @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。", description = "指定した ID のカタログアイテムの情報を更新します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
