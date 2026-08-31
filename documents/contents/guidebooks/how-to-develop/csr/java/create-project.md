@@ -6,7 +6,6 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 # プロジェクトの雛型作成 {#top}
 
 ## Spring Initializr の利用 {#use-spring-initializr}
-<!-- cSpell:ignore applicationcore -->
 
 各 Gradle Groovy DSL プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。
@@ -57,7 +56,12 @@ Web 画面上の各種設定項目は以下の通りです。
 ## サブプロジェクトの作成 {#create-sub-projects}
 
 ルートプロジェクトと同様に、サブプロジェクトの雛型を Spring Initializr を利用して作成します。
-AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層およびシステム共通機能を 1 つのサブプロジェクトとして対応させることを推奨します。
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+AlesInfiny Maia OSS Edition では、モジュラーモノリスアーキテクチャを採用する場合、境界付けられたコンテキスト単位のモジュール群、プレゼンテーション層、システム共通機能をそれぞれ 1 つのサブプロジェクトとして対応させることを推奨します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-light.png#only-light){ loading=lazy }
 ![推奨するサブプロジェクト](../../../../images/guidebooks/how-to-develop/csr/java/recommended-subproject-dark.png#only-dark){ loading=lazy }
@@ -83,7 +87,7 @@ AlesInfiny Maia OSS Edition では、アプリケーションコア層、プレ�
 - Project Metadata：Package Name
 
     パッケージ名を設定します。
-    通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.application-core というパッケージ名であれば、 com.example.applicationcore のように修正してください。
+    通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.system-common というパッケージ名であれば、 com.example.systemcommon のように修正してください。
 
 - Dependencies
 

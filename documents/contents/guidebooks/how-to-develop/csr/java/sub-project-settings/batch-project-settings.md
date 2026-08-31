@@ -10,7 +10,7 @@ batch プロジェクトで必要な設定を解説します。
 
 ## batch プロジェクトの依存ライブラリの設定 {#config-dependencies}
 
-batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
+batch プロジェクトには、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリを追加します。
 データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
 batch プロジェクトで利用を推奨するライブラリは以下の通りです。
 
@@ -29,13 +29,12 @@ dependencies {
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
-batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+batch プロジェクトは application-modules 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
 
 ```groovy title="batch/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
+  implementation project(':application-modules')
   implementation project(':system-common')
 }
 ```
@@ -43,7 +42,7 @@ dependencies {
 ## Spring Boot の設定 {#config-spring}
 
 batch プロジェクトに関する Spring Boot のプロパティ等を設定します。
-batch プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+batch プロジェクトの `src/main/resources` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
 設定できる項目については、以下を参照してください。
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
@@ -116,7 +115,7 @@ configurations {
 
 [こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
 
-```groovy title="batch/build.gradle" hl_lines="1 2 3"
+```groovy title="batch/build.gradle" hl_lines="1-3"
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -138,9 +137,9 @@ public static void main(String[] args) {
 }
 ```
 
-また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTest.java` を書き換えます。
+また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTests.java` を書き換えます。
 
-```java title="BatchApplicationTest.java"
+```java title="BatchApplicationTests.java"
 ・・・
 import org.springframework.batch.test.context.SpringBatchTest; // 追加
 
@@ -185,8 +184,7 @@ class BatchApplicationTests {
       implementation 'org.springframework.boot:spring-boot-starter-batch'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-      implementation project(':application-core')
-      implementation project(':infrastructure')
+      implementation project(':application-modules')
       implementation project(':system-common')
 
       testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
