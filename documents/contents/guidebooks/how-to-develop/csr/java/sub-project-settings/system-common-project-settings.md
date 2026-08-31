@@ -68,7 +68,7 @@ tasks.named('test') {
 ```
 
 また、併せて不要なファイルを削除します。
-system-common プロジェクトの `src` 以下にある、 `SystemCommonApplication.java` と `SystemCommonApplicationTest.java` を削除してください。
+system-common プロジェクトの `src` 以下にある、 `SystemCommonApplication.java` と `SystemCommonApplicationTests.java` を削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。

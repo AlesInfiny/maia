@@ -8,13 +8,13 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 # application-modules プロジェクトの設定 {#top}
 
 application-modules プロジェクトで必要な設定を解説します。
-application-modules プロジェクトには、区切られた文脈単位に分割されたモジュールを配置します。
+application-modules プロジェクトには、境界付けられたコンテキスト単位に分割されたモジュールを配置します。
 
 ```text
 application-modules/
  └ src/main/java/{ プロジェクトのグループ名 }/applicationmodules
-   ├ xxcontext --------------------------------- Xxコンテキストのルートパッケージ 
-   ├ yycontext --------------------------------- Yyコンテキストのルートパッケージ
+   ├ xxcontext --------------------------------- Xx コンテキストのルートパッケージ 
+   ├ yycontext --------------------------------- Yy コンテキストのルートパッケージ
    └ shared ------------------------------------ 複数のコンテキスト間で共有するパッケージ
 ```
 
@@ -22,7 +22,7 @@ application-modules/
 
 ## 依存ライブラリの設定 {#config-dependencies}
 
-application-modules プロジェクトで必要になるライブラリは、データアクセス処理やモジュラーモノリスアーキテクチャの実装に必要なライブラリです。
+application-modules プロジェクトには、データアクセス処理やモジュラーモノリスアーキテクチャの実装に必要なライブラリを追加します。
 データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 application-modules プロジェクトで利用を推奨するライブラリは以下の通りです。
 
@@ -30,8 +30,8 @@ application-modules プロジェクトで利用を推奨するライブラリは
 - `spring-modulith-bom`: Spring Modulith の依存関係を管理するための BOM
 - `spring-modulith-starter-core`: モジュラーモノリスアーキテクチャを実装するためのスターター
 - `spring-modulith-starter-test`: モジュラーモノリスアーキテクチャのテストを実装するためのスターター
-- `mybatis-spring-boot-starter`： MyBatis と Spring Boot を統合するためのスターター
-- `mybatis-spring-boot-starter-test`： MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
+- `mybatis-spring-boot-starter`: MyBatis と Spring Boot を統合するためのスターター
+- `mybatis-spring-boot-starter-test`: MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
 
 ```groovy title="application-modules/build.gradle"
 dependencies {
@@ -112,7 +112,7 @@ tasks.named('test') {
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
 また、併せて不要なファイルを削除します。
-application-modules プロジェクトの `src` 以下にある、 `ApplicationModulesApplication.java` と `ApplicationModulesApplicationTest.java` を削除してください。
+application-modules プロジェクトの `src` 以下にある、 `ApplicationModulesApplication.java` と `ApplicationModulesApplicationTests.java` を削除してください。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -151,6 +151,8 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
       implementation 'org.springframework.boot:spring-boot-transaction'
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
 
+      implementation project(':system-common')
+
       compileOnly 'org.springframework.modulith:spring-modulith-starter-core'
 
       testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
@@ -175,7 +177,7 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
 
 ## モジュールの追加 {#add-application-module}
 
-application-modules プロジェクトに、区切られた文脈単位のモジュールを追加する手順を解説します。
+application-modules プロジェクトに、境界付けられたコンテキスト単位のモジュールを追加する手順を解説します。
 モジュールは、 Spring Modulith のアプリケーションモジュールとして定義します。
 アプリケーションモジュールとして定義することで、モジュール間の依存関係を Spring Modulith で検証できます。
 アプリケーションモジュールの詳細は、[Spring Modulith のリファレンスドキュメント :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/fundamentals.html){ target=_blank } を参照してください。
@@ -240,7 +242,7 @@ import org.springframework.modulith.ApplicationModule.Type;
 
 !!! warning "オープンモジュールの利用"
 
-    オープンモジュールは内部実装を隠蔽できないため、モジュール間の結合度が高くなりやすい定義方法です。
+    オープンモジュールは内部実装を隠蔽できないため、モジュール間の結合度が高くなりやすくなります。
     オープンモジュールとして定義するモジュールは、必要最小限にとどめてください。
 
 ## MyBatis Generator によるコードの自動生成 {#code-generation-with-mybatis-generator}

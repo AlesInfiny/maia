@@ -10,7 +10,7 @@ batch プロジェクトで必要な設定を解説します。
 
 ## batch プロジェクトの依存ライブラリの設定 {#config-dependencies}
 
-batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
+batch プロジェクトには、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリを追加します。
 データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
 batch プロジェクトで利用を推奨するライブラリは以下の通りです。
 
@@ -137,9 +137,9 @@ public static void main(String[] args) {
 }
 ```
 
-また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTest.java` を書き換えます。
+また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTests.java` を書き換えます。
 
-```java title="BatchApplicationTest.java"
+```java title="BatchApplicationTests.java"
 ・・・
 import org.springframework.batch.test.context.SpringBatchTest; // 追加
 

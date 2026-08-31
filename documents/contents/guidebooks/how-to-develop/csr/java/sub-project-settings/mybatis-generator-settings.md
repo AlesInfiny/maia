@@ -3,7 +3,7 @@ title: Java 編 （CSR 編）
 description: CSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset xxcontext-->
+<!-- cSpell:ignore configfile javaparser taskdef OredCriteria propertyref propertyset xxcontext -->
 
 # MyBatis Generator の設定 {#top}
 
@@ -234,6 +234,8 @@ MyBatis Generator によって自動生成されたコードは、既定の Spot
       implementation platform("org.springframework.modulith:spring-modulith-bom:x.x.x")
       implementation 'org.springframework.boot:spring-boot-transaction'
       implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:x.x.x'
+
+      implementation project(':system-common')
 
       compileOnly 'org.springframework.modulith:spring-modulith-starter-core'
 
