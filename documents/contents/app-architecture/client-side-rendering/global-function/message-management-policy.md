@@ -3,7 +3,7 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon -->
+<!-- cspell:ignore systemcommon -->
 
 # メッセージ管理方針 {#top}
 
@@ -171,8 +171,8 @@ locales/ -------------------------------------- メッセージ管理を行う�
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-core/src/main/resources
- │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
+ ├ application-modules/src/main/resources
+ │ └ applicationmodules -------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
  │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
  └ system-common/src/main/resources
    └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一括管理するフォルダー
@@ -186,8 +186,8 @@ root/ ------------------------------------------- root フォルダー
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-core/src/main/resources
- │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
+ ├ application-modules/src/main/resources
+ │ └ applicationmodules -------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
  │    ├ messages_en.properties ------------------ 業務メッセージのプロパティファイル（英語）
  │    └ messages_ja.properties ------------------ 業務メッセージのプロパティファイル（日本語）
  └ system-common/src/main/resources
