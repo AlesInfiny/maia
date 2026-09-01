@@ -26,7 +26,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ??? example "本番環境の Cookie の属性の設定を定義する application-prd.properties の設定例"
 
     ```java title="application-prd.properties"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties#L11-L14
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties:11:14"
     ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
@@ -40,7 +40,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ??? example "Cookie の設定値を保持する CookieSettings.java"
 
     ```java title="CookieSettings.java"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/CookieSettings.java
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/CookieSettings.java"
     ```
 
 次に、 Spring Boot で提供されている [ResponseCookie :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html){ target=_blank } を利用して Cookie に設定値を反映させます。
@@ -50,7 +50,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ??? example "ResponseCookie を利用したサンプルアプリケーションの実装例"
 
     ```java title="BuyerIdFilter.java" hl_lines="57-62"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/filter/BuyerIdFilter.java
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/filter/BuyerIdFilter.java"
     ```
 
 最後に、上記で実装したフィルターを Bean 登録します。
@@ -58,7 +58,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 ??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig.java"
 
     ```java title=""
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java"
     ```
 
 これにより、 Cookie に CSRF 対策を施すことができます。

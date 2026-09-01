@@ -79,5 +79,5 @@ ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装�
 ??? example "ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
 
     ```java title="ExceptionHandlerControllerAdvice.java" hl_lines="29 30 76-85 93-102 110-119"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java
+    --8<-- "samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java"
     ```

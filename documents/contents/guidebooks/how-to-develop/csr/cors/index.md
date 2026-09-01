@@ -65,7 +65,7 @@ cors.allowed.origins=https://dev.frontend.example.com
 !!! example "許可するオリジンを読み込む `CorsAllowedOriginsProperties.java` の実装例"
 
     ```java title="CorsAllowedOriginsProperties.java"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/security/CorsAllowedOriginsProperties.java#L10-L22
+    --8<-- "samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/security/CorsAllowedOriginsProperties.java:10:22"
     ```
 
 ### CORS ポリシーの設定 {#configure-cors-policy}
@@ -77,7 +77,7 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
 ??? example "`WebSecurityConfig.java` の CORS 設定例"
 
     ```java title="WebSecurityConfig.java"　hl_lines="40 51-63"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java"
     ```
 
 まず、[`#!java @EnableWebSecurity` :material-open-in-new:](https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html){ target=_blank } を付与することで、このクラスが Spring Security の設定クラスであることを示します。

@@ -66,7 +66,7 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
 ```typescript title="i18n.ts"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/locales/i18n.ts
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/locales/i18n.ts"
 ```
 
 メッセージ管理機能を導入するための `createI18n` の引数の役割は以下の通りです。

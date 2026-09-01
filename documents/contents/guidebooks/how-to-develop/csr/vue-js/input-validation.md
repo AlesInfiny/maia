@@ -23,7 +23,7 @@ npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 メッセージを多言語対応する場合には、それぞれの言語の JSON ファイルを作成し、各言語のメッセージをフォルダーで分割して管理します。
 
 ```json title="validationTextList_ja.json"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/locales/ja/validationTextList_ja.json
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/locales/ja/validationTextList_ja.json"
 ```
 
 ## 入力値検証時の設定 {#settings-validation}
@@ -32,7 +32,7 @@ https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/co
 共通スキーマをファイル `./src/validation/validation-items.ts` に以下のように定義し、 Vue I18n を使用してデフォルトのエラーメッセージを設定します。
 
 ```typescript title="validation-items.ts"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/validation/validation-items.ts
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/validation/validation-items.ts"
 ```
 
 作成したファイルを読み込むため、 入力値を検証する Vue ファイルのスクリプト構文に以下を記述します。

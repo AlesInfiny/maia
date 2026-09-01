@@ -234,6 +234,10 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
+      # --8<-- の埋め込み元として許可するディレクトリ。
+      base_path:
+        - . # documents/ 配下
+        - .. # リポジトリルート（samples/ 配下のサンプルコード埋め込み用）
       auto_append:
         - includes/abbreviations.md
   - pymdownx.superfences:
@@ -262,9 +266,6 @@ extra:
 
 extra_css:
   - stylesheets/overrides.css
-
-hooks:
-  - hooks/github_markdown_fetcher.py
 
 plugins:
   - git-revision-date-localized:
