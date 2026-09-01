@@ -65,6 +65,10 @@ buildscript {
       apply plugin: 'checkstyle'
       apply plugin: 'com.github.spotbugs'
 
+      compileJava.options.encoding = 'UTF-8'
+      compileTestJava.options.encoding = 'UTF-8'
+      javadoc.options.encoding = 'UTF-8'
+
       dependencies {
         // Lombok の設定
         annotationProcessor 'org.projectlombok:lombok'
