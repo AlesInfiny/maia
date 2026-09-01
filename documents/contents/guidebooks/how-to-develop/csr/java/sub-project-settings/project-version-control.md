@@ -18,6 +18,12 @@ ext {
   springBootVersion = 'x.x.x'
   springDependencyManagementVersion = 'x.x.x'
   springdocOpenapiGradlePluginVersion = 'x.x.x'
+  spotbugsGradlePluginVersion = 'x.x.x'
+
+  // ツールのバージョン
+  checkstyleToolVersion = 'x.x.x'
+  spotbugsToolVersion = 'x.x.x'
+  jacocoToolVersion = 'x.x.x'
 
   // 依存ライブラリのバージョン
   springdocOpenapiVersion = 'x.x.x'
@@ -47,6 +53,27 @@ buildscript {
 }
 ```
 
+[プロジェクトの共通設定](../common-project-settings.md#common-plugin) で解説した SpotBugs プラグインのバージョンも、同様に変数を参照する形に修正します。
+併せて、 Checkstyle・SpotBugs・JaCoCo の `toolVersion` も変数を参照する形に修正します。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="2 7 10 13"
+plugins {
+  id 'com.github.spotbugs' version "${spotbugsGradlePluginVersion}" apply false
+}
+
+subprojects {
+  checkstyle {
+    toolVersion = "${checkstyleToolVersion}"
+  }
+  spotbugs {
+    toolVersion = "${spotbugsToolVersion}"
+  }
+  jacoco {
+    toolVersion = "${jacocoToolVersion}"
+  }
+}
+```
+
 ??? info "ここまでの手順を実行した際の `{ルートプロジェクト}/build.gradle` の例"
 
     ```groovy title="{ルートプロジェクト}/build.gradle"
@@ -55,7 +82,7 @@ buildscript {
     }
 
     plugins {
-      id 'com.github.spotbugs' version 'x.x.x' apply false
+      id 'com.github.spotbugs' version "${spotbugsGradlePluginVersion}" apply false
     }
 
     subprojects {
@@ -85,13 +112,17 @@ buildscript {
       }
 
       checkstyle {
-        toolVersion = 'x.x.x'
+        toolVersion = "${checkstyleToolVersion}"
       }
 
       spotbugs {
-        toolVersion = 'x.x.x'
+        toolVersion = "${spotbugsToolVersion}"
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      jacoco {
+        toolVersion = "${jacocoToolVersion}"
       }
 
       jacocoTestReport {

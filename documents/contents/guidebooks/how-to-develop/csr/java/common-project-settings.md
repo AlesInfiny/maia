@@ -174,6 +174,20 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 
 Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
 
+Checkstyle が解析に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されます。
+下記の「Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法」に記載の通り、インプットファイルとの組み合わせによってはエラーの発生する場合があります。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+subprojects {
+  checkstyle {
+    toolVersion = 'x.x.x'
+  }
+}
+```
+
+`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
+
 ??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
 
     インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
@@ -191,14 +205,7 @@ Checkstyle プラグインのその他の設定項目については、[こち�
 
 ??? info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
 
-    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、 Checkstyle の toolVersion に最新のバージョンを指定してください。
-    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
-    subprojects {
-      checkstyle {
-        toolVersion = 'x.x.x'
-      }
-    }
-    ```
+    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、上記の `toolVersion` に最新のバージョンを指定してください。
 
 VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle) を利用している場合、 Checkstyle プラグインに適用したルールを Checkstyle for Java にも適用します。
 ルートディレクトリ直下の .vscode フォルダーの `settings.json` に設定を追記します。
@@ -223,14 +230,20 @@ SpotBugs を利用する際、自動生成されたクラスやメソッドが S
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
 フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+また、 SpotBugs が解析に利用するツール本体のバージョン（`toolVersion`）も明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
 subprojects {
   spotbugs {
+    toolVersion = 'x.x.x'
     excludeFilter.set(rootProject.file('フィルタファイルのパス'))
     ignoreFailures = true
   }
 }
 ```
+
+`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
 
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
@@ -261,6 +274,19 @@ SpotBugs プラグインのその他の設定項目については、[こちら 
 #### JaCoCo プラグイン {#jacoco-plugin}
 
 JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
+
+JaCoCo がカバレッジ計測に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+subprojects {
+  jacoco {
+    toolVersion = 'x.x.x'
+  }
+}
+```
+
+`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
@@ -375,8 +401,13 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
 
       spotbugs {
+        toolVersion = 'x.x.x'
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      jacoco {
+        toolVersion = 'x.x.x'
       }
 
       jacocoTestReport {
