@@ -232,6 +232,23 @@ subprojects {
 }
 ```
 
+SpotBugs はデフォルトでコンソール上に警告を出力しますが、詳細を確認しやすくするために、以下のように `spotbugsMain` タスクに対して HTML 形式のレポートを出力する設定を追加できます。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3-9"
+subprojects {
+  spotbugsMain {
+    reports {
+      // XML 形式のレポートが不要な場合は以下を追加
+      xml.required = false
+      html {
+        required = true
+        outputLocation = file("${buildDir}/reports/spotbugs/main.html")
+      }
+    }
+  }
+}
+```
+
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
     Lombok を利用している場合、Lombok が自動生成するコードに対して SpotBugs の警告が出力される場合があります。
@@ -255,6 +272,19 @@ subprojects {
     ```
 
     SpotBugs Annotations のバージョンは、[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-annotations){ target=_blank } を参照してください。
+
+??? info "SpotBugs の実行時に SLF4J に関する警告が出力される場合の対処法"
+
+    SpotBugs Gradle Plugin では、 SLF4J の実装ライブラリを指定していない場合に警告が出力されることがあります（[spotbugs-gradle-plugin#136 :material-open-in-new:](https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136){ target=_blank }）。
+    この警告を解消するには、 `spotbugsSlf4j` の configuration に SLF4J の実装ライブラリを追加してください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+    subprojects {
+      dependencies {
+        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
+      }
+    }
+    ```
 
 SpotBugs プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/gradle.html){ target=_blank } を参照してください。
 
@@ -360,6 +390,8 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
         testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+
+        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
       }
 
       test {
@@ -377,6 +409,17 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       spotbugs {
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      spotbugsMain {
+        reports {
+          // XML 形式のレポートが不要な場合は以下を追加
+          xml.required = false
+          html {
+            required = true
+            outputLocation = file("${buildDir}/reports/spotbugs/main.html")
+          }
+        }
       }
 
       jacocoTestReport {
