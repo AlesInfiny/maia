@@ -112,7 +112,7 @@ AlesInfiny Maia では、 [Spring Security :material-open-in-new:](https://sprin
 
 ??? example "`SecurityFilterChain` の HTTP レスポンスヘッダー設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="35-36"
+    ```java title="WebSecurityConfig.java" hl_lines="35-36"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java"
     ```
 

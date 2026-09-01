@@ -76,7 +76,7 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
 
 ??? example "`WebSecurityConfig.java` の CORS 設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="40 51-63"
+    ```java title="WebSecurityConfig.java" hl_lines="40 51-63"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java"
     ```
 

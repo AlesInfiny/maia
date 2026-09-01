@@ -25,7 +25,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 ??? example "本番環境の Cookie の属性の設定を定義する application-prd.properties の設定例"
 
-    ```java title="application-prd.properties"
+    ```properties title="application-prd.properties"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties:11:14"
     ```
 
@@ -57,7 +57,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 ??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig.java"
 
-    ```java title=""
+    ```java title="DresscaWebConfig.java"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java"
     ```
 
