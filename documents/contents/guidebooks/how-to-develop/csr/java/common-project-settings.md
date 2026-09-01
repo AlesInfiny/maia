@@ -187,8 +187,6 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
 
-Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
-
 Checkstyle が解析に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されます。
 Gradle のデフォルトバージョンの Checkstyle では、 Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いにより、エラーとなる可能性があります。
@@ -215,6 +213,8 @@ VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visua
   }
 }
 ```
+
+Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
 
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
@@ -269,18 +269,6 @@ SpotBugs プラグインのその他の設定項目については、[こちら 
 
 JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
 
-JaCoCo がカバレッジ計測に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
-バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
-バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.jacoco/org.jacoco.build){ target=_blank } を参照してください。
-
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
-subprojects {
-  jacoco {
-    toolVersion = 'x.x.x'
-  }
-}
-```
-
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
 ```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6-10"
@@ -298,7 +286,17 @@ subprojects {
 }
 ```
 
-JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
+JaCoCo がカバレッジ計測に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.jacoco/org.jacoco.build){ target=_blank } を参照してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+subprojects {
+  jacoco {
+    toolVersion = 'x.x.x'
+  }
+}
+```
 
 また、 test タスクの実行後に JaCoCo のカバレッジ・レポートが自動的に生成されるようにする場合、 test タスクの設定に以下の記述を追加してください。
 
@@ -313,6 +311,8 @@ subprojects {
   }
 }
 ```
+
+JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
 ### フォーマッターの設定 {#formatter-settings}
 
