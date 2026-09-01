@@ -51,7 +51,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 
 ```java title="Exception クラスをハンドリングするメソッドの例"
 @ExceptionHandler(Exception.class)
-public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
+public ResponseEntity<ProblemDetail> handleException(Exception e) {
   // 例外のハンドリングを行う処理
 }
 ```
