@@ -186,8 +186,6 @@ subprojects {
 }
 ```
 
-`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
-
 ??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
 
     インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
@@ -243,8 +241,6 @@ subprojects {
 }
 ```
 
-`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
-
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
     Lombok を利用している場合、Lombok が自動生成するコードに対して SpotBugs の警告が出力される場合があります。
@@ -285,8 +281,6 @@ subprojects {
   }
 }
 ```
-
-`toolVersion` は他のプラグインのバージョンと同様に、サブプロジェクト間の齟齬を防ぐため [プラグイン、依存ライブラリのバージョン定義一元化](./sub-project-settings/project-version-control.md) の手順に従って一元管理することを推奨します。
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 

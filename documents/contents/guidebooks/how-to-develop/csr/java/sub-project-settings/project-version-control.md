@@ -18,7 +18,7 @@ ext {
   springBootVersion = 'x.x.x'
   springDependencyManagementVersion = 'x.x.x'
   springdocOpenapiGradlePluginVersion = 'x.x.x'
-  spotbugsGradlePluginVersion = 'x.x.x'
+  spotbugsVersion = 'x.x.x'
 
   // ツールのバージョン
   checkstyleToolVersion = 'x.x.x'
@@ -58,7 +58,7 @@ buildscript {
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="2 7 10 13"
 plugins {
-  id 'com.github.spotbugs' version "${spotbugsGradlePluginVersion}" apply false
+  id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
 }
 
 subprojects {
@@ -82,7 +82,7 @@ subprojects {
     }
 
     plugins {
-      id 'com.github.spotbugs' version "${spotbugsGradlePluginVersion}" apply false
+      id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
     }
 
     subprojects {
