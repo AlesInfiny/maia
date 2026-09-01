@@ -234,7 +234,7 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
-      # --8<-- の埋め込み元として許可するディレクトリ。
+      # スニペット埋め込みで参照する相対パスの起点ディレクトリ。
       base_path:
         - . # documents/ 配下
         - .. # リポジトリルート（samples/ 配下のサンプルコード埋め込み用）
