@@ -53,7 +53,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
 - データソース
     - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.hikari.url：データベースの JDBC URL
+    - spring.datasource.hikari.jdbc-url：データベースの JDBC URL
     - spring.datasource.hikari.username：データベースのログインユーザー名
     - spring.datasource.hikari.password：データベースのログインパスワード
 - データベース初期化設定
@@ -68,7 +68,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
     ```properties title="開発環境での設定例（ H2 Database を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.h2.Driver
-    spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:h2:mem:データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=embedded
@@ -77,7 +77,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.postgresql.Driver
-    spring.datasource.hikari.url=jdbc:postgresql://localhost:5432/データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:postgresql://localhost:5432/データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
