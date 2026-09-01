@@ -176,7 +176,8 @@ Checkstyle プラグインのその他の設定項目については、[こち�
 
 Checkstyle が解析に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されます。
-下記の「Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法」に記載の通り、インプットファイルとの組み合わせによってはエラーの発生する場合があります。
+Gradle のデフォルトバージョンの Checkstyle では、 Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いにより、エラーとなる可能性があります。
+[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、以下の `toolVersion` に最新のバージョンを指定してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
 subprojects {
@@ -200,10 +201,6 @@ subprojects {
       }
     }
     ```
-
-??? info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
-
-    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、上記の `toolVersion` に最新のバージョンを指定してください。
 
 VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle) を利用している場合、 Checkstyle プラグインに適用したルールを Checkstyle for Java にも適用します。
 ルートディレクトリ直下の .vscode フォルダーの `settings.json` に設定を追記します。
