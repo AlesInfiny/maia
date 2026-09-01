@@ -132,10 +132,10 @@ subprojects {
   // SpotBugs実施後、HTMLレポート出力も同時に行う
   spotbugsMain {
     reports {
-      xml.enabled = false
+      xml.required = false
       html {
-        enabled = true
-        destination = file("${buildDir}/reports/spotbugs/main.html")
+        required = true
+        outputLocation = file("${buildDir}/reports/spotbugs/main.html")
       }
     }
   }
