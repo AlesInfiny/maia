@@ -169,6 +169,21 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
 
+??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
+
+    インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4 6"
+    subprojects {
+      checkstyle {
+        // インプットファイルに任意の命名を適用する場合
+        configFile = file('ディレクトリパスを含むインプットファイル名')
+        // デフォルトの階層以外にある checkstyle.xml をインプットファイルとして読み込む場合
+        configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
+      }
+    }
+    ```
+
 また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
 設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
 
@@ -186,21 +201,6 @@ subprojects {
   }
 }
 ```
-
-??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
-
-    インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
-
-    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="4 6"
-    subprojects {
-      checkstyle {
-        // インプットファイルに任意の命名を適用する場合
-        configFile = file('ディレクトリパスを含むインプットファイル名')
-        // デフォルトの階層以外にある checkstyle.xml をインプットファイルとして読み込む場合
-        configDirectory = rootProject.file('インプットファイルが格納されたディレクトリパス')
-      }
-    }
-    ```
 
 VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle) を利用している場合、 Checkstyle プラグインに適用したルールを Checkstyle for Java にも適用します。
 ルートディレクトリ直下の .vscode フォルダーの `settings.json` に設定を追記します。
