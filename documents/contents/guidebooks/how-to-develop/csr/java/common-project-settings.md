@@ -230,6 +230,7 @@ SpotBugs のフィルタリングの設定内容については、[こちら :ma
 
 また、 SpotBugs が解析に利用するツール本体のバージョン（`toolVersion`）も明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs){ target=_blank } を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
 subprojects {
@@ -273,6 +274,7 @@ JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方
 
 JaCoCo がカバレッジ計測に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.jacoco/org.jacoco.build){ target=_blank } を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
 subprojects {
