@@ -6,7 +6,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 # プラグイン、依存ライブラリのバージョン定義一元化 {#top}
 <!-- cSpell:ignore buildscript subprojects projectlombok Dspring -->
 
-アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
+アプリケーションが使用する各種プラグイン、ツールおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
 ## ルートプロジェクトの設定 {#config-root-project}
 
