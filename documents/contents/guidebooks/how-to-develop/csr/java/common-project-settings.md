@@ -190,7 +190,7 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 Checkstyle が解析に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されます。
 Gradle のデフォルトバージョンの Checkstyle では、 Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いにより、エラーとなる可能性があります。
-[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、以下の `toolVersion` に最新のバージョンを指定してください。
+[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、利用する JDK のバージョンと互換性のある範囲で、以下の `toolVersion` に適切なバージョンを指定してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
 subprojects {
@@ -271,7 +271,7 @@ JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
-```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6-10"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="6-10"
 subprojects {
   jacocoTestReport {
     reports {
