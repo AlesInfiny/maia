@@ -278,9 +278,11 @@ subprojects {
     SpotBugs Gradle Plugin では、 SLF4J の実装ライブラリを指定していない場合に警告が出力されることがあります（[spotbugs-gradle-plugin#136 :material-open-in-new:](https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136){ target=_blank }）。
     この警告を解消するには、 `spotbugsSlf4j` の configuration に SLF4J の実装ライブラリを追加してください。
 
-    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3-5"
     subprojects {
       dependencies {
+        // SpotBugsの警告対策
+        // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
         spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
       }
     }
@@ -391,6 +393,8 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
         testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
 
+        // SpotBugsの警告対策
+        // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
         spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
       }
 
