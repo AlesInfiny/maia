@@ -236,7 +236,7 @@ npm run build
         AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
         ```typescript title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
-        --8<-- "samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts:22:23"
+        --8<-- "samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts:22:24"
         ```
 
 [^1]: 本ページでは、 TypeScript から JavaScript への変換を指します。
