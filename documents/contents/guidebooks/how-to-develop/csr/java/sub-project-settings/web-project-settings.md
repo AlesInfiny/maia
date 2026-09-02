@@ -80,7 +80,7 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
 
     ```properties title="開発環境での設定例（ H2 Database を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.h2.Driver
-    spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:h2:mem:データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=embedded
@@ -89,7 +89,7 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
     
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.postgresql.Driver
-    spring.datasource.hikari.url=jdbc:postgresql://localhost:5432/データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:postgresql://localhost:5432/データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
