@@ -242,7 +242,7 @@ subprojects {
       xml.required = false
       html {
         required = true
-        outputLocation = file("${buildDir}/reports/spotbugs/main.html")
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
       }
     }
   }
@@ -421,7 +421,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
           xml.required = false
           html {
             required = true
-            outputLocation = file("${buildDir}/reports/spotbugs/main.html")
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
           }
         }
       }

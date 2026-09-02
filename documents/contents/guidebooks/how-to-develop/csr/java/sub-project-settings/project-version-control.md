@@ -104,7 +104,7 @@ buildscript {
           xml.required = false
           html {
             required = true
-            outputLocation = file("${buildDir}/reports/spotbugs/main.html")
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
           }
         }
       }
