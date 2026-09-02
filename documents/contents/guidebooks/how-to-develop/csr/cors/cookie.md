@@ -49,7 +49,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 ??? example "ResponseCookie を利用したサンプルアプリケーションの実装例"
 
-    ```java title="BuyerIdFilter.java" hl_lines="57-62"
+    ```java title="BuyerIdFilter.java" hl_lines="58-64"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/filter/BuyerIdFilter.java"
     ```
 
