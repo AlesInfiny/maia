@@ -122,10 +122,10 @@ VS Code のターミナルで、「dressca\\dressca-frontend」にいること�
 
 Consumer アプリケーションに実装された機能の確認手順を示します。
 
-#### カタログアイテムを注文する {#order-catalog-item}
+#### 陳列品を注文する {#order-display-item}
 
-![カタログアイテム注文の画面遷移図](../../images/samples/screen-flow-order-light.png#only-light){ width="1200" loading=lazy }
-![カタログアイテム注文の画面遷移図](../../images/samples/screen-flow-order-dark.png#only-dark){ width="1200" loading=lazy }
+![陳列品注文の画面遷移図](../../images/samples/screen-flow-order-light.png#only-light){ width="1200" loading=lazy }
+![陳列品注文の画面遷移図](../../images/samples/screen-flow-order-dark.png#only-dark){ width="1200" loading=lazy }
 
 1. 上記の [Consumer アプリケーションの起動](#start-consumer-application) に従って、 Consumer アプリケーションを実行します。
 

@@ -6,7 +6,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 # プロジェクトの雛型作成 {#top}
 
 ## Spring Initializr の利用 {#use-spring-initializr}
-<!-- cSpell:ignore applicationcore -->
 
 各 Gradle Groovy DSL プロジェクトの雛型は、 Spring Initializr を利用して作成します。
 Spring Initializr は Spring Boot を利用するプロジェクトの雛型を簡潔に作成できるツールです。

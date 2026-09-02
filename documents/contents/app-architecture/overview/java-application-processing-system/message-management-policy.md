@@ -3,7 +3,7 @@ title: Java アプリケーションの 処理方式
 description: アプリケーションの形態によらず、 Java アプリケーションで 考慮すべき関心事について、実装方針を説明します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon -->
+<!-- cspell:ignore systemcommon -->
 
 # メッセージ管理方針 {#top}
 
