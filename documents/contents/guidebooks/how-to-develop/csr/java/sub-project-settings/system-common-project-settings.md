@@ -9,8 +9,8 @@ system-common プロジェクトの依存ライブラリについては、 Sprin
 開発するシステム共通部品で必要なライブラリを適宜追加します。
 system-common プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter`： Spring Boot アプリケーションを構築するための依存関係を提供するスターター
-- `spring-boot-starter-test`：Spring Boot アプリケーションをテストするためのスターター
+- `spring-boot-starter`: Spring Boot アプリケーションを構築するための依存関係を提供するスターター
+- `spring-boot-starter-test`: Spring Boot アプリケーションをテストするためのスターター
 
 ```groovy title="system-common/build.gradle"
 
