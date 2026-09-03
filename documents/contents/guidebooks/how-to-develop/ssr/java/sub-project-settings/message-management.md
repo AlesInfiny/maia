@@ -80,7 +80,7 @@ Spring Framework で提供されている [`#!java PathMatchingResourcePatternRe
     以下のように、プレゼンテーション層を担うサブプロジェクトやシステム共通のサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
 
     ```java title="I18nConfig.java"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/system-common/src/main/java/com/dressca/cms/systemcommon/config/I18nConfig.java
+    --8<-- "samples/dressca-cms/system-common/src/main/java/com/dressca/cms/systemcommon/config/I18nConfig.java"
     ```
 
     読み込むプロパティファイルは `classpath:` 配下の `i18n/<フォルダー名>/<ファイル名>` で指定します。
@@ -102,7 +102,7 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
     言語コードを定数で管理しない場合、ハイライト部を `java.util.Locale` パッケージの `Locale.JAPANESE` に置き換えます。
 
     ```java title="LocaleConfig.java" hl_lines="25"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/web/src/main/java/com/dressca/cms/web/config/LocaleConfig.java
+    --8<-- "samples/dressca-cms/web/src/main/java/com/dressca/cms/web/config/LocaleConfig.java"
     ```
 
 ### メッセージの取得 {#getting-messages}
@@ -118,7 +118,7 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 ??? example "サンプルアプリケーションの UserDetailsServiceImpl.java"
 
     ```java title="UserDetailsServiceImpl.java" hl_lines="17 21 29 30"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/authentication/src/main/java/com/dressca/cms/authentication/applicationcore/UserDetailsServiceImpl.java
+    --8<-- "samples/dressca-cms/authentication/src/main/java/com/dressca/cms/authentication/applicationcore/UserDetailsServiceImpl.java"
     ```
 
 ### HTML とのバインディング {#binding}
