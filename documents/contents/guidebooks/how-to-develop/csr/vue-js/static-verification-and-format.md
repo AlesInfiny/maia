@@ -51,7 +51,7 @@ Visual Studio Code の推奨プラグインである [EditorConfig for Visual St
     そのため、意図せず同じリポジトリ内の別の .editorconfig を参照することがないように、ルートプロジェクトの .editorconfig には `root = true` を設定しておくとよいでしょう。
 
     ```text title="サンプルアプリケーションの .editorconfig" hl_lines="1"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.editorconfig
+    --8<-- "samples/web-csr/dressca-frontend/.editorconfig"
     ```
 
 ## Prettier {#prettier}
@@ -131,8 +131,8 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10-11 13-16 24-25 30 34 37-44 47-50 54-70 75 81-84 88-91"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-9 11-14 22-23 28 32 35-42 45-48 52-68 73-76 82 86-89"
+--8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
 #### mono-repo 用の設定 {#mono-repo-config}
@@ -190,7 +190,7 @@ src フォルダーが eslint.config.ts の直下ではなくなるので、ワ�
 ルートプロジェクトの直下に、 eslint.config.ts 用の tsconfig.json ファイルを作成します。
 
 ```json title="eslint.config.ts 用の tsconfig.json" hl_lines="3"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/tsconfig.json
+--8<-- "samples/web-csr/dressca-frontend/tsconfig.json"
 ```
 
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
@@ -391,7 +391,7 @@ ESLint および Stylelint のオプション引数に `--fix` を、 Prettier �
 一方で、 `:ci` を付与したタスクではこれらのオプションを使用していないため、自動的に修正可能なルール違反であっても修正は実行されません。
 
 ```json title="サンプルアプリケーションの package.json"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/package.json#L21-L28
+--8<-- "samples/web-csr/dressca-frontend/consumer/package.json:18:25"
 ```
 
 ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。
