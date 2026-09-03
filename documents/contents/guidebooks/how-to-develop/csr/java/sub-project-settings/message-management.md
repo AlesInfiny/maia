@@ -51,7 +51,7 @@ spring.messages.basename=applicationmodules.messages,systemcommon.messages
 ??? example "サンプルアプリケーションの ErrorMessageBuilder.java"
 
     ```java title="ErrorMessageBuilder.java" hl_lines="19 20 34 35"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java
+    --8<-- "samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/log/ErrorMessageBuilder.java"
     ```
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
@@ -63,5 +63,5 @@ spring.messages.basename=applicationmodules.messages,systemcommon.messages
 ??? example "サンプルアプリケーションの ProblemDetailsFactory.java"
 
     ```java title="ProblemDetailsFactory.java" hl_lines="24 25 38 40"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java
+    --8<-- "samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ProblemDetailsFactory.java"
     ```

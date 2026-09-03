@@ -9,12 +9,6 @@ import org.gradle.process.CommandLineArgumentProvider
 
 buildscript {
   apply from: 'dependencies.gradle'
-
-  // ルートプロジェクトの plugins ブロックで宣言したプラグインとその推移的依存を固定
-  // ロック状態はルートプロジェクトの buildscript-gradle.lockfile に出力
-  configurations.classpath {
-    resolutionStrategy.activateDependencyLocking()
-  }
 }
 
 plugins {
@@ -51,14 +45,6 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
-  
-  // 各サブプロジェクトの plugins ブロックで宣言したプラグインとその推移的依存を固定
-  // ロック状態はサブプロジェクトごとの buildscript-gradle.lockfile に出力
-  buildscript {
-    configurations.classpath {
-      resolutionStrategy.activateDependencyLocking()
-    }
-  }
   
   // 各サブプロジェクトが依存するライブラリとその推移的依存を固定
   // ロック状態はサブプロジェクトごとの gradle.lockfile に出力
@@ -132,10 +118,10 @@ subprojects {
   // SpotBugs実施後、HTMLレポート出力も同時に行う
   spotbugsMain {
     reports {
-      xml.enabled = false
+      xml.required = false
       html {
-        enabled = true
-        destination = file("${buildDir}/reports/spotbugs/main.html")
+        required = true
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
       }
     }
   }
