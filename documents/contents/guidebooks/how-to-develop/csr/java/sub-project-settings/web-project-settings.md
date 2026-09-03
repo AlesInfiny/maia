@@ -63,7 +63,7 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
 
 - データソース
     - spring.datasource.hikari.driver-class-name: JDBC ドライバーの完全修飾名
-    - spring.datasource.hikari.url: データベースの JDBC URL
+    - spring.datasource.hikari.jdbc-url: データベースの JDBC URL
     - spring.datasource.hikari.username: データベースのログインユーザー名
     - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定

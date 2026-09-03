@@ -38,6 +38,11 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 !!! note "除外設定の管理方法"
     除外設定は Checkstyle の suppressions.xml と SpotBugs の exclude-filter.xml に集約し、除外する理由をコメントとして必ず残します。
+    各設定ファイルの実装方法の詳細は、以下を参照してください。
+
+    - [Checkstyle プラグイン](../../../../guidebooks/how-to-develop/csr/java/common-project-settings.md#checkstyle-plugin)
+    - [SpotBugs プラグイン](../../../../guidebooks/how-to-develop/csr/java/common-project-settings.md#spotbugs-plugin)
+
     ソースコード中の `#!java @SuppressWarnings` による個別の抑制は、除外の全体像が把握できなくなるため原則使用しません。
     テストコードで日本語のメソッド名を使用する場合のように、意図的にコーディング規約と異なる記述を許容する場合も、同様に設定ファイルで管理します。
 
