@@ -12,12 +12,12 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-webmvc`: Spring MVC を使用して Web アプリケーションを構築するためのスターター
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-- `spring-boot-starter-thymeleaf`：Thymeleaf テンプレートエンジンを使用して Web アプリケーションを構築するためのスターター
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
+- `spring-boot-starter-thymeleaf`: Thymeleaf テンプレートエンジンを使用して Web アプリケーションを構築するためのスターター
+- `h2`: テストやローカル実行で利用する組み込みの H2 データベース
+- `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 

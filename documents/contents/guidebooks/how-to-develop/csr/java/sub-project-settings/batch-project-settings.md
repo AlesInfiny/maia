@@ -14,16 +14,16 @@ batch プロジェクトには、バッチ処理の実装やバッチ処理の�
 データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
 batch プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-batch`： Spring Batch アプリケーションを構築するための依存関係を提供するスターター
+- `spring-boot-starter-batch-jdbc`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションを構築するための依存関係を提供するスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-- `spring-boot-starter-batch-test`：Spring Batch アプリケーションをテストするためのスターター
+- `spring-boot-starter-batch-jdbc-test`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションをテストするためのスターター
 
 ```groovy title="batch/build.gradle"
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-batch'
+  implementation 'org.springframework.boot:spring-boot-starter-batch-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-  testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
 }
 ```
 
@@ -52,12 +52,12 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.hikari.jdbc-url：データベースの JDBC URL
-    - spring.datasource.hikari.username：データベースのログインユーザー名
-    - spring.datasource.hikari.password：データベースのログインパスワード
+    - spring.datasource.hikari.driver-class-name: JDBC ドライバーの完全修飾名
+    - spring.datasource.hikari.jdbc-url: データベースの JDBC URL
+    - spring.datasource.hikari.username: データベースのログインユーザー名
+    - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定
-    - spring.sql.init.mode：データベースの初期化有無
+    - spring.sql.init.mode: データベースの初期化有無
 - MyBatis の設定
     - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - バッチ処理
@@ -96,7 +96,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-依存関係に記載している `org.springframework.boot:spring-boot-starter-batch` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+依存関係に記載している `org.springframework.boot:spring-boot-starter-batch-jdbc` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -181,13 +181,13 @@ class BatchApplicationTests {
     }
 
     dependencies {
-      implementation 'org.springframework.boot:spring-boot-starter-batch'
+      implementation 'org.springframework.boot:spring-boot-starter-batch-jdbc'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
       implementation project(':application-modules')
       implementation project(':system-common')
 
-      testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
+      testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 
