@@ -169,11 +169,6 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
 
-また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
-設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
-
-Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
-
 ??? info "インプットファイルの命名や設置する階層をカスタマイズする場合"
 
     インプットファイルに任意の命名を適用する場合や、上記の階層以外にある checkstyle.xml をインプットファイルとして読み込む場合には、 `build.gradle` に以下の記述を追加してください。
@@ -189,16 +184,21 @@ Checkstyle プラグインのその他の設定項目については、[こち�
     }
     ```
 
-??? info "Google Style を適用した Checkstyle のタスクでエラーが起きた場合の対処法"
+また、自動生成されたクラスなど、特定のクラスに対して Checkstyle の静的テスト対象から除外するように設定できます。
+設定方法については、[こちら :material-open-in-new:](https://checkstyle.sourceforge.io/filters/suppressionfilter.html){ target=_blank } を参照してください。
 
-    Gradle がデフォルトで提供する Checkstyle のバージョンでは、Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いを原因とするエラーが起きる可能性があります。[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、 Checkstyle の toolVersion に最新のバージョンを指定してください。
-    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
-    subprojects {
-      checkstyle {
-        toolVersion = 'x.x.x'
-      }
-    }
-    ```
+Checkstyle が解析に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されます。
+Gradle のデフォルトバージョンの Checkstyle では、 Google Style のインプットファイルを適用したタスクでバージョン間の機能の違いにより、エラーとなる可能性があります。
+[こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle){ target=_blank } を参照して、利用する JDK のバージョンと互換性のある範囲で、以下の `toolVersion` に適切なバージョンを指定してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+subprojects {
+  checkstyle {
+    toolVersion = 'x.x.x'
+  }
+}
+```
 
 VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visualstudio.com/items?itemName=shengchen.vscode-checkstyle) を利用している場合、 Checkstyle プラグインに適用したルールを Checkstyle for Java にも適用します。
 ルートディレクトリ直下の .vscode フォルダーの `settings.json` に設定を追記します。
@@ -214,6 +214,8 @@ VS Code の拡張機能である [Checkstyle for Java](https://marketplace.visua
 }
 ```
 
+Checkstyle プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/checkstyle_plugin.html){ target=_blank } を参照してください。
+
 #### SpotBugs プラグイン {#spotbugs-plugin}
 
 SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定方法を解説します。
@@ -221,16 +223,24 @@ SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定�
 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
 このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
-フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+また、 SpotBugs が解析に利用するツール本体のバージョン（`toolVersion`）も明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs){ target=_blank } を参照してください。
+
+フィルタファイルの適用と `toolVersion` の指定方法は以下の `build.gradle` を参照してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
 subprojects {
   spotbugs {
+    toolVersion = 'x.x.x'
     excludeFilter.set(rootProject.file('フィルタファイルのパス'))
     ignoreFailures = true
   }
 }
 ```
+
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs){ target=_blank } を参照してください。
 
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
@@ -264,7 +274,7 @@ JaCoCo プラグインのカスタマイズを行う `build.gradle` の設定方
 
 JaCoCo でカバレッジ・レポートから除外したいファイルやクラスがある場合、以下のように指定します。
 
-```groovy title="{ルートプロジェクト}/build.gradle"　hl_lines="6-10"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="6-10"
 subprojects {
   jacocoTestReport {
     reports {
@@ -279,7 +289,17 @@ subprojects {
 }
 ```
 
-JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
+JaCoCo がカバレッジ計測に利用するツール本体のバージョン（`toolVersion`）は明示的に指定してください。
+バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/org.jacoco/org.jacoco.build){ target=_blank } を参照してください。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3"
+subprojects {
+  jacoco {
+    toolVersion = 'x.x.x'
+  }
+}
+```
 
 また、 test タスクの実行後に JaCoCo のカバレッジ・レポートが自動的に生成されるようにする場合、 test タスクの設定に以下の記述を追加してください。
 
@@ -294,6 +314,8 @@ subprojects {
   }
 }
 ```
+
+JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
 ### フォーマッターの設定 {#formatter-settings}
 
@@ -375,8 +397,13 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
 
       spotbugs {
+        toolVersion = 'x.x.x'
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      jacoco {
+        toolVersion = 'x.x.x'
       }
 
       jacocoTestReport {

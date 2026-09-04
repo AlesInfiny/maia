@@ -6,11 +6,11 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 # プラグイン、依存ライブラリのバージョン定義一元化 {#top}
 <!-- cSpell:ignore buildscript subprojects projectlombok Dspring -->
 
-アプリケーションが使用する各種プラグインおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
+アプリケーションが使用する各種プラグイン、ツールおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
 ## ルートプロジェクトの設定 {#config-root-project}
 
-ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
+ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとツール、ライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
 
 ```groovy title="{ルートプロジェクト}/dependencies.gradle"
 ext {
@@ -18,6 +18,12 @@ ext {
   springBootVersion = 'x.x.x'
   springDependencyManagementVersion = 'x.x.x'
   springdocOpenapiGradlePluginVersion = 'x.x.x'
+  spotbugsVersion = 'x.x.x'
+
+  // ツールのバージョン
+  checkstyleToolVersion = 'x.x.x'
+  spotbugsToolVersion = 'x.x.x'
+  jacocoToolVersion = 'x.x.x'
 
   // 依存ライブラリのバージョン
   springdocOpenapiVersion = 'x.x.x'
@@ -30,6 +36,8 @@ ext {
     spring_boot_starter_webmvc_test : 'org.springframework.boot:spring-boot-starter-webmvc-test',
     springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
     h2database : "com.h2database:h2",
+    lombok : "org.projectlombok:lombok",
+    spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
   ]
 }
 ```
@@ -47,6 +55,35 @@ buildscript {
 }
 ```
 
+[プロジェクトの共通設定](../common-project-settings.md#common-plugin) で解説した SpotBugs プラグインのバージョンも、同様に変数を参照する形に修正します。
+併せて、各サブプロジェクトで共通して利用するライブラリや Checkstyle・SpotBugs・JaCoCo の `toolVersion` も変数を参照する形に修正します。
+
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="2 6-9 11-12 15 18 21"
+plugins {
+  id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
+}
+
+subprojects {
+  annotationProcessor supportDependencies.lombok
+  testAnnotationProcessor supportDependencies.lombok
+  compileOnly supportDependencies.lombok
+  testCompileOnly supportDependencies.lombok
+
+  compileOnly supportDependencies.spotbugs_annotations
+  testCompileOnly supportDependencies.spotbugs_annotations
+  
+  checkstyle {
+    toolVersion = "${checkstyleToolVersion}"
+  }
+  spotbugs {
+    toolVersion = "${spotbugsToolVersion}"
+  }
+  jacoco {
+    toolVersion = "${jacocoToolVersion}"
+  }
+}
+```
+
 ??? info "ここまでの手順を実行した際の `{ルートプロジェクト}/build.gradle` の例"
 
     ```groovy title="{ルートプロジェクト}/build.gradle"
@@ -55,7 +92,7 @@ buildscript {
     }
 
     plugins {
-      id 'com.github.spotbugs' version 'x.x.x' apply false
+      id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
     }
 
     subprojects {
@@ -67,13 +104,13 @@ buildscript {
 
       dependencies {
         // Lombok の設定
-        annotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
-        compileOnly 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
+        annotationProcessor supportDependencies.lombok
+        testAnnotationProcessor supportDependencies.lombok
+        compileOnly supportDependencies.lombok
+        testCompileOnly supportDependencies.lombok
 
-        compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
-        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+        compileOnly supportDependencies.spotbugs_annotations
+        testCompileOnly supportDependencies.spotbugs_annotations
       }
 
       test {
@@ -85,13 +122,17 @@ buildscript {
       }
 
       checkstyle {
-        toolVersion = 'x.x.x'
+        toolVersion = "${checkstyleToolVersion}"
       }
 
       spotbugs {
-        toolVersion = 'x.x.x'
+        toolVersion = "${spotbugsToolVersion}"
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      jacoco {
+        toolVersion = "${jacocoToolVersion}"
       }
 
       jacocoTestReport {
