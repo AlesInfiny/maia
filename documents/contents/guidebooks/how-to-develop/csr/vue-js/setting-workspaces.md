@@ -101,5 +101,5 @@ Node.js の LTS バージョンの情報については、 [Node.js リリース
 設定例を下記に示します。
 
 ```json title="サンプルアプリケーションの .code-workspace"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/dressca-frontend.code-workspace
+--8<-- "samples/web-csr/dressca-frontend/dressca-frontend.code-workspace"
 ```
