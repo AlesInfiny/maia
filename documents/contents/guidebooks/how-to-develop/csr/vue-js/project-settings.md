@@ -53,7 +53,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     デフォルトの設定から変更の必要はありません。
 
     ```json title="サンプルアプリケーション の tsconfig.json"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.json
+    --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.json"
     ```
 
 ??? example "tsconfig.app.json の設定例"
@@ -63,7 +63,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     vitest.setup.ts は、 Vitest での自動テスト実行前後の共通処理を定義するファイルです。
 
     ```json title="サンプルアプリケーション の tsconfig.app.json" hl_lines="3"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.app.json
+    --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.app.json"
     ```
 
 ??? example "tsconfig.node.json の設定例"
@@ -71,7 +71,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     E2E テストには Cypress を使用するので、 `include` キーから nightwatch.conf.\* および playwright.config.\* を削除しています。
 
     ```json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.node.json
+    --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.node.json"
     ```
 
 ??? example "tsconfig.vitest.json の設定例"
@@ -79,7 +79,7 @@ Project Reference 機能については [Project References :material-open-in-ne
     デフォルトでは \_\_tests\_\_ フォルダ直下のファイルのみを検索するように設定されているので、 \_\_tests\_\_ 直下のフォルダ配下も追加で検索するように、`include` キーに指定するパスのパターンを変更しています。
 
     ```json title="サンプルアプリケーション の tsconfig.vitest.json" hl_lines="3"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json
+    --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.vitest.json"
     ```
 
 - `compilerOptions.noEmit`
@@ -157,7 +157,7 @@ npm run build
 ??? example "vite.config.ts の設定例"
 
     ```typescript title="サンプルアプリケーションの vite.config.ts"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts
+    --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts"
     ```
 
 - [条件付き設定 :material-open-in-new:](https://ja.vite.dev/config/#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E8%A8%AD%E5%AE%9A){ target=_blank }
@@ -180,7 +180,7 @@ npm run build
         設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
         ```typescript title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vite.config.ts#L31-L36
+        --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts:31:36"
         ```
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。
@@ -190,7 +190,7 @@ npm run build
     ??? example "vitest.config.ts の実装例"
 
         ```typescript title="サンプルアプリケーションの vitest.config.ts"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/vitest.config.ts
+        --8<-- "samples/web-csr/dressca-frontend/consumer/vitest.config.ts"
         ```
 
 - `loadEnv()`
@@ -235,8 +235,8 @@ npm run build
 
         AlesInfiny Maia サンプルアプリでは、 バックエンドアプリとの API 通信のための OpenAPI や Axios の共通設定は `src/api-client/index.ts` で実装しています。以下の部分で `baseURL` を設定すると、 `dev` モードでビルドした際に `vite.config.ts` の `server.proxy` で設定した通りにパスの書換えができなくなります。そのため、 `dev` モードでは環境変数に空文字を設定して `basePath` `baseURL` に値を設定しないようにする、といった工夫が必要です。
 
-        ```typescript title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="2"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts#L22-L23
+        ```typescript title="サンプルアプリケーションの src/api-client/index.ts (抜粋)" hl_lines="3"
+        --8<-- "samples/web-csr/dressca-frontend/consumer/src/api-client/index.ts:22:24"
         ```
 
 [^1]: 本ページでは、 TypeScript から JavaScript への変換を指します。

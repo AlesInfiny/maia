@@ -27,13 +27,13 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
 ??? example "サンプルアプリケーションの schema.sql"
 
     ```sql title="schema.sql"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/schema.sql
+    --8<-- "samples/web-csr/dressca-backend/application-modules/src/main/resources/schema.sql"
     ```
 
 ??? example "サンプルアプリケーションの data.sql"
 
     ```sql title="data.sql"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/data.sql
+    --8<-- "samples/web-csr/dressca-backend/application-modules/src/main/resources/data.sql"
     ```
 
 !!! warning "MyBatis Generator 実行用のテーブル作成について"
@@ -72,7 +72,7 @@ mybatisGeneratorConfig.xml に設定する各要素については、[こちら 
 ??? example "サンプルアプリケーションの mybatisGeneratorConfig.xml"
 
     ```xml title="mybatisGeneratorConfig.xml"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/infrastructure/src/main/resources/mybatisGeneratorConfig.xml
+    --8<-- "samples/web-csr/dressca-backend/application-modules/src/main/resources/mybatisGeneratorConfig.xml"
     ```
 
     各タブの設定内容は以下の通りです。
