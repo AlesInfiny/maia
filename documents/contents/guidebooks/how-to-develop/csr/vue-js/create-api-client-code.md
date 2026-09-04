@@ -155,7 +155,7 @@ export { defaultApi }
     [^1]: ベースパスは `https://www.example.com` のようなリンク先の基準となる URL です。
 
     ```typescript title="base.ts"
-      --8<-- "samples/web-csr/dressca-frontend/consumer/src/generated/api-client/base.ts:50:59"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/generated/api-client/base.ts:36:45"
     ```
 
 [^2]: ジェネレーターに `"typescript-axios"` を使用する場合に設定可能な値は [こちら :material-open-in-new:](https://openapi-generator.tech/docs/generators/typescript-axios){ target=_blank }を参照ください。
