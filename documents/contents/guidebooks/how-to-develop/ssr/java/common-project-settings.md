@@ -13,7 +13,7 @@ Spring Initializr で作成したルートディレクトリを Visual Studio Co
 
 Spring Initializr を利用して作成したプロジェクトの雛型は、単一のプロジェクト構成を想定したものであるため、マルチプロジェクトとして動作するようにします。
 
-ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。以下のように、`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。なお各プロジェクトの名前はフォルダー名（Spring Initializr で設定した Metadata : Artifact）に対応します。
+ルートプロジェクト内に配置したサブプロジェクトをプロジェクトとして取り込むように、ルートプロジェクト直下の `settings.gradle` を修正します。以下のように、`rootProject.name` にルートプロジェクトの名前を設定し、 `include` にサブプロジェクトの名前を列挙します。なお各プロジェクトの名前はフォルダー名（Spring Initializr で設定した Metadata: Artifact）に対応します。
 
 ```groovy title="{ルートプロジェクト}/settings.gradle"
 rootProject.name = 'xx-system' // ルートプロジェクトの名前

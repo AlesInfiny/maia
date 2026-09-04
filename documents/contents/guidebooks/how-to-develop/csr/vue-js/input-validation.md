@@ -66,17 +66,17 @@ VeeValidate v4 と Zod をつなぐための @vee-validate/zod が Zod 4 系と�
 
 VeeValidate の API については [公式ドキュメント :material-open-in-new:](https://vee-validate.logaretm.com/v4/guide/components/validation/){ target=_blank } を参照してください。
 
-### 前提：実装例で使用する画面の概要 {#assumption}
+### 前提: 実装例で使用する画面の概要 {#assumption}
 
 以下のような画面を実装例として使用します。
 
-1. 作成する画面のイメージ：エラーがない状態
+1. 作成する画面のイメージ: エラーがない状態
 
-    ![作成する画面のイメージ：エラーがない状態](../../../../images/guidebooks/how-to-develop/csr/vue-js/without-input-validation-error.png){ loading=lazy }
+    ![作成する画面のイメージ: エラーがない状態](../../../../images/guidebooks/how-to-develop/csr/vue-js/without-input-validation-error.png){ loading=lazy }
 
-1. 作成する画面のイメージ：入力エラーがある状態
+1. 作成する画面のイメージ: 入力エラーがある状態
 
-    ![作成する画面のイメージ：入力エラーがある状態](../../../../images/guidebooks/how-to-develop/csr/vue-js/with-input-validation-error.png){ loading=lazy }
+    ![作成する画面のイメージ: 入力エラーがある状態](../../../../images/guidebooks/how-to-develop/csr/vue-js/with-input-validation-error.png){ loading=lazy }
 
 ??? example "コードの全体像"
 

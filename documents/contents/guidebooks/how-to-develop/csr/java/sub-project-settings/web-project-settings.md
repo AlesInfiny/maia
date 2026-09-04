@@ -12,12 +12,12 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-webmvc`: Spring MVC を使用して Web アプリケーションを構築するためのスターター
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-- `springdoc-openapi-starter-webmvc-ui`：Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのスターター
+- `springdoc-openapi-starter-webmvc-ui`: Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
+- `h2`: テストやローカル実行で利用する組み込みの H2 データベース
+- `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのスターター
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
@@ -62,12 +62,12 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.hikari.jdbc-url：データベースの JDBC URL
-    - spring.datasource.hikari.username：データベースのログインユーザー名
-    - spring.datasource.hikari.password：データベースのログインパスワード
+    - spring.datasource.hikari.driver-class-name: JDBC ドライバーの完全修飾名
+    - spring.datasource.hikari.jdbc-url: データベースの JDBC URL
+    - spring.datasource.hikari.username: データベースのログインユーザー名
+    - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定
-    - spring.sql.init.mode：データベースの初期化有無
+    - spring.sql.init.mode: データベースの初期化有無
 - ロギング
     - logging.xxx でロギングの各種設定が可能
 - MyBatis の設定
