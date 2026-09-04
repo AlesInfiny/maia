@@ -223,11 +223,12 @@ SpotBugs プラグインのカスタマイズを行う `build.gradle` の設定�
 SpotBugs を利用する際、自動生成されたクラスやメソッドが SpotBugs の警告の対象になることがあります。
 このような場合、 SpotBugs ではフィルタファイルを適用することでクラスやメソッド、バグのパターン単位で警告のフィルタリングを設定できます。
 SpotBugs のフィルタリングの設定内容については、[こちら :material-open-in-new:](https://spotbugs.readthedocs.io/ja/latest/filter.html){ target=_blank } をご覧ください。
-フィルタファイルを適用する際には、 `build.gradle` に以下の記述を追加してください。
 
 また、 SpotBugs が解析に利用するツール本体のバージョン（`toolVersion`）も明示的に指定してください。
 バージョンを指定しない場合、 Gradle が提供するデフォルトバージョンが利用されるため、利用する JDK のバージョン等によっては動作しない場合があります。
 バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs){ target=_blank } を参照してください。
+
+フィルタファイルの適用と `toolVersion` の指定方法は以下の `build.gradle` を参照してください。
 
 ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
 subprojects {
@@ -238,6 +239,8 @@ subprojects {
   }
 }
 ```
+
+バージョンは [こちら :material-open-in-new:](https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs){ target=_blank } を参照してください。
 
 ??? info "Lombok の自動生成コードに対する SpotBugs の警告を抑制する方法"
 
