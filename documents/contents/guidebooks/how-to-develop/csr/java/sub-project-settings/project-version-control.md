@@ -36,6 +36,8 @@ ext {
     spring_boot_starter_webmvc_test : 'org.springframework.boot:spring-boot-starter-webmvc-test',
     springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
     h2database : "com.h2database:h2",
+    lombok : "org.projectlombok:lombok",
+    spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
   ]
 }
 ```
@@ -54,14 +56,22 @@ buildscript {
 ```
 
 [プロジェクトの共通設定](../common-project-settings.md#common-plugin) で解説した SpotBugs プラグインのバージョンも、同様に変数を参照する形に修正します。
-併せて、 Checkstyle・SpotBugs・JaCoCo の `toolVersion` も変数を参照する形に修正します。
+併せて、各サブプロジェクトで共通して利用するライブラリや Checkstyle・SpotBugs・JaCoCo の `toolVersion` も変数を参照する形に修正します。
 
-```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="2 7 10 13"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="2 6-9 11-12 15 18 21"
 plugins {
   id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
 }
 
 subprojects {
+  annotationProcessor supportDependencies.lombok
+  testAnnotationProcessor supportDependencies.lombok
+  compileOnly supportDependencies.lombok
+  testCompileOnly supportDependencies.lombok
+
+  compileOnly supportDependencies.spotbugs_annotations
+  testCompileOnly supportDependencies.spotbugs_annotations
+  
   checkstyle {
     toolVersion = "${checkstyleToolVersion}"
   }
@@ -94,13 +104,13 @@ subprojects {
 
       dependencies {
         // Lombok の設定
-        annotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
-        compileOnly 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
+        annotationProcessor supportDependencies.lombok
+        testAnnotationProcessor supportDependencies.lombok
+        compileOnly supportDependencies.lombok
+        testCompileOnly supportDependencies.lombok
 
-        compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
-        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+        compileOnly supportDependencies.spotbugs_annotations
+        testCompileOnly supportDependencies.spotbugs_annotations
       }
 
       test {
