@@ -41,6 +41,6 @@
 *[SSR]: Server Side Rendering
 *[VS Code]: Visual Studio Code
 *[war]: Web Application Archive
-*[XSS]: X-Site Scripting : クロスサイト・スクリプティング。
+*[XSS]: X-Site Scripting: クロスサイト・スクリプティング。
 
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->

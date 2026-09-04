@@ -49,6 +49,7 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
 「各種ドキュメント」からリンクする外部サイトや、「サンプルアプリケーション」や「ドキュメント内に記載されたソースコード」が依存するライブラリなどを対象としていません。
 
 ### クリエイティブ・コモンズ表示 4.0 国際ライセンス {#cc-by-4.0}
+<!-- textlint-disable @textlint-rule/pattern -->
 
 ![クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://i.creativecommons.org/l/by/4.0/88x31.png)
 
@@ -252,6 +253,8 @@ BIPROGY 株式会社およびすべてのコントリビューターは、本サ
     > 誤解を避けるために記すと、この項はパブリック・ライセンスの一部ではありません。
 
     > クリエイティブ・コモンズには[creativecommons.org](https://creativecommons.org/){ target=_blank } から連絡することができます。
+
+<!-- textlint-enable @textlint-rule/pattern -->
 
 ### Apache License, Version 2.0 {#apache-license-v2.0}
 
