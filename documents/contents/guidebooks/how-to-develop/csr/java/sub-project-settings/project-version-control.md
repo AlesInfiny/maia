@@ -74,6 +74,10 @@ buildscript {
 
         compileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
         testCompileOnly 'com.github.spotbugs:spotbugs-annotations:x.x.x'
+
+        // SpotBugsの警告対策
+        // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
+        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
       }
 
       test {
@@ -92,6 +96,17 @@ buildscript {
         toolVersion = 'x.x.x'
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      spotbugsMain {
+        reports {
+          // XML 形式のレポートが不要な場合は以下を追加
+          xml.required = false
+          html {
+            required = true
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
+          }
+        }
       }
 
       jacocoTestReport {
