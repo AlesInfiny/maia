@@ -137,6 +137,7 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 - test タスクでは `test` プロファイルを使用する
 - テストフレームワークとして JUnit5 を使用する
+- ソースファイルの文字コードを明示的に指定する
 
 ```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="4 5"
 
@@ -148,6 +149,17 @@ subprojects {
   }
 }
 
+```
+
+実行環境（OS や JDK の設定）によっては、ソースファイルの文字コードを正しく認識できず、コンパイル時に文字化けやエラーを引き起こす可能性があります。
+このような事態を避けるため、 `compileJava` タスク、 `compileTestJava` タスクおよび `javadoc` タスクの `encoding` オプションで、文字コードを明示的に指定することを推奨します。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+subprojects {
+  compileJava.options.encoding = 'UTF-8'
+  compileTestJava.options.encoding = 'UTF-8'
+  javadoc.options.encoding = 'UTF-8'
+}
 ```
 
 Java プラグインのその他の設定項目については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/java_plugin.html){ target=_blank } を参照してください。
@@ -350,6 +362,10 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       apply plugin: 'jacoco'
       apply plugin: 'checkstyle'
       apply plugin: 'com.github.spotbugs'
+
+      compileJava.options.encoding = 'UTF-8'
+      compileTestJava.options.encoding = 'UTF-8'
+      javadoc.options.encoding = 'UTF-8'
 
       dependencies {
         // Lombok の設定
