@@ -13,9 +13,9 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 データアクセス処理の実装に AlesInfiny Maia OSS Edition で推奨する MyBatis を利用する場合には、 `mybatis-spring-boot-starter` を利用することを推奨します。
 機能モジュールのプロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `mybatis-spring-boot-starter`： MyBatis と Spring Boot を統合するためのスターター
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-- `mybatis-spring-boot-starter-test`： MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
+- `mybatis-spring-boot-starter`: MyBatis と Spring Boot を統合するためのスターター
+- `h2`: テストやローカル実行で利用する組み込みの H2 データベース
+- `mybatis-spring-boot-starter-test`: MyBatis と Spring Boot を統合したアプリケーションをテストするためのスターター
 
 ```groovy title="a-function/build.gradle"
 dependencies {
