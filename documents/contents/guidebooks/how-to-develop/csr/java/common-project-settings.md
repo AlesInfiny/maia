@@ -139,26 +139,23 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 - テストフレームワークとして JUnit5 を使用する
 - ソースファイルの文字コードを明示的に指定する
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="4 5"
+    実行環境（OS や JDK の設定）によっては、ソースファイルの文字コードを正しく認識できず、コンパイル時に文字化けやエラーを引き起こす可能性があります。
+    このような事態を避けるため、 `compileJava` タスク、 `compileTestJava` タスクおよび `javadoc` タスクの `encoding` オプションで、文字コードを明示的に指定することを推奨します。
 
+これらのシナリオを踏まえた `build.gradle` の設定例は以下の通りです。
+
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-4 8 9"
+  
 subprojects {
+  compileJava.options.encoding = 'UTF-8'
+  compileTestJava.options.encoding = 'UTF-8'
+  javadoc.options.encoding = 'UTF-8'
+
   test {
     // UTテスト時はtestプロファイルを利用
     jvmArgs=['-Dspring.profiles.active=test']
     useJUnitPlatform()
   }
-}
-
-```
-
-実行環境（OS や JDK の設定）によっては、ソースファイルの文字コードを正しく認識できず、コンパイル時に文字化けやエラーを引き起こす可能性があります。
-このような事態を避けるため、 `compileJava` タスク、 `compileTestJava` タスクおよび `javadoc` タスクの `encoding` オプションで、文字コードを明示的に指定することを推奨します。
-
-```groovy title="{ルートプロジェクト}/build.gradle"
-subprojects {
-  compileJava.options.encoding = 'UTF-8'
-  compileTestJava.options.encoding = 'UTF-8'
-  javadoc.options.encoding = 'UTF-8'
 }
 ```
 
