@@ -3,7 +3,8 @@
 # This file is expected to be part of source control.
 com.fasterxml.uuid:java-uuid-generator:5.2.0=productionRuntimeClasspath,runtimeClasspath,testRuntimeClasspath
 com.github.javaparser:javaparser-core:3.28.2=mybatisTasks
-com.github.spotbugs:spotbugs-annotations:4.10.3=compileClasspath,spotbugs,testCompileClasspath
+com.github.spotbugs:spotbugs-annotations:4.10.3=spotbugs
+com.github.spotbugs:spotbugs-annotations:4.10.4=compileClasspath,testCompileClasspath
 com.github.spotbugs:spotbugs:4.10.3=spotbugs
 com.github.stephenc.jcip:jcip-annotations:1.0-1=spotbugs
 com.google.code.findbugs:jsr305:3.0.2=checkstyle,compileClasspath,spotbugs,testCompileClasspath
