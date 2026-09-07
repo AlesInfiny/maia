@@ -244,7 +244,7 @@ subprojects {
 
 SpotBugs はデフォルトでコンソール上に警告を出力しますが、詳細を確認しやすくするために、以下のように `spotbugsMain` タスクに対して HTML 形式のレポートを出力する設定を追加できます。
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="3-9"
+```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3-10"
 subprojects {
   spotbugsMain {
     reports {
@@ -252,7 +252,7 @@ subprojects {
       xml.required = false
       html {
         required = true
-        outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
+        outputLocation = layout.buildDirectory.file('reports/spotbugs/main.html')
       }
     }
   }
@@ -444,7 +444,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
           xml.required = false
           html {
             required = true
-            outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
+            outputLocation = layout.buildDirectory.file('reports/spotbugs/main.html')
           }
         }
       }

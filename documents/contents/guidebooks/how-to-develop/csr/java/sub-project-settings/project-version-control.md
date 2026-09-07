@@ -145,7 +145,7 @@ subprojects {
           xml.required = false
           html {
             required = true
-            outputLocation = layout.buildDirectory.file("reports/spotbugs/main.html")
+            outputLocation = layout.buildDirectory.file('reports/spotbugs/main.html')
           }
         }
       }
