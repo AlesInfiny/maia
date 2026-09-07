@@ -3,7 +3,7 @@ title: Java 編 （SSR 編）
 description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon Reloadable Basenames -->
+<!-- cspell:ignore applicationcore -->
 
 # メッセージ管理機能の設定 {#top}
 

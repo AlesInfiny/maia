@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # batch プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource hikari tasklet -->
+<!-- cSpell:ignore hikari -->
 
 batch プロジェクトで必要な設定を解説します。
 
