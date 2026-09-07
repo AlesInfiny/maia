@@ -161,7 +161,7 @@ public class AFunctionMyBatisConfig {
   /**
    * MyBatis の設定をカスタマイズします。
    *
-   * @return カスタマイズされた MyBatis 設定 。
+   * @return カスタマイズされた MyBatis 設定。
    */
   @Bean
   ConfigurationCustomizer mybatisConfigurationCustomizer() {
