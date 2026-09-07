@@ -65,9 +65,7 @@ web プロジェクトは、 `@SpringBootApplication` を付与したクラス�
 @SpringBootApplication(scanBasePackages = {"com.example"})
 @ConfigurationPropertiesScan(basePackages = {"com.example"})
 public class WebApplication {
-  public static void main(String[] args) {
-    SpringApplication.run(WebApplication.class, args);
-  }
+  ...
 }
 ```
 
