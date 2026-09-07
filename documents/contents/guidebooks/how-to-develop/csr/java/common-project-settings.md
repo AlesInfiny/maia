@@ -293,7 +293,7 @@ subprojects {
       dependencies {
         // SpotBugsの警告対策
         // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
-        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
+        spotbugsSlf4j 'org.slf4j:slf4j-simple'
       }
     }
     ```
@@ -417,7 +417,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 
         // SpotBugsの警告対策
         // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
-        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
+        spotbugsSlf4j 'org.slf4j:slf4j-simple'
       }
 
       test {

@@ -118,7 +118,7 @@ subprojects {
 
         // SpotBugsの警告対策
         // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
-        spotbugsSlf4j 'org.slf4j:slf4j-simple:x.x.x'
+        spotbugsSlf4j 'org.slf4j:slf4j-simple'
       }
 
       test {
