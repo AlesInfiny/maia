@@ -75,9 +75,13 @@ subprojects {
   checkstyle {
     toolVersion = "${checkstyleToolVersion}"
   }
+
   spotbugs {
     toolVersion = "${spotbugsToolVersion}"
+    excludeFilter.set(rootProject.file('フィルタファイルのパス'))
+    ignoreFailures = true
   }
+
   jacoco {
     toolVersion = "${jacocoToolVersion}"
   }
