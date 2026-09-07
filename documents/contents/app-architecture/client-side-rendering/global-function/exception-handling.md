@@ -3,7 +3,7 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore applicationcore rgba -->
+<!-- cspell:ignore rgba -->
 
 # 例外処理方針 {#top}
 
@@ -154,12 +154,12 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "detail": "dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "detail": "com.dressca.applicationmodules.shopping.exception.DisplayItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```
 
@@ -168,10 +168,10 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```
