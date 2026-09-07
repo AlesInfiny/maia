@@ -37,6 +37,7 @@ ext {
     springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",
     h2database : "com.h2database:h2",
     lombok : "org.projectlombok:lombok",
+    slf4j : "org.slf4j:slf4j-simple",
     spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
   ]
 }
@@ -115,6 +116,10 @@ subprojects {
 
         compileOnly supportDependencies.spotbugs_annotations
         testCompileOnly supportDependencies.spotbugs_annotations
+
+        // SpotBugsの警告対策
+        // https://github.com/spotbugs/spotbugs-gradle-plugin/issues/136
+        spotbugsSlf4j supportDependencies.slf4j
       }
 
       test {
@@ -133,6 +138,17 @@ subprojects {
         toolVersion = "${spotbugsToolVersion}"
         excludeFilter.set(rootProject.file('フィルタファイルのパス'))
         ignoreFailures = true
+      }
+
+      spotbugsMain {
+        reports {
+          // XML 形式のレポートが不要な場合は以下を追加
+          xml.required = false
+          html {
+            required = true
+            outputLocation = layout.buildDirectory.file('reports/spotbugs/main.html')
+          }
+        }
       }
 
       jacoco {
