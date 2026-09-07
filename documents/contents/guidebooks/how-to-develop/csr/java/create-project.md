@@ -36,15 +36,15 @@ Web 画面上の各種設定項目は以下の通りです。
     特に考慮点がなければ最新の GA 版を選択することを推奨します。
     選択できる Spring Boot のバージョンは、 [OSS サポート期限内のバージョン :material-open-in-new:](https://spring.io/projects/spring-boot#support){ target=_blank } に限られ、古いバージョンは指定できません。
 
-- Project Metadata：Artifact
+- Project Metadata: Artifact
 
     プロジェクトの基点のフォルダー名となるプロジェクト名を設定します。
 
-- Project Metadata : Java
+- Project Metadata: Java
 
     利用する環境の Java のバージョンを選択します。
 
-- Project Metadata：その他
+- Project Metadata: その他
 
     ルートプロジェクトの雛型作成では設定不要 ( 任意 ) です。
 
@@ -69,22 +69,22 @@ AlesInfiny Maia OSS Edition では、モジュラーモノリスアーキテク�
 以下、サブプロジェクト毎に異なる設定項目について説明します。
 その他の項目はルートプロジェクトと同様に設定してください。
 
-- Project Metadata：Group
+- Project Metadata: Group
 
     対象プロジェクトが含まれるグループ名を設定します。
     対象プロジェクトのパッケージ名は、このグループ名から始まることが想定されます。
     ハイフンなど、パッケージ名に利用不可の文字を指定した場合、パッケージ名としては取り除かれますが、元々使わないことが望ましいです。
 
-- Project Metadata：Artifact
+- Project Metadata: Artifact
 
     サブプロジェクトの基点のフォルダー名となるプロジェクト名を設定します。
 
-- Project Metadata：Name
+- Project Metadata: Name
 
     アプリケーション名を設定します。
     この名前は Spring Boot 実行クラス ( Main クラス ) のクラス名やパッケージした際の war や jar 名に利用されます。
 
-- Project Metadata：Package Name
+- Project Metadata: Package Name
 
     パッケージ名を設定します。
     通常変更の必要はありませんが、 Artifact 名にハイフンを利用している場合は、自動入力されているパッケージ名からハイフンを削除してください。例えば、 com.example.system-common というパッケージ名であれば、 com.example.systemcommon のように修正してください。

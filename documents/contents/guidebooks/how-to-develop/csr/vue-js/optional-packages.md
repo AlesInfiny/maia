@@ -41,7 +41,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js を利用した SPA で、ルーティング制御をするための公式プラグイン
 
-なお、特定のパッケージをインストールすることで付随してインストールされるパッケージ（例： ESLint に対する eslint-config-prettier）は記載を省略しています。
+なお、特定のパッケージをインストールすることで付随してインストールされるパッケージ（例: ESLint に対する eslint-config-prettier）は記載を省略しています。
 
 ## 追加でインストールするパッケージ {#additional-packages}
 

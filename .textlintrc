@@ -35,6 +35,20 @@
     },
     "ja-no-orthographic-variants": true,
     "@textlint-rule/require-header-id": true,
+    "@textlint-rule/pattern": {
+      "patterns": [
+        {
+          "message": "コロンは半角で表記します。「用語: 説明」のように、コロンの直後にのみ半角スペースを 1 つ入れてください。",
+          "pattern": "/：[ 　]?/",
+          "replace": ": "
+        },
+        {
+          "message": "コロンの前にスペースを入れません。「用語: 説明」のように表記してください。",
+          "pattern": "/[ 　]+: /",
+          "replace": ": "
+        }
+      ]
+    },
     "@textlint-ja/no-synonyms": {
       "allows": [
         "=",
