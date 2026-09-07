@@ -45,6 +45,13 @@ subprojects {
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  // Lombok が呼び出す sun.misc.Unsafe の終了予定 API に関する警告を抑止する
+  // https://github.com/projectlombok/lombok/issues/3852
+  tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+  }
   
   // 各サブプロジェクトが依存するライブラリとその推移的依存を固定
   // ロック状態はサブプロジェクトごとの gradle.lockfile に出力
