@@ -2,7 +2,6 @@ package com.dressca.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.dressca.batch.job.BatchConfiguration;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -30,7 +29,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  */
 @SpringBootTest
 @SpringBatchTest
-@SpringJUnitConfig(BatchConfiguration.class)
+@SpringJUnitConfig(BatchApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
