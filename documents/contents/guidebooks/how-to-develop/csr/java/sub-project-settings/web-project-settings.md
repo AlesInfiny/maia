@@ -49,6 +49,28 @@ dependencies {
 }
 ```
 
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+web プロジェクトは、 `@SpringBootApplication` を付与したクラス（ `WebApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+
+`@SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web`）に限られます。
+本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは web プロジェクトとは異なるパッケージに配置されます。
+その結果、これらのサブプロジェクトのコンポーネント（ `@Component` や `@Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
+
+これを避けるため、 `@SpringBootApplication` の `scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example`）を指定します。
+
+同様に、他サブプロジェクトの `@ConfigurationProperties` が付与されたクラスを読み込むには、 `@ConfigurationPropertiesScan` の `basePackages` に親パッケージを指定します。
+
+```java title="WebApplication.java" hl_lines="1 2"
+@SpringBootApplication(scanBasePackages = {"com.example"})
+@ConfigurationPropertiesScan(basePackages = {"com.example"})
+public class WebApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(WebApplication.class, args);
+  }
+}
+```
+
 ## Spring Boot の設定 {#config-spring}
 
 web プロジェクトに関する Spring Boot のプロパティ等を設定します。
