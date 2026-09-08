@@ -3,8 +3,6 @@ title: Java 編 （SSR 編）
 description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon Reloadable Basenames -->
-
 # メッセージ管理機能の設定 {#top}
 
 SSR アプリケーションのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/server-side-rendering/global-function/message-management-policy.md) をご確認ください。
