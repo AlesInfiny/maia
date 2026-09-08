@@ -51,15 +51,19 @@ dependencies {
 
 ## エントリーポイントとなるクラスの設定 {#config-entry-point}
 
-web プロジェクトは、 `@SpringBootApplication` を付与したクラス（ `WebApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+web プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `WebApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
 
-`@SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web`）に限られます。
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web`）に限られます。
 本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは web プロジェクトとは異なるパッケージに配置されます。
-その結果、これらのサブプロジェクトのコンポーネント（ `@Component` や `@Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
+その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
 
-これを避けるため、 `@SpringBootApplication` の `scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example`）を指定します。
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example`）を指定します。
 
-同様に、他サブプロジェクトの `@ConfigurationProperties` が付与されたクラスを読み込むには、 `@ConfigurationPropertiesScan` の `basePackages` に親パッケージを指定します。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+同様に、他サブプロジェクトの `#!java @ConfigurationProperties` が付与されたクラスを読み込むには、 `#!java @ConfigurationPropertiesScan` の `#!java basePackages` に親パッケージを指定します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ```java title="WebApplication.java" hl_lines="1 2"
 @SpringBootApplication(scanBasePackages = {"com.example"})
@@ -316,10 +320,10 @@ H2 Console のスタンドアロン版からアプリケーションが使用し
 
 ??? example "H2 Database をサーバーモードで起動するクラスの例"
 
-    定義するクラスには、 `@Component` と `@Profile` アノテーションを付与し、開発環境でのみ DI コンテナに Bean 登録されるように設定します。
+    定義するクラスには、 `#!java @Component` と `#!java @Profile` アノテーションを付与し、開発環境でのみ DI コンテナに Bean 登録されるように設定します。
     クラスには H2 Database を起動する処理と停止する処理をそれぞれ実装します。
     起動する処理は、アプリケーションが起動したタイミングで H2 Database を起動させるためにコンストラクタ内で行います。
-    停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `@PreDestroy` アノテーションを付与したメソッド内で行います。
+    停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `#!java @PreDestroy` アノテーションを付与したメソッド内で行います。
 
     ```java
     /**
