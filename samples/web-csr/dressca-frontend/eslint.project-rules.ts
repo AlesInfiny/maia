@@ -1,11 +1,11 @@
 import type { Linter } from 'eslint'
 
 /**
- * プロジェクトやワークスペースに固有のルールです。
+ * コーディング規約に沿わせるため、全ワークスペースに適用するルールです。
  * 必要に応じて対象のファイルやルールを設定します。
  */
-export const additionalRules: Linter.Config = {
-  name: 'dressca-frontend/additional-rules',
+export const codingConventionRules: Linter.Config = {
+  name: 'dressca-frontend/coding-convention-rules',
   files: ['**/*.{vue,ts,mts,tsx}'],
   rules: {
     'no-console': 'warn',
@@ -41,7 +41,7 @@ export const additionalRules: Linter.Config = {
  * なお本ルールは `@/` エイリアスによる参照を対象とします。
  * レイヤーをまたぐ参照はエイリアスで記述してください。
  */
-export const layerDependencyRules: Linter.Config[] = [
+export const consumerLayerDependencyRules: Linter.Config[] = [
   {
     name: 'consumer/layer-dependency/system-common',
     files: ['**/consumer/src/system-common/**/*.{vue,ts,mts,tsx}'],
