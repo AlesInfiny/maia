@@ -3,8 +3,6 @@ title: Vue.js 開発手順 （CSR 編）
 description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
-<!-- cspell:ignore parens rushstack stylelintrc -->
-
 # 静的コード分析とフォーマット {#top}
 
 静的コード分析とフォーマットには .editorconfig 、 ESLint 、 Stylelint 、および Prettier を使用します。

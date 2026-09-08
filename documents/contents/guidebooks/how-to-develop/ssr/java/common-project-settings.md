@@ -4,7 +4,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok Dspring -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。

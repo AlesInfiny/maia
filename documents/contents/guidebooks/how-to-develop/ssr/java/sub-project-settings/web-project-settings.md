@@ -4,7 +4,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource testdb hikari -->
 
 web プロジェクトで必要な設定を解説します。
 

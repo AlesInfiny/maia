@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource testdb hikari -->
+<!-- cSpell:ignore hikari -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -57,7 +57,6 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -70,8 +69,6 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
     - spring.sql.init.mode: データベースの初期化有無
 - ロギング
     - logging.xxx でロギングの各種設定が可能
-- MyBatis の設定
-    - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - ヘルスチェック機能を含む Spring Boot Actuator に関する設定
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能

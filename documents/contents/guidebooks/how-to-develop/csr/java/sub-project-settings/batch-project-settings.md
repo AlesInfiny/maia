@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # batch プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource hikari tasklet -->
+<!-- cSpell:ignore hikari -->
 
 batch プロジェクトで必要な設定を解説します。
 
@@ -47,7 +47,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -58,8 +57,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定
     - spring.sql.init.mode: データベースの初期化有無
-- MyBatis の設定
-    - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - バッチ処理
     - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
     - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
@@ -72,7 +69,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=embedded
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
@@ -81,7 +77,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
 !!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
