@@ -6,12 +6,12 @@ import { postOrder } from '@/services/ordering/ordering-service'
 import { fetchBasket } from '@/services/basket/basket-service'
 import { showToast } from '@/services/notification/notificationService'
 import { useRouter } from 'vue-router'
-import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
-import { i18n } from '@/locales/i18n'
-import { HttpError } from '@/shared/error-handler/custom-error'
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+import { i18n } from '@/system-common/locales/i18n'
+import { HttpError } from '@/system-common/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()

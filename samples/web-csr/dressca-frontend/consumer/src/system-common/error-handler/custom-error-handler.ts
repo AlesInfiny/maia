@@ -1,5 +1,5 @@
 import { CanceledError } from 'axios'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 import { useEventBus } from '@vueuse/core'
 import {
   CustomErrorBase,
@@ -8,9 +8,13 @@ import {
   NetworkError,
   ServerError,
 } from './custom-error'
-import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
-import { useLogger } from '@/composables/use-logger'
-import type { MaybeAsyncFunction, MaybePromise, MaybeAsyncUnaryFunction } from '@/types'
+import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '@/system-common/events'
+import { useLogger } from '@/system-common/composables/use-logger'
+import type {
+  MaybeAsyncFunction,
+  MaybePromise,
+  MaybeAsyncUnaryFunction,
+} from '@/system-common/types'
 
 export type handleErrorAsyncFunction = (
   error: unknown,

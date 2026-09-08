@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { axiosInstance } from '@/api-client'
-import { abortAllRequests } from '@/api-client/request-abort-manager'
+import { axiosInstance } from '@/system-common/api-client'
+import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 import axios, { HttpStatusCode } from 'axios'
 
 /**

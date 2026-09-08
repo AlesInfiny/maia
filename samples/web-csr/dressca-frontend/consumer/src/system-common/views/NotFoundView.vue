@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 const { t } = i18n.global
 </script>

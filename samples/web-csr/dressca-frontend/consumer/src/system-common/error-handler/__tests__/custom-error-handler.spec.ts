@@ -1,7 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import axios from 'axios'
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
-import { ServerError, NetworkError, UnauthorizedError } from '@/shared/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
+import {
+  ServerError,
+  NetworkError,
+  UnauthorizedError,
+} from '@/system-common/error-handler/custom-error'
 
 // useEventBus のモック
 const emitMock = vi.fn()
@@ -10,7 +14,7 @@ vi.mock('@vueuse/core', () => ({
 }))
 
 // useLogger のモック
-vi.mock('@/composables/use-logger', () => ({
+vi.mock('@/system-common/composables/use-logger', () => ({
   useLogger: () => ({
     info: vi.fn(),
     error: vi.fn(),
@@ -19,7 +23,7 @@ vi.mock('@/composables/use-logger', () => ({
 }))
 
 // i18n のモック
-vi.mock('@/locales/i18n', () => ({
+vi.mock('@/system-common/locales/i18n', () => ({
   i18n: {
     global: {
       t: (key: string) => key,

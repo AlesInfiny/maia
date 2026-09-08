@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 // 必須バリデーション関数
 const required = (message: string) => z.string().trim().min(1, message)

@@ -7,13 +7,13 @@ import { storeToRefs } from 'pinia'
 import { useSpecialContentStore } from '@/stores/special-content/special-content'
 import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import CarouselSlider from '@/components/common/CarouselSlider.vue'
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
+import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
-import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
-import { i18n } from '@/locales/i18n'
-import { HttpError } from '@/shared/error-handler/custom-error'
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+import { i18n } from '@/system-common/locales/i18n'
+import { HttpError } from '@/system-common/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
 const specialContentStore = useSpecialContentStore()
 const displayItemStore = useDisplayItemStore()

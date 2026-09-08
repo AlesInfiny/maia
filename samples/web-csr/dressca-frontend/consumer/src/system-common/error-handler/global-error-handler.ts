@@ -1,6 +1,6 @@
 import type { App, ComponentPublicInstance } from 'vue'
-import { router } from '../../router'
-import { useLogger } from '@/composables/use-logger'
+import { router } from '@/system-common/router'
+import { useLogger } from '@/system-common/composables/use-logger'
 
 const logger = useLogger()
 

@@ -5,8 +5,8 @@ import {
   ServerError,
   UnauthorizedError,
   UnknownError,
-} from '@/shared/error-handler/custom-error'
-import { axiosInstance } from '@/api-client'
+} from '@/system-common/error-handler/custom-error'
+import { axiosInstance } from '@/system-common/api-client'
 import axios, { HttpStatusCode } from 'axios'
 
 /**

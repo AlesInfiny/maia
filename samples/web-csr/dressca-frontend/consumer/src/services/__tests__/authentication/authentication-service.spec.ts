@@ -6,7 +6,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import { useNotificationStore } from '@/stores/notification/notification'
-import type { GetBasketItemsResponse } from '@/generated/api-client'
+import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import axios from 'axios'
 
 /**
@@ -20,13 +20,13 @@ const { abortAllRequestsMock, getBasketItemsMock } = vi.hoisted(() => {
   }
 })
 
-vi.mock('@/api-client', () => ({
+vi.mock('@/system-common/api-client', () => ({
   basketItemsApi: () => ({
     getBasketItems: getBasketItemsMock,
   }),
 }))
 
-vi.mock('@/api-client/request-abort-manager', () => ({
+vi.mock('@/system-common/api-client/request-abort-manager', () => ({
   abortAllRequests: abortAllRequestsMock,
 }))
 

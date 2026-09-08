@@ -4,8 +4,8 @@ import type {
   PutBasketItemsRequest,
   PostBasketItemsRequest,
   BasketItemApiModel,
-} from '@/generated/api-client'
-import { basketItemsApi } from '@/api-client'
+} from '@/system-common/generated/api-client'
+import { basketItemsApi } from '@/system-common/api-client'
 
 /**
  * 買い物かごの状態および操作を管理するストアです。

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
-import { router } from '@/router'
+import { router } from '@/system-common/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from './components/common/NotificationToast.vue'
-import { unauthorizedErrorEventKey } from './shared/events'
+import { unauthorizedErrorEventKey } from '@/system-common/events'
 import { authenticationService } from './services/authentication/authentication-service'
 
 const { isAuthenticated, signOut } = authenticationService()

@@ -3,8 +3,12 @@ import type {
   GetDisplayItemCategoriesResponse,
   GetDisplayItemBrandsResponse,
   PagedListOfGetDisplayItemResponse,
-} from '@/generated/api-client'
-import { displayItemCategoriesApi, displayItemBrandsApi, displayItemsApi } from '@/api-client'
+} from '@/system-common/generated/api-client'
+import {
+  displayItemCategoriesApi,
+  displayItemBrandsApi,
+  displayItemsApi,
+} from '@/system-common/api-client'
 
 /**
  * 陳列品情報（カテゴリ・ブランド・アイテム）を管理するストアです。

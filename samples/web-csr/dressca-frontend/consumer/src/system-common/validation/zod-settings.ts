@@ -1,5 +1,5 @@
 import { type ZodErrorMap, ZodIssueCode } from 'zod'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 // 必須入力項目の最小文字数
 const RequiredMinLength = 1

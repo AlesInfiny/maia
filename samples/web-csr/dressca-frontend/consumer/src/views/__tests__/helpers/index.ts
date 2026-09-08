@@ -1,5 +1,5 @@
-// TODO Maia・Maris 間でProblemDetails が共通化できたら、@/generated/api-client/model から import します。
-import type { ProblemDetails } from '@/shared/error-handler/custom-error'
+// TODO Maia・Maris 間でProblemDetails が共通化できたら、@/system-common/generated/api-client/model から import します。
+import type { ProblemDetails } from '@/system-common/error-handler/custom-error'
 import { AxiosError, AxiosHeaders } from 'axios'
 
 /**

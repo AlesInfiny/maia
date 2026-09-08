@@ -2,7 +2,7 @@ import { useAuthenticationStore } from '@/stores/authentication/authentication'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useDisplayItemStore } from '@/stores/display-item/display-item'
 import { useNotificationStore } from '@/stores/notification/notification'
-import { abortAllRequests } from '@/api-client/request-abort-manager'
+import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 
 /**
  * 認証関連のサービスを提供します。

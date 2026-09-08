@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import type { BasketItemApiModel } from '@/generated/api-client'
+import type { BasketItemApiModel } from '@/system-common/generated/api-client'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 const { t } = i18n.global
 const props = defineProps<{

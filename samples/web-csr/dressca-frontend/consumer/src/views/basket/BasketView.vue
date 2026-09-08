@@ -8,14 +8,14 @@ import {
 import { showToast } from '@/services/notification/notificationService'
 import { useBasketStore } from '@/stores/basket/basket'
 import { useRouter } from 'vue-router'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 import BasketItem from '@/components/basket/BasketItem.vue'
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
-import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
-import { HttpError } from '@/shared/error-handler/custom-error'
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+import { HttpError } from '@/system-common/error-handler/custom-error'
+import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
 const showLoading = ref(true)
 

@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeAll, assert } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/router'
-import { i18n } from '@/locales/i18n'
+import { router } from '@/system-common/router'
+import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
 import BasketView from '@/views/basket/BasketView.vue'
-import type { GetBasketItemsResponse } from '@/generated/api-client'
-import { ServerError } from '@/shared/error-handler/custom-error'
+import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
+import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/stores/notification/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
@@ -85,7 +85,7 @@ const { getBasketItemsMock } = vi.hoisted(() => {
   }
 })
 
-vi.mock('@/api-client', () => ({
+vi.mock('@/system-common/api-client', () => ({
   // basketItemsApi() を呼ぶと { getBasketItems: getBasketItemsMock } が返る
   basketItemsApi: () => ({
     getBasketItems: getBasketItemsMock,

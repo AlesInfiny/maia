@@ -5,7 +5,7 @@ import { ClipboardDocumentIcon, ExclamationCircleIcon, XMarkIcon } from '@heroic
 import { ref, watch } from 'vue'
 import { useEventBus } from '@vueuse/core'
 import { showToast } from '@/services/notification/notificationService'
-import { unhandledErrorEventKey } from '@/shared/events'
+import { unhandledErrorEventKey } from '@/system-common/events'
 
 const show = ref(false)
 

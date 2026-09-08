@@ -1,5 +1,5 @@
-import type { GetOrderByIdResponse, PostOrderRequest } from '@/generated/api-client'
-import { ordersApi } from '@/api-client'
+import type { GetOrderByIdResponse, PostOrderRequest } from '@/system-common/generated/api-client'
+import { ordersApi } from '@/system-common/api-client'
 
 /**
  * 注文を新規作成します。

@@ -1,13 +1,13 @@
 import axios, { HttpStatusCode } from 'axios'
-import * as apiClient from '@/generated/api-client'
-import { getRequestAbortSignal } from '@/api-client/request-abort-manager'
+import * as apiClient from '@/system-common/generated/api-client'
+import { getRequestAbortSignal } from '@/system-common/api-client/request-abort-manager'
 import {
   HttpError,
   NetworkError,
   ServerError,
   UnauthorizedError,
   UnknownError,
-} from '@/shared/error-handler/custom-error'
+} from '@/system-common/error-handler/custom-error'
 
 /**
  * api-client の共通の Configuration を生成します。
@@ -55,15 +55,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(new UnknownError('Unknown Error', error))
   },
 )
-
-/**
- * アセット関連 API のクライアントを生成します。
- * @returns AssetsApi インスタンス
- */
-function assetsApi() {
-  const assetsApi = new apiClient.AssetsApi(createConfig(), '', axiosInstance)
-  return assetsApi
-}
 
 /**
  * 買い物かごアイテム関連 API のクライアントを生成します。
@@ -115,7 +106,6 @@ function ordersApi() {
 }
 
 export {
-  assetsApi,
   basketItemsApi,
   displayItemBrandsApi,
   displayItemCategoriesApi,

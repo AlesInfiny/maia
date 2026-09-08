@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 import { getOrder } from '@/services/ordering/ordering-service'
 import { showToast } from '@/services/notification/notificationService'
-import type { GetOrderByIdResponse } from '@/generated/api-client/models'
-import { currencyHelper } from '@/shared/helpers/currencyHelper'
+import type { GetOrderByIdResponse } from '@/system-common/generated/api-client/models'
+import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/shared/helpers/assetHelper'
-import { HttpError } from '@/shared/error-handler/custom-error'
-import { LoadingSpinnerOverlay } from '@/components/common/LoadingSpinnerOverlay'
-import { useCustomErrorHandler } from '@/shared/error-handler/custom-error-handler'
+import { HttpError } from '@/system-common/error-handler/custom-error'
+import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()

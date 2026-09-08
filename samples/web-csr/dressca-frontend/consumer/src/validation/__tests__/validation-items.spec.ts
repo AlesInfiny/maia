@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { ValidationItems } from '@/validation/validation-items'
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 describe('validation-items', () => {
   it('メールアドレス形式を検証できる', async () => {
