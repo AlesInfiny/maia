@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram id="_qOjjqVuwheBAu6fUuuN" name="test-model">
+    <mxGraphModel dx="1028" dy="718" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8aK3Oxm3571wPGMAHusl-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;font face=&quot;Noto Sans JP&quot; style=&quot;font-size: 18px;&quot;&gt;テストピラミッド&lt;/font&gt;" vertex="1">
+          <mxGeometry height="560" width="500" x="20" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="58RIeNe4nfclm44r_lKs-1" parent="8aK3Oxm3571wPGMAHusl-1" style="shape=trapezoid;perimeter=trapezoidPerimeter;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="単体テスト" vertex="1">
+          <mxGeometry height="120" width="400" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="58RIeNe4nfclm44r_lKs-2" parent="8aK3Oxm3571wPGMAHusl-1" style="shape=trapezoid;perimeter=trapezoidPerimeter;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="結合テスト&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="240" x="120" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="58RIeNe4nfclm44r_lKs-3" parent="8aK3Oxm3571wPGMAHusl-1" style="shape=trapezoid;perimeter=trapezoidPerimeter;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="E2E テスト" vertex="1">
+          <mxGeometry height="110" width="145" x="167.5" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="44rFmiRT3xJJYT80DHtw-7" parent="8aK3Oxm3571wPGMAHusl-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="静的テスト" vertex="1">
+          <mxGeometry height="70" width="200" x="140" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="8aK3Oxm3571wPGMAHusl-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 18px;&quot; face=&quot;Noto Sans JP&quot;&gt;テスティングトロフィー&lt;/font&gt;" vertex="1">
+          <mxGeometry height="560" width="500" x="520" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="44rFmiRT3xJJYT80DHtw-1" parent="8aK3Oxm3571wPGMAHusl-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="静的テスト" vertex="1">
+          <mxGeometry height="70" width="200" x="147.5" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="44rFmiRT3xJJYT80DHtw-3" parent="8aK3Oxm3571wPGMAHusl-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="単体テスト" vertex="1">
+          <mxGeometry height="120" width="280" x="107.5" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="44rFmiRT3xJJYT80DHtw-4" parent="8aK3Oxm3571wPGMAHusl-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="結合テスト" vertex="1">
+          <mxGeometry height="110" width="360" x="70" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="44rFmiRT3xJJYT80DHtw-5" parent="8aK3Oxm3571wPGMAHusl-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;;fontFamily=Noto Sans JP" value="E2Eテスト" vertex="1">
+          <mxGeometry height="110" width="165" x="165" y="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

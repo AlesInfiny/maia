@@ -13,3 +13,7 @@ description: 各種ガイドラインを提供します。
 - [コーディング規約](./conventions/coding-conventions.md)
 
     コーディング規約に関する方針を示します。
+
+- [アプリケーションテスト](./app-testing/index.md)
+
+    テストの実装方針と手順に関するガイドラインです。

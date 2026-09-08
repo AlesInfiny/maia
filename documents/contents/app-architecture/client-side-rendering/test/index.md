@@ -39,4 +39,4 @@ AlesInfiny Maia OSS Edition では、バックエンドの Java アプリケー�
 各アプリケーションのテストの詳細は、以下を参照してください。
 
 1. [バックエンドアプリケーションのテスト](backend-application/index.md)
-1. フロントエンドアプリケーションのテスト
+1. [フロントエンドアプリケーションのテスト](frontend-application/index.md)
