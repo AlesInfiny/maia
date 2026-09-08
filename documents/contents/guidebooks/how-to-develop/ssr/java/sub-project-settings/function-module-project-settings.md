@@ -4,7 +4,7 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # 機能モジュールのプロジェクトの設定 {#top}
-<!-- cSpell:ignore Customizer afunction -->
+<!-- cSpell:ignore afunction -->
 
 機能モジュールのプロジェクトで必要な設定を解説します。
 
