@@ -3,12 +3,12 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
-import BasketView from '@/views/basket/BasketView.vue'
+import BasketView from '@/shopping/basket/views/BasketView.vue'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
-import BasketItem from '@/components/basket/BasketItem.vue'
-import { createAxiosError, createProblemDetails } from '../helpers'
+import BasketItem from '@/shopping/basket/components/BasketItem.vue'
+import { createAxiosError, createProblemDetails } from './helpers'
 
 /**
  * 買い物かごに陳列品が入っている状態のモックレスポンスを生成します。

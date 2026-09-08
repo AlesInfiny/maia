@@ -4,7 +4,7 @@ import {
   fetchCategoriesAndBrands,
   fetchItems,
 } from '@/shopping/display-item/services/display-item-service'
-import { addItemToBasket } from '@/services/basket/basket-service'
+import { addItemToBasket } from '@/shopping/basket/services/basket-service'
 import { showToast } from '@/business-common/services/notificationService'
 import { storeToRefs } from 'pinia'
 import { useSpecialContentStore } from '@/shopping/display-item/stores/special-content'

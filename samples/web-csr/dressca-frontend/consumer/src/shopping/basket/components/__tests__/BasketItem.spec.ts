@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import type { BasketItemApiModel } from '@/system-common/generated/api-client'
 import { i18n } from '@/system-common/locales/i18n'
-import BasketItem from '../basket/BasketItem.vue'
+import BasketItem from '../BasketItem.vue'
 
 /**
  * バスケットアイテムのレスポンスを生成します。
