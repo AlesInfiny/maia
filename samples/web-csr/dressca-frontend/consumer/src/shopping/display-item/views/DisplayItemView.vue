@@ -17,6 +17,7 @@ import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
+import { basketRouteNames } from '@/system-common/router/route-names'
 
 const specialContentStore = useSpecialContentStore()
 const displayItemStore = useDisplayItemStore()
@@ -37,7 +38,7 @@ const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 const addBasket = async (displayItemId: string) => {
   try {
     await addItemToBasket(displayItemId)
-    router.push({ name: 'basket' })
+    router.push({ name: basketRouteNames.basket })
   } catch (error) {
     await handleErrorAsync(
       error,

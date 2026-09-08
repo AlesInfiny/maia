@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { authenticationService } from '@/authentication/services/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { ValidationItems } from '@/authentication/validation/validation-items'
+import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
@@ -36,7 +37,7 @@ const signInOnClick = () => {
   signIn()
   // 別の画面からリダイレクトしていない場合は、トップページに遷移します。
   if (!route.query.redirectName) {
-    router.push({ name: 'display-item' })
+    router.push({ name: displayItemRouteNames.displayItem })
   } else {
     // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
     router.push({

@@ -1,6 +1,7 @@
 import type { App, ComponentPublicInstance } from 'vue'
 import { router } from '@/system-common/router'
 import { useLogger } from '@/system-common/composables/use-logger'
+import { errorRouteNames } from '@/system-common/router/error-route-names'
 
 const logger = useLogger()
 
@@ -15,7 +16,7 @@ export const globalErrorHandler = {
       // 本サンプルAPではログの出力とエラー画面への遷移を行っています。
       // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
       logger.error(err, instance, info)
-      router.replace({ name: 'error' })
+      router.replace({ name: errorRouteNames.error })
     }
 
     // Vue.js 以外のエラー

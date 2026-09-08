@@ -12,6 +12,12 @@ import { storeToRefs } from 'pinia'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
+import {
+  basketRouteNames,
+  displayItemRouteNames,
+  errorRouteNames,
+  orderingRouteNames,
+} from '@/system-common/router/route-names'
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()
@@ -27,7 +33,7 @@ const { t } = i18n.global
 const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
 
 const goBasket = () => {
-  router.push({ name: 'basket' })
+  router.push({ name: basketRouteNames.basket })
 }
 
 const checkout = async () => {
@@ -39,12 +45,12 @@ const checkout = async () => {
       getAddress.value.shikuchoson,
       getAddress.value.azanaAndOthers,
     )
-    router.push({ name: 'ordering/done', params: { orderId } })
+    router.push({ name: orderingRouteNames.done, params: { orderId } })
   } catch (error) {
     await handleErrorAsync(
       error,
       () => {
-        router.push({ name: 'error' })
+        router.push({ name: errorRouteNames.error })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
@@ -67,7 +73,7 @@ const checkout = async () => {
 onMounted(async () => {
   await fetchBasket()
   if (getBasket.value.basketItems?.length === 0) {
-    router.push('/')
+    router.push({ name: displayItemRouteNames.displayItem })
   }
 })
 </script>

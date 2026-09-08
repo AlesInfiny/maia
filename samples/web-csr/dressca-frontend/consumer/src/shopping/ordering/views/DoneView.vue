@@ -10,6 +10,7 @@ import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
+import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()
@@ -26,7 +27,7 @@ const { t } = i18n.global
 const showLoading = ref(true)
 
 const goDisplayItem = () => {
-  router.push({ name: 'display-item' })
+  router.push({ name: displayItemRouteNames.displayItem })
 }
 
 onMounted(async () => {
@@ -37,7 +38,7 @@ onMounted(async () => {
     await handleErrorAsync(
       error,
       () => {
-        router.push('/')
+        router.push({ name: displayItemRouteNames.displayItem })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
