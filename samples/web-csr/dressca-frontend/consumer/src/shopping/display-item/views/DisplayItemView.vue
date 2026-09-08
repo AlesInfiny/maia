@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { fetchCategoriesAndBrands, fetchItems } from '@/services/display-item/display-item-service'
+import {
+  fetchCategoriesAndBrands,
+  fetchItems,
+} from '@/shopping/display-item/services/display-item-service'
 import { addItemToBasket } from '@/services/basket/basket-service'
 import { showToast } from '@/business-common/services/notificationService'
 import { storeToRefs } from 'pinia'
-import { useSpecialContentStore } from '@/stores/special-content/special-content'
+import { useSpecialContentStore } from '@/shopping/display-item/stores/special-content'
 import { useDisplayItemStore } from '@/business-common/stores/display-item'
-import CarouselSlider from '@/components/common/CarouselSlider.vue'
+import CarouselSlider from '@/shopping/display-item/components/CarouselSlider.vue'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'

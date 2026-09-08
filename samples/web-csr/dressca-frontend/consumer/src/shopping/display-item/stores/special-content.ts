@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { SpecialContent } from '@/stores/special-content/special-content.model'
+import type { SpecialContent } from '@/shopping/display-item/stores/special-content.model'
 
 /**
  * 特別コンテンツ（キャンペーン・セール品など）を管理するストアです。

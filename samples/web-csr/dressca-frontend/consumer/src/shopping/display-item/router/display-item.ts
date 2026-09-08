@@ -4,7 +4,7 @@ export const displayItemRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'display-item',
-    component: () => import('@/views/display-item/DisplayItemView.vue'),
+    component: () => import('@/shopping/display-item/views/DisplayItemView.vue'),
     meta: { requiresAuth: false },
   },
 ]
