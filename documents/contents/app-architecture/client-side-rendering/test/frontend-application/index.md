@@ -70,7 +70,7 @@ AlesInfiny Maia OSS Edition では、継続的インテグレーションを目�
 テストピラミッドは単体テストを厚くし、結合テストや E2E テストを少数に絞るモデルであり、各テストの量を種類別に積み上げると、下図のようにピラミッド状の三角形を形成します。
 
  一方で、フロントエンドアプリケーションのテストの文脈でよく挙げられるモデルが、[テスティングトロフィー :material-open-in-new:](https://web.dev/articles/ta-strategies?hl=ja#testing_trophy){ target=_blank }です。
-テスティングトロフィーは、[React Testing Library :material-open-in-new:](https://github.com/testing-library/react-testing-library){ target_blank }の開発者として知られる [Kent C. Dodds :material-open-in-new:](https://kentcdodds.com/){ target_blank }により提唱された、単体テストよりも結合テストを重視するモデルです。上述の表に当てはめると、機能内結合テストや機能間結合テストが単体テストよりも重視されます。このことにより、同様に積み上げた場合に下図のように中腹部が膨らんだトロフィー状の形を形成します。
+テスティングトロフィーは、[React Testing Library :material-open-in-new:](https://github.com/testing-library/react-testing-library){ target=_blank }の開発者として知られる [Kent C. Dodds :material-open-in-new:](https://kentcdodds.com/){ target=_blank }により提唱された、単体テストよりも結合テストを重視するモデルです。上述の表に当てはめると、機能内結合テストや機能間結合テストが単体テストよりも重視されます。このことにより、同様に積み上げた場合に下図のように中腹部が膨らんだトロフィー状の形を形成します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -98,35 +98,35 @@ toC 向け Web サービスでは、 ユーザー体験の良し悪しが競争�
 テストの種類と目的に応じて適切なテストツールを採用します。
 それぞれのテストツールについて説明します。
 
-- [Prettier :material-open-in-new:](https://prettier.io/){ target_blank }
+- [Prettier :material-open-in-new:](https://prettier.io/){ target=_blank }
 
     ソースコードのフォーマットを自動的に整形します。
 
-- [ESLint :material-open-in-new:](https://eslint.org/){ target_blank }
+- [ESLint :material-open-in-new:](https://eslint.org/){ target=_blank }
 
     TypeScript のコードを静的に解析し、不具合の原因となる記述やコーディング規約違反を検出します。
 
-- [Stylelint :material-open-in-new:](https://stylelint.io/){ target_blank }
+- [Stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
 
     CSS を静的解析し、記述ミスやスタイル規約違反を検出します。
 
-- [tsc(vue-tsc) :material-open-in-new:](https://github.com/vuejs/language-tools){ target_blank }
+- [tsc(vue-tsc) :material-open-in-new:](https://github.com/vuejs/language-tools){ target=_blank }
 
     TypeScript の型チェックを行い、型の不整合を検出します。
 
-- [Vitest :material-open-in-new:](https://vitest.dev/){ target_blank }
+- [Vitest :material-open-in-new:](https://vitest.dev/){ target=_blank }
 
     テストランナーとして、自動テストを実行します。
 
-- [Vitest Browser Mode :material-open-in-new:](https://vitest.dev/guide/browser/){ target_blank }
+- [Vitest Browser Mode :material-open-in-new:](https://vitest.dev/guide/browser/){ target=_blank }
 
     実ブラウザーまたはヘッドレスブラウザー上でテストを実行し、ブラウザー固有の挙動を含めて検証します。
 
-- [Vue Test Utils :material-open-in-new:](https://test-utils.vuejs.org/){ target_blank }
+- [Vue Test Utils :material-open-in-new:](https://test-utils.vuejs.org/){ target=_blank }
 
     Vue コンポーネントをマウントし、表示内容やイベント、状態変化を検証するためのテストユーティリティです。
 
-- [Playwright :material-open-in-new:](https://playwright.dev/){ target_blank }
+- [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
 
     実ブラウザーを操作して、ユーザー操作に近い形で E2E テストを実行します。
 
@@ -169,7 +169,7 @@ API 経由のデータ取得や、グローバルな状態など、コンポー�
 - Vue Test Utils
 - Vitest Browser Mode
 
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target_blank }を用いてテストを実装します。
+実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
 
 !!! info "コンポーネントテスト"
     コンポーネントには、単独ではあまり機能的な意味をなさないため、テストの効果が薄いものもあります。
@@ -185,7 +185,7 @@ API 経由のデータ取得や、グローバルな状態など、コンポー�
 - Vitest Browser Mode
 - Vue Test Utils
   
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target_blank }を用いてテストを実装します。
+実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
 レイアウト崩れを検知します。
 
 ## ユースケーステスト {#use-case-testing}
@@ -198,7 +198,7 @@ API 経由のデータ取得や、グローバルな状態など、コンポー�
 - Vitest Browser Mode
 - Vue Test Utils
 
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target_blank }を用いてテストを実装します。
+実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
 
 ## E2E テスト {#e2e-testing}
 
@@ -226,4 +226,4 @@ EC サイトであれば、「会員が商品を購入する」といったユ�
 - Playwright
 - Mock Service Worker
 
-[^1]:[Test paths: Typical kinds of test cases :material-open-in-new:](https://web.dev/articles/ta-test-cases#test_paths_typical_kinds_of_test_cases){ target_blank }
+[^1]:[Test paths: Typical kinds of test cases :material-open-in-new:](https://web.dev/articles/ta-test-cases#test_paths_typical_kinds_of_test_cases){ target=_blank }
