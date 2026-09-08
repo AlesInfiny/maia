@@ -131,7 +131,7 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-9 11-14 22-23 28 32 35-42 45-48 52-68 73-76 82 86-89"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-10 12-15 23-25 30 34 37-44 47-50 52-58 63-66 72 76-79"
 --8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
@@ -272,12 +272,13 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-6"
+```typescript hl_lines="5-7"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
   '**/src/generated/**',
+  '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
 ```
