@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/shared/authentication/authentication-guard'
+import { authenticationGuard } from '@/authentication/router/authentication-guard'
 import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import App from './App.vue'
 import { router } from '@/system-common/router'

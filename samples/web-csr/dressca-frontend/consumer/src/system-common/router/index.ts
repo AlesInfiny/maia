@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { authenticationRoutes } from '@/router/authentication/authentication'
+import { authenticationRoutes } from '@/authentication/router/authentication'
 import { displayItemRoutes } from '@/shopping/display-item/router/display-item'
 import { basketRoutes } from '@/shopping/basket/router/basket'
 import { orderingRoutes } from '@/shopping/ordering/router/ordering'

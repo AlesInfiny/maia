@@ -1,5 +1,5 @@
 import type { Router, RouteRecordName } from 'vue-router'
-import { useAuthenticationStore } from '@/stores/authentication/authentication'
+import { useAuthenticationStore } from '@/authentication/stores/authentication'
 
 export const authenticationGuard = (router: Router) => {
   router.beforeEach((to, from) => {

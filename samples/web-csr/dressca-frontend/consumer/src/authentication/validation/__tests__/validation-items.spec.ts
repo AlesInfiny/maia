@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ValidationItems } from '@/validation/validation-items'
+import { ValidationItems } from '@/authentication/validation/validation-items'
 import { i18n } from '@/system-common/locales/i18n'
 
 describe('validation-items', () => {

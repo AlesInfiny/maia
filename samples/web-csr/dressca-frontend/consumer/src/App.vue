@@ -4,7 +4,7 @@ import { router } from '@/system-common/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from '@/system-common/events'
-import { authenticationService } from './services/authentication/authentication-service'
+import { authenticationService } from '@/authentication/services/authentication-service'
 
 const { isAuthenticated, signOut } = authenticationService()
 

@@ -3,9 +3,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { authenticationService } from '@/services/authentication/authentication-service'
+import { authenticationService } from '@/authentication/services/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { ValidationItems } from '@/validation/validation-items'
+import { ValidationItems } from '@/authentication/validation/validation-items'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
