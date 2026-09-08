@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useBasketStore } from '@/business-common/stores/basket'
-import { useUserStore } from '@/stores/user/user'
-import { postOrder } from '@/services/ordering/ordering-service'
+import { useUserStore } from '@/shopping/ordering/stores/user'
+import { postOrder } from '@/shopping/ordering/services/ordering-service'
 import { fetchBasket } from '@/shopping/basket/services/basket-service'
 import { showToast } from '@/business-common/services/notificationService'
 import { useRouter } from 'vue-router'

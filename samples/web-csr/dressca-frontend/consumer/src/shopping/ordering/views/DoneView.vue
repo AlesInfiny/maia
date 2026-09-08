@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
-import { getOrder } from '@/services/ordering/ordering-service'
+import { getOrder } from '@/shopping/ordering/services/ordering-service'
 import { showToast } from '@/business-common/services/notificationService'
 import type { GetOrderByIdResponse } from '@/system-common/generated/api-client/models'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'

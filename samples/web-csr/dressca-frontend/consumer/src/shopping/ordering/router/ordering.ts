@@ -4,13 +4,13 @@ export const orderingRoutes: RouteRecordRaw[] = [
   {
     path: '/ordering/checkout',
     name: 'ordering/checkout',
-    component: () => import('@/views/ordering/CheckoutView.vue'),
+    component: () => import('@/shopping/ordering/views/CheckoutView.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/ordering/done/:orderId',
     name: 'ordering/done',
-    component: () => import('@/views/ordering/DoneView.vue'),
+    component: () => import('@/shopping/ordering/views/DoneView.vue'),
     meta: { requiresAuth: true },
     props: (route) => ({
       orderId: String(route.params.orderId),
