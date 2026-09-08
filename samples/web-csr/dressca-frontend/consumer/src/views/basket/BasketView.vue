@@ -5,14 +5,14 @@ import {
   removeItemFromBasket,
   updateItemInBasket,
 } from '@/services/basket/basket-service'
-import { showToast } from '@/services/notification/notificationService'
-import { useBasketStore } from '@/stores/basket/basket'
+import { showToast } from '@/business-common/services/notificationService'
+import { useBasketStore } from '@/business-common/stores/basket'
 import { useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/shared/helpers/assetHelper'
+import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'

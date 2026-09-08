@@ -1,4 +1,4 @@
-import { useNotificationStore } from '@/stores/notification/notification'
+import { useNotificationStore } from '@/business-common/stores/notification'
 
 /**
  * トースト通知を表示します。

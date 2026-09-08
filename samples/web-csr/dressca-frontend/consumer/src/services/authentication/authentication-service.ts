@@ -1,7 +1,7 @@
 import { useAuthenticationStore } from '@/stores/authentication/authentication'
-import { useBasketStore } from '@/stores/basket/basket'
-import { useDisplayItemStore } from '@/stores/display-item/display-item'
-import { useNotificationStore } from '@/stores/notification/notification'
+import { useBasketStore } from '@/business-common/stores/basket'
+import { useDisplayItemStore } from '@/business-common/stores/display-item'
+import { useNotificationStore } from '@/business-common/stores/notification'
 import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 
 /**

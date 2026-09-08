@@ -2,7 +2,7 @@
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import { router } from '@/system-common/router'
 import { useEventBus } from '@vueuse/core'
-import NotificationToast from './components/common/NotificationToast.vue'
+import NotificationToast from '@/business-common/components/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from '@/system-common/events'
 import { authenticationService } from './services/authentication/authentication-service'
 

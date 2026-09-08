@@ -1,4 +1,4 @@
-import { useBasketStore } from '@/stores/basket/basket'
+import { useBasketStore } from '@/business-common/stores/basket'
 
 /**
  * 買い物かごの内容を取得し、ストアを更新します。

@@ -6,7 +6,7 @@ import { createTestingPinia } from '@pinia/testing'
 import BasketView from '@/views/basket/BasketView.vue'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
-import { useNotificationStore } from '@/stores/notification/notification'
+import { useNotificationStore } from '@/business-common/stores/notification'
 import BasketItem from '@/components/basket/BasketItem.vue'
 import { createAxiosError, createProblemDetails } from '../helpers'
 
