@@ -1,4 +1,4 @@
-import type { GetCatalogBrandsResponse } from '@/generated/api-client'
+import type { GetCatalogBrandsResponse } from '@/system-common/generated/api-client'
 
 export const catalogBrands: GetCatalogBrandsResponse[] = [
   {
