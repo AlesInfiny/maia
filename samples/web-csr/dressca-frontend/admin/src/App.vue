@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import NotificationToast from '@/components/NotificationToast.vue'
-import LoginMenu from '@/components/LoginMenu.vue'
+import NotificationToast from '@/business-common/components/NotificationToast.vue'
+import LoginMenu from '@/authentication/components/LoginMenu.vue'
 import { storeToRefs } from 'pinia'
-import { router as importedRouter } from '@/router'
+import { router as importedRouter } from '@/system-common/router'
 import { ref } from 'vue'
-import { useNotificationStore } from '@/stores/notification/notification'
+import { useNotificationStore } from '@/business-common/stores/notification'
 import { useEventBus } from '@vueuse/core'
-import { showToast as showToastByService } from '@/services/notification/notificationService'
-import { unauthorizedErrorEventKey } from './shared/events'
+import { showToast as showToastByService } from '@/business-common/services/notificationService'
+import { unauthorizedErrorEventKey } from '@/system-common/events'
+import {
+  authenticationRouteNames,
+  catalogRouteNames,
+  homeRouteNames,
+} from '@/system-common/router/route-names'
 
 const notificationStore = useNotificationStore()
 const { message, timeout } = storeToRefs(notificationStore)
@@ -23,7 +28,7 @@ unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
   importedRouter.push({
-    name: 'authentication/login',
+    name: authenticationRouteNames.login,
     query: {
       redirectName: importedRouter.currentRoute.value.name?.toString(),
       redirectParams: JSON.stringify(importedRouter.currentRoute.value.params),
@@ -46,14 +51,14 @@ unauthorizedErrorEventBus.on((payload) => {
       <div class="relative flex h-16 items-center justify-between">
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <router-link
-            to="/"
+            :to="{ name: homeRouteNames.home }"
             class="flex shrink-0 items-center rounded-md px-3 text-xl font-medium text-white hover:bg-blue-800"
             >Dressca 管理</router-link
           >
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex gap-4">
               <router-link
-                to="/catalog/items"
+                :to="{ name: catalogRouteNames.items }"
                 class="rounded-md px-3 py-2 text-base font-medium text-white hover:bg-blue-800"
                 >カタログアイテム管理</router-link
               >
