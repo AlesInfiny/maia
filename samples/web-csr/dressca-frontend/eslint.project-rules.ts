@@ -23,11 +23,11 @@ export const codingConventionRules: Linter.Config = {
 }
 
 /**
- * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
+ * プロジェクトのフォルダー間の参照方向を強制するルールを生成します。
  *
  *   アプリケーションシェル（App.vue / main.ts）
  *         ↓
- *   ドメイン（shopping/*, authentication）
+ *   ドメイン
  *         ↓
  *   business-common
  *         ↓
@@ -42,50 +42,77 @@ export const codingConventionRules: Linter.Config = {
  * 集約モジュール（route-names.ts）を参照できないようにします。
  * なお本ルールは `@/` エイリアスによる参照を対象とします。
  * レイヤーをまたぐ参照はエイリアスで記述してください。
+ * @param project ルールを適用するワークスペースのフォルダー名。
+ * @param domainPatterns ドメインフォルダーを表す `@/` エイリアスのパターン。
+ * @returns 参照方向を強制する ESLint の設定の配列。
  */
-export const consumerLayerDependencyRules: Linter.Config[] = [
-  {
-    name: 'consumer/layer-dependency/system-common',
-    files: ['**/consumer/src/system-common/**/*.{vue,ts,mts,tsx}'],
-    ignores: [
-      '**/consumer/src/system-common/router/index.ts',
-      '**/consumer/src/system-common/router/route-names.ts',
-    ],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/business-common/**', '@/shopping/**', '@/authentication/**'],
-              message:
-                'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
-            },
-            {
-              group: ['@/system-common/router/route-names'],
-              message:
-                'ルート名の集約モジュールは全ドメインを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
-            },
-          ],
-        },
+function createLayerDependencyRules(
+  project: string,
+  domainPatterns: string[],
+): Linter.Config[] {
+  return [
+    {
+      name: `${project}/layer-dependency/system-common`,
+      files: [`**/${project}/src/system-common/**/*.{vue,ts,mts,tsx}`],
+      ignores: [
+        `**/${project}/src/system-common/router/index.ts`,
+        `**/${project}/src/system-common/router/route-names.ts`,
       ],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['@/business-common/**', ...domainPatterns],
+                message:
+                  'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
+              },
+              {
+                group: ['@/system-common/router/route-names'],
+                message:
+                  'ルート名の集約モジュールは全ドメインを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
+              },
+            ],
+          },
+        ],
+      },
     },
-  },
-  {
-    name: 'consumer/layer-dependency/business-common',
-    files: ['**/consumer/src/business-common/**/*.{vue,ts,mts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/shopping/**', '@/authentication/**'],
-              message: 'business-common はドメインを参照できません。',
-            },
-          ],
-        },
-      ],
+    {
+      name: `${project}/layer-dependency/business-common`,
+      files: [`**/${project}/src/business-common/**/*.{vue,ts,mts,tsx}`],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: domainPatterns,
+                message: 'business-common はドメインを参照できません。',
+              },
+            ],
+          },
+        ],
+      },
     },
-  },
-]
+  ]
+}
+
+/**
+ * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
+ * ドメインは `shopping` コンテキスト配下のドメインと `authentication` です。
+ */
+export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
+  'consumer',
+  ['@/shopping/**', '@/authentication/**'],
+)
+
+/**
+ * admin プロジェクトのフォルダー間の参照方向を強制するルールです。
+ * ドメイン間に import 関係がないためコンテキストフォルダーを作らず、
+ * ドメインをすべて最上位にフラットに配置しています。
+ */
+export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
+  '@/catalog/**',
+  '@/authentication/**',
+])
