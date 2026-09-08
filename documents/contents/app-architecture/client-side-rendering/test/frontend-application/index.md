@@ -22,7 +22,8 @@ AlesInfiny Maia OSS Edition では、継続的インテグレーションを目�
 下記はフロントエンドアプリケーションのテストに着目したシステムの模式図です。
 システムの構成要素、プログラム部品、検証対象、テストの名称を示します。
 
-![テスト構成の概観](../../../../images/app-architecture/client-side-rendering/test-structure-overview-light.png){ width="800" loading=lazy }
+![テスト構成の概観](../../../../images/app-architecture/client-side-rendering/test-structure-overview-light.png#only-light){ width="800" loading=lazy }
+![テスト構成の概観](../../../../images/app-architecture/client-side-rendering/test-structure-overview-dark.png#only-dark){ width="800" loading=lazy }
 
 上図で用いた用語の意味を表に示します。
 
