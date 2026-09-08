@@ -71,7 +71,8 @@ AlesInfiny Maia OSS Edition では、継続的インテグレーションを目�
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-![テストモデル](../../../../images/app-architecture/client-side-rendering/test-model-light.png){ width="800" loading=lazy }
+![テストモデル](../../../../images/app-architecture/client-side-rendering/test-model-light.png#only-light){ width="800" loading=lazy }
+![テストモデル](../../../../images/app-architecture/client-side-rendering/test-model-dark.png#only-dark){ width="800" loading=lazy }
 
 toC 向け Web サービスでは、 ユーザー体験の良し悪しが競争力の源泉となる傾向にあるので、ユーザーインタラクションに関する機能とその品質を重視する必要があります。
 このことにより、フロントエンドアプリケーションを構成するコードのうち、 UI に関するコードのほうがロジックに関するコードよりも多くを占める傾向性があると考えられます。
