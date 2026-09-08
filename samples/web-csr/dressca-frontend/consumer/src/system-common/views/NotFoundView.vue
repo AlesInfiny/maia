@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { i18n } from '@/system-common/locales/i18n'
-import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 const { t } = i18n.global
 </script>
@@ -17,9 +16,8 @@ const { t } = i18n.global
           トップページまたはメニューから、再度お探しください。
         </p>
         <div class="flex gap-4 text-lg">
-          <RouterLink
-            :to="{ name: displayItemRouteNames.displayItem }"
-            class="text-blue-600 underline hover:text-blue-900"
+          <!-- システム共通の画面はドメインのルート名を参照しないため、アプリケーションのルートをパスで指定します。 -->
+          <RouterLink to="/" class="text-blue-600 underline hover:text-blue-900"
             >トップページに戻る</RouterLink
           >
         </div>

@@ -38,6 +38,8 @@ export const codingConventionRules: Linter.Config = {
  * アプリケーションシェルは全経路を許可する例外です。
  * ルーティング定義（system-common/router/index.ts, route-names.ts）は
  * 全ドメインを集約する役割を持つため、同じく例外として扱います。
+ * この例外が層全体へ広がらないよう、system-common の他のコードからは
+ * 集約モジュール（route-names.ts）を参照できないようにします。
  * なお本ルールは `@/` エイリアスによる参照を対象とします。
  * レイヤーをまたぐ参照はエイリアスで記述してください。
  */
@@ -58,6 +60,11 @@ export const consumerLayerDependencyRules: Linter.Config[] = [
               group: ['@/business-common/**', '@/shopping/**', '@/authentication/**'],
               message:
                 'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
+            },
+            {
+              group: ['@/system-common/router/route-names'],
+              message:
+                'ルート名の集約モジュールは全ドメインを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
             },
           ],
         },

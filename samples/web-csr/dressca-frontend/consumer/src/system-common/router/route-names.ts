@@ -6,6 +6,8 @@
  * ルーティング定義は全ドメインを集約する役割を持つため、
  * アプリケーションシェル（App.vue / main.ts）と同じく例外として扱います。
  * 例外の範囲は本モジュールと index.ts に限定します。
+ * system-common の他のコードから本モジュールを参照すると例外が層全体へ広がるため、
+ * その参照は ESLint で禁止しています。
  */
 import { authenticationRouteNames } from '@/authentication/router/authentication-route-names'
 import { basketRouteNames } from '@/shopping/basket/router/basket-route-names'
