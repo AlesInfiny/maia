@@ -140,11 +140,11 @@ Spring Boot では、 CORS に関する設定を [`SecurityFilterChain` :materia
 
 ### Web API 呼び出し時の HTTP ヘッダーの設定 {#http-request-header}
 
-AlesInfiny Maia では Web API 呼び出しの共通処理用に `./src/api-client/index.ts` という設定ファイルを作成する（ [参照](../vue-js/create-api-client-code.md#set-client-code) ）ので、ここで HTTP ヘッダーを設定します。
+AlesInfiny Maia では Web API 呼び出しの共通処理用に `./src/system-common/api-client/index.ts` という設定ファイルを作成する（ [参照](../vue-js/create-api-client-code.md#set-client-code) ）ので、ここで HTTP ヘッダーを設定します。
 
 ```typescript title="index.ts" hl_lines="11"
 import axios from 'axios'
-import * as apiClient from '@/generated/api-client'
+import * as apiClient from '@/system-common/generated/api-client'
 
 // （中略）
 

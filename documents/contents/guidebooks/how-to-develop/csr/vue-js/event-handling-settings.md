@@ -41,13 +41,13 @@ package.json の dependencies に @vueuse/core が追加されたことを確認
 
 ## イベントの定義 {#define-events}
 
-イベントバスはアプリケーション横断的に使用されるので、ソースコードは shared フォルダー配下に配置します。
+イベントバスはアプリケーション横断的に使用され、業務知識を持たないので、ソースコードは system-common フォルダー配下に配置します。
 使用するイベントバスの数が増加した場合は、適切にソースコードを分割してください。
 
 ```text title="フォルダー構造" linenums="0"
 <workspace-name>
 └─ src/
-  └─ shared/ ------------------- アプリケーションの共通部品が配置されるフォルダー
+  └─ system-common/ ------------ システム共通の機能が配置されるフォルダー
      └─ events/
             index.ts ----------- イベントの定義に関係するソースコード一式のエントリーポイント
 ```
@@ -121,7 +121,7 @@ type UnhandledErrorEventPayload = {
 
 ```typescript title="イベントを発火する例"
 import { useEventBus } from '@vueuse/core'
-import { unhandledErrorEventKey } from '@/shared/events'
+import { unhandledErrorEventKey } from '@/system-common/events'
 
   const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
   // (中略)
@@ -149,8 +149,8 @@ import { unhandledErrorEventKey } from '@/shared/events'
 ```vue title="イベントを購読する例"
 <script setup lang="ts">
 import { useEventBus } from '@vueuse/core'
-import { unhandledErrorEventKey } from '@/shared/events'
-import { showToast } from '@/services/notification/notificationService'
+import { unhandledErrorEventKey } from '@/system-common/events'
+import { showToast } from '@/business-common/services/notificationService'
 
 const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
 unhandledErrorEventBus.on((payload) =>
