@@ -245,6 +245,33 @@ import org.springframework.modulith.ApplicationModule.Type;
     オープンモジュールは内部実装を隠蔽できないため、モジュール間の結合度が高くなりやすくなります。
     オープンモジュールとして定義するモジュールは、必要最小限にとどめてください。
 
+## MyBatis の設定 {#config-mybatis}
+
+MyBatis を利用する場合、 `@Configuration` を付与した設定クラスを作成し、 `ConfigurationCustomizer` を Bean 登録することで MyBatis の設定をプログラム的に行います。
+以下は、データベースのカラム名（スネークケース）と Java のプロパティ名（キャメルケース）を自動的にマッピングする設定の例です。
+
+```java title="MyBatisConfig.java"
+@Configuration
+@EnableTransactionManagement
+@MapperScan(basePackages = "com.example.applicationmodules", annotationClass = Mapper.class)
+public class MyBatisConfig {
+
+  /**
+   * MyBatis の設定をカスタマイズします。
+   *
+   * @return カスタマイズされた MyBatis 設定。
+   */
+  @Bean
+  ConfigurationCustomizer mybatisConfigurationCustomizer() {
+    return configuration -> {
+      configuration.setMapUnderscoreToCamelCase(true);
+    };
+  }
+}
+```
+
+その他に設定できる項目については、[MyBatis のリファレンスドキュメント（設定） :material-open-in-new:](https://mybatis.org/mybatis-3/ja/configuration.html#settings){ target=_blank } を参照してください。
+
 ## MyBatis Generator によるコードの自動生成 {#code-generation-with-mybatis-generator}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
