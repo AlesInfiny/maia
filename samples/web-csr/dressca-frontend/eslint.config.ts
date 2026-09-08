@@ -78,7 +78,8 @@ export default defineConfigWithVueTs(
   //         ↓
   //   system-common
   //
-  // 逆方向の参照とコンテキストをまたぐドメイン間の参照を禁止します。
+  // 逆方向の参照を禁止します。
+  // 同じ階層にあるドメイン同士の参照は禁止しません。
   // アプリケーションシェルは全経路を許可する例外です。
   // ルーティング定義（system-common/router/index.ts, route-names.ts）は
   // 全ドメインを集約する役割を持つため、同じく例外として扱います。
@@ -117,42 +118,6 @@ export default defineConfigWithVueTs(
             {
               group: ['@/shopping/**', '@/authentication/**'],
               message: 'business-common はドメインを参照できません。',
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    name: 'consumer/layer-dependency/shopping',
-    files: ['**/consumer/src/shopping/**/*.{vue,ts,mts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/authentication/**'],
-              message:
-                'コンテキストをまたぐドメイン間の参照は禁止です。共通層に切り出して参照してください。',
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    name: 'consumer/layer-dependency/authentication',
-    files: ['**/consumer/src/authentication/**/*.{vue,ts,mts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/shopping/**'],
-              message:
-                'コンテキストをまたぐドメイン間の参照は禁止です。共通層に切り出して参照してください。',
             },
           ],
         },
