@@ -68,6 +68,98 @@ export default defineConfigWithVueTs(
     },
   },
 
+  // consumer プロジェクトのフォルダー間の参照方向を強制します。
+  //
+  //   アプリケーションシェル（App.vue / main.ts）
+  //         ↓
+  //   ドメイン（shopping/*, authentication）
+  //         ↓
+  //   business-common
+  //         ↓
+  //   system-common
+  //
+  // 逆方向の参照とコンテキストをまたぐドメイン間の参照を禁止します。
+  // アプリケーションシェルは全経路を許可する例外です。
+  // ルーティング定義（system-common/router/index.ts, route-names.ts）は
+  // 全ドメインを集約する役割を持つため、同じく例外として扱います。
+  // なお本ルールは `@/` エイリアスによる参照を対象とします。
+  // レイヤーをまたぐ参照はエイリアスで記述してください。
+  {
+    name: 'consumer/layer-dependency/system-common',
+    files: ['**/consumer/src/system-common/**/*.{vue,ts,mts,tsx}'],
+    ignores: [
+      '**/consumer/src/system-common/router/index.ts',
+      '**/consumer/src/system-common/router/route-names.ts',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/business-common/**', '@/shopping/**', '@/authentication/**'],
+              message:
+                'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'consumer/layer-dependency/business-common',
+    files: ['**/consumer/src/business-common/**/*.{vue,ts,mts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/shopping/**', '@/authentication/**'],
+              message: 'business-common はドメインを参照できません。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'consumer/layer-dependency/shopping',
+    files: ['**/consumer/src/shopping/**/*.{vue,ts,mts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/authentication/**'],
+              message:
+                'コンテキストをまたぐドメイン間の参照は禁止です。共通層に切り出して参照してください。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'consumer/layer-dependency/authentication',
+    files: ['**/consumer/src/authentication/**/*.{vue,ts,mts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/shopping/**'],
+              message:
+                'コンテキストをまたぐドメイン間の参照は禁止です。共通層に切り出して参照してください。',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
   {
     ...pluginCypress.configs.recommended,
