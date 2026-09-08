@@ -59,6 +59,8 @@ nav:
                   - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/backend-application/integration-test.md
               - フロントエンドアプリケーションのテスト:
                   - app-architecture/client-side-rendering/test/frontend-application/index.md
+                  - 単体テスト ( UT0 ): app-architecture/client-side-rendering/test/frontend-application/unit-test.md
+                  - 結合テスト ( ITa ): app-architecture/client-side-rendering/test/frontend-application/integration-test.md
       - サーバーサイドレンダリング編:
           - app-architecture/server-side-rendering/index.md
           - SSR アーキテクチャ概要: app-architecture/server-side-rendering/ssr-architecture-overview.md

@@ -2,12 +2,25 @@
 title: CSR 編 - テスト
 description: フロントエンドアプリケーションのテスト方針について解説します。
 ---
-<!-- cspell:ignore Kent C. Dodds -->
+<!-- cspell:ignore Dodds -->
 # フロントエンドアプリケーションのテスト {#top}
 
-本章では、フロントエンドアプリケーションのテスト方針について解説します。
+フロントエンドアプリケーションのテスト方針について解説します。
 AlesInfiny Maia OSS Edition では、継続的インテグレーションを目的として、静的テストから E2E テストの一部までを自動化し、品質と開発スピードの両立を目指します。
-本章では自動テストが可能なテストレベルのみを扱い、システムテストや受け入れテストといったテストレベルについては扱いません。
+自動テストが可能なテストレベルのみを扱い、システムテストや受け入れテストといったテストレベルについては扱いません。
+
+1. [単体テスト ( UT0 )](unit-test.md)
+
+    主に以下のテストを行います。
+
+    - Prettier や ESLint などを用いた、ソースコード内の潜在的な不具合を検出する静的テスト
+    - Vitest 、 Vue Test Utils を用いた、ロジックやコンポーネントから、それらを結合して実現する機能やユースケースまでの機能性を確認する動的テスト
+
+1. [結合テスト ( ITa )](integration-test.md)
+
+    主に以下のテストを行います。
+
+    - Playwright を用いた、フロントエンドアプリケーションからバックエンドアプリケーションまで一気通貫で機能性を確認する E2E テスト
 
 ## 継続的インテグレーション {#continuous-integration}
 
@@ -55,7 +68,7 @@ AlesInfiny Maia OSS Edition では、継続的インテグレーションを目�
 | テストレベル     | 名称                 | 自動／手動 | 内容                                                                                         |
 | ---------------- | :------------------- | ---------- | :------------------------------------------------------------------------------------------- |
 | 単体テスト (UT0) | 静的テスト           | 自動       | 不具合の原因となる記述や規約違反を検出                                                       |
-| 単体テスト (UT0) | 単体テスト           | 自動       | モジュール単位でUI・ロジック・コンポーネントの動作を検証                                     |
+| 単体テスト (UT0) | 単体テスト           | 自動       | モジュール単位でロジックの動作を検証                                                         |
 | 単体テスト (UT0) | コンポーネントテスト | 自動       | UI・ロジック・コンポーネント間の結合によるコンポーネントの実現を検証                         |
 | 単体テスト (UT0) | 機能内結合テスト     | 自動       | コンポーネントの結合による機能の実現を検証                                                   |
 | 単体テスト (UT0) | ユースケーステスト   | 自動       | 機能間の結合によるユースケースの実現を検証                                                   |
@@ -69,8 +82,8 @@ AlesInfiny Maia OSS Edition では、継続的インテグレーションを目�
 テスト戦略の代表的なモデルとして、[テストピラミッド :material-open-in-new:](https://web.dev/articles/ta-strategies?hl=ja#the_classic_the_test_pyramid){ target=_blank }が挙げられます。
 テストピラミッドは単体テストを厚くし、結合テストや E2E テストを少数に絞るモデルであり、各テストの量を種類別に積み上げると、下図のようにピラミッド状の三角形を形成します。
 
- 一方で、フロントエンドアプリケーションのテストの文脈でよく挙げられるモデルが、[テスティングトロフィー :material-open-in-new:](https://web.dev/articles/ta-strategies?hl=ja#testing_trophy){ target=_blank }です。
-テスティングトロフィーは、[React Testing Library :material-open-in-new:](https://github.com/testing-library/react-testing-library){ target=_blank }の開発者として知られる [Kent C. Dodds :material-open-in-new:](https://kentcdodds.com/){ target=_blank }により提唱された、単体テストよりも結合テストを重視するモデルです。上述の表に当てはめると、機能内結合テストや機能間結合テストが単体テストよりも重視されます。このことにより、同様に積み上げた場合に下図のように中腹部が膨らんだトロフィー状の形を形成します。
+一方で、フロントエンドアプリケーションのテストの文脈でよく挙げられるモデルが、[テスティングトロフィー :material-open-in-new:](https://web.dev/articles/ta-strategies?hl=ja#testing_trophy){ target=_blank }です。
+テスティングトロフィーは、[React Testing Library :material-open-in-new:](https://github.com/testing-library/react-testing-library){ target=_blank }の開発者として知られる [Kent C. Dodds :material-open-in-new:](https://kentcdodds.com/){ target=_blank }により提唱された、単体テストよりも結合テストを重視するモデルです。上述の表に当てはめると、機能内結合テストやユースケーステストが単体テストよりも重視されます。このことにより、同様に積み上げた場合に下図のように中腹部が膨らんだトロフィー状の形を形成します。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -91,7 +104,7 @@ toC 向け Web サービスでは、 ユーザー体験の良し悪しが競争�
 - **コンポーネントテスト**：単体テストでは検証できない、描画結果とユーザー操作に対する振る舞いに絞ります。
 - **機能内結合テスト**：コンポーネントを結合しなければ確認できない、コンポーネント間のデータの受け渡しに絞ります。
 - **ユースケーステスト**：ユースケースごとに、代表的な流れを対象とします。
-- **E2E テスト**：[E2E テスト](#e2e-testing) で述べる 2 種類のユースケースに限定します。
+- **E2E テスト**：[結合テスト ( ITa ) のテスト対象](integration-test.md#testing-targets) で述べる 2 種類のユースケースに限定します。
 
 ??? note "エンタープライズ向けアプリケーションのテスト戦略"
     大規模システムの開発では、小規模システムと比較して、組織境界をまたいだテストが指数関数的に高コストになる傾向があると想定されます。
@@ -101,141 +114,3 @@ toC 向け Web サービスでは、 ユーザー体験の良し悪しが競争�
     テスト戦略を選択するうえで、テスト工程の実行スピードが機能リリースのボトルネックになるかどうかは重要です。
     ミッションクリティカルでない領域の Web サービスや SaaS 、社内ツールといったアプリケーションはリリースの頻度が高くなる傾向になるため、自動テストを用いて回帰検証の時間の短縮を必要とします。
     逆に、公共・金融などといったミッションクリティカルな業務領域のアプリケーションはリリースの頻度が低くなる傾向にあるので、自動テストがボトルネックとなる可能性も低くなります。
-
-## テストツール {#testing-tools}
-
-テストの種類と目的に応じて適切なテストツールを採用します。
-それぞれのテストツールについて説明します。
-
-- [Prettier :material-open-in-new:](https://prettier.io/){ target=_blank }
-
-    ソースコードのフォーマットを自動的に整形します。
-
-- [ESLint :material-open-in-new:](https://eslint.org/){ target=_blank }
-
-    TypeScript のコードを静的に解析し、不具合の原因となる記述やコーディング規約違反を検出します。
-
-- [Stylelint :material-open-in-new:](https://stylelint.io/){ target=_blank }
-
-    CSS を静的解析し、記述ミスやスタイル規約違反を検出します。
-
-- [tsc(vue-tsc) :material-open-in-new:](https://github.com/vuejs/language-tools){ target=_blank }
-
-    TypeScript の型チェックを行い、型の不整合を検出します。
-
-- [Vitest :material-open-in-new:](https://vitest.dev/){ target=_blank }
-
-    テストランナーとして、自動テストを実行します。
-
-- [Vitest Browser Mode :material-open-in-new:](https://vitest.dev/guide/browser/){ target=_blank }
-
-    実ブラウザーまたはヘッドレスブラウザー上でテストを実行し、ブラウザー固有の挙動を含めて検証します。
-
-- [Vue Test Utils :material-open-in-new:](https://test-utils.vuejs.org/){ target=_blank }
-
-    Vue コンポーネントをマウントし、表示内容やイベント、状態変化を検証するためのテストユーティリティです。
-
-- [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
-
-    実ブラウザーを操作して、ユーザー操作に近い形で E2E テストを実行します。
-
-## 静的テスト {#static-analysis}
-
-コードベース全体を対象として、プログラムを実行せずにソースコードを解析することで、不具合の原因となる記述や規約違反を検出します。
-
-### 使用ツール {#static-analysis-tools}
-
-- フォーマッター：設定に従ってコードのフォーマットを自動整形します。
-    - Prettier
-- リンター：規約違反や記述ミス、保守性の低い書き方、潜在的な不具合につながるコードを検出します。一部は自動修正できます。
-    - ESLint
-    - Stylelint
-- 型チェッカー：型の整合性を検証し、型の不一致による問題を実行前に検出します。
-    - tsc
-    - vue-tsc
-
-## 単体テスト {#unit-testing}
-
-アプリケーションを構成するロジックの妥当性を個々のモジュール単位で検証し、設計通り実装されていることを確認します。
-API 経由のデータ取得や、グローバルな状態など、個々のモジュールの外部に依存する箇所はモック化します。
-
-機能を実現するロジックを検証します。
-たとえば、分岐条件・バリデーションのルール・ API レスポンスから画面へ詰め替える項目・ストアに保存する項目を検証します。
-これらはロジックの正しさが重要になるので、コードカバレッジを重視します。
-ロジックを持つモジュールはすべて単体テストの対象とし、分岐を網羅するようにテストケースを設計します。
-異常系や境界値の組み合わせも、この層で網羅します。
-上位のテストで同じ分岐を検証し直すと、実行時間と保守コストが上位の層に偏るからです。
-
-### 使用ツール {#unit-testing-tools}
-
-- Vitest
-
-## コンポーネントテスト {#component-testing}
-
-機能内の UI・ロジック・コンポーネント間の結合を検証し、コンポーネントが設計通り実装されていることを確認します。
-API 経由のデータ取得や、グローバルな状態など、コンポーネントの外部に依存する箇所はモック化します。
-
-### 使用ツール {#component-testing-tools}
-
-- Vitest
-- Vue Test Utils
-- Vitest Browser Mode
-
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
-
-!!! info "コンポーネントテスト"
-    コンポーネントには、単独ではあまり機能的な意味をなさないため、テストの効果が薄いものもあります。
-
-## 機能内結合テスト {#intra-feature-integration-testing}
-
-コンポーネントの間の結合の妥当性を検証し、機能が設計通り実装されていることを確認します。
-画面のレイアウトを確認します。
-
-### 使用ツール {#intra-feature-integration-testing-tools}
-
-- Vitest
-- Vitest Browser Mode
-- Vue Test Utils
-  
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
-レイアウト崩れを検知します。
-
-## ユースケーステスト {#use-case-testing}
-
-画面コンポーネントから機能を呼び出して機能間の結合の妥当性を検証し、ユースケースが実現できることを確認します。
-
-### 使用ツール {#use-case-testing-tools}
-
-- Vitest
-- Vitest Browser Mode
-- Vue Test Utils
-
-実ブラウザー操作に近い形で検証するために、 Vitest Browser Mode の [Context API :material-open-in-new:](https://vitest.dev/api/browser/context.html#context-api){ target=_blank }を用いてテストを実装します。
-
-## E2E テスト {#e2e-testing}
-
-E2E テストでは、ユースケースを実行して、フロントエンドアプリケーションとバックエンドアプリケーション間の結合の妥当性を検証します。
-これを通じて、フロントエンドからバックエンドまで一気通貫してユースケースが実現できることを確認します。
-下記では、テストツールを利用した自動 E2E テストについて扱い、手動でアプリケーションを操作する E2E テストについては扱いません。
-
-ユースケースのうち、下記の 2 種類[^1]に該当するユースケースを自動化の対象として選定します。
-自動 E2E テストは実装・実行・保守ともに高いコストを要するからです。
-なぜなら、バックエンドアプリケーションの起動、データベースの準備、外部サービスのモックといった準備が必要だからです。
-
-1. ハッピーパス（ゴールデンパス）
-テスト対象のアプリケーションにおいて、最も一般的であると判断されるユースケースです。
-EC サイトであれば、「会員が商品を購入する」といったユースケースが考えられます。
-
-1. ネガティブパス（Scary Path）
-テスト対象のアプリケーションの異常系のユースケースのうち、想定外の動作をした場合にリスクの高いユースケースです。
-EC サイトであれば、「会員が商品を購入する」といったユースケースにおいて、外部の決済サービスの不通により購入がエラーになった場合が考えられます。
-
-この 2 種類の共通点は、システムが想定通りの動作をしなかった場合に業務上クリティカルな影響があることです。
-それゆえ、自動化に高いコストを支払ったとしても検証するメリットがあります。
-
-### 使用ツール {#e2e-testing-tools}
-
-- Playwright
-- Mock Service Worker
-
-[^1]:[Test paths: Typical kinds of test cases :material-open-in-new:](https://web.dev/articles/ta-test-cases#test_paths_typical_kinds_of_test_cases){ target=_blank }
