@@ -3,7 +3,7 @@
  * ログイン／ログアウトを切り替えるハンバーガーメニューです。
  */
 import { storeToRefs } from 'pinia'
-import { useAuthenticationStore } from '@/authentication/stores/authentication'
+import { useAuthenticationStore } from '@/business-common/stores/authentication'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
 import { logout as logoutByService } from '@/authentication/services/authentication-service'
 import { useRouter } from 'vue-router'

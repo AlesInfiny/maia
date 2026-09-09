@@ -109,8 +109,9 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
 
 /**
  * admin プロジェクトのフォルダー間の参照方向を強制するルールです。
- * admin はコンテキストフォルダーを作らず、ドメインを最上位にフラットに配置しています。
- * consumer と同じく、同じ階層にあるドメイン同士の参照は禁止しません。
+ * ドメイン間に import 関係がないためコンテキストフォルダーを作らず、
+ * ドメインをすべて最上位にフラットに配置しています。
+ * なお consumer と同じく、同じ階層にあるドメイン同士の参照は本ルールでは禁止しません。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
   '@/catalog/**',
