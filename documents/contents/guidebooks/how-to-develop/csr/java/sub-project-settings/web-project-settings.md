@@ -53,11 +53,11 @@ dependencies {
 
 web プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `WebApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
 
-`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web`）に限られます。
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web` ）に限られます。
 本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは web プロジェクトとは異なるパッケージに配置されます。
 その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
 
-これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example`）を指定します。
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example` ）を指定します。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 

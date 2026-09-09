@@ -43,11 +43,11 @@ dependencies {
 
 batch プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `BatchApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
 
-`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.batch`）に限られます。
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.batch` ）に限られます。
 本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは batch プロジェクトとは異なるパッケージに配置されます。
 その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
 
-これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example`）を指定します。
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example` ）を指定します。
 
 ```java title="BatchApplication.java" hl_lines="1"
 @SpringBootApplication(scanBasePackages = {"com.example"})
