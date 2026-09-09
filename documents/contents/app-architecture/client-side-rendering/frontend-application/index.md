@@ -148,79 +148,218 @@ Axios: [github :material-open-in-new:](https://github.com/axios/axios){ target=_
 
 ## フォルダー構成 {#project-structure}
 
-Vue.js プロジェクトのフォルダー構成は、ブランクプロジェクト作成時のデフォルトの構成を基に以下のように行います。なおこのフォルダー配下の構成については、コンポーネント設計方法に依存するため、各プロジェクトの方針に従います。
+`src` フォルダーの下は、業務の関心事を単位に構成します。
+最上位に置くのは、境界付けられたコンテキスト（ Bounded Context ）です。
+コンテキストの下にドメインのフォルダーを置き、さらにその下に `views` や `services` といった層のフォルダーを並べます。
+
+層を最上位に置く構成と比べると、 ひとつの機能に関わるコードがひとつのフォルダーにまとまります。
+機能を追加するときに触るフォルダーが限られ、機能を削除するときもコードの取り残しが起こりにくくなります。
+
+コンテキストの他に、複数のドメインから参照する機能を置く共通の層を 2 つ設けます。
+業務知識を持つものを `business-common` に、持たないものを `system-common` に置きます。
 
 ```text title="プロジェクトのフォルダー構成全体像" linenums="0"
 <project-name>
 ├─ cypress/ ------------------ cypress による E2E テストに関するファイルを格納します。
 ├─ public/ ------------------- メディアファイルや favicon など静的な資産を格納します。
 ├─ src/
-│  ├─ api-client/ ------------ API クライアントの設定ファイルを格納します。
 │  ├─ assets/ ---------------- コードや動的ファイルが必要とするCSSや画像などのアセットを格納します。
-│  ├─ components/ ------------ 単体で自己完結している再利用性の高い vue コンポーネントなどを格納します。
-│  ├─ composables/ ----------- Composition API を活用した再利用性の高い関数などを格納します。
-│  ├─ config/ ---------------- 設定ファイルを格納します。
-│  ├─ generated/ ------------- 自動生成されたファイルを格納します。
-│  ├─ locales/ --------------- メッセージ管理に関するファイルを格納します。
-│  ├─ router/ ---------------- ルーティング定義を格納します。
-│  ├─ services/ -------------- サービスに関するファイルを格納します。
-│  ├─ shared/ ---------------- アプリケーション全体で再利用する共通機能のファイルを格納します。
-│  ├─ stores/ ---------------- store に関するファイルを格納します。
-│  ├─ types/ ----------------- アプリケーション全体で再利用する型定義のファイルを格納します。
-│  ├─ validation/ ------------ 一元化するバリデーション定義ファイルを格納します。
-│  ├─ views/ ----------------- ルーティングで指定される vue ファイルを格納します。またページ固有の挙動などもここに含めます。
+│  ├─ system-common/ --------- 業務知識を持たない、システム共通の機能を格納します。
+│  ├─ business-common/ ------- 業務知識を持ち、複数のドメインから参照される機能を格納します。
+│  ├─ <context>/ ------------- 境界付けられたコンテキストです。ドメインのフォルダーを格納します。
+│  │  └─ <domain>/ ----------- ドメインです。層のフォルダーを格納します。
 │  ├─ App.vue
 │  └─ main.ts
 ├─ index.html
 └─ package.json
 ```
 
+サンプルアプリケーション（ consumer ）では、以下のような構成になります。
+
+```text title="サンプルアプリケーションのフォルダー構成" linenums="0"
+src/
+├─ assets/
+├─ system-common/ ------------ システム共通
+│  ├─ api-client/ ------------ API クライアントの設定ファイルを格納します。
+│  ├─ components/
+│  ├─ composables/
+│  ├─ error-handler/ --------- グローバルエラーハンドラーを格納します。
+│  ├─ events/ ---------------- イベントバスの定義を格納します。
+│  ├─ generated/ ------------- 自動生成されたファイルを格納します。
+│  ├─ helpers/
+│  ├─ locales/ --------------- メッセージ管理に関するファイルを格納します。
+│  ├─ router/ ---------------- 各ドメインのルーティング定義を集約します。
+│  ├─ types/
+│  ├─ validation/
+│  └─ views/ ----------------- エラー画面など、業務知識を持たない画面を格納します。
+├─ business-common/ ---------- 業務共通
+│  ├─ components/
+│  ├─ helpers/
+│  ├─ services/
+│  └─ stores/
+├─ shopping/ ----------------- 買い物のコンテキスト
+│  ├─ display-item/ ---------- カタログのドメイン
+│  │  ├─ components/
+│  │  ├─ router/
+│  │  ├─ services/
+│  │  ├─ stores/
+│  │  └─ views/
+│  ├─ basket/ ---------------- 買い物かごのドメイン
+│  └─ ordering/ -------------- 注文のドメイン
+├─ authentication/ ----------- 認証のコンテキスト
+│  └─ login/ ----------------- ログインのドメイン
+├─ App.vue
+└─ main.ts
+```
+
+フォルダーの並びそのものよりも、機能を追加するときにどこへ置くかを判断する基準のほうが重要です。
+次の 5 つの節で、その基準を示します。
+
+### 参照方向 {#reference-direction}
+
+参照は、コンテキストから業務共通、業務共通からシステム共通へ向かう単方向とします。
+逆向きの参照は禁止します。
+
+```text title="参照方向" linenums="0"
+アプリケーションシェル（ App.vue / main.ts ）
+      ↓
+コンテキスト（ ドメイン ）
+      ↓
+business-common （ 業務共通 ）
+      ↓
+system-common （ システム共通 ）
+```
+
+この規則は ESLint の `no-restricted-imports` で強制します。
+設定方法は [静的コード検証とフォーマット](../../../guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md#layer-dependency-rules) を参照してください。
+
+アプリケーションシェル（ `App.vue` と `main.ts` ）は例外です。
+アプリケーション全体を組み立てる役割を持つため、すべての層を参照できます。
+
+ルーティング定義を集約するモジュールも例外です。
+`system-common/router` に置きますが、全ドメインのルーティング定義を集めるため、システム共通からドメインへの参照を許可します。
+この例外がシステム共通の層全体へ広がらないよう、集約モジュールをシステム共通の他のコードから参照することは禁止します。
+
+### コンテキストを作る基準 {#context-criteria}
+
+コンテキストは、参照関係を持つドメインのまとまりに対して作ります。
+バックエンドがアプリケーションモジュールでコンテキストを定義している場合は、その定義に合わせます。
+フロントエンドとバックエンドで境界の位置がずれると、分割の理由を追えなくなるためです。
+
+同じ階層にあるコンテキストどうしの参照は、参照方向の規則では禁止しません。
+バックエンドがモジュール間の依存を `allowedDependencies` で許可している範囲にとどめてください。
+
+ドメインがひとつしかない場合や、ドメイン間に参照関係がない場合は、コンテキストのフォルダーを作らず、ドメインのフォルダーを `src` の直下に置いても構いません。
+
+### 共通層の分割基準 {#common-layer-criteria}
+
+共通層に置くかどうか、置く場合はどの共通層かは、以下の順で判断します。
+
+| 判断                                             | 配置先            |
+| ------------------------------------------------ | ----------------- |
+| ひとつのドメインからしか参照されない             | そのドメインの下  |
+| 業務知識を持ち、かつ複数のドメインから参照される | `business-common` |
+| 業務知識を持たない                               | `system-common`   |
+
+ここでいう業務知識とは、業務のルールや業務上の用語に依存する知識のことです。
+たとえば通貨の表示フォーマットの変換は業務知識を持たないのでシステム共通ですが、買い物かごの状態を保持する Store は業務知識を持つので業務共通です。
+
+`business-common` が空になるプロジェクトもあります。
+その場合はフォルダーを作りません。
+空のフォルダーをなくすために、本来ドメインに属するコードを共通層へ移動してはいけません。
+
+### ドメイン内のフォルダー {#domain-folders}
+
+ドメインの下には、以下の 6 種類のフォルダーを必要に応じて置きます。
+
+| フォルダー    | 格納するもの                                                       |
+| ------------- | ------------------------------------------------------------------ |
+| `views`       | ルーティングで指定される vue ファイル。                            |
+| `components`  | View を構成する vue コンポーネント。                               |
+| `composables` | Composition API を活用した再利用性の高い関数。                     |
+| `services`    | ビューモデルからのリクエストを受け、 Store や Web API を呼ぶ処理。 |
+| `stores`      | Pinia の Store 。                                                  |
+| `router`      | このドメインのルーティング定義。                                   |
+
+これらは代表例です。
+ドメイン固有の関心事があれば、 `validation` や `constants` のようにフォルダーを追加して構いません。
+
+これに対して、共通層の下の構成はプロジェクトで固定します。
+共通層はアプリケーション全体から参照されるため、フォルダーが増えると影響範囲が広がるからです。
+
+### 命名 {#naming-rules}
+
+コンテキストのフォルダー名は、バックエンドのモジュール名に合わせます。
+
+ドメインのフォルダー名は、フロントエンドの関心事で決めます。
+バックエンドのモジュール名と一致させる必要はありません。
+たとえば consumer の `display-item` は、「カタログを表示して選ぶ」というフロントエンド側の関心事を表しており、バックエンドのカタログ管理とは名前が一致しません。
+
+層のフォルダー名は、[ドメイン内のフォルダー](#domain-folders) の表に示した名前を使います。
+
 ### views フォルダー {#views-directory}
 
-views フォルダーはルーティングで指定される vue ファイルを格納します。そのためこの下層のフォルダー構造はサイト構造を意識して作成することを推奨します。以下の例で Login.vue なら ```https://xxxx.com/authentication/login``` と設定します。
+views フォルダーは、ルーティングで指定される vue ファイルを格納します。
+ドメインのフォルダーに従属するので、下層のフォルダー構造を URL の構造に一致させる必要はありません。
 
 ```text title="views フォルダー" linenums="0"
 src/
-└─ views/
-   ├─ authentication/
-   │  ├─ LoginView.vue
-   │  └─ LogoutView.vue
-   ├─ catalog/
-   └─ order/
+└─ authentication/
+   └─ login/
+      ├─ router/
+      │  ├─ authentication-route-names.ts
+      │  └─ authentication.ts
+      └─ views/
+         └─ LoginView.vue
 ```
 
 !!! note "Vue Router の設定"
-      Vue Router では URL のパスと対象のファイルを指定することで、ルーティングを設定します。以下は `https://xxxx.com/authentication/login` という URL に対して上記の `LoginView.vue` を設定している例です。
+      Vue Router では URL のパスと対象のファイルを指定することで、ルーティングを設定します。
+      ルーティング定義はドメインの `router` フォルダーに置き、 `system-common/router` で集約します。
+      以下は `https://xxxx.com/authentication/login` という URL に対して上記の `LoginView.vue` を設定している例です。
 
-      ```typeScript title="index.ts"
-      import { createRouter, createWebHistory } from "vue-router";
+      ```typescript title="authentication.ts"
+      import type { RouteRecordRaw } from 'vue-router'
+      import { authenticationRouteNames } from './authentication-route-names'
 
-      const router = createRouter({
-         history: createWebHistory(import.meta.env.BASE_URL),
-         routes: [
-            {
-               path: "/authentication/login",
-               name: "authentication/login",
-               component: () => import('@/views/authentication/LoginView.vue'),
-            },
-         ],
+      export const authenticationRoutes: RouteRecordRaw[] = [
+        {
+          path: '/authentication/login',
+          name: authenticationRouteNames.login,
+          component: () => import('@/authentication/login/views/LoginView.vue'),
+        },
+      ]
+      ```
+
+      ```typescript title="system-common/router/index.ts"
+      import { createRouter, createWebHistory } from 'vue-router'
+      import { authenticationRoutes } from '@/authentication/login/router/authentication'
+
+      export const router = createRouter({
+        history: createWebHistory(import.meta.env.BASE_URL),
+        routes: [...authenticationRoutes],
       })
       ```
 
 ### components フォルダー {#components-directory}
 
-components フォルダーは主に、再利用性の高い vue コンポーネントファイルを格納します。さらにこの下層フォルダーはドメインで分割し、それを操作するコンポーネントを格納します。こうすることで再利用性を活かすために、どのドメインを対象にしたコンポーネントなのかを明確にします。また vue ファイルに限らずプロジェクト内で再利用性の高いもの（icon など）もこちらに格納します。
+components フォルダーは主に、 View を構成する vue コンポーネントファイルを格納します。
+どのドメインを対象にしたコンポーネントなのかは、上位のドメインのフォルダーによって決まります。
+複数のドメインから使うコンポーネントは、[共通層の分割基準](#common-layer-criteria) に従って共通層に置きます。
+また vue ファイルに限らずプロジェクト内で再利用性の高いもの（ icon など）もこちらに格納します。
 
 ```text title="components フォルダー" linenums="0"
 src/
-└─ components/
-   ├─ authentication/
-   │  ├─ LoginForm.vue
-   │  └─ LogoutMessage.vue
-   ├─ product/
-   │  ├─ ProductDetail.vue
-   │  └─ ProductList.vue
-   └─ icon/
+├─ system-common/
+│  └─ components/ ------------ 業務知識を持たない共通コンポーネント
+│     └─ LoadingSpinnerOverlay/
+├─ business-common/
+│  └─ components/ ------------ 複数のドメインから使う業務コンポーネント
+│     └─ NotificationToast.vue
+└─ shopping/
+   └─ basket/
+      └─ components/ --------- 買い物かごのドメイン固有のコンポーネント
+         └─ BasketItem.vue
 ```
 
 上記の拡張として Atomic Design でコンポーネント設計をする場合は、 atoms, molecules, organisms でフォルダーを構成します。この際 atoms と molecules は同一フォルダーにコンポーネント構成パーツとしてまとめ、 organisms との区別を「store へのアクセスの有無」として行うことでドメイン分割が容易になります。
@@ -230,30 +369,36 @@ src/
 
       - [Atomic Design by Brad Frost :material-open-in-new:](https://atomicdesign.bradfrost.com/){ target=_blank }
 
+atoms と molecules は Store にアクセスしないため、共通層の `components` フォルダーに置きます。
+organisms は Store にアクセスするため、対象のドメインの `components` フォルダーに置きます。
+
 ```text title="components フォルダー by Atomic Design" linenums="0"
 src/
-└─ components/
-   ├─ atoms-and-molecules/
-   │  ├─ Button.vue
-   │  ├─ Input.vue
-   │  └─ Form.vue
-   │
-   ├─ organisms/
-   │  ├─ authentication/
-   │  │  ├─ LoginForm.vue
-   │  │  └─ LogoutMessage.vue
-   │  └─ product/
-   │     ├─ ProductDetail.vue
-   │     └─ ProductList.vue
-   │
-   └─ icon/
+├─ system-common/
+│  └─ components/
+│     ├─ atoms-and-molecules/
+│     │  ├─ Button.vue
+│     │  ├─ Input.vue
+│     │  └─ Form.vue
+│     └─ icon/
+└─ authentication/
+   └─ login/
+      └─ components/ --------- organisms に相当します。
+         └─ LoginForm.vue
 ```
 
-!!! note "URL とドメイン"
-    views フォルダーは URL 本位、 components フォルダーはドメイン本位で構成するため、下層フォルダー構造は一致しません。（部分的に一致することはあります。）
+### テストファイルの配置 {#test-file-placement}
 
-<!--
-#### テストファイル
+単体テストのファイルは、テスト対象と同じ層のフォルダーの下に `__tests__` フォルダーを作って配置します。
+テストコードを対象のコードの近くへ置くためです。
+同時に、実装のファイルとテストのファイルが同じフォルダーに混在するのを防ぎます。
 
-テストファイルは ``` __test__ ``` フォルダーを作らず、対象コンポーネントの隣に配置します。
--->
+```text title="テストファイルの配置" linenums="0"
+src/
+└─ authentication/
+   └─ login/
+      └─ services/
+         ├─ __tests__/
+         │  └─ authentication-service.spec.ts
+         └─ authentication-service.ts
+```
