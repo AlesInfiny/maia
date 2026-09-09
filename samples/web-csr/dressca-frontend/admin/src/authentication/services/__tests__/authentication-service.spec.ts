@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createTestingPinia } from '@pinia/testing'
 import { setActivePinia } from 'pinia'
 import { logout } from '@/authentication/services/authentication-service'
-import { useAuthenticationStore } from '@/authentication/stores/authentication'
+import { useAuthenticationStore } from '@/business-common/stores/authentication'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import axios from 'axios'
 

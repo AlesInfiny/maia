@@ -3,6 +3,10 @@ import { usersApi } from '@/system-common/api-client'
 
 /**
  * 認証状態のストアです。
+ *
+ * 認証状態とロールは業務概念であり、authentication ドメインだけでなく
+ * 認可判定を行う catalog ドメインからも参照されるため business-common に配置します。
+ * 認証のユースケース（ログイン・ログアウトの手続き）は authentication ドメインに残します。
  */
 export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({
