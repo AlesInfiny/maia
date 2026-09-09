@@ -3,7 +3,7 @@
  * 主に金額を日本円形式に変換する処理を扱います。
  *
  * 業務概念に依存しない表示整形のため system-common に配置します。
- * 業務概念に依存するヘルパー（`assetHelper` など）はドメインに配置します。
+ * 業務概念に依存するヘルパー（`assetHelper` など）は対応するコンテキストに配置します。
  * @returns 通貨フォーマット用の関数群
  */
 export function currencyHelper() {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
-import LoginMenu from '@/authentication/components/LoginMenu.vue'
+import LoginMenu from '@/authentication/login/components/LoginMenu.vue'
 import { storeToRefs } from 'pinia'
 import { router as importedRouter } from '@/system-common/router'
 import { ref } from 'vue'

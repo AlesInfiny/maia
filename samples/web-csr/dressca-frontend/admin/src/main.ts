@@ -1,7 +1,7 @@
 import './assets/base.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/authentication/router/authentication-guard'
+import { authenticationGuard } from '@/authentication/login/router/authentication-guard'
 import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import { useLogger } from '@/system-common/composables/use-logger'
 import { router } from '@/system-common/router'
