@@ -11,7 +11,7 @@ import {
 import { axiosInstance } from '@/system-common/api-client'
 import { http, HttpResponse } from 'msw'
 import axios, { HttpStatusCode } from 'axios'
-import { server } from '../../../../mock/node'
+import { server } from '@/../mock/node'
 
 /**
  * vi.mock はファイルの先頭に巻き上げられるので、
