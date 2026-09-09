@@ -8,6 +8,9 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 アプリケーションが使用する各種プラグイン、ツールおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
+`dependencies.gradle` は依存関係の指定を一元管理し、 `gradle.lockfile` は推移的依存関係を含む解決済みバージョンを記録します。
+ロックの設定方法は [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) を参照してください。
+
 ## ルートプロジェクトの設定 {#config-root-project}
 
 ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとツール、ライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
@@ -100,7 +103,17 @@ subprojects {
       id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
     }
 
+    dependencyLocking {
+      lockAllConfigurations()
+      lockMode = LockMode.STRICT
+    }
+
     subprojects {
+
+      dependencyLocking {
+        lockAllConfigurations()
+        lockMode = LockMode.STRICT
+      }
 
       apply plugin: 'java'
       apply plugin: 'jacoco'
@@ -169,6 +182,13 @@ subprojects {
           })
         }
       }
+    }
+
+    tasks.register('allDependencies') {
+      group = 'help'
+      description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+      dependsOn tasks.named('dependencies')
+      dependsOn subprojects.collect { "${it.path}:dependencies" }
     }
     ```
 
@@ -263,6 +283,27 @@ dependencies {
 
     // ビルド時に OpenAPI 仕様書の出力を行うよう設定する。
     build.dependsOn("generateOpenApiDocs")
+    ```
+
+## 依存ライブラリ変更時のロックファイル更新 {#update-dependency-locks}
+
+依存ライブラリの追加・削除・バージョン変更後は、ルートプロジェクト直下でロックファイルを更新します。
+
+```shell title="ロックファイルの更新"
+./gradlew allDependencies --write-locks
+```
+
+生成された差分を確認し、ビルド・テスト後に依存関係の定義とロックファイルを一緒にコミットしてください。
+ロックファイルは手編集せず、 Gradle で更新します。
+通常のビルドや CI では `--write-locks` を付けません。
+ロック状態の不足や不整合で失敗した場合は、依存関係の変更内容と更新漏れを確認してください。
+
+??? info "特定のライブラリを更新する場合"
+    `--update-locks` に `グループ名:モジュール名` を指定します。
+    推移的依存関係など、指定したライブラリ以外の差分も確認してください。
+
+    ```shell title="特定のライブラリのロック更新"
+    ./gradlew allDependencies --update-locks org.slf4j:slf4j-api
     ```
 
 バージョン定義一元化を実行した後に、適切にビルドが実行できるかを確認します。

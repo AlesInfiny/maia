@@ -58,3 +58,6 @@ tasks.named('test') {
 ビルドスクリプトの共通化は CSR 編と同様です。
 
 [こちら](../../csr/java/common-project-settings.md#common-build-script) を参照してください。
+
+依存ライブラリのバージョン固定も共通です。
+[依存ライブラリのバージョン固定](../../csr/java/common-project-settings.md#dependency-locking) に従い、ロックを設定してロックファイルを生成してください。

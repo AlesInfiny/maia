@@ -121,6 +121,50 @@ subprojects {
 }
 ```
 
+### 依存ライブラリのバージョン固定 {#dependency-locking}
+
+[バージョン管理方針](../../../../app-architecture/overview/repository-structure.md#dependency-version-policy) に従い、ルートと各サブプロジェクトで依存関係ロックを有効にします。
+`LockMode.STRICT` は、解決する依存関係のロック状態がない場合もエラーにします。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+dependencyLocking {
+  lockAllConfigurations()
+  lockMode = LockMode.STRICT
+}
+
+subprojects {
+  dependencyLocking {
+    lockAllConfigurations()
+    lockMode = LockMode.STRICT
+  }
+}
+```
+
+併せて、全プロジェクトの依存関係を解決する `allDependencies` タスクを追加します。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+tasks.register('allDependencies') {
+  group = 'help'
+  description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+  dependsOn tasks.named('dependencies')
+  dependsOn subprojects.collect { "${it.path}:dependencies" }
+}
+```
+
+依存関係を設定した後、ビルド前にルートプロジェクト直下で以下を実行します。
+以降の手順で依存関係を追加・変更した場合も、ビルド前に再実行してください。
+
+```shell title="ロックファイルの生成・更新"
+./gradlew allDependencies --write-locks
+```
+
+解決された依存関係のロック状態は、各プロジェクト直下の `gradle.lockfile` に保存されます。
+たとえば、 web プロジェクトでは `web/gradle.lockfile` に保存されます。
+
+!!! info "ロックの対象"
+    `lockAllConfigurations()` は、 `buildscript` の依存関係を対象に含めません。
+    詳細は [Gradle の依存関係ロック :material-open-in-new:](https://docs.gradle.org/current/userguide/dependency_locking.html){ target=_blank } を参照してください。
+
 ### タスクの設定 {#common-tasks}
 
 導入したプラグインによって定義されたタスクに対して、必要であれば設定を追加します。
@@ -397,6 +441,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 なお、以下のコマンドでビルドを実行すると、デフォルトで作成されたソースコードに対して Checkstyle の警告が出力されるので、出力内容に従って対処してください。
 
 ```shell title="バックエンドアプリケーションのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew build
 ```
 
@@ -407,7 +452,17 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       id 'com.github.spotbugs' version 'x.x.x' apply false
     }
 
+    dependencyLocking {
+      lockAllConfigurations()
+      lockMode = LockMode.STRICT
+    }
+
     subprojects {
+
+      dependencyLocking {
+        lockAllConfigurations()
+        lockMode = LockMode.STRICT
+      }
 
       apply plugin: 'java'
       apply plugin: 'jacoco'
@@ -476,5 +531,12 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
           })
         }
       }
+    }
+
+    tasks.register('allDependencies') {
+      group = 'help'
+      description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+      dependsOn tasks.named('dependencies')
+      dependsOn subprojects.collect { "${it.path}:dependencies" }
     }
     ```
