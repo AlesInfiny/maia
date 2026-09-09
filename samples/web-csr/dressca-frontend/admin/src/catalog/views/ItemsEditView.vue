@@ -14,7 +14,7 @@ import NotificationModal from '@/catalog/components/NotificationModal.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import {
-  catalogItemSchema,
+  catalogItemTypedSchema,
   type CatalogItemFormValues,
 } from '@/catalog/validation/validation-items'
 import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'
@@ -55,7 +55,7 @@ interface ItemState {
 }
 
 const { errors, values, meta, defineField, setValues } = useForm<CatalogItemFormValues>({
-  validationSchema: catalogItemSchema,
+  validationSchema: catalogItemTypedSchema,
   initialValues: {
     itemName: '',
     itemDescription: '',

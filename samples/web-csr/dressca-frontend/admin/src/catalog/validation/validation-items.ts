@@ -1,8 +1,6 @@
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-
-// 必須バリデーション関数
-const required = (message: string) => z.string().trim().min(1, message)
+import { required } from '@/system-common/validation/validation-rules'
 
 /**
  * カタログアイテムのバリデーションを定義する Zod スキーマです。
@@ -22,6 +20,6 @@ export const catalogItemZodSchema = z.object({
 export type CatalogItemFormValues = z.infer<typeof catalogItemZodSchema>
 
 /**
- * カタログアイテムのバリデーションを定義する型付きのスキーマです。
+ * カタログアイテムのバリデーションを定義する、vee-validate 用の型付きスキーマです。
  */
-export const catalogItemSchema = toTypedSchema(catalogItemZodSchema)
+export const catalogItemTypedSchema = toTypedSchema(catalogItemZodSchema)
