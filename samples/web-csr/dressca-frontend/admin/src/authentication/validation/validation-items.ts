@@ -1,7 +1,4 @@
-import { z } from 'zod'
-
-// 必須バリデーション関数
-const required = (message: string) => z.string().trim().min(1, message)
+import { required } from '@/system-common/validation/validation-rules'
 
 /**
  * Zod を利用したバリデーションルールを返します。
@@ -9,8 +6,7 @@ const required = (message: string) => z.string().trim().min(1, message)
  */
 export function validationItems() {
   return {
-    email: z.string().email('メールアドレスの形式で入力してください。'),
-    required: (requiredMessage: string) => required(requiredMessage),
+    required,
     requiredEmail: (requiredMessage: string = '必須項目です。') =>
       required(requiredMessage).email('メールアドレスの形式で入力してください。'),
   }

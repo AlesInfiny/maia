@@ -7,7 +7,7 @@ import NotificationModal from '@/catalog/components/NotificationModal.vue'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import {
-  catalogItemSchema,
+  catalogItemTypedSchema,
   type CatalogItemFormValues,
 } from '@/catalog/validation/validation-items'
 import type {
@@ -26,7 +26,7 @@ const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 
 const { errors, values, meta, defineField } = useForm<CatalogItemFormValues>({
-  validationSchema: catalogItemSchema,
+  validationSchema: catalogItemTypedSchema,
   initialValues: {
     itemName: 'テスト用アイテム',
     itemDescription: 'テスト用アイテムです。',

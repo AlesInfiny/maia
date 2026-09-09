@@ -8,10 +8,29 @@ beforeAll(() => {
 })
 
 describe('validation-items', () => {
-  it('メールアドレス形式を検証できる', async () => {
-    const result = await validationItems().email.safeParseAsync('invalid-email')
+  it('必須入力を検証できる', async () => {
+    const { required } = validationItems()
+    const result = await required('パスワードは必須です。').safeParseAsync('')
 
     expect(result.success).toBe(false)
-    expect(result.error?.issues[0]?.message).toBe('メールアドレスの形式で入力してください。')
+    expect(result.error?.issues.map((issue) => issue.message)).toContain('パスワードは必須です。')
+  })
+
+  it('メールアドレス形式を検証できる', async () => {
+    const { requiredEmail } = validationItems()
+    const result = await requiredEmail().safeParseAsync('invalid-email')
+
+    expect(result.success).toBe(false)
+    expect(result.error?.issues.map((issue) => issue.message)).toContain(
+      'メールアドレスの形式で入力してください。',
+    )
+  })
+
+  it('メールアドレスの必須入力を検証できる', async () => {
+    const { requiredEmail } = validationItems()
+    const result = await requiredEmail('ユーザー名は必須です。').safeParseAsync('')
+
+    expect(result.success).toBe(false)
+    expect(result.error?.issues.map((issue) => issue.message)).toContain('ユーザー名は必須です。')
   })
 })
