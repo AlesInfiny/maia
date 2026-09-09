@@ -113,7 +113,7 @@ tasks.named('test') {
 
 また、併せて不要なファイルを削除します。
 application-modules プロジェクトの `src` 以下にある、 `ApplicationModulesApplication.java` と `ApplicationModulesApplicationTests.java` を削除してください。
-application-modules プロジェクトはライブラリとして利用するサブプロジェクトであるため、 `src/main/resources` にある `application.properties` も削除してください。
+さらに、application-modules プロジェクトはライブラリとして利用するサブプロジェクトであるため、 `src/main/resources` にある `application.properties` も削除してください。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
