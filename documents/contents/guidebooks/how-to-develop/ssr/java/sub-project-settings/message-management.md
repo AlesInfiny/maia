@@ -111,7 +111,7 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` やコンストラクタインジェクションによる DI で実装します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-以下は、ユーザー名やメールアドレスなどの識別情報からユーザーを取得する `UserDetailsServiceImpl.java` クラスの例です。
+以下は、ユーザー名やメールアドレスなどの識別情報からユーザーを取得する `UserDetailsServiceImpl` クラスの例です。
 
 ??? example "サンプルアプリケーションの UserDetailsServiceImpl.java"
 

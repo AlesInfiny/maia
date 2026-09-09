@@ -45,6 +45,12 @@ dependencies {
 }
 ```
 
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+エントリーポイントとなるクラスの設定は CSR 編と同様です。
+
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#config-entry-point) を参照して、エントリーポイントとなるクラスの設定を追記してください。
+
 ## Spring Boot の設定 {#config-spring}
 
 Spring Boot の設定は CSR 編と同様です。
