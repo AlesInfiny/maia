@@ -46,8 +46,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 上記のうち `src` フォルダーの下は、ブランクプロジェクトを作成するツールが出力したままの状態です。
 `components` `router` `stores` `views` という層のフォルダーが `src` の直下に並んでいます。
 
-AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事を単位に構成します。
-ツールの出力する構造とは異なるので、ブランクプロジェクトの作成後に、以下のフォルダーを作成して層のフォルダーを移動します。
+AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分割します。
+ツールの出力とは構成が異なるので、ブランクプロジェクトの作成後に以下のフォルダーを作り、層のフォルダーをその下へ移動します。
 
 ```text linenums="0"
 <workspace-name>
@@ -61,7 +61,6 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事を単
   └ main.ts
 ```
 
-ツールが出力した `components` `router` `stores` `views` の各フォルダーは、上記の構造に合わせて配置し直します。
 コンテキストとドメインの決め方、どのフォルダーに何を配置するかの判断基準は、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
 
 なお本ガイドの以降の手順では、上記の構造を前提としたパスでファイルの配置場所を示します。
