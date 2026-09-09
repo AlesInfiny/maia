@@ -42,13 +42,11 @@ export const codingConventionRules: Linter.Config[] = [
  * なお本ルールは `@/` エイリアスによる参照を対象とします。
  * レイヤーをまたぐ参照はエイリアスで記述してください。
  * @param project ルールを適用するワークスペースのフォルダー名。
- * @param domainPatterns ドメインフォルダーを表す `@/` エイリアスのパターン。
+ * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキストまたはドメイン）を
+ *   表す `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
-function createLayerDependencyRules(
-  project: string,
-  domainPatterns: string[],
-): Linter.Config[] {
+function createLayerDependencyRules(project: string, contextPatterns: string[]): Linter.Config[] {
   return [
     {
       name: `${project}/layer-dependency/system-common`,
@@ -63,7 +61,7 @@ function createLayerDependencyRules(
           {
             patterns: [
               {
-                group: ['@/business-common/**', ...domainPatterns],
+                group: ['@/business-common/**', ...contextPatterns],
                 message:
                   'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
               },
@@ -86,7 +84,7 @@ function createLayerDependencyRules(
           {
             patterns: [
               {
-                group: domainPatterns,
+                group: contextPatterns,
                 message: 'business-common はドメインを参照できません。',
               },
             ],
@@ -108,11 +106,23 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
 
 /**
  * admin プロジェクトのフォルダー間の参照方向を強制するルールです。
- * ドメイン間に import 関係がないためコンテキストフォルダーを作らず、
- * ドメインをすべて最上位にフラットに配置しています。
- * なお consumer と同じく、同じ階層にあるドメイン同士の参照は本ルールでは禁止しません。
+ *
+ * 最上位のコンテキストは、バックエンドのアプリケーションモジュール
+ * （Spring Modulith の `@ApplicationModule`）の定義に合わせています。
+ *
+ * - `catalog-management` … カタログ管理コンテキスト
+ * - `assets-management` … アセット管理コンテキスト
+ * - `authorization` … 認可コンテキスト
+ * - `authentication` … ログイン・ログアウトの手続き。対応するバックエンドの
+ *   コンテキストはなく、認可コンテキストの利用側にあたります。
+ *
+ * consumer と同じく、同じ階層にあるコンテキスト同士の参照は本ルールでは禁止しません。
+ * バックエンドでも、カタログ管理コンテキストから認可コンテキストへの依存が
+ * `allowedDependencies` で許可されています。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
-  '@/catalog/**',
+  '@/assets-management/**',
   '@/authentication/**',
+  '@/authorization/**',
+  '@/catalog-management/**',
 ])

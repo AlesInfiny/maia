@@ -9,8 +9,8 @@
  * system-common の他のコードから本モジュールを参照すると例外が層全体へ広がるため、
  * その参照は ESLint で禁止しています。
  */
-import { authenticationRouteNames } from '@/authentication/router/authentication-route-names'
-import { catalogRouteNames } from '@/catalog/router/catalog-route-names'
+import { authenticationRouteNames } from '@/authentication/login/router/authentication-route-names'
+import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'
 import { errorRouteNames } from './error-route-names'
 import { homeRouteNames } from './home-route-names'
 
