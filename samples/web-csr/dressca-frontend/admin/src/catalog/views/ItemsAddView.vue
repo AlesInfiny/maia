@@ -15,7 +15,7 @@ import type {
   GetCatalogCategoriesResponse,
 } from '@/system-common/generated/api-client'
 import { useAuthenticationStore } from '@/authentication/stores/authentication'
-import { Roles } from '@/authentication/constants/roles'
+import { Roles } from '@/business-common/constants/roles'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 import { catalogRouteNames } from '@/catalog/router/catalog-route-names'

@@ -3,7 +3,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import ItemsEditView from '@/catalog/views/ItemsEditView.vue'
 import { router } from '@/system-common/router'
-import { Roles } from '@/authentication/constants/roles'
+import { Roles } from '@/business-common/constants/roles'
 import { catalogItems } from '@/../mock/data/catalog-items'
 import { catalogRouteNames } from '@/catalog/router/catalog-route-names'
 
