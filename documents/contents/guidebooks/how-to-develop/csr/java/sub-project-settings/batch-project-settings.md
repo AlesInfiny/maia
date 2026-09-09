@@ -41,7 +41,7 @@ dependencies {
 
 ## エントリーポイントとなるクラスの設定 {#config-entry-point}
 
-batch プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `BatchApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+batch プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `BatchApplication` ）が存在する、エントリーポイントとなるサブプロジェクトです。
 
 `#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.batch` ）に限られます。
 本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは batch プロジェクトとは異なるパッケージに配置されます。

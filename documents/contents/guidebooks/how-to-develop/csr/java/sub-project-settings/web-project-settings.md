@@ -51,7 +51,7 @@ dependencies {
 
 ## エントリーポイントとなるクラスの設定 {#config-entry-point}
 
-web プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `WebApplication.java` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+web プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `WebApplication` ）が存在する、エントリーポイントとなるサブプロジェクトです。
 
 `#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web` ）に限られます。
 本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは web プロジェクトとは異なるパッケージに配置されます。

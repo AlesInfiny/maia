@@ -55,7 +55,7 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 最後に、上記で実装したフィルターを Bean 登録します。
 
-??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig.java"
+??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig"
 
     ```java title="DresscaWebConfig.java"
     --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java"
