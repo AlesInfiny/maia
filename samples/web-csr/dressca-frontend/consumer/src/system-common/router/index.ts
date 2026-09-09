@@ -7,7 +7,7 @@
  * 例外の範囲は本モジュールと route-names.ts に限定します。
  */
 import { createRouter, createWebHistory } from 'vue-router'
-import { authenticationRoutes } from '@/authentication/router/authentication'
+import { authenticationRoutes } from '@/authentication/login/router/authentication'
 import { displayItemRoutes } from '@/shopping/display-item/router/display-item'
 import { basketRoutes } from '@/shopping/basket/router/basket'
 import { orderingRoutes } from '@/shopping/ordering/router/ordering'

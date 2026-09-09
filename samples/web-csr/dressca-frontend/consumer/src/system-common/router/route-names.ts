@@ -9,7 +9,7 @@
  * system-common の他のコードから本モジュールを参照すると例外が層全体へ広がるため、
  * その参照は ESLint で禁止しています。
  */
-import { authenticationRouteNames } from '@/authentication/router/authentication-route-names'
+import { authenticationRouteNames } from '@/authentication/login/router/authentication-route-names'
 import { basketRouteNames } from '@/shopping/basket/router/basket-route-names'
 import { displayItemRouteNames } from '@/shopping/display-item/router/display-item-route-names'
 import { orderingRouteNames } from '@/shopping/ordering/router/ordering-route-names'

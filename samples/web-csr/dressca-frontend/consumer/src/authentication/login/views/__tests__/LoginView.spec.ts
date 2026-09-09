@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { i18n } from '@/system-common/locales/i18n'
-import LoginView from '@/authentication/views/LoginView.vue'
+import LoginView from '@/authentication/login/views/LoginView.vue'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createTestingPinia } from '@pinia/testing'

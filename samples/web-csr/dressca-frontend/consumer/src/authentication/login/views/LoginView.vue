@@ -3,9 +3,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { authenticationService } from '@/authentication/services/authentication-service'
+import { authenticationService } from '@/authentication/login/services/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { ValidationItems } from '@/authentication/validation/validation-items'
+import { ValidationItems } from '@/authentication/login/validation/validation-items'
 import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 // フォーム固有のバリデーション定義

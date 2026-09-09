@@ -27,14 +27,15 @@ export const codingConventionRules: Linter.Config = {
  *
  *   アプリケーションシェル（App.vue / main.ts）
  *         ↓
- *   ドメイン
+ *   コンテキスト
  *         ↓
  *   business-common
  *         ↓
  *   system-common
  *
  * 逆方向の参照を禁止します。
- * 同じ階層にあるドメイン同士の参照は禁止しません。
+ * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
+ * 同じ階層にあるコンテキスト同士の参照は禁止しません。
  * アプリケーションシェルは全経路を許可する例外です。
  * ルーティング定義（system-common/router/index.ts, route-names.ts）は
  * 全ドメインを集約する役割を持つため、同じく例外として扱います。
@@ -43,8 +44,8 @@ export const codingConventionRules: Linter.Config = {
  * なお本ルールは `@/` エイリアスによる参照を対象とします。
  * レイヤーをまたぐ参照はエイリアスで記述してください。
  * @param project ルールを適用するワークスペースのフォルダー名。
- * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキストまたはドメイン）を
- *   表す `@/` エイリアスのパターン。
+ * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
+ *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
 function createLayerDependencyRules(project: string, contextPatterns: string[]): Linter.Config[] {
@@ -98,7 +99,8 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
 
 /**
  * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
- * ドメインは `shopping` コンテキスト配下のドメインと `authentication` です。
+ * コンテキストは `shopping`（display-item / basket / ordering）と
+ * `authentication`（login）です。
  */
 export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
   'consumer',
