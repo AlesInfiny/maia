@@ -131,7 +131,7 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-10 12-15 23-25 30 34 37-44 47-50 52-58 63-66 72 76-79"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-14 16-19 27-28 33 37 39-47 49-53 55-62 68-69 76 79-83"
 --8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
@@ -272,12 +272,11 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-7"
+```typescript hl_lines="5-6"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
-  '**/src/generated/**',
   '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
@@ -293,6 +292,72 @@ globalIgnores([
       ```shell linenums="0"
       npx @eslint/config-inspector@latest
       ```
+
+#### フォルダー間の参照方向の強制 {#layer-dependency-rules}
+
+[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `no-restricted-imports` で強制します。
+参照方向の逆流はレビューで見落としやすく、一度許すと元に戻すコストが大きいため、機械的に検出します。
+
+禁止する参照は以下の 2 つです。
+
+- `system-common` から `business-common` およびコンテキストへの参照
+- `business-common` からコンテキストへの参照
+
+以下は consumer プロジェクトに対する設定例です。
+`files` にルールを適用する層を、 `patterns` の `group` に禁止する参照先を指定します。
+
+```typescript title="eslint.project-rules.ts"
+{
+  name: 'consumer/layer-dependency/system-common',
+  files: ['**/consumer/src/system-common/**/*.{vue,ts,mts,tsx}'],
+  ignores: [
+    '**/consumer/src/system-common/router/index.ts',
+    '**/consumer/src/system-common/router/route-names.ts',
+  ],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@/business-common/**', '@/shopping/**', '@/authentication/**'],
+            message:
+              'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
+          },
+        ],
+      },
+    ],
+  },
+},
+{
+  name: 'consumer/layer-dependency/business-common',
+  files: ['**/consumer/src/business-common/**/*.{vue,ts,mts,tsx}'],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@/shopping/**', '@/authentication/**'],
+            message: 'business-common はドメインを参照できません。',
+          },
+        ],
+      },
+    ],
+  },
+},
+```
+
+このルールは `@/` エイリアスによる参照を対象とします。
+そのため、層をまたぐ参照は相対パスではなくエイリアスで記述してください。
+エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
+
+ルーティング定義を集約するモジュールは、全ドメインを参照する役割を持つため `ignores` で例外にします。
+例外がシステム共通の層全体へ広がらないよう、集約モジュール自体を参照するインポートも合わせて禁止しておくと安全です。
+
+アプリケーションシェル（ `App.vue` と `main.ts` ）は、いずれの `files` にも一致しないため例外になります。
+
+サンプルアプリケーションでは、これらのルールを `eslint.project-rules.ts` に切り出して eslint.config.ts から読み込んでいます。
 
 #### ESLint の実行 {#run-eslint}
 

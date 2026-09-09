@@ -61,7 +61,7 @@ npm run build
 ### Tailwind CSS の適用確認 {#check-tailwind-css}
 
 Tailwind CSS が正常に適用されていることを確認します。
-確認のために、`./src/views/HomeView.vue` に次のようなコードを挿入します。
+確認のために、いずれかの View のファイル（ブランクプロジェクト作成時の `HomeView.vue` など）に次のようなコードを挿入します。
 
 ```vue title="HomeView.vue" hl_lines="3"
 <template>

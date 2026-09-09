@@ -29,10 +29,10 @@ npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 ## 入力値検証時の設定 {#settings-validation}
 
 各言語設定に基づいた、入力値検証メッセージを読み込みます。
-共通スキーマをファイル `./src/authentication/validation/validation-items.ts` に以下のように定義し、 Vue I18n を使用してデフォルトのエラーメッセージを設定します。
+共通スキーマをファイル `./src/authentication/login/validation/validation-items.ts` に以下のように定義し、 Vue I18n を使用してデフォルトのエラーメッセージを設定します。
 
 ```typescript title="validation-items.ts"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/authentication/validation/validation-items.ts"
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/authentication/login/validation/validation-items.ts"
 ```
 
 作成したファイルを読み込むため、 入力値を検証する Vue ファイルのスクリプト構文に以下を記述します。
@@ -41,7 +41,7 @@ npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { ValidationItems } from '@/authentication/validation/validation-items'
+import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
@@ -88,7 +88,7 @@ VeeValidate の API については [公式ドキュメント :material-open-in-
     import { toTypedSchema } from '@vee-validate/zod'
     import { z } from 'zod'
     import { EnvelopeIcon, KeyIcon, CalendarIcon } from '@heroicons/vue/24/solid'
-    import { ValidationItems } from '@/authentication/validation/validation-items'
+    import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
     // フォーム固有のバリデーション定義
     const { requiredEmail: requiredEmailRule, required: requiredRule, birthdateSchema: birthdateRule } = ValidationItems()
@@ -353,7 +353,7 @@ const schema = z
     import { useField, useForm } from 'vee-validate'
     import { toTypedSchema } from '@vee-validate/zod'
     import { z } from 'zod'
-    import { ValidationItems } from '@/authentication/validation/validation-items'
+    import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
     const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
     const formSchema = toTypedSchema(
