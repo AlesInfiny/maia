@@ -529,5 +529,11 @@ spring.profiles.default=production
 Spring 公式のマルチモジュールプロジェクトの作成ガイドでも、次のように明記されています。
 
 > 実行時にライブラリを使用するアプリケーションと衝突する可能性があるため、 `application.properties` をライブラリに配置することはお勧めしません（クラスパスから読み込まれる `application.properties` は 1 つだけです）。
+> `application.properties` をテストクラスパスに配置できますが、 jar に含めることはできません（たとえば、 `src/test/resources` に配置することによって）。
 >
 > — [Creating a Multi Module Project :material-open-in-new:](https://spring.pleiades.io/guides/gs/multi-module/){ target=_blank }（「ライブラリプロジェクトを作成する」の節）
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+上記の引用にあるとおり、実行時のクラスパスに関する制約はテストのクラスパスには影響しません。
+そのため、ライブラリとして利用するサブプロジェクトであっても、テスト実行時にだけ有効な設定を定義する場合は、 `src/test/resources` に `application.properties` を配置して構いません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
