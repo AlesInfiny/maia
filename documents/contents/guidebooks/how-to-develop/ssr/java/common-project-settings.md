@@ -59,3 +59,9 @@ tasks.named('test') {
 ビルドスクリプトの共通化は CSR 編と同様です。
 
 [こちら](../../csr/java/common-project-settings.md#common-build-script) を参照してください。
+
+## プロファイルごとの `application.properties` の管理 {#profile-properties}
+
+プロファイルごとの `application.properties` の管理方法は CSR 編と同様です。
+
+[こちら](../../csr/java/common-project-settings.md#environment-settings-switching) を参照してください。
