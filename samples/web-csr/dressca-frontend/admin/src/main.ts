@@ -1,13 +1,13 @@
 import './assets/base.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/shared/authentication/authentication-guard'
-import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
-import { useLogger } from '@/composables/use-logger'
-import { router } from './router'
+import { authenticationGuard } from '@/authentication/login/router/authentication-guard'
+import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
+import { useLogger } from '@/system-common/composables/use-logger'
+import { router } from '@/system-common/router'
 import App from './App.vue'
 import { z } from 'zod'
-import { customErrorMap } from '@/validation/zod-settings'
+import { customErrorMap } from '@/system-common/validation/zod-settings'
 
 const logger = useLogger()
 

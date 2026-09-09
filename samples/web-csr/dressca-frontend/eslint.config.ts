@@ -7,7 +7,11 @@ import skipFormatting from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
-import { codingConventionRules, consumerLayerDependencyRules } from './eslint.project-rules'
+import {
+  adminLayerDependencyRules,
+  codingConventionRules,
+  consumerLayerDependencyRules,
+} from './eslint.project-rules'
 
 configureVueProject({
   // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
@@ -20,7 +24,6 @@ export default defineConfigWithVueTs(
     '**/dist/**',
     '**/dist-ssr/**',
     '**/coverage/**',
-    '**/src/generated/**',
     '**/src/system-common/generated/**',
     '**/mockServiceWorker.js',
   ]),
@@ -53,9 +56,10 @@ export default defineConfigWithVueTs(
   // ルールの定義は eslint.project-rules.ts を参照してください。
   codingConventionRules,
 
-  // consumer プロジェクトのフォルダー間の参照方向を強制します。
+  // consumer / admin プロジェクトのフォルダー間の参照方向を強制します。
   // ルールの定義は eslint.project-rules.ts を参照してください。
   ...consumerLayerDependencyRules,
+  ...adminLayerDependencyRules,
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
   {
