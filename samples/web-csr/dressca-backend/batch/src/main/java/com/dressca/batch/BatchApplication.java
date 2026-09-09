@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * バッチアプリケーションを起動するためのメインクラスです。
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.dressca"})
 public class BatchApplication {
 
   /**
