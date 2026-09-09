@@ -1,5 +1,5 @@
 import type { Router, RouteRecordName } from 'vue-router'
-import { useAuthenticationStore } from '@/authentication/stores/authentication'
+import { useAuthenticationStore } from '@/authentication/login/stores/authentication'
 import { displayItemRouteNames, orderingRouteNames } from '@/system-common/router/route-names'
 import { authenticationRouteNames } from './authentication-route-names'
 

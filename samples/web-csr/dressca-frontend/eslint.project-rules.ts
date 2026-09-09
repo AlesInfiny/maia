@@ -27,14 +27,15 @@ export const codingConventionRules: Linter.Config = {
  *
  *   アプリケーションシェル（App.vue / main.ts）
  *         ↓
- *   ドメイン（shopping/*, authentication）
+ *   コンテキスト（shopping/*, authentication/*）
  *         ↓
  *   business-common
  *         ↓
  *   system-common
  *
  * 逆方向の参照を禁止します。
- * 同じ階層にあるドメイン同士の参照は禁止しません。
+ * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
+ * 同じ階層にあるコンテキスト同士の参照は禁止しません。
  * アプリケーションシェルは全経路を許可する例外です。
  * ルーティング定義（system-common/router/index.ts, route-names.ts）は
  * 全ドメインを集約する役割を持つため、同じく例外として扱います。
