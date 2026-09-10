@@ -41,4 +41,26 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ vitest.config.ts -------- 単体テストの設定ファイル
 ```
 
-各フォルダーの内部にどのようなサブフォルダーを作成するかは、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+## アプリケーションのフォルダー構造 {#application-folder-structure}
+
+上記のうち `src` フォルダーの下は、ブランクプロジェクトを作成するツールが出力したままの状態です。
+`components` `router` `stores` `views` という層のフォルダーが `src` の直下に並んでいます。
+
+AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分割します。
+ツールの出力とは構成が異なるので、ブランクプロジェクトの作成後に以下のフォルダーを作り、層のフォルダーをその下へ移動します。
+
+```text linenums="0"
+<workspace-name>
+└ src/
+  ├ assets/ ----------------- ツールが出力したフォルダーをそのまま使用します。
+  ├ system-common/ ---------- 業務知識を持たない、システム共通の機能を配置するフォルダー
+  ├ business-common/ -------- 業務知識を持ち、複数のドメインから参照される機能を配置するフォルダー
+  ├ <context>/ -------------- 境界付けられたコンテキストのフォルダー
+  │ └ <domain>/ ------------- ドメインのフォルダー。この下に層のフォルダーを配置します。
+  ├ App.vue
+  └ main.ts
+```
+
+コンテキストとドメインの決め方、どのフォルダーに何を配置するかの判断基準は、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+
+なお本ガイドの以降の手順では、上記の構造を前提としたパスでファイルの配置場所を示します。
