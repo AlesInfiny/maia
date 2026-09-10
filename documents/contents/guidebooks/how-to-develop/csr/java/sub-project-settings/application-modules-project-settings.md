@@ -288,7 +288,7 @@ class ModularityTests {
 このパッケージ配下にある `xxcontext` や `yycontext` などのモジュールをまとめて 1 つの `#!java ApplicationModules` として扱うため、モジュールごとにテストクラスを作成する必要はありません。
 
 - `#!java modules.verify()`: モジュール間の依存関係を検証します。 `allowedDependencies` で許可していないモジュールへの依存や、 `internal` パッケージに配置した非公開の型への参照があった場合、このメソッドが例外をスローし、テストが失敗します。
-- `#!java new Documenter(modules).writeDocumentation()`: モジュール構造を表す図（ PlantUML ）や文書を `build` ディレクトリ配下に自動生成します。モジュール構成を可視化したい場合に活用してください。
+- `#!java new Documenter(modules).writeDocumentation()`: モジュール構造を表す図（ PlantUML ）や文書を `build` フォルダー配下に自動生成します。モジュール構成を可視化したい場合に活用してください。
 
 このテストクラスを配置することで、モジュール間の不正な依存を CI で検知できるようになります。
 `#!java modules.verify()` の検証内容の詳細は、[アプリケーションモジュール構造の検証 :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/verification.html){ target=_blank } を参照してください。
