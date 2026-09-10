@@ -497,7 +497,9 @@ Spring Boot の [プロファイル機能 :material-open-in-new:](https://spring
 
 ### プロファイルグループによる切り替え単位の定義 {#profile-groups}
 
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 各プロファイルは、 `application.properties` の `spring.profiles.group.<プロファイルグループ名>` プロパティを用いて、起動時に指定する環境名（プロファイルグループ）ごとに読み込む組み合わせをまとめます。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ```properties title="application.properties"
 # 環境別のプロファイルグループ設定（common:全環境共通、dev:開発環境用、prd:本番環境用、ut:単体テスト用）
