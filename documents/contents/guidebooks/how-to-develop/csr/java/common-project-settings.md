@@ -478,3 +478,64 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
     }
     ```
+
+## 動作環境ごとの設定の切り替え {#environment-settings-switching}
+
+Spring Boot の [プロファイル機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/profiles.html){ target=_blank } を利用すると、開発環境／本番環境／単体テスト実行時など、動作環境ごとに設定を切り替えられます。
+
+### 環境ごとの properties ファイルの分割 {#profile-properties-files}
+
+環境固有の設定は、 `application-{プロファイル名}.properties` という命名規則に従ってプロファイルごとに分割します。
+このように分割しておくことで、環境に応じて使用するデータベースの切り替えや出力するログレベルの制御を簡単に行えるようになります。
+
+以下が環境ごとに分割した `properties` ファイルの例です。
+
+- `application-common.properties`: 全ての環境で共通して使用する設定
+- `application-dev.properties`: 開発環境固有の設定
+- `application-prd.properties`: 本番環境固有の設定
+- `application-ut.properties`: 単体テスト実行時固有の設定
+
+### プロファイルグループによる切り替え単位の定義 {#profile-groups}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+各プロファイルは、 `application.properties` の `spring.profiles.group.<プロファイルグループ名>` プロパティを用いて、起動時に指定する環境名（プロファイルグループ）ごとに読み込む組み合わせをまとめます。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+```properties title="application.properties"
+# 環境別のプロファイルグループ設定（common:全環境共通、dev:開発環境用、prd:本番環境用、ut:単体テスト用）
+spring.profiles.group.local=common,dev
+spring.profiles.group.production=common,prd
+spring.profiles.group.test=common,ut
+
+# 環境情報未指定の場合に使用するプロファイルグループ
+spring.profiles.default=production
+```
+
+- `spring.profiles.group.<プロファイルグループ名>=<プロファイル名1>,<プロファイル名2>,...`
+
+    起動時にグループ名を指定すると、カンマ区切りで列挙したプロファイルに対応する `application-{プロファイル名}.properties` が組み合わせて読み込まれます。
+
+- `spring.profiles.default`
+
+    アプリケーション起動時にプロファイルの指定がない場合に使用するプロファイルグループを指定します。
+
+    既定のプロファイルグループ以外を使用する場合は、起動コマンドに `-Dspring.profiles.active=<プロファイルグループ名>` を追加して、使用するプロファイルグループを明示的に指定します。 [Java プラグイン](#java-plugin) の設定で解説した test タスクの `-Dspring.profiles.active=test` も、この仕組みを利用して `test` グループ（ `common` と `ut` の組み合わせ）を指定しています。
+
+### `application.properties` を配置するサブプロジェクト {#profile-properties-module}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+マルチプロジェクト構成を採る場合、 `application.properties` 系のファイルは実行可能なサブプロジェクト（ `#!java @SpringBootApplication` を持つクラスを含むサブプロジェクト）の `src/main/resources` に配置します。
+ライブラリとして利用するサブプロジェクトには配置しません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+Spring 公式のマルチモジュールプロジェクトの作成ガイドでも、次のように明記されています。
+
+> 実行時にライブラリを使用するアプリケーションと衝突する可能性があるため、 `application.properties` をライブラリに配置することはお勧めしません（クラスパスから読み込まれる `application.properties` は 1 つだけです）。
+> `application.properties` をテストクラスパスに配置できますが、 jar に含めることはできません（たとえば、 `src/test/resources` に配置することによって）。
+>
+> — [Creating a Multi Module Project :material-open-in-new:](https://spring.pleiades.io/guides/gs/multi-module/){ target=_blank }（「ライブラリプロジェクトを作成する」の節）
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+上記の引用にあるとおり、実行時のクラスパスに関する制約はテストのクラスパスには影響しません。
+そのため、ライブラリとして利用するサブプロジェクトであっても、テスト実行時にだけ有効な設定を定義する場合は、 `src/test/resources` に `application.properties` を配置して構いません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
