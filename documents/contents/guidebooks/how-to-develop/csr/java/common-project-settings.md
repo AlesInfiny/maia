@@ -374,13 +374,15 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 ```
 
 上記の設定の他にソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう以下を追加してください。
+また、フォーマッターの設定を優先させ、 VS Code がファイルの内容からインデント方法を自動検出しないよう、 `editor.detectIndentation` も併せて `false` に設定してください。
 
 ```json title=".vscode/settings.json"
 {
   "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.detectIndentation": false
   }
 }
 ```
