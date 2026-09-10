@@ -5,7 +5,7 @@ import type {
   BasketItemApiModel,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
-} from '@/generated/api-client'
+} from '@/system-common/generated/api-client'
 import { deletedItemId } from '../data/display-items'
 import { basket, basketItems } from '../data/basket-items'
 

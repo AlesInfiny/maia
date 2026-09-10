@@ -23,20 +23,21 @@ npm install vue-i18n
 ```text linenums="0"
 <workspace-name>
   └ src/ ------------------------------------------- アプリケーションのソースコードが配置されるフォルダー
-    ├ locales/ ------------------------------------- メッセージ管理を行うコードが配置されるフォルダー
-    │ ├ en/ ---------------------------------------- 英語メッセージの管理を行うフォルダー
-    │ │ ├ messageList_en.json ---------------------- 処理の成功や失敗などの結果メッセージを格納する JSON ファイル（英語）
-    │ │ └ validationTextList_en.json --------------- 入力値検証用のメッセージを格納する JSON ファイル（英語）
-    │ ├ ja/ ---------------------------------------- 日本語メッセージの管理を行うフォルダー
-    │ │ ├ messageList_ja.json ---------------------- 処理の成功や失敗などの結果メッセージを格納する JSON ファイル（日本語）
-    │ │ └ validationTextList_ja.json --------------- 入力値検証用のメッセージを格納する JSON ファイル（日本語）
-    │ └ i18n.ts ------------------------------------ メッセージ管理の設定に関するコード
+    ├ system-common/ ----------------------------- システム共通の機能が配置されるフォルダー
+    │ └ locales/ ---------------------------------- メッセージ管理を行うコードが配置されるフォルダー
+    │   ├ en/ ------------------------------------ 英語メッセージの管理を行うフォルダー
+    │   │ ├ messageList_en.json ------------------ 処理の成功や失敗などの結果メッセージを格納する JSON ファイル（英語）
+    │   │ └ validationTextList_en.json ----------- 入力値検証用のメッセージを格納する JSON ファイル（英語）
+    │   ├ ja/ ------------------------------------ 日本語メッセージの管理を行うフォルダー
+    │   │ ├ messageList_ja.json ------------------ 処理の成功や失敗などの結果メッセージを格納する JSON ファイル（日本語）
+    │   │ └ validationTextList_ja.json ----------- 入力値検証用のメッセージを格納する JSON ファイル（日本語）
+    │   └ i18n.ts -------------------------------- メッセージ管理の設定に関するコード
     └ main.ts -------------------------------------- 各ライブラリ等を読み込むためのコード
 ```
 
 ### メッセージファイルの作成 {#creating-message-files}
 
-メッセージに関するファイルは `./src/locales` フォルダーに集約します。
+メッセージに関するファイルは `./src/system-common/locales` フォルダーに集約します。
 以下のように、メッセージ本体を格納する JSON ファイルを作成します。
 
 ```json title="messageList_jp.json の例"
@@ -66,7 +67,7 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 メッセージ本体を格納する JSON ファイルを読み込むために、以下のように `i18n.ts` を実装します。
 
 ```typescript title="i18n.ts"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/locales/i18n.ts"
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/locales/i18n.ts"
 ```
 
 メッセージ管理機能を導入するための `createI18n` の引数の役割は以下の通りです。
@@ -97,10 +98,10 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 ```typescript title="main.ts" hl_lines="6 14"
 import { createApp } from "vue"
 import { createPinia } from "pinia"
-import { authenticationGuard } from "@/shared/authentication/authentication-guard"
+import { authenticationGuard } from "@/authentication/login/router/authentication-guard"
 import App from "./App.vue"
-import { router } from "./router"
-import { i18n } from "./locales/i18n"
+import { router } from "@/system-common/router"
+import { i18n } from "@/system-common/locales/i18n"
 
 import "@/assets/base.css"
 
@@ -122,7 +123,7 @@ app.mount("#app")
 
 ```vue title="メッセージ利用例"
 <script setup lang="ts">
-import { i18n } from '@/locales/i18n'
+import { i18n } from '@/system-common/locales/i18n'
 
 const { t } = i18n.global;
 

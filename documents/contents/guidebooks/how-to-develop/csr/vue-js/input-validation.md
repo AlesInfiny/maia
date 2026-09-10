@@ -19,20 +19,20 @@ npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 
 ## メッセージの定義 {#definition-messages}
 
-入力値検証失敗時のメッセージを定義するため、`./src/locales` フォルダーに JSON ファイルを作成し、以下のように記述します。
+入力値検証失敗時のメッセージを定義するため、`./src/system-common/locales` フォルダーに JSON ファイルを作成し、以下のように記述します。
 メッセージを多言語対応する場合には、それぞれの言語の JSON ファイルを作成し、各言語のメッセージをフォルダーで分割して管理します。
 
 ```json title="validationTextList_ja.json"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/locales/ja/validationTextList_ja.json"
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/locales/ja/validationTextList_ja.json"
 ```
 
 ## 入力値検証時の設定 {#settings-validation}
 
 各言語設定に基づいた、入力値検証メッセージを読み込みます。
-共通スキーマをファイル `./src/validation/validation-items.ts` に以下のように定義し、 Vue I18n を使用してデフォルトのエラーメッセージを設定します。
+共通スキーマをファイル `./src/authentication/login/validation/validation-items.ts` に以下のように定義し、 Vue I18n を使用してデフォルトのエラーメッセージを設定します。
 
 ```typescript title="validation-items.ts"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/validation/validation-items.ts"
+--8<-- "samples/web-csr/dressca-frontend/consumer/src/authentication/login/validation/validation-items.ts"
 ```
 
 作成したファイルを読み込むため、 入力値を検証する Vue ファイルのスクリプト構文に以下を記述します。
@@ -41,7 +41,7 @@ npm install vee-validate zod@^3 @vee-validate/zod vue-i18n
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { ValidationItems } from '@/validation/validation-items'
+import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
@@ -88,7 +88,7 @@ VeeValidate の API については [公式ドキュメント :material-open-in-
     import { toTypedSchema } from '@vee-validate/zod'
     import { z } from 'zod'
     import { EnvelopeIcon, KeyIcon, CalendarIcon } from '@heroicons/vue/24/solid'
-    import { ValidationItems } from '@/validation/validation-items'
+    import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
     // フォーム固有のバリデーション定義
     const { requiredEmail: requiredEmailRule, required: requiredRule, birthdateSchema: birthdateRule } = ValidationItems()
@@ -314,7 +314,7 @@ const schema = z
 
     ```typescript title="validation-items.ts"
     import { z } from 'zod'
-    import { i18n } from '@/locales/i18n'
+    import { i18n } from '@/system-common/locales/i18n'
 
     // 必須バリデーション関数
     const required = (message: string) => z.string().trim().min(1, message)
@@ -353,7 +353,7 @@ const schema = z
     import { useField, useForm } from 'vee-validate'
     import { toTypedSchema } from '@vee-validate/zod'
     import { z } from 'zod'
-    import { ValidationItems } from '@/validation/validation-items'
+    import { ValidationItems } from '@/authentication/login/validation/validation-items'
 
     const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
     const formSchema = toTypedSchema(
@@ -381,7 +381,7 @@ Zod は内部的にデフォルトのエラーマップを使ってエラーメ�
 
         ```typescript title="zod-settings.ts"
         import { type ZodErrorMap, ZodIssueCode } from 'zod'
-        import { i18n } from '@/locales/i18n'
+        import { i18n } from '@/system-common/locales/i18n'
 
         // 必須入力項目の最小文字数
         const RequiredMinLength = 1
@@ -424,7 +424,7 @@ Zod は内部的にデフォルトのエラーマップを使ってエラーメ�
 
         ```typescript title="main.ts"
         import { z } from 'zod'
-        import { customErrorMap } from '@/validation/zod-settings'
+        import { customErrorMap } from '@/system-common/validation/zod-settings'
 
         // createApp() の前に呼び出す
         z.setErrorMap(customErrorMap)
