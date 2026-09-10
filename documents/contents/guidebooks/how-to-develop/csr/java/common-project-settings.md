@@ -488,7 +488,7 @@ Spring Boot の [プロファイル機能 :material-open-in-new:](https://spring
 環境固有の設定は、 `application-{プロファイル名}.properties` という命名規則に従ってプロファイルごとに分割します。
 このように分割しておくことで、環境に応じて使用するデータベースの切り替えや出力するログレベルの制御を簡単に行えるようになります。
 
-以下が環境ごとに分割した `application.properties` の例です。
+以下が環境ごとに分割した `properties` ファイルの例です。
 
 - `application-common.properties`: 全ての環境で共通して使用する設定
 - `application-dev.properties`: 開発環境固有の設定
@@ -497,7 +497,7 @@ Spring Boot の [プロファイル機能 :material-open-in-new:](https://spring
 
 ### プロファイルグループによる切り替え単位の定義 {#profile-groups}
 
-各プロファイルは、 `application.properties` の `spring.profiles.group.<グループ名>` プロパティを用いて、起動時に指定する環境名（プロファイルグループ）ごとに読み込む組み合わせをまとめます。
+各プロファイルは、 `application.properties` の `spring.profiles.group.<プロファイルグループ名>` プロパティを用いて、起動時に指定する環境名（プロファイルグループ）ごとに読み込む組み合わせをまとめます。
 
 ```properties title="application.properties"
 # 環境別のプロファイルグループ設定（common:全環境共通、dev:開発環境用、prd:本番環境用、ut:単体テスト用）
@@ -509,7 +509,7 @@ spring.profiles.group.test=common,ut
 spring.profiles.default=production
 ```
 
-- `spring.profiles.group.<グループ名>=<プロファイル名1>,<プロファイル名2>,...`
+- `spring.profiles.group.<プロファイルグループ名>=<プロファイル名1>,<プロファイル名2>,...`
 
     起動時にグループ名を指定すると、カンマ区切りで列挙したプロファイルに対応する `application-{プロファイル名}.properties` が組み合わせて読み込まれます。
 
