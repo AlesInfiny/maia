@@ -149,10 +149,15 @@ tasks.named('test') {
 
 AlesInfiny Maia では、 Spring Boot が提供する [構造化ロギング機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/logging.html#features.logging.structured){ target=_blank } を使用し、ログを構造化された形式で出力します。
 構造化ログの出力フォーマットは、 `application.properties` （または `application.yaml` ）の `logging.structured.format.console` プロパティで指定します。
-Spring Boot では `ecs` （Elastic Common Schema）や `gelf` 、 `logstash` など複数の定義済みフォーマットが用意されており、依存ライブラリを追加することなく選択できます。
-以下は、 `ecs` 形式を指定する場合の設定例です。
+Spring Boot では以下の定義済みフォーマットが用意されており、依存ライブラリを追加することなく選択できます。
 
-```properties title="web/src/main/resources/application.properties"
+- Elastic Common Schema (ECS)
+- Graylog Extended Log Format (GELF)
+- Logstash
+
+以下は、 Elastic Common Schema 形式を指定する場合の設定例です。
+
+```properties title="web/src/main/resources/application-common.properties"
 # 構造化ログのフォーマットの指定
 logging.structured.format.console=ecs
 ```
