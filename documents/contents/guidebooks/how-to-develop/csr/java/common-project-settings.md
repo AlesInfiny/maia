@@ -149,34 +149,6 @@ subprojects {
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-??? info "Lombok 利用時に JDK 24 以降で出力される警告について"
-
-    Lombok は内部で `sun.misc.Unsafe` の終了予定 API を利用しています。
-    そのため JDK 24 以降でコンパイルすると、以下のような警告が出力されます。
-
-    ```text
-    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-    ```
-
-    この警告を抑止する場合、コンパイラの JVM に `--sun-misc-unsafe-memory-access=allow` を指定します。
-    `forkOptions.jvmArgs` はコンパイラをフォークしたときにのみ適用されるため、併せて `options.fork` を有効にしてください。
-
-    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
-    subprojects {
-      tasks.withType(JavaCompile).configureEach {
-        options.fork = true
-        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
-      }
-    }
-    ```
-
-    <!-- textlint-disable ja-technical-writing/sentence-length -->
-
-    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となり、警告ではなくエラーになる予定です。
-    JDK 26 以降へ移行する際は、 [Lombok の対応状況 :material-open-in-new:](https://github.com/projectlombok/lombok/){ target=_blank } を確認してください。
-
-    <!-- textlint-enable ja-technical-writing/sentence-length -->
-
 ### タスクの設定 {#common-tasks}
 
 導入したプラグインによって定義されたタスクに対して、必要であれば設定を追加します。
