@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore hikari -->
+<!-- cSpell:ignore hikari gelf -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -147,20 +147,35 @@ tasks.named('test') {
 
 ## ログの設定 {#logging-configuration}
 
-`src/main/resources` に `log4j2.xml` ファイルを配置しログの設定を記述します。
+AlesInfiny Maia では、 Spring Boot が提供する [構造化ロギング機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/logging.html#features.logging.structured){ target=_blank } を使用し、ログを構造化された形式で出力します。
+構造化ログの出力フォーマットは、 `application.properties` （または `application.yaml` ）の `logging.structured.format.console` プロパティで指定します。
+Spring Boot では以下の定義済みフォーマットが用意されており、依存ライブラリを追加することなく選択できます。
+
+- Elastic Common Schema (ECS)
+- Graylog Extended Log Format (GELF)
+- Logstash
+
+以下は、 Elastic Common Schema 形式を指定する場合の設定例です。
+
+```properties title="web/src/main/resources/application-common.properties"
+# 構造化ログのフォーマットの指定
+logging.structured.format.console=ecs
+```
+
+`src/main/resources` に `log4j2-spring.xml` ファイルを配置しログの設定を記述します。
 以下は、ログの設定例です。
 
-```xml title="log4j2.xml"
+```xml title="log4j2-spring.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="error">
 
   <Appenders>
     <Console name="console" Target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %c %-5p %pid %t %m%n" />
+      <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
     </Console>
     
     <Console name="application.log.appender" Target="SYSTEM_OUT">
-        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %pid %t %m%n"/>
+        <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
     </Console>
   </Appenders>
   
@@ -177,7 +192,7 @@ tasks.named('test') {
 </Configuration>
 ```
 
-log4j2.xml のタグの構成要素は以下の通りです。
+log4j2-spring.xml のタグの構成要素は以下の通りです。
 
 - Appenders
 
@@ -189,7 +204,13 @@ log4j2.xml のタグの構成要素は以下の通りです。
     ログのエントリーポイントを指定します。
     この設定では、どのレベルのメッセージをログに記録するかや、 Appenders のどの要素にメッセージを送信するかなどを指定します。
 
-その他の詳細な設定については、[公式ページ :material-open-in-new:](https://logging.apache.org/log4j/2.x/manual/configuration.html){ target=_blank } を確認してください。
+上記の設定では、 Appenders の Layout に Spring Boot が提供する `StructuredLogLayout` を指定し、ログを構造化して出力しています。
+`format` 属性の `CONSOLE_LOG_STRUCTURED_FORMAT` と `charset` 属性の `CONSOLE_LOG_CHARSET` は、いずれも Spring Boot が管理するシステムプロパティです。
+`CONSOLE_LOG_STRUCTURED_FORMAT` には、 `application.properties` の `logging.structured.format.console` プロパティで指定した値が設定されます。
+`CONSOLE_LOG_CHARSET` には、出力時の文字コードが設定されます。
+
+log4j2-spring.xml のその他の詳細な設定については、[Log4j2 の公式ページ :material-open-in-new:](https://logging.apache.org/log4j/2.x/manual/configuration.html){ target=_blank } を確認してください。
+出力するフィールドの追加・除外や、独自フォーマットの定義など、構造化ログのより詳細な設定については、[Spring Boot の公式ページ :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/logging.html#features.logging.structured){ target=_blank } を確認してください。
 
 ## OpenAPI 仕様書の出力設定 {#open-api-specification-output-configuration}
 

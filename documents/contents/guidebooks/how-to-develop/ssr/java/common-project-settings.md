@@ -61,3 +61,9 @@ tasks.named('test') {
 
 依存ライブラリのバージョン固定も共通です。
 [依存ライブラリのバージョン固定](../../csr/java/common-project-settings.md#dependency-locking) に従い、ロックを設定してロックファイルを生成してください。
+
+## 動作環境ごとの設定の切り替え {#environment-settings-switching}
+
+動作環境ごとの設定の切り替え方法は CSR 編と同様です。
+
+[こちら](../../csr/java/common-project-settings.md#environment-settings-switching) を参照してください。
