@@ -4,7 +4,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource testdb hikari -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -45,6 +44,12 @@ dependencies {
   implementation project(':system-common')
 }
 ```
+
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+エントリーポイントとなるクラスの設定は CSR 編と同様です。
+
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#config-entry-point) を参照して、エントリーポイントとなるクラスの設定を追記してください。
 
 ## Spring Boot の設定 {#config-spring}
 

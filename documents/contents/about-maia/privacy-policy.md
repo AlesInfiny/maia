@@ -3,6 +3,8 @@ title: プライバシーポリシー
 description: AlesInfiny Maia OSS Edition ポータルサイトのプライバシーポリシーです。
 ---
 
+<!-- cspell:ignore joshi -->
+
 # プライバシーポリシー {#top}
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 BIPROGY 株式会社（以下、『当社』といいます）は、 AlesInfiny Maia OSS Edition ポータルサイト（以下、『本サイト』といいます）における利用者のプライバシーを尊重し、取得する情報の取扱いについて以下のとおりプライバシーポリシーを定めます。

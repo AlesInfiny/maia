@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok Dspring findbugs -->
+<!-- cSpell:ignore projectlombok Dspring findbugs -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。
@@ -137,18 +137,55 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 - test タスクでは `test` プロファイルを使用する
 - テストフレームワークとして JUnit5 を使用する
+- ソースファイルの文字コードを明示的に指定する
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="4 5"
+    実行環境（OS や JDK の設定）によっては、ソースファイルの文字コードを正しく認識できず、コンパイル時に文字化けやエラーを引き起こす可能性があります。
+    このような事態を避けるため、 `compileJava` タスク、 `compileTestJava` タスクおよび `javadoc` タスクの `encoding` オプションで、文字コードを明示的に指定することを推奨します。
 
+これらのシナリオを踏まえた `build.gradle` の設定例は以下の通りです。
+
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-4 8 9"
+  
 subprojects {
+  compileJava.options.encoding = 'UTF-8'
+  compileTestJava.options.encoding = 'UTF-8'
+  javadoc.options.encoding = 'UTF-8'
+
   test {
     // UTテスト時はtestプロファイルを利用
     jvmArgs=['-Dspring.profiles.active=test']
     useJUnitPlatform()
   }
 }
-
 ```
+
+??? info "Lombok 利用時に JDK 24 以降で出力される警告について"
+
+    Lombok は内部で `sun.misc.Unsafe` の終了予定 API を利用しています。
+    そのため JDK 24 以降でコンパイルすると、以下のような警告が出力されます。
+
+    ```text
+    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+    ```
+
+    この警告を抑止する場合、コンパイラの JVM に `--sun-misc-unsafe-memory-access=allow` を指定します。
+    `forkOptions.jvmArgs` はコンパイラをフォークしたときにのみ適用されるため、併せて `options.fork` を有効にしてください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
+    subprojects {
+      tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+      }
+    }
+    ```
+
+    <!-- textlint-disable ja-technical-writing/sentence-length -->
+
+    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となり、警告ではなくエラーになる予定です。
+    JDK 26 以降へ移行する際は、 [Lombok の対応状況 :material-open-in-new:](https://github.com/projectlombok/lombok/){ target=_blank } を確認してください。
+
+    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ??? info "Lombok 利用時に JDK 24 以降で出力される警告について"
 
@@ -393,13 +430,15 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 ```
 
 上記の設定の他にソースコードの入力や保存、ペースト時に自動的にフォーマットされるよう以下を追加してください。
+また、フォーマッターの設定を優先させ、 VS Code がファイルの内容からインデント方法を自動検出しないよう、 `editor.detectIndentation` も併せて `false` に設定してください。
 
 ```json title=".vscode/settings.json"
 {
   "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.detectIndentation": false
   }
 }
 ```
@@ -432,6 +471,10 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       apply plugin: 'jacoco'
       apply plugin: 'checkstyle'
       apply plugin: 'com.github.spotbugs'
+
+      compileJava.options.encoding = 'UTF-8'
+      compileTestJava.options.encoding = 'UTF-8'
+      javadoc.options.encoding = 'UTF-8'
 
       tasks.withType(JavaCompile).configureEach {
         options.fork = true
@@ -498,3 +541,64 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       }
     }
     ```
+
+## 動作環境ごとの設定の切り替え {#environment-settings-switching}
+
+Spring Boot の [プロファイル機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/profiles.html){ target=_blank } を利用すると、開発環境／本番環境／単体テスト実行時など、動作環境ごとに設定を切り替えられます。
+
+### 環境ごとの properties ファイルの分割 {#profile-properties-files}
+
+環境固有の設定は、 `application-{プロファイル名}.properties` という命名規則に従ってプロファイルごとに分割します。
+このように分割しておくことで、環境に応じて使用するデータベースの切り替えや出力するログレベルの制御を簡単に行えるようになります。
+
+以下が環境ごとに分割した `properties` ファイルの例です。
+
+- `application-common.properties`: 全ての環境で共通して使用する設定
+- `application-dev.properties`: 開発環境固有の設定
+- `application-prd.properties`: 本番環境固有の設定
+- `application-ut.properties`: 単体テスト実行時固有の設定
+
+### プロファイルグループによる切り替え単位の定義 {#profile-groups}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+各プロファイルは、 `application.properties` の `spring.profiles.group.<プロファイルグループ名>` プロパティを用いて、起動時に指定する環境名（プロファイルグループ）ごとに読み込む組み合わせをまとめます。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+```properties title="application.properties"
+# 環境別のプロファイルグループ設定（common:全環境共通、dev:開発環境用、prd:本番環境用、ut:単体テスト用）
+spring.profiles.group.local=common,dev
+spring.profiles.group.production=common,prd
+spring.profiles.group.test=common,ut
+
+# 環境情報未指定の場合に使用するプロファイルグループ
+spring.profiles.default=production
+```
+
+- `spring.profiles.group.<プロファイルグループ名>=<プロファイル名1>,<プロファイル名2>,...`
+
+    起動時にグループ名を指定すると、カンマ区切りで列挙したプロファイルに対応する `application-{プロファイル名}.properties` が組み合わせて読み込まれます。
+
+- `spring.profiles.default`
+
+    アプリケーション起動時にプロファイルの指定がない場合に使用するプロファイルグループを指定します。
+
+    既定のプロファイルグループ以外を使用する場合は、起動コマンドに `-Dspring.profiles.active=<プロファイルグループ名>` を追加して、使用するプロファイルグループを明示的に指定します。 [Java プラグイン](#java-plugin) の設定で解説した test タスクの `-Dspring.profiles.active=test` も、この仕組みを利用して `test` グループ（ `common` と `ut` の組み合わせ）を指定しています。
+
+### `application.properties` を配置するサブプロジェクト {#profile-properties-module}
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+マルチプロジェクト構成を採る場合、 `application.properties` 系のファイルは実行可能なサブプロジェクト（ `#!java @SpringBootApplication` を持つクラスを含むサブプロジェクト）の `src/main/resources` に配置します。
+ライブラリとして利用するサブプロジェクトには配置しません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+Spring 公式のマルチモジュールプロジェクトの作成ガイドでも、次のように明記されています。
+
+> 実行時にライブラリを使用するアプリケーションと衝突する可能性があるため、 `application.properties` をライブラリに配置することはお勧めしません（クラスパスから読み込まれる `application.properties` は 1 つだけです）。
+> `application.properties` をテストクラスパスに配置できますが、 jar に含めることはできません（たとえば、 `src/test/resources` に配置することによって）。
+>
+> — [Creating a Multi Module Project :material-open-in-new:](https://spring.pleiades.io/guides/gs/multi-module/){ target=_blank }（「ライブラリプロジェクトを作成する」の節）
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+上記の引用にあるとおり、実行時のクラスパスに関する制約はテストのクラスパスには影響しません。
+そのため、ライブラリとして利用するサブプロジェクトであっても、テスト実行時にだけ有効な設定を定義する場合は、 `src/test/resources` に `application.properties` を配置して構いません。
+<!-- textlint-enable ja-technical-writing/sentence-length -->

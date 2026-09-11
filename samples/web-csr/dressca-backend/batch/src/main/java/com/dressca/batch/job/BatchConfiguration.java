@@ -14,7 +14,6 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -23,7 +22,6 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Job の定義と各種設定を行うクラスです。
  */
 @Configuration
-@ComponentScan(basePackages = {"com.dressca"})
 public class BatchConfiguration {
 
   /**

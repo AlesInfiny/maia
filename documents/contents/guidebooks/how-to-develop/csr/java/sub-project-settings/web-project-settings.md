@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource testdb hikari -->
+<!-- cSpell:ignore hikari gelf -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -49,6 +49,30 @@ dependencies {
 }
 ```
 
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+web プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `WebApplication` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.web` ）に限られます。
+本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは web プロジェクトとは異なるパッケージに配置されます。
+その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
+
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example` ）を指定します。
+
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+同様に、他サブプロジェクトの `#!java @ConfigurationProperties` が付与されたクラスを読み込むには、 `#!java @ConfigurationPropertiesScan` の `#!java basePackages` に親パッケージを指定します。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+```java title="WebApplication.java" hl_lines="1 2"
+@SpringBootApplication(scanBasePackages = {"com.example"})
+@ConfigurationPropertiesScan(basePackages = {"com.example"})
+public class WebApplication {
+  ...
+}
+```
+
 ## Spring Boot の設定 {#config-spring}
 
 web プロジェクトに関する Spring Boot のプロパティ等を設定します。
@@ -57,7 +81,6 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -70,8 +93,6 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
     - spring.sql.init.mode: データベースの初期化有無
 - ロギング
     - logging.xxx でロギングの各種設定が可能
-- MyBatis の設定
-    - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - ヘルスチェック機能を含む Spring Boot Actuator に関する設定
     - management.endpoints.web.base-path: エンドポイントパスのカスタマイズ
     - management.endpoint.health.group.xxx.include: さまざまなサーバーの監視目的に合わせたヘルスチェックのプローブを作成可能
@@ -126,20 +147,35 @@ tasks.named('test') {
 
 ## ログの設定 {#logging-configuration}
 
-`src/main/resources` に `log4j2.xml` ファイルを配置しログの設定を記述します。
+AlesInfiny Maia では、 Spring Boot が提供する [構造化ロギング機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/logging.html#features.logging.structured){ target=_blank } を使用し、ログを構造化された形式で出力します。
+構造化ログの出力フォーマットは、 `application.properties` （または `application.yaml` ）の `logging.structured.format.console` プロパティで指定します。
+Spring Boot では以下の定義済みフォーマットが用意されており、依存ライブラリを追加することなく選択できます。
+
+- Elastic Common Schema (ECS)
+- Graylog Extended Log Format (GELF)
+- Logstash
+
+以下は、 Elastic Common Schema 形式を指定する場合の設定例です。
+
+```properties title="web/src/main/resources/application-common.properties"
+# 構造化ログのフォーマットの指定
+logging.structured.format.console=ecs
+```
+
+`src/main/resources` に `log4j2-spring.xml` ファイルを配置しログの設定を記述します。
 以下は、ログの設定例です。
 
-```xml title="log4j2.xml"
+```xml title="log4j2-spring.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="error">
 
   <Appenders>
     <Console name="console" Target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %c %-5p %pid %t %m%n" />
+      <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
     </Console>
     
     <Console name="application.log.appender" Target="SYSTEM_OUT">
-        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %pid %t %m%n"/>
+        <StructuredLogLayout format="${sys:CONSOLE_LOG_STRUCTURED_FORMAT}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
     </Console>
   </Appenders>
   
@@ -156,7 +192,7 @@ tasks.named('test') {
 </Configuration>
 ```
 
-log4j2.xml のタグの構成要素は以下の通りです。
+log4j2-spring.xml のタグの構成要素は以下の通りです。
 
 - Appenders
 
@@ -168,7 +204,13 @@ log4j2.xml のタグの構成要素は以下の通りです。
     ログのエントリーポイントを指定します。
     この設定では、どのレベルのメッセージをログに記録するかや、 Appenders のどの要素にメッセージを送信するかなどを指定します。
 
-その他の詳細な設定については、[公式ページ :material-open-in-new:](https://logging.apache.org/log4j/2.x/manual/configuration.html){ target=_blank } を確認してください。
+上記の設定では、 Appenders の Layout に Spring Boot が提供する `StructuredLogLayout` を指定し、ログを構造化して出力しています。
+`format` 属性の `CONSOLE_LOG_STRUCTURED_FORMAT` と `charset` 属性の `CONSOLE_LOG_CHARSET` は、いずれも Spring Boot が管理するシステムプロパティです。
+`CONSOLE_LOG_STRUCTURED_FORMAT` には、 `application.properties` の `logging.structured.format.console` プロパティで指定した値が設定されます。
+`CONSOLE_LOG_CHARSET` には、出力時の文字コードが設定されます。
+
+log4j2-spring.xml のその他の詳細な設定については、[Log4j2 の公式ページ :material-open-in-new:](https://logging.apache.org/log4j/2.x/manual/configuration.html){ target=_blank } を確認してください。
+出力するフィールドの追加・除外や、独自フォーマットの定義など、構造化ログのより詳細な設定については、[Spring Boot の公式ページ :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/logging.html#features.logging.structured){ target=_blank } を確認してください。
 
 ## OpenAPI 仕様書の出力設定 {#open-api-specification-output-configuration}
 
@@ -296,10 +338,10 @@ H2 Console のスタンドアロン版からアプリケーションが使用し
 
 ??? example "H2 Database をサーバーモードで起動するクラスの例"
 
-    定義するクラスには、 `@Component` と `@Profile` アノテーションを付与し、開発環境でのみ DI コンテナに Bean 登録されるように設定します。
+    定義するクラスには、 `#!java @Component` と `#!java @Profile` アノテーションを付与し、開発環境でのみ DI コンテナに Bean 登録されるように設定します。
     クラスには H2 Database を起動する処理と停止する処理をそれぞれ実装します。
     起動する処理は、アプリケーションが起動したタイミングで H2 Database を起動させるためにコンストラクタ内で行います。
-    停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `@PreDestroy` アノテーションを付与したメソッド内で行います。
+    停止する処理は、アプリケーションが停止したタイミングで、 H2 Database を停止させるために `#!java @PreDestroy` アノテーションを付与したメソッド内で行います。
 
     ```java
     /**
