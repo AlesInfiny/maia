@@ -39,8 +39,6 @@ export const codingConventionRules: Linter.Config[] = [
  * App.vue 、 main.ts 、ルーティング定義は全経路を許可する例外です。
  * ルーティング定義の例外が層全体へ広がらないよう、system-common の他のコードからは
  * 集約モジュール（route-names.ts）を参照できないようにします。
- * なお本ルールは `@/` エイリアスによる参照を対象とします。
- * レイヤーをまたぐ参照はエイリアスで記述してください。
  * @param project ルールを適用するワークスペースのフォルダー名。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキストまたはドメイン）を
  *   表す `@/` エイリアスのパターン。
@@ -63,12 +61,12 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
               {
                 group: ['@/business-common/**', ...contextPatterns],
                 message:
-                  'system-common は業務知識を持たない層です。business-common やドメインを参照できません。',
+                  'system-common は業務知識を持たない層です。business-common やコンテキストを参照できません。',
               },
               {
                 group: ['@/system-common/router/route-names'],
                 message:
-                  'ルート名の集約モジュールは全ドメインを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
+                  'ルート名の集約モジュールは全コンテキストを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
               },
             ],
           },
@@ -85,7 +83,7 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
             patterns: [
               {
                 group: contextPatterns,
-                message: 'business-common はドメインを参照できません。',
+                message: 'business-common はコンテキストを参照できません。',
               },
             ],
           },

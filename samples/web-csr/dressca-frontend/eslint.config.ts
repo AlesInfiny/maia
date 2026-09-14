@@ -56,7 +56,6 @@ export default defineConfigWithVueTs(
   ...codingConventionRules,
 
   // consumer / admin プロジェクトのフォルダー間の参照方向を強制します。
-  // ルールの定義は eslint.project-rules.ts を参照してください。
   ...consumerLayerDependencyRules,
   ...adminLayerDependencyRules,
 
