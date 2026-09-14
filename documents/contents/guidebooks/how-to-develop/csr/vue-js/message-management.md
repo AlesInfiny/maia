@@ -98,7 +98,7 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 ```typescript title="main.ts" hl_lines="6 14"
 import { createApp } from "vue"
 import { createPinia } from "pinia"
-import { authenticationGuard } from "@/authentication/router/authentication-guard"
+import { authenticationGuard } from "@/authentication/login/router/authentication-guard"
 import App from "./App.vue"
 import { router } from "@/system-common/router"
 import { i18n } from "@/system-common/locales/i18n"
