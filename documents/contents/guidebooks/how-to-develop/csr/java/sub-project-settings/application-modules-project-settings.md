@@ -137,11 +137,6 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()
