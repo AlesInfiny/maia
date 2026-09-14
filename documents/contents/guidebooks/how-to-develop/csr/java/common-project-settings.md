@@ -142,12 +142,8 @@ subprojects {
     }
     ```
 
-    <!-- textlint-disable ja-technical-writing/sentence-length -->
-
-    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となり、警告ではなくエラーになる予定です。
+    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となります。
     JDK 26 以降へ移行する際は、 [Lombok の対応状況 :material-open-in-new:](https://github.com/projectlombok/lombok/){ target=_blank } を確認してください。
-
-    <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ### タスクの設定 {#common-tasks}
 
