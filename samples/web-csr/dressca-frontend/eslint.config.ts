@@ -50,11 +50,9 @@ export default defineConfigWithVueTs(
   },
 
   // コーディング規約に沿わせるためのルールを適用します。
-  // ルールの定義は eslint.project-rules.ts を参照してください。
-  codingConventionRules,
+  ...codingConventionRules,
 
   // consumer プロジェクトのフォルダー間の参照方向を強制します。
-  // ルールの定義は eslint.project-rules.ts を参照してください。
   ...consumerLayerDependencyRules,
 
   // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
