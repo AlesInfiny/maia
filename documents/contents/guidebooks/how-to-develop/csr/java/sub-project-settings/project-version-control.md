@@ -217,7 +217,6 @@ dependencies {
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-
     repositories {
       mavenCentral()
     }

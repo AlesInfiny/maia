@@ -203,7 +203,6 @@ MyBatis Generator によって自動生成されたコードは、既定の Spot
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-
     sourceSets {
       main {
         // mybatis SQL map XML ファイルを java 以下でも検知する
