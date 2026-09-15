@@ -187,7 +187,7 @@ tasks.register('allDependencies') {
 
 !!! info "ロックの対象"
     `lockAllConfigurations()` は、 `buildscript` の依存関係を対象に含めません。
-    詳細は [Gradle の依存関係ロック :material-open-in-new:](https://docs.gradle.org/current/userguide/dependency_locking.html){ target=_blank } を参照してください。
+    Gradle の依存関係ロックのその他の設定については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/dependency_locking.html){ target=_blank } を参照してください。
 
 ### タスクの設定 {#common-tasks}
 

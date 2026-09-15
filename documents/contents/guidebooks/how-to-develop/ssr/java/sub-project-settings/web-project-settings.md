@@ -76,9 +76,11 @@ Spring Boot の設定は CSR 編と同様です。
 [こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を参照して、ログの設定を追記してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../../../csr/java/common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="web プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew web:build
 ```
 
