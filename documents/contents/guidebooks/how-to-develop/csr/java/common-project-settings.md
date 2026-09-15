@@ -121,6 +121,30 @@ subprojects {
 }
 ```
 
+??? info "Lombok 利用時に JDK 24 以降で出力される警告について"
+
+    Lombok は内部で `sun.misc.Unsafe` の終了予定 API を利用しています。
+    そのため JDK 24 以降でコンパイルすると、以下のような警告が出力されます。
+
+    ```text
+    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+    ```
+
+    この警告を抑止する場合、コンパイラの JVM 引数に `--sun-misc-unsafe-memory-access=allow` を指定します。
+    `options.forkOptions.jvmArgs` はコンパイラをフォークしたときにのみ適用されるため、併せて `options.fork` を有効にしてください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
+    subprojects {
+      tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+      }
+    }
+    ```
+
+    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となります。
+    JDK 26 以降へ移行する際は、 [Lombok の対応状況 :material-open-in-new:](https://github.com/projectlombok/lombok/){ target=_blank } を確認してください。
+
 ### 依存ライブラリのバージョン固定 {#dependency-locking}
 
 [バージョン管理方針](../../../../app-architecture/overview/repository-structure.md#dependency-version-policy) に従い、ルートと各サブプロジェクトで依存関係ロックを有効にします。
@@ -179,6 +203,11 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 本ガイドではカスタマイズの具体例として、以下のシナリオの例を示します。
 
+- ビルドに使用する Java のバージョンを Toolchain で指定する
+
+    Java のバージョンをサブプロジェクト毎に定義すると、バージョンの不一致や更新漏れが発生しやすくなります。
+    そのため Toolchain の設定はルートプロジェクトの `subprojects` ブロックに定義し、システム全体で集約管理することを推奨します。
+
 - test タスクでは `test` プロファイルを使用する
 - テストフレームワークとして JUnit5 を使用する
 - ソースファイルの文字コードを明示的に指定する
@@ -188,9 +217,14 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 これらのシナリオを踏まえた `build.gradle` の設定例は以下の通りです。
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-4 8 9"
-  
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-6 8-10 14 15"
 subprojects {
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(x)
+    }
+  }
+
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
@@ -471,9 +505,20 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       apply plugin: 'checkstyle'
       apply plugin: 'com.github.spotbugs'
 
+      java {
+        toolchain {
+          languageVersion = JavaLanguageVersion.of(x)
+        }
+      }
+
       compileJava.options.encoding = 'UTF-8'
       compileTestJava.options.encoding = 'UTF-8'
       javadoc.options.encoding = 'UTF-8'
+
+      tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+      }
 
       dependencies {
         // Lombok の設定

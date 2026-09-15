@@ -237,12 +237,6 @@ dependencies {
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
-
     repositories {
       mavenCentral()
     }

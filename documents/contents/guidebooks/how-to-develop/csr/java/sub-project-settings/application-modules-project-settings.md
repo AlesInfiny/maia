@@ -101,9 +101,16 @@ jar {
 
 ## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="application-modules/build.gradle" hl_lines="1-3"
+```groovy title="application-modules/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -138,12 +145,6 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()

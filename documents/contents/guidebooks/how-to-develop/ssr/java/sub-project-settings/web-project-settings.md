@@ -95,12 +95,6 @@ Spring Boot の設定は CSR 編と同様です。
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
-
     repositories {
       mavenCentral()
     }
