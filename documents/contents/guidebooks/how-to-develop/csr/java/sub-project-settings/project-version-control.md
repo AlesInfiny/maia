@@ -8,6 +8,9 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 アプリケーションが使用する各種プラグイン、ツールおよびライブラリのバージョンは、サブプロジェクト間のバージョン齟齬などを防ぐために `dependencies.gradle` で一元管理します。
 
+`dependencies.gradle` は依存関係の指定を一元管理し、 `gradle.lockfile` は推移的依存関係を含む解決済みバージョンを記録します。
+ロックの設定方法は [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) を参照してください。
+
 ## ルートプロジェクトの設定 {#config-root-project}
 
 ルートプロジェクト直下に `dependencies.gradle` ファイルを追加してください。その後以下のように、利用するプラグインとツール、ライブラリのバージョン、ライブラリ定義文字列を変数として定義します。
@@ -100,7 +103,17 @@ subprojects {
       id 'com.github.spotbugs' version "${spotbugsVersion}" apply false
     }
 
+    dependencyLocking {
+      lockAllConfigurations()
+      lockMode = LockMode.STRICT
+    }
+
     subprojects {
+
+      dependencyLocking {
+        lockAllConfigurations()
+        lockMode = LockMode.STRICT
+      }
 
       apply plugin: 'java'
       apply plugin: 'jacoco'
@@ -169,6 +182,13 @@ subprojects {
           })
         }
       }
+    }
+
+    tasks.register('allDependencies') {
+      group = 'help'
+      description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+      dependsOn tasks.named('dependencies')
+      dependsOn subprojects.collect { "${it.path}:dependencies" }
     }
     ```
 

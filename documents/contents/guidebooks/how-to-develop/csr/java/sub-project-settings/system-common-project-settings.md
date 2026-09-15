@@ -79,9 +79,11 @@ system-common プロジェクトの `src` 以下にある、 `SystemCommonApplic
 さらに、 system-common プロジェクトはライブラリとして利用するサブプロジェクトであるため、 `src/main/resources` にある `application.properties` も削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="system-common プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew system-common:build
 ```
 
