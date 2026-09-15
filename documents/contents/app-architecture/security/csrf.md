@@ -133,7 +133,7 @@ SSR アプリケーションでは、 OWASP が提唱する方法のうち、 CS
 #### SSR アプリケーションの実装 {#ssr-application-programming}
 
 `form` 要素内で Thymeleaf の `th:action` 属性を使用すると、 HTML へレンダリングされる際に CSRF トークンが `hidden` パラメーターとして埋め込まれます。
-送信された CSRF トークンの値は、 Spring Security が検証します。詳細は [Spring Security 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-mpa){ target=_blank } を参照してください。
+送られた CSRF トークンの値は、 Spring Security が検証します。詳細は [Spring Security 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-mpa){ target=_blank } を参照してください。
 
 ```html title="th:action を使用した form"
 <form th:action="@{/announcements/create}" th:object="${viewModel}" method="post">
