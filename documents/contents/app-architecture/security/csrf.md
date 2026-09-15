@@ -28,7 +28,7 @@ CSR アプリケーションと SSR アプリケーションで対策が異な�
 
 以下、それぞれのアプリケーションでの対策について説明します。
 
-### CSR アプリケーションでの対策 {#csr-application}
+### CSR アプリケーションでの対策 {#csr-application-measures}
 
 ブラウザーは原則として、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
 
