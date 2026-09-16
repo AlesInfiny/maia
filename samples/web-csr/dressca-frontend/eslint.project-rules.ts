@@ -96,11 +96,11 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
 /**
  * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
  * コンテキストは `shopping`（display-item / basket / ordering）と
- * `authentication`（login）です。
+ * `security`（authentication）です。
  */
 export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
   'consumer',
-  ['@/shopping/**', '@/authentication/**'],
+  ['@/shopping/**', '@/security/**'],
 )
 
 /**
