@@ -5,7 +5,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { authenticationService } from '@/security/authentication/services/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { ValidationItems } from '@/security/authentication/validation/validation-items'
+import { ValidationItems } from '@/system-common/validation/validation-items'
 import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 // フォーム固有のバリデーション定義
