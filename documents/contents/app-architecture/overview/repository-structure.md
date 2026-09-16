@@ -18,3 +18,22 @@ description: AlesInfiny Maia OSS Edition の アプリケーションアーキ�
 
 AlesInfiny Maia OSS Edition では mono-repo 構造を推奨します。
 マイクロサービス開発など、各プロジェクトの独立性が高く、プロジェクトごとに採用する技術要素が全く異なる場合は、 poly-repo を検討してください。
+
+## 依存ライブラリのバージョン管理方針 {#dependency-version-policy}
+
+Java アプリケーションでは、ビルドの再現性を高めるため、 [Gradle の依存関係ロック :material-open-in-new:](https://docs.gradle.org/current/userguide/dependency_locking.html){ target=_blank } を使用します。
+直接依存するライブラリと推移的に依存するライブラリの解決済みバージョンを `gradle.lockfile` に記録・管理します。
+依存関係を変更する際は、依存関係の定義とロックファイルを併せて更新し、差分をレビューします。
+また、通常のビルドや CI では、保存されたロック状態を用いて依存関係を解決します。
+
+ロックモードは Gradle の [`LockMode` :material-open-in-new:](https://docs.gradle.org/current/javadoc/org/gradle/api/artifacts/dsl/LockMode.html){ target=_blank } で定義されており、それぞれの動作は以下の通りです。
+
+| ロックモード | 動作                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| `DEFAULT`    | ロック状態がある場合、依存関係の解決結果との一致を検証します。ロック状態がない場合は解決を許可します。 |
+| `STRICT`     | `DEFAULT` の検証に加え、解決するロック対象の構成にロック状態がない場合もエラーにします。               |
+| `LENIENT`    | 動的バージョンをロック状態に固定しつつ、依存関係の追加・削除やその他のバージョン変更を許可します。     |
+
+解決結果とロック状態の不整合や、ロック対象の依存関係にロック状態が存在しないことを検知できるよう、 `STRICT` を使用します。
+
+設定方法は [依存ライブラリのバージョン固定](../../guidebooks/how-to-develop/csr/java/common-project-settings.md#dependency-locking) を参照してください。

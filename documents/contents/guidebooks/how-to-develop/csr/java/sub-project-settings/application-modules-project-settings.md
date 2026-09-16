@@ -101,9 +101,16 @@ jar {
 
 ## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="application-modules/build.gradle" hl_lines="1-3"
+```groovy title="application-modules/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -118,9 +125,11 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="application-modules プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew application-modules:build
 ```
 
@@ -136,12 +145,6 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()
@@ -245,6 +248,53 @@ import org.springframework.modulith.ApplicationModule.Type;
 
     オープンモジュールは内部実装を隠蔽できないため、モジュール間の結合度が高くなりやすくなります。
     オープンモジュールとして定義するモジュールは、必要最小限にとどめてください。
+
+### モジュール間の依存関係を検証するテストの追加 {#add-modularity-test}
+
+`allowedDependencies` によるモジュール間の依存関係の宣言は、あくまで宣言にすぎず、それだけでは違反を検知できません。
+実際に宣言どおりの依存関係が守られていることを検証するテストクラスを、 application-modules プロジェクトに追加します。
+
+```text
+application-modules/
+ └ src/test/java/{ プロジェクトのグループ名 }/applicationmodules
+   └ ModularityTests.java -------------------------- モジュール間の依存関係を検証するテストクラス
+```
+
+```java title="applicationmodules/ModularityTests.java"
+package com.example.applicationmodules;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.modulith.core.ApplicationModules;
+import org.springframework.modulith.docs.Documenter;
+
+class ModularityTests {
+
+  static final ApplicationModules modules =
+      ApplicationModules.of(ModularityTests.class.getPackageName());
+
+  @Test
+  @DisplayName("コンテキスト間の依存関係が正しいことを検証する")
+  void verifiesModularStructure() {
+    modules.verify();
+  }
+
+  @Test
+  @DisplayName("モジュール構造のドキュメントを生成する")
+  void writesDocumentationSnippets() {
+    new Documenter(modules).writeDocumentation();
+  }
+}
+```
+
+`#!java ApplicationModules.of()` には、モジュールを配置した `applicationmodules` パッケージを指定します。
+このパッケージ配下にある `xxcontext` や `yycontext` などのモジュールをまとめて 1 つの `#!java ApplicationModules` として扱うため、モジュールごとにテストクラスを作成する必要はありません。
+
+- `#!java modules.verify()`: モジュール間の依存関係を検証します。 `allowedDependencies` で許可していないモジュールへの依存や、クローズドモジュールの `internal` パッケージに配置した非公開の型への参照があった場合、このメソッドが例外をスローし、テストが失敗します。
+- `#!java new Documenter(modules).writeDocumentation()`: モジュール構造を表す図（ PlantUML ）や文書を `build` フォルダー配下に自動生成します。モジュール構成を可視化したい場合に活用してください。
+
+このテストクラスを配置することで、モジュール間の不正な依存を CI で検知できるようになります。
+`#!java modules.verify()` の検証内容の詳細は、[アプリケーションモジュール構造の検証 :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/verification.html){ target=_blank } を参照してください。
 
 ## MyBatis の設定 {#config-mybatis}
 
