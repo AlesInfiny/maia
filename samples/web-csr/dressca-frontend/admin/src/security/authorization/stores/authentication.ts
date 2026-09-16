@@ -7,7 +7,7 @@ import { usersApi } from '@/system-common/api-client'
  * バックエンドの認可コンテキスト（applicationmodules/authorization）の UserStore に対応します。
  * 認可コンテキストはバックエンドで OPEN として宣言されており、
  * 他のコンテキストから参照されることを前提としています。
- * ログイン・ログアウトの手続きは authentication コンテキストに置きます。
+ * ログイン・ログアウトの手続きは security コンテキストの authentication ドメインに置きます。
  */
 export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({

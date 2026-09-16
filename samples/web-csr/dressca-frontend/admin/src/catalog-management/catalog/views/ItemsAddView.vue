@@ -17,8 +17,8 @@ import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
 } from '@/system-common/generated/api-client'
-import { useAuthenticationStore } from '@/authorization/user/stores/authentication'
-import { Roles } from '@/authorization/user/constants/roles'
+import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
+import { Roles } from '@/security/authorization/constants/roles'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'

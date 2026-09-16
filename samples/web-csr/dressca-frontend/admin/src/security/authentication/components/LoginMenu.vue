@@ -3,13 +3,13 @@
  * ログイン／ログアウトを切り替えるハンバーガーメニューです。
  */
 import { storeToRefs } from 'pinia'
-import { useAuthenticationStore } from '@/authorization/user/stores/authentication'
+import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
-import { logout as logoutByService } from '@/authentication/login/services/authentication-service'
+import { logout as logoutByService } from '@/security/authentication/services/authentication-service'
 import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { authenticationRouteNames } from '@/authentication/login/router/authentication-route-names'
+import { authenticationRouteNames } from '@/security/authentication/router/authentication-route-names'
 
 const authenticationStore = useAuthenticationStore()
 const { authenticationState, userName, userRoles } = storeToRefs(authenticationStore)
