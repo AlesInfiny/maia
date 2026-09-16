@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.boot.test.context.TestComponent;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * {@link Asset} の情報にアクセスする API コントローラーです。
+ * {@link Asset} の情報にアクセスする API コントローラーです。例外ハンドラのテストで使用します。
+ * テスト専用のコンポーネントのため、 {@link TestComponent} を付与してコンポーネントスキャンの対象外としています。
+ * 利用する場合はテストクラスで明示的にインポートしてください。
  */
 @RestController
+@TestComponent
 @Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
 @RequiredArgsConstructor
@@ -47,7 +51,7 @@ public class AssetsController {
 
   /**
    * アセットを取得します。
-   * 
+   *
    * @param assetCode アセットコード。
    * @return アセット。
    */
@@ -83,7 +87,7 @@ public class AssetsController {
 
   /**
    * アセットタイプから Content-Type に変換します。
-   * 
+   *
    * @param asset アセット。
    * @return Content-Type の名称。
    */
