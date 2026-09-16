@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { validationItems } from '@/authentication/login/validation/validation-items'
+import { validationItems } from '@/security/authentication/validation/validation-items'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
 import { z } from 'zod'
 

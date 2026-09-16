@@ -1,5 +1,5 @@
 import type { Router } from 'vue-router'
-import { useAuthenticationStore } from '@/authorization/user/stores/authentication'
+import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
 import { authenticationRouteNames } from './authentication-route-names'
 
 /**

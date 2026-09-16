@@ -111,9 +111,10 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
  *
  * - `catalog-management` … カタログ管理コンテキスト
  * - `assets-management` … アセット管理コンテキスト
- * - `authorization` … 認可コンテキスト
- * - `authentication` … ログイン・ログアウトの手続き。対応するバックエンドの
- *   コンテキストはなく、認可コンテキストの利用側にあたります。
+ * - `security` … 認可コンテキストに対応する `authorization` ドメインと、
+ *   ログイン・ログアウトの手続きを担う `authentication` ドメインをまとめたコンテキスト。
+ *   `authentication` ドメインに対応するバックエンドのコンテキストはなく、
+ *   `authorization` ドメインの利用側にあたります。
  *
  * consumer と同じく、同じ階層にあるコンテキスト同士の参照は本ルールでは禁止しません。
  * バックエンドでも、カタログ管理コンテキストから認可コンテキストへの依存が
@@ -121,7 +122,6 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
   '@/assets-management/**',
-  '@/authentication/**',
-  '@/authorization/**',
   '@/catalog-management/**',
+  '@/security/**',
 ])

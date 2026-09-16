@@ -3,7 +3,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import ItemsAddView from '@/catalog-management/catalog/views/ItemsAddView.vue'
-import { Roles } from '@/authorization/user/constants/roles'
+import { Roles } from '@/security/authorization/constants/roles'
 
 /**
  * テスト用の Pinia ストアを生成します。
