@@ -29,7 +29,7 @@ export const codingConventionRules: Linter.Config[] = [
  *
  *   アプリケーション（App.vue / main.ts）
  *         ↓
- *   コンテキスト（shopping/*, authentication/*）
+ *   コンテキスト（shopping/*, security/*）
  *         ↓
  *   業務共通（business-common）
  *         ↓
@@ -54,7 +54,7 @@ export const consumerLayerDependencyRules: Linter.Config[] = [
         {
           patterns: [
             {
-              group: ['@/business-common/**', '@/shopping/**', '@/authentication/**'],
+              group: ['@/business-common/**', '@/shopping/**', '@/security/**'],
               message:
                 'system-common は業務知識を持たない層です。business-common やコンテキストを参照できません。',
             },
@@ -77,7 +77,7 @@ export const consumerLayerDependencyRules: Linter.Config[] = [
         {
           patterns: [
             {
-              group: ['@/shopping/**', '@/authentication/**'],
+              group: ['@/shopping/**', '@/security/**'],
               message: 'business-common はコンテキストを参照できません。',
             },
           ],

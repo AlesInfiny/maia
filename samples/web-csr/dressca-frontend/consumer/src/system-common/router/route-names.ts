@@ -6,7 +6,7 @@
  * ルーティング定義は全コンテキストを集約する役割を持つため、例外として扱います。
  * 例外の範囲は本モジュールと index.ts に限定します。
  */
-import { authenticationRouteNames } from '@/authentication/login/router/authentication-route-names'
+import { authenticationRouteNames } from '@/security/authentication/router/authentication-route-names'
 import { basketRouteNames } from '@/shopping/basket/router/basket-route-names'
 import { displayItemRouteNames } from '@/shopping/display-item/router/display-item-route-names'
 import { orderingRouteNames } from '@/shopping/ordering/router/ordering-route-names'

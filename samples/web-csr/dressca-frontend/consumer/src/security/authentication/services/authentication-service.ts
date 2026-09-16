@@ -1,4 +1,4 @@
-import { useAuthenticationStore } from '@/authentication/login/stores/authentication'
+import { useAuthenticationStore } from '@/security/authentication/stores/authentication'
 import { useBasketStore } from '@/business-common/stores/basket'
 import { useDisplayItemStore } from '@/business-common/stores/display-item'
 import { useNotificationStore } from '@/business-common/stores/notification'
