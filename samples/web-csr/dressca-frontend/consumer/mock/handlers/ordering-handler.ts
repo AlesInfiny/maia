@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
-import type { PostOrderRequest } from '@/generated/api-client'
+import type { PostOrderRequest } from '@/system-common/generated/api-client'
 import { order } from '../data/orders'
 
 export const orderingHandlers = [
