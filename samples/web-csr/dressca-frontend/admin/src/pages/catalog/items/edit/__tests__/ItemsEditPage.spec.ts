@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import ItemsEditView from '@/pages/catalog/items/edit/ItemsEditPage.vue'
+import ItemsEditPage from '@/pages/catalog/items/edit/ItemsEditPage.vue'
 import { router } from '@/system-common/router'
 import { Roles } from '@/security/public-api'
 import { catalogItems } from '@/../mock/data/catalog-items'
@@ -34,7 +34,7 @@ function CreateLoginState(userRoles: string[]) {
 async function getWrapper(pinia: TestingPinia) {
   router.push({ name: catalogRouteNames.itemsEdit, params: { itemId: catalogItems[0].id } })
   await router.isReady()
-  return mount(ItemsEditView, {
+  return mount(ItemsEditPage, {
     global: { plugins: [pinia, router] },
   })
 }

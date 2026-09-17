@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { i18n } from '@/system-common/locales/i18n'
-import LoginView from '@/pages/authentication/login/LoginPage.vue'
+import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createTestingPinia } from '@pinia/testing'
@@ -16,7 +16,7 @@ function getWrapperJa() {
     createSpy: vi.fn,
   })
   i18n.global.locale.value = 'ja'
-  return mount(LoginView, {
+  return mount(LoginPage, {
     global: { plugins: [pinia, router, i18n] },
   })
 }
@@ -30,7 +30,7 @@ function getWrapperEn() {
     createSpy: vi.fn,
   })
   i18n.global.locale.value = 'en'
-  return mount(LoginView, {
+  return mount(LoginPage, {
     global: { plugins: [pinia, router, i18n] },
   })
 }

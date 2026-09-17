@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import ItemsAddView from '@/pages/catalog/items/add/ItemsAddPage.vue'
+import ItemsAddPage from '@/pages/catalog/items/add/ItemsAddPage.vue'
 import { Roles } from '@/security/public-api'
 
 /**
@@ -30,7 +30,7 @@ function CreateLoginState(userRoles: string[]) {
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 function getWrapper(pinia: TestingPinia) {
-  return mount(ItemsAddView, {
+  return mount(ItemsAddPage, {
     global: { plugins: [pinia, router] },
   })
 }

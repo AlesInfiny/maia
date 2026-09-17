@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createPinia, setActivePinia } from 'pinia'
-import ItemsView from '@/pages/catalog/items/ItemsPage.vue'
+import ItemsPage from '@/pages/catalog/items/ItemsPage.vue'
 
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。
@@ -13,7 +13,7 @@ import ItemsView from '@/pages/catalog/items/ItemsPage.vue'
 function getWrapper() {
   const pinia = createPinia()
   setActivePinia(pinia)
-  return mount(ItemsView, {
+  return mount(ItemsPage, {
     global: { plugins: [pinia, router] },
   })
 }

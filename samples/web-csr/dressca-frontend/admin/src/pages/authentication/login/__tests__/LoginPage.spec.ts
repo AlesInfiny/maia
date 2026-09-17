@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
-import LoginView from '@/pages/authentication/login/LoginPage.vue'
+import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
 import { authenticationRouteNames } from '@/security/public-api'
@@ -13,7 +13,7 @@ import { authenticationRouteNames } from '@/security/public-api'
 async function getWrapper() {
   router.push({ name: authenticationRouteNames.login })
   await router.isReady()
-  return mount(LoginView, {
+  return mount(LoginPage, {
     global: {
       plugins: [router],
     },
@@ -64,7 +64,7 @@ async function setValuesAndValidate(wrapper: VueWrapper, userName?: string, pass
   await flushPromises()
 }
 
-describe('LoginView', () => {
+describe('LoginPage', () => {
   let wrapper: VueWrapper
 
   beforeEach(async () => {

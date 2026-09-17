@@ -3,7 +3,7 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
-import BasketView from '@/pages/basket/BasketPage.vue'
+import BasketPage from '@/pages/basket/BasketPage.vue'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
@@ -104,7 +104,7 @@ function getWrapper() {
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
   })
   i18n.global.locale.value = 'ja' // デフォルトの jsdom 環境では英語（en）に設定されるので、日本語に変更します。
-  return mount(BasketView, {
+  return mount(BasketPage, {
     global: { plugins: [pinia, router, i18n] },
   })
 }
