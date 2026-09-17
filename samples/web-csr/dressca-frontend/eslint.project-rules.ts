@@ -27,7 +27,7 @@ export const codingConventionRules: Linter.Config[] = [
 /**
  * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
- *   アプリケーション（App.vue / main.ts）
+ *   pages（src/pages。 App.vue / main.ts と同じ最上位層）
  *         ↓
  *   コンテキスト
  *         ↓
@@ -39,12 +39,18 @@ export const codingConventionRules: Linter.Config[] = [
  * App.vue 、 main.ts 、ルーティング定義は全経路を許可する例外です。
  * ルーティング定義の例外が層全体へ広がらないよう、system-common の他のコードからは
  * 集約モジュール（route-names.ts）を参照できないようにします。
+ * pages はどの層からも参照されない最上位層のため、例外なく全レイヤーからの参照を禁止します。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
  *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
 function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
+  const contextFileGlobs = contextPatterns.map((pattern) => {
+    const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
+    return `**/${workspace}/src/${contextFolder}/**/*.{vue,ts,mts,tsx}`
+  })
+
   return [
     {
       name: `${workspace}/layer-dependency/system-common`,
@@ -59,9 +65,9 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
           {
             patterns: [
               {
-                group: ['@/business-common/**', ...contextPatterns],
+                group: ['@/business-common/**', '@/pages/**', ...contextPatterns],
                 message:
-                  'system-common は業務知識を持たない層です。business-common やコンテキストを参照できません。',
+                  'system-common は業務知識を持たない層です。business-common や pages 、コンテキストを参照できません。',
               },
               {
                 group: ['@/system-common/router/route-names'],
@@ -82,8 +88,25 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
           {
             patterns: [
               {
-                group: contextPatterns,
-                message: 'business-common はコンテキストを参照できません。',
+                group: ['@/pages/**', ...contextPatterns],
+                message: 'business-common は pages やコンテキストを参照できません。',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      name: `${workspace}/layer-dependency/context`,
+      files: contextFileGlobs,
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['@/pages/**'],
+                message: 'コンテキストは pages を参照できません。pages はコンテキストより上位の層です。',
               },
             ],
           },

@@ -8,13 +8,13 @@ export const errorRoutes: RouteRecordRaw[] = [
   {
     path: '/error',
     name: errorRouteNames.error,
-    component: () => import('@/system-common/views/ErrorView.vue'),
+    component: () => import('@/pages/ErrorPage.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/:pathMatch(.*)*',
     name: errorRouteNames.notFound,
-    component: () => import('@/system-common/views/NotFoundView.vue'),
+    component: () => import('@/pages/NotFoundPage.vue'),
     meta: { requiresAuth: true },
   },
 ]
