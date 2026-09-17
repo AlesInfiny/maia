@@ -3,13 +3,13 @@ import { ref, onMounted, watch } from 'vue'
 import {
   fetchCategoriesAndBrands,
   fetchItems,
-} from '@/shopping/display-item/services/display-item-service'
-import { addItemToBasket } from '@/shopping/basket/services/basket-service'
+  addItemToBasket,
+  useSpecialContentStore,
+  CarouselSlider,
+} from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { storeToRefs } from 'pinia'
-import { useSpecialContentStore } from '@/shopping/display-item/stores/special-content'
 import { useDisplayItemStore } from '@/business-common/stores/display-item'
-import CarouselSlider from '@/shopping/display-item/components/CarouselSlider.vue'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'

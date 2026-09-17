@@ -5,7 +5,7 @@ export const displayItemRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: displayItemRouteNames.displayItem,
-    component: () => import('@/shopping/display-item/views/DisplayItemView.vue'),
+    component: () => import('@/pages/DisplayItemPage.vue'),
     meta: { requiresAuth: false },
   },
 ]

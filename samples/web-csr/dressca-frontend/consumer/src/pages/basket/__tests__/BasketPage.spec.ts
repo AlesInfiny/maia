@@ -3,11 +3,11 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
-import BasketView from '@/shopping/basket/views/BasketView.vue'
+import BasketView from '@/pages/basket/BasketPage.vue'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
-import BasketItem from '@/shopping/basket/components/BasketItem.vue'
+import { BasketItem } from '@/shopping/public-api'
 import { createAxiosError, createProblemDetails } from './helpers'
 
 /**

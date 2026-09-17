@@ -5,7 +5,7 @@ export const basketRoutes: RouteRecordRaw[] = [
   {
     path: '/basket',
     name: basketRouteNames.basket,
-    component: () => import('@/shopping/basket/views/BasketView.vue'),
+    component: () => import('@/pages/basket/BasketPage.vue'),
     meta: { requiresAuth: false },
   },
 ]

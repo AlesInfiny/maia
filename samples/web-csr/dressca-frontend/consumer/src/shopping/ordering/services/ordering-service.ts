@@ -3,7 +3,7 @@ import { ordersApi } from '@/system-common/api-client'
 
 /**
  * 注文を新規作成します。
- * CheckoutView.vue から呼び出され、注文成功時には注文 ID を返します。
+ * CheckoutPage.vue から呼び出され、注文成功時には注文 ID を返します。
  * 返された注文 ID をもとに `ordering/done/:orderId` へ遷移することを想定しています。
  * @param fullName - 注文者の氏名
  * @param postalCode - 郵便番号

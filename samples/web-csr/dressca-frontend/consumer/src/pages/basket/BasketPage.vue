@@ -4,12 +4,12 @@ import {
   fetchBasket,
   removeItemFromBasket,
   updateItemInBasket,
-} from '@/shopping/basket/services/basket-service'
+  BasketItem,
+} from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { useBasketStore } from '@/business-common/stores/basket'
 import { useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
-import BasketItem from '@/shopping/basket/components/BasketItem.vue'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
 import { assetHelper } from '@/business-common/helpers/assetHelper'
