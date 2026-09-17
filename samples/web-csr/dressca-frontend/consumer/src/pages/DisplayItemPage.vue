@@ -6,6 +6,7 @@ import {
   addItemToBasket,
   useSpecialContentStore,
   CarouselSlider,
+  basketRouteNames,
 } from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { storeToRefs } from 'pinia'
@@ -17,7 +18,6 @@ import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { basketRouteNames } from '@/system-common/router/route-names'
 
 const specialContentStore = useSpecialContentStore()
 const displayItemStore = useDisplayItemStore()

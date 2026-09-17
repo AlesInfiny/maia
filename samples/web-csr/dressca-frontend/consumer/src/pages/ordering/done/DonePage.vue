@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
-import { getOrder } from '@/shopping/public-api'
+import { getOrder, displayItemRouteNames } from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import type { GetOrderByIdResponse } from '@/system-common/generated/api-client/models'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
@@ -10,7 +10,6 @@ import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { displayItemRouteNames } from '@/system-common/router/route-names'
 
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()

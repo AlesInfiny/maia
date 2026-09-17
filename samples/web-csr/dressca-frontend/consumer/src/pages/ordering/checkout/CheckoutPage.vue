@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useBasketStore } from '@/business-common/stores/basket'
-import { useUserStore, postOrder, fetchBasket } from '@/shopping/public-api'
+import {
+  useUserStore,
+  postOrder,
+  fetchBasket,
+  basketRouteNames,
+  displayItemRouteNames,
+  orderingRouteNames,
+} from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
@@ -10,12 +17,7 @@ import { storeToRefs } from 'pinia'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import {
-  basketRouteNames,
-  displayItemRouteNames,
-  errorRouteNames,
-  orderingRouteNames,
-} from '@/system-common/router/route-names'
+import { errorRouteNames } from '@/system-common/router/route-names'
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()

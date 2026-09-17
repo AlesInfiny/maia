@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { authenticationService } from '@/security/public-api'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { ValidationItems } from '@/system-common/validation/validation-items'
-import { displayItemRouteNames } from '@/system-common/router/route-names'
+import { displayItemRouteNames } from '@/shopping/public-api'
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()

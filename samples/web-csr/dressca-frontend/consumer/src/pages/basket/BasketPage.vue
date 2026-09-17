@@ -5,6 +5,8 @@ import {
   removeItemFromBasket,
   updateItemInBasket,
   BasketItem,
+  displayItemRouteNames,
+  orderingRouteNames,
 } from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { useBasketStore } from '@/business-common/stores/basket'
@@ -16,7 +18,6 @@ import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { storeToRefs } from 'pinia'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { displayItemRouteNames, orderingRouteNames } from '@/system-common/router/route-names'
 
 const showLoading = ref(true)
 
