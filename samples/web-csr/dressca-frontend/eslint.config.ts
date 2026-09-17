@@ -24,6 +24,7 @@ export default defineConfigWithVueTs(
     '**/dist/**',
     '**/dist-ssr/**',
     '**/coverage/**',
+    '**/src/generated/**',
     '**/src/system-common/generated/**',
     '**/mockServiceWorker.js',
   ]),

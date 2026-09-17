@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # batch プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource hikari tasklet -->
+<!-- cSpell:ignore hikari -->
 
 batch プロジェクトで必要な設定を解説します。
 
@@ -39,6 +39,23 @@ dependencies {
 }
 ```
 
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+batch プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `BatchApplication` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.batch` ）に限られます。
+本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは batch プロジェクトとは異なるパッケージに配置されます。
+その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
+
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example` ）を指定します。
+
+```java title="BatchApplication.java" hl_lines="1"
+@SpringBootApplication(scanBasePackages = {"com.example"})
+public class BatchApplication {
+  ...
+}
+```
+
 ## Spring Boot の設定 {#config-spring}
 
 batch プロジェクトに関する Spring Boot のプロパティ等を設定します。
@@ -47,7 +64,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
@@ -58,8 +74,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定
     - spring.sql.init.mode: データベースの初期化有無
-- MyBatis の設定
-    - mybatis.configuration.xxx で MyBatis の設定を記述可能
 - バッチ処理
     - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
     - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
@@ -72,7 +86,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=embedded
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
@@ -81,7 +94,6 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
 !!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
@@ -113,9 +125,16 @@ configurations {
 
 ## 不要な設定の削除 {#remove-unnecessary-settings}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="batch/build.gradle" hl_lines="1-3"
+```groovy title="batch/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -151,9 +170,11 @@ class BatchApplicationTests {
 ```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="batch プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew batch:build
 ```
 
@@ -169,12 +190,6 @@ class BatchApplicationTests {
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()

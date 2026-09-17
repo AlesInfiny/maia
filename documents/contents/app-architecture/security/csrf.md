@@ -21,6 +21,15 @@ description: アプリケーションセキュリティを 担保するための
 
 ## AlesInfiny Maia OSS Edition での CSRF 対策 {#measures-against-csrf}
 
+CSR アプリケーションと SSR アプリケーションで対策が異なります。
+
+- CSR アプリケーションでは、サーバーサイドでの Origin ヘッダーの検証を対策とします。
+- SSR アプリケーションでは、 CSRF トークンの付与を対策とします。なお、この検証は Thymeleaf と Spring Security が行います。
+
+以下、それぞれのアプリケーションでの対策について説明します。
+
+### CSR アプリケーションでの対策 {#csr-application-measures}
+
 ブラウザーは原則として、悪意のある Web サイトなど異なるオリジン間でリクエストをブロックするために [同一オリジンポリシー :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy){ target=_blank } で動作します。
 
 同一オリジンポリシーでは、異なるオリジンの Web サイトに対し「リクエストを送ることはできるが、その結果の読み取りはできない」ことを規定しています。
@@ -30,7 +39,7 @@ description: アプリケーションセキュリティを 担保するための
 
 上記に基づき、原則として以下の方針をとります。
 
-### プリフライトリクエストによる Origin ヘッダーの検証 {#verification-of-origin-header}
+#### プリフライトリクエストによる Origin ヘッダーの検証 {#verification-of-origin-header}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
@@ -46,7 +55,7 @@ Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in
 正しいオリジンからのリクエストの場合にはプリフライトリクエストの結果として `204` のレスポンスが返却されるため、メインリクエストを正常に送ることができます。
 しかし、異なるオリジンからのリクエストの場合はプリフライトリクエストの結果として `403` のレスポンスが返却されるため、悪意のあるメインリクエストが送られることを事前にブロックできます。
 
-### 単純リクエストにおける更新系処理の実行禁止 {#prohibition-of-update-operations-on-get-requests}
+#### 単純リクエストにおける更新系処理の実行禁止 {#prohibition-of-update-operations-on-get-requests}
 
 [単純リクエスト :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS#%E5%8D%98%E7%B4%94%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88){ target=_blank } では、 プリフライトリクエストが発生しません。
 
@@ -54,7 +63,7 @@ Web API へのリクエスト受信時に [Origin ヘッダー :material-open-in
 
 よって、単純リクエストには更新系の処理を含まないように Web API を設計する必要があります。
 
-### Cookie の属性付与 {#granting-cookie}
+#### Cookie の属性付与 {#granting-cookie}
 
 Cookie を使用する際には、悪意のあるサイトで Cookie にアクセスされたり Cookie が異なるドメインに送られたりすることで、 Cookie を利用したデータの更新が不正に行われることを防止する必要があります。
 Cookie に属性が設定されていない場合ブラウザー側で `SameSite = Lax` として扱われますが、 CSRF 対策を実現するために以下の属性を付与します。
@@ -72,11 +81,7 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
     
     以下にいくつかの方法を示します。
 
-    - CSRF トークンの付与
-
-        フロントエンドアプリケーションがリクエストを発行する際に、バックエンドアプリケーションでそのリクエスト内のトークンの存在と有効性を検証することで、正しいクライアントからのリクエストであることを保証する方法です。
-        実装方法については、[Spring Security 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa){ target=_blank } を参照してください。
-
+    - CSRF トークンの付与（ [後述](#ssr-application) ）
     - カスタムヘッダーの付与
 
         固有のヘッダーを付与することで、全てのリクエストがクロスオリジンのプリフライトリクエストの対象となります。
@@ -85,7 +90,7 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
     AlesInfiny Maia OSS Edition での対策に加えてこれらの方法を導入することで、多段階のより厳重な CSRF 対策を実現できます。
     セキュリティ要件やビジネスニーズに応じてこれらの対策を追加で実装するかを検討してください。
 
-### CSR アプリケーション {#csr-application}
+#### CSR アプリケーション {#csr-application}
 
 バックエンドアプリケーションを Spring Boot で構築する場合、各方針に対して以下のように実装します。
 
@@ -112,6 +117,26 @@ Cookie に属性が設定されていない場合ブラウザー側で `SameSite
     Spring Boot で提供されている [ResponseCookie :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html){ target=_blank } を利用して、属性を付与します。
     実装方法については、 [こちら](../../guidebooks/how-to-develop/csr/cors/cookie.md) を参照してください。
 
-### SSR アプリケーション {#ssr-application}
+### SSR アプリケーションでの対策 {#ssr-application}
 
-（今後追加予定）
+OWASP では、 CSRF 対策のベストプラクティスとして Origin ヘッダーの検証以外の方法も提唱しています。
+詳細は [こちら :material-open-in-new:](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html){ target=_blank } を参照してください。
+
+SSR アプリケーションでは、 OWASP が提唱する方法のうち、 CSRF トークンの付与を使用します。
+
+- CSRF トークンの付与
+
+    フロントエンドアプリケーションがリクエストを発行する際に、バックエンドアプリケーションでそのリクエスト内のトークンの存在と有効性を検証することで、正しいクライアントからのリクエストであることを保証する方法です。
+
+これは、 Thymeleaf と Spring Security が CSRF トークンの付与・検証を実現する機能を提供しており、それを利用することにより最小限のコードで CSRF 対策を実現できるためです。
+
+#### SSR アプリケーションの実装 {#ssr-application-programming}
+
+`form` 要素内で Thymeleaf の `th:action` 属性を使用すると、 HTML へレンダリングされる際に CSRF トークンが `hidden` パラメーターとして埋め込まれます。
+送られた CSRF トークンの値は、 Spring Security が検証します。詳細は [Spring Security 公式ページの実装例 :material-open-in-new:](https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-mpa){ target=_blank } を参照してください。
+
+```html title="th:action を使用した form"
+<form th:action="@{/announcements/create}" th:object="${viewModel}" method="post">
+    <!-- 省略 -->
+</form>
+```

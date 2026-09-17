@@ -3,6 +3,8 @@ title: 利用規約
 description: AlesInfiny Maia OSS Edition ポータルサイトの利用規約です。
 ---
 
+<!-- cspell:ignore creativecommons -->
+
 # 利用規約 {#top}
 
 ## AlesInfiny Maia OSS Edition の提供物について {#alesinfiny-maia-license}
@@ -466,5 +468,3 @@ Apache License, Version 2.0 の本文を以下に示します。
 本サイトの提供物は、可能な限り正確な情報を掲載するよう努めております。
 しかし、誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性は保証いたしません。
 当該情報に基づいて被ったいかなる損害について、一切責任を負いませんのであらかじめご了承ください。
-
-<!-- cspell:ignore creativecommons -->

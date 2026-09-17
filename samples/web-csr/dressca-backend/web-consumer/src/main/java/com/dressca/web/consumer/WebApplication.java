@@ -5,15 +5,13 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Dressca アプリケーションを起動するための main クラスです。
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.dressca"})
 @OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))
 @ConfigurationPropertiesScan(basePackages = {"com.dressca"})
-@ComponentScan(basePackages = {"com.dressca"})
 public class WebApplication {
 
   /**

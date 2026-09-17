@@ -59,9 +59,16 @@ jar {
 
 ## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="system-common/build.gradle" hl_lines="1 2 3"
+```groovy title="system-common/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -69,11 +76,14 @@ tasks.named('test') {
 
 また、併せて不要なファイルを削除します。
 system-common プロジェクトの `src` 以下にある、 `SystemCommonApplication.java` と `SystemCommonApplicationTests.java` を削除してください。
+さらに、 system-common プロジェクトはライブラリとして利用するサブプロジェクトであるため、 `src/main/resources` にある `application.properties` も削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="system-common プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew system-common:build
 ```
 
@@ -89,12 +99,6 @@ system-common プロジェクトの `src` 以下にある、 `SystemCommonApplic
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()

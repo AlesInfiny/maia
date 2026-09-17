@@ -4,7 +4,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore subprojects projectlombok Dspring -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。
@@ -59,3 +58,9 @@ tasks.named('test') {
 ビルドスクリプトの共通化は CSR 編と同様です。
 
 [こちら](../../csr/java/common-project-settings.md#common-build-script) を参照してください。
+
+## 動作環境ごとの設定の切り替え {#environment-settings-switching}
+
+動作環境ごとの設定の切り替え方法は CSR 編と同様です。
+
+[こちら](../../csr/java/common-project-settings.md#environment-settings-switching) を参照してください。

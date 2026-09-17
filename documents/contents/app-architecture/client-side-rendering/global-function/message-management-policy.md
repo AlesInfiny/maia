@@ -3,8 +3,6 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore systemcommon -->
-
 # メッセージ管理方針 {#top}
 
 ## エラーメッセージコードの統一 {#unification-of-message-codes}

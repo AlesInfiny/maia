@@ -42,9 +42,11 @@ dependencies {
 [こちら](../../../csr/java/sub-project-settings/system-common-project-settings.md#remove-unnecessary-settings-and-files) を参照して、不要な設定やファイルを削除してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../../../csr/java/common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="system-common プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew system-common:build
 ```
 
@@ -60,12 +62,6 @@ dependencies {
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()
