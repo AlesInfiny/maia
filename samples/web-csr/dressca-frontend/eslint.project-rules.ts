@@ -44,10 +44,7 @@ export const codingConventionRules: Linter.Config[] = [
  *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
-function createLayerDependencyRules(
-  workspace: string,
-  contextPatterns: string[],
-): Linter.Config[] {
+function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
   return [
     {
       name: `${workspace}/layer-dependency/system-common`,
