@@ -95,7 +95,6 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
 
 /**
  * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
- * ドメインは `shopping` コンテキストと `security` コンテキストの配下に置いています。
  */
 export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
   'consumer',
@@ -104,20 +103,6 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
 
 /**
  * admin プロジェクトのフォルダー間の参照方向を強制するルールです。
- *
- * 最上位のコンテキストは、バックエンドのアプリケーションモジュール
- * （Spring Modulith の `@ApplicationModule`）の定義に合わせています。
- *
- * - `catalog-management` … カタログ管理コンテキスト
- * - `assets-management` … アセット管理コンテキスト
- * - `security` … 認可コンテキストに対応する `authorization` ドメインと、
- *   ログイン・ログアウトの手続きを担う `authentication` ドメインをまとめたコンテキスト。
- *   `authentication` ドメインに対応するバックエンドのコンテキストはなく、
- *   `authorization` ドメインの利用側にあたります。
- *
- * consumer と同じく、同じ階層にあるコンテキスト同士の参照は本ルールでは禁止しません。
- * バックエンドでも、カタログ管理コンテキストから認可コンテキストへの依存が
- * `allowedDependencies` で許可されています。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
   '@/assets-management/**',
