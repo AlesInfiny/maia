@@ -50,6 +50,12 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
     return `**/${workspace}/src/${contextFolder}/**/*.{vue,ts,mts,tsx}`
   })
+  // 各コンテキストパターンについて「コンテキスト全体を禁止しつつ public-api.ts だけ許可する」
+  // 否定パターンのペアを作ります（gitignore 形式の除外記法）。
+  const contextPatternsExceptPublicApi = contextPatterns.flatMap((pattern) => {
+    const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
+    return [pattern, `!@/${contextFolder}/public-api`]
+  })
 
   return [
     {
@@ -107,6 +113,24 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
               {
                 group: ['@/pages/**'],
                 message: 'コンテキストは pages を参照できません。pages はコンテキストより上位の層です。',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      name: `${workspace}/layer-dependency/pages`,
+      files: [`**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: contextPatternsExceptPublicApi,
+                message:
+                  'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
               },
             ],
           },

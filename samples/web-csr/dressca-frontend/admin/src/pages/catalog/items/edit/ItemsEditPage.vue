@@ -6,28 +6,25 @@ import {
   updateCatalogItem,
   deleteCatalogItem,
   fetchCategoriesAndBrands,
-} from '@/catalog-management/catalog/services/catalog-service'
-import { assetHelper } from '@/assets-management/asset/helpers/assetHelper'
-import { showToast } from '@/business-common/services/notificationService'
-import ConfirmationModal from '@/catalog-management/catalog/components/ConfirmationModal.vue'
-import NotificationModal from '@/catalog-management/catalog/components/NotificationModal.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useForm } from 'vee-validate'
-import {
   catalogItemTypedSchema,
   type CatalogItemFormValues,
-} from '@/catalog-management/catalog/validation/validation-items'
+  catalogRouteNames,
+  ConfirmationModal,
+  NotificationModal,
+} from '@/catalog-management/public-api'
+import { assetHelper } from '@/assets-management/public-api'
+import { showToast } from '@/business-common/services/notificationService'
+import { useRoute, useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
 import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
   GetCatalogItemResponse,
 } from '@/system-common/generated/api-client'
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
-import { Roles } from '@/security/authorization/constants/roles'
+import { useAuthenticationStore, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'
 
 const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()

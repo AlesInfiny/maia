@@ -4,24 +4,21 @@ import { storeToRefs } from 'pinia'
 import {
   fetchCategoriesAndBrands,
   postCatalogItem,
-} from '@/catalog-management/catalog/services/catalog-service'
-import { showToast } from '@/business-common/services/notificationService'
-import NotificationModal from '@/catalog-management/catalog/components/NotificationModal.vue'
-import { useRouter } from 'vue-router'
-import { useForm } from 'vee-validate'
-import {
   catalogItemTypedSchema,
   type CatalogItemFormValues,
-} from '@/catalog-management/catalog/validation/validation-items'
+  catalogRouteNames,
+  NotificationModal,
+} from '@/catalog-management/public-api'
+import { showToast } from '@/business-common/services/notificationService'
+import { useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
 import type {
   GetCatalogBrandsResponse,
   GetCatalogCategoriesResponse,
 } from '@/system-common/generated/api-client'
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
-import { Roles } from '@/security/authorization/constants/roles'
+import { useAuthenticationStore, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'
 
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()

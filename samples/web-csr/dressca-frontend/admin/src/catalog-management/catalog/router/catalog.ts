@@ -8,19 +8,19 @@ export const catalogRoutes: RouteRecordRaw[] = [
   {
     path: '/catalog/items',
     name: catalogRouteNames.items,
-    component: () => import('@/catalog-management/catalog/views/ItemsView.vue'),
+    component: () => import('@/pages/catalog/items/ItemsPage.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/catalog/items/edit/:itemId',
     name: catalogRouteNames.itemsEdit,
-    component: () => import('@/catalog-management/catalog/views/ItemsEditView.vue'),
+    component: () => import('@/pages/catalog/items/edit/ItemsEditPage.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/catalog/items/add',
     name: catalogRouteNames.itemsAdd,
-    component: () => import('@/catalog-management/catalog/views/ItemsAddView.vue'),
+    component: () => import('@/pages/catalog/items/add/ItemsAddPage.vue'),
     meta: { requiresAuth: true },
   },
 ]

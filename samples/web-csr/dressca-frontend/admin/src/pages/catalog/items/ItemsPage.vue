@@ -4,9 +4,10 @@ import { useRouter } from 'vue-router'
 import {
   fetchCategoriesAndBrands,
   fetchItems,
-} from '@/catalog-management/catalog/services/catalog-service'
+  catalogRouteNames,
+} from '@/catalog-management/public-api'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/assets-management/asset/helpers/assetHelper'
+import { assetHelper } from '@/assets-management/public-api'
 import { showToast } from '@/business-common/services/notificationService'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import type {
@@ -15,7 +16,6 @@ import type {
   PagedListOfGetCatalogItemResponse,
 } from '@/system-common/generated/api-client'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'
 
 const router = useRouter()
 const handleErrorAsync = useCustomErrorHandler()

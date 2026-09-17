@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createPinia, setActivePinia } from 'pinia'
-import ItemsView from '@/catalog-management/catalog/views/ItemsView.vue'
+import ItemsView from '@/pages/catalog/items/ItemsPage.vue'
 
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。

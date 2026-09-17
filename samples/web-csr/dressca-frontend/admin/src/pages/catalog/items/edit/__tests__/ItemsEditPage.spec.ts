@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import ItemsEditView from '@/catalog-management/catalog/views/ItemsEditView.vue'
+import ItemsEditView from '@/pages/catalog/items/edit/ItemsEditPage.vue'
 import { router } from '@/system-common/router'
-import { Roles } from '@/security/authorization/constants/roles'
+import { Roles } from '@/security/public-api'
 import { catalogItems } from '@/../mock/data/catalog-items'
-import { catalogRouteNames } from '@/catalog-management/catalog/router/catalog-route-names'
+import { catalogRouteNames } from '@/catalog-management/public-api'
 
 /**
  * テスト用の Pinia ストアを生成します。

@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import ItemsAddView from '@/catalog-management/catalog/views/ItemsAddView.vue'
-import { Roles } from '@/security/authorization/constants/roles'
+import ItemsAddView from '@/pages/catalog/items/add/ItemsAddPage.vue'
+import { Roles } from '@/security/public-api'
 
 /**
  * テスト用の Pinia ストアを生成します。
