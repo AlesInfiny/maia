@@ -25,7 +25,7 @@ export const codingConventionRules: Linter.Config[] = [
 ]
 
 /**
- * プロジェクトのフォルダー間の参照方向を強制するルールを生成します。
+ * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
  *   アプリケーション（App.vue / main.ts）
  *         ↓
@@ -39,19 +39,22 @@ export const codingConventionRules: Linter.Config[] = [
  * App.vue 、 main.ts 、ルーティング定義は全経路を許可する例外です。
  * ルーティング定義の例外が層全体へ広がらないよう、system-common の他のコードからは
  * 集約モジュール（route-names.ts）を参照できないようにします。
- * @param project ルールを適用するワークスペースのフォルダー名。
- * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキストまたはドメイン）を
- *   表す `@/` エイリアスのパターン。
+ * @param workspace ルールを適用するワークスペースのフォルダー名。
+ * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
+ *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
-function createLayerDependencyRules(project: string, contextPatterns: string[]): Linter.Config[] {
+function createLayerDependencyRules(
+  workspace: string,
+  contextPatterns: string[],
+): Linter.Config[] {
   return [
     {
-      name: `${project}/layer-dependency/system-common`,
-      files: [`**/${project}/src/system-common/**/*.{vue,ts,mts,tsx}`],
+      name: `${workspace}/layer-dependency/system-common`,
+      files: [`**/${workspace}/src/system-common/**/*.{vue,ts,mts,tsx}`],
       ignores: [
-        `**/${project}/src/system-common/router/index.ts`,
-        `**/${project}/src/system-common/router/route-names.ts`,
+        `**/${workspace}/src/system-common/router/index.ts`,
+        `**/${workspace}/src/system-common/router/route-names.ts`,
       ],
       rules: {
         'no-restricted-imports': [
@@ -74,8 +77,8 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
       },
     },
     {
-      name: `${project}/layer-dependency/business-common`,
-      files: [`**/${project}/src/business-common/**/*.{vue,ts,mts,tsx}`],
+      name: `${workspace}/layer-dependency/business-common`,
+      files: [`**/${workspace}/src/business-common/**/*.{vue,ts,mts,tsx}`],
       rules: {
         'no-restricted-imports': [
           'error',
@@ -94,7 +97,7 @@ function createLayerDependencyRules(project: string, contextPatterns: string[]):
 }
 
 /**
- * consumer プロジェクトのフォルダー間の参照方向を強制するルールです。
+ * consumer ワークスペースのフォルダー間の参照方向を強制するルールです。
  */
 export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
   'consumer',
@@ -102,7 +105,7 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
 )
 
 /**
- * admin プロジェクトのフォルダー間の参照方向を強制するルールです。
+ * admin のフォルダー間の参照方向を強制するルールです。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
   '@/assets-management/**',
