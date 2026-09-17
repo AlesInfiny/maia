@@ -85,9 +85,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   /*
@@ -106,9 +106,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   /*
@@ -128,9 +128,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   private void insertTestData() {
