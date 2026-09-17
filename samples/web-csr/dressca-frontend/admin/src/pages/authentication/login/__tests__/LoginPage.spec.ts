@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/system-common/router'
-import LoginView from '@/security/authentication/views/LoginView.vue'
+import LoginView from '@/pages/authentication/login/LoginPage.vue'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
-import { authenticationRouteNames } from '@/security/authentication/router/authentication-route-names'
+import { authenticationRouteNames } from '@/security/public-api'
 
 /**
  * ログイン画面のラッパーを生成します。
