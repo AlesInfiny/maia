@@ -12,7 +12,7 @@ ext {
     mybatisSpringBootStarterVersion = "4.1.0"
     mybatisSpringBootStarterTestVersion = "4.1.0"
     springdocOpenapiVersion = "3.0.3"
-    springModulithVersion = "2.1.0"
+    springModulithVersion = "2.1.1"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "13.9.0"
