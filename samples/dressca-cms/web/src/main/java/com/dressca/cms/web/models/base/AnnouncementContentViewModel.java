@@ -4,6 +4,7 @@ import com.dressca.cms.web.models.validation.AnnouncementValidationGroup;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
