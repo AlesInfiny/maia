@@ -72,16 +72,10 @@ public class AnnouncementContentViewModel {
       message = "{announcement.create.linkUrlTooLong}")
   @Size(max = 1024, groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlTooLong}")
-  @URL(protocol = "http",
+  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
       groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.linkUrlIsInvalid}")
-  @URL(protocol = "https",
-      groups = AnnouncementValidationGroup.Store.class,
-      message = "{announcement.create.linkUrlIsInvalid}")
-  @URL(protocol = "http",
-      groups = AnnouncementValidationGroup.Update.class,
-      message = "{announcement.edit.linkUrlIsInvalid}")
-  @URL(protocol = "https",
+  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
       groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlIsInvalid}")
   private String linkUrl;
