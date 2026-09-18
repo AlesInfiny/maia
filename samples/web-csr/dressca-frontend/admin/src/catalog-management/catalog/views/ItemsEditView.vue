@@ -7,7 +7,7 @@ import {
   deleteCatalogItem,
   fetchCategoriesAndBrands,
 } from '@/catalog-management/catalog/services/catalog-service'
-import { assetHelper } from '@/assets-management/asset/helpers/assetHelper'
+import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { showToast } from '@/business-common/services/notificationService'
 import ConfirmationModal from '@/catalog-management/catalog/components/ConfirmationModal.vue'
 import NotificationModal from '@/catalog-management/catalog/components/NotificationModal.vue'

@@ -6,7 +6,7 @@ import {
   fetchItems,
 } from '@/catalog-management/catalog/services/catalog-service'
 import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/assets-management/asset/helpers/assetHelper'
+import { assetHelper } from '@/business-common/helpers/assetHelper'
 import { showToast } from '@/business-common/services/notificationService'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import type {

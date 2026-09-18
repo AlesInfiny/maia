@@ -105,7 +105,6 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
  * admin のフォルダー間の参照方向を強制するルールです。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
-  '@/assets-management/**',
   '@/catalog-management/**',
   '@/security/**',
 ])
