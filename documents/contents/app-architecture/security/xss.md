@@ -45,7 +45,7 @@ description: アプリケーションセキュリティを 担保するための
 
     そのため、アプリケーション外から取得した値を `<a>` タグの `href` 属性に設定する場合は以下のように対策します。
 
-    - `http://` または `https://` から始まっていない入力値は受け付けない
+    - URL を解析し、アプリケーションで使用を許可する URL スキームを許可リストで検証する（`javascript:`、`data:`、`vbscript:` などのスキームは受け付けない）
     - [sanitize-url :material-open-in-new:](https://www.npmjs.com/package/@braintree/sanitize-url){ target=_blank } 等のライブラリを使用して値を無害化する
 
     !!! warning ""
@@ -88,7 +88,7 @@ Thymeleaf と Spring MVC でアプリケーションを構築する場合、 XSS
     具体的には、以下のように対策します。
 
     - `Model` をバインドする場合は、 Hibernate Validator の `@URL` アノテーションを使用する
-    - `http://` または `https://` から始まっていない入力値は受け付けない
+    - URL を解析し、アプリケーションで使用を許可する URL スキームを許可リストで検証する（`javascript:`、`data:`、`vbscript:` などのスキームは受け付けない）
     - 必要に応じて許可するホストを限定する
 
     !!! warning ""
