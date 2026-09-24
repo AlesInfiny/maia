@@ -36,7 +36,7 @@
     "vue": "3.5.30",
     "vue-i18n": "11.3.0",
     "vue-router": "5.0.3",
-    "zod": "3.24.4"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.40.1",
