@@ -17,46 +17,55 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 
 サンプルでは以下の 2 つのジョブを定義しています。
 
-- catalogItem_job
+- catalogItemJob
   
     Chunk モデルで作られたジョブです。商品情報を取得し、商品名を先頭 10 文字に切り詰めたうえで CSV に出力します。
 
-- catalogItem_tasklet_job
+- catalogItemTaskletJob
   
-    Tasklet モデルで作られたジョブです。処理内容は catalogItem_job と同様です。
+    Tasklet モデルで作られたジョブです。処理内容は catalogItemJob と同様です。
 
 ## サンプルの起動方法 {#how-to-launch}
 
 バッチアプリケーションは Web アプリケーションと同様に、 Spring Boot をベースに作られています。
-そのためアプリケーションの起動方法についても、 Web アプリケーションと同様に以下の通りです。
+そのためアプリケーションの起動方法についても、 Web アプリケーションと同様です。
+
+以下はローカル環境で動作させる場合の手順です。
 
 - VS Code で Gradle のタスクを実行する場合
 
     VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    batch > Tasks > application > bootRun
+    batch > Tasks > application > bootRunDev
+
+    !!! tip "bootRunDev タスクについて"
+
+        `bootRunDev` タスクは、ローカル環境用の `local` プロファイル（ H2 インメモリ DB を使用）でアプリケーションを起動します。
+        通常の `bootRun` タスクはプロファイル未指定時に本番用の `production` プロファイルが使用され、
+        PostgreSQL への接続が必要になるため、ローカルでの動作確認では `bootRunDev` タスクを使用してください。
 
 - コマンドラインから Gradle のタスクを実行する場合
 
     以下の通り、コマンドを実行します。
 
     ```shell title="コマンドラインでの Gradle の起動"
-    ./gradlew :batch:bootRun
+    ./gradlew :batch:bootRunDev
     ```
 
 - VS Code の実行とデバッグビュー（Run and Debug）で起動する場合
 
     既定の 2 つのジョブそれぞれについて、 launch.json（VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
+    いずれも `local` プロファイルで起動するように設定されています。
 
     VS Code のアクティビティーバーにある「 Run and Debug 」をクリックし、ビュー上部のドロップダウンリストにて、実行したいアプリケーションを指定して実行してください。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
-    以下の通り、コマンドを実行します。
+    以下の通り、コマンドを実行します。 `local` プロファイルを指定することで、 H2 インメモリ DB を使用してローカルで動作確認できます。
   
     ```shell title="実行可能 jar の起動"
     # ./gradlew :batch:bootJar で実行可能jarを生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
     ```
 
 ## 動作させるジョブの指定方法 {#specifying-the-job}
@@ -65,21 +74,21 @@ Spring Batch では、複数のジョブが定義されている場合、実行�
 
 ジョブの指定方法は `spring.batch.job.name` という環境変数で指定します。
 サンプルでは開発環境用のデフォルト設定として、 `application-dev.properties` にて
-`spring.batch.job.name=catalogItem_tasklet_job` と指定しています。
-これにより起動時にジョブを指定しなくても catalogItem_tasklet_job が実行されるようになっています。
+`spring.batch.job.name=catalogItemTaskletJob` と指定しています。
+これにより起動時にジョブを指定しなくても catalogItemTaskletJob が実行されるようになっています。
 
 ```properties title="application-dev.properties でのジョブ指定"
-spring.batch.job.name=catalogItem_tasklet_job
+spring.batch.job.name=catalogItemTaskletJob
 ```
 
-catalogItem_job を実行するように、起動時に指定する場合には、以下の方法で指定します。
+catalogItemJob を実行するように、起動時に指定する場合には、以下の方法で指定します。
 
 - Gradle で実行する場合
 
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ指定）"
-    ./gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItem_job"
+    ./gradlew :batch:bootRunDev --args="--spring.batch.job.name=catalogItemJob"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -90,7 +99,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
 
     ```shell title="実行可能 jar の起動（ジョブ指定）"
     # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.batch.job.name=catalogItem_job
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local --spring.batch.job.name=catalogItemJob
     ```
 
 ## ジョブ独自の引数の指定方法 {#specifying-arguments}
@@ -105,7 +114,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
-    ./gradlew :batch:bootRun --args="--output=sample-output.csv"
+    ./gradlew :batch:bootRunDev --args="--output=sample-output.csv"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -116,7 +125,7 @@ catalogItem_job を実行するように、起動時に指定する場合には�
 
     ```shell title="実行可能 jar の起動（ジョブ引数指定）"
     # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --output=sample-output.csv
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local --output=sample-output.csv
     ```
 
 ## ダウンロード {#download}
