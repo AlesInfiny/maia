@@ -1,6 +1,6 @@
 package com.dressca.web.admin.filter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,14 +32,11 @@ public class TestProfileDummyUserInjectionFilterTest {
 
   @Test
   void testSecurityFilterChain_異常系_テストプロファイルではダミーフィルターが含まれない() {
-    // Arrange
-    boolean expected = false;
-
     // Act
     boolean actual = hasDummyUserInjectionFilter();
 
     // Assert
-    assertEquals(expected, actual);
+    assertThat(actual).isFalse();
   }
 
   @Test

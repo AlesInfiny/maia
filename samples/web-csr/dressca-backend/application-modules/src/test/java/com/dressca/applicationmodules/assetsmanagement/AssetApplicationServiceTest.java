@@ -1,7 +1,7 @@
 package com.dressca.applicationmodules.assetsmanagement;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,6 +17,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,14 +84,13 @@ public class AssetApplicationServiceTest {
     // モックの設定
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.empty());
 
-    try {
-      // 戻り値の検証
-      service.getAssetResourceInfo(assetCode);
-      fail();
-    } catch (AssetNotFoundException e) {
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findByAssetCode(assetCode);
-    }
+    // Act
+    Executable action = () -> service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThrows(AssetNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
   }
 
   @Test
@@ -105,14 +105,13 @@ public class AssetApplicationServiceTest {
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.empty());
 
-    try {
-      // 戻り値の検証
-      service.getAssetResourceInfo(assetCode);
-      fail();
-    } catch (AssetNotFoundException e) {
-      // モックが想定通り呼び出されていることの確認
-      verify(this.repository, times(1)).findByAssetCode(assetCode);
-      verify(this.store, times(1)).getResource(asset);
-    }
+    // Act
+    Executable action = () -> service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThrows(AssetNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
+    verify(this.store, times(1)).getResource(asset);
   }
 }

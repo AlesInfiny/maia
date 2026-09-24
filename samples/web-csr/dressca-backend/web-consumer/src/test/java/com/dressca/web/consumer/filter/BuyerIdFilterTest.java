@@ -1,10 +1,6 @@
 package com.dressca.web.consumer.filter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -51,13 +47,14 @@ public class BuyerIdFilterTest {
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertNotNull(setCookieHeader);
-    assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
-    assertTrue(setCookieHeader.contains("Path=/"));
-    assertTrue(setCookieHeader.contains("HttpOnly"));
-    assertFalse(setCookieHeader.contains("Secure"));
-    assertTrue(setCookieHeader.contains("Max-Age=86400"));
-    assertTrue(setCookieHeader.contains("SameSite=Strict"));
+    assertThat(setCookieHeader)
+        .isNotNull()
+        .startsWith("Dressca-Bid=")
+        .contains("Path=/")
+        .contains("HttpOnly")
+        .doesNotContain("Secure")
+        .contains("Max-Age=86400")
+        .contains("SameSite=Strict");
   }
 
   @Test
@@ -79,13 +76,14 @@ public class BuyerIdFilterTest {
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertNotNull(setCookieHeader);
-    assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
-    assertTrue(setCookieHeader.contains("Path=/"));
-    assertTrue(setCookieHeader.contains("HttpOnly"));
-    assertTrue(setCookieHeader.contains("Secure"));
-    assertTrue(setCookieHeader.contains("Max-Age=604800"));
-    assertTrue(setCookieHeader.contains("SameSite=None"));
+    assertThat(setCookieHeader)
+        .isNotNull()
+        .startsWith("Dressca-Bid=")
+        .contains("Path=/")
+        .contains("HttpOnly")
+        .contains("Secure")
+        .contains("Max-Age=604800")
+        .contains("SameSite=None");
   }
 
   @Test
@@ -103,9 +101,9 @@ public class BuyerIdFilterTest {
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
     // Cookie が存在し、値が維持されていることを確認
-    assertNotNull(responseCookie);
+    assertThat(responseCookie).isNotNull();
     String cookieBuyerId = responseCookie.getValue();
-    assertEquals(validBuyerId, cookieBuyerId);
+    assertThat(cookieBuyerId).isEqualTo(validBuyerId);
   }
 
   @Test
@@ -123,9 +121,9 @@ public class BuyerIdFilterTest {
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
     // Cookie が存在し、無効な値から新しい UUID が払い出されていることを確認
-    assertNotNull(responseCookie);
+    assertThat(responseCookie).isNotNull();
     String issuedBuyerId = responseCookie.getValue();
-    assertNotEquals(invalidBuyerId, issuedBuyerId);
-    assertNotNull(UUID.fromString(issuedBuyerId));
+    assertThat(issuedBuyerId).isNotEqualTo(invalidBuyerId);
+    assertThat(UUID.fromString(issuedBuyerId)).isNotNull();
   }
 }
