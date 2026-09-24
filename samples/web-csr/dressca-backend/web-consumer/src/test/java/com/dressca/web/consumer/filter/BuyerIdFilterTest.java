@@ -35,17 +35,18 @@ public class BuyerIdFilterTest {
   @Test
   @DisplayName("構成ファイルの設定がない場合")
   void testDoFilter_01() throws Exception {
-
+    // Arrange
     // デフォルトの CookieSettings を呼び出す
     CookieSettings cookieSettings = new CookieSettings();
 
     // テスト対象の Filter を作成
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
+    // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
     assertThat(setCookieHeader)
         .isNotNull()
@@ -60,7 +61,7 @@ public class BuyerIdFilterTest {
   @Test
   @DisplayName("構成ファイルの設定がある場合")
   void testDoFilter_02() throws Exception {
-
+    // Arrange
     // モックオブジェクトを作成
     CookieSettings cookieSettings = mock(CookieSettings.class);
     when(cookieSettings.isHttpOnly()).thenReturn(true);
@@ -71,10 +72,11 @@ public class BuyerIdFilterTest {
     // テスト対象の Filter を作成
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
+    // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
     assertThat(setCookieHeader)
         .isNotNull()
@@ -89,17 +91,18 @@ public class BuyerIdFilterTest {
   @Test
   @DisplayName("Dressca-Bid Cookie が有効な UUID の場合はその値が維持される")
   void testDoFilter_03() throws Exception {
-
+    // Arrange
     // 有効な Buyer ID を設定
     String validBuyerId = UUID.randomUUID().toString();
     this.request.setCookies(new Cookie("Dressca-Bid", validBuyerId));
     CookieSettings cookieSettings = new CookieSettings();
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
+    // Assert
     // Cookie が存在し、値が維持されていることを確認
     assertThat(responseCookie).isNotNull();
     String cookieBuyerId = responseCookie.getValue();
@@ -109,17 +112,18 @@ public class BuyerIdFilterTest {
   @Test
   @DisplayName("Dressca-Bid Cookie が無効な値の場合は新しい UUID が払い出される")
   void testDoFilter_04() throws Exception {
-
+    // Arrange
     // 無効な Buyer ID を設定
     String invalidBuyerId = "invalid-buyer-id";
     this.request.setCookies(new Cookie("Dressca-Bid", invalidBuyerId));
     CookieSettings cookieSettings = new CookieSettings();
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
+    // Assert
     // Cookie が存在し、無効な値から新しい UUID が払い出されていることを確認
     assertThat(responseCookie).isNotNull();
     String issuedBuyerId = responseCookie.getValue();

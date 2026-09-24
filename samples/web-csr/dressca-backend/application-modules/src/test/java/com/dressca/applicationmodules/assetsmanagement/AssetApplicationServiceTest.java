@@ -57,6 +57,7 @@ public class AssetApplicationServiceTest {
 
   @Test
   void testGetAssetResourceInfo_正常系_存在するアセットコード() throws AssetNotFoundException {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "ExistAssetCode";
 
@@ -69,8 +70,11 @@ public class AssetApplicationServiceTest {
     when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
     when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
 
-    // 戻り値の検証
-    assertThat(service.getAssetResourceInfo(assetCode)).isEqualTo(expected);
+    // Act
+    AssetResourceInfo actual = service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThat(actual).isEqualTo(expected);
     // モックが想定通り呼び出されていることの確認
     verify(this.repository, times(1)).findByAssetCode(assetCode);
     verify(this.store, times(1)).getResource(asset);
@@ -78,6 +82,7 @@ public class AssetApplicationServiceTest {
 
   @Test
   void testGetAssetResourceInfo_異常系_リポジトリに存在しないアセットコード() {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
@@ -95,6 +100,7 @@ public class AssetApplicationServiceTest {
 
   @Test
   void testGetAssetResourceInfo_異常系_ストアに存在しないアセットコード() {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
