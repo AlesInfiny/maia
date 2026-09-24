@@ -76,7 +76,10 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_empty() throws Exception {
+    // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
+
+    // Assert
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -95,9 +98,14 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_10data() throws Exception {
+    // Arrange
     // テストデータ追加
     insertTestData();
+
+    // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
+
+    // Assert
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -116,10 +124,15 @@ public class CatalogItemJobTest {
    */
   @Test
   public void stepTest_10data() throws Exception {
+    // Arrange
     // テストデータ追加
     insertTestData();
+
+    // Act
     // ステップを実行
     JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
+
+    // Assert
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認

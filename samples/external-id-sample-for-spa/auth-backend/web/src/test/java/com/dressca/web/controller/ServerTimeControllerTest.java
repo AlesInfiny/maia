@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import com.dressca.web.WebApplication;
 
 /**
@@ -27,8 +28,11 @@ public class ServerTimeControllerTest {
   @Test
   @DisplayName("testTime_01_正常系_現在時刻を取得")
   void testAuth_01() throws Exception {
-    this.mockMvc.perform(get("/api/servertime")).andExpect(status().isOk())
-        .andExpect(jsonPath("$.serverTime").exists());
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/servertime"));
+
+    // Assert
+    response.andExpect(status().isOk()).andExpect(jsonPath("$.serverTime").exists());
   }
 
 }

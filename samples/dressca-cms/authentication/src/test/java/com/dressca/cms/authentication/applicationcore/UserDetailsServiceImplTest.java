@@ -10,6 +10,7 @@ import com.dressca.cms.authentication.applicationcore.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +73,11 @@ public class UserDetailsServiceImplTest {
     String username = "nonexistent@example.com";
     when(userRepository.findByEmail(username)).thenReturn(null);
 
-    // Act & Assert
-    assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername(username));
+    // Act
+    Executable action = () -> service.loadUserByUsername(username);
+
+    // Assert
+    assertThrows(UsernameNotFoundException.class, action);
     verify(userRepository, times(1)).findByEmail(username);
   }
 }

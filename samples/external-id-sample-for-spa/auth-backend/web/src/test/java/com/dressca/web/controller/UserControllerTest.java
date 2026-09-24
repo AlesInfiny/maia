@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import com.dressca.web.WebApplication;
 
 /**
@@ -29,14 +30,22 @@ public class UserControllerTest {
   @Test
   @DisplayName("testAuth_01_正常系")
   void testAuth_01() throws Exception {
-    mockMvc.perform(get("/api/users").with(jwt()).accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk()).andExpect(jsonPath("$.userId").value("user"));
+    // Act
+    ResultActions response =
+        mockMvc.perform(get("/api/users").with(jwt()).accept(MediaType.APPLICATION_JSON));
+
+    // Assert
+    response.andExpect(status().isOk()).andExpect(jsonPath("$.userId").value("user"));
   }
 
   @Test
   @DisplayName("testAuth_02_異常系_Headerが設定されていない場合エラー")
   void testAuth_02() throws Exception {
-    this.mockMvc.perform(get("/api/users").accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isUnauthorized());
+    // Act
+    ResultActions response =
+        this.mockMvc.perform(get("/api/users").accept(MediaType.APPLICATION_JSON));
+
+    // Assert
+    response.andExpect(status().isUnauthorized());
   }
 }
