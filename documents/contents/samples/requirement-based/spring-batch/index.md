@@ -28,35 +28,44 @@ Spring Batch を利用したバッチアプリケーションの簡易な実装�
 ## サンプルの起動方法 {#how-to-launch}
 
 バッチアプリケーションは Web アプリケーションと同様に、 Spring Boot をベースに作られています。
-そのためアプリケーションの起動方法についても、 Web アプリケーションと同様に以下の通りです。
+そのためアプリケーションの起動方法についても、 Web アプリケーションと同様です。
+
+以下はローカル環境で動作させる場合の手順です。
 
 - VS Code で Gradle のタスクを実行する場合
 
     VS Code のアクティビティーバーにある「 Gradle 」をクリックし、サイドバーの「 GRADLE PROJECTS 」タブから以下のタスクを実行します。
 
-    batch > Tasks > application > bootRun
+    batch > Tasks > application > bootRunDev
+
+    !!! tip "bootRunDev タスクについて"
+
+        `bootRunDev` タスクは、ローカル環境用の `local` プロファイル（ H2 インメモリ DB を使用）でアプリケーションを起動します。
+        通常の `bootRun` タスクはプロファイル未指定時に本番用の `production` プロファイルが使用され、
+        PostgreSQL への接続が必要になるため、ローカルでの動作確認では `bootRunDev` タスクを使用してください。
 
 - コマンドラインから Gradle のタスクを実行する場合
 
     以下の通り、コマンドを実行します。
 
     ```shell title="コマンドラインでの Gradle の起動"
-    ./gradlew :batch:bootRun
+    ./gradlew :batch:bootRunDev
     ```
 
 - VS Code の実行とデバッグビュー（Run and Debug）で起動する場合
 
     既定の 2 つのジョブそれぞれについて、 launch.json（VS Code 上のアプリケーションの実行構成ファイル）に定義済みです。
+    いずれも `local` プロファイルで起動するように設定されています。
 
     VS Code のアクティビティーバーにある「 Run and Debug 」をクリックし、ビュー上部のドロップダウンリストにて、実行したいアプリケーションを指定して実行してください。
 
 - 実行可能 jar としてパッケージングした jar を実行する場合
 
-    以下の通り、コマンドを実行します。
+    以下の通り、コマンドを実行します。 `local` プロファイルを指定することで、 H2 インメモリ DB を使用してローカルで動作確認できます。
   
     ```shell title="実行可能 jar の起動"
     # ./gradlew :batch:bootJar で実行可能jarを生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
     ```
 
 ## 動作させるジョブの指定方法 {#specifying-the-job}
@@ -79,7 +88,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ指定）"
-    ./gradlew :batch:bootRun --args="--spring.batch.job.name=catalogItemJob"
+    ./gradlew :batch:bootRunDev --args="--spring.batch.job.name=catalogItemJob"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -90,7 +99,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
 
     ```shell title="実行可能 jar の起動（ジョブ指定）"
     # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.batch.job.name=catalogItemJob
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local --spring.batch.job.name=catalogItemJob
     ```
 
 ## ジョブ独自の引数の指定方法 {#specifying-arguments}
@@ -105,7 +114,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
-    ./gradlew :batch:bootRun --args="--output=sample-output.csv"
+    ./gradlew :batch:bootRunDev --args="--output=sample-output.csv"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -116,7 +125,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
 
     ```shell title="実行可能 jar の起動（ジョブ引数指定）"
     # ./gradlew :batch:bootJar で実行可能 jar を生成した想定
-    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --output=sample-output.csv
+    java -jar batch/build/libs/batch-0.0.1-SNAPSHOT.jar --spring.profiles.active=local --output=sample-output.csv
     ```
 
 ## ダウンロード {#download}

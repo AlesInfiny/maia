@@ -31,3 +31,11 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
+
+tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
+	group = 'application'
+	description = 'Runs this project as a Spring Boot Application using local profile.'
+	args = ["--spring.profiles.active=local"]
+	mainClass = 'com.dressca.batch.BatchApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}
