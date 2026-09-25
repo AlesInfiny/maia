@@ -1,0 +1,31 @@
+---
+# cspell:ignore KHTML linkspector
+# Linkspector の設定ファイル
+# https://github.com/UmbrellaDocs/linkspector
+dirs:
+  - .
+files:
+  - .github/CONTRIBUTING.md
+useGitIgnore: true
+ignorePatterns:
+  # ページ内アンカーは MkDocs のビルド（validation.anchors）で検証する。
+  - pattern: '^#'
+  # ローカル開発環境の URL はチェック対象外とする。
+  - pattern: '^https?://localhost'
+  - pattern: '^https?://127\.0\.0\.1'
+  # サンプルアプリケーションの zip はドキュメントのビルド時に生成されるため、チェック対象外とする。
+  - pattern: '^(\.\./)+downloads/.+\.zip$'
+replacementPatterns:
+  # 相対パスのリンクに付いたアンカー（他ファイルの見出しや、画像のライト / ダークモード切り替え用の #only-light など）は
+  # MkDocs のビルドで検証するため、ファイルの存在のみをチェックする。
+  - pattern: '^([^:#]+)#.*$'
+    replacement: '$1'
+  # 相対パスのリンクに含まれる URL エンコードされた & を、実際のファイル名に合わせて復元する。
+  - pattern: '^([^:]*?)%26(.*)$'
+    replacement: '$1&$2'
+# 403 はボット対策によって一時的に返されることが多く、リンク切れを意味しないため正常として扱う。
+aliveStatusCodes:
+  - 403
+userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+timeout: 30000
+retryCount: 3

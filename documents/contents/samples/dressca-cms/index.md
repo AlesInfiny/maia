@@ -63,7 +63,7 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
 
     <http://localhost:8083>
 
-1. ログイン画面が表示されたら、開発環境用に設定されているメールアドレスとパスワードを入力して「ログイン」ボタンを押下してください。メールアドレスは [user@example.com] 、パスワードは [P@ssw0rd1] です。
+1. ログイン画面が表示されたら、開発環境用に設定されているメールアドレスとパスワードを入力して「ログイン」ボタンを押下してください。メールアドレスは `user@example.com` 、パスワードは `P@ssw0rd1` です。
 
     ![Dressca-CMS ログイン画面](../../images/samples/dressca-cms-login.png){ width="600" loading=lazy }
 
