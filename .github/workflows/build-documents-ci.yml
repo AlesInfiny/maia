@@ -1,9 +1,10 @@
 ---
-# cspell:ignore endgroup fjogeleit markdownlint softprops textlintignore textlintrc webapps yamlignore
+# cspell:ignore endgroup fjogeleit markdownlint linkspector nofilter softprops textlintignore textlintrc webapps yamlignore
 name: ドキュメントのビルド (CI用)
 
 permissions:
   contents: read
+  pull-requests: read
 
 on:
   pull_request:
@@ -12,6 +13,9 @@ on:
       - "documents/**"
       - "iis-files/**"
       - "samples/**"
+      - "README.md"
+      - ".github/CONTRIBUTING.md"
+      - ".linkspector.yml"
       - ".github/workflows/build-documents-ci.yml"
       - ".github/workflows/build-and-release-documents.yml"
       - ".github/workflows/lint-documents/action.yml"
@@ -50,6 +54,27 @@ jobs:
         continue-on-error: true
         uses: ./.github/workflows/lint-documents
 
+      # main ブランチ向けの PR（リリース PR）と手動実行時は全ファイル、それ以外の PR では変更ファイルのリンク切れのみを報告する。
+      - id: check-links
+        name: ドキュメントのリンクチェック
+        continue-on-error: true
+        uses: UmbrellaDocs/action-linkspector@568ec8d29fa92b31fd9ea5381e155c51e922af83  # v1.5.5
+        with:
+          config_file: .linkspector.yml
+          reporter: github-pr-annotations
+          filter_mode: ${{ github.event_name == 'pull_request' && github.base_ref != 'main' && 'file' || 'nofilter' }}
+          fail_level: error
+
+      - name: リンクチェック結果の表示
+        shell: bash
+        run: |
+          echo '# Link Check Result :link:' >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check-links.outcome }}" == "failure" ]; then
+            echo ':x: リンク切れを検出しました。詳細はアノテーション、または「ドキュメントのリンクチェック」ステップのログを確認してください。' >> $GITHUB_STEP_SUMMARY
+          else
+            echo ':heavy_check_mark: リンクチェックに成功しました。' >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: サンプルアプリケーションのソースコード圧縮
         uses: ./.github/workflows/compress-sample-source
         with:
@@ -62,7 +87,7 @@ jobs:
           output-folder-name: ${{ env.DOCUMENT_OUTPUT_FOLDER_NAME }}
 
       - name: Lint結果の成否判定
-        if: steps.lint-documents.outcome == 'failure'
+        if: steps.lint-documents.outcome == 'failure' || steps.check-links.outcome == 'failure'
         run: |
           exit 1;
 
