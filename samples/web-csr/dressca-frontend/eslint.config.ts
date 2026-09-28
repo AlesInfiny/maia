@@ -8,17 +8,15 @@ import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
 import js from '@eslint/js'
-import {
-  adminLayerDependencyRules,
-  codingConventionRules,
-  consumerLayerDependencyRules,
-} from './eslint.project-rules'
+import { codingConventionRules } from './eslint.project-rules'
 
 configureVueProject({
   // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
   rootDir: import.meta.dirname,
 })
 
+// 全ワークスペースに共通の設定です。
+// 各ワークスペースの eslint.config.ts で import して、ワークスペース固有の設定を追加します。
 export default defineConfigWithVueTs(
   // Lint 対象外とするファイルパスを列挙します。
   globalIgnores([
@@ -64,10 +62,6 @@ export default defineConfigWithVueTs(
 
   // コーディング規約に沿わせるためのルールを適用します。
   ...codingConventionRules,
-
-  // consumer / admin プロジェクトのフォルダー間の参照方向を強制します。
-  ...consumerLayerDependencyRules,
-  ...adminLayerDependencyRules,
 
   // Playwright 用のテストスイートに対して、 Playwright 推奨の Lint ルールを適用します。
   {
