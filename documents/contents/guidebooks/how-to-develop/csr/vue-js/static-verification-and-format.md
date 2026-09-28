@@ -129,7 +129,7 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-10 12-15 23-25 30 34 37-44 47-50 52-58 63-66 72 76-79"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-15 17-20 28-34 39 43 47 50-57 60-63 66 69-70 75 81 85-88"
 --8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
@@ -212,6 +212,26 @@ TypeScript の型情報を使用するルールを使用するため、 `vueTsCo
 ```typescript
 vueTsConfigs.recommendedTypeChecked,
 ```
+
+ESLint 本体の推奨ルールを適用します。
+`vueTsConfigs` に含まれる typescript-eslint の設定は、 ESLint 本体の推奨ルールと組み合わせることを前提としています。
+TypeScript で代替できるルールを無効化するだけで、 ESLint 本体の推奨ルールそのものは有効にしません。
+ワークスペースの直下にいることを確認し、 [@eslint/js :material-open-in-new:](https://github.com/eslint/eslint/tree/main/packages/js){ target=_blank } をインストールします。
+
+```shell linenums="0"
+npm install -D @eslint/js
+```
+
+eslint.config.ts に下記の設定を追加します。
+typescript-eslint の設定で TypeScript と重複するルールを無効化できるように、 `vueTsConfigs` よりも前に配置してください。
+
+```typescript
+import js from '@eslint/js'
+
+js.configs.recommended,
+```
+
+ESLint 本体と typescript-eslint の推奨ルールを組み合わせる構成の詳細は、 [typescript-eslint の公式ドキュメント :material-open-in-new:](https://typescript-eslint.io/getting-started/){ target=_blank } を参照してください。
 
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
 そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
