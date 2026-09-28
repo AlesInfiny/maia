@@ -26,6 +26,10 @@ export default defineConfigWithVueTs(
     '**/coverage/**',
     '**/src/system-common/generated/**',
     '**/mockServiceWorker.js',
+    '**/test-results/**',
+    '**/blob-report/**',
+    '**/playwright/.cache/**',
+    '**/playwright/.auth/**',
     '**/playwright-report/**',
   ]),
 
