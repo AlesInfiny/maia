@@ -26,6 +26,13 @@ export class BasketPage extends BasePage {
   }
 
   /**
+   * 買い物かご画面を表示します。
+   */
+  async navigateTo(): Promise<void> {
+    await super.navigateTo('/basket')
+  }
+
+  /**
    * 陳列品を買い物かごに追加した旨のメッセージを表す Locator を返します。
    * @returns 追加完了メッセージ。
    */

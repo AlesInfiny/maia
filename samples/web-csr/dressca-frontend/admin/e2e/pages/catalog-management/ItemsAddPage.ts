@@ -46,6 +46,13 @@ export class ItemsAddPage extends BasePage {
   }
 
   /**
+   * カタログアイテム追加画面を表示します。
+   */
+  async navigateTo(): Promise<void> {
+    await super.navigateTo('/catalog/items/add')
+  }
+
+  /**
    * カタログアイテム追加画面の見出しを表す Locator を返します。
    * @returns カタログアイテム追加画面の見出し。
    */

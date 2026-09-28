@@ -26,6 +26,14 @@ export class DonePage extends BasePage {
   }
 
   /**
+   * 注文完了画面を表示します。
+   * @param orderId 表示対象の注文 ID。
+   */
+  async navigateTo(orderId: string): Promise<void> {
+    await super.navigateTo(`/ordering/done/${orderId}`)
+  }
+
+  /**
    * 注文が完了した旨のメッセージを表す Locator を返します。
    * @returns 注文完了メッセージ。
    */

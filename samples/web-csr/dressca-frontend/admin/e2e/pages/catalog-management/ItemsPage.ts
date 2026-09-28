@@ -22,6 +22,13 @@ export class ItemsPage extends BasePage {
   }
 
   /**
+   * カタログアイテム一覧画面を表示します。
+   */
+  async navigateTo(): Promise<void> {
+    await super.navigateTo('/catalog/items')
+  }
+
+  /**
    * カタログアイテム一覧画面の見出しを表す Locator を返します。
    * @returns カタログアイテム一覧画面の見出し。
    */

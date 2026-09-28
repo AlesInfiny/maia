@@ -32,6 +32,13 @@ export class CheckoutPage extends BasePage {
   }
 
   /**
+   * 注文内容確認画面を表示します。
+   */
+  async navigateTo(): Promise<void> {
+    await super.navigateTo('/ordering/checkout')
+  }
+
+  /**
    * 注文内容の確認を促すメッセージを表す Locator を返します。
    * @returns 注文内容の確認を促すメッセージ。
    */
