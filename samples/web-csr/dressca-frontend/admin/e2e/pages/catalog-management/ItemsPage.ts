@@ -24,8 +24,8 @@ export class ItemsPage extends BasePage {
   /**
    * カタログアイテム一覧画面を表示します。
    */
-  async navigateTo(): Promise<void> {
-    await super.navigateTo('/catalog/items')
+  async open(): Promise<void> {
+    await this.navigateTo('/catalog/items')
   }
 
   /**

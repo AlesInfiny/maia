@@ -34,8 +34,8 @@ export class CheckoutPage extends BasePage {
   /**
    * 注文内容確認画面を表示します。
    */
-  async navigateTo(): Promise<void> {
-    await super.navigateTo('/ordering/checkout')
+  async open(): Promise<void> {
+    await this.navigateTo('/ordering/checkout')
   }
 
   /**

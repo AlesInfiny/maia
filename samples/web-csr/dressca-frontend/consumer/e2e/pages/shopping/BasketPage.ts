@@ -28,8 +28,8 @@ export class BasketPage extends BasePage {
   /**
    * 買い物かご画面を表示します。
    */
-  async navigateTo(): Promise<void> {
-    await super.navigateTo('/basket')
+  async open(): Promise<void> {
+    await this.navigateTo('/basket')
   }
 
   /**

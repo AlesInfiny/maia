@@ -48,8 +48,8 @@ export class ItemsAddPage extends BasePage {
   /**
    * カタログアイテム追加画面を表示します。
    */
-  async navigateTo(): Promise<void> {
-    await super.navigateTo('/catalog/items/add')
+  async open(): Promise<void> {
+    await this.navigateTo('/catalog/items/add')
   }
 
   /**
