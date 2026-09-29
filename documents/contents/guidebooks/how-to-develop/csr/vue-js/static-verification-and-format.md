@@ -213,17 +213,15 @@ TypeScript の型情報を使用するルールを使用するため、 `vueTsCo
 vueTsConfigs.recommendedTypeChecked,
 ```
 
-ESLint 本体の推奨ルールを適用します。
-`vueTsConfigs` に含まれる typescript-eslint の設定は、 ESLint 本体の推奨ルールと組み合わせることを前提としています。
-TypeScript で代替できるルールを無効化するだけで、 ESLint 本体の推奨ルールそのものは有効にしません。
-ワークスペースの直下にいることを確認し、 [@eslint/js :material-open-in-new:](https://github.com/eslint/eslint/tree/main/packages/js){ target=_blank } をインストールします。
+ESLint の JavaScript に対する推奨ルールを適用します。
+ワークスペースの直下にいることを確認し、@eslint/js をインストールします。
 
 ```shell linenums="0"
 npm install -D @eslint/js
 ```
 
-eslint.config.ts に下記の設定を追加します。
-typescript-eslint の設定で TypeScript と重複するルールを無効化できるように、 `vueTsConfigs` よりも前に配置してください。
+eslint.config.ts に下記の設定を追加してください。
+後から TypeScript の機能と重複するルールを無効化するので、 `vueTsConfigs` よりも前に配置してください。
 
 ```typescript
 import js from '@eslint/js'
@@ -231,17 +229,17 @@ import js from '@eslint/js'
 js.configs.recommended,
 ```
 
-推奨ルールを組み合わせる構成の詳細は、 [typescript-eslint の公式ドキュメント :material-open-in-new:](https://typescript-eslint.io/getting-started/){ target=_blank } を参照してください。
-
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
 そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化します。
-ワークスペースの直下にいることを確認し、 [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank } をインストールします。
+
+ワークスペースの直下にいることを確認し、 typescript-eslint をインストールします。
+この時点で typescript-eslint への依存関係は推移的に解決できてしまいますが、明示的にインストールしておくことを推奨します。
 
 ```shell linenums="0"
 npm install -D typescript-eslint
 ```
 
-eslint.config.ts に下記の設定を追加します。
+eslint.config.ts に下記の設定を追加してください。
 
 ```typescript
 import tseslint from 'typescript-eslint'
