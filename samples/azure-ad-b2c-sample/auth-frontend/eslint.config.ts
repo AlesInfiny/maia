@@ -13,6 +13,8 @@ configureVueProject({
   rootDir: import.meta.dirname,
 })
 
+// 全ワークスペースに共通の設定です。
+// 各ワークスペースの eslint.config.ts で import して、ワークスペース固有の設定を追加します。
 export default defineConfigWithVueTs(
   // Lint 対象外とするファイルパスを列挙します。
   globalIgnores([

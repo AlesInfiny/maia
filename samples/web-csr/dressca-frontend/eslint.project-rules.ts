@@ -39,20 +39,18 @@ export const codingConventionRules: Linter.Config[] = [
  * App.vue 、 main.ts 、ルーティング定義は全経路を許可する例外です。
  * ルーティング定義の例外が層全体へ広がらないよう、system-common の他のコードからは
  * 集約モジュール（route-names.ts）を参照できないようにします。
- * @param workspace ルールを適用するワークスペースのフォルダー名。
+ * 各ワークスペースの eslint.config.ts から呼び出します。
+ * files と ignores のパスは、ワークスペースの eslint.config.ts を基準に評価されます。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
  *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
-function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
+export function createLayerDependencyRules(contextPatterns: string[]): Linter.Config[] {
   return [
     {
-      name: `${workspace}/layer-dependency/system-common`,
-      files: [`**/${workspace}/src/system-common/**/*.{vue,ts,mts,tsx}`],
-      ignores: [
-        `**/${workspace}/src/system-common/router/index.ts`,
-        `**/${workspace}/src/system-common/router/route-names.ts`,
-      ],
+      name: 'dressca-frontend/layer-dependency/system-common',
+      files: ['src/system-common/**/*.{vue,ts,mts,tsx}'],
+      ignores: ['src/system-common/router/index.ts', 'src/system-common/router/route-names.ts'],
       rules: {
         'no-restricted-imports': [
           'error',
@@ -74,8 +72,8 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
       },
     },
     {
-      name: `${workspace}/layer-dependency/business-common`,
-      files: [`**/${workspace}/src/business-common/**/*.{vue,ts,mts,tsx}`],
+      name: 'dressca-frontend/layer-dependency/business-common',
+      files: ['src/business-common/**/*.{vue,ts,mts,tsx}'],
       rules: {
         'no-restricted-imports': [
           'error',
@@ -92,19 +90,3 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     },
   ]
 }
-
-/**
- * consumer ワークスペースのフォルダー間の参照方向を強制するルールです。
- */
-export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
-  'consumer',
-  ['@/shopping/**', '@/security/**'],
-)
-
-/**
- * admin のフォルダー間の参照方向を強制するルールです。
- */
-export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
-  '@/catalog-management/**',
-  '@/security/**',
-])
