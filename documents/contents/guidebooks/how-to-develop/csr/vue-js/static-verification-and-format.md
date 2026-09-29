@@ -234,7 +234,14 @@ js.configs.recommended,
 推奨ルールを組み合わせる構成の詳細は、 [typescript-eslint の公式ドキュメント :material-open-in-new:](https://typescript-eslint.io/getting-started/){ target=_blank } を参照してください。
 
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
-そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
+そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化します。
+ワークスペースの直下にいることを確認し、 [typescript-eslint :material-open-in-new:](https://typescript-eslint.io/){ target=_blank } をインストールします。
+
+```shell linenums="0"
+npm install -D typescript-eslint
+```
+
+eslint.config.ts に下記の設定を追加します。
 
 ```typescript
 import tseslint from 'typescript-eslint'
