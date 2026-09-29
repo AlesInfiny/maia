@@ -88,6 +88,10 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
         Spring Framework をベースとするアプリケーション開発を効率的に行うためのフレームワークです。
         Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、実装するコード量を軽減するアノテーションを提供します。
 
+    - [Spring Modulith :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/){ target=_blank }
+
+        Spring Boot アプリケーションのモジュール構造を明示し、モジュール間の依存関係を検証するためのフレームワークです。
+
     - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/web/webmvc.html){ target=_blank }
 
         Spring MVC は Spring Framework をベースとする Front Controller パターンの Web MVC フレームワークです。
