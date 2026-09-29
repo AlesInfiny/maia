@@ -88,7 +88,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ指定）"
-    ./gradlew :batch:bootRunDev --args="--spring.batch.job.name=catalogItemJob"
+    ./gradlew :batch:bootRunDev --args="--spring.profiles.active=local --spring.batch.job.name=catalogItemJob"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
@@ -114,7 +114,7 @@ catalogItemJob を実行するように、起動時に指定する場合には�
     以下のように `--args` オプションで指定します。
 
     ```shell title="コマンドラインでの Gradle の起動（ジョブ引数指定）"
-    ./gradlew :batch:bootRunDev --args="--output=sample-output.csv"
+    ./gradlew :batch:bootRunDev --args="--spring.profiles.active=local --output=sample-output.csv"
     ```
 
     VS Code から Gradle タスクを実行する場合は、タスク選択時に右クリックを押下することで、オプション引数を付与できます。
