@@ -14,8 +14,9 @@ import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.util.ApplicationContextWrapper;
-import com.dressca.web.WebApplication;
+import com.dressca.web.TestWebApplication;
 import com.dressca.web.controller.AssetsController;
+import com.dressca.web.log.DresscaStructuredLoggerImpl;
 import java.util.Locale;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -47,7 +49,8 @@ import org.springframework.test.web.servlet.MockMvc;
  * {@link ExceptionHandlerControllerAdvice} の動作をテストするクラスです。
  */
 @SpringJUnitConfig
-@SpringBootTest(classes = WebApplication.class)
+@SpringBootTest(classes = TestWebApplication.class)
+@Import({AssetsController.class, DresscaStructuredLoggerImpl.class})
 @AutoConfigureMockMvc
 @ActiveProfiles("production")
 @ExtendWith(MockitoExtension.class)
