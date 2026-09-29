@@ -254,7 +254,7 @@ AlesInfiny Maia では Java のプロジェクト構成として、複数のサ�
 プロジェクト構造全体は、 Spring Initializr で生成した Gradle Groovy DSL プロジェクトの構造と変わりはありません。
 
 <!-- textlint-disable @textlint-ja/no-synonyms -->
-パッケージの構成としては、システムで 1 つのフォルダー ( aa.bb.cc ) をベースにパッケージを作成します。
+パッケージの構成としては、システムで 1 つのフォルダー ( aaa.bbb.ccc ) をベースにパッケージを作成します。
 <!-- textlint-enable @textlint-ja/no-synonyms -->
 アプリケーションモジュールについては、コンテキスト単位でパッケージを作成します。
 各アプリケーションモジュールの内部については、アプリケーションコア層に相当する構成要素をドメインの単位でパッケージ化します。
