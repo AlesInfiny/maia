@@ -14,8 +14,12 @@ dist-ssr
 coverage
 *.local
 
-/cypress/videos/
-/cypress/screenshots/
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
 
 # Editor directories and files
 .vscode/*
@@ -30,6 +34,6 @@ coverage
 *.tsbuildinfo
 
 # 自動生成されるファイル
-src/generated/**
+src/system-common/generated/**
 **/mockServiceWorker.js
 openapitools.json

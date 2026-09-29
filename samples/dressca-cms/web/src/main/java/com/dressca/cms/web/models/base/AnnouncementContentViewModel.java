@@ -2,6 +2,7 @@ package com.dressca.cms.web.models.base;
 
 import com.dressca.cms.web.models.validation.AnnouncementValidationGroup;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -72,9 +73,11 @@ public class AnnouncementContentViewModel {
       message = "{announcement.create.linkUrlTooLong}")
   @Size(max = 1024, groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlTooLong}")
-  @URL(groups = AnnouncementValidationGroup.Store.class,
+  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.linkUrlIsInvalid}")
-  @URL(groups = AnnouncementValidationGroup.Update.class,
+  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlIsInvalid}")
   private String linkUrl;
 }

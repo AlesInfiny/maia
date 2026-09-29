@@ -1,0 +1,8 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["./pages/**/*", "./fixture/**/*", "./testScenario/**/*"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "../node_modules/.tmp/tsconfig.playwright.tsbuildinfo",
+    "types": ["@playwright/test"]
+  }
+}
