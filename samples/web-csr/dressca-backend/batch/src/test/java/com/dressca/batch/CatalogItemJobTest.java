@@ -37,7 +37,7 @@ public class CatalogItemJobTest {
   private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
-  @Qualifier("catalogItem_job")
+  @Qualifier("catalogItemJob")
   Job catalogItemJob;
   @Autowired
   JobRepository jobRepository;
@@ -140,9 +140,7 @@ public class CatalogItemJobTest {
 
     // Act
     // ステップを実行
-    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
-
-    // Assert
+    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItemStep1");
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認

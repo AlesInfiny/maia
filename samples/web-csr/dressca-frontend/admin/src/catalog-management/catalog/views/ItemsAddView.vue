@@ -5,7 +5,7 @@ import {
   fetchCategoriesAndBrands,
   postCatalogItem,
 } from '@/catalog-management/catalog/services/catalog-service'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import NotificationModal from '@/catalog-management/catalog/components/NotificationModal.vue'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
