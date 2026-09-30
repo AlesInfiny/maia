@@ -28,6 +28,7 @@
     "vue": "3.5.30"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
     "@openapitools/openapi-generator-cli": "2.40.1",
     "@pinia/testing": "1.0.3",
     "@tsconfig/node24": "24.0.4",
@@ -36,27 +37,28 @@
     "@vitejs/plugin-vue": "6.0.5",
     "@vitejs/plugin-vue-jsx": "5.1.5",
     "@vitest/coverage-v8": "4.1.8",
-    "@vitest/eslint-plugin": "1.6.12",
-    "@vue/eslint-config-typescript": "14.7.0",
+    "@vitest/eslint-plugin": "1.6.27",
+    "@vue/eslint-config-typescript": "14.9.0",
     "@vue/test-utils": "2.4.11",
     "@vue/tsconfig": "0.9.1",
-    "eslint": "9.39.4",
+    "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-jsdoc": "63.2.0",
-    "eslint-plugin-vue": "10.8.0",
-    "jiti": "2.6.1",
+    "eslint-plugin-jsdoc": "64.5.4",
+    "eslint-plugin-vue": "10.11.0",
+    "jiti": "2.7.0",
     "jsdom": "29.0.0",
     "msw": "2.12.12",
     "npm-run-all2": "8.0.4",
     "prettier": "3.8.1",
     "typescript": "6.0.3",
+    "typescript-eslint": "8.70.1",
     "vite": "7.3.5",
     "vite-plugin-vue-devtools": "8.1.0",
     "vitest": "4.1.8",
     "vue-tsc": "3.2.7"
   },
   "engines": {
-    "node": "^24.14.0",
+    "node": "^24.21.0",
     "npm": "^11.9.0"
   },
   "msw": {

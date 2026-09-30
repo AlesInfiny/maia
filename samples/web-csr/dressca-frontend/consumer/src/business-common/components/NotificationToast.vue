@@ -4,7 +4,7 @@ import { useNotificationStore } from '@/business-common/stores/notification'
 import { ClipboardDocumentIcon, ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref, watch } from 'vue'
 import { useEventBus } from '@vueuse/core'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { unhandledErrorEventKey } from '@/system-common/events'
 
 const show = ref(false)

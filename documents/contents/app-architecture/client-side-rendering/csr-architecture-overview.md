@@ -72,7 +72,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
           Vite 環境で動作する高速なテスティングフレームワークです。
 
-    - [Cypress :material-open-in-new:](https://www.cypress.io/){ target=_blank }
+    - [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
 
           E2E テストツールです。
 
