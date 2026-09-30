@@ -129,7 +129,7 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-10 12-15 23-25 30 34 37-44 47-50 52-58 63-66 72 76-79"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-14 16-19 22 27-34 36-38 40-42 44-52 54-58 60-65 67 70 73 76 79-83 85"
 --8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
@@ -171,17 +171,14 @@ configureVueProject({
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
 
-```typescript hl_lines="3 8-9"
+```typescript hl_lines="3 7"
 {
   ...pluginVitest.configs.recommended,
   files: ['**/src/**/__tests__/**/*'],
 },
 {
-  ...pluginCypress.configs.recommended,
-  files: [
-    '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-    '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-  ],
+  ...pluginPlaywright.configs['flat/recommended'],
+  files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
 },
 ```
 
