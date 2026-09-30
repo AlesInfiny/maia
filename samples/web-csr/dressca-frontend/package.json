@@ -31,7 +31,7 @@
     "admin"
   ],
   "engines": {
-    "node": "^24.14.0",
+    "node": "^24.21.0",
     "npm": "^11.9.0"
   },
   "packageManager": "npm@11.9.0"
