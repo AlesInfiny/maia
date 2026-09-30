@@ -129,7 +129,7 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-10 12-15 23-25 30 34 37-44 47-50 52-58 63-66 72 76-79"
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-15 17-20 28-34 39 43 47 50-57 60-63 66 69-70 75 81 85-88"
 --8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
@@ -213,8 +213,33 @@ TypeScript の型情報を使用するルールを使用するため、 `vueTsCo
 vueTsConfigs.recommendedTypeChecked,
 ```
 
+ESLint の JavaScript に対する推奨ルールを適用します。
+ワークスペースの直下にいることを確認し、@eslint/js をインストールします。
+
+```shell linenums="0"
+npm install -D @eslint/js
+```
+
+eslint.config.ts に下記の設定を追加してください。
+後から TypeScript の機能と重複するルールを無効化するので、 `vueTsConfigs` よりも前に配置してください。
+
+```typescript
+import js from '@eslint/js'
+
+js.configs.recommended,
+```
+
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
-そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
+そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化します。
+
+ワークスペースの直下にいることを確認し、 typescript-eslint をインストールします。
+この時点で typescript-eslint への依存関係は推移的に解決できてしまいますが、明示的にインストールしておくことを推奨します。
+
+```shell linenums="0"
+npm install -D typescript-eslint
+```
+
+eslint.config.ts に下記の設定を追加してください。
 
 ```typescript
 import tseslint from 'typescript-eslint'
@@ -281,7 +306,7 @@ globalIgnores([
 ]),
 ```
 
-その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
+その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/use/configure/){ target=_blank } を参照してください。
 
 ??? info "ESLint Config Inspector で設定を可視化する"
       [ESLint Config Inspector :material-open-in-new:](https://github.com/eslint/config-inspector){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
