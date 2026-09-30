@@ -185,10 +185,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(displayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -213,10 +215,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(displayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -248,10 +252,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(targetDisplayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(targetDisplayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -281,8 +287,10 @@ public class ShoppingApplicationServiceTest {
     when(this.displayItemRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds))
         .thenReturn(List.of(deletedDisplayItem));
 
-    // Act
+    // テストメソッドに渡す数量
     Map<UUID, Integer> quantities = Map.of(deletedDisplayItemId, 5);
+
+    // Act
     Executable action = () -> service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -308,8 +316,10 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
+    // テストメソッドに渡す数量
     Map<UUID, Integer> quantities = Map.of(displayItemId, 5);
+
+    // Act
     Executable action = () -> service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -444,11 +454,11 @@ public class ShoppingApplicationServiceTest {
     // Act
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
+
+    // Assert
     assertThat(actual.getDisplayItems()).hasSize(2);
     assertThat(actual.getDisplayItems().get(0).getId()).isEqualTo(itemId1);
     assertThat(actual.getDisplayItems().get(1).getId()).isEqualTo(itemId2);
-
-    // Assert
     // モックが想定通り呼び出されていることの確認
     verify(this.displayItemRepository, times(1))
         .findByDisplayItemIdInIncludingDeleted(displayItemIds);
