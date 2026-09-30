@@ -76,6 +76,14 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_empty() throws Exception {
+    // Arrange
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
+
     // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
 
@@ -83,14 +91,9 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   /*
@@ -101,6 +104,12 @@ public class CatalogItemJobTest {
     // Arrange
     // テストデータ追加
     insertTestData();
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
 
     // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
@@ -109,14 +118,9 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   /*
@@ -127,6 +131,12 @@ public class CatalogItemJobTest {
     // Arrange
     // テストデータ追加
     insertTestData();
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
 
     // Act
     // ステップを実行
@@ -136,14 +146,9 @@ public class CatalogItemJobTest {
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   private void insertTestData() {
