@@ -2,7 +2,6 @@ package com.dressca.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.dressca.batch.job.BatchConfiguration;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -23,14 +22,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * CatalogItem の Job の動作テストクラスです。
  */
 @SpringBootTest
 @SpringBatchTest
-@SpringJUnitConfig(BatchConfiguration.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
@@ -40,7 +37,7 @@ public class CatalogItemJobTest {
   private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
-  @Qualifier("catalogItem_job")
+  @Qualifier("catalogItemJob")
   Job catalogItemJob;
   @Autowired
   JobRepository jobRepository;
@@ -88,9 +85,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   /*
@@ -109,9 +106,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   /*
@@ -122,7 +119,7 @@ public class CatalogItemJobTest {
     // テストデータ追加
     insertTestData();
     // ステップを実行
-    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
+    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItemStep1");
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
@@ -131,9 +128,9 @@ public class CatalogItemJobTest {
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
     String expectedStr =
         (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
     assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+        .isEqualTo(expectedStr.replaceAll("\n", System.getProperty("line.separator")));
   }
 
   private void insertTestData() {

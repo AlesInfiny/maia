@@ -3,8 +3,6 @@ title: Java 編 （SSR 編）
 description: SSR アプリケーションの サーバーサイドで動作する Java アプリケーションの 開発手順を解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon Reloadable Basenames -->
-
 # メッセージ管理機能の設定 {#top}
 
 SSR アプリケーションのメッセージ管理方針に関するアーキテクチャについては、[こちら](../../../../../app-architecture/server-side-rendering/global-function/message-management-policy.md) をご確認ください。
@@ -80,7 +78,7 @@ Spring Framework で提供されている [`#!java PathMatchingResourcePatternRe
     以下のように、プレゼンテーション層を担うサブプロジェクトやシステム共通のサブプロジェクトの設定クラスにプロパティファイルを読み込む設定を記載します。
 
     ```java title="I18nConfig.java"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/system-common/src/main/java/com/dressca/cms/systemcommon/config/I18nConfig.java
+    --8<-- "samples/dressca-cms/system-common/src/main/java/com/dressca/cms/systemcommon/config/I18nConfig.java"
     ```
 
     読み込むプロパティファイルは `classpath:` 配下の `i18n/<フォルダー名>/<ファイル名>` で指定します。
@@ -102,7 +100,7 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
     言語コードを定数で管理しない場合、ハイライト部を `java.util.Locale` パッケージの `Locale.JAPANESE` に置き換えます。
 
     ```java title="LocaleConfig.java" hl_lines="25"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/web/src/main/java/com/dressca/cms/web/config/LocaleConfig.java
+    --8<-- "samples/dressca-cms/web/src/main/java/com/dressca/cms/web/config/LocaleConfig.java"
     ```
 
 ### メッセージの取得 {#getting-messages}
@@ -113,12 +111,12 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 また、 `#!java @Service` や `#!java @Controller` 、 `#!java @Component` といった Bean 登録されたクラス内で `MessageSource` を利用する場合は、 `#!java @Autowired` やコンストラクタインジェクションによる DI で実装します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-以下は、ユーザー名やメールアドレスなどの識別情報からユーザーを取得する `UserDetailsServiceImpl.java` クラスの例です。
+以下は、ユーザー名やメールアドレスなどの識別情報からユーザーを取得する `UserDetailsServiceImpl` クラスの例です。
 
 ??? example "サンプルアプリケーションの UserDetailsServiceImpl.java"
 
     ```java title="UserDetailsServiceImpl.java" hl_lines="17 21 29 30"
-    https://github.com/AlesInfiny/maia/blob/main/samples/dressca-cms/authentication/src/main/java/com/dressca/cms/authentication/applicationcore/UserDetailsServiceImpl.java
+    --8<-- "samples/dressca-cms/authentication/src/main/java/com/dressca/cms/authentication/applicationcore/UserDetailsServiceImpl.java"
     ```
 
 ### HTML とのバインディング {#binding}

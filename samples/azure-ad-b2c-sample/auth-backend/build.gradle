@@ -20,6 +20,14 @@ plugins {
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
 }
 
+// ルートプロジェクトが依存するライブラリとその推移的依存を固定
+// ロック状態はルートプロジェクトの gradle.lockfile に出力
+dependencyLocking {
+  lockAllConfigurations()
+  // ロック状態が存在しない configuration があればビルドを失敗させる
+  lockMode = LockMode.STRICT
+}
+
 // MockitoのAgentを -javaagent 引数として提供する CommandLineArgumentProvider
 // @Classpath によりビルドキャッシュの入力として追跡される
 // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
@@ -39,9 +47,32 @@ subprojects {
   apply plugin: 'checkstyle'
   apply plugin: 'com.github.spotbugs'
 
+  // Java のバージョンはルートプロジェクトで集約管理する
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(25)
+    }
+  }
+
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
+
+  // Lombok が呼び出す sun.misc.Unsafe の終了予定 API に関する警告を抑止する
+  // https://github.com/projectlombok/lombok/issues/3852
+  tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+  }
+
+  // 各サブプロジェクトが依存するライブラリとその推移的依存を固定
+  // ロック状態はサブプロジェクトごとの gradle.lockfile に出力
+  // https://docs.gradle.org/current/userguide/dependency_locking.html
+  dependencyLocking {
+    lockAllConfigurations()
+    // ロック状態が存在しない configuration があればビルドを失敗させる
+    lockMode = LockMode.STRICT
+  }
 
   configurations {
     mockitoAgent
@@ -106,11 +137,19 @@ subprojects {
   // SpotBugs実施後、HTMLレポート出力も同時に行う
   spotbugsMain {
     reports {
-      xml.enabled = false
+      xml.required = false
       html {
-        enabled = true
-        destination = file("${buildDir}/reports/spotbugs/main.html")
+        required = true
+        outputLocation = layout.buildDirectory.file('reports/spotbugs/main.html')
       }
     }
   }
+}
+
+// `./gradlew allDependencies --write-locks` で各プロジェクトのロックファイルを一括生成・更新
+tasks.register('allDependencies') {
+  group = 'help'
+  description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+  dependsOn tasks.named('dependencies')
+  dependsOn subprojects.collect { "${it.path}:dependencies" }
 }

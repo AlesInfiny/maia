@@ -7,6 +7,9 @@
     "config_loc": "${workspaceFolder}/config/checkstyle"
   },
   "java.format.settings.url": "./config/formatter/eclipse-formatter.xml",
+  "java.test.config": {
+    "vmArgs": ["-Dspring.profiles.active=test"]
+  },
   "[java]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,

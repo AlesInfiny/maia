@@ -7,12 +7,6 @@ plugins {
 group = 'com.dressca'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
 repositories {
 	mavenCentral()
 }
@@ -37,4 +31,12 @@ configurations {
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
+}
+
+tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
+	group = 'application'
+	description = 'Runs this project as a Spring Boot Application using local profile.'
+	args = ["--spring.profiles.active=local"]
+	mainClass = 'com.dressca.batch.BatchApplication'
+	classpath = sourceSets.main.runtimeClasspath
 }

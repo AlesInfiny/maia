@@ -4,7 +4,6 @@ description: SSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # web プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource testdb hikari -->
 
 web プロジェクトで必要な設定を解説します。
 
@@ -12,12 +11,12 @@ web プロジェクトで必要な設定を解説します。
 
 web プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-webmvc`：Spring MVC を使用して Web アプリケーションを構築するためのスターター
+- `spring-boot-starter-webmvc`: Spring MVC を使用して Web アプリケーションを構築するためのスターター
 - `spring-boot-starter-actuator`: ヘルスチェックを含めたアプリケーション監視・管理機能を構築するためのスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-- `spring-boot-starter-thymeleaf`：Thymeleaf テンプレートエンジンを使用して Web アプリケーションを構築するためのスターター
-- `h2`：テストやローカル実行で利用する組み込みの H2 データベース
-- `spring-boot-starter-webmvc-test`：Spring MVC アプリケーションをテストするためのライブラリ
+- `spring-boot-starter-thymeleaf`: Thymeleaf テンプレートエンジンを使用して Web アプリケーションを構築するためのスターター
+- `h2`: テストやローカル実行で利用する組み込みの H2 データベース
+- `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
@@ -46,6 +45,12 @@ dependencies {
 }
 ```
 
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+エントリーポイントとなるクラスの設定は CSR 編と同様です。
+
+[こちら](../../../csr/java/sub-project-settings/web-project-settings.md#config-entry-point) を参照して、エントリーポイントとなるクラスの設定を追記してください。
+
 ## Spring Boot の設定 {#config-spring}
 
 Spring Boot の設定は CSR 編と同様です。
@@ -71,9 +76,11 @@ Spring Boot の設定は CSR 編と同様です。
 [こちら](../../../csr/java/sub-project-settings/web-project-settings.md#logging-configuration) を参照して、ログの設定を追記してください。
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../../../csr/java/common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="web プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew web:build
 ```
 
@@ -89,12 +96,6 @@ Spring Boot の設定は CSR 編と同様です。
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()

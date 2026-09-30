@@ -1,12 +1,17 @@
 import { globalIgnores } from 'eslint/config'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
-import pluginCypress from 'eslint-plugin-cypress/flat'
+import pluginPlaywright from 'eslint-plugin-playwright'
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
+import {
+  adminLayerDependencyRules,
+  codingConventionRules,
+  consumerLayerDependencyRules,
+} from './eslint.project-rules'
 
 configureVueProject({
   // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
@@ -19,8 +24,13 @@ export default defineConfigWithVueTs(
     '**/dist/**',
     '**/dist-ssr/**',
     '**/coverage/**',
-    '**/src/generated/**',
+    '**/src/system-common/generated/**',
     '**/mockServiceWorker.js',
+    '**/test-results/**',
+    '**/blob-report/**',
+    '**/playwright/.cache/**',
+    '**/playwright/.auth/**',
+    '**/playwright-report/**',
   ]),
 
   // Vue.js 向けの推奨ルールを適用します。
@@ -47,33 +57,17 @@ export default defineConfigWithVueTs(
     extends: [tseslint.configs.disableTypeChecked],
   },
 
-  // プロジェクトやワークスペースに固有のルールを適用します。
-  // 必要に応じて対象のファイルやルールを設定します。
-  {
-    name: 'dressca-frontend/additional-rules',
-    files: ['**/*.{vue,ts,mts,tsx}'],
-    rules: {
-      'no-console': 'warn',
-      'no-alert': 'warn',
-      '@typescript-eslint/no-floating-promises': [
-        'error',
-        {
-          // 戻り値の Promise を await 不要とみなすメソッドを例外登録します。
-          allowForKnownSafeCalls: [
-            { from: 'package', name: ['push', 'replace'], package: 'vue-router' },
-          ],
-        },
-      ],
-    },
-  },
+  // コーディング規約に沿わせるためのルールを適用します。
+  ...codingConventionRules,
 
-  // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
+  // consumer / admin プロジェクトのフォルダー間の参照方向を強制します。
+  ...consumerLayerDependencyRules,
+  ...adminLayerDependencyRules,
+
+  // Playwright 用のテストスイートに対して、 Playwright 推奨の Lint ルールを適用します。
   {
-    ...pluginCypress.configs.recommended,
-    files: [
-      '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-      '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-    ],
+    ...pluginPlaywright.configs['flat/recommended'],
+    files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。

@@ -138,8 +138,8 @@ mkdocs でビルドするドキュメントは、 [この規約](/documents/READ
 
 その他のドキュメントは、以下のルールを無効にし、 Lint ツールを実行してください。
 
-- textlint : @textlint-rule/require-header-id
-- markdownlint : CMD001
+- textlint: @textlint-rule/require-header-id
+- markdownlint: CMD001
 
 Lint ツールは、リポジトリのルートディレクトリで、以下のコマンドを利用して実行します。
 

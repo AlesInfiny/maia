@@ -11,7 +11,7 @@ import com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.
 import org.springframework.beans.BeanUtils;
 
 /**
- * カタログ管理の文脈において、テーブルエンティティとエンティティを相互に変換するクラスです。
+ * カタログ管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
  */
 public class CatalogEntityTranslator {
 

@@ -3,6 +3,8 @@ title: 利用規約
 description: AlesInfiny Maia OSS Edition ポータルサイトの利用規約です。
 ---
 
+<!-- cspell:ignore creativecommons -->
+
 # 利用規約 {#top}
 
 ## AlesInfiny Maia OSS Edition の提供物について {#alesinfiny-maia-license}
@@ -18,7 +20,6 @@ AlesInfiny Maia OSS Edition （以下、本サイト）は、以下を提供し�
 ## ライセンス {#license}
 
 ### 定義 {#definitions}
-<!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 
 本利用規約における用語の定義は、以下に記載のあるものを除き、[Apache License, Version 2.0](#apache-license-v2.0) の定義に従います。
 ただし、[クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) の条文は、当該ライセンス内の用語定義に従います。
@@ -37,7 +38,6 @@ AlesInfiny Maia OSS Edition （以下、本サイト）は、以下を提供し�
 
 :   本サイトのドキュメントに直接記載され、 Web ブラウザーを介して読み取ることのできるソースコードを指します。
 
-<!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/sentence-length -->
 ### ライセンスの付与 {#license-grant}
 
 BIPROGY 株式会社およびすべてのコントリビューターは、本サイトの「各種ドキュメント」に [クリエイティブ・コモンズ表示 4.0 国際ライセンス](#cc-by-4.0) のライセンスを付与します。
@@ -468,5 +468,3 @@ Apache License, Version 2.0 の本文を以下に示します。
 本サイトの提供物は、可能な限り正確な情報を掲載するよう努めております。
 しかし、誤情報が入り込んだり、情報が古くなったりすることもあり、必ずしもその内容の正確性および完全性は保証いたしません。
 当該情報に基づいて被ったいかなる損害について、一切責任を負いませんのであらかじめご了承ください。
-
-<!-- cspell:ignore creativecommons -->

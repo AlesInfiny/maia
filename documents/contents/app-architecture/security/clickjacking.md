@@ -35,7 +35,7 @@ AlesInfiny Maia OSS Edition（以降『AlesInfiny Maia』）では、クリッ�
 これにより、 AlesInfiny Maia ではデフォルトで一切の埋め込み表示を許可しないセキュアな構成を実現します。
 以降、各設定項目について説明します。
 
-### Content-Security-Policy : frame-ancestors {#content-security-policy}
+### Content-Security-Policy: frame-ancestors {#content-security-policy}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
@@ -83,7 +83,7 @@ HTTP レスポンスヘッダーに対して [`X-Frame-Options` ヘッダーフ�
 
 !!! note ""
 
-    [こちら :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors){ target=_blank } に記載のとおり、より包括的な設定をする場合には `Content-Security-Policy : frame-ancestors` を使用するよう推奨されています。
+    [こちら :material-open-in-new:](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors){ target=_blank } に記載のとおり、より包括的な設定をする場合には `Content-Security-Policy: frame-ancestors` を使用するよう推奨されています。
 
     > このヘッダーで提供されるオプションよりも包括的な設定については、Content-Security-Policy ヘッダーの frame-ancestors ディレクティブを参照してください。
 
@@ -112,8 +112,8 @@ AlesInfiny Maia では、 [Spring Security :material-open-in-new:](https://sprin
 
 ??? example "`SecurityFilterChain` の HTTP レスポンスヘッダー設定例"
 
-    ```java title="WebSecurityConfig.java"　hl_lines="35-36"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java
+    ```java title="WebSecurityConfig.java" hl_lines="35-36"
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/WebSecurityConfig.java"
     ```
 
 |                       設定                        |                             内容                              |
@@ -150,6 +150,6 @@ AlesInfiny Maia では、 [Spring Security :material-open-in-new:](https://sprin
 | Content-Security-Policy | `frame-ancestors https://example.com;` |
 | X-Frame-Options         | `DENY`                                 |
 
-`X-Frame-Options : ALLOW-FROM` はブラウザー互換性の問題があるため使用せず、 `X-Frame-Options : DENY` に設定します。
+`X-Frame-Options: ALLOW-FROM` はブラウザー互換性の問題があるため使用せず、 `X-Frame-Options: DENY` に設定します。
 これにより、 `Content-Security-Policy` に対応のブラウザーは `frame-ancestors` により埋め込みが許可され、非対応のブラウザーには埋め込みを許さないようになります。
 なお、ワイルドカードによる埋め込み許可は禁止します。

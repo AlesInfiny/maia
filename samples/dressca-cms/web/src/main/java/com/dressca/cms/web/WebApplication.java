@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * アプリケーションの実行クラスです。
  */
-@SpringBootApplication(scanBasePackages = {"com.dressca.cms.web", "com.dressca.cms.announcement",
-    "com.dressca.cms.authentication", "com.dressca.cms.systemcommon"})
+@SpringBootApplication(scanBasePackages = { "com.dressca.cms" })
 public class WebApplication {
 
   /**
