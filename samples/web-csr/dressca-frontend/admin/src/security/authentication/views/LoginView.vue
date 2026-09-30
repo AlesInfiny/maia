@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { validationItems } from '@/security/authentication/validation/validation-items'
 import { loginAsync } from '@/security/authentication/services/authentication-service'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 import { homeRouteNames } from '@/system-common/router/route-names'
 

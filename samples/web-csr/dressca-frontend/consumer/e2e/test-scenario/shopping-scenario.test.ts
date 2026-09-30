@@ -1,4 +1,4 @@
-import { expect, test } from '../fixture/shoppingTestFixture'
+import { expect, test } from '../fixture/shopping-test-fixture'
 
 /*
  * 買い物の業務シナリオを検証します。
