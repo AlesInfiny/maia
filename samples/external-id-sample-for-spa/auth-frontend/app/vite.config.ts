@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, loadEnv, Plugin } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -37,9 +37,9 @@ export default defineConfig(({ mode }) => {
     build: {
       rolldownOptions: {
         input: {
-          main: path.resolve(__dirname, 'index.html'),
-          redirect: path.resolve(__dirname, 'redirect.html'),
-          logoutComplete: path.resolve(__dirname, 'logout-complete.html'),
+          main: path.resolve(import.meta.dirname, 'index.html'),
+          redirect: path.resolve(import.meta.dirname, 'redirect.html'),
+          logoutComplete: path.resolve(import.meta.dirname, 'logout-complete.html'),
         },
       },
     },
