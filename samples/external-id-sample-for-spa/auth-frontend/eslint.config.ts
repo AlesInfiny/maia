@@ -6,6 +6,7 @@ import skipFormatting from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
+import js from '@eslint/js'
 
 configureVueProject({
   // mono-repo 用に、 .vue ファイルを探すルートディレクトリをデフォルト値 `process.cwd()` から変更します。
@@ -21,6 +22,10 @@ export default defineConfigWithVueTs(
     '**/src/generated/**',
     '**/mockServiceWorker.js',
   ]),
+
+  // JavaScript 向けの ESLint 推奨ルールを適用します。
+  // typescript-eslint の推奨ルールと組み合わせるため、 vueTsConfigs よりも前に配置します。
+  js.configs.recommended,
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
