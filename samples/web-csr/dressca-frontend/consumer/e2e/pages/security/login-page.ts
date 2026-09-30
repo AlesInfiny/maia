@@ -1,12 +1,12 @@
 import type { Locator, Page } from '@playwright/test'
-import { BasePage } from '../base/BasePage'
+import { BasePage } from '../base/base-page'
 
 /**
  * ログイン画面のページオブジェクトです。
  */
 export class LoginPage extends BasePage {
-  /** ユーザー名の入力欄です。 */
-  private readonly userNameInput: Locator
+  /** メールアドレスの入力欄です。 */
+  private readonly emailInput: Locator
 
   /** パスワードの入力欄です。 */
   private readonly passwordInput: Locator
@@ -20,7 +20,7 @@ export class LoginPage extends BasePage {
    */
   constructor(page: Page) {
     super(page)
-    this.userNameInput = page.locator('#userName')
+    this.emailInput = page.locator('#email')
     this.passwordInput = page.locator('#password')
     this.loginButton = page.getByRole('button', { name: 'ログイン' })
   }
@@ -33,12 +33,12 @@ export class LoginPage extends BasePage {
   }
 
   /**
-   * ユーザー名とパスワードを入力してログインします。
-   * @param userName ユーザー名。
+   * メールアドレスとパスワードを入力してログインします。
+   * @param email メールアドレス。
    * @param password パスワード。
    */
-  async login(userName: string, password: string): Promise<void> {
-    await this.userNameInput.fill(userName)
+  async login(email: string, password: string): Promise<void> {
+    await this.emailInput.fill(email)
     await this.passwordInput.fill(password)
     await this.loginButton.click()
   }
