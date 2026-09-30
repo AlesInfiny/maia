@@ -1,9 +1,9 @@
 import { test as base } from '@playwright/test'
-import { LoginPage } from '../pages/security/LoginPage'
-import { BasketPage } from '../pages/shopping/BasketPage'
-import { CheckoutPage } from '../pages/shopping/CheckoutPage'
-import { DisplayItemPage } from '../pages/shopping/DisplayItemPage'
-import { DonePage } from '../pages/shopping/DonePage'
+import { LoginPage } from '../pages/security/login-page'
+import { BasketPage } from '../pages/shopping/basket-page'
+import { CheckoutPage } from '../pages/shopping/checkout-page'
+import { DisplayItemPage } from '../pages/shopping/display-item-page'
+import { DonePage } from '../pages/shopping/done-page'
 
 /**
  * 買い物のテストシナリオで使用するページオブジェクトです。

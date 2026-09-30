@@ -28,6 +28,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -352,9 +353,11 @@ public class AnnouncementApplicationServiceTest {
     announcement.setContents(List.of(invalidContent));
     String username = "dummyUser";
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
+    // Act
+    Executable action = () -> service.addAnnouncementAndHistory(announcement, username);
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
     verify(announcementRepository, times(0)).add(any());
     verify(announcementHistoryRepository, times(0)).add(any());
   }
@@ -384,9 +387,11 @@ public class AnnouncementApplicationServiceTest {
         OffsetDateTime.now(), null, 1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
     String username = "dummyUser";
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
+    // Act
+    Executable action = () -> service.addAnnouncementAndHistory(announcement, username);
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
   }
 
   @Test
@@ -397,9 +402,11 @@ public class AnnouncementApplicationServiceTest {
             OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
     String username = "dummyUser";
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
+    // Act
+    Executable action = () -> service.addAnnouncementAndHistory(announcement, username);
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
   }
 
   @Test
@@ -411,9 +418,12 @@ public class AnnouncementApplicationServiceTest {
     announcement.setContents(List.of(jaContent1, jaContent2));
     String username = "dummyUser";
 
-    // Act & Assert
-    AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
+    // Act
+    Executable action = () -> service.addAnnouncementAndHistory(announcement, username);
+
+    // Assert
+    AnnouncementValidationException exception =
+        assertThrows(AnnouncementValidationException.class, action);
     assertThat(exception.getValidationErrors()).hasSize(1);
   }
 
@@ -461,9 +471,12 @@ public class AnnouncementApplicationServiceTest {
     announcement.setContents(List.of(invalidContent1, invalidContent2));
     String username = "dummyUser";
 
-    // Act & Assert
-    AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
-        () -> service.addAnnouncementAndHistory(announcement, username));
+    // Act
+    Executable action = () -> service.addAnnouncementAndHistory(announcement, username);
+
+    // Assert
+    AnnouncementValidationException exception =
+        assertThrows(AnnouncementValidationException.class, action);
     assertThat(exception.getValidationErrors()).hasSize(2);
   }
 
@@ -502,9 +515,11 @@ public class AnnouncementApplicationServiceTest {
     UUID announcementId = UuidGenerator.generate();
     when(announcementRepository.findByIdWithContents(announcementId)).thenReturn(Optional.empty());
 
-    // Act & Assert
-    assertThrows(AnnouncementNotFoundException.class,
-        () -> service.getAnnouncementAndHistoriesById(announcementId));
+    // Act
+    Executable action = () -> service.getAnnouncementAndHistoriesById(announcementId);
+
+    // Assert
+    assertThrows(AnnouncementNotFoundException.class, action);
     verify(announcementRepository, times(1)).findByIdWithContents(announcementId);
     verify(announcementHistoryRepository, times(0)).findByAnnouncementIdWithContents(any());
   }
@@ -598,9 +613,11 @@ public class AnnouncementApplicationServiceTest {
     Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
         1, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(invalidContent));
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "dummyUser"));
+    // Act
+    Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
     verify(announcementRepository, times(0)).update(any());
     verify(announcementHistoryRepository, times(0)).add(any());
   }
@@ -612,9 +629,11 @@ public class AnnouncementApplicationServiceTest {
     Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
         1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "dummyUser"));
+    // Act
+    Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -625,9 +644,11 @@ public class AnnouncementApplicationServiceTest {
     Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
         1, OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
 
-    // Act & Assert
-    assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "dummyUser"));
+    // Act
+    Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
+
+    // Assert
+    assertThrows(AnnouncementValidationException.class, action);
     verify(announcementRepository, times(0)).update(any());
   }
 
@@ -639,9 +660,12 @@ public class AnnouncementApplicationServiceTest {
     AnnouncementContent jaContent2 = createContent(announcement.getId(), "ja");
     announcement.setContents(List.of(jaContent1, jaContent2));
 
-    // Act & Assert
-    AnnouncementValidationException exception = assertThrows(AnnouncementValidationException.class,
-        () -> service.updateAnnouncement(announcement, "dummyUser"));
+    // Act
+    Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
+
+    // Assert
+    AnnouncementValidationException exception =
+        assertThrows(AnnouncementValidationException.class, action);
     assertThat(exception.getValidationErrors()).hasSize(1);
     verify(announcementRepository, times(0)).update(any());
   }
@@ -757,9 +781,11 @@ public class AnnouncementApplicationServiceTest {
     String username = "dummyUser";
     when(announcementRepository.delete(nonExistentId)).thenReturn(Optional.empty());
 
-    // Act & Assert
-    assertThrows(AnnouncementNotFoundException.class,
-        () -> service.deleteAnnouncementAndRecordHistory(nonExistentId, username));
+    // Act
+    Executable action = () -> service.deleteAnnouncementAndRecordHistory(nonExistentId, username);
+
+    // Assert
+    assertThrows(AnnouncementNotFoundException.class, action);
     verify(announcementRepository, times(1)).delete(nonExistentId);
     verify(announcementRepository, times(0)).findByIdWithContents(any());
     verify(announcementHistoryRepository, times(0)).add(any());

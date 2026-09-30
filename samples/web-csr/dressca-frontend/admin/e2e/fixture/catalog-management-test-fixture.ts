@@ -1,8 +1,8 @@
 import { test as base } from '@playwright/test'
-import { ItemsAddPage } from '../pages/catalog-management/ItemsAddPage'
-import { ItemsPage } from '../pages/catalog-management/ItemsPage'
-import { LoginPage } from '../pages/security/LoginPage'
-import { HomePage } from '../pages/system-common/HomePage'
+import { ItemsAddPage } from '../pages/catalog-management/items-add-page'
+import { ItemsPage } from '../pages/catalog-management/items-page'
+import { LoginPage } from '../pages/security/login-page'
+import { HomePage } from '../pages/system-common/home-page'
 
 /**
  * カタログ管理のテストシナリオで使用するページオブジェクトです。

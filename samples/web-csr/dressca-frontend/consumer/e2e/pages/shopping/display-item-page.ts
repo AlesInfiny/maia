@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test'
-import { BasePage } from '../base/BasePage'
+import { BasePage } from '../base/base-page'
 
 /**
  * 陳列品一覧画面のページオブジェクトです。

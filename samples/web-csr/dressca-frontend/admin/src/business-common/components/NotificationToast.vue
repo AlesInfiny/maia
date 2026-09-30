@@ -2,7 +2,7 @@
 import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { watch } from 'vue'
 import { useEventBus } from '@vueuse/core'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { unhandledErrorEventKey } from '@/system-common/events'
 
 /**
