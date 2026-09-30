@@ -18,6 +18,7 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 - `springdoc-openapi-starter-webmvc-ui`: Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 - `h2`: テストやローカル実行で利用する組み込みの H2 データベース
 - `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのスターター
+- `archunit-junit5`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 5 の連携ライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
@@ -30,6 +31,7 @@ dependencies {
   implementation 'com.h2database:h2'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+  testImplementation 'com.tngtech.archunit:archunit-junit5:x.x.x'
 }
 ```
 
@@ -115,6 +117,25 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
     ```
+
+## application-modules の内部パッケージへの依存を禁止するテストの追加 {#add-architecture-test}
+
+application-modules のモジュールでは、他のプロジェクトに公開しない型を `internal` パッケージ以下に配置します。
+web プロジェクトがこれらの型に依存しないことを保証するための ArchUnit を使ったテストを追加します。
+
+`web/src/test/java` 以下に、 web プロジェクトのパッケージに合わせて `ArchitectureTest.java` を配置します。
+
+```text
+web/
+ └ src/test/java/com/example/web
+   └ ArchitectureTest.java
+```
+
+テストでは `#!java @AnalyzeClasses` に web プロジェクトのパッケージを指定し、 `#!java @ArchTest` で application-modules の `internal` パッケージへの依存を禁止します。
+
+```java title="web プロジェクトのアーキテクチャを検証するテストの実装例"
+--8<-- "samples/web-csr/dressca-backend/web/src/test/java/com/dressca/web/ArchitectureTest.java"
+```
 
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
 

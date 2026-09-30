@@ -102,6 +102,10 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
         Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
         Unit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
 
+    - [ArchUnit :material-open-in-new:](https://www.archunit.org/){ target=_blank }
+
+        Java コードのアーキテクチャルールをテストで検証するためのライブラリです。
+
     - [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/index.html){ target=_blank }
 
         Apache Log4j 2 は Java のロギングフレームワークです。
