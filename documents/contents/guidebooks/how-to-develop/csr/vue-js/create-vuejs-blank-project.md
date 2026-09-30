@@ -94,8 +94,8 @@ T  Vue.js - The Progressive JavaScript Framework
 —
 
 *  Select an End-to-End testing framework: (↑/↓ to navigate, enter to confirm)
-|    Playwright
-|  > Cypress (https://www.cypress.io/)
+|  > Playwright (https://playwright.dev/)
+|    Cypress
 |    Nightwatch
 —
 ```

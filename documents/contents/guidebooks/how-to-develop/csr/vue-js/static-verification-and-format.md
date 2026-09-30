@@ -171,17 +171,14 @@ configureVueProject({
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
 
-```typescript hl_lines="3 8-9"
+```typescript hl_lines="3 7"
 {
   ...pluginVitest.configs.recommended,
   files: ['**/src/**/__tests__/**/*'],
 },
 {
-  ...pluginCypress.configs.recommended,
-  files: [
-    '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-    '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-  ],
+  ...pluginPlaywright.configs['flat/recommended'],
+  files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
 },
 ```
 
