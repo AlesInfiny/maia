@@ -29,6 +29,10 @@ dependencies {
 }
 ```
 
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [ArchUnit JUnit 5 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit5){ target=_blank }
+
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
 batch プロジェクトは application-modules 、 system-common を参照しています。
@@ -119,11 +123,17 @@ batch/
    └ ArchitectureTest.java
 ```
 
-テストでは `#!java @AnalyzeClasses` に batch プロジェクトのパッケージを指定し、 `#!java @ArchTest` で application-modules の `internal` パッケージへの依存を禁止します。
+ArchUnit のテストでは、 `#!java @AnalyzeClasses` でテスト対象のパッケージを指定します。
+テストメソッドとして `#!java @ArchTest` を付与したメソッドを定義し、その中に守るべきルールを記載します。
+今回は internal 配下に依存しないことがルールです。
 
-```java title="batch プロジェクトのアーキテクチャを検証するテストの実装例"
---8<-- "samples/web-csr/dressca-backend/batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
-```
+サンプルアプリケーションにおける実装例は以下の通りです。
+
+??? example "サンプルアプリケーションの ArchitectureTest.java"
+
+    ```java title="batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    --8<-- "samples/web-csr/dressca-backend/batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    ```
 
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
 
