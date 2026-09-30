@@ -2,9 +2,9 @@ package com.dressca.web.consumer;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
+import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchRule;
 
 /**
  * 利用者アプリケーションのアーキテクチャを検証するテストです。
@@ -14,8 +14,8 @@ import com.tngtech.archunit.lang.ArchRule;
 class ArchitectureTest {
 
   @ArchTest
-  static final ArchRule shouldNotDependOnApplicationModulesInternalPackages = noClasses().should()
-      .dependOnClassesThat().resideInAPackage("com.dressca.applicationmodules..internal..")
-      .as("プレゼンテーション層が application-modules の internal パッケージに依存していないこと")
-      .because("プレゼンテーション層は application-modules の internal パッケージに依存してはいけないため");
+  static void プレゼンテーション層はアプリケーションモジュールの内部パッケージに依存してはいけない(JavaClasses classes) {
+    noClasses().should().dependOnClassesThat()
+        .resideInAPackage("com.dressca.applicationmodules..internal..").check(classes);
+  }
 }
