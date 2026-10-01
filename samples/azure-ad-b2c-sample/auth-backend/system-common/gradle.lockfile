@@ -1,6 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
+# To regenerate this file, run: ./gradlew :system-common:dependencies --write-locks
 biz.aQute.bnd:biz.aQute.bnd.annotation:7.1.0=compileClasspath,testCompileClasspath
 com.github.spotbugs:spotbugs-annotations:4.10.3=compileClasspath,spotbugs,testCompileClasspath
 com.github.spotbugs:spotbugs:4.10.3=spotbugs
