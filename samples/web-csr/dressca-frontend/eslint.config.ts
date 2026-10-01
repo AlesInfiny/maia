@@ -1,12 +1,13 @@
 import { globalIgnores } from 'eslint/config'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
-import pluginCypress from 'eslint-plugin-cypress/flat'
+import pluginPlaywright from 'eslint-plugin-playwright'
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 import jsdoc from 'eslint-plugin-jsdoc'
+import js from '@eslint/js'
 import {
   adminLayerDependencyRules,
   codingConventionRules,
@@ -26,7 +27,16 @@ export default defineConfigWithVueTs(
     '**/coverage/**',
     '**/src/system-common/generated/**',
     '**/mockServiceWorker.js',
+    '**/test-results/**',
+    '**/blob-report/**',
+    '**/playwright/.cache/**',
+    '**/playwright/.auth/**',
+    '**/playwright-report/**',
   ]),
+
+  // JavaScript 向けの ESLint 推奨ルールを適用します。
+  // typescript-eslint の推奨ルールと組み合わせるため、 vueTsConfigs よりも前に配置します。
+  js.configs.recommended,
 
   // Vue.js 向けの推奨ルールを適用します。
   // .vue ファイルを Lint の対象とします。
@@ -59,13 +69,10 @@ export default defineConfigWithVueTs(
   ...consumerLayerDependencyRules,
   ...adminLayerDependencyRules,
 
-  // Cypress 用のテストスイートに対して、Cypress 推奨の Lint ルールを適用します。
+  // Playwright 用のテストスイートに対して、 Playwright 推奨の Lint ルールを適用します。
   {
-    ...pluginCypress.configs.recommended,
-    files: [
-      '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-      '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-    ],
+    ...pluginPlaywright.configs['flat/recommended'],
+    files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。

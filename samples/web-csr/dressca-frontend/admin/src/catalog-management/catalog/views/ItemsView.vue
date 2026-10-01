@@ -5,9 +5,9 @@ import {
   fetchCategoriesAndBrands,
   fetchItems,
 } from '@/catalog-management/catalog/services/catalog-service'
-import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/business-common/helpers/assetHelper'
-import { showToast } from '@/business-common/services/notificationService'
+import { currencyHelper } from '@/system-common/helpers/currency-helper'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
+import { showToast } from '@/business-common/services/notification-service'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import type {
   GetCatalogBrandsResponse,
