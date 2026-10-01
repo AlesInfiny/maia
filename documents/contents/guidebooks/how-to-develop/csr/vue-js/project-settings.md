@@ -179,7 +179,7 @@ npm run build
         設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
         ```typescript title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
-        --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts:31:36"
+        --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts:32:37"
         ```
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。
