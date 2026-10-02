@@ -74,7 +74,7 @@ Copyright (c) Abdelrahman Awad logaretm1@gmail.com
 
 ![Pinia Logo](../images/about-maia/pinia-logo.svg){ align="left" width="96" }
 
-[MIT LICENSE :material-open-in-new:](https://github.com/vuejs/pinia/blob/v4/LICENSE){ target=_blank }
+[MIT LICENSE :material-open-in-new:](https://github.com/vuejs/pinia/blob/HEAD/LICENSE){ target=_blank }
 
 Copyright (c) 2019-present Eduardo San Martin Morote
 
