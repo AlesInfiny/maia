@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, loadEnv, Plugin } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -9,20 +9,21 @@ import tailwindcss from '@tailwindcss/vite'
 
 /**
  * Mock Service Worker のワーカースクリプトを削除するプラグインです。
- * 本番ビルド時にワーカースクリプトを削除するために使用します。
+ * 本番ビルド時にビルド成果物からワーカースクリプトを削除するために使用します。
  * @returns Vite のプラグイン
  */
 function excludeMsw(): Plugin {
   return {
     name: 'exclude-msw',
-    resolveId: (source) => {
-      return source === 'virtual-module' ? source : null
-    },
-    renderStart() {
-      const outDir = './public'
-      const msWorker = path.resolve(outDir, 'mockServiceWorker.js')
+    apply: 'build',
+    writeBundle(outputOptions) {
+      if (!outputOptions.dir) {
+        return
+      }
+      const msWorker = path.resolve(outputOptions.dir, 'mockServiceWorker.js')
+      fs.rmSync(msWorker, { force: true })
       // eslint-disable-next-line no-console
-      fs.rm(msWorker, () => console.log(`Deleted ${msWorker}`))
+      console.log(`Deleted ${msWorker}`)
     },
   }
 }
