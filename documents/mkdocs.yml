@@ -48,8 +48,8 @@ nav:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
-              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - プレゼンテーション層: app-architecture/client-side-rendering/backend-application/presentation.md
+              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - インフラストラクチャ層: app-architecture/client-side-rendering/backend-application/infrastructure.md
           - テスト方針:
               - app-architecture/client-side-rendering/test/index.md
