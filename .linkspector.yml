@@ -1,5 +1,4 @@
 ---
-# cspell:ignore KHTML linkspector
 # Linkspector の設定ファイル
 # https://github.com/UmbrellaDocs/linkspector
 dirs:
@@ -26,6 +25,5 @@ replacementPatterns:
 # 403 はボット対策によって一時的に返されることが多く、リンク切れを意味しないため正常として扱う。
 aliveStatusCodes:
   - 403
-userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 timeout: 30000
 retryCount: 3
