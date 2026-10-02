@@ -50,6 +50,7 @@
     "JaCoCo",
     "JDBC",
     "linenums",
+    "linkspector",
     "Logback",
     "mkdocs",
     "Mockito",

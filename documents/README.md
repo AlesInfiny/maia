@@ -424,6 +424,21 @@ npm run lint:markdownlint-all
 npm run lint:textlint-all
 ```
 
+### リンク切れの検証
+
+[Linkspector](https://github.com/UmbrellaDocs/linkspector) を用いて、リポジトリ内の Markdown ファイルのリンク切れを検証できます。
+ルートディレクトリで以下のコマンドを実行してください。
+
+```shell
+npm run check:links
+```
+
+検証の設定は [.linkspector.yml] ファイルで管理しています。
+
+リンクチェックは CI でも実行され、リンク切れを検出すると CI が失敗します。
+main ブランチ以外向けの Pull Request では、変更したファイルのみを検証します。
+ファイルの移動や名前の変更をした場合は、他のファイルからのリンクが切れていないか、ローカルでも確認してください。
+
 ## ドキュメント執筆環境の構築方法
 
 ### Visual Studio Code のインストール

@@ -1,5 +1,5 @@
 ---
-# cspell:ignore endgroup fjogeleit markdownlint linkspector nofilter softprops textlintignore textlintrc webapps yamlignore
+# cspell:ignore endgroup fjogeleit markdownlint nofilter softprops textlintignore textlintrc webapps yamlignore
 name: ドキュメントのビルド (CI用)
 
 permissions:
