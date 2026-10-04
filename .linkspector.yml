@@ -7,7 +7,7 @@ files:
   - .github/CONTRIBUTING.md
 useGitIgnore: true
 ignorePatterns:
-  # ページ内アンカーは MkDocs のビルド（validation.anchors）で検証する。
+  # ページ内アンカーは MkDocs のビルド（validation.anchors）と markdownlint（MD051）で検証する。
   - pattern: '^#'
   # ローカル開発環境の URL はチェック対象外とする。
   - pattern: '^https?://localhost'
