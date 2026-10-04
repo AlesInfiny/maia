@@ -433,7 +433,7 @@ npm run lint:textlint-all
 npm run check:links
 ```
 
-検証の設定は [.linkspector.yml] ファイルで管理しています。
+検証の設定は [.linkspector.yml](../.linkspector.yml) ファイルで管理しています。
 
 リンクチェックは CI でも実行され、リンク切れを検出すると CI が失敗します。
 main ブランチ以外向けの Pull Request では、変更したファイルのみを検証します。
