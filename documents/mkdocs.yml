@@ -72,8 +72,8 @@ nav:
               - app-architecture/server-side-rendering/frontend/index.md
           - バックエンドのアーキテクチャ:
               - app-architecture/server-side-rendering/backend/index.md
-              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
