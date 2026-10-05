@@ -25,9 +25,27 @@ export const codingConventionRules: Linter.Config[] = [
 ]
 
 /**
+ * app 層以外での動的インポート（ `import()` ）を禁止するルールです。
+ * 画面を動的インポートするのは app 層のルート表だけです。
+ * 動的インポートは no-restricted-imports の検査の対象外のため、参照方向のルールを迂回できないようにします。
+ */
+const dynamicImportRestriction: Linter.RulesRecord = {
+  'no-restricted-syntax': [
+    'error',
+    {
+      selector: 'ImportExpression',
+      message:
+        '動的インポートは app 層だけで使用できます。画面の遅延読み込みはルート表で定義します。',
+    },
+  ],
+}
+
+/**
  * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
- *   pages（src/pages。 App.vue / main.ts と同じ最上位層）
+ *   app 層（main.ts 、 App.vue 、 src/app）
+ *         ↓
+ *   pages（src/pages）
  *         ↓
  *   コンテキスト
  *         ↓
@@ -36,10 +54,9 @@ export const codingConventionRules: Linter.Config[] = [
  *   システム共通（system-common）
  *
  * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
- * App.vue 、 main.ts 、ルーティング定義は全経路を許可する例外です。
- * ルーティング定義の例外が層全体へ広がらないよう、system-common の他のコードからは
- * 集約モジュール（route-names.ts）を参照できないようにします。
- * pages はどの層からも参照されない最上位層のため、例外なく全レイヤーからの参照を禁止します。
+ * app 層は最上位の層のため、参照の制限を設けません。
+ * pages から app 層への参照は、ルート名の定数（ `@/app/router/route-names` ）だけを例外として許可します。
+ * pages のテストは、画面を遷移させるためにルーター（ `@/app/router` ）も参照できます。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
  *   `@/` エイリアスのパターン。
@@ -56,33 +73,39 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
     return [pattern, `!@/${contextFolder}/public-api`]
   })
+  const pagesFileGlob = `**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`
+  // `__tests__/**/*.{vue,ts}` の形は、 pages 直下のフォルダーのテスト（ pages/basket/__tests__ など）に一致しないため、
+  // `__tests__/**` の形で指定します。
+  const pagesTestFileGlob = `**/${workspace}/src/pages/**/__tests__/**`
+  const pagesContextRestriction = {
+    group: contextPatternsExceptPublicApi,
+    message:
+      'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
+  }
+  // app 層のうちルーター（ @/app/router ）とルート名の定数だけを除外します。
+  // gitignore 形式では親のフォルダーを除外しないと配下のファイルを除外できないため、 @/app/router も除外します。
+  const appPatternsExceptRouter = ['@/app/**', '!@/app/router', '!@/app/router/route-names']
+  const pagesAppMessage =
+    'pages から参照できる app 層のモジュールは、ルート名の定数（ @/app/router/route-names ）だけです。'
 
   return [
     {
       name: `${workspace}/layer-dependency/system-common`,
       files: [`**/${workspace}/src/system-common/**/*.{vue,ts,mts,tsx}`],
-      ignores: [
-        `**/${workspace}/src/system-common/router/index.ts`,
-        `**/${workspace}/src/system-common/router/route-names.ts`,
-      ],
       rules: {
         'no-restricted-imports': [
           'error',
           {
             patterns: [
               {
-                group: ['@/business-common/**', '@/pages/**', ...contextPatterns],
+                group: ['@/app/**', '@/business-common/**', '@/pages/**', ...contextPatterns],
                 message:
-                  'system-common は業務知識を持たない層です。business-common や pages 、コンテキストを参照できません。',
-              },
-              {
-                group: ['@/system-common/router/route-names'],
-                message:
-                  'ルート名の集約モジュールは全コンテキストを参照します。ルーティング定義以外の system-common のコードからは参照できません。',
+                  'system-common は業務知識を持たない層です。 app 層、 business-common 、 pages 、コンテキストを参照できません。',
               },
             ],
           },
         ],
+        ...dynamicImportRestriction,
       },
     },
     {
@@ -94,12 +117,13 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
           {
             patterns: [
               {
-                group: ['@/pages/**', ...contextPatterns],
-                message: 'business-common は pages やコンテキストを参照できません。',
+                group: ['@/app/**', '@/pages/**', ...contextPatterns],
+                message: 'business-common は app 層、 pages 、コンテキストを参照できません。',
               },
             ],
           },
         ],
+        ...dynamicImportRestriction,
       },
     },
     {
@@ -111,31 +135,52 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
           {
             patterns: [
               {
-                group: ['@/pages/**'],
+                group: ['@/app/**', '@/pages/**'],
                 message:
-                  'コンテキストは pages を参照できません。pages はコンテキストより上位の層です。',
+                  'コンテキストは app 層と pages を参照できません。 app 層と pages はコンテキストより上位の層です。',
               },
             ],
           },
         ],
+        ...dynamicImportRestriction,
       },
     },
     {
       name: `${workspace}/layer-dependency/pages`,
-      files: [`**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`],
+      files: [pagesFileGlob],
+      ignores: [pagesTestFileGlob],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [{ name: '@/app/router', message: pagesAppMessage }],
+            patterns: [
+              pagesContextRestriction,
+              { group: appPatternsExceptRouter, message: pagesAppMessage },
+            ],
+          },
+        ],
+        ...dynamicImportRestriction,
+      },
+    },
+    {
+      name: `${workspace}/layer-dependency/pages-test`,
+      files: [pagesTestFileGlob],
       rules: {
         'no-restricted-imports': [
           'error',
           {
             patterns: [
+              pagesContextRestriction,
               {
-                group: contextPatternsExceptPublicApi,
+                group: appPatternsExceptRouter,
                 message:
-                  'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
+                  'pages のテストから参照できる app 層のモジュールは、ルーター（ @/app/router ）とルート名の定数（ @/app/router/route-names ）だけです。',
               },
             ],
           },
         ],
+        ...dynamicImportRestriction,
       },
     },
   ]
