@@ -19,7 +19,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）を構成する OSS 
 ### モジュラーモノリスアーキテクチャ {#modular-monolith}
 
 AlesInfiny Maia のアプリケーションアーキテクチャは、境界付けられたコンテキストの単位でアプリケーションを分割するモジュラーモノリスアーキテクチャを採用しています。
-この分割単位となる区画を、本ドキュメントでは「アプリケーションモジュール」と呼びます。
+Spring Modulith では、このような分割単位を [アプリケーションモジュール :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/fundamentals.html){ target=_blank } と呼びます。
 各アプリケーションモジュールの内部には、コンテキストごとにアプリケーションコア層とインフラストラクチャ層を配置し、クリーンアーキテクチャの考え方に基づいて構成します。
 プレゼンテーション層はアプリケーションモジュールの外側に、独立したサブプロジェクトとして配置します。
 アーキテクチャの全体概要は以下の通りです。
