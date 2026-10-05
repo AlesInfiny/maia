@@ -106,9 +106,11 @@ npm run format
 
 Prettier が設定ファイルを認識し、フォーマット処理が正常に実行できることを確認してください。
 
-## ESLint {#eslint}
+## リンター {#eslint}
 
+本ガイドでは、リンターとして ESLint を使用します。
 ESLint および ESLint の実行に必要なパッケージは、 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+create-vue によって同時にインストールされる Oxlint は使用しないため、[Oxlint の除去](./create-vuejs-blank-project.md#remove-oxlint) の手順に従って除去してください。
 
 ### ESLint の設定 {#settings-eslint}
 
@@ -412,7 +414,7 @@ ESLint および Stylelint のオプション引数に `--fix` を、 Prettier �
 一方で、 `:ci` を付与したタスクではこれらのオプションを使用していないため、自動的に修正可能なルール違反であっても修正は実行されません。
 
 ```json title="サンプルアプリケーションの package.json"
---8<-- "samples/web-csr/dressca-frontend/consumer/package.json:18:25"
+--8<-- "samples/web-csr/dressca-frontend/consumer/package.json:17:24"
 ```
 
 ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。
