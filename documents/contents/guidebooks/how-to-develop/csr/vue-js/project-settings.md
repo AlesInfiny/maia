@@ -50,7 +50,9 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "tsconfig.json の設定例"
 
-    ```json title="サンプルアプリケーション の tsconfig.json"
+    E2E テストのコードを型チェックの対象にするため、`references` キーに E2E テスト用の e2e/tsconfig.json を追加しています。
+
+    ```json title="サンプルアプリケーション の tsconfig.json" hl_lines="13-15"
     --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.json"
     ```
 
@@ -66,7 +68,10 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "tsconfig.node.json の設定例"
 
-    ```json title="サンプルアプリケーション の tsconfig.node.json"
+    E2E テストには Playwright を使用するので、 `include` キーから cypress.config.\* を削除しています。
+    また、 eslint.config.\* は [静的コード分析とフォーマット](./static-verification-and-format.md#mono-repo-config) の手順でルートプロジェクトに移動するため、 `include` キーから削除しています。
+
+    ```json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
     --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.node.json"
     ```
 
