@@ -122,6 +122,9 @@ E2E テストのフレームワークには Playwright を選択します。
 └
 ```
 
+サンプルコードの生成をスキップするか選択します。
+どちらを選択しても構いませんが、本ページ以降のガイドでは、 No を選択しサンプルコードを生成したことを前提として説明します。
+
 ```text
 ◆  Skip all example code and start with a blank Vue project?
 │  ○ Yes / ● No
