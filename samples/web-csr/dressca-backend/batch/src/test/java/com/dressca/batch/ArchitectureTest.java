@@ -14,7 +14,7 @@ import com.tngtech.archunit.junit.ArchTest;
 class ArchitectureTest {
 
   @ArchTest
-  static void プレゼンテーション層はアプリケーションモジュールの内部パッケージに依存してはいけない(JavaClasses classes) {
+  static void バッチ層はアプリケーションモジュールの内部パッケージに依存してはいけない(JavaClasses classes) {
     noClasses().should().dependOnClassesThat()
         .resideInAPackage("com.dressca.applicationmodules..internal..").check(classes);
   }
