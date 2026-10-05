@@ -1,6 +1,6 @@
 ---
-title: 概要編
-description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
+title: Java アプリケーションの 処理方式
+description: アプリケーションの形態によらず、 Java アプリケーションで 考慮すべき関心事について、実装方針を説明します。
 ---
 
 # トランザクション管理方針 {#top}

@@ -8,13 +8,13 @@ import {
   CarouselSlider,
   basketRouteNames,
 } from '@/shopping/public-api'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { storeToRefs } from 'pinia'
 import { useDisplayItemStore } from '@/business-common/stores/display-item'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
-import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/business-common/helpers/assetHelper'
+import { currencyHelper } from '@/system-common/helpers/currency-helper'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'

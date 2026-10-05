@@ -112,7 +112,8 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             patterns: [
               {
                 group: ['@/pages/**'],
-                message: 'コンテキストは pages を参照できません。pages はコンテキストより上位の層です。',
+                message:
+                  'コンテキストは pages を参照できません。pages はコンテキストより上位の層です。',
               },
             ],
           },
@@ -152,7 +153,6 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
  * admin のフォルダー間の参照方向を強制するルールです。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
-  '@/assets-management/**',
   '@/catalog-management/**',
   '@/security/**',
 ])

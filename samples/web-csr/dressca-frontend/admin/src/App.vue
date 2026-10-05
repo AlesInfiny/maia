@@ -6,7 +6,7 @@ import { router as importedRouter } from '@/system-common/router'
 import { ref } from 'vue'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { useEventBus } from '@vueuse/core'
-import { showToast as showToastByService } from '@/business-common/services/notificationService'
+import { showToast as showToastByService } from '@/business-common/services/notification-service'
 import { unauthorizedErrorEventKey } from '@/system-common/events'
 import {
   authenticationRouteNames,

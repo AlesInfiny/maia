@@ -6,7 +6,6 @@ This repo (`dressca-frontend`) is an npm workspaces monorepo with two frontend a
 
 - **admin**
   - [Catalog Management](./admin/src/catalog-management/CONTEXT.md) — catalog item management for store operators
-  - [Assets Management](./admin/src/assets-management/CONTEXT.md) — management of media assets (e.g. item images)
   - [Security](./admin/src/security/CONTEXT.md) — authentication/authorization for admin operators
 - **consumer**
   - [Shopping](./consumer/src/shopping/CONTEXT.md) — end-customer browsing, basket, and ordering
@@ -16,7 +15,6 @@ This repo (`dressca-frontend`) is an npm workspaces monorepo with two frontend a
 
 ## Relationships
 
-- **admin: Catalog Management → Assets Management**: Catalog Management views resolve item images via Assets Management's asset helper.
 - **consumer: Shopping (ordering) → Shopping (basket)**: within the Shopping context, the ordering domain reads the basket domain's state (same context, cross-domain — not a cross-context dependency).
 
 ## System-wide Language

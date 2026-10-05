@@ -9,7 +9,7 @@ import {
   catalogRouteNames,
   NotificationModal,
 } from '@/catalog-management/public-api'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import type {

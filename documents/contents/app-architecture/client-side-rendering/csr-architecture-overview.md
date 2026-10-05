@@ -72,7 +72,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
           Vite 環境で動作する高速なテスティングフレームワークです。
 
-    - [Cypress :material-open-in-new:](https://www.cypress.io/){ target=_blank }
+    - [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
 
           E2E テストツールです。
 
@@ -87,6 +87,10 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
     
         Spring Framework をベースとするアプリケーション開発を効率的に行うためのフレームワークです。
         Spring Framework の課題である煩雑な Bean 定義や設定ファイルを可能な限り自動設定したり、実装するコード量を軽減するアノテーションを提供します。
+
+    - [Spring Modulith :material-open-in-new:](https://spring.pleiades.io/spring-modulith/reference/){ target=_blank }
+
+        Spring Boot アプリケーションのモジュール構造を明示し、モジュール間の依存関係を検証するためのフレームワークです。
 
     - [Spring MVC :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/web/webmvc.html){ target=_blank }
 
@@ -135,6 +139,25 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
 
 クライアントサイドレンダリング方式の Web アプリケーションにおける、各層とそれを構成するコンポーネントの役割について、それぞれ説明します。
 
+### プレゼンテーション層 {#presentation}
+
+プレゼンテーション層は、主にシステムの利用者とのやり取りを担う層です。
+画面を構成するフロントエンドアプリケーションと、バックエンドアプリケーションのインターフェースとなる Web API を配置します。
+
+- コントローラー
+
+    コントローラーは Spring MVC のコントローラーに対応し、各 Web API の定義と実装を担います。
+    業務処理であるアプリケーションサービスを呼び出し、その結果からレスポンスデータを生成します。
+
+- API モデル
+
+    Web API のリクエスト／レスポンスの形式を定義するクラスです。
+    コントローラーが受け取る引数やレスポンスの型を Java のクラスで表現します。
+
+- ビュー
+
+    ビューは Vue.js の JavaScript アプリケーションとして実装します。
+
 ### アプリケーションコア層 {#application-core}
 
 アプリケーションコア層は、システムの中核となる業務処理を実装する業務中心の層です。
@@ -171,25 +194,6 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
     アプリケーションコア層のリポジトリはインターフェースであり、インフラストラクチャ層のリポジトリで実装されます。
     依存関係逆転の法則に従い、アプリケーションコア層の実装がインフラストラクチャ層に依存しないようするためのインターフェースです。
 
-### プレゼンテーション層 {#presentation}
-
-プレゼンテーション層は、主にシステムの利用者とのやり取りを担う層です。
-画面を構成するフロントエンドアプリケーションと、バックエンドアプリケーションのインターフェースとなる Web API を配置します。
-
-- コントローラー
-
-    コントローラーは Spring MVC のコントローラーに対応し、各 Web API の定義と実装を担います。
-    業務処理であるアプリケーションサービスを呼び出し、その結果からレスポンスデータを生成します。
-
-- API モデル
-
-    Web API のリクエスト／レスポンスの形式を定義するクラスです。
-    コントローラーが受け取る引数やレスポンスの型を Java のクラスで表現します。
-
-- ビュー
-
-    ビューは Vue.js の JavaScript アプリケーションとして実装します。
-
 ### インフラストラクチャ層 {#infrastructure}
 
 インフラストラクチャ層は、データベースを中心とする外部リソースにアクセスする処理を実現する層です。
@@ -204,25 +208,6 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
 - テーブルエンティティ
 
     テーブルエンティティはデータベースのテーブルに対応するデータ構造を表現するクラスです。
+    <!-- textlint-disable @textlint-ja/no-synonyms -->
     1 つのテーブルエンティティオブジェクトがテーブルの 1 レコードに対応します。
-
-### プロジェクト構成と各層とのマッピング {#project-layer-mapping}
-
-AlesInfiny Maia では Java のプロジェクト構成として、複数のサブプロジェクトに分割し、それらをルートプロジェクトでまとめて管理するマルチプロジェクト構成を採用します。
-サブプロジェクトの分割については、これまでに説明したアプリケーションコア層、プレゼンテーション層、インフラストラクチャ層の各層を 1 つのサブプロジェクトとして対応させることを推奨します。
-
-どの層からも利用されるようなシステム共通機能については、依存関係からアプリケーションコア層に含める考えもありますが、こちらも独立したサブプロジェクトとすることを推奨します。
-業務機能とシステム共通機能を分割することで、プロジェクトの役割や依存関係が明確になり、保守性が高まると考えられます。
-
-各サブプロジェクトの内部構成については、以下のような構成を推奨します。
-
-![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-light.png#only-light){ loading=lazy }
-![フォルダ構成図](../../images/app-architecture/client-side-rendering/csr-project-structure-dark.png#only-dark){ loading=lazy }
-
-プロジェクト構造全体は、 Spring Initializr で生成した Gradle Groovy DSL プロジェクトの構造と変わりはありません。
-
-<!-- textlint-disable @textlint-ja/no-synonyms -->
-パッケージの構成としては、システムで 1 つのフォルダー ( aa.bb.cc ) をベースに、各層に対応するパッケージ ( application-core など ) を作成します。
-<!-- textlint-enable @textlint-ja/no-synonyms -->
-アプリケーションコア層については、ドメインの単位でパッケージを作成し、それ以外の層については、構成するコンポーネント単位でパッケージを作成することを想定しています。
-以降の階層については、管理や機能面を考慮し、必要に応じてサブパッケージを作成してください。
+    <!-- textlint-enable @textlint-ja/no-synonyms -->

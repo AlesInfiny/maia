@@ -12,8 +12,8 @@ import {
   ConfirmationModal,
   NotificationModal,
 } from '@/catalog-management/public-api'
-import { assetHelper } from '@/assets-management/public-api'
-import { showToast } from '@/business-common/services/notificationService'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
+import { showToast } from '@/business-common/services/notification-service'
 import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'

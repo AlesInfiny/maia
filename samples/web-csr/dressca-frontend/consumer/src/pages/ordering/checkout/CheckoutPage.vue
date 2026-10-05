@@ -9,10 +9,10 @@ import {
   displayItemRouteNames,
   orderingRouteNames,
 } from '@/shopping/public-api'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { useRouter } from 'vue-router'
-import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/business-common/helpers/assetHelper'
+import { currencyHelper } from '@/system-common/helpers/currency-helper'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'

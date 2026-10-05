@@ -6,9 +6,9 @@ import {
   fetchItems,
   catalogRouteNames,
 } from '@/catalog-management/public-api'
-import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/assets-management/public-api'
-import { showToast } from '@/business-common/services/notificationService'
+import { currencyHelper } from '@/system-common/helpers/currency-helper'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
+import { showToast } from '@/business-common/services/notification-service'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import type {
   GetCatalogBrandsResponse,

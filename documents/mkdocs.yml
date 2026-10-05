@@ -48,8 +48,8 @@ nav:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
-              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - プレゼンテーション層: app-architecture/client-side-rendering/backend-application/presentation.md
+              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - インフラストラクチャ層: app-architecture/client-side-rendering/backend-application/infrastructure.md
           - テスト方針:
               - app-architecture/client-side-rendering/test/index.md
@@ -72,8 +72,8 @@ nav:
               - app-architecture/server-side-rendering/frontend/index.md
           - バックエンドのアーキテクチャ:
               - app-architecture/server-side-rendering/backend/index.md
-              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
@@ -217,6 +217,10 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: green
+
+validation:
+  # ページ内アンカーのリンク切れを警告として扱い、 --strict ビルドで検出する。
+  anchors: warn
 
 markdown_extensions:
   - abbr

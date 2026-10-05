@@ -17,8 +17,8 @@ TypeScript で作成されたファイルは、 `tsconfig.json` の設定値を�
 
 ```text linenums="0"
 <workspace-name>
-├ cypress
-|  └ tsconfig.json--------- E2E テストの TypeScript として読み込む対象を定義する設定ファイル(Cypress 用)
+├ e2e
+|  └ tsconfig.json--------- E2E テストの TypeScript として読み込む対象を定義する設定ファイル(Playwright 用)
 ├ tsconfig.app.json ------- アプリケーションの TypeScript として読み込む対象を定義する設定ファイル
 ├ tsconfig.node.json ------ Node.js での実行用に TypeScript として読み込む対象を定義する設定ファイル
 ├ tsconfig.json ----------- TypeScript の設定ファイル
@@ -68,7 +68,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "tsconfig.node.json の設定例"
 
-    E2E テストには Cypress を使用するので、 `include` キーから nightwatch.conf.\* および playwright.config.\* を削除しています。
+    E2E テストには Playwright を使用するので、 `include` キーから nightwatch.conf.\* および cypress.config.\* を削除しています。
 
     ```json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
     --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.node.json"
@@ -110,8 +110,7 @@ Project Reference 機能については [Project References :material-open-in-ne
 - `compilerOptions.module`
   
     トランスパイルしたファイルのモジュールシステムを設定するプロパティです。
-    tsconfig.node.json で `ESNext` 、 tsconfig.json で `NodeNext` が `create-vue` した際にデフォルトで設定されます。
-    Cypress が内部で利用している `ts-node` の挙動の都合上、 tsconfig.json に `compilerOptions.module` を設定する必要があります。
+    tsconfig.node.json で `ESNext` が `create-vue` した際にデフォルトで設定されます。
     `compilerOptions.module` の設定値については [The module output format :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/modules/theory.html#the-module-output-format){ target=_blank } を参照してください。
 
 - `compilerOptions.moduleResolution`
@@ -180,7 +179,7 @@ npm run build
         設定例では prod モードでビルド[^3]した際に、 Mock Service Worker のワーカースクリプトを削除するプラグインを読み込んでいます。
 
         ```typescript title="サンプルアプリケーションの vite.config.ts (抜粋)" hl_lines="6"
-        --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts:31:36"
+        --8<-- "samples/web-csr/dressca-frontend/consumer/vite.config.ts:32:37"
         ```
 
     なお、条件付き設定のために関数を export する際は `vitest.config.ts` の実装も変更が必要です。

@@ -5,7 +5,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { validationItems, loginAsync } from '@/security/public-api'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 import { homeRouteNames } from '@/system-common/router/route-names'
 
