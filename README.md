@@ -29,7 +29,7 @@ AlesInfiny Maia OSS Edition は、以下の Web サイトを通じて最新バ�
 サンプルアプリケーションや要件別サンプルの開発環境は、 VS Code を推奨します。
 開発環境の構築手順は以下を参照してください。
 
-- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築](https://maia.alesinfiny.org/guidebooks/how-to-develop/local-environment/)
+- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築](https://maia.alesinfiny.org/guidebooks/how-to-develop/csr/local-environment/)
 
 ## サンプルアプリケーションのテスト
 
@@ -76,7 +76,7 @@ npm run test:unit:consumer
 
 ### サンプルアプリケーション(Dressca)
 
-サンプルアプリケーション (Dressca) の実行手順は [AlesInfiny Maia OSS Edition | クイックスタート](https://maia.alesinfiny.org/#quick-start) を参照してください。
+サンプルアプリケーション (Dressca) の実行手順は [AlesInfiny Maia OSS Edition | Dressca](https://maia.alesinfiny.org/samples/dressca/) を参照してください。
 
 ### 要件別サンプル
 
