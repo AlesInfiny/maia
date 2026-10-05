@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "check:links": "linkspector check -c .linkspector.yml",
     "lint": "run-s lint:* --continue-on-error --print-label",
     "lint:markdownlint-all": "npx markdownlint-cli2",
     "lint:textlint-all": "npx textlint documents samples .github"
@@ -8,6 +9,7 @@
     "@textlint-ja/textlint-rule-no-synonyms": "^1.3.0",
     "@textlint-rule/textlint-rule-pattern": "^2.0.2",
     "@textlint-rule/textlint-rule-require-header-id": "^1.0.1",
+    "@umbrelladocs/linkspector": "0.5.6",
     "markdownlint-cli2": "^0.23.2",
     "npm-run-all2": "^8.0.4",
     "sudachi-synonyms-dictionary": "^17.0.0",

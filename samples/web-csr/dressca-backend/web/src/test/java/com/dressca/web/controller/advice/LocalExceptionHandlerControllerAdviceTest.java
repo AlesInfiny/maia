@@ -44,6 +44,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 /**
  * {@link ExceptionHandlerControllerAdvice} の動作をテストするクラスです。
@@ -105,6 +106,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   @WithMockUser
   @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(開発環境)。")
   void testException_01() throws Exception {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -115,9 +117,13 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString())).thenThrow(new LogicException(
         new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
-    // API の呼び出しとエラー時のレスポンスであることの確認
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
+
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
+
+    // Assert
+    // エラー時のレスポンスであることの確認
+    response.andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
@@ -133,6 +139,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   @WithMockUser
   @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(開発環境)。")
   void testException_02() throws Exception {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -143,9 +150,13 @@ public class LocalExceptionHandlerControllerAdviceTest {
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString()))
         .thenThrow(new SystemException(null, exceptionId, frontMessageValue, logMessageValue));
-    // API の呼び出しとエラー時のレスポンスであることの確認
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
+
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
+
+    // Assert
+    // エラー時のレスポンスであることの確認
+    response.andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
@@ -161,6 +172,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
   @WithMockUser
   @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
   void testException_03() throws Exception {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
     // 期待値の設定
@@ -170,9 +182,13 @@ public class LocalExceptionHandlerControllerAdviceTest {
     String[] logMessageValue = null;
     // モックの戻り値設定
     Mockito.when(assetsController.get(anyString())).thenThrow(new RuntimeException());
-    // API の呼び出しとエラー時のレスポンスであることの確認
-    this.mockMvc.perform(get("/api/assets/" + assetCode))
-        .andExpect(status().isInternalServerError())
+
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
+
+    // Assert
+    // エラー時のレスポンスであることの確認
+    response.andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))

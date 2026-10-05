@@ -1,4 +1,4 @@
-import { expect, test } from '../fixture/catalogManagementTestFixture'
+import { expect, test } from '../fixture/catalog-management-test-fixture'
 
 /*
  * カタログ管理の業務シナリオを検証します。
