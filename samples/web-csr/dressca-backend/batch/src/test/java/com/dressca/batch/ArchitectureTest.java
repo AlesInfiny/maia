@@ -8,7 +8,7 @@ import com.tngtech.archunit.junit.ArchTest;
 
 /**
  * バッチアプリケーションのアーキテクチャを検証するテストです。
- * プレゼンテーション層がアプリケーションモジュールの内部構造に依存していないことを確認します。
+ * バッチ層がアプリケーションモジュールの内部構造に依存していないことを確認します。
  */
 @AnalyzeClasses(packages = "com.dressca.batch")
 class ArchitectureTest {
