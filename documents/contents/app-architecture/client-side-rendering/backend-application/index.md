@@ -74,6 +74,7 @@ AlesInfiny Maia では Java のプロジェクト構成として、複数のサ�
 
 プレゼンテーション層のサブプロジェクトから参照できるのは、各アプリケーションモジュールの公開範囲に配置されたコンポーネントだけです。
 非公開範囲に配置されたコンポーネントには直接依存しないでください。
+プレゼンテーション層から非公開範囲への依存がないことは ArchUnit で検証します。具体的な実装は、[application-modules の内部パッケージへの依存を禁止するテストの追加](../../../guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md#add-architecture-test) を参照してください。
 
 一方でアプリケーションモジュール同士は、原則として互いに直接依存しません。
 
