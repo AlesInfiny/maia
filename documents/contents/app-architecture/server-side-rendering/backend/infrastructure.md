@@ -1,5 +1,5 @@
 ---
-title: SSR 編 - Web API
+title: SSR 編 - バックエンド
 description: バックエンドアプリケーションのアーキテクチャについて、 層ごとに詳細を説明します。
 ---
 
