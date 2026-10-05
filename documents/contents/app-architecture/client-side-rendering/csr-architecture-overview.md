@@ -184,12 +184,10 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
 
 - アプリケーションサービス
 
-<!-- textlint(@textlint-ja/no-synonyms) disable -->
     アプリケーションサービスは、システムに必要な機能を実装するクラスです。
     1 つの Web API の業務処理がアプリケーションサービスの 1 メソッドに対応します。
     エンティティや値オブジェクト、リポジトリ ( インターフェース ) を組み合わせて、必要な機能を実現します。
     必要に応じてドメインサービスも利用します。
-<!-- textlint(@textlint-ja/no-synonyms) enable -->
 
 - リポジトリ ( インターフェース )
 
@@ -209,7 +207,7 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
 
 - テーブルエンティティ
 
-<!-- textlint(@textlint-ja/no-synonyms) disable -->
     テーブルエンティティはデータベースのテーブルに対応するデータ構造を表現するクラスです。
+    <!-- textlint-disable @textlint-ja/no-synonyms -->
     1 つのテーブルエンティティオブジェクトがテーブルの 1 レコードに対応します。
-<!-- textlint(@textlint-ja/no-synonyms) enable -->
+    <!-- textlint-enable @textlint-ja/no-synonyms -->
