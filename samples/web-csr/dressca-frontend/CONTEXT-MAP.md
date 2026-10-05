@@ -1,33 +1,61 @@
-# Context Map
+---
+title: dressca-frontend のコンテキストマップ
+description: dressca-frontend を構成するコンテキストと、アプリケーション全体で使う用語を定義します。
+---
 
-This repo (`dressca-frontend`) is an npm workspaces monorepo with two frontend applications, `admin` and `consumer`, each organized into bounded contexts under its own `src/`.
+# コンテキストマップ {#top}
 
-## Contexts
+dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンドアプリケーションを持つ npm workspaces のモノレポです。
+各アプリケーションは、 `src/` の下で境界付けられたコンテキストごとにコードを分けています。
+層の構成と参照方向は [ADR 0002](./docs/adr/0002-app-owned-file-based-routing.md) で定めています。
 
-- **admin**
-  - [Catalog Management](./admin/src/catalog-management/CONTEXT.md) — catalog item management for store operators
-  - [Security](./admin/src/security/CONTEXT.md) — authentication/authorization for admin operators
-- **consumer**
-  - [Shopping](./consumer/src/shopping/CONTEXT.md) — end-customer browsing, basket, and ordering
-  - [Security](./consumer/src/security/CONTEXT.md) — authentication for end customers
+## コンテキスト {#contexts}
 
-`business-common` and `system-common` are shared layers, not bounded contexts — they must not depend on any context (see `eslint.project-rules.ts` / `createLayerDependencyRules`).
+- admin
+    - カタログ管理（ `catalog-management` ）: 運営者がカタログアイテムを管理します。
+    - セキュリティ（ `security` ）: 運営者の認証と認可を扱います。
+- consumer
+    - 買い物（ `shopping` ）: 購入者が商品を閲覧し、買い物かごに入れて注文します。
+    - セキュリティ（ `security` ）: 購入者の認証を扱います。
 
-## Relationships
+`business-common` と `system-common` はコンテキストではなく共通の層です。
+どちらもコンテキストに依存してはいけません（ `eslint.project-rules.ts` の `createLayerDependencyRules` を参照）。
 
-- **consumer: Shopping (ordering) → Shopping (basket)**: within the Shopping context, the ordering domain reads the basket domain's state (same context, cross-domain — not a cross-context dependency).
+## 関係 {#relationships}
 
-## System-wide Language
+- admin のカタログ管理の画面は、セキュリティのロールの判定と組み合わせて構成します。
+  組み合わせは画面で行い、コンテキスト同士は依存しません。
+- consumer の買い物コンテキストでは、注文のドメインが買い物かごのドメインの状態を読み取ります。
+  同じコンテキストの中でのドメインをまたぐ参照で、コンテキストをまたぐ依存ではありません。
 
-These terms apply across every context in both apps, decided during the `src/pages` relocation planning (2026-09-17):
+## 用語 {#language}
 
-**Page**:
-A Vue component directly registered as the target of a route (a `component:` in some context's `router/*.ts`). Pages live under a workspace's top-level `src/pages/`, organized by URL resource rather than by bounded context or domain.
-_Avoid_: View (superseded — see below).
+次の用語は、両方のアプリケーションのすべてのコンテキストで共通に使います。
 
-**View**:
-_Deprecated as of the `src/pages` migration._ Previously meant the same thing as **Page** (a routed screen component living in a context's `views/` folder). New code should say **Page**; existing `*View.vue` files are renamed to `*Page.vue` as each context migrates.
+画面（ Page ）
+:   `src/pages/` の下に置く、ルーティングの対象となる Vue のコンポーネントです。
+    ファイルの配置が URL を表します（ file-based routing ）。
+    ファイル名は `index.vue` 、 `<セグメント名>.vue` 、 `[パラメーター名].vue` のいずれかにします。
 
-**Public API** (of a context):
-The single file at a bounded context's root (`public-api.ts`) that code outside the context — especially `src/pages` — must import through. A context's internal folders (`components/`, `services/`, `stores/`, `validation/`, etc.) must not be imported directly from outside the context.
-_Avoid_: Barrel (too generic — this is specifically the cross-context boundary, not just any re-export file).
+View
+:   廃止した用語です。
+    以前は画面と同じ意味で使い、コンテキストの `views/` フォルダーに置いていました。
+
+公開 API （ Public API ）
+:   コンテキストの直下に置く `public-api.ts` です。
+    コンテキストの外のコードは、このファイルを経由してだけコンテキストを参照します。
+    公開するのはユースケースコンポーザブル、画面に表示する業務の部品、それらの型だけです。
+
+ユースケースコンポーザブル
+:   1 つのユースケースの状態と操作をまとめて提供するコンポーザブルです。
+    状態は読み取り専用で公開し、操作は結果（ Outcome ）を返します。
+    排他制御や API の型などの詳細は内部に隠します。
+
+結果（ Outcome ）
+:   ユースケースコンポーザブルの操作が返す判別共用体です。
+    `kind` プロパティで結果の種類を表します。
+    画面は Outcome を受け取り、通知の文言と遷移先を決めます。
+
+app 層
+:   `src/main.ts` 、 `src/App.vue` 、 `src/app/` からなる最上位の層です。
+    ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。

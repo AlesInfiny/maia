@@ -1,19 +1,49 @@
 ---
-status: accepted
+title: ADR 0001 画面の src/pages への移動
+description: コンテキストの views フォルダーにある画面を src/pages へ移動する決定を記録します。
+status: superseded
 ---
 
-# Relocate routed views from per-context `views/` folders to a top-level `src/pages/`
+# ルーティング対象の画面をコンテキストの views フォルダーから src/pages へ移動する {#top}
 
-Screen URLs should be designed around resources, not around which bounded context or domain owns the code, and a growing number of screens compose UI/logic across multiple contexts (see [[CONTEXT-MAP]]). To make the folder structure match that reality, each workspace's routed screens move out of `{context}/{domain}/views/*View.vue` into a top-level `src/pages/`, mirrored 1:1 to the app's existing URL path segments (dynamic segments like `:itemId` are not represented as folders), and are renamed `*Page.vue` (the term **View** is retired in favor of **Page** — see `CONTEXT-MAP.md`). Route definitions (path, `meta`, guards) stay where they are today, in each context's `router/*.ts` — only the `component:` import target changes to `@/pages/...`. Each context gains a `public-api.ts` at its root; `src/pages` and other contexts may only reach into a context through it, never through its internal `components/`/`services/`/`stores/`/`validation/` folders, and `eslint.project-rules.ts`'s `createLayerDependencyRules` is extended to put `pages` at the top of the existing layer hierarchy (`pages` may import a context's `public-api.ts`, `business-common`, `system-common`; nothing may import from `@/pages/**`).
+## ステータス {#status}
 
-## Considered Options
+[ADR 0002](./0002-app-owned-file-based-routing.md) に置き換えられました。
+以降は決定当時の記録として残します。
 
-- **Vue Router's file-based "Pages Router" (`unplugin-vue-router`)**: technically feasible (Vite-based, `<script setup>` throughout, no nested routes, a single `meta.requiresAuth` key, small view count), but every `router.push`/`router.replace` call in both apps (8 in admin, 13 in consumer) and both auth guards navigate by name via hand-written `*-route-names.ts` constants. Adopting it now would mean reworking all of those call sites in the same change as the physical relocation. Deferred to a separate, later initiative once `src/pages` has stabilized.
-- **Flat resource folders** (e.g. `src/pages/catalog/items/{ItemsPage,ItemsAddPage,ItemsEditPage}.vue`) vs. **URL-mirrored directory hierarchy**: chose the hierarchy (e.g. `src/pages/catalog/items/add/ItemsAddPage.vue`) even though Pages Router isn't adopted yet, so the folder structure documents the URL shape directly.
-- **Free cross-context imports from `pages`** (treating `pages` like `App.vue`/`main.ts`, which are exempted from the layer rules) vs. **a per-context `public-api.ts` boundary**: chose the public-API boundary so cross-context composition from `pages` stays visible and reviewable, rather than reaching into arbitrary internals.
+## 決定 {#decision}
 
-## Consequences
+画面の URL は、どのコンテキストやドメインがコードを所有するかではなく、リソースを軸に設計します。
+また、複数のコンテキストを組み合わせる画面が増えています（ [コンテキストマップ](../../CONTEXT-MAP.md) を参照）。
+フォルダー構成をこの実態に合わせるため、次のとおり決定しました。
 
-- Migration proceeds context by context, starting with a low-risk warm-up (`system-common`'s Home/Error/NotFound screens, flattened at the top of `src/pages`), then `admin/catalog-management` (exercises the `public-api.ts` pattern against its one existing cross-context reference, `assets-management`'s asset helper).
-- `eslint.project-rules.ts` needs a new rule set for the `pages` layer before any context migrates, not after.
-- Because Pages Router is deferred, route paths, names, and `meta` are unchanged for now — only the component file's location and name change.
+- 各ワークスペースの画面を `{context}/{domain}/views/*View.vue` から最上位の `src/pages/` へ移動します。
+- `src/pages/` の構成は、 URL のパスのセグメントと 1 対 1 に対応させます。
+  `:itemId` のような動的セグメントはフォルダーにしません。
+- 画面のファイル名は `*Page.vue` にします。
+  用語は View を廃止して Page に統一します。
+- ルート定義（パス、 `meta` 、ガード）は各コンテキストの `router/*.ts` に残します。
+  変更するのは `component:` のインポート先だけです。
+- 各コンテキストの直下に `public-api.ts` を設けます。
+  `src/pages` と他のコンテキストは、このファイルを経由してだけコンテキストを参照します。
+- `eslint.project-rules.ts` の `createLayerDependencyRules` で、 pages を既存の層の最上位に置きます。
+  pages はコンテキストの `public-api.ts` 、 business-common 、 system-common を参照できます。
+  どの層も `@/pages/**` を参照できません。
+
+## 検討した選択肢 {#considered-options}
+
+- vue-router の file-based routing （当時は `unplugin-vue-router` ）
+    - 技術的には導入できました。
+    - ただし、画面遷移のすべての呼び出しが手書きのルート名の定数に依存していました。
+    - 物理的な移動と同時に呼び出し側をすべて書き換えることになるため、別の取り組みとして見送りました。
+- リソースごとの平坦なフォルダー構成と、 URL の構造を反映したフォルダーの階層
+    - file-based routing は見送ったものの、フォルダー構成が URL の形を表すように階層を選びました。
+- pages からコンテキストを自由に参照する構成と、 `public-api.ts` を境界とする構成
+    - コンテキストをまたぐ組み合わせをレビューで見える状態に保つため、 `public-api.ts` を境界とする構成を選びました。
+
+## 影響 {#consequences}
+
+- コンテキストごとに順に移行しました。
+  最初に system-common のホーム、エラー、該当なしの画面を移し、次に admin のカタログ管理を移しました。
+- pages 層のルールは、コンテキストを移行する前に `eslint.project-rules.ts` へ追加しました。
+- file-based routing を見送ったため、ルートのパス、名前、 `meta` は変更しませんでした。
