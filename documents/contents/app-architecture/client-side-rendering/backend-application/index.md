@@ -39,7 +39,7 @@ Spring Modulith では、このような分割単位を [アプリケーショ�
 
 #### 公開範囲・非公開範囲の検証 {#visibility-verification}
 
-公開範囲・非公開範囲の設定とモジュール間の依存関係が設計どおりであることを確認するため、 Spring Modulith によるモジュール構造を検証します。
+公開範囲・非公開範囲の設定とモジュール間の依存関係が設計どおりであることを確認するため、 Spring Modulith を用いてモジュール構造を検証します。
 検証の具体的な方法については、[モジュール間の依存関係を検証するテストの追加](../../../guidebooks/how-to-develop/csr/java/sub-project-settings/application-modules-project-settings.md#add-modularity-test) を参照してください。
 
 ### 各層の詳細 {#layer-details}
