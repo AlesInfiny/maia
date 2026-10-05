@@ -1,10 +1,10 @@
 import './assets/base.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/security/authentication/router/authentication-guard'
-import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
+import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import { useLogger } from '@/system-common/composables/use-logger'
-import { router } from '@/system-common/router'
+import { router } from '@/app/router'
+import { registerNavigationGuards } from '@/app/router/guards'
 import App from './App.vue'
 import { z } from 'zod'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
@@ -43,8 +43,14 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-app.use(globalErrorHandler)
+app.use(
+  createGlobalErrorHandler({
+    navigateToErrorPage: () => {
+      void router.replace({ name: '/error' })
+    },
+  }),
+)
 
-authenticationGuard(router)
+registerNavigationGuards(router)
 
 app.mount('#app')

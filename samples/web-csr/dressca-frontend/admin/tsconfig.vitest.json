@@ -1,6 +1,11 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["src/**/__tests__/**/*.ts", "env.d.ts"],
+  "include": [
+    "src/**/__tests__/**/*.ts",
+    "env.d.ts",
+    "typed-router.d.ts",
+    "src/app/router/route-meta.d.ts"
+  ],
   "exclude": [],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",

@@ -1,38 +1,51 @@
-import type { App, ComponentPublicInstance } from 'vue'
-import { router } from '@/system-common/router'
+import type { App, ComponentPublicInstance, Plugin } from 'vue'
 import { useLogger } from '@/system-common/composables/use-logger'
-import { errorRouteNames } from '@/system-common/router/error-route-names'
 
 const logger = useLogger()
+
+/**
+ * グローバルエラーハンドラーを生成するための設定です。
+ */
+export interface GlobalErrorHandlerOptions {
+  /**
+   * 業務上想定しないシステムエラーが発生したとき、エラー画面へ遷移します。
+   * 遷移先の画面は利用する側（ app 層）が決めます。
+   */
+  navigateToErrorPage: () => void
+}
 
 /**
  * Vue アプリケーション内のエラー、
  * アプリケーション外の同期エラー、
  * アプリケーション外の非同期エラーについて、
- * 業務上想定しないシステムエラーをハンドリングするためのグローバルエラーハンドラーです。
+ * 業務上想定しないシステムエラーをハンドリングするためのグローバルエラーハンドラーを生成します。
+ * @param options グローバルエラーハンドラーの設定。
+ * @returns `app.use` に登録するプラグイン。
  */
-export const globalErrorHandler = {
-  install(app: App) {
-    app.config.errorHandler = (
-      err: unknown,
-      instance: ComponentPublicInstance | null,
-      info: string,
-    ) => {
-      // 本サンプルAPではログの出力とエラー画面への遷移を行っています。
-      // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
-      logger.error(err, instance, info)
-      router.replace({ name: errorRouteNames.error })
-    }
+export function createGlobalErrorHandler(options: GlobalErrorHandlerOptions): Plugin {
+  return {
+    install(app: App) {
+      app.config.errorHandler = (
+        err: unknown,
+        instance: ComponentPublicInstance | null,
+        info: string,
+      ) => {
+        // 本サンプルAPではログの出力とエラー画面への遷移を行っています。
+        // APの要件によってはサーバーやログ収集ツールにログを送信し、エラーを握りつぶすこともあります。
+        logger.error(err, instance, info)
+        options.navigateToErrorPage()
+      }
 
-    // Vue.js 以外のエラー
-    // テストやデバッグ時にエラーの発生を検知するために利用する
-    window.addEventListener('error', (event) => {
-      logger.error(event)
-    })
+      // Vue.js 以外のエラー
+      // テストやデバッグ時にエラーの発生を検知するために利用する
+      window.addEventListener('error', (event) => {
+        logger.error(event)
+      })
 
-    // テストやデバッグ時に予期せぬ非同期エラーの発生を検知するために利用する
-    window.addEventListener('unhandledrejection', (event) => {
-      logger.error(event)
-    })
-  },
+      // テストやデバッグ時に予期せぬ非同期エラーの発生を検知するために利用する
+      window.addEventListener('unhandledrejection', (event) => {
+        logger.error(event)
+      })
+    },
+  }
 }

@@ -14,6 +14,5 @@ export {
   catalogItemTypedSchema,
   type CatalogItemFormValues,
 } from './catalog/validation/validation-items'
-export { catalogRouteNames } from './catalog/router/catalog-route-names'
 export { default as ConfirmationModal } from './catalog/components/ConfirmationModal.vue'
 export { default as NotificationModal } from './catalog/components/NotificationModal.vue'

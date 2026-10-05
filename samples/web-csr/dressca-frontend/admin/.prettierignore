@@ -35,5 +35,6 @@ coverage
 
 # 自動生成されるファイル
 src/system-common/generated/**
+typed-router.d.ts
 **/mockServiceWorker.js
 openapitools.json

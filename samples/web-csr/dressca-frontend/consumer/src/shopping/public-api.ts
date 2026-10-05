@@ -16,7 +16,3 @@ export { default as BasketItem } from './basket/components/BasketItem.vue'
 
 export { useUserStore } from './ordering/stores/user'
 export { postOrder, getOrder } from './ordering/services/ordering-service'
-
-export { displayItemRouteNames } from './display-item/router/display-item-route-names'
-export { basketRouteNames } from './basket/router/basket-route-names'
-export { orderingRouteNames } from './ordering/router/ordering-route-names'
