@@ -146,6 +146,14 @@ Project Reference 機能については [Project References :material-open-in-ne
     たとえば Vitest を用いたテストでは、`node` や `jsdom` の型定義を使用するので、 tsconfig.vitest.json にこれらを設定します。
     詳細は [Compiler Options - Types :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#types){ target=_blank }を参照してください。
 
+- `compilerOptions.noUncheckedIndexedAccess`
+
+    配列やオブジェクトにインデックスでアクセスした結果の型に `undefined` を含めるプロパティです。
+    tsconfig.app.json では `create-vue` した際のデフォルト値として `true` が設定されています。
+    存在しない要素へのアクセスによる実行時エラーを型チェックで検出できるため、デフォルト値のまま使用します。
+    要素の存在を事前に確認している場合でもエラーとして検出されることがあるため、その場合は `?.` や `??` を用いて `undefined` の場合の処理を記述します。
+    詳細は [Compiler Options - noUncheckedIndexedAccess :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess){ target=_blank } を参照してください。
+
 ### 型チェックの実行 {#type-check-execution}
 
 tsconfig の設定が完了したら、ワークスペース直下で以下のコマンドを実行し、型チェックが実行できることを確認してください。

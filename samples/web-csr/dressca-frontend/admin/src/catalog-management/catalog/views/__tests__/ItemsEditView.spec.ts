@@ -32,7 +32,7 @@ function CreateLoginState(userRoles: string[]) {
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 async function getWrapper(pinia: TestingPinia) {
-  router.push({ name: catalogRouteNames.itemsEdit, params: { itemId: catalogItems[0].id } })
+  router.push({ name: catalogRouteNames.itemsEdit, params: { itemId: catalogItems[0]!.id } })
   await router.isReady()
   return mount(ItemsEditView, {
     global: { plugins: [pinia, router] },
@@ -59,7 +59,7 @@ describe('管理者ロール_アイテムが削除できる', () => {
   it('削除ボタンを押下_確認モーダルが開く', async () => {
     // Arrange
     // Act
-    await wrapper.findAll('button')[0].trigger('click')
+    await wrapper.findAll('button')[0]!.trigger('click')
     // Assert
     expect(wrapper.html()).toContain('カタログアイテムを削除します。')
   })
@@ -68,19 +68,19 @@ describe('管理者ロール_アイテムが削除できる', () => {
     // Arrange
     // Act
     await wrapper
-      .findAllComponents({ name: 'ConfirmationModal' })[0]
-      .findAll('button')[0]
+      .findAllComponents({ name: 'ConfirmationModal' })[0]!
+      .findAll('button')[0]!
       .trigger('click')
     await flushPromises()
     // Assert
-    expect(wrapper.findAllComponents({ name: 'ConfirmationModal' })[0].isVisible()).toBeFalsy()
+    expect(wrapper.findAllComponents({ name: 'ConfirmationModal' })[0]!.isVisible()).toBeFalsy()
   })
 
   it('削除成功_通知モーダルが開く', async () => {
     // Arrange
     // Act
     await vi.waitUntil(() =>
-      wrapper.findAllComponents({ name: 'NotificationModal' })[0].isVisible(),
+      wrapper.findAllComponents({ name: 'NotificationModal' })[0]!.isVisible(),
     )
     // Assert
     expect(wrapper.html()).toContain('カタログアイテムを削除しました。')
@@ -89,11 +89,11 @@ describe('管理者ロール_アイテムが削除できる', () => {
   it('OKボタンを押下__通知モーダルが閉じる', async () => {
     // Act
     await wrapper
-      .findAllComponents({ name: 'NotificationModal' })[0]
-      .findAll('button')[0]
+      .findAllComponents({ name: 'NotificationModal' })[0]!
+      .findAll('button')[0]!
       .trigger('click')
     // Assert
-    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[0].isVisible()).toBeFalsy()
+    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[0]!.isVisible()).toBeFalsy()
   })
 })
 
@@ -117,7 +117,7 @@ describe('ゲストロール_アイテム削除ボタンが非活性', () => {
   it('削除ボタンが非活性', () => {
     // Arrange
     // Act
-    const deleteButton = wrapper.findAll('button')[0]
+    const deleteButton = wrapper.findAll('button')[0]!
     // Assert
     expect(deleteButton.attributes('disabled')).toBeDefined()
   })
@@ -142,7 +142,7 @@ describe('管理者ロール_アイテムが更新できる', () => {
 
   it('更新ボタンを押下__確認モーダルが開く', async () => {
     // Arrange
-    const editButton = wrapper.findAll('button')[1]
+    const editButton = wrapper.findAll('button')[1]!
     // Act
     await editButton.trigger('click')
     // Assert
@@ -153,26 +153,26 @@ describe('管理者ロール_アイテムが更新できる', () => {
     // Arrange
     // Act
     await wrapper
-      .findAllComponents({ name: 'ConfirmationModal' })[1]
-      .findAll('button')[0]
+      .findAllComponents({ name: 'ConfirmationModal' })[1]!
+      .findAll('button')[0]!
       .trigger('click')
     await flushPromises()
     await vi.waitUntil(() =>
-      wrapper.findAllComponents({ name: 'NotificationModal' })[1].isVisible(),
+      wrapper.findAllComponents({ name: 'NotificationModal' })[1]!.isVisible(),
     )
     // Assert
-    expect(wrapper.findAllComponents({ name: 'ConfirmationModal' })[1].isVisible()).toBeFalsy()
+    expect(wrapper.findAllComponents({ name: 'ConfirmationModal' })[1]!.isVisible()).toBeFalsy()
     expect(wrapper.html()).toContain('カタログアイテムを更新しました。')
   })
 
   it('OKボタンを押下__通知モーダルが閉じる', async () => {
     // Act
     await wrapper
-      .findAllComponents({ name: 'NotificationModal' })[1]
-      .findAll('button')[0]
+      .findAllComponents({ name: 'NotificationModal' })[1]!
+      .findAll('button')[0]!
       .trigger('click')
     // Assert
-    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[1].isVisible()).toBeFalsy()
+    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[1]!.isVisible()).toBeFalsy()
   })
 })
 
@@ -196,7 +196,7 @@ describe('ゲストロール_アイテム更新ボタンが非活性', () => {
   it('更新ボタンが非活性', () => {
     // Arrange
     // Act
-    const editButton = wrapper.findAll('button')[1]
+    const editButton = wrapper.findAll('button')[1]!
     // Assert
     expect(editButton.attributes('disabled')).toBeDefined()
   })
