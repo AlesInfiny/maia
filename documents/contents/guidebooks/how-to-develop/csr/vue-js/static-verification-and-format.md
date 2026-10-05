@@ -106,9 +106,8 @@ npm run format
 
 Prettier が設定ファイルを認識し、フォーマット処理が正常に実行できることを確認してください。
 
-## リンター {#eslint}
+## ESLint {#eslint}
 
-本ガイドでは、リンターとして ESLint を使用します。
 ESLint および ESLint の実行に必要なパッケージは、 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
 create-vue によって同時にインストールされる Oxlint は使用しないため、[Oxlint の除去](./create-vuejs-blank-project.md#remove-oxlint) の手順に従って除去してください。
 
