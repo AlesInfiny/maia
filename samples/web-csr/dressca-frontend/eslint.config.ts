@@ -62,15 +62,6 @@ export default defineConfigWithVueTs(
     extends: [tseslint.configs.disableTypeChecked],
   },
 
-  // 画面ファイルは file-based routing の規約で index.vue や login.vue のように命名するため、
-  // コンポーネント名を複数の単語にするルールの対象外とします。
-  {
-    files: ['**/src/pages/**/*.vue'],
-    rules: {
-      'vue/multi-word-component-names': 'off',
-    },
-  },
-
   // コーディング規約に沿わせるためのルールを適用します。
   ...codingConventionRules,
 

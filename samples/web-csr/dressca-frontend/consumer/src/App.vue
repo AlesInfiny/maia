@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
+import { routeNames } from '@/app/router/route-names'
 import { router } from '@/app/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
@@ -10,7 +11,7 @@ const { isAuthenticated, signOut } = authenticationService()
 
 const logout = () => {
   signOut()
-  router.push({ name: '/authentication/login' })
+  router.push({ name: routeNames.login })
 }
 
 const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
@@ -19,7 +20,7 @@ unauthorizedErrorEventBus.on(() => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
   router.push({
-    name: '/authentication/login',
+    name: routeNames.login,
     query: { redirect: router.currentRoute.value.fullPath },
   })
 })
@@ -37,13 +38,15 @@ unauthorizedErrorEventBus.on(() => {
       >
         <div class="mx-auto flex justify-between px-4 md:px-24 lg:px-24">
           <div>
-            <router-link class="text-2xl" :to="{ name: '/' }"> Dressca </router-link>
+            <router-link class="text-2xl" :to="{ name: routeNames.displayItem }">
+              Dressca
+            </router-link>
           </div>
           <div class="flex gap-5 sm:gap-5 lg:gap-12">
-            <router-link :to="{ name: '/basket' }">
+            <router-link :to="{ name: routeNames.basket }">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated()" :to="{ name: '/authentication/login' }">
+            <router-link v-if="!isAuthenticated()" :to="{ name: routeNames.login }">
               ログイン
             </router-link>
             <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
+import { routeNames } from '@/app/router/route-names'
 import LoginMenu from '@/security/authentication/components/LoginMenu.vue'
 import { storeToRefs } from 'pinia'
 import { router as importedRouter } from '@/app/router'
@@ -25,7 +26,7 @@ unauthorizedErrorEventBus.on((payload) => {
   // 現在の画面情報をクエリパラメーターに保持してログイン画面にリダイレクトします。
   // コンポーネント外に引き渡すので、 直接 import した router を使用します。
   importedRouter.push({
-    name: '/authentication/login',
+    name: routeNames.login,
     query: { redirect: importedRouter.currentRoute.value.fullPath },
   })
   showToastByService(payload.details)
@@ -35,7 +36,7 @@ unauthorizedErrorEventBus.on((payload) => {
  * ログアウトしたとき、ログイン画面へ遷移します。
  */
 const onLoggedOut = () => {
-  importedRouter.push({ name: '/authentication/login' })
+  importedRouter.push({ name: routeNames.login })
 }
 </script>
 <template>
@@ -51,14 +52,14 @@ const onLoggedOut = () => {
       <div class="relative flex h-16 items-center justify-between">
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <router-link
-            :to="{ name: '/' }"
+            :to="{ name: routeNames.home }"
             class="flex shrink-0 items-center rounded-md px-3 text-xl font-medium text-white hover:bg-blue-800"
             >Dressca 管理</router-link
           >
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex gap-4">
               <router-link
-                :to="{ name: '/catalog/items/' }"
+                :to="{ name: routeNames.catalogItems }"
                 class="rounded-md px-3 py-2 text-base font-medium text-white hover:bg-blue-800"
                 >カタログアイテム管理</router-link
               >
@@ -66,7 +67,7 @@ const onLoggedOut = () => {
           </div>
         </div>
         <LoginMenu
-          :login-location="{ name: '/authentication/login' }"
+          :login-location="{ name: routeNames.login }"
           :current-path="route.fullPath"
           @logged-out="onLoggedOut"
         />

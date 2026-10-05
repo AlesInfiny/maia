@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { useRoute, useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { getOrder } from '@/shopping/public-api'
@@ -11,12 +12,8 @@ import { HttpError } from '@/system-common/error-handler/custom-error'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
-definePage({
-  meta: { requiresInAppNavigation: true },
-})
-
 const router = useRouter()
-const route = useRoute('/ordering/done/[orderId]')
+const route = useRoute(routeNames.done)
 const handleErrorAsync = useCustomErrorHandler()
 
 const lastOrdered = ref<GetOrderByIdResponse>()
@@ -28,7 +25,7 @@ const { t } = i18n.global
 const showLoading = ref(true)
 
 const goDisplayItem = () => {
-  router.push({ name: '/' })
+  router.push({ name: routeNames.displayItem })
 }
 
 onMounted(async () => {
@@ -39,7 +36,7 @@ onMounted(async () => {
     await handleErrorAsync(
       error,
       () => {
-        router.push({ name: '/' })
+        router.push({ name: routeNames.displayItem })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {

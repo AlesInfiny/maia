@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { createPinia } from 'pinia'
 import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import App from './App.vue'
@@ -47,7 +48,7 @@ app.use(i18n)
 app.use(
   createGlobalErrorHandler({
     navigateToErrorPage: () => {
-      void router.replace({ name: '/error' })
+      void router.replace({ name: routeNames.error })
     },
   }),
 )

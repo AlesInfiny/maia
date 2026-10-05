@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
+import { routeNames } from '@/app/router/route-names'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
-import LoginPage from '@/pages/authentication/login.vue'
+import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
 
@@ -10,7 +11,7 @@ import type { ComponentInternalInstance } from 'vue'
  * @returns マウント済みのラッパー。
  */
 async function getWrapper() {
-  router.push({ name: '/authentication/login' })
+  router.push({ name: routeNames.login })
   await router.isReady()
   return mount(LoginPage, {
     global: {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { storeToRefs } from 'pinia'
 import {
   fetchCategoriesAndBrands,
@@ -101,7 +102,7 @@ const AddItem = async () => {
  */
 const closeAddNotice = () => {
   showAddNotice.value = false
-  router.push({ name: '/catalog/items/' })
+  router.push({ name: routeNames.catalogItems })
 }
 
 /**

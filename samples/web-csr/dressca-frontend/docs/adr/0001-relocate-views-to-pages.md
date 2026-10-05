@@ -8,7 +8,7 @@ status: superseded
 
 ## ステータス {#status}
 
-[ADR 0002](./0002-app-owned-file-based-routing.md) に置き換えられました。
+[ADR 0002](./0002-app-owned-route-table.md) に置き換えられました。
 以降は決定当時の記録として残します。
 
 ## 決定 {#decision}

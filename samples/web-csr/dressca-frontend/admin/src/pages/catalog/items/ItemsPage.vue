@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { useRouter } from 'vue-router'
 import { fetchCategoriesAndBrands, fetchItems } from '@/catalog-management/public-api'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
@@ -99,7 +100,7 @@ onMounted(async () => {
  * アイテム追加画面に遷移します。
  */
 const goToAddItem = () => {
-  router.push({ name: '/catalog/items/add' })
+  router.push({ name: routeNames.catalogItemsAdd })
 }
 
 /**
@@ -107,7 +108,7 @@ const goToAddItem = () => {
  * @param id カタログアイテムID
  */
 const goToEditItem = (id: string) => {
-  router.push({ name: '/catalog/items/edit/[itemId]', params: { itemId: id } })
+  router.push({ name: routeNames.catalogItemsEdit, params: { itemId: id } })
 }
 </script>
 

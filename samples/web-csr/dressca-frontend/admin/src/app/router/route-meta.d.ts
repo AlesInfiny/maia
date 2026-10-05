@@ -1,5 +1,5 @@
 /*
- * 画面ファイルの definePage() で宣言するルートの属性の型です。
+ * ルート表（ routes.ts ）で宣言するルートの属性の型です。
  */
 import 'vue-router'
 

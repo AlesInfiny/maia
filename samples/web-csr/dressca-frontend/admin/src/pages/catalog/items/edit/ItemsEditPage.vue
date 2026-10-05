@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { storeToRefs } from 'pinia'
 import {
   fetchItem,
@@ -29,7 +30,7 @@ const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 const router = useRouter()
-const route = useRoute('/catalog/items/edit/[itemId]')
+const route = useRoute(routeNames.catalogItemsEdit)
 const id = route.params.itemId
 const { getFirstAssetUrl } = assetHelper()
 
@@ -151,7 +152,7 @@ const showLoading = ref(true)
  */
 const closeDeleteNotice = () => {
   showDeleteNotice.value = false
-  router.push({ name: '/catalog/items/' })
+  router.push({ name: routeNames.catalogItems })
 }
 
 /**
@@ -188,7 +189,7 @@ const getItem = async (itemId: string) => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       showToast('対象のアイテムが見つかりませんでした。')
-      router.push({ name: '/catalog/items/' })
+      router.push({ name: routeNames.catalogItems })
     }
     await handleErrorAsync(error, () => {
       showToast('アイテムの取得に失敗しました。')
@@ -265,7 +266,7 @@ const deleteItemAsync = async () => {
     if (error instanceof NotFoundError) {
       await handleErrorAsync(error, () => {
         showToast('削除対象のカタログアイテムが見つかりませんでした。')
-        router.push({ name: '/catalog/items/' })
+        router.push({ name: routeNames.catalogItems })
       })
     } else if (error instanceof ConflictError) {
       await handleErrorAsync(error, () => {
@@ -303,7 +304,7 @@ const updateItemAsync = async () => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       showToast('更新対象のカタログアイテムが見つかりませんでした。')
-      router.push({ name: '/catalog/items/' })
+      router.push({ name: routeNames.catalogItems })
     } else if (error instanceof ConflictError) {
       await handleErrorAsync(error, () => {
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')

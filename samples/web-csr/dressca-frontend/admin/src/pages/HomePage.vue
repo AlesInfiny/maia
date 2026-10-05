@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { routeNames } from '@/app/router/route-names'
+</script>
+
 <template>
   <div class="container mx-auto flex flex-col items-center justify-center gap-6">
     <div class="p-8 text-5xl font-bold">Dressca 管理 トップ</div>
@@ -10,7 +14,7 @@
       <tbody>
         <tr>
           <td class="border bg-blue-50 p-8 text-3xl underline">
-            <router-link :to="{ name: '/catalog/items/' }">カタログアイテム管理</router-link>
+            <router-link :to="{ name: routeNames.catalogItems }">カタログアイテム管理</router-link>
           </td>
           <td class="border bg-blue-50 p-8 text-3xl">
             カタログアイテムを閲覧・追加・編集・削除します。

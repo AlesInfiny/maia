@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import ItemsAddPage from '@/pages/catalog/items/add.vue'
+import ItemsAddPage from '@/pages/catalog/items/add/ItemsAddPage.vue'
 import { Roles } from '@/security/public-api'
 
 /**

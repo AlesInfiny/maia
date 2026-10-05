@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter, type Router } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import { routes } from '@/app/router/routes'
 import { registerNavigationGuards } from '@/app/router/guards'
+import { routeNames } from '@/app/router/route-names'
 import { authenticationService } from '@/security/public-api'
 
 /**
@@ -28,7 +29,7 @@ describe('アプリケーションのナビゲーションガード', () => {
     // Act
     await router.push('/ordering/checkout')
     // Assert
-    expect(router.currentRoute.value.name).toBe('/')
+    expect(router.currentRoute.value.name).toBe(routeNames.displayItem)
   })
 
   it('未認証で画面内から注文確認画面に遷移すると_戻り先を付けてログイン画面に遷移する', async () => {
@@ -36,9 +37,9 @@ describe('アプリケーションのナビゲーションガード', () => {
     const router = createGuardedRouter()
     await router.push('/basket')
     // Act
-    await router.push({ name: '/ordering/checkout' })
+    await router.push({ name: routeNames.checkout })
     // Assert
-    expect(router.currentRoute.value.name).toBe('/authentication/login')
+    expect(router.currentRoute.value.name).toBe(routeNames.login)
     expect(router.currentRoute.value.query.redirect).toBe('/ordering/checkout')
   })
 
@@ -48,9 +49,9 @@ describe('アプリケーションのナビゲーションガード', () => {
     authenticationService().signIn()
     await router.push('/basket')
     // Act
-    await router.push({ name: '/ordering/checkout' })
+    await router.push({ name: routeNames.checkout })
     // Assert
-    expect(router.currentRoute.value.name).toBe('/ordering/checkout')
+    expect(router.currentRoute.value.name).toBe(routeNames.checkout)
   })
 
   it('未認証で認証が不要な画面にアクセスすると_その画面に遷移する', async () => {
@@ -59,6 +60,6 @@ describe('アプリケーションのナビゲーションガード', () => {
     // Act
     await router.push('/basket')
     // Assert
-    expect(router.currentRoute.value.name).toBe('/basket')
+    expect(router.currentRoute.value.name).toBe(routeNames.basket)
   })
 })

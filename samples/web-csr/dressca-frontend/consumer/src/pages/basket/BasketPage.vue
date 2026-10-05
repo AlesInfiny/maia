@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import {
   fetchBasket,
   removeItemFromBasket,
@@ -17,10 +18,6 @@ import { storeToRefs } from 'pinia'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
-definePage({
-  meta: { requiresAuth: false },
-})
-
 const showLoading = ref(true)
 
 const basketStore = useBasketStore()
@@ -37,7 +34,7 @@ const isEmpty = () => {
 }
 
 const goDisplayItem = () => {
-  router.push({ name: '/' })
+  router.push({ name: routeNames.displayItem })
 }
 
 const update = async (displayItemId: string, newQuantity: number) => {
@@ -99,7 +96,7 @@ const order = async () => {
     showToast(t('basketContainsUnavailableItem'))
     return
   }
-  router.push({ name: '/ordering/checkout' })
+  router.push({ name: routeNames.checkout })
 }
 
 onMounted(async () => {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import {
   fetchCategoriesAndBrands,
   fetchItems,
@@ -17,10 +18,6 @@ import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-
-definePage({
-  meta: { requiresAuth: false },
-})
 
 const specialContentStore = useSpecialContentStore()
 const displayItemStore = useDisplayItemStore()
@@ -41,7 +38,7 @@ const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 const addBasket = async (displayItemId: string) => {
   try {
     await addItemToBasket(displayItemId)
-    router.push({ name: '/basket' })
+    router.push({ name: routeNames.basket })
   } catch (error) {
     await handleErrorAsync(
       error,

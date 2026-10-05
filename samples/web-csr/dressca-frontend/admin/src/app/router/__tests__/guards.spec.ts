@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter, type Router } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import { routes } from '@/app/router/routes'
 import { registerNavigationGuards } from '@/app/router/guards'
+import { routeNames } from '@/app/router/route-names'
 import { useAuthenticationStore } from '@/security/public-api'
 
 /**
@@ -27,7 +28,7 @@ describe('認証のナビゲーションガード', () => {
     // Act
     await router.push('/catalog/items/edit/1?tab=detail')
     // Assert
-    expect(router.currentRoute.value.name).toBe('/authentication/login')
+    expect(router.currentRoute.value.name).toBe(routeNames.login)
     expect(router.currentRoute.value.query.redirect).toBe('/catalog/items/edit/1?tab=detail')
   })
 
@@ -37,7 +38,7 @@ describe('認証のナビゲーションガード', () => {
     // Act
     await router.push('/authentication/login')
     // Assert
-    expect(router.currentRoute.value.name).toBe('/authentication/login')
+    expect(router.currentRoute.value.name).toBe(routeNames.login)
     expect(router.currentRoute.value.query.redirect).toBeUndefined()
   })
 
@@ -48,6 +49,6 @@ describe('認証のナビゲーションガード', () => {
     // Act
     await router.push('/catalog/items')
     // Assert
-    expect(router.currentRoute.value.name).toBe('/catalog/items/')
+    expect(router.currentRoute.value.name).toBe(routeNames.catalogItems)
   })
 })

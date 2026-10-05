@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { routeNames } from '@/app/router/route-names'
 import { useBasketStore } from '@/business-common/stores/basket'
 import { useUserStore, postOrder, fetchBasket } from '@/shopping/public-api'
 import { showToast } from '@/business-common/services/notification-service'
@@ -10,10 +11,6 @@ import { storeToRefs } from 'pinia'
 import { i18n } from '@/system-common/locales/i18n'
 import { HttpError } from '@/system-common/error-handler/custom-error'
 import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-
-definePage({
-  meta: { requiresInAppNavigation: true },
-})
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()
@@ -29,7 +26,7 @@ const { t } = i18n.global
 const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
 
 const goBasket = () => {
-  router.push({ name: '/basket' })
+  router.push({ name: routeNames.basket })
 }
 
 const checkout = async () => {
@@ -41,12 +38,12 @@ const checkout = async () => {
       getAddress.value.shikuchoson,
       getAddress.value.azanaAndOthers,
     )
-    router.push({ name: '/ordering/done/[orderId]', params: { orderId } })
+    router.push({ name: routeNames.done, params: { orderId } })
   } catch (error) {
     await handleErrorAsync(
       error,
       () => {
-        router.push({ name: '/error' })
+        router.push({ name: routeNames.error })
       },
       (httpError: HttpError) => {
         if (!httpError.response?.exceptionId) {
@@ -69,7 +66,7 @@ const checkout = async () => {
 onMounted(async () => {
   await fetchBasket()
   if (getBasket.value.basketItems?.length === 0) {
-    router.push({ name: '/' })
+    router.push({ name: routeNames.displayItem })
   }
 })
 </script>

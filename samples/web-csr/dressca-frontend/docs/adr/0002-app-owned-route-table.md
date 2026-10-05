@@ -1,10 +1,10 @@
 ---
 title: ADR 0002 画面とルーティングの構成
-description: 画面を src/pages に置き、 file-based routing でルーティングを生成する構成を定めます。
+description: 画面を src/pages に置き、 app 層のルート表でルーティングを定義する構成を定めます。
 status: accepted
 ---
 
-# 画面とルーティングを app 層と pages 層に集約し file-based routing を採用する {#top}
+# 画面とルーティングを app 層と pages 層に集約する {#top}
 
 ## ステータス {#status}
 
@@ -24,7 +24,7 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
   ESLint のルールに違反しないのは、動的インポートが検査の対象外だからにすぎません。
 
 本アプリケーションはエンタープライズアプリケーションのサンプルです。
-画面数の増加とコンテキストをまたぐ画面の追加を前提に、標準的なルーティングの規約に沿った構成を採用します。
+画面数の増加とコンテキストをまたぐ画面の追加を前提に、ルーティングをまとめて管理できる構成を採用します。
 
 ## 決定 {#decision}
 
@@ -49,59 +49,55 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 
 ### ルーティング {#routing}
 
-- vue-router 5 に組み込まれた file-based routing を使います。
-  Vite プラグイン `vue-router/vite` の `routesFolder` に `src/pages` を指定します。
-- ルート定義は `vue-router/auto-routes` から読み込み、 `src/app/router` で `createRouter` に渡します。
-  手書きのルート定義とルート名の定数は作りません。
-- ルート名は、プラグインが生成する既定の名前を使います。
-  既定の名前はファイルの配置を表し、たとえば `/catalog/items/edit/[itemId]` になります。
-- プラグインが生成する型定義ファイル `typed-router.d.ts` はリポジトリに含めます。
-  型チェックをビルドより前に実行するためです。
+- ルート定義は、 app 層のルート表（ `src/app/router/routes.ts` ）に手書きで集約します。
+  画面の配置と URL の対応、ルートの属性を、このファイルだけで確認できます。
+- ルート表は画面を動的インポートで参照し、画面ごとにコードを分割して遅延読み込みします。
+- ルート名は、 app 層の定数（ `src/app/router/route-names.ts` の `routeNames` ）で定義します。
+  ルート名は、意味を表す名前（例: `catalog-items-edit` ）にします。
+- 同じファイルで vue-router の型（ `TypesConfig` の `RouteNamedMap` ）を拡張します。
+  ルート名ごとのパスとパラメーターを型で宣言し、遷移先を型で検査します。
+- ルート表にルートを追加したときは、ルート名の定数と型にも追加します。
 
 ### 画面ファイルの命名 {#naming}
 
-file-based routing の標準の規約に従います。
-
-- 子を持つ URL セグメントはフォルダーにし、そのセグメント自体の画面は `index.vue` にします。
-- 子を持たない URL セグメントは `<セグメント名>.vue` にします。
-- 動的セグメントは `[パラメーター名].vue` にします。
-- どのルートにも該当しない場合の画面は `[...path].vue` にします。
-- 画面ファイルは、コンポーネント名を複数の単語にする ESLint のルール（ `vue/multi-word-component-names` ）の対象外にします。
-- ADR 0001 の `*Page.vue` の命名と「動的セグメントをフォルダーにしない」規約は廃止します。
+- 画面ファイルの名前は `<画面名>Page.vue` にします。
+- `src/pages/` のフォルダー構成は、 URL のパスのセグメントと対応させます。
+- `:itemId` のような動的セグメントはフォルダーにしません。
 
 admin の画面の配置は次のとおりです。
 
 ```text linenums="0"
 src/pages/
-├ index.vue ------------------- /
-├ error.vue ------------------- /error
-├ [...path].vue --------------- どのルートにも該当しない場合
-├ authentication/
-│ └ login.vue ----------------- /authentication/login
+├ HomePage.vue ---------------------- /
+├ ErrorPage.vue --------------------- /error
+├ NotFoundPage.vue ------------------ どのルートにも該当しない場合
+├ authentication/login/
+│ └ LoginPage.vue ------------------- /authentication/login
 └ catalog/items/
-  ├ index.vue ----------------- /catalog/items
-  ├ add.vue ------------------- /catalog/items/add
-  └ edit/[itemId].vue --------- /catalog/items/edit/:itemId
+  ├ ItemsPage.vue ------------------- /catalog/items
+  ├ add/ItemsAddPage.vue ------------ /catalog/items/add
+  └ edit/ItemsEditPage.vue ---------- /catalog/items/edit/:itemId
 ```
 
 consumer の画面の配置は次のとおりです。
 
 ```text linenums="0"
 src/pages/
-├ index.vue ------------------- /
-├ basket.vue ------------------ /basket
-├ error.vue ------------------- /error
-├ [...path].vue --------------- どのルートにも該当しない場合
-├ authentication/
-│ └ login.vue ----------------- /authentication/login
+├ DisplayItemPage.vue --------------- /
+├ ErrorPage.vue --------------------- /error
+├ NotFoundPage.vue ------------------ どのルートにも該当しない場合
+├ authentication/login/
+│ └ LoginPage.vue ------------------- /authentication/login
+├ basket/
+│ └ BasketPage.vue ------------------ /basket
 └ ordering/
-  ├ checkout.vue -------------- /ordering/checkout
-  └ done/[orderId].vue -------- /ordering/done/:orderId
+  ├ checkout/CheckoutPage.vue ------- /ordering/checkout
+  └ done/DonePage.vue --------------- /ordering/done/:orderId
 ```
 
 ### ルートの属性 {#route-meta}
 
-- 各画面は `definePage()` でルートの属性を宣言します。
+- ルートの属性は、 app 層のルート表の `meta` で宣言します。
   属性の型（ `RouteMeta` ）は app 層で定義します。
 - 認証の要否は `meta.requiresAuth` で表します。
   指定のない画面は認証が必要な画面として扱います。
@@ -114,9 +110,10 @@ src/pages/
 
 - 画面を遷移させられるのは pages 層と app 層だけです。
   コンテキスト、 business-common 、 system-common は vue-router を型としてだけ参照できます。
-- 遷移先はルート名で指定します。
-  ルート名とパラメーターの組み合わせは、生成された型で検査されます。
-- 画面はパラメーターを、ルート名を指定した `useRoute()` で型付きで取得します。
+- 遷移先は、 app 層のルート名の定数で指定します。
+  ルート名とパラメーターの組み合わせは、拡張した型で検査されます。
+- pages 層が参照できる app 層のモジュールは、ルート名の定数（ `@/app/router/route-names` ）だけです。
+- 画面は、パラメーターをルート名を指定した `useRoute()` で型付きで取得します。
 - 遷移を伴うコンテキストの部品は、イベントを発行するだけにします。
   たとえばログアウトのメニューが該当し、遷移は利用する側が行います。
 - 遷移先を必要とする共通処理は、遷移先を引数に取るファクトリー関数として提供します。
@@ -166,15 +163,15 @@ export type UpdateOutcome =
 画面はユースケースコンポーザブルを呼び出し、 Outcome を通知と遷移に変換します。
 
 ```typescript
-// pages/catalog/items/edit/[itemId].vue
-const route = useRoute('/catalog/items/edit/[itemId]')
+// pages/catalog/items/edit/ItemsEditPage.vue
+const route = useRoute(routeNames.catalogItemsEdit)
 const editor = useCatalogItemEditor(() => route.params.itemId)
 
 const onUpdate = async () => {
   const outcome = await editor.update()
   if (outcome.kind === 'notFound') {
     showToast('更新対象のカタログアイテムが見つかりませんでした。')
-    await router.push({ name: '/catalog/items/' })
+    await router.push({ name: routeNames.catalogItems })
   } else if (outcome.kind === 'conflict') {
     showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
   }
@@ -197,7 +194,7 @@ const onUpdate = async () => {
 `eslint.project-rules.ts` で次のルールを強制します。
 
 - pages 層は、次を参照できません。
-    - `@/app/**`
+    - `@/app/**` （ルート名の定数 `@/app/router/route-names` を除く）
     - コンテキストの `public-api.ts` 以外のファイル
     - `@/system-common/api-client` と `@/system-common/generated/**`
 - コンテキストは、次を参照できません。
@@ -211,7 +208,7 @@ const onUpdate = async () => {
 
 - vue-router の型の参照は、 `@typescript-eslint/no-restricted-imports` の `allowTypeImports` で許可します。
 - 動的インポートは `no-restricted-syntax` で `ImportExpression` を禁止します。
-  file-based routing ではルート定義が自動で生成されるため、手書きの動的インポートは不要です。
+  画面を動的インポートするのは app 層のルート表だけです。
 - system-common のルーティング定義に設けていた例外と、ルート名の集約モジュール（ `route-names.ts` ）は廃止します。
 
 ## 検討した選択肢 {#considered-options}
@@ -223,18 +220,18 @@ const onUpdate = async () => {
     - しかし本アプリケーションはエンタープライズアプリケーションのサンプルです。
       画面数の増加を見込み、 URL を軸とした標準の構成を優先します。
 - 画面遷移をポート（ Navigator ）として注入する
-    - 遷移先は生成された型で十分に検査できます。
+    - 遷移先は、拡張した型で十分に検査できます。
     - 本番用以外のアダプターに実需がないため、採用しません。
-- 規約だけを合わせてルート表を手書きする
-    - file-based routing は vue-router 5 に組み込まれており、依存の追加なしで導入できます。
-    - 手書きのルート表は、画面の配置との二重管理になるため採用しません。
-- `*Page.vue` の命名を維持する
-    - プラグインの設定で吸収できますが、標準の規約から外れるため採用しません。
+- vue-router 5 に組み込まれた file-based routing を使う
+    - 依存の追加なしで導入でき、ルート定義とルート名の型を画面の配置から自動で生成できます。
+    - 一方で、ルートの属性が各画面に分散し、認証の要否をまとめて確認できなくなります。
+    - また、画面ファイルの名前が URL の規約（ `index.vue` 、 `[itemId].vue` など）に縛られます。
+    - ルートの属性をまとめて監査できることを優先し、採用しません。
 
 ## 影響 {#consequences}
 
 - 次の順で移行します。
-    1. file-based routing を導入し、画面の配置、ルートの属性、画面遷移、ガードを切り替えます。
+    1. ルート表を app 層へ移し、ルートの属性、画面遷移、ガードを切り替えます。
        画面の振る舞いは変えません。
     1. ユースケースコンポーザブルを導入し、 `public-api.ts` を絞り込み、テストを移します。
     1. 参照方向のルールを更新します。

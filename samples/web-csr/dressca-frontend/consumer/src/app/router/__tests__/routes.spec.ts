@@ -1,15 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import { router } from '@/app/router'
+import { routeNames } from '@/app/router/route-names'
 
-describe('画面ファイルの配置から生成されるルート定義', () => {
+describe('ルート表', () => {
   it.each([
-    ['/', '/', false, false],
-    ['/authentication/login', '/authentication/login', false, false],
-    ['/basket', '/basket', false, false],
-    ['/ordering/checkout', '/ordering/checkout', true, true],
-    ['/ordering/done/1', '/ordering/done/[orderId]', true, true],
-    ['/error', '/error', false, false],
-    ['/not-exists', '/[...path]', false, false],
+    ['/', routeNames.displayItem, false, false],
+    ['/authentication/login', routeNames.login, false, false],
+    ['/basket', routeNames.basket, false, false],
+    ['/ordering/checkout', routeNames.checkout, true, true],
+    ['/ordering/done/1', routeNames.done, true, true],
+    ['/error', routeNames.error, false, false],
+    ['/not-exists', routeNames.notFound, false, false],
   ])(
     'URL_%s_はルート名_%s_に解決され_認証の要否は_%s_画面内遷移の要否は_%s',
     (url, name, requiresAuth, requiresInAppNavigation) => {

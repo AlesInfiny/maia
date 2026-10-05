@@ -7,7 +7,7 @@ description: dressca-frontend を構成するコンテキストと、アプリ�
 
 dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンドアプリケーションを持つ npm workspaces のモノレポです。
 各アプリケーションは、 `src/` の下で境界付けられたコンテキストごとにコードを分けています。
-層の構成と参照方向は [ADR 0002](./docs/adr/0002-app-owned-file-based-routing.md) で定めています。
+層の構成と参照方向は [ADR 0002](./docs/adr/0002-app-owned-route-table.md) で定めています。
 
 ## コンテキスト {#contexts}
 
@@ -34,8 +34,8 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 
 画面（ Page ）
 :   `src/pages/` の下に置く、ルーティングの対象となる Vue のコンポーネントです。
-    ファイルの配置が URL を表します（ file-based routing ）。
-    ファイル名は `index.vue` 、 `<セグメント名>.vue` 、 `[パラメーター名].vue` のいずれかにします。
+    ファイル名は `<画面名>Page.vue` にし、フォルダー構成を URL のパスと対応させます。
+    URL との対応は app 層のルート表（ `src/app/router/routes.ts` ）で定義します。
 
 View
 :   廃止した用語です。

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
+import { routeNames } from '@/app/router/route-names'
 import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
@@ -7,10 +8,6 @@ import { authenticationService } from '@/security/public-api'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { ValidationItems } from '@/system-common/validation/validation-items'
 import { redirectHelper } from '@/system-common/helpers/redirect-helper'
-
-definePage({
-  meta: { requiresAuth: false },
-})
 
 // フォーム固有のバリデーション定義
 const { requiredEmail: requiredEmailRule, required: requiredRule } = ValidationItems()
@@ -22,7 +19,7 @@ const formSchema = toTypedSchema(
 )
 
 const router = useRouter()
-const route = useRoute('/authentication/login')
+const route = useRoute(routeNames.login)
 const { toSafeRedirectPath } = redirectHelper()
 
 const { meta } = useForm({
@@ -43,7 +40,7 @@ const signInOnClick = () => {
   // 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
   // 戻り先がない場合や、アプリケーション外を指す場合は、トップページに遷移します。
   const redirect = toSafeRedirectPath(route.query.redirect)
-  router.push(redirect ?? { name: '/' })
+  router.push(redirect ?? { name: routeNames.displayItem })
 }
 </script>
 

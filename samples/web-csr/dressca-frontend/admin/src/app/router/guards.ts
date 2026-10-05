@@ -1,4 +1,5 @@
 import type { Router } from 'vue-router'
+import { routeNames } from './route-names'
 import { createAuthenticationGuard } from '@/security/public-api'
 
 /**
@@ -9,7 +10,7 @@ import { createAuthenticationGuard } from '@/security/public-api'
 export function registerNavigationGuards(router: Router) {
   router.beforeEach(
     createAuthenticationGuard({
-      toLogin: (redirect) => ({ name: '/authentication/login', query: { redirect } }),
+      toLogin: (redirect) => ({ name: routeNames.login, query: { redirect } }),
     }),
   )
 }
