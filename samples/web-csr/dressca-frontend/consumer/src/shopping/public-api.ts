@@ -23,8 +23,19 @@ export {
   type RemoveFromBasketOutcome,
 } from './basket/composables/use-basket'
 export type { BasketAccount, BasketLine } from './basket/models/basket-line'
-export { fetchBasket } from './basket/services/basket-service'
 export { default as BasketItem } from './basket/components/BasketItem.vue'
 
-export { useUserStore } from './ordering/stores/user'
-export { postOrder, getOrder } from './ordering/services/ordering-service'
+export {
+  useCheckout,
+  type Checkout,
+  type CheckoutStatus,
+  type PlaceOrderOutcome,
+} from './ordering/composables/use-checkout'
+export {
+  useOrderResult,
+  type OrderedItem,
+  type OrderResult,
+  type OrderResultStatus,
+  type OrderResultView,
+} from './ordering/composables/use-order-result'
+export type { Address } from './ordering/stores/user.model'

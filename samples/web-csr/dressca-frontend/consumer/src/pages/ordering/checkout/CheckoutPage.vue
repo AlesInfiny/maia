@@ -1,74 +1,54 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { watch } from 'vue'
 import { routeNames } from '@/app/router/route-names'
-import { useBasketStore } from '@/business-common/stores/basket'
-import { useUserStore, postOrder, fetchBasket } from '@/shopping/public-api'
-import { showToast } from '@/business-common/services/notification-service'
+import { useCheckout } from '@/shopping/public-api'
+import { showFailureToast } from '@/business-common/services/notification-service'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
-import { storeToRefs } from 'pinia'
 import { i18n } from '@/system-common/locales/i18n'
-import { HttpError } from '@/system-common/error-handler/custom-error'
-import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
-const userStore = useUserStore()
-const basketStore = useBasketStore()
-
-const { getBasket, getDeletedItemIds } = storeToRefs(basketStore)
-const { getAddress } = storeToRefs(userStore)
 const router = useRouter()
-const handleErrorAsync = useCustomErrorHandler()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
+const { status, lines, account, hasUnavailableItems, address, placeOrder } = useCheckout()
 
-const hasUnavailableItems = computed(() => getDeletedItemIds.value.length > 0)
+/**
+ * 買い物かごが空の場合は、陳列品画面へ遷移します。
+ * 読み込みに失敗した場合は、利用者に通知してエラー画面へ遷移します。
+ */
+watch(status, (newStatus) => {
+  if (newStatus.kind === 'empty') {
+    router.push({ name: routeNames.displayItem })
+  } else if (newStatus.kind === 'failed') {
+    showFailureToast(newStatus.problem, t('failedToGetCarts'))
+    router.push({ name: routeNames.error })
+  }
+})
 
 const goBasket = () => {
   router.push({ name: routeNames.basket })
 }
 
-const checkout = async () => {
-  try {
-    const orderId = await postOrder(
-      getAddress.value.fullName,
-      getAddress.value.postalCode,
-      getAddress.value.todofuken,
-      getAddress.value.shikuchoson,
-      getAddress.value.azanaAndOthers,
-    )
-    router.push({ name: routeNames.done, params: { orderId } })
-  } catch (error) {
-    await handleErrorAsync(
-      error,
-      () => {
-        router.push({ name: routeNames.error })
-      },
-      (httpError: HttpError) => {
-        if (!httpError.response?.exceptionId) {
-          showToast(t('failedToOrderItems'))
-        } else {
-          const message = t(httpError.response.exceptionId, httpError.response.exceptionValues)
-          showToast(
-            message,
-            httpError.response.exceptionId,
-            httpError.response.title,
-            httpError.response.detail,
-            httpError.response.status,
-            100000,
-          )
-        }
-      },
-    )
+/**
+ * 注文を確定し、注文完了画面へ遷移します。
+ * 失敗した場合は、利用者に通知してエラー画面へ遷移します。
+ */
+const placeOrderAsync = async () => {
+  const outcome = await placeOrder()
+  switch (outcome.kind) {
+    case 'ordered':
+      router.push({ name: routeNames.done, params: { orderId: outcome.orderId } })
+      break
+    case 'failed':
+      showFailureToast(outcome.problem, t('failedToOrderItems'))
+      router.push({ name: routeNames.error })
+      break
+    case 'canceled':
+      break
   }
 }
-onMounted(async () => {
-  await fetchBasket()
-  if (getBasket.value.basketItems?.length === 0) {
-    router.push({ name: routeNames.displayItem })
-  }
-})
 </script>
 
 <template>
@@ -89,25 +69,25 @@ onMounted(async () => {
           <tr>
             <td>税抜き合計</td>
             <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.totalItemsPrice) }}
+              {{ toCurrencyJPY(account?.totalItemsPrice) }}
             </td>
           </tr>
           <tr>
             <td>送料</td>
             <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.deliveryCharge) }}
+              {{ toCurrencyJPY(account?.deliveryCharge) }}
             </td>
           </tr>
           <tr>
             <td>消費税</td>
             <td class="text-right">
-              {{ toCurrencyJPY(getBasket.account?.consumptionTax) }}
+              {{ toCurrencyJPY(account?.consumptionTax) }}
             </td>
           </tr>
           <tr>
             <td>合計</td>
             <td class="text-right text-xl font-bold text-red-500">
-              {{ toCurrencyJPY(getBasket.account?.totalPrice) }}
+              {{ toCurrencyJPY(account?.totalPrice) }}
             </td>
           </tr>
         </tbody>
@@ -121,7 +101,7 @@ onMounted(async () => {
           }"
           type="button"
           :disabled="hasUnavailableItems"
-          @click="checkout()"
+          @click="placeOrderAsync()"
         >
           注文を確定する
         </button>
@@ -141,41 +121,41 @@ onMounted(async () => {
         <tbody>
           <tr>
             <td rowspan="5" class="w-24 border-r pl-2">お届け先</td>
-            <td class="pl-2">{{ getAddress.fullName }}</td>
+            <td class="pl-2">{{ address.fullName }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ `〒${getAddress.postalCode}` }}</td>
+            <td class="pl-2">{{ `〒${address.postalCode}` }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ getAddress.todofuken }}</td>
+            <td class="pl-2">{{ address.todofuken }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ getAddress.shikuchoson }}</td>
+            <td class="pl-2">{{ address.shikuchoson }}</td>
           </tr>
           <tr>
-            <td class="pl-2">{{ getAddress.azanaAndOthers }}</td>
+            <td class="pl-2">{{ address.azanaAndOthers }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="mx-2 mt-8">
       <div
-        v-for="item in getBasket.basketItems"
+        v-for="item in lines"
         :key="item.displayItemId"
         class="mt-4 grid grid-cols-4 items-center lg:grid-cols-6"
         :class="{
-          'bg-red-100': getDeletedItemIds.includes(item.displayItemId),
+          'bg-red-100': !item.available,
         }"
       >
         <div class="col-span-4 lg:col-span-5">
           <div class="grid grid-cols-3">
             <img
-              :src="getFirstAssetUrl(item.displayItem?.assetCodes)"
-              :alt="item.displayItem?.name"
+              :src="getFirstAssetUrl(item.assetCodes)"
+              :alt="item.name"
               class="pointer-events-none h-40"
             />
             <div class="ml-2">
-              <p>{{ item.displayItem?.name }}</p>
+              <p>{{ item.name }}</p>
               <p class="mt-4">
                 {{ `価格: ${toCurrencyJPY(item.unitPrice)}` }}
               </p>
@@ -186,7 +166,7 @@ onMounted(async () => {
                 {{ toCurrencyJPY(item.subTotal) }}
               </p>
             </div>
-            <p v-if="getDeletedItemIds.includes(item.displayItemId)" class="font-bold text-red-500">
+            <p v-if="!item.available" class="font-bold text-red-500">
               {{ t('itemUnavailable') }}
             </p>
           </div>
