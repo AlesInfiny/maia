@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { routeNames } from '@/app/router/route-names'
-import { storeToRefs } from 'pinia'
 import { useCatalogItemCreator } from '@/catalog-management/public-api'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { showToast } from '@/business-common/services/notification-service'
 import { useRouter } from 'vue-router'
-import { useAuthenticationStore, Roles } from '@/security/public-api'
+import { useAuthorization, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 
 const router = useRouter()
-const authenticationStore = useAuthenticationStore()
-const { isInRole } = storeToRefs(authenticationStore)
+const { isInRole } = useAuthorization()
 const { status, form, categories, brands, create } = useCatalogItemCreator({
   itemName: 'テスト用アイテム',
   itemDescription: 'テスト用アイテムです。',

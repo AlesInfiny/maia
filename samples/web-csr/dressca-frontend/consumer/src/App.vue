@@ -5,12 +5,12 @@ import { router } from '@/app/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from '@/system-common/events'
-import { authenticationService } from '@/security/public-api'
+import { AuthenticationMenu } from '@/security/public-api'
 
-const { isAuthenticated, signOut } = authenticationService()
-
-const logout = () => {
-  signOut()
+/**
+ * ログアウトしたとき、ログイン画面へ遷移します。
+ */
+const onLoggedOut = () => {
   router.push({ name: routeNames.login })
 }
 
@@ -46,10 +46,10 @@ unauthorizedErrorEventBus.on(() => {
             <router-link :to="{ name: routeNames.basket }">
               <ShoppingCartIcon class="h-8 w-8 text-amber-600" />
             </router-link>
-            <router-link v-if="!isAuthenticated()" :to="{ name: routeNames.login }">
-              ログイン
-            </router-link>
-            <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>
+            <AuthenticationMenu
+              :login-location="{ name: routeNames.login }"
+              @logged-out="onLoggedOut"
+            />
           </div>
         </div>
       </nav>

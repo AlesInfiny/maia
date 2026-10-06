@@ -4,7 +4,8 @@ import { createMemoryHistory, createRouter, type Router } from 'vue-router'
 import { routes } from '@/app/router/routes'
 import { registerNavigationGuards } from '@/app/router/guards'
 import { routeNames } from '@/app/router/route-names'
-import { authenticationService } from '@/security/public-api'
+// 認証状態を準備するため、 security の内部のサービスを直接参照します。
+import { authenticationService } from '@/security/authentication/services/authentication-service'
 
 /**
  * ナビゲーションガードを登録した、テスト用のルーターを生成します。
