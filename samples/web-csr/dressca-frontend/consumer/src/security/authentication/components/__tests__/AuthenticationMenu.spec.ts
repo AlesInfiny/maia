@@ -35,7 +35,17 @@ describe('AuthenticationMenu', () => {
     expect(link.props('to')).toBe('/authentication/login')
   })
 
-  it('認証済みでログアウトする_未認証になりloggedOutを発行する', async () => {
+  it('認証済み_ログアウトのボタンを表示する', () => {
+    // Arrange
+    useAuthenticationStore(pinia).signIn()
+    // Act
+    const wrapper = mountMenu()
+    // Assert
+    expect(wrapper.get('button').text()).toBe('ログアウト')
+    expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(false)
+  })
+
+  it('認証済みでログアウトする_未認証になりloggedOutを発行してログインのリンクに切り替わる', async () => {
     // Arrange
     useAuthenticationStore(pinia).signIn()
     const wrapper = mountMenu()
@@ -44,5 +54,7 @@ describe('AuthenticationMenu', () => {
     // Assert
     expect(useAuthenticationStore(pinia).isAuthenticated).toBe(false)
     expect(wrapper.emitted('loggedOut')).toHaveLength(1)
+    expect(wrapper.find('button').exists()).toBe(false)
+    expect(wrapper.getComponent(RouterLinkStub).text()).toBe('ログイン')
   })
 })

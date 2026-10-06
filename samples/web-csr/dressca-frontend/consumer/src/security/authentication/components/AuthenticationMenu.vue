@@ -3,6 +3,8 @@
  * ログイン状態に応じて、ログインのリンクかログアウトのボタンを表示するメニューです。
  */
 import type { RouteLocationRaw } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useAuthenticationStore } from '@/security/authentication/stores/authentication'
 import { authenticationService } from '@/security/authentication/services/authentication-service'
 
 defineProps<{
@@ -19,7 +21,8 @@ const emit = defineEmits<{
   loggedOut: []
 }>()
 
-const { isAuthenticated, signOut } = authenticationService()
+const { isAuthenticated } = storeToRefs(useAuthenticationStore())
+const { signOut } = authenticationService()
 
 /**
  * アプリケーションからログアウトします。
@@ -31,6 +34,6 @@ const logout = () => {
 </script>
 
 <template>
-  <router-link v-if="!isAuthenticated()" :to="loginLocation"> ログイン </router-link>
+  <router-link v-if="!isAuthenticated" :to="loginLocation"> ログイン </router-link>
   <button v-else type="button" class="cursor-pointer" @click="logout">ログアウト</button>
 </template>
