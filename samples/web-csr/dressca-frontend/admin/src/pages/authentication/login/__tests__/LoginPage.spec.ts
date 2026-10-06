@@ -1,10 +1,15 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { routeNames } from '@/app/router/route-names'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
 import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
+import { createTestingPinia, type TestingPinia } from '@pinia/testing'
+import { http, HttpResponse } from 'msw'
+import { HttpStatusCode } from 'axios'
+import { useNotificationStore } from '@/business-common/stores/notification'
+import { server } from '@/../mock/node'
 
 /**
  * ログイン画面のラッパーを生成します。
@@ -104,5 +109,48 @@ describe('LoginPage', () => {
     await setValuesAndValidate(wrapper, 'aaa@example.com', ' ')
     const passwordErr = wrapper.find('#password-error').text()
     expect(passwordErr).toBe('パスワードは必須です。')
+  })
+})
+
+describe('ログインの結果の通知と遷移', () => {
+  /**
+   * 戻り先を指定してログイン画面を表示し、有効な値を入力します。
+   * @param pinia テストに使用する TestingPinia インスタンス。
+   * @returns マウント済みのラッパー。
+   */
+  async function getFilledWrapper(pinia: TestingPinia) {
+    await router.push({ name: routeNames.login, query: { redirect: '/catalog/items' } })
+    const filled = mount(LoginPage, { global: { plugins: [pinia, router] } })
+    await setValuesAndValidate(filled, 'user@example.com', 'password')
+    return filled
+  }
+
+  it('ログインできる_戻り先の画面へ遷移する', async () => {
+    // Arrange
+    const pinia = createTestingPinia({ createSpy: vi.fn, stubActions: false })
+    const filled = await getFilledWrapper(pinia)
+    // Act
+    await filled.get('button').trigger('click')
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    // Assert
+    expect(router.currentRoute.value.fullPath).toBe('/catalog/items')
+  })
+
+  it('ログインできない_トーストを表示しログイン画面にとどまる', async () => {
+    // Arrange
+    server.use(
+      http.get(
+        '/api/users',
+        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
+      ),
+    )
+    const pinia = createTestingPinia({ createSpy: vi.fn, stubActions: false })
+    const filled = await getFilledWrapper(pinia)
+    // Act
+    await filled.get('button').trigger('click')
+    await flushPromises()
+    // Assert
+    expect(useNotificationStore(pinia).message).toBe('ログインに失敗しました。')
+    expect(router.currentRoute.value.name).toBe(routeNames.login)
   })
 })
