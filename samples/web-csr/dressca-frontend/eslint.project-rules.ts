@@ -41,6 +41,45 @@ const dynamicImportRestriction: Linter.RulesRecord = {
 }
 
 /**
+ * 参照を禁止するルールの名前です。
+ * vue-router の型だけを許可するため（ `allowTypeImports` ）、 typescript-eslint のルールを使用します。
+ */
+const restrictedImportsRule = '@typescript-eslint/no-restricted-imports'
+
+/**
+ * vue-router の値の参照を禁止し、型の参照だけを許可する設定です。
+ * 画面を遷移させられるのは pages 層と app 層だけです。
+ */
+const vueRouterValueRestriction = {
+  name: 'vue-router',
+  message:
+    '画面を遷移させられるのは pages 層と app 層だけです。 vue-router は型だけ参照できます。遷移先が必要な場合は、遷移先を引数で受け取ります。',
+  allowTypeImports: true,
+}
+
+/**
+ * コンテキストを表す `@/` エイリアスのパターンからフォルダー名を取り出します。
+ * @param contextPattern コンテキストを表すパターン（例: `@/security/**` ）。
+ * @returns フォルダー名（例: `security` ）。
+ */
+function toContextFolder(contextPattern: string): string {
+  return contextPattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
+}
+
+/**
+ * コンテキスト全体の参照を禁止しつつ、 public-api.ts だけを許可するパターンを作ります。
+ * gitignore 形式の除外記法で、コンテキストごとに否定パターンのペアを作ります。
+ * @param contextPatterns コンテキストを表すパターン。
+ * @returns 参照を禁止するパターン。
+ */
+function exceptPublicApi(contextPatterns: string[]): string[] {
+  return contextPatterns.flatMap((pattern) => [
+    pattern,
+    `!@/${toContextFolder(pattern)}/public-api`,
+  ])
+}
+
+/**
  * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
  *   app 層（main.ts 、 App.vue 、 src/app）
@@ -56,23 +95,17 @@ const dynamicImportRestriction: Linter.RulesRecord = {
  * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
  * app 層は最上位の層のため、参照の制限を設けません。
  * pages から app 層への参照は、ルート名の定数（ `@/app/router/route-names` ）だけを例外として許可します。
- * pages のテストは、画面を遷移させるためにルーター（ `@/app/router` ）も参照できます。
+ * pages は API クライアントと API の型を参照できません。 API はコンテキストのユースケースコンポーザブルが扱います。
+ * pages のテストは、画面を遷移させるためにルーター（ `@/app/router` ）を、
+ * API の応答を組み立てるために API の型を参照できます。
+ * コンテキストから他のコンテキストを参照できるのは、 public-api.ts だけです。
+ * コンテキスト、 business-common 、 system-common は、 vue-router を型だけ参照できます。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
  *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
 function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
-  const contextFileGlobs = contextPatterns.map((pattern) => {
-    const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
-    return `**/${workspace}/src/${contextFolder}/**/*.{vue,ts,mts,tsx}`
-  })
-  // 各コンテキストパターンについて「コンテキスト全体を禁止しつつ public-api.ts だけ許可する」
-  // 否定パターンのペアを作ります（gitignore 形式の除外記法）。
-  const contextPatternsExceptPublicApi = contextPatterns.flatMap((pattern) => {
-    const contextFolder = pattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
-    return [pattern, `!@/${contextFolder}/public-api`]
-  })
   const pagesFileGlob = `**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`
   // `__tests__/**/*.{vue,ts}` の形は、 pages 直下のフォルダーのテスト（ pages/basket/__tests__ など）に一致しないため、
   // `__tests__/**` の形で指定します。
@@ -82,7 +115,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     `**/${workspace}/src/pages/**/__tests__/**`,
   ]
   const pagesContextRestriction = {
-    group: contextPatternsExceptPublicApi,
+    group: exceptPublicApi(contextPatterns),
     message:
       'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
   }
@@ -92,14 +125,55 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
   const pagesAppMessage =
     'pages から参照できる app 層のモジュールは、ルート名の定数（ @/app/router/route-names ）だけです。'
 
+  /**
+   * コンテキストごとに、他のコンテキストの内部の参照を禁止する設定を作ります。
+   * 同じコンテキストの中の参照は制限しません。
+   * @param contextPattern 設定を作るコンテキストを表すパターン。
+   * @returns ESLint の設定。
+   */
+  const createContextRule = (contextPattern: string): Linter.Config => {
+    const contextFolder = toContextFolder(contextPattern)
+    const otherContextPatterns = contextPatterns.filter((pattern) => pattern !== contextPattern)
+    return {
+      name: `${workspace}/layer-dependency/context/${contextFolder}`,
+      files: [`**/${workspace}/src/${contextFolder}/**/*.{vue,ts,mts,tsx}`],
+      rules: {
+        [restrictedImportsRule]: [
+          'error',
+          {
+            paths: [vueRouterValueRestriction],
+            patterns: [
+              {
+                group: ['@/app/**', '@/pages/**'],
+                message:
+                  'コンテキストは app 層と pages を参照できません。 app 層と pages はコンテキストより上位の層です。',
+              },
+              ...(otherContextPatterns.length > 0
+                ? [
+                    {
+                      group: exceptPublicApi(otherContextPatterns),
+                      message:
+                        '他のコンテキストは public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
+                    },
+                  ]
+                : []),
+            ],
+          },
+        ],
+        ...dynamicImportRestriction,
+      },
+    }
+  }
+
   return [
     {
       name: `${workspace}/layer-dependency/system-common`,
       files: [`**/${workspace}/src/system-common/**/*.{vue,ts,mts,tsx}`],
       rules: {
-        'no-restricted-imports': [
+        [restrictedImportsRule]: [
           'error',
           {
+            paths: [vueRouterValueRestriction],
             patterns: [
               {
                 group: ['@/app/**', '@/business-common/**', '@/pages/**', ...contextPatterns],
@@ -116,9 +190,10 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
       name: `${workspace}/layer-dependency/business-common`,
       files: [`**/${workspace}/src/business-common/**/*.{vue,ts,mts,tsx}`],
       rules: {
-        'no-restricted-imports': [
+        [restrictedImportsRule]: [
           'error',
           {
+            paths: [vueRouterValueRestriction],
             patterns: [
               {
                 group: ['@/app/**', '@/pages/**', ...contextPatterns],
@@ -130,37 +205,28 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
         ...dynamicImportRestriction,
       },
     },
-    {
-      name: `${workspace}/layer-dependency/context`,
-      files: contextFileGlobs,
-      rules: {
-        'no-restricted-imports': [
-          'error',
-          {
-            patterns: [
-              {
-                group: ['@/app/**', '@/pages/**'],
-                message:
-                  'コンテキストは app 層と pages を参照できません。 app 層と pages はコンテキストより上位の層です。',
-              },
-            ],
-          },
-        ],
-        ...dynamicImportRestriction,
-      },
-    },
+    ...contextPatterns.map(createContextRule),
     {
       name: `${workspace}/layer-dependency/pages`,
       files: [pagesFileGlob],
       ignores: pagesTestFileGlobs,
       rules: {
-        'no-restricted-imports': [
+        [restrictedImportsRule]: [
           'error',
           {
             paths: [{ name: '@/app/router', message: pagesAppMessage }],
             patterns: [
               pagesContextRestriction,
               { group: appPatternsExceptRouter, message: pagesAppMessage },
+              {
+                group: [
+                  '@/system-common/api-client',
+                  '@/system-common/api-client/**',
+                  '@/system-common/generated/**',
+                ],
+                message:
+                  'pages は API クライアントと API の型を参照できません。コンテキストのユースケースコンポーザブルを使用します。',
+              },
             ],
           },
         ],
@@ -171,7 +237,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
       name: `${workspace}/layer-dependency/pages-test`,
       files: pagesTestFileGlobs,
       rules: {
-        'no-restricted-imports': [
+        [restrictedImportsRule]: [
           'error',
           {
             patterns: [

@@ -202,6 +202,8 @@ const onUpdate = async () => {
     - `@/app/**` （ルート名の定数 `@/app/router/route-names` を除く）
     - コンテキストの `public-api.ts` 以外のファイル
     - `@/system-common/api-client` と `@/system-common/generated/**`
+- pages 層のテストは、例外としてルーター（ `@/app/router` ）と API の型（ `@/system-common/generated/**` ）を参照できます。
+  画面を遷移させるためと、 API のレスポンスを組み立てるためです。
 - コンテキストは、次を参照できません。
     - `@/app/**` と `@/pages/**`
     - 他のコンテキストの `public-api.ts` 以外のファイル
