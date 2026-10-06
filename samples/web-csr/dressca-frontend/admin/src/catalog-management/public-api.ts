@@ -3,12 +3,19 @@
  * pages や他コンテキストは、このモジュール経由でのみ catalog-management を参照します。
  */
 export {
+  useCatalogItemEditor,
+  type CatalogItemEditor,
+  type CatalogItemEditorStatus,
+  type CatalogItemForm,
+  type CatalogItemSnapshot,
+  type CatalogOption,
+  type RemoveOutcome,
+  type UpdateOutcome,
+} from './catalog/composables/use-catalog-item-editor'
+export {
   fetchCategoriesAndBrands,
-  fetchItem,
   fetchItems,
   postCatalogItem,
-  updateCatalogItem,
-  deleteCatalogItem,
 } from './catalog/services/catalog-service'
 export {
   catalogItemTypedSchema,

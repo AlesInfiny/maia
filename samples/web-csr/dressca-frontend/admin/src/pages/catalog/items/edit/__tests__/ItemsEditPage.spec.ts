@@ -2,10 +2,16 @@ import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { routeNames } from '@/app/router/route-names'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
+import { http, HttpResponse } from 'msw'
+import { HttpStatusCode } from 'axios'
 import ItemsEditPage from '@/pages/catalog/items/edit/ItemsEditPage.vue'
 import { router } from '@/app/router'
 import { Roles } from '@/security/public-api'
+import { useNotificationStore } from '@/business-common/stores/notification'
+import { server } from '@/../mock/node'
 import { catalogItems } from '@/../mock/data/catalog-items'
+
+const itemUrl = '/api/catalog-items/:catalogItemId'
 
 /**
  * テスト用の Pinia ストアを生成します。
@@ -32,8 +38,7 @@ function CreateLoginState(userRoles: string[]) {
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 async function getWrapper(pinia: TestingPinia) {
-  router.push({ name: routeNames.catalogItemsEdit, params: { itemId: catalogItems[0].id } })
-  await router.isReady()
+  await router.push({ name: routeNames.catalogItemsEdit, params: { itemId: catalogItems[0].id } })
   return mount(ItemsEditPage, {
     global: { plugins: [pinia, router] },
   })
@@ -199,5 +204,59 @@ describe('ゲストロール_アイテム更新ボタンが非活性', () => {
     const editButton = wrapper.findAll('button')[1]
     // Assert
     expect(editButton.attributes('disabled')).toBeDefined()
+  })
+})
+
+describe('結果の通知と遷移', () => {
+  it('アイテムが存在しない_トーストを表示しアイテム一覧画面へ遷移する', async () => {
+    // Arrange
+    server.use(http.get(itemUrl, () => new HttpResponse(null, { status: HttpStatusCode.NotFound })))
+    const loginState = CreateLoginState([Roles.ADMIN])
+    // Act
+    await getWrapper(loginState)
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    // Assert
+    expect(useNotificationStore(loginState).message).toBe('対象のアイテムが見つかりませんでした。')
+  })
+
+  it('更新が競合した_トーストを表示し編集画面にとどまる', async () => {
+    // Arrange
+    const loginState = CreateLoginState([Roles.ADMIN])
+    const wrapper = await getWrapper(loginState)
+    await flushPromises()
+    server.use(http.put(itemUrl, () => new HttpResponse(null, { status: HttpStatusCode.Conflict })))
+    // Act
+    await wrapper.findAll('button')[1].trigger('click')
+    await wrapper
+      .findAllComponents({ name: 'ConfirmationModal' })[1]
+      .findAll('button')[0]
+      .trigger('click')
+    await flushPromises()
+    // Assert
+    expect(useNotificationStore(loginState).message).toBe(
+      'カタログアイテムの更新が競合しました。もう一度更新してください。',
+    )
+    expect(router.currentRoute.value.name).toBe(routeNames.catalogItemsEdit)
+  })
+
+  it('削除対象が存在しない_トーストを表示しアイテム一覧画面へ遷移する', async () => {
+    // Arrange
+    const loginState = CreateLoginState([Roles.ADMIN])
+    const wrapper = await getWrapper(loginState)
+    await flushPromises()
+    server.use(
+      http.delete(itemUrl, () => new HttpResponse(null, { status: HttpStatusCode.NotFound })),
+    )
+    // Act
+    await wrapper.findAll('button')[0].trigger('click')
+    await wrapper
+      .findAllComponents({ name: 'ConfirmationModal' })[0]
+      .findAll('button')[0]
+      .trigger('click')
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    // Assert
+    expect(useNotificationStore(loginState).message).toBe(
+      '削除対象のカタログアイテムが見つかりませんでした。',
+    )
   })
 })

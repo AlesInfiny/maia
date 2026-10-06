@@ -1,123 +1,27 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { routeNames } from '@/app/router/route-names'
 import { storeToRefs } from 'pinia'
 import {
-  fetchItem,
-  updateCatalogItem,
-  deleteCatalogItem,
-  fetchCategoriesAndBrands,
-  catalogItemTypedSchema,
-  type CatalogItemFormValues,
+  useCatalogItemEditor,
   ConfirmationModal,
   NotificationModal,
 } from '@/catalog-management/public-api'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { showToast } from '@/business-common/services/notification-service'
 import { useRoute, useRouter } from 'vue-router'
-import { useForm } from 'vee-validate'
-import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'
-import type {
-  GetCatalogBrandsResponse,
-  GetCatalogCategoriesResponse,
-  GetCatalogItemResponse,
-} from '@/system-common/generated/api-client'
 import { useAuthenticationStore, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
-import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
-const handleErrorAsync = useCustomErrorHandler()
 const authenticationStore = useAuthenticationStore()
 const { isInRole } = storeToRefs(authenticationStore)
 const router = useRouter()
 const route = useRoute(routeNames.catalogItemsEdit)
-const id = route.params.itemId
 const { getFirstAssetUrl } = assetHelper()
-
-/**
- * アイテムの情報を表すインターフェースです。
- * リアクティブな状態を型付けするために必要です。
- */
-interface ItemState {
-  id: string
-  name: string
-  description: string
-  price: string
-  productCode: string
-  categoryId: string
-  brandId: string
-  assetCodes: string[] | undefined
-  rowVersion: string
-  isDeleted: boolean
-}
-
-const { errors, values, meta, defineField, setValues } = useForm<CatalogItemFormValues>({
-  validationSchema: catalogItemTypedSchema,
-  initialValues: {
-    itemName: '',
-    itemDescription: '',
-    price: '',
-    productCode: '',
-  },
-})
-
-const [itemName] = defineField('itemName')
-const [itemDescription] = defineField('itemDescription')
-const [price] = defineField('price')
-const [productCode] = defineField('productCode')
-
-const isInvalid = () => {
-  return !meta.value.valid
-}
-
-/**
- * 編集中のアイテムの状態です。
- */
-const editingItemState = ref<ItemState>({
-  id: '',
-  name: '',
-  description: '',
-  price: '',
-  productCode: '',
-  categoryId: '',
-  brandId: '',
-  assetCodes: [''],
-  rowVersion: '',
-  isDeleted: false,
-})
-
-/**
- * 現在のアイテムの状態です。
- */
-const currentItemState = ref<ItemState>({
-  id: '',
-  name: '',
-  description: '',
-  price: '',
-  productCode: '',
-  categoryId: '',
-  brandId: '',
-  assetCodes: [''],
-  rowVersion: '',
-  isDeleted: false,
-})
-
-/**
- * リアクティブなカタログブランドの状態です。
- */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
-
-/**
- * リアクティブなカタログカテゴリの状態です。
- */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
-
-const availableCatalogBrands = computed(() =>
-  catalogBrands.value.filter((brand) => brand.id !== ''),
-)
-
-const availableCatalogCategories = computed(() =>
-  catalogCategories.value.filter((category) => category.id !== ''),
+// ルートのパラメーターは値で渡します。
+// ゲッターで渡すと、他の画面へ遷移したとき、この画面が破棄される前に空のパラメーターで読み込み直してしまいます。
+const { status, current, form, categories, brands, update, remove } = useCatalogItemEditor(
+  route.params.itemId,
 )
 
 /**
@@ -141,9 +45,17 @@ const showUpdateConfirm = ref(false)
 const showUpdateNotice = ref(false)
 
 /**
- * ローディングスピナーの表示の状態です。
+ * アイテムの読み込みに失敗したとき、利用者に通知します。
+ * アイテムが見つからない場合は、アイテム一覧画面へ遷移します。
  */
-const showLoading = ref(true)
+watch(status, (newStatus) => {
+  if (newStatus === 'notFound') {
+    showToast('対象のアイテムが見つかりませんでした。')
+    router.push({ name: routeNames.catalogItems })
+  } else if (newStatus === 'failed') {
+    showToast('アイテムの取得に失敗しました。')
+  }
+})
 
 /**
  * 削除通知モーダルを閉じます。
@@ -163,120 +75,27 @@ const closeUpdateNotice = () => {
 }
 
 /**
- * API モデルのアイテムの情報を、画面の現在のアイテムの状態にセットします。
- * @param catalogItemResponse カタログアイテムのレスポンス情報
+ * カタログからアイテムを削除し、結果を利用者に通知します。
  */
-const setCurrentItemState = (item: GetCatalogItemResponse) => {
-  currentItemState.value.id = item.id
-  currentItemState.value.name = item.name
-  currentItemState.value.description = item.description
-  currentItemState.value.price = item.price.toString()
-  currentItemState.value.productCode = item.productCode
-  currentItemState.value.categoryId = item.catalogCategoryId
-  currentItemState.value.brandId = item.catalogBrandId
-  currentItemState.value.assetCodes = item.assetCodes
-  currentItemState.value.rowVersion = item.rowVersion
-  currentItemState.value.isDeleted = item.isDeleted
-}
-
-/**
- * カタログアイテムの情報を取得します。
- * @param itemId カタログアイテムID
- */
-const getItem = async (itemId: string) => {
+const removeItemAsync = async () => {
   try {
-    setCurrentItemState(await fetchItem(itemId))
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      showToast('対象のアイテムが見つかりませんでした。')
-      router.push({ name: routeNames.catalogItems })
-    }
-    await handleErrorAsync(error, () => {
-      showToast('アイテムの取得に失敗しました。')
-    })
-  }
-}
-
-/**
- * カタログカテゴリとブランドの情報を取得します。
- */
-const getCategoriesAndBrands = async () => {
-  try {
-    ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
-  } catch (error) {
-    await handleErrorAsync(error, () => {
-      showToast('カタログアイテムとカテゴリの取得に失敗しました。')
-    })
-  }
-}
-
-/**
- * 対象の ID のアイテムの状態を初期化します。
- * @param itemId カタログアイテムID
- */
-const initItemAsync = async (itemId: string) => {
-  await getCategoriesAndBrands()
-  await getItem(itemId)
-  setValues({
-    itemName: currentItemState.value.name,
-    itemDescription: currentItemState.value.description,
-    price: currentItemState.value.price,
-    productCode: currentItemState.value.productCode,
-  })
-  editingItemState.value.id = currentItemState.value.id
-  editingItemState.value.categoryId = currentItemState.value.categoryId
-  editingItemState.value.brandId = currentItemState.value.brandId
-  editingItemState.value.assetCodes = currentItemState.value.assetCodes
-  editingItemState.value.rowVersion = currentItemState.value.rowVersion
-  editingItemState.value.isDeleted = currentItemState.value.isDeleted
-}
-
-/**
- * 対象の ID のアイテムの状態を再取得します。
- * 編集中のアイテムの行バージョンのみを最新化します。
- * @param itemId
- */
-const reFetchItemAndInitRowVersionAsync = async (itemId: string) => {
-  await getCategoriesAndBrands()
-  await getItem(itemId)
-  editingItemState.value.rowVersion = currentItemState.value.rowVersion
-}
-
-/**
- * コンポーネントがマウントされた後に呼び出されるライフサイクルフックです。
- *
- */
-onMounted(async () => {
-  showLoading.value = true
-  try {
-    await initItemAsync(id)
-  } finally {
-    showLoading.value = false
-  }
-})
-
-/**
- * カタログからアイテムを削除します。
- */
-const deleteItemAsync = async () => {
-  try {
-    await deleteCatalogItem(editingItemState.value.id, editingItemState.value.rowVersion)
-    showDeleteNotice.value = true
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      await handleErrorAsync(error, () => {
+    const outcome = await remove()
+    switch (outcome.kind) {
+      case 'removed':
+        showDeleteNotice.value = true
+        break
+      case 'notFound':
         showToast('削除対象のカタログアイテムが見つかりませんでした。')
         router.push({ name: routeNames.catalogItems })
-      })
-    } else if (error instanceof ConflictError) {
-      await handleErrorAsync(error, () => {
+        break
+      case 'conflict':
         showToast('カタログアイテムの更新と削除が競合しました。もう一度削除してください。')
-      })
-      await reFetchItemAndInitRowVersionAsync(id)
-    } else {
-      await handleErrorAsync(error, () => {
+        break
+      case 'failed':
         showToast('カタログアイテムの削除に失敗しました。')
-      })
+        break
+      case 'canceled':
+        break
     }
   } finally {
     showDeleteConfirm.value = false
@@ -284,36 +103,27 @@ const deleteItemAsync = async () => {
 }
 
 /**
- * カタログ上のアイテムを更新します。
+ * カタログ上のアイテムを更新し、結果を利用者に通知します。
  */
 const updateItemAsync = async () => {
   try {
-    await updateCatalogItem(
-      editingItemState.value.id,
-      values.itemName,
-      values.itemDescription,
-      Number(values.price),
-      values.productCode,
-      editingItemState.value.categoryId,
-      editingItemState.value.brandId,
-      editingItemState.value.rowVersion,
-      editingItemState.value.isDeleted,
-    )
-    await initItemAsync(id)
-    showUpdateNotice.value = true
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      showToast('更新対象のカタログアイテムが見つかりませんでした。')
-      router.push({ name: routeNames.catalogItems })
-    } else if (error instanceof ConflictError) {
-      await handleErrorAsync(error, () => {
+    const outcome = await update()
+    switch (outcome.kind) {
+      case 'updated':
+        showUpdateNotice.value = true
+        break
+      case 'notFound':
+        showToast('更新対象のカタログアイテムが見つかりませんでした。')
+        router.push({ name: routeNames.catalogItems })
+        break
+      case 'conflict':
         showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
-      })
-      await reFetchItemAndInitRowVersionAsync(id)
-    } else {
-      await handleErrorAsync(error, () => {
+        break
+      case 'failed':
         showToast('カタログアイテムの更新に失敗しました。')
-      })
+        break
+      case 'canceled':
+        break
     }
   } finally {
     showUpdateConfirm.value = false
@@ -326,7 +136,7 @@ const updateItemAsync = async () => {
     :show="showDeleteConfirm"
     header="カタログアイテムを削除しますか？"
     body="カタログアイテムを削除します。削除したアイテムは復元できません。"
-    @confirm="deleteItemAsync"
+    @confirm="removeItemAsync"
     @cancel="showDeleteConfirm = false"
   ></ConfirmationModal>
 
@@ -354,9 +164,9 @@ const updateItemAsync = async () => {
   >
   </NotificationModal>
 
-  <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
+  <LoadingSpinnerOverlay :show="status === 'loading'"></LoadingSpinnerOverlay>
 
-  <div v-if="!showLoading" class="container mx-auto gap-6">
+  <div v-if="current" class="container mx-auto gap-6">
     <div>
       <div class="flex items-center justify-center p-8 text-5xl font-bold">
         カタログアイテム編集
@@ -371,7 +181,7 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">アイテムID</label>
             <input
               id="item-id"
-              v-model="currentItemState.id"
+              :value="current.id"
               type="text"
               name="item-id"
               class="w-full border border-gray-300 px-4 py-2"
@@ -382,7 +192,7 @@ const updateItemAsync = async () => {
             <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
             <input
               id="item-name"
-              v-model="currentItemState.name"
+              :value="current.name"
               type="text"
               name="item-name"
               class="w-full border border-gray-300 px-4 py-2"
@@ -393,7 +203,7 @@ const updateItemAsync = async () => {
             <label for="description" class="mb-2 block font-bold">説明</label>
             <textarea
               id="description"
-              v-model="currentItemState.description"
+              :value="current.description"
               name="description"
               class="w-full border border-gray-300 px-4 py-2"
               disabled
@@ -403,7 +213,7 @@ const updateItemAsync = async () => {
             <label for="unit-price" class="mb-2 block font-bold">単価</label>
             <input
               id="unit-price"
-              v-model="currentItemState.price"
+              :value="current.price"
               name="unit-price"
               class="w-full border border-gray-300 px-4 py-2"
               disabled
@@ -413,7 +223,7 @@ const updateItemAsync = async () => {
             <label for="product-code" class="mb-2 block font-bold">商品コード</label>
             <input
               id="product-code"
-              v-model="currentItemState.productCode"
+              :value="current.productCode"
               name="product-code"
               class="w-full border border-gray-300 px-4 py-2"
               disabled
@@ -423,16 +233,12 @@ const updateItemAsync = async () => {
             <label for="category" class="mb-2 block font-bold">カテゴリ</label>
             <select
               id="category"
-              v-model="currentItemState.categoryId"
+              :value="current.categoryId"
               name="category"
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option
-                v-for="category in availableCatalogCategories"
-                :key="category.id"
-                :value="category.id"
-              >
+              <option v-for="category in categories" :key="category.id" :value="category.id">
                 {{ category.name }}
               </option>
             </select>
@@ -441,12 +247,12 @@ const updateItemAsync = async () => {
             <label for="brand" class="mb-2 block font-bold">ブランド</label>
             <select
               id="brand"
-              v-model="currentItemState.brandId"
+              :value="current.brandId"
               name="brand"
               class="w-full border border-gray-300 bg-gray-100 px-4 py-2"
               disabled
             >
-              <option v-for="brand in availableCatalogBrands" :key="brand.id" :value="brand.id">
+              <option v-for="brand in brands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>
@@ -455,8 +261,8 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">画像</label>
             <img
               class="flex h-auto max-w-xs justify-center"
-              :src="getFirstAssetUrl(currentItemState.assetCodes)"
-              :alt="currentItemState.name"
+              :src="getFirstAssetUrl(current.assetCodes)"
+              :alt="current.name"
             />
           </div>
         </form>
@@ -469,7 +275,7 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">アイテムID</label>
             <input
               id="item-id"
-              v-model="editingItemState.id"
+              :value="current.id"
               type="text"
               name="item-id"
               class="w-full border border-gray-300 px-4 py-2"
@@ -480,62 +286,58 @@ const updateItemAsync = async () => {
             <label for="item-name" class="mb-2 block font-bold">アイテム名</label>
             <input
               id="item-name"
-              v-model="itemName"
+              v-model="form.itemName"
               type="text"
               name="item-name"
               class="w-full border border-gray-300 px-4 py-2"
             />
             <p class="px-1 py-1 text-base text-red-800">
-              {{ errors.itemName }}
+              {{ form.errors.itemName }}
             </p>
           </div>
           <div class="mb-4">
             <label for="description" class="mb-2 block font-bold">説明</label>
             <textarea
               id="item-description"
-              v-model="itemDescription"
+              v-model="form.itemDescription"
               name="item-description"
               class="w-full border border-gray-300 px-4 py-2"
             ></textarea>
             <p class="px-1 py-1 text-base text-red-800">
-              {{ errors.itemDescription }}
+              {{ form.errors.itemDescription }}
             </p>
           </div>
           <div class="mb-4">
             <label for="unit-price" class="mb-2 block font-bold">単価</label>
             <input
               id="unit-price"
-              v-model="price"
+              v-model="form.price"
               name="unit-price"
               class="w-full border border-gray-300 px-4 py-2"
             />
-            <p class="px-1 py-1 text-base text-red-800">{{ errors.price }}</p>
+            <p class="px-1 py-1 text-base text-red-800">{{ form.errors.price }}</p>
           </div>
           <div class="mb-4">
             <label for="product-code" class="mb-2 block font-bold">商品コード</label>
             <input
               id="product-code"
-              v-model="productCode"
+              v-model="form.productCode"
               name="product-code"
               class="w-full border border-gray-300 px-4 py-2"
             />
             <p class="px-1 py-1 text-base text-red-800">
-              {{ errors.productCode }}
+              {{ form.errors.productCode }}
             </p>
           </div>
           <div class="mb-4">
             <label for="category" class="mb-2 block font-bold">カテゴリ</label>
             <select
               id="category"
-              v-model="editingItemState.categoryId"
+              v-model="form.categoryId"
               name="category"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option
-                v-for="category in availableCatalogCategories"
-                :key="category.id"
-                :value="category.id"
-              >
+              <option v-for="category in categories" :key="category.id" :value="category.id">
                 {{ category.name }}
               </option>
             </select>
@@ -544,11 +346,11 @@ const updateItemAsync = async () => {
             <label for="brand" class="mb-2 block font-bold">ブランド</label>
             <select
               id="brand"
-              v-model="editingItemState.brandId"
+              v-model="form.brandId"
               name="brand"
               class="w-full border border-gray-300 px-4 py-2"
             >
-              <option v-for="brand in availableCatalogBrands" :key="brand.id" :value="brand.id">
+              <option v-for="brand in brands" :key="brand.id" :value="brand.id">
                 {{ brand.name }}
               </option>
             </select>
@@ -557,8 +359,8 @@ const updateItemAsync = async () => {
             <label for="item-id" class="mb-2 block font-bold">画像</label>
             <img
               class="flex h-auto max-w-xs justify-center"
-              :src="getFirstAssetUrl(editingItemState.assetCodes)"
-              :alt="values.itemName"
+              :src="getFirstAssetUrl(current.assetCodes)"
+              :alt="form.itemName"
             />
           </div>
           <div class="flex justify-end">
@@ -575,7 +377,7 @@ const updateItemAsync = async () => {
             <button
               type="button"
               class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
-              :disabled="isInvalid() || !isInRole(Roles.ADMIN)"
+              :disabled="!form.isValid || !isInRole(Roles.ADMIN)"
               @click="showUpdateConfirm = true"
             >
               更新

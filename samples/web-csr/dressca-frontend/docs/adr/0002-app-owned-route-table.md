@@ -161,11 +161,13 @@ export type UpdateOutcome =
 - 通知の文言と遷移先は、 Outcome を得た画面が決めます。
 
 画面はユースケースコンポーザブルを呼び出し、 Outcome を通知と遷移に変換します。
+ルートのパラメーターは、ゲッターではなく値で渡します。
+ゲッターで渡すと、他の画面へ遷移したとき、画面が破棄される前に空のパラメーターで読み込み直してしまうためです。
 
 ```typescript
 // pages/catalog/items/edit/ItemsEditPage.vue
 const route = useRoute(routeNames.catalogItemsEdit)
-const editor = useCatalogItemEditor(() => route.params.itemId)
+const editor = useCatalogItemEditor(route.params.itemId)
 
 const onUpdate = async () => {
   const outcome = await editor.update()
