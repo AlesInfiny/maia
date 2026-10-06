@@ -16,8 +16,13 @@ export {
   type CatalogItemCreatorStatus,
   type CreateOutcome,
 } from './catalog/composables/use-catalog-item-creator'
+export {
+  useCatalogItemList,
+  type CatalogItemList,
+  type CatalogItemListStatus,
+  type CatalogItemSummary,
+} from './catalog/composables/use-catalog-item-list'
 export type { CatalogItemForm, CatalogOption } from './catalog/composables/use-catalog-item-form'
 export type { CatalogItemFormValues } from './catalog/validation/validation-items'
-export { fetchCategoriesAndBrands, fetchItems } from './catalog/services/catalog-service'
 export { default as ConfirmationModal } from './catalog/components/ConfirmationModal.vue'
 export { default as NotificationModal } from './catalog/components/NotificationModal.vue'

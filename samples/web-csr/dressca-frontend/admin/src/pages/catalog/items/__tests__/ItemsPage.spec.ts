@@ -2,7 +2,11 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
 import { createPinia, setActivePinia } from 'pinia'
+import { http, HttpResponse } from 'msw'
+import { HttpStatusCode } from 'axios'
 import ItemsPage from '@/pages/catalog/items/ItemsPage.vue'
+import { useNotificationStore } from '@/business-common/stores/notification'
+import { server } from '@/../mock/node'
 
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。
@@ -39,5 +43,24 @@ describe('アイテム一覧が表示できる', () => {
     const tableRows = wrapper.find('tbody').findAll('tr')
     // Assert
     expect(tableRows.length).toBe(expectedItemCount)
+  })
+})
+
+describe('結果の通知', () => {
+  it('アイテムを取得できない_トーストを表示しアイテム追加ボタンは表示する', async () => {
+    // Arrange
+    server.use(
+      http.get(
+        '/api/catalog-items',
+        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
+      ),
+    )
+    // Act
+    const wrapper = getWrapper()
+    await flushPromises()
+    // Assert
+    expect(useNotificationStore().message).toBe('カタログアイテムの取得に失敗しました。')
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(0)
+    expect(wrapper.find('button').text()).toBe('アイテム追加')
   })
 })

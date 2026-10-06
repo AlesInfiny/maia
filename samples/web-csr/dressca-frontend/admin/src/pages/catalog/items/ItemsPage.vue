@@ -1,98 +1,25 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { watch } from 'vue'
 import { routeNames } from '@/app/router/route-names'
 import { useRouter } from 'vue-router'
-import { fetchCategoriesAndBrands, fetchItems } from '@/catalog-management/public-api'
+import { useCatalogItemList } from '@/catalog-management/public-api'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { showToast } from '@/business-common/services/notification-service'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
-import type {
-  GetCatalogBrandsResponse,
-  GetCatalogCategoriesResponse,
-  PagedListOfGetCatalogItemResponse,
-} from '@/system-common/generated/api-client'
-import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
 
 const router = useRouter()
-const handleErrorAsync = useCustomErrorHandler()
 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
+const { status, items } = useCatalogItemList()
 
 /**
- * リアクティブなページネーションされたカタログアイテムの状態です。
+ * 一覧の読み込みに失敗したとき、利用者に通知します。
  */
-const pagedListOfCatalogItem = ref<PagedListOfGetCatalogItemResponse>({
-  page: 0,
-  totalPages: 0,
-  pageSize: 0,
-  totalCount: 0,
-  hasPrevious: false,
-  hasNext: false,
-  items: [
-    {
-      description: '',
-      price: 0,
-      catalogCategoryId: '',
-      catalogBrandId: '',
-      id: '',
-      name: '',
-      productCode: '',
-      rowVersion: '',
-      isDeleted: false,
-    },
-  ],
-})
-
-/**
- * リアクティブなカタログブランドの状態です。
- */
-const catalogBrands = ref<GetCatalogBrandsResponse[]>([{ id: '', name: '' }])
-
-/**
- * リアクティブなカタログカテゴリの状態です。
- */
-const catalogCategories = ref<GetCatalogCategoriesResponse[]>([{ id: '', name: '' }])
-
-/**
- * ローディングスピナーの表示の状態です。
- */
-const showLoading = ref(true)
-
-/**
- * カタログブランドの名前を取得します。
- * @param id カタログブランドID
- */
-const getBrandName = (id: string) => {
-  return catalogBrands.value.find((item) => item.id === id)?.name
-}
-
-/**
- * カタログカテゴリの名前を取得します。
- * @param id カタログカテゴリID
- */
-const getCategoryName = (id: string) => {
-  return catalogCategories.value.find((item) => item.id === id)?.name
-}
-
-/**
- * コンポーネントがマウントされた後に呼び出されるライフサイクルフックです。
- * このページが開かれるたびにカタログアイテムの最新の情報を表示するために、
- * カタログアイテムの情報、カタログブランドの情報、カタログカテゴリの情報を取得します。
- * それぞれの状態を更新します。
- */
-onMounted(async () => {
-  showLoading.value = true
-  try {
-    pagedListOfCatalogItem.value = await fetchItems()
-    ;[catalogCategories.value, catalogBrands.value] = await fetchCategoriesAndBrands()
-  } catch (error) {
-    await handleErrorAsync(error, () => {
-      showToast('カタログアイテムの取得に失敗しました。')
-    })
-  } finally {
-    showLoading.value = false
+watch(status, (newStatus) => {
+  if (newStatus === 'failed') {
+    showToast('カタログアイテムの取得に失敗しました。')
   }
 })
 
@@ -114,8 +41,8 @@ const goToEditItem = (id: string) => {
 
 <template>
   <div class="container mx-auto gap-6">
-    <LoadingSpinnerOverlay :show="showLoading"></LoadingSpinnerOverlay>
-    <div v-if="!showLoading">
+    <LoadingSpinnerOverlay :show="status === 'loading'"></LoadingSpinnerOverlay>
+    <div v-if="status !== 'loading'">
       <div class="flex justify-center p-8 text-5xl font-bold">カタログアイテム一覧</div>
       <div class="mx-2 my-8 flex justify-end">
         <button
@@ -143,7 +70,7 @@ const goToEditItem = (id: string) => {
         </thead>
         <tbody>
           <tr
-            v-for="item in pagedListOfCatalogItem.items"
+            v-for="item in items"
             :key="item.id"
             :class="[item.isDeleted ? 'border bg-gray-500' : 'border']"
           >
@@ -160,10 +87,10 @@ const goToEditItem = (id: string) => {
             <td class="border">{{ toCurrencyJPY(item.price) }}</td>
             <td class="border">{{ item.productCode }}</td>
             <td class="border">
-              {{ getCategoryName(item.catalogCategoryId) }}
+              {{ item.categoryName }}
             </td>
             <td class="border">
-              {{ getBrandName(item.catalogBrandId) }}
+              {{ item.brandName }}
             </td>
             <td class="border text-center">
               <button
