@@ -17,7 +17,7 @@ batch プロジェクトで利用を推奨するライブラリは以下の通�
 - `spring-boot-starter-batch-jdbc`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションを構築するための依存関係を提供するスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
 - `spring-boot-starter-batch-jdbc-test`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションをテストするためのスターター
-- `archunit-junit5`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 5 の連携ライブラリ
+- `archunit-junit6`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 6 の連携ライブラリ
 
 ```groovy title="batch/build.gradle"
 dependencies {
@@ -25,13 +25,13 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
-  testImplementation 'com.tngtech.archunit:archunit-junit5:x.x.x'
+  testImplementation 'com.tngtech.archunit:archunit-junit6:x.x.x'
 }
 ```
 
 ??? info "各依存ライブラリのバージョンの参照先"
 
-    - [ArchUnit JUnit 5 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit5){ target=_blank }
+    - [ArchUnit JUnit 6 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit6){ target=_blank }
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 

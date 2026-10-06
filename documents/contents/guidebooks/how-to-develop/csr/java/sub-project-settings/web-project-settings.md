@@ -18,7 +18,7 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 - `springdoc-openapi-starter-webmvc-ui`: Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 - `h2`: テストやローカル実行で利用する組み込みの H2 データベース
 - `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのスターター
-- `archunit-junit5`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 5 の連携ライブラリ
+- `archunit-junit6`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 6 の連携ライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
@@ -31,14 +31,14 @@ dependencies {
   implementation 'com.h2database:h2'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-  testImplementation 'com.tngtech.archunit:archunit-junit5:x.x.x'
+  testImplementation 'com.tngtech.archunit:archunit-junit6:x.x.x'
 }
 ```
 
 ??? info "各依存ライブラリのバージョンの参照先"
 
     - [SpringDoc OpenAPI Starter WebMVC UI :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui){ target=_blank }
-    - [ArchUnit JUnit 5 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit5){ target=_blank }
+    - [ArchUnit JUnit 6 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit6){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
 
