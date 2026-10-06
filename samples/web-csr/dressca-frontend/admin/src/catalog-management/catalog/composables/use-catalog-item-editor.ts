@@ -1,20 +1,18 @@
-import { computed, reactive, ref, shallowRef, toValue, watch } from 'vue'
+import { computed, ref, shallowRef, toValue, watch } from 'vue'
 import type { ComputedRef, MaybeRefOrGetter } from 'vue'
-import { useForm } from 'vee-validate'
 import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'
-import { useCustomErrorHandler } from '@/system-common/error-handler/custom-error-handler'
-import type {
-  GetCatalogBrandsResponse,
-  GetCatalogCategoriesResponse,
-  GetCatalogItemResponse,
-} from '@/system-common/generated/api-client'
 import {
-  deleteCatalogItem,
-  fetchCategoriesAndBrands,
-  fetchItem,
-  updateCatalogItem,
-} from '../services/catalog-service'
-import { catalogItemTypedSchema, type CatalogItemFormValues } from '../validation/validation-items'
+  useUnexpectedErrorOutcome,
+  type UnexpectedErrorOutcome,
+} from '@/system-common/error-handler/unexpected-error-outcome'
+import type { GetCatalogItemResponse } from '@/system-common/generated/api-client'
+import { deleteCatalogItem, fetchItem, updateCatalogItem } from '../services/catalog-service'
+import {
+  fetchCatalogItemOptions,
+  useCatalogItemForm,
+  type CatalogItemForm,
+  type CatalogOption,
+} from './use-catalog-item-form'
 
 /**
  * 編集対象のカタログアイテムの読み込みの状態です。
@@ -33,31 +31,6 @@ export interface CatalogItemSnapshot {
   categoryId: string
   brandId: string
   assetCodes: string[] | undefined
-}
-
-/**
- * カテゴリやブランドの選択肢です。
- */
-export interface CatalogOption {
-  id: string
-  name: string
-}
-
-/**
- * カタログアイテムの編集フォームです。
- * 入力項目は双方向にバインドできます。
- */
-export interface CatalogItemForm {
-  itemName: string
-  itemDescription: string
-  price: string
-  productCode: string
-  categoryId: string
-  brandId: string
-  /** 入力項目ごとの検証エラーのメッセージです。 */
-  readonly errors: Partial<Record<keyof CatalogItemFormValues, string | undefined>>
-  /** すべての入力項目が検証に合格しているかどうかです。 */
-  readonly isValid: boolean
 }
 
 /**
@@ -109,19 +82,7 @@ export interface CatalogItemEditor {
 }
 
 type FetchItemResult = 'fetched' | 'notFound' | 'failed' | 'canceled'
-type UnexpectedErrorOutcome = { kind: 'failed' } | { kind: 'canceled' }
 type WriteFailureOutcome = { kind: 'conflict' } | { kind: 'notFound' } | UnexpectedErrorOutcome
-
-/**
- * API のレスポンスを選択肢に変換します。
- * @param response カテゴリまたはブランドのレスポンス。
- * @returns 選択肢。
- */
-function toOption(
-  response: GetCatalogCategoriesResponse | GetCatalogBrandsResponse,
-): CatalogOption {
-  return { id: response.id, name: response.name }
-}
 
 /**
  * API のレスポンスを編集前のアイテムの内容に変換します。
@@ -150,67 +111,27 @@ function toSnapshot(item: GetCatalogItemResponse): CatalogItemSnapshot {
  * @returns カタログアイテムの編集のユースケース。
  */
 export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogItemEditor {
-  const handleErrorAsync = useCustomErrorHandler()
+  const handleUnexpectedError = useUnexpectedErrorOutcome()
 
   const status = ref<CatalogItemEditorStatus>('loading')
   const item = shallowRef<GetCatalogItemResponse>()
   const categories = shallowRef<CatalogOption[]>([])
   const brands = shallowRef<CatalogOption[]>([])
-
-  const { errors, meta, values, defineField, setValues } = useForm<CatalogItemFormValues>({
-    validationSchema: catalogItemTypedSchema,
-    initialValues: {
-      itemName: '',
-      itemDescription: '',
-      price: '',
-      productCode: '',
-    },
-  })
-  const [itemName] = defineField('itemName')
-  const [itemDescription] = defineField('itemDescription')
-  const [price] = defineField('price')
-  const [productCode] = defineField('productCode')
-  const categoryId = ref('')
-  const brandId = ref('')
-
-  const form: CatalogItemForm = reactive({
-    itemName,
-    itemDescription,
-    price,
-    productCode,
-    categoryId,
-    brandId,
-    errors,
-    isValid: computed(() => meta.value.valid),
-  })
-
-  /**
-   * 想定外のエラーを共通のエラー処理に渡します。
-   * 共通のエラー処理が扱えないエラーは、そのまま上位へ送出されます。
-   * @param error 発生したエラー。
-   * @returns 通信が中断された場合は canceled 、それ以外は failed 。
-   */
-  async function handleUnexpectedError(error: unknown): Promise<UnexpectedErrorOutcome> {
-    let outcome: UnexpectedErrorOutcome = { kind: 'canceled' }
-    await handleErrorAsync(error, () => {
-      outcome = { kind: 'failed' }
-    })
-    return outcome
-  }
+  const { form, reset } = useCatalogItemForm()
 
   /**
    * 編集フォームの内容を、アイテムの内容で置き換えます。
    * @param target アイテムの内容。
    */
   function resetForm(target: GetCatalogItemResponse) {
-    setValues({
+    reset({
       itemName: target.name,
       itemDescription: target.description,
       price: target.price.toString(),
       productCode: target.productCode,
+      categoryId: target.catalogCategoryId,
+      brandId: target.catalogBrandId,
     })
-    categoryId.value = target.catalogCategoryId
-    brandId.value = target.catalogBrandId
   }
 
   /**
@@ -268,9 +189,9 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
   async function load(id: string) {
     status.value = 'loading'
     try {
-      const [fetchedCategories, fetchedBrands] = await fetchCategoriesAndBrands()
-      categories.value = fetchedCategories.map(toOption)
-      brands.value = fetchedBrands.map(toOption)
+      const options = await fetchCatalogItemOptions()
+      categories.value = options.categories
+      brands.value = options.brands
     } catch (error) {
       if ((await handleUnexpectedError(error)).kind === 'failed') {
         status.value = 'failed'
@@ -296,12 +217,12 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
     try {
       await updateCatalogItem(
         target.id,
-        values.itemName,
-        values.itemDescription,
-        Number(values.price),
-        values.productCode,
-        categoryId.value,
-        brandId.value,
+        form.itemName,
+        form.itemDescription,
+        Number(form.price),
+        form.productCode,
+        form.categoryId,
+        form.brandId,
         target.rowVersion,
         target.isDeleted,
       )
