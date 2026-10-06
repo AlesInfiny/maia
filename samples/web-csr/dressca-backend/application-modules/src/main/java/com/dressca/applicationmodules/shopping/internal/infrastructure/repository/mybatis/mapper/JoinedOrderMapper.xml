@@ -51,15 +51,19 @@
   </resultMap>
 
   <resultMap id="shipToResultMap" type="com.dressca.applicationmodules.shopping.valueobject.ShipTo">
-    <result property="fullName" column="SHIP_TO_FULL_NAME"/>
-    <association property="address" javaType="com.dressca.applicationmodules.shopping.valueobject.Address" resultMap="addressResultMap"/>
+    <constructor>
+      <arg column="SHIP_TO_FULL_NAME" javaType="java.lang.String"/>
+      <arg javaType="com.dressca.applicationmodules.shopping.valueobject.Address" resultMap="addressResultMap"/>
+    </constructor>
   </resultMap>
 
   <resultMap id="addressResultMap" type="com.dressca.applicationmodules.shopping.valueobject.Address">
-    <result property="postalCode" column="SHIP_TO_POSTAL_CODE"/>
-    <result property="todofuken" column="SHIP_TO_TODOFUKEN"/>
-    <result property="shikuchoson" column="SHIP_TO_SHIKUCHOSON"/>
-    <result property="azanaAndOthers" column="SHIP_TO_AZANA_AND_OTHERS"/>
+    <constructor>
+      <arg column="SHIP_TO_POSTAL_CODE" javaType="java.lang.String"/>
+      <arg column="SHIP_TO_TODOFUKEN" javaType="java.lang.String"/>
+      <arg column="SHIP_TO_SHIKUCHOSON" javaType="java.lang.String"/>
+      <arg column="SHIP_TO_AZANA_AND_OTHERS" javaType="java.lang.String"/>
+    </constructor>
   </resultMap>
 
   <resultMap id="orderItemsResultMap" type="com.dressca.applicationmodules.shopping.entity.OrderItem">
@@ -71,9 +75,11 @@
   </resultMap>
 
   <resultMap id="displayItemOrderedResultMap" type="com.dressca.applicationmodules.shopping.valueobject.DisplayItemOrdered">
-    <result property="displayItemId" column="ORDERED_DISPLAY_ITEM_ID" jdbcType="OTHER" typeHandler="com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler"/>
-    <result property="productName" column="ORDERED_PRODUCT_NAME"/>
-    <result property="productCode" column="ORDERED_PRODUCT_CODE"/>
+    <constructor>
+      <idArg column="ORDERED_DISPLAY_ITEM_ID" javaType="java.util.UUID" jdbcType="OTHER" typeHandler="com.dressca.applicationmodules.shared.mybatis.UuidTypeHandler"/>
+      <arg column="ORDERED_PRODUCT_NAME" javaType="java.lang.String"/>
+      <arg column="ORDERED_PRODUCT_CODE" javaType="java.lang.String"/>
+    </constructor>
   </resultMap>
 
   <resultMap id="orderItemAssetsResultMap" type="com.dressca.applicationmodules.shopping.entity.OrderItemAsset">
