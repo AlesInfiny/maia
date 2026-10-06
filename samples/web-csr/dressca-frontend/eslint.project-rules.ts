@@ -76,7 +76,11 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
   const pagesFileGlob = `**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`
   // `__tests__/**/*.{vue,ts}` の形は、 pages 直下のフォルダーのテスト（ pages/basket/__tests__ など）に一致しないため、
   // `__tests__/**` の形で指定します。
-  const pagesTestFileGlob = `**/${workspace}/src/pages/**/__tests__/**`
+  // `pages/**/__tests__/**` は pages 直下のテスト（ pages/__tests__ ）にも一致しないため、別に指定します。
+  const pagesTestFileGlobs = [
+    `**/${workspace}/src/pages/__tests__/**`,
+    `**/${workspace}/src/pages/**/__tests__/**`,
+  ]
   const pagesContextRestriction = {
     group: contextPatternsExceptPublicApi,
     message:
@@ -148,7 +152,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     {
       name: `${workspace}/layer-dependency/pages`,
       files: [pagesFileGlob],
-      ignores: [pagesTestFileGlob],
+      ignores: pagesTestFileGlobs,
       rules: {
         'no-restricted-imports': [
           'error',
@@ -165,7 +169,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     },
     {
       name: `${workspace}/layer-dependency/pages-test`,
-      files: [pagesTestFileGlob],
+      files: pagesTestFileGlobs,
       rules: {
         'no-restricted-imports': [
           'error',

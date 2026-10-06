@@ -2,12 +2,18 @@
  * shopping コンテキストの公開APIです。
  * pages や他コンテキストは、このモジュール経由でのみ shopping を参照します。
  */
-export { fetchCategoriesAndBrands, fetchItems } from './display-item/services/display-item-service'
-export { useSpecialContentStore } from './display-item/stores/special-content'
+export {
+  useDisplayItemList,
+  type AddToBasketOutcome,
+  type DisplayItemFilter,
+  type DisplayItemFilterOption,
+  type DisplayItemList,
+  type DisplayItemListStatus,
+  type DisplayItemSummary,
+} from './display-item/composables/use-display-item-list'
 export { default as CarouselSlider } from './display-item/components/CarouselSlider.vue'
 
 export {
-  addItemToBasket,
   fetchBasket,
   removeItemFromBasket,
   updateItemInBasket,
