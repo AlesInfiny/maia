@@ -59,6 +59,6 @@ public class OrderItem {
    * @return 注文アイテムの小計額。
    */
   public BigDecimal getSubTotal() {
-    return new AccountItem(this.quantity, this.unitPrice).getSubTotal();
+    return new AccountItem(this.quantity, this.unitPrice).subTotal();
   }
 }

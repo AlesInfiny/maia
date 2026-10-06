@@ -19,8 +19,8 @@ public class OrderItemMapper {
    */
   public static OrderItemApiModel convert(OrderItem item) {
     return new OrderItemApiModel(item.getId(),
-        new DisplayItemSummaryApiModel(item.getItemOrdered().getDisplayItemId(),
-            item.getItemOrdered().getProductName(), item.getItemOrdered().getProductCode(),
+        new DisplayItemSummaryApiModel(item.getItemOrdered().displayItemId(),
+            item.getItemOrdered().productName(), item.getItemOrdered().productCode(),
             item.getAssets().stream().map(OrderItemAsset::getAssetCode)
                 .collect(Collectors.toList())),
         item.getQuantity(), item.getUnitPrice(), item.getSubTotal());

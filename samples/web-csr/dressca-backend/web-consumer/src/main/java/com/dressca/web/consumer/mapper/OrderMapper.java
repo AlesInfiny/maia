@@ -18,11 +18,10 @@ public class OrderMapper {
    */
   public static GetOrderByIdResponse convert(Order order) {
     return new GetOrderByIdResponse(order.getId(), order.getBuyerId(), order.getOrderDate(),
-        order.getShipToAddress().getFullName(),
-        order.getShipToAddress().getAddress().getPostalCode(),
-        order.getShipToAddress().getAddress().getTodofuken(),
-        order.getShipToAddress().getAddress().getShikuchoson(),
-        order.getShipToAddress().getAddress().getAzanaAndOthers(),
+        order.getShipToAddress().fullName(), order.getShipToAddress().address().postalCode(),
+        order.getShipToAddress().address().todofuken(),
+        order.getShipToAddress().address().shikuchoson(),
+        order.getShipToAddress().address().azanaAndOthers(),
         new AccountApiModel(order.getConsumptionTaxRate(), order.getTotalItemsPrice(),
             order.getDeliveryCharge(), order.getConsumptionTax(), order.getTotalPrice()),
         order.getOrderItems().stream().map(OrderItemMapper::convert).collect(Collectors.toList()));

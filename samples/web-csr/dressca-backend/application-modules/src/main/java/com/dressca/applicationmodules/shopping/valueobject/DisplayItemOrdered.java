@@ -2,7 +2,6 @@ package com.dressca.applicationmodules.shopping.valueobject;
 
 import java.util.UUID;
 import lombok.NonNull;
-import lombok.Value;
 
 /**
  * 注文された陳列品を管理する値オブジェクトです。
@@ -12,11 +11,6 @@ import lombok.Value;
  * <li>注文確定後に陳列品情報が変更されたとしても、注文情報は変更されるべきではないためです。</li>
  * </ul>
  */
-@Value
-public class DisplayItemOrdered {
-  private UUID displayItemId;
-  @NonNull
-  private String productName;
-  @NonNull
-  private String productCode;
+public record DisplayItemOrdered(UUID displayItemId, @NonNull String productName,
+    @NonNull String productCode) {
 }

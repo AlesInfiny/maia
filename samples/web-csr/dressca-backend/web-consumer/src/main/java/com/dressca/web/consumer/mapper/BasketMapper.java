@@ -27,8 +27,8 @@ public class BasketMapper {
 
     Account account = basket.getAccount();
     AccountApiModel accountDto =
-        new AccountApiModel(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
-            account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
+        new AccountApiModel(Account.CONSUMPTION_TAX_RATE, account.itemTotalPrice(),
+            account.deliveryCharge(), account.consumptionTax(), account.totalPrice());
 
     List<BasketItemApiModel> basketItems =
         basket.getItems().stream().map(BasketItemMapper::convert).collect(Collectors.toList());

@@ -35,6 +35,6 @@ public class BasketItem {
    * @return 買い物かごアイテムの小計金額。
    */
   public BigDecimal getSubtotal() {
-    return new AccountItem(this.quantity, this.unitPrice).getSubTotal();
+    return new AccountItem(this.quantity, this.unitPrice).subTotal();
   }
 }

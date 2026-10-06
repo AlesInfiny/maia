@@ -44,15 +44,15 @@ public class Order {
     this.id = UuidGenerator.generate();
     this.buyerId = buyerId;
     this.shipToAddress = shipToAddress == null ? null
-        : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
+        : new ShipTo(shipToAddress.fullName(), shipToAddress.address());
     this.orderItems = new ArrayList<>(orderItems);
     this.account = new Account(this.orderItems.stream()
         .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
         .collect(Collectors.toList()));
     this.consumptionTaxRate = Account.CONSUMPTION_TAX_RATE;
-    this.totalItemsPrice = this.account.getItemTotalPrice();
-    this.deliveryCharge = this.account.getDeliveryCharge();
-    this.consumptionTax = this.account.getConsumptionTax();
-    this.totalPrice = this.account.getTotalPrice();
+    this.totalItemsPrice = this.account.itemTotalPrice();
+    this.deliveryCharge = this.account.deliveryCharge();
+    this.consumptionTax = this.account.consumptionTax();
+    this.totalPrice = this.account.totalPrice();
   }
 }

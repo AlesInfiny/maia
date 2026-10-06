@@ -3,23 +3,29 @@ package com.dressca.applicationmodules.shopping.valueobject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import lombok.Value;
 
 /**
  * 会計情報を表現する値オブジェクトです。
  */
-@Value
-public class Account {
-  private List<AccountItem> accountItems;
+public record Account(List<AccountItem> accountItems) {
   public static final double CONSUMPTION_TAX_RATE = 0.1;
+
+  /**
+   * 会計アイテムのリストを指定して {@link Account} クラスのインスタンスを初期化します。
+   *
+   * @param accountItems 会計アイテムのリスト。
+   */
+  public Account {
+    accountItems = List.copyOf(accountItems);
+  }
 
   /**
    * 会計アイテムの合計金額を取得します。この計算結果には、消費税や送料は含まれません。
    * 
    * @return 会計アイテムの合計金額。
    */
-  public BigDecimal getItemTotalPrice() {
-    return this.accountItems.stream().map(AccountItem::getSubTotal).reduce(BigDecimal.ZERO,
+  public BigDecimal itemTotalPrice() {
+    return accountItems.stream().map(AccountItem::subTotal).reduce(BigDecimal.ZERO,
         BigDecimal::add);
   }
 
@@ -34,10 +40,9 @@ public class Account {
    * 
    * @return 送料。
    */
-  public BigDecimal getDeliveryCharge() {
+  public BigDecimal deliveryCharge() {
     int deliveryCharge = 0;
-    if (!this.accountItems.isEmpty()
-        && this.getItemTotalPrice().compareTo(BigDecimal.valueOf(5000)) < 0) {
+    if (!accountItems.isEmpty() && itemTotalPrice().compareTo(BigDecimal.valueOf(5000)) < 0) {
       deliveryCharge = 500;
     }
     return BigDecimal.valueOf(deliveryCharge);
@@ -53,9 +58,9 @@ public class Account {
    * 
    * @return 消費税額。
    */
-  public BigDecimal getConsumptionTax() {
-    return this.getItemTotalPrice().add(this.getDeliveryCharge())
-        .multiply(BigDecimal.valueOf(CONSUMPTION_TAX_RATE)).setScale(0, RoundingMode.FLOOR);
+  public BigDecimal consumptionTax() {
+    return itemTotalPrice().add(deliveryCharge()).multiply(BigDecimal.valueOf(CONSUMPTION_TAX_RATE))
+        .setScale(0, RoundingMode.FLOOR);
   }
 
   /**
@@ -63,7 +68,7 @@ public class Account {
    * 
    * @return 合計金額。
    */
-  public BigDecimal getTotalPrice() {
-    return this.getItemTotalPrice().add(this.getDeliveryCharge()).add(this.getConsumptionTax());
+  public BigDecimal totalPrice() {
+    return itemTotalPrice().add(deliveryCharge()).add(consumptionTax());
   }
 }
