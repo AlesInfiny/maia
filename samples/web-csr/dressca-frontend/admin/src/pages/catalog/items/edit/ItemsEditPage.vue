@@ -2,11 +2,9 @@
 import { ref, watch } from 'vue'
 import { routeNames } from '@/app/router/route-names'
 import { storeToRefs } from 'pinia'
-import {
-  useCatalogItemEditor,
-  ConfirmationModal,
-  NotificationModal,
-} from '@/catalog-management/public-api'
+import { useCatalogItemEditor } from '@/catalog-management/public-api'
+import { ConfirmationModal } from '@/system-common/components/ConfirmationModal'
+import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { showToast } from '@/business-common/services/notification-service'
 import { useRoute, useRouter } from 'vue-router'

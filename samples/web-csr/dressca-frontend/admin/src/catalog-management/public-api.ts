@@ -24,5 +24,3 @@ export {
 } from './catalog/composables/use-catalog-item-list'
 export type { CatalogItemForm, CatalogOption } from './catalog/composables/use-catalog-item-form'
 export type { CatalogItemFormValues } from './catalog/validation/validation-items'
-export { default as ConfirmationModal } from './catalog/components/ConfirmationModal.vue'
-export { default as NotificationModal } from './catalog/components/NotificationModal.vue'
