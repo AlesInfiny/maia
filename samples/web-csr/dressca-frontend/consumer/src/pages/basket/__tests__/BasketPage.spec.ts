@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeAll, assert } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
+import { routeNames } from '@/app/router/route-names'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
 import BasketPage from '@/pages/basket/BasketPage.vue'
@@ -208,5 +209,32 @@ describe('買い物かごのアイテムを表示する_サーバーエラー', 
     assert.equal(notificationStore.title, expectTitle)
     assert.equal(notificationStore.detail, expectDetail)
     assert.equal(notificationStore.status, expectStatus)
+  })
+})
+
+describe('結果の通知と遷移', () => {
+  it('購入できない陳列品が入っている_トーストを表示しレジに進むボタンが非活性', async () => {
+    // Arrange
+    const response = createGetBasketItemsResponse()
+    response.deletedItemIds = [response.basketItems![0].displayItemId]
+    getBasketItemsMock.mockResolvedValue({ data: response })
+    // Act
+    const wrapper = getWrapper()
+    await flushPromises()
+    // Assert
+    expect(useNotificationStore().message).toBe(i18n.global.t('basketContainsUnavailableItem'))
+    expect(wrapper.find('[data-testId="orderButton"]').attributes('disabled')).toBeDefined()
+  })
+
+  it('レジに進む_注文確認画面へ遷移する', async () => {
+    // Arrange
+    getBasketItemsMock.mockResolvedValue({ data: createGetBasketItemsResponse() })
+    const wrapper = getWrapper()
+    await flushPromises()
+    // Act
+    await wrapper.find('[data-testId="orderButton"]').trigger('click')
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.checkout)
+    // Assert
+    expect(router.currentRoute.value.name).toBe(routeNames.checkout)
   })
 })

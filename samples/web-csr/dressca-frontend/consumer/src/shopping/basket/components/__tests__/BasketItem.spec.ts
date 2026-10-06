@@ -1,20 +1,23 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
-import type { BasketItemApiModel } from '@/system-common/generated/api-client'
 import { i18n } from '@/system-common/locales/i18n'
+import type { BasketLine } from '../../models/basket-line'
 import BasketItem from '../BasketItem.vue'
 
 /**
- * バスケットアイテムのレスポンスを生成します。
+ * 買い物かごの行を生成します。
  * 主にテストやモックデータとして利用することを想定しています。
- * @returns `BasketItemApiModel` 型のオブジェクト
+ * @returns `BasketLine` 型のオブジェクト
  */
-function createBasketItemApiModel(): BasketItemApiModel {
+function createBasketLine(): BasketLine {
   return {
     displayItemId: '019b76da-a800-7004-8001-00000000000a',
+    name: '',
+    assetCodes: [],
     quantity: 2,
     subTotal: 100000,
     unitPrice: 50000,
+    available: true,
   }
 }
 
@@ -25,12 +28,12 @@ describe('BasketItem', () => {
 
   it('小計が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemApiModel = createBasketItemApiModel()
+    const basketLine = createBasketLine()
     const available = true
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemApiModel, available },
+      props: { item: basketLine, available },
       global: { plugins: [i18n] },
     })
 
@@ -40,12 +43,12 @@ describe('BasketItem', () => {
 
   it('単価が日本円形式で表示できる', () => {
     // Arrange
-    const basketItemApiModel = createBasketItemApiModel()
+    const basketLine = createBasketLine()
     const available = true
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemApiModel, available },
+      props: { item: basketLine, available },
       global: { plugins: [i18n] },
     })
 
@@ -55,12 +58,12 @@ describe('BasketItem', () => {
 
   it('販売中止中のメッセージが表示できる', () => {
     // Arrange
-    const basketItemApiModel = createBasketItemApiModel()
+    const basketLine = createBasketLine()
     const available = false
 
     // Act
     const wrapper = mount(BasketItem, {
-      props: { item: basketItemApiModel, available },
+      props: { item: basketLine, available },
       global: { plugins: [i18n] },
     })
 
@@ -72,7 +75,7 @@ describe('BasketItem', () => {
 
   it('数量が 0 のとき更新ボタンが非活性になる', async () => {
     const wrapper = mount(BasketItem, {
-      props: { item: createBasketItemApiModel(), available: true },
+      props: { item: createBasketLine(), available: true },
       global: { plugins: [i18n] },
     })
 
@@ -86,7 +89,7 @@ describe('BasketItem', () => {
 
   it('数量が 1000 のとき更新ボタンが非活性になる', async () => {
     const wrapper = mount(BasketItem, {
-      props: { item: createBasketItemApiModel(), available: true },
+      props: { item: createBasketLine(), available: true },
       global: { plugins: [i18n] },
     })
 
@@ -100,7 +103,7 @@ describe('BasketItem', () => {
 
   it('数量が有効な値に変更されたとき更新ボタンが活性になる', async () => {
     const wrapper = mount(BasketItem, {
-      props: { item: createBasketItemApiModel(), available: true },
+      props: { item: createBasketLine(), available: true },
       global: { plugins: [i18n] },
     })
 
