@@ -113,7 +113,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
 ## application-modules の内部パッケージへの依存を禁止するテストの追加 {#add-architecture-test}
 
 application-modules のモジュールでは、他のプロジェクトに公開しない型を `internal` パッケージ以下に配置します。
-batch プロジェクトがこれらの型に依存しないことを保証するための ArchUnit を使ったテストを追加します。
+batch プロジェクトがこれらの型に依存していないことを保証するため、 ArchUnit を使ったテストを追加します。
 
 `batch/src/test/java` 以下に、 batch プロジェクトのパッケージに合わせて `ArchitectureTest.java` を配置します。
 
