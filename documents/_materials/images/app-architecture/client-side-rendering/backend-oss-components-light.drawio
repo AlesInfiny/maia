@@ -1,83 +1,86 @@
 <mxfile host="65bd71144e">
     <diagram id="c2T-LSV4pOtRjtlh6C5x" name="ページ1">
-        <mxGraphModel dx="380" dy="329" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1189" dy="911" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fillColor=none;" value="" vertex="1">
-                    <mxGeometry height="440" width="200" y="30" as="geometry"/>
+                    <mxGeometry height="480" width="200" y="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-72" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fontSize=18;fillColor=none;" value="" vertex="1">
-                    <mxGeometry height="440" width="750" x="230" y="30" as="geometry"/>
+                    <mxGeometry height="480" width="750" x="230" y="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-74" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#006EAF;fontColor=#ffffff;strokeColor=#FFFFFF;strokeWidth=1;verticalAlign=bottom;spacingBottom=8;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring Boot" vertex="1">
-                    <mxGeometry height="90" width="670" x="269.4000000000001" y="332" as="geometry"/>
+                    <mxGeometry height="90" width="670" x="270.30000000000007" y="370" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-75" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fillColor=none;strokeColor=#000000;verticalAlign=top;" value="&lt;font color=&quot;#000000&quot;&gt;テスト&lt;br&gt;ユーティリティ&lt;br&gt;&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="205" width="160" x="779.4" y="40" as="geometry"/>
+                    <mxGeometry height="250" width="160" x="779.4" y="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-76" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fillColor=none;strokeColor=#000000;verticalAlign=top;" value="&lt;font color=&quot;#000000&quot;&gt;インフラ&lt;br&gt;ストラクチャ層&lt;br&gt;&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="205" width="160" x="609.4" y="40" as="geometry"/>
+                    <mxGeometry height="250" width="160" x="609.4" y="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-77" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fillColor=none;align=left;strokeColor=#000000;spacingLeft=15;" value="&lt;div&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;共通ユーティリティ&lt;/span&gt;&lt;/div&gt;" vertex="1">
-                    <mxGeometry height="60" width="670" x="268.8000000000002" y="262" as="geometry"/>
+                    <mxGeometry height="60" width="670" x="269.70000000000016" y="300" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-78" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fillColor=none;strokeColor=#000000;verticalAlign=top;" value="&lt;font color=&quot;#000000&quot;&gt;プレゼン&lt;br&gt;テーション層&lt;br&gt;&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="205" width="160" x="269.4" y="40" as="geometry"/>
+                    <mxGeometry height="250" width="160" x="269.4" y="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-79" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#FFFFFF;strokeWidth=1;spacingLeft=0;align=center;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Java" vertex="1">
-                    <mxGeometry height="40" width="670" x="269.4000000000001" y="422" as="geometry"/>
+                    <mxGeometry height="40" width="670" x="270.30000000000007" y="460" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-80" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=#85D2FF;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring Core" vertex="1">
-                    <mxGeometry height="40" width="648.79" x="279.4000000000001" y="342" as="geometry"/>
+                    <mxGeometry height="40" width="648.79" x="280.30000000000007" y="380" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-81" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=15;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Springdoc-openapi" vertex="1">
-                    <mxGeometry height="40" width="140" x="279.4000000000001" y="95" as="geometry"/>
+                    <mxGeometry height="40" width="140" x="279.4000000000001" y="115" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-82" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=#85D2FF;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;spacingRight=0;" value="Apache Log4j 2" vertex="1">
-                    <mxGeometry height="40" width="160.06" x="478.8" y="272" as="geometry"/>
+                    <mxGeometry height="40" width="160.06" x="479.7" y="310" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-83" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="MyBatis" vertex="1">
-                    <mxGeometry height="40" width="140" x="619.4000000000001" y="145" as="geometry"/>
+                    <mxGeometry height="40" width="140" x="619.0000000000001" y="170" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-84" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=15;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring Validation" vertex="1">
-                    <mxGeometry height="40" width="140" x="279.4000000000001" y="145" as="geometry"/>
+                    <mxGeometry height="40" width="140" x="279.4000000000001" y="170" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-85" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=#85D2FF;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Apache Commons Lang" vertex="1">
-                    <mxGeometry height="40" width="220" x="659.4000000000001" y="272" as="geometry"/>
+                    <mxGeometry height="40" width="220" x="660.3000000000001" y="310" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-86" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring Test" vertex="1">
                     <mxGeometry height="40" width="140" x="788.19" y="145" as="geometry"/>
                 </mxCell>
-                <mxCell id="4MYAInvlTObyXP5YXNuW-87" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="H2 Database" vertex="1">
+                <mxCell id="4MYAInvlTObyXP5YXNuW-87" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="ArchUnit" vertex="1">
                     <mxGeometry height="40" width="140" x="788.19" y="195" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-88" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;strokeWidth=1;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;fillColor=none;strokeColor=#000000;verticalAlign=top;" value="&lt;font color=&quot;#000000&quot;&gt;アプリケーションコア層&lt;br&gt;&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="205" width="160.06" x="439.4" y="40" as="geometry"/>
+                    <mxGeometry height="250" width="160.06" x="439.4" y="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring MVC" vertex="1">
-                    <mxGeometry height="40" width="140" x="279.4000000000001" y="195" as="geometry"/>
+                    <mxGeometry height="40" width="140" x="279.4000000000001" y="225" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-91" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=16;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="Spring Modulith" vertex="1">
                     <mxGeometry height="40" width="140" x="788.19" y="95" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-92" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="API" vertex="1">
-                    <mxGeometry height="60" width="120" x="30" y="165" as="geometry"/>
+                    <mxGeometry height="60" width="120" x="30" y="196" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-93" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="API" vertex="1">
-                    <mxGeometry height="60" width="120" x="40" y="175" as="geometry"/>
+                    <mxGeometry height="60" width="120" x="40" y="206" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-97" edge="1" parent="1" source="4MYAInvlTObyXP5YXNuW-94" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="4MYAInvlTObyXP5YXNuW-89">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-94" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontFamily=Noto Sans JP;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="&lt;div style=&quot;color: rgb(0, 0, 0); text-align: start; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;APIクライアント&lt;/div&gt;" vertex="1">
-                    <mxGeometry height="60" width="120" x="50" y="185" as="geometry"/>
+                    <mxGeometry height="60" width="120" x="50" y="216" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-98" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font face=&quot;Noto Sans JP&quot;&gt;クライアントサイド&lt;/font&gt;" vertex="1">
                     <mxGeometry height="30" width="170" as="geometry"/>
                 </mxCell>
                 <mxCell id="4MYAInvlTObyXP5YXNuW-99" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font face=&quot;Noto Sans JP&quot;&gt;サーバーサイド&lt;/font&gt;" vertex="1">
                     <mxGeometry height="30" width="170" x="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="dvElGDcmKKHP8eJBYo1--2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;fillColor=#85D2FF;fontColor=#000000;strokeColor=none;strokeWidth=2;spacingLeft=0;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2BSans%2BJP;" value="H2 Database" vertex="1">
+                    <mxGeometry height="40" width="140" x="789.4" y="245" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
