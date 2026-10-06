@@ -3,6 +3,7 @@ import { i18n } from '@/system-common/locales/i18n'
 import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/app/router'
+import { routeNames } from '@/app/router/route-names'
 import { createTestingPinia } from '@pinia/testing'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
@@ -132,5 +133,31 @@ describe('Authentication validation', () => {
 
     const emailErr = wrapper.find('#email-error').text()
     expect(emailErr).toBe('invalid email format')
+  })
+})
+
+describe('ログイン後の遷移', () => {
+  it('戻り先がある_戻り先の画面へ遷移する', async () => {
+    // Arrange
+    await router.push({ name: routeNames.login, query: { redirect: '/basket' } })
+    const wrapper = getWrapperJa()
+    await setValuesAndValidate(wrapper, 'user@example.com', 'password')
+    // Act
+    await wrapper.get('button').trigger('click')
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.basket)
+    // Assert
+    expect(router.currentRoute.value.fullPath).toBe('/basket')
+  })
+
+  it('戻り先がアプリケーション外を指す_陳列品画面へ遷移する', async () => {
+    // Arrange
+    await router.push({ name: routeNames.login, query: { redirect: '//example.com' } })
+    const wrapper = getWrapperJa()
+    await setValuesAndValidate(wrapper, 'user@example.com', 'password')
+    // Act
+    await wrapper.get('button').trigger('click')
+    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.displayItem)
+    // Assert
+    expect(router.currentRoute.value.fullPath).toBe('/')
   })
 })
