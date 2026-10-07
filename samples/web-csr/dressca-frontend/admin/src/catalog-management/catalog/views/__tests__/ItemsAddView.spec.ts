@@ -58,7 +58,7 @@ describe('管理者ロール_アイテムを追加できる', () => {
     await wrapper.find('button').trigger('click')
     await flushPromises()
     await vi.waitUntil(() =>
-      wrapper.findAllComponents({ name: 'NotificationModal' })[0].isVisible(),
+      wrapper.findAllComponents({ name: 'NotificationModal' })[0]!.isVisible(),
     )
     // Assert
     expect(wrapper.html()).toContain('カタログアイテムを追加しました。')

@@ -58,7 +58,8 @@ export const basketsHandlers = [
 
     const target = basket.basketItems?.filter((item) => item.displayItemId === dto.displayItemId)
     if (target) {
-      if (target.length === 0) {
+      const targetItem = target[0]
+      if (typeof targetItem === 'undefined') {
         const addBasketItem = basketItems.find((item) => item.displayItemId === dto.displayItemId)
         if (typeof addBasketItem !== 'undefined') {
           addBasketItem.quantity = dto.addedQuantity ?? 0
@@ -71,7 +72,7 @@ export const basketsHandlers = [
           }
         }
       } else {
-        target[0].quantity += dto.addedQuantity ?? 0
+        targetItem.quantity += dto.addedQuantity ?? 0
       }
     }
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
@@ -89,12 +90,14 @@ export const basketsHandlers = [
         (item) => item.displayItemId === putBasketItem.displayItemId,
       )
       if (target) {
-        if (target.length === 0) {
+        const targetItem = target[0]
+        if (typeof targetItem === 'undefined') {
           response = new HttpResponse(null, {
             status: HttpStatusCode.BadRequest,
           })
+        } else {
+          targetItem.quantity = putBasketItem.quantity
         }
-        target[0].quantity = putBasketItem.quantity
       }
     })
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])

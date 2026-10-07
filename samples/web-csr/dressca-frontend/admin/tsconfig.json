@@ -13,8 +13,5 @@
     {
       "path": "./e2e/tsconfig.json"
     }
-  ],
-  "compilerOptions": {
-    "module": "NodeNext"
-  }
+  ]
 }
