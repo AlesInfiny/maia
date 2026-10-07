@@ -73,7 +73,7 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 | mkdocs.yml    |                  |                       |                                    |                     | mkdocs の設定ファイル                           |
 | README.md     |                  |                       |                                    |                     | このドキュメント                                |
 
-\*: 詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
+\*: 詳細は [MkDocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
 
 ## ドキュメント作成手順
 
