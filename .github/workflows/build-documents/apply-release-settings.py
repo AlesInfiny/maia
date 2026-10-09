@@ -7,7 +7,7 @@ zensical.toml では環境変数を参照できないため、ビルド環境に
 - GOOGLE_ANALYTICS_PROVIDER: project.extra.analytics.provider に設定する値。
 - GOOGLE_ANALYTICS_PROPERTY: project.extra.analytics.property に設定する値。
 
-あわせて、 project.plugins.rss.enabled を true に設定します。
+あわせて、 project.plugins.social.enabled と project.plugins.rss.enabled を true に設定します。
 
 使い方: python apply-release-settings.py <zensical.toml のパス>
 """
@@ -50,6 +50,7 @@ def main() -> None:
         ("project.extra", "version", os.environ.get("VERSION", "Local Version")),
         ("project.extra.analytics", "provider", os.environ.get("GOOGLE_ANALYTICS_PROVIDER", "")),
         ("project.extra.analytics", "property", os.environ.get("GOOGLE_ANALYTICS_PROPERTY", "")),
+        ("project.plugins.social", "enabled", True),
         ("project.plugins.rss", "enabled", True),
     ]
     for table, key, value in settings:

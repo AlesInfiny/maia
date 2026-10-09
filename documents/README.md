@@ -341,8 +341,14 @@ description: クライアントサイドレンダリングを行う Web アプ�
       ![ソーシャルカード](readme-images/social-card-example.png)
 
 文字が途切れていないか等を適宜確認してください。
-ソーシャルカードはローカルでのビルド時にも生成されます。
-生成されたソーシャルカードは、 `build-artifacts/assets/images/social` フォルダーの配下で確認してください。
+ソーシャルカードはローカルでは生成せず、 CI 上でのドキュメントビルド時に生成されるよう設定しています。
+生成されたソーシャルカードは以下の手順で確認してください。
+
+1. GitHub Actions の「ドキュメントのビルド(CI 用)」を開き、対象のブランチを選択してワークフローを実行します。
+
+1. 実行したワークフローの Summary の Artifacts から　documents をダウンロードします。
+
+1. ダウンロードした documents.zip 内の docs.zip を解凍し、`assets/images/social` に生成されたソーシャルカードを確認します。
 
 ### 画像の作成方法
 

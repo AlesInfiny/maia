@@ -3,7 +3,7 @@
 # https://zensical.org/docs/setup/basics/
 #
 # zensical.toml では環境変数を参照できないため、リリースビルドでのみ変更する設定値
-# （ extra.version 、 extra.analytics 、 plugins.rss.enabled ）は、
+# （ extra.version 、 extra.analytics 、 plugins.social.enabled 、 plugins.rss.enabled ）は、
 # CI で .github/workflows/build-documents/apply-release-settings.py により書き換える。
 
 [project]
@@ -325,6 +325,8 @@ minify_js = true
 htmlmin_opts.remove_comments = true
 
 [project.plugins.social]
+# ソーシャルカードはローカルでは生成せず、 CI で有効にする。
+enabled = false
 cards_layout_options.font_family = "Noto Sans JP"
 
 [project.plugins.rss]
