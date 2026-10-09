@@ -1,4 +1,4 @@
-# cspell:ignore pngquant
+# cspell:ignore pipefail
 name: "ドキュメントのビルド"
 description: "ドキュメントをビルドします。"
 inputs:
@@ -6,7 +6,7 @@ inputs:
     description: "ドキュメントのベースフォルダパス"
     required: true
   output-folder-name:
-    description: "ビルドしたドキュメントの出力先フォルダ名"
+    description: "ビルドしたドキュメントの出力先フォルダ名（ zensical.toml の site_dir と一致させる）"
     required: true
 runs:
   using: "composite"
@@ -22,44 +22,54 @@ runs:
           echo "VERSION=Test Version" >> $GITHUB_ENV
         fi
 
-    - name: ソーシャルカードプラグイン用のパッケージインストール
+    # zensical.toml では環境変数を参照できないため、ビルド前に CI 用の設定値へ書き換える。
+    - name: ビルド設定の書き換え
       shell: bash
       run: |
-        python -m pip install "mkdocs-material[imaging]"
-        sudo apt-get install pngquant
+        export VERSION="${{ env.VERSION }}"
+        python "${{ github.action_path }}/apply-release-settings.py" "${{ inputs.document-base-path }}/zensical.toml"
 
     - name: ドキュメントのビルド
       shell: bash
       id: build_documents
       continue-on-error: true
       run: |
-        export BUILD_DOCUMENTS=true
-        export VERSION="${{ env.VERSION }}"
         cd "${{ inputs.document-base-path }}"
-        echo '# Mkdocs Build Result :factory:' >> $GITHUB_STEP_SUMMARY
-        mkdocs build --verbose --clean --strict --site-dir "${{ inputs.output-folder-name }}" > mkdocs_build_log.txt
+        echo '# Zensical Build Result :factory:' >> $GITHUB_STEP_SUMMARY
+        # Zensical のログに含まれる ANSI エスケープシーケンスを除去して保存する。
+        set -o pipefail
+        zensical build --clean --strict 2>&1 | sed -e 's/\x1b\[[0-9;]*m//g' > zensical_build_log.txt
+
+    - name: ファイルへのリンクチェック
+      shell: bash
+      id: check_file_links
+      if: ${{ steps.build_documents.outcome == 'success' }}
+      continue-on-error: true
+      run: |
+        cd "${{ inputs.document-base-path }}"
+        python "${{ github.action_path }}/check-file-links.py" "${{ inputs.output-folder-name }}" >> zensical_build_log.txt
 
     - name: ドキュメントビルドの結果表示(成功)
       shell: bash
-      if: ${{ steps.build_documents.outcome == 'success' }}
+      if: ${{ steps.build_documents.outcome == 'success' && steps.check_file_links.outcome == 'success' }}
       run: |
-        echo ':heavy_check_mark: mkdocs のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
+        echo ':heavy_check_mark: Zensical のビルドに成功しました。' >> $GITHUB_STEP_SUMMARY
         cd "${{ inputs.document-base-path }}"
-        if [ -s mkdocs_build_log.txt ]; then
+        if [ -s zensical_build_log.txt ]; then
           echo '```' >> $GITHUB_STEP_SUMMARY
-          cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+          cat zensical_build_log.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
         fi
 
     - name: ドキュメントビルドの結果表示(失敗)
       shell: bash
-      if: ${{ steps.build_documents.outcome == 'failure' }}
+      if: ${{ steps.build_documents.outcome == 'failure' || steps.check_file_links.outcome == 'failure' }}
       run: |
-        echo ':x: mkdocs のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
+        echo ':x: Zensical のビルドに失敗しました。' >> $GITHUB_STEP_SUMMARY
         cd "${{ inputs.document-base-path }}"
-        if [ -s mkdocs_build_log.txt ]; then
+        if [ -s zensical_build_log.txt ]; then
           echo '```' >> $GITHUB_STEP_SUMMARY
-          cat mkdocs_build_log.txt >> $GITHUB_STEP_SUMMARY
+          cat zensical_build_log.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
         fi
         exit 1

@@ -12,7 +12,7 @@
     "LICENSE",
     "LICENSE-CODE",
     "maia.code-workspace",
-    "mkdocs.yml",
+    "zensical.toml",
     "package-lock.json",
     "package.json",
     "requirements.txt",
@@ -83,6 +83,7 @@
     "viewmodel",
     "vueuse",
     "webmvc",
-    "winbatch"
+    "winbatch",
+    "Zensical"
   ]
 }

@@ -1,7 +1,5 @@
 yamllint==1.38.0
-mkdocs==1.6.1
-mkdocs-material==9.7.7
 pymdown-extensions==11.0.1
-mkdocs-git-revision-date-localized-plugin==1.5.1
-mkdocs-minify-plugin==0.8.0
-mkdocs-rss-plugin==1.17.9
+zensical==0.0.69
+# Windows では Zensical がタイムゾーン情報を参照するために必要。
+tzdata==2026.5; sys_platform == "win32"

@@ -1,0 +1,335 @@
+# cspell:ignore htmlmin inlinehilite pymdownx superfences twemoji
+# Zensical の設定ファイル
+# https://zensical.org/docs/setup/basics/
+#
+# zensical.toml では環境変数を参照できないため、リリースビルドでのみ変更する設定値
+# （ extra.version 、 extra.analytics 、 plugins.rss.enabled ）は、
+# CI で .github/workflows/build-documents/apply-release-settings.py により書き換える。
+
+[project]
+site_name = "AlesInfiny Maia OSS Edition"
+site_url = "https://maia.alesinfiny.org/"
+site_description = "AlesInfiny Maia OSS Edition のポータルサイトです。"
+site_author = "AlesInfiny Maia OSS Edition コミュニティ"
+copyright = "Copyright &copy; 2023 BIPROGY Inc. All rights reserved."
+docs_dir = "contents"
+site_dir = "build-artifacts"
+repo_name = "AlesInfiny/maia"
+repo_url = "https://github.com/AlesInfiny/maia"
+edit_uri = "edit/main/documents/contents/"
+extra_css = ["stylesheets/overrides.css"]
+
+nav = [
+  { "AlesInfiny Maia OSS Edition にようこそ" = [
+    "index.md",
+  ] },
+  { "アプリケーションアーキテクチャ" = [
+    "app-architecture/index.md",
+    { "概要編" = [
+      "app-architecture/overview/index.md",
+      { "構築できるアプリケーション形態" = "app-architecture/overview/application-kind.md" },
+      { "AlesInfiny Maia OSS Edition を構成するもの" = "app-architecture/overview/compositions.md" },
+      { "推奨するリポジトリ構造" = "app-architecture/overview/repository-structure.md" },
+      { "Java アプリケーションの処理方式" = [
+        "app-architecture/overview/java-application-processing-system/index.md",
+        { "例外処理方針" = "app-architecture/overview/java-application-processing-system/exception-handling-policy.md" },
+        { "ログ出力方針" = "app-architecture/overview/java-application-processing-system/logging-policy.md" },
+        { "メッセージ管理方針" = "app-architecture/overview/java-application-processing-system/message-management-policy.md" },
+        { "入力値検証方針" = "app-architecture/overview/java-application-processing-system/input-validation-policy.md" },
+        { "トランザクション管理方針" = "app-architecture/overview/java-application-processing-system/transaction-management.md" },
+        { "ヘルスチェック機能の方針" = "app-architecture/overview/java-application-processing-system/health-check-policy.md" },
+        { "認証・認可方針" = "app-architecture/overview/java-application-processing-system/authentication-and-authorization-policy.md" },
+      ] },
+      { "Java アプリケーションのアーキテクチャ選定基準" = "app-architecture/overview/java-application-architecture-selection-guideline.md" },
+    ] },
+    { "クライアントサイドレンダリング編" = [
+      "app-architecture/client-side-rendering/index.md",
+      { "CSR アーキテクチャ概要" = "app-architecture/client-side-rendering/csr-architecture-overview.md" },
+      { "全体処理方式" = [
+        "app-architecture/client-side-rendering/global-function/index.md",
+        { "例外処理方針" = "app-architecture/client-side-rendering/global-function/exception-handling.md" },
+        { "ログ出力方針" = "app-architecture/client-side-rendering/global-function/logging-policy.md" },
+        { "メッセージ管理方針" = "app-architecture/client-side-rendering/global-function/message-management-policy.md" },
+        { "入力値検査方針" = "app-architecture/client-side-rendering/global-function/validation-policy.md" },
+        { "ヘルスチェック機能の方針" = "app-architecture/client-side-rendering/global-function/health-check-policy.md" },
+        { "ストア設計方針" = "app-architecture/client-side-rendering/global-function/store-design-policy.md" },
+        { "認証・認可方針" = "app-architecture/client-side-rendering/global-function/authentication-and-authorization-policy.md" },
+      ] },
+      { "フロントエンドアプリケーションのアーキテクチャ" = [
+        "app-architecture/client-side-rendering/frontend-application/index.md",
+      ] },
+      { "バックエンドアプリケーションのアーキテクチャ" = [
+        "app-architecture/client-side-rendering/backend-application/index.md",
+        { "プレゼンテーション層" = "app-architecture/client-side-rendering/backend-application/presentation.md" },
+        { "アプリケーションコア層" = "app-architecture/client-side-rendering/backend-application/application-core.md" },
+        { "インフラストラクチャ層" = "app-architecture/client-side-rendering/backend-application/infrastructure.md" },
+      ] },
+      { "テスト方針" = [
+        "app-architecture/client-side-rendering/test/index.md",
+        { "バックエンドアプリケーションのテスト" = [
+          "app-architecture/client-side-rendering/test/backend-application/index.md",
+          { "単体テスト ( UT0 )" = "app-architecture/client-side-rendering/test/backend-application/unit-test.md" },
+          { "結合テスト ( ITa )" = "app-architecture/client-side-rendering/test/backend-application/integration-test.md" },
+        ] },
+      ] },
+    ] },
+    { "サーバーサイドレンダリング編" = [
+      "app-architecture/server-side-rendering/index.md",
+      { "SSR アーキテクチャ概要" = "app-architecture/server-side-rendering/ssr-architecture-overview.md" },
+      { "全体処理方式" = [
+        "app-architecture/server-side-rendering/global-function/index.md",
+        { "例外処理方針" = "app-architecture/server-side-rendering/global-function/exception-handling.md" },
+        { "ログ出力方針" = "app-architecture/server-side-rendering/global-function/logging-policy.md" },
+        { "メッセージ管理方針" = "app-architecture/server-side-rendering/global-function/message-management-policy.md" },
+        { "入力値検査方針" = "app-architecture/server-side-rendering/global-function/validation-policy.md" },
+        { "ヘルスチェック機能の方針" = "app-architecture/server-side-rendering/global-function/health-check-policy.md" },
+        { "認証・認可方針" = "app-architecture/server-side-rendering/global-function/authentication-and-authorization-policy.md" },
+      ] },
+      { "フロントエンドのアーキテクチャ" = [
+        "app-architecture/server-side-rendering/frontend/index.md",
+      ] },
+      { "バックエンドのアーキテクチャ" = [
+        "app-architecture/server-side-rendering/backend/index.md",
+        { "プレゼンテーション層" = "app-architecture/server-side-rendering/backend/presentation.md" },
+        { "アプリケーションコア層" = "app-architecture/server-side-rendering/backend/application-core.md" },
+        { "インフラストラクチャ層" = "app-architecture/server-side-rendering/backend/infrastructure.md" },
+      ] },
+    ] },
+    { "バッチアプリケーション編" = [
+      "app-architecture/batch-application/index.md",
+      { "バッチアプリケーションの概要" = "app-architecture/batch-application/batch-application-overview.md" },
+      { "バッチアプリケーションのアーキテクチャ" = "app-architecture/batch-application/batch-application-architecture.md" },
+      { "バッチアプリケーションの検討事項" = [
+        "app-architecture/batch-application/batch-application-consideration/index.md",
+        { "バッチアプリケーションの起動に時間がかかる" = "app-architecture/batch-application/batch-application-consideration/reduced-startup-time.md" },
+        { "メタデータテーブルの必要性について" = "app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md" },
+      ] },
+      { "バッチアプリケーションのテスト戦略" = [
+        "app-architecture/batch-application/batch-application-test-policy/index.md",
+        { "結合テスト" = "app-architecture/batch-application/batch-application-test-policy/integration-test.md" },
+      ] },
+    ] },
+    { "アプリケーションセキュリティ編" = [
+      "app-architecture/security/index.md",
+      { "CSRF （クロスサイト・リクエスト・フォージェリ）" = "app-architecture/security/csrf.md" },
+      { "XSS （クロスサイト・スクリプティング）" = "app-architecture/security/xss.md" },
+      { "クリックジャッキング" = "app-architecture/security/clickjacking.md" },
+    ] },
+  ] },
+  # { "クックブック" = [
+  #   { "目次" = "cook-book/index.md" },
+  #   { "帳票印刷" = "cook-book/~~~" },
+  # ] },
+  { "ガイド" = [
+    "guidebooks/index.md",
+    { "アプリケーション開発手順" = [
+      "guidebooks/how-to-develop/index.md",
+      { "CSR 編" = [
+        "guidebooks/how-to-develop/csr/index.md",
+        { "Java 編" = [
+          "guidebooks/how-to-develop/csr/java/index.md",
+          { "事前準備" = "guidebooks/how-to-develop/csr/java/preparation.md" },
+          { "アプリケーションの全体構造" = "guidebooks/how-to-develop/csr/java/application-structure.md" },
+          { "プロジェクトの雛型作成" = "guidebooks/how-to-develop/csr/java/create-project.md" },
+          { "プロジェクトの共通設定" = "guidebooks/how-to-develop/csr/java/common-project-settings.md" },
+          { "サブプロジェクトの個別設定" = [
+            "guidebooks/how-to-develop/csr/java/sub-project-settings/index.md",
+            { "web プロジェクトの設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md" },
+            { "application-modules プロジェクトの設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/application-modules-project-settings.md" },
+            { "batch プロジェクトの設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/batch-project-settings.md" },
+            { "system-common プロジェクトの設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/system-common-project-settings.md" },
+            { "プラグイン、依存ライブラリのバージョン定義一元化" = "guidebooks/how-to-develop/csr/java/sub-project-settings/project-version-control.md" },
+            { "メッセージ管理機能の設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/message-management.md" },
+            { "集約例外ハンドラーの設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/exception-handling.md" },
+            { "MyBatis Generator の設定" = "guidebooks/how-to-develop/csr/java/sub-project-settings/mybatis-generator-settings.md" },
+          ] },
+        ] },
+        { "Vue.js 編" = [
+          "guidebooks/how-to-develop/csr/vue-js/index.md",
+          { "事前準備" = "guidebooks/how-to-develop/csr/vue-js/preparation.md" },
+          { "ブランクプロジェクトの作成" = "guidebooks/how-to-develop/csr/vue-js/create-vuejs-blank-project.md" },
+          { "ブランクプロジェクトのフォルダー構造" = "guidebooks/how-to-develop/csr/vue-js/folder-structure-of-blank-project.md" },
+          { "ワークスペースの設定" = "guidebooks/how-to-develop/csr/vue-js/setting-workspaces.md" },
+          { "プロジェクトの共通設定" = "guidebooks/how-to-develop/csr/vue-js/project-settings.md" },
+          { "開発に使用するパッケージ" = "guidebooks/how-to-develop/csr/vue-js/optional-packages.md" },
+          { "静的コード分析とフォーマット" = "guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md" },
+          { "メッセージ管理機能の設定" = "guidebooks/how-to-develop/csr/vue-js/message-management.md" },
+          { "入力値検証" = "guidebooks/how-to-develop/csr/vue-js/input-validation.md" },
+          { "Open API 仕様書からのクライアントコード生成" = "guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md" },
+          { "エラーハンドラーの設定" = "guidebooks/how-to-develop/csr/vue-js/error-handler-settings.md" },
+          { "カスタムエラーの設定" = "guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md" },
+          { "イベントハンドリングの設定" = "guidebooks/how-to-develop/csr/vue-js/event-handling-settings.md" },
+          { "モックモードの設定" = "guidebooks/how-to-develop/csr/vue-js/mock-mode-settings.md" },
+          { "CSS の設定と CSS フレームワークの適用" = "guidebooks/how-to-develop/csr/vue-js/css.md" },
+        ] },
+        { "ローカル開発環境の構築" = [
+          "guidebooks/how-to-develop/csr/local-environment/index.md",
+        ] },
+        { "CORS 環境の構築" = [
+          "guidebooks/how-to-develop/csr/cors/index.md",
+          { "Cookie の設定" = "guidebooks/how-to-develop/csr/cors/cookie.md" },
+        ] },
+      ] },
+      { "SSR 編" = [
+        "guidebooks/how-to-develop/ssr/index.md",
+        { "Java 編" = [
+          "guidebooks/how-to-develop/ssr/java/index.md",
+          { "事前準備" = "guidebooks/how-to-develop/ssr/java/preparation.md" },
+          { "アプリケーションの全体構造" = "guidebooks/how-to-develop/ssr/java/application-structure.md" },
+          { "プロジェクトの雛型作成" = "guidebooks/how-to-develop/ssr/java/create-project.md" },
+          { "プロジェクトの共通設定" = "guidebooks/how-to-develop/ssr/java/common-project-settings.md" },
+          { "サブプロジェクトの個別設定" = [
+            "guidebooks/how-to-develop/ssr/java/sub-project-settings/index.md",
+            { "web プロジェクトの設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/web-project-settings.md" },
+            { "機能モジュールのプロジェクトの設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/function-module-project-settings.md" },
+            { "system-common プロジェクトの設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/system-common-project-settings.md" },
+            { "プラグイン、依存ライブラリのバージョン定義一元化" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/project-version-control.md" },
+            { "メッセージ管理機能の設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/message-management.md" },
+            { "集約例外ハンドラーの設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/exception-handling.md" },
+            { "MyBatis Generator の設定" = "guidebooks/how-to-develop/ssr/java/sub-project-settings/mybatis-generator-settings.md" },
+          ] },
+        ] },
+        { "ローカル開発環境の構築" = [
+          "guidebooks/how-to-develop/ssr/local-environment/index.md",
+        ] },
+      ] },
+    ] },
+    # { "規約" = [
+    #   "guidebooks/conventions/index.md", このページができるまで、コーディング規約を一段上のメニューに配置している。
+    # ] },
+    { "コーディング規約" = "guidebooks/conventions/coding-conventions.md" },
+  ] },
+  { "サンプル解説" = [
+    "samples/index.md",
+    { "CSR アプリケーション" = [
+      "samples/dressca/index.md",
+      { "Azure Active Directory B2C を利用したユーザー認証" = [
+        "samples/dressca/azure-ad-b2c/index.md",
+      ] },
+      { "Microsoft Entra External ID を利用したユーザー認証" = [
+        "samples/dressca/external-id-sample-for-spa/index.md",
+        { "MSAL.js で提供される秘密情報のキャッシュ保存先" = "samples/dressca/external-id-sample-for-spa/msal-consideration.md" },
+      ] },
+    ] },
+    { "SSR アプリケーション" = [
+      "samples/dressca-cms/index.md",
+    ] },
+    { "要件別サンプル" = [
+      "samples/requirement-based/index.md",
+      { "Spring Batch を利用したバッチアプリケーション" = [
+        "samples/requirement-based/spring-batch/index.md",
+      ] },
+    ] },
+  ] },
+  { "AlesInfiny Maia OSS Edition について" = [
+    { "利用規約" = "about-maia/terms.md" },
+    { "商標" = "about-maia/trademarks.md" },
+    { "クレジット表記" = "about-maia/credits.md" },
+    { "プライバシーポリシー" = "about-maia/privacy-policy.md" },
+  ] },
+]
+
+
+[project.theme]
+# Material for MkDocs と同じ見た目を維持するため、 classic テーマを利用する。
+variant = "classic"
+custom_dir = "overrides"
+favicon = "assets/images/favicon.png"
+language = "ja"
+logo = "assets/maia-logo.png"
+features = [
+  "content.action.view",
+  "content.code.annotate",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.tabs",
+  "navigation.top",
+  "navigation.tracking",
+]
+
+[project.theme.font]
+text = "Noto Sans JP"
+code = "Source Code Pro"
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+view = "material/eye"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "material/weather-sunny"
+toggle.name = "Switch to dark mode"
+primary = "teal"
+accent = "green"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "material/weather-night"
+toggle.name = "Switch to light mode"
+primary = "teal"
+accent = "green"
+
+[project.validation]
+# ページ内アンカーのリンク切れを警告として扱い、 --strict ビルドで検出する。
+invalid_links = true
+invalid_link_anchors = true
+
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.highlight.linenums = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.snippets.check_paths = true
+# スニペット埋め込みで参照する相対パスの起点ディレクトリ。
+# documents/ 配下と、リポジトリルート（ samples/ 配下のサンプルコード埋め込み用）。
+pymdownx.snippets.base_path = [".", ".."]
+pymdownx.snippets.auto_append = ["includes/abbreviations.md"]
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed = {}
+toc.permalink = "⚓︎"
+toc.toc_depth = 3
+
+[project.extra]
+# リリースビルドではタグ名に書き換える。
+version = "Local Version"
+
+[project.extra.footer_urls]
+terms = "about-maia/terms/"
+trademarks = "about-maia/trademarks/"
+credits = "about-maia/credits/"
+privacy_policy = "about-maia/privacy-policy/"
+rss_created = "feed_rss_created.xml"
+rss_updated = "feed_rss_updated.xml"
+
+[project.extra.analytics]
+# ローカルのテストトラフィックを計測しないよう、リリースビルドでのみ両方の値を設定する。
+provider = ""
+property = ""
+
+# 検索プラグインは既定で有効。検索言語は theme.language から決まる。
+
+[project.plugins.minify]
+minify_html = true
+minify_js = true
+htmlmin_opts.remove_comments = true
+
+[project.plugins.social]
+cards_layout_options.font_family = "Noto Sans JP"
+
+[project.plugins.rss]
+# Git の履歴から日付を収集するためビルドに時間がかかる。ローカルでは無効にし、 CI で有効にする。
+enabled = false
+
+# 作成日・最終更新日を表示する git-revision-date-localized プラグインは Zensical が未対応のため設定していない。
+# https://zensical.org/docs/compatibility/mkdocs/plugins/

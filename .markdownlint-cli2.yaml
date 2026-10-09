@@ -35,12 +35,12 @@ config:
     front_matter_title: ""
 
   MD046: false
-  # MkDocs のビルド対象外の Markdown は、 MD051 でページ内アンカーを検証する。
+  # Zensical のビルド対象外の Markdown は、 MD051 でページ内アンカーを検証する。
   MD051: true
 
 # 特定のファイルに適用するルール設定を以下に記載する
 overrides:
-  # MkDocs のビルド対象は、ページ内アンカーを MkDocs のビルド（validation.anchors）で検証するため、 MD051 を無効にする。
+  # Zensical のビルド対象は、ページ内アンカーを Zensical のビルド（validation.invalid_link_anchors）で検証するため、 MD051 を無効にする。
   # また、見出しに付与した ID に「.」を含む場合（{#cc-by-4.0} など）、 MD051 が ID を認識できず誤検知する。
   - filter:
       - "documents/contents/**/*.md"

@@ -65,15 +65,15 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 |               | index.md         |                       |                                    |                     | トップページ                                    |
 | includes      |                  |                       |                                    |                     | Snippets の置き場                               |
 |               | abbreviations.md |                       |                                    |                     | 略語用語集                                      |
-| overrides     |                  |                       |                                    |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
+| overrides     |                  |                       |                                    |                     | Zensical のテーマ拡張ファイル置き場（\*）       |
 |               | partials         |                       |                                    |                     | パーシャルテンプレート                          |
 |               |                  | copyright.html        |                                    |                     | コピーライト表示のカスタマイズ                  |
 | readme-images |                  |                       |                                    |                     | README.md 内の画像ファイル置き場                |
-| .gitignore    |                  |                       |                                    |                     | mkdocs 用の gitignore                           |
-| mkdocs.yml    |                  |                       |                                    |                     | mkdocs の設定ファイル                           |
+| .gitignore    |                  |                       |                                    |                     | Zensical 用の gitignore                         |
 | README.md     |                  |                       |                                    |                     | このドキュメント                                |
+| zensical.toml |                  |                       |                                    |                     | Zensical の設定ファイル                         |
 
-\*: 詳細は [MkDocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
+\*: 詳細は [Zensical の解説](https://zensical.org/docs/customization/#extending-the-theme) と [GitHub リポジトリ](https://github.com/zensical/ui) を参照。
 
 ## ドキュメント作成手順
 
@@ -84,14 +84,14 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 
 フォルダー構造に従って Markdown ファイルを作成します。
 
-Markdown の作成にあたっては、 Material for MkDocs の Web サイトを参照してください。
+Markdown の作成にあたっては、 Zensical の Web サイトを参照してください。
 素の Markdown とは異なる表現パターンがあります。
 
-<https://squidfunk.github.io/mkdocs-material/reference/abbreviations/>
+<https://zensical.org/docs/authoring/markdown/>
 
 ### 動作確認
 
-記事をある程度作成したら、 mkdocs を用いて確認します。
+記事をある程度作成したら、 Zensical を用いて確認します。
 
 Visual Studio Code で [ターミナル] を開きます。
 ターミナルが開いていない場合は、以下の通り新たに開いてください。
@@ -103,21 +103,20 @@ Visual Studio Code で [ターミナル] を開きます。
 
 ![コマンドプロンプトを起動](readme-images/open-command-prompt.png)
 
-ターミナルのコマンドプロンプトで、 [mkdocs.yml] ファイルのあるフォルダーに移動してください。
+ターミナルのコマンドプロンプトで、 [zensical.toml] ファイルのあるフォルダーに移動してください。
 フォルダー移動後、以下のコマンドを実行してください。
 
 ```shell
-mkdocs serve
+zensical serve
 ```
 
 うまく実行できると、以下のようなメッセージが出て、 Web サーバーが起動します。
 
 ```text
-INFO     -  Building documentation...
-INFO     -  Cleaning site directory
-INFO     -  Documentation built in 1.04 seconds
-INFO     -  [10:07:52] Serving on http://127.0.0.1:8000/
-INFO     -  [10:07:53] Browser connected: http://127.0.0.1:8000/
+Serving C:\AlesDev\maia\documents\build-artifacts on http://localhost:8000
+Build started
+No issues found
+Build finished in 3.08s
 ```
 
 最後に出力されている URL を任意のブラウザーで開いてください。
@@ -125,9 +124,9 @@ INFO     -  [10:07:53] Browser connected: http://127.0.0.1:8000/
 
 警告がある場合は、そのまま Markdown を修正して保存します。
 保存するとブラウザー側はホットリロードが行われ、即座に編集結果が反映されます。
-また mkdocs.yml ファイルを編集した場合も、ファイルを保存した瞬間にホットリロードが走ります。
+また zensical.toml ファイルを編集した場合も、ファイルを保存した瞬間にホットリロードが走ります。
 
-Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の nav セクションを修正する必要があります。
+Markdown ファイルを追加したら、ほとんどの場合 zensical.toml の nav セクションを修正する必要があります。
 
 ### ドキュメントのリンクの記載ルール
 
@@ -197,7 +196,7 @@ AlesInfiny Maia のリポジトリ内のコードをドキュメントで参照�
         ```
     ```
 
-参照できるファイルは、 `mkdocs.yml` の `pymdownx.snippets.base_path` で指定したフォルダー（ `documents` フォルダーとリポジトリルート）の配下にあるものだけです。
+参照できるファイルは、 `zensical.toml` の `pymdownx.snippets.base_path` で指定したフォルダー（ `documents` フォルダーとリポジトリルート）の配下にあるものだけです。
 参照したいファイルが対象外の場合は、 `base_path` の設定を見直してください。
 
 コードブロックのシンタックスハイライトが利用可能な言語の一覧は、[Pygments - Languages](https://pygments.org/languages/) を参照してください。
@@ -327,7 +326,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 ```
 
 ここで設定した `title` と `description` を元にソーシャルカードが生成されるため、以下の文字数を守って設定します。
-( `description` を省略すると、 mkdocs.yml の `site_description` の値が設定されます。)
+( `description` を省略すると、 zensical.toml の `site_description` の値が設定されます。)
 
 - カード上に表示できる文字数
     - `title`: 全角 9 文字×3 行まで
@@ -342,14 +341,8 @@ description: クライアントサイドレンダリングを行う Web アプ�
       ![ソーシャルカード](readme-images/social-card-example.png)
 
 文字が途切れていないか等を適宜確認してください。
-ソーシャルカードはローカルでは生成せず、 CI 上でのドキュメントビルド時に生成されるよう設定しています。
-生成されたソーシャルカードは以下の手順で確認してください。
-
-1. GitHub Actions の「ドキュメントのビルド(CI 用)」を開き、対象のブランチを選択してワークフローを実行します。
-
-1. 実行したワークフローの Summary の Artifacts から　documents をダウンロードします。
-
-1. ダウンロードした documents.zip 内の docs.zip を解凍し、`assets/images/social` に生成されたソーシャルカードを確認します。
+ソーシャルカードはローカルでのビルド時にも生成されます。
+生成されたソーシャルカードは、 `build-artifacts/assets/images/social` フォルダーの配下で確認してください。
 
 ### 画像の作成方法
 
@@ -393,15 +386,15 @@ _materials/images フォルダー、 contents/images フォルダーの配下は
 
 1. マークダウンの実装は以下のように「#only-light」または「#only-dark」を付加して配置します。  
    詳細は以下の公式ドキュメントを参照してください。  
-   <https://squidfunk.github.io/mkdocs-material/reference/images/#light-and-dark-mode>
+   <https://zensical.org/docs/authoring/images/#light-and-dark-mode>
 
     - 「align=right」は画像の配置に関する属性であり、画面デザインにあわせて任意で付加します。  
     詳細は以下の公式ドキュメントを参照してください。  
-    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-alignment>
+    <https://zensical.org/docs/authoring/images/#image-alignment>
 
     - 「loading=lazy」は画像の遅延読込に関する属性であり、必須で付加します。  
     詳細は以下の公式ドキュメントを参照してください。  
-    <https://squidfunk.github.io/mkdocs-material/reference/images/#image-lazy-loading>
+    <https://zensical.org/docs/authoring/images/#image-lazy-loading>
 
     ```markdown
     ![mono-repo の第 2 階層構造例](../../images/guidebooks/git/mono-repo-structure-2nd-subsystem-light.png#only-light){ align=right loading=lazy }
@@ -507,7 +500,7 @@ pip install --upgrade pip
 ### Python モジュールのインストール
 
 本リポジトリでは、 yamllint を使用して、 YAML ファイルの Lint を自動化します。
-また、 Mkdocs を用いて、マークダウンから Web サイトを生成します。
+また、 Zensical を用いて、マークダウンから Web サイトを生成します。
 以下のコマンドを実行して、必要なモジュールを一括でインストールします。
 モジュールの更新も同じコマンドで実行できます。
 

@@ -69,7 +69,7 @@ npm run test:unit:consumer
 
 ### ドキュメント
 
-ドキュメントの開発には Python と MkDocs を使用します。
+ドキュメントの開発には Python と Zensical を使用します。
 詳細は [AlesInfiny Maia OSS Edition ドキュメントについて | 動作確認](/documents/README.md#動作確認) を参照してください。
 
 ただし、ローカル開発環境での実行では、サンプルアプリケーションのダウンロードリンクなど、一部が動作しません。
