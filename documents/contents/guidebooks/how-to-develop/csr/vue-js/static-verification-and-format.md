@@ -293,12 +293,11 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-7"
+```typescript hl_lines="5-6"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
-  '**/src/generated/**',
   '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
@@ -314,6 +313,45 @@ globalIgnores([
       ```shell linenums="0"
       npx @eslint/config-inspector@latest
       ```
+
+#### フォルダー間の参照方向の強制 {#layer-dependency-rules}
+
+[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `no-restricted-imports` で強制します。
+参照方向の逆流はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
+
+禁止する参照は以下の 2 つです。
+
+- `system-common` から `business-common` およびコンテキストへの参照
+- `business-common` からコンテキストへの参照
+
+サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
+`files` にルールを適用する層を、 `patterns` の `group` に禁止する参照先を指定します。
+
+```typescript title="サンプルアプリケーションの eslint.project-rules.ts"
+--8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts"
+```
+
+生成したルールは、 eslint.config.ts で読み込んで適用します。
+
+```typescript title="eslint.config.ts でのルールの適用"
+import {
+  adminLayerDependencyRules,
+  consumerLayerDependencyRules,
+} from './eslint.project-rules'
+
+export default defineConfigWithVueTs(
+  // 中略
+  ...consumerLayerDependencyRules,
+  ...adminLayerDependencyRules,
+)
+```
+
+ルールを設定する際は、以下の点に留意してください。
+
+- コンテキストのフォルダーを追加したときは、 `contextPatterns` にそのコンテキストのパターンを追加します。追加しないと、共通層からそのコンテキストへの参照を検出できません。
+- `system-common/router` の `index.ts` と `route-names.ts` は、全コンテキストのルーティング定義とルート名を集約する役割を持つため、 `ignores` で例外にします。例外がシステム共通の層全体へ広がらないよう、システム共通の他のコードから `route-names.ts` を参照することもあわせて禁止します。
+- `App.vue` と `main.ts` は、いずれの `files` にも一致しないため、ルールの対象外になります。
+- ルールは `@/` エイリアスによる参照を対象とします。相対パスで書いた参照は検出できないため、フォルダーをまたぐ参照はエイリアスで記述してください。エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
 
 #### ESLint の実行 {#run-eslint}
 
