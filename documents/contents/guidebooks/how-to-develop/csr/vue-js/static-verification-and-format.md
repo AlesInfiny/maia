@@ -325,7 +325,7 @@ globalIgnores([
 - `business-common` からコンテキストへの参照
 
 サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
-`files` にルールを適用する層を、 `patterns` の `group` に禁止する参照先を指定します。
+`files` にルールを適用するフォルダーを、 `patterns` の `group` に禁止する参照先を指定します。
 
 ```typescript title="サンプルアプリケーションの eslint.project-rules.ts"
 --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts"
@@ -349,7 +349,7 @@ export default defineConfigWithVueTs(
 ルールを設定する際は、以下の点に留意してください。
 
 - コンテキストのフォルダーを追加したときは、 `contextPatterns` にそのコンテキストのパターンを追加します。追加しないと、共通層からそのコンテキストへの参照を検出できません。
-- `system-common/router` の `index.ts` と `route-names.ts` は、全コンテキストのルーティング定義とルート名を集約する役割を持つため、 `ignores` で例外にします。例外がシステム共通の層全体へ広がらないよう、システム共通の他のコードから `route-names.ts` を参照することもあわせて禁止します。
+- `system-common/router` の `index.ts` と `route-names.ts` は、全コンテキストのルーティング定義とルート名を集約する役割を持つため、 `ignores` で例外にします。例外がシステム共通の全体へ広がらないよう、システム共通の他のコードから `route-names.ts` を参照することもあわせて禁止します。
 - `App.vue` と `main.ts` は、いずれの `files` にも一致しないため、ルールの対象外になります。
 - ルールは `@/` エイリアスによる参照を対象とします。相対パスで書いた参照は検出できないため、フォルダーをまたぐ参照はエイリアスで記述してください。エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
 
