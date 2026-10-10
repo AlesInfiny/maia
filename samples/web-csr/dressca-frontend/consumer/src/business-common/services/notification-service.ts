@@ -1,4 +1,6 @@
 import { useNotificationStore } from '@/business-common/stores/notification'
+import { i18n } from '@/system-common/locales/i18n'
+import type { ApiProblem } from '@/system-common/error-handler/unexpected-error-outcome'
 
 /**
  * トースト通知を表示します。
@@ -33,4 +35,32 @@ export function showToast(
 ) {
   const notificationStore = useNotificationStore()
   notificationStore.setMessage(message, id, title, detail, status, timeout)
+}
+
+/**
+ * 操作に失敗したことをトースト通知で表示します。
+ * API が問題の詳細を返した場合は、例外の ID に対応するメッセージと詳細を表示します。
+ * それ以外の場合は、代わりのメッセージを表示します。
+ * @param problem - API が返した問題の詳細。
+ * @param fallbackMessage - 問題の詳細がない場合に表示するメッセージ。
+ * @example
+ * const outcome = await addToBasket(displayItemId)
+ * if (outcome.kind === 'failed') {
+ *   showFailureToast(outcome.problem, t('failedToAddItemToCarts'))
+ * }
+ */
+export function showFailureToast(problem: ApiProblem | undefined, fallbackMessage: string) {
+  if (!problem) {
+    showToast(fallbackMessage)
+    return
+  }
+  const { t } = i18n.global
+  showToast(
+    t(problem.exceptionId, problem.exceptionValues),
+    problem.exceptionId,
+    problem.title,
+    problem.detail,
+    problem.status,
+    100000,
+  )
 }

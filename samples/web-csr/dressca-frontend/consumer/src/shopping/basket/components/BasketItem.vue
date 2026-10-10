@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import type { BasketItemApiModel } from '@/system-common/generated/api-client'
+import type { BasketLine } from '../models/basket-line'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -11,7 +11,7 @@ import { i18n } from '@/system-common/locales/i18n'
 
 const { t } = i18n.global
 const props = defineProps<{
-  item: BasketItemApiModel
+  item: BasketLine
   available: boolean
 }>()
 
@@ -68,12 +68,12 @@ const remove = () => {
   <div class="col-span-4 lg:col-span-5">
     <div class="grid grid-cols-2">
       <img
-        :src="getFirstAssetUrl(item.displayItem?.assetCodes)"
-        :alt="item.displayItem?.name"
+        :src="getFirstAssetUrl(item.assetCodes)"
+        :alt="item.name"
         class="pointer-events-none h-40"
       />
       <div class="ml-2">
-        <p>{{ item.displayItem?.name }}</p>
+        <p>{{ item.name }}</p>
         <p class="mt-4">{{ toCurrencyJPY(item.unitPrice) }}</p>
         <p v-if="!available" class="mt-4 font-bold text-red-500">
           {{ t('itemUnavailable') }}
