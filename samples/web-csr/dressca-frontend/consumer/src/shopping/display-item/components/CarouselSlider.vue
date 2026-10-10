@@ -34,7 +34,10 @@ const onTouchMove = (event: MouseEvent | TouchEvent) => {
   if (startX.value == null) {
     return
   }
-  const currentX = 'touches' in event ? event.touches[0].clientX : event.clientX
+  const currentX = 'touches' in event ? event.touches[0]?.clientX : event.clientX
+  if (currentX == null) {
+    return
+  }
   diffX.value = currentX - startX.value
 }
 
@@ -52,7 +55,7 @@ const onTouchEnd = () => {
 }
 
 const onTouchStart = (event: MouseEvent | TouchEvent) => {
-  startX.value = 'touches' in event ? event.touches[0].clientX : event.clientX
+  startX.value = ('touches' in event ? event.touches[0]?.clientX : event.clientX) ?? null
 }
 
 onMounted(() => {

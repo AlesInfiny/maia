@@ -73,7 +73,7 @@ documents フォルダー配下のフォルダー、ファイルの配置は以�
 | mkdocs.yml    |                  |                       |                                    |                     | mkdocs の設定ファイル                           |
 | README.md     |                  |                       |                                    |                     | このドキュメント                                |
 
-\*: 詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
+\*: 詳細は [MkDocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
 
 ## ドキュメント作成手順
 
@@ -239,6 +239,8 @@ AlesInfiny Maia のリポジトリ内のコードをドキュメントで参照�
 
 このルールは textlint で自動的に検査します。
 コードブロックとインラインコードは検査の対象外です。
+また、アドモニション（ `!!!` や `???` で記述するブロック）内などのインデントされた本文も、 textlint ではコードブロックとして扱われるため検査されません。
+これらの箇所は目視で確認してください。
 引用のように検査から除外したい箇所がある場合は、「[textlint](#textlint)」を参照して、該当箇所のルールを無効化してください。
 
 ### 体裁の修正
@@ -263,7 +265,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 #### textlint
 
 textlint（VS Code 拡張機能）の拡張機能をインストールしていると、 [問題] ウィンドウに校正に関するコメントが出ます。
-この拡張機能は、技術ドキュメントを書く際の冗長な表現を排除したり、表記ゆれの検出したりする自動校正ツールです。
+この拡張機能は、技術ドキュメントを書く際の冗長な表現を排除したり、表記ゆれを検出したりする自動校正ツールです。
 多くの場合、文章の見直しによってエラーを回避できます。
 必ず対応するようにしてください。
 

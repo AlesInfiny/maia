@@ -50,9 +50,9 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "tsconfig.json の設定例"
 
-    デフォルトの設定から変更の必要はありません。
+    E2E テストのコードを型チェックの対象にするため、`references` キーに E2E テスト用の e2e/tsconfig.json を追加しています。
 
-    ```json title="サンプルアプリケーション の tsconfig.json"
+    ```json title="サンプルアプリケーション の tsconfig.json" hl_lines="13-15"
     --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.json"
     ```
 
@@ -68,7 +68,8 @@ Project Reference 機能については [Project References :material-open-in-ne
 
 ??? example "tsconfig.node.json の設定例"
 
-    E2E テストには Playwright を使用するので、 `include` キーから nightwatch.conf.\* および cypress.config.\* を削除しています。
+    E2E テストには Playwright を使用するので、 `include` キーから cypress.config.\* を削除しています。
+    また、 eslint.config.\* は [静的コード分析とフォーマット](./static-verification-and-format.md#mono-repo-config) の手順でルートプロジェクトに移動するため、 `include` キーから削除しています。
 
     ```json title="サンプルアプリケーション の tsconfig.node.json" hl_lines="3"
     --8<-- "samples/web-csr/dressca-frontend/consumer/tsconfig.node.json"
@@ -110,13 +111,22 @@ Project Reference 機能については [Project References :material-open-in-ne
 - `compilerOptions.module`
   
     トランスパイルしたファイルのモジュールシステムを設定するプロパティです。
-    tsconfig.node.json で `ESNext` が `create-vue` した際にデフォルトで設定されます。
+    tsconfig.node.json では `create-vue` した際のデフォルト値として `preserve` が設定されています。
+    `preserve` は import 文や require 文を記述したまま維持する設定で、トランスパイルをバンドラーなどのツールに任せる場合に適しています。
     `compilerOptions.module` の設定値については [The module output format :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/modules/theory.html#the-module-output-format){ target=_blank } を参照してください。
 
 - `compilerOptions.moduleResolution`
   
     モジュール解決の方針を設定するプロパティです。
-    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `Bundler` が設定されています。 `Bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
+    tsconfig.node.json では `create-vue` した際のデフォルト値として Vite での利用が推奨されている `bundler` が設定されています。 `bundler` についての詳細は [--moduleResolution bundler :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#--moduleresolution-bundler){ target=_blank } を参照してください。
+
+- `compilerOptions.allowImportingTsExtensions`
+
+    `.ts` などの TypeScript の拡張子を付けたパスでの import を許可するプロパティです。
+    tsconfig.node.json では `create-vue` した際のデフォルト値として `true` が設定されています。
+    これは、 vitest.config.ts が `./vite.config.ts` を拡張子付きのパスで import しているためです。
+    このプロパティは、 `noEmit` が `true` の場合など、トランスパイルの結果を出力しない設定でのみ使用できます。
+    詳細は [Compiler Options - Allow Importing TS Extensions :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#allowImportingTsExtensions){ target=_blank } を参照してください。
 
 - `compilerOptions.types`
 
@@ -124,6 +134,13 @@ Project Reference 機能については [Project References :material-open-in-ne
     既定値は空配列であるため、必要な型定義パッケージは明示的に指定する必要があります。
     たとえば Vitest を用いたテストでは、`node` や `jsdom` の型定義を使用するので、 tsconfig.vitest.json にこれらを設定します。
     詳細は [Compiler Options - Types :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#types){ target=_blank }を参照してください。
+
+- `compilerOptions.noUncheckedIndexedAccess`
+
+    配列やオブジェクトにインデックスでアクセスした結果の型に `undefined` を含めるプロパティです。
+    tsconfig.app.json では `create-vue` した際のデフォルト値として `true` が設定されています。
+    存在しない要素へのアクセスによる実行時エラーを型チェックで検出できるため、デフォルト値のまま使用します。
+    詳細は [Compiler Options - noUncheckedIndexedAccess :material-open-in-new:](https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess){ target=_blank } を参照してください。
 
 ### 型チェックの実行 {#type-check-execution}
 

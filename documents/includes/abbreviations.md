@@ -8,7 +8,7 @@
 *[API]: Application Programming Interface
 *[CI]: Continuous Integration: 継続的インテグレーション。
 *[CJS]: CommonJS
-*[CMS]: Contents Management System.
+*[CMS]: Content Management System.
 *[CORS]: Cross-Origin Resource Sharing: オリジン間リソース共有。
 *[CRUD]: Create Read Update Delete: 永続性の 4 つの基本機能のイニシャルを並べた用語。
 *[CSR]: Client Side Rendering

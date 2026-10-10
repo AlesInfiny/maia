@@ -24,11 +24,7 @@ export function assetHelper() {
    * @returns 最初のアセットコード、または空文字
    */
   function getFirstItem(assetCodes: string[] | undefined): string {
-    if (typeof assetCodes === 'undefined' || assetCodes == null || assetCodes.length === 0) {
-      return ''
-    }
-
-    return assetCodes[0]
+    return assetCodes?.[0] ?? ''
   }
 
   /**
