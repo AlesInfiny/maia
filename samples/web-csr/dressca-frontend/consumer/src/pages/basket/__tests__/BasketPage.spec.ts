@@ -216,7 +216,7 @@ describe('結果の通知と遷移', () => {
   it('購入できない陳列品が入っている_トーストを表示しレジに進むボタンが非活性', async () => {
     // Arrange
     const response = createGetBasketItemsResponse()
-    response.deletedItemIds = [response.basketItems![0].displayItemId]
+    response.deletedItemIds = [response.basketItems![0]!.displayItemId]
     getBasketItemsMock.mockResolvedValue({ data: response })
     // Act
     const wrapper = getWrapper()

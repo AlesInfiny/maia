@@ -62,7 +62,7 @@ describe('読み込み', () => {
     // Act
     const list = await setupList()
     // Assert
-    expect(list.items.value[0].categoryName).toBe('')
+    expect(list.items.value[0]!.categoryName).toBe('')
   })
 
   it('サーバーエラー_failedになりアイテムは空', async () => {

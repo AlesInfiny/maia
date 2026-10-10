@@ -39,7 +39,7 @@ describe('結果の通知と遷移', () => {
     const pinia = createPinia()
     const wrapper = await getWrapper(pinia)
     // Act
-    await wrapper.findAll('button')[0].trigger('click')
+    await wrapper.findAll('button')[0]!.trigger('click')
     await vi.waitUntil(() => router.currentRoute.value.name === routeNames.basket)
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.basket)
@@ -56,7 +56,7 @@ describe('結果の通知と遷移', () => {
       ),
     )
     // Act
-    await wrapper.findAll('button')[0].trigger('click')
+    await wrapper.findAll('button')[0]!.trigger('click')
     await flushPromises()
     // Assert
     expect(useNotificationStore(pinia).message).toBe(t('failedToAddItemToCarts'))

@@ -51,8 +51,8 @@ describe('読み込み', () => {
     expect(creator.status.value).toBe('ready')
     expect(creator.categories.value.length).toBe(catalogCategories.length)
     expect(creator.brands.value.length).toBe(catalogBrands.length)
-    expect(creator.form.categoryId).toBe(catalogCategories[0].id)
-    expect(creator.form.brandId).toBe(catalogBrands[0].id)
+    expect(creator.form.categoryId).toBe(catalogCategories[0]!.id)
+    expect(creator.form.brandId).toBe(catalogBrands[0]!.id)
     expect(creator.form.itemName).toBe(validValues.itemName)
     expect(creator.form.isValid).toBe(true)
   })
@@ -84,7 +84,7 @@ describe('追加', () => {
       }),
     )
     creator.form.price = '2500'
-    creator.form.brandId = catalogBrands[1].id
+    creator.form.brandId = catalogBrands[1]!.id
     await flushPromises()
     // Act
     const outcome = await creator.create()
@@ -95,8 +95,8 @@ describe('追加', () => {
       description: validValues.itemDescription,
       price: 2500,
       productCode: validValues.productCode,
-      catalogCategoryId: catalogCategories[0].id,
-      catalogBrandId: catalogBrands[1].id,
+      catalogCategoryId: catalogCategories[0]!.id,
+      catalogBrandId: catalogBrands[1]!.id,
     })
   })
 

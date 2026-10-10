@@ -131,6 +131,6 @@ describe('結果の通知', () => {
     await flushPromises()
     // Assert
     expect(useNotificationStore(loginState).message).toBe('カタログアイテムの追加に失敗しました。')
-    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[0].isVisible()).toBe(false)
+    expect(wrapper.findAllComponents({ name: 'NotificationModal' })[0]!.isVisible()).toBe(false)
   })
 })

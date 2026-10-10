@@ -8,7 +8,7 @@ import { server } from '@/../mock/node'
 import { catalogItems } from '@/../mock/data/catalog-items'
 import { useCatalogItemEditor, type CatalogItemEditor } from '../use-catalog-item-editor'
 
-const item = catalogItems[0]
+const item = catalogItems[0]!
 const itemUrl = '/api/catalog-items/:catalogItemId'
 
 /**

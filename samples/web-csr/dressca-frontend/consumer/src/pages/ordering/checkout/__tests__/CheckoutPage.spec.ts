@@ -48,7 +48,7 @@ async function getWrapper() {
  * @param wrapper 注文確認画面のラッパー。
  */
 async function clickPlaceOrder(wrapper: Awaited<ReturnType<typeof getWrapper>>['wrapper']) {
-  await wrapper.findAll('button')[0].trigger('click')
+  await wrapper.findAll('button')[0]!.trigger('click')
 }
 
 describe('結果の通知と遷移', () => {
