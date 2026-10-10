@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { i18n } from '@/system-common/locales/i18n'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 
 const { t } = i18n.global
 </script>

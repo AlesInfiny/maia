@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 import { useRoute, useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { useOrderResult } from '@/shopping/public-api'

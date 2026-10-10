@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 import { useCatalogItemCreator } from '@/catalog-management/public-api'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { showToast } from '@/business-common/services/notification-service'

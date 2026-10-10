@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 import { useRouter } from 'vue-router'
 import { useCatalogItemList } from '@/catalog-management/public-api'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'

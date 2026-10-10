@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { router } from '@/app/router'
-import { routeNames } from '@/app/router/route-names'
+import { router } from '@/business-common/router'
+import { routeNames } from '@/business-common/router/route-names'
 
 describe('ルート表', () => {
   it.each([

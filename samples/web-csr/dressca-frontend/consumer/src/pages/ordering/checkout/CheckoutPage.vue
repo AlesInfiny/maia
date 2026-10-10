@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 import { useCheckout } from '@/shopping/public-api'
 import { showFailureToast } from '@/business-common/services/notification-service'
 import { useRouter } from 'vue-router'

@@ -21,6 +21,21 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 `business-common` と `system-common` はコンテキストではなく共通の層です。
 どちらもコンテキストに依存してはいけません（ `eslint.project-rules.ts` の `createLayerDependencyRules` を参照）。
 
+## 保守するチーム {#owners}
+
+フォルダーごとに、保守するチームを次のように想定します。
+
+- 業務共通チーム
+    - app 層（ `src/main.ts` 、 `src/App.vue` 、 `src/business-common/router/` ）
+    - business-common （ `src/business-common/` ）
+- 各業務チーム
+    - pages 層（ `src/pages/` ）
+    - コンテキスト（ `src/<context>/` ）
+- システム共通チーム（または業務共通チームの兼務）
+    - system-common （ `src/system-common/` ）
+
+画面を追加するときは、業務チームがルート表とルート名の定数に直接追記し、業務共通チームがレビューします。
+
 ## 関係 {#relationships}
 
 - admin のカタログ管理の画面は、セキュリティのロールの判定と組み合わせて構成します。
@@ -35,7 +50,7 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 画面（ Page ）
 :   `src/pages/` の下に置く、ルーティングの対象となる Vue のコンポーネントです。
     ファイル名は `<画面名>Page.vue` にし、フォルダー構成を URL のパスと対応させます。
-    URL との対応は app 層のルート表（ `src/app/router/routes.ts` ）で定義します。
+    URL との対応は app 層のルート表（ `src/business-common/router/routes.ts` ）で定義します。
 
 View
 :   廃止した用語です。
@@ -57,5 +72,7 @@ View
     画面は Outcome を受け取り、通知の文言と遷移先を決めます。
 
 app 層
-:   `src/main.ts` 、 `src/App.vue` 、 `src/app/` からなる最上位の層です。
+:   `src/main.ts` 、 `src/App.vue` 、 `src/business-common/router/` からなる最上位の層です。
     ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
+    業務共通チームが保守するため、ルーティングは business-common のフォルダーに置きます。
+    `src/business-common/router/` は business-common 層ではなく app 層に属し、参照の制限も app 層のものに従います。

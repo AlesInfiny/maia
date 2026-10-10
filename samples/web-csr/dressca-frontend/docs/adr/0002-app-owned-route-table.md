@@ -26,14 +26,25 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 本アプリケーションはエンタープライズアプリケーションのサンプルです。
 画面数の増加とコンテキストをまたぐ画面の追加を前提に、ルーティングをまとめて管理できる構成を採用します。
 
+また、フォルダーごとに保守するチームを次のように想定します。
+保守するチームがすぐにわかるように、どのチームの持ち物でもないフォルダーは作りません。
+
+- pages とコンテキストは、各業務チームが保守します。
+- business-common は、業務共通チームが保守します。
+- system-common は、システム共通チーム（または業務共通チームの兼務）が保守します。
+
 ## 決定 {#decision}
 
 ### 層の構成 {#layers}
 
 上の層から下の層への参照だけを許可します。
 
-- app 層（ `src/main.ts` 、 `src/App.vue` 、 `src/app/` ）
+- app 層（ `src/main.ts` 、 `src/App.vue` 、 `src/business-common/router/` ）
     - ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
+    - 業務共通チームが保守します。
+      そのため、ルーティング（ `src/business-common/router/` ）は business-common のフォルダーに置きます。
+    - `src/business-common/router/` は business-common のフォルダーにありますが、 business-common 層ではなく app 層に属します。
+      参照方向は、フォルダーではなく層に従います。
 - pages 層（ `src/pages/` ）
     - URL ごとの画面です。
     - コンテキストの機能を組み合わせ、結果を画面遷移や通知に変換します。
@@ -49,14 +60,16 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 
 ### ルーティング {#routing}
 
-- ルート定義は、 app 層のルート表（ `src/app/router/routes.ts` ）に手書きで集約します。
+- ルート定義は、 app 層のルート表（ `src/business-common/router/routes.ts` ）に手書きで集約します。
   画面の配置と URL の対応、ルートの属性を、このファイルだけで確認できます。
 - ルート表は画面を動的インポートで参照し、画面ごとにコードを分割して遅延読み込みします。
-- ルート名は、 app 層の定数（ `src/app/router/route-names.ts` の `routeNames` ）で定義します。
+- ルート名は、 app 層の定数（ `src/business-common/router/route-names.ts` の `routeNames` ）で定義します。
   ルート名は、意味を表す名前（例: `catalog-items-edit` ）にします。
 - 同じファイルで vue-router の型（ `TypesConfig` の `RouteNamedMap` ）を拡張します。
   ルート名ごとのパスとパラメーターを型で宣言し、遷移先を型で検査します。
 - ルート表にルートを追加したときは、ルート名の定数と型にも追加します。
+- 画面を追加するときは、画面を作る業務チームがルート表とルート名の定数に直接追記し、業務共通チームがレビューします。
+  ルートの属性（認証の要否など）の設定漏れは、このレビューで確認します。
 
 ### 画面ファイルの命名 {#naming}
 
@@ -112,7 +125,7 @@ src/pages/
   コンテキスト、 business-common 、 system-common は vue-router を型としてだけ参照できます。
 - 遷移先は、 app 層のルート名の定数で指定します。
   ルート名とパラメーターの組み合わせは、拡張した型で検査されます。
-- pages 層が参照できる app 層のモジュールは、ルート名の定数（ `@/app/router/route-names` ）だけです。
+- pages 層が参照できる app 層のモジュールは、ルート名の定数（ `@/business-common/router/route-names` ）だけです。
 - 画面は、パラメーターをルート名を指定した `useRoute()` で型付きで取得します。
 - 遷移を伴うコンテキストの部品は、イベントを発行するだけにします。
   たとえばログアウトのメニューが該当し、遷移は利用する側が行います。
@@ -198,17 +211,19 @@ const onUpdate = async () => {
 
 `eslint.project-rules.ts` で次のルールを強制します。
 
+- app 層のルーティング（ `src/business-common/router/` ）には、 business-common の制限を適用しません。
+  app 層は最上位の層のため、参照の制限を設けません。
 - pages 層は、次を参照できません。
-    - `@/app/**` （ルート名の定数 `@/app/router/route-names` を除く）
+    - app 層のルーティング（ `@/business-common/router` と `@/business-common/router/**` 。ルート名の定数 `@/business-common/router/route-names` を除く）
     - コンテキストの `public-api.ts` 以外のファイル
     - `@/system-common/api-client` と `@/system-common/generated/**`
-- pages 層のテストは、例外としてルーター（ `@/app/router` ）と API の型（ `@/system-common/generated/**` ）を参照できます。
+- pages 層のテストは、例外としてルーター（ `@/business-common/router` ）と API の型（ `@/system-common/generated/**` ）を参照できます。
   画面を遷移させるためと、 API のレスポンスを組み立てるためです。
 - コンテキストは、次を参照できません。
-    - `@/app/**` と `@/pages/**`
+    - app 層のルーティングと `@/pages/**`
     - 他のコンテキストの `public-api.ts` 以外のファイル
     - vue-router の値（型は参照できます）
-- business-common は、 `@/app/**` と `@/pages/**` を参照できません。
+- business-common （ `src/business-common/router/` を除く）は、 app 層のルーティングと `@/pages/**` を参照できません。
   コンテキストと vue-router の値も参照できません。
 - system-common は、上記に加えて business-common も参照できません。
 - app 層以外は、動的インポート（ `import()` ）を使えません。
@@ -234,6 +249,23 @@ const onUpdate = async () => {
     - 一方で、ルートの属性が各画面に分散し、認証の要否をまとめて確認できなくなります。
     - また、画面ファイルの名前が URL の規約（ `index.vue` 、 `[itemId].vue` など）に縛られます。
     - ルートの属性をまとめて監査できることを優先し、採用しません。
+- ルーティングを app 層専用のフォルダー（ `src/app/` ）に置く
+    - フォルダーと層が一致し、参照方向の規則をフォルダー単位で書けます。
+    - 一方で、 `src/app/` をどのチームが保守するのかがわかりにくくなります。
+    - 保守するチームをフォルダーで表すことを優先し、採用しません。
+- ルーティングを business-common 層の規則のまま `src/business-common/router/` に置く
+    - ルート表の動的インポート、 vue-router の値、 security の参照が、 business-common の規則に違反します。
+    - 違反を個別の例外で許可すると、廃止した system-common のルーティング定義の例外と同じ形になるため、採用しません。
+- business-common 層全体の参照の制限を緩める
+    - 業務の部品やストアからも、画面やコンテキストを参照できるようになるため、採用しません。
+- ルート名の定数と `meta` の型だけを business-common に置く
+    - コンテキストからルート名を参照しても、参照方向の規則で検出できません。
+    - ルート表とルーターの生成は app 層のフォルダーに残るため、採用しません。
+- ルート名の定数を `src/pages/route-names.ts` に置く
+    - 参照方向の規則を変えずに、 pages から app 層への参照をなくせます。
+    - 一方で、ルート名を保守するチームが業務チームになり、ルート表は app 層のフォルダーに残るため、採用しません。
+
+検討の経緯と、各案で参照方向の規則に違反した件数は [Issue #5673 のコメント](https://github.com/AlesInfiny/maia/issues/5673#issuecomment-6095614298) に記録しています。
 
 ## 影響 {#consequences}
 
@@ -245,4 +277,6 @@ const onUpdate = async () => {
 - すべてのルート名が変わります。
   ログイン後の戻り先を表すクエリの形式も変わります。
 - 認証の要否は、指定のない画面を認証が必要な画面として扱う方式に変わります。
+- business-common のフォルダーの中に、参照の制限が異なる区画（ `src/business-common/router/` ）ができます。
+  ESLint の規則は `@/` のエイリアスで書いたパスだけを検査するため、 business-common のほかのフォルダーから相対パスでルーティングを参照しても検出できません。
 - `documents` 配下のガイドのうち、フロントエンドのフォルダー構成とアーキテクチャの説明は別途更新します。

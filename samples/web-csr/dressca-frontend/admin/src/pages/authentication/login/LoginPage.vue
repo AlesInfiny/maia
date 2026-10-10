@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { routeNames } from '@/app/router/route-names'
+import { routeNames } from '@/business-common/router/route-names'
 import { useLogin } from '@/security/public-api'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
 import { showToast } from '@/business-common/services/notification-service'
