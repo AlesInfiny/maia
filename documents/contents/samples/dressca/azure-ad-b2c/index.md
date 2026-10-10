@@ -22,6 +22,12 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 また、 SPA アプリケーション（ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ）のアーキテクチャに準拠したアプリケーション）に本サンプルのファイルやコードをコピーしてください。
 これにより、 SPA アプリケーションに Azure AD B2C を利用したユーザー認証機能を組み込めます。
 
+!!! warning "フォルダー構成について"
+
+    本サンプルのフロントエンドは、レイヤーを最上位に置く旧来のフォルダー構成（ `src/services` `src/stores` など）のままです。
+    [アーキテクチャ解説](../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めた構成とは異なります。
+    本サンプルのコードをコピーする際は、アーキテクチャ解説の構成に合わせて配置し直してください。
+
 ## 本サンプルを利用するための前提 {#prerequisites}
 
 本サンプルを動作させるためには、以下が必要です。

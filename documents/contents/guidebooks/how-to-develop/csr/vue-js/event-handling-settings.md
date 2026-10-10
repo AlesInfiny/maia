@@ -150,7 +150,7 @@ import { unhandledErrorEventKey } from '@/system-common/events'
 <script setup lang="ts">
 import { useEventBus } from '@vueuse/core'
 import { unhandledErrorEventKey } from '@/system-common/events'
-import { showToast } from '@/business-common/services/notificationService'
+import { showToast } from '@/business-common/services/notification-service'
 
 const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
 unhandledErrorEventBus.on((payload) =>
