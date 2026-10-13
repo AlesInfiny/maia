@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
-import { routeNames } from '@/business-common/router/route-names'
-import { router } from '@/business-common/router'
+import { routeNames } from '@/root/router/route-names'
+import { router } from '@/root/router'
 import { useEventBus } from '@vueuse/core'
 import NotificationToast from '@/business-common/components/NotificationToast.vue'
 import { unauthorizedErrorEventKey } from '@/system-common/events'

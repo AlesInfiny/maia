@@ -9,7 +9,7 @@ const logger = useLogger()
 export interface GlobalErrorHandlerOptions {
   /**
    * 業務上想定しないシステムエラーが発生したとき、エラー画面へ遷移します。
-   * 遷移先の画面は利用する側（ app 層）が決めます。
+   * 遷移先の画面は利用する側（ root 層）が決めます。
    */
   navigateToErrorPage: () => void
 }

@@ -1,6 +1,6 @@
 /*
  * アプリケーションのルーターを構築します。
- * ルート定義は app 層のルート表（ routes.ts ）に集約します。
+ * ルート定義は root 層のルート表（ routes.ts ）に集約します。
  * ナビゲーションガードは main.ts で登録します。
  */
 import { createRouter, createWebHistory } from 'vue-router'

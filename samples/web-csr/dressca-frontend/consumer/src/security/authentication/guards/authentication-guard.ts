@@ -7,7 +7,7 @@ import { useAuthenticationStore } from '@/security/authentication/stores/authent
 export interface AuthenticationGuardOptions {
   /**
    * 未認証のときの遷移先を返します。
-   * 遷移先の画面は利用する側（ app 層）が決めます。
+   * 遷移先の画面は利用する側（ root 層）が決めます。
    * @param redirect 認証後に戻る画面のパス。
    * @returns 未認証のときの遷移先。
    */
