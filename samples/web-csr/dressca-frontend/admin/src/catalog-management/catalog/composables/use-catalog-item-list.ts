@@ -1,6 +1,6 @@
 import { computed, onMounted, ref, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useUnexpectedErrorOutcome } from '@/system-common/error-handler/unexpected-error-outcome'
+import { useCommonErrorOutcome } from '@/system-common/error-handler/common-error-outcome'
 import type { GetCatalogItemResponse } from '@/system-common/generated/api-client'
 import { fetchItems } from '../services/catalog-service'
 import { fetchCatalogItemOptions, type CatalogItemOptions } from './use-catalog-item-form'
@@ -64,7 +64,7 @@ function toSummary(item: GetCatalogItemResponse, options: CatalogItemOptions): C
  * @returns カタログアイテムの一覧のユースケース。
  */
 export function useCatalogItemList(): CatalogItemList {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
 
   const status = ref<CatalogItemListStatus>('loading')
   const items = shallowRef<CatalogItemSummary[]>([])
@@ -79,7 +79,7 @@ export function useCatalogItemList(): CatalogItemList {
       items.value = (pagedList.items ?? []).map((item) => toSummary(item, options))
       status.value = 'ready'
     } catch (error) {
-      if ((await handleUnexpectedError(error)).kind === 'failed') {
+      if ((await handleCommonError(error)).kind === 'failed') {
         status.value = 'failed'
       }
     }

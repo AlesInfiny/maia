@@ -2,10 +2,10 @@ import { computed, onMounted, onUnmounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useBasketStore } from '@/business-common/stores/basket'
 import {
-  useUnexpectedErrorOutcome,
+  useCommonErrorOutcome,
   type ApiProblem,
-  type UnexpectedErrorOutcome,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import { fetchBasket, removeItemFromBasket, updateItemInBasket } from '../services/basket-service'
 import {
   toBasketAccount,
@@ -35,12 +35,12 @@ export interface AddedBasketItem {
 /**
  * 数量を変更した結果です。
  */
-export type ChangeQuantityOutcome = { kind: 'changed' } | UnexpectedErrorOutcome
+export type ChangeQuantityOutcome = { kind: 'changed' } | CommonErrorOutcome
 
 /**
  * 買い物かごから削除した結果です。
  */
-export type RemoveFromBasketOutcome = { kind: 'removed' } | UnexpectedErrorOutcome
+export type RemoveFromBasketOutcome = { kind: 'removed' } | CommonErrorOutcome
 
 /**
  * 注文に進めるかどうかを確認した結果です。
@@ -49,7 +49,7 @@ export type RemoveFromBasketOutcome = { kind: 'removed' } | UnexpectedErrorOutco
 export type ProceedToCheckoutOutcome =
   | { kind: 'ready' }
   | { kind: 'containsUnavailableItems' }
-  | UnexpectedErrorOutcome
+  | CommonErrorOutcome
 
 /**
  * 買い物かごのユースケースです。
@@ -82,7 +82,7 @@ export interface Basket {
  * @returns 買い物かごのユースケース。
  */
 export function useBasket(): Basket {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
   const basketStore = useBasketStore()
 
   const status = shallowRef<BasketStatus>({ kind: 'loading' })
@@ -97,7 +97,7 @@ export function useBasket(): Basket {
       await fetchBasket()
       status.value = { kind: 'ready' }
     } catch (error) {
-      const outcome = await handleUnexpectedError(error)
+      const outcome = await handleCommonError(error)
       if (outcome.kind === 'failed') {
         status.value = outcome
       }
@@ -119,7 +119,7 @@ export function useBasket(): Basket {
       await updateItemInBasket(displayItemId, quantity)
       return { kind: 'changed' }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 
@@ -134,7 +134,7 @@ export function useBasket(): Basket {
       await removeItemFromBasket(displayItemId)
       return { kind: 'removed' }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 
@@ -146,7 +146,7 @@ export function useBasket(): Basket {
     try {
       await fetchBasket()
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
     return hasUnavailableItems.value ? { kind: 'containsUnavailableItems' } : { kind: 'ready' }
   }

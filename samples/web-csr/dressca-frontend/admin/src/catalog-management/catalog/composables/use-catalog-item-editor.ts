@@ -2,9 +2,9 @@ import { computed, ref, shallowRef, toValue, watch } from 'vue'
 import type { ComputedRef, MaybeRefOrGetter } from 'vue'
 import { ConflictError, NotFoundError } from '@/system-common/error-handler/custom-error'
 import {
-  useUnexpectedErrorOutcome,
-  type UnexpectedErrorOutcome,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+  useCommonErrorOutcome,
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import type { GetCatalogItemResponse } from '@/system-common/generated/api-client'
 import { deleteCatalogItem, fetchItem, updateCatalogItem } from '../services/catalog-service'
 import {
@@ -82,7 +82,7 @@ export interface CatalogItemEditor {
 }
 
 type FetchItemResult = 'fetched' | 'notFound' | 'failed' | 'canceled'
-type WriteFailureOutcome = { kind: 'conflict' } | { kind: 'notFound' } | UnexpectedErrorOutcome
+type WriteFailureOutcome = { kind: 'conflict' } | { kind: 'notFound' } | CommonErrorOutcome
 
 /**
  * API のレスポンスを編集前のアイテムの内容に変換します。
@@ -111,7 +111,7 @@ function toSnapshot(item: GetCatalogItemResponse): CatalogItemSnapshot {
  * @returns カタログアイテムの編集のユースケース。
  */
 export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogItemEditor {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
 
   const status = ref<CatalogItemEditorStatus>('loading')
   const item = shallowRef<GetCatalogItemResponse>()
@@ -148,7 +148,7 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
       if (error instanceof NotFoundError) {
         return 'notFound'
       }
-      return (await handleUnexpectedError(error)).kind
+      return (await handleCommonError(error)).kind
     }
   }
 
@@ -167,7 +167,7 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
       const result = await fetchLatestItem(id)
       return result === 'notFound' ? { kind: 'notFound' } : { kind: 'conflict' }
     }
-    return handleUnexpectedError(error)
+    return handleCommonError(error)
   }
 
   /**
@@ -193,7 +193,7 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
       categories.value = options.categories
       brands.value = options.brands
     } catch (error) {
-      if ((await handleUnexpectedError(error)).kind === 'failed') {
+      if ((await handleCommonError(error)).kind === 'failed') {
         status.value = 'failed'
       }
       return

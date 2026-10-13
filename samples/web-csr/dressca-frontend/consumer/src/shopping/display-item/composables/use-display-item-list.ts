@@ -2,10 +2,10 @@ import { computed, onMounted, reactive, shallowRef, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useDisplayItemStore } from '@/business-common/stores/display-item'
 import {
-  useUnexpectedErrorOutcome,
+  useCommonErrorOutcome,
   type ApiProblem,
-  type UnexpectedErrorOutcome,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import { addItemToBasket } from '@/shopping/basket/services/basket-service'
 import { fetchCategoriesAndBrands, fetchItems } from '../services/display-item-service'
 import { useSpecialContentStore } from '../stores/special-content'
@@ -53,7 +53,7 @@ export interface DisplayItemSummary {
 /**
  * 陳列品を買い物かごに入れた結果です。
  */
-export type AddToBasketOutcome = { kind: 'added' } | UnexpectedErrorOutcome
+export type AddToBasketOutcome = { kind: 'added' } | CommonErrorOutcome
 
 /**
  * 陳列品の一覧のユースケースです。
@@ -81,7 +81,7 @@ export interface DisplayItemList {
  * @returns 陳列品の一覧のユースケース。
  */
 export function useDisplayItemList(): DisplayItemList {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
   const displayItemStore = useDisplayItemStore()
   const specialContentStore = useSpecialContentStore()
 
@@ -97,7 +97,7 @@ export function useDisplayItemList(): DisplayItemList {
       await task()
       status.value = { kind: 'ready' }
     } catch (error) {
-      const outcome = await handleUnexpectedError(error)
+      const outcome = await handleCommonError(error)
       if (outcome.kind === 'failed') {
         status.value = outcome
       }
@@ -131,7 +131,7 @@ export function useDisplayItemList(): DisplayItemList {
       await addItemToBasket(displayItemId)
       return { kind: 'added' }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 

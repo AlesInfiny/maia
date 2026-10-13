@@ -2,10 +2,10 @@ import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useBasketStore } from '@/business-common/stores/basket'
 import {
-  useUnexpectedErrorOutcome,
+  useCommonErrorOutcome,
   type ApiProblem,
-  type UnexpectedErrorOutcome,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import { fetchBasket } from '@/shopping/basket/services/basket-service'
 import {
   toBasketAccount,
@@ -31,7 +31,7 @@ export type CheckoutStatus =
 /**
  * 注文を確定した結果です。
  */
-export type PlaceOrderOutcome = { kind: 'ordered'; orderId: string } | UnexpectedErrorOutcome
+export type PlaceOrderOutcome = { kind: 'ordered'; orderId: string } | CommonErrorOutcome
 
 /**
  * 注文の確認と確定のユースケースです。
@@ -57,7 +57,7 @@ export interface Checkout {
  * @returns 注文の確認と確定のユースケース。
  */
 export function useCheckout(): Checkout {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
   const basketStore = useBasketStore()
   const userStore = useUserStore()
 
@@ -73,7 +73,7 @@ export function useCheckout(): Checkout {
       await fetchBasket()
       status.value = lines.value.length === 0 ? { kind: 'empty' } : { kind: 'ready' }
     } catch (error) {
-      const outcome = await handleUnexpectedError(error)
+      const outcome = await handleCommonError(error)
       if (outcome.kind === 'failed') {
         status.value = outcome
       }
@@ -90,7 +90,7 @@ export function useCheckout(): Checkout {
       const orderId = await postOrder(fullName, postalCode, todofuken, shikuchoson, azanaAndOthers)
       return { kind: 'ordered', orderId }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 

@@ -3,9 +3,9 @@ import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import {
-  useUnexpectedErrorOutcome,
-  type UnexpectedErrorOutcome,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+  useCommonErrorOutcome,
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import { loginAsync } from '../services/authentication-service'
 import { validationItems } from '../validation/validation-items'
 
@@ -25,7 +25,7 @@ export interface LoginForm {
 /**
  * ログインした結果です。
  */
-export type LoginOutcome = { kind: 'loggedIn' } | UnexpectedErrorOutcome
+export type LoginOutcome = { kind: 'loggedIn' } | CommonErrorOutcome
 
 /**
  * ログインのユースケースです。
@@ -43,7 +43,7 @@ export interface Login {
  * @returns ログインのユースケース。
  */
 export function useLogin(): Login {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
   const { requiredEmail, required } = validationItems()
   const { meta } = useForm({
     validationSchema: toTypedSchema(
@@ -73,7 +73,7 @@ export function useLogin(): Login {
       await loginAsync()
       return { kind: 'loggedIn' }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 

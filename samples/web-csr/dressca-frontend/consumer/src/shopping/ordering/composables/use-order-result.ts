@@ -1,9 +1,9 @@
 import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
 import {
-  useUnexpectedErrorOutcome,
+  useCommonErrorOutcome,
   type ApiProblem,
-} from '@/system-common/error-handler/unexpected-error-outcome'
+} from '@/system-common/error-handler/common-error-outcome'
 import type { GetOrderByIdResponse } from '@/system-common/generated/api-client'
 import type { BasketAccount } from '@/shopping/basket/models/basket-line'
 import { getOrder } from '../services/ordering-service'
@@ -85,7 +85,7 @@ function toOrderResult(response: GetOrderByIdResponse): OrderResult {
  * @returns 注文結果の確認のユースケース。
  */
 export function useOrderResult(orderId: string): OrderResultView {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
 
   const status = shallowRef<OrderResultStatus>({ kind: 'loading' })
   const order = shallowRef<OrderResult>()
@@ -98,7 +98,7 @@ export function useOrderResult(orderId: string): OrderResultView {
       order.value = toOrderResult(await getOrder(orderId))
       status.value = { kind: 'ready' }
     } catch (error) {
-      const outcome = await handleUnexpectedError(error)
+      const outcome = await handleCommonError(error)
       if (outcome.kind === 'failed') {
         status.value = outcome
       }

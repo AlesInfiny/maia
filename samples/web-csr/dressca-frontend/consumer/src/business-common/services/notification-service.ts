@@ -1,6 +1,6 @@
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { i18n } from '@/system-common/locales/i18n'
-import type { ApiProblem } from '@/system-common/error-handler/unexpected-error-outcome'
+import type { ApiProblem } from '@/system-common/error-handler/common-error-outcome'
 
 /**
  * トースト通知を表示します。

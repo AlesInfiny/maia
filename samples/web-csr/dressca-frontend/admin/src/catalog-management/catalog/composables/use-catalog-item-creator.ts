@@ -1,6 +1,6 @@
 import { computed, onMounted, ref, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useUnexpectedErrorOutcome } from '@/system-common/error-handler/unexpected-error-outcome'
+import { useCommonErrorOutcome } from '@/system-common/error-handler/common-error-outcome'
 import { postCatalogItem } from '../services/catalog-service'
 import type { CatalogItemFormValues } from '../validation/validation-items'
 import {
@@ -46,7 +46,7 @@ export interface CatalogItemCreator {
 export function useCatalogItemCreator(
   initialValues: Partial<CatalogItemFormValues> = {},
 ): CatalogItemCreator {
-  const handleUnexpectedError = useUnexpectedErrorOutcome()
+  const handleCommonError = useCommonErrorOutcome()
 
   const status = ref<CatalogItemCreatorStatus>('loading')
   const categories = shallowRef<CatalogOption[]>([])
@@ -65,7 +65,7 @@ export function useCatalogItemCreator(
       form.brandId = options.brands[0]?.id ?? ''
       status.value = 'ready'
     } catch (error) {
-      if ((await handleUnexpectedError(error)).kind === 'failed') {
+      if ((await handleCommonError(error)).kind === 'failed') {
         status.value = 'failed'
       }
     }
@@ -87,7 +87,7 @@ export function useCatalogItemCreator(
       )
       return { kind: 'created' }
     } catch (error) {
-      return handleUnexpectedError(error)
+      return handleCommonError(error)
     }
   }
 
