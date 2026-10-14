@@ -98,7 +98,7 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
  * pages は API クライアントと API の型を参照できません。 API はコンテキストのユースケースコンポーザブルが扱います。
  * pages のテストは、画面を遷移させるためにルーター（ `@/root/router` ）を、
  * API の応答を組み立てるために API の型を参照できます。
- * コンテキストから他のコンテキストを参照できるのは、 public-api.ts だけです。
+ * コンテキストは他のコンテキストを参照できません。 public-api.ts も参照できません。コンテキストの組み合わせは pages で行います。
  * コンテキスト、 business-common 、 system-common は、 vue-router を型だけ参照できます。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
  * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
@@ -128,7 +128,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     'pages から参照できる root 層のモジュールは、ルート名の定数（ @/root/router/route-names ）だけです。'
 
   /**
-   * コンテキストごとに、他のコンテキストの内部の参照を禁止する設定を作ります。
+   * コンテキストごとに、他のコンテキストの参照を禁止する設定を作ります。
    * 同じコンテキストの中の参照は制限しません。
    * @param contextPattern 設定を作るコンテキストを表すパターン。
    * @returns ESLint の設定。
@@ -146,19 +146,10 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...rootPatterns, '@/pages/**'],
+                group: [...rootPatterns, '@/pages/**', ...otherContextPatterns],
                 message:
-                  'コンテキストは root 層と pages を参照できません。 root 層と pages はコンテキストより上位の層です。',
+                  'コンテキストは root 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。',
               },
-              ...(otherContextPatterns.length > 0
-                ? [
-                    {
-                      group: exceptPublicApi(otherContextPatterns),
-                      message:
-                        '他のコンテキストは public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
-                    },
-                  ]
-                : []),
             ],
           },
         ],
