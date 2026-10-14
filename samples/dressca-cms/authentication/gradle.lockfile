@@ -1,6 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
+# To regenerate this file, run: ./gradlew :authentication:dependencies --write-locks
 com.fasterxml.uuid:java-uuid-generator:5.2.0=productionRuntimeClasspath,runtimeClasspath,testRuntimeClasspath
 com.github.javaparser:javaparser-core:3.28.2=mybatisTasks
 com.github.spotbugs:spotbugs-annotations:4.10.3=compileClasspath,spotbugs,testCompileClasspath
