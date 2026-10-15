@@ -35,12 +35,14 @@ jobs:
 
       - name: node パッケージのインストール
         run: npm ci --ignore-scripts
+
+      # 前のチェックが失敗しても後のチェックの結果を確認できるよう、各チェックは失敗しても続行し、最後に成否を判定する。
       - id: run-format
         name: format の実行
+        continue-on-error: true
         run: npm run format:ci:root >> /var/tmp/format-result.txt 2>&1
 
       - name: format の結果出力
-        if: ${{ success() || (failure() && steps.run-format.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
           body: /var/tmp/format-result.txt
@@ -48,10 +50,10 @@ jobs:
 
       - id: run-type-check
         name: TypeScript の型チェック
+        continue-on-error: true
         run: npm run type-check:root >> /var/tmp/type-check-result.txt 2>&1
 
       - name: TypeScript の型チェックの結果出力
-        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
           body: /var/tmp/type-check-result.txt
@@ -59,11 +61,16 @@ jobs:
 
       - id: run-test
         name: ESLint のプロジェクトルールのテストの実行
+        continue-on-error: true
         run: npm run test:root >> /var/tmp/test-result.txt 2>&1
 
       - name: ESLint のプロジェクトルールのテストの結果出力
-        if: ${{ success() || (failure() && steps.run-test.conclusion == 'failure') }}
         uses: ./.github/workflows/file-to-summary
         with:
           body: /var/tmp/test-result.txt
           header: 'ESLint のプロジェクトルールのテストの結果 :test_tube:'
+
+      - name: チェックの成否判定
+        if: steps.run-format.outcome == 'failure' || steps.run-type-check.outcome == 'failure' || steps.run-test.outcome == 'failure'
+        run: |
+          exit 1;
