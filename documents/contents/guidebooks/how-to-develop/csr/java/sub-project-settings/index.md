@@ -19,13 +19,9 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
     web プロジェクトに対して個別に実施する設定について解説します。
 
-1. [infrastructure プロジェクトの設定](./infrastructure-project-settings.md)
+1. [application-modules プロジェクトの設定](./application-modules-project-settings.md)
 
-    infrastructure プロジェクトに対して個別に実施する設定について解説します。
-
-1. [application-core プロジェクトの設定](./application-core-project-settings.md)
-
-    application-core プロジェクトに対して個別に実施する設定について解説します。
+    application-modules プロジェクトに対して個別に実施する設定について解説します。
 
 1. [batch プロジェクトの設定](./batch-project-settings.md)
 
@@ -49,4 +45,4 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 
 1. [MyBatis Generator の設定](./mybatis-generator-settings.md)
 
-    infrastructure プロジェクトに対して MyBatis Generator の設定を追加する方法について解説します。
+    application-modules プロジェクトに対して MyBatis Generator の設定を追加する方法について解説します。

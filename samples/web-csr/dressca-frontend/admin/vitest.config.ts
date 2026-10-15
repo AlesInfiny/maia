@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
-import viteConfig from './vite.config'
+import viteConfig from './vite.config.ts'
 
 export default defineConfig((configEnv) =>
   mergeConfig(
@@ -15,7 +15,7 @@ export default defineConfig((configEnv) =>
           provider: 'v8',
           reporter: ['json-summary', 'html'],
           include: ['src/**/*.{ts,vue}'],
-          exclude: ['src/generated/**'],
+          exclude: ['src/system-common/generated/**'],
         },
       },
     }),

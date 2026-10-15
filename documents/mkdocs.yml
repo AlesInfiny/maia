@@ -48,8 +48,8 @@ nav:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
-              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - プレゼンテーション層: app-architecture/client-side-rendering/backend-application/presentation.md
+              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - インフラストラクチャ層: app-architecture/client-side-rendering/backend-application/infrastructure.md
           - テスト方針:
               - app-architecture/client-side-rendering/test/index.md
@@ -72,8 +72,8 @@ nav:
               - app-architecture/server-side-rendering/frontend/index.md
           - バックエンドのアーキテクチャ:
               - app-architecture/server-side-rendering/backend/index.md
-              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
@@ -109,8 +109,7 @@ nav:
                   - サブプロジェクトの個別設定:
                       - guidebooks/how-to-develop/csr/java/sub-project-settings/index.md
                       - web プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md
-                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/infrastructure-project-settings.md
-                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-core-project-settings.md
+                      - application-modules プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-modules-project-settings.md
                       - batch プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/batch-project-settings.md
                       - system-common プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/system-common-project-settings.md
                       - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/java/sub-project-settings/project-version-control.md
@@ -180,6 +179,7 @@ nav:
       - 利用規約: about-maia/terms.md
       - 商標: about-maia/trademarks.md
       - クレジット表記: about-maia/credits.md
+      - プライバシーポリシー: about-maia/privacy-policy.md
 # yamllint enable rule:comments-indentation
 
 theme:
@@ -218,6 +218,10 @@ theme:
       primary: teal
       accent: green
 
+validation:
+  # ページ内アンカーのリンク切れを警告として扱い、 --strict ビルドで検出する。
+  anchors: warn
+
 markdown_extensions:
   - abbr
   - admonition
@@ -234,6 +238,10 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
+      # スニペット埋め込みで参照する相対パスの起点ディレクトリ。
+      base_path:
+        - . # documents/ 配下
+        - .. # リポジトリルート（samples/ 配下のサンプルコード埋め込み用）
       auto_append:
         - includes/abbreviations.md
   - pymdownx.superfences:
@@ -251,15 +259,17 @@ extra:
     terms: about-maia/terms/
     trademarks: about-maia/trademarks/
     credits: about-maia/credits/
+    privacy_policy: about-maia/privacy-policy/
     rss_created: feed_rss_created.xml
     rss_updated: feed_rss_updated.xml
   version: !ENV [VERSION, "Local Version"]
+  analytics:
+    # Set both values only in release builds to avoid tracking local test traffic.
+    provider: !ENV [GOOGLE_ANALYTICS_PROVIDER, ""]
+    property: !ENV [GOOGLE_ANALYTICS_PROPERTY, ""]
 
 extra_css:
   - stylesheets/overrides.css
-
-hooks:
-  - hooks/github_markdown_fetcher.py
 
 plugins:
   - git-revision-date-localized:

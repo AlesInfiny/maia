@@ -1,12 +1,14 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/shared/authentication/authentication-guard'
-import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
+import { authenticationGuard } from '@/security/authentication/router/authentication-guard'
+import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import App from './App.vue'
-import { router } from './router'
-import { i18n } from './locales/i18n'
-import { useLogger } from './composables/use-logger'
+import { router } from '@/system-common/router'
+import { i18n } from '@/system-common/locales/i18n'
+import { useLogger } from '@/system-common/composables/use-logger'
 import '@/assets/base.css'
+import { z } from 'zod'
+import { customErrorMap } from '@/system-common/validation/zod-settings'
 
 const logger = useLogger()
 
@@ -34,6 +36,8 @@ if (import.meta.env.MODE === 'mock') {
     logger.error('モック用のワーカープロセスの起動に失敗しました。', error)
   }
 }
+
+z.setErrorMap(customErrorMap)
 
 const app = createApp(App)
 

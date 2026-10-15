@@ -22,9 +22,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { ProblemDetail } from '../models';
+import type { GetUserResponse } from '../models';
 // @ts-ignore
-import type { UserResponse } from '../models';
+import type { ProblemDetail } from '../models';
 /**
  * UsersApi - axios parameter creator
  */
@@ -79,7 +79,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
+        async getUser(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UsersApi.getUser']?.[localVarOperationServerIndex]?.url;
@@ -100,7 +100,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(options?: RawAxiosRequestConfig): AxiosPromise<UserResponse> {
+        getUser(options?: RawAxiosRequestConfig): AxiosPromise<GetUserResponse> {
             return localVarFp.getUser(options).then((request) => request(axios, basePath));
         },
     };

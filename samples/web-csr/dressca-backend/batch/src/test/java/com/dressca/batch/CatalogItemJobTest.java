@@ -22,23 +22,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import com.dressca.batch.job.BatchConfiguration;
 
 /**
  * CatalogItem の Job の動作テストクラスです。
  */
 @SpringBootTest
 @SpringBatchTest
-@SpringJUnitConfig(BatchConfiguration.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogItemJobTest {
+  private static final String TEST_CATALOG_BRAND_ID = "019b76da-a800-7002-8001-000000000001";
+  private static final String TEST_CATALOG_CATEGORY_ID = "019b76da-a800-7003-8001-000000000001";
   @Autowired
   private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
-  @Qualifier("catalogItem_job")
+  @Qualifier("catalogItemJob")
   Job catalogItemJob;
   @Autowired
   JobRepository jobRepository;
@@ -77,18 +76,24 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_empty() throws Exception {
+    // Arrange
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
+
+    // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
+
+    // Assert
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_empty.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   /*
@@ -96,20 +101,26 @@ public class CatalogItemJobTest {
    */
   @Test
   public void jobTest_10data() throws Exception {
+    // Arrange
     // テストデータ追加
     insertTestData();
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
+
+    // Act
     JobExecution jobExecution = this.jobOperatorTestUtils.startJob();
+
+    // Assert
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_jobTest_10data.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（OS依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   /*
@@ -117,32 +128,39 @@ public class CatalogItemJobTest {
    */
   @Test
   public void stepTest_10data() throws Exception {
+    // Arrange
     // テストデータ追加
     insertTestData();
+    // 期待値ファイルの読み込み
+    String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
+    String expectedStr =
+        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
+    // 期待値ファイルの改行コードは"\n"のため、出力ファイルの改行コード（OS依存）に変換
+    String expected = expectedStr.replaceAll("\n", System.getProperty("line.separator"));
+
+    // Act
     // ステップを実行
-    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItem_step1");
+    JobExecution jobExecution = this.jobOperatorTestUtils.startStep("catalogItemStep1");
     // 正常終了を確認
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
     // 出力ファイルの確認
-    String expectedFile = EXPECTED_FOLDER + "output_stepTest_10data.csv";
     String outputStr =
         (new FileSystemResource(OUTPUT_FILE)).getContentAsString(Charset.forName("UTF-8"));
-    String expectedStr =
-        (new FileSystemResource(expectedFile)).getContentAsString(Charset.forName("UTF-8"));
-    // 期待値ファイルの改行コードは"\r\n"のため、出力ファイルの改行コード（ OS 依存）に変換して比較
-    assertThat(outputStr)
-        .isEqualTo(expectedStr.replaceAll("\r\n", System.getProperty("line.separator")));
+    assertThat(outputStr).isEqualTo(expected);
   }
 
   private void insertTestData() {
     for (int i = 0; i < 10; i++) {
+      String catalogItemId = String.format("019b76da-a800-7004-8001-0000000000%02x", i + 0xc1);
+      String catalogItemAssetId = String.format("019b76da-a800-7005-8001-0000000000%02x", i + 0xc1);
       String insertItem = "insert into catalog_items" + " (id,name,description,price,product_code,"
           + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
-          + " values (?,?,?,1000,'C000000001'," + "1,1,false,'2024-01-01 00:00:00')";
+          + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";
       String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id)"
           + " values (?,'dummy',?)";
-      jdbcTemplate.update(insertItem, 101 + i, "sample" + i, "商品説明" + i);
-      jdbcTemplate.update(insertItemAsset, 101 + i, 101 + i);
+      jdbcTemplate.update(insertItem, catalogItemId, "sample" + i, "商品説明" + i,
+          TEST_CATALOG_CATEGORY_ID, TEST_CATALOG_BRAND_ID);
+      jdbcTemplate.update(insertItemAsset, catalogItemAssetId, catalogItemId);
     }
   }
 }

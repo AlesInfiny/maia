@@ -1,21 +1,24 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.0.6"
+    springBootVersion = "4.1.0"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.5.1"
+    spotbugsVersion = "6.5.9"
 
     // -- DEPENDENCIES
+    archUnitVersion = "1.5.1"
+    javaParserCoreVersion = "3.28.2"
+    javaUuidGeneratorVersion = "5.2.0"
     mybatisGeneratorVersion = "2.0.0"
-    mybatisSpringBootStarterVersion = "4.0.1"
-    mybatisSpringBootStarterTestVersion = "4.0.1"
-    springdocOpenapiVersion = "3.0.3"
-    javaParserCoreVersion = "3.28.1"
+    mybatisSpringBootStarterVersion = "4.1.0"
+    mybatisSpringBootStarterTestVersion = "4.1.0"
+    springdocOpenapiVersion = "3.1.1"
+    springModulithVersion = "2.1.0"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "13.4.0"
-    jacocoToolVersion = "0.8.14"
-    spotbugsToolVersion = "4.9.8"
+    checkstyleToolVersion = "13.9.0"
+    jacocoToolVersion = "0.8.15"
+    spotbugsToolVersion = "4.10.3"
 
     supportDependencies = [
         // SPRING BOOT STARTERS
@@ -35,8 +38,12 @@ ext {
         spring_boot_starter_webmvc_test : "org.springframework.boot:spring-boot-starter-webmvc-test",
         
         // SPRING BOOT MODULES
-        spring_boot_h2console : "org.springframework.boot:spring-boot-h2console",
         spring_boot_transaction : "org.springframework.boot:spring-boot-transaction",
+
+        // SPRING MODULITH
+        spring_modulith_bom : "org.springframework.modulith:spring-modulith-bom:$springModulithVersion",
+        spring_modulith_starter_core : "org.springframework.modulith:spring-modulith-starter-core",
+        spring_modulith_starter_test : "org.springframework.modulith:spring-modulith-starter-test",
 
         // MYBATIS DEPENDENCIES
         mybatis_generator_core: "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
@@ -48,9 +55,12 @@ ext {
         postgresql : "org.postgresql:postgresql",
 
         // OTHER LIBRARIES
+        archunit_junit6 : "com.tngtech.archunit:archunit-junit6:$archUnitVersion",
         commons_lang3 : "org.apache.commons:commons-lang3",
         java_parser_core : "com.github.javaparser:javaparser-core:$javaParserCoreVersion",
+        java_uuid_generator : "com.fasterxml.uuid:java-uuid-generator:$javaUuidGeneratorVersion",
         lombok : "org.projectlombok:lombok",
+        mockito_core : "org.mockito:mockito-core",
         slf4j : "org.slf4j:slf4j-simple",
         spotbugs_annotations : "com.github.spotbugs:spotbugs-annotations:$spotbugsToolVersion",
         springdoc_openapi_starter_webmvc_ui : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion",

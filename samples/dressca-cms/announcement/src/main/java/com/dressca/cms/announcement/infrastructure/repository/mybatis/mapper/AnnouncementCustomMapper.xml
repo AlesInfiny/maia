@@ -22,7 +22,7 @@
   </resultMap>
   
   <select id="findAnnouncementsWithContentsByOffsetAndLimit" resultMap="AnnouncementWithContentsResultMap">
-    SELECT 
+    SELECT
       a.id,
       a.category,
       a.post_date_time,
@@ -36,11 +36,23 @@
       ac.title,
       ac.message,
       ac.link_url
-    FROM announcements a
+    FROM (
+      SELECT 
+        id,
+        category,
+        post_date_time,
+        expire_date_time,
+        display_priority,
+        created_at,
+        changed_at,
+        is_deleted
+      FROM announcements
+      WHERE is_deleted = false
+      ORDER BY post_date_time DESC, id
+      LIMIT #{limit} OFFSET #{offset}
+    ) a
     LEFT JOIN announcement_contents ac ON a.id = ac.announcement_id
-    WHERE a.is_deleted = false
     ORDER BY a.post_date_time DESC, a.id
-    LIMIT #{limit} OFFSET #{offset}
   </select>
 
   <select id="findByIdWithContents" resultMap="AnnouncementWithContentsResultMap">

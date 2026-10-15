@@ -3,7 +3,7 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore applicationcore rgba -->
+<!-- cspell:ignore rgba -->
 
 # 例外処理方針 {#top}
 
@@ -73,7 +73,7 @@ HTTP 通信で発生する例外について、レスポンスやステータス
 
 また、発生したエラーの解析には、以下の方法が考えられます。
 
-- [axios.interceptors.response :material-open-in-new:](https://axios-http.com/ja/docs/interceptors){ target=_blank } でエラー情報を解析し、適切なカスタムエラーを返却する。
+- [axios.interceptors.response :material-open-in-new:](https://axios.rest/pages/advanced/interceptors){ target=_blank } でエラー情報を解析し、適切なカスタムエラーを返却する。
 - エラー番号やエラーメッセージを通知し、開発者が問合せるための情報を提供する
 - ユーザーの状況やエラー内容をログ収集ツールに送信する
 
@@ -112,7 +112,7 @@ API 通信で発生した例外において、バックエンドから返却さ�
 
 ProblemDetails は、 HTTP API のエラーレスポンスを標準化するための構造体であり、以下のプロパティで定義されています。
 
-|             項目             | プロパティ名 |    推奨レベル    |                                                                                                               内容                                                                                                               |
+| 項目                         | プロパティ名 | 推奨レベル       | 内容                                                                                                                                                                                                                             |
 | ---------------------------- | ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 簡易メッセージ               | title        | 必須             | 人間が読める形式で提供されます。                                                                                                                                                                                                 |
 | 詳細メッセージ               | detail       | 本番環境は非推奨 | スタックトレースなどを含めます。開発環境では生産性向上を目的に含めることを推奨しますが、本番環境では使用しません。開発環境と本番環境で構成を変更することが難しい場合には detail を使用しないよう統一することも検討してください。 |
@@ -154,12 +154,12 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "detail": "dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "detail": "com.dressca.applicationmodules.shopping.exception.DisplayItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```
 
@@ -168,10 +168,10 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```

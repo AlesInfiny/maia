@@ -35,6 +35,15 @@
     },
     "ja-no-orthographic-variants": true,
     "@textlint-rule/require-header-id": true,
+    "@textlint-rule/pattern": {
+      "patterns": [
+        {
+          "message": "コロンは「用語: 説明」のように、半角コロンの前にはスペースを入れず、直後にのみ半角スペースを 1 つ入れて表記してください。",
+          "pattern": "/(?<![ 　])[ 　]+[:：](?![\\w+-]+:)[ 　]*|：[ 　]*|(?<=[^\\x00-\\x7F]):(?![\\w+-]+:)(?=[^\\s\\d\\/\\\\])|(?<=\\w):(?=[^\\x00-\\x7F])|(?<=\\S):(?:[ 　]{2,}|　)(?=\\S)/",
+          "replace": ": "
+        }
+      ]
+    },
     "@textlint-ja/no-synonyms": {
       "allows": [
         "=",
@@ -57,6 +66,7 @@
         "検査",
         "後援",
         "行動",
+        "異なり",
         "今後",
         "サイド",
         "再利用",

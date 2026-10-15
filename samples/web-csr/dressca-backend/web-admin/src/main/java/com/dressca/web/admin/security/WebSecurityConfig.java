@@ -3,6 +3,7 @@ package com.dressca.web.admin.security;
 import com.dressca.web.admin.filter.DummyUserInjectionFilter;
 import com.dressca.web.security.CorsAllowedOriginsProperties;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -16,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import lombok.RequiredArgsConstructor;
 
 /**
  * セキュリティ関連の実行クラスです。

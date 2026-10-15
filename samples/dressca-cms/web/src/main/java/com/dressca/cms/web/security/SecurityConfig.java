@@ -72,9 +72,9 @@ public class SecurityConfig {
     http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
         .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
         .authenticationProvider(authenticationProvider())
-        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/h2-console/**",
-            "/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**").permitAll()
-            .anyRequest().authenticated())
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers("/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**")
+            .permitAll().anyRequest().authenticated())
         .formLogin(form -> form.loginPage("/account/login").permitAll().disable())
         // ログアウト機能を有効にする場合は、以下のコメントアウトを外してください。
         // .logout(logout -> logout
@@ -82,9 +82,7 @@ public class SecurityConfig {
         // .logoutSuccessUrl("/account/login")
         // .permitAll())
         .exceptionHandling(exception -> exception
-            .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")))
-        // csrf 無効化は本番環境では削除してください。
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+            .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")));
 
     return http.build();
   }

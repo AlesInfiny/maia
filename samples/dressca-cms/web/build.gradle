@@ -7,12 +7,6 @@ plugins {
 group = 'com.dressca.cms'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
 repositories {
 	mavenCentral()
 }
@@ -27,7 +21,6 @@ dependencies {
 	
 	implementation supportDependencies.commons_lang3
 	implementation supportDependencies.h2database
-	implementation supportDependencies.spring_boot_h2console
 	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
 	implementation supportDependencies.thymeleaf_layout_dialect
 	
