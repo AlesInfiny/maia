@@ -98,8 +98,6 @@ let router: Router
 
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。
- * テスト用 Pinia とルーターを作成し、日本語ロケールを設定した上で
- * `pinia`・`router`・`i18n` をグローバルプラグインとして注入します。
  * @returns マウント済みの Vue Test Utils ラッパー
  */
 function getWrapper() {

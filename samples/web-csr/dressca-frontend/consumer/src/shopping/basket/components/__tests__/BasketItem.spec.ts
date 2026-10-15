@@ -6,7 +6,6 @@ import BasketItem from '../BasketItem.vue'
 
 /**
  * 買い物かごの行を生成します。
- * 主にテストやモックデータとして利用することを想定しています。
  * @returns `BasketLine` 型のオブジェクト
  */
 function createBasketLine(): BasketLine {

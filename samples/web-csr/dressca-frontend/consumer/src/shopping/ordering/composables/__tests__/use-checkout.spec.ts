@@ -67,7 +67,6 @@ beforeEach(() => {
 
 /**
  * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
- * コンポーネントのマウント後に読み込むため、テスト用のコンポーネントを使います。
  * @returns 注文の確認と確定のユースケース。
  */
 async function setupCheckout(): Promise<Checkout> {

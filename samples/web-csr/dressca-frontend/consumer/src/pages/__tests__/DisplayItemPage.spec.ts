@@ -49,7 +49,6 @@ let router: Router
 
 beforeEach(() => {
   vi.resetAllMocks()
-  // テストどうしがモックのデータを共有しないよう、呼び出しごとに複製を返します。
   getDisplayItemCategoriesMock.mockImplementation(() =>
     Promise.resolve({
       data: structuredClone(displayItemCategories),

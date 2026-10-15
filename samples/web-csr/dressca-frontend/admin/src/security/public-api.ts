@@ -1,7 +1,3 @@
-/**
- * security コンテキストの公開APIです。
- * pages や他コンテキストは、このモジュール経由でのみ security を参照します。
- */
 export {
   useLogin,
   type Login,

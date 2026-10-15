@@ -18,9 +18,6 @@ const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 const { status, order } = useOrderResult(route.params.orderId)
 
-/**
- * 注文結果の読み込みに失敗したとき、利用者に通知して陳列品画面へ遷移します。
- */
 watch(status, (newStatus) => {
   if (newStatus.kind === 'failed') {
     showFailureToast(newStatus.problem, t('failedToOrderInformation'))

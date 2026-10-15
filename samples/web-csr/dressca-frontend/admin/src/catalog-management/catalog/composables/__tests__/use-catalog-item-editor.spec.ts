@@ -43,9 +43,6 @@ function statusResponse(status: number) {
   return () => new HttpResponse(null, { status })
 }
 
-/**
- * 最新のアイテムとして、行バージョンが変わったアイテムを返すハンドラーです。
- */
 const latestItemHandler = http.get(itemUrl, () =>
   HttpResponse.json({ ...item, rowVersion: 'latest' }, { status: HttpStatusCode.Ok }),
 )

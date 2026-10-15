@@ -15,14 +15,8 @@ import {
 } from '../services/catalog-service'
 import { useCatalogItemForm, type CatalogItemForm } from './use-catalog-item-form'
 
-/**
- * 編集対象のカタログアイテムの読み込みの状態です。
- */
 export type CatalogItemEditorStatus = 'loading' | 'ready' | 'notFound' | 'failed'
 
-/**
- * 編集前のカタログアイテムの内容です。
- */
 export interface CatalogItemSnapshot {
   id: string
   name: string
@@ -34,10 +28,7 @@ export interface CatalogItemSnapshot {
   assetCodes: string[] | undefined
 }
 
-/**
- * カタログアイテムの更新の結果です。
- * `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
- */
+/** `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。 */
 export type UpdateOutcome =
   | { kind: 'updated' }
   | { kind: 'conflict' }
@@ -45,10 +36,7 @@ export type UpdateOutcome =
   | { kind: 'failed' }
   | { kind: 'canceled' }
 
-/**
- * カタログアイテムの削除の結果です。
- * `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
- */
+/** `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。 */
 export type RemoveOutcome =
   | { kind: 'removed' }
   | { kind: 'conflict' }
@@ -56,29 +44,16 @@ export type RemoveOutcome =
   | { kind: 'failed' }
   | { kind: 'canceled' }
 
-/**
- * カタログアイテムの編集のユースケースです。
- */
 export interface CatalogItemEditor {
-  /** 編集対象のアイテムの読み込みの状態です。 */
   status: ComputedRef<CatalogItemEditorStatus>
-  /** 編集前のアイテムの内容です。読み込みが完了するまでは undefined です。 */
+  /** 読み込みが完了するまでは undefined です。 */
   current: ComputedRef<CatalogItemSnapshot | undefined>
-  /** 編集フォームです。 */
   form: CatalogItemForm
-  /** カテゴリの選択肢です。 */
   categories: ComputedRef<CatalogOption[]>
-  /** ブランドの選択肢です。 */
   brands: ComputedRef<CatalogOption[]>
-  /**
-   * 編集フォームの内容でアイテムを更新します。
-   * 競合した場合は最新の行バージョンを取り込むので、入力中の値のまま再度更新できます。
-   */
+  /** 競合した場合は最新の行バージョンを取り込むので、入力中の値のまま再度更新できます。 */
   update: () => Promise<UpdateOutcome>
-  /**
-   * アイテムを削除します。
-   * 競合した場合は最新の行バージョンを取り込むので、再度削除できます。
-   */
+  /** 競合した場合は最新の行バージョンを取り込むので、再度削除できます。 */
   remove: () => Promise<RemoveOutcome>
 }
 
@@ -87,7 +62,6 @@ type WriteFailureOutcome = { kind: 'conflict' } | { kind: 'notFound' } | CommonE
 
 /**
  * API のレスポンスを編集前のアイテムの内容に変換します。
- * 排他制御の行バージョンは含めません。
  * @param item カタログアイテムのレスポンス。
  * @returns 編集前のアイテムの内容。
  */
@@ -107,7 +81,6 @@ function toSnapshot(item: GetCatalogItemResponse): CatalogItemSnapshot {
 /**
  * カタログアイテムを編集するユースケースを提供します。
  * 呼び出すと、対象のアイテムとカテゴリ、ブランドの読み込みを開始します。
- * 排他制御の行バージョンと API のエラーの分類は、このコンポーザブルの内部で扱います。
  * @param itemId 編集対象のアイテムの ID 。変化すると読み込み直します。
  * @returns カタログアイテムの編集のユースケース。
  */
@@ -137,7 +110,6 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
 
   /**
    * 最新のアイテムを取得し、編集前の内容と行バージョンを置き換えます。
-   * 編集フォームの内容は変更しません。
    * @param id アイテムの ID 。
    * @returns 取得の結果。
    */
@@ -155,7 +127,6 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
 
   /**
    * 書き込みの失敗を結果に変換します。
-   * 競合した場合は、再度操作できるよう最新の行バージョンを取り込みます。
    * @param error 発生したエラー。
    * @param id アイテムの ID 。
    * @returns 書き込みの失敗の結果。
@@ -173,7 +144,6 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
 
   /**
    * 編集対象のアイテムを取得します。
-   * 読み込みが完了していない場合は、プログラムの誤りとして例外を送出します。
    * @returns 編集対象のアイテム。
    */
   function getLoadedItem(): GetCatalogItemResponse {
@@ -231,12 +201,18 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
       return toWriteFailure(error, target.id)
     }
 
-    // 更新後の内容と行バージョンを取り込みます。
-    // 取り込みに失敗しても更新は完了しているため、結果は updated とします。
-    if ((await fetchLatestItem(target.id)) === 'fetched') {
+    await reloadFormIfFetched(target.id)
+    return { kind: 'updated' }
+  }
+
+  /**
+   * 最新のアイテムを取得できた場合だけ、編集フォームをその内容に戻します。
+   * @param id アイテムの ID 。
+   */
+  async function reloadFormIfFetched(id: string) {
+    if ((await fetchLatestItem(id)) === 'fetched') {
       resetForm(getLoadedItem())
     }
-    return { kind: 'updated' }
   }
 
   /**

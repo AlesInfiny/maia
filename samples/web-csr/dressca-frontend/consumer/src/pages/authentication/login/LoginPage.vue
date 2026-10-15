@@ -10,11 +10,6 @@ const route = useRoute(routeNames.login)
 const { toSafeRedirectPath } = redirectHelper()
 const { form, signIn } = useSignIn()
 
-/**
- * ログインし、戻り先の画面へ遷移します。
- * 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
- * 戻り先がない場合や、アプリケーション外を指す場合は、トップページに遷移します。
- */
 const signInOnClick = async () => {
   await signIn()
   const redirect = toSafeRedirectPath(route.query.redirect)

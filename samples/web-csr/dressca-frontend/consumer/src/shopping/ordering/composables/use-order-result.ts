@@ -9,18 +9,12 @@ import type { BasketAccount } from '../../basket/models/basket-line'
 import { getOrder } from '../services/ordering-service'
 import type { Address } from '../models/address'
 
-/**
- * 注文結果の読み込みの状態です。
- * `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。
- */
+/** `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。 */
 export type OrderResultStatus =
   | { kind: 'loading' }
   | { kind: 'ready' }
   | { kind: 'failed'; problem?: ApiProblem }
 
-/**
- * 注文した陳列品です。
- */
 export interface OrderedItem {
   id: string
   name: string
@@ -30,25 +24,15 @@ export interface OrderedItem {
   subTotal: number
 }
 
-/**
- * 確定した注文の内容です。
- */
 export interface OrderResult {
-  /** お届け先です。 */
   address: Address
-  /** 会計です。 */
   account: BasketAccount | undefined
-  /** 注文した陳列品です。 */
   items: OrderedItem[]
 }
 
-/**
- * 注文結果の確認のユースケースです。
- */
 export interface OrderResultView {
-  /** 注文結果の読み込みの状態です。 */
   status: ComputedRef<OrderResultStatus>
-  /** 確定した注文の内容です。読み込みが完了するまでは undefined です。 */
+  /** 読み込みが完了するまでは undefined です。 */
   order: ComputedRef<OrderResult | undefined>
 }
 

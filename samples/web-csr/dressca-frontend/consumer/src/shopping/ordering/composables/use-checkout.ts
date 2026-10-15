@@ -11,7 +11,6 @@ import { postOrder } from '../services/ordering-service'
 import { deliveryAddress, type Address } from '../models/address'
 
 /**
- * 注文内容の読み込みの状態です。
  * `empty` は、買い物かごが空で注文できないことを表します。
  * `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。
  */
@@ -21,26 +20,15 @@ export type CheckoutStatus =
   | { kind: 'empty' }
   | { kind: 'failed'; problem?: ApiProblem }
 
-/**
- * 注文を確定した結果です。
- */
 export type PlaceOrderOutcome = { kind: 'ordered'; orderId: string } | CommonErrorOutcome
 
-/**
- * 注文の確認と確定のユースケースです。
- */
 export interface Checkout {
-  /** 注文内容の読み込みの状態です。 */
   status: ComputedRef<CheckoutStatus>
-  /** 注文する陳列品です。 */
   lines: ComputedRef<BasketLine[]>
-  /** 会計です。読み込みが完了するまでは undefined です。 */
+  /** 読み込みが完了するまでは undefined です。 */
   account: ComputedRef<BasketAccount | undefined>
-  /** 購入できない陳列品が入っているかどうかです。 */
   hasUnavailableItems: ComputedRef<boolean>
-  /** お届け先です。 */
   address: ComputedRef<Address>
-  /** 買い物かごの内容とお届け先で注文を確定します。 */
   placeOrder: () => Promise<PlaceOrderOutcome>
 }
 

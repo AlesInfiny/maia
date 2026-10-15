@@ -3,14 +3,7 @@ import { getLogger } from '@/system-common/logger'
 
 const logger = getLogger()
 
-/**
- * グローバルエラーハンドラーを生成するための設定です。
- */
 export interface GlobalErrorHandlerOptions {
-  /**
-   * 業務上想定しないシステムエラーが発生したとき、エラー画面へ遷移します。
-   * 遷移先の画面は利用する側（ core 層）が決めます。
-   */
   navigateToErrorPage: () => void
 }
 

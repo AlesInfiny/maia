@@ -2,9 +2,6 @@ import { useNotificationStore } from '@/business-common/stores/notification'
 import { i18n } from '@/system-common/locales/i18n'
 import type { ApiProblem } from '@/system-common/error-handler/common-error-outcome'
 
-/**
- * トースト通知の操作です。
- */
 export interface ToastNotification {
   /**
    * トースト通知を表示します。
@@ -43,18 +40,12 @@ export interface ToastNotification {
    * それ以外の場合は、代わりのメッセージを表示します。
    * @param problem - API が返した問題の詳細。
    * @param fallbackMessage - 問題の詳細がない場合に表示するメッセージ。
-   * @example
-   * const outcome = await addToBasket(displayItemId)
-   * if (outcome.kind === 'failed') {
-   *   showFailureToast(outcome.problem, t('failedToAddItemToCarts'))
-   * }
    */
   showFailureToast: (problem: ApiProblem | undefined, fallbackMessage: string) => void
 }
 
 /**
  * 通知ストアを通じてトースト通知を表示する操作を提供します。
- * 通知ストアを setup の中で一度だけ取り出すため、コンポーネントの setup の中で呼び出します。
  * @returns トースト通知の操作。
  */
 export function useNotification(): ToastNotification {

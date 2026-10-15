@@ -5,38 +5,24 @@ import { z } from 'zod'
 import { ValidationItems } from '@/system-common/validation/validation-items'
 import { useAuthentication } from './use-authentication'
 
-/**
- * ログインの入力フォームです。
- * 入力項目は双方向にバインドできます。
- */
+/** 入力項目は双方向にバインドできます。 */
 export interface SignInForm {
   email: string
   password: string
-  /** 入力項目ごとの検証エラーのメッセージです。 */
   readonly errors: { email: string | undefined; password: string | undefined }
-  /** すべての入力項目が検証に合格しているかどうかです。 */
   readonly isValid: boolean
 }
 
-/**
- * ログインした結果です。
- */
 export type SignInOutcome = { kind: 'signedIn' }
 
-/**
- * ログインのユースケースです。
- */
 export interface SignIn {
-  /** ログインの入力フォームです。 */
   form: SignInForm
-  /** 入力フォームの内容でログインします。 */
   signIn: () => Promise<SignInOutcome>
 }
 
 /**
  * ログインのユースケースを提供します。
  * vee-validate を使用するため、コンポーネントの setup の中で呼び出します。
- * 検証のメッセージは呼び出し時点のロケールで確定します。
  * @returns ログインのユースケース。
  */
 export function useSignIn(): SignIn {

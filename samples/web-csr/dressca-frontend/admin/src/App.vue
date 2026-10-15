@@ -34,9 +34,6 @@ unauthorizedErrorEventBus.on((payload) => {
   showToastByService(payload.details)
 })
 
-/**
- * ログアウトしたとき、ログイン画面へ遷移します。
- */
 const onLoggedOut = () => {
   importedRouter.push({ name: routeNames.login })
 }

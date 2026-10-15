@@ -1,8 +1,5 @@
 import { useNotificationStore } from '@/business-common/stores/notification'
 
-/**
- * トースト通知の操作です。
- */
 export interface ToastNotification {
   /**
    * トーストを画面に表示します。
@@ -14,7 +11,6 @@ export interface ToastNotification {
 
 /**
  * 通知ストアを通じてトースト通知を表示する操作を提供します。
- * 通知ストアを setup の中で一度だけ取り出すため、コンポーネントの setup の中で呼び出します。
  * @returns トースト通知の操作。
  */
 export function useNotification(): ToastNotification {

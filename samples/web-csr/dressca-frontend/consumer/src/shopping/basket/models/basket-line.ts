@@ -3,9 +3,6 @@ import type {
   GetBasketItemsResponse,
 } from '@/system-common/generated/api-client'
 
-/**
- * 買い物かごに入っている陳列品の 1 行です。
- */
 export interface BasketLine {
   displayItemId: string
   name: string
@@ -13,13 +10,10 @@ export interface BasketLine {
   unitPrice: number
   quantity: number
   subTotal: number
-  /** 購入できるかどうかです。カタログから削除された陳列品は購入できません。 */
+  /** カタログから削除された陳列品は購入できません。 */
   available: boolean
 }
 
-/**
- * 買い物かごの会計です。
- */
 export interface BasketAccount {
   totalItemsPrice: number
   deliveryCharge: number

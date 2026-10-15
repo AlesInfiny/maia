@@ -8,15 +8,8 @@ import {
   type CatalogItemOptions,
 } from '../services/catalog-service'
 
-/**
- * カタログアイテムの一覧の読み込みの状態です。
- */
 export type CatalogItemListStatus = 'loading' | 'ready' | 'failed'
 
-/**
- * 一覧に表示するカタログアイテムの内容です。
- * カテゴリとブランドは名前で表します。
- */
 export interface CatalogItemSummary {
   id: string
   name: string
@@ -29,19 +22,14 @@ export interface CatalogItemSummary {
   isDeleted: boolean
 }
 
-/**
- * カタログアイテムの一覧のユースケースです。
- */
 export interface CatalogItemList {
-  /** 一覧の読み込みの状態です。 */
   status: ComputedRef<CatalogItemListStatus>
-  /** 一覧に表示するアイテムです。読み込みが完了するまでは空です。 */
+  /** 読み込みが完了するまでは空です。 */
   items: ComputedRef<CatalogItemSummary[]>
 }
 
 /**
  * API のレスポンスを一覧に表示するアイテムの内容に変換します。
- * 該当するカテゴリやブランドがない場合、名前は空文字にします。
  * @param item カタログアイテムのレスポンス。
  * @param options カテゴリとブランドの選択肢。
  * @returns 一覧に表示するアイテムの内容。
@@ -63,7 +51,7 @@ function toSummary(item: GetCatalogItemResponse, options: CatalogItemOptions): C
 
 /**
  * カタログアイテムの一覧を表示するユースケースを提供します。
- * 画面を開くたびに最新の一覧を表示するため、コンポーネントのマウント後に読み込みます。
+ * コンポーネントのマウント後に読み込みます。
  * @returns カタログアイテムの一覧のユースケース。
  */
 export function useCatalogItemList(): CatalogItemList {

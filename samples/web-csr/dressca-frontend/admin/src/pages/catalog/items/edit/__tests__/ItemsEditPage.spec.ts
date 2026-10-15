@@ -13,9 +13,6 @@ import { catalogItems } from '@/../mock/data/catalog-items'
 
 const itemUrl = '/api/catalog-items/:catalogItemId'
 
-/**
- * 管理者ロールです。認証済みのユーザーについてバックエンドが返すロールを模します。
- */
 const adminRole = 'ROLE_ADMIN'
 
 /**
@@ -40,7 +37,6 @@ let router: Router
 
 /**
  * 指定された Pinia ストアを利用してコンポーネントをマウントします。
- * ルーターを作成し、グローバルプラグインとして `pinia` と `router` を注入します。
  * @param pinia - テストに使用する TestingPinia インスタンス
  * @returns マウント済みの Vue Test Utils のラッパー
  */

@@ -13,12 +13,6 @@ const route = useRoute(routeNames.login)
 const { toSafeRedirectPath } = redirectHelper()
 const { form, login } = useLogin()
 
-/**
- * アプリケーションにログインし、戻り先の画面へ遷移します。
- * 別の画面からログイン画面にリダイレクトしてきたのであれば、その画面に遷移します。
- * 戻り先がない場合や、アプリケーション外を指す場合は、ホーム画面に遷移します。
- * ログインに失敗した場合は、利用者に通知してログイン画面にとどまります。
- */
 const loginAsync = async () => {
   const outcome = await login()
   switch (outcome.kind) {

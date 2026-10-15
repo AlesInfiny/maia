@@ -39,11 +39,6 @@ export interface Logger {
   error: LogHandler
 }
 
-/**
- * 内部で保持するロガーのインスタンスです。
- * `initializeLogger` によって設定し、
- * `getLogger` によって取得します。
- */
 let _logger: Logger
 
 /**

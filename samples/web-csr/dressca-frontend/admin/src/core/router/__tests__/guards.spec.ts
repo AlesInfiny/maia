@@ -5,17 +5,12 @@ import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } f
 import { routes } from '@/core/router/routes'
 import { registerNavigationGuards } from '@/core/router/guards'
 import { routeNames } from '@/core/router/route-names'
-// 認証状態を準備するため、 security の内部のストアを直接参照します。
 import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
 
-/**
- * 遷移先の画面の代わりに表示する、何も描画しないコンポーネントです。
- */
 const StubPage = defineComponent({ name: 'StubPage', render: () => null })
 
 /**
  * ナビゲーションガードを登録した、テスト用のルーターを生成します。
- * ガードの判定だけを確かめるため、ルート表の画面は遅延読み込みしないコンポーネントに置き換えます。
  * @returns テスト用のルーター。
  */
 function createGuardedRouter(): Router {

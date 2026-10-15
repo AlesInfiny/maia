@@ -9,30 +9,16 @@ import {
 import type { CatalogItemFormValues } from '../validation/validation-items'
 import { useCatalogItemForm, type CatalogItemForm } from './use-catalog-item-form'
 
-/**
- * 追加画面で使用するカテゴリとブランドの読み込みの状態です。
- */
 export type CatalogItemCreatorStatus = 'loading' | 'ready' | 'failed'
 
-/**
- * カタログアイテムの追加の結果です。
- * `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
- */
+/** `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。 */
 export type CreateOutcome = { kind: 'created' } | { kind: 'failed' } | { kind: 'canceled' }
 
-/**
- * カタログアイテムの追加のユースケースです。
- */
 export interface CatalogItemCreator {
-  /** カテゴリとブランドの読み込みの状態です。 */
   status: ComputedRef<CatalogItemCreatorStatus>
-  /** 追加するアイテムの入力フォームです。 */
   form: CatalogItemForm
-  /** カテゴリの選択肢です。 */
   categories: ComputedRef<CatalogOption[]>
-  /** ブランドの選択肢です。 */
   brands: ComputedRef<CatalogOption[]>
-  /** 入力フォームの内容でアイテムをカタログに追加します。 */
   create: () => Promise<CreateOutcome>
 }
 

@@ -24,19 +24,12 @@ const { status, form, categories, brands, create } = useCatalogItemCreator({
  */
 const showAddNotice = ref(false)
 
-/**
- * カテゴリとブランドの読み込みに失敗したとき、利用者に通知します。
- */
 watch(status, (newStatus) => {
   if (newStatus === 'failed') {
     showToast('カテゴリとブランド情報の取得に失敗しました。')
   }
 })
 
-/**
- * アイテムをカタログに追加し、結果を利用者に通知します。
- * 追加に成功したら、成功を通知するモーダルを開きます。
- */
 const addItemAsync = async () => {
   const outcome = await create()
   switch (outcome.kind) {

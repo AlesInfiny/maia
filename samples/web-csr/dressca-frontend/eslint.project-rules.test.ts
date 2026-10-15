@@ -1,17 +1,3 @@
-/**
- * eslint.project-rules.ts の参照方向のルールの回帰テストです。
- * 次の 2 つを分けて確かめます。
- *
- * - 設定の割り当て: どのファイルに、どの名前の設定が適用されるか。
- *   ファイルの深さやフォルダー名の違いによる glob の一致は、ここで確かめます。
- * - 参照の判定: 層ごとに代表のファイルを 1 つ選び、参照先ごとにエラーになるか通るかを確かめます。
- *   エラーになる参照は、どの制限で拒否されたかをメッセージで確かめます。
- *
- * 禁止する参照は正規表現の文字列で書いているため、エスケープの誤りなどをこのテストで検出します。
- * たとえば `\\.\\.` を `..` と書くと任意の 2 文字に一致し、 2 文字のフォルダー（ `@/ab/**` ）への参照を見逃します。
- *
- * 実行方法: npm run test:root
- */
 import { describe, test } from 'node:test'
 import assert from 'node:assert/strict'
 import { ESLint, type Linter } from 'eslint'
@@ -26,7 +12,6 @@ const projectRules = [...consumerLayerDependencyRules, ...adminLayerDependencyRu
 const eslint = new ESLint({
   cwd: import.meta.dirname,
   // eslint.config.ts の型情報を使用するルールは、存在しないファイルを検査できないため読み込みません。
-  // 参照方向のルールの評価に必要なパーサーとプラグインだけを設定します。
   overrideConfigFile: true,
   overrideConfig: [
     // .vue ファイルの設定を計算できるよう（ eslint.config.ts のテストで使用します）、プラグインはファイルを限定せずに登録します。
@@ -36,9 +21,6 @@ const eslint = new ESLint({
   ] satisfies Linter.Config[],
 })
 
-/**
- * 参照を拒否した制限を識別する、メッセージの一部です。
- */
 const denied = {
   context: 'コンテキストは core 層、 pages 、他のコンテキストを参照できません。',
   businessCommon: 'business-common は core 層、 pages 、コンテキストを参照できません。',
@@ -52,10 +34,6 @@ const denied = {
   dynamicImport: '動的インポートは core 層だけで使用できます。',
 } as const
 
-/**
- * 参照を検査したときに期待する結果です。
- * `'ok'` はエラーにならないこと、それ以外は拒否した制限のメッセージの一部です。
- */
 type Expected = 'ok' | (typeof denied)[keyof typeof denied]
 
 /**
@@ -110,10 +88,7 @@ describe('設定の割り当て', () => {
     return config.rules
   }
 
-  // 参照元のファイルと、適用されるべき設定の名前の組です。
-  // null は、参照方向のルールが適用されないことを表します。
   const assignments: [filePath: string, configName: string | null][] = [
-    // コンテキスト。層として登録していないフォルダー（ 2 文字の名前を含む）はコンテキストとして扱います。
     [
       'consumer/src/shopping/catalog/application/use-catalog.ts',
       'consumer/layer-dependency/context',
@@ -122,7 +97,6 @@ describe('設定の割り当て', () => {
     ['consumer/src/brand-new-context/x.ts', 'consumer/layer-dependency/context'],
     ['consumer/src/ab/ui/X.vue', 'consumer/layer-dependency/context'],
     ['admin/src/ab/domain/x.ts', 'admin/layer-dependency/context'],
-    // pages と pages のテスト
     ['consumer/src/pages/use-page.ts', 'consumer/layer-dependency/pages'],
     ['consumer/src/pages/basket/BasketPage.vue', 'consumer/layer-dependency/pages'],
     ['consumer/src/pages/__tests__/HomePage.spec.ts', 'consumer/layer-dependency/pages-test'],
@@ -131,10 +105,8 @@ describe('設定の割り当て', () => {
       'consumer/layer-dependency/pages-test',
     ],
     ['admin/src/pages/catalog/use-catalog-page.ts', 'admin/layer-dependency/pages'],
-    // 共通の層
     ['consumer/src/business-common/x.ts', 'consumer/layer-dependency/business-common'],
     ['consumer/src/system-common/x.ts', 'consumer/layer-dependency/system-common'],
-    // services フォルダー。フォルダーの深さによらず services の設定が適用されます。
     ['consumer/src/ab/services/x.ts', 'consumer/layer-dependency/context/services'],
     ['consumer/src/ab/domain/services/x.ts', 'consumer/layer-dependency/context/services'],
     ['consumer/src/ab/services/sub/x.ts', 'consumer/layer-dependency/context/services'],
@@ -159,10 +131,8 @@ describe('設定の割り当て', () => {
       'admin/src/catalog-management/catalog/services/catalog-service.ts',
       'admin/layer-dependency/context/services',
     ],
-    // コンテキストの services の設定は、層のフォルダー（ pages 、 core ）の services に適用しません。
     ['consumer/src/pages/basket/services/x.ts', 'consumer/layer-dependency/pages'],
     ['consumer/src/core/services/x.ts', null],
-    // core 層には参照の制限を設けません。
     ['consumer/src/core/router/index.ts', null],
     ['consumer/src/main.ts', null],
   ]
@@ -194,7 +164,6 @@ describe('設定の割り当て', () => {
 describe('参照の判定', () => {
   describe('コンテキスト', () => {
     defineImportCases('consumer/src/shopping/catalog/application/use-catalog.ts', [
-      // 他のコンテキスト（ 2 文字のフォルダー名を含む）と、自分のコンテキストへの `@/` の参照
       ['@/security/public-api', denied.context],
       ['@/security/authentication/application/use-login', denied.context],
       ['@/ab/public-api', denied.context],
@@ -202,19 +171,14 @@ describe('参照の判定', () => {
       ['@/brand-new-context/public-api', denied.context],
       ['@/shopping/public-api', denied.context],
       ['@/shopping/catalog/domain/x', denied.context],
-      // 層の名前で始まる、層ではないフォルダー
       ['@/system-commons/x', denied.context],
       ['@/business-common-extra/x', denied.context],
-      // モックのデータの例外（ `@/../` ）が、ドットで始まる他のフォルダーに広がらないこと
       ['@/.a/x', denied.context],
       ['@/./x', denied.context],
-      // core 層と pages
       ['@/core/router', denied.context],
       ['@/core/router/route-names', denied.context],
       ['@/pages/basket/BasketPage.vue', denied.context],
-      // vue-router の値
       ['vue-router', denied.vueRouterValue],
-      // 相対パス、業務共通、システム共通、モックのデータ
       ['./x', 'ok'],
       ['../domain/x', 'ok'],
       ['@/business-common/x', 'ok'],
@@ -235,17 +199,14 @@ describe('参照の判定', () => {
 
   describe('pages', () => {
     defineImportCases('consumer/src/pages/basket/use-basket-page.ts', [
-      // コンテキストは public-api だけを参照できる
       ['@/shopping/public-api', 'ok'],
       ['@/ab/public-api', 'ok'],
       ['@/shopping/catalog/application/use-catalog', denied.pagesContext],
       ['@/shopping/public-api/x', denied.pagesContext],
       ['@/ab/public-api-internal', denied.pagesContext],
-      // core 層はルート名の定数だけを参照できる
       ['@/core/router', denied.pagesCore],
       ['@/core/router/index', denied.pagesCore],
       ['@/core/router/route-names', 'ok'],
-      // API クライアントと API の型
       ['@/system-common/api-client', denied.pagesApi],
       ['@/system-common/api-client/x', denied.pagesApi],
       ['@/system-common/generated/api-client', denied.pagesApi],
@@ -303,7 +264,6 @@ describe('参照の判定', () => {
 
   describe('services', () => {
     defineImportCases('consumer/src/shopping/basket/services/basket-service.ts', [
-      // Vue に依存するモジュール
       ['vue', denied.services],
       ['pinia', denied.services],
       ['vue-router', denied.services],
@@ -314,15 +274,12 @@ describe('参照の判定', () => {
       ['@/business-common/stores/notification', denied.services],
       ['../composables/use-basket', denied.services],
       ['@/business-common/composables/use-notification', denied.services],
-      // 層の参照方向のルールも適用される
       ['@/core/router', denied.context],
       ['@/ab/public-api', denied.context],
-      // API の呼び出しとデータの変換に使うモジュール
       ['@/system-common/api-client', 'ok'],
       ['@/system-common/generated/api-client', 'ok'],
       ['../models/basket-line', 'ok'],
       ['axios', 'ok'],
-      // 名前に stores や composables を含むだけのモジュール
       ['../stores-like/x', 'ok'],
       ['./my-composables', 'ok'],
     ])
@@ -335,7 +292,6 @@ describe('参照の判定', () => {
       )
     })
 
-    // 共通の層の services にも、 Vue に依存するモジュールの禁止と、その層の参照方向のルールが適用される
     defineImportCases('consumer/src/business-common/services/x.ts', [
       ['vue', denied.services],
       ['@/shopping/public-api', denied.businessCommon],
@@ -345,7 +301,6 @@ describe('参照の判定', () => {
       ['@/business-common/x', denied.systemCommon],
     ])
 
-    // services の外と、層のフォルダー（ pages 、 core ）の services では、 Vue に依存するモジュールを参照できる
     defineImportCases('consumer/src/shopping/basket/composables/use-basket.ts', [
       ['vue', 'ok'],
       ['../stores/basket', 'ok'],
@@ -367,9 +322,6 @@ describe('参照の判定', () => {
 })
 
 describe('eslint.config.ts', () => {
-  // 上のテストは参照方向のルールだけを読み込むため、 eslint.config.ts がルールを読み込んでいることは確かめられません。
-  // ここでは eslint.config.ts を読み込み、各層のファイルに同じルールが同じ設定で適用されることを確かめます。
-  // 後に並べた設定がルールを上書きした場合も検出します。
   const projectEslint = new ESLint({ cwd: import.meta.dirname })
   for (const workspace of ['consumer', 'admin']) {
     for (const filePath of [

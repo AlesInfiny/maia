@@ -8,17 +8,11 @@ import type {
   PutCatalogItemRequest,
 } from '@/system-common/generated/api-client'
 
-/**
- * カテゴリやブランドの選択肢です。
- */
 export interface CatalogOption {
   id: string
   name: string
 }
 
-/**
- * カテゴリとブランドの選択肢です。
- */
 export interface CatalogItemOptions {
   categories: CatalogOption[]
   brands: CatalogOption[]

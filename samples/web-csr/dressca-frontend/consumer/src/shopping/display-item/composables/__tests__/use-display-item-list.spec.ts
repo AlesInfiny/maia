@@ -63,7 +63,6 @@ let pinia: Pinia
 
 beforeEach(() => {
   vi.resetAllMocks()
-  // テストどうしがモックのデータを共有しないよう、呼び出しごとに複製を返します。
   getDisplayItemCategoriesMock.mockImplementation(() =>
     Promise.resolve({
       data: structuredClone(displayItemCategories),
@@ -84,7 +83,6 @@ beforeEach(() => {
 
 /**
  * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
- * コンポーネントのマウント後に読み込むため、テスト用のコンポーネントを使います。
  * @returns 陳列品の一覧のユースケース。
  */
 async function setupList(): Promise<DisplayItemList> {

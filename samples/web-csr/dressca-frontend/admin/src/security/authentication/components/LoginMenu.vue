@@ -11,20 +11,13 @@ import { ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
-  /**
-   * ログインのメニューの遷移先です。
-   */
   loginLocation: RouteLocationRaw
-  /**
-   * 現在の画面のパスです。画面遷移したときにメニューを閉じるために使用します。
-   */
+  /** 画面遷移したときにメニューを閉じるために使用します。 */
   currentPath: string
 }>()
 
 const emit = defineEmits<{
-  /**
-   * ログアウトしたときに発行します。ログアウト後の画面遷移は利用する側が行います。
-   */
+  /** ログアウト後の画面遷移は利用する側が行います。 */
   loggedOut: []
 }>()
 

@@ -1,7 +1,6 @@
 import { useCustomErrorHandler } from './custom-error-handler'
 
 /**
- * ユースケースが個別の結果に分類しないエラーを、共通のエラー処理に通した操作の結果です。
  * 業務例外（ HTTP ステータスコード 400 番台）とシステム例外（ 500 番台）のどちらも `failed` になります。
  * `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
  */

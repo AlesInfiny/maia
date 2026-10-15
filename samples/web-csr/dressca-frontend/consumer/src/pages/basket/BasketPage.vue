@@ -16,13 +16,7 @@ const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 
-/**
- * 陳列品の画面が履歴エントリーの state で渡した、直前に買い物かごに入れた陳列品の ID を取得します。
- * state は履歴エントリーに残るため、再読み込みやブラウザーの戻る・進むでも同じ陳列品を表示します。
- * @returns 陳列品の ID 。渡されていない場合は undefined 。
- */
 function getAddedItemId(): string | undefined {
-  // state は履歴エントリーに保存された値で、型が保証されないため、値は unknown として検査します。
   const state: Partial<Record<keyof BasketRouteState, unknown>> | null = window.history.state
   const addedItemId = state?.addedItemId
   return typeof addedItemId === 'string' ? addedItemId : undefined
@@ -40,10 +34,6 @@ const {
   proceedToCheckout,
 } = useBasket({ addedItemId: getAddedItemId() })
 
-/**
- * 買い物かごを読み込んだとき、購入できない陳列品が入っていれば利用者に通知します。
- * 読み込みに失敗したときも、利用者に通知します。
- */
 watch(status, (newStatus) => {
   if (newStatus.kind === 'failed') {
     showFailureToast(newStatus.problem, t('failedToGetCarts'))
@@ -56,12 +46,6 @@ const goDisplayItem = () => {
   router.push({ name: routeNames.displayItem })
 }
 
-/**
- * 陳列品の数量を変更します。
- * 失敗した場合は、利用者に通知します。
- * @param displayItemId 陳列品の ID 。
- * @param newQuantity 変更後の数量。
- */
 const update = async (displayItemId: string, newQuantity: number) => {
   const outcome = await changeQuantity(displayItemId, newQuantity)
   if (outcome.kind === 'failed') {
@@ -69,11 +53,6 @@ const update = async (displayItemId: string, newQuantity: number) => {
   }
 }
 
-/**
- * 陳列品を買い物かごから削除します。
- * 失敗した場合は、利用者に通知します。
- * @param displayItemId 陳列品の ID 。
- */
 const removeItem = async (displayItemId: string) => {
   const outcome = await remove(displayItemId)
   if (outcome.kind === 'failed') {
@@ -81,10 +60,6 @@ const removeItem = async (displayItemId: string) => {
   }
 }
 
-/**
- * 注文に進めることを確認し、注文確認画面へ遷移します。
- * 購入できない陳列品が入っている場合や、確認に失敗した場合は、利用者に通知します。
- */
 const order = async () => {
   const outcome = await proceedToCheckout()
   switch (outcome.kind) {

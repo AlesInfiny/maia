@@ -30,13 +30,8 @@ function logout() {
   notificationStore.$reset()
 }
 
-/**
- * 認証の操作です。
- */
 export interface Authentication {
-  /** アプリケーションにログインします。 */
   loginAsync: () => Promise<void>
-  /** アプリケーションからログアウトします。 */
   logout: () => void
 }
 

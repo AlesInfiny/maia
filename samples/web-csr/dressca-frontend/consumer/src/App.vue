@@ -7,9 +7,6 @@ import NotificationToast from '@/business-common/components/NotificationToast.vu
 import { unauthorizedErrorEventKey } from '@/system-common/events'
 import { AuthenticationMenu } from '@/security/public-api'
 
-/**
- * ログアウトしたとき、ログイン画面へ遷移します。
- */
 const onLoggedOut = () => {
   router.push({ name: routeNames.login })
 }

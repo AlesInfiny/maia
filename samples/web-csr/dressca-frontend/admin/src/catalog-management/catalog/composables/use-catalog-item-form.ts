@@ -2,10 +2,7 @@ import { computed, reactive, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { catalogItemTypedSchema, type CatalogItemFormValues } from '../validation/validation-items'
 
-/**
- * カタログアイテムの入力フォームです。
- * 入力項目は双方向にバインドできます。
- */
+/** 入力項目は双方向にバインドできます。 */
 export interface CatalogItemForm {
   itemName: string
   itemDescription: string
@@ -13,15 +10,10 @@ export interface CatalogItemForm {
   productCode: string
   categoryId: string
   brandId: string
-  /** 入力項目ごとの検証エラーのメッセージです。 */
   readonly errors: Partial<Record<keyof CatalogItemFormValues, string | undefined>>
-  /** すべての入力項目が検証に合格しているかどうかです。 */
   readonly isValid: boolean
 }
 
-/**
- * 入力フォームに設定する値です。
- */
 export type CatalogItemFormInput = Pick<
   CatalogItemForm,
   'itemName' | 'itemDescription' | 'price' | 'productCode' | 'categoryId' | 'brandId'

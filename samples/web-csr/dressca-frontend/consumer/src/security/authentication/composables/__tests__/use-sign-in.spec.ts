@@ -37,7 +37,6 @@ function setupSignIn(): SignIn {
   return signIn
 }
 
-// 検証エラーのメッセージは入力欄の操作で表示されるため、画面のテストで検証します。
 describe('入力フォーム', () => {
   it('メールアドレスとパスワードを入力する_検証に合格する', async () => {
     // Arrange

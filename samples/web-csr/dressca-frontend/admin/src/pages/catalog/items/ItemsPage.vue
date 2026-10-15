@@ -16,9 +16,6 @@ const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { status, items } = useCatalogItemList()
 
-/**
- * 一覧の読み込みに失敗したとき、利用者に通知します。
- */
 watch(status, (newStatus) => {
   if (newStatus === 'failed') {
     showToast('カタログアイテムの取得に失敗しました。')

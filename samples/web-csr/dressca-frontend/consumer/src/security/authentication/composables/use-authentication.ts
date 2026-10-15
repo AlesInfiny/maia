@@ -2,15 +2,9 @@ import { useAuthenticationStore } from '../stores/authentication'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 
-/**
- * 認証の操作です。
- */
 export interface Authentication {
-  /** サインインした状態にします。 */
   signIn: () => void
-  /** 現在の利用者が認証済みかどうかを判定します。 */
   isAuthenticated: () => boolean
-  /** サインアウトします。 */
   signOut: () => void
 }
 

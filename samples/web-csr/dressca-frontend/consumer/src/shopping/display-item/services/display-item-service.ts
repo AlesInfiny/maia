@@ -26,7 +26,6 @@ export async function fetchCategoriesAndBrands(): Promise<{
 
 /**
  * 指定したカテゴリとブランドに基づいて陳列品の一覧を取得します。
- * 空文字のカテゴリやブランドは、絞り込まないことを表します。
  * @param categoryId 絞り込むカテゴリの ID 。
  * @param brandId 絞り込むブランドの ID 。
  * @returns 陳列品の一覧。

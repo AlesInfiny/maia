@@ -1,7 +1,3 @@
-/**
- * shopping コンテキストの公開APIです。
- * pages や他コンテキストは、このモジュール経由でのみ shopping を参照します。
- */
 export {
   useDisplayItemList,
   type AddToBasketOutcome,

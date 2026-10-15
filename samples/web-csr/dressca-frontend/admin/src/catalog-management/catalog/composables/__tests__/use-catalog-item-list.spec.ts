@@ -11,7 +11,6 @@ import { useCatalogItemList, type CatalogItemList } from '../use-catalog-item-li
 
 /**
  * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
- * コンポーネントのマウント後に読み込むため、テスト用のコンポーネントを使います。
  * @returns カタログアイテムの一覧のユースケース。
  */
 async function setupList(): Promise<CatalogItemList> {

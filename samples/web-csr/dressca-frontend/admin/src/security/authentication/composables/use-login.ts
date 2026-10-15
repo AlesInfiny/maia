@@ -9,31 +9,18 @@ import {
 import { useAuthentication } from './use-authentication'
 import { validationItems } from '../validation/validation-items'
 
-/**
- * ログインの入力フォームです。
- * 入力項目は双方向にバインドできます。
- */
+/** 入力項目は双方向にバインドできます。 */
 export interface LoginForm {
   userName: string
   password: string
-  /** 入力項目ごとの検証エラーのメッセージです。 */
   readonly errors: { userName: string | undefined; password: string | undefined }
-  /** すべての入力項目が検証に合格しているかどうかです。 */
   readonly isValid: boolean
 }
 
-/**
- * ログインした結果です。
- */
 export type LoginOutcome = { kind: 'loggedIn' } | CommonErrorOutcome
 
-/**
- * ログインのユースケースです。
- */
 export interface Login {
-  /** ログインの入力フォームです。 */
   form: LoginForm
-  /** 入力フォームの内容でログインします。 */
   login: () => Promise<LoginOutcome>
 }
 

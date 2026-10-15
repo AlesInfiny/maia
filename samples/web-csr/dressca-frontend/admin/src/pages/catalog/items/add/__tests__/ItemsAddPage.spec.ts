@@ -8,9 +8,6 @@ import ItemsAddPage from '@/pages/catalog/items/add/ItemsAddPage.vue'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { server } from '@/../mock/node'
 
-/**
- * 管理者ロールです。認証済みのユーザーについてバックエンドが返すロールを模します。
- */
 const adminRole = 'ROLE_ADMIN'
 
 /**

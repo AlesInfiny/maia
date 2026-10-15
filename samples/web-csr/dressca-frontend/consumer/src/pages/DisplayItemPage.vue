@@ -19,25 +19,16 @@ const { status, specialContents, categories, brands, filter, items, addToBasket 
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl, getAssetUrl } = assetHelper()
 
-/**
- * 陳列品の読み込みに失敗したとき、利用者に通知します。
- */
 watch(status, (newStatus) => {
   if (newStatus.kind === 'failed') {
     showFailureToast(newStatus.problem, t('failedToGetItems'))
   }
 })
 
-/**
- * 陳列品を買い物かごに入れ、買い物かご画面へ遷移します。
- * 失敗した場合は、利用者に通知します。
- * @param displayItemId 陳列品の ID 。
- */
 const addBasket = async (displayItemId: string) => {
   const outcome = await addToBasket(displayItemId)
   switch (outcome.kind) {
     case 'added': {
-      // 買い物かごの画面に、直前に入れた陳列品を履歴エントリーの state で渡します。
       const state: BasketRouteState = { addedItemId: displayItemId }
       router.push({ name: routeNames.basket, state })
       break

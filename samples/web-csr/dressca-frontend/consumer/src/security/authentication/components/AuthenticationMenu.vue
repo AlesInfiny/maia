@@ -1,32 +1,21 @@
 <script setup lang="ts">
-/**
- * ログイン状態に応じて、ログインのリンクかログアウトのボタンを表示するメニューです。
- */
 import type { RouteLocationRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '../stores/authentication'
 import { useAuthentication } from '../composables/use-authentication'
 
 defineProps<{
-  /**
-   * ログインのリンクの遷移先です。
-   */
   loginLocation: RouteLocationRaw
 }>()
 
 const emit = defineEmits<{
-  /**
-   * ログアウトしたときに発行します。ログアウト後の画面遷移は利用する側が行います。
-   */
+  /** ログアウト後の画面遷移は利用する側が行います。 */
   loggedOut: []
 }>()
 
 const { isAuthenticated } = storeToRefs(useAuthenticationStore())
 const { signOut } = useAuthentication()
 
-/**
- * アプリケーションからログアウトします。
- */
 const logout = () => {
   signOut()
   emit('loggedOut')

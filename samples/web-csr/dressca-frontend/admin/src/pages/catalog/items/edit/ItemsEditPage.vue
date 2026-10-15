@@ -42,10 +42,6 @@ const showUpdateConfirm = ref(false)
  */
 const showUpdateNotice = ref(false)
 
-/**
- * アイテムの読み込みに失敗したとき、利用者に通知します。
- * アイテムが見つからない場合は、アイテム一覧画面へ遷移します。
- */
 watch(status, (newStatus) => {
   if (newStatus === 'notFound') {
     showToast('対象のアイテムが見つかりませんでした。')
@@ -72,9 +68,6 @@ const closeUpdateNotice = () => {
   showUpdateNotice.value = false
 }
 
-/**
- * カタログからアイテムを削除し、結果を利用者に通知します。
- */
 const removeItemAsync = async () => {
   try {
     const outcome = await remove()
@@ -100,9 +93,6 @@ const removeItemAsync = async () => {
   }
 }
 
-/**
- * カタログ上のアイテムを更新し、結果を利用者に通知します。
- */
 const updateItemAsync = async () => {
   try {
     const outcome = await update()

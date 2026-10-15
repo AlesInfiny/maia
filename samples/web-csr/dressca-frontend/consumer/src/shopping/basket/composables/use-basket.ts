@@ -9,70 +9,40 @@ import { removeItemFromBasket, updateItemInBasket } from '../services/basket-ser
 import type { BasketAccount, BasketLine } from '../models/basket-line'
 import { useBasketContents } from './use-basket-contents'
 
-/**
- * 買い物かごの読み込みの状態です。
- * `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。
- */
+/** `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。 */
 export type BasketStatus =
   | { kind: 'loading' }
   | { kind: 'ready' }
   | { kind: 'failed'; problem?: ApiProblem }
 
-/**
- * 直前に買い物かごに入れた陳列品です。
- */
 export interface AddedBasketItem {
   name: string
   assetCodes: string[] | undefined
   unitPrice: number
 }
 
-/**
- * 買い物かごのユースケースの引数です。
- */
 export interface BasketOptions {
-  /** 直前に買い物かごに入れた陳列品の ID です。 */
   addedItemId?: string
 }
 
-/**
- * 数量を変更した結果です。
- */
 export type ChangeQuantityOutcome = { kind: 'changed' } | CommonErrorOutcome
 
-/**
- * 買い物かごから削除した結果です。
- */
 export type RemoveFromBasketOutcome = { kind: 'removed' } | CommonErrorOutcome
 
-/**
- * 注文に進めるかどうかを確認した結果です。
- * `containsUnavailableItems` は、購入できない陳列品が買い物かごに入っていることを表します。
- */
 export type ProceedToCheckoutOutcome =
   | { kind: 'ready' }
   | { kind: 'containsUnavailableItems' }
   | CommonErrorOutcome
 
-/**
- * 買い物かごのユースケースです。
- */
 export interface Basket {
-  /** 買い物かごの読み込みの状態です。 */
   status: ComputedRef<BasketStatus>
-  /** 買い物かごに入っている陳列品です。 */
   lines: ComputedRef<BasketLine[]>
-  /** 会計です。読み込みが完了するまでは undefined です。 */
+  /** 読み込みが完了するまでは undefined です。 */
   account: ComputedRef<BasketAccount | undefined>
-  /** 買い物かごが空かどうかです。 */
   isEmpty: ComputedRef<boolean>
-  /** 購入できない陳列品が入っているかどうかです。 */
   hasUnavailableItems: ComputedRef<boolean>
-  /** 直前に買い物かごに入れた陳列品です。ない場合は undefined です。 */
   addedItem: ComputedRef<AddedBasketItem | undefined>
-  /** 陳列品の数量を変更します。 */
   changeQuantity: (displayItemId: string, quantity: number) => Promise<ChangeQuantityOutcome>
-  /** 陳列品を買い物かごから削除します。 */
   remove: (displayItemId: string) => Promise<RemoveFromBasketOutcome>
   /** 最新の買い物かごを取得し、注文に進めるかどうかを確認します。 */
   proceedToCheckout: () => Promise<ProceedToCheckoutOutcome>
@@ -121,7 +91,6 @@ export function useBasket(options: BasketOptions = {}): Basket {
 
   /**
    * 陳列品の数量を変更します。
-   * 失敗した場合も、最新の買い物かごを読み込み直します。
    * @param displayItemId 陳列品の ID 。
    * @param quantity 変更後の数量。
    * @returns 数量を変更した結果。
@@ -141,7 +110,6 @@ export function useBasket(options: BasketOptions = {}): Basket {
 
   /**
    * 陳列品を買い物かごから削除します。
-   * 失敗した場合も、最新の買い物かごを読み込み直します。
    * @param displayItemId 陳列品の ID 。
    * @returns 削除した結果。
    */

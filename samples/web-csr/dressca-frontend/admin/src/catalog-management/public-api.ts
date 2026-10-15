@@ -1,7 +1,3 @@
-/**
- * catalog-management コンテキストの公開APIです。
- * pages や他コンテキストは、このモジュール経由でのみ catalog-management を参照します。
- */
 export {
   useCatalogItemEditor,
   type CatalogItemEditor,

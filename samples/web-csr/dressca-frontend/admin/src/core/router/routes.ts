@@ -1,11 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { routeNames } from './route-names'
 
-/**
- * アプリケーションのルート表です。
- * 画面（ src/pages ）の配置と URL の対応、認証の要否などのルートの属性をここで一覧できます。
- * `meta.requiresAuth` を指定しないルートは、認証が必要な画面として扱います。
- */
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',

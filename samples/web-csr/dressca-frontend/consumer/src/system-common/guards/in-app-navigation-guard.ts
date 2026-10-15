@@ -1,12 +1,6 @@
 import type { NavigationGuardWithThis, RouteLocationRaw } from 'vue-router'
 
-/**
- * 画面内の操作からだけ到達させる画面のナビゲーションガードを生成するための設定です。
- */
 export interface InAppNavigationGuardOptions {
-  /**
-   * URL を直接指定してアクセスされたときの遷移先です。
-   */
   fallback: RouteLocationRaw
 }
 

@@ -16,10 +16,6 @@ const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 const { status, lines, account, hasUnavailableItems, address, placeOrder } = useCheckout()
 
-/**
- * 買い物かごが空の場合は、陳列品画面へ遷移します。
- * 読み込みに失敗した場合は、利用者に通知してエラー画面へ遷移します。
- */
 watch(status, (newStatus) => {
   if (newStatus.kind === 'empty') {
     router.push({ name: routeNames.displayItem })
@@ -33,10 +29,6 @@ const goBasket = () => {
   router.push({ name: routeNames.basket })
 }
 
-/**
- * 注文を確定し、注文完了画面へ遷移します。
- * 失敗した場合は、利用者に通知してエラー画面へ遷移します。
- */
 const placeOrderAsync = async () => {
   const outcome = await placeOrder()
   switch (outcome.kind) {

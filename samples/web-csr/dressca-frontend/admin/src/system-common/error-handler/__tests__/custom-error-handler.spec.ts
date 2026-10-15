@@ -13,7 +13,6 @@ vi.mock('@vueuse/core', () => ({
   useEventBus: () => ({ emit: emitMock }),
 }))
 
-// getLogger のモック
 vi.mock('@/system-common/logger', () => ({
   getLogger: () => ({
     info: vi.fn(),

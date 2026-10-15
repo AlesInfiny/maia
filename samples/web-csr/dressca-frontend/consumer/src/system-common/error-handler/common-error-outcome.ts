@@ -1,12 +1,8 @@
 import { useCustomErrorHandler } from './custom-error-handler'
 
-/**
- * API が返した問題の詳細のうち、利用者への通知に使う項目です。
- */
 export interface ApiProblem {
-  /** 例外を識別する ID です。メッセージのキーとして使用します。 */
+  /** メッセージのキーとして使用します。 */
   exceptionId: string
-  /** メッセージに埋め込む値です。 */
   exceptionValues: string[]
   title: string
   detail: string
@@ -14,7 +10,6 @@ export interface ApiProblem {
 }
 
 /**
- * ユースケースが個別の結果に分類しないエラーを、共通のエラー処理に通した操作の結果です。
  * 業務例外（ HTTP ステータスコード 400 番台）とシステム例外（ 500 番台）のどちらも `failed` になります。
  * `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。
  * `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。

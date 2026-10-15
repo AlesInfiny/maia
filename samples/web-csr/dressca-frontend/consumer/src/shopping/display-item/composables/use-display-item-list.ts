@@ -14,37 +14,22 @@ import { addItemToBasket } from '../../basket/services/basket-service'
 import { fetchCategoriesAndBrands, fetchItems } from '../services/display-item-service'
 import { specialContents, type SpecialContent } from '../models/special-content'
 
-/**
- * 陳列品の一覧の読み込みの状態です。
- * `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。
- */
+/** `failed` の `problem` は、 API が問題の詳細を返した場合にだけ設定されます。 */
 export type DisplayItemListStatus =
   | { kind: 'loading' }
   | { kind: 'ready' }
   | { kind: 'failed'; problem?: ApiProblem }
 
-/**
- * カテゴリやブランドの絞り込みの選択肢です。
- * ID が空文字の選択肢は「すべて」を表します。
- */
 export interface DisplayItemFilterOption {
   id: string
   name: string
 }
 
-/**
- * 陳列品の絞り込みの条件です。
- * 空文字は絞り込まないことを表します。
- */
 export interface DisplayItemFilter {
   categoryId: string
   brandId: string
 }
 
-/**
- * 一覧に表示する陳列品の内容です。
- * ブランドは名前で表します。
- */
 export interface DisplayItemSummary {
   id: string
   name: string
@@ -53,9 +38,6 @@ export interface DisplayItemSummary {
   assetCodes: string[] | undefined
 }
 
-/**
- * 絞り込みの選択肢の先頭に置く「すべて」です。
- */
 const allOption: DisplayItemFilterOption = { id: '', name: 'すべて' }
 
 /**
@@ -69,28 +51,18 @@ function toFilterOptions(
   return [allOption, ...responses.map(({ id, name }) => ({ id, name }))]
 }
 
-/**
- * 陳列品を買い物かごに入れた結果です。
- */
 export type AddToBasketOutcome = { kind: 'added' } | CommonErrorOutcome
 
-/**
- * 陳列品の一覧のユースケースです。
- */
 export interface DisplayItemList {
-  /** 一覧の読み込みの状態です。 */
   status: ComputedRef<DisplayItemListStatus>
-  /** 特集コンテンツです。 */
   specialContents: ComputedRef<SpecialContent[]>
-  /** カテゴリの絞り込みの選択肢です。先頭は「すべて」です。 */
+  /** 先頭は「すべて」です。 */
   categories: ComputedRef<DisplayItemFilterOption[]>
-  /** ブランドの絞り込みの選択肢です。先頭は「すべて」です。 */
+  /** 先頭は「すべて」です。 */
   brands: ComputedRef<DisplayItemFilterOption[]>
-  /** 絞り込みの条件です。変更すると一覧を読み込み直します。 */
+  /** 変更すると一覧を読み込み直します。 */
   filter: DisplayItemFilter
-  /** 一覧に表示する陳列品です。 */
   items: ComputedRef<DisplayItemSummary[]>
-  /** 陳列品を買い物かごに入れます。 */
   addToBasket: (displayItemId: string) => Promise<AddToBasketOutcome>
 }
 
