@@ -114,8 +114,8 @@ describe('読み込み', () => {
     const list = await setupList()
     // Assert
     expect(list.status.value).toEqual({ kind: 'ready' })
-    expect(list.categories.value[0]).toEqual({ id: '', name: 'すべて' })
-    expect(list.brands.value[0]).toEqual({ id: '', name: 'すべて' })
+    expect(list.categories.value[0]).toEqual({ id: undefined, name: 'すべて' })
+    expect(list.brands.value[0]).toEqual({ id: undefined, name: 'すべて' })
     expect(list.items.value.length).toBe(pagedListDisplayItem.items?.length)
     expect(list.items.value[0]).toEqual({
       id: expected.id,

@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { createRouter, createWebHistory, type Router, type RouteRecordRaw } from 'vue-router'
+import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } from 'vue-router'
 import { router as appRouter } from '@/core/router'
 
 const StubPage = defineComponent({ name: 'StubPage', render: () => null })
@@ -23,7 +23,7 @@ function toStubRoute(route: RouteRecordRaw): RouteRecordRaw {
  */
 export function createStubRouter(): Router {
   return createRouter({
-    history: createWebHistory(),
+    history: createMemoryHistory(),
     routes: appRouter.options.routes.map(toStubRoute),
   })
 }

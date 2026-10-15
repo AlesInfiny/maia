@@ -19,7 +19,7 @@ describe('ルート表', () => {
       const route = router.resolve(url)
       // Assert
       expect(route.name).toBe(name)
-      expect(route.meta.requiresAuth !== false).toBe(requiresAuth)
+      expect(route.meta.allowAnonymous !== true).toBe(requiresAuth)
       expect(route.meta.requiresInAppNavigation === true).toBe(requiresInAppNavigation)
     },
   )

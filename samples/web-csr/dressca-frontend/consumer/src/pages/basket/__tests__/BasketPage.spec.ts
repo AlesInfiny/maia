@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeAll, afterEach, assert } from 'vitest'
+import { describe, it, expect, vi, beforeAll, assert } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import type { Router } from 'vue-router'
-import { routeNames } from '@/core/router/route-names'
+import { routeNames, type BasketRouteState } from '@/core/router/route-names'
 import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
@@ -98,10 +98,11 @@ let router: Router
 
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。
+ * @param stubRouter テストに使用するルーター。
  * @returns マウント済みの Vue Test Utils ラッパー
  */
-function getWrapper() {
-  router = createStubRouter()
+function getWrapper(stubRouter: Router = createStubRouter()) {
+  router = stubRouter
   const pinia = createTestingPinia({
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
@@ -242,22 +243,15 @@ describe('結果の通知と遷移', () => {
 })
 
 describe('直前に買い物かごに入れた陳列品', () => {
-  afterEach(() => {
-    const state = { ...window.history.state }
-    delete state.addedItemId
-    window.history.replaceState(state, '')
-  })
-
   it('履歴エントリーの state に陳列品の ID がある_その陳列品を表示する', async () => {
     // Arrange
     const response = createGetBasketItemsResponse()
     getBasketItemsMock.mockResolvedValue({ data: response })
-    window.history.replaceState(
-      { ...window.history.state, addedItemId: response.basketItems![0]!.displayItemId },
-      '',
-    )
+    const stubRouter = createStubRouter()
+    const state: BasketRouteState = { addedItemId: response.basketItems![0]!.displayItemId }
+    await stubRouter.push({ name: routeNames.basket, state })
     // Act
-    const wrapper = getWrapper()
+    const wrapper = getWrapper(stubRouter)
     await flushPromises()
     // Assert
     expect(wrapper.text()).toContain(i18n.global.t('addedItemsToBasket'))

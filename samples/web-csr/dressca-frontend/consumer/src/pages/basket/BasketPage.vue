@@ -17,7 +17,7 @@ const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
 
 function getAddedItemId(): string | undefined {
-  const state: Partial<Record<keyof BasketRouteState, unknown>> | null = window.history.state
+  const state: Partial<Record<keyof BasketRouteState, unknown>> = router.options.history.state
   const addedItemId = state?.addedItemId
   return typeof addedItemId === 'string' ? addedItemId : undefined
 }

@@ -99,7 +99,7 @@ describe('結果の通知と遷移', () => {
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.basket)
     const { displayItemId } = postBasketItemMock.mock.calls[0]![0] as { displayItemId: string }
-    expect(window.history.state.addedItemId).toBe(displayItemId)
+    expect(router.options.history.state.addedItemId).toBe(displayItemId)
   })
 
   it('買い物かごに入れられない_トーストを表示し陳列品画面にとどまる', async () => {
@@ -123,5 +123,28 @@ describe('結果の通知と遷移', () => {
     await getWrapper(pinia)
     // Assert
     expect(useNotificationStore(pinia).message).toBe(t('failedToGetItems'))
+  })
+})
+
+describe('絞り込み', () => {
+  it('カテゴリを選んだあと「すべて」に戻す_条件を指定せずに読み込み直す', async () => {
+    // Arrange
+    const wrapper = await getWrapper(createPinia())
+    const select = wrapper.get<HTMLSelectElement>('#category-select')
+    select.element.selectedIndex = 1
+    await select.trigger('change')
+    await flushPromises()
+    expect(getByQueryMock).toHaveBeenLastCalledWith(
+      undefined,
+      displayItemCategories[0]!.id,
+      undefined,
+      undefined,
+    )
+    // Act
+    select.element.selectedIndex = 0
+    await select.trigger('change')
+    await flushPromises()
+    // Assert
+    expect(getByQueryMock).toHaveBeenLastCalledWith(undefined, undefined, undefined, undefined)
   })
 })

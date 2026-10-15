@@ -36,11 +36,6 @@ export async function fetchItems(
   categoryId?: string,
   brandId?: string,
 ): Promise<PagedListOfGetDisplayItemResponse> {
-  const response = await displayItemsApi().getByQuery(
-    brandId || undefined,
-    categoryId || undefined,
-    undefined,
-    undefined,
-  )
+  const response = await displayItemsApi().getByQuery(brandId, categoryId, undefined, undefined)
   return response.data
 }

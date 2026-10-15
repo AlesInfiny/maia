@@ -16,7 +16,7 @@ export function createAuthenticationGuard(
   return (to) => {
     const authenticationStore = useAuthenticationStore()
 
-    if (to.meta.requiresAuth !== false && !authenticationStore.isAuthenticated) {
+    if (!to.meta.allowAnonymous && !authenticationStore.isAuthenticated) {
       return options.toLogin(to.fullPath)
     }
 

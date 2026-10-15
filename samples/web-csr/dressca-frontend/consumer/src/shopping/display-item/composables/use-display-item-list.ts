@@ -21,13 +21,15 @@ export type DisplayItemListStatus =
   | { kind: 'failed'; problem?: ApiProblem }
 
 export interface DisplayItemFilterOption {
-  id: string
+  /** 「すべて」の選択肢は undefined です。 */
+  id: string | undefined
   name: string
 }
 
+/** undefined は、その条件で絞り込まないことを表します。 */
 export interface DisplayItemFilter {
-  categoryId: string
-  brandId: string
+  categoryId: string | undefined
+  brandId: string | undefined
 }
 
 export interface DisplayItemSummary {
@@ -38,7 +40,7 @@ export interface DisplayItemSummary {
   assetCodes: string[] | undefined
 }
 
-const allOption: DisplayItemFilterOption = { id: '', name: 'すべて' }
+const allOption: DisplayItemFilterOption = { id: undefined, name: 'すべて' }
 
 /**
  * カテゴリやブランドのレスポンスを、絞り込みの選択肢に変換します。
@@ -78,7 +80,7 @@ export function useDisplayItemList(): DisplayItemList {
   const categories = shallowRef<GetDisplayItemCategoriesResponse[]>([])
   const brands = shallowRef<GetDisplayItemBrandsResponse[]>([])
   const items = shallowRef<GetDisplayItemResponse[]>([])
-  const filter: DisplayItemFilter = reactive({ categoryId: '', brandId: '' })
+  const filter: DisplayItemFilter = reactive({ categoryId: undefined, brandId: undefined })
 
   /**
    * 読み込みの処理を実行し、結果を読み込みの状態に反映します。

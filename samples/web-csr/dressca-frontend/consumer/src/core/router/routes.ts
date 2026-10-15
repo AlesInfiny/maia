@@ -6,19 +6,19 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     name: routeNames.displayItem,
     component: () => import('@/pages/DisplayItemPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
   {
     path: '/authentication/login',
     name: routeNames.login,
     component: () => import('@/pages/authentication/login/LoginPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
   {
     path: '/basket',
     name: routeNames.basket,
     component: () => import('@/pages/basket/BasketPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
   {
     path: '/ordering/checkout',
@@ -36,12 +36,12 @@ export const routes: RouteRecordRaw[] = [
     path: '/error',
     name: routeNames.error,
     component: () => import('@/pages/ErrorPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
   {
     path: '/:pathMatch(.*)*',
     name: routeNames.notFound,
     component: () => import('@/pages/NotFoundPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
 ]

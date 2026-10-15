@@ -11,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/authentication/login',
     name: routeNames.login,
     component: () => import('@/pages/authentication/login/LoginPage.vue'),
-    meta: { requiresAuth: false },
+    meta: { allowAnonymous: true },
   },
   {
     path: '/catalog/items',
