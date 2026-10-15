@@ -3,10 +3,12 @@ import { ref, watch } from 'vue'
 import { routeNames } from '@/core/router/route-names'
 import { useCatalogItemCreator } from '@/catalog-management/public-api'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
-import { showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { useRouter } from 'vue-router'
 import { useAuthorization, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+
+const { showToast } = useNotification()
 
 const router = useRouter()
 const { isInRole } = useAuthorization()

@@ -7,7 +7,7 @@ import {
 import type { GetOrderByIdResponse } from '@/system-common/generated/api-client'
 import type { BasketAccount } from '../../basket/models/basket-line'
 import { getOrder } from '../services/ordering-service'
-import type { Address } from '../stores/user.model'
+import type { Address } from '../models/address'
 
 /**
  * 注文結果の読み込みの状態です。

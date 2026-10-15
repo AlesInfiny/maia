@@ -25,7 +25,7 @@ import type { ApiProblem } from '@/system-common/error-handler/common-error-outc
  *   8000
  * )
  */
-export function showToast(
+function showToast(
   message: string,
   id: string = '',
   title: string = '',
@@ -49,7 +49,7 @@ export function showToast(
  *   showFailureToast(outcome.problem, t('failedToAddItemToCarts'))
  * }
  */
-export function showFailureToast(problem: ApiProblem | undefined, fallbackMessage: string) {
+function showFailureToast(problem: ApiProblem | undefined, fallbackMessage: string) {
   if (!problem) {
     showToast(fallbackMessage)
     return
@@ -63,4 +63,20 @@ export function showFailureToast(problem: ApiProblem | undefined, fallbackMessag
     problem.status,
     100000,
   )
+}
+
+/**
+ * トースト通知の操作です。
+ */
+export interface ToastNotification {
+  showToast: typeof showToast
+  showFailureToast: typeof showFailureToast
+}
+
+/**
+ * 通知ストアを通じてトースト通知を表示する操作を提供します。
+ * @returns トースト通知の操作。
+ */
+export function useNotification(): ToastNotification {
+  return { showToast, showFailureToast }
 }

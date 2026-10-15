@@ -3,7 +3,7 @@ import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { ValidationItems } from '@/system-common/validation/validation-items'
-import { authenticationService } from '../services/authentication-service'
+import { useAuthentication } from './use-authentication'
 
 /**
  * ログインの入力フォームです。
@@ -65,7 +65,7 @@ export function useSignIn(): SignIn {
    * @returns ログインした結果。
    */
   function signIn(): Promise<SignInOutcome> {
-    authenticationService().signIn()
+    useAuthentication().signIn()
     return Promise.resolve({ kind: 'signedIn' })
   }
 

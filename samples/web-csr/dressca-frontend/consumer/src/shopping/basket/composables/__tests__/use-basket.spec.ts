@@ -5,8 +5,7 @@ import { createPinia, setActivePinia, type Pinia } from 'pinia'
 import { HttpStatusCode } from 'axios'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
-import { useBasketStore } from '@/business-common/stores/basket'
-import { useBasket, type Basket } from '../use-basket'
+import { useBasket, type Basket, type BasketOptions } from '../use-basket'
 
 const { getBasketItemsMock, putBasketItemsMock, deleteBasketItemMock } = vi.hoisted(() => ({
   getBasketItemsMock: vi.fn(),
@@ -96,14 +95,17 @@ beforeEach(() => {
 /**
  * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
  * コンポーネントのマウント後に読み込むため、テスト用のコンポーネントを使います。
+ * @param options 買い物かごのユースケースの引数。
  * @returns 買い物かごのユースケースと、マウントしたコンポーネントのラッパー。
  */
-async function setupBasket(): Promise<{ basket: Basket; wrapper: VueWrapper }> {
+async function setupBasket(
+  options?: BasketOptions,
+): Promise<{ basket: Basket; wrapper: VueWrapper }> {
   let basket: Basket | undefined
   const wrapper = mount(
     defineComponent({
       setup() {
-        basket = useBasket()
+        basket = useBasket(options)
         return () => null
       },
     }),
@@ -170,20 +172,48 @@ describe('読み込み', () => {
 })
 
 describe('直前に買い物かごに入れた陳列品', () => {
-  it('直前に入れた陳列品がある_表示し画面を離れると消す', async () => {
+  it('直前に入れた陳列品の ID を渡す_その陳列品を表示する', async () => {
     // Arrange
     useBasketResponse()
-    useBasketStore(pinia).addedItemId = availableItemId
     // Act
-    const { basket, wrapper } = await setupBasket()
+    const { basket } = await setupBasket({ addedItemId: availableItemId })
     // Assert
     expect(basket.addedItem.value).toEqual({
       name: '購入できる陳列品',
       assetCodes: ['asset'],
       unitPrice: 1980,
     })
-    wrapper.unmount()
-    expect(useBasketStore(pinia).addedItemId).toBeUndefined()
+  })
+
+  it('直前に入れた陳列品の ID を渡さない_表示しない', async () => {
+    // Arrange
+    useBasketResponse()
+    // Act
+    const { basket } = await setupBasket()
+    // Assert
+    expect(basket.addedItem.value).toBeUndefined()
+  })
+
+  it('数量を変更する_表示を消す', async () => {
+    // Arrange
+    useBasketResponse()
+    const { basket } = await setupBasket({ addedItemId: availableItemId })
+    putBasketItemsMock.mockResolvedValue({})
+    // Act
+    await basket.changeQuantity(availableItemId, 3)
+    // Assert
+    expect(basket.addedItem.value).toBeUndefined()
+  })
+
+  it('削除する_表示を消す', async () => {
+    // Arrange
+    useBasketResponse()
+    const { basket } = await setupBasket({ addedItemId: availableItemId })
+    deleteBasketItemMock.mockResolvedValue({})
+    // Act
+    await basket.remove(deletedItemId)
+    // Assert
+    expect(basket.addedItem.value).toBeUndefined()
   })
 })
 

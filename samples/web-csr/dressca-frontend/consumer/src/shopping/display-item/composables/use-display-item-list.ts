@@ -1,6 +1,10 @@
 import { computed, onMounted, reactive, shallowRef, watch } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useDisplayItemStore } from '@/business-common/stores/display-item'
+import type {
+  GetDisplayItemBrandsResponse,
+  GetDisplayItemCategoriesResponse,
+  GetDisplayItemResponse,
+} from '@/system-common/generated/api-client'
 import {
   useCommonErrorOutcome,
   type ApiProblem,
@@ -8,8 +12,7 @@ import {
 } from '@/system-common/error-handler/common-error-outcome'
 import { addItemToBasket } from '../../basket/services/basket-service'
 import { fetchCategoriesAndBrands, fetchItems } from '../services/display-item-service'
-import { useSpecialContentStore } from '../stores/special-content'
-import type { SpecialContent } from '../stores/special-content.model'
+import { specialContents, type SpecialContent } from '../models/special-content'
 
 /**
  * 陳列品の一覧の読み込みの状態です。
@@ -51,6 +54,22 @@ export interface DisplayItemSummary {
 }
 
 /**
+ * 絞り込みの選択肢の先頭に置く「すべて」です。
+ */
+const allOption: DisplayItemFilterOption = { id: '', name: 'すべて' }
+
+/**
+ * カテゴリやブランドのレスポンスを、絞り込みの選択肢に変換します。
+ * @param responses カテゴリやブランドのレスポンス。
+ * @returns 先頭に「すべて」を置いた絞り込みの選択肢。
+ */
+function toFilterOptions(
+  responses: (GetDisplayItemCategoriesResponse | GetDisplayItemBrandsResponse)[],
+): DisplayItemFilterOption[] {
+  return [allOption, ...responses.map(({ id, name }) => ({ id, name }))]
+}
+
+/**
  * 陳列品を買い物かごに入れた結果です。
  */
 export type AddToBasketOutcome = { kind: 'added' } | CommonErrorOutcome
@@ -82,10 +101,11 @@ export interface DisplayItemList {
  */
 export function useDisplayItemList(): DisplayItemList {
   const handleCommonError = useCommonErrorOutcome()
-  const displayItemStore = useDisplayItemStore()
-  const specialContentStore = useSpecialContentStore()
 
   const status = shallowRef<DisplayItemListStatus>({ kind: 'loading' })
+  const categories = shallowRef<GetDisplayItemCategoriesResponse[]>([])
+  const brands = shallowRef<GetDisplayItemBrandsResponse[]>([])
+  const items = shallowRef<GetDisplayItemResponse[]>([])
   const filter: DisplayItemFilter = reactive({ categoryId: '', brandId: '' })
 
   /**
@@ -109,8 +129,10 @@ export function useDisplayItemList(): DisplayItemList {
    */
   async function load() {
     await runLoading(async () => {
-      await fetchCategoriesAndBrands()
-      await fetchItems(filter.categoryId, filter.brandId)
+      const options = await fetchCategoriesAndBrands()
+      categories.value = options.categories
+      brands.value = options.brands
+      items.value = (await fetchItems(filter.categoryId, filter.brandId)).items ?? []
     })
   }
 
@@ -118,7 +140,9 @@ export function useDisplayItemList(): DisplayItemList {
    * 絞り込みの条件に合う陳列品を読み込み直します。
    */
   async function reloadItems() {
-    await runLoading(() => fetchItems(filter.categoryId, filter.brandId))
+    await runLoading(async () => {
+      items.value = (await fetchItems(filter.categoryId, filter.brandId)).items ?? []
+    })
   }
 
   /**
@@ -141,18 +165,16 @@ export function useDisplayItemList(): DisplayItemList {
 
   return {
     status: computed(() => status.value),
-    specialContents: computed(() => specialContentStore.getSpecialContents),
-    categories: computed(() =>
-      displayItemStore.getCategories.map(({ id, name }) => ({ id, name })),
-    ),
-    brands: computed(() => displayItemStore.getBrands.map(({ id, name }) => ({ id, name }))),
+    specialContents: computed(() => specialContents),
+    categories: computed(() => toFilterOptions(categories.value)),
+    brands: computed(() => toFilterOptions(brands.value)),
     filter,
     items: computed(() =>
-      (displayItemStore.getItems ?? []).map((item) => ({
+      items.value.map((item) => ({
         id: item.id,
         name: item.name,
         price: item.price,
-        brandName: displayItemStore.getBrandName(item.displayItemBrandId) ?? '',
+        brandName: brands.value.find((brand) => brand.id === item.displayItemBrandId)?.name ?? '',
         assetCodes: item.assetCodes,
       })),
     ),

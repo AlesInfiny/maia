@@ -22,3 +22,22 @@ export interface SaleItem {
  * 特別コンテンツ（キャンペーン情報またはセール対象アイテム）を表します。
  */
 export type SpecialContent = Campaign | SaleItem
+
+/**
+ * 陳列品の一覧に表示する特集コンテンツ（キャンペーン・セール品など）です。
+ * 特集コンテンツを管理する API がないため、固定の値を使用します。
+ */
+export const specialContents = [
+  {
+    campaignCode: 'LTOX48Q',
+    assetCode: 'b52dc7f712d94ca5812dd995bf926c04',
+  },
+  {
+    campaignCode: 'EKHQGBB',
+    assetCode: '05d38fad5693422c8a27dd5b14070ec8',
+  },
+  {
+    productCode: 14,
+    assetCode: '80bc8e167ccb4543b2f9d51913073492',
+  },
+] as SpecialContent[]

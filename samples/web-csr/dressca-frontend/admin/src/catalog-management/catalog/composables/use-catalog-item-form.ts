@@ -1,23 +1,6 @@
 import { computed, reactive, ref } from 'vue'
 import { useForm } from 'vee-validate'
-import { fetchCategoriesAndBrands } from '../services/catalog-service'
 import { catalogItemTypedSchema, type CatalogItemFormValues } from '../validation/validation-items'
-
-/**
- * カテゴリやブランドの選択肢です。
- */
-export interface CatalogOption {
-  id: string
-  name: string
-}
-
-/**
- * カテゴリとブランドの選択肢です。
- */
-export interface CatalogItemOptions {
-  categories: CatalogOption[]
-  brands: CatalogOption[]
-}
 
 /**
  * カタログアイテムの入力フォームです。
@@ -43,18 +26,6 @@ export type CatalogItemFormInput = Pick<
   CatalogItemForm,
   'itemName' | 'itemDescription' | 'price' | 'productCode' | 'categoryId' | 'brandId'
 >
-
-/**
- * カテゴリとブランドの選択肢を取得します。
- * @returns カテゴリとブランドの選択肢。
- */
-export async function fetchCatalogItemOptions(): Promise<CatalogItemOptions> {
-  const [categories, brands] = await fetchCategoriesAndBrands()
-  return {
-    categories: categories.map(({ id, name }) => ({ id, name })),
-    brands: brands.map(({ id, name }) => ({ id, name })),
-  }
-}
 
 /**
  * カタログアイテムの入力フォームを生成します。

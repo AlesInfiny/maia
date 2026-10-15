@@ -2,11 +2,13 @@
 import { watch } from 'vue'
 import { routeNames } from '@/core/router/route-names'
 import { useCheckout } from '@/shopping/public-api'
-import { showFailureToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { i18n } from '@/system-common/locales/i18n'
+
+const { showFailureToast } = useNotification()
 
 const router = useRouter()
 const { toCurrencyJPY } = currencyHelper()

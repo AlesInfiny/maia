@@ -9,7 +9,7 @@ import {
   ServerError,
 } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '@/system-common/events'
-import { useLogger } from '@/system-common/composables/use-logger'
+import { getLogger } from '@/system-common/logger'
 import type {
   MaybeAsyncFunction,
   MaybePromise,
@@ -50,7 +50,7 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     handlingNetworkError: MaybeAsyncFunction<void> | null = null,
     handlingServerError: MaybeAsyncFunction<void> | null = null,
   ) => {
-    const logger = useLogger()
+    const logger = getLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 

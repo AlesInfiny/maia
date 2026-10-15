@@ -4,7 +4,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, type Pinia } from 'pinia'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import { ServerError } from '@/system-common/error-handler/custom-error'
-import { useUserStore } from '../../stores/user'
+import { deliveryAddress } from '../../models/address'
 import { useCheckout, type Checkout } from '../use-checkout'
 
 const { getBasketItemsMock, postOrderMock } = vi.hoisted(() => ({
@@ -98,7 +98,7 @@ describe('読み込み', () => {
     expect(checkout.status.value).toEqual({ kind: 'ready' })
     expect(checkout.lines.value.length).toBe(2)
     expect(checkout.account.value?.totalPrice).toBe(2728)
-    expect(checkout.address.value).toEqual(useUserStore(pinia).getAddress)
+    expect(checkout.address.value).toEqual(deliveryAddress)
   })
 
   it('買い物かごが空_emptyになる', async () => {
@@ -132,7 +132,7 @@ describe('注文の確定', () => {
     const outcome = await checkout.placeOrder()
     // Assert
     expect(outcome).toEqual({ kind: 'ordered', orderId: 'order-id' })
-    expect(postOrderMock).toHaveBeenCalledWith(useUserStore(pinia).getAddress)
+    expect(postOrderMock).toHaveBeenCalledWith(deliveryAddress)
   })
 
   it('サーバーエラー_failedを返す', async () => {

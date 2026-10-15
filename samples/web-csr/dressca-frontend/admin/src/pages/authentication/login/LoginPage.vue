@@ -3,8 +3,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { routeNames } from '@/core/router/route-names'
 import { useLogin } from '@/security/public-api'
 import { EnvelopeIcon, KeyIcon } from '@heroicons/vue/24/solid'
-import { showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { redirectHelper } from '@/system-common/helpers/redirect-helper'
+
+const { showToast } = useNotification()
 
 const router = useRouter()
 const route = useRoute(routeNames.login)

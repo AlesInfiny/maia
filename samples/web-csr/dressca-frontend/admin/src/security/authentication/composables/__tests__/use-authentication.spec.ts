@@ -1,10 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createTestingPinia } from '@pinia/testing'
 import { setActivePinia } from 'pinia'
-import { logout } from '../authentication-service'
+import { useAuthentication } from '../use-authentication'
 import { useAuthenticationStore } from '../../../authorization/stores/authentication'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import axios from 'axios'
+
+const { logout } = useAuthentication()
 
 /**
  * vi.mock はファイルの先頭に巻き上げられるので、

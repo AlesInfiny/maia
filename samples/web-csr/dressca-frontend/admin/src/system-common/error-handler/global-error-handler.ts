@@ -1,7 +1,7 @@
 import type { App, ComponentPublicInstance, Plugin } from 'vue'
-import { useLogger } from '@/system-common/composables/use-logger'
+import { getLogger } from '@/system-common/logger'
 
-const logger = useLogger()
+const logger = getLogger()
 
 /**
  * グローバルエラーハンドラーを生成するための設定です。

@@ -86,7 +86,7 @@ async function getWrapper(pinia: TestingPinia) {
 }
 
 describe('結果の通知と遷移', () => {
-  it('買い物かごに入れられる_買い物かご画面へ遷移する', async () => {
+  it('買い物かごに入れられる_入れた陳列品を履歴エントリーの state で渡して買い物かご画面へ遷移する', async () => {
     // Arrange
     const pinia = createPinia()
     const wrapper = await getWrapper(pinia)
@@ -95,6 +95,8 @@ describe('結果の通知と遷移', () => {
     await vi.waitUntil(() => router.currentRoute.value.name === routeNames.basket)
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.basket)
+    const { displayItemId } = postBasketItemMock.mock.calls[0]![0] as { displayItemId: string }
+    expect(window.history.state.addedItemId).toBe(displayItemId)
   })
 
   it('買い物かごに入れられない_トーストを表示し陳列品画面にとどまる', async () => {

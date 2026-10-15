@@ -5,7 +5,7 @@
 import type { RouteLocationRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '../stores/authentication'
-import { authenticationService } from '../services/authentication-service'
+import { useAuthentication } from '../composables/use-authentication'
 
 defineProps<{
   /**
@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>()
 
 const { isAuthenticated } = storeToRefs(useAuthenticationStore())
-const { signOut } = authenticationService()
+const { signOut } = useAuthentication()
 
 /**
  * アプリケーションからログアウトします。

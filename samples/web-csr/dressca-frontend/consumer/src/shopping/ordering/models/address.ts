@@ -11,3 +11,15 @@ export interface Address {
   shikuchoson: string
   azanaAndOthers: string
 }
+
+/**
+ * 注文のお届け先です。
+ * 利用者の住所を管理する API がないため、固定の値を使用します。
+ */
+export const deliveryAddress: Readonly<Address> = {
+  fullName: '国会　太郎',
+  postalCode: '100-8924',
+  todofuken: '東京都',
+  shikuchoson: '千代田区',
+  azanaAndOthers: '永田町1-10-1',
+}

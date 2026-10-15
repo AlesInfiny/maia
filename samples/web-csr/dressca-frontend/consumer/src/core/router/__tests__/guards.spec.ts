@@ -4,8 +4,8 @@ import { createMemoryHistory, createRouter, type Router } from 'vue-router'
 import { routes } from '@/core/router/routes'
 import { registerNavigationGuards } from '@/core/router/guards'
 import { routeNames } from '@/core/router/route-names'
-// 認証状態を準備するため、 security の内部のサービスを直接参照します。
-import { authenticationService } from '@/security/authentication/services/authentication-service'
+// 認証状態を準備するため、 security の内部のコンポーザブルを直接参照します。
+import { useAuthentication } from '@/security/authentication/composables/use-authentication'
 
 /**
  * ナビゲーションガードを登録した、テスト用のルーターを生成します。
@@ -26,7 +26,7 @@ describe('アプリケーションのナビゲーションガード', () => {
   it('注文確認画面に URL を直接指定してアクセスすると_トップページに遷移する', async () => {
     // Arrange
     const router = createGuardedRouter()
-    authenticationService().signIn()
+    useAuthentication().signIn()
     // Act
     await router.push('/ordering/checkout')
     // Assert
@@ -47,7 +47,7 @@ describe('アプリケーションのナビゲーションガード', () => {
   it('認証済みで画面内から注文確認画面に遷移すると_注文確認画面に遷移する', async () => {
     // Arrange
     const router = createGuardedRouter()
-    authenticationService().signIn()
+    useAuthentication().signIn()
     await router.push('/basket')
     // Act
     await router.push({ name: routeNames.checkout })

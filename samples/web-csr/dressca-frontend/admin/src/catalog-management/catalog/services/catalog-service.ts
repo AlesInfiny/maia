@@ -9,6 +9,22 @@ import type {
 } from '@/system-common/generated/api-client'
 
 /**
+ * カテゴリやブランドの選択肢です。
+ */
+export interface CatalogOption {
+  id: string
+  name: string
+}
+
+/**
+ * カテゴリとブランドの選択肢です。
+ */
+export interface CatalogItemOptions {
+  categories: CatalogOption[]
+  brands: CatalogOption[]
+}
+
+/**
  * カテゴリの情報を取得します。
  * @returns カタログカテゴリの配列。
  */
@@ -135,4 +151,16 @@ export async function updateCatalogItem(
  */
 export async function deleteCatalogItem(id: string, rowVersion: string) {
   await catalogItemsApi().deleteCatalogItem(id, rowVersion)
+}
+
+/**
+ * カテゴリとブランドの選択肢を取得します。
+ * @returns カテゴリとブランドの選択肢。
+ */
+export async function fetchCatalogItemOptions(): Promise<CatalogItemOptions> {
+  const [categories, brands] = await fetchCategoriesAndBrands()
+  return {
+    categories: categories.map(({ id, name }) => ({ id, name })),
+    brands: brands.map(({ id, name }) => ({ id, name })),
+  }
 }

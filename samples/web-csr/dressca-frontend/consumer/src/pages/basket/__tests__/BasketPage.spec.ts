@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeAll, assert } from 'vitest'
+import { describe, it, expect, vi, beforeAll, afterEach, assert } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
@@ -236,5 +236,38 @@ describe('結果の通知と遷移', () => {
     await vi.waitUntil(() => router.currentRoute.value.name === routeNames.checkout)
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.checkout)
+  })
+})
+
+describe('直前に買い物かごに入れた陳列品', () => {
+  afterEach(() => {
+    const state = { ...window.history.state }
+    delete state.addedItemId
+    window.history.replaceState(state, '')
+  })
+
+  it('履歴エントリーの state に陳列品の ID がある_その陳列品を表示する', async () => {
+    // Arrange
+    const response = createGetBasketItemsResponse()
+    getBasketItemsMock.mockResolvedValue({ data: response })
+    window.history.replaceState(
+      { ...window.history.state, addedItemId: response.basketItems![0]!.displayItemId },
+      '',
+    )
+    // Act
+    const wrapper = getWrapper()
+    await flushPromises()
+    // Assert
+    expect(wrapper.text()).toContain(i18n.global.t('addedItemsToBasket'))
+  })
+
+  it('履歴エントリーの state に陳列品の ID がない_表示しない', async () => {
+    // Arrange
+    getBasketItemsMock.mockResolvedValue({ data: createGetBasketItemsResponse() })
+    // Act
+    const wrapper = getWrapper()
+    await flushPromises()
+    // Assert
+    expect(wrapper.text()).not.toContain(i18n.global.t('addedItemsToBasket'))
   })
 })

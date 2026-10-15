@@ -1,6 +1,6 @@
 import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useBasketStore } from '@/business-common/stores/basket'
+import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import {
   useCommonErrorOutcome,
   type ApiProblem,
@@ -8,14 +8,14 @@ import {
 } from '@/system-common/error-handler/common-error-outcome'
 import { fetchBasket } from '../../basket/services/basket-service'
 import {
+  containsUnavailableItems,
   toBasketAccount,
   toBasketLines,
   type BasketAccount,
   type BasketLine,
 } from '../../basket/models/basket-line'
 import { postOrder } from '../services/ordering-service'
-import { useUserStore } from '../stores/user'
-import type { Address } from '../stores/user.model'
+import { deliveryAddress, type Address } from '../models/address'
 
 /**
  * 注文内容の読み込みの状態です。
@@ -58,19 +58,18 @@ export interface Checkout {
  */
 export function useCheckout(): Checkout {
   const handleCommonError = useCommonErrorOutcome()
-  const basketStore = useBasketStore()
-  const userStore = useUserStore()
 
   const status = shallowRef<CheckoutStatus>({ kind: 'loading' })
-  const lines = computed(() => toBasketLines(basketStore.getBasket, basketStore.getDeletedItemIds))
-  const address = computed(() => userStore.getAddress)
+  const basket = shallowRef<GetBasketItemsResponse>()
+  const lines = computed(() => toBasketLines(basket.value))
+  const address = computed(() => deliveryAddress)
 
   /**
    * 注文する買い物かごを読み込みます。
    */
   async function load() {
     try {
-      await fetchBasket()
+      basket.value = await fetchBasket()
       status.value = lines.value.length === 0 ? { kind: 'empty' } : { kind: 'ready' }
     } catch (error) {
       const outcome = await handleCommonError(error)
@@ -100,8 +99,8 @@ export function useCheckout(): Checkout {
   return {
     status: computed(() => status.value),
     lines,
-    account: computed(() => toBasketAccount(basketStore.getBasket)),
-    hasUnavailableItems: computed(() => basketStore.getDeletedItemIds.length > 0),
+    account: computed(() => toBasketAccount(basket.value)),
+    hasUnavailableItems: computed(() => containsUnavailableItems(basket.value)),
     address,
     placeOrder,
   }

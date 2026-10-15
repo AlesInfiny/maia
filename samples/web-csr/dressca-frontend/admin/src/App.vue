@@ -8,8 +8,10 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { useEventBus } from '@vueuse/core'
-import { showToast as showToastByService } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { unauthorizedErrorEventKey } from '@/system-common/events'
+
+const { showToast: showToastByService } = useNotification()
 
 const route = useRoute()
 const notificationStore = useNotificationStore()

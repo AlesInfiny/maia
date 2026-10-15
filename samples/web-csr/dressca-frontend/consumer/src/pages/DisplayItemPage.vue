@@ -2,12 +2,14 @@
 import { watch } from 'vue'
 import { routeNames } from '@/core/router/route-names'
 import { useDisplayItemList, CarouselSlider } from '@/shopping/public-api'
-import { showFailureToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { useRouter } from 'vue-router'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { i18n } from '@/system-common/locales/i18n'
+
+const { showFailureToast } = useNotification()
 
 const router = useRouter()
 const { t } = i18n.global
@@ -35,7 +37,8 @@ const addBasket = async (displayItemId: string) => {
   const outcome = await addToBasket(displayItemId)
   switch (outcome.kind) {
     case 'added':
-      router.push({ name: routeNames.basket })
+      // 買い物かごの画面に、直前に入れた陳列品を履歴エントリーの state で渡します。
+      router.push({ name: routeNames.basket, state: { addedItemId: displayItemId } })
       break
     case 'failed':
       showFailureToast(outcome.problem, t('failedToAddItemToCarts'))

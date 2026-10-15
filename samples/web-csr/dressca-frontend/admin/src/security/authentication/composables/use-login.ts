@@ -6,7 +6,7 @@ import {
   useCommonErrorOutcome,
   type CommonErrorOutcome,
 } from '@/system-common/error-handler/common-error-outcome'
-import { loginAsync } from '../services/authentication-service'
+import { useAuthentication } from './use-authentication'
 import { validationItems } from '../validation/validation-items'
 
 /**
@@ -70,7 +70,7 @@ export function useLogin(): Login {
    */
   async function login(): Promise<LoginOutcome> {
     try {
-      await loginAsync()
+      await useAuthentication().loginAsync()
       return { kind: 'loggedIn' }
     } catch (error) {
       return handleCommonError(error)

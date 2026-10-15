@@ -1,6 +1,6 @@
-import { computed, onMounted, onUnmounted, shallowRef } from 'vue'
+import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useBasketStore } from '@/business-common/stores/basket'
+import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import {
   useCommonErrorOutcome,
   type ApiProblem,
@@ -8,6 +8,7 @@ import {
 } from '@/system-common/error-handler/common-error-outcome'
 import { fetchBasket, removeItemFromBasket, updateItemInBasket } from '../services/basket-service'
 import {
+  containsUnavailableItems,
   toBasketAccount,
   toBasketLines,
   type BasketAccount,
@@ -30,6 +31,14 @@ export interface AddedBasketItem {
   name: string
   assetCodes: string[] | undefined
   unitPrice: number
+}
+
+/**
+ * 買い物かごのユースケースの引数です。
+ */
+export interface BasketOptions {
+  /** 直前に買い物かごに入れた陳列品の ID です。 */
+  addedItemId?: string
 }
 
 /**
@@ -78,23 +87,44 @@ export interface Basket {
 /**
  * 買い物かごの内容を確認し、数量の変更や削除を行うユースケースを提供します。
  * コンポーネントのマウント後に買い物かごを読み込みます。
- * コンポーネントのアンマウント時に、直前に買い物かごに入れた陳列品の表示を消します。
+ * 数量の変更や削除をすると、直前に買い物かごに入れた陳列品の表示を消します。
+ * @param options 買い物かごのユースケースの引数。
  * @returns 買い物かごのユースケース。
  */
-export function useBasket(): Basket {
+export function useBasket(options: BasketOptions = {}): Basket {
   const handleCommonError = useCommonErrorOutcome()
-  const basketStore = useBasketStore()
 
   const status = shallowRef<BasketStatus>({ kind: 'loading' })
-  const lines = computed(() => toBasketLines(basketStore.getBasket, basketStore.getDeletedItemIds))
-  const hasUnavailableItems = computed(() => basketStore.getDeletedItemIds.length > 0)
+  const basket = shallowRef<GetBasketItemsResponse>()
+  const addedItemId = shallowRef(options.addedItemId)
+  const lines = computed(() => toBasketLines(basket.value))
+  const hasUnavailableItems = computed(() => containsUnavailableItems(basket.value))
+
+  /**
+   * 最新の買い物かごを取得します。
+   */
+  async function refresh() {
+    basket.value = await fetchBasket()
+  }
+
+  /**
+   * 買い物かごを変更し、成功しても失敗しても最新の買い物かごを取得します。
+   * @param change 買い物かごを変更する処理。
+   */
+  async function changeAndRefresh(change: () => Promise<void>) {
+    try {
+      await change()
+    } finally {
+      await refresh()
+    }
+  }
 
   /**
    * 買い物かごを読み込みます。
    */
   async function load() {
     try {
-      await fetchBasket()
+      await refresh()
       status.value = { kind: 'ready' }
     } catch (error) {
       const outcome = await handleCommonError(error)
@@ -115,8 +145,9 @@ export function useBasket(): Basket {
     displayItemId: string,
     quantity: number,
   ): Promise<ChangeQuantityOutcome> {
+    addedItemId.value = undefined
     try {
-      await updateItemInBasket(displayItemId, quantity)
+      await changeAndRefresh(() => updateItemInBasket(displayItemId, quantity))
       return { kind: 'changed' }
     } catch (error) {
       return handleCommonError(error)
@@ -130,8 +161,9 @@ export function useBasket(): Basket {
    * @returns 削除した結果。
    */
   async function remove(displayItemId: string): Promise<RemoveFromBasketOutcome> {
+    addedItemId.value = undefined
     try {
-      await removeItemFromBasket(displayItemId)
+      await changeAndRefresh(() => removeItemFromBasket(displayItemId))
       return { kind: 'removed' }
     } catch (error) {
       return handleCommonError(error)
@@ -144,7 +176,7 @@ export function useBasket(): Basket {
    */
   async function proceedToCheckout(): Promise<ProceedToCheckoutOutcome> {
     try {
-      await fetchBasket()
+      await refresh()
     } catch (error) {
       return handleCommonError(error)
     }
@@ -153,16 +185,17 @@ export function useBasket(): Basket {
 
   // ライフサイクルフックが返す Promise の拒否は、 Vue のエラーハンドラーに渡されます。
   onMounted(load)
-  onUnmounted(() => basketStore.deleteAddedItemId())
 
   return {
     status: computed(() => status.value),
     lines,
-    account: computed(() => toBasketAccount(basketStore.getBasket)),
+    account: computed(() => toBasketAccount(basket.value)),
     isEmpty: computed(() => lines.value.length === 0),
     hasUnavailableItems,
     addedItem: computed(() => {
-      const added = basketStore.getAddedItem
+      const added = basket.value?.basketItems?.find(
+        (item) => item.displayItemId === addedItemId.value,
+      )
       if (!added) {
         return undefined
       }

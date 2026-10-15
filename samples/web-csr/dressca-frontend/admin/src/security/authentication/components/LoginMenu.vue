@@ -5,7 +5,7 @@
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '../../authorization/stores/authentication'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
-import { logout as logoutByService } from '../services/authentication-service'
+import { useAuthentication } from '../composables/use-authentication'
 import type { RouteLocationRaw } from 'vue-router'
 import { ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
@@ -37,6 +37,8 @@ const menuRef = ref<HTMLElement | null>(null)
  * ログインメニューの開閉状態です。
  */
 const showLoginMenu = ref(false)
+
+const { logout: logoutByService } = useAuthentication()
 
 /**
  * アプリケーションからログアウトします。

@@ -42,7 +42,7 @@ export interface Logger {
 /**
  * 内部で保持するロガーのインスタンスです。
  * `initializeLogger` によって設定し、
- * `useLogger` によって取得します。
+ * `getLogger` によって取得します。
  */
 let _logger: Logger
 
@@ -81,7 +81,7 @@ function initializeLogger() {
  * 初回呼び出し時にロガーが未初期化であれば `initializeLogger` により初期化します。
  * @returns アプリケーション共通で利用するロガーインスタンス
  */
-export function useLogger() {
+export function getLogger() {
   if (!_logger) {
     initializeLogger()
   }

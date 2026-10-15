@@ -21,6 +21,7 @@ export {
   type ChangeQuantityOutcome,
   type ProceedToCheckoutOutcome,
   type RemoveFromBasketOutcome,
+  type BasketOptions,
 } from './basket/composables/use-basket'
 export type { BasketAccount, BasketLine } from './basket/models/basket-line'
 export { default as BasketItem } from './basket/components/BasketItem.vue'
@@ -38,4 +39,4 @@ export {
   type OrderResultStatus,
   type OrderResultView,
 } from './ordering/composables/use-order-result'
-export type { Address } from './ordering/stores/user.model'
+export type { Address } from './ordering/models/address'

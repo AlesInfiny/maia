@@ -4,10 +4,12 @@ import { routeNames } from '@/core/router/route-names'
 import { useRoute, useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { useOrderResult } from '@/shopping/public-api'
-import { showFailureToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+
+const { showFailureToast } = useNotification()
 
 const router = useRouter()
 const route = useRoute(routeNames.done)

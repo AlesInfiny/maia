@@ -1,15 +1,24 @@
 import { useAuthenticationStore } from '../stores/authentication'
-import { useBasketStore } from '@/business-common/stores/basket'
-import { useDisplayItemStore } from '@/business-common/stores/display-item'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 
 /**
- * 認証関連のサービスを提供します。
- * 認証ストアを利用してサインイン処理や認証状態の判定を行います。
- * @returns 認証サービスオブジェクト
+ * 認証の操作です。
  */
-export function authenticationService() {
+export interface Authentication {
+  /** サインインした状態にします。 */
+  signIn: () => void
+  /** 現在の利用者が認証済みかどうかを判定します。 */
+  isAuthenticated: () => boolean
+  /** サインアウトします。 */
+  signOut: () => void
+}
+
+/**
+ * 認証ストアを利用して、サインインやサインアウト、認証状態の判定を行う操作を提供します。
+ * @returns 認証の操作。
+ */
+export function useAuthentication(): Authentication {
   /**
    * サインイン処理を実行します。
    * 認証ストアの `signIn` を呼び出します。
@@ -23,11 +32,9 @@ export function authenticationService() {
    * 現在のユーザーが認証済みかどうかを判定します。
    * @returns 認証されていれば true、されていなければ false
    */
-
   const isAuthenticated = (): boolean => {
     const authenticationStore = useAuthenticationStore()
-    const result = authenticationStore.isAuthenticated
-    return result
+    return authenticationStore.isAuthenticated
   }
 
   /**
@@ -35,8 +42,7 @@ export function authenticationService() {
    * 以下の順序で処理を行います:
    * 1. 処理中の API リクエストを中断
    * 2. 認証状態を false に変更し、セッションストレージを削除
-   * 3. 各ストア（basket, displayItem）の状態をリセット
-   * 4. 通知ストアの状態をリセット（最後に実行）
+   * 3. 通知ストアの状態をリセット（最後に実行）
    */
   const signOut = () => {
     // 1. 処理中の API リクエスト／レスポンスを停止
@@ -46,14 +52,7 @@ export function authenticationService() {
     const authenticationStore = useAuthenticationStore()
     authenticationStore.resetState()
 
-    // 3. ストアの中身をリセット
-    const basketStore = useBasketStore()
-    basketStore.$reset()
-
-    const displayItemStore = useDisplayItemStore()
-    displayItemStore.$reset()
-
-    // 4. エラーメッセージ通知等のストアの中身を消す（最後に実行）
+    // 3. エラーメッセージ通知等のストアの中身を消す（最後に実行）
     const notificationStore = useNotificationStore()
     notificationStore.$reset()
   }

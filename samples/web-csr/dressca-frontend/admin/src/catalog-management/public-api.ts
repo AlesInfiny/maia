@@ -22,5 +22,6 @@ export {
   type CatalogItemListStatus,
   type CatalogItemSummary,
 } from './catalog/composables/use-catalog-item-list'
-export type { CatalogItemForm, CatalogOption } from './catalog/composables/use-catalog-item-form'
+export type { CatalogItemForm } from './catalog/composables/use-catalog-item-form'
+export type { CatalogOption } from './catalog/services/catalog-service'
 export type { CatalogItemFormValues } from './catalog/validation/validation-items'

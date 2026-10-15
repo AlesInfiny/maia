@@ -2,17 +2,30 @@
 import { watch } from 'vue'
 import { routeNames } from '@/core/router/route-names'
 import { useBasket, BasketItem } from '@/shopping/public-api'
-import { showFailureToast, showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { useRouter } from 'vue-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 
+const { showFailureToast, showToast } = useNotification()
+
 const router = useRouter()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
+
+/**
+ * 陳列品の画面が履歴エントリーの state で渡した、直前に買い物かごに入れた陳列品の ID を取得します。
+ * state は履歴エントリーに残るため、再読み込みやブラウザーの戻る・進むでも同じ陳列品を表示します。
+ * @returns 陳列品の ID 。渡されていない場合は undefined 。
+ */
+function getAddedItemId(): string | undefined {
+  const addedItemId: unknown = window.history.state?.addedItemId
+  return typeof addedItemId === 'string' ? addedItemId : undefined
+}
+
 const {
   status,
   lines,
@@ -23,7 +36,7 @@ const {
   changeQuantity,
   remove,
   proceedToCheckout,
-} = useBasket()
+} = useBasket({ addedItemId: getAddedItemId() })
 
 /**
  * 買い物かごを読み込んだとき、購入できない陳列品が入っていれば利用者に通知します。

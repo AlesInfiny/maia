@@ -2,8 +2,11 @@ import { computed, onMounted, ref, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useCommonErrorOutcome } from '@/system-common/error-handler/common-error-outcome'
 import type { GetCatalogItemResponse } from '@/system-common/generated/api-client'
-import { fetchItems } from '../services/catalog-service'
-import { fetchCatalogItemOptions, type CatalogItemOptions } from './use-catalog-item-form'
+import {
+  fetchCatalogItemOptions,
+  fetchItems,
+  type CatalogItemOptions,
+} from '../services/catalog-service'
 
 /**
  * カタログアイテムの一覧の読み込みの状態です。

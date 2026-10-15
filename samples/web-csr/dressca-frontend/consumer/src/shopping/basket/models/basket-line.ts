@@ -47,24 +47,32 @@ function toBasketLine(item: BasketItemApiModel, deletedItemIds: string[]): Baske
 
 /**
  * API のレスポンスを買い物かごの行の一覧に変換します。
- * @param basket 買い物かごのレスポンス。
- * @param deletedItemIds カタログから削除された陳列品の ID 。
+ * @param basket 買い物かごのレスポンス。読み込みが完了していない場合は undefined 。
  * @returns 買い物かごの行の一覧。
  */
-export function toBasketLines(
-  basket: GetBasketItemsResponse,
-  deletedItemIds: string[],
-): BasketLine[] {
-  return (basket.basketItems ?? []).map((item) => toBasketLine(item, deletedItemIds))
+export function toBasketLines(basket: GetBasketItemsResponse | undefined): BasketLine[] {
+  const deletedItemIds = basket?.deletedItemIds ?? []
+  return (basket?.basketItems ?? []).map((item) => toBasketLine(item, deletedItemIds))
+}
+
+/**
+ * 買い物かごに、購入できない陳列品が入っているかどうかを判定します。
+ * @param basket 買い物かごのレスポンス。読み込みが完了していない場合は undefined 。
+ * @returns 購入できない陳列品が入っていれば true 。
+ */
+export function containsUnavailableItems(basket: GetBasketItemsResponse | undefined): boolean {
+  return (basket?.deletedItemIds ?? []).length > 0
 }
 
 /**
  * API のレスポンスを買い物かごの会計に変換します。
- * @param basket 買い物かごのレスポンス。
+ * @param basket 買い物かごのレスポンス。読み込みが完了していない場合は undefined 。
  * @returns 買い物かごの会計。読み込みが完了していない場合は undefined 。
  */
-export function toBasketAccount(basket: GetBasketItemsResponse): BasketAccount | undefined {
-  if (!basket.account) {
+export function toBasketAccount(
+  basket: GetBasketItemsResponse | undefined,
+): BasketAccount | undefined {
+  if (!basket?.account) {
     return undefined
   }
   const { totalItemsPrice, deliveryCharge, consumptionTax, totalPrice } = basket.account

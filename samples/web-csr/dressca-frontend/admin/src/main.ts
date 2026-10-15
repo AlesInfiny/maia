@@ -3,14 +3,14 @@ import { routeNames } from '@/core/router/route-names'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
-import { useLogger } from '@/system-common/composables/use-logger'
+import { getLogger } from '@/system-common/logger'
 import { router } from '@/core/router'
 import { registerNavigationGuards } from '@/core/router/guards'
 import App from './App.vue'
 import { z } from 'zod'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
 
-const logger = useLogger()
+const logger = getLogger()
 
 /**
  * MSW (Mock Service Worker) を有効化します。

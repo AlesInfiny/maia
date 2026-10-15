@@ -5,8 +5,10 @@ import { useRouter } from 'vue-router'
 import { useCatalogItemList } from '@/catalog-management/public-api'
 import { currencyHelper } from '@/system-common/helpers/currency-helper'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
-import { showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+
+const { showToast } = useNotification()
 
 const router = useRouter()
 

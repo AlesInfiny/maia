@@ -5,10 +5,12 @@ import { useCatalogItemEditor } from '@/catalog-management/public-api'
 import { ConfirmationModal } from '@/system-common/components/ConfirmationModal'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
-import { showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthorization, Roles } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
+
+const { showToast } = useNotification()
 
 const { isInRole } = useAuthorization()
 const router = useRouter()
