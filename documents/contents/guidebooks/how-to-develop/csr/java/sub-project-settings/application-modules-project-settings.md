@@ -101,9 +101,16 @@ jar {
 
 ## 不要な設定やファイルの削除 {#remove-unnecessary-settings-and-files}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="application-modules/build.gradle" hl_lines="1-3"
+```groovy title="application-modules/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -118,9 +125,11 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="application-modules プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew application-modules:build
 ```
 
@@ -136,12 +145,6 @@ application-modules プロジェクトの `src` 以下にある、 `ApplicationM
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()
@@ -188,7 +191,7 @@ application-modules プロジェクトに、境界付けられたコンテキス
 `{ プロジェクトのグループ名 }.applicationmodules` パッケージの直下に、モジュールごとのパッケージを作成します。
 ここで作成したパッケージが、モジュールのルートパッケージです。
 ルートパッケージの直下には、他のモジュールへ公開する型のみを配置します。
-公開しない型は `internal` パッケージ以下に配置します。
+公開しない型は `internal` パッケージ配下に配置します。
 
 ```text
 application-modules/
@@ -287,7 +290,7 @@ class ModularityTests {
 `#!java ApplicationModules.of()` には、モジュールを配置した `applicationmodules` パッケージを指定します。
 このパッケージ配下にある `xxcontext` や `yycontext` などのモジュールをまとめて 1 つの `#!java ApplicationModules` として扱うため、モジュールごとにテストクラスを作成する必要はありません。
 
-- `#!java modules.verify()`: モジュール間の依存関係を検証します。 `allowedDependencies` で許可していないモジュールへの依存や、クローズドモジュールの `internal` パッケージに配置した非公開の型への参照があった場合、このメソッドが例外をスローし、テストが失敗します。
+- `#!java modules.verify()`: モジュール間の依存関係を検証します。 `allowedDependencies` で許可していないモジュールへの依存や、クローズドモジュールの `internal` パッケージ配下の型への参照があった場合、このメソッドが例外をスローし、テストが失敗します。
 - `#!java new Documenter(modules).writeDocumentation()`: モジュール構造を表す図（ PlantUML ）や文書を `build` フォルダー配下に自動生成します。モジュール構成を可視化したい場合に活用してください。
 
 このテストクラスを配置することで、モジュール間の不正な依存を CI で検知できるようになります。

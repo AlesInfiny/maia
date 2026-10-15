@@ -60,7 +60,7 @@ package.json の scripts セクションにタスクを追加します。
 {
   "inputSpec": "./../../dressca-backend/api-docs/web-consumer/api-specification.json",
   "generatorName": "typescript-axios",
-  "outputDir": "./src/generated/api-client",
+  "outputDir": "./src/system-common/generated/api-client",
   "additionalProperties": {
     "withSeparateModelsAndApi": "true",
     "modelPackage": "models",
@@ -78,7 +78,7 @@ package.json の scripts セクションにタスクを追加します。
 | ---------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `"inputSpec"`                | `"./../../dressca-backend/api-docs/api-specification.json"` | 入力の API 仕様書を指定します。                                            |
 | `"generatorName"`            | `"typescript-axios"`                                        | 使用するジェネレーターを指定します。                                       |
-| `"outputDir"`                | `"./src/generated/api-client"`                              | 生成されたコードの出力先を設定します。                                     |
+| `"outputDir"`                | `"./src/system-common/generated/api-client"`                | 生成されたコードの出力先を設定します。                                     |
 | `"additionalProperties"`     | -                                                           | 使用するジェネレーターごとに固有の値[^2]をキー・バリュー形式で設定します。 |
 | `"withSeparateModelsAndApi"` | `"true"`                                                    | model と API を別クラス・別フォルダーに配置します。                        |
 | `"modelPackage"`             | `"models"`                                                  | クラスのパッケージ名を「models」に設定します。                             |
@@ -111,11 +111,11 @@ npm run generate-client
 
 ## クライアントコードの設定 {#set-client-code}
 
-`./src/api-client/index.ts` というファイルを作成し、以下のように設定します。
+`./src/system-common/api-client/index.ts` というファイルを作成し、以下のように設定します。
 
 ```typescript title="index.ts"
 import axios from 'axios'
-import * as apiClient from '@/generated/api-client'
+import * as apiClient from '@/system-common/generated/api-client'
 
 function createConfig(): apiClient.Configuration {
   const config = new apiClient.Configuration({
@@ -138,7 +138,7 @@ export { defaultApi }
 
 このファイルでは、 api-client や axios 共通の設定をします。
 
-1. `src/generated/api-client/api` に自動生成された API を `import` します。
+1. `src/system-common/generated/api-client/api` に自動生成された API を `import` します。
 1. 上記の例の `DefaultApi` と同様に `apiClient.XxxApi(createConfig(), '', axiosInstance)` コンストラクターでインスタンスを生成するメソッドを定義します。
 1. 生成したメソッドを `export` します。
 
@@ -155,7 +155,7 @@ export { defaultApi }
     [^1]: ベースパスは `https://www.example.com` のようなリンク先の基準となる URL です。
 
     ```typescript title="base.ts"
-    --8<-- "samples/web-csr/dressca-frontend/consumer/src/generated/api-client/base.ts:36:45"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/generated/api-client/base.ts:36:45"
     ```
 
 [^2]: ジェネレーターに `"typescript-axios"` を使用する場合に設定可能な値は [こちら :material-open-in-new:](https://openapi-generator.tech/docs/generators/typescript-axios){ target=_blank }を参照ください。

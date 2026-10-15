@@ -1,7 +1,7 @@
 import type {
   GetDisplayItemResponse,
   PagedListOfGetDisplayItemResponse,
-} from '@/generated/api-client'
+} from '@/system-common/generated/api-client'
 
 /** カタログから削除済みのアイテムの ID です。 */
 export const deletedItemId = '019b76da-a800-7004-8001-000000000099'

@@ -17,6 +17,7 @@ batch プロジェクトで利用を推奨するライブラリは以下の通�
 - `spring-boot-starter-batch-jdbc`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションを構築するための依存関係を提供するスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
 - `spring-boot-starter-batch-jdbc-test`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションをテストするためのスターター
+- `archunit-junit6`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 6 の連携ライブラリ
 
 ```groovy title="batch/build.gradle"
 dependencies {
@@ -24,8 +25,13 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
+  testImplementation 'com.tngtech.archunit:archunit-junit6:x.x.x'
 }
 ```
+
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [ArchUnit JUnit 6 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit6){ target=_blank }
 
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
@@ -104,6 +110,31 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
     バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
 
+## application-modules の `internal` パッケージへの依存を禁止するテストの追加 {#add-architecture-test}
+
+application-modules のモジュールでは、他のプロジェクトに公開しない型を `internal` パッケージ配下に配置します。
+batch プロジェクトがこれらの型に依存していないことを保証するため、 ArchUnit を使ったテストを追加します。
+
+`batch/src/test/java` 以下に、 batch プロジェクトのパッケージに合わせて `ArchitectureTest.java` を配置します。
+
+```text
+batch/
+ └ src/test/java/com/example/batch
+   └ ArchitectureTest.java
+```
+
+ArchUnit のテストでは、 `#!java @AnalyzeClasses` でテスト対象のパッケージを指定します。
+`#!java @ArchTest` を付与したテストメソッドを定義し、その中に守るべきルールを記載します。
+ここでは、 `internal` パッケージ配下の型に依存しないことをルールとして定義します。
+
+サンプルアプリケーションにおける実装例は以下の通りです。
+
+??? example "サンプルアプリケーションの ArchitectureTest.java"
+
+    ```java title="batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    --8<-- "samples/web-csr/dressca-backend/batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    ```
+
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
@@ -125,9 +156,16 @@ configurations {
 
 ## 不要な設定の削除 {#remove-unnecessary-settings}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="batch/build.gradle" hl_lines="1-3"
+```groovy title="batch/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -163,9 +201,11 @@ class BatchApplicationTests {
 ```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="batch プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew batch:build
 ```
 
@@ -181,12 +221,6 @@ class BatchApplicationTests {
     group = 'プロジェクトのグループ名'
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
-
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
 
     repositories {
       mavenCentral()

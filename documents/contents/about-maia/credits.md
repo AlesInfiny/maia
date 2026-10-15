@@ -74,7 +74,7 @@ Copyright (c) Abdelrahman Awad logaretm1@gmail.com
 
 ![Pinia Logo](../images/about-maia/pinia-logo.svg){ align="left" width="96" }
 
-[MIT LICENSE :material-open-in-new:](https://github.com/vuejs/pinia/blob/v2/LICENSE){ target=_blank }
+[MIT LICENSE :material-open-in-new:](https://github.com/vuejs/pinia/blob/HEAD/LICENSE){ target=_blank }
 
 Copyright (c) 2019-present Eduardo San Martin Morote
 
@@ -109,6 +109,14 @@ Copyright (c) 2015 - 2017 Maxime Thirouin, David Clark & Richard Hallows
 [MIT License :material-open-in-new:](https://github.com/vitest-dev/vitest/blob/main/LICENSE){ target=_blank }
 
 Copyright (c) 2021-Present VoidZero Inc. and Vitest contributors
+
+## Playwright {#playwright style="clear:both;" }
+
+![Playwright Logo](../images/about-maia/playwright-logo.svg){ align="left" width="96" }
+
+[Apache License 2.0 :material-open-in-new:](https://github.com/microsoft/playwright/blob/main/LICENSE){ target=_blank }
+
+Copyright (c) Microsoft Corporation
 
 ## Bootstrap {#bootstrap style="clear:both;" }
 

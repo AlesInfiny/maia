@@ -1,4 +1,4 @@
-import type { GetDisplayItemBrandsResponse } from '@/generated/api-client'
+import type { GetDisplayItemBrandsResponse } from '@/system-common/generated/api-client'
 
 export const displayItemBrands: GetDisplayItemBrandsResponse[] = [
   {

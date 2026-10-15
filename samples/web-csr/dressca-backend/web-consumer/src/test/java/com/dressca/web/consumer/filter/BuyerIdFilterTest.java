@@ -1,10 +1,6 @@
 package com.dressca.web.consumer.filter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,31 +35,33 @@ public class BuyerIdFilterTest {
   @Test
   @DisplayName("構成ファイルの設定がない場合")
   void testDoFilter_01() throws Exception {
-
+    // Arrange
     // デフォルトの CookieSettings を呼び出す
     CookieSettings cookieSettings = new CookieSettings();
 
     // テスト対象の Filter を作成
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
+    // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertNotNull(setCookieHeader);
-    assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
-    assertTrue(setCookieHeader.contains("Path=/"));
-    assertTrue(setCookieHeader.contains("HttpOnly"));
-    assertFalse(setCookieHeader.contains("Secure"));
-    assertTrue(setCookieHeader.contains("Max-Age=86400"));
-    assertTrue(setCookieHeader.contains("SameSite=Strict"));
+    assertThat(setCookieHeader)
+        .isNotNull()
+        .startsWith("Dressca-Bid=")
+        .contains("Path=/")
+        .contains("HttpOnly")
+        .doesNotContain("Secure")
+        .contains("Max-Age=86400")
+        .contains("SameSite=Strict");
   }
 
   @Test
   @DisplayName("構成ファイルの設定がある場合")
   void testDoFilter_02() throws Exception {
-
+    // Arrange
     // モックオブジェクトを作成
     CookieSettings cookieSettings = mock(CookieSettings.class);
     when(cookieSettings.isHttpOnly()).thenReturn(true);
@@ -74,58 +72,62 @@ public class BuyerIdFilterTest {
     // テスト対象の Filter を作成
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     String setCookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 
+    // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertNotNull(setCookieHeader);
-    assertTrue(setCookieHeader.startsWith("Dressca-Bid="));
-    assertTrue(setCookieHeader.contains("Path=/"));
-    assertTrue(setCookieHeader.contains("HttpOnly"));
-    assertTrue(setCookieHeader.contains("Secure"));
-    assertTrue(setCookieHeader.contains("Max-Age=604800"));
-    assertTrue(setCookieHeader.contains("SameSite=None"));
+    assertThat(setCookieHeader)
+        .isNotNull()
+        .startsWith("Dressca-Bid=")
+        .contains("Path=/")
+        .contains("HttpOnly")
+        .contains("Secure")
+        .contains("Max-Age=604800")
+        .contains("SameSite=None");
   }
 
   @Test
   @DisplayName("Dressca-Bid Cookie が有効な UUID の場合はその値が維持される")
   void testDoFilter_03() throws Exception {
-
+    // Arrange
     // 有効な Buyer ID を設定
     String validBuyerId = UUID.randomUUID().toString();
     this.request.setCookies(new Cookie("Dressca-Bid", validBuyerId));
     CookieSettings cookieSettings = new CookieSettings();
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
+    // Assert
     // Cookie が存在し、値が維持されていることを確認
-    assertNotNull(responseCookie);
+    assertThat(responseCookie).isNotNull();
     String cookieBuyerId = responseCookie.getValue();
-    assertEquals(validBuyerId, cookieBuyerId);
+    assertThat(cookieBuyerId).isEqualTo(validBuyerId);
   }
 
   @Test
   @DisplayName("Dressca-Bid Cookie が無効な値の場合は新しい UUID が払い出される")
   void testDoFilter_04() throws Exception {
-
+    // Arrange
     // 無効な Buyer ID を設定
     String invalidBuyerId = "invalid-buyer-id";
     this.request.setCookies(new Cookie("Dressca-Bid", invalidBuyerId));
     CookieSettings cookieSettings = new CookieSettings();
     BuyerIdFilter filter = new BuyerIdFilter(cookieSettings);
 
-    // doFilter の実行
+    // Act
     filter.doFilter(request, response, chain);
     Cookie responseCookie = response.getCookie("Dressca-Bid");
 
+    // Assert
     // Cookie が存在し、無効な値から新しい UUID が払い出されていることを確認
-    assertNotNull(responseCookie);
+    assertThat(responseCookie).isNotNull();
     String issuedBuyerId = responseCookie.getValue();
-    assertNotEquals(invalidBuyerId, issuedBuyerId);
-    assertNotNull(UUID.fromString(issuedBuyerId));
+    assertThat(issuedBuyerId).isNotEqualTo(invalidBuyerId);
+    assertThat(UUID.fromString(issuedBuyerId)).isNotNull();
   }
 }

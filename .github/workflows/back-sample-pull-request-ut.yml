@@ -23,11 +23,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: JDK21のセットアップ
+      - name: JDK25のセットアップ
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654  # v5.2.0
         with:
-          distribution: 'adopt'
-          java-version: '21'
+          distribution: 'temurin'
+          java-version: '25'
           cache: 'gradle'
 
       - name: gradlewに実行権限付与

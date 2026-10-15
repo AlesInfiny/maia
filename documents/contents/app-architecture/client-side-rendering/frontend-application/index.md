@@ -152,7 +152,7 @@ Vue.js プロジェクトのフォルダー構成は、ブランクプロジェ�
 
 ```text title="プロジェクトのフォルダー構成全体像" linenums="0"
 <project-name>
-├─ cypress/ ------------------ cypress による E2E テストに関するファイルを格納します。
+├─ e2e/ ---------------------- Playwright による E2E テストに関するファイルを格納します。
 ├─ public/ ------------------- メディアファイルや favicon など静的な資産を格納します。
 ├─ src/
 │  ├─ api-client/ ------------ API クライアントの設定ファイルを格納します。
@@ -177,12 +177,12 @@ Vue.js プロジェクトのフォルダー構成は、ブランクプロジェ�
 
 ### views フォルダー {#views-directory}
 
-views フォルダーはルーティングで指定される vue ファイルを格納します。そのためこの下層のフォルダー構造はサイト構造を意識して作成することを推奨します。以下の例で Login.vue なら ```https://xxxx.com/authentication/login``` と設定します。
+views フォルダーはルーティングで指定される vue ファイルを格納します。そのためこの下層のフォルダー構造はサイト構造を意識して作成することを推奨します。以下の例で Login.vue なら ```https://xxxx.com/security/login``` と設定します。
 
 ```text title="views フォルダー" linenums="0"
 src/
 └─ views/
-   ├─ authentication/
+   ├─ security/
    │  ├─ LoginView.vue
    │  └─ LogoutView.vue
    ├─ catalog/
@@ -190,7 +190,7 @@ src/
 ```
 
 !!! note "Vue Router の設定"
-      Vue Router では URL のパスと対象のファイルを指定することで、ルーティングを設定します。以下は `https://xxxx.com/authentication/login` という URL に対して上記の `LoginView.vue` を設定している例です。
+      Vue Router では URL のパスと対象のファイルを指定することで、ルーティングを設定します。以下は `https://xxxx.com/security/login` という URL に対して上記の `LoginView.vue` を設定している例です。
 
       ```typeScript title="index.ts"
       import { createRouter, createWebHistory } from "vue-router";
@@ -199,9 +199,9 @@ src/
          history: createWebHistory(import.meta.env.BASE_URL),
          routes: [
             {
-               path: "/authentication/login",
-               name: "authentication/login",
-               component: () => import('@/views/authentication/LoginView.vue'),
+               path: "/security/login",
+               name: "security/login",
+               component: () => import('@/views/security/LoginView.vue'),
             },
          ],
       })
@@ -214,7 +214,7 @@ components フォルダーは主に、再利用性の高い vue コンポーネ�
 ```text title="components フォルダー" linenums="0"
 src/
 └─ components/
-   ├─ authentication/
+   ├─ security/
    │  ├─ LoginForm.vue
    │  └─ LogoutMessage.vue
    ├─ product/
@@ -239,7 +239,7 @@ src/
    │  └─ Form.vue
    │
    ├─ organisms/
-   │  ├─ authentication/
+   │  ├─ security/
    │  │  ├─ LoginForm.vue
    │  │  └─ LogoutMessage.vue
    │  └─ product/

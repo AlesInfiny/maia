@@ -121,6 +121,74 @@ subprojects {
 }
 ```
 
+??? info "Lombok 利用時に JDK 24 以降で出力される警告について"
+
+    Lombok は内部で `sun.misc.Unsafe` の終了予定 API を利用しています。
+    そのため JDK 24 以降でコンパイルすると、以下のような警告が出力されます。
+
+    ```text
+    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+    ```
+
+    この警告を抑止する場合、コンパイラの JVM 引数に `--sun-misc-unsafe-memory-access=allow` を指定します。
+    `options.forkOptions.jvmArgs` はコンパイラをフォークしたときにのみ適用されるため、併せて `options.fork` を有効にしてください。
+
+    ```groovy title="{ルートプロジェクト}/build.gradle" hl_lines="3 4"
+    subprojects {
+      tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+      }
+    }
+    ```
+
+    [JEP 498 :material-open-in-new:](https://openjdk.org/jeps/498){ target=_blank } により、 JDK 26 以降はこのオプションの既定値が `deny` となります。
+    JDK 26 以降へ移行する際は、 [Lombok の対応状況 :material-open-in-new:](https://github.com/projectlombok/lombok/){ target=_blank } を確認してください。
+
+### 依存ライブラリのバージョン固定 {#dependency-locking}
+
+[バージョン管理方針](../../../../app-architecture/overview/repository-structure.md#dependency-version-policy) に従い、ルートと各サブプロジェクトで依存関係ロックを有効にします。
+`LockMode.STRICT` は、解決する依存関係のロック状態がない場合もエラーにします。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+dependencyLocking {
+  lockAllConfigurations()
+  lockMode = LockMode.STRICT
+}
+
+subprojects {
+  dependencyLocking {
+    lockAllConfigurations()
+    lockMode = LockMode.STRICT
+  }
+}
+```
+
+併せて、全プロジェクトの依存関係を解決する `allDependencies` タスクを追加します。
+
+```groovy title="{ルートプロジェクト}/build.gradle"
+tasks.register('allDependencies') {
+  group = 'help'
+  description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+  dependsOn tasks.named('dependencies')
+  dependsOn subprojects.collect { "${it.path}:dependencies" }
+}
+```
+
+依存関係を設定した後、ビルド前にルートプロジェクト直下で以下を実行します。
+以降の手順で依存関係を追加・変更した場合も、ビルド前に再実行してください。
+
+```shell title="ロックファイルの生成・更新"
+./gradlew allDependencies --write-locks
+```
+
+解決された依存関係のロック状態は、各プロジェクト直下の `gradle.lockfile` に保存されます。
+たとえば、 web プロジェクトでは `web/gradle.lockfile` に保存されます。
+
+!!! info "ロックの対象"
+    `lockAllConfigurations()` は、 `buildscript` の依存関係を対象に含めません。
+    Gradle の依存関係ロックのその他の設定については、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/dependency_locking.html){ target=_blank } を参照してください。
+
 ### タスクの設定 {#common-tasks}
 
 導入したプラグインによって定義されたタスクに対して、必要であれば設定を追加します。
@@ -135,6 +203,11 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 本ガイドではカスタマイズの具体例として、以下のシナリオの例を示します。
 
+- ビルドに使用する Java のバージョンを Toolchain で指定する
+
+    Java のバージョンをサブプロジェクト毎に定義すると、バージョンの不一致や更新漏れが発生しやすくなります。
+    そのため Toolchain の設定はルートプロジェクトの `subprojects` ブロックに定義し、システム全体で集約管理することを推奨します。
+
 - test タスクでは `test` プロファイルを使用する
 - テストフレームワークとして JUnit5 を使用する
 - ソースファイルの文字コードを明示的に指定する
@@ -144,9 +217,14 @@ Java プラグインのカスタマイズを行う `build.gradle` の設定方�
 
 これらのシナリオを踏まえた `build.gradle` の設定例は以下の通りです。
 
-```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-4 8 9"
-  
+```groovy title="{ルートプロジェクト}/build.gradle"  hl_lines="2-6 8-10 14 15"
 subprojects {
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(x)
+    }
+  }
+
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
   javadoc.options.encoding = 'UTF-8'
@@ -399,6 +477,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 なお、以下のコマンドでビルドを実行すると、デフォルトで作成されたソースコードに対して Checkstyle の警告が出力されるので、出力内容に従って対処してください。
 
 ```shell title="バックエンドアプリケーションのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew build
 ```
 
@@ -409,16 +488,37 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
       id 'com.github.spotbugs' version 'x.x.x' apply false
     }
 
+    dependencyLocking {
+      lockAllConfigurations()
+      lockMode = LockMode.STRICT
+    }
+
     subprojects {
+
+      dependencyLocking {
+        lockAllConfigurations()
+        lockMode = LockMode.STRICT
+      }
 
       apply plugin: 'java'
       apply plugin: 'jacoco'
       apply plugin: 'checkstyle'
       apply plugin: 'com.github.spotbugs'
 
+      java {
+        toolchain {
+          languageVersion = JavaLanguageVersion.of(x)
+        }
+      }
+
       compileJava.options.encoding = 'UTF-8'
       compileTestJava.options.encoding = 'UTF-8'
       javadoc.options.encoding = 'UTF-8'
+
+      tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.jvmArgs = (options.forkOptions.jvmArgs ?: []) + ['--sun-misc-unsafe-memory-access=allow']
+      }
 
       dependencies {
         // Lombok の設定
@@ -478,6 +578,13 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
           })
         }
       }
+    }
+
+    tasks.register('allDependencies') {
+      group = 'help'
+      description = 'ルートおよび全サブプロジェクトの依存関係を解決します。'
+      dependsOn tasks.named('dependencies')
+      dependsOn subprojects.collect { "${it.path}:dependencies" }
     }
     ```
 
