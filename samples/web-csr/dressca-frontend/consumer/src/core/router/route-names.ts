@@ -46,6 +46,16 @@ export interface RouteNamedMap {
   >
 }
 
+/**
+ * 買い物かご画面へ遷移するときに、履歴エントリーの state で渡す値です。
+ * 遷移元と買い物かご画面の両方がこの型を参照し、キーの食い違いを型で検出します。
+ * vue-router の HistoryState はインデックスシグネチャを持つため、インターフェイスではなく型エイリアスで定義します。
+ */
+export type BasketRouteState = {
+  /** 直前に買い物かごに入れた陳列品の ID です。 */
+  addedItemId: string
+}
+
 declare module 'vue-router' {
   interface TypesConfig {
     RouteNamedMap: RouteNamedMap

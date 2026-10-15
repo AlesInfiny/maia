@@ -20,7 +20,8 @@ async function getWrapper() {
   await router.isReady()
   return mount(LoginPage, {
     global: {
-      plugins: [router],
+      // 画面の setup で通知ストアを取り出すため、テスト用の Pinia を設定します。
+      plugins: [createTestingPinia({ createSpy: vi.fn }), router],
     },
   })
 }

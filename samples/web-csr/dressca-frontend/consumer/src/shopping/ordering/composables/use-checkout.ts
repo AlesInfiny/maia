@@ -1,19 +1,12 @@
 import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import {
   useCommonErrorOutcome,
   type ApiProblem,
   type CommonErrorOutcome,
 } from '@/system-common/error-handler/common-error-outcome'
-import { fetchBasket } from '../../basket/services/basket-service'
-import {
-  containsUnavailableItems,
-  toBasketAccount,
-  toBasketLines,
-  type BasketAccount,
-  type BasketLine,
-} from '../../basket/models/basket-line'
+import type { BasketAccount, BasketLine } from '../../basket/models/basket-line'
+import { useBasketContents } from '../../basket/composables/use-basket-contents'
 import { postOrder } from '../services/ordering-service'
 import { deliveryAddress, type Address } from '../models/address'
 
@@ -60,8 +53,7 @@ export function useCheckout(): Checkout {
   const handleCommonError = useCommonErrorOutcome()
 
   const status = shallowRef<CheckoutStatus>({ kind: 'loading' })
-  const basket = shallowRef<GetBasketItemsResponse>()
-  const lines = computed(() => toBasketLines(basket.value))
+  const { lines, account, hasUnavailableItems, refresh } = useBasketContents()
   const address = computed(() => deliveryAddress)
 
   /**
@@ -69,7 +61,7 @@ export function useCheckout(): Checkout {
    */
   async function load() {
     try {
-      basket.value = await fetchBasket()
+      await refresh()
       status.value = lines.value.length === 0 ? { kind: 'empty' } : { kind: 'ready' }
     } catch (error) {
       const outcome = await handleCommonError(error)
@@ -99,8 +91,8 @@ export function useCheckout(): Checkout {
   return {
     status: computed(() => status.value),
     lines,
-    account: computed(() => toBasketAccount(basket.value)),
-    hasUnavailableItems: computed(() => containsUnavailableItems(basket.value)),
+    account,
+    hasUnavailableItems,
     address,
     placeOrder,
   }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { routeNames } from '@/core/router/route-names'
+import { routeNames, type BasketRouteState } from '@/core/router/route-names'
 import { useDisplayItemList, CarouselSlider } from '@/shopping/public-api'
 import { useNotification } from '@/business-common/composables/use-notification'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
@@ -36,10 +36,12 @@ watch(status, (newStatus) => {
 const addBasket = async (displayItemId: string) => {
   const outcome = await addToBasket(displayItemId)
   switch (outcome.kind) {
-    case 'added':
+    case 'added': {
       // 買い物かごの画面に、直前に入れた陳列品を履歴エントリーの state で渡します。
-      router.push({ name: routeNames.basket, state: { addedItemId: displayItemId } })
+      const state: BasketRouteState = { addedItemId: displayItemId }
+      router.push({ name: routeNames.basket, state })
       break
+    }
     case 'failed':
       showFailureToast(outcome.problem, t('failedToAddItemToCarts'))
       break

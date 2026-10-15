@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { routeNames } from '@/core/router/route-names'
+import { routeNames, type BasketRouteState } from '@/core/router/route-names'
 import { useBasket, BasketItem } from '@/shopping/public-api'
 import { useNotification } from '@/business-common/composables/use-notification'
 import { useRouter } from 'vue-router'
@@ -22,7 +22,9 @@ const { t } = i18n.global
  * @returns 陳列品の ID 。渡されていない場合は undefined 。
  */
 function getAddedItemId(): string | undefined {
-  const addedItemId: unknown = window.history.state?.addedItemId
+  // state は履歴エントリーに保存された値で、型が保証されないため、値は unknown として検査します。
+  const state: Partial<Record<keyof BasketRouteState, unknown>> | null = window.history.state
+  const addedItemId = state?.addedItemId
   return typeof addedItemId === 'string' ? addedItemId : undefined
 }
 

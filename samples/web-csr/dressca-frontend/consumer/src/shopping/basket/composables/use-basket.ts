@@ -1,19 +1,13 @@
 import { computed, onMounted, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import {
   useCommonErrorOutcome,
   type ApiProblem,
   type CommonErrorOutcome,
 } from '@/system-common/error-handler/common-error-outcome'
-import { fetchBasket, removeItemFromBasket, updateItemInBasket } from '../services/basket-service'
-import {
-  containsUnavailableItems,
-  toBasketAccount,
-  toBasketLines,
-  type BasketAccount,
-  type BasketLine,
-} from '../models/basket-line'
+import { removeItemFromBasket, updateItemInBasket } from '../services/basket-service'
+import type { BasketAccount, BasketLine } from '../models/basket-line'
+import { useBasketContents } from './use-basket-contents'
 
 /**
  * 買い物かごの読み込みの状態です。
@@ -95,17 +89,8 @@ export function useBasket(options: BasketOptions = {}): Basket {
   const handleCommonError = useCommonErrorOutcome()
 
   const status = shallowRef<BasketStatus>({ kind: 'loading' })
-  const basket = shallowRef<GetBasketItemsResponse>()
+  const { basket, lines, account, hasUnavailableItems, refresh } = useBasketContents()
   const addedItemId = shallowRef(options.addedItemId)
-  const lines = computed(() => toBasketLines(basket.value))
-  const hasUnavailableItems = computed(() => containsUnavailableItems(basket.value))
-
-  /**
-   * 最新の買い物かごを取得します。
-   */
-  async function refresh() {
-    basket.value = await fetchBasket()
-  }
 
   /**
    * 買い物かごを変更し、成功しても失敗しても最新の買い物かごを取得します。
@@ -189,7 +174,7 @@ export function useBasket(options: BasketOptions = {}): Basket {
   return {
     status: computed(() => status.value),
     lines,
-    account: computed(() => toBasketAccount(basket.value)),
+    account,
     isEmpty: computed(() => lines.value.length === 0),
     hasUnavailableItems,
     addedItem: computed(() => {

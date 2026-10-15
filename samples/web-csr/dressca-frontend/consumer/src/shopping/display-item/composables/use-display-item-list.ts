@@ -125,6 +125,13 @@ export function useDisplayItemList(): DisplayItemList {
   }
 
   /**
+   * 絞り込みの条件に合う陳列品を取得し、一覧に反映します。
+   */
+  async function fetchFilteredItems() {
+    items.value = (await fetchItems(filter.categoryId, filter.brandId)).items ?? []
+  }
+
+  /**
    * 絞り込みの選択肢と、絞り込みの条件に合う陳列品を読み込みます。
    */
   async function load() {
@@ -132,7 +139,7 @@ export function useDisplayItemList(): DisplayItemList {
       const options = await fetchCategoriesAndBrands()
       categories.value = options.categories
       brands.value = options.brands
-      items.value = (await fetchItems(filter.categoryId, filter.brandId)).items ?? []
+      await fetchFilteredItems()
     })
   }
 
@@ -140,9 +147,7 @@ export function useDisplayItemList(): DisplayItemList {
    * 絞り込みの条件に合う陳列品を読み込み直します。
    */
   async function reloadItems() {
-    await runLoading(async () => {
-      items.value = (await fetchItems(filter.categoryId, filter.brandId)).items ?? []
-    })
+    await runLoading(fetchFilteredItems)
   }
 
   /**
