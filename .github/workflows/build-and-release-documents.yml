@@ -122,7 +122,7 @@ jobs:
             --track-status true
 
       - name: Teams への通知
-        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
+        uses: fjogeleit/http-request-action@f98bb26551cd1af7d3eb2674578a80754ece88db  # v2.0.1
         with:
           url: ${{ secrets.ALESINFINY_POST_MESSAGE_TO_TEAMS_URL  }}
           method: POST
@@ -137,7 +137,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
-        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
+        uses: fjogeleit/http-request-action@f98bb26551cd1af7d3eb2674578a80754ece88db  # v2.0.1
         with:
           url: ${{ secrets.ALESINFINY_APPROVE_REQUEST_TO_TEAMS_URL  }}
           method: POST
