@@ -4,8 +4,8 @@
  */
 import type { RouteLocationRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useAuthenticationStore } from '@/security/authentication/stores/authentication'
-import { authenticationService } from '@/security/authentication/services/authentication-service'
+import { useAuthenticationStore } from '../stores/authentication'
+import { authenticationService } from '../services/authentication-service'
 
 defineProps<{
   /**

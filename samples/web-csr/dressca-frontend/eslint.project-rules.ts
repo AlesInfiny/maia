@@ -58,25 +58,23 @@ const vueRouterValueRestriction = {
 }
 
 /**
- * コンテキストを表す `@/` エイリアスのパターンからフォルダー名を取り出します。
- * @param contextPattern コンテキストを表すパターン（例: `@/security/**` ）。
- * @returns フォルダー名（例: `security` ）。
+ * コンテキストではない src 直下のフォルダー（層）です。
+ * src 直下のフォルダーのうち、ここに挙げないものは、すべてコンテキストとして扱います。
+ * コンテキストを追加するときに、このファイルを変更する必要はありません。
+ * 層を追加するときは、ここに追加し、その層の参照方向のルールを定義します。
  */
-function toContextFolder(contextPattern: string): string {
-  return contextPattern.replace(/^@\//, '').replace(/\/\*\*$/, '')
-}
+const layerFolders = ['core', 'pages', 'business-common', 'system-common', 'assets']
 
 /**
- * コンテキスト全体の参照を禁止しつつ、 public-api.ts だけを許可するパターンを作ります。
- * gitignore 形式の除外記法で、コンテキストごとに否定パターンのペアを作ります。
- * @param contextPatterns コンテキストを表すパターン。
- * @returns 参照を禁止するパターン。
+ * `@/` エイリアスで書いた参照のうち、指定したフォルダー以外への参照に一致する正規表現を作ります。
+ * テストが参照するモックのデータ（ `@/../mock/**` ）は src の外にあるため、一致させません。
+ * gitignore 形式のパターン（ `group` ）では `..` を含むパスを除外できないため、正規表現を使います。
+ * @param allowedFolders 参照を許可する src 直下のフォルダー。
+ * @returns 正規表現の文字列。
  */
-function exceptPublicApi(contextPatterns: string[]): string[] {
-  return contextPatterns.flatMap((pattern) => [
-    pattern,
-    `!@/${toContextFolder(pattern)}/public-api`,
-  ])
+function importsExcept(allowedFolders: string[]): string {
+  // 文字列の値を `\.\.` にするため、ソースでは `\\.\\.` と書きます。
+  return `^@/(?!(?:${[...allowedFolders, '\\.\\.'].join('|')})/)`
 }
 
 /**
@@ -86,11 +84,15 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
  *         ↓
  *   pages（src/pages）
  *         ↓
- *   コンテキスト
+ *   コンテキスト（src 直下の、層以外のすべてのフォルダー）
  *         ↓
  *   業務共通（business-common）
  *         ↓
  *   システム共通（system-common）
+ *
+ * 各層には、参照してよいフォルダーだけを定義し、それ以外の `@/` の参照を禁止します。
+ * コンテキストを列挙しないため、コンテキストを追加してもルールを変更する必要はありません。
+ * 層として登録していないフォルダーはコンテキストとして扱われ、最も厳しいルールが適用されます。
  *
  * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
  * core 層は最上位の層のため、参照の制限を設けません。
@@ -99,25 +101,21 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
  * pages のテストは、画面を遷移させるためにルーター（ `@/core/router` ）を、
  * API の応答を組み立てるために API の型を参照できます。
  * コンテキストは他のコンテキストを参照できません。 public-api.ts も参照できません。コンテキストの組み合わせは pages で行います。
+ * コンテキストの中の参照は相対パスで書きます。 `@/` で自分のコンテキストを参照することもできません。
  * コンテキスト、 business-common 、 system-common は、 vue-router を型だけ参照できます。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
- * @param contextPatterns 業務コードを持つ最上位フォルダー（コンテキスト）を表す
- *   `@/` エイリアスのパターン。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
-function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
-  // `@/core/**` は、ルーター（ `@/core/router` ）を含む core 層のすべてのモジュールに一致します。
-  const corePatterns = ['@/core/**']
-  const pagesFileGlob = `**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`
+function createLayerDependencyRules(workspace: string): Linter.Config[] {
+  const srcGlob = `**/${workspace}/src`
+  const sourceFileGlob = '*.{vue,ts,mts,tsx}'
   // `__tests__/**/*.{vue,ts}` の形は、 pages 直下のフォルダーのテスト（ pages/basket/__tests__ など）に一致しないため、
   // `__tests__/**` の形で指定します。
   // `pages/**/__tests__/**` は pages 直下のテスト（ pages/__tests__ ）にも一致しないため、別に指定します。
-  const pagesTestFileGlobs = [
-    `**/${workspace}/src/pages/__tests__/**`,
-    `**/${workspace}/src/pages/**/__tests__/**`,
-  ]
+  const pagesTestFileGlobs = [`${srcGlob}/pages/__tests__/**`, `${srcGlob}/pages/**/__tests__/**`]
   const pagesContextRestriction = {
-    group: exceptPublicApi(contextPatterns),
+    // 層以外のフォルダー（コンテキスト）のうち、 public-api 以外への参照に一致します。
+    regex: `${importsExcept(layerFolders)}[^/]+/(?!public-api$)`,
     message:
       'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
   }
@@ -127,41 +125,10 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
   const pagesCoreMessage =
     'pages から参照できる core 層のモジュールは、ルート名の定数（ @/core/router/route-names ）だけです。'
 
-  /**
-   * コンテキストごとに、他のコンテキストの参照を禁止する設定を作ります。
-   * 同じコンテキストの中の参照は制限しません。
-   * @param contextPattern 設定を作るコンテキストを表すパターン。
-   * @returns ESLint の設定。
-   */
-  const createContextRule = (contextPattern: string): Linter.Config => {
-    const contextFolder = toContextFolder(contextPattern)
-    const otherContextPatterns = contextPatterns.filter((pattern) => pattern !== contextPattern)
-    return {
-      name: `${workspace}/layer-dependency/context/${contextFolder}`,
-      files: [`**/${workspace}/src/${contextFolder}/**/*.{vue,ts,mts,tsx}`],
-      rules: {
-        [restrictedImportsRule]: [
-          'error',
-          {
-            paths: [vueRouterValueRestriction],
-            patterns: [
-              {
-                group: [...corePatterns, '@/pages/**', ...otherContextPatterns],
-                message:
-                  'コンテキストは core 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。',
-              },
-            ],
-          },
-        ],
-        ...dynamicImportRestriction,
-      },
-    }
-  }
-
   return [
     {
       name: `${workspace}/layer-dependency/system-common`,
-      files: [`**/${workspace}/src/system-common/**/*.{vue,ts,mts,tsx}`],
+      files: [`${srcGlob}/system-common/**/${sourceFileGlob}`],
       rules: {
         [restrictedImportsRule]: [
           'error',
@@ -169,7 +136,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...corePatterns, '@/business-common/**', '@/pages/**', ...contextPatterns],
+                regex: importsExcept(['system-common']),
                 message:
                   'system-common は業務知識を持たない層です。 core 層、 business-common 、 pages 、コンテキストを参照できません。',
               },
@@ -181,7 +148,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     },
     {
       name: `${workspace}/layer-dependency/business-common`,
-      files: [`**/${workspace}/src/business-common/**/*.{vue,ts,mts,tsx}`],
+      files: [`${srcGlob}/business-common/**/${sourceFileGlob}`],
       rules: {
         [restrictedImportsRule]: [
           'error',
@@ -189,7 +156,7 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...corePatterns, '@/pages/**', ...contextPatterns],
+                regex: importsExcept(['business-common', 'system-common']),
                 message: 'business-common は core 層、 pages 、コンテキストを参照できません。',
               },
             ],
@@ -198,10 +165,30 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
         ...dynamicImportRestriction,
       },
     },
-    ...contextPatterns.map(createContextRule),
+    {
+      name: `${workspace}/layer-dependency/context`,
+      files: [`${srcGlob}/*/**/${sourceFileGlob}`],
+      ignores: layerFolders.map((folder) => `${srcGlob}/${folder}/**`),
+      rules: {
+        [restrictedImportsRule]: [
+          'error',
+          {
+            paths: [vueRouterValueRestriction],
+            patterns: [
+              {
+                regex: importsExcept(['business-common', 'system-common']),
+                message:
+                  'コンテキストは core 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。自分のコンテキストの中は相対パスで参照します。',
+              },
+            ],
+          },
+        ],
+        ...dynamicImportRestriction,
+      },
+    },
     {
       name: `${workspace}/layer-dependency/pages`,
-      files: [pagesFileGlob],
+      files: [`${srcGlob}/pages/**/${sourceFileGlob}`],
       ignores: pagesTestFileGlobs,
       rules: {
         [restrictedImportsRule]: [
@@ -252,15 +239,9 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
 /**
  * consumer ワークスペースのフォルダー間の参照方向を強制するルールです。
  */
-export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules(
-  'consumer',
-  ['@/shopping/**', '@/security/**'],
-)
+export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('consumer')
 
 /**
  * admin のフォルダー間の参照方向を強制するルールです。
  */
-export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin', [
-  '@/catalog-management/**',
-  '@/security/**',
-])
+export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin')

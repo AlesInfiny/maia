@@ -20,6 +20,9 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 
 `business-common` と `system-common` はコンテキストではなく共通の層です。
 どちらもコンテキストに依存してはいけません（ `eslint.project-rules.ts` の `createLayerDependencyRules` を参照）。
+`src/` 直下のフォルダーのうち、層のフォルダー（ `eslint.project-rules.ts` の `layerFolders` ）以外はコンテキストとして扱われます。
+コンテキストを追加しても、 ESLint のルールを変更する必要はありません。
+コンテキストの中の参照は相対パスで書きます。
 
 ## 保守するチーム {#owners}
 

@@ -5,7 +5,7 @@ import { createPinia, setActivePinia, type Pinia } from 'pinia'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
 import { server } from '@/../mock/node'
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
+import { useAuthenticationStore } from '../../../authorization/stores/authentication'
 import { useLogin, type Login } from '../use-login'
 
 let pinia: Pinia

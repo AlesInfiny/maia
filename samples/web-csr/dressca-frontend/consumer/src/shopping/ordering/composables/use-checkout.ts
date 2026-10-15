@@ -6,13 +6,13 @@ import {
   type ApiProblem,
   type CommonErrorOutcome,
 } from '@/system-common/error-handler/common-error-outcome'
-import { fetchBasket } from '@/shopping/basket/services/basket-service'
+import { fetchBasket } from '../../basket/services/basket-service'
 import {
   toBasketAccount,
   toBasketLines,
   type BasketAccount,
   type BasketLine,
-} from '@/shopping/basket/models/basket-line'
+} from '../../basket/models/basket-line'
 import { postOrder } from '../services/ordering-service'
 import { useUserStore } from '../stores/user'
 import type { Address } from '../stores/user.model'

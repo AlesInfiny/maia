@@ -6,7 +6,7 @@ import {
   type ApiProblem,
   type CommonErrorOutcome,
 } from '@/system-common/error-handler/common-error-outcome'
-import { addItemToBasket } from '@/shopping/basket/services/basket-service'
+import { addItemToBasket } from '../../basket/services/basket-service'
 import { fetchCategoriesAndBrands, fetchItems } from '../services/display-item-service'
 import { useSpecialContentStore } from '../stores/special-content'
 import type { SpecialContent } from '../stores/special-content.model'

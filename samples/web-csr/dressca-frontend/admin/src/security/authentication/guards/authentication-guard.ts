@@ -1,5 +1,5 @@
 import type { NavigationGuardWithThis, RouteLocationRaw } from 'vue-router'
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
+import { useAuthenticationStore } from '../../authorization/stores/authentication'
 
 /**
  * 認証のナビゲーションガードを生成するための設定です。

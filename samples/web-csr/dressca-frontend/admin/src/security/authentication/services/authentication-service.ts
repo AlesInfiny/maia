@@ -1,4 +1,4 @@
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
+import { useAuthenticationStore } from '../../authorization/stores/authentication'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { abortAllRequests } from '@/system-common/api-client/request-abort-manager'
 
