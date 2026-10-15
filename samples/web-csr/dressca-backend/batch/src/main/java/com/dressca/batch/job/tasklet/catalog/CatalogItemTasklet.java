@@ -1,10 +1,12 @@
 package com.dressca.batch.job.tasklet.catalog;
 
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.infrastructure.item.Chunk;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
@@ -14,8 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogRepository;
 
 /**
  * カタログアイテムのタスクレットジョブ（catalog_item_tasklet_job）で実行される Tasklet クラスです。
@@ -24,19 +24,19 @@ import com.dressca.applicationcore.catalog.CatalogRepository;
 @StepScope
 public class CatalogItemTasklet implements Tasklet {
 
-  private final CatalogRepository repository;
+  private final CatalogApplicationService catalogApplicationService;
 
   private final String output;
 
   /**
    * Tasklet の依存関係と出力先設定を受け取ります。
    *
-   * @param repository カタログ商品を取得するリポジトリ。
+   * @param catalogApplicationService カタログ商品を取得するアプリケーションサービス。
    * @param output 出力ファイル名。 Job パラメータから取得します。
    */
-  public CatalogItemTasklet(CatalogRepository repository,
+  public CatalogItemTasklet(CatalogApplicationService catalogApplicationService,
       @Value("${output:#{null}}") String output) {
-    this.repository = repository;
+    this.catalogApplicationService = catalogApplicationService;
     this.output = output;
   }
 
@@ -44,7 +44,8 @@ public class CatalogItemTasklet implements Tasklet {
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
       throws Exception {
     // DB から CatalogItem を全件取得
-    List<CatalogItem> catalogItemList = repository.findWithPaging(0, 1000);
+    List<CatalogItem> catalogItemList =
+        catalogApplicationService.getCatalogItemsWithPaging(0, 1000);
     List<CatalogItem> convertedList = new ArrayList<>();
     // 商品名を先頭 10 文字にする
     catalogItemList.forEach(it -> {

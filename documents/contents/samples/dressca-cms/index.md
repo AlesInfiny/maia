@@ -20,6 +20,7 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
 1. 以下のリンクから、サンプルアプリケーションをダウンロードしてください。
 
     - 「[サンプルアプリケーションのダウンロード](../downloads/dressca-cms.zip)」
+    - 「[サンプルアプリケーションのダウンロード(BIPROGYグループ向け) :material-open-in-new:](https://forms.office.com/r/eFY95qfNNf){ target=_blank }」
 
 1. ダウンロードした zip ファイルのプロパティを開き、ファイルへのアクセスを許可 ( ブロックを解除 ) してから、任意のフォルダーに展開してください。
    以降の手順では、「dressca-cms」フォルダーに展開したものとして解説します。
@@ -60,9 +61,9 @@ Dressca-CMS は、 Spring Framework / Spring Boot をベースとした CMS シ�
 
 1. 以下のアドレスで、サンプルアプリケーションにアクセスできます。
 
-    <http://localhost:8082>
+    <http://localhost:8083>
 
-1. ログイン画面が表示されたら、開発環境用に設定されているメールアドレスとパスワードを入力して「ログイン」ボタンを押下してください。メールアドレスは [user@example.com] 、パスワードは [P@ssw0rd1] です。
+1. ログイン画面が表示されたら、開発環境用に設定されているメールアドレスとパスワードを入力して「ログイン」ボタンを押下してください。メールアドレスは `user@example.com` 、パスワードは `P@ssw0rd1` です。
 
     ![Dressca-CMS ログイン画面](../../images/samples/dressca-cms-login.png){ width="600" loading=lazy }
 

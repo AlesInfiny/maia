@@ -1,0 +1,123 @@
+package com.dressca.applicationmodules.assetsmanagement;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.dressca.applicationmodules.ApplicationModulesTestConfig;
+import com.dressca.applicationmodules.assetsmanagement.dto.AssetResourceInfo;
+import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
+import com.dressca.applicationmodules.assetsmanagement.exception.AssetNotFoundException;
+import com.dressca.applicationmodules.assetsmanagement.internal.domain.repository.AssetRepository;
+import com.dressca.applicationmodules.assetsmanagement.internal.domain.store.AssetStore;
+import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * {@link AssetApplicationService}の動作をテストするクラスです。
+ */
+@Import(ApplicationModulesTestConfig.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
+@ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
+public class AssetApplicationServiceTest {
+
+  @Mock
+  private AssetRepository repository;
+  @Mock
+  private AssetStore store;
+  @Autowired
+  private MessageSource messages;
+  @Mock
+  private AbstractStructuredLogger apLog;
+
+  private AssetApplicationService service;
+
+  @BeforeEach
+  void setUp() {
+    service = new AssetApplicationService(repository, store, messages, apLog);
+  }
+
+  @Test
+  void testGetAssetResourceInfo_正常系_存在するアセットコード() throws AssetNotFoundException {
+    // Arrange
+    // テスト用の入力データ
+    String assetCode = "ExistAssetCode";
+
+    // 期待する戻り値
+    Asset asset = new Asset(assetCode, "png");
+    Resource resource = new FileSystemResource("test");
+    AssetResourceInfo expected = new AssetResourceInfo(asset, resource);
+
+    // モックの設定
+    when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
+    when(this.store.getResource(asset)).thenReturn(Optional.of(resource));
+
+    // Act
+    AssetResourceInfo actual = service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThat(actual).isEqualTo(expected);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
+    verify(this.store, times(1)).getResource(asset);
+  }
+
+  @Test
+  void testGetAssetResourceInfo_異常系_リポジトリに存在しないアセットコード() {
+    // Arrange
+    // テスト用の入力データ
+    String assetCode = "NotExistAssetCode";
+
+    // モックの設定
+    when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.empty());
+
+    // Act
+    Executable action = () -> service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThrows(AssetNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
+  }
+
+  @Test
+  void testGetAssetResourceInfo_異常系_ストアに存在しないアセットコード() {
+    // Arrange
+    // テスト用の入力データ
+    String assetCode = "NotExistAssetCode";
+
+    // 期待する戻り値
+    Asset asset = new Asset(assetCode, "png");
+
+    // モックの設定
+    when(this.repository.findByAssetCode(assetCode)).thenReturn(Optional.of(asset));
+    when(this.store.getResource(asset)).thenReturn(Optional.empty());
+
+    // Act
+    Executable action = () -> service.getAssetResourceInfo(assetCode);
+
+    // Assert
+    assertThrows(AssetNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.repository, times(1)).findByAssetCode(assetCode);
+    verify(this.store, times(1)).getResource(asset);
+  }
+}

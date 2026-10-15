@@ -21,6 +21,7 @@ Dressca は、 Spring Framework / Spring Boot を用いて構築されたバッ�
 1. 以下のリンクから、サンプルアプリケーションをダウンロードしてください。
 
     - 「[サンプルアプリケーションのダウンロード](../downloads/dressca.zip)」
+    - 「[サンプルアプリケーションのダウンロード(BIPROGYグループ向け) :material-open-in-new:](https://forms.office.com/r/eFY95qfNNf){ target=_blank }」
 
 1. ダウンロードした zip ファイルのプロパティを開き、ファイルへのアクセスを許可 ( ブロックを解除 ) してから、任意のフォルダーに展開してください。
    以降の手順では、「dressca」フォルダーに展開したものとして解説します。
@@ -121,10 +122,10 @@ VS Code のターミナルで、「dressca\\dressca-frontend」にいること�
 
 Consumer アプリケーションに実装された機能の確認手順を示します。
 
-#### カタログアイテムを注文する {#order-catalog-item}
+#### 陳列品を注文する {#order-display-item}
 
-![カタログアイテム注文の画面遷移図](../../images/samples/screen-flow-order-light.png#only-light){ width="1200" loading=lazy }
-![カタログアイテム注文の画面遷移図](../../images/samples/screen-flow-order-dark.png#only-dark){ width="1200" loading=lazy }
+![陳列品注文の画面遷移図](../../images/samples/screen-flow-order-light.png#only-light){ width="1200" loading=lazy }
+![陳列品注文の画面遷移図](../../images/samples/screen-flow-order-dark.png#only-dark){ width="1200" loading=lazy }
 
 1. 上記の [Consumer アプリケーションの起動](#start-consumer-application) に従って、 Consumer アプリケーションを実行します。
 
@@ -197,7 +198,7 @@ Admin アプリケーションに実装された機能の確認手順を示し�
 
 1. 「カタログアイテム管理」ボタンを押下し、カタログアイテム一覧画面へ遷移します。
 
-1. 「アイテム ID」が 1 のアイテムの行の「編集」ボタンを押下し、カタログアイテム編集画面へ遷移します。
+1. 任意のアイテムの行の「編集」ボタンを押下し、カタログアイテム編集画面へ遷移します。
 
 1. 「変更後」フォームに任意のアイテムの情報を入力してください。このとき、入力できるアイテムの情報にはバリデーションが実装されています。エラーメッセージが表示されたら、エラーメッセージに従って入力内容を修正してください。入力が完了したら、「更新」ボタンを押下します。
 
@@ -207,5 +208,5 @@ Admin アプリケーションに実装された機能の確認手順を示し�
 
 1. 「変更前」のアイテムの情報が、先ほど入力した情報で更新されていることを確認してください。
 
-1. ヘッダーメニューの「カタログアイテム管理」ボタンを押下し、カタログアイテム一覧画面へ遷移します。「アイテム ID」が 1 のアイテムの情報が、先ほど入力した情報で更新されていることを確認してください。
+1. ヘッダーメニューの「カタログアイテム管理」ボタンを押下し、カタログアイテム一覧画面へ遷移します。先ほど編集したアイテムの情報が、入力した情報で更新されていることを確認してください。
 <!-- textlint-enable @textlint-ja/no-synonyms -->

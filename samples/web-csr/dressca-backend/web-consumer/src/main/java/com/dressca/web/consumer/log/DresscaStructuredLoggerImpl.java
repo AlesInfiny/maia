@@ -1,9 +1,9 @@
 package com.dressca.web.consumer.log;
 
-import org.slf4j.MDC;
-import org.springframework.stereotype.Component;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import lombok.NoArgsConstructor;
+import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
 
 /**
  * アプリケーション固有のログ出力を実装した構造化ロガーです。

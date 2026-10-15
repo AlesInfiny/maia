@@ -99,9 +99,9 @@ AlesInfiny Maia の各ドキュメントは、本節に記載されている環�
 
 JDK の取得先は実行環境に合わせて選択します。
 
-- [Azure：Microsoft Build for OpenJDK :material-open-in-new:](https://www.microsoft.com/openjdk/){ target=_blank }
+- [Azure: Microsoft Build for OpenJDK :material-open-in-new:](https://www.microsoft.com/openjdk/){ target=_blank }
 
-- [AWS：Amazon Corretto :material-open-in-new:](https://aws.amazon.com/jp/corretto/){ target=_blank }
+- [AWS: Amazon Corretto :material-open-in-new:](https://aws.amazon.com/jp/corretto/){ target=_blank }
 
 - オンプレミス/その他クラウドサービス（下記のいずれか）
 

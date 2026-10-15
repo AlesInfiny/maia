@@ -1,30 +1,31 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
-import com.dressca.applicationcore.applicationservice.OrderApplicationService;
-import com.dressca.applicationcore.order.Address;
-import com.dressca.applicationcore.order.EmptyBasketOnCheckoutException;
-import com.dressca.applicationcore.order.Order;
-import com.dressca.applicationcore.order.OrderNotFoundException;
-import com.dressca.applicationcore.order.ShipTo;
+import com.dressca.applicationmodules.shopping.OrderApplicationService;
+import com.dressca.applicationmodules.shopping.ShoppingApplicationService;
+import com.dressca.applicationmodules.shopping.entity.Order;
+import com.dressca.applicationmodules.shopping.exception.EmptyBasketOnCheckoutException;
+import com.dressca.applicationmodules.shopping.exception.OrderNotFoundException;
+import com.dressca.applicationmodules.shopping.valueobject.Address;
+import com.dressca.applicationmodules.shopping.valueobject.ShipTo;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
-import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
-import com.dressca.web.consumer.controller.dto.order.OrderResponse;
+import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
 import com.dressca.web.consumer.controller.dto.order.PostOrderRequest;
-import com.dressca.web.log.ErrorMessageBuilder;
 import com.dressca.web.consumer.mapper.OrderMapper;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
+import com.dressca.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.net.URI;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.net.URI;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,7 @@ public class OrderController {
 
   /**
    * 注文情報を取得します。
-   * 
+   *
    * @param orderId 注文 ID 。
    * @return 注文情報。
    */
@@ -62,17 +63,18 @@ public class OrderController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "成功。",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = OrderResponse.class))),
+              schema = @Schema(implementation = GetOrderByIdResponse.class))),
       @ApiResponse(responseCode = "404", description = "注文 ID が存在しません。",
           content = @Content(mediaType = "application/problem+json",
               schema = @Schema(implementation = ProblemDetail.class)))})
   @GetMapping("{orderId}")
-  public ResponseEntity<?> getById(@PathVariable("orderId") long orderId, HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+  public ResponseEntity<?> getOrderById(@PathVariable("orderId") UUID orderId,
+      HttpServletRequest req) {
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       Order order = orderApplicationService.getOrder(orderId, buyerId);
-      OrderResponse orderDto = OrderMapper.convert(order);
+      GetOrderByIdResponse orderDto = OrderMapper.convert(order);
       return ResponseEntity.ok().body(orderDto);
     } catch (OrderNotFoundException e) {
       apLog.info(e.getMessage());
@@ -88,7 +90,7 @@ public class OrderController {
 
   /**
    * 買い物かごに登録されている商品を注文します。
-   * 
+   *
    * @param postOrderInput 注文に必要な配送先などの情報。
    * @return なし。
    */
@@ -104,7 +106,7 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<?> postOrder(@RequestBody @Valid PostOrderRequest postOrderInput,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     Address address = new Address(postOrderInput.getPostalCode(), postOrderInput.getTodofuken(),
         postOrderInput.getShikuchoson(), postOrderInput.getAzanaAndOthers());
     ShipTo shipToAddress = new ShipTo(postOrderInput.getFullName(), address);
@@ -112,7 +114,6 @@ public class OrderController {
     try {
       order = shoppingApplicationService.checkout(buyerId, shipToAddress);
     } catch (EmptyBasketOnCheckoutException e) {
-      // ここでは発生しえないので、システムエラーとする
       throw new SystemException(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     }
 

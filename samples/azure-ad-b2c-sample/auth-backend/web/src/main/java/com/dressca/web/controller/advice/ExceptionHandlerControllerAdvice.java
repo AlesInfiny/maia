@@ -1,6 +1,5 @@
 package com.dressca.web.controller.advice;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
@@ -24,17 +23,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private final AbstractStructuredLogger apLog;
   private final ProblemDetailsFactory problemDetailsFactory;
 
-
   /**
    * 未認証の例外をステータースコード 401 で返却します。
    *
    * @param e 未認証の例外。
-   * @param req リクエスト。
    * @return ステータースコード 401 のレスポンス。
    */
   @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e,
-      HttpServletRequest req) {
+  public ResponseEntity<ProblemDetail> accessDeniedHandleException(AccessDeniedException e) {
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
@@ -48,11 +44,10 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    * その他の例外をステータースコード 500 で返却します。
    *
    * @param e その他の例外。
-   * @param req リクエスト。
    * @return ステータースコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
+  public ResponseEntity<ProblemDetail> handleException(Exception e) {
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());

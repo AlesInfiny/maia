@@ -1,10 +1,5 @@
 {
-  "ignorePaths": [
-    "checkstyle.xml",
-    "eclipse-formatter.xml",
-    "**/gradlew",
-    "**/gradlew.bat"
-  ],
+  "ignorePaths": ["checkstyle.xml", "eclipse-formatter.xml", "**/gradlew", "**/gradlew.bat"],
   "words": [
     "applicationcore",
     "assertj",
@@ -19,6 +14,7 @@
     "findbugs",
     "gradlew",
     "jacoco",
+    "javaagent",
     "javaparser",
     "jdbc",
     "jvmargs",

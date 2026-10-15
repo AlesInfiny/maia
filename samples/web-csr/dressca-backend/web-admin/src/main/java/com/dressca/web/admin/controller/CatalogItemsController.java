@@ -1,18 +1,13 @@
 package com.dressca.web.admin.controller;
 
-import java.math.BigDecimal;
-import java.net.URI;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.applicationservice.CatalogApplicationService;
-import com.dressca.applicationcore.authorization.PermissionDeniedException;
-import com.dressca.applicationcore.catalog.CatalogBrandNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogCategoryNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogNotFoundException;
-import com.dressca.applicationcore.catalog.OptimisticLockingFailureException;
-import com.dressca.applicationcore.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
+import com.dressca.applicationmodules.authorization.exception.PermissionDeniedException;
+import com.dressca.applicationmodules.catalogmanagement.CatalogApplicationService;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogBrandNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogCategoryNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.CatalogNotFoundException;
+import com.dressca.applicationmodules.catalogmanagement.exception.OptimisticLockingFailureException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.SystemException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
@@ -21,6 +16,19 @@ import com.dressca.web.admin.controller.dto.catalog.PagedListOfGetCatalogItemRes
 import com.dressca.web.admin.controller.dto.catalog.PostCatalogItemRequest;
 import com.dressca.web.admin.controller.dto.catalog.PutCatalogItemRequest;
 import com.dressca.web.admin.mapper.CatalogItemMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,17 +37,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CatalogItem} の情報にアクセスする API コントローラーです。
@@ -72,7 +73,7 @@ public class CatalogItemsController {
           content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping("{id}")
-  public ResponseEntity<GetCatalogItemResponse> getCatalogItem(@PathVariable("id") long id)
+  public ResponseEntity<GetCatalogItemResponse> getCatalogItem(@PathVariable("id") UUID id)
       throws PermissionDeniedException {
     CatalogItem item;
     try {
@@ -88,9 +89,9 @@ public class CatalogItemsController {
 
   /**
    * カタログアイテムを検索して返します。
-   *
-   * @param brandId ブランド ID 。未指定の場合は 0 。
-   * @param categoryId カテゴリ ID 。未指定の場合は 0 。
+   * 
+   * @param brandId ブランド ID 。未指定の場合は `null` 。
+   * @param categoryId カテゴリ ID 。未指定の場合は `null` 。
    * @param page ページ番号。未指定の場合は 1 。
    * @param pageSize ページサイズ。未指定の場合は 20 。
    * @return カタログアイテムの一覧。
@@ -107,16 +108,16 @@ public class CatalogItemsController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @GetMapping
   public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
-      @RequestParam(name = "brandId", defaultValue = "0") long brandId,
-      @RequestParam(name = "categoryId", defaultValue = "0") long categoryId,
+      @RequestParam(name = "brandId", required = false) UUID brandId,
+      @RequestParam(name = "categoryId", required = false) UUID categoryId,
       @RequestParam(name = "page", defaultValue = "1") int page,
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize)
       throws PermissionDeniedException {
 
     List<GetCatalogItemResponse> items =
-        this.service.getCatalogItemsForAdmin(brandId, categoryId, page, pageSize).stream()
+        this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
             .map(CatalogItemMapper::convert).collect(Collectors.toList());
-    int totalCount = this.service.countCatalogItemsForAdmin(brandId, categoryId);
+    int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
     PagedListOfGetCatalogItemResponse returnValue =
         new PagedListOfGetCatalogItemResponse(items, totalCount, page, pageSize);
@@ -176,7 +177,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
       @RequestParam(name = "rowVersion") OffsetDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
@@ -208,7 +209,7 @@ public class CatalogItemsController {
           @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
           @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") long catalogItemId,
+  public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {

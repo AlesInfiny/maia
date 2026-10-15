@@ -1,34 +1,35 @@
 package com.dressca.web.consumer.controller;
 
-import com.dressca.applicationcore.applicationservice.BasketDetail;
-import com.dressca.applicationcore.applicationservice.ShoppingApplicationService;
-import com.dressca.applicationcore.baskets.Basket;
-import com.dressca.applicationcore.baskets.BasketItem;
-import com.dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException;
-import com.dressca.applicationcore.catalog.CatalogItem;
-import com.dressca.applicationcore.catalog.CatalogNotFoundException;
+import com.dressca.applicationmodules.shopping.ShoppingApplicationService;
+import com.dressca.applicationmodules.shopping.dto.BasketDetail;
+import com.dressca.applicationmodules.shopping.entity.Basket;
+import com.dressca.applicationmodules.shopping.entity.BasketItem;
+import com.dressca.applicationmodules.shopping.entity.DisplayItem;
+import com.dressca.applicationmodules.shopping.exception.DisplayItemInBasketNotFoundException;
+import com.dressca.applicationmodules.shopping.exception.DisplayItemNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
-import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.constant.WebConstants;
-import com.dressca.web.consumer.controller.dto.baskets.BasketItemResponse;
-import com.dressca.web.consumer.controller.dto.baskets.BasketResponse;
+import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
+import com.dressca.web.consumer.controller.dto.baskets.GetBasketItemsResponse;
 import com.dressca.web.consumer.controller.dto.baskets.PostBasketItemsRequest;
 import com.dressca.web.consumer.controller.dto.baskets.PutBasketItemsRequest;
-import com.dressca.web.consumer.controller.dto.catalog.CatalogItemSummaryResponse;
-import com.dressca.web.log.ErrorMessageBuilder;
+import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApiModel;
 import com.dressca.web.consumer.mapper.BasketMapper;
-import com.dressca.web.consumer.mapper.CatalogItemSummaryMapper;
+import com.dressca.web.consumer.mapper.DisplayItemSummaryMapper;
+import com.dressca.web.controller.advice.ProblemDetailsFactory;
+import com.dressca.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,43 +57,43 @@ public class BasketItemController {
 
   /**
    * 買い物かごアイテムの一覧を取得します。
-   * 
+   *
    * @return 買い物かごアイテムの一覧。
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
       content = @Content(mediaType = "application/json",
-          schema = @Schema(implementation = BasketResponse.class)))})
+          schema = @Schema(implementation = GetBasketItemsResponse.class)))})
   @GetMapping
-  public ResponseEntity<BasketResponse> getBasketItems(HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+  public ResponseEntity<GetBasketItemsResponse> getBasketItems(HttpServletRequest req) {
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     BasketDetail basketItemsForUser = shoppingApplicationService.getBasketDetail(buyerId);
     Basket basket = basketItemsForUser.getBasket();
-    List<CatalogItem> catalogItems = basketItemsForUser.getCatalogItems();
-    BasketResponse basketDto = BasketMapper.convert(basket);
+    List<DisplayItem> displayItems = basketItemsForUser.getDisplayItems();
+    GetBasketItemsResponse basketDto = BasketMapper.convert(basket);
 
-    for (BasketItemResponse item : basketDto.getBasketItems()) {
-      item.setCatalogItem(this.getCatalogItemResponse(item.getCatalogItemId(), catalogItems));
+    for (BasketItemApiModel item : basketDto.getBasketItems()) {
+      item.setDisplayItem(this.getDisplayItemResponse(item.getDisplayItemId(), displayItems));
     }
-    List<Long> deletedItemIds = basketItemsForUser.getDeletedItemIds();
+    List<UUID> deletedItemIds = basketItemsForUser.getDeletedItemIds();
     basketDto.setDeletedItemIds(deletedItemIds);
     return ResponseEntity.ok().body(basketDto);
   }
 
   /**
-   * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。
-   * 
+   * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない陳列品 ID は指定できません。
+   *
    * <p>この API では、買い物かご内に存在する商品の数量を変更できます。
-   * 買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。
-   * またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。</p>
-   * 
+   * 買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。
+   * またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。</p>
+   *
    * @param putBasketItems 変更する買い物かごアイテムのデータリスト。
    * @return なし。
    */
   @Operation(summary = "買い物かごアイテム内の数量を変更します。",
-      description = "買い物かごアイテム内の数量を変更します。買い物かご内に存在しないカタログアイテム ID は指定できません。<br>"
-          + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しないカタログアイテム ID を指定すると HTTP 400 を返却します。<br>"
-          + "またシステムに登録されていないカタログアイテム ID を指定した場合も HTTP 400 を返却します。")
+      description = "買い物かごアイテム内の数量を変更します。買い物かご内に存在しない陳列品 ID は指定できません。"
+          + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。"
+          + "またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
@@ -104,20 +105,20 @@ public class BasketItemController {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
-    Map<Long, Integer> quantities = putBasketItems.stream().collect(Collectors
-        .toMap(PutBasketItemsRequest::getCatalogItemId, PutBasketItemsRequest::getQuantity));
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    Map<UUID, Integer> quantities = putBasketItems.stream().collect(Collectors
+        .toMap(PutBasketItemsRequest::getDisplayItemId, PutBasketItemsRequest::getQuantity));
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
-    } catch (CatalogNotFoundException e) {
+    } catch (DisplayItemNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
           CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
-    } catch (CatalogItemInBasketNotFoundException e) {
+    } catch (DisplayItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
@@ -130,22 +131,21 @@ public class BasketItemController {
 
   /**
    * 買い物かごに商品を追加します。
-   * 
-   * <p>この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。
-   * また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。
-   * すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。</p>
-   * 
-   * <p>買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。</p>
-   * 
+   *
+   * <p>この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。
+   * また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。
+   * すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。</p>
+   *
+   * <p>買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。</p>
+   *
    * @param postBasketItem 追加する商品の情報。
    * @return なし。
    */
   @Operation(summary = "買い物かごに商品を追加します。",
-      description = "買い物かごに商品を追加します。<br>"
-          + "この API では、システムに登録されていないカタログアイテム ID を指定した場合 HTTP 400 を返却します。"
-          + "また買い物かごに追加していないカタログアイテムを指定した場合、その商品を買い物かごに追加します。"
-          + "すでに買い物かごに追加されているカタログアイテムを指定した場合、指定した数量、買い物かご内の数量を追加します。<br>"
-          + "買い物かご内のカタログアイテムの数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
+      description = "買い物かごに商品を追加します。" + "この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。"
+          + "また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。"
+          + "すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。"
+          + "買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "201", description = "作成完了。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
@@ -157,11 +157,11 @@ public class BasketItemController {
   @PostMapping
   public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     try {
-      this.shoppingApplicationService.addItemToBasket(buyerId, postBasketItem.getCatalogItemId(),
+      this.shoppingApplicationService.addItemToBasket(buyerId, postBasketItem.getDisplayItemId(),
           postBasketItem.getAddedQuantity());
-    } catch (CatalogNotFoundException e) {
+    } catch (DisplayItemNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
@@ -173,44 +173,42 @@ public class BasketItemController {
   }
 
   /**
-   * 買い物かごから指定したカタログアイテム ID の商品を削除します。
-   * 
-   * <p>catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。
-   * カタログアイテム ID は 1 以上の整数です。
-   * 0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。
-   * 買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。</p>
-   * 
-   * @param catalogItemId カタログアイテム ID 。
+   * 買い物かごから指定した陳列品 ID の商品を削除します。
+   *
+   * <p>displayItemId には買い物かご内に存在する陳列品 ID を指定してください。
+   * UUID 形式でない値を指定した場合 HTTP 400 を返却します。
+   * 買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。</p>
+   *
+   *
+   * @param displayItemId 陳列品 ID 。
    * @return なし。
    */
-  @Operation(summary = "買い物かごから指定したカタログアイテム ID の商品を削除します。",
-      description = "買い物かごから指定したカタログアイテム ID の商品を削除します。<br>"
-          + "catalogItemId には買い物かご内に存在するカタログアイテム ID を指定してください。カタログアイテム ID は 1 以上の整数です。"
-          + "0 以下の値を指定したり、整数値ではない値を指定した場合 HTTP 400 を返却します。"
-          + "買い物かご内に指定したカタログアイテムの商品が存在しない場合、 HTTP 404 を返却します。")
+  @Operation(summary = "買い物かごから指定した陳列品 ID の商品を削除します。",
+      description = "買い物かごから指定した陳列品 ID の商品を削除します。" + "displayItemId には買い物かご内に存在する陳列品 ID を指定してください。"
+          + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。" + "買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
           @ApiResponse(responseCode = "400", description = "リクエストエラー。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class))),
-          @ApiResponse(responseCode = "404", description = "買い物かご内に指定したカタログアイテム ID がありません。",
+          @ApiResponse(responseCode = "404", description = "買い物かご内に指定した陳列品 ID がありません。",
               content = @Content(mediaType = "application/problem+json",
                   schema = @Schema(implementation = ProblemDetail.class)))})
-  @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteBasketItem(@PathVariable("catalogItemId") long catalogItemId,
+  @DeleteMapping("{displayItemId}")
+  public ResponseEntity<?> deleteBasketItem(@PathVariable("displayItemId") UUID displayItemId,
       HttpServletRequest req) {
-    String buyerId = req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID).toString();
+    UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
-      this.shoppingApplicationService.deleteItemFromBasket(buyerId, catalogItemId);
-    } catch (CatalogNotFoundException e) {
+      this.shoppingApplicationService.deleteItemFromBasket(buyerId, displayItemId);
+    } catch (DisplayItemNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
           CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
-    } catch (CatalogItemInBasketNotFoundException e) {
+    } catch (DisplayItemInBasketNotFoundException e) {
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
           e.getLogMessageValue(), e.getFrontMessageValue());
       ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
@@ -221,19 +219,19 @@ public class BasketItemController {
     return ResponseEntity.noContent().build();
   }
 
-  private CatalogItemSummaryResponse getCatalogItemResponse(long catalogItemId,
-      List<CatalogItem> catalogItems) {
-    CatalogItem catalogItem = catalogItems.stream().filter(item -> item.getId() == catalogItemId)
-        .findFirst().orElse(null);
+  private DisplayItemSummaryApiModel getDisplayItemResponse(UUID displayItemId,
+      List<DisplayItem> displayItems) {
+    DisplayItem displayItem = displayItems.stream()
+        .filter(item -> item.getId().equals(displayItemId)).findFirst().orElse(null);
 
-    return convertCatalogItemDto(catalogItem);
+    return convertDisplayItemDto(displayItem);
   }
 
-  private CatalogItemSummaryResponse convertCatalogItemDto(CatalogItem catalogItem) {
-    if (catalogItem == null) {
+  private DisplayItemSummaryApiModel convertDisplayItemDto(DisplayItem displayItem) {
+    if (displayItem == null) {
       return null;
     }
 
-    return CatalogItemSummaryMapper.convert(catalogItem);
+    return DisplayItemSummaryMapper.convert(displayItem);
   }
 }

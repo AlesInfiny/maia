@@ -1,10 +1,10 @@
 package com.dressca.web.consumer.controller.dto.order;
 
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.Length;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 注文情報における個人データを追加・変更する際に用いる dto クラスです。

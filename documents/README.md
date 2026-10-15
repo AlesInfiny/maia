@@ -11,75 +11,73 @@
 
 documents フォルダー配下のフォルダー、ファイルの配置は以下の通りです。
 
-|               |                            |                       |                                    |                     |                                                 |
-| ------------- | -------------------------- | --------------------- | ---------------------------------- | ------------------- | ----------------------------------------------- |
-| _materials    |                            |                       |                                    |                     | ドキュメント内で利用する素材                    |
-|               | images                     |                       |                                    |                     | 画像素材（画像を作るための元ファイル）          |
-|               |                            | app-architecture      |                                    |                     | contents/images フォルダーと構造をそろえる      |
-|               |                            |                       | hoge.drawio                        |                     | ファイル名は生成後の画像ファイルと同じにする    |
-| contents      |                            |                       |                                    |                     | ドキュメント本体                                |
-|               | about-maia                 |                       |                                    |                     | 利用規約等、ライセンス関連のファイル            |
-|               | app-architecture           |                       |                                    |                     | アプリケーションアーキテクチャ                  |
-|               |                            | batch-application     |                                    |                     | バッチアプリケーション編                        |
-|               |                            |                       | batch-application-consideration    |                     | バッチアプリケーションの考慮事項                |
-|               |                            |                       | batch-application-test-policy      |                     | バッチアプリケーションのテスト方針              |
-|               |                            | client-side-rendering |                                    |                     | CSR 編                                          |
-|               |                            |                       | backend-application                |                     | バックエンドアプリの構造詳細                    |
-|               |                            |                       | frontend-application               |                     | フロントエンドアプリの構造詳細                  |
-|               |                            |                       | global-function                    |                     | 全体処理方式                                    |
-|               |                            |                       | test                               |                     | テスト方針                                      |
-|               |                            |                       |                                    | backend-application | バックエンドアプリのテスト方針                  |
-|               |                            | overview              |                                    |                     | 概要編                                          |
-|               |                            |                       | java-application-processing-system |                     | Java アプリケーションの処理方式                 |
-|               |                            | security              |                                    |                     | セキュリティ編                                  |
-|               |                            | server-side-rendering |                                    |                     | SSR 編                                          |
-|               |                            |                       | backend                            |                     | バックエンド部分の構造詳細                      |
-|               |                            |                       | frontend                           |                     | フロントエンド部分の構造詳細                    |
-|               |                            |                       | global-function                    |                     | 全体処理方式                                    |
-|               | assets                     |                       |                                    |                     | 共通資材（ロゴなど）                            |
-|               |                            | images                |                                    |                     |                                                 |
-|               | guidebooks                 |                       |                                    |                     | ガイドライン系ドキュメント                      |
-|               |                            | conventions           |                                    |                     | 規約編                                          |
-|               |                            | how-to-develop        |                                    |                     | アプリケーション開発手順                        |
-|               |                            |                       | csr                                |                     | CSR 編                                          |
-|               |                            |                       |                                    | cors                | CORS 設定                                       |
-|               |                            |                       |                                    | java                | Java 編                                         |
-|               |                            |                       |                                    | local-environment   | ローカル開発環境の構築                          |
-|               |                            |                       |                                    | vue-js              | Vue.js 編                                       |
-|               |                            |                       | ssr                                |                     | SSR 編                                          |
-|               |                            |                       |                                    | java                | Java 編                                         |
-|               |                            |                       |                                    | local-environment   | ローカル開発環境の構築                          |
-|               | images                     |                       |                                    |                     | ページ固有の画像ファイル置き場                  |
-|               |                            | about-maia            |                                    |                     | mdファイルの配置フォルダーと構造をそろえる      |
-|               |                            |                       | hoge.png                           |                     | 画像ファイルは svg か png にする                |
-|               |                            |                       | animation.gif                      |                     | gif アニメーションも利用可                      |
-|               |                            | app-architecture      |                                    |                     |                                                 |
-|               |                            | guidebooks            |                                    |                     |                                                 |
-|               |                            |                       | how-to-develop                     |                     |                                                 |
-|               |                            | samples               |                                    |                     |                                                 |
-|               |                            | terms                 |                                    |                     |                                                 |
-|               | samples                    |                       |                                    |                     | サンプルアプリケーション解説                    |
-|               |                            | azure-ad-b2c          |                                    |                     | Azure AD B2C を利用しているサンプルの解説       |
-|               |                            | downloads             |                                    |                     | サンプルアプリケーションコード置き場( zip 圧縮) |
-|               | stylesheets                |                       |                                    |                     | 既定のスタイルシートの上書き設定                |
-|               | index.md                   |                       |                                    |                     | トップページ                                    |
-| hooks         |                            |                       |                                    |                     | MkDocs のビルドフック                           |
-|               | github_markdown_fetcher.py |                       |                                    |                     | GitHub のマークダウンを取得するフック           |
-| includes      |                            |                       |                                    |                     | Snippets の置き場                               |
-|               | abbreviations.md           |                       |                                    |                     | 略語用語集                                      |
-| overrides     |                            |                       |                                    |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
-|               | partials                   |                       |                                    |                     | パーシャルテンプレート                          |
-|               |                            | copyright.html        |                                    |                     | コピーライト表示のカスタマイズ                  |
-| readme-images |                            |                       |                                    |                     | README.md 内の画像ファイル置き場                |
-| .gitignore    |                            |                       |                                    |                     | mkdocs 用の gitignore                           |
-| mkdocs.yml    |                            |                       |                                    |                     | mkdocs の設定ファイル                           |
-| README.md     |                            |                       |                                    |                     | このドキュメント                                |
+|               |                  |                       |                                    |                     |                                                 |
+| ------------- | ---------------- | --------------------- | ---------------------------------- | ------------------- | ----------------------------------------------- |
+| _materials    |                  |                       |                                    |                     | ドキュメント内で利用する素材                    |
+|               | images           |                       |                                    |                     | 画像素材（画像を作るための元ファイル）          |
+|               |                  | app-architecture      |                                    |                     | contents/images フォルダーと構造をそろえる      |
+|               |                  |                       | hoge.drawio                        |                     | ファイル名は生成後の画像ファイルと同じにする    |
+| contents      |                  |                       |                                    |                     | ドキュメント本体                                |
+|               | about-maia       |                       |                                    |                     | 利用規約等、ライセンス関連のファイル            |
+|               | app-architecture |                       |                                    |                     | アプリケーションアーキテクチャ                  |
+|               |                  | batch-application     |                                    |                     | バッチアプリケーション編                        |
+|               |                  |                       | batch-application-consideration    |                     | バッチアプリケーションの考慮事項                |
+|               |                  |                       | batch-application-test-policy      |                     | バッチアプリケーションのテスト方針              |
+|               |                  | client-side-rendering |                                    |                     | CSR 編                                          |
+|               |                  |                       | backend-application                |                     | バックエンドアプリの構造詳細                    |
+|               |                  |                       | frontend-application               |                     | フロントエンドアプリの構造詳細                  |
+|               |                  |                       | global-function                    |                     | 全体処理方式                                    |
+|               |                  |                       | test                               |                     | テスト方針                                      |
+|               |                  |                       |                                    | backend-application | バックエンドアプリのテスト方針                  |
+|               |                  | overview              |                                    |                     | 概要編                                          |
+|               |                  |                       | java-application-processing-system |                     | Java アプリケーションの処理方式                 |
+|               |                  | security              |                                    |                     | セキュリティ編                                  |
+|               |                  | server-side-rendering |                                    |                     | SSR 編                                          |
+|               |                  |                       | backend                            |                     | バックエンド部分の構造詳細                      |
+|               |                  |                       | frontend                           |                     | フロントエンド部分の構造詳細                    |
+|               |                  |                       | global-function                    |                     | 全体処理方式                                    |
+|               | assets           |                       |                                    |                     | 共通資材（ロゴなど）                            |
+|               |                  | images                |                                    |                     |                                                 |
+|               | guidebooks       |                       |                                    |                     | ガイドライン系ドキュメント                      |
+|               |                  | conventions           |                                    |                     | 規約編                                          |
+|               |                  | how-to-develop        |                                    |                     | アプリケーション開発手順                        |
+|               |                  |                       | csr                                |                     | CSR 編                                          |
+|               |                  |                       |                                    | cors                | CORS 設定                                       |
+|               |                  |                       |                                    | java                | Java 編                                         |
+|               |                  |                       |                                    | local-environment   | ローカル開発環境の構築                          |
+|               |                  |                       |                                    | vue-js              | Vue.js 編                                       |
+|               |                  |                       | ssr                                |                     | SSR 編                                          |
+|               |                  |                       |                                    | java                | Java 編                                         |
+|               |                  |                       |                                    | local-environment   | ローカル開発環境の構築                          |
+|               | images           |                       |                                    |                     | ページ固有の画像ファイル置き場                  |
+|               |                  | about-maia            |                                    |                     | mdファイルの配置フォルダーと構造をそろえる      |
+|               |                  |                       | hoge.png                           |                     | 画像ファイルは svg か png にする                |
+|               |                  |                       | animation.gif                      |                     | gif アニメーションも利用可                      |
+|               |                  | app-architecture      |                                    |                     |                                                 |
+|               |                  | guidebooks            |                                    |                     |                                                 |
+|               |                  |                       | how-to-develop                     |                     |                                                 |
+|               |                  | samples               |                                    |                     |                                                 |
+|               |                  | terms                 |                                    |                     |                                                 |
+|               | samples          |                       |                                    |                     | サンプルアプリケーション解説                    |
+|               |                  | azure-ad-b2c          |                                    |                     | Azure AD B2C を利用しているサンプルの解説       |
+|               |                  | downloads             |                                    |                     | サンプルアプリケーションコード置き場( zip 圧縮) |
+|               | stylesheets      |                       |                                    |                     | 既定のスタイルシートの上書き設定                |
+|               | index.md         |                       |                                    |                     | トップページ                                    |
+| includes      |                  |                       |                                    |                     | Snippets の置き場                               |
+|               | abbreviations.md |                       |                                    |                     | 略語用語集                                      |
+| overrides     |                  |                       |                                    |                     | Mkdocs Material の拡張ファイル置き場（\*）      |
+|               | partials         |                       |                                    |                     | パーシャルテンプレート                          |
+|               |                  | copyright.html        |                                    |                     | コピーライト表示のカスタマイズ                  |
+| readme-images |                  |                       |                                    |                     | README.md 内の画像ファイル置き場                |
+| .gitignore    |                  |                       |                                    |                     | mkdocs 用の gitignore                           |
+| mkdocs.yml    |                  |                       |                                    |                     | mkdocs の設定ファイル                           |
+| README.md     |                  |                       |                                    |                     | このドキュメント                                |
 
-\*：詳細は [Mkdocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
+\*: 詳細は [MkDocs Material の解説](https://squidfunk.github.io/mkdocs-material/customization/?h=theme#extending-the-theme) と [GitHub リポジトリ](https://github.com/squidfunk/mkdocs-material/tree/master/src/overrides) を参照。
 
 ## ドキュメント作成手順
 
-最初に「[ドキュメント作成環境の構築](#ドキュメント作成環境の構築)」に従って、ドキュメント作成環境を構築してください。
+最初に「[ドキュメント執筆環境の構築方法](#ドキュメント執筆環境の構築方法)」に従って、ドキュメント作成環境を構築してください。
 ドキュメントの作成にあたり、以下の手順、規則に従って作成してください。
 
 ### ドキュメントの作成
@@ -166,39 +164,44 @@ Markdown ファイルを追加したら、ほとんどの場合 mkdocs.yml の n
     [License Link](https://license-link){ target=_blank }
     ```
 
-### GitHub コードの記載ルール
+### コードブロックの記載ルール
 
-AlesInfiny Maia の GitHub コードをドキュメントで参照する場合、コンテンツタブとコードブロックを利用します。
+AlesInfiny Maia のリポジトリ内のコードをドキュメントで参照する場合、コンテンツタブとコードブロックに加えて `--8<--` 記法を利用します。
+`--8<--` は、 [pymdown-extensions の Snippets 拡張 :material-open-in-new:](https://facelessuser.github.io/pymdown-extensions/extensions/snippets/){ target=_blank } が提供する記法です。
+この記法を用いると、 GitHub 上の main ブランチへのマージを待たなくても、作業中のブランチのファイルをそのままドキュメントに埋め込めます。
 具体的には、以下のように記載します。
 
 - コード全体をドキュメントに表示する場合
 
-    コード全体をドキュメントに表示する場合、コードブロック内に GitHub の URL を直接記載します。
+    コード全体をドキュメントに表示する場合、コードブロック内で `--8<--` に続けてリポジトリルートからの相対パスを記載します。
     コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
 
     ```markdown
     ??? example "App.vue の設定例"
 
         ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue
+        --8<-- "samples/web-csr/dressca-frontend/consumer/src/App.vue"
         ```
     ```
 
 - コードの一部を切り取って表示する場合
 
-    コードの一部を切り取って表示する場合、 URL の末尾に `#L1-L8` のように切り取る行数を追記します。
+    コードの一部を切り取って表示する場合、パスの末尾に `:1:8` のように切り取る開始行と終了行を追記します。
     コンテンツタブの設定は、コードの行数に応じて `!!!` と `???` を使い分けてください。
 
     ```markdown
     !!! example "App.vue の設定例"
 
         ```vue title="サンプルアプリケーションの App.vue" hl_lines="1 3-4"
-        https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/src/App.vue#L1-L8
+        --8<-- "samples/web-csr/dressca-frontend/consumer/src/App.vue:1:8"
         ```
     ```
 
+参照できるファイルは、 `mkdocs.yml` の `pymdownx.snippets.base_path` で指定したフォルダー（ `documents` フォルダーとリポジトリルート）の配下にあるものだけです。
+参照したいファイルが対象外の場合は、 `base_path` の設定を見直してください。
+
 コードブロックのシンタックスハイライトが利用可能な言語の一覧は、[Pygments - Languages](https://pygments.org/languages/) を参照してください。
-また、複数の表記方法が可能な場合、略称よりも正式名称に近いものを優先してください。（例： ts ではなく typescript を使用）
+また、複数の表記方法が可能な場合、略称よりも正式名称に近いものを優先してください。（例: ts ではなく typescript を使用）
 
 本ドキュメントのコードブロックで使用する言語名の例は以下の通りです。
 
@@ -218,6 +221,27 @@ AlesInfiny Maia の GitHub コードをドキュメントで参照する場合�
 | TypeScript     | typescript      |
 | Vue            | vue             |
 | XML            | xml             |
+
+### コロンの記載ルール
+
+用語とその説明を区切るコロンは、半角コロンに続けて半角スペースを 1 つ入れて記載します。
+コロンの前にはスペースを入れません。
+
+```markdown
+- Checkstyle: 静的テストツール用のプラグイン
+- `spring-boot-starter-log4j2`: log4j2 を使用するためのスターター
+```
+
+ただし、以下のように原文や表示文言をそのまま記載する箇所では、全角コロンを使用してもかまいません。
+
+- ライセンス条文など、引用した原文をそのまま記載する場合
+- メッセージ定義ファイルの内容など、アプリケーションが表示する文言をそのまま記載する場合
+
+このルールは textlint で自動的に検査します。
+コードブロックとインラインコードは検査の対象外です。
+また、アドモニション（ `!!!` や `???` で記述するブロック）内などのインデントされた本文も、 textlint ではコードブロックとして扱われるため検査されません。
+これらの箇所は目視で確認してください。
+引用のように検査から除外したい箇所がある場合は、「[textlint](#textlint)」を参照して、該当箇所のルールを無効化してください。
 
 ### 体裁の修正
 
@@ -241,7 +265,7 @@ CSpell の拡張機能をインストールしていると、 [問題] ウィン
 #### textlint
 
 textlint（VS Code 拡張機能）の拡張機能をインストールしていると、 [問題] ウィンドウに校正に関するコメントが出ます。
-この拡張機能は、技術ドキュメントを書く際の冗長な表現を排除したり、表記ゆれの検出したりする自動校正ツールです。
+この拡張機能は、技術ドキュメントを書く際の冗長な表現を排除したり、表記ゆれを検出したりする自動校正ツールです。
 多くの場合、文章の見直しによってエラーを回避できます。
 必ず対応するようにしてください。
 
@@ -306,12 +330,12 @@ description: クライアントサイドレンダリングを行う Web アプ�
 ( `description` を省略すると、 mkdocs.yml の `site_description` の値が設定されます。)
 
 - カード上に表示できる文字数
-    - `title`：全角 9 文字×3 行まで
+    - `title`: 全角 9 文字×3 行まで
     - `description`: 半角 59 文字(全角だと 30 文字目が半分途切れる)× 2 行まで
 
 ※スペースを空けないと 1 単語とみなされ、同じ行に詰め込もうとして文章が途切れるので適宜スペースで区切ってください。
 
-- 例：
+- 例:
     - `title: Azure AD B2C を利用したユーザー認証` の場合
       ![ソーシャルカード失敗例](readme-images/social-card-example-error.png)
     - `title: Azure AD B2C を 利用した ユーザー認証` の場合
@@ -402,6 +426,21 @@ npm run lint:markdownlint-all
 npm run lint:textlint-all
 ```
 
+### リンク切れの検証
+
+[Linkspector](https://github.com/UmbrellaDocs/linkspector) を用いて、リポジトリ内の Markdown ファイルのリンク切れを検証できます。
+ルートディレクトリで以下のコマンドを実行してください。
+
+```shell
+npm run check:links
+```
+
+検証の設定は [.linkspector.yml](../.linkspector.yml) ファイルで管理しています。
+
+リンクチェックは CI でも実行され、リンク切れを検出すると CI が失敗します。
+main ブランチ以外向けの Pull Request では、変更したファイルのみを検証します。
+ファイルの移動や名前の変更をした場合は、他のファイルからのリンクが切れていないか、ローカルでも確認してください。
+
 ## ドキュメント執筆環境の構築方法
 
 ### Visual Studio Code のインストール
@@ -433,7 +472,6 @@ Visual Studio Code の [ファイル] メニューから [ワークスペース�
 また、必要に応じて以下の拡張機能をインストールします。
 
 - [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
-- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
 - [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter)
 
 ### Node.js のインストール

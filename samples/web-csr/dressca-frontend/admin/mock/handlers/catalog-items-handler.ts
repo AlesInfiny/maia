@@ -1,6 +1,9 @@
 import { HttpResponse, http } from 'msw'
-import type { PostCatalogItemRequest, PutCatalogItemRequest } from '@/generated/api-client'
 import { HttpStatusCode } from 'axios'
+import type {
+  PostCatalogItemRequest,
+  PutCatalogItemRequest,
+} from '@/system-common/generated/api-client'
 import { pagedListCatalogItem, catalogItems } from '../data/catalog-items'
 
 export const catalogItemsHandlers = [
@@ -14,7 +17,7 @@ export const catalogItemsHandlers = [
   }),
   http.get('/api/catalog-items/:catalogItemId', ({ params }) => {
     const { catalogItemId } = params
-    const item = catalogItems.find((items) => items.id === Number(catalogItemId))
+    const item = catalogItems.find((catalogItem) => catalogItem.id === catalogItemId)
     return HttpResponse.json(item, { status: HttpStatusCode.Ok })
   }),
   http.delete('/api/catalog-items/:catalogItemId', () => {

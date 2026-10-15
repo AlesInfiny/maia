@@ -1,18 +1,27 @@
 package com.dressca.web.controller;
 
-import com.dressca.applicationcore.applicationservice.AssetApplicationService;
-import com.dressca.applicationcore.assets.Asset;
-import com.dressca.applicationcore.assets.AssetNotFoundException;
-import com.dressca.applicationcore.assets.AssetResourceInfo;
-import com.dressca.applicationcore.assets.AssetTypes;
-import com.dressca.applicationcore.constant.ExceptionIdConstants;
+import com.dressca.applicationmodules.assetsmanagement.AssetApplicationService;
+import com.dressca.applicationmodules.assetsmanagement.AssetTypes;
+import com.dressca.applicationmodules.assetsmanagement.dto.AssetResourceInfo;
+import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
+import com.dressca.applicationmodules.assetsmanagement.exception.AssetNotFoundException;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
+import com.dressca.web.constant.WebExceptionIdConstants;
 import com.dressca.web.controller.advice.ProblemDetailsFactory;
 import com.dressca.web.log.ErrorMessageBuilder;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Locale;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.boot.test.context.TestComponent;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -23,19 +32,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 
 /**
- * {@link Asset} の情報にアクセスする API コントローラーです。
+ * {@link Asset} の情報にアクセスする API コントローラーです。例外ハンドラのテストで使用します。
+ * テスト専用のコンポーネントのため、 {@link TestComponent} を付与してコンポーネントスキャンの対象外としています。
+ * 利用する場合はテストクラスで明示的にインポートしてください。
  */
 @RestController
+@TestComponent
 @Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
 @RequiredArgsConstructor
@@ -47,7 +51,7 @@ public class AssetsController {
 
   /**
    * アセットを取得します。
-   * 
+   *
    * @param assetCode アセットコード。
    * @return アセット。
    */
@@ -83,7 +87,7 @@ public class AssetsController {
 
   /**
    * アセットタイプから Content-Type に変換します。
-   * 
+   *
    * @param asset アセット。
    * @return Content-Type の名称。
    */
@@ -92,8 +96,9 @@ public class AssetsController {
       case AssetTypes.PNG:
         return MediaType.IMAGE_PNG;
       default:
-        String errorMessage = messages.getMessage(ExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
-            new String[] {asset.getAssetType()}, Locale.getDefault());
+        String errorMessage =
+            messages.getMessage(WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()}, Locale.getDefault());
         throw new IllegalArgumentException(errorMessage);
     }
   }

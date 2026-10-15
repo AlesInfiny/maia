@@ -82,7 +82,7 @@ FaaS に配置することによる起動時間短縮の実現方法として、
 
 ### GraalVM を利用した実行 {#graal-vm}
 
-[GraalVM :material-open-in-new:](https://www.oracle.com/jp/java/graalvm/what-is-graalvm/){ target=_blank } は、 Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
+[GraalVM :material-open-in-new:](https://www.graalvm.org/latest/introduction/){ target=_blank } は、 Java アプリケーションをネイティブなバイナリー実行ファイル（ネイティブイメージ）に AOT コンパイルする機能を持った JDK です。
 GraalVM を利用することで、 JVM を介さず直接実行できるネイティブイメージを作成することが可能となり、実行速度の高速化やメモリ使用量の削減を期待できます。
 
 GraalVM を利用したサンプルアプリケーションの実行検証については、以下をご確認ください。

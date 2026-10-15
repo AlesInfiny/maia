@@ -1,13 +1,13 @@
 package com.dressca.web.admin.config;
 
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
+import jakarta.annotation.PreDestroy;
+import java.sql.SQLException;
 import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
-import jakarta.annotation.PreDestroy;
-import java.sql.SQLException;
 
 /**
  * 開発環境で H2 Database をサーバーモードで立ち上げるためのクラスです。
@@ -25,8 +25,7 @@ public class H2ServerLauncher {
    */
   public H2ServerLauncher() {
     try {
-      this.tcpServer =
-          Server.createTcpServer("-tcpPort", "9092", "-tcpAllowOthers", "-ifNotExists").start();
+      this.tcpServer = Server.createTcpServer("-tcpPort", "9092", "-ifNotExists").start();
     } catch (SQLException e) {
       apLog.info("H2 Database は既にサーバーモードで起動しています。");
     }

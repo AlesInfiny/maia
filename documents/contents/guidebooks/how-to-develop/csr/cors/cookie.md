@@ -20,22 +20,27 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 本章では、サンプルアプリケーションにて実装している、購入者 ID を Cookie へ付与する機能を設定例として解説します。
 
-まず、 Cookie に付与する属性を `application.properties` に定義します。
-以下は、クロスオリジンの場合の方針に基づき `Secure` と `HttpOnly` 、 `SameSite = None` を定義する例です。
+まず、 Cookie に付与する属性を `application-<環境名>.properties` に定義します。
+以下は、クロスオリジンの場合の方針に基づき、本番環境における Cookie の属性である `Secure` と `HttpOnly` 、 `SameSite = None` を定義する例です。
 
-??? example "Cookie の属性の設定を定義する application.properties の設定例"
+??? example "本番環境の Cookie の属性の設定を定義する application-prd.properties の設定例"
 
-    ```java title="application.properties"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties#L11-L14
+    ```properties title="application-prd.properties"
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/resources/application-prd.properties:11:14"
     ```
 
-その後、 `#!java @ConfigurationProperties` を利用して `application.properties` に記述した Cookie の設定値を読み込みます。
-各フィールドには初期値が設定されていますが、 `application.properties` に記述された設定が優先されます。
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
+その後、[`#!java @ConfigurationProperties` :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties){ target=_blank } を利用して `application-<環境名>.properties` に記述した Cookie の設定値を読み込みます。
+
+<!-- textlint-enable ja-technical-writing/sentence-length -->
+
+各フィールドには初期値が設定されていますが、 `application-<環境名>.properties` に記述された設定が優先されます。
 
 ??? example "Cookie の設定値を保持する CookieSettings.java"
 
     ```java title="CookieSettings.java"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/CookieSettings.java
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/security/CookieSettings.java"
     ```
 
 次に、 Spring Boot で提供されている [ResponseCookie :material-open-in-new:](https://spring.pleiades.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html){ target=_blank } を利用して Cookie に設定値を反映させます。
@@ -44,16 +49,16 @@ AlesInfiny Maia OSS Edition での CSRF 攻撃への対策の方針について�
 
 ??? example "ResponseCookie を利用したサンプルアプリケーションの実装例"
 
-    ```java title="BuyerIdFilter.java" hl_lines="49-54"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/filter/BuyerIdFilter.java
+    ```java title="BuyerIdFilter.java" hl_lines="58-64"
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/filter/BuyerIdFilter.java"
     ```
 
 最後に、上記で実装したフィルターを Bean 登録します。
 
-??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig.java"
+??? example "Cookie の設定を設定するフィルタークラスである DresscaWebConfig"
 
-    ```java title=""
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java
+    ```java title="DresscaWebConfig.java"
+    --8<-- "samples/web-csr/dressca-backend/web-consumer/src/main/java/com/dressca/web/consumer/config/DresscaWebConfig.java"
     ```
 
 これにより、 Cookie に CSRF 対策を施すことができます。

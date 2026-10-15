@@ -7,12 +7,6 @@ plugins {
 group = 'com.dressca'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
 repositories {
 	mavenCentral()
 }
@@ -24,8 +18,7 @@ dependencies {
 	implementation supportDependencies.spring_boot_starter_actuator
 	implementation supportDependencies.commons_lang3
 	
-	implementation project(':application-core')
-	implementation project(':infrastructure')
+	implementation project(':application-modules')
 	implementation project(':system-common')
 
 	annotationProcessor supportDependencies.spring_boot_configuration_processor
@@ -34,6 +27,9 @@ dependencies {
 	testImplementation supportDependencies.spring_boot_starter_security_test
 	testImplementation supportDependencies.spring_boot_starter_log4j2
   testImplementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+	testImplementation supportDependencies.archunit_junit6
+	
+	testRuntimeOnly supportDependencies.h2database
 }
 
 configurations {

@@ -3,8 +3,6 @@ title: Vue.js 開発手順 （CSR 編）
 description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
-<!-- cspell:ignore parens rushstack stylelintrc -->
-
 # 静的コード分析とフォーマット {#top}
 
 静的コード分析とフォーマットには .editorconfig 、 ESLint 、 Stylelint 、および Prettier を使用します。
@@ -51,7 +49,7 @@ Visual Studio Code の推奨プラグインである [EditorConfig for Visual St
     そのため、意図せず同じリポジトリ内の別の .editorconfig を参照することがないように、ルートプロジェクトの .editorconfig には `root = true` を設定しておくとよいでしょう。
 
     ```text title="サンプルアプリケーションの .editorconfig" hl_lines="1"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.editorconfig
+    --8<-- "samples/web-csr/dressca-frontend/.editorconfig"
     ```
 
 ## Prettier {#prettier}
@@ -111,6 +109,7 @@ Prettier が設定ファイルを認識し、フォーマット処理が正常�
 ## ESLint {#eslint}
 
 ESLint および ESLint の実行に必要なパッケージは、 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+create-vue によって同時にインストールされる Oxlint は使用しないため、[Oxlint の除去](./create-vuejs-blank-project.md#remove-oxlint) の手順に従って除去してください。
 
 ### ESLint の設定 {#settings-eslint}
 
@@ -131,8 +130,8 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10-11 13-16 24-25 30 34 37-44 47-50 54-70 75 81-84 88-91"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-15 17-20 28-34 39 43 47 50-57 60-63 66 69-70 75 81 85-88"
+--8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
 #### mono-repo 用の設定 {#mono-repo-config}
@@ -173,24 +172,21 @@ configureVueProject({
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
 
-```typescript hl_lines="3 8-9"
+```typescript hl_lines="3 7"
 {
   ...pluginVitest.configs.recommended,
   files: ['**/src/**/__tests__/**/*'],
 },
 {
-  ...pluginCypress.configs.recommended,
-  files: [
-    '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-    '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-  ],
+  ...pluginPlaywright.configs['flat/recommended'],
+  files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
 },
 ```
 
 ルートプロジェクトの直下に、 eslint.config.ts 用の tsconfig.json ファイルを作成します。
 
 ```json title="eslint.config.ts 用の tsconfig.json" hl_lines="3"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/tsconfig.json
+--8<-- "samples/web-csr/dressca-frontend/tsconfig.json"
 ```
 
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
@@ -215,8 +211,33 @@ TypeScript の型情報を使用するルールを使用するため、 `vueTsCo
 vueTsConfigs.recommendedTypeChecked,
 ```
 
+ESLint の JavaScript に対する推奨ルールを適用します。
+ワークスペースの直下にいることを確認し、@eslint/js をインストールします。
+
+```shell linenums="0"
+npm install -D @eslint/js
+```
+
+eslint.config.ts に下記の設定を追加してください。
+後から TypeScript の機能と重複するルールを無効化するので、 `vueTsConfigs` よりも前に配置してください。
+
+```typescript
+import js from '@eslint/js'
+
+js.configs.recommended,
+```
+
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
-そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
+そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化します。
+
+ワークスペースの直下にいることを確認し、 typescript-eslint をインストールします。
+この時点で typescript-eslint への依存関係は推移的に解決できてしまいますが、明示的にインストールしておくことを推奨します。
+
+```shell linenums="0"
+npm install -D typescript-eslint
+```
+
+eslint.config.ts に下記の設定を追加してください。
 
 ```typescript
 import tseslint from 'typescript-eslint'
@@ -272,17 +293,18 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-6"
+```typescript hl_lines="5-7"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
   '**/src/generated/**',
+  '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
 ```
 
-その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
+その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/use/configure/){ target=_blank } を参照してください。
 
 ??? info "ESLint Config Inspector で設定を可視化する"
       [ESLint Config Inspector :material-open-in-new:](https://github.com/eslint/config-inspector){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
@@ -391,7 +413,7 @@ ESLint および Stylelint のオプション引数に `--fix` を、 Prettier �
 一方で、 `:ci` を付与したタスクではこれらのオプションを使用していないため、自動的に修正可能なルール違反であっても修正は実行されません。
 
 ```json title="サンプルアプリケーションの package.json"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/package.json#L21-L28
+--8<-- "samples/web-csr/dressca-frontend/consumer/package.json:17:24"
 ```
 
 ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。
