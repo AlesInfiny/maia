@@ -25,7 +25,7 @@ public class ErrorMessageBuilder {
 
   /**
    * ProblemDetails の detail 情報に格納するスタックトレースを作成します。
-   * 
+   *
    * @return スタックトレース。
    */
   public String createLogMessageStackTrace() {

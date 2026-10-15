@@ -82,7 +82,7 @@ public final class AnnouncementEntityTranslator {
 
   /**
    * お知らせメッセージのエンティティから DTO に変換します。
-   * 
+   *
    * @param entity お知らせメッセージのエンティティ。
    * @return お知らせメッセージの DTO。
    */

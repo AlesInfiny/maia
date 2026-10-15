@@ -25,7 +25,7 @@ public class ExceptionHandlerControllerAdvice {
 
   /**
    * リソースが見つからなかった場合の例外をハンドリングし、Not Found 画面に遷移します。
-   * 
+   *
    * @param e 例外。
    * @return Not Found 画面のビュー名。
    */
@@ -37,7 +37,7 @@ public class ExceptionHandlerControllerAdvice {
 
   /**
    * 業務例外をハンドリングし、エラー画面に遷移します。
-   * 
+   *
    * @param e 業務例外。
    * @param model モデル。
    * @return エラー画面のビュー名。
@@ -57,7 +57,7 @@ public class ExceptionHandlerControllerAdvice {
 
   /**
    * システム例外をハンドリングし、システムエラー画面に遷移します。
-   * 
+   *
    * @param e システム例外。
    * @param model モデル。
    * @return システムエラー画面のビュー名。
@@ -77,7 +77,7 @@ public class ExceptionHandlerControllerAdvice {
 
   /**
    * その他の例外をハンドリングし、システムエラー画面に遷移します。
-   * 
+   *
    * @param e 例外。
    * @param model モデル。
    * @return システムエラー画面のビュー名。

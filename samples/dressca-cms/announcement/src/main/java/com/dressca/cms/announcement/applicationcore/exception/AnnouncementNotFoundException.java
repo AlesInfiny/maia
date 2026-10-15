@@ -11,7 +11,7 @@ public class AnnouncementNotFoundException extends LogicException {
 
   /**
    * お知らせメッセージ ID を指定して、{@link AnnouncementNotFoundException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param announcementId お知らせメッセージ ID。
    */
   public AnnouncementNotFoundException(UUID announcementId) {

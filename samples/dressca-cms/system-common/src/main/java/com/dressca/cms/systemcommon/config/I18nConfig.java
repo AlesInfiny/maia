@@ -17,7 +17,7 @@ public class I18nConfig {
 
   /**
    * メッセージプロパティファイルが読み込まれた、 {@link MessageSource} オブジェクトを Bean 登録します。
-   * 
+   *
    * @return {@link MessageSource} オブジェクト。
    * @throws IOException 正常にプロパティファイルを読み込めなかった場合。
    */
