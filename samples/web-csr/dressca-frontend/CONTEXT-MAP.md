@@ -29,7 +29,7 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 フォルダーごとに、保守するチームを次のように想定します。
 
 - 業務共通チーム
-    - core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` ）
+    - core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` 、 `src/assets/` ）
     - business-common （ `src/business-common/` ）
 - 各業務チーム
     - pages 層（ `src/pages/` ）
@@ -76,7 +76,8 @@ View
     画面は Outcome を受け取り、通知の文言と遷移先を決めます。
 
 core 層
-:   `src/main.ts` 、 `src/App.vue` 、 `src/core/` からなる最上位の層です。
+:   `src/main.ts` 、 `src/App.vue` 、 `src/core/` 、 `src/assets/` からなる最上位の層です。
+    `src/assets/` には、 `main.ts` が読み込むスタイルシートなどの静的なリソースを置きます。
     ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
     アプリケーションの起動と依存の結線という、アプリケーション全体の中核を担うことから名付けました。
     業務共通チームが保守します。

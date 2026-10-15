@@ -39,9 +39,10 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 
 上の層から下の層への参照だけを許可します。
 
-- core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` ）
+- core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` 、 `src/assets/` ）
     - ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
     - ルーティングは `src/core/router/` に置きます。
+    - `src/assets/` には、 `main.ts` が読み込むスタイルシートなどの静的なリソースを置きます。
     - 業務共通チームが保守します。
 - pages 層（ `src/pages/` ）
     - URL ごとの画面です。
@@ -243,8 +244,11 @@ const onUpdate = async () => {
   コンテキストを列挙しないため、 `@/` で書いた参照が自分のコンテキストか他のコンテキストかを区別できないからです。
 - 層を追加するときは、 `layerFolders` に加え、その層のルールを定義します。
   `layerFolders` に加え忘れたフォルダーはコンテキストとして扱われ、最も厳しいルールが適用されます。
-- 禁止する参照は正規表現（ `regex` ）で指定します。
+- 層のフォルダー以外への `@/` の参照の禁止は、正規表現（ `regex` ）で指定します。
   gitignore 形式のパターン（ `group` ）では、テストが参照するモックのデータ（ `@/../mock/**` ）への参照を許可できないためです。
+- 特定のモジュールやパッケージの禁止は、 `group` で指定します。
+  core 層のルーティング、 API クライアント、 `services` から Vue に依存するモジュールへの参照が該当します。
+  `..` を含むパスを扱う必要がなく、正規表現より読みやすいためです。
 
 - vue-router の型の参照は、 `@typescript-eslint/no-restricted-imports` の `allowTypeImports` で許可します。
 - 動的インポートは `no-restricted-syntax` で `ImportExpression` を禁止します。

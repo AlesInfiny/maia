@@ -144,7 +144,7 @@ function importsExcept(allowedFolders: string[]): string {
 /**
  * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
- *   core 層（main.ts 、 App.vue 、 src/core）
+ *   core 層（main.ts 、 App.vue 、 src/core 、 src/assets）
  *         ↓
  *   pages（src/pages）
  *         ↓

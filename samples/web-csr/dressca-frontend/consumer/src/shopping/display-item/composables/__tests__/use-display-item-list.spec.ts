@@ -63,7 +63,7 @@ let pinia: Pinia
 
 beforeEach(() => {
   vi.resetAllMocks()
-  // ストアがレスポンスの配列を書き換えるため、呼び出しごとに複製を返します。
+  // テストどうしがモックのデータを共有しないよう、呼び出しごとに複製を返します。
   getDisplayItemCategoriesMock.mockImplementation(() =>
     Promise.resolve({
       data: structuredClone(displayItemCategories),
