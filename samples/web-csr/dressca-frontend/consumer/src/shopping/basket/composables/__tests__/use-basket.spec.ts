@@ -1,16 +1,26 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { defineComponent } from 'vue'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
 import { createPinia, setActivePinia, type Pinia } from 'pinia'
-import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
-import type {
-  GetBasketItemsResponse,
-  PutBasketItemsRequest,
-} from '@/system-common/generated/api-client'
+import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
+import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useBasketStore } from '@/business-common/stores/basket'
-import { server } from '@/../mock/node'
 import { useBasket, type Basket } from '../use-basket'
+
+const { getBasketItemsMock, putBasketItemsMock, deleteBasketItemMock } = vi.hoisted(() => ({
+  getBasketItemsMock: vi.fn(),
+  putBasketItemsMock: vi.fn(),
+  deleteBasketItemMock: vi.fn(),
+}))
+
+vi.mock('@/system-common/api-client', () => ({
+  basketItemsApi: () => ({
+    getBasketItems: getBasketItemsMock,
+    putBasketItems: putBasketItemsMock,
+    deleteBasketItem: deleteBasketItemMock,
+  }),
+}))
 
 const availableItemId = 'available-item-id'
 const deletedItemId = 'deleted-item-id'
@@ -64,25 +74,21 @@ function createBasketResponse(deletedItemIds: string[] = []): GetBasketItemsResp
 }
 
 /**
- * 決まった買い物かごを返すハンドラーを設定します。
- * モックの既定のハンドラーは状態を持つため、テストどうしが影響しないよう差し替えます。
+ * 決まった買い物かごを返すように、買い物かごの取得をモックします。
  * @param deletedItemIds カタログから削除された陳列品の ID 。
- * @returns 買い物かごを取得した回数を返す関数。
  */
 function useBasketResponse(deletedItemIds: string[] = []) {
-  let fetchedCount = 0
-  server.use(
-    http.get('/api/basket-items', () => {
-      fetchedCount += 1
-      return HttpResponse.json(createBasketResponse(deletedItemIds))
+  getBasketItemsMock.mockImplementation(() =>
+    Promise.resolve({
+      data: createBasketResponse(deletedItemIds),
     }),
   )
-  return () => fetchedCount
 }
 
 let pinia: Pinia
 
 beforeEach(() => {
+  vi.resetAllMocks()
   pinia = createPinia()
   setActivePinia(pinia)
 })
@@ -150,12 +156,10 @@ describe('読み込み', () => {
 
   it('問題の詳細を返すサーバーエラー_failedになり問題の詳細を持つ', async () => {
     // Arrange
-    server.use(
-      http.get('/api/basket-items', () =>
-        HttpResponse.json(
-          { ...problem, instance: '', type: '' },
-          { status: HttpStatusCode.InternalServerError },
-        ),
+    getBasketItemsMock.mockRejectedValue(
+      new ServerError(
+        '',
+        Object.assign(new Error(), { response: { data: { ...problem, instance: '', type: '' } } }),
       ),
     )
     // Act
@@ -188,35 +192,26 @@ describe('数量の変更', () => {
     // Arrange
     useBasketResponse()
     const { basket } = await setupBasket()
-    let sent: PutBasketItemsRequest[] | undefined
-    server.use(
-      http.put<never, PutBasketItemsRequest[]>('/api/basket-items', async ({ request }) => {
-        sent = await request.json()
-        return new HttpResponse(null, { status: HttpStatusCode.NoContent })
-      }),
-    )
+    putBasketItemsMock.mockResolvedValue({})
     // Act
     const outcome = await basket.changeQuantity(availableItemId, 3)
     // Assert
     expect(outcome).toEqual({ kind: 'changed' })
-    expect(sent).toEqual([{ displayItemId: availableItemId, quantity: 3 }])
+    expect(putBasketItemsMock).toHaveBeenCalledWith([
+      { displayItemId: availableItemId, quantity: 3 },
+    ])
   })
 
   it('サーバーエラー_failedを返し買い物かごを読み込み直す', async () => {
     // Arrange
-    const fetchedCount = useBasketResponse()
+    useBasketResponse()
     const { basket } = await setupBasket()
-    server.use(
-      http.put(
-        '/api/basket-items',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    putBasketItemsMock.mockRejectedValue(new ServerError(''))
     // Act
     const outcome = await basket.changeQuantity(availableItemId, 3)
     // Assert
     expect(outcome).toEqual({ kind: 'failed' })
-    expect(fetchedCount()).toBe(2)
+    expect(getBasketItemsMock).toHaveBeenCalledTimes(2)
   })
 })
 
@@ -225,30 +220,19 @@ describe('削除', () => {
     // Arrange
     useBasketResponse()
     const { basket } = await setupBasket()
-    let removedId: string | readonly string[] | undefined
-    server.use(
-      http.delete('/api/basket-items/:displayItemId', ({ params }) => {
-        removedId = params.displayItemId
-        return new HttpResponse(null, { status: HttpStatusCode.NoContent })
-      }),
-    )
+    deleteBasketItemMock.mockResolvedValue({})
     // Act
     const outcome = await basket.remove(deletedItemId)
     // Assert
     expect(outcome).toEqual({ kind: 'removed' })
-    expect(removedId).toBe(deletedItemId)
+    expect(deleteBasketItemMock).toHaveBeenCalledWith(deletedItemId)
   })
 
   it('サーバーエラー_failedを返す', async () => {
     // Arrange
     useBasketResponse()
     const { basket } = await setupBasket()
-    server.use(
-      http.delete(
-        '/api/basket-items/:displayItemId',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    deleteBasketItemMock.mockRejectedValue(new ServerError(''))
     // Act
     const outcome = await basket.remove(deletedItemId)
     // Assert
@@ -282,12 +266,7 @@ describe('注文に進む', () => {
     // Arrange
     useBasketResponse()
     const { basket } = await setupBasket()
-    server.use(
-      http.get(
-        '/api/basket-items',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    getBasketItemsMock.mockRejectedValue(new ServerError(''))
     // Act
     const outcome = await basket.proceedToCheckout()
     // Assert

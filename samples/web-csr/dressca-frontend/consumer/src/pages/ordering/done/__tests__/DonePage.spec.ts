@@ -1,26 +1,29 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
-import { http, HttpResponse } from 'msw'
-import { HttpStatusCode } from 'axios'
 import DonePage from '@/pages/ordering/done/DonePage.vue'
 import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
 import { i18n } from '@/system-common/locales/i18n'
+import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
-import { server } from '@/../mock/node'
+
+const { getOrderByIdMock } = vi.hoisted(() => ({
+  getOrderByIdMock: vi.fn(),
+}))
+
+vi.mock('@/system-common/api-client', () => ({
+  ordersApi: () => ({
+    getOrderById: getOrderByIdMock,
+  }),
+}))
 
 const { t } = i18n.global
 
 describe('結果の通知と遷移', () => {
   it('注文を取得できない_トーストを表示し陳列品画面へ遷移する', async () => {
     // Arrange
-    server.use(
-      http.get(
-        '/api/orders/:orderId',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    getOrderByIdMock.mockRejectedValue(new ServerError(''))
     const pinia = createTestingPinia({ createSpy: vi.fn, stubActions: false })
     await router.push({ name: routeNames.done, params: { orderId: 'order-id' } })
     // Act

@@ -1,20 +1,36 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import { http, HttpResponse } from 'msw'
-import { HttpStatusCode } from 'axios'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
 import CheckoutPage from '@/pages/ordering/checkout/CheckoutPage.vue'
 import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
 import { i18n } from '@/system-common/locales/i18n'
+import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
-import { server } from '@/../mock/node'
+
+const { getBasketItemsMock, postOrderMock } = vi.hoisted(() => ({
+  getBasketItemsMock: vi.fn(),
+  postOrderMock: vi.fn(),
+}))
+
+vi.mock('@/system-common/api-client', () => ({
+  basketItemsApi: () => ({
+    getBasketItems: getBasketItemsMock,
+  }),
+  ordersApi: () => ({
+    postOrder: postOrderMock,
+  }),
+}))
 
 const { t } = i18n.global
 
+beforeEach(() => {
+  vi.resetAllMocks()
+})
+
 /**
- * 買い物かごのレスポンスを返すハンドラーを設定します。
+ * 決まった買い物かごを返すように、買い物かごの取得をモックします。
  * @param itemCount 買い物かごに入っている陳列品の数。
  */
 function useBasketResponse(itemCount: number) {
@@ -28,7 +44,7 @@ function useBasketResponse(itemCount: number) {
     })),
     deletedItemIds: [],
   }
-  server.use(http.get('/api/basket-items', () => HttpResponse.json(response)))
+  getBasketItemsMock.mockResolvedValue({ data: response })
 }
 
 /**
@@ -65,16 +81,9 @@ describe('結果の通知と遷移', () => {
   it('注文を確定できる_注文完了画面へ遷移する', async () => {
     // Arrange
     useBasketResponse(1)
-    server.use(
-      http.post(
-        '/api/orders',
-        () =>
-          new HttpResponse(null, {
-            headers: { Location: 'http://localhost/api/orders/order-id' },
-            status: HttpStatusCode.Created,
-          }),
-      ),
-    )
+    postOrderMock.mockResolvedValue({
+      headers: { location: 'http://localhost/api/orders/order-id' },
+    })
     const { wrapper } = await getWrapper()
     // Act
     await clickPlaceOrder(wrapper)
@@ -86,12 +95,7 @@ describe('結果の通知と遷移', () => {
   it('注文を確定できない_トーストを表示しエラー画面へ遷移する', async () => {
     // Arrange
     useBasketResponse(1)
-    server.use(
-      http.post(
-        '/api/orders',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    postOrderMock.mockRejectedValue(new ServerError(''))
     const { wrapper, pinia } = await getWrapper()
     // Act
     await clickPlaceOrder(wrapper)

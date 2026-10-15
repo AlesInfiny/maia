@@ -1,14 +1,44 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { defineComponent } from 'vue'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, type Pinia } from 'pinia'
-import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
-import type { PostBasketItemsRequest } from '@/system-common/generated/api-client'
-import { server } from '@/../mock/node'
+import { ServerError } from '@/system-common/error-handler/custom-error'
+import { basket } from '@/../mock/data/basket-items'
 import { pagedListDisplayItem } from '@/../mock/data/display-items'
 import { displayItemBrands } from '@/../mock/data/display-item-brands'
+import { displayItemCategories } from '@/../mock/data/display-item-categories'
 import { useDisplayItemList, type DisplayItemList } from '../use-display-item-list'
+
+const {
+  getDisplayItemCategoriesMock,
+  getDisplayItemBrandsMock,
+  getByQueryMock,
+  postBasketItemMock,
+  getBasketItemsMock,
+} = vi.hoisted(() => ({
+  getDisplayItemCategoriesMock: vi.fn(),
+  getDisplayItemBrandsMock: vi.fn(),
+  getByQueryMock: vi.fn(),
+  postBasketItemMock: vi.fn(),
+  getBasketItemsMock: vi.fn(),
+}))
+
+vi.mock('@/system-common/api-client', () => ({
+  displayItemCategoriesApi: () => ({
+    getDisplayItemCategories: getDisplayItemCategoriesMock,
+  }),
+  displayItemBrandsApi: () => ({
+    getDisplayItemBrands: getDisplayItemBrandsMock,
+  }),
+  displayItemsApi: () => ({
+    getByQuery: getByQueryMock,
+  }),
+  basketItemsApi: () => ({
+    postBasketItem: postBasketItemMock,
+    getBasketItems: getBasketItemsMock,
+  }),
+}))
 
 const problem = {
   exceptionId: 'TestException',
@@ -19,19 +49,35 @@ const problem = {
 }
 
 /**
- * 問題の詳細を返すサーバーエラーのレスポンスを生成します。
- * @returns レスポンス。
+ * 問題の詳細を持つサーバーエラーを生成します。
+ * @returns サーバーエラー。
  */
-function problemResponse() {
-  return HttpResponse.json(
-    { ...problem, instance: '', type: '' },
-    { status: HttpStatusCode.InternalServerError },
+function createProblemError(): ServerError {
+  return new ServerError(
+    '',
+    Object.assign(new Error(), { response: { data: { ...problem, instance: '', type: '' } } }),
   )
 }
 
 let pinia: Pinia
 
 beforeEach(() => {
+  vi.resetAllMocks()
+  // ストアがレスポンスの配列を書き換えるため、呼び出しごとに複製を返します。
+  getDisplayItemCategoriesMock.mockImplementation(() =>
+    Promise.resolve({
+      data: structuredClone(displayItemCategories),
+    }),
+  )
+  getDisplayItemBrandsMock.mockImplementation(() =>
+    Promise.resolve({
+      data: structuredClone(displayItemBrands),
+    }),
+  )
+  getByQueryMock.mockImplementation(() =>
+    Promise.resolve({ data: structuredClone(pagedListDisplayItem) }),
+  )
+  getBasketItemsMock.mockImplementation(() => Promise.resolve({ data: structuredClone(basket) }))
   pinia = createPinia()
   setActivePinia(pinia)
 })
@@ -86,24 +132,17 @@ describe('読み込み', () => {
   it('絞り込みの条件を変更する_条件を指定して読み込み直す', async () => {
     // Arrange
     const list = await setupList()
-    let query: URLSearchParams | undefined
-    server.use(
-      http.get('/api/display-items', ({ request }) => {
-        query = new URL(request.url).searchParams
-        return HttpResponse.json(pagedListDisplayItem)
-      }),
-    )
     // Act
     list.filter.categoryId = 'category-id'
     await flushPromises()
     // Assert
-    expect(query?.get('categoryId')).toBe('category-id')
-    expect(query?.has('brandId')).toBe(false)
+    // getByQuery の引数は、ブランドの ID 、カテゴリの ID 、ページ番号、ページサイズの順です。
+    expect(getByQueryMock).toHaveBeenLastCalledWith(undefined, 'category-id', undefined, undefined)
   })
 
   it('問題の詳細を返すサーバーエラー_failedになり問題の詳細を持つ', async () => {
     // Arrange
-    server.use(http.get('/api/display-items', problemResponse))
+    getByQueryMock.mockRejectedValue(createProblemError())
     // Act
     const list = await setupList()
     // Assert
@@ -112,12 +151,7 @@ describe('読み込み', () => {
 
   it('問題の詳細を返さないサーバーエラー_failedになり問題の詳細を持たない', async () => {
     // Arrange
-    server.use(
-      http.get(
-        '/api/display-item-categories',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    getDisplayItemCategoriesMock.mockRejectedValue(new ServerError(''))
     // Act
     const list = await setupList()
     // Assert
@@ -129,24 +163,21 @@ describe('買い物かごに入れる', () => {
   it('買い物かごに入れられる_addedを返し陳列品のIDを送信する', async () => {
     // Arrange
     const list = await setupList()
-    let sent: PostBasketItemsRequest | undefined
-    server.use(
-      http.post<never, PostBasketItemsRequest>('/api/basket-items', async ({ request }) => {
-        sent = await request.json()
-        return new HttpResponse(null, { status: HttpStatusCode.Created })
-      }),
-    )
+    postBasketItemMock.mockResolvedValue({})
     // Act
     const outcome = await list.addToBasket('display-item-id')
     // Assert
     expect(outcome).toEqual({ kind: 'added' })
-    expect(sent).toEqual({ displayItemId: 'display-item-id', addedQuantity: 1 })
+    expect(postBasketItemMock).toHaveBeenCalledWith({
+      displayItemId: 'display-item-id',
+      addedQuantity: 1,
+    })
   })
 
   it('問題の詳細を返すサーバーエラー_failedを返し問題の詳細を持つ', async () => {
     // Arrange
     const list = await setupList()
-    server.use(http.post('/api/basket-items', problemResponse))
+    postBasketItemMock.mockRejectedValue(createProblemError())
     // Act
     const outcome = await list.addToBasket('display-item-id')
     // Assert

@@ -1,16 +1,68 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
-import { http, HttpResponse } from 'msw'
-import { HttpStatusCode } from 'axios'
 import DisplayItemPage from '@/pages/DisplayItemPage.vue'
 import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
 import { i18n } from '@/system-common/locales/i18n'
+import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
-import { server } from '@/../mock/node'
+import { basket } from '@/../mock/data/basket-items'
+import { pagedListDisplayItem } from '@/../mock/data/display-items'
+import { displayItemBrands } from '@/../mock/data/display-item-brands'
+import { displayItemCategories } from '@/../mock/data/display-item-categories'
+
+const {
+  getDisplayItemCategoriesMock,
+  getDisplayItemBrandsMock,
+  getByQueryMock,
+  postBasketItemMock,
+  getBasketItemsMock,
+} = vi.hoisted(() => ({
+  getDisplayItemCategoriesMock: vi.fn(),
+  getDisplayItemBrandsMock: vi.fn(),
+  getByQueryMock: vi.fn(),
+  postBasketItemMock: vi.fn(),
+  getBasketItemsMock: vi.fn(),
+}))
+
+vi.mock('@/system-common/api-client', () => ({
+  displayItemCategoriesApi: () => ({
+    getDisplayItemCategories: getDisplayItemCategoriesMock,
+  }),
+  displayItemBrandsApi: () => ({
+    getDisplayItemBrands: getDisplayItemBrandsMock,
+  }),
+  displayItemsApi: () => ({
+    getByQuery: getByQueryMock,
+  }),
+  basketItemsApi: () => ({
+    postBasketItem: postBasketItemMock,
+    getBasketItems: getBasketItemsMock,
+  }),
+}))
 
 const { t } = i18n.global
+
+beforeEach(() => {
+  vi.resetAllMocks()
+  // ストアがレスポンスの配列を書き換えるため、呼び出しごとに複製を返します。
+  getDisplayItemCategoriesMock.mockImplementation(() =>
+    Promise.resolve({
+      data: structuredClone(displayItemCategories),
+    }),
+  )
+  getDisplayItemBrandsMock.mockImplementation(() =>
+    Promise.resolve({
+      data: structuredClone(displayItemBrands),
+    }),
+  )
+  getByQueryMock.mockImplementation(() =>
+    Promise.resolve({ data: structuredClone(pagedListDisplayItem) }),
+  )
+  postBasketItemMock.mockResolvedValue({})
+  getBasketItemsMock.mockImplementation(() => Promise.resolve({ data: structuredClone(basket) }))
+})
 
 /**
  * テスト用の Pinia ストアを生成します。
@@ -49,12 +101,7 @@ describe('結果の通知と遷移', () => {
     // Arrange
     const pinia = createPinia()
     const wrapper = await getWrapper(pinia)
-    server.use(
-      http.post(
-        '/api/basket-items',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    postBasketItemMock.mockRejectedValue(new ServerError(''))
     // Act
     await wrapper.findAll('button')[0]!.trigger('click')
     await flushPromises()
@@ -65,12 +112,7 @@ describe('結果の通知と遷移', () => {
 
   it('陳列品を取得できない_トーストを表示する', async () => {
     // Arrange
-    server.use(
-      http.get(
-        '/api/display-items',
-        () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
-      ),
-    )
+    getByQueryMock.mockRejectedValue(new ServerError(''))
     const pinia = createPinia()
     // Act
     await getWrapper(pinia)
