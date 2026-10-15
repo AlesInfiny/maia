@@ -135,4 +135,4 @@ const app = createApp(App)
 npm run mock
 ```
 
-[^1]: [Committing the worker script :material-open-in-new:](https://mswjs.io/docs/best-practices/managing-the-worker/#committing-the-worker-script){ target=_blank }
+[^1]: [Committing the worker script :material-open-in-new:](https://mswjs.io/guides/best-practices/managing-the-worker#committing-the-worker-script){ target=_blank }

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 /**
  * ヘルスチェック API の動作をテストするクラスです。
@@ -27,14 +28,20 @@ public class HealthCheckTest {
   @Test
   @DisplayName("testGet_03_ヘルスチェック_サーバ正常動作確認")
   void testGet_serverCheck() throws Exception {
-    this.mockMvc.perform(get("/api/health/check")).andExpect(status().isOk())
-        .andExpect(content().json("{'status':'UP'}"));
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/health/check"));
+
+    // Assert
+    response.andExpect(status().isOk()).andExpect(content().json("{'status':'UP'}"));
   }
 
   @Test
   @DisplayName("testGet_04_ヘルスチェック_DB正常動作確認")
   void testGet_databaseCheck() throws Exception {
-    this.mockMvc.perform(get("/api/health/datasource")).andExpect(status().isOk())
-        .andExpect(content().json("{'status':'UP'}"));
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/health/datasource"));
+
+    // Assert
+    response.andExpect(status().isOk()).andExpect(content().json("{'status':'UP'}"));
   }
 }
