@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
-import { createMemoryHistory, createRouter, type Router } from 'vue-router'
+import { defineComponent } from 'vue'
+import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } from 'vue-router'
 import { routes } from '@/core/router/routes'
 import { registerNavigationGuards } from '@/core/router/guards'
 import { routeNames } from '@/core/router/route-names'
@@ -8,11 +9,18 @@ import { routeNames } from '@/core/router/route-names'
 import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
 
 /**
+ * 遷移先の画面の代わりに表示する、何も描画しないコンポーネントです。
+ */
+const StubPage = defineComponent({ name: 'StubPage', render: () => null })
+
+/**
  * ナビゲーションガードを登録した、テスト用のルーターを生成します。
+ * ガードの判定だけを確かめるため、ルート表の画面は遅延読み込みしないコンポーネントに置き換えます。
  * @returns テスト用のルーター。
  */
 function createGuardedRouter(): Router {
-  const router = createRouter({ history: createMemoryHistory(), routes })
+  const stubRoutes = routes.map((route) => ({ ...route, component: StubPage }) as RouteRecordRaw)
+  const router = createRouter({ history: createMemoryHistory(), routes: stubRoutes })
   registerNavigationGuards(router)
   return router
 }

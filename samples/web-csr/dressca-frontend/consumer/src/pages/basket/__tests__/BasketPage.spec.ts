@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeAll, afterEach, assert } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/core/router'
+import type { Router } from 'vue-router'
 import { routeNames } from '@/core/router/route-names'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { createTestingPinia } from '@pinia/testing'
 import BasketPage from '@/pages/basket/BasketPage.vue'
@@ -93,13 +94,16 @@ vi.mock('@/system-common/api-client', () => ({
   }),
 }))
 
+let router: Router
+
 /**
  * コンポーネントをテスト用にマウントするヘルパー関数です。
- * テスト用 Pinia を作成し、日本語ロケールを設定した上で
+ * テスト用 Pinia とルーターを作成し、日本語ロケールを設定した上で
  * `pinia`・`router`・`i18n` をグローバルプラグインとして注入します。
  * @returns マウント済みの Vue Test Utils ラッパー
  */
 function getWrapper() {
+  router = createStubRouter()
   const pinia = createTestingPinia({
     createSpy: vi.fn, // 明示的に設定する必要があります。
     stubActions: false, // 結合テストなので、アクションはモック化しないように設定します。
@@ -233,7 +237,7 @@ describe('結果の通知と遷移', () => {
     await flushPromises()
     // Act
     await wrapper.find('[data-testId="orderButton"]').trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.checkout)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.checkout)
   })

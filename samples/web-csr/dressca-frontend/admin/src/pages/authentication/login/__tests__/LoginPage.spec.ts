@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { routeNames } from '@/core/router/route-names'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/core/router'
+import type { Router } from 'vue-router'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
@@ -11,11 +12,14 @@ import { HttpStatusCode } from 'axios'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { server } from '@/../mock/node'
 
+let router: Router
+
 /**
  * ログイン画面のラッパーを生成します。
  * @returns マウント済みのラッパー。
  */
 async function getWrapper() {
+  router = createStubRouter()
   router.push({ name: routeNames.login })
   await router.isReady()
   return mount(LoginPage, {
@@ -120,6 +124,7 @@ describe('ログインの結果の通知と遷移', () => {
    * @returns マウント済みのラッパー。
    */
   async function getFilledWrapper(pinia: TestingPinia) {
+    router = createStubRouter()
     await router.push({ name: routeNames.login, query: { redirect: '/catalog/items' } })
     const filled = mount(LoginPage, { global: { plugins: [pinia, router] } })
     await setValuesAndValidate(filled, 'user@example.com', 'password')
@@ -132,7 +137,7 @@ describe('ログインの結果の通知と遷移', () => {
     const filled = await getFilledWrapper(pinia)
     // Act
     await filled.get('button').trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.fullPath).toBe('/catalog/items')
   })

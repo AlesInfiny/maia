@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/core/router'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { createPinia, setActivePinia } from 'pinia'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
@@ -18,7 +18,7 @@ function getWrapper() {
   const pinia = createPinia()
   setActivePinia(pinia)
   return mount(ItemsPage, {
-    global: { plugins: [pinia, router] },
+    global: { plugins: [pinia, createStubRouter()] },
   })
 }
 describe('アイテム一覧が表示できる', () => {

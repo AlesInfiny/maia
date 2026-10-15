@@ -2,9 +2,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import type { GetBasketItemsResponse } from '@/system-common/generated/api-client'
+import type { Router } from 'vue-router'
 import CheckoutPage from '@/pages/ordering/checkout/CheckoutPage.vue'
-import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
@@ -24,6 +25,8 @@ vi.mock('@/system-common/api-client', () => ({
 }))
 
 const { t } = i18n.global
+
+let router: Router
 
 beforeEach(() => {
   vi.resetAllMocks()
@@ -53,6 +56,7 @@ function useBasketResponse(itemCount: number) {
  */
 async function getWrapper() {
   const pinia: TestingPinia = createTestingPinia({ createSpy: vi.fn, stubActions: false })
+  router = createStubRouter()
   await router.push({ name: routeNames.checkout })
   const wrapper = mount(CheckoutPage, { global: { plugins: [pinia, router] } })
   await flushPromises()
@@ -73,7 +77,7 @@ describe('結果の通知と遷移', () => {
     useBasketResponse(0)
     // Act
     await getWrapper()
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.displayItem)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.displayItem)
   })
@@ -87,8 +91,9 @@ describe('結果の通知と遷移', () => {
     const { wrapper } = await getWrapper()
     // Act
     await clickPlaceOrder(wrapper)
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.done)
+    await flushPromises()
     // Assert
+    expect(router.currentRoute.value.name).toBe(routeNames.done)
     expect(router.currentRoute.value.params).toEqual({ orderId: 'order-id' })
   })
 
@@ -99,8 +104,9 @@ describe('結果の通知と遷移', () => {
     const { wrapper, pinia } = await getWrapper()
     // Act
     await clickPlaceOrder(wrapper)
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.error)
+    await flushPromises()
     // Assert
     expect(useNotificationStore(pinia).message).toBe(t('failedToOrderItems'))
+    expect(router.currentRoute.value.name).toBe(routeNames.error)
   })
 })

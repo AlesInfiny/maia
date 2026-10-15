@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { flushPromises, mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import DonePage from '@/pages/ordering/done/DonePage.vue'
-import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
@@ -25,11 +25,13 @@ describe('結果の通知と遷移', () => {
     // Arrange
     getOrderByIdMock.mockRejectedValue(new ServerError(''))
     const pinia = createTestingPinia({ createSpy: vi.fn, stubActions: false })
+    const router = createStubRouter()
     await router.push({ name: routeNames.done, params: { orderId: 'order-id' } })
     // Act
     mount(DonePage, { global: { plugins: [pinia, router] } })
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.displayItem)
+    await flushPromises()
     // Assert
     expect(useNotificationStore(pinia).message).toBe(t('failedToOrderInformation'))
+    expect(router.currentRoute.value.name).toBe(routeNames.displayItem)
   })
 })

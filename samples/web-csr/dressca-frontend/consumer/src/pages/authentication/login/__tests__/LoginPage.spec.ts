@@ -1,12 +1,19 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { i18n } from '@/system-common/locales/i18n'
 import LoginPage from '@/pages/authentication/login/LoginPage.vue'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/core/router'
+import type { Router } from 'vue-router'
 import { routeNames } from '@/core/router/route-names'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { createTestingPinia } from '@pinia/testing'
 import { FormContextKey, type FormContext } from 'vee-validate'
 import type { ComponentInternalInstance } from 'vue'
+
+let router: Router
+
+beforeEach(() => {
+  router = createStubRouter()
+})
 
 /**
  * 日本語ロケールでのテスト用のラッパーを生成します。
@@ -144,7 +151,7 @@ describe('ログイン後の遷移', () => {
     await setValuesAndValidate(wrapper, 'user@example.com', 'password')
     // Act
     await wrapper.get('button').trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.basket)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.fullPath).toBe('/basket')
   })
@@ -156,7 +163,7 @@ describe('ログイン後の遷移', () => {
     await setValuesAndValidate(wrapper, 'user@example.com', 'password')
     // Act
     await wrapper.get('button').trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.displayItem)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.fullPath).toBe('/')
   })

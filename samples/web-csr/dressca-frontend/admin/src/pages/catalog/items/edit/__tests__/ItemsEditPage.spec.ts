@@ -4,8 +4,9 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
+import type { Router } from 'vue-router'
 import ItemsEditPage from '@/pages/catalog/items/edit/ItemsEditPage.vue'
-import { router } from '@/core/router'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { Roles } from '@/security/public-api'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { server } from '@/../mock/node'
@@ -31,13 +32,16 @@ function CreateLoginState(userRoles: string[]) {
   })
 }
 
+let router: Router
+
 /**
  * 指定された Pinia ストアを利用してコンポーネントをマウントします。
- * グローバルプラグインとして `pinia` と `router` を注入します。
+ * ルーターを作成し、グローバルプラグインとして `pinia` と `router` を注入します。
  * @param pinia - テストに使用する TestingPinia インスタンス
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 async function getWrapper(pinia: TestingPinia) {
+  router = createStubRouter()
   await router.push({ name: routeNames.catalogItemsEdit, params: { itemId: catalogItems[0]!.id } })
   return mount(ItemsEditPage, {
     global: { plugins: [pinia, router] },
@@ -214,9 +218,10 @@ describe('結果の通知と遷移', () => {
     const loginState = CreateLoginState([Roles.ADMIN])
     // Act
     await getWrapper(loginState)
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    await flushPromises()
     // Assert
     expect(useNotificationStore(loginState).message).toBe('対象のアイテムが見つかりませんでした。')
+    expect(router.currentRoute.value.name).toBe(routeNames.catalogItems)
   })
 
   it('更新が競合した_トーストを表示し編集画面にとどまる', async () => {
@@ -253,10 +258,11 @@ describe('結果の通知と遷移', () => {
       .findAllComponents({ name: 'ConfirmationModal' })[0]!
       .findAll('button')[0]!
       .trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.catalogItems)
+    await flushPromises()
     // Assert
     expect(useNotificationStore(loginState).message).toBe(
       '削除対象のカタログアイテムが見つかりませんでした。',
     )
+    expect(router.currentRoute.value.name).toBe(routeNames.catalogItems)
   })
 })

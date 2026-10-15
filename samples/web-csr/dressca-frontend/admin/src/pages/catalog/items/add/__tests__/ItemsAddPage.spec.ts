@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/core/router'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
@@ -35,7 +35,7 @@ function CreateLoginState(userRoles: string[]) {
  */
 function getWrapper(pinia: TestingPinia) {
   return mount(ItemsAddPage, {
-    global: { plugins: [pinia, router] },
+    global: { plugins: [pinia, createStubRouter()] },
   })
 }
 

@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
+import type { Router } from 'vue-router'
 import DisplayItemPage from '@/pages/DisplayItemPage.vue'
-import { router } from '@/core/router'
 import { routeNames } from '@/core/router/route-names'
+import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
 import { ServerError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
@@ -44,6 +45,8 @@ vi.mock('@/system-common/api-client', () => ({
 
 const { t } = i18n.global
 
+let router: Router
+
 beforeEach(() => {
   vi.resetAllMocks()
   // テストどうしがモックのデータを共有しないよう、呼び出しごとに複製を返します。
@@ -79,6 +82,7 @@ function createPinia(): TestingPinia {
  * @returns マウント済みの Vue Test Utils のラッパー
  */
 async function getWrapper(pinia: TestingPinia) {
+  router = createStubRouter()
   await router.push({ name: routeNames.displayItem })
   const wrapper = mount(DisplayItemPage, { global: { plugins: [pinia, router] } })
   await flushPromises()
@@ -92,7 +96,7 @@ describe('結果の通知と遷移', () => {
     const wrapper = await getWrapper(pinia)
     // Act
     await wrapper.findAll('button')[0]!.trigger('click')
-    await vi.waitUntil(() => router.currentRoute.value.name === routeNames.basket)
+    await flushPromises()
     // Assert
     expect(router.currentRoute.value.name).toBe(routeNames.basket)
     const { displayItemId } = postBasketItemMock.mock.calls[0]![0] as { displayItemId: string }
