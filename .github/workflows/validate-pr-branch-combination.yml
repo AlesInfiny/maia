@@ -1,0 +1,20 @@
+---
+
+name: git-flow に従った PR のブランチ組み合わせの検証
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [main, develop, 'release/*']
+
+jobs:
+  check:
+    name: PR のブランチ組み合わせの検証
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: PRのブランチ組み合わせを検証
+        uses: ./.github/workflows/validate-pr-branch-combination

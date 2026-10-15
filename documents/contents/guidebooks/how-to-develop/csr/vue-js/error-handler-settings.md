@@ -13,12 +13,12 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ## グローバルエラーハンドラーの設定 {#global-error-handler-setting}
 
 業務フロー上発生が想定されないエラーを捕捉し、ハンドリングするためのグローバルエラーハンドラーを設定します。
-エラーハンドラーはアプリケーションの共通部品なので、新しく`shared`フォルダーを作成し、下図の階層に、`global-error-handler.ts`を作成します。
+エラーハンドラーは業務知識を持たないシステム共通の部品なので、新しく`system-common`フォルダーを作成し、下図の階層に、`global-error-handler.ts`を作成します。
 
 ```text title="フォルダー構造" linenums="0"
 <workspace-name>
 └─ src/
-  └─ shared/ ---------------------- アプリケーションの共通部品が配置されるフォルダー
+  └─ system-common/ --------------- システム共通の機能が配置されるフォルダー
      └─ error-handler/
         └─ global-error-handler.ts
 ```
@@ -38,7 +38,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     ```typescript title="global-error-handler.ts"
     import type { App, ComponentPublicInstance } from 'vue'
-    import { router } from '../../router'
+    import { router } from '@/system-common/router'
 
     export const globalErrorHandler = {
       install(app: App) {
@@ -74,9 +74,9 @@ description: Vue.js を用いた フロントエンドアプリケーション�
     ```typescript title="main.ts" hl_lines="3 12"
     import { createApp } from 'vue'
     import { createPinia } from 'pinia'
-    import { globalErrorHandler } from '@/shared/error-handler/global-error-handler'
+    import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
     import App from './App.vue'
-    import { router } from './router'
+    import { router } from '@/system-common/router'
 
     const app = createApp(App)
 

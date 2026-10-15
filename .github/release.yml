@@ -1,4 +1,7 @@
 changelog:
+  exclude:
+    labels:
+      - リリース作業
   categories:
     - title: ':newspaper: Features'
       labels:

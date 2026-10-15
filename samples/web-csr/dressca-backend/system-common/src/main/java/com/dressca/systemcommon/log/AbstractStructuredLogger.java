@@ -1,9 +1,9 @@
 package com.dressca.systemcommon.log;
 
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 
 /**
  * コンテキストにログを保持させる機能を追加した構造化ロガーのインターフェースです。

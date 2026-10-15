@@ -1,5 +1,6 @@
 package com.dressca.web.admin.authorization;
 
+import com.dressca.applicationmodules.authorization.UserStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import com.dressca.applicationcore.authorization.UserStore;
 
 /**
  * ユーザのセッション情報です。

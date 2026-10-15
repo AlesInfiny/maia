@@ -4,63 +4,82 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # batch プロジェクトの設定 {#top}
-<!-- cSpell:ignore datasource hikari tasklet -->
+<!-- cSpell:ignore hikari -->
 
 batch プロジェクトで必要な設定を解説します。
 
 ## batch プロジェクトの依存ライブラリの設定 {#config-dependencies}
 
-batch プロジェクトで必要になるライブラリは、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリです。
+batch プロジェクトには、バッチ処理の実装やバッチ処理のためのデータアクセスを実現するライブラリを追加します。
 データアクセス処理やロギング処理用のライブラリは、後述する依存プロジェクトの設定によって参照しているため、 batch プロジェクトの依存ライブラリとしては記載していません。
 batch プロジェクトで利用を推奨するライブラリは以下の通りです。
 
-- `spring-boot-starter-batch`： Spring Batch アプリケーションを構築するための依存関係を提供するスターター
+- `spring-boot-starter-batch-jdbc`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションを構築するための依存関係を提供するスターター
 - `spring-boot-starter-log4j2`: Spring Boot アプリケーションで Apache Log4j 2 （以降 log4j2 ）を使用するためのスターター
-- `spring-boot-starter-batch-test`：Spring Batch アプリケーションをテストするためのスターター
+- `spring-boot-starter-batch-jdbc-test`: JDBC ベースのジョブリポジトリを利用する Spring Batch アプリケーションをテストするためのスターター
+- `archunit-junit6`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 6 の連携ライブラリ
 
 ```groovy title="batch/build.gradle"
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-batch'
+  implementation 'org.springframework.boot:spring-boot-starter-batch-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-  testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
+  testImplementation 'com.tngtech.archunit:archunit-junit6:x.x.x'
 }
 ```
 
+??? info "各依存ライブラリのバージョンの参照先"
+
+    - [ArchUnit JUnit 6 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit6){ target=_blank }
+
 ## batch プロジェクトの依存プロジェクトの設定 {#config-projects}
 
-batch プロジェクトは application-core 、 infrastructure 、 system-common を参照しています。
+batch プロジェクトは application-modules 、 system-common を参照しています。
 そのため、 `build.gradle` で以下のように他のプロジェクトを依存関係に含めます。
 
 ```groovy title="batch/build.gradle"
 dependencies {
-  implementation project(':application-core')
-  implementation project(':infrastructure')
+  implementation project(':application-modules')
   implementation project(':system-common')
+}
+```
+
+## エントリーポイントとなるクラスの設定 {#config-entry-point}
+
+batch プロジェクトは、 `#!java @SpringBootApplication` を付与したクラス（ `BatchApplication` ）が存在する、エントリーポイントとなるサブプロジェクトです。
+
+`#!java @SpringBootApplication` によるコンポーネントスキャンの対象は、デフォルトでは当該アノテーションを付与したクラスと同じパッケージ配下（例: `com.example.batch` ）に限られます。
+本ガイドでは、サブプロジェクトごとに個別のパッケージ名を設定するため、 application-modules や system-common などの依存するサブプロジェクトは batch プロジェクトとは異なるパッケージに配置されます。
+その結果、これらのサブプロジェクトのコンポーネント（ `#!java @Component` や `#!java @Service` などを付与したクラス）はデフォルトのスキャン対象から漏れ、 DI コンテナに登録されません。
+
+これを避けるため、 `#!java @SpringBootApplication` の `#!java scanBasePackages` 属性に、各サブプロジェクトに共通する親パッケージ（例: `com.example` ）を指定します。
+
+```java title="BatchApplication.java" hl_lines="1"
+@SpringBootApplication(scanBasePackages = {"com.example"})
+public class BatchApplication {
+  ...
 }
 ```
 
 ## Spring Boot の設定 {#config-spring}
 
 batch プロジェクトに関する Spring Boot のプロパティ等を設定します。
-batch プロジェクトの `src/main/resource` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
+batch プロジェクトの `src/main/resources` 以下に `application.properties` もしくは `application.yaml` ファイルを作成して行います。
 設定できる項目については、以下を参照してください。
 
 - [Spring Boot のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://spring.pleiades.io/spring-boot/appendix/application-properties/){ target=_blank }
 - [本番対応機能 :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank }
-- [MyBatis Spring Boot Starter のアプリケーションプロパティ設定一覧 :material-open-in-new:](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#configuration){ target=_blank }
 
 設定項目は多岐に渡るため、一般的に設定する項目について例示します。
 
 - データソース
-    - spring.datasource.hikari.driver-class-name： JDBC ドライバーの完全修飾名
-    - spring.datasource.hikari.url：データベースの JDBC URL
-    - spring.datasource.hikari.username：データベースのログインユーザー名
-    - spring.datasource.hikari.password：データベースのログインパスワード
+    - spring.datasource.hikari.driver-class-name: JDBC ドライバーの完全修飾名
+    - spring.datasource.hikari.jdbc-url: データベースの JDBC URL
+    - spring.datasource.hikari.username: データベースのログインユーザー名
+    - spring.datasource.hikari.password: データベースのログインパスワード
 - データベース初期化設定
-    - spring.sql.init.mode：データベースの初期化有無
-- MyBatis の設定
-    - mybatis.configuration.xxx で MyBatis の設定を記述可能
+    - spring.sql.init.mode: データベースの初期化有無
 - バッチ処理
     - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
     - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
@@ -69,23 +88,18 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
 
     ```properties title="開発環境での設定例（ H2 Database を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.h2.Driver
-    spring.datasource.hikari.url=jdbc:h2:mem:データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:h2:mem:データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
-    spring.h2.console.enabled=true
-    spring.h2.console.path=/h2-console
-    spring.h2.console.settings.web-allow-others=true
     spring.sql.init.mode=embedded
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
     ```properties title="本番環境での設定例（ PostgreSQL を使用する場合）"
     spring.datasource.hikari.driver-class-name=org.postgresql.Driver
-    spring.datasource.hikari.url=jdbc:postgresql://localhost:5432/データベースの名前
+    spring.datasource.hikari.jdbc-url=jdbc:postgresql://localhost:5432/データベースの名前
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
-    mybatis.configuration.map-underscore-to-camel-case=true
     ```
 
 !!! note "spring.batch.jdbc.initialize-schema の設定とメタデータテーブルの関係"
@@ -96,11 +110,36 @@ batch プロジェクトの `src/main/resource` 以下に `application.propertie
     そのため、バッチアプリケーションの起動時に [メタデータテーブルを作成するスキーマ :material-open-in-new:](https://spring.pleiades.io/spring-batch/reference/schema-appendix.html){ target=_blank } を実行するよう指定する必要があります。
     バッチ処理のジョブ管理をクラウドサービスや特定のジョブ管理ツールに任せる場合など、Spring Batch で生成されるメタデータテーブルを利用したくない際の対処法は [こちら](../../../../../app-architecture/batch-application/batch-application-consideration/without-using-meta-data-table.md) をご覧ください。
 
+## application-modules の `internal` パッケージへの依存を禁止するテストの追加 {#add-architecture-test}
+
+application-modules のモジュールでは、他のプロジェクトに公開しない型を `internal` パッケージ配下に配置します。
+batch プロジェクトがこれらの型に依存していないことを保証するため、 ArchUnit を使ったテストを追加します。
+
+`batch/src/test/java` 以下に、 batch プロジェクトのパッケージに合わせて `ArchitectureTest.java` を配置します。
+
+```text
+batch/
+ └ src/test/java/com/example/batch
+   └ ArchitectureTest.java
+```
+
+ArchUnit のテストでは、 `#!java @AnalyzeClasses` でテスト対象のパッケージを指定します。
+`#!java @ArchTest` を付与したテストメソッドを定義し、その中に守るべきルールを記載します。
+ここでは、 `internal` パッケージ配下の型に依存しないことをルールとして定義します。
+
+サンプルアプリケーションにおける実装例は以下の通りです。
+
+??? example "サンプルアプリケーションの ArchitectureTest.java"
+
+    ```java title="batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    --8<-- "samples/web-csr/dressca-backend/batch/src/test/java/com/dressca/batch/ArchitectureTest.java"
+    ```
+
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-依存関係に記載している `org.springframework.boot:spring-boot-starter-batch` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
+依存関係に記載している `org.springframework.boot:spring-boot-starter-batch-jdbc` ライブラリは、デフォルトで Logback 用のライブラリである `org.springframework.boot:spring-boot-starter-logging` が推移的依存で追加されます。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
@@ -117,9 +156,16 @@ configurations {
 
 ## 不要な設定の削除 {#remove-unnecessary-settings}
 
-[こちら](../common-project-settings.md#java-plugin) で、使用するテストフレームワークを集約管理しているため、 test タスクに関するブロックを削除します。
+[こちら](../common-project-settings.md#java-plugin) で、 Java のバージョンと使用するテストフレームワークを集約管理しています。
+そのため、 Toolchain の設定と test タスクに関するブロックを削除します。
 
-```groovy title="batch/build.gradle" hl_lines="1 2 3"
+```groovy title="batch/build.gradle" hl_lines="1-5 7-9"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(x)
+  }
+}
+
 tasks.named('test') {
   useJUnitPlatform()
 }
@@ -141,9 +187,9 @@ public static void main(String[] args) {
 }
 ```
 
-また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTest.java` を書き換えます。
+また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTests.java` を書き換えます。
 
-```java title="BatchApplicationTest.java"
+```java title="BatchApplicationTests.java"
 ・・・
 import org.springframework.batch.test.context.SpringBatchTest; // 追加
 
@@ -155,9 +201,11 @@ class BatchApplicationTests {
 ```
 
 ここまでを実行した後に、適切にビルドが実行できるかを確認します。
+依存ライブラリを追加したため、 [依存ライブラリのバージョン固定](../common-project-settings.md#dependency-locking) で作成したロックファイルをビルドの前に更新します。
 ターミナルを用いてルートプロジェクト直下で以下を実行してください。
 
 ```shell title="batch プロジェクトのビルド"
+./gradlew allDependencies --write-locks
 ./gradlew batch:build
 ```
 
@@ -174,25 +222,18 @@ class BatchApplicationTests {
     version = 'x.x.x-SNAPSHOT'
     description = 'プロジェクトの説明'
 
-    java {
-      toolchain {
-        languageVersion = JavaLanguageVersion.of(x)
-      }
-    }
-
     repositories {
       mavenCentral()
     }
 
     dependencies {
-      implementation 'org.springframework.boot:spring-boot-starter-batch'
+      implementation 'org.springframework.boot:spring-boot-starter-batch-jdbc'
       implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-      implementation project(':application-core')
-      implementation project(':infrastructure')
+      implementation project(':application-modules')
       implementation project(':system-common')
 
-      testImplementation 'org.springframework.boot:spring-boot-starter-batch-test'
+      testImplementation 'org.springframework.boot:spring-boot-starter-batch-jdbc-test'
       // その他、プロジェクトに必要な依存ライブラリは任意で追加してください。
     }
 

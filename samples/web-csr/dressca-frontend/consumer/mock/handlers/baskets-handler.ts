@@ -1,12 +1,12 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
 import type {
-  AccountResponse,
-  BasketItemResponse,
+  AccountApiModel,
+  BasketItemApiModel,
   PostBasketItemsRequest,
   PutBasketItemsRequest,
-} from '@/generated/api-client'
-import { deletedItemId } from '../data/catalog-items'
+} from '@/system-common/generated/api-client'
+import { deletedItemId } from '../data/display-items'
 import { basket, basketItems } from '../data/basket-items'
 
 /**
@@ -14,13 +14,13 @@ import { basket, basketItems } from '../data/basket-items'
  * @param originalBasketItems 買い物かごアイテムのリスト。
  * @returns 小計金額が計算済みの買い物かごアイテムのリスト。
  */
-function calcBasketItemsSubTotal(originalBasketItems: BasketItemResponse[]): BasketItemResponse[] {
+function calcBasketItemsSubTotal(originalBasketItems: BasketItemApiModel[]): BasketItemApiModel[] {
   if (!originalBasketItems) {
     return originalBasketItems
   }
-  return originalBasketItems.map(({ catalogItem, catalogItemId, quantity, unitPrice }) => ({
-    catalogItem,
-    catalogItemId,
+  return originalBasketItems.map(({ displayItem, displayItemId, quantity, unitPrice }) => ({
+    displayItem,
+    displayItemId,
     quantity,
     unitPrice,
     subTotal: unitPrice * quantity,
@@ -32,7 +32,7 @@ function calcBasketItemsSubTotal(originalBasketItems: BasketItemResponse[]): Bas
  * @param subTotals 小計金額のリスト。
  * @returns 買い物かごの会計情報。
  */
-function calcBasketAccount(subTotals: number[]): AccountResponse {
+function calcBasketAccount(subTotals: number[]): AccountApiModel {
   const totalItemsPrice = subTotals.reduce((total, subTotal) => total + subTotal, 0)
   const consumptionTaxRate = 0.1
   const deliveryCharge = totalItemsPrice >= 5000 ? 0 : 500
@@ -56,24 +56,23 @@ export const basketsHandlers = [
   http.post<never, PostBasketItemsRequest, never>('/api/basket-items', async ({ request }) => {
     const dto: PostBasketItemsRequest = await request.json()
 
-    const target = basket.basketItems?.filter(
-      (item) => item.catalogItemId === Number(dto.catalogItemId),
-    )
+    const target = basket.basketItems?.filter((item) => item.displayItemId === dto.displayItemId)
     if (target) {
-      if (target.length === 0) {
-        const addBasketItem = basketItems.find((item) => item.catalogItemId === dto.catalogItemId)
+      const targetItem = target[0]
+      if (typeof targetItem === 'undefined') {
+        const addBasketItem = basketItems.find((item) => item.displayItemId === dto.displayItemId)
         if (typeof addBasketItem !== 'undefined') {
           addBasketItem.quantity = dto.addedQuantity ?? 0
           basket.basketItems?.push(addBasketItem)
 
-          // 追加したアイテムがカタログから削除済みのアイテムだった場合、
+          // 追加したアイテムが陳列品として削除済み扱いだった場合、
           // 買い物かごの削除済みアイテム ID リストに ID を追加します。
-          if (addBasketItem.catalogItemId === deletedItemId) {
-            basket.deletedItemIds?.push(addBasketItem.catalogItemId)
+          if (addBasketItem.displayItemId === deletedItemId) {
+            basket.deletedItemIds?.push(addBasketItem.displayItemId)
           }
         }
       } else {
-        target[0].quantity += dto.addedQuantity ?? 0
+        targetItem.quantity += dto.addedQuantity ?? 0
       }
     }
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
@@ -88,15 +87,17 @@ export const basketsHandlers = [
     })
     dto.forEach((putBasketItem) => {
       const target = basket.basketItems?.filter(
-        (item) => item.catalogItemId === putBasketItem.catalogItemId,
+        (item) => item.displayItemId === putBasketItem.displayItemId,
       )
       if (target) {
-        if (target.length === 0) {
+        const targetItem = target[0]
+        if (typeof targetItem === 'undefined') {
           response = new HttpResponse(null, {
             status: HttpStatusCode.BadRequest,
           })
+        } else {
+          targetItem.quantity = putBasketItem.quantity
         }
-        target[0].quantity = putBasketItem.quantity
       }
     })
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
@@ -104,17 +105,15 @@ export const basketsHandlers = [
     basket.account = calcBasketAccount(subTotals)
     return response
   }),
-  http.delete('/api/basket-items/:catalogItemId', ({ params }) => {
-    const { catalogItemId } = params
-    basket.basketItems = basket.basketItems?.filter(
-      (item) => item.catalogItemId !== Number(catalogItemId),
-    )
+  http.delete('/api/basket-items/:displayItemId', ({ params }) => {
+    const { displayItemId } = params
+    basket.basketItems = basket.basketItems?.filter((item) => item.displayItemId !== displayItemId)
     basket.basketItems = calcBasketItemsSubTotal(basket.basketItems ?? [])
     const subTotals = basket.basketItems.map((item) => item.subTotal)
     basket.account = calcBasketAccount(subTotals)
-    // 削除したアイテムがカタログから削除済みのアイテムだった場合、
+    // 削除したアイテムが陳列品として削除済み扱いだった場合、
     // 買い物かごの削除済みアイテム ID リストを空にします。
-    if (Number(catalogItemId) === deletedItemId) {
+    if (displayItemId === deletedItemId) {
       basket.deletedItemIds = []
     }
     return new HttpResponse(null, { status: HttpStatusCode.NoContent })

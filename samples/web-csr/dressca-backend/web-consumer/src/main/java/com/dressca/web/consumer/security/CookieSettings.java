@@ -1,7 +1,7 @@
 package com.dressca.web.consumer.security;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Cookie の設定を格納するクラスです。
