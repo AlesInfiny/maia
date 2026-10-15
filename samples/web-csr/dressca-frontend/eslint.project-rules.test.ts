@@ -247,6 +247,87 @@ describe('core 層', () => {
   ])
 })
 
+describe('services', () => {
+  /** services に置けない、 Vue に依存するモジュールの参照です。 */
+  const servicesVueCases: Case[] = [
+    ['vue', 'error'],
+    ['pinia', 'error'],
+    ['vue-router', 'error'],
+    ['@vueuse/core', 'error'],
+    ['vee-validate', 'error'],
+    ['@vee-validate/zod', 'error'],
+    ['../stores/basket', 'error'],
+    ['../../authorization/stores/authentication', 'error'],
+    ['@/business-common/stores/notification', 'error'],
+    ['../composables/use-basket', 'error'],
+    ['@/business-common/composables/use-notification', 'error'],
+    // API の呼び出しとデータの変換に使うモジュール
+    ['@/system-common/api-client', 'ok'],
+    ['@/system-common/generated/api-client', 'ok'],
+    ['../models/basket-line', 'ok'],
+    ['./x', 'ok'],
+    ['axios', 'ok'],
+    // 名前に stores や composables を含むだけのモジュール
+    ['../stores-like/x', 'ok'],
+    ['./my-composables', 'ok'],
+  ]
+
+  defineImportCases('consumer/src/shopping/basket/services/basket-service.ts', [
+    ...servicesVueCases,
+    // 層の参照方向のルールも適用される
+    ['@/core/router', 'error'],
+    ['@/ab/public-api', 'error'],
+    ['@/business-common/x', 'ok'],
+  ])
+  defineImportCases('consumer/src/ab/domain/services/x.ts', servicesVueCases)
+  // services フォルダーの深さが異なるファイル
+  for (const filePath of [
+    'consumer/src/ab/services/x.ts',
+    'consumer/src/ab/domain/services/sub/x.ts',
+    'consumer/src/ab/services/sub/x.ts',
+    'consumer/src/system-common/services/sub/x.ts',
+    'consumer/src/system-common/api/services/x.ts',
+    'consumer/src/business-common/a/services/b/x.ts',
+  ]) {
+    defineImportCases(filePath, [
+      ['vue', 'error'],
+      ['../stores/x', 'error'],
+      ['@/system-common/api-client', 'ok'],
+    ])
+  }
+  defineImportCases('admin/src/catalog-management/catalog/services/catalog-service.ts', [
+    ...servicesVueCases,
+    ['@/core/router', 'error'],
+  ])
+  defineImportCases('consumer/src/business-common/services/x.ts', [
+    ...servicesVueCases,
+    ['@/shopping/public-api', 'error'],
+  ])
+  defineImportCases('consumer/src/system-common/services/x.ts', [
+    ...servicesVueCases.filter(([specifier]) => !specifier.startsWith('@/business-common/')),
+    ['@/business-common/x', 'error'],
+  ])
+
+  test('vue-router の型も参照できない', async () => {
+    await assertLint(
+      'consumer/src/ab/domain/services/x.ts',
+      "import type { Router } from 'vue-router'\nexport type { Router }\n",
+      'error',
+    )
+  })
+
+  // services の外では、 Vue に依存するモジュールを参照できる
+  defineImportCases('consumer/src/shopping/basket/composables/use-basket.ts', [
+    ['vue', 'ok'],
+    ['pinia', 'ok'],
+    ['../stores/basket', 'ok'],
+    ['../services/basket-service', 'ok'],
+  ])
+  defineImportCases('consumer/src/business-common/composables/use-notification.ts', [
+    ['@/business-common/stores/notification', 'ok'],
+  ])
+})
+
 describe('動的インポート', () => {
   const dynamicImport = "export const load = () => import('@/pages/basket/BasketPage.vue')\n"
   for (const filePath of [
@@ -279,6 +360,9 @@ describe('eslint.config.ts', () => {
       `${workspace}/src/pages/__tests__/HomePage.spec.ts`,
       `${workspace}/src/business-common/x.ts`,
       `${workspace}/src/system-common/x.ts`,
+      `${workspace}/src/ab/domain/services/x.ts`,
+      `${workspace}/src/business-common/services/x.ts`,
+      `${workspace}/src/system-common/services/x.ts`,
     ]) {
       test(`${filePath} に参照方向のルールが適用される`, async () => {
         const expected = (await eslint.calculateConfigForFile(filePath)) as Linter.Config

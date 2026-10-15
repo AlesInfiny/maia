@@ -58,6 +58,70 @@ const vueRouterValueRestriction = {
 }
 
 /**
+ * services フォルダーのモジュールに禁止する、 Vue に依存するモジュールの参照です。
+ * services には Vue に依存しない関数（ API の呼び出しやデータの変換）だけを置きます。
+ * Vue のリアクティビティやライフサイクル、ストア、ルーターに依存する処理は composables に置きます。
+ */
+const servicesVueMessage =
+  'services には Vue に依存しない関数だけを置きます。 Vue 、ストア、ルーターなどに依存する処理は composables に置きます。'
+const servicesVueRestrictions = {
+  paths: ['vue', 'pinia', 'vue-router'].map((name) => ({ name, message: servicesVueMessage })),
+  patterns: [
+    { group: ['@vueuse/*', 'vee-validate', '@vee-validate/*'], message: servicesVueMessage },
+    // 相対パスと `@/` の両方の参照に一致させるため、正規表現を使います。
+    { regex: '(?:^|/)(?:stores|composables)(?:/|$)', message: servicesVueMessage },
+  ],
+}
+
+/**
+ * 参照方向のルールの設定に、 services フォルダーだけに適用する設定を加えます。
+ * 同じルールを後の設定で指定すると、オプションは上書きされるため、
+ * 層の参照方向の制限に、 Vue に依存するモジュールの参照の禁止を加えた設定を作ります。
+ * @param config 層の参照方向のルールの設定。
+ * @param layerGlob 層のフォルダーに一致する glob 。
+ * @param sourceFileGlob ソースファイルの名前に一致する glob 。
+ * @returns 層の設定と、その層の services フォルダーの設定。
+ */
+function withServicesRestriction(
+  config: Linter.Config,
+  layerGlob: string,
+  sourceFileGlob: string,
+): Linter.Config[] {
+  const [severity, options] = config.rules?.[restrictedImportsRule] as [
+    Linter.RuleSeverity,
+    { paths: { name: string }[]; patterns: object[] },
+  ]
+  return [
+    config,
+    {
+      name: `${config.name}/services`,
+      // `<層>/**/services/**/<ファイル>` の 1 つの glob では、 minimatch が途中の `**` が 0 階層のパス
+      // （ <層>/services/x.ts など）に一致しないため、 `**` が 0 階層の場合を別の glob で指定します。
+      files: [
+        `${layerGlob}/services/**/${sourceFileGlob}`,
+        `${layerGlob}/**/services/${sourceFileGlob}`,
+        `${layerGlob}/**/services/**/${sourceFileGlob}`,
+      ],
+      ...(config.ignores ? { ignores: config.ignores } : {}),
+      rules: {
+        ...config.rules,
+        [restrictedImportsRule]: [
+          severity,
+          {
+            // vue-router は型も含めて禁止するため、型だけを許可する設定と置き換えます。
+            paths: [
+              ...options.paths.filter((path) => path.name !== 'vue-router'),
+              ...servicesVueRestrictions.paths,
+            ],
+            patterns: [...options.patterns, ...servicesVueRestrictions.patterns],
+          },
+        ],
+      },
+    },
+  ]
+}
+
+/**
  * コンテキストではない src 直下のフォルダー（層）です。
  * src 直下のフォルダーのうち、ここに挙げないものは、すべてコンテキストとして扱います。
  * コンテキストを追加するときに、このファイルを変更する必要はありません。
@@ -103,6 +167,7 @@ function importsExcept(allowedFolders: string[]): string {
  * コンテキストは他のコンテキストを参照できません。 public-api.ts も参照できません。コンテキストの組み合わせは pages で行います。
  * コンテキストの中の参照は相対パスで書きます。 `@/` で自分のコンテキストを参照することもできません。
  * コンテキスト、 business-common 、 system-common は、 vue-router を型だけ参照できます。
+ * それらの services フォルダーは、 Vue 、ストア、 composables などの Vue に依存するモジュールを参照できません。
  * @param workspace ルールを適用するワークスペースのフォルダー名。
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
@@ -126,66 +191,78 @@ function createLayerDependencyRules(workspace: string): Linter.Config[] {
     'pages から参照できる core 層のモジュールは、ルート名の定数（ @/core/router/route-names ）だけです。'
 
   return [
-    {
-      name: `${workspace}/layer-dependency/system-common`,
-      files: [`${srcGlob}/system-common/**/${sourceFileGlob}`],
-      rules: {
-        [restrictedImportsRule]: [
-          'error',
-          {
-            paths: [vueRouterValueRestriction],
-            patterns: [
-              {
-                regex: importsExcept(['system-common']),
-                message:
-                  'system-common は業務知識を持たない層です。 core 層、 business-common 、 pages 、コンテキストを参照できません。',
-              },
-            ],
-          },
-        ],
-        ...dynamicImportRestriction,
+    ...withServicesRestriction(
+      {
+        name: `${workspace}/layer-dependency/system-common`,
+        files: [`${srcGlob}/system-common/**/${sourceFileGlob}`],
+        rules: {
+          [restrictedImportsRule]: [
+            'error',
+            {
+              paths: [vueRouterValueRestriction],
+              patterns: [
+                {
+                  regex: importsExcept(['system-common']),
+                  message:
+                    'system-common は業務知識を持たない層です。 core 層、 business-common 、 pages 、コンテキストを参照できません。',
+                },
+              ],
+            },
+          ],
+          ...dynamicImportRestriction,
+        },
       },
-    },
-    {
-      name: `${workspace}/layer-dependency/business-common`,
-      files: [`${srcGlob}/business-common/**/${sourceFileGlob}`],
-      rules: {
-        [restrictedImportsRule]: [
-          'error',
-          {
-            paths: [vueRouterValueRestriction],
-            patterns: [
-              {
-                regex: importsExcept(['business-common', 'system-common']),
-                message: 'business-common は core 層、 pages 、コンテキストを参照できません。',
-              },
-            ],
-          },
-        ],
-        ...dynamicImportRestriction,
+      `${srcGlob}/system-common`,
+      sourceFileGlob,
+    ),
+    ...withServicesRestriction(
+      {
+        name: `${workspace}/layer-dependency/business-common`,
+        files: [`${srcGlob}/business-common/**/${sourceFileGlob}`],
+        rules: {
+          [restrictedImportsRule]: [
+            'error',
+            {
+              paths: [vueRouterValueRestriction],
+              patterns: [
+                {
+                  regex: importsExcept(['business-common', 'system-common']),
+                  message: 'business-common は core 層、 pages 、コンテキストを参照できません。',
+                },
+              ],
+            },
+          ],
+          ...dynamicImportRestriction,
+        },
       },
-    },
-    {
-      name: `${workspace}/layer-dependency/context`,
-      files: [`${srcGlob}/*/**/${sourceFileGlob}`],
-      ignores: layerFolders.map((folder) => `${srcGlob}/${folder}/**`),
-      rules: {
-        [restrictedImportsRule]: [
-          'error',
-          {
-            paths: [vueRouterValueRestriction],
-            patterns: [
-              {
-                regex: importsExcept(['business-common', 'system-common']),
-                message:
-                  'コンテキストは core 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。自分のコンテキストの中は相対パスで参照します。',
-              },
-            ],
-          },
-        ],
-        ...dynamicImportRestriction,
+      `${srcGlob}/business-common`,
+      sourceFileGlob,
+    ),
+    ...withServicesRestriction(
+      {
+        name: `${workspace}/layer-dependency/context`,
+        files: [`${srcGlob}/*/**/${sourceFileGlob}`],
+        ignores: layerFolders.map((folder) => `${srcGlob}/${folder}/**`),
+        rules: {
+          [restrictedImportsRule]: [
+            'error',
+            {
+              paths: [vueRouterValueRestriction],
+              patterns: [
+                {
+                  regex: importsExcept(['business-common', 'system-common']),
+                  message:
+                    'コンテキストは core 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。自分のコンテキストの中は相対パスで参照します。',
+                },
+              ],
+            },
+          ],
+          ...dynamicImportRestriction,
+        },
       },
-    },
+      `${srcGlob}/*`,
+      sourceFileGlob,
+    ),
     {
       name: `${workspace}/layer-dependency/pages`,
       files: [`${srcGlob}/pages/**/${sourceFileGlob}`],

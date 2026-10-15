@@ -228,6 +228,9 @@ const onUpdate = async () => {
   コンテキストと vue-router の値も参照できません。
 - system-common は、上記に加えて business-common も参照できません。
 - core 層以外は、動的インポート（ `import()` ）を使えません。
+- `services` フォルダーには、 Vue に依存しない関数（ API の呼び出しやデータの変換）だけを置きます。
+  `vue` 、 `pinia` 、 `vue-router` 、 `@vueuse/*` 、 vee-validate 、ストア（ `stores` ）、 composables を参照できません。
+  Vue のリアクティビティやライフサイクル、ストアに依存する処理は `composables` に置きます。
 
 ルールはコンテキストを列挙せずに定義します。
 
