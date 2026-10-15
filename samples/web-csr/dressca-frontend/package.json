@@ -6,6 +6,7 @@
   "scripts": {
     "format:root": "prettier --write ./*.{js,ts,json,yaml}",
     "format:ci:root": "prettier --check ./*.{js,ts,json,yaml}",
+    "test:root": "node --test eslint.project-rules.test.ts",
     "lint:ci:consumer": "npm run lint:ci -w consumer",
     "type-check:consumer": "npm run type-check -w consumer",
     "build-only:dev:consumer": "npm run build-only:dev -w consumer",

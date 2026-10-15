@@ -45,3 +45,14 @@ jobs:
         with:
           body: /var/tmp/format-result.txt
           header: 'format の結果 :pen:'
+
+      - id: run-test
+        name: ESLint のプロジェクトルールのテストの実行
+        run: npm run test:root >> /var/tmp/test-result.txt 2>&1
+
+      - name: ESLint のプロジェクトルールのテストの結果出力
+        if: ${{ success() || (failure() && steps.run-test.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/test-result.txt
+          header: 'ESLint のプロジェクトルールのテストの結果 :test_tube:'
