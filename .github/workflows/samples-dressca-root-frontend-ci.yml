@@ -46,6 +46,17 @@ jobs:
           body: /var/tmp/format-result.txt
           header: 'format の結果 :pen:'
 
+      - id: run-type-check
+        name: TypeScript の型チェック
+        run: npm run type-check:root >> /var/tmp/type-check-result.txt 2>&1
+
+      - name: TypeScript の型チェックの結果出力
+        if: ${{ success() || (failure() && steps.run-type-check.conclusion == 'failure') }}
+        uses: ./.github/workflows/file-to-summary
+        with:
+          body: /var/tmp/type-check-result.txt
+          header: '型チェックの結果 :pencil2:'
+
       - id: run-test
         name: ESLint のプロジェクトルールのテストの実行
         run: npm run test:root >> /var/tmp/test-result.txt 2>&1

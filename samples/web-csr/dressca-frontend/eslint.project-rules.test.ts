@@ -22,11 +22,9 @@ const eslint = new ESLint({
   // 参照方向のルールの評価に必要なパーサーとプラグインだけを設定します。
   overrideConfigFile: true,
   overrideConfig: [
-    {
-      files: ['**/*.ts'],
-      languageOptions: { parser: tseslint.parser },
-      plugins: { '@typescript-eslint': tseslint.plugin },
-    },
+    // .vue ファイルの設定を計算できるよう（ eslint.config.ts のテストで使用します）、プラグインはファイルを限定せずに登録します。
+    { plugins: { '@typescript-eslint': tseslint.plugin } },
+    { files: ['**/*.ts'], languageOptions: { parser: tseslint.parser } },
     ...consumerLayerDependencyRules,
     ...adminLayerDependencyRules,
   ] satisfies Linter.Config[],
@@ -265,4 +263,35 @@ describe('動的インポート', () => {
   test('core 層では通る', async () => {
     await assertLint('consumer/src/core/router/index.ts', dynamicImport, 'ok')
   })
+})
+
+describe('eslint.config.ts', () => {
+  // 上のテストは参照方向のルールだけを読み込むため、 eslint.config.ts がルールを読み込んでいることは確かめられません。
+  // ここでは eslint.config.ts を読み込み、各層のファイルに同じルールが同じ設定で適用されることを確かめます。
+  // 後に並べた設定がルールを上書きした場合も検出します。
+  const projectEslint = new ESLint({ cwd: import.meta.dirname })
+  for (const workspace of ['consumer', 'admin']) {
+    for (const filePath of [
+      `${workspace}/src/ab/domain/x.ts`,
+      `${workspace}/src/ab/ui/X.vue`,
+      `${workspace}/src/pages/basket/BasketPage.vue`,
+      `${workspace}/src/pages/basket/__tests__/BasketPage.spec.ts`,
+      `${workspace}/src/pages/__tests__/HomePage.spec.ts`,
+      `${workspace}/src/business-common/x.ts`,
+      `${workspace}/src/system-common/x.ts`,
+    ]) {
+      test(`${filePath} に参照方向のルールが適用される`, async () => {
+        const expected = (await eslint.calculateConfigForFile(filePath)) as Linter.Config
+        const actual = (await projectEslint.calculateConfigForFile(filePath)) as Linter.Config
+        for (const ruleId of [restrictedImportsRule, restrictedSyntaxRule]) {
+          assert.ok(expected.rules?.[ruleId], `${filePath} に ${ruleId} の期待値がありません。`)
+          assert.deepEqual(
+            actual.rules?.[ruleId],
+            expected.rules[ruleId],
+            `${filePath} の ${ruleId} の設定が eslint.project-rules.ts と一致しません。`,
+          )
+        }
+      })
+    }
+  }
 })
