@@ -27,7 +27,7 @@ public class UserController {
 
   /**
    * ログイン時のメッセージを取得します。
-   * 
+   *
    * @return レスポンス。
    * @throws Exception 例外。
    */
