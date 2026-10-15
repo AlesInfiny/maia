@@ -164,7 +164,7 @@ describe('CarouselSlider', () => {
     })
 
     const indicator = wrapper.findAll('[data-test="page-indicator"')
-    await indicator[1].trigger('click')
+    await indicator[1]!.trigger('click')
 
     const slotContent = wrapper.find('[data-test="slotContent"]')
 

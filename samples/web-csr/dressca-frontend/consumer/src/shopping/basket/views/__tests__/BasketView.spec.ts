@@ -134,7 +134,7 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[0]
+    const button = wrapper.findAll('button')[0]!
     expect(button.isVisible()).toBe(true)
   })
 
@@ -142,7 +142,7 @@ describe('買い物かごのアイテムを表示する_アイテムが入って
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[1]
+    const button = wrapper.findAll('button')[1]!
     expect(button.isVisible()).toBe(true)
   })
 })
@@ -167,7 +167,7 @@ describe('買い物かごのアイテムを表示する_アイテムが0件', ()
     // Arrange
     // Act
     // Assert
-    const button = wrapper.findAll('button')[0]
+    const button = wrapper.findAll('button')[0]!
     expect(button.isVisible()).toBe(true)
   })
 

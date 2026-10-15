@@ -1,6 +1,9 @@
 import { HttpResponse, http } from 'msw'
 import { HttpStatusCode } from 'axios'
-import type { PostCatalogItemRequest, PutCatalogItemRequest } from '@/generated/api-client'
+import type {
+  PostCatalogItemRequest,
+  PutCatalogItemRequest,
+} from '@/system-common/generated/api-client'
 import { pagedListCatalogItem, catalogItems } from '../data/catalog-items'
 
 export const catalogItemsHandlers = [

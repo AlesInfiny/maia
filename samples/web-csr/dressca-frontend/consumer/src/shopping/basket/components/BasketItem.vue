@@ -5,8 +5,8 @@ import { TrashIcon } from '@heroicons/vue/24/outline'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { currencyHelper } from '@/system-common/helpers/currencyHelper'
-import { assetHelper } from '@/business-common/helpers/assetHelper'
+import { currencyHelper } from '@/system-common/helpers/currency-helper'
+import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { i18n } from '@/system-common/locales/i18n'
 
 const { t } = i18n.global

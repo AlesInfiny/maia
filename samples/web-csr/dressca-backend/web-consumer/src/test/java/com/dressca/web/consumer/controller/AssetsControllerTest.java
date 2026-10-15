@@ -13,6 +13,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 /**
  * {@link AssetsController} の動作をテストするクラスです。
@@ -28,20 +29,28 @@ public class AssetsControllerTest {
   @Test
   @DisplayName("testGet_01_正常系_存在するアセットコード")
   void testGet_01() throws Exception {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "b52dc7f712d94ca5812dd995bf926c04";
 
-    // 期待する戻り値
-    this.mockMvc.perform(get("/api/assets/" + assetCode)).andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
+
+    // Assert
+    response.andExpect(status().isOk()).andExpect(content().contentType(MediaType.IMAGE_PNG_VALUE));
   }
 
   @Test
   @DisplayName("testGet_02_異常系_存在しないアセットコード")
   void testGet_02() throws Exception {
+    // Arrange
     // テスト用の入力データ
     String assetCode = "NotExistAssetCode";
 
-    this.mockMvc.perform(get("/api/assets/" + assetCode)).andExpect(status().isNotFound());
+    // Act
+    ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
+
+    // Assert
+    response.andExpect(status().isNotFound());
   }
 }

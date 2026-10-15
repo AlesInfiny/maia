@@ -9,7 +9,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 以下のパッケージは Vue.js のブランクプロジェクト作成時にオプションとしてインストールされます。
 
-- [Cypress :material-open-in-new:](https://www.cypress.io/){ target=_blank }
+- [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
 
      E2E (End-to-End) テストツール
 

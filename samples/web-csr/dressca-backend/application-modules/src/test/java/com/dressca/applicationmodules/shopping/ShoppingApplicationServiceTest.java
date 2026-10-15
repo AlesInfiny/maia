@@ -1,9 +1,7 @@
 package com.dressca.applicationmodules.shopping;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -144,7 +142,7 @@ public class ShoppingApplicationServiceTest {
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
-    assertThat(argBasket.getItems().size()).isEqualTo(0);
+    assertThat(argBasket.getItems()).isEmpty();
   }
 
   @Test
@@ -160,21 +158,16 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(false);
 
-    try {
-      // Act
-      // テストメソッドの実行
-      service.addItemToBasket(buyerId, displayItemId, 1);
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    } catch (DisplayItemNotFoundException e) {
-      // Assert
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
-      verify(this.displayItemDomainService, times(0)).getExistDisplayItems(any());
-      verify(this.basketRepository, times(0)).update(any());
-    } catch (Exception e) {
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    }
+    // Act
+    Executable action = () -> service.addItemToBasket(buyerId, displayItemId, 1);
+
+    // Assert
+    assertThrows(DisplayItemNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemDomainService, times(0)).getExistDisplayItems(any());
+    verify(this.basketRepository, times(0)).update(any());
   }
 
   @Test
@@ -192,10 +185,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(displayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -220,10 +215,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(displayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -255,10 +252,12 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(targetDisplayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    // Act
-    // テストメソッドの実行
+    // テストメソッドに渡す数量
     int newQuantity = 5;
     Map<UUID, Integer> quantities = Map.of(targetDisplayItemId, newQuantity);
+
+    // Act
+    // テストメソッドの実行
     service.setQuantities(buyerId, quantities);
 
     // Assert
@@ -288,23 +287,19 @@ public class ShoppingApplicationServiceTest {
     when(this.displayItemRepository.findDeletedItemsByDisplayItemIdIn(displayItemIds))
         .thenReturn(List.of(deletedDisplayItem));
 
-    try {
-      // Act
-      // テストメソッドの実行
-      Map<UUID, Integer> quantities = Map.of(deletedDisplayItemId, 5);
-      service.setQuantities(buyerId, quantities);
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    } catch (DisplayItemNotFoundException e) {
-      // Assert
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
-      verify(this.displayItemRepository, times(1))
-          .findDeletedItemsByDisplayItemIdIn(displayItemIds);
-      verify(this.basketRepository, times(0)).update(any());
-    } catch (Exception e) {
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    }
+    // テストメソッドに渡す数量
+    Map<UUID, Integer> quantities = Map.of(deletedDisplayItemId, 5);
+
+    // Act
+    Executable action = () -> service.setQuantities(buyerId, quantities);
+
+    // Assert
+    assertThrows(DisplayItemNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+    verify(this.displayItemRepository, times(1)).findDeletedItemsByDisplayItemIdIn(displayItemIds);
+    verify(this.basketRepository, times(0)).update(any());
   }
 
   @Test
@@ -321,21 +316,18 @@ public class ShoppingApplicationServiceTest {
     List<UUID> displayItemIds = List.of(displayItemId);
     when(this.displayItemDomainService.existAll(displayItemIds)).thenReturn(true);
 
-    try {
-      // Act
-      // テストメソッドの実行
-      Map<UUID, Integer> quantities = Map.of(displayItemId, 5);
-      service.setQuantities(buyerId, quantities);
-      fail("DisplayItemInBasketNotFoundException が発生しなければ失敗");
-    } catch (DisplayItemInBasketNotFoundException e) {
-      // Assert
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
-      verify(this.basketRepository, times(0)).update(any());
-    } catch (Exception e) {
-      fail("DisplayItemInBasketNotFoundException が発生しなければ失敗");
-    }
+    // テストメソッドに渡す数量
+    Map<UUID, Integer> quantities = Map.of(displayItemId, 5);
+
+    // Act
+    Executable action = () -> service.setQuantities(buyerId, quantities);
+
+    // Assert
+    assertThrows(DisplayItemInBasketNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.displayItemDomainService, times(1)).existAll(displayItemIds);
+    verify(this.basketRepository, times(0)).update(any());
   }
 
   @Test
@@ -388,7 +380,7 @@ public class ShoppingApplicationServiceTest {
     ArgumentCaptor<Basket> captor = ArgumentCaptor.forClass(Basket.class);
     verify(this.basketRepository, times(1)).update(captor.capture());
     Basket argBasket = captor.getValue();
-    assertEquals(0, argBasket.getItems().size());
+    assertThat(argBasket.getItems()).isEmpty();
   }
 
   @Test
@@ -404,19 +396,14 @@ public class ShoppingApplicationServiceTest {
     when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(false);
 
-    try {
-      // Act
-      // テストメソッドの実行
-      service.deleteItemFromBasket(buyerId, displayItemId);
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    } catch (DisplayItemNotFoundException e) {
-      // Assert
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.basketRepository, times(0)).update(any());
-    } catch (Exception e) {
-      fail("DisplayItemNotFoundException が発生しなければ失敗");
-    }
+    // Act
+    Executable action = () -> service.deleteItemFromBasket(buyerId, displayItemId);
+
+    // Assert
+    assertThrows(DisplayItemNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.basketRepository, times(0)).update(any());
   }
 
   @Test
@@ -432,19 +419,14 @@ public class ShoppingApplicationServiceTest {
     when(this.displayItemDomainService.existDisplayItemIncludingDeleted(displayItemId))
         .thenReturn(true);
 
-    try {
-      // Act
-      // テストメソッドの実行
-      service.deleteItemFromBasket(buyerId, displayItemId);
-      fail("DisplayItemInBasketNotFoundException が発生しなければ失敗");
-    } catch (DisplayItemInBasketNotFoundException e) {
-      // Assert
-      // モックが想定通り呼び出されていることの確認
-      verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
-      verify(this.basketRepository, times(0)).update(any());
-    } catch (Exception e) {
-      fail("DisplayItemInBasketNotFoundException が発生しなければ失敗");
-    }
+    // Act
+    Executable action = () -> service.deleteItemFromBasket(buyerId, displayItemId);
+
+    // Assert
+    assertThrows(DisplayItemInBasketNotFoundException.class, action);
+    // モックが想定通り呼び出されていることの確認
+    verify(this.basketRepository, times(1)).findByBuyerId(buyerId);
+    verify(this.basketRepository, times(0)).update(any());
   }
 
   @Test
@@ -472,11 +454,11 @@ public class ShoppingApplicationServiceTest {
     // Act
     // テストメソッドの実行
     BasketDetail actual = service.getBasketDetail(dummyBuyerId);
-    assertThat(actual.getDisplayItems().size()).isEqualTo(2);
-    assertThat(actual.getDisplayItems().get(0).getId()).isEqualTo(itemId1);
-    assertThat(actual.getDisplayItems().get(1).getId()).isEqualTo(itemId2);
 
     // Assert
+    assertThat(actual.getDisplayItems()).hasSize(2);
+    assertThat(actual.getDisplayItems().get(0).getId()).isEqualTo(itemId1);
+    assertThat(actual.getDisplayItems().get(1).getId()).isEqualTo(itemId2);
     // モックが想定通り呼び出されていることの確認
     verify(this.displayItemRepository, times(1))
         .findByDisplayItemIdInIncludingDeleted(displayItemIds);

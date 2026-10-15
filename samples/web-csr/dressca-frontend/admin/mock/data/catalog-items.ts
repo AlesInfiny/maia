@@ -1,7 +1,7 @@
 import type {
   GetCatalogItemResponse,
   PagedListOfGetCatalogItemResponse,
-} from '@/generated/api-client'
+} from '@/system-common/generated/api-client'
 
 export const catalogItems: GetCatalogItemResponse[] = [
   {
