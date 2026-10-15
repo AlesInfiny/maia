@@ -1,10 +1,10 @@
 ---
 title: ADR 0002 画面とルーティングの構成
-description: 画面を src/pages に置き、 root 層のルート表でルーティングを定義する構成を定めます。
+description: 画面を src/pages に置き、 core 層のルート表でルーティングを定義する構成を定めます。
 status: accepted
 ---
 
-# 画面とルーティングを root 層と pages 層に集約する {#top}
+# 画面とルーティングを core 層と pages 層に集約する {#top}
 
 ## ステータス {#status}
 
@@ -30,7 +30,7 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 保守するチームがすぐにわかるように、どのチームの持ち物でもないフォルダーは作りません。
 
 - pages とコンテキストは、各業務チームが保守します。
-- root 層と business-common は、業務共通チームが保守します。
+- core 層と business-common は、業務共通チームが保守します。
 - system-common は、システム共通チーム（または業務共通チームの兼務）が保守します。
 
 ## 決定 {#decision}
@@ -39,9 +39,9 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 
 上の層から下の層への参照だけを許可します。
 
-- root 層（ `src/main.ts` 、 `src/App.vue` 、 `src/root/` ）
+- core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` ）
     - ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
-    - ルーティングは `src/root/router/` に置きます。
+    - ルーティングは `src/core/router/` に置きます。
     - 業務共通チームが保守します。
 - pages 層（ `src/pages/` ）
     - URL ごとの画面です。
@@ -53,19 +53,18 @@ ADR 0001 に従って画面を `src/pages` へ移動した結果、次の 3 つ�
 - system-common （ `src/system-common/` ）
     - 業務の知識を持たない共通処理と汎用の UI 部品です。
 
-root 層の名前は、依存の結線を 1 か所に集める Composition Root と、 Vue のルートコンポーネント（ `App.vue` ）にちなみます。
-文書では、 route （ルート表、ルート名）との混同を避けるため、 root 層をカタカナにせず、英語の綴りのまま表記します。
+core 層の名前は、アプリケーションの起動と依存の結線という、アプリケーション全体の中核を担うことにちなみます。
 
 コンテキストを参照できるのは、そのコンテキストの `public-api.ts` だけです。
-`public-api.ts` を参照できるのは pages 層と root 層で、コンテキストは他のコンテキストを参照できません。
+`public-api.ts` を参照できるのは pages 層と core 層で、コンテキストは他のコンテキストを参照できません。
 コンテキストを組み合わせる処理は pages 層で行います。
 
 ### ルーティング {#routing}
 
-- ルート定義は、 root 層のルート表（ `src/root/router/routes.ts` ）に手書きで集約します。
+- ルート定義は、 core 層のルート表（ `src/core/router/routes.ts` ）に手書きで集約します。
   画面の配置と URL の対応、ルートの属性を、このファイルだけで確認できます。
 - ルート表は画面を動的インポートで参照し、画面ごとにコードを分割して遅延読み込みします。
-- ルート名は、 root 層の定数（ `src/root/router/route-names.ts` の `routeNames` ）で定義します。
+- ルート名は、 core 層の定数（ `src/core/router/route-names.ts` の `routeNames` ）で定義します。
   ルート名は、意味を表す名前（例: `catalog-items-edit` ）にします。
 - 同じファイルで vue-router の型（ `TypesConfig` の `RouteNamedMap` ）を拡張します。
   ルート名ごとのパスとパラメーターを型で宣言し、遷移先を型で検査します。
@@ -112,8 +111,8 @@ src/pages/
 
 ### ルートの属性 {#route-meta}
 
-- ルートの属性は、 root 層のルート表の `meta` で宣言します。
-  属性の型（ `RouteMeta` ）は root 層で定義します。
+- ルートの属性は、 core 層のルート表の `meta` で宣言します。
+  属性の型（ `RouteMeta` ）は core 層で定義します。
 - 認証の要否は `meta.requiresAuth` で表します。
   指定のない画面は認証が必要な画面として扱います。
   認証が不要な画面だけが `requiresAuth: false` を明示します。
@@ -123,16 +122,16 @@ src/pages/
 
 ### 画面遷移 {#navigation}
 
-- 画面を遷移させられるのは pages 層と root 層だけです。
+- 画面を遷移させられるのは pages 層と core 層だけです。
   コンテキスト、 business-common 、 system-common は vue-router を型としてだけ参照できます。
-- 遷移先は、 root 層のルート名の定数で指定します。
+- 遷移先は、 core 層のルート名の定数で指定します。
   ルート名とパラメーターの組み合わせは、拡張した型で検査されます。
-- pages 層が参照できる root 層のモジュールは、ルート名の定数（ `@/root/router/route-names` ）だけです。
+- pages 層が参照できる core 層のモジュールは、ルート名の定数（ `@/core/router/route-names` ）だけです。
 - 画面は、パラメーターをルート名を指定した `useRoute()` で型付きで取得します。
 - 遷移を伴うコンテキストの部品は、イベントを発行するだけにします。
   たとえばログアウトのメニューが該当し、遷移は利用する側が行います。
 - 遷移先を必要とする共通処理は、遷移先を引数に取るファクトリー関数として提供します。
-  認証のガードとグローバルエラーハンドラーが該当し、 root 層が結線します。
+  認証のガードとグローバルエラーハンドラーが該当し、 core 層が結線します。
 - ログイン後の戻り先は、クエリの `redirect` に遷移先のパス（ `to.fullPath` ）を格納します。
   ログイン画面は `/` で始まり、かつ `//` と `/\` のどちらでも始まらない値だけを戻り先として受け入れます。
   外部のサイトへ誘導されること（オープンリダイレクト）を防ぐためです。
@@ -214,25 +213,25 @@ const onUpdate = async () => {
 
 `eslint.project-rules.ts` で次のルールを強制します。
 
-- root 層は最上位の層のため、参照の制限を設けません。
+- core 層は最上位の層のため、参照の制限を設けません。
 - pages 層は、次を参照できません。
-    - root 層のルーティング（ `@/root/router` と `@/root/router/**` 。ルート名の定数 `@/root/router/route-names` を除く）
+    - core 層のルーティング（ `@/core/router` と `@/core/router/**` 。ルート名の定数 `@/core/router/route-names` を除く）
     - コンテキストの `public-api.ts` 以外のファイル
     - `@/system-common/api-client` と `@/system-common/generated/**`
-- pages 層のテストは、例外としてルーター（ `@/root/router` ）と API の型（ `@/system-common/generated/**` ）を参照できます。
+- pages 層のテストは、例外としてルーター（ `@/core/router` ）と API の型（ `@/system-common/generated/**` ）を参照できます。
   画面を遷移させるためと、 API のレスポンスを組み立てるためです。
 - コンテキストは、次を参照できません。
-    - root 層（ `@/root/**` ）と `@/pages/**`
+    - core 層（ `@/core/**` ）と `@/pages/**`
     - 他のコンテキスト（ `public-api.ts` を含む）
     - vue-router の値（型は参照できます）
-- business-common は、 root 層と `@/pages/**` を参照できません。
+- business-common は、 core 層と `@/pages/**` を参照できません。
   コンテキストと vue-router の値も参照できません。
 - system-common は、上記に加えて business-common も参照できません。
-- root 層以外は、動的インポート（ `import()` ）を使えません。
+- core 層以外は、動的インポート（ `import()` ）を使えません。
 
 - vue-router の型の参照は、 `@typescript-eslint/no-restricted-imports` の `allowTypeImports` で許可します。
 - 動的インポートは `no-restricted-syntax` で `ImportExpression` を禁止します。
-  画面を動的インポートするのは root 層のルート表だけです。
+  画面を動的インポートするのは core 層のルート表だけです。
 - system-common のルーティング定義に設けていた例外と、ルート名の集約モジュール（ `route-names.ts` ）は廃止します。
 
 ## 検討した選択肢 {#considered-options}
@@ -257,14 +256,14 @@ const onUpdate = async () => {
       ESLint の規則は `@/` のエイリアスで書いたパスだけを検査するため、 business-common のほかのフォルダーから相対パス（ `../router` ）でルーティングを参照しても検出できません。
     - フォルダーと層を一致させ、参照方向の規則をフォルダー単位で書けることを優先し、採用しません。
       保守するチームは、この ADR と CONTEXT-MAP に明記します。
-- 最上位の層とそのフォルダーに、 root 以外の名前を付ける
+- 最上位の層とそのフォルダーに、 core 以外の名前を付ける
+    - `root`: 依存の結線を 1 か所に集める Composition Root と、 Vue のルートコンポーネント（ `App.vue` ）にちなみ、役割を表せます。
+      一方で、カタカナ表記が route と同じ「ルート」になり、ルート表やルート名と紛れるため、採用しません。
     - `app`: アプリケーション全体を指すように読め、最上位の層であることや結線の役割を表さないため、採用しません。
     - `application`: バックエンドのアプリケーションコア層や、 DDD のアプリケーション層（ユースケースを実装する層）と混同されるため、採用しません。
       本構成では、ユースケースはコンテキストのユースケースコンポーザブルが持ちます。
     - `shell`: マイクロフロントエンドの shell と役割が近く、日本語の文書でも紛れません。
-      一方で、本アプリケーションはマイクロフロントエンドでも PWA （ App Shell モデル）でもないため、それらの構成と誤解されるおそれがあります。
-      root のカタカナ表記は、 route と同じ「ルート」になります。
-      ただし、文書でも英語の綴りのまま表記して区別できるため、役割をより正確に表す root を採用します。
+      一方で、本アプリケーションはマイクロフロントエンドでも PWA （ App Shell モデル）でもなく、それらの構成と誤解されるおそれがあるため、採用しません。
 - コンテキストが他のコンテキストの `public-api.ts` を参照することを許可する
     - 一方のコンテキストの結果を前提にする操作を、コンテキストの中に書けます。
     - 一方で、 CONTEXT-MAP の「コンテキスト同士は依存しない」と食い違います。
@@ -277,17 +276,17 @@ const onUpdate = async () => {
     - 業務の部品やストアからも、画面やコンテキストを参照できるようになるため、採用しません。
 - ルート名の定数と `meta` の型だけを business-common に置く
     - コンテキストからルート名を参照しても、参照方向の規則で検出できません。
-    - ルート表とルーターの生成は root 層のフォルダーに残るため、採用しません。
+    - ルート表とルーターの生成は core 層のフォルダーに残るため、採用しません。
 - ルート名の定数を `src/pages/route-names.ts` に置く
-    - 参照方向の規則を変えずに、 pages から root 層への参照をなくせます。
-    - 一方で、ルート名を保守するチームが業務チームになり、ルート表は root 層のフォルダーに残るため、採用しません。
+    - 参照方向の規則を変えずに、 pages から core 層への参照をなくせます。
+    - 一方で、ルート名を保守するチームが業務チームになり、ルート表は core 層のフォルダーに残るため、採用しません。
 
 検討の経緯と、各案で参照方向の規則に違反した件数は [Issue #5673 のコメント](https://github.com/AlesInfiny/maia/issues/5673#issuecomment-6095614298) に記録しています。
 
 ## 影響 {#consequences}
 
 - 次の順で移行します。
-    1. ルート表を root 層へ移し、ルートの属性、画面遷移、ガードを切り替えます。
+    1. ルート表を core 層へ移し、ルートの属性、画面遷移、ガードを切り替えます。
        画面の振る舞いは変えません。
     1. ユースケースコンポーザブルを導入し、 `public-api.ts` を絞り込み、テストを移します。
     1. 参照方向のルールを更新します。
@@ -295,5 +294,5 @@ const onUpdate = async () => {
   `/` を含むルート名（例: `catalog/items/edit` → `catalog-items-edit` ）と `notFound` （ `not-found` ）が変わり、 admin の `home` と `error` 、 consumer の `display-item` と `basket` と `error` は変わりません。
   ログイン後の戻り先を表すクエリの形式も変わります。
 - 認証の要否は、指定のない画面を認証が必要な画面として扱う方式に変わります。
-- 業務共通チームが保守するフォルダーは、 `src/business-common/` と `src/root/` の 2 つになります。
+- 業務共通チームが保守するフォルダーは、 `src/business-common/` と `src/core/` の 2 つになります。
 - `documents` 配下のガイドのうち、フロントエンドのフォルダー構成とアーキテクチャの説明は別途更新します。

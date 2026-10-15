@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter, type Router } from 'vue-router'
-import { routes } from '@/root/router/routes'
-import { registerNavigationGuards } from '@/root/router/guards'
-import { routeNames } from '@/root/router/route-names'
+import { routes } from '@/core/router/routes'
+import { registerNavigationGuards } from '@/core/router/guards'
+import { routeNames } from '@/core/router/route-names'
 // 認証状態を準備するため、 security の内部のサービスを直接参照します。
 import { authenticationService } from '@/security/authentication/services/authentication-service'
 

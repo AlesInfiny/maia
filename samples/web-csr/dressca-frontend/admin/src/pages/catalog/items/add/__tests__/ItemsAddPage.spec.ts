@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import { router } from '@/root/router'
+import { router } from '@/core/router'
 import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'

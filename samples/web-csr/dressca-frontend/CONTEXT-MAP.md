@@ -7,7 +7,7 @@ description: dressca-frontend を構成するコンテキストと、アプリ�
 
 dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンドアプリケーションを持つ npm workspaces のモノレポです。
 各アプリケーションは、 `src/` の下で境界付けられたコンテキストごとにコードを分けています。
-層の構成と参照方向は [ADR 0002](./docs/adr/0002-root-owned-route-table.md) で定めています。
+層の構成と参照方向は [ADR 0002](./docs/adr/0002-core-owned-route-table.md) で定めています。
 
 ## コンテキスト {#contexts}
 
@@ -26,7 +26,7 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 フォルダーごとに、保守するチームを次のように想定します。
 
 - 業務共通チーム
-    - root 層（ `src/main.ts` 、 `src/App.vue` 、 `src/root/` ）
+    - core 層（ `src/main.ts` 、 `src/App.vue` 、 `src/core/` ）
     - business-common （ `src/business-common/` ）
 - 各業務チーム
     - pages 層（ `src/pages/` ）
@@ -50,7 +50,7 @@ dressca-frontend は、 `admin` と `consumer` の 2 つのフロントエンド
 画面（ Page ）
 :   `src/pages/` の下に置く、ルーティングの対象となる Vue のコンポーネントです。
     ファイル名は `<画面名>Page.vue` にし、フォルダー構成を URL のパスと対応させます。
-    URL との対応は root 層のルート表（ `src/root/router/routes.ts` ）で定義します。
+    URL との対応は core 層のルート表（ `src/core/router/routes.ts` ）で定義します。
 
 View
 :   廃止した用語です。
@@ -58,7 +58,7 @@ View
 
 公開 API （ Public API ）
 :   コンテキストの直下に置く `public-api.ts` です。
-    pages 層と root 層は、このファイルを経由してだけコンテキストを参照します。
+    pages 層と core 層は、このファイルを経由してだけコンテキストを参照します。
     コンテキストは、他のコンテキストの `public-api.ts` も参照できません。
     公開するのはユースケースコンポーザブル、画面に表示する業務の部品、それらの型だけです。
 
@@ -72,9 +72,8 @@ View
     `kind` プロパティで結果の種類を表します。
     画面は Outcome を受け取り、通知の文言と遷移先を決めます。
 
-root 層
-:   `src/main.ts` 、 `src/App.vue` 、 `src/root/` からなる最上位の層です。
+core 層
+:   `src/main.ts` 、 `src/App.vue` 、 `src/core/` からなる最上位の層です。
     ルーターの生成、ガードの登録、画面遷移を伴う共通処理の結線を担います。
-    依存の結線を 1 か所に集める Composition Root と、 Vue のルートコンポーネントにちなんで名付けました。
+    アプリケーションの起動と依存の結線という、アプリケーション全体の中核を担うことから名付けました。
     業務共通チームが保守します。
-    文書では、 route （ルート表、ルート名）との混同を避けるため、 root 層をカタカナにせず、英語の綴りのまま表記します。

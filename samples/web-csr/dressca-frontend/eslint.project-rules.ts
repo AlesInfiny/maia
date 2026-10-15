@@ -25,8 +25,8 @@ export const codingConventionRules: Linter.Config[] = [
 ]
 
 /**
- * root 層以外での動的インポート（ `import()` ）を禁止するルールです。
- * 画面を動的インポートするのは root 層のルート表だけです。
+ * core 層以外での動的インポート（ `import()` ）を禁止するルールです。
+ * 画面を動的インポートするのは core 層のルート表だけです。
  * 動的インポートは no-restricted-imports の検査の対象外のため、参照方向のルールを迂回できないようにします。
  */
 const dynamicImportRestriction: Linter.RulesRecord = {
@@ -35,7 +35,7 @@ const dynamicImportRestriction: Linter.RulesRecord = {
     {
       selector: 'ImportExpression',
       message:
-        '動的インポートは root 層だけで使用できます。画面の遅延読み込みはルート表で定義します。',
+        '動的インポートは core 層だけで使用できます。画面の遅延読み込みはルート表で定義します。',
     },
   ],
 }
@@ -48,12 +48,12 @@ const restrictedImportsRule = '@typescript-eslint/no-restricted-imports'
 
 /**
  * vue-router の値の参照を禁止し、型の参照だけを許可する設定です。
- * 画面を遷移させられるのは pages 層と root 層だけです。
+ * 画面を遷移させられるのは pages 層と core 層だけです。
  */
 const vueRouterValueRestriction = {
   name: 'vue-router',
   message:
-    '画面を遷移させられるのは pages 層と root 層だけです。 vue-router は型だけ参照できます。遷移先が必要な場合は、遷移先を引数で受け取ります。',
+    '画面を遷移させられるのは pages 層と core 層だけです。 vue-router は型だけ参照できます。遷移先が必要な場合は、遷移先を引数で受け取ります。',
   allowTypeImports: true,
 }
 
@@ -82,7 +82,7 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
 /**
  * ワークスペースのフォルダー間の参照方向を強制するルールを生成します。
  *
- *   root 層（main.ts 、 App.vue 、 src/root）
+ *   core 層（main.ts 、 App.vue 、 src/core）
  *         ↓
  *   pages（src/pages）
  *         ↓
@@ -93,10 +93,10 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
  *   システム共通（system-common）
  *
  * コンテキストの下にはドメインのフォルダーを置き、その下にレイヤーを並べます。
- * root 層は最上位の層のため、参照の制限を設けません。
- * pages から root 層への参照は、ルート名の定数（ `@/root/router/route-names` ）だけを例外として許可します。
+ * core 層は最上位の層のため、参照の制限を設けません。
+ * pages から core 層への参照は、ルート名の定数（ `@/core/router/route-names` ）だけを例外として許可します。
  * pages は API クライアントと API の型を参照できません。 API はコンテキストのユースケースコンポーザブルが扱います。
- * pages のテストは、画面を遷移させるためにルーター（ `@/root/router` ）を、
+ * pages のテストは、画面を遷移させるためにルーター（ `@/core/router` ）を、
  * API の応答を組み立てるために API の型を参照できます。
  * コンテキストは他のコンテキストを参照できません。 public-api.ts も参照できません。コンテキストの組み合わせは pages で行います。
  * コンテキスト、 business-common 、 system-common は、 vue-router を型だけ参照できます。
@@ -106,8 +106,8 @@ function exceptPublicApi(contextPatterns: string[]): string[] {
  * @returns 参照方向を強制する ESLint の設定の配列。
  */
 function createLayerDependencyRules(workspace: string, contextPatterns: string[]): Linter.Config[] {
-  // `@/root/**` は、ルーター（ `@/root/router` ）を含む root 層のすべてのモジュールに一致します。
-  const rootPatterns = ['@/root/**']
+  // `@/core/**` は、ルーター（ `@/core/router` ）を含む core 層のすべてのモジュールに一致します。
+  const corePatterns = ['@/core/**']
   const pagesFileGlob = `**/${workspace}/src/pages/**/*.{vue,ts,mts,tsx}`
   // `__tests__/**/*.{vue,ts}` の形は、 pages 直下のフォルダーのテスト（ pages/basket/__tests__ など）に一致しないため、
   // `__tests__/**` の形で指定します。
@@ -121,11 +121,11 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
     message:
       'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
   }
-  // root 層のルーティングのうち、ルート名の定数だけを除外します。
-  // ルーター（ @/root/router ）は、このパターンに一致しないため、 pages では paths で別に禁止します。
-  const rootRouterPatternsExceptRouteNames = ['@/root/router/**', '!@/root/router/route-names']
-  const pagesRootMessage =
-    'pages から参照できる root 層のモジュールは、ルート名の定数（ @/root/router/route-names ）だけです。'
+  // core 層のルーティングのうち、ルート名の定数だけを除外します。
+  // ルーター（ @/core/router ）は、このパターンに一致しないため、 pages では paths で別に禁止します。
+  const coreRouterPatternsExceptRouteNames = ['@/core/router/**', '!@/core/router/route-names']
+  const pagesCoreMessage =
+    'pages から参照できる core 層のモジュールは、ルート名の定数（ @/core/router/route-names ）だけです。'
 
   /**
    * コンテキストごとに、他のコンテキストの参照を禁止する設定を作ります。
@@ -146,9 +146,9 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...rootPatterns, '@/pages/**', ...otherContextPatterns],
+                group: [...corePatterns, '@/pages/**', ...otherContextPatterns],
                 message:
-                  'コンテキストは root 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。',
+                  'コンテキストは core 層、 pages 、他のコンテキストを参照できません。コンテキストの組み合わせは pages で行います。',
               },
             ],
           },
@@ -169,9 +169,9 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...rootPatterns, '@/business-common/**', '@/pages/**', ...contextPatterns],
+                group: [...corePatterns, '@/business-common/**', '@/pages/**', ...contextPatterns],
                 message:
-                  'system-common は業務知識を持たない層です。 root 層、 business-common 、 pages 、コンテキストを参照できません。',
+                  'system-common は業務知識を持たない層です。 core 層、 business-common 、 pages 、コンテキストを参照できません。',
               },
             ],
           },
@@ -189,8 +189,8 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             paths: [vueRouterValueRestriction],
             patterns: [
               {
-                group: [...rootPatterns, '@/pages/**', ...contextPatterns],
-                message: 'business-common は root 層、 pages 、コンテキストを参照できません。',
+                group: [...corePatterns, '@/pages/**', ...contextPatterns],
+                message: 'business-common は core 層、 pages 、コンテキストを参照できません。',
               },
             ],
           },
@@ -207,10 +207,10 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
         [restrictedImportsRule]: [
           'error',
           {
-            paths: [{ name: '@/root/router', message: pagesRootMessage }],
+            paths: [{ name: '@/core/router', message: pagesCoreMessage }],
             patterns: [
               pagesContextRestriction,
-              { group: rootRouterPatternsExceptRouteNames, message: pagesRootMessage },
+              { group: coreRouterPatternsExceptRouteNames, message: pagesCoreMessage },
               {
                 group: [
                   '@/system-common/api-client',
@@ -236,9 +236,9 @@ function createLayerDependencyRules(workspace: string, contextPatterns: string[]
             patterns: [
               pagesContextRestriction,
               {
-                group: rootRouterPatternsExceptRouteNames,
+                group: coreRouterPatternsExceptRouteNames,
                 message:
-                  'pages のテストから参照できる root 層のモジュールは、ルーター（ @/root/router ）とルート名の定数（ @/root/router/route-names ）だけです。',
+                  'pages のテストから参照できる core 層のモジュールは、ルーター（ @/core/router ）とルート名の定数（ @/core/router/route-names ）だけです。',
               },
             ],
           },

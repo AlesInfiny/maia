@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { routeNames } from '@/root/router/route-names'
+import { routeNames } from '@/core/router/route-names'
 import { useCatalogItemEditor } from '@/catalog-management/public-api'
 import { ConfirmationModal } from '@/system-common/components/ConfirmationModal'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
