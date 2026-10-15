@@ -57,7 +57,7 @@ public class SystemException extends RuntimeException {
 
   /**
    * メッセージソースからメッセージを取得します。
-   * 
+   *
    * @param exceptionId 例外 ID 。
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    * @return 取得したメッセージ。

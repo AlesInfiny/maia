@@ -12,7 +12,7 @@ public class AssetTypes {
 
   /**
    * アセットタイプが対応しているかどうかを判定します。
-   * 
+   *
    * @param assetType アセットタイプ。
    * @return 対応していれば true、そうでなければ false 。
    */

@@ -10,7 +10,7 @@ public class BasketItemMapper {
 
   /**
    * {@link BasketItem} オブジェクトを {@link BasketItemApiModel} に変換します。
-   * 
+   *
    * @param basketItem {@link BasketItem} オブジェクト。
    * @return {@link BasketItemApiModel} オブジェクト。
    */

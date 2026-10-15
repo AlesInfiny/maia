@@ -29,7 +29,7 @@ public class UsersController {
 
   /**
    * ログイン中のユーザーの情報を取得します。
-   * 
+   *
    * @return ユーザの情報。
    */
   @Operation(summary = "ログイン中のユーザーの情報を取得します。", description = "ログイン中のユーザーの情報を取得します。")

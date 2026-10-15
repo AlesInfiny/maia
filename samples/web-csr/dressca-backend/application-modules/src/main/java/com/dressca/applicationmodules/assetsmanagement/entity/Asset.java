@@ -26,7 +26,7 @@ public class Asset {
 
   /**
    * {@link Asset} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param assetCode アセットコード。
    * @param assetType アセットタイプ。
    */
@@ -47,7 +47,7 @@ public class Asset {
 
   /**
    * アセットタイプをセットします。
-   * 
+   *
    * @param assetType アセットタイプ。
    */
   public void setAssetType(String assetType) {

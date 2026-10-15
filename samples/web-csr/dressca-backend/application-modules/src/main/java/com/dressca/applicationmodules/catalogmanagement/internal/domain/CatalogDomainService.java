@@ -19,7 +19,7 @@ public class CatalogDomainService {
 
   /**
    * 指定した ID のカタログブランドがリポジトリ内に存在するかどうかを示す真理値を取得します。
-   * 
+   *
    * @param catalogBrandId カタログブランド ID 。
    * @return 指定したカタログブランドがリポジトリ内に存在する場合は true 、存在しない場合は false 。
    */
@@ -29,7 +29,7 @@ public class CatalogDomainService {
 
   /**
    * 指定した ID のカタログカテゴリがリポジトリ内に存在するかどうかを示す真理値を取得します。
-   * 
+   *
    * @param catalogCategoryId カタログカテゴリ ID 。
    * @return 指定したカタログカテゴリがリポジトリ内に存在する場合は true 、存在しない場合は false 。
    */
@@ -39,7 +39,7 @@ public class CatalogDomainService {
 
   /**
    * 指定した ID のカタログアイテムがリポジトリ内に存在するかどうかを示す真理値を取得します。
-   * 
+   *
    * @param catalogItemId カタログアイテム ID 。
    * @return 指定したカタログアイテムがリポジトリ内に存在する場合は true 、存在しない場合は false 。
    */

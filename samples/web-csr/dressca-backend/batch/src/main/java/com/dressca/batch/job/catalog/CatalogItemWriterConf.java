@@ -17,7 +17,7 @@ public class CatalogItemWriterConf {
 
   /**
    * {@link CatalogItem} のデータを CSV に出力する Writer を設定します。
-   * 
+   *
    * @param output 出力ファイル名。 Job パラメータから取得します。
    * @return フラットファイルに書き込む Writer 。
    * @throws Exception ジョブ実行時の例外。

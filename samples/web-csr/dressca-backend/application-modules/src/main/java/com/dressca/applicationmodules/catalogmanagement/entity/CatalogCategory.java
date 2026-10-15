@@ -19,7 +19,7 @@ public class CatalogCategory {
 
   /**
    * カタログカテゴリ名を指定して、 {@link CatalogCategory} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param name カタログカテゴリ名。
    */
   public CatalogCategory(@NonNull String name) {

@@ -12,7 +12,7 @@ public interface CatalogRepository {
 
   /**
    * カテゴリ ID のリストに一致するカタログのリストを取得します。
-   * 
+   *
    * @param categoryIds 検索対象のカタログ ID のリスト。
    * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
    */
@@ -20,7 +20,7 @@ public interface CatalogRepository {
 
   /**
    * 削除済みのカタログアイテムを含めて、ブランドIDとカテゴリIDに一致するカタログのリストを取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @param page ページ。
@@ -32,7 +32,7 @@ public interface CatalogRepository {
 
   /**
    * 削除済みカタログアイテムを含めて、ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログの件数。
@@ -41,7 +41,7 @@ public interface CatalogRepository {
 
   /**
    * バッチ向けにページングを考慮して全件データを取得します。
-   * 
+   *
    * @param skipRows データ取得をスキップする行数。
    * @param pageSize データ取得行数の最大値。
    */
@@ -73,7 +73,7 @@ public interface CatalogRepository {
 
   /**
    * カタログアイテムを削除します。
-   * 
+   *
    * @param id カタログアイテム ID 。
    * @param rowVersion 行バージョン。
    * @return 削除できたら 1 、できなければ 0 を返す。

@@ -48,7 +48,7 @@ public class AssetsController {
 
   /**
    * アセットを取得します。
-   * 
+   *
    * @param assetCode アセットコード。
    * @return アセット。
    */
@@ -84,7 +84,7 @@ public class AssetsController {
 
   /**
    * アセットタイプから Content-Type に変換します。
-   * 
+   *
    * @param asset アセット。
    * @return Content-Type の名称。
    */

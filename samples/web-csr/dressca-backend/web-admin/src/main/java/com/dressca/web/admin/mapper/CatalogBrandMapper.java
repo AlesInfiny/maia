@@ -10,7 +10,7 @@ public class CatalogBrandMapper {
 
   /**
    * {@link CatalogBrand} オブジェクトを {@link GetCatalogBrandsResponse} に変換します。
-   * 
+   *
    * @param catalogBrand オブジェクト。
    * @return {@link GetCatalogBrandsResponse} オブジェクト。
    */

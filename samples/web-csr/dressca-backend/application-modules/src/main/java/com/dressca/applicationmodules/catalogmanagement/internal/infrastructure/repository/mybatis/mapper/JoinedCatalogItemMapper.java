@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
 public interface JoinedCatalogItemMapper {
   /**
    * カテゴリ ID の一覧に一致するカタログアイテムを取得します。
-   * 
+   *
    * @param categoryIds カテゴリ ID 一覧。
    * @return カタログアイテム一覧。
    */
@@ -21,7 +21,7 @@ public interface JoinedCatalogItemMapper {
 
   /**
    * 削除済みを含めて、ブランド ID とカテゴリ ID を条件にカタログアイテムを取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @param limit 取得件数。
@@ -33,7 +33,7 @@ public interface JoinedCatalogItemMapper {
 
   /**
    * 削除済みを含めて、ブランド ID とカテゴリ ID を条件に件数を取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 件数。
@@ -43,7 +43,7 @@ public interface JoinedCatalogItemMapper {
 
   /**
    * ページング条件を指定してカタログアイテムを取得します。
-   * 
+   *
    * @param skipRows 読み飛ばす行数。
    * @param pageSize 取得件数。
    * @return カタログアイテム一覧。
@@ -53,7 +53,7 @@ public interface JoinedCatalogItemMapper {
 
   /**
    * ID を条件にカタログアイテムを取得します。
-   * 
+   *
    * @param id カタログアイテム ID 。
    * @return カタログアイテム。
    */
@@ -61,7 +61,7 @@ public interface JoinedCatalogItemMapper {
 
   /**
    * 削除済みを含めて、ID を条件にカタログアイテムを取得します。
-   * 
+   *
    * @param id カタログアイテム ID 。
    * @return カタログアイテム。
    */
