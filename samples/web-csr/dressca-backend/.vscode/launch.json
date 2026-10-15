@@ -31,7 +31,7 @@
       "mainClass": "com.dressca.batch.BatchApplication",
       "projectName": "batch",
       "args": "--output=item_list_chunk.csv --spring.profiles.active=local",
-      "env": { "spring.batch.job.name": "catalogItem_job" }
+      "env": { "spring.batch.job.name": "catalogItemJob" }
     },
     {
       "type": "java",
@@ -42,7 +42,7 @@
       "mainClass": "com.dressca.batch.BatchApplication",
       "projectName": "batch",
       "args": "--output=item_list_tasklet.csv --spring.profiles.active=local",
-      "env": { "spring.batch.job.name": "catalogItem_tasklet_job" }
+      "env": { "spring.batch.job.name": "catalogItemTaskletJob" }
     }
   ]
 }

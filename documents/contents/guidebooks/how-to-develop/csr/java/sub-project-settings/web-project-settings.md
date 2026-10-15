@@ -18,6 +18,7 @@ web プロジェクトで利用を推奨するライブラリは以下の通り�
 - `springdoc-openapi-starter-webmvc-ui`: Spring Web MVC アプリケーション向けの、 OpenAPI 形式の API ドキュメントを生成するためのライブラリ
 - `h2`: テストやローカル実行で利用する組み込みの H2 データベース
 - `spring-boot-starter-webmvc-test`: Spring MVC アプリケーションをテストするためのスターター
+- `archunit-junit6`: アーキテクチャ上の依存関係を検証するための ArchUnit と JUnit 6 の連携ライブラリ
 
 上記のライブラリを依存ライブラリとして、 以下のように `build.gradle` の `dependencies` ブロックに追加します。
 
@@ -30,12 +31,14 @@ dependencies {
   implementation 'com.h2database:h2'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+  testImplementation 'com.tngtech.archunit:archunit-junit6:x.x.x'
 }
 ```
 
 ??? info "各依存ライブラリのバージョンの参照先"
 
     - [SpringDoc OpenAPI Starter WebMVC UI :material-open-in-new:](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui){ target=_blank }
+    - [ArchUnit JUnit 6 :material-open-in-new:](https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit6){ target=_blank }
 
 ## 依存プロジェクトの設定 {#config-projects}
 
@@ -114,6 +117,31 @@ web プロジェクトの `src/main/resources` 以下に `application.properties
     spring.datasource.hikari.username=データベースのログインユーザー名
     spring.datasource.hikari.password=データベースのログインパスワード
     spring.sql.init.mode=never
+    ```
+
+## application-modules の `internal` パッケージへの依存を禁止するテストの追加 {#add-architecture-test}
+
+application-modules のモジュールでは、他のプロジェクトに公開しない型を `internal` パッケージ配下に配置します。
+web プロジェクトがこれらの型に依存していないことを保証するため、 ArchUnit を使ったテストを追加します。
+
+`web/src/test/java` 以下に、 web プロジェクトのパッケージに合わせて `ArchitectureTest.java` を配置します。
+
+```text
+web/
+ └ src/test/java/com/example/web
+   └ ArchitectureTest.java
+```
+
+ArchUnit のテストでは、 `#!java @AnalyzeClasses` でテスト対象のパッケージを指定します。
+`#!java @ArchTest` を付与したテストメソッドを定義し、その中に守るべきルールを記載します。
+ここでは、 `internal` パッケージ配下の型に依存しないことをルールとして定義します。
+
+サンプルアプリケーションにおける実装例は以下の通りです。
+
+??? example "サンプルアプリケーションの ArchitectureTest.java"
+
+    ```java title="web/src/test/java/com/dressca/web/ArchitectureTest.java"
+    --8<-- "samples/web-csr/dressca-backend/web/src/test/java/com/dressca/web/ArchitectureTest.java"
     ```
 
 ## ロギングライブラリの除外設定 {#logging-library-exclusion-settings}
