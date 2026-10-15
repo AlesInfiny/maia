@@ -7,12 +7,12 @@ import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { assetHelper } from '@/business-common/helpers/asset-helper'
 import { useNotification } from '@/business-common/composables/use-notification'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthorization, Roles } from '@/security/public-api'
+import { useAuthorization } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 
 const { showToast } = useNotification()
 
-const { isInRole } = useAuthorization()
+const { isAdmin } = useAuthorization()
 const router = useRouter()
 const route = useRoute(routeNames.catalogItemsEdit)
 const { getFirstAssetUrl } = assetHelper()
@@ -366,7 +366,7 @@ const updateItemAsync = async () => {
             <button
               type="button"
               class="rounded-sm bg-red-800 px-4 py-2 font-bold text-white hover:bg-red-900 disabled:bg-red-500/50"
-              :disabled="!isInRole(Roles.ADMIN)"
+              :disabled="!isAdmin"
               @click="showDeleteConfirm = true"
             >
               削除
@@ -375,7 +375,7 @@ const updateItemAsync = async () => {
             <button
               type="button"
               class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
-              :disabled="!form.isValid || !isInRole(Roles.ADMIN)"
+              :disabled="!form.isValid || !isAdmin"
               @click="showUpdateConfirm = true"
             >
               更新

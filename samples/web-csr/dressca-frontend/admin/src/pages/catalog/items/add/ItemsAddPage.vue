@@ -5,13 +5,13 @@ import { useCatalogItemCreator } from '@/catalog-management/public-api'
 import { NotificationModal } from '@/system-common/components/NotificationModal'
 import { useNotification } from '@/business-common/composables/use-notification'
 import { useRouter } from 'vue-router'
-import { useAuthorization, Roles } from '@/security/public-api'
+import { useAuthorization } from '@/security/public-api'
 import { LoadingSpinnerOverlay } from '@/system-common/components/LoadingSpinnerOverlay'
 
 const { showToast } = useNotification()
 
 const router = useRouter()
-const { isInRole } = useAuthorization()
+const { isAdmin } = useAuthorization()
 const { status, form, categories, brands, create } = useCatalogItemCreator({
   itemName: 'テスト用アイテム',
   itemDescription: 'テスト用アイテムです。',
@@ -148,7 +148,7 @@ const closeAddNotice = () => {
       <button
         type="button"
         class="rounded-sm bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800 disabled:bg-blue-500/50"
-        :disabled="!form.isValid || !isInRole(Roles.ADMIN)"
+        :disabled="!form.isValid || !isAdmin"
         @click="addItemAsync()"
       >
         追加

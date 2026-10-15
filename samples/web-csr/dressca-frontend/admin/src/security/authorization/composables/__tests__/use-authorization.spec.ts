@@ -12,26 +12,34 @@ beforeEach(() => {
 })
 
 describe('useAuthorization', () => {
-  it('管理者ロールを持つ_管理者ロールに属すると判定する', () => {
+  it('管理者ロールを持つ_管理者と判定する', () => {
     // Arrange
     useAuthenticationStore().userRoles = [Roles.ADMIN]
-    const { isInRole } = useAuthorization()
     // Act
-    const result = isInRole(Roles.ADMIN)
+    const { isAdmin } = useAuthorization()
     // Assert
-    expect(result).toBe(true)
+    expect(isAdmin.value).toBe(true)
+  })
+
+  it('管理者ロールを持たない_管理者ではないと判定する', () => {
+    // Arrange
+    useAuthenticationStore().userRoles = ['ROLE_GUEST']
+    // Act
+    const { isAdmin } = useAuthorization()
+    // Assert
+    expect(isAdmin.value).toBe(false)
   })
 
   it('判定後にロールが変わる_変更後のロールで判定する', () => {
     // Arrange
     const store = useAuthenticationStore()
     store.userRoles = ['ROLE_GUEST']
-    const { isInRole } = useAuthorization()
-    expect(isInRole(Roles.ADMIN)).toBe(false)
+    const { isAdmin } = useAuthorization()
+    expect(isAdmin.value).toBe(false)
     // Act
     store.userRoles = [Roles.ADMIN]
     // Assert
-    expect(isInRole(Roles.ADMIN)).toBe(true)
+    expect(isAdmin.value).toBe(true)
   })
 
   it('描画中に判定する_ロールの変化に追随して再描画される', async () => {
@@ -41,8 +49,8 @@ describe('useAuthorization', () => {
     const wrapper = mount(
       defineComponent({
         setup() {
-          const { isInRole } = useAuthorization()
-          return () => h('span', isInRole(Roles.ADMIN) ? 'admin' : 'guest')
+          const { isAdmin } = useAuthorization()
+          return () => h('span', isAdmin.value ? 'admin' : 'guest')
         },
       }),
     )
@@ -52,15 +60,5 @@ describe('useAuthorization', () => {
     await nextTick()
     // Assert
     expect(wrapper.text()).toBe('admin')
-  })
-
-  it('管理者ロールを持たない_管理者ロールに属さないと判定する', () => {
-    // Arrange
-    useAuthenticationStore().userRoles = ['ROLE_GUEST']
-    const { isInRole } = useAuthorization()
-    // Act
-    const result = isInRole(Roles.ADMIN)
-    // Assert
-    expect(result).toBe(false)
   })
 })

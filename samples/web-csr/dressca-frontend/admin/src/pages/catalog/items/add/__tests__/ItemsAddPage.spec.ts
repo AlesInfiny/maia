@@ -5,9 +5,13 @@ import { createTestingPinia, type TestingPinia } from '@pinia/testing'
 import { http, HttpResponse } from 'msw'
 import { HttpStatusCode } from 'axios'
 import ItemsAddPage from '@/pages/catalog/items/add/ItemsAddPage.vue'
-import { Roles } from '@/security/public-api'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { server } from '@/../mock/node'
+
+/**
+ * 管理者ロールです。認証済みのユーザーについてバックエンドが返すロールを模します。
+ */
+const adminRole = 'ROLE_ADMIN'
 
 /**
  * テスト用の Pinia ストアを生成します。
@@ -44,7 +48,7 @@ describe('管理者ロール_アイテムを追加できる', () => {
   let wrapper: VueWrapper
 
   beforeAll(() => {
-    loginState = CreateLoginState([Roles.ADMIN])
+    loginState = CreateLoginState([adminRole])
     wrapper = getWrapper(loginState)
   })
 
@@ -104,7 +108,7 @@ describe('結果の通知', () => {
         () => new HttpResponse(null, { status: HttpStatusCode.InternalServerError }),
       ),
     )
-    const loginState = CreateLoginState([Roles.ADMIN])
+    const loginState = CreateLoginState([adminRole])
     // Act
     const wrapper = getWrapper(loginState)
     await flushPromises()
@@ -117,7 +121,7 @@ describe('結果の通知', () => {
 
   it('追加に失敗した_トーストを表示する', async () => {
     // Arrange
-    const loginState = CreateLoginState([Roles.ADMIN])
+    const loginState = CreateLoginState([adminRole])
     const wrapper = getWrapper(loginState)
     await flushPromises()
     server.use(

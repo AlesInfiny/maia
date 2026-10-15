@@ -1,15 +1,17 @@
+import { computed, type ComputedRef } from 'vue'
 import { useAuthenticationStore } from '../stores/authentication'
-import type { Roles } from '../constants/roles'
+import { Roles } from '../constants/roles'
 
 /**
  * 認可のユースケースです。
+ * ロールの定数は公開せず、権限の判定結果だけを公開します。
  */
 export interface Authorization {
   /**
-   * ログイン中のユーザーが、指定したロールに属するかどうかを判定します。
-   * 画面の描画中に呼び出すと、ロールの変化に追随して再描画されます。
+   * ログイン中のユーザーが管理者ロールに属するかどうかです。
+   * ロールの変化に追随します。
    */
-  isInRole: (role: Roles) => boolean
+  isAdmin: ComputedRef<boolean>
 }
 
 /**
@@ -20,6 +22,6 @@ export interface Authorization {
 export function useAuthorization(): Authorization {
   const authenticationStore = useAuthenticationStore()
   return {
-    isInRole: (role: Roles) => authenticationStore.isInRole(role),
+    isAdmin: computed(() => authenticationStore.isInRole(Roles.ADMIN)),
   }
 }

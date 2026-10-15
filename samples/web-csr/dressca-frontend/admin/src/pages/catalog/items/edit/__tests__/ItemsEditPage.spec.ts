@@ -7,12 +7,16 @@ import { HttpStatusCode } from 'axios'
 import type { Router } from 'vue-router'
 import ItemsEditPage from '@/pages/catalog/items/edit/ItemsEditPage.vue'
 import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
-import { Roles } from '@/security/public-api'
 import { useNotificationStore } from '@/business-common/stores/notification'
 import { server } from '@/../mock/node'
 import { catalogItems } from '@/../mock/data/catalog-items'
 
 const itemUrl = '/api/catalog-items/:catalogItemId'
+
+/**
+ * 管理者ロールです。認証済みのユーザーについてバックエンドが返すロールを模します。
+ */
+const adminRole = 'ROLE_ADMIN'
 
 /**
  * テスト用の Pinia ストアを生成します。
@@ -53,7 +57,7 @@ describe('管理者ロール_アイテムが削除できる', () => {
   let wrapper: VueWrapper
 
   beforeAll(async () => {
-    loginState = CreateLoginState([Roles.ADMIN])
+    loginState = CreateLoginState([adminRole])
     wrapper = await getWrapper(loginState)
   })
 
@@ -137,7 +141,7 @@ describe('管理者ロール_アイテムが更新できる', () => {
   let wrapper: VueWrapper
 
   beforeAll(async () => {
-    loginState = CreateLoginState([Roles.ADMIN])
+    loginState = CreateLoginState([adminRole])
     wrapper = await getWrapper(loginState)
   })
 
@@ -215,7 +219,7 @@ describe('結果の通知と遷移', () => {
   it('アイテムが存在しない_トーストを表示しアイテム一覧画面へ遷移する', async () => {
     // Arrange
     server.use(http.get(itemUrl, () => new HttpResponse(null, { status: HttpStatusCode.NotFound })))
-    const loginState = CreateLoginState([Roles.ADMIN])
+    const loginState = CreateLoginState([adminRole])
     // Act
     await getWrapper(loginState)
     await flushPromises()
@@ -226,7 +230,7 @@ describe('結果の通知と遷移', () => {
 
   it('更新が競合した_トーストを表示し編集画面にとどまる', async () => {
     // Arrange
-    const loginState = CreateLoginState([Roles.ADMIN])
+    const loginState = CreateLoginState([adminRole])
     const wrapper = await getWrapper(loginState)
     await flushPromises()
     server.use(http.put(itemUrl, () => new HttpResponse(null, { status: HttpStatusCode.Conflict })))
@@ -246,7 +250,7 @@ describe('結果の通知と遷移', () => {
 
   it('削除対象が存在しない_トーストを表示しアイテム一覧画面へ遷移する', async () => {
     // Arrange
-    const loginState = CreateLoginState([Roles.ADMIN])
+    const loginState = CreateLoginState([adminRole])
     const wrapper = await getWrapper(loginState)
     await flushPromises()
     server.use(
