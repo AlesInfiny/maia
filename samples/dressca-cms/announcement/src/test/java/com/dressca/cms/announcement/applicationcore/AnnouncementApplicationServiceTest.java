@@ -793,7 +793,7 @@ public class AnnouncementApplicationServiceTest {
 
   /**
    * お知らせコンテンツを作成します。
-   * 
+   *
    * @param announcementId お知らせメッセージ ID 。
    * @param languageCode 言語コード。
    * @return お知らせコンテンツ。
@@ -805,7 +805,7 @@ public class AnnouncementApplicationServiceTest {
 
   /**
    * お知らせコンテンツが空のお知らせメッセージを作成します。 お知らせコンテンツは本メソッドを呼び出した後にセッター経由で設定してください。
-   * 
+   *
    * @return お知らせコンテンツが空のお知らせメッセージ。
    */
   private Announcement createAnnouncementWithoutContent() {
@@ -816,7 +816,7 @@ public class AnnouncementApplicationServiceTest {
 
   /**
    * お知らせメッセージのリストを作成します。
-   * 
+   *
    * @param count 作成するお知らせメッセージの件数。
    * @return 日本語のお知らせコンテンツを持つお知らせメッセージのリスト。
    */
@@ -833,7 +833,7 @@ public class AnnouncementApplicationServiceTest {
 
   /**
    * お知らせコンテンツ履歴を作成します。
-   * 
+   *
    * @param announcementHistoryId お知らせ履歴 ID 。
    * @param languageCode 言語コード。
    * @return お知らせコンテンツ履歴。

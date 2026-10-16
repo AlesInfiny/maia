@@ -29,7 +29,7 @@ public class AssetApplicationService {
 
   /**
    * 指定したアセットコードのアセット情報とリソースオブジェクトを取得します。
-   * 
+   *
    * @param assetCode アセットコード。
    * @return アセット情報とそのリソースオブジェクト。
    * @throws AssetNotFoundException アセット情報が見つからなかった場合。

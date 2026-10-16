@@ -11,7 +11,7 @@ public class OptimisticLockingFailureException extends LogicException {
 
   /**
    * カタログアイテム ID を指定して、 {@link OptimisticLockingFailureException} クラスの新しいインスタンスを初期化します。
-   * 
+   *
    * @param catalogItemId 更新処理を試みたカタログアイテム ID 。
    */
   public OptimisticLockingFailureException(UUID catalogItemId, String operationName) {

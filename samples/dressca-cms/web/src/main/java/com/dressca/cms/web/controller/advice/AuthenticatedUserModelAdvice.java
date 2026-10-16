@@ -14,7 +14,7 @@ public class AuthenticatedUserModelAdvice {
 
   /**
    * 認証済みユーザーのユーザー名をモデルに追加します。
-   * 
+   *
    * @param loginUser 認証済みユーザーの詳細情報。
    * @return ユーザー名。
    */

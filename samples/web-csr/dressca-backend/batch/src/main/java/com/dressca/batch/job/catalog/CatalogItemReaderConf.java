@@ -17,13 +17,12 @@ public class CatalogItemReaderConf {
 
   /**
    * カタログアイテムのデータ一覧を取得する Reader を設定します。
-   * 
+   *
    * @return カタログ管理コンテキストの公開 API を用いてページングされた {@link CatalogItem} を読み取るための Reader 。
    */
   @Bean
   public CatalogItemPagingItemReader catalogItemReader() {
-    CatalogItemPagingItemReader reader =
-        new CatalogItemPagingItemReader(catalogApplicationService);
+    CatalogItemPagingItemReader reader = new CatalogItemPagingItemReader(catalogApplicationService);
     reader.setPageSize(10);
     return reader;
   }

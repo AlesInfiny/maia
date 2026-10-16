@@ -16,7 +16,7 @@ public class WebApplication {
 
   /**
    * Dressca アプリケーションを起動します。
-   * 
+   *
    * @param args コマンドライン引数。
    */
   public static void main(String[] args) {

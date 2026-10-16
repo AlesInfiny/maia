@@ -13,7 +13,7 @@ public class UuidGenerator {
 
   /**
    * UUID v7 を生成します。
-   * 
+   *
    * @return 生成された UUID v7。
    */
   public static UUID generate() {

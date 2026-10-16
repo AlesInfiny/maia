@@ -10,7 +10,7 @@ public class CatalogCategoryMapper {
 
   /**
    * {@link CatalogCategory} オブジェクトを {@link GetCatalogCategoriesResponse} に変換します。
-   * 
+   *
    * @param catalogCategory {@link CatalogCategory} オブジェクト。
    * @return {@link GetCatalogCategoriesResponse} オブジェクト。
    */

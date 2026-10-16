@@ -21,7 +21,7 @@ public class CatalogItemAsset {
 
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param catalogItemId カタログアイテム ID 。
    * @param assetCode アセットコード 。
    */
@@ -32,7 +32,7 @@ public class CatalogItemAsset {
 
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param id ID 。
    * @param catalogItemId カタログアイテム ID 。
    * @param assetCode アセットコード。

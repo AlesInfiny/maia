@@ -24,7 +24,7 @@ public class ServerTimeController {
 
   /**
    * サーバーの現在時刻を取得します。
-   * 
+   *
    * @return レスポンス。
    * @throws Exception 例外。
    */

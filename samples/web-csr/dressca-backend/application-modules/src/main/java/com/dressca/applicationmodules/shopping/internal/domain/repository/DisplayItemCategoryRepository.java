@@ -18,7 +18,7 @@ public interface DisplayItemCategoryRepository {
 
   /**
    * 指定した ID の陳列品カテゴリを取得します。
-   * 
+   *
    * @param id 陳列品カテゴリの ID 。
    * @return 条件に一致する陳列品カテゴリ。
    */

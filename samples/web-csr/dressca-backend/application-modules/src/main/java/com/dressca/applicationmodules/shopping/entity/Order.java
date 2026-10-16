@@ -35,7 +35,7 @@ public class Order {
 
   /**
    * {@link Order} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param buyerId 購入者 ID 。
    * @param shipToAddress 宛先住所。
    * @param orderItems 商品リスト。

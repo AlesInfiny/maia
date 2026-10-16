@@ -12,7 +12,7 @@ public class CatalogCategoryNotFoundException extends LogicException {
   /**
    * 見つからなかったカタログカテゴリ ID を指定して、 {@link CatalogCategoryNotFoundException}
    * クラスの新しいインスタンスを初期化します。
-   * 
+   *
    * @param catalogCategoryId 見つからなかったカタログカテゴリ ID 。
    */
   public CatalogCategoryNotFoundException(UUID catalogCategoryId) {

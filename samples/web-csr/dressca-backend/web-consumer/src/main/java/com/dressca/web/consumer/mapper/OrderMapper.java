@@ -12,7 +12,7 @@ public class OrderMapper {
 
   /**
    * {@link Order} オブジェクトを {@link GetOrderByIdResponse} に変換します。
-   * 
+   *
    * @param order {@link Order} オブジェクト。
    * @return {@link GetOrderByIdResponse} オブジェクト。
    */

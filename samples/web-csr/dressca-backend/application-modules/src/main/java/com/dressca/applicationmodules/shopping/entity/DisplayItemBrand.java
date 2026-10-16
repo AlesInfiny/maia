@@ -17,7 +17,7 @@ public class DisplayItemBrand {
 
   /**
    * 陳列品ブランド名を指定して、 {@link DisplayItemBrand} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param name 陳列品ブランド名。
    */
   public DisplayItemBrand(@NonNull String name) {

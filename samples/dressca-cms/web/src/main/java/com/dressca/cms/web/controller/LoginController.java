@@ -35,7 +35,7 @@ public class LoginController {
 
   /**
    * ログイン画面を表示します。
-   * 
+   *
    * @param email メールアドレス（クエリ文字列から取得、省略可）。
    * @param model モデル。
    * @return ログイン画面のビュー名。
@@ -52,7 +52,7 @@ public class LoginController {
 
   /**
    * ログイン処理を行います。
-   * 
+   *
    * @param viewModel ログイン画面のビューモデル。
    * @param bindingResult バインディング結果。
    * @param returnUrl ログイン後に遷移する URL（クエリ文字列から取得、省略可）。
