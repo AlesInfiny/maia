@@ -24,8 +24,8 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 
 !!! warning "フォルダー構成について"
 
-    本サンプルのフロントエンドは、レイヤーを最上位に置く旧来のフォルダー構成（ `src/services` `src/stores` など）のままです。
-    [アーキテクチャ解説](../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めた構成とは異なります。
+    本サンプルのフロントエンドは、種類別のフォルダーを最上位に置く旧来のフォルダー構成（ `src/services` 、 `src/stores` など）のままです。
+    [アーキテクチャ解説 - フォルダー構成](../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めた構成とは異なります。
     本サンプルのコードをコピーする際は、アーキテクチャ解説の構成に合わせて配置し直してください。
 
 ## 本サンプルを利用するための前提 {#prerequisites}

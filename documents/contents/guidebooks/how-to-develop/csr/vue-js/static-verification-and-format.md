@@ -316,16 +316,23 @@ globalIgnores([
 
 #### フォルダー間の参照方向の強制 {#layer-dependency-rules}
 
-[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `no-restricted-imports` で強制します。
+[アーキテクチャ解説 - 参照方向](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
 参照方向の逆流はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
 
-禁止する参照は以下の 2 つです。
+禁止する参照は以下のとおりです。
 
-- `system-common` から `business-common` およびコンテキストへの参照
-- `business-common` からコンテキストへの参照
+- `system-common` から、他の層とコンテキストへの参照
+- `business-common` から、 core 層、 `pages` 、コンテキストへの参照
+- コンテキストから、 core 層、 `pages` 、他のコンテキストへの参照（他のコンテキストの `public-api.ts` も含みます）
+- `pages` から、コンテキストの `public-api.ts` 以外への参照
+- `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
+- `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
+- core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します）
+- core 層以外での動的インポート（ `import()` ）。動的インポートは `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します
+- `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
 
 サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
-`files` にルールを適用するフォルダーを、 `patterns` の `group` に禁止する参照先を指定します。
+`files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
 
 ```typescript title="サンプルアプリケーションの eslint.project-rules.ts"
 --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts"
@@ -348,10 +355,14 @@ export default defineConfigWithVueTs(
 
 ルールを設定する際は、以下の点に留意してください。
 
-- コンテキストのフォルダーを追加したときは、 `contextPatterns` にそのコンテキストのパターンを追加します。追加しないと、共通層からそのコンテキストへの参照を検出できません。
-- `system-common/router` の `index.ts` と `route-names.ts` は、全コンテキストのルーティング定義とルート名を集約する役割を持つため、 `ignores` で例外にします。例外がシステム共通の全体へ広がらないよう、システム共通の他のコードから `route-names.ts` を参照することもあわせて禁止します。
-- `App.vue` と `main.ts` は、いずれの `files` にも一致しないため、ルールの対象外になります。
-- ルールは `@/` エイリアスによる参照を対象とします。相対パスで書いた参照は検出できないため、フォルダーをまたぐ参照はエイリアスで記述してください。エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
+- `src` の直下のフォルダーのうち、 `layerFolders` に列挙したもの以外は全てコンテキストとして扱います。コンテキストを追加しても、設定を変更する必要はありません。一方、層のフォルダーを追加したときは、 `layerFolders` に追記します。追記しないと、そのフォルダーがコンテキストとして扱われます。
+- core 層（ `core` フォルダー、 `App.vue` 、 `main.ts` ）は、いずれの `files` にも一致しないため、ルールの対象外になります。
+- `pages` のテスト（ `__tests__` フォルダーの下のファイル）は、ルーター（ `@/core/router` ）と、 API クライアントおよび API の型を参照できます。コンテキストの内部への参照は、テストでも禁止します。
+- モックのデータ（ `@/../mock` ）は、 `src` の外にあるので、いずれの層からも参照できます。
+- ルールは `@/` エイリアスによる参照を対象とします。相対パスで書いた参照は検出できないため、同じコンテキストの中だけを相対パスで参照し、コンテキストの外はエイリアスで記述してください。エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
+
+サンプルアプリケーションでは、ルールが意図どおりに違反を検出することを、 `eslint.project-rules.test.ts` で検証しています。
+ルールを変更したときは、このテストも更新してください。
 
 #### ESLint の実行 {#run-eslint}
 
