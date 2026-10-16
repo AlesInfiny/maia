@@ -28,7 +28,10 @@ export interface Checkout {
   /** 読み込みが完了するまでは undefined です。 */
   account: ComputedRef<BasketAccount | undefined>
   hasUnavailableItems: ComputedRef<boolean>
+  /** 買い物かごの読み込みが完了し、購入できない陳列品がない場合だけ true です。 */
+  canPlaceOrder: ComputedRef<boolean>
   address: ComputedRef<Address>
+  /** `canPlaceOrder` が false のときに呼び出すと、プログラムの誤りとして例外を送出します。 */
   placeOrder: () => Promise<PlaceOrderOutcome>
 }
 
@@ -43,6 +46,7 @@ export function useCheckout(): Checkout {
   const status = shallowRef<CheckoutStatus>({ kind: 'loading' })
   const { lines, account, hasUnavailableItems, refresh } = useBasketContents()
   const address = computed(() => deliveryAddress)
+  const canPlaceOrder = computed(() => status.value.kind === 'ready' && !hasUnavailableItems.value)
 
   /**
    * 注文する買い物かごを読み込みます。
@@ -64,6 +68,11 @@ export function useCheckout(): Checkout {
    * @returns 注文を確定した結果。
    */
   async function placeOrder(): Promise<PlaceOrderOutcome> {
+    if (!canPlaceOrder.value) {
+      throw new Error(
+        '買い物かごの読み込みが完了していないか、購入できない陳列品があるため、注文を確定できません。',
+      )
+    }
     const { fullName, postalCode, todofuken, shikuchoson, azanaAndOthers } = address.value
     try {
       const orderId = await postOrder(fullName, postalCode, todofuken, shikuchoson, azanaAndOthers)
@@ -81,6 +90,7 @@ export function useCheckout(): Checkout {
     lines,
     account,
     hasUnavailableItems,
+    canPlaceOrder,
     address,
     placeOrder,
   }

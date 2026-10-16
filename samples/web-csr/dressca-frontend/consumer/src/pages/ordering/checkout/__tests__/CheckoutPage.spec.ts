@@ -7,7 +7,7 @@ import CheckoutPage from '@/pages/ordering/checkout/CheckoutPage.vue'
 import { routeNames } from '@/core/router/route-names'
 import { createStubRouter } from '@/pages/__tests__/helpers/stub-router'
 import { i18n } from '@/system-common/locales/i18n'
-import { ServerError } from '@/system-common/error-handler/custom-error'
+import { ServerError, UnauthorizedError } from '@/system-common/error-handler/custom-error'
 import { useNotificationStore } from '@/business-common/stores/notification'
 
 const { getBasketItemsMock, postOrderMock } = vi.hoisted(() => ({
@@ -71,6 +71,26 @@ async function clickPlaceOrder(wrapper: Awaited<ReturnType<typeof getWrapper>>['
   await wrapper.findAll('button')[0]!.trigger('click')
 }
 
+describe('注文を確定するボタン', () => {
+  it('買い物かごの読み込み中_押せない', async () => {
+    // Arrange
+    getBasketItemsMock.mockReturnValue(new Promise(() => {}))
+    // Act
+    const { wrapper } = await getWrapper()
+    // Assert
+    expect(wrapper.findAll('button')[0]!.attributes('disabled')).toBeDefined()
+  })
+
+  it('買い物かごの読み込みが完了した_押せる', async () => {
+    // Arrange
+    useBasketResponse(1)
+    // Act
+    const { wrapper } = await getWrapper()
+    // Assert
+    expect(wrapper.findAll('button')[0]!.attributes('disabled')).toBeUndefined()
+  })
+})
+
 describe('結果の通知と遷移', () => {
   it('買い物かごが空_陳列品画面へ遷移する', async () => {
     // Arrange
@@ -108,5 +128,19 @@ describe('結果の通知と遷移', () => {
     // Assert
     expect(useNotificationStore(pinia).message).toBe(t('failedToOrderItems'))
     expect(router.currentRoute.value.name).toBe(routeNames.error)
+  })
+
+  it('認証が切れている_画面はトーストも遷移もしない', async () => {
+    // Arrange
+    useBasketResponse(1)
+    postOrderMock.mockRejectedValue(new UnauthorizedError(''))
+    const { wrapper, pinia } = await getWrapper()
+    // Act
+    await clickPlaceOrder(wrapper)
+    await flushPromises()
+    // Assert
+    // ログイン画面への遷移は、共通のエラー処理が発行する認証エラーのイベントを受けて App.vue が行う
+    expect(useNotificationStore(pinia).message).not.toBe(t('failedToOrderItems'))
+    expect(router.currentRoute.value.name).toBe(routeNames.checkout)
   })
 })

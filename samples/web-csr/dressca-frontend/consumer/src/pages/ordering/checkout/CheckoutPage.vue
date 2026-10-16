@@ -14,7 +14,8 @@ const router = useRouter()
 const { toCurrencyJPY } = currencyHelper()
 const { getFirstAssetUrl } = assetHelper()
 const { t } = i18n.global
-const { status, lines, account, hasUnavailableItems, address, placeOrder } = useCheckout()
+const { status, lines, account, hasUnavailableItems, canPlaceOrder, address, placeOrder } =
+  useCheckout()
 
 watch(status, (newStatus) => {
   if (newStatus.kind === 'empty') {
@@ -40,6 +41,7 @@ const placeOrderAsync = async () => {
       router.push({ name: routeNames.error })
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }
@@ -94,7 +96,7 @@ const placeOrderAsync = async () => {
             'bg-orange-500 hover:bg-amber-700 disabled:bg-orange-300/50': !hasUnavailableItems,
           }"
           type="button"
-          :disabled="hasUnavailableItems"
+          :disabled="!canPlaceOrder"
           @click="placeOrderAsync()"
         >
           注文を確定する
