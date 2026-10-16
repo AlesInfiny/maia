@@ -3,7 +3,7 @@ ext {
     springBootVersion = "4.1.0"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
-    spotbugsVersion = "6.5.9"
+    spotbugsVersion = "6.5.13"
 
     // -- DEPENDENCIES
     archUnitVersion = "1.5.1"
@@ -18,7 +18,7 @@ ext {
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "14.3.0"
     jacocoToolVersion = "0.8.15"
-    spotbugsToolVersion = "4.10.3"
+    spotbugsToolVersion = "4.10.5"
 
     supportDependencies = [
         // SPRING BOOT STARTERS
