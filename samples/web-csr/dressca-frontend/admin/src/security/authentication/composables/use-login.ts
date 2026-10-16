@@ -1,0 +1,68 @@
+import { computed, reactive } from 'vue'
+import { useField, useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
+import {
+  useCommonErrorOutcome,
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
+import { useAuthentication } from './use-authentication'
+import { validationItems } from '../validation/validation-items'
+
+/** 入力項目は双方向にバインドできます。 */
+export interface LoginForm {
+  userName: string
+  password: string
+  readonly errors: { userName: string | undefined; password: string | undefined }
+  readonly isValid: boolean
+}
+
+export type LoginOutcome = { kind: 'loggedIn' } | CommonErrorOutcome
+
+export interface Login {
+  form: LoginForm
+  login: () => Promise<LoginOutcome>
+}
+
+/**
+ * ログインのユースケースを提供します。
+ * vee-validate を使用するため、コンポーネントの setup の中で呼び出します。
+ * @returns ログインのユースケース。
+ */
+export function useLogin(): Login {
+  const handleCommonError = useCommonErrorOutcome()
+  const { requiredEmail, required } = validationItems()
+  const { meta } = useForm({
+    validationSchema: toTypedSchema(
+      z.object({
+        userName: requiredEmail('ユーザー名は必須です。'),
+        password: required('パスワードは必須です。'),
+      }),
+    ),
+    initialValues: { userName: '', password: '' },
+  })
+  const { value: userName, errorMessage: userNameError } = useField<string>('userName')
+  const { value: password, errorMessage: passwordError } = useField<string>('password')
+
+  const form: LoginForm = reactive({
+    userName,
+    password,
+    errors: computed(() => ({ userName: userNameError.value, password: passwordError.value })),
+    isValid: computed(() => meta.value.valid),
+  })
+
+  /**
+   * 入力フォームの内容でログインします。
+   * @returns ログインした結果。
+   */
+  async function login(): Promise<LoginOutcome> {
+    try {
+      await useAuthentication().loginAsync()
+      return { kind: 'loggedIn' }
+    } catch (error) {
+      return handleCommonError(error)
+    }
+  }
+
+  return { form, login }
+}

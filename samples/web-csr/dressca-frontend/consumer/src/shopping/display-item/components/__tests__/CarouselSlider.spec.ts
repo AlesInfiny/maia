@@ -1,7 +1,7 @@
 import { nextTick } from 'vue'
 import { describe, it, expect } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import CarouselSlider from '@/shopping/display-item/components/CarouselSlider.vue'
+import CarouselSlider from '../CarouselSlider.vue'
 
 const items = [
   { name: 'test1', id: 1 },

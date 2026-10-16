@@ -1,28 +1,41 @@
-import { useDisplayItemStore } from '@/business-common/stores/display-item'
+import type {
+  GetDisplayItemBrandsResponse,
+  GetDisplayItemCategoriesResponse,
+  PagedListOfGetDisplayItemResponse,
+} from '@/system-common/generated/api-client'
+import {
+  displayItemBrandsApi,
+  displayItemCategoriesApi,
+  displayItemsApi,
+} from '@/system-common/api-client'
 
 /**
- * 陳列ストアからカテゴリとブランド情報を取得します。
- * ストアの状態が最新のカテゴリ・ブランド一覧に更新されます。
- * @returns Promise<void>
+ * カテゴリとブランドの一覧を取得します。
+ * @returns カテゴリの一覧とブランドの一覧。
  * @example
- * await fetchCategoriesAndBrands()
+ * const { categories, brands } = await fetchCategoriesAndBrands()
  */
-export async function fetchCategoriesAndBrands() {
-  const displayItemStore = useDisplayItemStore()
-  await displayItemStore.fetchCategories()
-  await displayItemStore.fetchBrands()
+export async function fetchCategoriesAndBrands(): Promise<{
+  categories: GetDisplayItemCategoriesResponse[]
+  brands: GetDisplayItemBrandsResponse[]
+}> {
+  const categories = await displayItemCategoriesApi().getDisplayItemCategories()
+  const brands = await displayItemBrandsApi().getDisplayItemBrands()
+  return { categories: categories.data, brands: brands.data }
 }
 
 /**
- * 指定したカテゴリとブランドに基づいて陳列品一覧を取得します。
- * ストアの状態が該当する陳列品一覧に更新されます。
- * @param categoryId - 陳列品を取得するカテゴリ ID
- * @param brandId - 絞り込み対象のブランド ID
- * @returns Promise<void>
+ * 指定したカテゴリとブランドに基づいて陳列品の一覧を取得します。
+ * @param categoryId 絞り込むカテゴリの ID 。
+ * @param brandId 絞り込むブランドの ID 。
+ * @returns 陳列品の一覧。
  * @example
- * await fetchItems('category-id', 'brand-id')
+ * const page = await fetchItems('category-id', 'brand-id')
  */
-export async function fetchItems(categoryId?: string, brandId?: string) {
-  const displayItemStore = useDisplayItemStore()
-  await displayItemStore.fetchItems(categoryId, brandId)
+export async function fetchItems(
+  categoryId?: string,
+  brandId?: string,
+): Promise<PagedListOfGetDisplayItemResponse> {
+  const response = await displayItemsApi().getByQuery(brandId, categoryId, undefined, undefined)
+  return response.data
 }

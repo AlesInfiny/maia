@@ -3,18 +3,26 @@
  * ログイン／ログアウトを切り替えるハンバーガーメニューです。
  */
 import { storeToRefs } from 'pinia'
-import { useAuthenticationStore } from '@/security/authorization/stores/authentication'
+import { useAuthenticationStore } from '../../authorization/stores/authentication'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
-import { logout as logoutByService } from '@/security/authentication/services/authentication-service'
-import { useRouter } from 'vue-router'
+import { useAuthentication } from '../composables/use-authentication'
+import type { RouteLocationRaw } from 'vue-router'
 import { ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { authenticationRouteNames } from '@/security/authentication/router/authentication-route-names'
+
+const props = defineProps<{
+  loginLocation: RouteLocationRaw
+  /** 画面遷移したときにメニューを閉じるために使用します。 */
+  currentPath: string
+}>()
+
+const emit = defineEmits<{
+  /** ログアウト後の画面遷移は利用する側が行います。 */
+  loggedOut: []
+}>()
 
 const authenticationStore = useAuthenticationStore()
 const { authenticationState, userName, userRoles } = storeToRefs(authenticationStore)
-
-const router = useRouter()
 
 const menuRef = ref<HTMLElement | null>(null)
 
@@ -23,13 +31,15 @@ const menuRef = ref<HTMLElement | null>(null)
  */
 const showLoginMenu = ref(false)
 
+const { logout: logoutByService } = useAuthentication()
+
 /**
  * アプリケーションからログアウトします。
  */
 const logout = () => {
   logoutByService()
   showLoginMenu.value = false
-  router.push({ name: authenticationRouteNames.login })
+  emit('loggedOut')
 }
 
 // メニューの外側がクリックされたとき、メニューを閉じます。
@@ -39,7 +49,7 @@ onClickOutside(menuRef, () => {
 
 // 画面遷移したとき、メニューを閉じます。
 watch(
-  () => router.currentRoute.value.fullPath,
+  () => props.currentPath,
   () => {
     showLoginMenu.value = false
   },
@@ -77,7 +87,7 @@ watch(
           <div v-if="!authenticationState">
             <router-link
               id="login"
-              :to="{ name: authenticationRouteNames.login }"
+              :to="loginLocation"
               class="block cursor-pointer px-4 py-2 text-sm text-gray-700"
               role="menuitem"
               tabindex="-1"
