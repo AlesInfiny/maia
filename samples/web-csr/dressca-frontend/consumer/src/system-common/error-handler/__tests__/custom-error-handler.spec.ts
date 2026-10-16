@@ -13,9 +13,8 @@ vi.mock('@vueuse/core', () => ({
   useEventBus: () => ({ emit: emitMock }),
 }))
 
-// useLogger のモック
-vi.mock('@/system-common/composables/use-logger', () => ({
-  useLogger: () => ({
+vi.mock('@/system-common/logger', () => ({
+  getLogger: () => ({
     info: vi.fn(),
     error: vi.fn(),
     warn: vi.fn(),

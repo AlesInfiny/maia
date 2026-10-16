@@ -2,8 +2,10 @@
 import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { watch } from 'vue'
 import { useEventBus } from '@vueuse/core'
-import { showToast } from '@/business-common/services/notification-service'
+import { useNotification } from '@/business-common/composables/use-notification'
 import { unhandledErrorEventKey } from '@/system-common/events'
+
+const { showToast } = useNotification()
 
 /**
  * ユーザーにメッセージを通知するトーストです。

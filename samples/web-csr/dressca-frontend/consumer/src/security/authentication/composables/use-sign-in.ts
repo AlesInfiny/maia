@@ -1,0 +1,59 @@
+import { computed, reactive } from 'vue'
+import { useField, useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
+import { ValidationItems } from '@/system-common/validation/validation-items'
+import { useAuthentication } from './use-authentication'
+
+/** 入力項目は双方向にバインドできます。 */
+export interface SignInForm {
+  email: string
+  password: string
+  readonly errors: { email: string | undefined; password: string | undefined }
+  readonly isValid: boolean
+}
+
+export type SignInOutcome = { kind: 'signedIn' }
+
+export interface SignIn {
+  form: SignInForm
+  signIn: () => Promise<SignInOutcome>
+}
+
+/**
+ * ログインのユースケースを提供します。
+ * vee-validate を使用するため、コンポーネントの setup の中で呼び出します。
+ * @returns ログインのユースケース。
+ */
+export function useSignIn(): SignIn {
+  const { requiredEmail, required } = ValidationItems()
+  const { meta } = useForm({
+    validationSchema: toTypedSchema(
+      z.object({
+        email: requiredEmail(),
+        password: required(),
+      }),
+    ),
+    initialValues: { email: '', password: '' },
+  })
+  const { value: email, errorMessage: emailError } = useField<string>('email')
+  const { value: password, errorMessage: passwordError } = useField<string>('password')
+
+  const form: SignInForm = reactive({
+    email,
+    password,
+    errors: computed(() => ({ email: emailError.value, password: passwordError.value })),
+    isValid: computed(() => meta.value.valid),
+  })
+
+  /**
+   * 入力フォームの内容でログインします。
+   * @returns ログインした結果。
+   */
+  function signIn(): Promise<SignInOutcome> {
+    useAuthentication().signIn()
+    return Promise.resolve({ kind: 'signedIn' })
+  }
+
+  return { form, signIn }
+}

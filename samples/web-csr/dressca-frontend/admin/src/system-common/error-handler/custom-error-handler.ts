@@ -2,7 +2,7 @@ import { CanceledError } from 'axios'
 import { useEventBus } from '@vueuse/core'
 import { CustomErrorBase, UnauthorizedError, NetworkError, ServerError } from './custom-error'
 import { unauthorizedErrorEventKey, unhandledErrorEventKey } from '../events'
-import { useLogger } from '@/system-common/composables/use-logger'
+import { getLogger } from '@/system-common/logger'
 import type { MaybeAsyncFunction, MaybePromise } from '@/system-common/types'
 
 /**
@@ -29,7 +29,7 @@ export function useCustomErrorHandler(): handleErrorAsyncFunction {
     handlingNetworkError: MaybeAsyncFunction<void> | null = null,
     handlingServerError: MaybeAsyncFunction<void> | null = null,
   ) => {
-    const logger = useLogger()
+    const logger = getLogger()
     const unhandledErrorEventBus = useEventBus(unhandledErrorEventKey)
     const unauthorizedErrorEventBus = useEventBus(unauthorizedErrorEventKey)
 
