@@ -42,7 +42,7 @@ public class OrderItem {
 
   /**
    * 注文アイテムのアセットリストを追加します。
-   * 
+   *
    * @param orderItemAssets 注文アイテムのアセットリスト。
    * @throws IllegalArgumentException orderItemAssets に null が設定された場合。
    */
@@ -55,7 +55,7 @@ public class OrderItem {
 
   /**
    * 注文アイテムの小計を計算して金額を返却します。
-   * 
+   *
    * @return 注文アイテムの小計額。
    */
   public BigDecimal getSubTotal() {

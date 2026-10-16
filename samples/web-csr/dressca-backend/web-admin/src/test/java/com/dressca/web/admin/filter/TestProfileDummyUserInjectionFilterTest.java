@@ -54,7 +54,7 @@ public class TestProfileDummyUserInjectionFilterTest {
 
   /**
    * セキュリティフィルターチェイン に {@link DummyUserInjectionFilter} が含まれているかを確認します。
-   * 
+   *
    * @return {@link DummyUserInjectionFilter} が含まれている場合は true、そうでない場合は false。
    */
   private boolean hasDummyUserInjectionFilter() {

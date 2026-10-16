@@ -56,7 +56,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
 
   /**
    * 楽観ロックエラーをステータスコード 409 で返却します。
-   * 
+   *
    * @param e 楽観ロックエラー。
    * @return ステータスコード 409 のレスポンス。
    */

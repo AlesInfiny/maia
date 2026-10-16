@@ -42,7 +42,7 @@ public class CatalogApplicationService {
 
   /**
    * {@link CatalogApplicationService} クラスの新しいインスタンスを初期化します。
-   * 
+   *
    * @param messages メッセージ。
    * @param catalogRepository カタログリポジトリ。
    * @param brandRepository カタログブランドリポジトリ。
@@ -66,7 +66,7 @@ public class CatalogApplicationService {
 
   /**
    * 管理者が削除済みアイテムも含むリポジトリから、指定した ID のカタログアイテムを取得します。
-   * 
+   *
    * @param id カタログアイテム ID 。
    * @return 条件に一致するカタログアイテム。
    * @throws CatalogNotFoundException カタログアイテムが見つからなかった場合。
@@ -90,7 +90,7 @@ public class CatalogApplicationService {
 
   /**
    * 管理者が条件に一致するカタログ情報を取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @param page ページ。
@@ -113,7 +113,7 @@ public class CatalogApplicationService {
 
   /**
    * バッチ処理向けに、ページング条件を指定してカタログアイテムを取得します。
-   * 
+   *
    * @param skipRows データ取得をスキップする行数。
    * @param pageSize データ取得行数の最大値。
    * @return 条件に一致するカタログアイテムのリスト。存在しない場合は空のリスト。
@@ -128,7 +128,7 @@ public class CatalogApplicationService {
 
   /**
    * カタログにアイテムを追加します。
-   * 
+   *
    * @param name 商品名。
    * @param description 説明。
    * @param price 単価。
@@ -168,7 +168,7 @@ public class CatalogApplicationService {
 
   /**
    * カタログからアイテムを削除します。
-   * 
+   *
    * @param id 削除対象のカタログアイテムの ID 。
    * @param rowVersion 行バージョン。
    * @throws PermissionDeniedException 削除権限がない場合。
@@ -199,7 +199,7 @@ public class CatalogApplicationService {
 
   /**
    * カタログアイテムを更新します。
-   * 
+   *
    * @param id 更新対象のカタログアイテム ID 。
    * @param name 商品名。
    * @param description 説明。
@@ -253,7 +253,7 @@ public class CatalogApplicationService {
 
   /**
    * 管理者が条件に一致するカテゴリの件数を取得します。
-   * 
+   *
    * @param brandId ブランド ID 。
    * @param categoryId カテゴリ ID 。
    * @return 条件に一致するカタログ情報の件数。
@@ -268,7 +268,7 @@ public class CatalogApplicationService {
 
   /**
    * フィルタリング用のカタログブランドリストを取得します。
-   * 
+   *
    * @return カタログブランドのリスト。
    */
   public List<CatalogBrand> getBrands() {
@@ -280,7 +280,7 @@ public class CatalogApplicationService {
 
   /**
    * フィルタリング用のカタログカテゴリリストを取得します。
-   * 
+   *
    * @return カタログカテゴリのリスト。
    */
   public List<CatalogCategory> getCategories() {

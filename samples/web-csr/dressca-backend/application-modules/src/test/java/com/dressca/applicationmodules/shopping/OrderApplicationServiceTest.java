@@ -105,7 +105,7 @@ public class OrderApplicationServiceTest {
   }
 
   private ShipTo createDefaultShipTo() {
-    String defaultFullName = "国会　太郎";
+    String defaultFullName = "国会\u3000太郎";
     Address address = createDefaultAddress();
     return new ShipTo(defaultFullName, address);
   }

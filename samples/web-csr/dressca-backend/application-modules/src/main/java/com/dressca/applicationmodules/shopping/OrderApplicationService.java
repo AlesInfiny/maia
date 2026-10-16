@@ -26,7 +26,7 @@ public class OrderApplicationService {
 
   /**
    * 指定した注文 ID 、購入者 ID の注文情報を取得します。
-   * 
+   *
    * @param orderId 注文 ID 。
    * @param buyerId 購入者 ID 。
    * @return 注文情報。

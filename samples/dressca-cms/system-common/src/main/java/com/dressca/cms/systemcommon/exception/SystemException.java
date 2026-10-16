@@ -17,7 +17,7 @@ public class SystemException extends RuntimeException {
   /**
    * 原因例外、例外 ID 、メッセージ用プレースホルダー（ログ用）を指定して、 {@link SystemException}
    * クラスのインスタンスを初期化します。
-   * 
+   *
    * @param cause 原因例外。
    * @param exceptionId 例外 ID 。
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
@@ -41,7 +41,7 @@ public class SystemException extends RuntimeException {
 
   /**
    * メッセージソースからメッセージを取得します。
-   * 
+   *
    * @param exceptionId 例外 ID 。
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    * @return 取得したメッセージ。

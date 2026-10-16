@@ -17,7 +17,7 @@ public class DisplayItemCategory {
 
   /**
    * 陳列品カテゴリ名を指定して、 {@link DisplayItemCategory} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param name 陳列品カテゴリ名。
    */
   public DisplayItemCategory(@NonNull String name) {

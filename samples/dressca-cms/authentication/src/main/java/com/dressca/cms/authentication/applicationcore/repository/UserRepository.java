@@ -9,7 +9,7 @@ public interface UserRepository {
 
   /**
    * 指定されたメールアドレスでユーザー情報を取得します。
-   * 
+   *
    * @param email メールアドレス。
    * @return ユーザー情報。見つからない場合は null。
    */

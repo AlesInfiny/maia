@@ -16,7 +16,7 @@ public class BasketMapper {
 
   /**
    * {@link Basket} オブジェクトを {@link GetBasketItemsResponse} に変換します。
-   * 
+   *
    * @param basket {@link Basket} オブジェクト。
    * @return {@link GetBasketItemsResponse} オブジェクト。
    */

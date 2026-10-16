@@ -57,7 +57,7 @@ public class CatalogItemsController {
 
   /**
    * 指定した ID のカタログアイテムを返します。
-   * 
+   *
    * @param id ID 。
    * @return カタログアイテム。
    * @throws PermissionDeniedException 認可エラー。
@@ -89,7 +89,7 @@ public class CatalogItemsController {
 
   /**
    * カタログアイテムを検索して返します。
-   * 
+   *
    * @param brandId ブランド ID 。未指定の場合は `null` 。
    * @param categoryId カテゴリ ID 。未指定の場合は `null` 。
    * @param page ページ番号。未指定の場合は 1 。
@@ -126,7 +126,7 @@ public class CatalogItemsController {
 
   /**
    * カタログにアイテムを追加します。
-   * 
+   *
    * @param postCatalogItemRequest 追加するアイテムの情報。
    * @return なし。
    * @throws PermissionDeniedException 認可エラー。
@@ -159,7 +159,7 @@ public class CatalogItemsController {
 
   /**
    * カタログから指定したカタログアイテム ID のアイテムを削除します。
-   * 
+   *
    * @param catalogItemId カタログアイテム ID 。
    * @param rowVersion 行バージョン。
    * @return なし。
@@ -192,7 +192,7 @@ public class CatalogItemsController {
 
   /**
    * 指定した ID のカタログアイテムの情報を更新します。
-   * 
+   *
    * @param catalogItemId カタログアイテム ID 。
    * @param putCatalogItemRequest 更新するカタログアイテムの情報。
    * @return なし。

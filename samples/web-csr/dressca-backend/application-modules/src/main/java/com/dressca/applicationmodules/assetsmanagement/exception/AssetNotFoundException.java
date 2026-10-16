@@ -10,7 +10,7 @@ public class AssetNotFoundException extends LogicException {
 
   /**
    * 見つからなかったアセットコードを指定して、 {@link AssetNotFoundException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param assetCode 見つからなかったアセットコード。
    */
   public AssetNotFoundException(String assetCode) {

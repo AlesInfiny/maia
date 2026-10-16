@@ -20,7 +20,7 @@ public interface JoinedBasketMapper {
 
   /**
    * 指定した購入者 ID の買い物かごを取得します。
-   * 
+   *
    * @param buyerId 購入者 ID 。
    * @return 条件に一致する買い物かご。
    */
