@@ -1,4 +1,10 @@
 /**
+ * 戻り先のパスを解釈するときの基準のオリジンです。
+ * パスがこのオリジンを離れるかどうかだけを見るため、実在しないホスト名を使います。
+ */
+const appOrigin = 'http://app.invalid'
+
+/**
  * ログイン後などに戻る画面のパスを扱うヘルパーです。
  * 外部のサイトへ誘導されること（オープンリダイレクト）を防ぐため、
  * アプリケーション内のパスだけを戻り先として受け入れます。
@@ -7,6 +13,8 @@
 export function redirectHelper() {
   /**
    * 戻り先として指定された値を検証し、アプリケーション内のパスであれば返します。
+   * `/` で始まり、ブラウザーの URL パーサーで解釈してもアプリケーションのオリジンを離れない値だけを受け入れます。
+   * URL パーサーはタブ・改行・復帰を取り除き、 `\` を `/` とみなすため、先頭の文字だけでは判定しません。
    * @param value クエリパラメーターなどから取得した戻り先の値。
    * @returns アプリケーション内のパス。受け入れられない値の場合は `undefined` 。
    */
@@ -14,7 +22,10 @@ export function redirectHelper() {
     if (typeof value !== 'string') {
       return undefined
     }
-    if (!value.startsWith('/') || value.startsWith('//') || value.startsWith('/\\')) {
+    if (!value.startsWith('/')) {
+      return undefined
+    }
+    if (new URL(value, appOrigin).origin !== appOrigin) {
       return undefined
     }
     return value
