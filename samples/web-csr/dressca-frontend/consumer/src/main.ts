@@ -1,16 +1,17 @@
 import { createApp } from 'vue'
+import { routeNames } from '@/core/router/route-names'
 import { createPinia } from 'pinia'
-import { authenticationGuard } from '@/security/authentication/router/authentication-guard'
-import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
+import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
 import App from './App.vue'
-import { router } from '@/system-common/router'
+import { router } from '@/core/router'
+import { registerNavigationGuards } from '@/core/router/guards'
 import { i18n } from '@/system-common/locales/i18n'
-import { useLogger } from '@/system-common/composables/use-logger'
+import { getLogger } from '@/system-common/logger'
 import '@/assets/base.css'
 import { z } from 'zod'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
 
-const logger = useLogger()
+const logger = getLogger()
 
 /**
  * MSW (Mock Service Worker) を有効化します。
@@ -44,8 +45,14 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(i18n)
-app.use(globalErrorHandler)
+app.use(
+  createGlobalErrorHandler({
+    navigateToErrorPage: () => {
+      void router.replace({ name: routeNames.error })
+    },
+  }),
+)
 
-authenticationGuard(router)
+registerNavigationGuards(router)
 
 app.mount('#app')

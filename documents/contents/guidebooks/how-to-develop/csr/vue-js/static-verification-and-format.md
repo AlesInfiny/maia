@@ -293,12 +293,11 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-7"
+```typescript hl_lines="5-6"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
-  '**/src/generated/**',
   '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
@@ -314,6 +313,56 @@ globalIgnores([
       ```shell linenums="0"
       npx @eslint/config-inspector@latest
       ```
+
+#### フォルダー間の参照方向の強制 {#layer-dependency-rules}
+
+[アーキテクチャ解説 - 参照方向](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
+参照方向の逆流はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
+
+禁止する参照は以下のとおりです。
+
+- `system-common` から、他の層とコンテキストへの参照
+- `business-common` から、 core 層、 `pages` 、コンテキストへの参照
+- コンテキストから、 core 層、 `pages` 、他のコンテキストへの参照（他のコンテキストの `public-api.ts` も含みます）
+- `pages` から、コンテキストの `public-api.ts` 以外への参照
+- `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
+- `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
+- core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します）
+- core 層以外での動的インポート（ `import()` ）。動的インポートは `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します
+- `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
+
+サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
+`files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
+
+```typescript title="サンプルアプリケーションの eslint.project-rules.ts"
+--8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts"
+```
+
+生成したルールは、 eslint.config.ts で読み込んで適用します。
+
+```typescript title="eslint.config.ts でのルールの適用"
+import {
+  adminLayerDependencyRules,
+  consumerLayerDependencyRules,
+} from './eslint.project-rules'
+
+export default defineConfigWithVueTs(
+  // 中略
+  ...consumerLayerDependencyRules,
+  ...adminLayerDependencyRules,
+)
+```
+
+ルールを設定する際は、以下の点に留意してください。
+
+- `src` の直下のフォルダーのうち、 `layerFolders` に列挙したもの以外は全てコンテキストとして扱います。コンテキストを追加しても、設定を変更する必要はありません。一方、層のフォルダーを追加したときは、 `layerFolders` に追記します。追記しないと、そのフォルダーがコンテキストとして扱われます。
+- core 層（ `core` フォルダー、 `App.vue` 、 `main.ts` ）は、いずれの `files` にも一致しないため、ルールの対象外になります。
+- `pages` のテスト（ `__tests__` フォルダーの下のファイル）は、ルーター（ `@/core/router` ）と、 API クライアントおよび API の型を参照できます。コンテキストの内部への参照は、テストでも禁止します。
+- モックのデータ（ `@/../mock` ）は、 `src` の外にあるので、いずれの層からも参照できます。
+- ルールは `@/` エイリアスによる参照を対象とします。相対パスで書いた参照は検出できないため、同じコンテキストの中だけを相対パスで参照し、コンテキストの外はエイリアスで記述してください。エイリアスの設定は [プロジェクトの共通設定](./project-settings.md#vite-config) を参照してください。
+
+サンプルアプリケーションでは、ルールが意図どおりに違反を検出することを、 `eslint.project-rules.test.ts` で検証しています。
+ルールを変更したときは、このテストも更新してください。
 
 #### ESLint の実行 {#run-eslint}
 

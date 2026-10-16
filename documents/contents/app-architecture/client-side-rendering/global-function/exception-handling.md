@@ -78,32 +78,40 @@ HTTP 通信で発生する例外について、レスポンスやステータス
 - ユーザーの状況やエラー内容をログ収集ツールに送信する
 
 以下は、 API 通信で発生する例外処理のフローです。
+`axios.interceptors.response` で変換したカスタムエラーは、ユースケースコンポーザブルが捕捉し、結果（ Outcome ）に変換して画面へ返します。
+画面は結果に応じてエラーを通知し、カスタムエラーを直接扱いません。
+実装方法は [カスタムエラーの設定](../../../guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md#calling-a-process-where-exceptions-are-expected) を参照してください。
 
 ```mermaid
     sequenceDiagram
     participant B as ブラウザ
-    participant C as Vue コンポーネント
+    participant P as 画面
+    participant U as ユースケースコンポーザブル
     participant A as Axios.Post
     participant I as Axios.interceptors.response
     participant S as サーバー
 
-    B->>C: ボタン押下
-    activate C
-    C->>A: API リクエスト呼び出し
+    B->>P: ボタン押下
+    activate P
+    P->>U: 操作の呼び出し
+    activate U
+    U->>A: API リクエスト呼び出し
     activate A
     A-)S: API リクエスト
     activate S
     S--)I: 400 Bad Request
     deactivate S
     activate I
-    I->>A: エラー情報の解析
+    I->>A: カスタムエラーへの変換
     deactivate I
     rect rgba(255, 0, 0, 0.5)
-        A->>C: エラーの伝播
+        A->>U: カスタムエラーの送出
         deactivate A
     end
-    C->>B: エラー通知
-    deactivate C
+    U->>P: 結果の返却
+    deactivate U
+    P->>B: エラー通知
+    deactivate P
 ```
 
 ### API 通信のエラーレスポンス {#error-response}
