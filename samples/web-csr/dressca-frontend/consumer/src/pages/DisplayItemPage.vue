@@ -37,6 +37,7 @@ const addBasket = async (displayItemId: string) => {
       showFailureToast(outcome.problem, t('failedToAddItemToCarts'))
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }

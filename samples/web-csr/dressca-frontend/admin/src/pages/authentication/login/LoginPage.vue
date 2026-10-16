@@ -25,6 +25,7 @@ const loginAsync = async () => {
       showToast('ログインに失敗しました。')
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }
