@@ -10,7 +10,7 @@ Vue.js を用いてフロントエンドアプリケーションを開発する�
 
 1. [事前準備](preparation.md)
 1. [ブランクプロジェクトの作成](create-vuejs-blank-project.md)
-1. [ブランクプロジェクトのフォルダー構造](folder-structure-of-blank-project.md)
+1. [フォルダー構造の変更](folder-structure-changes.md)
 1. [ワークスペースの設定](setting-workspaces.md)
 1. [プロジェクトの共通設定](project-settings.md)
 1. [開発に使用するパッケージ](optional-packages.md)
