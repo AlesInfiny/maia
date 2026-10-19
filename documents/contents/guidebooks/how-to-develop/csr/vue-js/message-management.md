@@ -103,7 +103,7 @@ import App from "./App.vue"
 import { router } from "@/core/router"
 import { i18n } from "@/system-common/locales/i18n"
 
-import "@/assets/base.css"
+import "@/core/styles/base.css"
 
 const app = createApp(App)
 
