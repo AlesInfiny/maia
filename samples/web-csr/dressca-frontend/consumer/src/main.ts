@@ -7,7 +7,7 @@ import { router } from '@/core/router'
 import { registerNavigationGuards } from '@/core/router/guards'
 import { i18n } from '@/system-common/locales/i18n'
 import { getLogger } from '@/system-common/logger'
-import '@/assets/base.css'
+import '@/core/styles/base.css'
 import { z } from 'zod'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
 
