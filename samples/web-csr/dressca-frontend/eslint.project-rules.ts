@@ -107,7 +107,7 @@ function withServicesRestriction(
   ]
 }
 
-const layerFolders = ['core', 'pages', 'business-common', 'system-common', 'assets']
+const layerFolders = ['core', 'pages', 'business-common', 'system-common']
 
 const mockDataParentFolderPattern = '\\.\\.'
 
@@ -138,8 +138,9 @@ function createLayerDependencyRules(workspace: string): Linter.Config[] {
     message:
       'pages はコンテキストの public-api.ts 経由でのみ参照できます。コンテキストの内部フォルダーを直接参照することはできません。',
   }
-  // ルーター（ @/core/router ）は、このパターンに一致しないため、 pages では paths で別に禁止します。
-  const coreRouterPatternsExceptRouteNames = ['@/core/router/**', '!@/core/router/route-names']
+  // gitignore 形式のパターン（ `group` ）では、除外したフォルダー（ `@/core/router` ）の下のファイルを再び含められないため、正規表現を使います。
+  const coreExceptRouteNamesRegex = '^@/core(?!/router/route-names$)(?:/|$)'
+  const coreExceptRouterAndRouteNamesRegex = '^@/core(?!/router(?:/route-names)?$)(?:/|$)'
   const pagesCoreMessage =
     'pages から参照できる core 層のモジュールは、ルート名の定数（ @/core/router/route-names ）だけです。'
 
@@ -224,10 +225,9 @@ function createLayerDependencyRules(workspace: string): Linter.Config[] {
         [restrictedImportsRule]: [
           'error',
           {
-            paths: [{ name: '@/core/router', message: pagesCoreMessage }],
             patterns: [
               pagesContextRestriction,
-              { group: coreRouterPatternsExceptRouteNames, message: pagesCoreMessage },
+              { regex: coreExceptRouteNamesRegex, message: pagesCoreMessage },
               {
                 group: [
                   '@/system-common/api-client',
@@ -253,7 +253,7 @@ function createLayerDependencyRules(workspace: string): Linter.Config[] {
             patterns: [
               pagesContextRestriction,
               {
-                group: coreRouterPatternsExceptRouteNames,
+                regex: coreExceptRouterAndRouteNamesRegex,
                 message:
                   'pages のテストから参照できる core 層のモジュールは、ルーター（ @/core/router ）とルート名の定数（ @/core/router/route-names ）だけです。',
               },

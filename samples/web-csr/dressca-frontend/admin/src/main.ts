@@ -1,4 +1,4 @@
-import './assets/base.css'
+import '@/core/styles/base.css'
 import { routeNames } from '@/core/router/route-names'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
