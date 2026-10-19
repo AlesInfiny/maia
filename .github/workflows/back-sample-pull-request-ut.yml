@@ -67,3 +67,6 @@ jobs:
           report_paths: |
             **/build/test-results/test/TEST-*.xml
             **/build/test-results/integrationTest/TEST-*.xml
+          check_name: |
+            単体テスト
+            結合テスト
