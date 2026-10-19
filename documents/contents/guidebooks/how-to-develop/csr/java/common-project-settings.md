@@ -4,7 +4,7 @@ description: CSR アプリケーションの サーバーサイドで動作す�
 ---
 
 # プロジェクトの共通設定 {#top}
-<!-- cSpell:ignore projectlombok Dspring findbugs -->
+<!-- cSpell:ignore projectlombok Dspring findbugs Buildship -->
 
 プロジェクト全体の設定として、ルートプロジェクト内で設定すべき内容について解説します。
 Spring Initializr で作成したルートディレクトリを Visual Studio Code 等で開いてください。
@@ -435,6 +435,94 @@ subprojects {
 ```
 
 JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
+
+### 結合テストの設定 {#integration-test-settings}
+
+単体テストと結合テストを分けて配置・実行する場合は、結合テスト用のソースセット `integrationTest` を追加します。
+ソースセットの追加には、 Gradle 標準の [JVM Test Suite Plugin :material-open-in-new:](https://docs.gradle.org/current/userguide/jvm_test_suite_plugin.html){ target=_blank } を利用します。
+結合テストのソースコードは、以下のように `src/integrationTest` 配下に配置します。
+パッケージ構成は `src/main` と同じにしてください。
+
+```text title="結合テストの配置"
+<サブプロジェクト>/
+└── src/
+    ├── main/
+    ├── test/             ← 単体テスト
+    └── integrationTest/  ← 結合テスト
+        ├── java/
+        └── resources/
+```
+
+結合テストを持つサブプロジェクトの `build.gradle` に、以下のように `testing` ブロックを記述します。
+結合テストが不要なサブプロジェクトに設定や依存関係のロック状態が追加されないよう、ルートプロジェクトの `subprojects` ではなく、対象のサブプロジェクトごとに記述してください。
+
+- 依存ライブラリは、スイートの `dependencies` に結合テストで必要なものだけを記述する
+- `useJUnitJupiter()` を引数なしで記述すると Gradle の既定バージョンの JUnit が利用されるため、 Spring Boot の BOM のバージョン（ `junit-jupiter.version` ）を指定する
+- 単体テストと同じく `test` プロファイルを利用する
+- `check` タスク（ `build` タスク）で結合テストも実行されるようにする
+
+```groovy title="{サブプロジェクト}/build.gradle"
+testing {
+  suites {
+    integrationTest(JvmTestSuite) {
+      // JUnit のバージョンは Spring Boot の BOM に合わせる
+      useJUnitJupiter(dependencyManagement.importedProperties['junit-jupiter.version'])
+
+      dependencies {
+        implementation project()
+        implementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+      }
+
+      targets {
+        all {
+          testTask.configure {
+            // 結合テスト時は test プロファイルを利用
+            jvmArgs '-Dspring.profiles.active=test'
+            shouldRunAfter(test)
+          }
+        }
+      }
+    }
+  }
+}
+
+tasks.named('compileIntegrationTestJava') {
+  options.encoding = 'UTF-8'
+}
+
+// check （ build ）タスクで結合テストも実行する
+tasks.named('check') {
+  dependsOn(testing.suites.integrationTest)
+}
+```
+
+ソースセット `integrationTest` を追加すると、 `integrationTestCompileClasspath` などの依存関係の解決対象が増えます。
+[依存ライブラリのバージョン固定](#dependency-locking) を利用している場合は、 `./gradlew allDependencies --write-locks` を実行してロックファイルを更新してください。
+
+テストは以下のコマンドで実行します。
+
+```shell title="テストの実行"
+# 単体テストのみ
+./gradlew test
+# 結合テストのみ
+./gradlew integrationTest
+# 単体テストと結合テストの両方（ build タスクでも実行される）
+./gradlew check
+```
+
+テスト結果のレポートは、単体テストが `build/test-results/test` 、結合テストが `build/test-results/integrationTest` に出力されます。
+CI で JUnit のレポートを集計している場合は、両方のフォルダーを集計対象に含めてください。
+
+??? note "ソースセット名の命名規則"
+
+    ソースセット名は、 Gradle が生成するタスク名やコンフィギュレーション名（ `compileIntegrationTestJava` 、 `integrationTestImplementation` など）に組み込まれるため、 camelCase で記述します。
+    `integration-test` のようなケバブケースにすると、タスク名が `compileIntegration-testJava` のようになるため、利用しないでください。
+
+!!! warning "VS Code からの結合テストの実行"
+
+    VS Code の「 Delegate Test to Gradle 」を利用する場合、 Gradle Build Server 経由でプロジェクトが読み込まれていれば、結合テストは `integrationTest` タスクで実行されます。
+    Gradle Build Server への接続に失敗して Buildship でプロジェクトが読み込まれた場合は、 `test` タスク固定で実行されるため、結合テストが実行されません。
+    その場合は、ターミナルから `./gradlew integrationTest` を実行してください。
 
 ### フォーマッターの設定 {#formatter-settings}
 

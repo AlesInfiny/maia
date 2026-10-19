@@ -43,7 +43,7 @@ public class CatalogItemJobTest {
   JobRepository jobRepository;
   private JdbcTemplate jdbcTemplate;
   private static final String OUTPUT_FILE = "output/outputData.csv";
-  private static final String EXPECTED_FOLDER = "src/test/resources/expected/";
+  private static final String EXPECTED_FOLDER = "src/integrationTest/resources/expected/";
 
   @Autowired
   public void setDataSource(DataSource dataSource) {
