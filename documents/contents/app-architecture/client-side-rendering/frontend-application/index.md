@@ -146,7 +146,7 @@ Axios: [github :material-open-in-new:](https://github.com/axios/axios){ target=_
 
 <!-- バックエンド編のAPIドキュメントへリンク -->
 
-## フォルダー構成 {#folder-structure}
+## フォルダー構成 {#project-structure}
 
 `src` フォルダーの直下は、 `views` や `services` のようなコードの種類ではなく、業務の関心事を単位に構成します。
 フォルダー名を見れば、どの業務の機能のコードが格納されているかわかるようにするためです。

@@ -25,7 +25,7 @@ Azure Active Directory B2C （以降、 Azure AD B2C ）を利用したユーザ
 !!! warning "フォルダー構成について"
 
     本サンプルは認証機能に焦点を当てた小規模のサンプルなので、システムの関心事のフォルダーを最上位に置くフォルダー構成にしています。
-    [アーキテクチャ解説 - フォルダー構成](../../../app-architecture/client-side-rendering/frontend-application/index.md#folder-structure) で定めた構成とは異なります。
+    [アーキテクチャ解説 - フォルダー構成](../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めた構成とは異なります。
 
 ## 本サンプルを利用するための前提 {#prerequisites}
 
