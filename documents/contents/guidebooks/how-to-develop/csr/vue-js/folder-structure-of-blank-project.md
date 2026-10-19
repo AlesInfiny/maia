@@ -74,3 +74,65 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
 コンテキストとドメインの決め方、どのフォルダーに何を配置するかの判断基準は、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
 
 なお本ガイドの以降の手順では、上記の構造を前提としたパスでファイルの配置場所を示します。
+
+### サンプルコードの移動後の構造 {#reclassified-example-code}
+
+ブランクプロジェクトの作成時に生成されたサンプルコードを、上記の構造に従って移動した結果を示します。
+[CSS の設定と CSS フレームワークの適用](./css.md) まで終えた時点の構造です。
+
+| 移動前                | 移動後                            | 移動先の理由                                                                             |
+| --------------------- | --------------------------------- | ---------------------------------------------------------------------------------------- |
+| `router/index.ts`     | `core/router/index.ts`            | ルーターの生成は、 core 層の役割です。                                                   |
+| `views/HomeView.vue`  | `pages/HomePage.vue`              | 画面です。 URL が `/` なので、 `pages` の直下に置きます。                                |
+| `views/AboutView.vue` | `pages/about/AboutPage.vue`       | 画面です。 URL のパス `/about` に合わせたフォルダーに置きます。                          |
+| `assets/base.css`     | `core/styles/base.css`            | アプリケーション全体に適用するグローバルスタイルです。                                   |
+| `assets/main.css`     | （削除）                          | CSS の設定で、 `base.css` に統一します。                                                 |
+| `assets/logo.svg`     | `core/images/logo.svg`            | core 層の `App.vue` だけが使う画像です。                                                 |
+| `components/`         | `system-common/components/`       | 業務知識を持たない UI コンポーネントです。 `icons/` と `__tests__/` も含めて移動します。 |
+| `stores/counter.ts`   | `system-common/stores/counter.ts` | 業務知識を持たないストアです。                                                           |
+
+サンプルコードは業務知識を持たないので、 `business-common` フォルダーとコンテキストのフォルダーは作りません。
+移動後の構造は以下のとおりです。
+
+```text linenums="0"
+<workspace-name>
+└ src/
+  ├ core/
+  │ ├ images/
+  │ │ └ logo.svg
+  │ ├ router/
+  │ │ └ index.ts
+  │ └ styles/
+  │   └ base.css
+  ├ pages/
+  │ ├ about/
+  │ │ └ AboutPage.vue ------- /about
+  │ └ HomePage.vue ---------- /
+  ├ system-common/
+  │ ├ components/
+  │ │ ├ __tests__/
+  │ │ │ └ HelloWorld.spec.ts
+  │ │ ├ icons/
+  │ │ │ ├ IconCommunity.vue
+  │ │ │ ├ IconDocumentation.vue
+  │ │ │ ├ IconEcosystem.vue
+  │ │ │ ├ IconSupport.vue
+  │ │ │ └ IconTooling.vue
+  │ │ ├ HelloWorld.vue
+  │ │ ├ TheWelcome.vue
+  │ │ └ WelcomeItem.vue
+  │ └ stores/
+  │   └ counter.ts
+  ├ App.vue
+  └ main.ts
+```
+
+ファイルを移動したら、移動したファイルを参照する `import` を書き換えます。
+フォルダーをまたぐ参照は、相対パスではなく `@/` エイリアスで記述します。
+たとえば、 `core/router/index.ts` から画面を参照する `import` は、以下のようになります。
+
+```typescript title="core/router/index.ts"
+import HomePage from '@/pages/HomePage.vue'
+// (中略)
+      component: () => import('@/pages/about/AboutPage.vue'),
+```
