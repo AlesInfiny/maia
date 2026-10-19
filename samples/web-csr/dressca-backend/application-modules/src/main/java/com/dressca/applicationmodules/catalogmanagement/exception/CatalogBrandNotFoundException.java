@@ -12,7 +12,7 @@ public class CatalogBrandNotFoundException extends LogicException {
   /**
    * 見つからなかったカタログブランド ID を指定して、 {@link CatalogBrandNotFoundException}
    * クラスの新しいインスタンスを初期化します。
-   * 
+   *
    * @param catalogBrandId 見つからなかったカタログブランド ID 。
    */
   public CatalogBrandNotFoundException(UUID catalogBrandId) {

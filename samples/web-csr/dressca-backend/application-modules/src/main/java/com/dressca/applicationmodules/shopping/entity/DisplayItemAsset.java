@@ -20,7 +20,7 @@ public class DisplayItemAsset {
 
   /**
    * {@link DisplayItemAsset} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param displayItemId 陳列品 ID 。
    * @param assetCode アセットコード 。
    */

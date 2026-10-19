@@ -20,7 +20,7 @@ public class CatalogBrand {
 
   /**
    * カタログブランド名を指定して、 {@link CatalogBrand} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param name カタログブランド名。
    */
   public CatalogBrand(@NonNull String name) {

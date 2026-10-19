@@ -15,7 +15,7 @@ public class Account {
 
   /**
    * 会計アイテムの合計金額を取得します。この計算結果には、消費税や送料は含まれません。
-   * 
+   *
    * @return 会計アイテムの合計金額。
    */
   public BigDecimal getItemTotalPrice() {
@@ -25,13 +25,13 @@ public class Account {
 
   /**
    * 税抜きの送料を取得します。
-   * 
+   *
    * <ul>
    * <li>送料は会計アイテムの合計金額が 5,000 円以上で無料になります。</li>
    * <li>それ以外の場合 500 円です。</li>
    * <li>ただし、会計アイテムが登録されていない場合は 0 円を返します。</li>
    * </ul>
-   * 
+   *
    * @return 送料。
    */
   public BigDecimal getDeliveryCharge() {
@@ -45,12 +45,12 @@ public class Account {
 
   /**
    * 消費税額の合計を取得します。
-   * 
+   *
    * <ul>
    * <li>会計アイテムの合計金額に送料を加えた額に、消費税率を乗じて計算します。</li>
    * <li>0 円未満の端数は切り捨てます。</li>
    * </ul>
-   * 
+   *
    * @return 消費税額。
    */
   public BigDecimal getConsumptionTax() {
@@ -60,7 +60,7 @@ public class Account {
 
   /**
    * 税込みの合計金額を取得します。
-   * 
+   *
    * @return 合計金額。
    */
   public BigDecimal getTotalPrice() {

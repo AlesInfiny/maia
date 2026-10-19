@@ -188,14 +188,14 @@ public class AnnouncementApplicationService {
 
   /**
    * 指定したお知らせメッセージ ID に対応するお知らせコンテンツを含むお知らせメッセージと、お知らせコンテンツ履歴を含むお知らせメッセージ履歴を取得します。
-   * 
+   *
    * <p>お知らせコンテンツおよびお知らせコンテンツ履歴は以下の順でソートされます。</p>
    * <ul>
    * <li>お知らせコンテンツは言語コードの優先順位順（ja > en > zh > es）</li>
    * <li>お知らせメッセージ履歴は作成日時（更新日時）の降順</li>
    * <li>お知らせコンテンツ履歴は言語コードの優先順位順（ja > en > zh > es）</li>
    * </ul>
-   * 
+   *
    * @param announcementId お知らせメッセージ ID。
    * @return お知らせメッセージとお知らせメッセージ履歴。
    * @throws AnnouncementNotFoundException 指定したお知らせメッセージ ID に対応するお知らせメッセージが存在しない場合。
@@ -424,7 +424,7 @@ public class AnnouncementApplicationService {
 
   /**
    * お知らせコンテンツを言語コードの優先順位順に並び替えます。
-   * 
+   *
    * <p>MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL 文が複雑になるため private メソッドとして実装しています。</p>
    *
    * @param contents お知らせコンテンツのリスト。
@@ -444,9 +444,9 @@ public class AnnouncementApplicationService {
 
   /**
    * お知らせコンテンツ履歴を言語コードの優先順位順に並び替えます。
-   * 
+   *
    * <p>MyBatis のカスタムマッパーにおいて、OrderBy によるソートを実装すると、SQL 文が複雑になるため private メソッドとして実装しています。</p>
-   * 
+   *
    * @param contentHistories お知らせコンテンツ履歴のリスト。
    * @return 言語コードの優先順位順に並び替えられたお知らせコンテンツ履歴のリスト。
    */

@@ -17,7 +17,7 @@ public class WebApplication {
 
   /**
    * Azure AD B2C を利用した認証機能を提供するアプリケーションを起動します。
-   * 
+   *
    * @param args コマンドライン引数。
    */
   public static void main(String[] args) {

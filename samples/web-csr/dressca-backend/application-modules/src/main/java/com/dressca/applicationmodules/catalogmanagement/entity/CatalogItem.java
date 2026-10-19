@@ -35,7 +35,7 @@ public class CatalogItem {
 
   /**
    * {@link CatalogItem} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param id ID 。
    * @param name 商品名。
    * @param description 商品説明。
@@ -60,7 +60,7 @@ public class CatalogItem {
 
   /**
    * 登録用のカタログアイテムを作成します。
-   * 
+   *
    * @param name 商品名。
    * @param description 商品説明。
    * @param price 単価。

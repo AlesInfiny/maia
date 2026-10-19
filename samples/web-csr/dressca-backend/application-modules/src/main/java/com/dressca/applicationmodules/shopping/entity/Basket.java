@@ -26,7 +26,7 @@ public class Basket {
 
   /**
    * 購入者 ID を指定して、 {@link Basket} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param buyerId 購入者 ID 。
    */
   public Basket(@NonNull UUID buyerId) {
@@ -36,7 +36,7 @@ public class Basket {
 
   /**
    * 買い物かご ID と購入者 ID を指定して、 {@link Basket} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param id 買い物かご ID 。
    * @param buyerId 購入者 ID 。
    */
@@ -79,7 +79,7 @@ public class Basket {
 
   /**
    * 会計情報を取得します。
-   * 
+   *
    * @return 会計情報。
    */
   public Account getAccount() {

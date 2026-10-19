@@ -49,13 +49,12 @@ public class BatchConfiguration {
   @Bean
   public Job catalogItemTaskletJob(JobRepository jobRepository,
       @Qualifier("catalogItemTaskletStep1") Step step1) {
-    return new JobBuilder(jobRepository)
-        .incrementer(new RunIdIncrementer()).start(step1).build();
+    return new JobBuilder(jobRepository).incrementer(new RunIdIncrementer()).start(step1).build();
   }
 
   /**
    * カタログアイテムのジョブ（catalogItemJob） 用の step を設定します。
-   * 
+   *
    * @param jobRepository ジョブのリポジトリ。
    * @param transactionManager トランザクションマネージャー。
    * @param catalogItemReader ステップで実行する Reader 。
@@ -99,11 +98,11 @@ public class BatchConfiguration {
    */
   @Primary
   @Bean
-  public Job catalogItemJob(JobCompletionNotificationListener listener,
-      JobRepository jobRepository, @Qualifier("catalogItemStep1") Step step1) {
+  public Job catalogItemJob(JobCompletionNotificationListener listener, JobRepository jobRepository,
+      @Qualifier("catalogItemStep1") Step step1) {
     // ジョブパラメータに run.id を自動的に付与、未指定時自動で run.id がインクリメントされる
     // ジョブパラメータの衝突を自動回避する設定
-    return new JobBuilder(jobRepository).incrementer(new RunIdIncrementer())
-        .listener(listener).flow(step1).end().build();
+    return new JobBuilder(jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
+        .flow(step1).end().build();
   }
 }

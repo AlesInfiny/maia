@@ -11,7 +11,7 @@ public class BasketNotFoundException extends LogicException {
 
   /**
    * 存在しない買い物かご ID を指定して、 {@link BasketNotFoundException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param basketId 見つからなかった買い物かご ID 。
    */
   public BasketNotFoundException(UUID basketId) {

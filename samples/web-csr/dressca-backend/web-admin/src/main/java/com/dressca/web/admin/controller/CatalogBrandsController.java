@@ -34,7 +34,7 @@ public class CatalogBrandsController {
 
   /**
    * カタログブランドの一覧を取得します。
-   * 
+   *
    * @return カタログブランドの一覧
    */
   @Operation(summary = "カタログブランドの一覧を取得します。", description = "カタログブランドの一覧を取得します。")

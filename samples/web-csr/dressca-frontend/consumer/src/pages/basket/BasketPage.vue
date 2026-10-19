@@ -73,6 +73,7 @@ const order = async () => {
       showFailureToast(outcome.problem, t('failedToGetCarts'))
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }

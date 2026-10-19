@@ -19,6 +19,11 @@ describe('戻り先のパスの検証', () => {
     'https://example.com',
     '//example.com',
     '/\\example.com',
+    // ブラウザーの URL パーサーはタブ・改行・復帰を取り除くため、 // と同じく外部のホストを指す
+    '/\t/example.com',
+    '/\n/example.com',
+    '/\r/example.com',
+    '/\t\\example.com',
     'catalog/items',
     '',
     undefined,

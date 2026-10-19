@@ -40,6 +40,7 @@ const addItemAsync = async () => {
       showToast('カタログアイテムの追加に失敗しました。')
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }

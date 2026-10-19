@@ -12,7 +12,7 @@ public class CatalogNotFoundException extends LogicException {
 
   /**
    * 見つからなかったカタログ ID を指定して {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param catalogId 見つからなかったカタログ ID 。
    */
   public CatalogNotFoundException(UUID catalogId) {
@@ -22,7 +22,7 @@ public class CatalogNotFoundException extends LogicException {
 
   /**
    * 見つからなかった複数のカタログ ID を指定して {@link CatalogNotFoundException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param catalogIds 見つからなかった複数のカタログ ID 。
    */
   public CatalogNotFoundException(UUID... catalogIds) {
@@ -32,7 +32,7 @@ public class CatalogNotFoundException extends LogicException {
 
   /**
    * 複数のカタログ ID をカンマ区切りの文字列に変換します。
-   * 
+   *
    * @param catalogIds カタログ ID の配列。
    * @return カタログ ID をカンマ区切りの文字列に変換した結果。
    */

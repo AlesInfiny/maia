@@ -39,7 +39,7 @@ jobs:
           echo "is_pre_release=$pre_release" >> $GITHUB_OUTPUT
 
       - name: ブランチのチェックアウト
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
 
@@ -80,12 +80,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131  # v7.0.0
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
         with:
           name: documents
 
       - name: GitHubのリリース
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3.0.0
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64  # v3.0.3
         with:
           files: ${{ env.DOCUMENT_ARTIFACTS_FILENAME }}
           generate_release_notes: true
@@ -99,12 +99,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ビルドアーティファクトのダウンロード
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131  # v7.0.0
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
         with:
           name: documents
 
       - name: Azure に OIDC Login
-        uses: azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43  # v3.0.0
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906  # v3.1.0
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -122,7 +122,7 @@ jobs:
             --track-status true
 
       - name: Teams への通知
-        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
+        uses: fjogeleit/http-request-action@f98bb26551cd1af7d3eb2674578a80754ece88db  # v2.0.1
         with:
           url: ${{ secrets.ALESINFINY_POST_MESSAGE_TO_TEAMS_URL  }}
           method: POST
@@ -137,7 +137,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 本番環境への反映承認
-        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495  # v2.0.0
+        uses: fjogeleit/http-request-action@f98bb26551cd1af7d3eb2674578a80754ece88db  # v2.0.1
         with:
           url: ${{ secrets.ALESINFINY_APPROVE_REQUEST_TO_TEAMS_URL  }}
           method: POST

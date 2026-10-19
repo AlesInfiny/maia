@@ -1,6 +1,9 @@
 import { computed, onMounted, ref, shallowRef } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useCommonErrorOutcome } from '@/system-common/error-handler/common-error-outcome'
+import {
+  useCommonErrorOutcome,
+  type CommonErrorOutcome,
+} from '@/system-common/error-handler/common-error-outcome'
 import {
   fetchCatalogItemOptions,
   postCatalogItem,
@@ -12,7 +15,7 @@ import { useCatalogItemForm, type CatalogItemForm } from './use-catalog-item-for
 export type CatalogItemCreatorStatus = 'loading' | 'ready' | 'failed'
 
 /** `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。 */
-export type CreateOutcome = { kind: 'created' } | { kind: 'failed' } | { kind: 'canceled' }
+export type CreateOutcome = { kind: 'created' } | CommonErrorOutcome
 
 export interface CatalogItemCreator {
   status: ComputedRef<CatalogItemCreatorStatus>

@@ -86,6 +86,7 @@ const removeItemAsync = async () => {
         showToast('カタログアイテムの削除に失敗しました。')
         break
       case 'canceled':
+      case 'unauthorized':
         break
     }
   } finally {
@@ -111,6 +112,7 @@ const updateItemAsync = async () => {
         showToast('カタログアイテムの更新に失敗しました。')
         break
       case 'canceled':
+      case 'unauthorized':
         break
     }
   } finally {

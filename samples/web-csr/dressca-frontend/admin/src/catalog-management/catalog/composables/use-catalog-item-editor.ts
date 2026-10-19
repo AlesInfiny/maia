@@ -33,16 +33,14 @@ export type UpdateOutcome =
   | { kind: 'updated' }
   | { kind: 'conflict' }
   | { kind: 'notFound' }
-  | { kind: 'failed' }
-  | { kind: 'canceled' }
+  | CommonErrorOutcome
 
 /** `canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。 */
 export type RemoveOutcome =
   | { kind: 'removed' }
   | { kind: 'conflict' }
   | { kind: 'notFound' }
-  | { kind: 'failed' }
-  | { kind: 'canceled' }
+  | CommonErrorOutcome
 
 export interface CatalogItemEditor {
   status: ComputedRef<CatalogItemEditorStatus>
@@ -57,7 +55,7 @@ export interface CatalogItemEditor {
   remove: () => Promise<RemoveOutcome>
 }
 
-type FetchItemResult = 'fetched' | 'notFound' | 'failed' | 'canceled'
+type FetchItemResult = 'fetched' | 'notFound' | CommonErrorOutcome['kind']
 type WriteFailureOutcome = { kind: 'conflict' } | { kind: 'notFound' } | CommonErrorOutcome
 
 /**
@@ -174,7 +172,7 @@ export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogI
     if (result === 'fetched') {
       resetForm(getLoadedItem())
       status.value = 'ready'
-    } else if (result !== 'canceled') {
+    } else if (result === 'notFound' || result === 'failed') {
       status.value = result
     }
   }

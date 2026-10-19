@@ -11,7 +11,7 @@ public class HomeController {
 
   /**
    * トップ画面を表示します。
-   * 
+   *
    * @return トップ画面のビュー名。
    */
   @GetMapping({"/", "/top"})

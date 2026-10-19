@@ -18,7 +18,7 @@ public interface DisplayItemBrandRepository {
 
   /**
    * 指定した ID の陳列品ブランドを取得します。
-   * 
+   *
    * @param id 陳列品ブランドの ID 。
    * @return 条件に一致する陳列品ブランド。
    */

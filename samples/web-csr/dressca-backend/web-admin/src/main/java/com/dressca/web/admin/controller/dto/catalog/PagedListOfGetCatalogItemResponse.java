@@ -18,7 +18,7 @@ public class PagedListOfGetCatalogItemResponse {
 
   /**
    * {@link PagedListOfGetCatalogItemResponse} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param items カタログアイテムのリスト。
    * @param totalCount カタログアイテムの合計数。
    * @param page 現在のページ番号。

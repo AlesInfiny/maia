@@ -48,13 +48,8 @@ public class BuyerIdFilterTest {
 
     // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertThat(setCookieHeader)
-        .isNotNull()
-        .startsWith("Dressca-Bid=")
-        .contains("Path=/")
-        .contains("HttpOnly")
-        .doesNotContain("Secure")
-        .contains("Max-Age=86400")
+    assertThat(setCookieHeader).isNotNull().startsWith("Dressca-Bid=").contains("Path=/")
+        .contains("HttpOnly").doesNotContain("Secure").contains("Max-Age=86400")
         .contains("SameSite=Strict");
   }
 
@@ -78,13 +73,8 @@ public class BuyerIdFilterTest {
 
     // Assert
     // Set-Cookie ヘッダーの値が期待通りであることを確認
-    assertThat(setCookieHeader)
-        .isNotNull()
-        .startsWith("Dressca-Bid=")
-        .contains("Path=/")
-        .contains("HttpOnly")
-        .contains("Secure")
-        .contains("Max-Age=604800")
+    assertThat(setCookieHeader).isNotNull().startsWith("Dressca-Bid=").contains("Path=/")
+        .contains("HttpOnly").contains("Secure").contains("Max-Age=604800")
         .contains("SameSite=None");
   }
 

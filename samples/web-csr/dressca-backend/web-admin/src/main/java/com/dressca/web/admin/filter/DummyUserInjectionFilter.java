@@ -16,7 +16,7 @@ import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 
 /**
  * ダミーユーザーを {@link SecurityContextHolder} に詰めるためのフィルタークラスです。
- * 
+ *
  * <p>開発環境（local プロファイル）においてユーザー名が admin@example.com
  * 、権限が管理者（{@link UserRoleConstants#ADMIN}）のユーザーでアクセスしたことにして認証プロセスをスキップするために使用します。
  * {@link com.dressca.web.admin.security.WebSecurityConfig} にて、セキュリティフィルターチェーンの

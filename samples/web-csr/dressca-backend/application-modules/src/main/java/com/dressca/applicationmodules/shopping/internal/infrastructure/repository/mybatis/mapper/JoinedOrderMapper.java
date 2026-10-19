@@ -14,14 +14,14 @@ import org.apache.ibatis.annotations.Param;
 public interface JoinedOrderMapper {
   /**
    * 注文を登録します。
-   * 
+   *
    * @param order 注文。
    */
   void add(@Param("order") Order order);
 
   /**
    * 注文明細を登録します。
-   * 
+   *
    * @param orderId 注文 ID 。
    * @param orderItems 注文明細一覧。
    */
@@ -29,7 +29,7 @@ public interface JoinedOrderMapper {
 
   /**
    * ID を条件に注文を取得します。
-   * 
+   *
    * @param id 注文 ID 。
    * @return 注文。
    */

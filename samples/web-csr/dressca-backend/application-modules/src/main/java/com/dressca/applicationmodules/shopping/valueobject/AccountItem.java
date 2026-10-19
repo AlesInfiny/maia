@@ -15,7 +15,7 @@ public class AccountItem {
 
   /**
    * 会計アイテムの小計金額を取得します。この計算結果には、消費税や送料は含まれません。
-   * 
+   *
    * @return 会計アイテムの小計金額。
    */
   public BigDecimal getSubTotal() {

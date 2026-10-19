@@ -66,10 +66,10 @@ beforeEach(() => {
 })
 
 /**
- * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
+ * コンポーネントの中でユースケースコンポーザブルを呼び出します。読み込みの完了は待ちません。
  * @returns 注文の確認と確定のユースケース。
  */
-async function setupCheckout(): Promise<Checkout> {
+function mountCheckout(): Checkout {
   let checkout: Checkout | undefined
   mount(
     defineComponent({
@@ -80,10 +80,19 @@ async function setupCheckout(): Promise<Checkout> {
     }),
     { global: { plugins: [pinia] } },
   )
-  await flushPromises()
   if (!checkout) {
     throw new Error('ユースケースコンポーザブルを生成できませんでした。')
   }
+  return checkout
+}
+
+/**
+ * コンポーネントの中でユースケースコンポーザブルを呼び出し、読み込みの完了を待ちます。
+ * @returns 注文の確認と確定のユースケース。
+ */
+async function setupCheckout(): Promise<Checkout> {
+  const checkout = mountCheckout()
+  await flushPromises()
   return checkout
 }
 
@@ -130,8 +139,35 @@ describe('注文の確定', () => {
     // Act
     const outcome = await checkout.placeOrder()
     // Assert
+    expect(checkout.canPlaceOrder.value).toBe(true)
     expect(outcome).toEqual({ kind: 'ordered', orderId: 'order-id' })
     expect(postOrderMock).toHaveBeenCalledWith(deliveryAddress)
+  })
+
+  it('買い物かごの読み込みが完了していない_注文を確定できず送信しない', async () => {
+    // Arrange
+    getBasketItemsMock.mockReturnValue(new Promise(() => {}))
+    const checkout = mountCheckout()
+    // Act
+    const placing = checkout.placeOrder()
+    // Assert
+    expect(checkout.canPlaceOrder.value).toBe(false)
+    await expect(placing).rejects.toThrow()
+    expect(postOrderMock).not.toHaveBeenCalled()
+  })
+
+  it('購入できない陳列品がある_注文を確定できず送信しない', async () => {
+    // Arrange
+    getBasketItemsMock.mockResolvedValue({
+      data: { ...createBasketResponse(1), deletedItemIds: ['deleted-item'] },
+    })
+    const checkout = await setupCheckout()
+    // Act
+    const placing = checkout.placeOrder()
+    // Assert
+    expect(checkout.canPlaceOrder.value).toBe(false)
+    await expect(placing).rejects.toThrow()
+    expect(postOrderMock).not.toHaveBeenCalled()
   })
 
   it('サーバーエラー_failedを返す', async () => {
