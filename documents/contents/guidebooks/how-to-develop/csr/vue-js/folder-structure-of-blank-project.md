@@ -41,4 +41,36 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ vitest.config.ts -------- 単体テストの設定ファイル
 ```
 
-各フォルダーの内部にどのようなサブフォルダーを作成するかは、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+## アプリケーションのフォルダー構造 {#application-folder-structure}
+
+上記のうち `src` フォルダーの下は、ブランクプロジェクトを作成するツールが出力したままの状態です。
+`components` 、 `router` 、 `stores` 、 `views` という種類別のフォルダーが `src` の直下に並んでいます。
+
+AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分割します。
+ツールの出力とは構成が異なるので、ブランクプロジェクトの作成後に `core` フォルダーと `system-common` フォルダーを作ります。
+画面の `pages` 、業務共通の `business-common` 、コンテキストとドメインの各フォルダーは該当するコードを置くときに作ります。
+ツールが出力した `router` や `views` などのフォルダーのコードは、これらのフォルダーを作るときに移動します。
+たとえばルーティングの設定は `core/router` へ、画面は `pages` へ移動します。
+
+ツールが出力した `assets` フォルダーは使いません。
+グローバルスタイル（アプリケーション全体に適用する CSS ）の `base.css` は `core/styles` へ移動し、使わない画像などのファイルは削除します。
+create-vue の標準構成と異なる理由と、画像などのアセットの置き場所は、 [アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#styles-and-assets) を参照してください。
+
+```text linenums="0"
+<workspace-name>
+└ src/
+  ├ core/ ------------------- ルーターの生成やグローバルスタイルなど、アプリケーションの組み立てに関するコードを配置するフォルダー
+  │ └ styles/ --------------- グローバルスタイルを配置するフォルダー
+  ├ pages/ ------------------ 画面を配置するフォルダー（該当するコードを置くときに作成）
+  ├ system-common/ ---------- 業務知識を持たない、システム共通のコードを配置するフォルダー
+  ├ business-common/ -------- 業務知識を持ち、持ち主となるドメインがないコードを配置するフォルダー（該当するコードを置くときに作成）
+  ├ <context>/ -------------- コンテキストのフォルダー（該当するコードを置くときに作成）
+  │ ├ <domain>/ ------------- ドメインのフォルダー。この下に composables や services などのフォルダーを配置します。
+  │ └ public-api.ts --------- コンテキストの外から参照する入口
+  ├ App.vue
+  └ main.ts
+```
+
+コンテキストとドメインの決め方、どのフォルダーに何を配置するかの判断基準は、[アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+
+なお本ガイドの以降の手順では、上記の構造を前提としたパスでファイルの配置場所を示します。

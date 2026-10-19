@@ -27,7 +27,9 @@ npm install -D tailwindcss @tailwindcss/vite
 
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) を実行すると、デフォルトでは　`./src/assets/base.css` と `./src/assets/main.css` の 2 つの CSS ファイルが作成されます。
 サンプルアプリケーションでは base.css に統一します。
-main.css を削除し、 base.css を次のように書き換えます。
+main.css を削除し、 base.css を `./src/core/styles/base.css` へ移動します。
+base.css はアプリケーション全体に適用するグローバルスタイルなので、 core 層に置きます（詳細は [グローバルスタイルとアセットの置き場所](../../../../app-architecture/client-side-rendering/frontend-application/index.md#styles-and-assets) を参照してください）。
+移動した base.css を次のように書き換えます。
 
 ```css title="base.css"
 /* Tailwind CSS は 外部からのインポートではなく Vite のプラグインでバンドルするので、 Stylelintで URL 形式に自動修正されないように無効化します */
@@ -38,7 +40,7 @@ main.css を削除し、 base.css を次のように書き換えます。
 あわせて、 `./src/main.ts` の `import` を以下のように書き換えます。
 
 ```typescript title="main.ts"
-import '@/assets/base.css'
+import '@/core/styles/base.css'
 ```
 
 Tailwind CSS のプラグインを使用するために、 Vite の設定ファイルを更新します。
@@ -159,7 +161,7 @@ import prettierConfigBase from '../.prettierrc.js'
 const config = {
   ...prettierConfigBase,
   plugins: ['prettier-plugin-tailwindcss'],
-  tailwindStylesheet: './src/assets/base.css',
+  tailwindStylesheet: './src/core/styles/base.css',
 }
 
 export default config
