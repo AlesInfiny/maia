@@ -338,6 +338,8 @@ globalIgnores([
 ??? example "サンプルアプリケーションでの設定例"
 
     ```typescript title="サンプルアプリケーションの eslint.project-rules.ts（参照方向のルールの抜粋）"
+    import type { Linter } from 'eslint'
+
     --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
     ```
 
