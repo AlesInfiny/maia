@@ -1,10 +1,4 @@
 /**
- * 戻り先のパスを解釈するときの基準のオリジンです。
- * パスがこのオリジンを離れるかどうかだけを見るため、実在しないホスト名を使います。
- */
-const appOrigin = 'http://app.invalid'
-
-/**
  * ログイン後などに戻る画面のパスを扱うヘルパーです。
  * 外部のサイトへ誘導されること（オープンリダイレクト）を防ぐため、
  * アプリケーション内のパスだけを戻り先として受け入れます。
@@ -25,6 +19,7 @@ export function redirectHelper() {
     if (!value.startsWith('/')) {
       return undefined
     }
+    const appOrigin = window.location.origin
     if (new URL(value, appOrigin).origin !== appOrigin) {
       return undefined
     }
