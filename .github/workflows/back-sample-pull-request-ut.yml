@@ -70,3 +70,4 @@ jobs:
           check_name: |
             単体テスト
             結合テスト
+          include_passed: true
