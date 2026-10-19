@@ -52,7 +52,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   │ └ styles/ --------------- グローバルスタイルを配置するフォルダー
   ├ pages/ ------------------ 画面を配置するフォルダー
   ├ system-common/ ---------- 業務知識を持たない、システム共通のコードを配置するフォルダー
-  ├ business-common/ -------- 業務知識を持ち、持ち主となるドメインがないコードを配置するフォルダー（該当するコードを置くときに作成）
+  ├ business-common/ -------- 業務知識を持ち、持ち主となるドメインがないコードを配置するフォルダー
   ├ <context>/ -------------- コンテキストのフォルダー（該当するコードを置くときに作成）
   │ ├ <domain>/ ------------- ドメインのフォルダー。この下に composables や services などのフォルダーを配置します。
   │ └ public-api.ts --------- コンテキストの外から参照する入口
@@ -60,8 +60,10 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ main.ts
 ```
 
-ツールが出力したコンポーネントとストアは、 `sample` コンテキストの `vue` ドメインとして扱います。
+ツールが出力したコンポーネントとストアを、仮に sample コンテキストの vue ドメインとして扱います。
 移動後の構造は以下のとおりです。
+system-common フォルダーと business-common フォルダーの中身は空で構いません。
+.gitkeep ファイルを置いて、 Git 管理対象となるようにしてください。
 
 ```text linenums="0"
 <workspace-name>
@@ -78,8 +80,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   │ ├ about/
   │ │ └ AboutPage.vue ------- AboutView.vue をリネーム
   │ └ HomePage.vue ---------- HomeView.vue をリネーム
-  ├ sample/ ----------------- コンテキスト
-  │ ├ vue/ ------------------ ドメイン
+  ├ sample/ ----------------- 新規作成：コンテキスト
+  │ ├ vue/ ------------------ 新規作成：ドメイン
   │ │ ├ components/
   │ │ │ ├ __tests__/
   │ │ │ │ └ HelloWorld.spec.ts
@@ -94,7 +96,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   │ │ │ └ WelcomeItem.vue
   │ │ └ stores/
   │ │   └ counter.ts
-  │ └ public-api.ts --------- 新規作成
+  │ └ public-api.ts --------- 新規作成：公開 API
   ├ App.vue
   └ main.ts
 ```
@@ -114,9 +116,6 @@ import HomePage from '@/pages/HomePage.vue'
 // (中略)
       component: () => import('@/pages/about/AboutPage.vue'),
 ```
-
-同じコンテキストの中の参照は、相対パスのままで構いません。
-たとえば、 `TheWelcome.vue` から `WelcomeItem.vue` や `icons` フォルダーのコンポーネントへの参照は、変更する必要がありません。
 
 ## 公開 API の作成 {#create-public-api}
 
@@ -159,7 +158,3 @@ import { RouterLink, RouterView } from 'vue-router'
 import { HelloWorld } from '@/sample/public-api'
 </script>
 ```
-
-`pages` からは、コンテキストの内部のファイルを直接 import できません。
-たとえば `@/sample/vue/components/TheWelcome.vue` を import すると、 ESLint のルールでエラーになります。
-ルールの設定は、 [静的コード分析とフォーマット - フォルダー間の参照方向の強制](./static-verification-and-format.md#layer-dependency-rules) を参照してください。
