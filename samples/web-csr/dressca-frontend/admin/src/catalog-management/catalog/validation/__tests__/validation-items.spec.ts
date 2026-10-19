@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { catalogItemZodSchema } from '@/catalog-management/catalog/validation/validation-items'
+import { catalogItemZodSchema } from '../validation-items'
 import { customErrorMap } from '@/system-common/validation/zod-settings'
 import { z } from 'zod'
 
