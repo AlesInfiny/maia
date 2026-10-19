@@ -27,12 +27,13 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 業務例外は、発生した箇所と扱う箇所で、次のように役割を分けます。
 
 - サービスは、業務例外をカスタムエラーとして送出します。
-- ユースケースコンポーザブルは、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ Outcome ）で返します。
+- ユースケースコンポーザブル（画面から呼び出す業務の操作を提供するコンポーザブル）は、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ Outcome ）で返します。
 - 画面は結果を受け取り、通知の文言と遷移先を決めます。画面ではカスタムエラーを判定しません。
 
 例外を送出する側は、例外の構造を型で表現でき、例外が発生しうる処理を呼び出すたびに戻り値を検査する必要がありません。
 一方、画面は結果の種類（ `kind` ）で分岐するので、どの結果を扱うべきかを型検査で確認できます。
-ユースケースコンポーザブル、結果、画面の関係は、 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+ロジック、結果、画面の間の処理の流れは、 [例外処理方針 - API 通信で発生する例外処理フロー](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#api-connection-error-flow) を参照してください。
+ユースケースコンポーザブルを配置するフォルダーは、 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
 
 ## カスタムエラーを定義する {#define-custom-error}
 
@@ -160,31 +161,34 @@ axiosInstance.interceptors.response.use(
 
 画面ごとに扱いを変える業務例外だけを、個別の結果にします。
 それ以外のエラーは、共通の失敗の結果（ `CommonErrorOutcome` ）にまとめます。
-共通の失敗の結果は、 `failed` と `canceled` の 2 種類です。
-`canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表し、画面は何もしません。
+共通の失敗の結果は、 `failed` 、 `canceled` 、 `unauthorized` の 3 種類です。
+`failed` は、業務例外（ HTTP ステータスコード 400 番台）とシステム例外（ 500 番台）を表します。
+`canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
+`unauthorized` は、認証が切れていたため、カスタムエラーハンドラーがログイン画面へ誘導したことを表します。
+`canceled` と `unauthorized` のとき、画面は通知と遷移をしません。
 
 `useCommonErrorOutcome` が提供する関数は、受け取ったエラーをカスタムエラーハンドラー（ `useCustomErrorHandler` ）に渡し、共通の失敗の結果に変換します。
 カスタムエラーハンドラーは、ログの出力や、認証エラーとサーバーエラーの通知など、エラーの種類ごとの共通の処理を行います。
 カスタムエラーでないエラーは、そのまま上位へ送出され、グローバルエラーハンドラーで処理されます。
 以下は consumer の実装です。
 API が問題の詳細を返した場合は、 `failed` の `problem` に格納し、画面の通知に使用します。
-admin の `CommonErrorOutcome` は `problem` を持たず、 `{ kind: 'failed' } | { kind: 'canceled' }` です。
+admin の `CommonErrorOutcome` は、 `failed` に `problem` を持たない点だけが異なります。
 
 ```typescript title="サンプルアプリケーションの common-error-outcome.ts"
 --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/common-error-outcome.ts"
 ```
 
-### ユースケースコンポーザブルの実装例 {#usecase-composable-example}
+### ユースケースコンポーザブルの実装例 {#use-case-composable-example}
 
 下記は、 admin のカタログアイテムを更新する操作で `NotFoundError` と `ConflictError` を個別の結果にし、それ以外のエラーを共通の失敗の結果にする例です。
+サンプルアプリケーションでは、 `ConflictError` の場合にアイテムを再取得し、削除されていれば `notFound` を返しますが、この例では省略しています。
 
 ```typescript title="ユースケースコンポーザブルの実装例（抜粋）"
 export type UpdateOutcome =
   | { kind: 'updated' }
   | { kind: 'conflict' }
   | { kind: 'notFound' }
-  | { kind: 'failed' }
-  | { kind: 'canceled' }
+  | CommonErrorOutcome
 
 export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogItemEditor {
   const handleCommonError = useCommonErrorOutcome()
@@ -230,6 +234,7 @@ const updateItemAsync = async () => {
       showToast('カタログアイテムの更新に失敗しました。')
       break
     case 'canceled':
+    case 'unauthorized':
       break
   }
 }

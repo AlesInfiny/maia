@@ -327,15 +327,15 @@ globalIgnores([
 - `pages` から、コンテキストの `public-api.ts` 以外への参照
 - `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
 - `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
-- core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します）
+- core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します。ただし `services` フォルダーでは型の参照も禁止します）
 - core 層以外での動的インポート（ `import()` ）。動的インポートは `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します
 - `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
 
 サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
 `files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
 
-```typescript title="サンプルアプリケーションの eslint.project-rules.ts"
---8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts"
+```typescript title="サンプルアプリケーションの eslint.project-rules.ts（参照方向のルールの抜粋）"
+--8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
 ```
 
 生成したルールは、 eslint.config.ts で読み込んで適用します。
