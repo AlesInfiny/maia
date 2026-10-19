@@ -54,7 +54,6 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
 
 ツールが出力した `assets` フォルダーは使いません。
 グローバルスタイル（アプリケーション全体に適用する CSS ）の `base.css` は `core/styles` へ移動し、使わない画像などのファイルは削除します。
-create-vue の標準構成と異なる理由と、画像などのアセットの置き場所は、 [アーキテクチャ解説](../../../../app-architecture/client-side-rendering/frontend-application/index.md#styles-and-assets) を参照してください。
 
 ```text linenums="0"
 <workspace-name>

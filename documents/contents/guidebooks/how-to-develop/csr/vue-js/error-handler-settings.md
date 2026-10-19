@@ -36,7 +36,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-    システム共通のコードは、画面を遷移させられません（ [アーキテクチャ解説 - 参照方向](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) ）。
+    システム共通のコードは、画面を遷移させられません（ [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) ）。
     そのため、グローバルエラーハンドラーは、エラー画面へ遷移する関数を引数で受け取るプラグインのファクトリー（ `createGlobalErrorHandler` ）として実装します。
 
     ```typescript title="global-error-handler.ts"

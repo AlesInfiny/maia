@@ -316,7 +316,7 @@ globalIgnores([
 
 #### フォルダー間の参照方向の強制 {#layer-dependency-rules}
 
-[アーキテクチャ解説 - 参照方向](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
+[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
 参照方向の逆流はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
 
 禁止する参照は以下のとおりです。
