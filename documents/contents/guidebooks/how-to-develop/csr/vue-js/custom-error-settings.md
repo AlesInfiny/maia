@@ -27,17 +27,16 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 業務例外は、発生した箇所と扱う箇所で、次のように役割を分けます。
 
 - サービスは、業務例外をカスタムエラーとして送出します。
-- ユースケースコンポーザブル（画面から呼び出す業務の操作を提供するコンポーザブル）は、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ Outcome ）で返します。
-- 画面は結果を受け取り、通知の文言と遷移先を決めます。画面ではカスタムエラーを判定しません。
+- ロジック（画面から呼び出す業務の操作を提供するコンポーザブルやサービス）は、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ `Outcome` ）を返します。
+- 画面は結果を受け取り、ユーザーへの通知や画面遷移のような要件に応じたハンドリングをします。画面ではカスタムエラーを判定しません。
 
 例外を送出する側は、例外の構造を型で表現でき、例外が発生しうる処理を呼び出すたびに戻り値を検査する必要がありません。
 一方、画面は結果の種類（ `kind` ）で分岐するので、どの結果を扱うべきかを型検査で確認できます。
 ロジック、結果、画面の間の処理の流れは、 [例外処理方針 - API 通信で発生する例外処理フロー](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#api-connection-error-flow) を参照してください。
-ユースケースコンポーザブルを配置するフォルダーは、 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
 
 ## ファイルの配置 {#file-placement}
 
-カスタムエラーとそのハンドリングに関するコードは、業務知識を持たないので、 `system-common` フォルダーの下に配置します。
+カスタムエラーとそのハンドリングに関するコードは、システムを機能横断的に利用するので、 `system-common` フォルダーの下に配置します。
 本ページで作成・編集するファイルは以下のとおりです。
 
 ```text title="フォルダー構造" linenums="0"
@@ -175,114 +174,17 @@ axiosInstance.interceptors.response.use(
 )
 ```
 
-## 業務例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
+## 例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
 
-業務例外が発生する可能性のある処理は、ユースケースコンポーザブルから呼び出し、 `try-catch` で囲みます。
-例外を `catch` したら、 `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた結果を返します。
+例外が発生する可能性のある処理は、呼び出し時に `try-catch` で囲みます。
 
-### 共通の失敗の結果 {#common-error-outcome}
-
-画面ごとに扱いを変える業務例外だけを、個別の結果にします。
-それ以外のエラーは、共通の失敗の結果（ `CommonErrorOutcome` ）にまとめます。
-共通の失敗の結果は、 `failed` 、 `canceled` 、 `unauthorized` の 3 種類です。
-`failed` は、業務例外（ HTTP ステータスコード 400 番台）とシステム例外（ 500 番台）を表します。
-`canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表します。
-`unauthorized` は、認証が切れていたため、カスタムエラーハンドラーがログイン画面へ誘導したことを表します。
-`canceled` と `unauthorized` のとき、画面は通知と遷移をしません。
-
-`useCommonErrorOutcome` が提供する関数は、受け取ったエラーをカスタムエラーハンドラー（ `useCustomErrorHandler` ）に渡し、共通の失敗の結果に変換します。
-カスタムエラーハンドラーは、ログの出力や、認証エラーとサーバーエラーの通知など、エラーの種類ごとの共通の処理を行います。
-カスタムエラーでないエラーは、そのまま上位へ送出され、グローバルエラーハンドラーで処理されます。
-以下は consumer の実装です。
-API が問題の詳細を返した場合は、 `failed` の `problem` に格納し、画面の通知に使用します。
-admin の `CommonErrorOutcome` は、 `failed` に `problem` を持たない点だけが異なります。
-
-```typescript title="サンプルアプリケーションの common-error-outcome.ts"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/common-error-outcome.ts"
-```
-
-カスタムエラーハンドラーは、以下のモジュールを使用します。
-
-- 認証エラーとサーバーエラーを通知するイベント（ `@/system-common/events` の `unauthorizedErrorEventKey` と `unhandledErrorEventKey` ）
-- 通知するメッセージ（ [メッセージ管理機能の設定](./message-management.md) で作成した `@/system-common/locales/i18n` ）
-- ロガー（ [エラーハンドラーの設定](./error-handler-settings.md#global-error-handler-setting) で作成した `@/system-common/logger` ）
-- 同期と非同期のどちらの関数も扱える型（ `@/system-common/types` ）
-
-イベントの定義方法は、 [イベントハンドリングの設定](./event-handling-settings.md#define-events) で説明します。
-カスタムエラーハンドラーを実装する前に、 `unauthorizedErrorEventKey` と `unhandledErrorEventKey` のイベントを定義してください。
-
-??? example "カスタムエラーハンドラーの実装例"
-
-    ```typescript title="サンプルアプリケーションの custom-error-handler.ts"
-    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/custom-error-handler.ts"
-    ```
-
-    ```typescript title="サンプルアプリケーションの types/index.ts"
-    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/types/index.ts"
-    ```
-
-    ```typescript title="サンプルアプリケーションの events/index.ts"
-    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/events/index.ts"
-    ```
-
-### ユースケースコンポーザブルの実装例 {#use-case-composable-example}
-
-下記は、 admin のカタログアイテムを更新する操作で `NotFoundError` と `ConflictError` を個別の結果にし、それ以外のエラーを共通の失敗の結果にする例です。
-サンプルアプリケーションでは、 `ConflictError` の場合にアイテムを再取得し、削除されていれば `notFound` を返しますが、この例では省略しています。
-
-```typescript title="ユースケースコンポーザブルの実装例（抜粋）"
-export type UpdateOutcome =
-  | { kind: 'updated' }
-  | { kind: 'conflict' }
-  | { kind: 'notFound' }
-  | CommonErrorOutcome
-
-export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogItemEditor {
-  const handleCommonError = useCommonErrorOutcome()
-  // (中略)
-  async function update(): Promise<UpdateOutcome> {
-    try {
-      await updateCatalogItem(/* (中略) */)
-    } catch (error) {
-      if (error instanceof NotFoundError) {
-        return { kind: 'notFound' }
-      }
-      if (error instanceof ConflictError) {
-        return { kind: 'conflict' }
-      }
-      return handleCommonError(error)
-    }
-    return { kind: 'updated' }
-  }
-  // (中略)
-}
-```
-
-### 画面の実装例 {#page-example}
-
-画面は、ユースケースコンポーザブルの操作の結果を `kind` で分岐し、通知の文言と遷移先を決めます。
-下記は、更新の対象が見つからなかった場合に、ユーザーへトースト通知し、一覧画面へ遷移する例です。
-
-```typescript title="画面の実装例（抜粋）"
-const updateItemAsync = async () => {
-  const outcome = await update()
-  switch (outcome.kind) {
-    case 'updated':
-      showUpdateNotice.value = true
-      break
-    case 'notFound':
-      showToast('更新対象のカタログアイテムが見つかりませんでした。')
-      router.push({ name: routeNames.catalogItems })
-      break
-    case 'conflict':
-      showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
-      break
-    case 'failed':
-      showToast('カタログアイテムの更新に失敗しました。')
-      break
-    case 'canceled':
-    case 'unauthorized':
-      break
+```typescript title="サンプルアプリケーションの実装例"
+async function addToBasket(displayItemId: string): Promise<AddToBasketOutcome> {
+  try {
+    await addItemToBasket(displayItemId)
+    return { kind: 'added' }
+  } catch (error) {
+    return handleCommonError(error)
   }
 }
 ```
