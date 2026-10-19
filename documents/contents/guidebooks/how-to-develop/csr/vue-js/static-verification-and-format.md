@@ -317,7 +317,7 @@ globalIgnores([
 #### フォルダー間の参照方向の強制 {#layer-dependency-rules}
 
 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
-参照方向の逆流はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
+逆向きの参照はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
 
 ??? info "サンプルアプリケーションで禁止する参照の一覧"
 
@@ -328,11 +328,11 @@ globalIgnores([
     - `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
     - `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
     - core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します。ただし `services` フォルダーでは型の参照も禁止します）
-    - core 層以外での動的インポート（ `import()` ）。動的インポートは `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します
+    - core 層以外での動的インポート（ `import()` 。 `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します）
     - `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
 
 サンプルアプリケーションでは、これらのルールを生成する関数（ `createLayerDependencyRules` ）を `eslint.project-rules.ts` に定義しています。
-生成したルールは、 consumer と admin のそれぞれに適用しています。
+この関数で、 consumer と admin のそれぞれのルールを生成しています。
 `files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
 
 ??? example "サンプルアプリケーションでの設定例"
@@ -341,7 +341,8 @@ globalIgnores([
     --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
     ```
 
-ルートプロジェクトの直下、 eslint.config.ts と同じ階層に eslint.project-rules.ts を作成し、上記の内容を記述します。
+サンプルアプリケーションの eslint.project-rules.ts をもとに、ルートプロジェクトの直下（ eslint.config.ts と同じ階層）に eslint.project-rules.ts を作成します。
+上記の設定例は抜粋なので、ファイルの先頭には `import type { Linter } from 'eslint'` を記述してください。
 ファイルの末尾では、 `createLayerDependencyRules` に自分のワークスペースのフォルダー名を渡して、ワークスペースごとのルールを生成します。
 サンプルアプリケーションの `consumerLayerDependencyRules` と `adminLayerDependencyRules` は、ワークスペースの数と名前に合わせて置き換えてください。
 

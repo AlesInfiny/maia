@@ -41,9 +41,8 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ vitest.config.ts -------- 単体テストの設定ファイル
 ```
 
-[フロントエンドアプリケーションのアーキテクチャ - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) に従って、フォルダー構造を変更します。
+[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) に従って、フォルダー構造を変更します。
 ツールが出力したコードを以下の構造に従って移動します。
-なお本ガイドの以降の手順では、上記の構造を前提としたパスでファイルの配置場所を示します。
 
 ```text linenums="0"
 <workspace-name>
@@ -60,14 +59,16 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ main.ts
 ```
 
-ツールが出力したコンポーネントとストアを、仮に sample コンテキストの vue ドメインとして扱います。
+ツールが出力したコンポーネントとストアを、仮に `sample` コンテキストの `vue` ドメインとして扱います。
+`system-common` と `business-common` は空のフォルダーとして作ります。
+Git は空のフォルダーを管理しないので、 `.gitkeep` を置きます。
 移動後の構造は以下のとおりです。
-system-common フォルダーと business-common フォルダーの中身は空で構いません。
-.gitkeep ファイルを置いて、 Git 管理対象となるようにしてください。
 
 ```text linenums="0"
 <workspace-name>
 └ src/
+  ├ business-common/
+  │ └ .gitkeep
   ├ core/
   │ ├ images/
   │ │ └ logo.svg
@@ -97,9 +98,13 @@ system-common フォルダーと business-common フォルダーの中身は空�
   │ │ └ stores/
   │ │   └ counter.ts
   │ └ public-api.ts --------- 新規作成：公開 API
+  ├ system-common/
+  │ └ .gitkeep
   ├ App.vue
   └ main.ts
 ```
+
+以降の手順では、移動後の構造を前提としたパスでファイルの配置場所を示します。
 
 ファイルを移動したら、移動したファイルを参照する `import` を書き換えます。
 フォルダーをまたぐ参照は、相対パスではなく `@/` エイリアスで記述してください。
@@ -119,7 +124,8 @@ import HomePage from '@/pages/HomePage.vue'
 
 ## 公開 API の作成 {#create-public-api}
 
-コンテキストの外からは、コンテキストの内部のファイルを直接参照できません。
+コンテキストの外からは、コンテキストの内部のファイルを直接参照しません。
+`pages` と他のコンテキストからの直接の参照は、 [静的コード分析とフォーマット - フォルダー間の参照方向の強制](./static-verification-and-format.md#layer-dependency-rules) で設定する ESLint のルールで検出します。
 コンテキストの外で使うものは、コンテキストの直下に作成する `public-api.ts` から export します。
 
 `sample` コンテキストのうち、コンテキストの外で使うのは、以下の 2 つのコンポーネントです。
@@ -130,7 +136,7 @@ import HomePage from '@/pages/HomePage.vue'
 `WelcomeItem.vue` と `icons` フォルダーのコンポーネントは、 `TheWelcome.vue` だけが使う部品です。
 `counter.ts` のストアは、どこからも使われていません。
 これらはコンテキストの外で使わないので、 export しません。
-公開するものを必要最小限にすると、公開していないファイルはコンテキストの中だけで自由に変更できます。
+公開していないファイルはコンテキストの外から参照されないので、変更の影響がコンテキストの中にとどまります。
 
 `.vue` ファイルのコンポーネントは default export なので、 `export { default as <名前> } from ...` の形式で、名前を付けて export します。
 
