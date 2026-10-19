@@ -98,12 +98,12 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 ```typescript title="main.ts" hl_lines="6 14"
 import { createApp } from "vue"
 import { createPinia } from "pinia"
-import { registerNavigationGuards } from "@/core/router/guards"
+import { authenticationGuard } from "@/security/authentication/router/authentication-guard"
 import App from "./App.vue"
-import { router } from "@/core/router"
+import { router } from "@/system-common/router"
 import { i18n } from "@/system-common/locales/i18n"
 
-import "@/core/styles/base.css"
+import "@/assets/base.css"
 
 const app = createApp(App)
 
@@ -111,7 +111,7 @@ app.use(createPinia())
 app.use(router)
 app.use(i18n)
 
-registerNavigationGuards(router)
+authenticationGuard(router)
 
 app.mount("#app")
 ```

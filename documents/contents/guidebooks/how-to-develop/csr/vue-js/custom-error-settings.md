@@ -24,15 +24,8 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 
 エラーハンドリングに `AxiosError` 型をそのまま用いることも考えられますが、業務例外の構造が直接外部ライブラリに依存しないクリーンなコードを保つため、 `AxiosError` 型をカスタムエラーへ変換します。
 
-業務例外は、発生した箇所と扱う箇所で、次のように役割を分けます。
-
-- サービスは、業務例外をカスタムエラーとして送出します。
-- ユースケースコンポーザブルは、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ Outcome ）で返します。
-- 画面は結果を受け取り、通知の文言と遷移先を決めます。画面ではカスタムエラーを判定しません。
-
-例外を送出する側は、例外の構造を型で表現でき、例外が発生しうる処理を呼び出すたびに戻り値を検査する必要がありません。
-一方、画面は結果の種類（ `kind` ）で分岐するので、どの結果を扱うべきかを型検査で確認できます。
-ユースケースコンポーザブル、結果、画面の関係は、 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
+業務例外の表現方法として、 業務例外が発生する可能性のある関数の戻り値を `Result` 型で表現し、`Error` 型の `throw` を避ける方法も考えられます。
+しかし、[例外処理方針 - フロントエンドの例外処理方針](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling-policy) で述べたように、 `try-catch` を用いてハンドリングします。
 
 ## カスタムエラーを定義する {#define-custom-error}
 
@@ -153,84 +146,19 @@ axiosInstance.interceptors.response.use(
 
 ## 業務例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
 
-業務例外が発生する可能性のある処理は、ユースケースコンポーザブルから呼び出し、 `try-catch` で囲みます。
-例外を `catch` したら、 `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた結果を返します。
+業務例外が発生する可能性のある処理の呼び出し時は、`try-catch` で囲みます。
+例外を `catch` したら、 `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた処理を実行します。
+下記は API の呼び出しで `NotFoundError` が発生した場合に、ユーザーへトースト通知し、別画面へ遷移する例です。
 
-### 共通の失敗の結果 {#common-error-outcome}
-
-画面ごとに扱いを変える業務例外だけを、個別の結果にします。
-それ以外のエラーは、共通の失敗の結果（ `CommonErrorOutcome` ）にまとめます。
-共通の失敗の結果は、 `failed` と `canceled` の 2 種類です。
-`canceled` は、ログアウトなどの利用者の操作で通信が中断されたことを表し、画面は何もしません。
-
-`useCommonErrorOutcome` が提供する関数は、受け取ったエラーをカスタムエラーハンドラー（ `useCustomErrorHandler` ）に渡し、共通の失敗の結果に変換します。
-カスタムエラーハンドラーは、ログの出力や、認証エラーとサーバーエラーの通知など、エラーの種類ごとの共通の処理を行います。
-カスタムエラーでないエラーは、そのまま上位へ送出され、グローバルエラーハンドラーで処理されます。
-以下は consumer の実装です。
-API が問題の詳細を返した場合は、 `failed` の `problem` に格納し、画面の通知に使用します。
-admin の `CommonErrorOutcome` は `problem` を持たず、 `{ kind: 'failed' } | { kind: 'canceled' }` です。
-
-```typescript title="サンプルアプリケーションの common-error-outcome.ts"
---8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/common-error-outcome.ts"
-```
-
-### ユースケースコンポーザブルの実装例 {#usecase-composable-example}
-
-下記は、 admin のカタログアイテムを更新する操作で `NotFoundError` と `ConflictError` を個別の結果にし、それ以外のエラーを共通の失敗の結果にする例です。
-
-```typescript title="ユースケースコンポーザブルの実装例（抜粋）"
-export type UpdateOutcome =
-  | { kind: 'updated' }
-  | { kind: 'conflict' }
-  | { kind: 'notFound' }
-  | { kind: 'failed' }
-  | { kind: 'canceled' }
-
-export function useCatalogItemEditor(itemId: MaybeRefOrGetter<string>): CatalogItemEditor {
-  const handleCommonError = useCommonErrorOutcome()
-  // (中略)
-  async function update(): Promise<UpdateOutcome> {
-    try {
-      await updateCatalogItem(/* (中略) */)
-    } catch (error) {
-      if (error instanceof NotFoundError) {
-        return { kind: 'notFound' }
-      }
-      if (error instanceof ConflictError) {
-        return { kind: 'conflict' }
-      }
-      return handleCommonError(error)
+```typescript title="サンプルアプリケーションの実装例"
+const getItem = async (itemId: number) => {
+  try {
+    setCurrentItemState(await fetchItem(itemId))
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      showToast('対象のアイテムが見つかりませんでした。')
+      router.push({ name: 'catalog/items' })
     }
-    return { kind: 'updated' }
-  }
-  // (中略)
-}
-```
-
-### 画面の実装例 {#page-example}
-
-画面は、ユースケースコンポーザブルの操作の結果を `kind` で分岐し、通知の文言と遷移先を決めます。
-下記は、更新の対象が見つからなかった場合に、ユーザーへトースト通知し、一覧画面へ遷移する例です。
-
-```typescript title="画面の実装例（抜粋）"
-const updateItemAsync = async () => {
-  const outcome = await update()
-  switch (outcome.kind) {
-    case 'updated':
-      showUpdateNotice.value = true
-      break
-    case 'notFound':
-      showToast('更新対象のカタログアイテムが見つかりませんでした。')
-      router.push({ name: routeNames.catalogItems })
-      break
-    case 'conflict':
-      showToast('カタログアイテムの更新が競合しました。もう一度更新してください。')
-      break
-    case 'failed':
-      showToast('カタログアイテムの更新に失敗しました。')
-      break
-    case 'canceled':
-      break
   }
 }
 ```

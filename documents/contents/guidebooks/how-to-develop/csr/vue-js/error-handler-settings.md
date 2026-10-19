@@ -36,39 +36,54 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-    システム共通のコードは、画面を遷移させられません（ [アーキテクチャ解説 - 参照方向](../../../../app-architecture/client-side-rendering/frontend-application/index.md#reference-direction) ）。
-    そのため、グローバルエラーハンドラーは、エラー画面へ遷移する関数を引数で受け取るプラグインのファクトリー（ `createGlobalErrorHandler` ）として実装します。
-
     ```typescript title="global-error-handler.ts"
-    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/global-error-handler.ts"
+    import type { App, ComponentPublicInstance } from 'vue'
+    import { router } from '@/system-common/router'
+
+    export const globalErrorHandler = {
+      install(app: App) {
+        app.config.errorHandler = (
+          err: unknown,
+          instance: ComponentPublicInstance | null,
+          info: string,
+        ) => {
+          // Vue.js アプリケーションでのエラー発生時に実行したい処理
+          console.error(err, instance, info)
+          router.replace({ name: 'error' })
+        }
+
+        window.addEventListener('error', (event) => {
+          // 同期処理でのエラー発生時に実行したい処理
+          console.error(event)
+        })
+
+        window.addEventListener('unhandledrejection', (event) => {
+          // 非同期処理でのエラー発生時に実行したい処理
+          console.error(event)
+        })
+      },
+    };
     ```
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-実装したグローバルエラーハンドラーを、 core 層のアプリケーションのエントリーポイントでインストールします。
-エラー画面へ遷移する関数は、ここで渡します。
+実装したグローバルエラーハンドラーを、アプリケーションのエントリーポイントでインストールします。
 
 ??? example "エントリーポイントの実装例"
 
-    ```typescript title="main.ts" hl_lines="2-3 12-18"
+    ```typescript title="main.ts" hl_lines="3 12"
     import { createApp } from 'vue'
-    import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
-    import { routeNames } from '@/core/router/route-names'
     import { createPinia } from 'pinia'
+    import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
     import App from './App.vue'
-    import { router } from '@/core/router'
+    import { router } from '@/system-common/router'
 
     const app = createApp(App)
 
     app.use(createPinia())
     app.use(router)
-    app.use(
-      createGlobalErrorHandler({
-        navigateToErrorPage: () => {
-          void router.replace({ name: routeNames.error })
-        },
-      }),
-    )
+
+    app.use(globalErrorHandler)
 
     app.mount('#app')
     ```
