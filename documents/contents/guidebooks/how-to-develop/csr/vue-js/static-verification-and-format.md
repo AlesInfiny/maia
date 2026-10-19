@@ -353,7 +353,9 @@ export const workspaceNameLayerDependencyRules: Linter.Config[] =
     ルールは `**/<ワークスペース名>/src` の下のファイルにだけ適用されます。
     `createLayerDependencyRules` に渡した名前がワークスペースのフォルダー名と一致しないと、ルールはどのファイルにも適用されません。
     このとき ESLint はエラーも警告も出力しないため、設定の誤りに気付けません。
-    設定後は、たとえば `system-common` の下のファイルに `import router from '@/core/router'` を一時的に追加し、 ESLint がエラーを出力することを確認してください。
+    設定後は、たとえば [フォルダー構造の変更](./folder-structure-changes.md) で作成した `sample/vue/stores/counter.ts` に `import router from '@/core/router'` を一時的に追加し、 ESLint がエラーを出力することを確認してください。
+    コンテキストから core 層への参照は禁止されているので、ルールが適用されていればエラーになります。
+    確認が終わったら、追加した `import` を削除してください。
 
 生成したルールは、 eslint.config.ts で読み込んで適用します。
 
