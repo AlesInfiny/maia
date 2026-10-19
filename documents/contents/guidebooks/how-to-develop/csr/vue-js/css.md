@@ -25,11 +25,9 @@ npm install -D tailwindcss @tailwindcss/vite
 
 ### Tailwind CSS の設定 {#settings-tailwind-css}
 
-[ブランクプロジェクトの作成](./create-vuejs-blank-project.md) を実行すると、デフォルトでは　`./src/assets/base.css` と `./src/assets/main.css` の 2 つの CSS ファイルが作成されます。
+[ブランクプロジェクトのフォルダー構造](./folder-structure-of-blank-project.md#reclassified-example-code) に従ってサンプルコードを移動すると、 `./src/core/styles` に `base.css` と `main.css` の 2 つの CSS ファイルがあります。
 サンプルアプリケーションでは base.css に統一します。
-main.css を削除し、 base.css を `./src/core/styles/base.css` へ移動します。
-base.css はアプリケーション全体に適用するグローバルスタイルなので、 core 層に置きます（詳細は [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください）。
-移動した base.css を次のように書き換えます。
+main.css を削除し、 base.css を次のように書き換えます。
 
 ```css title="base.css"
 /* Tailwind CSS は 外部からのインポートではなく Vite のプラグインでバンドルするので、 Stylelintで URL 形式に自動修正されないように無効化します */
@@ -63,9 +61,9 @@ npm run build
 ### Tailwind CSS の適用確認 {#check-tailwind-css}
 
 Tailwind CSS が正常に適用されていることを確認します。
-確認のために、`./src/views/HomeView.vue` に次のようなコードを挿入します。
+確認のために、`./src/pages/HomePage.vue` に次のようなコードを挿入します。
 
-```vue title="HomeView.vue" hl_lines="3"
+```vue title="HomePage.vue" hl_lines="3"
 <template>
   <main>
     <h1 class="text-5xl font-bold text-blue-600 underline">AlesInfiny</h1>

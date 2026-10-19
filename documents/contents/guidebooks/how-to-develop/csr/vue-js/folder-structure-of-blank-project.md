@@ -47,21 +47,20 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 `components` 、 `router` 、 `stores` 、 `views` という種類別のフォルダーが `src` の直下に並んでいます。
 
 AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分割します。
-ツールの出力とは構成が異なるので、ブランクプロジェクトの作成後に `core` フォルダーと `system-common` フォルダーを作ります。
-画面の `pages` 、業務共通の `business-common` 、コンテキストとドメインの各フォルダーは該当するコードを置くときに作ります。
-ツールが出力した `router` や `views` などのフォルダーのコードは、これらのフォルダーを作るときに移動します。
+ツールの出力とは構成が異なるので、ブランクプロジェクトの作成後に、ツールが出力したコードを以下の構造に従って移動します。
 たとえばルーティングの設定は `core/router` へ、画面は `pages` へ移動します。
+`business-common` 、コンテキストとドメインの各フォルダーは、該当するコードを置くときに作ります。
 
-ツールが出力した `assets` フォルダーは、最終的には使いません。
-グローバルスタイル（アプリケーション全体に適用する CSS ）の `base.css` は、 [CSS の設定と CSS フレームワークの適用](./css.md) で `core/styles` へ移動します。
-それまでは `assets` フォルダーをそのまま残します。
+ツールが出力した `assets` フォルダーは使いません。
+グローバルスタイル（アプリケーション全体に適用する CSS ）の `base.css` と `main.css` は、 `core/styles` へ移動します。
+`main.css` は、 [CSS の設定と CSS フレームワークの適用](./css.md) で削除し、 `base.css` に統一します。
 
 ```text linenums="0"
 <workspace-name>
 └ src/
   ├ core/ ------------------- ルーターの生成やグローバルスタイルなど、アプリケーションの組み立てに関するコードを配置するフォルダー
-  │ └ styles/ --------------- グローバルスタイルを配置するフォルダー（ CSS の設定で作成）
-  ├ pages/ ------------------ 画面を配置するフォルダー（該当するコードを置くときに作成）
+  │ └ styles/ --------------- グローバルスタイルを配置するフォルダー
+  ├ pages/ ------------------ 画面を配置するフォルダー
   ├ system-common/ ---------- 業務知識を持たない、システム共通のコードを配置するフォルダー
   ├ business-common/ -------- 業務知識を持ち、持ち主となるドメインがないコードを配置するフォルダー（該当するコードを置くときに作成）
   ├ <context>/ -------------- コンテキストのフォルダー（該当するコードを置くときに作成）
@@ -78,7 +77,7 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
 ### サンプルコードの移動後の構造 {#reclassified-example-code}
 
 ブランクプロジェクトの作成時に生成されたサンプルコードを、上記の構造に従って移動した結果を示します。
-[CSS の設定と CSS フレームワークの適用](./css.md) まで終えた時点の構造です。
+本ガイドの以降の手順は、この構造から始めます。
 
 | 移動前                | 移動後                            | 移動先の理由                                                                             |
 | --------------------- | --------------------------------- | ---------------------------------------------------------------------------------------- |
@@ -86,7 +85,7 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
 | `views/HomeView.vue`  | `pages/HomePage.vue`              | 画面です。 URL が `/` なので、 `pages` の直下に置きます。                                |
 | `views/AboutView.vue` | `pages/about/AboutPage.vue`       | 画面です。 URL のパス `/about` に合わせたフォルダーに置きます。                          |
 | `assets/base.css`     | `core/styles/base.css`            | アプリケーション全体に適用するグローバルスタイルです。                                   |
-| `assets/main.css`     | （削除）                          | CSS の設定で、 `base.css` に統一します。                                                 |
+| `assets/main.css`     | `core/styles/main.css`            | アプリケーション全体に適用するグローバルスタイルです。 CSS の設定で削除します。          |
 | `assets/logo.svg`     | `core/images/logo.svg`            | core 層の `App.vue` だけが使う画像です。                                                 |
 | `components/`         | `system-common/components/`       | 業務知識を持たない UI コンポーネントです。 `icons/` と `__tests__/` も含めて移動します。 |
 | `stores/counter.ts`   | `system-common/stores/counter.ts` | 業務知識を持たないストアです。                                                           |
@@ -103,7 +102,8 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
   │ ├ router/
   │ │ └ index.ts
   │ └ styles/
-  │   └ base.css
+  │   ├ base.css
+  │   └ main.css
   ├ pages/
   │ ├ about/
   │ │ └ AboutPage.vue ------- /about
@@ -129,7 +129,13 @@ AlesInfiny Maia では、 `src` フォルダーの下を業務の関心事で分
 
 ファイルを移動したら、移動したファイルを参照する `import` を書き換えます。
 フォルダーをまたぐ参照は、相対パスではなく `@/` エイリアスで記述します。
-たとえば、 `core/router/index.ts` から画面を参照する `import` は、以下のようになります。
+たとえば、 `main.ts` と `core/router/index.ts` の `import` は、以下のようになります。
+
+```typescript title="main.ts"
+import '@/core/styles/main.css'
+// (中略)
+import router from '@/core/router'
+```
 
 ```typescript title="core/router/index.ts"
 import HomePage from '@/pages/HomePage.vue'

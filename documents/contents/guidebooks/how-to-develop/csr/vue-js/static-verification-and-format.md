@@ -331,25 +331,38 @@ globalIgnores([
 - core 層以外での動的インポート（ `import()` ）。動的インポートは `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します
 - `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
 
-サンプルアプリケーションでは、これらのルールを生成する関数を `eslint.project-rules.ts` に定義し、 consumer と admin のそれぞれに適用しています。
+サンプルアプリケーションでは、これらのルールを生成する関数（ `createLayerDependencyRules` ）を `eslint.project-rules.ts` に定義しています。
+生成したルールは、 consumer と admin のそれぞれに適用しています。
 `files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
 
 ```typescript title="サンプルアプリケーションの eslint.project-rules.ts（参照方向のルールの抜粋）"
 --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
 ```
 
+ルートプロジェクトの直下、 eslint.config.ts と同じ階層に eslint.project-rules.ts を作成し、上記の内容を記述します。
+ファイルの末尾では、 `createLayerDependencyRules` に自分のワークスペースのフォルダー名を渡して、ワークスペースごとのルールを生成します。
+サンプルアプリケーションの `consumerLayerDependencyRules` と `adminLayerDependencyRules` は、ワークスペースの数と名前に合わせて置き換えてください。
+
+```typescript title="eslint.project-rules.ts の末尾の例"
+export const workspaceNameLayerDependencyRules: Linter.Config[] =
+  createLayerDependencyRules('workspace-name')
+```
+
+!!! warning "ワークスペース名が一致しない場合"
+
+    ルールは `**/<ワークスペース名>/src` の下のファイルにだけ適用されます。
+    `createLayerDependencyRules` に渡した名前がワークスペースのフォルダー名と一致しないと、ルールはどのファイルにも適用されません。
+    このとき ESLint はエラーも警告も出力しないため、設定の誤りに気付けません。
+    設定後は、たとえば `system-common` の下のファイルに `import router from '@/core/router'` を一時的に追加し、 ESLint がエラーを出力することを確認してください。
+
 生成したルールは、 eslint.config.ts で読み込んで適用します。
 
 ```typescript title="eslint.config.ts でのルールの適用"
-import {
-  adminLayerDependencyRules,
-  consumerLayerDependencyRules,
-} from './eslint.project-rules'
+import { workspaceNameLayerDependencyRules } from './eslint.project-rules'
 
 export default defineConfigWithVueTs(
   // 中略
-  ...consumerLayerDependencyRules,
-  ...adminLayerDependencyRules,
+  ...workspaceNameLayerDependencyRules,
 )
 ```
 
@@ -444,7 +457,7 @@ export default {
       create-vue で作成されるデフォルトのアプリケーションに対して Stylelint を実行すると、下記の警告が出力されて、動作確認が進められない場合があります。
 
       ```text linenums="0"
-      src/assets/base.css
+      src/core/styles/base.css
         25:1  ✖  Unexpected duplicate selector ":root", first used at line 2  no-duplicate-selectors
       ```
 

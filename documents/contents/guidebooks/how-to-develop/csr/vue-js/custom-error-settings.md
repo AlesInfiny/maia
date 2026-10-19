@@ -35,8 +35,30 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 ロジック、結果、画面の間の処理の流れは、 [例外処理方針 - API 通信で発生する例外処理フロー](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#api-connection-error-flow) を参照してください。
 ユースケースコンポーザブルを配置するフォルダーは、 [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) を参照してください。
 
+## ファイルの配置 {#file-placement}
+
+カスタムエラーとそのハンドリングに関するコードは、業務知識を持たないので、 `system-common` フォルダーの下に配置します。
+本ページで作成・編集するファイルは以下のとおりです。
+
+```text title="フォルダー構造" linenums="0"
+<workspace-name>
+└─ src/
+  └─ system-common/
+     ├─ api-client/
+     │  └─ index.ts ------------------ Axios の Interceptors を設定するファイル
+     ├─ error-handler/
+     │  ├─ common-error-outcome.ts --- 共通の失敗の結果を定義するファイル
+     │  ├─ custom-error.ts ----------- カスタムエラーのクラスを定義するファイル
+     │  └─ custom-error-handler.ts --- カスタムエラーハンドラーを定義するファイル
+     └─ types/
+        └─ index.ts ------------------ カスタムエラーハンドラーが使用する型を定義するファイル
+```
+
+`api-client/index.ts` は [OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md#set-client-code) で作成したファイルです。
+
 ## カスタムエラーを定義する {#define-custom-error}
 
+`system-common/error-handler/custom-error.ts` に、カスタムエラーのクラスを定義します。
 標準の `Error` 型を拡張して、カスタムエラーの基底クラスとなる抽象クラスを実装します。
 これを継承するカスタムエラーの具象クラスには、ログ出力に必要な情報を取り出すために、 `toJSON()` メソッドの実装を強制します。
 
@@ -122,6 +144,7 @@ Axios の [Interceptors :material-open-in-new:](https://axios.rest/pages/advance
 この機能を用いて、 HTTP ステータスコードに対応した適切なカスタムエラーへ変換する処理を一箇所に集約して実装します。
 HTTP ステータスコードは `AxiosError` の `response.status` へ格納されています。
 
+Interceptors は、 `system-common/api-client/index.ts` で生成した `axiosInstance` に設定します。
 `axiosInstance.interceptors.response` の実装例を下記に示します。
 たとえば下記の例では、`response.status` が 404 である `AxiosError` を、`NotFoundError` に変換して返却しています。
 
@@ -177,6 +200,30 @@ admin の `CommonErrorOutcome` は、 `failed` に `problem` を持たない点�
 ```typescript title="サンプルアプリケーションの common-error-outcome.ts"
 --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/common-error-outcome.ts"
 ```
+
+カスタムエラーハンドラーは、以下のモジュールを使用します。
+
+- 認証エラーとサーバーエラーを通知するイベント（ `@/system-common/events` の `unauthorizedErrorEventKey` と `unhandledErrorEventKey` ）
+- 通知するメッセージ（ [メッセージ管理機能の設定](./message-management.md) で作成した `@/system-common/locales/i18n` ）
+- ロガー（ [エラーハンドラーの設定](./error-handler-settings.md#global-error-handler-setting) で作成した `@/system-common/logger` ）
+- 同期と非同期のどちらの関数も扱える型（ `@/system-common/types` ）
+
+イベントの定義方法は、 [イベントハンドリングの設定](./event-handling-settings.md#define-events) で説明します。
+カスタムエラーハンドラーを実装する前に、 `unauthorizedErrorEventKey` と `unhandledErrorEventKey` のイベントを定義してください。
+
+??? example "カスタムエラーハンドラーの実装例"
+
+    ```typescript title="サンプルアプリケーションの custom-error-handler.ts"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/custom-error-handler.ts"
+    ```
+
+    ```typescript title="サンプルアプリケーションの types/index.ts"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/types/index.ts"
+    ```
+
+    ```typescript title="サンプルアプリケーションの events/index.ts"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/events/index.ts"
+    ```
 
 ### ユースケースコンポーザブルの実装例 {#use-case-composable-example}
 
