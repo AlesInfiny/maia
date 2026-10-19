@@ -25,7 +25,7 @@ npm install -D tailwindcss @tailwindcss/vite
 
 ### Tailwind CSS の設定 {#settings-tailwind-css}
 
-[フォルダー構造の変更](./folder-structure-changes.md#reclassified-example-code) に従ってサンプルコードを移動すると、 `./src/core/styles` に `base.css` と `main.css` の 2 つの CSS ファイルがあります。
+[フォルダー構造の変更](./folder-structure-changes.md) に従ってサンプルコードを移動すると、 `./src/core/styles` に `base.css` と `main.css` の 2 つの CSS ファイルがあります。
 サンプルアプリケーションでは base.css に統一します。
 main.css を削除し、 base.css を次のように書き換えます。
 

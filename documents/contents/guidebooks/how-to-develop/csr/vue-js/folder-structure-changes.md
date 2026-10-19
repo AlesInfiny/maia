@@ -60,6 +60,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ main.ts
 ```
 
+ツールが出力したコンポーネントとストアは、 `sample` コンテキストの `vue` ドメインとして扱います。
 移動後の構造は以下のとおりです。
 
 ```text linenums="0"
@@ -77,21 +78,23 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   │ ├ about/
   │ │ └ AboutPage.vue ------- AboutView.vue をリネーム
   │ └ HomePage.vue ---------- HomeView.vue をリネーム
-  ├ system-common/
-  │ ├ components/
-  │ │ ├ __tests__/
-  │ │ │ └ HelloWorld.spec.ts
-  │ │ ├ icons/
-  │ │ │ ├ IconCommunity.vue
-  │ │ │ ├ IconDocumentation.vue
-  │ │ │ ├ IconEcosystem.vue
-  │ │ │ ├ IconSupport.vue
-  │ │ │ └ IconTooling.vue
-  │ │ ├ HelloWorld.vue
-  │ │ ├ TheWelcome.vue
-  │ │ └ WelcomeItem.vue
-  │ └ stores/
-  │   └ counter.ts
+  ├ sample/ ----------------- コンテキスト
+  │ ├ vue/ ------------------ ドメイン
+  │ │ ├ components/
+  │ │ │ ├ __tests__/
+  │ │ │ │ └ HelloWorld.spec.ts
+  │ │ │ ├ icons/
+  │ │ │ │ ├ IconCommunity.vue
+  │ │ │ │ ├ IconDocumentation.vue
+  │ │ │ │ ├ IconEcosystem.vue
+  │ │ │ │ ├ IconSupport.vue
+  │ │ │ │ └ IconTooling.vue
+  │ │ │ ├ HelloWorld.vue
+  │ │ │ ├ TheWelcome.vue
+  │ │ │ └ WelcomeItem.vue
+  │ │ └ stores/
+  │ │   └ counter.ts
+  │ └ public-api.ts --------- 新規作成
   ├ App.vue
   └ main.ts
 ```
@@ -111,3 +114,52 @@ import HomePage from '@/pages/HomePage.vue'
 // (中略)
       component: () => import('@/pages/about/AboutPage.vue'),
 ```
+
+同じコンテキストの中の参照は、相対パスのままで構いません。
+たとえば、 `TheWelcome.vue` から `WelcomeItem.vue` や `icons` フォルダーのコンポーネントへの参照は、変更する必要がありません。
+
+## 公開 API の作成 {#create-public-api}
+
+コンテキストの外からは、コンテキストの内部のファイルを直接参照できません。
+コンテキストの外で使うものは、コンテキストの直下に作成する `public-api.ts` から export します。
+
+`sample` コンテキストのうち、コンテキストの外で使うのは、以下の 2 つのコンポーネントです。
+
+- `HelloWorld.vue`: core 層の `App.vue` で使います。
+- `TheWelcome.vue`: `pages` の `HomePage.vue` で使います。
+
+`WelcomeItem.vue` と `icons` フォルダーのコンポーネントは、 `TheWelcome.vue` だけが使う部品です。
+`counter.ts` のストアは、どこからも使われていません。
+これらはコンテキストの外で使わないので、 export しません。
+公開するものを必要最小限にすると、公開していないファイルはコンテキストの中だけで自由に変更できます。
+
+`.vue` ファイルのコンポーネントは default export なので、 `export { default as <名前> } from ...` の形式で、名前を付けて export します。
+
+```typescript title="sample/public-api.ts"
+export { default as HelloWorld } from './vue/components/HelloWorld.vue'
+export { default as TheWelcome } from './vue/components/TheWelcome.vue'
+```
+
+## 公開 API からの import {#import-from-public-api}
+
+`pages` と core 層からコンテキストのコードを使うときは、 `@/<コンテキスト>/public-api` から名前付きで import します。
+`HomePage.vue` の `import` は、以下のようになります。
+
+```vue title="pages/HomePage.vue" hl_lines="2"
+<script setup lang="ts">
+import { TheWelcome } from '@/sample/public-api'
+</script>
+```
+
+core 層の `App.vue` も、同様に公開 API から import します。
+
+```vue title="App.vue（抜粋）" hl_lines="3"
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import { HelloWorld } from '@/sample/public-api'
+</script>
+```
+
+`pages` からは、コンテキストの内部のファイルを直接 import できません。
+たとえば `@/sample/vue/components/TheWelcome.vue` を import すると、 ESLint のルールでエラーになります。
+ルールの設定は、 [静的コード分析とフォーマット - フォルダー間の参照方向の強制](./static-verification-and-format.md#layer-dependency-rules) を参照してください。
