@@ -41,13 +41,14 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   └ vitest.config.ts -------- 単体テストの設定ファイル
 ```
 
-[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) に従って、フォルダー構造を変更します。
-ツールが出力したコードを以下の構造に従って移動します。
+[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) に従って、 `src` 配下のフォルダー構造を変更します。
+create-vue が出力したコードを以下の構造に従って移動します。
 
 ```text linenums="0"
 <workspace-name>
 └ src/
   ├ core/ ------------------- ルーターの生成やグローバルスタイルなど、アプリケーションの組み立てに関するコードを配置するフォルダー
+  │ ├ router/ --------------- ルーティングに関連するコードを配置するフォルダー
   │ └ styles/ --------------- グローバルスタイルを配置するフォルダー
   ├ pages/ ------------------ 画面を配置するフォルダー
   ├ system-common/ ---------- 業務知識を持たない、システム共通のコードを配置するフォルダー
