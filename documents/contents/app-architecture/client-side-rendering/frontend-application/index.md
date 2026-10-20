@@ -155,8 +155,7 @@ Axios: [github :material-open-in-new:](https://github.com/axios/axios){ target=_
 フォルダー構成の全体像を以下に示します。
 
 ```text title="プロジェクトのフォルダー構成全体像" linenums="0"
-<project-name>
-├─ e2e/ ---------------------- E2E テストに関するファイルを格納します。
+<workspace-name>
 ├─ public/ ------------------- ビルドで加工せずに配信するファイル（ favicon など）を格納します。
 ├─ src/
 │  ├─ core/ ------------------ アプリケーション全体で利用するコードを格納します。
