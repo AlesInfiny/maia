@@ -13,15 +13,27 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 ## グローバルエラーハンドラーの設定 {#global-error-handler-setting}
 
 業務フロー上発生が想定されないエラーを捕捉し、ハンドリングするためのグローバルエラーハンドラーを設定します。
-エラーハンドラーは業務知識を持たないシステム共通の部品なので、新しく`system-common`フォルダーを作成し、下図の階層に、`global-error-handler.ts`を作成します。
+エラーハンドラーは業務知識を持たないシステム共通の部品なので、 `system-common` フォルダーの下の、下図の階層に `global-error-handler.ts` を作成します。
+あわせて、エラーハンドラーがログの出力に使用するロガーを `logger/index.ts` に作成します。
 
 ```text title="フォルダー構造" linenums="0"
 <workspace-name>
 └─ src/
   └─ system-common/ --------------- システム共通の機能が配置されるフォルダー
-     └─ error-handler/
-        └─ global-error-handler.ts
+     ├─ error-handler/
+     │  └─ global-error-handler.ts
+     └─ logger/
+        └─ index.ts
 ```
+
+ロガーは、開発環境では `console` に出力し、本番環境では `error` 以外の出力を抑止します。
+ログの出力先は、このファイルだけで切り替えられます。
+
+??? example "ロガーの実装例"
+
+    ```typescript title="サンプルアプリケーションの logger/index.ts"
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/logger/index.ts"
+    ```
 
 グローバルエラーハンドラーは、 Vue.js の [プラグイン :material-open-in-new:](https://ja.vuejs.org/guide/reusability/plugins){ target=_blank } として実装します。
 プラグインは、アプリケーション全体で利用したい機能やコンポーネントがある場合に有用です。
@@ -36,54 +48,57 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 
+    システム共通のコードは、画面を遷移させられません（ [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) ）。
+    そのため、グローバルエラーハンドラーは、エラー画面へ遷移する関数を引数で受け取るプラグインのファクトリー（ `createGlobalErrorHandler` ）として実装します。
+
     ```typescript title="global-error-handler.ts"
-    import type { App, ComponentPublicInstance } from 'vue'
-    import { router } from '@/system-common/router'
-
-    export const globalErrorHandler = {
-      install(app: App) {
-        app.config.errorHandler = (
-          err: unknown,
-          instance: ComponentPublicInstance | null,
-          info: string,
-        ) => {
-          // Vue.js アプリケーションでのエラー発生時に実行したい処理
-          console.error(err, instance, info)
-          router.replace({ name: 'error' })
-        }
-
-        window.addEventListener('error', (event) => {
-          // 同期処理でのエラー発生時に実行したい処理
-          console.error(event)
-        })
-
-        window.addEventListener('unhandledrejection', (event) => {
-          // 非同期処理でのエラー発生時に実行したい処理
-          console.error(event)
-        })
-      },
-    };
+    --8<-- "samples/web-csr/dressca-frontend/consumer/src/system-common/error-handler/global-error-handler.ts"
     ```
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-実装したグローバルエラーハンドラーを、アプリケーションのエントリーポイントでインストールします。
+エラー画面へ遷移するために、エラー画面（ `pages/ErrorPage.vue` ）とそのルートを追加します。
+サンプルアプリケーションでは、ルート名を定数として `core/router/route-names.ts` に定義し、ルーターの設定と画面の両方から参照します。
+ルート名の定数は core 層にありますが、 `pages` からの参照は例外として許可されています（ [アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) ）。
+
+??? example "ルート名の定数とエラー画面のルートの実装例"
+
+    ```typescript title="core/router/route-names.ts"
+    export const routeNames = {
+      home: 'home',
+      about: 'about',
+      error: 'error',
+    } as const
+    ```
+
+    ```typescript title="core/router/index.ts（抜粋）"
+    import { routeNames } from '@/core/router/route-names'
+    // (中略)
+        {
+          path: '/error',
+          name: routeNames.error,
+          component: () => import('@/pages/ErrorPage.vue'),
+        },
+    ```
+
+実装したグローバルエラーハンドラーを、 core 層のアプリケーションのエントリーポイントでインストールします。
+エラー画面へ遷移する関数は、ここで渡します。
 
 ??? example "エントリーポイントの実装例"
 
-    ```typescript title="main.ts" hl_lines="3 12"
-    import { createApp } from 'vue'
-    import { createPinia } from 'pinia'
-    import { globalErrorHandler } from '@/system-common/error-handler/global-error-handler'
-    import App from './App.vue'
-    import { router } from '@/system-common/router'
-
-    const app = createApp(App)
-
-    app.use(createPinia())
+    ```typescript title="main.ts（抜粋）"
+    import { createGlobalErrorHandler } from '@/system-common/error-handler/global-error-handler'
+    import router from '@/core/router'
+    import { routeNames } from '@/core/router/route-names'
+    // (中略)
     app.use(router)
-
-    app.use(globalErrorHandler)
+    app.use(
+      createGlobalErrorHandler({
+        navigateToErrorPage: () => {
+          void router.replace({ name: routeNames.error })
+        },
+      }),
+    )
 
     app.mount('#app')
     ```

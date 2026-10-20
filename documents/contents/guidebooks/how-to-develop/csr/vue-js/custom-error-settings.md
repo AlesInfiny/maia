@@ -24,11 +24,41 @@ TypeScript には標準の `Error` 型が用意されていますが、一般に
 
 エラーハンドリングに `AxiosError` 型をそのまま用いることも考えられますが、業務例外の構造が直接外部ライブラリに依存しないクリーンなコードを保つため、 `AxiosError` 型をカスタムエラーへ変換します。
 
-業務例外の表現方法として、 業務例外が発生する可能性のある関数の戻り値を `Result` 型で表現し、`Error` 型の `throw` を避ける方法も考えられます。
-しかし、[例外処理方針 - フロントエンドの例外処理方針](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#frontend-error-handling-policy) で述べたように、 `try-catch` を用いてハンドリングします。
+業務例外は、発生した箇所と扱う箇所で、次のように役割を分けます。
+
+- サービスは、 API の呼び出しで発生したカスタムエラーをそのまま送出します。
+- ロジック（画面から呼び出す業務の操作を提供するコンポーザブル）は、 `try-catch` と `instanceof` でカスタムエラーを捕捉し、結果（ `Outcome` ）を返します。
+- 画面は結果を受け取り、要件に応じて、ユーザーへ通知したり、画面を遷移させたりします。画面ではカスタムエラーを判定しません。
+
+カスタムエラーのクラスを使うと、例外の構造を型で表現できます。
+また、ロジックは、例外が発生しうる処理を呼び出すたびに戻り値を検査する必要がありません。
+一方、画面は結果の種類（ `kind` ）で分岐するので、どの結果を扱うべきかを型検査で確認できます。
+ロジック、結果、画面の間の処理の流れは、 [例外処理方針 - API 通信で発生する例外処理フロー](../../../../app-architecture/client-side-rendering/global-function/exception-handling.md#api-connection-error-flow) を参照してください。
+
+## ファイルの配置 {#file-placement}
+
+カスタムエラーとそのハンドリングに関するコードは、業務知識を持たず、システム全体で横断的に使うので、 `system-common` フォルダーの下に配置します。
+本ページで作成・編集するファイルは以下のとおりです。
+
+```text title="フォルダー構造" linenums="0"
+<workspace-name>
+└─ src/
+  └─ system-common/
+     ├─ api-client/
+     │  └─ index.ts ------------------ Axios の Interceptors を設定するファイル
+     ├─ error-handler/
+     │  ├─ common-error-outcome.ts --- 共通の失敗の結果を定義するファイル
+     │  ├─ custom-error.ts ----------- カスタムエラーのクラスを定義するファイル
+     │  └─ custom-error-handler.ts --- カスタムエラーハンドラーを定義するファイル
+     └─ types/
+        └─ index.ts ------------------ カスタムエラーハンドラーが使用する型を定義するファイル
+```
+
+`api-client/index.ts` は [OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md#set-client-code) で作成したファイルです。
 
 ## カスタムエラーを定義する {#define-custom-error}
 
+`system-common/error-handler/custom-error.ts` に、カスタムエラーのクラスを定義します。
 標準の `Error` 型を拡張して、カスタムエラーの基底クラスとなる抽象クラスを実装します。
 これを継承するカスタムエラーの具象クラスには、ログ出力に必要な情報を取り出すために、 `toJSON()` メソッドの実装を強制します。
 
@@ -114,6 +144,7 @@ Axios の [Interceptors :material-open-in-new:](https://axios.rest/pages/advance
 この機能を用いて、 HTTP ステータスコードに対応した適切なカスタムエラーへ変換する処理を一箇所に集約して実装します。
 HTTP ステータスコードは `AxiosError` の `response.status` へ格納されています。
 
+Interceptors は、 `system-common/api-client/index.ts` で生成した `axiosInstance` に設定します。
 `axiosInstance.interceptors.response` の実装例を下記に示します。
 たとえば下記の例では、`response.status` が 404 である `AxiosError` を、`NotFoundError` に変換して返却しています。
 
@@ -144,21 +175,17 @@ axiosInstance.interceptors.response.use(
 )
 ```
 
-## 業務例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
+## 例外が発生しうる処理の呼び出し {#calling-a-process-where-exceptions-are-expected}
 
-業務例外が発生する可能性のある処理の呼び出し時は、`try-catch` で囲みます。
-例外を `catch` したら、 `instanceof` を使用して、どのカスタムエラーに該当するか検出し、検出したエラーに応じた処理を実行します。
-下記は API の呼び出しで `NotFoundError` が発生した場合に、ユーザーへトースト通知し、別画面へ遷移する例です。
+例外が発生する可能性のある処理は、ロジックの中で `try-catch` で囲み、結果に変換して返します。
 
 ```typescript title="サンプルアプリケーションの実装例"
-const getItem = async (itemId: number) => {
+async function addToBasket(displayItemId: string): Promise<AddToBasketOutcome> {
   try {
-    setCurrentItemState(await fetchItem(itemId))
+    await addItemToBasket(displayItemId)
+    return { kind: 'added' }
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      showToast('対象のアイテムが見つかりませんでした。')
-      router.push({ name: 'catalog/items' })
-    }
+    return handleCommonError(error)
   }
 }
 ```

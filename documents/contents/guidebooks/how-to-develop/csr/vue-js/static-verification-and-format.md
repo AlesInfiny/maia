@@ -293,12 +293,11 @@ ESLint の対象外とするファイルを追加します。
 サンプルアプリケーションでは、[OpenAPI 仕様書からのクライアントコード生成](./create-api-client-code.md) で自動生成するファイルと、
 [モックモードの設定](./mock-mode-settings.md) で追加するパッケージに由来するファイルは Lint 処理によって変更したくないので、 対象外にします。
 
-```typescript hl_lines="5-7"
+```typescript hl_lines="5-6"
 globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
-  '**/src/generated/**',
   '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
@@ -314,6 +313,65 @@ globalIgnores([
       ```shell linenums="0"
       npx @eslint/config-inspector@latest
       ```
+
+#### フォルダー間の参照方向の強制 {#layer-dependency-rules}
+
+[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
+逆向きの参照はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
+
+??? info "サンプルアプリケーションで禁止する参照の一覧"
+
+    - `system-common` から、他の層とコンテキストへの参照
+    - `business-common` から、 core 層、 `pages` 、コンテキストへの参照
+    - コンテキストから、 core 層、 `pages` 、他のコンテキストへの参照（他のコンテキストの `public-api.ts` も含みます）
+    - `pages` から、コンテキストの `public-api.ts` 以外への参照
+    - `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
+    - `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
+    - core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します。ただし `services` フォルダーでは型の参照も禁止します）
+    - core 層以外での動的インポート（ `import()` 。 `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します）
+    - `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
+
+サンプルアプリケーションでは、これらのルールを生成する関数（ `createLayerDependencyRules` ）を `eslint.project-rules.ts` に定義しています。
+この関数で、 consumer と admin のそれぞれのルールを生成しています。
+`files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
+
+??? example "サンプルアプリケーションでの設定例"
+
+    ```typescript title="サンプルアプリケーションの eslint.project-rules.ts（参照方向のルールの抜粋）"
+    import type { Linter } from 'eslint'
+
+    --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
+    ```
+
+サンプルアプリケーションの eslint.project-rules.ts をもとに、ルートプロジェクトの直下（ eslint.config.ts と同じ階層）に eslint.project-rules.ts を作成します。
+上記の設定例のとおり、ファイルの先頭には `import type { Linter } from 'eslint'` を記述してください。
+ファイルの末尾では、 `createLayerDependencyRules` に自分のワークスペースのフォルダー名を渡して、ワークスペースごとのルールを生成します。
+サンプルアプリケーションの `consumerLayerDependencyRules` と `adminLayerDependencyRules` は、ワークスペースの数と名前に合わせて置き換えてください。
+
+```typescript title="eslint.project-rules.ts の末尾の例"
+export const workspaceNameLayerDependencyRules: Linter.Config[] =
+  createLayerDependencyRules('workspace-name')
+```
+
+??? warning "ワークスペース名が一致しない場合"
+
+    ルールは `**/<ワークスペース名>/src` の下のファイルにだけ適用されます。
+    `createLayerDependencyRules` に渡した名前がワークスペースのフォルダー名と一致しないと、ルールはどのファイルにも適用されません。
+    このとき ESLint はエラーも警告も出力しないため、設定の誤りに気付けません。
+    設定後は、たとえば [フォルダー構造の変更](./folder-structure-changes.md) で作成した `sample/vue/stores/counter.ts` に `import router from '@/core/router'` を一時的に追加し、 ESLint がエラーを出力することを確認してください。
+    コンテキストから core 層への参照は禁止されているので、ルールが適用されていればエラーになります。
+    確認が終わったら、追加した `import` を削除してください。
+
+生成したルールは、 eslint.config.ts で読み込んで適用します。
+
+```typescript title="eslint.config.ts でのルールの適用"
+import { workspaceNameLayerDependencyRules } from './eslint.project-rules'
+
+export default defineConfigWithVueTs(
+  // 中略
+  ...workspaceNameLayerDependencyRules,
+)
+```
 
 #### ESLint の実行 {#run-eslint}
 
@@ -395,7 +453,7 @@ export default {
       create-vue で作成されるデフォルトのアプリケーションに対して Stylelint を実行すると、下記の警告が出力されて、動作確認が進められない場合があります。
 
       ```text linenums="0"
-      src/assets/base.css
+      src/core/styles/base.css
         25:1  ✖  Unexpected duplicate selector ":root", first used at line 2  no-duplicate-selectors
       ```
 

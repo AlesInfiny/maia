@@ -120,7 +120,7 @@ nav:
                   - guidebooks/how-to-develop/csr/vue-js/index.md
                   - 事前準備: guidebooks/how-to-develop/csr/vue-js/preparation.md
                   - ブランクプロジェクトの作成: guidebooks/how-to-develop/csr/vue-js/create-vuejs-blank-project.md
-                  - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/csr/vue-js/folder-structure-of-blank-project.md
+                  - フォルダー構造の変更: guidebooks/how-to-develop/csr/vue-js/folder-structure-changes.md
                   - ワークスペースの設定: guidebooks/how-to-develop/csr/vue-js/setting-workspaces.md
                   - プロジェクトの共通設定: guidebooks/how-to-develop/csr/vue-js/project-settings.md
                   - 開発に使用するパッケージ: guidebooks/how-to-develop/csr/vue-js/optional-packages.md

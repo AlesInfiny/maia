@@ -95,15 +95,15 @@ JSON ファイルでメッセージを管理する際は、メッセージコー
 
 `i18n.ts` の設定をアプリケーションに反映させるため、 `main.ts` に以下のように実装します。
 
-```typescript title="main.ts" hl_lines="6 14"
-import { createApp } from "vue"
-import { createPinia } from "pinia"
-import { authenticationGuard } from "@/security/authentication/router/authentication-guard"
-import App from "./App.vue"
-import { router } from "@/system-common/router"
-import { i18n } from "@/system-common/locales/i18n"
+```typescript title="main.ts" hl_lines="5 14"
+import '@/core/styles/main.css'
 
-import "@/assets/base.css"
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import { i18n } from '@/system-common/locales/i18n'
+
+import App from './App.vue'
+import router from '@/core/router'
 
 const app = createApp(App)
 
@@ -111,9 +111,7 @@ app.use(createPinia())
 app.use(router)
 app.use(i18n)
 
-authenticationGuard(router)
-
-app.mount("#app")
+app.mount('#app')
 ```
 
 ### メッセージの取得 {#getting-messages}
