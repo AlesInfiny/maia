@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- ベースとした Google 提供の設定ファイル（上流では削除済み） -->
+<!-- UPDATE状況などを確認するURLは以下を参照 -->
 <!-- https://github.com/google/styleguide/blob/505ba68c74eb97e6966f60907ce893001bedc706/eclipse-java-google-style.xml -->
 <!-- formatterの設定内容については以下を参照 -->
 <!-- https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2Fformatter%2FDefaultCodeFormatterConstants.html -->
