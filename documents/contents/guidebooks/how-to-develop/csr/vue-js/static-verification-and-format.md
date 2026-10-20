@@ -344,7 +344,7 @@ globalIgnores([
     ```
 
 サンプルアプリケーションの eslint.project-rules.ts をもとに、ルートプロジェクトの直下（ eslint.config.ts と同じ階層）に eslint.project-rules.ts を作成します。
-上記の設定例は抜粋なので、ファイルの先頭には `import type { Linter } from 'eslint'` を記述してください。
+上記の設定例のとおり、ファイルの先頭には `import type { Linter } from 'eslint'` を記述してください。
 ファイルの末尾では、 `createLayerDependencyRules` に自分のワークスペースのフォルダー名を渡して、ワークスペースごとのルールを生成します。
 サンプルアプリケーションの `consumerLayerDependencyRules` と `adminLayerDependencyRules` は、ワークスペースの数と名前に合わせて置き換えてください。
 
