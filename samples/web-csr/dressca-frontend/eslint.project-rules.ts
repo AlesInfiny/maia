@@ -277,24 +277,67 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin')
 
 /**
- * E2E テストの page object に適用するルールです。
- * page object で要素のテキストを一度だけ読み取ると、テストで Playwright の自動待機と自動リトライ
+ * Locator の値を一度だけ読み取るメソッドです。
+ * 自動待機と自動リトライが効かないため、 page object と fixture では使用しません。
+ */
+const e2eStateReadMethods = [
+  'innerText',
+  'textContent',
+  'allInnerTexts',
+  'allTextContents',
+  'innerHTML',
+  'inputValue',
+  'getAttribute',
+  'isVisible',
+  'isHidden',
+  'isChecked',
+  'isEnabled',
+  'isDisabled',
+  'isEditable',
+  'count',
+  'boundingBox',
+  'ariaSnapshot',
+  'evaluate',
+  'evaluateAll',
+  'evaluateHandle',
+]
+
+const e2eStateReadMethodsRegex = `/^(?:${e2eStateReadMethods.join('|')})$/`
+
+/**
+ * E2E テストの page object と fixture のファイルに一致する glob です。
+ * eslint.config.ts で Playwright 推奨のルールを適用する対象にも使用します。
+ */
+export const e2eSupportFileGlobs = [
+  '**/e2e/pages/**/*.{js,ts,jsx,tsx}',
+  '**/e2e/fixture/**/*.{js,ts,jsx,tsx}',
+]
+
+/**
+ * E2E テストの page object と fixture で、要素のテキストや状態の読み取りを禁止する設定です。
+ * `no-restricted-syntax` のオプションは後の設定で上書きされるため、同じファイルに
+ * `no-restricted-syntax` を設定する場合は、この配列の要素をその設定のオプションに加えます。
+ */
+export const e2eStateReadRestrictions = [
+  {
+    // `locator.innerText()` と、計算プロパティ（ `locator['innerText']()` ）による呼び出しの両方を検出します。
+    selector: `CallExpression:matches([callee.property.name=${e2eStateReadMethodsRegex}], [callee.property.value=${e2eStateReadMethodsRegex}], [callee.property.quasis.0.value.cooked=${e2eStateReadMethodsRegex}])`,
+    message:
+      'page object と fixture では、要素のテキストや状態を読み取れません。 Locator を返し、テストで web-first assertion （ await expect(locator).toHaveText(...) など）を使用します。',
+  },
+]
+
+/**
+ * E2E テストの page object と fixture に適用するルールです。
+ * page object で要素のテキストや状態を一度だけ読み取ると、テストで Playwright の自動待機と自動リトライ
  * （ web-first assertions ）が効かず、表示が切り替わる前の値を読み取ってしまうため、禁止します。
  */
-export const e2ePageObjectRules: Linter.Config[] = [
+export const e2eSupportFileRules: Linter.Config[] = [
   {
-    name: 'dressca-frontend/e2e-page-object',
-    files: ['**/e2e/pages/**/*.{js,ts,jsx,tsx}'],
+    name: 'dressca-frontend/e2e-support-file',
+    files: e2eSupportFileGlobs,
     rules: {
-      'no-restricted-syntax': [
-        'error',
-        {
-          selector:
-            'CallExpression[callee.property.name=/^(innerText|textContent|allInnerTexts|allTextContents)$/]',
-          message:
-            'page object では要素のテキストを読み取れません。 Locator を返し、テストで web-first assertion （ await expect(locator).toHaveText(...) など）を使用します。',
-        },
-      ],
+      'no-restricted-syntax': ['error', ...e2eStateReadRestrictions],
     },
   },
 ]
