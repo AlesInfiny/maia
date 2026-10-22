@@ -38,14 +38,20 @@ test.describe('買い物', () => {
     })
 
     await test.step('注文を確定する', async () => {
-      totalPriceOnCheckout = await checkoutPage.getTotalPrice()
+      const totalPriceCell = checkoutPage.getTotalPriceCell()
+      // 買い物かごの読み込みが終わるまでは `-` が表示されるため、金額が表示されるまで待ちます。
+      // 読み取る値と、注文完了画面で比較する値を揃えるため、どちらも innerText を使用します。
+      await expect(totalPriceCell).toHaveText(/^￥[\d,]+$/, { useInnerText: true })
+      totalPriceOnCheckout = await totalPriceCell.innerText()
       await checkoutPage.confirmOrder()
     })
 
     await test.step('注文完了を確認する', async () => {
       await expect(donePage.getOrderingCompletedMessage()).toBeVisible()
       await expect(page).toHaveURL(/\/ordering\/done\/.+/)
-      expect(await donePage.getTotalPrice()).toBe(totalPriceOnCheckout)
+      await expect(donePage.getTotalPriceCell()).toHaveText(totalPriceOnCheckout, {
+        useInnerText: true,
+      })
     })
   })
 })

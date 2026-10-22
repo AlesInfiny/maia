@@ -2,12 +2,20 @@ import { describe, test } from 'node:test'
 import assert from 'node:assert/strict'
 import { ESLint, type Linter } from 'eslint'
 import tseslint from 'typescript-eslint'
-import { adminLayerDependencyRules, consumerLayerDependencyRules } from './eslint.project-rules.ts'
+import {
+  adminLayerDependencyRules,
+  consumerLayerDependencyRules,
+  e2eSupportFileRules,
+} from './eslint.project-rules.ts'
 
 const restrictedImportsRule = '@typescript-eslint/no-restricted-imports'
 const restrictedSyntaxRule = 'no-restricted-syntax'
 
-const projectRules = [...consumerLayerDependencyRules, ...adminLayerDependencyRules]
+const projectRules = [
+  ...consumerLayerDependencyRules,
+  ...adminLayerDependencyRules,
+  ...e2eSupportFileRules,
+]
 
 const eslint = new ESLint({
   cwd: import.meta.dirname,
@@ -32,6 +40,7 @@ const denied = {
   vueRouterValue: 'vue-router は型だけ参照できます。',
   services: 'services には Vue に依存しない関数だけを置きます。',
   dynamicImport: '動的インポートは core 層だけで使用できます。',
+  e2eStateRead: 'page object と fixture では、要素のテキストや状態を読み取れません。',
 } as const
 
 type Expected = 'ok' | (typeof denied)[keyof typeof denied]
@@ -50,7 +59,10 @@ async function assertLint(filePath: string, code: string, expected: Expected): P
     assert.deepEqual(messages, [], `${filePath} の \`${code}\` はエラーにならないはずです。`)
     return
   }
-  const ruleId = expected === denied.dynamicImport ? restrictedSyntaxRule : restrictedImportsRule
+  const ruleId =
+    expected === denied.dynamicImport || expected === denied.e2eStateRead
+      ? restrictedSyntaxRule
+      : restrictedImportsRule
   assert.ok(
     result.messages.some(
       (m) => m.ruleId === ruleId && m.severity === 2 && m.message.includes(expected),
@@ -330,8 +342,109 @@ describe('参照の判定', () => {
   })
 })
 
+describe('E2E テストの page object と fixture', () => {
+  const supportFiles = [
+    'consumer/e2e/pages/shopping/checkout-page.ts',
+    'admin/e2e/pages/catalog-management/items-page.ts',
+    'consumer/e2e/fixture/shopping-test-fixture.ts',
+    'admin/e2e/fixture/catalog-management-test-fixture.ts',
+  ]
+  const textReads = [
+    'innerText()',
+    'textContent()',
+    'allInnerTexts()',
+    'allTextContents()',
+    'innerHTML()',
+    'inputValue()',
+    'getAttribute("href")',
+    'isVisible()',
+    'isHidden()',
+    'isChecked()',
+    'isEnabled()',
+    'isDisabled()',
+    'isEditable()',
+    'count()',
+    'boundingBox()',
+    'ariaSnapshot()',
+    'evaluate((e) => e.textContent)',
+    'evaluateAll((es) => es.length)',
+    'first().innerText()',
+  ]
+  // 計算プロパティやオプショナルチェーンで呼び出しても検出されることを確かめます。
+  const otherCallForms = [
+    'locator["innerText"]()',
+    'locator[`isVisible`]()',
+    'locator?.inputValue()',
+  ]
+  for (const filePath of supportFiles) {
+    describe(filePath, () => {
+      for (const textRead of [...textReads.map((read) => `locator.${read}`), ...otherCallForms]) {
+        test(`${textRead} はエラーになる`, async () => {
+          await assertLint(
+            filePath,
+            `declare const locator: any\nexport const read = () => ${textRead}\n`,
+            denied.e2eStateRead,
+          )
+        })
+      }
+      test('Locator を返すことはできる', async () => {
+        await assertLint(
+          filePath,
+          'declare const locator: any\nexport const get = () => locator.getByRole("cell")\n',
+          'ok',
+        )
+      })
+    })
+  }
+
+  for (const filePath of [
+    'consumer/e2e/test-scenario/shopping-scenario.test.ts',
+    'admin/e2e/test-scenario/catalog-management-scenario.test.ts',
+  ]) {
+    test(`${filePath} では innerText() を呼び出せる`, async () => {
+      await assertLint(
+        filePath,
+        'declare const locator: any\nexport const read = () => locator.innerText()\n',
+        'ok',
+      )
+    })
+  }
+})
+
 describe('eslint.config.ts', () => {
   const projectEslint = new ESLint({ cwd: import.meta.dirname })
+  for (const workspace of ['consumer', 'admin']) {
+    for (const filePath of [
+      `${workspace}/e2e/pages/x-page.ts`,
+      `${workspace}/e2e/pages/shopping/x-page.ts`,
+      `${workspace}/e2e/fixture/x-fixture.ts`,
+    ]) {
+      test(`${filePath} に page object と fixture のルールが適用される`, async () => {
+        const expected = (await eslint.calculateConfigForFile(filePath)) as Linter.Config
+        const actual = (await projectEslint.calculateConfigForFile(filePath)) as Linter.Config
+        assert.ok(expected.rules?.[restrictedSyntaxRule], `${filePath} の期待値がありません。`)
+        assert.deepEqual(
+          actual.rules?.[restrictedSyntaxRule],
+          expected.rules[restrictedSyntaxRule],
+          `${filePath} の ${restrictedSyntaxRule} の設定が eslint.project-rules.ts と一致しません。`,
+        )
+      })
+    }
+    for (const filePath of [
+      `${workspace}/e2e/pages/x-page.ts`,
+      `${workspace}/e2e/fixture/x-fixture.ts`,
+      `${workspace}/e2e/test-scenario/x.test.ts`,
+    ]) {
+      test(`${filePath} に Playwright 推奨のルールが適用される`, async () => {
+        const actual = (await projectEslint.calculateConfigForFile(filePath)) as Linter.Config
+        assert.deepEqual(
+          actual.rules?.['playwright/no-wait-for-timeout'],
+          [1],
+          `${filePath} に playwright/no-wait-for-timeout が適用されていません。`,
+        )
+      })
+    }
+  }
   for (const workspace of ['consumer', 'admin']) {
     for (const filePath of [
       `${workspace}/src/ab/domain/x.ts`,

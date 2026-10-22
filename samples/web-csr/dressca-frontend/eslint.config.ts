@@ -12,6 +12,8 @@ import {
   adminLayerDependencyRules,
   codingConventionRules,
   consumerLayerDependencyRules,
+  e2eSupportFileGlobs,
+  e2eSupportFileRules,
 } from './eslint.project-rules'
 
 configureVueProject({
@@ -69,11 +71,15 @@ export default defineConfigWithVueTs(
   ...consumerLayerDependencyRules,
   ...adminLayerDependencyRules,
 
-  // Playwright 用のテストスイートに対して、 Playwright 推奨の Lint ルールを適用します。
+  // Playwright 用のテストスイートと、 page object 、 fixture に対して、 Playwright 推奨の Lint ルールを適用します。
+  // page object と fixture も、固定時間の待機（ waitForTimeout ）などの、テストを不安定にする操作の検査対象とします。
   {
     ...pluginPlaywright.configs['flat/recommended'],
-    files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
+    files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}', ...e2eSupportFileGlobs],
   },
+
+  // E2E テストの page object と fixture で、要素のテキストや状態を読み取ることを禁止します。
+  ...e2eSupportFileRules,
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。
   {
