@@ -37,7 +37,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'assetCode' is not null or undefined
             assertParamExists('get', 'assetCode', assetCode)
             const localVarPath = `/api/assets/{assetCode}`
-                .replace(`{${"assetCode"}}`, encodeURIComponent(String(assetCode)));
+                .replace('{assetCode}', encodeURIComponent(String(assetCode)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

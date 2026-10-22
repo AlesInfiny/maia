@@ -48,7 +48,7 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             // verify required parameter 'rowVersion' is not null or undefined
             assertParamExists('deleteCatalogItem', 'rowVersion', rowVersion)
             const localVarPath = `/api/catalog-items/{catalogItemId}`
-                .replace(`{${"catalogItemId"}}`, encodeURIComponent(String(catalogItemId)));
+                .replace('{catalogItemId}', encodeURIComponent(String(catalogItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -137,7 +137,7 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getCatalogItem', 'id', id)
             const localVarPath = `/api/catalog-items/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+                .replace('{id}', encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -208,7 +208,7 @@ export const CatalogItemsApiAxiosParamCreator = function (configuration?: Config
             // verify required parameter 'putCatalogItemRequest' is not null or undefined
             assertParamExists('putCatalogItem', 'putCatalogItemRequest', putCatalogItemRequest)
             const localVarPath = `/api/catalog-items/{catalogItemId}`
-                .replace(`{${"catalogItemId"}}`, encodeURIComponent(String(catalogItemId)));
+                .replace('{catalogItemId}', encodeURIComponent(String(catalogItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
