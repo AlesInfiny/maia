@@ -18,11 +18,7 @@ export class DonePage extends BasePage {
   constructor(page: Page) {
     super(page)
     this.orderingCompletedMessage = page.getByText('注文が完了しました。')
-    this.totalPriceCell = page
-      .getByRole('row')
-      .filter({ has: page.getByRole('cell', { name: '合計', exact: true }) })
-      .getByRole('cell')
-      .nth(1)
+    this.totalPriceCell = this.getCellNextToHeading('合計')
   }
 
   /**
@@ -46,7 +42,7 @@ export class DonePage extends BasePage {
    * 注文の読み込みが終わるまでは、合計金額に `-` が表示されます。
    * @returns 合計金額のセル。
    */
-  getTotalPrice(): Locator {
+  getTotalPriceCell(): Locator {
     return this.totalPriceCell
   }
 }

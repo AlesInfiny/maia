@@ -24,11 +24,7 @@ export class CheckoutPage extends BasePage {
       '注文内容を確認して「注文を確定する」ボタンを押してください。',
     )
     this.confirmOrderButton = page.getByRole('button', { name: '注文を確定する' })
-    this.totalPriceCell = page
-      .getByRole('row')
-      .filter({ has: page.getByRole('cell', { name: '合計', exact: true }) })
-      .getByRole('cell')
-      .nth(1)
+    this.totalPriceCell = this.getCellNextToHeading('合計')
   }
 
   /**
@@ -51,7 +47,7 @@ export class CheckoutPage extends BasePage {
    * 買い物かごの読み込みが終わるまでは、合計金額に `-` が表示されます。
    * @returns 合計金額のセル。
    */
-  getTotalPrice(): Locator {
+  getTotalPriceCell(): Locator {
     return this.totalPriceCell
   }
 
