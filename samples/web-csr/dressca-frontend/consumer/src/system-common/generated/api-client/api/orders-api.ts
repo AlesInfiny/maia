@@ -43,7 +43,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'orderId' is not null or undefined
             assertParamExists('getOrderById', 'orderId', orderId)
             const localVarPath = `/api/orders/{orderId}`
-                .replace(`{${"orderId"}}`, encodeURIComponent(String(orderId)));
+                .replace('{orderId}', encodeURIComponent(String(orderId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
