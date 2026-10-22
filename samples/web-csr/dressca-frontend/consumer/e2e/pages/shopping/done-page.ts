@@ -42,10 +42,11 @@ export class DonePage extends BasePage {
   }
 
   /**
-   * 表示されている合計金額を取得します。
-   * @returns 合計金額の表示文字列。
+   * 合計金額のセルを表す Locator を返します。
+   * 注文の読み込みが終わるまでは、合計金額に `-` が表示されます。
+   * @returns 合計金額のセル。
    */
-  async getTotalPrice(): Promise<string> {
-    return (await this.totalPriceCell.innerText()).trim()
+  getTotalPrice(): Locator {
+    return this.totalPriceCell
   }
 }
