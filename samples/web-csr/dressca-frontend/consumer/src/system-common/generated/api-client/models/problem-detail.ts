@@ -17,7 +17,7 @@
 export interface ProblemDetail {
     'detail'?: string;
     'instance'?: string;
-    'properties'?: { [key: string]: any; };
+    'properties'?: { [key: string]: any | null; };
     'status'?: number;
     'title'?: string;
     'type'?: string;

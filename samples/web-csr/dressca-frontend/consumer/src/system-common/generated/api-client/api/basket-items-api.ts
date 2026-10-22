@@ -45,7 +45,7 @@ export const BasketItemsApiAxiosParamCreator = function (configuration?: Configu
             // verify required parameter 'displayItemId' is not null or undefined
             assertParamExists('deleteBasketItem', 'displayItemId', displayItemId)
             const localVarPath = `/api/basket-items/{displayItemId}`
-                .replace(`{${"displayItemId"}}`, encodeURIComponent(String(displayItemId)));
+                .replace('{displayItemId}', encodeURIComponent(String(displayItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
