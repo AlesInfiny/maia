@@ -275,3 +275,26 @@ export const consumerLayerDependencyRules: Linter.Config[] = createLayerDependen
  * admin のフォルダー間の参照方向を強制するルールです。
  */
 export const adminLayerDependencyRules: Linter.Config[] = createLayerDependencyRules('admin')
+
+/**
+ * E2E テストの page object に適用するルールです。
+ * page object で要素のテキストを一度だけ読み取ると、テストで Playwright の自動待機と自動リトライ
+ * （ web-first assertions ）が効かず、表示が切り替わる前の値を読み取ってしまうため、禁止します。
+ */
+export const e2ePageObjectRules: Linter.Config[] = [
+  {
+    name: 'dressca-frontend/e2e-page-object',
+    files: ['**/e2e/pages/**/*.{js,ts,jsx,tsx}'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            'CallExpression[callee.property.name=/^(innerText|textContent|allInnerTexts|allTextContents)$/]',
+          message:
+            'page object では要素のテキストを読み取れません。 Locator を返し、テストで web-first assertion （ await expect(locator).toHaveText(...) など）を使用します。',
+        },
+      ],
+    },
+  },
+]
