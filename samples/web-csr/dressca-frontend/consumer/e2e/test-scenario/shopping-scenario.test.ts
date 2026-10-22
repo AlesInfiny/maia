@@ -40,7 +40,8 @@ test.describe('買い物', () => {
     await test.step('注文を確定する', async () => {
       const totalPriceCell = checkoutPage.getTotalPriceCell()
       // 買い物かごの読み込みが終わるまでは `-` が表示されるため、金額が表示されるまで待ちます。
-      await expect(totalPriceCell).not.toHaveText('-')
+      // 読み取る値と、注文完了画面で比較する値を揃えるため、どちらも innerText を使用します。
+      await expect(totalPriceCell).toHaveText(/^￥[\d,]+$/, { useInnerText: true })
       totalPriceOnCheckout = await totalPriceCell.innerText()
       await checkoutPage.confirmOrder()
     })
@@ -48,7 +49,9 @@ test.describe('買い物', () => {
     await test.step('注文完了を確認する', async () => {
       await expect(donePage.getOrderingCompletedMessage()).toBeVisible()
       await expect(page).toHaveURL(/\/ordering\/done\/.+/)
-      await expect(donePage.getTotalPriceCell()).toHaveText(totalPriceOnCheckout)
+      await expect(donePage.getTotalPriceCell()).toHaveText(totalPriceOnCheckout, {
+        useInnerText: true,
+      })
     })
   })
 })
