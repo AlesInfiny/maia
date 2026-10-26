@@ -1,12 +1,12 @@
 ext {
     // -- PLUGINS
-    springBootVersion = "4.1.0"
+    springBootVersion = "4.1.2"
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
     spotbugsVersion = "6.5.13"
 
     // -- DEPENDENCIES
-    springdocOpenapiVersion = "3.1.1"
+    springdocOpenapiVersion = "3.2.0"
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "14.3.0"
