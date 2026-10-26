@@ -33,25 +33,28 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 
 本サイトに記載の商品名、製品名、社名などは、各社が商標として使用している場合があります。
 
-<!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length -->
+<!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length,@textlint-ja/no-synonyms -->
 
-- Amazon Web Services 、 AWS 、 Powered by AWS ロゴ、およびかかる資料で使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関連会社の商標です。
+- Amazon Web Services 、 AWS 、 Powered by AWS のロゴ、 Amazon Corretto 、および本サイトで使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関係会社の商標です。
 - Apache, [Apache Commons Lang :material-open-in-new:](https://commons.apache.org/proper/commons-lang/){ target=_blank }, [Apache Groovy :material-open-in-new:](https://groovy.apache.org/){ target=_blank }, [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank }, [Apache Maven :material-open-in-new:](https://maven.apache.org/){ target=_blank } and [Apache Tomcat :material-open-in-new:](https://tomcat.apache.org/){ target=_blank } are either registered trademarks or trademarks of the [Apache Software Foundation :material-open-in-new:](https://www.apache.org/){ target=_blank } in the United States and/or other countries.
-- 'Eclipse', 'Adoptium' and 'Temurin' are trademarks of Eclipse Foundation, Inc.
-- Gradle and the Gradlephant logo are registered trademark of Gradle, Inc. and its subsidiaries in the United States and/or other countries.
-- Google 、 Android は、 Google LLC の商標または登録商標です。
-- Copyright © 2022 JetBrains s.r.o. [IntelliJ IDEA] and the [IntelliJ IDEA] logo are registered trademarks of JetBrains s.r.o.
-- Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
-- 「Microsoft」「Windows」「Visual Studio Code」「VS Code」「Azure」は米国 Microsoft Corporation の米国およびその他の国における登録商標または商標です。
-- 「Java」は、オラクルおよびその関連会社の登録商標です。
-- Spring, Spring Framework, Spring Boot, Spring Cloud, Spring IO are trademarks of Pivotal Software, Inc. in the U.S. and other countries.
-- HIBERNATE is a registered trademark of Red Hat, Inc. in the United States and other countries.
+- Eclipse, Adoptium, Temurin and Jakarta EE are trademarks of Eclipse Foundation AISBL.
+- Gradle and the Gradlephant logo are registered trademarks of Gradle, Inc.
+- Google 、 Google Analytics は、 Google LLC の商標または登録商標です。
+- Copyright © 2026 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.
+- Microsoft 、 Azure 、 Microsoft Entra 、 TypeScript 、 Visual Studio Code 、 VS Code 、 Windows は、マイクロソフト グループの企業の商標です。
+- Java は、 Oracle 、その子会社及び関連会社の米国及びその他の国における登録商標です。
+- Spring is a trademark of Broadcom Inc. and/or its subsidiaries.
+- Hibernate is a trademark of Commonhaus Foundation, registered in the United States and other countries.
 - Git and the Git logo are either registered trademarks or trademarks of Software Freedom Conservancy, Inc., corporate home of the Git Project, in the United States and/or other countries.
 - The Tailwind name and logos are trademarks of Tailwind Labs Inc.
-- 「ESLint」およびそのロゴは OpenJS Foundation の商標または登録商標です。
+- GitHub and the GitHub logo design are trademarks of GitHub, Inc., registered in the United States and other countries.
+- npm is a registered trademark of npm, Inc.
+- Postgres, PostgreSQL and the Slonik Logo are trademarks or registered trademarks of the PostgreSQL Community Association of Canada.
+- "Python" and the Python Logo are trademarks of the Python Software Foundation (PSF).
+- ESLint 、 Node.js およびそのロゴは、 OpenJS Foundation の商標または登録商標です。
 - その他記載されている会社名・商品名などは、各社の商標および登録商標です。
 - 本サイトに記載の商品名、製品名、社名などには、必ずしも商標表示（ (R)、 TM ）を付記していません。
 
-<!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length -->
+<!-- textlint-enable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length,@textlint-ja/no-synonyms -->
 
 本サイトに記載されている内容の著作権や肖像権等は、各権利所有者に帰属します。
