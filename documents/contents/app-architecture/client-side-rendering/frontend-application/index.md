@@ -106,7 +106,7 @@ Pinia における Store は、 State・Getter・Action という 3 つの要素
 ![Pinia のアーキテクチャ](../../../images/app-architecture/client-side-rendering/pinia-architecture-light.png#only-light){ loading=lazy }
 ![Pinia のアーキテクチャ](../../../images/app-architecture/client-side-rendering/pinia-architecture-dark.png#only-dark){ loading=lazy }
 
-| 要素   | 説                                                                                                                                                                                   |
+| 要素   | 説明                                                                                                                                                                                 |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | State  | Store で管理するデータそのもの。                                                                                                                                                     |
 | Getter | State の値や State から算出した結果を返すもの。                                                                                                                                      |
@@ -130,10 +130,10 @@ AlesInfiny Maia ではクライアント API アクセス方式に、 Promise �
 
 OpenAPI: [公式ドキュメント :material-open-in-new:](https://swagger.io/specification/){ target=_blank }
 
-Axios: [github :material-open-in-new:](https://github.com/axios/axios){ target=_blank }
+Axios: [GitHub :material-open-in-new:](https://github.com/axios/axios){ target=_blank }
 
-![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading-lazy }
-![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading-lazy }
+![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-light.png#only-light){ loading=lazy }
+![OpenAPIを利用したバックエンドとの連携](../../../images/app-architecture/overview/client-side-rendering-maia-dark.png#only-dark){ loading=lazy }
 
 !!! note ""
 

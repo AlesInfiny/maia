@@ -22,7 +22,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
 
     - [TypeScript :material-open-in-new:](https://www.typescriptlang.org/){ target=_blank }
 
-          JavaScript を拡張して静的型付にしたプログラミング言語です。
+          JavaScript を拡張して静的型付けにしたプログラミング言語です。
       
     - [Vue.js :material-open-in-new:](https://ja.vuejs.org/){ target=_blank }
 
@@ -104,7 +104,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia）において、クラ
     - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
 
         Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
-        Unit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
+        JUnit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
 
     - [ArchUnit :material-open-in-new:](https://www.archunit.org/){ target=_blank }
 
@@ -196,7 +196,7 @@ AlesInfiny Maia のアプリケーションアーキテクチャは、クリー�
 - リポジトリ ( インターフェース )
 
     アプリケーションコア層のリポジトリはインターフェースであり、インフラストラクチャ層のリポジトリで実装されます。
-    依存関係逆転の法則に従い、アプリケーションコア層の実装がインフラストラクチャ層に依存しないようするためのインターフェースです。
+    依存関係逆転の法則に従い、アプリケーションコア層の実装がインフラストラクチャ層へ依存しないようにするためのインターフェースです。
 
 ### インフラストラクチャ層 {#infrastructure}
 

@@ -16,7 +16,7 @@ HTML をクライアント側 JavaScript でレンダリングする方式の We
 ![クライアントサイドレンダリング](../../images/app-architecture/overview/client-side-rendering-light.png#only-light){ loading=lazy }
 ![クライアントサイドレンダリング](../../images/app-architecture/overview/client-side-rendering-dark.png#only-dark){ loading=lazy }
 
-## Web アプリケーション ( サーバーサイドサイドレンダリング ) {#server-side-rendering}
+## Web アプリケーション ( サーバーサイドレンダリング ) {#server-side-rendering}
 
 サーバーサイドで構築した HTML をクライアント側のブラウザーでレンダリングする方式の Web アプリケーションです。
 

@@ -36,7 +36,7 @@ Spring Framework が提供するトランザクション管理の実現方式は
 Spring Framework における宣言的トランザクション管理では、メソッドをトランザクション管理の単位として、トランザクションの設定を定義します。
 詳細は [宣言的トランザクション管理 :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/data-access/transaction/declarative.html){ target=_blank } を参照してください。
 
-設定方法は Xml による設定と `#!java @Transactional` というアノテーションを付与する方法がありますが、 Spring Boot を利用したアプリケーションではアノテーションベースの設定が一般的です。
+設定方法は XML による設定と `#!java @Transactional` というアノテーションを付与する方法がありますが、 Spring Boot を利用したアプリケーションではアノテーションベースの設定が一般的です。
 
 上述の方針に従い、トランザクション単位となるアプリケーションサービスのメソッドに対し、`#!java @Transactional` アノテーションを付与します。
 `#!java @Transactional` アノテーションの設定については、[@Transactional を使用する :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/data-access/transaction/declarative/annotations.html){ target=_blank } を参照してください。

@@ -40,7 +40,7 @@ npm install vue-i18n
 メッセージに関するファイルは `./src/system-common/locales` フォルダーに集約します。
 以下のように、メッセージ本体を格納する JSON ファイルを作成します。
 
-```json title="messageList_jp.json の例"
+```json title="messageList_ja.json の例"
 {
   "errorOccurred": "エラーが発生しました。",
   "businessError": "業務エラーが発生しました。",
