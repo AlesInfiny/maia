@@ -146,7 +146,7 @@ public class ShoppingApplicationService {
   }
 
   /**
-   * 購入者 ID に対応する買い物かごと情報とその陳列品一覧を取得します。
+   * 購入者 ID に対応する買い物かご情報とその陳列品一覧を取得します。
    *
    * @param buyerId 購入者 ID 。
    * @return 買い物かごとその陳列品一覧。

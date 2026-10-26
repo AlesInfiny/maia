@@ -104,7 +104,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
 
   @Test
   @WithMockUser
-  @DisplayName("testException_01_正常系_その他の業務エラーをステータースコード500で返却する(開発環境)。")
+  @DisplayName("testException_01_正常系_その他の業務エラーをステータスコード500で返却する(開発環境)。")
   void testException_01() throws Exception {
     // Arrange
     // テスト用の入力データ
@@ -137,7 +137,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
 
   @Test
   @WithMockUser
-  @DisplayName("testException_02_正常系_その他のシステムエラーをステータースコード500で返却する(開発環境)。")
+  @DisplayName("testException_02_正常系_その他のシステムエラーをステータスコード500で返却する(開発環境)。")
   void testException_02() throws Exception {
     // Arrange
     // テスト用の入力データ
@@ -170,7 +170,7 @@ public class LocalExceptionHandlerControllerAdviceTest {
 
   @Test
   @WithMockUser
-  @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータースコード500で返却する(開発環境)。")
+  @DisplayName("testException_03_正常系_上記のいずれにも当てはまらない例外をステータスコード500で返却する(開発環境)。")
   void testException_03() throws Exception {
     // Arrange
     // テスト用の入力データ

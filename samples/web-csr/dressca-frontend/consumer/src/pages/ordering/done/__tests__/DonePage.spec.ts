@@ -31,7 +31,7 @@ describe('結果の通知と遷移', () => {
     mount(DonePage, { global: { plugins: [pinia, router] } })
     await flushPromises()
     // Assert
-    expect(useNotificationStore(pinia).message).toBe(t('failedToOrderInformation'))
+    expect(useNotificationStore(pinia).message).toBe(t('failedToGetOrderInformation'))
     expect(router.currentRoute.value.name).toBe(routeNames.displayItem)
   })
 })
