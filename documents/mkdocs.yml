@@ -290,3 +290,4 @@ plugins:
         font_family: Noto Sans JP
   - rss:
       enabled: !ENV [BUILD_DOCUMENTS, false]
+      image: https://maia.alesinfiny.org/assets/maia-logo.png
