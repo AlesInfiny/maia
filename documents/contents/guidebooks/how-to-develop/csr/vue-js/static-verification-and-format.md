@@ -385,7 +385,7 @@ npm run lint
 
 ## Stylelint {#stylelint}
 
-CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 StyleLint を導入します。
+CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 Stylelint を導入します。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時には追加されないため、手動でインストールする必要があります。
 
 ### Stylelint のインストール {#install-stylelint}

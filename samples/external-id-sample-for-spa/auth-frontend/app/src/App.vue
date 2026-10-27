@@ -31,7 +31,7 @@ const signInButtonClicked = async () => {
       })
     } else {
       await handleErrorAsync(error, () => {
-        window.alert('Microsoft Entra External Id での認証に失敗しました。')
+        window.alert('Microsoft Entra External ID での認証に失敗しました。')
       })
     }
   }
@@ -57,7 +57,7 @@ const signOutButtonClicked = async () => {
       })
     } else {
       await handleErrorAsync(error, () => {
-        window.alert('Microsoft Entra External Id での認証に失敗しました。')
+        window.alert('Microsoft Entra External ID での認証に失敗しました。')
       })
     }
   }
@@ -92,7 +92,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header><h1>Microsoft Entra External Id 認証サンプル</h1></header>
+  <header><h1>Microsoft Entra External ID 認証サンプル</h1></header>
   <div>
     <span>現在時刻: {{ getServerTime }}</span>
     <button type="submit" @click="updateServerTime()">更新</button>

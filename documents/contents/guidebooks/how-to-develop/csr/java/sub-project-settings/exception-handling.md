@@ -72,7 +72,7 @@ public ResponseEntity<ProblemDetail> handleException(Exception e) {
 
 AlesInfiny Maia では、例外メッセージをプロパティファイルから取得し、ログ出力するために ErrorMessageBuilder クラスを実装しています。
 また、プロパティファイルからエラーレスポンスに含めるメッセージを整形し ProblemDetail クラスを生成する ProblemDetailsFactory クラスを実装しています。
-そして、これらを用いてエラーレスポンスを生成を実装しています。
+そして、これらを用いてエラーレスポンスの生成を実装しています。
 
 ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定 - メッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
 

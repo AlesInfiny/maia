@@ -40,7 +40,7 @@ TypeScript で作成されたファイルは、 `tsconfig.json` の設定値を�
 
 Project Reference 機能については [Project References :material-open-in-new:](https://www.typescriptlang.org/docs/handbook/project-references.html){ target=_blank } を参照してください。
 
-なお、 `tsconfig.app.json` `tsconfig.node.json` には npm パッケージで提供されている `tsconfig` を継承するように設定されているため、継承元の設定値が存在します。
+なお、 `tsconfig.app.json` と `tsconfig.node.json` には npm パッケージで提供されている `tsconfig` を継承するように設定されているため、継承元の設定値が存在します。
 `extends` に定義されている継承元ファイルを参照して実際の設定値を確認できます。
 
 ![tsconfigの継承関係](../../../../images/guidebooks/how-to-develop/csr/vue-js/vue-tsconfig-light.png#only-light){ loading=lazy }
@@ -160,7 +160,7 @@ npm run type-check
 ### ビルドの実行 {#build-execution}
 
 ワークスペース直下で以下のコマンドを実行し、ビルドが実行できることを確認してください。
-dist フォルダーの配下に html ファイル、 css ファイル、 Javascript ファイル一式が生成されます。
+dist フォルダーの配下に html ファイル、 css ファイル、 JavaScript ファイル一式が生成されます。
 
 ```shell linenums="0"
 npm run build

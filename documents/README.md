@@ -205,7 +205,7 @@ AlesInfiny Maia のリポジトリ内のコードをドキュメントで参照�
 
 本ドキュメントのコードブロックで使用する言語名の例は以下の通りです。
 
-| Languages Name | Code Block Name |
+| Language Name  | Code Block Name |
 | -------------- | --------------- |
 | Bash           | shell           |
 | CSS            | css             |
@@ -359,7 +359,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 \*.drawio ファイルは、 _materials/images フォルダーの配下に作成してください。
 画像ファイルは svg 形式または png 形式で出力し、出力した画像ファイルを contents/images フォルダーの配下に配置してください。
 
-スクリーンショットなど、元となる \*.drawio ファイルが存在しない場合は、 _materials/images フォルダーの配下にファイルを配置する必要ありません。
+スクリーンショットなど、元となる \*.drawio ファイルが存在しない場合は、 _materials/images フォルダーの配下にファイルを配置する必要はありません。
 
 _materials/images フォルダー、 contents/images フォルダーの配下は、画像を配置するマークダウンの置き場所にあわせてフォルダーを掘り、その中に各ファイルを配置してください。
 

@@ -102,7 +102,7 @@ describe('CarouselSlider', () => {
       },
     })
 
-    const slider = wrapper.find('[data-test="slider"')
+    const slider = wrapper.find('[data-test="slider"]')
 
     const mouseDown = new MouseEvent('mousedown', { bubbles: true })
     const mouseMove = new MouseEvent('mousemove', {
@@ -133,7 +133,7 @@ describe('CarouselSlider', () => {
       },
     })
 
-    const slider = wrapper.find('[data-test="slider"')
+    const slider = wrapper.find('[data-test="slider"]')
 
     const mouseDown = new MouseEvent('mousedown', { bubbles: true })
     const mouseMove = new MouseEvent('mousemove', {
@@ -163,7 +163,7 @@ describe('CarouselSlider', () => {
       },
     })
 
-    const indicator = wrapper.findAll('[data-test="page-indicator"')
+    const indicator = wrapper.findAll('[data-test="page-indicator"]')
     await indicator[1]!.trigger('click')
 
     const slotContent = wrapper.find('[data-test="slotContent"]')

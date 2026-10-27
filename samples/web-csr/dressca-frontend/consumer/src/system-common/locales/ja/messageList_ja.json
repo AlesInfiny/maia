@@ -16,7 +16,7 @@
   "failedToChangeQuantities": "数量の変更に失敗しました。",
   "failedToDeleteItems": "商品の削除に失敗しました。",
   "failedToGetCarts": "カートの取得に失敗しました。",
-  "failedToOrderInformation": "注文情報の取得に失敗しました。",
+  "failedToGetOrderInformation": "注文情報の取得に失敗しました。",
   "failedToAddItemToCarts": "カートに追加できませんでした。",
   "failedToGetItems": "商品の取得に失敗しました。",
   "failedToOrderItems": "注文に失敗しました。",

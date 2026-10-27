@@ -20,7 +20,7 @@ const { status, order } = useOrderResult(route.params.orderId)
 
 watch(status, (newStatus) => {
   if (newStatus.kind === 'failed') {
-    showFailureToast(newStatus.problem, t('failedToOrderInformation'))
+    showFailureToast(newStatus.problem, t('failedToGetOrderInformation'))
     router.push({ name: routeNames.displayItem })
   }
 })
