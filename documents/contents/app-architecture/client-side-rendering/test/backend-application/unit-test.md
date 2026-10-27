@@ -20,7 +20,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 - [Checkstyle :material-open-in-new:](https://checkstyle.org/){ target=_blank }
     - コーディング規約に準拠した Java コードとなっているか自動的にテストするツールです。
-    - 分析ルールは、 Google が提供している「[Google Java Style Guide :material-open-in-new:](https://checkstyle.sourceforge.io/styleguides/google-java-style-20180523/javaguide.html){ target=_blank }」をベースにし、警告がなくなるまでコードを修正します。
+    - 分析ルールは、 Google が提供している「[Google Java Style Guide :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank }」をベースにし、警告がなくなるまでコードを修正します。
     - 日本語コメントや IDE とミスマッチするルールは修正して使用します。
 - [SpotBugs :material-open-in-new:](https://spotbugs.github.io/){ target=_blank }
     - Java コード内の潜在的なバグを自動検出するツールです。
