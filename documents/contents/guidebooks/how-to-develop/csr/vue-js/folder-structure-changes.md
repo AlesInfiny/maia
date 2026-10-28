@@ -27,7 +27,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
   ├ .gitattributes ---------- 特定のファイルやフォルダーに対して Git の操作をカスタマイズするための設定ファイル
   ├ .gitignore -------------- Git の管理対象外となるファイルやフォルダーをカスタマイズするための設定ファイル
   ├ .prettierrc.json -------- コードフォーマットのルールを定義する Prettier の設定ファイル
-  ├ env.d.ts ---------------- TypeScript でコード補完機能（Intellisense）を適用するための設定ファイル
+  ├ env.d.ts ---------------- TypeScript でコード補完機能（IntelliSense）を適用するための設定ファイル
   ├ eslint.config.ts -------- ESLint の設定ファイル
   ├ index.html -------------- Web サイトのトップページとなるファイル
   ├ package.json ------------ ワークスペースのメタデータ、依存関係、スクリプトなどを定義するファイル

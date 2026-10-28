@@ -23,7 +23,7 @@ Visual Studio Code を利用する場合、 Java アプリケーションを開�
 
     <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-    アプリケーションの起動で利用する [Gradle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle){ target=_blank } やコード補完やエラーレポートを提供する [Language Support for Java(TM) by Red Hat :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=redhat.java){ target=_blank } といったの拡張機能が追加でインストールされます。
+    アプリケーションの起動で利用する [Gradle for Java :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle){ target=_blank } やコード補完やエラーレポートを提供する [Language Support for Java(TM) by Red Hat :material-open-in-new:](https://marketplace.visualstudio.com/items?itemName=redhat.java){ target=_blank } といった拡張機能が追加でインストールされます。
 
     <!-- textlint-enable ja-technical-writing/sentence-length -->
 

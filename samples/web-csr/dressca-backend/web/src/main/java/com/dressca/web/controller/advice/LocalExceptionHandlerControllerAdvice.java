@@ -33,7 +33,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * 未認証エラーをステータスコード 401 で返却します。
    *
    * @param e 未認証エラー。
-   * @return ステータースコード 401 のレスポンス。
+   * @return ステータスコード 401 のレスポンス。
    */
   @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
   public ResponseEntity<String> handleAuthenticationCredentialsNotFoundException(
@@ -46,7 +46,7 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
    * 認可エラーをステータスコード 404 で返却します。
    *
    * @param e 認可エラー。
-   * @return ステータースコード 404 のレスポンス。
+   * @return ステータスコード 404 のレスポンス。
    */
   @ExceptionHandler({AuthorizationDeniedException.class, PermissionDeniedException.class})
   public ResponseEntity<String> handleAuthorizationDeniedException(Exception e) {
@@ -68,10 +68,10 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * その他の業務エラーをステータースコード 500 で返却します。
+   * その他の業務エラーをステータスコード 500 で返却します。
    *
    * @param e 業務例外。
-   * @return ステータースコード 500 のレスポンス。
+   * @return ステータスコード 500 のレスポンス。
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e) {
@@ -85,10 +85,10 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * その他のシステムエラーをステータースコード 500 で返却します。
+   * その他のシステムエラーをステータスコード 500 で返却します。
    *
    * @param e その他の例外。
-   * @return ステータースコード 500 のレスポンス。
+   * @return ステータスコード 500 のレスポンス。
    */
   @ExceptionHandler(SystemException.class)
   public ResponseEntity<ProblemDetail> handleSystemException(SystemException e) {
@@ -102,10 +102,10 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
   }
 
   /**
-   * 上記のいずれにも当てはまらない例外をステータースコード 500 で返却します。
+   * 上記のいずれにも当てはまらない例外をステータスコード 500 で返却します。
    *
    * @param e その他の例外。
-   * @return ステータースコード 500 のレスポンス。
+   * @return ステータスコード 500 のレスポンス。
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ProblemDetail> handleException(Exception e) {

@@ -148,9 +148,9 @@ Tailwind CSS のユーティリティクラスの順序は開発者によって�
 npm install -D prettier-plugin-tailwindcss
 ```
 
-ワークスペース直下の prettierrc.js に、 プラグイン用の設定を追加します。
+ワークスペース直下の .prettierrc.js に、 プラグイン用の設定を追加します。
 
-```javascript title="Tailwind CSS 用の prettierrc.js"  hl_lines="8-9"
+```javascript title="Tailwind CSS 用の .prettierrc.js"  hl_lines="8-9"
 import prettierConfigBase from '../.prettierrc.js'
 /**
  * @see https://prettier.io/docs/configuration

@@ -29,5 +29,5 @@ errorOccurred=エラーが発生しました。（エラーコード：{0}）
 以下のように、 `#!java MessageSource` の `getMessage` メソッドを利用してメッセージを整形し取得します。
 
 ```java title="埋め込みパラメータによるメッセージの取得"
-string message = messageSource.getMessage("errorOccurred", new Object[] { "ErrorCode" }, Locale.getDefault());
+String message = messageSource.getMessage("errorOccurred", new Object[] { "ErrorCode" }, Locale.getDefault());
 ```

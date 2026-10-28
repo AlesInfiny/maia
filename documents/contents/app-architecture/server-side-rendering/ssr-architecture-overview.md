@@ -47,7 +47,7 @@ AlesInfiny Maia OSS Edition （以降、 AlesInfiny Maia ） の SSR アプリ�
     - [Spring Test :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing.html){ target=_blank }
 
         Spring Framework をベースとするアプリケーション実装をテストするためのライブラリです。
-        Unit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
+        JUnit Jupiter 、 Hamcrest 、 Mockito などのライブラリと連携して、テスト実装をサポートする機能を提供します。
     
     - [Thymeleaf :material-open-in-new:](https://www.thymeleaf.org/){ target=_blank }
 

@@ -69,10 +69,10 @@ export default defineConfigWithVueTs(
   ...consumerLayerDependencyRules,
   ...adminLayerDependencyRules,
 
-  // Playwright 用のテストスイートに対して、 Playwright 推奨の Lint ルールを適用します。
+  // Playwright 用のテストスイートとページオブジェクトに対して、 Playwright 推奨の Lint ルールを適用します。
   {
     ...pluginPlaywright.configs['flat/recommended'],
-    files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
+    files: ['**/e2e/**/*.{js,ts,jsx,tsx}'],
   },
 
   // Vitest 用のテストスイートに対して、 Vitest 推奨の Lint ルールを適用します。

@@ -171,6 +171,7 @@ configureVueProject({
 ```
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
+あわせて、 Playwright のルールはテストファイルだけでなく、ページオブジェクトなど e2e フォルダー配下の全てのファイルを対象とします。
 
 ```typescript hl_lines="3 7"
 {
@@ -179,7 +180,7 @@ src フォルダーが eslint.config.ts の直下ではなくなるので、ワ�
 },
 {
   ...pluginPlaywright.configs['flat/recommended'],
-  files: ['**/e2e/**/*.{spec,test}.{js,ts,jsx,tsx}'],
+  files: ['**/e2e/**/*.{js,ts,jsx,tsx}'],
 },
 ```
 
@@ -384,7 +385,7 @@ npm run lint
 
 ## Stylelint {#stylelint}
 
-CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 StyleLint を導入します。
+CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 Stylelint を導入します。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時には追加されないため、手動でインストールする必要があります。
 
 ### Stylelint のインストール {#install-stylelint}

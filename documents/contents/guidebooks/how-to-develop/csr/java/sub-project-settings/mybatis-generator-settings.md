@@ -58,7 +58,7 @@ MyBatis Generator を実行する際は、生成対象となるテーブルが�
 
         ![H2 データベースの作成画面](../../../../../images/guidebooks/how-to-develop/csr/java/h2_database_creation_page.png)
 
-    1. 2 の手順と同様に先ほどのパス、ユーザー名、パスワードを入力して接続し、データベースを起動する。
+    1. 3 の手順と同様に先ほどのパス、ユーザー名、パスワードを入力して接続し、データベースを起動する。
 
 ## MyBatis Generator の設定ファイルの作成 {#generator-files-settings}
 
@@ -75,7 +75,7 @@ mybatisGeneratorConfig.xml に設定する各要素については、[こちら 
     --8<-- "samples/web-csr/dressca-backend/application-modules/src/main/resources/mybatisGeneratorConfig.xml"
     ```
 
-    各タブの設定内容は以下の通りです。
+    各タグの設定内容は以下の通りです。
 
     - `<jdbcConnection>`: 接続するデータベースに関する設定です。
     - `<modelGenerator>`: データベースのテーブルに対応する Java のテーブルエンティティクラスを生成するための設定です。

@@ -15,7 +15,7 @@ public class CatalogItemProcessor implements ItemProcessor<CatalogItem, CatalogI
   @Override
   public CatalogItem process(@NonNull final CatalogItem catalogItem) throws Exception {
     String name = catalogItem.getName();
-    // 商品名が 10 文字超える場合、先頭 10 文字にする
+    // 商品名が 10 文字を超える場合、先頭 10 文字にする
     if (name.length() > 10) {
       name = name.substring(0, 10);
     }

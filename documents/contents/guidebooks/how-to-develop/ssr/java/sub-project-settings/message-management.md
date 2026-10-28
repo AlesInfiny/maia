@@ -97,9 +97,9 @@ Spring Framework で提供されている [`#!java AcceptHeaderLocaleResolver` :
 ??? example "サンプルアプリケーションの LocaleConfig.java"
 
     以下のように、プレゼンテーション層を担うサブプロジェクトの設定クラスにデフォルトのロケール設定を記載します。
-    言語コードを定数で管理しない場合、ハイライト部を `java.util.Locale` パッケージの `Locale.JAPANESE` に置き換えます。
+    言語コードを定数で管理しない場合、ハイライト部を `java.util.Locale` クラスの `Locale.JAPANESE` に置き換えます。
 
-    ```java title="LocaleConfig.java" hl_lines="25"
+    ```java title="LocaleConfig.java" hl_lines="24"
     --8<-- "samples/dressca-cms/web/src/main/java/com/dressca/cms/web/config/LocaleConfig.java"
     ```
 
