@@ -109,7 +109,7 @@ export const handlers = [] // 後で実装します。
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
-    onUnhandledRequest: 'bypass', // MSW のハンドラーを未設定のリクエストに対して警告を出さないように設定します。
+    onUnhandledRequest: 'bypass', // MSW のハンドラーが未設定のリクエストに対して警告を出さないように設定します。
   })
 }
 

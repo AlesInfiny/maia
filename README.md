@@ -103,9 +103,9 @@ AlesInfiny Maia OSS Edition に関わるすべての人は、 AlesInfiny Maia OS
 ## License
 
 BIPROGY 株式会社およびすべてのコントリビューターは、本リポジトリのドキュメントに [クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/) のライセンスを付与します。
-詳細は [LICENSE.md](/LICENSE) を参照してください。
+詳細は [LICENSE](/LICENSE) を参照してください。
 また本リポジトリのソースコードに、 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) のライセンスを付与します。
-詳細は [LICENSE-CODE.md](/LICENSE-CODE) を参照してください。
+詳細は [LICENSE-CODE](/LICENSE-CODE) を参照してください。
 
 このプロジェクトでは、様々なオープンソースライセンスの下でライセンスされている 3rd パーティーのライブラリを使用しています。
 詳細は [third-party-licenses](/third-party-licenses/) フォルダーを参照してください。

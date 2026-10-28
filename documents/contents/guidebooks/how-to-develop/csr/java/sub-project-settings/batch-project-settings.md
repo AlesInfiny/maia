@@ -82,7 +82,7 @@ batch プロジェクトの `src/main/resources` 以下に `application.properti
     - spring.sql.init.mode: データベースの初期化有無
 - バッチ処理
     - spring.batch.jdbc.initialize-schema: Spring Batch のメタデータテーブルの初期化設定
-    - spring.batch.job.name: バッチアプリケーション起動時の実行するバッチジョブ名の設定
+    - spring.batch.job.name: バッチアプリケーション起動時に実行するバッチジョブ名の設定
 
 ??? info "`application.properties` の設定例"
 
@@ -187,7 +187,7 @@ public static void main(String[] args) {
 }
 ```
 
-また併せて、 batch プロジェクトの `src/main/test` 以下の `BatchApplicationTests.java` を書き換えます。
+また併せて、 batch プロジェクトの `src/test/java` 以下の `BatchApplicationTests.java` を書き換えます。
 
 ```java title="BatchApplicationTests.java"
 ・・・

@@ -127,7 +127,7 @@ nav:
                   - 静的コード分析とフォーマット: guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md
                   - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/vue-js/message-management.md
                   - 入力値検証: guidebooks/how-to-develop/csr/vue-js/input-validation.md
-                  - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
+                  - OpenAPI 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
                   - エラーハンドラーの設定: guidebooks/how-to-develop/csr/vue-js/error-handler-settings.md
                   - カスタムエラーの設定: guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md
                   - イベントハンドリングの設定: guidebooks/how-to-develop/csr/vue-js/event-handling-settings.md
@@ -290,3 +290,4 @@ plugins:
         font_family: Noto Sans JP
   - rss:
       enabled: !ENV [BUILD_DOCUMENTS, false]
+      image: https://maia.alesinfiny.org/assets/maia-logo.png

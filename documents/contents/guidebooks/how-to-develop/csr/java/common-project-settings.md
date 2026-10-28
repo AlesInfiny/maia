@@ -251,7 +251,7 @@ Checkstyle を利用する場合、静的テストを実行する際のルール
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読みこみます。ダウンロードしたインプットファイルの名前を checkstyle.xml に変更した後、フォルダーを追加して適切な位置に配置してください。
+デフォルトの設定では、以下の階層にある checkstyle.xml ファイルをインプットファイルとして読み込みます。ダウンロードしたインプットファイルの名前を checkstyle.xml に変更した後、フォルダーを追加して適切な位置に配置してください。
 
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-light.png#only-light){ loading=lazy }
 ![Checkstyle のデフォルトの読み込み構成](../../../../images/guidebooks/how-to-develop/csr/java/checkstyle-default-structure-dark.png#only-dark){ loading=lazy }
@@ -465,7 +465,7 @@ Visual Studio Code を利用する場合、 [こちら :material-open-in-new:](h
 }
 ```
 
-!!! waring "フォーマッターと静的テストの競合"
+!!! warning "フォーマッターと静的テストの競合"
 
     フォーマットツールが自動的に整形したソースコードが静的テストのルールに違反することで、静的テスト側で警告が発生するかもしれません。
     また、フォーマッターと静的テストの設定が一致していても、各ツールの仕様によってフォーマットの基準が異なり、意図しない警告が発生する可能性もあります。

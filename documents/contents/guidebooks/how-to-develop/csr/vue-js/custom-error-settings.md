@@ -78,7 +78,7 @@ export abstract class CustomErrorBase extends Error {
 
 ### HTTPError クラスの定義 {#define-http-error}
 
-`CustomError` クラスを拡張して、 HTTP 通信に起因する業務エラーを定義します。
+`CustomErrorBase` クラスを拡張して、 HTTP 通信に起因する業務エラーを定義します。
 
 [集約例外ハンドラーの設定](../java/sub-project-settings/exception-handling.md) で設定した通り、バックエンドから返却されるエラーレスポンスには、 `ProblemDetails` に基づくレスポンスボディーを含みます。
 よって、 HTTP 通信によって発生しうるエラーを表す `HttpError` クラスには、`AxiosError.response.data` を経由して `ProblemDetails` の情報を格納します。

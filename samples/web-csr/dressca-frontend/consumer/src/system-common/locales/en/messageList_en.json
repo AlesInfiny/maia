@@ -16,7 +16,7 @@
   "failedToChangeQuantities": "Failed to change quantities of items.",
   "failedToDeleteItems": "Failed to delete items.",
   "failedToGetCarts": "Failed to get carts.",
-  "failedToOrderInformation": "Failed to order information.",
+  "failedToGetOrderInformation": "Failed to get order information.",
   "failedToAddItemToCarts": "Failed to add item to carts.",
   "failedToGetItems": "Failed to get items.",
   "failedToOrderItems": "Failed to order items.",
