@@ -40,7 +40,7 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 - Eclipse, Adoptium and Temurin are trademarks of Eclipse Foundation AISBL.
 - Gradle and the Gradlephant logo are registered trademarks of Gradle, Inc.
 - Google 、 Google Analytics は、 Google LLC の商標または登録商標です。
-- Copyright © 2026 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.
+- Copyright © 2026 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are trademarks of JetBrains s.r.o.
 - Microsoft 、 Azure 、 Microsoft Entra 、 VS Code 、 Windows は、マイクロソフト グループの企業の商標です。
 - Java は、 Oracle 、その子会社及び関連会社の米国及びその他の国における登録商標です。
 - Spring is a trademark of Broadcom Inc. and/or its subsidiaries.
