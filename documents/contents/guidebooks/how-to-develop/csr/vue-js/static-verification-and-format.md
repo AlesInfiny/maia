@@ -3,8 +3,6 @@ title: Vue.js 開発手順 （CSR 編）
 description: Vue.js を用いた フロントエンドアプリケーションの 開発手順を説明します。
 ---
 
-<!-- cspell:ignore parens rushstack stylelintrc -->
-
 # 静的コード分析とフォーマット {#top}
 
 静的コード分析とフォーマットには .editorconfig 、 ESLint 、 Stylelint 、および Prettier を使用します。
@@ -51,7 +49,7 @@ Visual Studio Code の推奨プラグインである [EditorConfig for Visual St
     そのため、意図せず同じリポジトリ内の別の .editorconfig を参照することがないように、ルートプロジェクトの .editorconfig には `root = true` を設定しておくとよいでしょう。
 
     ```text title="サンプルアプリケーションの .editorconfig" hl_lines="1"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/.editorconfig
+    --8<-- "samples/web-csr/dressca-frontend/.editorconfig"
     ```
 
 ## Prettier {#prettier}
@@ -111,6 +109,7 @@ Prettier が設定ファイルを認識し、フォーマット処理が正常�
 ## ESLint {#eslint}
 
 ESLint および ESLint の実行に必要なパッケージは、 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時にオプションとしてインストールしているため、追加でインストールする必要はありません。
+create-vue によって同時にインストールされる Oxlint は使用しないため、[Oxlint の除去](./create-vuejs-blank-project.md#remove-oxlint) の手順に従って除去してください。
 
 ### ESLint の設定 {#settings-eslint}
 
@@ -131,8 +130,8 @@ npm run lint
 [コーディング規約](../../../conventions/coding-conventions.md) に沿うように設定を追加・変更します。
 初期設定からの変更点をハイライトで示します。
 
-```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="2 10-11 13-16 24-25 30 34 37-44 47-50 54-70 75 81-84 88-91"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/eslint.config.ts
+```typescript title="サンプルアプリケーションの eslint.config.ts" hl_lines="7-15 17-20 28-34 39 43 47 50-57 60-63 66 69-70 75 81 85-88"
+--8<-- "samples/web-csr/dressca-frontend/eslint.config.ts"
 ```
 
 #### mono-repo 用の設定 {#mono-repo-config}
@@ -172,25 +171,23 @@ configureVueProject({
 ```
 
 src フォルダーが eslint.config.ts の直下ではなくなるので、ワークスペース配下を検索するようにパスを修正します。
+あわせて、 Playwright のルールはテストファイルだけでなく、ページオブジェクトなど e2e フォルダー配下の全てのファイルを対象とします。
 
-```typescript hl_lines="3 8-9"
+```typescript hl_lines="3 7"
 {
   ...pluginVitest.configs.recommended,
   files: ['**/src/**/__tests__/**/*'],
 },
 {
-  ...pluginCypress.configs.recommended,
-  files: [
-    '**/cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-    '**/cypress/support/**/*.{js,ts,jsx,tsx}',
-  ],
+  ...pluginPlaywright.configs['flat/recommended'],
+  files: ['**/e2e/**/*.{js,ts,jsx,tsx}'],
 },
 ```
 
 ルートプロジェクトの直下に、 eslint.config.ts 用の tsconfig.json ファイルを作成します。
 
 ```json title="eslint.config.ts 用の tsconfig.json" hl_lines="3"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/tsconfig.json
+--8<-- "samples/web-csr/dressca-frontend/tsconfig.json"
 ```
 
 ワークスペースの直下にいることを確認し、再度下記のコマンドを実行します。
@@ -215,8 +212,33 @@ TypeScript の型情報を使用するルールを使用するため、 `vueTsCo
 vueTsConfigs.recommendedTypeChecked,
 ```
 
+ESLint の JavaScript に対する推奨ルールを適用します。
+ワークスペースの直下にいることを確認し、@eslint/js をインストールします。
+
+```shell linenums="0"
+npm install -D @eslint/js
+```
+
+eslint.config.ts に下記の設定を追加してください。
+後から TypeScript の機能と重複するルールを無効化するので、 `vueTsConfigs` よりも前に配置してください。
+
+```typescript
+import js from '@eslint/js'
+
+js.configs.recommended,
+```
+
 TypeScript 以外のファイルに対して、型情報を利用したルールの Lint を試みるとエラーが発生します。
-そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化するように、下記の設定を追加します。
+そのため、 JavaScript ファイルに対して型情報を使用した Lint ルールを無効化します。
+
+ワークスペースの直下にいることを確認し、 typescript-eslint をインストールします。
+この時点で typescript-eslint への依存関係は推移的に解決できてしまいますが、明示的にインストールしておくことを推奨します。
+
+```shell linenums="0"
+npm install -D typescript-eslint
+```
+
+eslint.config.ts に下記の設定を追加してください。
 
 ```typescript
 import tseslint from 'typescript-eslint'
@@ -277,12 +299,12 @@ globalIgnores([
   '**/dist/**',
   '**/dist-ssr/**',
   '**/coverage/**',
-  '**/src/generated/**',
+  '**/src/system-common/generated/**',
   '**/mockServiceWorker.js',
 ]),
 ```
 
-その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/user-guide/configuring/){ target=_blank } を参照してください。
+その他の設定については [公式ドキュメント :material-open-in-new:](https://eslint.org/docs/latest/use/configure/){ target=_blank } を参照してください。
 
 ??? info "ESLint Config Inspector で設定を可視化する"
       [ESLint Config Inspector :material-open-in-new:](https://github.com/eslint/config-inspector){ target=_blank } を使用することで、 ESLint の設定をブラウザー上で可視化できます。
@@ -292,6 +314,65 @@ globalIgnores([
       ```shell linenums="0"
       npx @eslint/config-inspector@latest
       ```
+
+#### フォルダー間の参照方向の強制 {#layer-dependency-rules}
+
+[アーキテクチャ解説 - フォルダー構成](../../../../app-architecture/client-side-rendering/frontend-application/index.md#project-structure) で定めたフォルダー間の参照方向を、 ESLint の `@typescript-eslint/no-restricted-imports` で強制します。
+逆向きの参照はレビューで見落としやすく、いったん増えると広範囲の修正なしには戻せないため、機械的に検出します。
+
+??? info "サンプルアプリケーションで禁止する参照の一覧"
+
+    - `system-common` から、他の層とコンテキストへの参照
+    - `business-common` から、 core 層、 `pages` 、コンテキストへの参照
+    - コンテキストから、 core 層、 `pages` 、他のコンテキストへの参照（他のコンテキストの `public-api.ts` も含みます）
+    - `pages` から、コンテキストの `public-api.ts` 以外への参照
+    - `pages` から、ルート名の定数（ `@/core/router/route-names` ）以外の core 層への参照
+    - `pages` から、 API クライアントと API の型（ `@/system-common/api-client` 、 `@/system-common/generated` ）への参照
+    - core 層と `pages` 以外から、 vue-router の値の参照（型の参照は許可します。ただし `services` フォルダーでは型の参照も禁止します）
+    - core 層以外での動的インポート（ `import()` 。 `no-restricted-imports` の検査対象外なので、 `no-restricted-syntax` で禁止します）
+    - `services` フォルダーから、 Vue に依存するモジュール（ Vue や Pinia など）、ストア、コンポーザブルへの参照
+
+サンプルアプリケーションでは、これらのルールを生成する関数（ `createLayerDependencyRules` ）を `eslint.project-rules.ts` に定義しています。
+この関数で、 consumer と admin のそれぞれのルールを生成しています。
+`files` にルールを適用するフォルダーを、 `patterns` に禁止する参照先を指定します。
+
+??? example "サンプルアプリケーションでの設定例"
+
+    ```typescript title="サンプルアプリケーションの eslint.project-rules.ts（参照方向のルールの抜粋）"
+    import type { Linter } from 'eslint'
+
+    --8<-- "samples/web-csr/dressca-frontend/eslint.project-rules.ts:27:277"
+    ```
+
+サンプルアプリケーションの eslint.project-rules.ts をもとに、ルートプロジェクトの直下（ eslint.config.ts と同じ階層）に eslint.project-rules.ts を作成します。
+上記の設定例のとおり、ファイルの先頭には `import type { Linter } from 'eslint'` を記述してください。
+ファイルの末尾では、 `createLayerDependencyRules` に自分のワークスペースのフォルダー名を渡して、ワークスペースごとのルールを生成します。
+サンプルアプリケーションの `consumerLayerDependencyRules` と `adminLayerDependencyRules` は、ワークスペースの数と名前に合わせて置き換えてください。
+
+```typescript title="eslint.project-rules.ts の末尾の例"
+export const workspaceNameLayerDependencyRules: Linter.Config[] =
+  createLayerDependencyRules('workspace-name')
+```
+
+??? warning "ワークスペース名が一致しない場合"
+
+    ルールは `**/<ワークスペース名>/src` の下のファイルにだけ適用されます。
+    `createLayerDependencyRules` に渡した名前がワークスペースのフォルダー名と一致しないと、ルールはどのファイルにも適用されません。
+    このとき ESLint はエラーも警告も出力しないため、設定の誤りに気付けません。
+    設定後は、たとえば [フォルダー構造の変更](./folder-structure-changes.md) で作成した `sample/vue/stores/counter.ts` に `import router from '@/core/router'` を一時的に追加し、 ESLint がエラーを出力することを確認してください。
+    コンテキストから core 層への参照は禁止されているので、ルールが適用されていればエラーになります。
+    確認が終わったら、追加した `import` を削除してください。
+
+生成したルールは、 eslint.config.ts で読み込んで適用します。
+
+```typescript title="eslint.config.ts でのルールの適用"
+import { workspaceNameLayerDependencyRules } from './eslint.project-rules'
+
+export default defineConfigWithVueTs(
+  // 中略
+  ...workspaceNameLayerDependencyRules,
+)
+```
 
 #### ESLint の実行 {#run-eslint}
 
@@ -304,7 +385,7 @@ npm run lint
 
 ## Stylelint {#stylelint}
 
-CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 StyleLint を導入します。
+CSS ファイルおよび、 Vue ファイルの`<template>`ブロック、`<style>`ブロックに記述する CSS に対して静的解析をするため、 Stylelint を導入します。
 [ブランクプロジェクトの作成](./create-vuejs-blank-project.md) 時には追加されないため、手動でインストールする必要があります。
 
 ### Stylelint のインストール {#install-stylelint}
@@ -373,7 +454,7 @@ export default {
       create-vue で作成されるデフォルトのアプリケーションに対して Stylelint を実行すると、下記の警告が出力されて、動作確認が進められない場合があります。
 
       ```text linenums="0"
-      src/assets/base.css
+      src/core/styles/base.css
         25:1  ✖  Unexpected duplicate selector ":root", first used at line 2  no-duplicate-selectors
       ```
 
@@ -391,7 +472,7 @@ ESLint および Stylelint のオプション引数に `--fix` を、 Prettier �
 一方で、 `:ci` を付与したタスクではこれらのオプションを使用していないため、自動的に修正可能なルール違反であっても修正は実行されません。
 
 ```json title="サンプルアプリケーションの package.json"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/package.json#L21-L28
+--8<-- "samples/web-csr/dressca-frontend/consumer/package.json:17:24"
 ```
 
 ルートワークスペースの直下にいることを確認し、[ワークスペースの設定 - スクリプトの定義](./setting-workspaces.md#register-npm-scripts) で定義した `lint:ci` を実行します。

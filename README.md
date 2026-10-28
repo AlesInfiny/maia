@@ -29,7 +29,7 @@ AlesInfiny Maia OSS Edition は、以下の Web サイトを通じて最新バ�
 サンプルアプリケーションや要件別サンプルの開発環境は、 VS Code を推奨します。
 開発環境の構築手順は以下を参照してください。
 
-- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築](https://maia.alesinfiny.org/guidebooks/how-to-develop/local-environment/)
+- [AlesInfiny Maia OSS Edition | ローカル開発環境の構築](https://maia.alesinfiny.org/guidebooks/how-to-develop/csr/local-environment/)
 
 ## サンプルアプリケーションのテスト
 
@@ -76,7 +76,7 @@ npm run test:unit:consumer
 
 ### サンプルアプリケーション(Dressca)
 
-サンプルアプリケーション (Dressca) の実行手順は [AlesInfiny Maia OSS Edition | クイックスタート](https://maia.alesinfiny.org/#quick-start) を参照してください。
+サンプルアプリケーション (Dressca) の実行手順は [AlesInfiny Maia OSS Edition | Dressca](https://maia.alesinfiny.org/samples/dressca/) を参照してください。
 
 ### 要件別サンプル
 
@@ -103,9 +103,9 @@ AlesInfiny Maia OSS Edition に関わるすべての人は、 AlesInfiny Maia OS
 ## License
 
 BIPROGY 株式会社およびすべてのコントリビューターは、本リポジトリのドキュメントに [クリエイティブ・コモンズ表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/) のライセンスを付与します。
-詳細は [LICENSE.md](/LICENSE) を参照してください。
+詳細は [LICENSE](/LICENSE) を参照してください。
 また本リポジトリのソースコードに、 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) のライセンスを付与します。
-詳細は [LICENSE-CODE.md](/LICENSE-CODE) を参照してください。
+詳細は [LICENSE-CODE](/LICENSE-CODE) を参照してください。
 
 このプロジェクトでは、様々なオープンソースライセンスの下でライセンスされている 3rd パーティーのライブラリを使用しています。
 詳細は [third-party-licenses](/third-party-licenses/) フォルダーを参照してください。

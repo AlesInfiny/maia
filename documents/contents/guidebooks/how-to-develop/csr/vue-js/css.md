@@ -25,7 +25,7 @@ npm install -D tailwindcss @tailwindcss/vite
 
 ### Tailwind CSS の設定 {#settings-tailwind-css}
 
-[ブランクプロジェクトの作成](./create-vuejs-blank-project.md) を実行すると、デフォルトでは　`./src/assets/base.css` と `./src/assets/main.css` の 2 つの CSS ファイルが作成されます。
+[フォルダー構造の変更](./folder-structure-changes.md) でサンプルコードを移動した時点で、 `./src/core/styles` には `base.css` と `main.css` の 2 つの CSS ファイルがあります。
 サンプルアプリケーションでは base.css に統一します。
 main.css を削除し、 base.css を次のように書き換えます。
 
@@ -38,7 +38,7 @@ main.css を削除し、 base.css を次のように書き換えます。
 あわせて、 `./src/main.ts` の `import` を以下のように書き換えます。
 
 ```typescript title="main.ts"
-import '@/assets/base.css'
+import '@/core/styles/base.css'
 ```
 
 Tailwind CSS のプラグインを使用するために、 Vite の設定ファイルを更新します。
@@ -61,9 +61,9 @@ npm run build
 ### Tailwind CSS の適用確認 {#check-tailwind-css}
 
 Tailwind CSS が正常に適用されていることを確認します。
-確認のために、`./src/views/HomeView.vue` に次のようなコードを挿入します。
+確認のために、`./src/pages/HomePage.vue` に次のようなコードを挿入します。
 
-```vue title="HomeView.vue" hl_lines="3"
+```vue title="HomePage.vue" hl_lines="3"
 <template>
   <main>
     <h1 class="text-5xl font-bold text-blue-600 underline">AlesInfiny</h1>
@@ -148,9 +148,9 @@ Tailwind CSS のユーティリティクラスの順序は開発者によって�
 npm install -D prettier-plugin-tailwindcss
 ```
 
-ワークスペース直下の prettierrc.js に、 プラグイン用の設定を追加します。
+ワークスペース直下の .prettierrc.js に、 プラグイン用の設定を追加します。
 
-```javascript title="Tailwind CSS 用の prettierrc.js"  hl_lines="8-9"
+```javascript title="Tailwind CSS 用の .prettierrc.js"  hl_lines="8-9"
 import prettierConfigBase from '../.prettierrc.js'
 /**
  * @see https://prettier.io/docs/configuration
@@ -159,7 +159,7 @@ import prettierConfigBase from '../.prettierrc.js'
 const config = {
   ...prettierConfigBase,
   plugins: ['prettier-plugin-tailwindcss'],
-  tailwindStylesheet: './src/assets/base.css',
+  tailwindStylesheet: './src/core/styles/base.css',
 }
 
 export default config

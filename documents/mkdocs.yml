@@ -48,8 +48,8 @@ nav:
               - app-architecture/client-side-rendering/frontend-application/index.md
           - バックエンドアプリケーションのアーキテクチャ:
               - app-architecture/client-side-rendering/backend-application/index.md
-              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - プレゼンテーション層: app-architecture/client-side-rendering/backend-application/presentation.md
+              - アプリケーションコア層: app-architecture/client-side-rendering/backend-application/application-core.md
               - インフラストラクチャ層: app-architecture/client-side-rendering/backend-application/infrastructure.md
           - テスト方針:
               - app-architecture/client-side-rendering/test/index.md
@@ -72,8 +72,8 @@ nav:
               - app-architecture/server-side-rendering/frontend/index.md
           - バックエンドのアーキテクチャ:
               - app-architecture/server-side-rendering/backend/index.md
-              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - プレゼンテーション層: app-architecture/server-side-rendering/backend/presentation.md
+              - アプリケーションコア層: app-architecture/server-side-rendering/backend/application-core.md
               - インフラストラクチャ層: app-architecture/server-side-rendering/backend/infrastructure.md
       - バッチアプリケーション編:
           - app-architecture/batch-application/index.md
@@ -109,8 +109,7 @@ nav:
                   - サブプロジェクトの個別設定:
                       - guidebooks/how-to-develop/csr/java/sub-project-settings/index.md
                       - web プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/web-project-settings.md
-                      - infrastructure プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/infrastructure-project-settings.md
-                      - application-core プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-core-project-settings.md
+                      - application-modules プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/application-modules-project-settings.md
                       - batch プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/batch-project-settings.md
                       - system-common プロジェクトの設定: guidebooks/how-to-develop/csr/java/sub-project-settings/system-common-project-settings.md
                       - プラグイン、依存ライブラリのバージョン定義一元化: guidebooks/how-to-develop/csr/java/sub-project-settings/project-version-control.md
@@ -121,14 +120,14 @@ nav:
                   - guidebooks/how-to-develop/csr/vue-js/index.md
                   - 事前準備: guidebooks/how-to-develop/csr/vue-js/preparation.md
                   - ブランクプロジェクトの作成: guidebooks/how-to-develop/csr/vue-js/create-vuejs-blank-project.md
-                  - ブランクプロジェクトのフォルダー構造: guidebooks/how-to-develop/csr/vue-js/folder-structure-of-blank-project.md
+                  - フォルダー構造の変更: guidebooks/how-to-develop/csr/vue-js/folder-structure-changes.md
                   - ワークスペースの設定: guidebooks/how-to-develop/csr/vue-js/setting-workspaces.md
                   - プロジェクトの共通設定: guidebooks/how-to-develop/csr/vue-js/project-settings.md
                   - 開発に使用するパッケージ: guidebooks/how-to-develop/csr/vue-js/optional-packages.md
                   - 静的コード分析とフォーマット: guidebooks/how-to-develop/csr/vue-js/static-verification-and-format.md
                   - メッセージ管理機能の設定: guidebooks/how-to-develop/csr/vue-js/message-management.md
                   - 入力値検証: guidebooks/how-to-develop/csr/vue-js/input-validation.md
-                  - Open API 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
+                  - OpenAPI 仕様書からのクライアントコード生成: guidebooks/how-to-develop/csr/vue-js/create-api-client-code.md
                   - エラーハンドラーの設定: guidebooks/how-to-develop/csr/vue-js/error-handler-settings.md
                   - カスタムエラーの設定: guidebooks/how-to-develop/csr/vue-js/custom-error-settings.md
                   - イベントハンドリングの設定: guidebooks/how-to-develop/csr/vue-js/event-handling-settings.md
@@ -219,6 +218,10 @@ theme:
       primary: teal
       accent: green
 
+validation:
+  # ページ内アンカーのリンク切れを警告として扱い、 --strict ビルドで検出する。
+  anchors: warn
+
 markdown_extensions:
   - abbr
   - admonition
@@ -235,6 +238,10 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets:
       check_paths: true
+      # スニペット埋め込みで参照する相対パスの起点ディレクトリ。
+      base_path:
+        - . # documents/ 配下
+        - .. # リポジトリルート（samples/ 配下のサンプルコード埋め込み用）
       auto_append:
         - includes/abbreviations.md
   - pymdownx.superfences:
@@ -264,9 +271,6 @@ extra:
 extra_css:
   - stylesheets/overrides.css
 
-hooks:
-  - hooks/github_markdown_fetcher.py
-
 plugins:
   - git-revision-date-localized:
       enabled: !ENV [BUILD_DOCUMENTS, false]
@@ -286,3 +290,4 @@ plugins:
         font_family: Noto Sans JP
   - rss:
       enabled: !ENV [BUILD_DOCUMENTS, false]
+      image: https://maia.alesinfiny.org/assets/maia-logo.png

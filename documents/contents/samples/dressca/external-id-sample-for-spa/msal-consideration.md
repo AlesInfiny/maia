@@ -22,7 +22,7 @@ MSAL のインスタンス化に使用する構成オブジェクトをもとに
 !!! example "authentication-config.ts の実装例"
 
     ```typescript title="authentication-config.ts" hl_lines="9"
-    https://github.com/AlesInfiny/maia/blob/main/samples/external-id-sample-for-spa/auth-frontend/app/src/services/authentication/authentication-config.ts#L12-L21
+    --8<-- "samples/external-id-sample-for-spa/auth-frontend/app/src/services/authentication/authentication-config.ts:12:21"
     ```
 
 キャッシュストレージの保存先として指定できる値は以下の通りです。

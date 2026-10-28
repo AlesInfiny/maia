@@ -1,6 +1,6 @@
 package com.dressca.batch.job.catalog;
 
-import com.dressca.applicationcore.catalog.CatalogItem;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
@@ -17,7 +17,7 @@ public class CatalogItemWriterConf {
 
   /**
    * {@link CatalogItem} のデータを CSV に出力する Writer を設定します。
-   * 
+   *
    * @param output 出力ファイル名。 Job パラメータから取得します。
    * @return フラットファイルに書き込む Writer 。
    * @throws Exception ジョブ実行時の例外。

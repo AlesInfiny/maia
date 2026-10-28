@@ -1,6 +1,6 @@
 package com.dressca.web.admin.mapper;
 
-import com.dressca.applicationcore.catalog.CatalogBrand;
+import com.dressca.applicationmodules.catalogmanagement.entity.CatalogBrand;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogBrandsResponse;
 
 /**
@@ -10,7 +10,7 @@ public class CatalogBrandMapper {
 
   /**
    * {@link CatalogBrand} オブジェクトを {@link GetCatalogBrandsResponse} に変換します。
-   * 
+   *
    * @param catalogBrand オブジェクト。
    * @return {@link GetCatalogBrandsResponse} オブジェクト。
    */

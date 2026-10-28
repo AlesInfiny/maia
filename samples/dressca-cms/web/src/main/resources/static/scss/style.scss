@@ -1,9 +1,10 @@
-// 上書きしたいカラ―変数を定義
-$primary:   #008080;
-$secondary: #D3D3D3;
-
-$font-family-base: "Noto Sans", "Noto Sans JP" !default;
-$font-family-sans-serif: "Noto Sans", "Noto Sans JP" !default;
-$headings-font-family: "Noto Sans", "Noto Sans JP" !default;
-// Bootstrap 本体を読み込む
-@import "../bootstrap/node_modules/bootstrap/scss/bootstrap";
+// Bootstrap の変数を上書きして読み込む
+@use "bootstrap/scss/bootstrap" with (
+  // 上書きしたいカラー変数を定義
+	$primary: #008080,
+	$secondary: #D3D3D3,
+  // 上書きしたいフォント関連の変数を定義
+	$font-family-base: ("Noto Sans", "Noto Sans JP"),
+	$font-family-sans-serif: ("Noto Sans", "Noto Sans JP"),
+	$headings-font-family: ("Noto Sans", "Noto Sans JP")
+);

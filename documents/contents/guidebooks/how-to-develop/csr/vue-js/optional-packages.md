@@ -9,7 +9,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 以下のパッケージは Vue.js のブランクプロジェクト作成時にオプションとしてインストールされます。
 
-- [Cypress :material-open-in-new:](https://www.cypress.io/){ target=_blank }
+- [Playwright :material-open-in-new:](https://playwright.dev/){ target=_blank }
 
      E2E (End-to-End) テストツール
 
@@ -31,7 +31,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
 - [TypeScript :material-open-in-new:](https://www.typescriptlang.org/){ target=_blank }
 
-    JavaScript を拡張して静的型付にしたプログラミング言語
+    JavaScript を拡張して静的型付けにしたプログラミング言語
 
 - [Vitest :material-open-in-new:](https://vitest.dev/){ target=_blank }
 
@@ -41,7 +41,7 @@ description: Vue.js を用いた フロントエンドアプリケーション�
 
     Vue.js を利用した SPA で、ルーティング制御をするための公式プラグイン
 
-なお、特定のパッケージをインストールすることで付随してインストールされるパッケージ（例： ESLint に対する eslint-config-prettier）は記載を省略しています。
+なお、特定のパッケージをインストールすることで付随してインストールされるパッケージ（例: ESLint に対する eslint-config-prettier）は記載を省略しています。
 
 ## 追加でインストールするパッケージ {#additional-packages}
 

@@ -1,11 +1,12 @@
 {
   "extends": "@tsconfig/node24/tsconfig.json",
-  "include": ["eslint.config.ts"],
+  "include": ["eslint.config.ts", "eslint.project-rules.ts", "eslint.project-rules.test.ts"],
   "compilerOptions": {
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "types": ["node"]
   }
 }

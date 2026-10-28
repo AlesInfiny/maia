@@ -3,7 +3,7 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore applicationcore rgba -->
+<!-- cspell:ignore rgba -->
 
 # 例外処理方針 {#top}
 
@@ -14,7 +14,7 @@ description: クライアントサイドレンダリングを行う Web アプ�
 フロントエンドアプリケーションは、システムエラー画面に遷移し、 Sorry メッセージを出力します。
 フロントエンドアプリケーション内で例外が発生した場合も、同様にシステムエラー画面に遷移します。
 
-業務例外を例外フィルターで補足した場合は、 HTTP 400 のエラーレスポンスをフロントエンドアプリケーションに返却します。
+業務例外を例外フィルターで捕捉した場合は、 HTTP 400 のエラーレスポンスをフロントエンドアプリケーションに返却します。
 フロントエンドアプリケーションは、その画面内のメッセージ領域にエラーメッセージを表示します。
 
 ![例外処理方針](../../../images/app-architecture/client-side-rendering/exception-handling-policy-light.png#only-light){ loading=lazy }
@@ -78,32 +78,38 @@ HTTP 通信で発生する例外について、レスポンスやステータス
 - ユーザーの状況やエラー内容をログ収集ツールに送信する
 
 以下は、 API 通信で発生する例外処理のフローです。
+`axios.interceptors.response` で変換したカスタムエラーは、コンポーザブルやサービスのようなロジック内で捕捉し、画面が扱える型に変換して画面へ返します。
+画面は結果に応じてユーザーへの通知をハンドリングし、カスタムエラーは直接扱わないようにします。
 
 ```mermaid
     sequenceDiagram
     participant B as ブラウザ
-    participant C as Vue コンポーネント
+    participant P as 画面
+    participant L as ロジック
     participant A as Axios.Post
     participant I as Axios.interceptors.response
     participant S as サーバー
 
-    B->>C: ボタン押下
-    activate C
-    C->>A: API リクエスト呼び出し
+    B->>P: ボタン押下
+    activate P
+    P->>L: 操作の呼び出し
+    activate L
+    L->>A: API リクエスト呼び出し
     activate A
     A-)S: API リクエスト
     activate S
     S--)I: 400 Bad Request
     deactivate S
     activate I
-    I->>A: エラー情報の解析
+    I->>A: カスタムエラーへの変換
     deactivate I
-    rect rgba(255, 0, 0, 0.5)
-        A->>C: エラーの伝播
-        deactivate A
-    end
-    C->>B: エラー通知
-    deactivate C
+    A->>L: カスタムエラーの送出
+    deactivate A
+    L->>L: 画面が扱える型へ変換
+    L->>P: 結果の返却
+    deactivate L
+    P->>B: エラー通知
+    deactivate P
 ```
 
 ### API 通信のエラーレスポンス {#error-response}
@@ -154,12 +160,12 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "detail": "dressca.applicationcore.baskets.CatalogItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "detail": "com.dressca.applicationmodules.shopping.exception.DisplayItemInBasketNotFoundException: 業務エラーが発生しました。 ###以下スタックトレースは省略###",
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```
 
@@ -168,10 +174,10 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json; charset=utf-8
 
 {
-    "type": "https://hoge.com/error/catalogItemIdDoesNotExistInBasket",
+    "type": "https://hoge.com/error/displayItemIdDoesNotExistInBasket",
     "title": "業務エラーが発生しました。",
     "status": 400,
-    "exceptionId": "catalogItemIdDoesNotExistInBasket",
-    "exceptionValues": ["1 ###買い物かごID###", "10 ###商品ID###"]
+    "exceptionId": "displayItemIdDoesNotExistInBasket",
+    "exceptionValues": ["3fa85f64-5717-4562-b3fc-2c963f66afa6 ###買い物かごID###", "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d ###陳列品ID###"]
 }
 ```

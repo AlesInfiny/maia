@@ -3,8 +3,6 @@ title: CSR 編
 description: クライアントサイドレンダリングを行う Web アプリケーションの アーキテクチャについて解説します。
 ---
 
-<!-- cspell:ignore applicationcore systemcommon -->
-
 # メッセージ管理方針 {#top}
 
 ## エラーメッセージコードの統一 {#unification-of-message-codes}
@@ -93,7 +91,7 @@ AlesInfiny Maia OSS Edition における、メッセージパターンごとの�
 
     画面内に出力するラベルは各画面やソースコード内に個別に実装したものを使用します。
 
-    ラベルに対してもアプリケーション全体で用語を統一する場合や後述する多言語を実施する場合には、ファイルによるメッセージの一元管理が必要です。
+    ラベルに対してもアプリケーション全体で用語を統一する場合や後述する多言語対応を実施する場合には、ファイルによるメッセージの一元管理が必要です。
     しかし、用語の統一は初期の実装やメッセージ管理ファイルの維持にかかるコストが高いです。
     また、ラベルへの多言語対応は言語設定によって画面のレイアウトが崩れてしまう恐れがあります。
     そのため、ラベルに対してファイルによるメッセージ管理を導入することは、慎重な検討が必要です。
@@ -171,10 +169,10 @@ locales/ -------------------------------------- メッセージ管理を行う�
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-core/src/main/resource
- │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
+ ├ application-modules/src/main/resources
+ │ └ applicationmodules ------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
  │    └ messages.properties --------------------- 業務メッセージのプロパティファイル
- └ system-common/src/main/resource
+ └ system-common/src/main/resources
    └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一括管理するフォルダー
       └ messages.properties --------------------- 共通メッセージのプロパティファイル
 ```
@@ -186,11 +184,11 @@ root/ ------------------------------------------- root フォルダー
 
 ```text linenums="0"
 root/ ------------------------------------------- root フォルダー
- ├ application-core/src/main/resource
- │ └ applicationcore ---------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
+ ├ application-modules/src/main/resources
+ │ └ applicationmodules ------------------------- 業務メッセージのプロパティファイルを一括管理するフォルダー
  │    ├ messages_en.properties ------------------ 業務メッセージのプロパティファイル（英語）
  │    └ messages_ja.properties ------------------ 業務メッセージのプロパティファイル（日本語）
- └ system-common/src/main/resource
+ └ system-common/src/main/resources
    └ systemcommon ------------------------------- 共通メッセージのプロパティファイルを一括管理するフォルダー
       ├ messages_en.properties ------------------ 共通メッセージのプロパティファイル（英語）
       └ messages_ja.properties ------------------ 共通メッセージのプロパティファイル（日本語）

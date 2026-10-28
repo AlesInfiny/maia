@@ -1,6 +1,6 @@
 package com.dressca.web.admin.filter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,14 +34,11 @@ public class LocalProfileDummyUserInjectionFilterTest {
 
   @Test
   void testSecurityFilterChain_正常系_開発環境ではDummyUserInjectionFilterが含まれる() {
-    // Arrange
-    boolean expected = true;
-
     // Act
     boolean actual = hasDummyUserInjectionFilter();
 
     // Assert
-    assertEquals(expected, actual);
+    assertThat(actual).isTrue();
   }
 
   @Test
@@ -61,7 +58,7 @@ public class LocalProfileDummyUserInjectionFilterTest {
 
   /**
    * セキュリティフィルターチェイン に {@link DummyUserInjectionFilter} が含まれているかを確認します。
-   * 
+   *
    * @return {@link DummyUserInjectionFilter} が含まれている場合は true、そうでない場合は false。
    */
   private boolean hasDummyUserInjectionFilter() {

@@ -25,7 +25,7 @@ public class SecurityConfig {
 
   /**
    * パスワードをエンコードするための {@link BCryptPasswordEncoder} クラスの Bean を返します。
-   * 
+   *
    * @return パスワードエンコーダー。
    */
   @Bean
@@ -35,9 +35,9 @@ public class SecurityConfig {
 
   /**
    * 認証処理を行う Bean を返します。
-   * 
+   *
    * <p>認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を使用します。</p>
-   * 
+   *
    * @param authenticationConfiguration 認証設定。
    * @return 認証マネージャー。
    * @throws Exception 例外。
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
   /**
    * DaoAuthenticationProvider を構成します。
-   * 
+   *
    * @return DaoAuthenticationProvider。
    */
   @Bean
@@ -62,7 +62,7 @@ public class SecurityConfig {
 
   /**
    * Spring Security の構成をします。
-   * 
+   *
    * @param http HttpSecurity。
    * @return SecurityFilterChain。
    * @throws Exception 例外。

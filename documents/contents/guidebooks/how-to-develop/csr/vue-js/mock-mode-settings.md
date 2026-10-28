@@ -29,9 +29,10 @@ MSW は、 API リクエストをインターセプトすることで、ネッ�
 │ │ └ index.ts ------------ ハンドラーを集約するためのファイル
 │ └ browser.ts ------------ ブラウザー用のワーカープロセスを起動するためのスクリプト
 ├ src/
-│ ├ generated/
-│ │ └ api-client/
-│ │   └ model/    --------- openapi-generator で自動生成した API モデル
+│ ├ system-common/
+│ │ └ generated/
+│ │   └ api-client/
+│ │     └ models/ --------- openapi-generator で自動生成した API モデル
 │ └ main.ts --------------- アプリケーションのエントリーポイント
 ├ .env.mock --------------- モックモードの環境設定ファイル
 ├ package.json ------------ ワークスペースのメタデータ、依存関係、スクリプトなどを定義するファイル
@@ -90,7 +91,7 @@ npx msw init ./public --save
 ワークスペース直下に`mock`フォルダーを作成し、`mock`フォルダーの配下に`browser.ts`を作成します。
 
 ```typescript title="browser.ts"
-https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-frontend/consumer/mock/browser.ts
+--8<-- "samples/web-csr/dressca-frontend/consumer/mock/browser.ts"
 ```
 
 `mock`フォルダーの配下に、`handlers`フォルダーを作成し、さらにその配下に`index.ts`を作成します。
@@ -108,7 +109,7 @@ export const handlers = [] // 後で実装します。
 async function enableMocking(): Promise<ServiceWorkerRegistration | undefined> {
   const { worker } = await import('../mock/browser') // モックモード以外ではインポート不要なので、動的にインポートします。
   return worker.start({
-    onUnhandledRequest: 'bypass', // MSW のハンドラーを未設定のリクエストに対して警告を出さないように設定します。
+    onUnhandledRequest: 'bypass', // MSW のハンドラーが未設定のリクエストに対して警告を出さないように設定します。
   })
 }
 
@@ -135,4 +136,4 @@ const app = createApp(App)
 npm run mock
 ```
 
-[^1]: [Committing the worker script :material-open-in-new:](https://mswjs.io/docs/best-practices/managing-the-worker/#committing-the-worker-script){ target=_blank }
+[^1]: [Committing the worker script :material-open-in-new:](https://mswjs.io/guides/best-practices/managing-the-worker#committing-the-worker-script){ target=_blank }

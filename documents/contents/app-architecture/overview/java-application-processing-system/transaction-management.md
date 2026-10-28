@@ -1,6 +1,6 @@
 ---
-title: 概要編
-description: AlesInfiny Maia OSS Edition の アプリケーションアーキテクチャ概要を解説します。
+title: Java アプリケーションの 処理方式
+description: アプリケーションの形態によらず、 Java アプリケーションで 考慮すべき関心事について、実装方針を説明します。
 ---
 
 # トランザクション管理方針 {#top}
@@ -36,15 +36,15 @@ Spring Framework が提供するトランザクション管理の実現方式は
 Spring Framework における宣言的トランザクション管理では、メソッドをトランザクション管理の単位として、トランザクションの設定を定義します。
 詳細は [宣言的トランザクション管理 :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/data-access/transaction/declarative.html){ target=_blank } を参照してください。
 
-設定方法は Xml による設定と `#!java @Transactional` というアノテーションを付与する方法がありますが、 Spring Boot を利用したアプリケーションではアノテーションベースの設定が一般的です。
+設定方法は XML による設定と `#!java @Transactional` というアノテーションを付与する方法がありますが、 Spring Boot を利用したアプリケーションではアノテーションベースの設定が一般的です。
 
 上述の方針に従い、トランザクション単位となるアプリケーションサービスのメソッドに対し、`#!java @Transactional` アノテーションを付与します。
 `#!java @Transactional` アノテーションの設定については、[@Transactional を使用する :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/data-access/transaction/declarative/annotations.html){ target=_blank } を参照してください。
 
 以下では特に検討すべき設定のみ記載します。
 
-- propagation ：トランザクションの伝播設定。特に他のアプリケーションサービスからも呼び出されるメソッドについて、トランザクションを引き継ぐのか、新しいトランザクションとするのかを設定する
-- rollbackFor/rollbackForClassName ：設定された例外がトランザクション内で例外が発生した場合にロールバックする。デフォルト設定は RuntimeException であるため、非検査例外をロールバック対象としたい場合には設定が必要
+- propagation: トランザクションの伝播設定。特に他のアプリケーションサービスからも呼び出されるメソッドについて、トランザクションを引き継ぐのか、新しいトランザクションとするのかを設定する
+- rollbackFor/rollbackForClassName: 設定された例外がトランザクション内で例外が発生した場合にロールバックする。デフォルト設定は RuntimeException であるため、非検査例外をロールバック対象としたい場合には設定が必要
 
 ### プログラミングによるトランザクション管理 {#programmatic-transaction}
 

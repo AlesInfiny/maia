@@ -86,7 +86,7 @@ public class AnnouncementListViewModel {
 
   /**
    * お知らせメッセージが存在するかを返します。
-   * 
+   *
    * @return お知らせメッセージが存在する場合は true、存在しない場合は false。
    */
   public boolean existAnnouncement() {

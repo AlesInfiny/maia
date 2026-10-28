@@ -30,8 +30,8 @@ Azure サブスクリプションを持っていない場合、 [無料アカウ
 
 本サンプルは以下の環境で動作確認を行っています。
 
-- Java 21
-- Node.js v24.14.1
+- Java 25
+- Node.js v24.21.0
 - Visual Studio Code 1.115.0
 
 ## サンプルの構成
@@ -517,7 +517,7 @@ BUILD SUCCESSFUL in 2s
           })
         } else {
           await handleErrorAsync(error, () => {
-            window.alert('Microsoft Entra External Id での認証に失敗しました。')
+            window.alert('Microsoft Entra External ID での認証に失敗しました。')
           })
         }
       }

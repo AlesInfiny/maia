@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-sass": "npx sass ../scss/style.scss ../css/style.css --silence-deprecation=import --silence-deprecation=global-builtin --silence-deprecation=color-functions"
+    "build-sass": "npx sass ../scss/style.scss ../css/style.css --load-path=node_modules --quiet-deps"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,6 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "sass": "^1.97.3"
+    "sass": "^1.105.1"
   }
 }

@@ -1,9 +1,9 @@
 package com.dressca.web.consumer.mapper;
 
-import java.util.stream.Collectors;
-import com.dressca.applicationcore.order.Order;
+import com.dressca.applicationmodules.shopping.entity.Order;
 import com.dressca.web.consumer.controller.dto.accounting.AccountApiModel;
 import com.dressca.web.consumer.controller.dto.order.GetOrderByIdResponse;
+import java.util.stream.Collectors;
 
 /**
  * {@link Order} と {@link GetOrderByIdResponse} のマッパーです。
@@ -12,7 +12,7 @@ public class OrderMapper {
 
   /**
    * {@link Order} オブジェクトを {@link GetOrderByIdResponse} に変換します。
-   * 
+   *
    * @param order {@link Order} オブジェクト。
    * @return {@link GetOrderByIdResponse} オブジェクト。
    */

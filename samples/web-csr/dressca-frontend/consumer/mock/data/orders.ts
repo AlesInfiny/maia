@@ -1,4 +1,4 @@
-import type { GetOrderByIdResponse } from '@/generated/api-client'
+import type { GetOrderByIdResponse } from '@/system-common/generated/api-client'
 
 // mock のため、注文データは id と orderDate 以外固定値を返却する
 export const order: GetOrderByIdResponse = {

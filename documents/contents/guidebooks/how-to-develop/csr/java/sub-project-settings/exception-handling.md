@@ -51,7 +51,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 
 ```java title="Exception クラスをハンドリングするメソッドの例"
 @ExceptionHandler(Exception.class)
-public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletRequest req) {
+public ResponseEntity<ProblemDetail> handleException(Exception e) {
   // 例外のハンドリングを行う処理
 }
 ```
@@ -72,12 +72,12 @@ public ResponseEntity<ProblemDetail> handleException(Exception e, HttpServletReq
 
 AlesInfiny Maia では、例外メッセージをプロパティファイルから取得し、ログ出力するために ErrorMessageBuilder クラスを実装しています。
 また、プロパティファイルからエラーレスポンスに含めるメッセージを整形し ProblemDetail クラスを生成する ProblemDetailsFactory クラスを実装しています。
-そして、これらを用いてエラーレスポンスを生成を実装しています。
+そして、これらを用いてエラーレスポンスの生成を実装しています。
 
 ErrorMessageBuilder クラスおよび ProblemDetailsFactory クラスの実装例は [メッセージ管理機能の設定 - メッセージの取得](./message-management.md#getting-messages) およびサンプルアプリケーションを参照ください。
 
 ??? example "ProblemDetail および ErrorMessageBuilder を用いた集約例外ハンドラーの実装例"
 
-    ```java title="ExceptionHandlerControllerAdvice.java" hl_lines="32-33 84-95 104-115 124-134"
-    https://github.com/AlesInfiny/maia/blob/main/samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java
+    ```java title="ExceptionHandlerControllerAdvice.java" hl_lines="29 30 76-85 93-102 110-119"
+    --8<-- "samples/web-csr/dressca-backend/web/src/main/java/com/dressca/web/controller/advice/ExceptionHandlerControllerAdvice.java"
     ```

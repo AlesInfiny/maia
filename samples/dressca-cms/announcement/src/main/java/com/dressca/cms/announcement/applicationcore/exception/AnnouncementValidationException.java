@@ -21,7 +21,7 @@ public class AnnouncementValidationException extends LogicException {
 
   /**
    * お知らせメッセージのバリデーションエラーを指定して、{@link AnnouncementValidationException} クラスのインスタンスを初期化します。
-   * 
+   *
    * @param validationErrors バリデーションエラーのリスト。
    */
   public AnnouncementValidationException(List<ValidationError> validationErrors) {
@@ -32,7 +32,7 @@ public class AnnouncementValidationException extends LogicException {
 
   /**
    * ValidationError の fieldName をカンマ区切りで連結します。
-   * 
+   *
    * @param errors バリデーションエラーのリスト。
    * @return カンマ区切りのフィールド名文字列。
    */

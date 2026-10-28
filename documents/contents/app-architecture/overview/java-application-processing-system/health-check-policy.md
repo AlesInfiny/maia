@@ -26,7 +26,7 @@ LB が行うヘルスチェックは、使用するプロトコルレイヤー�
 
 | プロトコルレイヤー | 詳細                                                                                                                 |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Layer 3            | ネットワーク層で動作を監視します。 ICMP echo リクエストを送信し、 echo リプライが帰ってくるかどうかを確認します。    |
+| Layer 3            | ネットワーク層で動作を監視します。 ICMP echo リクエストを送信し、 echo リプライが返ってくるかどうかを確認します。    |
 | Layer 4            | トランスポート層で動作を監視します。 TCP のハンドシェイクを行い、サーバーの動作を確認します。                        |
 | Layer 7            | アプリケーション層で動作を監視します。 HTTP リクエストから、サーバーの HTTP レスポンスの確認により動作を確認します。 |
 
@@ -65,7 +65,7 @@ AlesInfiny Maia では、監視対象のサーバーやアプリケーション�
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 
-Spring Boot を用いた Web アプリケーションでは、 [Spring Boot Actuator :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank } を利用することで比較適容易にヘルスチェック機能を実装可能です。
+Spring Boot を用いた Web アプリケーションでは、 [Spring Boot Actuator :material-open-in-new:](https://spring.pleiades.io/spring-boot/reference/actuator/){ target=_blank } を利用することで比較的容易にヘルスチェック機能を実装可能です。
 Spring Boot Actuator はアプリケーションレベルでサーバーを監視、管理する追加機能を提供するモジュールです。
 
 <!-- textlint-enable ja-technical-writing/sentence-length -->

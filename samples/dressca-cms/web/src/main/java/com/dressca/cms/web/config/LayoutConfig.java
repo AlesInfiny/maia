@@ -12,7 +12,7 @@ public class LayoutConfig {
 
   /**
    * Thymeleaf Layout Dialect の {@link LayoutDialect} オブジェクトを Bean 登録します。
-   * 
+   *
    * @return {@link LayoutDialect} オブジェクト。
    */
   @Bean

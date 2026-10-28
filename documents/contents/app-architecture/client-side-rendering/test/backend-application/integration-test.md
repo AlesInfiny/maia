@@ -39,7 +39,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 ## 結合テストの実行方法 {#testing-method}
 
 AlesInfiny Maia の CSR 方式のバックエンドアプリケーションは、 Spring Boot を用いた Web API のアプリケーションです。
-結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションの実行とレスポンスの検証します。
+結合テストでは、 Web API のリクエストを疑似的に再現し、アプリケーションを実行し、レスポンスを検証します。
 Web API のリクエスト送信は、 Spring Test の [MockMvc :material-open-in-new:](https://spring.pleiades.io/spring-framework/reference/testing/mockmvc.html){ target=_blank } を活用します。
 テストフレームワークは JUnit を利用します。
 

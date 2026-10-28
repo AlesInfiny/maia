@@ -275,7 +275,7 @@ public class AnnouncementController {
 
   /**
    * お知らせメッセージ編集画面を表示します。
-   * 
+   *
    * @param announcementId お知らせメッセージ ID。
    * @param model モデル。
    * @return お知らせメッセージ編集画面のビュー名。

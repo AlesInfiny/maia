@@ -1,10 +1,10 @@
 package com.dressca.systemcommon.exception;
 
+import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import java.util.Arrays;
 import java.util.Locale;
-import org.springframework.context.MessageSource;
-import com.dressca.systemcommon.util.ApplicationContextWrapper;
 import lombok.Getter;
+import org.springframework.context.MessageSource;
 
 /**
  * システム例外を表す例外クラスです。
@@ -57,7 +57,7 @@ public class SystemException extends RuntimeException {
 
   /**
    * メッセージソースからメッセージを取得します。
-   * 
+   *
    * @param exceptionId 例外 ID 。
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    * @return 取得したメッセージ。

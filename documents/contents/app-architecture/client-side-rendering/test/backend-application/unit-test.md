@@ -20,7 +20,7 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 - [Checkstyle :material-open-in-new:](https://checkstyle.org/){ target=_blank }
     - コーディング規約に準拠した Java コードとなっているか自動的にテストするツールです。
-    - 分析ルールは、 Google が提供している「[Google Java Style Guide :material-open-in-new:](https://checkstyle.sourceforge.io/styleguides/google-java-style-20180523/javaguide.html){ target=_blank }」をベースにし、警告がなくなるまでコードを修正します。
+    - 分析ルールは、 Google が提供している「[Google Java Style Guide :material-open-in-new:](https://google.github.io/styleguide/javaguide.html){ target=_blank }」をベースにし、警告がなくなるまでコードを修正します。
     - 日本語コメントや IDE とミスマッチするルールは修正して使用します。
 - [SpotBugs :material-open-in-new:](https://spotbugs.github.io/){ target=_blank }
     - Java コード内の潜在的なバグを自動検出するツールです。
@@ -28,7 +28,23 @@ description: バックエンドアプリケーションのテスト方針につ�
 
 ### 静的テスト ( UT0 ) のテスト対象 {#ut0-static-testing-targets}
 
-静的テストは、すべての Java コードを対象に行います。
+静的テストは、開発者が記述するすべての Java コードを対象に行います。テストコードも対象に含めます。
+
+自動生成コードは、生成ツールがフォーマットや命名を決めるため、コーディング規約への準拠を開発者が制御できません。
+この点を踏まえ、ツールごとに以下の方針で対象を定めます。
+
+- Checkstyle: 自動生成コードは対象外とします。コーディング規約の統一は、開発者が記述するコードに対して意味を持つためです。
+- SpotBugs: 自動生成コードも対象に含めます。潜在的なバグの検出は自動生成コードに対しても有効なためです。ただし、生成ツールやフレームワークの仕様に起因し、開発者が対処できない警告は個別に除外します。
+
+!!! note "除外設定の管理方法"
+    除外設定は Checkstyle の suppressions.xml と SpotBugs の exclude-filter.xml に集約し、除外する理由をコメントとして必ず残します。
+    各設定ファイルの実装方法の詳細は、以下を参照してください。
+
+    - [Checkstyle プラグイン](../../../../guidebooks/how-to-develop/csr/java/common-project-settings.md#checkstyle-plugin)
+    - [SpotBugs プラグイン](../../../../guidebooks/how-to-develop/csr/java/common-project-settings.md#spotbugs-plugin)
+
+    ソースコード中の `#!java @SuppressWarnings` による個別の抑制は、除外の全体像が把握できなくなるため原則使用しません。
+    テストコードで日本語のメソッド名を使用する場合のように、意図的にコーディング規約と異なる記述を許容する場合も、同様に設定ファイルで管理します。
 
 ### 静的テスト ( UT0 ) の実行方法 {#ut0-static-testing-method}
 

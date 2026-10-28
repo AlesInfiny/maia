@@ -19,7 +19,7 @@ public class DresscaWebConfig {
 
   /**
    * 購入者 ID のフィルターを設定します。
-   * 
+   *
    * @return 購入者 ID のフィルター。
    */
   @Bean

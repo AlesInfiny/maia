@@ -1,9 +1,9 @@
 package com.dressca.systemcommon.log;
 
+import com.dressca.systemcommon.constant.SystemPropertyConstants;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.dressca.systemcommon.constant.SystemPropertyConstants;
 
 /**
  * コンテキストにログを保持させる機能を追加した構造化ロガーのインターフェースです。
@@ -15,14 +15,14 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * 構造化ログでデフォルトで出力する内容を追加します。 try ブロック内に MDC.put(key, value) で追記してください。
-   * 
+   *
    * @param logAction ログを出力するメソッド。
    */
   protected abstract void logWithMdc(Runnable logAction);
 
   /**
    * DEBUG レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    */
   public void debug(String msg) {
@@ -31,7 +31,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * Key Value を追加して DEBUG レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
@@ -45,7 +45,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * ERROR レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    */
   public void error(String msg) {
@@ -54,7 +54,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * Key Value を追加して ERROR レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
@@ -69,7 +69,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * INFO レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    */
   public void info(String msg) {
@@ -78,7 +78,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * Key Value を追加して INFO レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
@@ -92,7 +92,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * TRACE レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    */
   public void trace(String msg) {
@@ -101,7 +101,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * Key Value を追加して TRACE レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
@@ -115,7 +115,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * WARN レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    */
   public void warn(String msg) {
@@ -125,7 +125,7 @@ public abstract class AbstractStructuredLogger {
 
   /**
    * Key Value を追加して WARN レベルのログを出力します。
-   * 
+   *
    * @param msg ログのメッセージ。
    * @param keyValueMap Key Value のマップ。
    */
