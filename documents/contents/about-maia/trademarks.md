@@ -35,13 +35,13 @@ BIPROGY 株式会社からの許可がない場合、以下のように使用し
 
 <!-- textlint-disable ja-technical-writing/max-ten,ja-technical-writing/max-comma,ja-technical-writing/sentence-length,@textlint-ja/no-synonyms -->
 
-- Amazon Web Services 、 AWS 、 Powered by AWS のロゴ、 Amazon Corretto 、および本サイトで使用されるその他の AWS 商標は、 Amazon.com, Inc. またはその関係会社の商標です。
+- Amazon Web Services 、 AWS 、 Powered by AWS のロゴ、 Amazon Corretto は、 Amazon.com, Inc. またはその関係会社の商標です。
 - Apache, [Apache Commons Lang :material-open-in-new:](https://commons.apache.org/proper/commons-lang/){ target=_blank }, [Apache Groovy :material-open-in-new:](https://groovy.apache.org/){ target=_blank }, [Apache Log4j 2 :material-open-in-new:](https://logging.apache.org/log4j/2.x/){ target=_blank }, [Apache Maven :material-open-in-new:](https://maven.apache.org/){ target=_blank } and [Apache Tomcat :material-open-in-new:](https://tomcat.apache.org/){ target=_blank } are either registered trademarks or trademarks of the [Apache Software Foundation :material-open-in-new:](https://www.apache.org/){ target=_blank } in the United States and/or other countries.
-- Eclipse, Adoptium, Temurin and Jakarta EE are trademarks of Eclipse Foundation AISBL.
+- Eclipse, Adoptium and Temurin are trademarks of Eclipse Foundation AISBL.
 - Gradle and the Gradlephant logo are registered trademarks of Gradle, Inc.
 - Google 、 Google Analytics は、 Google LLC の商標または登録商標です。
 - Copyright © 2026 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.
-- Microsoft 、 Azure 、 Microsoft Entra 、 TypeScript 、 Visual Studio Code 、 VS Code 、 Windows は、マイクロソフト グループの企業の商標です。
+- Microsoft 、 Azure 、 Microsoft Entra 、 VS Code 、 Windows は、マイクロソフト グループの企業の商標です。
 - Java は、 Oracle 、その子会社及び関連会社の米国及びその他の国における登録商標です。
 - Spring is a trademark of Broadcom Inc. and/or its subsidiaries.
 - Hibernate is a trademark of Commonhaus Foundation, registered in the United States and other countries.
