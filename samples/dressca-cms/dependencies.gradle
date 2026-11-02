@@ -15,7 +15,7 @@ ext {
 
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "14.3.0"
-    jacocoToolVersion = "0.8.15"
+    jacocoToolVersion = "0.8.16"
     spotbugsToolVersion = "4.10.5"
 
     supportDependencies = [
