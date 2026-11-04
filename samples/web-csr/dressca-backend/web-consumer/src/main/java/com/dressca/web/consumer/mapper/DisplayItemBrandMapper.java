@@ -3,9 +3,7 @@ package com.dressca.web.consumer.mapper;
 import com.dressca.applicationmodules.shopping.entity.DisplayItemBrand;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemBrandsResponse;
 
-/**
- * {@link DisplayItemBrand} と {@link GetDisplayItemBrandsResponse} のマッパーです。
- */
+/** {@link DisplayItemBrand} と {@link GetDisplayItemBrandsResponse} のマッパーです。 */
 public class DisplayItemBrandMapper {
 
   /**

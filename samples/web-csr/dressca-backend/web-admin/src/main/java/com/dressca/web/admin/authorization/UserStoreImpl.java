@@ -9,9 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-/**
- * ユーザのセッション情報です。
- */
+/** ユーザのセッション情報です。 */
 @Component
 public class UserStoreImpl implements UserStore {
 
@@ -28,8 +26,10 @@ public class UserStoreImpl implements UserStore {
   public List<String> getLoginUserRoles() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      List<String> roles = authentication.getAuthorities().stream()
-          .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+      List<String> roles =
+          authentication.getAuthorities().stream()
+              .map(GrantedAuthority::getAuthority)
+              .collect(Collectors.toList());
       return roles;
     }
     return new ArrayList<>();
@@ -39,7 +39,8 @@ public class UserStoreImpl implements UserStore {
   public boolean isInRole(String role) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
-      return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+      return authentication.getAuthorities().stream()
+          .map(GrantedAuthority::getAuthority)
           .anyMatch(roles -> roles.equals(role));
     }
     return false;

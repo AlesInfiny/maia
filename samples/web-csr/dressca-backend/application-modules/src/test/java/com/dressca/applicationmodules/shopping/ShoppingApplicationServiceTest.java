@@ -48,36 +48,34 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link ShoppingApplicationService}の動作をテストするクラスです。
- */
+/** {@link ShoppingApplicationService}の動作をテストするクラスです。 */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationModulesTestConfig.class)
 @TestPropertySource(
     properties = "spring.messages.basename=applicationmodules.messages,systemcommon.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class ShoppingApplicationServiceTest {
-  @Mock
-  private OrderRepository orderRepository;
-  @Mock
-  private BasketRepository basketRepository;
-  @Mock
-  private DisplayItemRepository displayItemRepository;
-  @Mock
-  private DisplayItemDomainService displayItemDomainService;
+  @Mock private OrderRepository orderRepository;
+  @Mock private BasketRepository basketRepository;
+  @Mock private DisplayItemRepository displayItemRepository;
+  @Mock private DisplayItemDomainService displayItemDomainService;
 
-  @Autowired
-  private MessageSource messages;
+  @Autowired private MessageSource messages;
 
-  @Mock
-  private AbstractStructuredLogger apLog;
+  @Mock private AbstractStructuredLogger apLog;
 
   private ShoppingApplicationService service;
 
   @BeforeEach
   void setUp() {
-    service = new ShoppingApplicationService(messages, basketRepository, displayItemRepository,
-        orderRepository, displayItemDomainService, apLog);
+    service =
+        new ShoppingApplicationService(
+            messages,
+            basketRepository,
+            displayItemRepository,
+            orderRepository,
+            displayItemDomainService,
+            apLog);
   }
 
   @Test
@@ -171,8 +169,10 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
-      DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
+  void testSetQuantities_正常系_リポジトリのupdateを1度だけ呼出す()
+      throws BasketNotFoundException,
+          DisplayItemNotFoundException,
+          DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -201,8 +201,10 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される() throws BasketNotFoundException,
-      DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
+  void testSetQuantities_正常系_買い物かごに存在する商品を指定すると買い物かごの商品数が更新される()
+      throws BasketNotFoundException,
+          DisplayItemNotFoundException,
+          DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -235,8 +237,9 @@ public class ShoppingApplicationServiceTest {
 
   @Test
   void testSetQuantities_正常系_数量が指定されていない買い物かごアイテムの数量は変更されない()
-      throws BasketNotFoundException, DisplayItemNotFoundException,
-      DisplayItemInBasketNotFoundException {
+      throws BasketNotFoundException,
+          DisplayItemNotFoundException,
+          DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -331,8 +334,10 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す() throws BasketNotFoundException,
-      DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
+  void testDeleteItemFromBasket_正常系_リポジトリのupdateを1度だけ呼出す()
+      throws BasketNotFoundException,
+          DisplayItemNotFoundException,
+          DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -356,8 +361,10 @@ public class ShoppingApplicationServiceTest {
   }
 
   @Test
-  void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている() throws BasketNotFoundException,
-      DisplayItemNotFoundException, DisplayItemInBasketNotFoundException {
+  void testDeleteItemFromBasket_正常系_買い物かごから指定の商品が削除されている()
+      throws BasketNotFoundException,
+          DisplayItemNotFoundException,
+          DisplayItemInBasketNotFoundException {
     // Arrange
     // テスト用の入力データ
     UUID buyerId = UUID.randomUUID();
@@ -442,11 +449,26 @@ public class ShoppingApplicationServiceTest {
     basket.addItem(itemId1, BigDecimal.valueOf(1000), 1);
     basket.addItem(itemId2, BigDecimal.valueOf(2000), 1);
     when(this.basketRepository.findByBuyerId(dummyBuyerId)).thenReturn(Optional.of(basket));
-    List<DisplayItem> items = List.of(
-        new DisplayItem(itemId1, "name1", "desc1", BigDecimal.valueOf(1000), "code1",
-            UUID.randomUUID(), UUID.randomUUID(), false),
-        new DisplayItem(itemId2, "name2", "desc2", BigDecimal.valueOf(2000), "code2",
-            UUID.randomUUID(), UUID.randomUUID(), false));
+    List<DisplayItem> items =
+        List.of(
+            new DisplayItem(
+                itemId1,
+                "name1",
+                "desc1",
+                BigDecimal.valueOf(1000),
+                "code1",
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                false),
+            new DisplayItem(
+                itemId2,
+                "name2",
+                "desc2",
+                BigDecimal.valueOf(2000),
+                "code2",
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                false));
     List<UUID> displayItemIds = List.of(itemId1, itemId2);
     when(this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(displayItemIds))
         .thenReturn(items);
@@ -635,8 +657,11 @@ public class ShoppingApplicationServiceTest {
   }
 
   private static int findQuantity(List<BasketItem> items, UUID displayItemId) {
-    return items.stream().filter(item -> item.getDisplayItemId().equals(displayItemId)).findFirst()
-        .orElseThrow(() -> new AssertionError("買い物かごに対象の陳列品が存在しません。")).getQuantity();
+    return items.stream()
+        .filter(item -> item.getDisplayItemId().equals(displayItemId))
+        .findFirst()
+        .orElseThrow(() -> new AssertionError("買い物かごに対象の陳列品が存在しません。"))
+        .getQuantity();
   }
 
   private ShipTo createDefaultShipTo() {
@@ -650,17 +675,19 @@ public class ShoppingApplicationServiceTest {
     String defaultTodofuken = "東京都";
     String defaultShikuchoson = "千代田区";
     String defaultAzanaAndOthers = "永田町1-10-1";
-    return new Address(defaultPostalCode, defaultTodofuken, defaultShikuchoson,
-        defaultAzanaAndOthers);
+    return new Address(
+        defaultPostalCode, defaultTodofuken, defaultShikuchoson, defaultAzanaAndOthers);
   }
 
   private List<OrderItem> createDefaultOrderItems() {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    return List
-        .of(new OrderItem(new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
-            BigDecimal.valueOf(100_000_000L), 1));
+    return List.of(
+        new OrderItem(
+            new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
+            BigDecimal.valueOf(100_000_000L),
+            1));
   }
 
   private DisplayItem createDisplayItem(UUID id) {
@@ -670,8 +697,14 @@ public class ShoppingApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
-        UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    return new DisplayItem(
+        id,
+        defaultName,
+        defaultDescription,
+        defaultPrice,
+        defaultProductCode,
+        UUID.randomUUID(),
+        UUID.randomUUID(),
+        defaultIsDeleted);
   }
-
 }

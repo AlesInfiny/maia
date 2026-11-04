@@ -15,8 +15,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import java.util.Locale;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -28,9 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link Asset} の情報にアクセスする API コントローラーです。
- */
+/** {@link Asset} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
@@ -49,18 +47,24 @@ public class AssetsController {
    * @return アセット。
    */
   @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。",
-          content = @Content(mediaType = "image/*",
-              schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。",
-          content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(
+            responseCode = "404",
+            description = "アセットコードに対応するアセットがありません。",
+            content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @GetMapping("{assetCode}")
   public ResponseEntity<Resource> get(
-      @Parameter(required = true,
-          description = "アセットコード") @PathVariable("assetCode") String assetCode)
+      @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode")
+          String assetCode)
       throws LogicException {
     try {
       AssetResourceInfo assetResourceInfo = this.service.getAssetResourceInfo(assetCode);
@@ -86,8 +90,10 @@ public class AssetsController {
         return MediaType.IMAGE_PNG;
       default:
         String errorMessage =
-            messages.getMessage(WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
-                new String[] {asset.getAssetType()}, Locale.getDefault());
+            messages.getMessage(
+                WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()},
+                Locale.getDefault());
         throw new IllegalArgumentException(errorMessage);
     }
   }

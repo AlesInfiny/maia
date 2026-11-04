@@ -5,9 +5,7 @@ import com.dressca.systemcommon.exception.LogicException;
 import java.util.Arrays;
 import java.util.UUID;
 
-/**
- * 商品が存在しないことを表す例外です。
- */
+/** 商品が存在しないことを表す例外です。 */
 public class CatalogNotFoundException extends LogicException {
 
   /**
@@ -16,8 +14,11 @@ public class CatalogNotFoundException extends LogicException {
    * @param catalogId 見つからなかったカタログ ID 。
    */
   public CatalogNotFoundException(UUID catalogId) {
-    super(null, CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
-        new String[] {String.valueOf(catalogId)}, new String[] {String.valueOf(catalogId)});
+    super(
+        null,
+        CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
+        new String[] {String.valueOf(catalogId)},
+        new String[] {String.valueOf(catalogId)});
   }
 
   /**
@@ -26,8 +27,11 @@ public class CatalogNotFoundException extends LogicException {
    * @param catalogIds 見つからなかった複数のカタログ ID 。
    */
   public CatalogNotFoundException(UUID... catalogIds) {
-    super(null, CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
-        new String[] {joinCatalogIds(catalogIds)}, new String[] {joinCatalogIds(catalogIds)});
+    super(
+        null,
+        CatalogManagementExceptionIdConstants.E_CATALOG_ID_NOT_FOUND,
+        new String[] {joinCatalogIds(catalogIds)},
+        new String[] {joinCatalogIds(catalogIds)});
   }
 
   /**

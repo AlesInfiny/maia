@@ -17,9 +17,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * 買い物かごのリポジトリです。
- */
+/** 買い物かごのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisBasketRepository implements BasketRepository {
@@ -44,8 +42,10 @@ public class MybatisBasketRepository implements BasketRepository {
     basketMapper.insert(row);
 
     // 子要素（ BasketItem ）の追加
-    List<BasketItemEntity> itemRows = basket.getItems().stream()
-        .map(ShoppingEntityTranslator::createBasketItemEntity).collect(Collectors.toList());
+    List<BasketItemEntity> itemRows =
+        basket.getItems().stream()
+            .map(ShoppingEntityTranslator::createBasketItemEntity)
+            .collect(Collectors.toList());
     for (BasketItemEntity itemRow : itemRows) {
       basketItemMapper.insert(itemRow);
     }
@@ -73,7 +73,8 @@ public class MybatisBasketRepository implements BasketRepository {
     // 子要素（ BasketItem ）の更新
     // 削除された BasketItem にも対応できるように DELETE-INSERT する
     removeBasketItem(basket.getId());
-    basket.getItems().stream().map(ShoppingEntityTranslator::createBasketItemEntity)
+    basket.getItems().stream()
+        .map(ShoppingEntityTranslator::createBasketItemEntity)
         .forEach(basketItemMapper::insert);
   }
 

@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link DisplayItem} の情報にアクセスする API コントローラーです。
- */
+/** {@link DisplayItem} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "DisplayItems", description = "陳列品の情報にアクセスする API です。")
 @RequestMapping("/api/display-items")
@@ -43,13 +41,23 @@ public class DisplayItemsController {
    * @return 陳列品の一覧。
    */
   @Operation(summary = "陳列品を検索して返します。", description = "陳列品を検索して返します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = PagedListOfGetDisplayItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー。",
-          content = @Content(mediaType = "application/problem+json",
-              schema = @Schema(implementation = ProblemDetail.class)))})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PagedListOfGetDisplayItemResponse.class))),
+        @ApiResponse(
+            responseCode = "400",
+            description = "リクエストエラー。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class)))
+      })
   @GetMapping()
   public ResponseEntity<PagedListOfGetDisplayItemResponse> getByQuery(
       @RequestParam(name = "brandId", required = false) UUID brandId,
@@ -58,7 +66,8 @@ public class DisplayItemsController {
       @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
     List<GetDisplayItemResponse> items =
         service.getDisplayItems(brandId, categoryId, page, pageSize).stream()
-            .map(DisplayItemMapper::convert).collect(Collectors.toList());
+            .map(DisplayItemMapper::convert)
+            .collect(Collectors.toList());
     int totalCount = service.countDisplayItems(brandId, categoryId);
 
     PagedListOfGetDisplayItemResponse returnValue =

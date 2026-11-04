@@ -1,7 +1,6 @@
 {
   "ignorePaths": [
     "checkstyle.xml",
-    "eclipse-formatter.xml",
     "**/gradlew",
     "**/gradlew.bat"
   ],
@@ -18,6 +17,7 @@
     "configfile",
     "controlleradvice",
     "Dfile",
+    "diffplug",
     "displayitem",
     "dists",
     "Dressca",

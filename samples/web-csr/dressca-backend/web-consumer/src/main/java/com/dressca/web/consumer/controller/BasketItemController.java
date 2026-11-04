@@ -44,9 +44,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link BasketItem} の情報にアクセスする API コントローラーです。
- */
+/** {@link BasketItem} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "BasketItems", description = "買い物かごアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/basket-items")
@@ -61,9 +59,16 @@ public class BasketItemController {
    * @return 買い物かごアイテムの一覧。
    */
   @Operation(summary = "買い物かごアイテムの一覧を取得します。", description = "買い物かごアイテムの一覧を返却します。")
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
-      content = @Content(mediaType = "application/json",
-          schema = @Schema(implementation = GetBasketItemsResponse.class)))})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = GetBasketItemsResponse.class)))
+      })
   @GetMapping
   public ResponseEntity<GetBasketItemsResponse> getBasketItems(HttpServletRequest req) {
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
@@ -83,48 +88,64 @@ public class BasketItemController {
   /**
    * 買い物かごアイテム内の数量を変更します。買い物かご内に存在しない陳列品 ID は指定できません。
    *
-   * <p>この API では、買い物かご内に存在する商品の数量を変更できます。
-   * 買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。
-   * またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。</p>
+   * <p>この API では、買い物かご内に存在する商品の数量を変更できます。 買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。
+   * またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。
    *
    * @param putBasketItems 変更する買い物かごアイテムのデータリスト。
    * @return なし。
    */
-  @Operation(summary = "買い物かごアイテム内の数量を変更します。",
-      description = "買い物かごアイテム内の数量を変更します。買い物かご内に存在しない陳列品 ID は指定できません。"
-          + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。"
-          + "またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。")
+  @Operation(
+      summary = "買い物かごアイテム内の数量を変更します。",
+      description =
+          "買い物かごアイテム内の数量を変更します。買い物かご内に存在しない陳列品 ID は指定できません。"
+              + "この API では、買い物かご内に存在する商品の数量を変更できます。買い物かご内に存在しない陳列品 ID を指定すると HTTP 400 を返却します。"
+              + "またシステムに登録されていない陳列品 ID を指定した場合も HTTP 400 を返却します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。",
-              content = @Content(mediaType = "application/problem+json",
-                  schema = @Schema(implementation = ProblemDetail.class)))})
+      value = {
+        @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+        @ApiResponse(
+            responseCode = "400",
+            description = "リクエストエラー。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class)))
+      })
   @PutMapping()
-  public ResponseEntity<?> putBasketItems(@RequestBody List<PutBasketItemsRequest> putBasketItems,
-      HttpServletRequest req) {
+  public ResponseEntity<?> putBasketItems(
+      @RequestBody List<PutBasketItemsRequest> putBasketItems, HttpServletRequest req) {
     if (putBasketItems.isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
-    Map<UUID, Integer> quantities = putBasketItems.stream().collect(Collectors
-        .toMap(PutBasketItemsRequest::getDisplayItemId, PutBasketItemsRequest::getQuantity));
+    Map<UUID, Integer> quantities =
+        putBasketItems.stream()
+            .collect(
+                Collectors.toMap(
+                    PutBasketItemsRequest::getDisplayItemId, PutBasketItemsRequest::getQuantity));
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       shoppingApplicationService.setQuantities(buyerId, quantities);
     } catch (DisplayItemNotFoundException e) {
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     } catch (DisplayItemInBasketNotFoundException e) {
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }
@@ -133,41 +154,56 @@ public class BasketItemController {
    * 買い物かごに商品を追加します。
    *
    * <p>この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。
-   * また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。
-   * すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。</p>
+   * また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。 すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。
    *
-   * <p>買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。</p>
+   * <p>買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。 計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。
    *
    * @param postBasketItem 追加する商品の情報。
    * @return なし。
    */
-  @Operation(summary = "買い物かごに商品を追加します。",
-      description = "買い物かごに商品を追加します。" + "この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。"
-          + "また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。"
-          + "すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。"
-          + "買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
+  @Operation(
+      summary = "買い物かごに商品を追加します。",
+      description =
+          "買い物かごに商品を追加します。"
+              + "この API では、システムに登録されていない陳列品 ID を指定した場合 HTTP 400 を返却します。"
+              + "また買い物かごに追加していない陳列品を指定した場合、その商品を買い物かごに追加します。"
+              + "すでに買い物かごに追加されている陳列品を指定した場合、指定した数量、買い物かご内の数量を追加します。"
+              + "買い物かご内の陳列品の数量が 0 未満になるように減じることはできません。計算の結果数量が 0 未満になる場合 HTTP 500 を返却します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "201", description = "作成完了。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。",
-              content = @Content(mediaType = "application/problem+json",
-                  schema = @Schema(implementation = ProblemDetail.class))),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。",
-              content = @Content(mediaType = "application/problem+json",
-                  schema = @Schema(implementation = ProblemDetail.class)))})
+      value = {
+        @ApiResponse(responseCode = "201", description = "作成完了。", content = @Content),
+        @ApiResponse(
+            responseCode = "400",
+            description = "リクエストエラー。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class))),
+        @ApiResponse(
+            responseCode = "500",
+            description = "サーバーエラー。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class)))
+      })
   @PostMapping
-  public ResponseEntity<?> postBasketItem(@RequestBody PostBasketItemsRequest postBasketItem,
-      HttpServletRequest req) {
+  public ResponseEntity<?> postBasketItem(
+      @RequestBody PostBasketItemsRequest postBasketItem, HttpServletRequest req) {
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     try {
-      this.shoppingApplicationService.addItemToBasket(buyerId, postBasketItem.getDisplayItemId(),
-          postBasketItem.getAddedQuantity());
+      this.shoppingApplicationService.addItemToBasket(
+          buyerId, postBasketItem.getDisplayItemId(), postBasketItem.getAddedQuantity());
     } catch (DisplayItemNotFoundException e) {
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.created(URI.create("/basket-items")).build();
   }
@@ -175,54 +211,75 @@ public class BasketItemController {
   /**
    * 買い物かごから指定した陳列品 ID の商品を削除します。
    *
-   * <p>displayItemId には買い物かご内に存在する陳列品 ID を指定してください。
-   * UUID 形式でない値を指定した場合 HTTP 400 を返却します。
-   * 買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。</p>
-   *
+   * <p>displayItemId には買い物かご内に存在する陳列品 ID を指定してください。 UUID 形式でない値を指定した場合 HTTP 400 を返却します。
+   * 買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。
    *
    * @param displayItemId 陳列品 ID 。
    * @return なし。
    */
-  @Operation(summary = "買い物かごから指定した陳列品 ID の商品を削除します。",
-      description = "買い物かごから指定した陳列品 ID の商品を削除します。" + "displayItemId には買い物かご内に存在する陳列品 ID を指定してください。"
-          + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。" + "買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。")
+  @Operation(
+      summary = "買い物かごから指定した陳列品 ID の商品を削除します。",
+      description =
+          "買い物かごから指定した陳列品 ID の商品を削除します。"
+              + "displayItemId には買い物かご内に存在する陳列品 ID を指定してください。"
+              + "UUID 形式でない値を指定した場合 HTTP 400 を返却します。"
+              + "買い物かご内に指定した陳列品の商品が存在しない場合、 HTTP 404 を返却します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。",
-              content = @Content(mediaType = "application/problem+json",
-                  schema = @Schema(implementation = ProblemDetail.class))),
-          @ApiResponse(responseCode = "404", description = "買い物かご内に指定した陳列品 ID がありません。",
-              content = @Content(mediaType = "application/problem+json",
-                  schema = @Schema(implementation = ProblemDetail.class)))})
+      value = {
+        @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+        @ApiResponse(
+            responseCode = "400",
+            description = "リクエストエラー。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class))),
+        @ApiResponse(
+            responseCode = "404",
+            description = "買い物かご内に指定した陳列品 ID がありません。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class)))
+      })
   @DeleteMapping("{displayItemId}")
-  public ResponseEntity<?> deleteBasketItem(@PathVariable("displayItemId") UUID displayItemId,
-      HttpServletRequest req) {
+  public ResponseEntity<?> deleteBasketItem(
+      @PathVariable("displayItemId") UUID displayItemId, HttpServletRequest req) {
     UUID buyerId = (UUID) req.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
 
     try {
       this.shoppingApplicationService.deleteItemFromBasket(buyerId, displayItemId);
     } catch (DisplayItemNotFoundException e) {
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     } catch (DisplayItemInBasketNotFoundException e) {
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     return ResponseEntity.noContent().build();
   }
 
-  private DisplayItemSummaryApiModel getDisplayItemResponse(UUID displayItemId,
-      List<DisplayItem> displayItems) {
-    DisplayItem displayItem = displayItems.stream()
-        .filter(item -> item.getId().equals(displayItemId)).findFirst().orElse(null);
+  private DisplayItemSummaryApiModel getDisplayItemResponse(
+      UUID displayItemId, List<DisplayItem> displayItems) {
+    DisplayItem displayItem =
+        displayItems.stream()
+            .filter(item -> item.getId().equals(displayItemId))
+            .findFirst()
+            .orElse(null);
 
     return convertDisplayItemDto(displayItem);
   }

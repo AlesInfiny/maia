@@ -26,9 +26,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * カタログ情報に関するビジネスユースケースを実現するサービスです。
- */
+/** カタログ情報に関するビジネスユースケースを実現するサービスです。 */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CatalogApplicationService {
@@ -51,9 +49,13 @@ public class CatalogApplicationService {
    * @param apLog ロガー。
    * @param userStore ユーザーストア。管理アプリでのみ利用されるため、オプションで注入されます。
    */
-  public CatalogApplicationService(MessageSource messages, CatalogRepository catalogRepository,
-      CatalogBrandRepository brandRepository, CatalogCategoryRepository categoryRepository,
-      CatalogDomainService catalogDomainService, AbstractStructuredLogger apLog,
+  public CatalogApplicationService(
+      MessageSource messages,
+      CatalogRepository catalogRepository,
+      CatalogBrandRepository brandRepository,
+      CatalogCategoryRepository categoryRepository,
+      CatalogDomainService catalogDomainService,
+      AbstractStructuredLogger apLog,
       @Autowired(required = false) UserStore userStore) {
     this.messages = messages;
     this.catalogRepository = catalogRepository;
@@ -74,8 +76,11 @@ public class CatalogApplicationService {
    */
   public CatalogItem getCatalogItem(UUID id)
       throws CatalogNotFoundException, PermissionDeniedException {
-    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
-        new Object[] {id}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEM,
+            new Object[] {id},
+            Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItem");
@@ -100,15 +105,18 @@ public class CatalogApplicationService {
    */
   public List<CatalogItem> getCatalogItems(UUID brandId, UUID categoryId, int page, int pageSize)
       throws PermissionDeniedException {
-    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
-        new Object[] {brandId, categoryId, page, pageSize}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS,
+            new Object[] {brandId, categoryId, page, pageSize},
+            Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("getCatalogItems");
     }
 
-    return this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId,
-        page, pageSize);
+    return this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(
+        brandId, categoryId, page, pageSize);
   }
 
   /**
@@ -119,9 +127,11 @@ public class CatalogApplicationService {
    * @return 条件に一致するカタログアイテムのリスト。存在しない場合は空のリスト。
    */
   public List<CatalogItem> getCatalogItemsWithPaging(int skipRows, int pageSize) {
-    apLog.debug(messages.getMessage(
-        CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS_WITH_PAGING,
-        new Object[] {skipRows, pageSize}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_GET_CATALOG_ITEMS_WITH_PAGING,
+            new Object[] {skipRows, pageSize},
+            Locale.getDefault()));
 
     return this.catalogRepository.findWithPaging(skipRows, pageSize);
   }
@@ -140,13 +150,21 @@ public class CatalogApplicationService {
    * @throws CatalogCategoryNotFoundException 追加対象のカタログカテゴリが存在しなかった場合。
    * @throws CatalogBrandNotFoundException 追加対象のカタログブランドが存在しなかった場合。
    */
-  public CatalogItem addItemToCatalog(String name, String description, BigDecimal price,
-      String productCode, UUID catalogCategoryId, UUID catalogBrandId)
-      throws PermissionDeniedException, CatalogCategoryNotFoundException,
-      CatalogBrandNotFoundException {
+  public CatalogItem addItemToCatalog(
+      String name,
+      String description,
+      BigDecimal price,
+      String productCode,
+      UUID catalogCategoryId,
+      UUID catalogBrandId)
+      throws PermissionDeniedException,
+          CatalogCategoryNotFoundException,
+          CatalogBrandNotFoundException {
     apLog.debug(
-        messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
-            new Object[] {}, Locale.getDefault()));
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_ADD_ITEM_TO_CATALOG,
+            new Object[] {},
+            Locale.getDefault()));
 
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException("addItemToCatalog");
@@ -160,8 +178,9 @@ public class CatalogApplicationService {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    CatalogItem item = CatalogItem.createCatalogItemForRegistration(name, description, price,
-        productCode, catalogCategoryId, catalogBrandId, false);
+    CatalogItem item =
+        CatalogItem.createCatalogItemForRegistration(
+            name, description, price, productCode, catalogCategoryId, catalogBrandId, false);
     item.setRowVersion(OffsetDateTime.now());
     return this.catalogRepository.add(item);
   }
@@ -176,11 +195,14 @@ public class CatalogApplicationService {
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
   public void deleteItemFromCatalog(UUID id, OffsetDateTime rowVersion)
-      throws PermissionDeniedException, CatalogNotFoundException,
-      OptimisticLockingFailureException {
+      throws PermissionDeniedException,
+          CatalogNotFoundException,
+          OptimisticLockingFailureException {
     apLog.debug(
-        messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG,
-            new Object[] {id}, Locale.getDefault()));
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_DELETE_ITEM_FROM_CATALOG,
+            new Object[] {id},
+            Locale.getDefault()));
 
     final String operationName = "deleteItemFromCatalog";
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
@@ -215,14 +237,26 @@ public class CatalogApplicationService {
    * @throws CatalogBrandNotFoundException 更新対象のカタログブランドが存在しなかった場合。
    * @throws OptimisticLockingFailureException 楽観ロックエラーの場合。
    */
-  public void updateCatalogItem(UUID id, String name, String description, BigDecimal price,
-      String productCode, UUID catalogCategoryId, UUID catalogBrandId, OffsetDateTime rowVersion,
+  public void updateCatalogItem(
+      UUID id,
+      String name,
+      String description,
+      BigDecimal price,
+      String productCode,
+      UUID catalogCategoryId,
+      UUID catalogBrandId,
+      OffsetDateTime rowVersion,
       boolean isDeleted)
-      throws CatalogNotFoundException, PermissionDeniedException, CatalogCategoryNotFoundException,
-      CatalogBrandNotFoundException, OptimisticLockingFailureException {
+      throws CatalogNotFoundException,
+          PermissionDeniedException,
+          CatalogCategoryNotFoundException,
+          CatalogBrandNotFoundException,
+          OptimisticLockingFailureException {
     apLog.debug(
-        messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
-            new Object[] {id}, Locale.getDefault()));
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_UPDATE_CATALOG_ITEM,
+            new Object[] {id},
+            Locale.getDefault()));
     final String operationName = "updateCatalogItem";
     if (userStore == null || !this.userStore.isInRole(UserRoleConstants.ADMIN)) {
       throw new PermissionDeniedException(operationName);
@@ -240,8 +274,16 @@ public class CatalogApplicationService {
       throw new CatalogBrandNotFoundException(catalogBrandId);
     }
 
-    CatalogItem item = new CatalogItem(id, name, description, price, productCode, catalogCategoryId,
-        catalogBrandId, isDeleted);
+    CatalogItem item =
+        new CatalogItem(
+            id,
+            name,
+            description,
+            price,
+            productCode,
+            catalogCategoryId,
+            catalogBrandId,
+            isDeleted);
     // 変更前の行バージョンを、変更対象のカタログアイテムに追加
     item.setRowVersion(rowVersion);
 
@@ -260,8 +302,10 @@ public class CatalogApplicationService {
    */
   public int countCatalogItems(UUID brandId, UUID categoryId) {
     apLog.debug(
-        messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
-            new Object[] {brandId, categoryId}, Locale.getDefault()));
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_COUNT_CATALOG_ITEMS,
+            new Object[] {brandId, categoryId},
+            Locale.getDefault()));
 
     return this.catalogRepository.countByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId);
   }
@@ -272,8 +316,11 @@ public class CatalogApplicationService {
    * @return カタログブランドのリスト。
    */
   public List<CatalogBrand> getBrands() {
-    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_BRANDS,
-        new Object[] {}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_GET_BRANDS,
+            new Object[] {},
+            Locale.getDefault()));
 
     return this.brandRepository.getAll();
   }
@@ -284,8 +331,11 @@ public class CatalogApplicationService {
    * @return カタログカテゴリのリスト。
    */
   public List<CatalogCategory> getCategories() {
-    apLog.debug(messages.getMessage(CatalogManagementMessageIdConstants.D_CATALOG_GET_CATEGORIES,
-        new Object[] {}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            CatalogManagementMessageIdConstants.D_CATALOG_GET_CATEGORIES,
+            new Object[] {},
+            Locale.getDefault()));
 
     return this.categoryRepository.getAll();
   }

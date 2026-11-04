@@ -13,6 +13,7 @@ buildscript {
 
 plugins {
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
+  id 'com.diffplug.spotless' version "$spotlessVersion" apply false
 }
 
 // ルートプロジェクトが依存するライブラリとその推移的依存を固定
@@ -41,6 +42,7 @@ subprojects {
   apply plugin: 'jacoco'
   apply plugin: 'checkstyle'
   apply plugin: 'com.github.spotbugs'
+  apply plugin: 'com.diffplug.spotless'
 
   // Java のバージョンはルートプロジェクトで集約管理する
   java {
@@ -108,6 +110,12 @@ subprojects {
     excludeFilter.set(rootProject.file('config/spotbugs/exclude-filter.xml'))
     toolVersion = "$spotbugsToolVersion"
     ignoreFailures = true
+  }
+
+  spotless {
+    java {
+      googleJavaFormat("$googleJavaFormatVersion")
+    }
   }
 
   // testタスクの後にjacocoTestReportタスクを実施する

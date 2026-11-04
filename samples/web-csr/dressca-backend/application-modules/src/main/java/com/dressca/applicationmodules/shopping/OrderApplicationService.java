@@ -12,9 +12,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 注文に関連するビジネスユースケースを実現するサービスです。
- */
+/** 注文に関連するビジネスユースケースを実現するサービスです。 */
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
@@ -33,11 +31,16 @@ public class OrderApplicationService {
    * @throws OrderNotFoundException 注文情報が見つからない場合。
    */
   public Order getOrder(UUID orderId, UUID buyerId) throws OrderNotFoundException {
-    apLog.debug(messages.getMessage(ShoppingMessageIdConstants.D_ORDER_GET_ORDER,
-        new Object[] {orderId, buyerId}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            ShoppingMessageIdConstants.D_ORDER_GET_ORDER,
+            new Object[] {orderId, buyerId},
+            Locale.getDefault()));
 
-    Order order = this.orderRepository.findById(orderId)
-        .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));
+    Order order =
+        this.orderRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(null, orderId, buyerId));
     if (!order.getBuyerId().equals(buyerId)) {
       throw new OrderNotFoundException(null, orderId, buyerId);
     }

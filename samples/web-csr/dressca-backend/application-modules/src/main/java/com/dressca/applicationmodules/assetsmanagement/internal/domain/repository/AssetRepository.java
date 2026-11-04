@@ -3,9 +3,7 @@ package com.dressca.applicationmodules.assetsmanagement.internal.domain.reposito
 import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
 import java.util.Optional;
 
-/**
- * アセットのリポジトリのインターフェースです。
- */
+/** アセットのリポジトリのインターフェースです。 */
 public interface AssetRepository {
 
   /**

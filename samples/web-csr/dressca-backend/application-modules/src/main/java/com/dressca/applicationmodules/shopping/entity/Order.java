@@ -14,9 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 注文のエンティティです。
- */
+/** 注文のエンティティです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,12 +41,16 @@ public class Order {
   public Order(UUID buyerId, ShipTo shipToAddress, List<OrderItem> orderItems) {
     this.id = UuidGenerator.generate();
     this.buyerId = buyerId;
-    this.shipToAddress = shipToAddress == null ? null
-        : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
+    this.shipToAddress =
+        shipToAddress == null
+            ? null
+            : new ShipTo(shipToAddress.getFullName(), shipToAddress.getAddress());
     this.orderItems = new ArrayList<>(orderItems);
-    this.account = new Account(this.orderItems.stream()
-        .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
-        .collect(Collectors.toList()));
+    this.account =
+        new Account(
+            this.orderItems.stream()
+                .map(item -> new AccountItem(item.getQuantity(), item.getUnitPrice()))
+                .collect(Collectors.toList()));
     this.consumptionTaxRate = Account.CONSUMPTION_TAX_RATE;
     this.totalItemsPrice = this.account.getItemTotalPrice();
     this.deliveryCharge = this.account.getDeliveryCharge();

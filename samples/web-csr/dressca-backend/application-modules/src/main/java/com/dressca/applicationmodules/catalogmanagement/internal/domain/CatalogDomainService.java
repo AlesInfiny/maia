@@ -7,9 +7,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * カタログに関するドメインサービスです。
- */
+/** カタログに関するドメインサービスです。 */
 @Service
 @RequiredArgsConstructor
 public class CatalogDomainService {

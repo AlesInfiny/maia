@@ -9,8 +9,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * 陳列品ブランドを取得するための読み取り専用マッパーのインターフェースです。
  *
- * <p>陳列品ブランド専用のテーブルは持たず、カタログ管理コンテキストが所有する
- * カタログブランド（catalog_brands）を元に陳列品ブランドを解決します。</p>
+ * <p>陳列品ブランド専用のテーブルは持たず、カタログ管理コンテキストが所有する カタログブランド（catalog_brands）を元に陳列品ブランドを解決します。
  */
 @Mapper
 public interface DisplayItemBrandQueryMapper {

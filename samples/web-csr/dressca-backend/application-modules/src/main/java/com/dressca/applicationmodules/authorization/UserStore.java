@@ -2,9 +2,7 @@ package com.dressca.applicationmodules.authorization;
 
 import java.util.List;
 
-/**
- * ユーザーのセッション情報のインターフェースです。
- */
+/** ユーザーのセッション情報のインターフェースです。 */
 public interface UserStore {
 
   /**

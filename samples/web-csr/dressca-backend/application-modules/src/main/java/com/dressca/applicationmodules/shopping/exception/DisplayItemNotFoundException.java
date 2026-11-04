@@ -5,9 +5,7 @@ import com.dressca.systemcommon.exception.LogicException;
 import java.util.Arrays;
 import java.util.UUID;
 
-/**
- * 陳列品が存在しないことを表す例外です。
- */
+/** 陳列品が存在しないことを表す例外です。 */
 public class DisplayItemNotFoundException extends LogicException {
 
   /**
@@ -16,8 +14,11 @@ public class DisplayItemNotFoundException extends LogicException {
    * @param displayItemId 見つからなかった陳列品 ID 。
    */
   public DisplayItemNotFoundException(UUID displayItemId) {
-    super(null, ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
-        new String[] {String.valueOf(displayItemId)}, new String[] {String.valueOf(displayItemId)});
+    super(
+        null,
+        ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
+        new String[] {String.valueOf(displayItemId)},
+        new String[] {String.valueOf(displayItemId)});
   }
 
   /**
@@ -26,7 +27,9 @@ public class DisplayItemNotFoundException extends LogicException {
    * @param displayItemIds 見つからなかった複数の陳列品 ID 。
    */
   public DisplayItemNotFoundException(UUID... displayItemIds) {
-    super(null, ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
+    super(
+        null,
+        ShoppingExceptionIdConstants.E_DISPLAY_ID_NOT_FOUND,
         new String[] {joinDisplayItemIds(displayItemIds)},
         new String[] {joinDisplayItemIds(displayItemIds)});
   }
@@ -38,7 +41,7 @@ public class DisplayItemNotFoundException extends LogicException {
    * @return 陳列品 ID をカンマ区切りの文字列に変換した結果。
    */
   private static String joinDisplayItemIds(UUID... displayItemIds) {
-    return String.join(", ",
-        Arrays.stream(displayItemIds).map(String::valueOf).toArray(String[]::new));
+    return String.join(
+        ", ", Arrays.stream(displayItemIds).map(String::valueOf).toArray(String[]::new));
   }
 }

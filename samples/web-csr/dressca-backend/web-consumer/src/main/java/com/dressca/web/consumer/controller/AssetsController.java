@@ -32,9 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link Asset} の情報にアクセスする API コントローラーです。
- */
+/** {@link Asset} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "Assets", description = "アセットの情報にアクセスする API です。")
 @RequestMapping("/api/assets")
@@ -53,17 +51,25 @@ public class AssetsController {
    * @return アセット。
    */
   @Operation(summary = "アセットを取得します。", description = "与えられたアセットコードに対応するアセットを返却します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。",
-          content = @Content(mediaType = "image/*",
-              schema = @Schema(implementation = Resource.class))),
-      @ApiResponse(responseCode = "404", description = "アセットコードに対応するアセットがありません。",
-          content = @Content(mediaType = "application/problem+json",
-              schema = @Schema(implementation = ProblemDetail.class)))})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(mediaType = "image/*", schema = @Schema(implementation = Resource.class))),
+        @ApiResponse(
+            responseCode = "404",
+            description = "アセットコードに対応するアセットがありません。",
+            content =
+                @Content(
+                    mediaType = "application/problem+json",
+                    schema = @Schema(implementation = ProblemDetail.class)))
+      })
   @GetMapping("{assetCode}")
   public ResponseEntity<?> get(
-      @Parameter(required = true,
-          description = "アセットコード") @PathVariable("assetCode") String assetCode)
+      @Parameter(required = true, description = "アセットコード") @PathVariable("assetCode")
+          String assetCode)
       throws LogicException {
     try {
       AssetResourceInfo assetResourceInfo = this.service.getAssetResourceInfo(assetCode);
@@ -73,12 +79,15 @@ public class AssetsController {
     } catch (AssetNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      ErrorMessageBuilder errorBuilder =
+          new ErrorMessageBuilder(
+              e, e.getExceptionId(), e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail =
+          problemDetailsFactory.createProblemDetail(
+              errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
   }
 
@@ -94,8 +103,10 @@ public class AssetsController {
         return MediaType.IMAGE_PNG;
       default:
         String errorMessage =
-            messages.getMessage(WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
-                new String[] {asset.getAssetType()}, Locale.getDefault());
+            messages.getMessage(
+                WebExceptionIdConstants.E_ASSET_TYPE_NOT_CONVERTED,
+                new String[] {asset.getAssetType()},
+                Locale.getDefault());
         throw new IllegalArgumentException(errorMessage);
     }
   }

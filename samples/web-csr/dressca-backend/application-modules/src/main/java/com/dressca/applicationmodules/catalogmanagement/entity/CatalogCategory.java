@@ -6,15 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * カタログカテゴリのエンティティです。
- */
+/** カタログカテゴリのエンティティです。 */
 @Data
 @NoArgsConstructor
 public class CatalogCategory {
   private UUID id;
-  @NonNull
-  private String name;
+  @NonNull private String name;
   private List<CatalogItem> items = List.of();
 
   /**

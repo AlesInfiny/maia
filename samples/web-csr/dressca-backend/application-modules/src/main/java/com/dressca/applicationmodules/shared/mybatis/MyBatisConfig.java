@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/**
- * MyBatis 用の設定クラスです。
- */
+/** MyBatis 用の設定クラスです。 */
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.dressca.applicationmodules", annotationClass = Mapper.class)
@@ -26,8 +24,9 @@ public class MyBatisConfig {
   ConfigurationCustomizer mybatisConfigurationCustomizer() {
     return configuration -> {
       configuration.setMapUnderscoreToCamelCase(true);
-      configuration.getTypeHandlerRegistry().register(UUID.class, JdbcType.OTHER,
-          new UuidTypeHandler());
+      configuration
+          .getTypeHandlerRegistry()
+          .register(UUID.class, JdbcType.OTHER, new UuidTypeHandler());
     };
   }
 }

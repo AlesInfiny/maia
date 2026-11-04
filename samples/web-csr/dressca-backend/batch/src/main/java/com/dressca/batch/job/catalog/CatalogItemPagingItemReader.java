@@ -7,9 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.infrastructure.item.database.AbstractPagingItemReader;
 
-/**
- * カタログ管理コンテキストの公開 API を利用して、 CatalogItem をページング単位で読み取る Reader です。
- */
+/** カタログ管理コンテキストの公開 API を利用して、 CatalogItem をページング単位で読み取る Reader です。 */
 @RequiredArgsConstructor
 public class CatalogItemPagingItemReader extends AbstractPagingItemReader<CatalogItem> {
 
@@ -17,8 +15,9 @@ public class CatalogItemPagingItemReader extends AbstractPagingItemReader<Catalo
 
   @Override
   protected void doReadPage() {
-    List<CatalogItem> items = catalogApplicationService
-        .getCatalogItemsWithPaging(getPage() * getPageSize(), getPageSize());
+    List<CatalogItem> items =
+        catalogApplicationService.getCatalogItemsWithPaging(
+            getPage() * getPageSize(), getPageSize());
     if (results == null) {
       results = new ArrayList<>();
     } else {

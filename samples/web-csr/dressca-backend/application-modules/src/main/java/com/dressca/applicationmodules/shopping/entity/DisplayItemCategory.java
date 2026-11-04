@@ -5,15 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * 陳列品カテゴリのエンティティです。
- */
+/** 陳列品カテゴリのエンティティです。 */
 @Data
 @NoArgsConstructor
 public class DisplayItemCategory {
   private UUID id;
-  @NonNull
-  private String name;
+  @NonNull private String name;
 
   /**
    * 陳列品カテゴリ名を指定して、 {@link DisplayItemCategory} クラスのインスタンスを初期化します。

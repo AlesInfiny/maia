@@ -11,15 +11,12 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-/**
- * 静的ファイルを取り扱うアセットのストアです。
- */
+/** 静的ファイルを取り扱うアセットのストアです。 */
 @Component
 @RequiredArgsConstructor
 public class StaticFileAssetStore implements AssetStore {
 
-  @Setter
-  private String basePath = "../static-files";
+  @Setter private String basePath = "../static-files";
 
   @Override
   public Optional<Resource> getResource(Asset asset) {

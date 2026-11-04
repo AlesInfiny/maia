@@ -11,9 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 注文アイテムのエンティティです。 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します。
- */
+/** 注文アイテムのエンティティです。 注文内の各アイテム毎の詳細情報（単価や数量など）を保持します。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

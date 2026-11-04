@@ -5,9 +5,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * コンテキストにログを保持させる機能を追加した構造化ロガーのインターフェースです。
- */
+/** コンテキストにログを保持させる機能を追加した構造化ロガーのインターフェースです。 */
 public abstract class AbstractStructuredLogger {
 
   private static final Logger apLog =
@@ -36,11 +34,12 @@ public abstract class AbstractStructuredLogger {
    * @param keyValueMap Key Value のマップ。
    */
   public void debug(String msg, Map<String, String> keyValueMap) {
-    logWithMdc(() -> {
-      var logBuilder = apLog.atDebug().setMessage(msg);
-      keyValueMap.forEach(logBuilder::addKeyValue);
-      logBuilder.log();
-    });
+    logWithMdc(
+        () -> {
+          var logBuilder = apLog.atDebug().setMessage(msg);
+          keyValueMap.forEach(logBuilder::addKeyValue);
+          logBuilder.log();
+        });
   }
 
   /**
@@ -60,11 +59,12 @@ public abstract class AbstractStructuredLogger {
    */
   public void error(String msg, Map<String, String> keyValueMap) {
 
-    logWithMdc(() -> {
-      var logBuilder = apLog.atError().setMessage(msg);
-      keyValueMap.forEach(logBuilder::addKeyValue);
-      logBuilder.log();
-    });
+    logWithMdc(
+        () -> {
+          var logBuilder = apLog.atError().setMessage(msg);
+          keyValueMap.forEach(logBuilder::addKeyValue);
+          logBuilder.log();
+        });
   }
 
   /**
@@ -83,11 +83,12 @@ public abstract class AbstractStructuredLogger {
    * @param keyValueMap Key Value のマップ。
    */
   public void info(String msg, Map<String, String> keyValueMap) {
-    logWithMdc(() -> {
-      var logBuilder = apLog.atInfo().setMessage(msg);
-      keyValueMap.forEach(logBuilder::addKeyValue);
-      logBuilder.log();
-    });
+    logWithMdc(
+        () -> {
+          var logBuilder = apLog.atInfo().setMessage(msg);
+          keyValueMap.forEach(logBuilder::addKeyValue);
+          logBuilder.log();
+        });
   }
 
   /**
@@ -106,11 +107,12 @@ public abstract class AbstractStructuredLogger {
    * @param keyValueMap Key Value のマップ。
    */
   public void trace(String msg, Map<String, String> keyValueMap) {
-    logWithMdc(() -> {
-      var logBuilder = apLog.atTrace().setMessage(msg);
-      keyValueMap.forEach(logBuilder::addKeyValue);
-      logBuilder.log();
-    });
+    logWithMdc(
+        () -> {
+          var logBuilder = apLog.atTrace().setMessage(msg);
+          keyValueMap.forEach(logBuilder::addKeyValue);
+          logBuilder.log();
+        });
   }
 
   /**
@@ -130,11 +132,11 @@ public abstract class AbstractStructuredLogger {
    * @param keyValueMap Key Value のマップ。
    */
   public void warn(String msg, Map<String, String> keyValueMap) {
-    logWithMdc(() -> {
-      var logBuilder = apLog.atWarn().setMessage(msg);
-      keyValueMap.forEach(logBuilder::addKeyValue);
-      logBuilder.log();
-    });
+    logWithMdc(
+        () -> {
+          var logBuilder = apLog.atWarn().setMessage(msg);
+          keyValueMap.forEach(logBuilder::addKeyValue);
+          logBuilder.log();
+        });
   }
-
 }

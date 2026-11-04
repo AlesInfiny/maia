@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-/**
- * サーバーエラーのハンドリングを行うクラスです。
- */
+/** サーバーエラーのハンドリングを行うクラスです。 */
 @ControllerAdvice(basePackages = "com.dressca")
 @RequiredArgsConstructor
 public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
@@ -78,10 +76,12 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_BUSINESS, HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail =
+        problemDetailsFactory.createProblemDetail(
+            errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 
   /**
@@ -95,10 +95,12 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail =
+        problemDetailsFactory.createProblemDetail(
+            errorBuilder, CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 
   /**
@@ -112,9 +114,11 @@ public class LocalExceptionHandlerControllerAdvice extends ResponseEntityExcepti
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail =
+        problemDetailsFactory.createProblemDetail(
+            errorBuilder, CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 }

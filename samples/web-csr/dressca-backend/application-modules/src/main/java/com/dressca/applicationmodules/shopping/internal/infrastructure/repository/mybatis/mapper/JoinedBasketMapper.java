@@ -5,9 +5,7 @@ import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 買い物かごのテーブルにアクセスするためのマッパーのインターフェースです。
- */
+/** 買い物かごのテーブルにアクセスするためのマッパーのインターフェースです。 */
 @Mapper
 public interface JoinedBasketMapper {
   /**

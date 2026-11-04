@@ -6,14 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 買い物かごにアイテムを追加する際に用いる dto クラスです。
- */
+/** 買い物かごにアイテムを追加する際に用いる dto クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostBasketItemsRequest {
-  @NotNull
-  private UUID displayItemId;
+  @NotNull private UUID displayItemId;
   private int addedQuantity = 1;
 }

@@ -8,14 +8,13 @@ import java.util.UUID;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-/**
- * MyBatis の {@link UUID} 型を解決するハンドラークラスです。
- */
+/** MyBatis の {@link UUID} 型を解決するハンドラークラスです。 */
 public class UuidTypeHandler extends BaseTypeHandler<UUID> {
 
   @Override
-  public void setNonNullParameter(PreparedStatement preparedStatement, int i, UUID parameter,
-      JdbcType jdbcType) throws SQLException {
+  public void setNonNullParameter(
+      PreparedStatement preparedStatement, int i, UUID parameter, JdbcType jdbcType)
+      throws SQLException {
     preparedStatement.setObject(i, parameter);
   }
 

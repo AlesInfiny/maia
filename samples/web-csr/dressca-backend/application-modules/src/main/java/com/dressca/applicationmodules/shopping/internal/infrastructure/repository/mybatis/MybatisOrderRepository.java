@@ -8,9 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * 注文情報のリポジトリです。
- */
+/** 注文情報のリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisOrderRepository implements OrderRepository {

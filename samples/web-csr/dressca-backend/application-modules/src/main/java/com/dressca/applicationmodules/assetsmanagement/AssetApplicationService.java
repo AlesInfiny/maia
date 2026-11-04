@@ -14,9 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * アセット情報に関するビジネスユースケースを実現するサービスです。
- */
+/** アセット情報に関するビジネスユースケースを実現するサービスです。 */
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
@@ -36,11 +34,16 @@ public class AssetApplicationService {
    */
   public AssetResourceInfo getAssetResourceInfo(String assetCode) throws AssetNotFoundException {
 
-    apLog.debug(messages.getMessage(AssetManagementMessageIdConstants.D_ASSET_GET_ASSET,
-        new Object[] {assetCode}, Locale.getDefault()));
+    apLog.debug(
+        messages.getMessage(
+            AssetManagementMessageIdConstants.D_ASSET_GET_ASSET,
+            new Object[] {assetCode},
+            Locale.getDefault()));
 
-    Asset asset = this.repository.findByAssetCode(assetCode)
-        .orElseThrow(() -> new AssetNotFoundException(assetCode));
+    Asset asset =
+        this.repository
+            .findByAssetCode(assetCode)
+            .orElseThrow(() -> new AssetNotFoundException(assetCode));
     Resource resource =
         this.store.getResource(asset).orElseThrow(() -> new AssetNotFoundException(assetCode));
 

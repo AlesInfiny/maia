@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * カタログカテゴリのリポジトリです。
- */
+/** カタログカテゴリのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisCatalogCategoryRepository implements CatalogCategoryRepository {
@@ -25,7 +23,8 @@ public class MybatisCatalogCategoryRepository implements CatalogCategoryReposito
   public List<CatalogCategory> getAll() {
     CatalogCategoryEntityExample example = new CatalogCategoryEntityExample();
     return catalogCategoryMapper.selectByExample(example).stream()
-        .map(CatalogEntityTranslator::catalogCategoryEntityTranslate).collect(Collectors.toList());
+        .map(CatalogEntityTranslator::catalogCategoryEntityTranslate)
+        .collect(Collectors.toList());
   }
 
   @Override

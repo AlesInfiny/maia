@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link DisplayItemBrand} の情報にアクセスする API コントローラーです。
- */
+/** {@link DisplayItemBrand} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "DisplayItemBrands", description = "陳列品ブランドの情報にアクセスする API です。")
 @RequestMapping("/api/display-item-brands")
@@ -35,14 +33,24 @@ public class DisplayItemBrandsController {
    * @return 陳列品ブランドの一覧。
    */
   @Operation(summary = "陳列品ブランドの一覧を取得します。", description = "陳列品ブランドの一覧を取得します。")
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
-      content = @Content(mediaType = "application/json",
-          array = @ArraySchema(
-              schema = @Schema(implementation = GetDisplayItemBrandsResponse.class))))})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    array =
+                        @ArraySchema(
+                            schema = @Schema(implementation = GetDisplayItemBrandsResponse.class))))
+      })
   @GetMapping()
   public ResponseEntity<List<GetDisplayItemBrandsResponse>> getDisplayItemBrands() {
-    List<GetDisplayItemBrandsResponse> brands = this.service.getBrands().stream()
-        .map(DisplayItemBrandMapper::convert).collect(Collectors.toList());
+    List<GetDisplayItemBrandsResponse> brands =
+        this.service.getBrands().stream()
+            .map(DisplayItemBrandMapper::convert)
+            .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(brands);
   }

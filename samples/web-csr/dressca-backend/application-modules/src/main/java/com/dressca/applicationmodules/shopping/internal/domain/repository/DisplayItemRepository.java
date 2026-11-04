@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.entity.DisplayItem;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * 陳列品のリポジトリのインターフェースです。
- */
+/** 陳列品のリポジトリのインターフェースです。 */
 public interface DisplayItemRepository {
 
   /**
@@ -18,8 +16,8 @@ public interface DisplayItemRepository {
    * @param pageSize ページサイズ。
    * @return 条件に一致する陳列品のリスト。存在しない場合、空のリスト。
    */
-  List<DisplayItem> findByBrandIdAndCategoryId(UUID brandId, UUID categoryId, int page,
-      int pageSize);
+  List<DisplayItem> findByBrandIdAndCategoryId(
+      UUID brandId, UUID categoryId, int page, int pageSize);
 
   /**
    * ブランド ID とカテゴリ ID に一致する陳列品の件数を取得します。

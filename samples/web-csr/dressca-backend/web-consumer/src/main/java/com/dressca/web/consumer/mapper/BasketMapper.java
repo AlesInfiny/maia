@@ -9,9 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * {@link Basket} と {@link GetBasketItemsResponse} のマッパーです。
- */
+/** {@link Basket} と {@link GetBasketItemsResponse} のマッパーです。 */
 public class BasketMapper {
 
   /**
@@ -27,13 +25,17 @@ public class BasketMapper {
 
     Account account = basket.getAccount();
     AccountApiModel accountDto =
-        new AccountApiModel(Account.CONSUMPTION_TAX_RATE, account.getItemTotalPrice(),
-            account.getDeliveryCharge(), account.getConsumptionTax(), account.getTotalPrice());
+        new AccountApiModel(
+            Account.CONSUMPTION_TAX_RATE,
+            account.getItemTotalPrice(),
+            account.getDeliveryCharge(),
+            account.getConsumptionTax(),
+            account.getTotalPrice());
 
     List<BasketItemApiModel> basketItems =
         basket.getItems().stream().map(BasketItemMapper::convert).collect(Collectors.toList());
 
-    return new GetBasketItemsResponse(basket.getBuyerId(), accountDto, basketItems,
-        Collections.emptyList());
+    return new GetBasketItemsResponse(
+        basket.getBuyerId(), accountDto, basketItems, Collections.emptyList());
   }
 }

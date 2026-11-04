@@ -8,22 +8,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * 陳列品のエンティティです。
- */
+/** 陳列品のエンティティです。 */
 @Data
 @NoArgsConstructor
 public class DisplayItem {
   private UUID id;
   private List<DisplayItemAsset> assets = new ArrayList<>();
-  @NonNull
-  private String name;
-  @NonNull
-  private String description;
-  @NonNull
-  private BigDecimal price;
-  @NonNull
-  private String productCode;
+  @NonNull private String name;
+  @NonNull private String description;
+  @NonNull private BigDecimal price;
+  @NonNull private String productCode;
   private UUID displayItemCategoryId;
   private UUID displayItemBrandId;
   private boolean isDeleted;
@@ -40,9 +34,15 @@ public class DisplayItem {
    * @param displayItemBrandId 陳列品ブランド ID 。
    * @param isDeleted 削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
-  public DisplayItem(UUID id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, UUID displayItemCategoryId,
-      UUID displayItemBrandId, boolean isDeleted) {
+  public DisplayItem(
+      UUID id,
+      @NonNull String name,
+      @NonNull String description,
+      @NonNull BigDecimal price,
+      @NonNull String productCode,
+      UUID displayItemCategoryId,
+      UUID displayItemBrandId,
+      boolean isDeleted) {
     this.id = id;
     this.name = name;
     this.description = description;
