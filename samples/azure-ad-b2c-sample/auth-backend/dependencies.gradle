@@ -4,6 +4,7 @@ ext {
     springDependencyManagementVersion = "1.1.7"
     springdocOpenapiGradlePluginVersion = "1.9.0"
     spotbugsVersion = "6.5.13"
+    spotlessVersion = "8.10.4"
 
     // -- DEPENDENCIES
     springdocOpenapiVersion = "3.2.0"
@@ -12,6 +13,7 @@ ext {
     // -- GRADLE PLUGIN TOOLS
     checkstyleToolVersion = "14.3.0"
     jacocoToolVersion = "0.8.15"
+    googleJavaFormatVersion = "1.36.1"
     spotbugsToolVersion = "4.10.5"
 
     supportDependencies = [
