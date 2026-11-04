@@ -8,9 +8,7 @@ import com.dressca.cms.announcement.infrastructure.translator.AnnouncementEntity
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * AnnouncementContentHistoryRepository を実装する MyBatis リポジトリクラスです。
- */
+/** AnnouncementContentHistoryRepository を実装する MyBatis リポジトリクラスです。 */
 @Repository
 @RequiredArgsConstructor
 public class MyBatisAnnouncementContentHistoryRepository

@@ -1,22 +1,19 @@
 package com.dressca.cms.systemcommon.exception;
 
+import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import java.util.Arrays;
 import java.util.Locale;
-import org.springframework.context.MessageSource;
-import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import lombok.Getter;
+import org.springframework.context.MessageSource;
 
-/**
- * 業務例外を表す例外クラスです。
- */
+/** 業務例外を表す例外クラスです。 */
 @Getter
 public class LogicException extends Exception {
   private final String exceptionId;
   private final String[] logMessageValue;
 
   /**
-   * 原因例外、例外 ID 、メッセージ用プレースホルダー（ログ用）を指定して、 {@link LogicException}
-   * クラスのインスタンスを初期化します。
+   * 原因例外、例外 ID 、メッセージ用プレースホルダー（ログ用）を指定して、 {@link LogicException} クラスのインスタンスを初期化します。
    *
    * @param cause 原因例外。
    * @param exceptionId 例外 ID 。
@@ -35,7 +32,8 @@ public class LogicException extends Exception {
    * @return メッセージ用プレースホルダー（ログ用）。
    */
   public String[] getLogMessageValue() {
-    return this.logMessageValue == null ? null
+    return this.logMessageValue == null
+        ? null
         : Arrays.copyOf(this.logMessageValue, this.logMessageValue.length);
   }
 

@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * AnnouncementContentRepository を実装する MyBatis リポジトリクラスです。
- */
+/** AnnouncementContentRepository を実装する MyBatis リポジトリクラスです。 */
 @Repository
 @RequiredArgsConstructor
 public class MyBatisAnnouncementContentRepository implements AnnouncementContentRepository {
@@ -40,7 +38,8 @@ public class MyBatisAnnouncementContentRepository implements AnnouncementContent
     AnnouncementContentEntityExample example = new AnnouncementContentEntityExample();
     example.createCriteria().andAnnouncementIdEqualTo(announcementId);
     List<AnnouncementContentEntity> entities = announcementContentMapper.selectByExample(example);
-    return entities.stream().map(AnnouncementEntityTranslator::toContentDto)
+    return entities.stream()
+        .map(AnnouncementEntityTranslator::toContentDto)
         .collect(Collectors.toList());
   }
 

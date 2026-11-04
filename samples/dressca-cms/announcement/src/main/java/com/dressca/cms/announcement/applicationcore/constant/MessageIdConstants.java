@@ -1,8 +1,6 @@
 package com.dressca.cms.announcement.applicationcore.constant;
 
-/**
- * 業務メッセージ ID 用の定数クラスです。
- */
+/** 業務メッセージ ID 用の定数クラスです。 */
 public final class MessageIdConstants {
 
   /** ページングされたお知らせメッセージ（ページ番号: {0}, ページサイズ: {1}）の取得を開始します。 */

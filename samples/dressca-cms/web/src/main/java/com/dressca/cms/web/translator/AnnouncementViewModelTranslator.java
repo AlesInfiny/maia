@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * お知らせメッセージの DTO とビューモデルを相互変換するトランスレータークラスです。
- */
+/** お知らせメッセージの DTO とビューモデルを相互変換するトランスレータークラスです。 */
 public final class AnnouncementViewModelTranslator {
 
   private AnnouncementViewModelTranslator() {
@@ -38,7 +36,9 @@ public final class AnnouncementViewModelTranslator {
     if (dto == null) {
       return null;
     }
-    return AnnouncementViewModel.builder().id(dto.getId()).category(dto.getCategory())
+    return AnnouncementViewModel.builder()
+        .id(dto.getId())
+        .category(dto.getCategory())
         .postDate(dto.getPostDateTime() != null ? dto.getPostDateTime().toLocalDate() : null)
         .postTime(dto.getPostDateTime() != null ? dto.getPostDateTime().toLocalTime() : null)
         .expireDate(dto.getExpireDateTime() != null ? dto.getExpireDateTime().toLocalDate() : null)
@@ -48,7 +48,8 @@ public final class AnnouncementViewModelTranslator {
         .createdAtTime(dto.getCreatedAt() != null ? dto.getCreatedAt().toLocalTime() : null)
         .changedAtDate(dto.getChangedAt() != null ? dto.getChangedAt().toLocalDate() : null)
         .changedAtTime(dto.getChangedAt() != null ? dto.getChangedAt().toLocalTime() : null)
-        .isDeleted(dto.getIsDeleted()).build();
+        .isDeleted(dto.getIsDeleted())
+        .build();
   }
 
   /**
@@ -57,8 +58,8 @@ public final class AnnouncementViewModelTranslator {
    * @param viewModel お知らせメッセージのビューモデル。
    * @return お知らせメッセージの DTO。
    */
-  public static Announcement toAnnouncementDto(AnnouncementViewModel viewModel,
-      List<AnnouncementContentViewModel> contentViewModel) {
+  public static Announcement toAnnouncementDto(
+      AnnouncementViewModel viewModel, List<AnnouncementContentViewModel> contentViewModel) {
     if (viewModel == null) {
       return null;
     }
@@ -73,13 +74,22 @@ public final class AnnouncementViewModelTranslator {
     OffsetDateTime changedAt =
         combineDateTime(viewModel.getChangedAtDate(), viewModel.getChangedAtTime());
 
-    List<AnnouncementContent> contents = contentViewModel != null
-        ? contentViewModel.stream().map(AnnouncementViewModelTranslator::toContentDto).collect(
-            Collectors.toCollection(ArrayList::new))
-        : new ArrayList<>();
-    return new Announcement(viewModel.getId(), viewModel.getCategory(), postDateTime,
-        expireDateTime, viewModel.getDisplayPriority(), createdAt, changedAt,
-        viewModel.getIsDeleted(), contents);
+    List<AnnouncementContent> contents =
+        contentViewModel != null
+            ? contentViewModel.stream()
+                .map(AnnouncementViewModelTranslator::toContentDto)
+                .collect(Collectors.toCollection(ArrayList::new))
+            : new ArrayList<>();
+    return new Announcement(
+        viewModel.getId(),
+        viewModel.getCategory(),
+        postDateTime,
+        expireDateTime,
+        viewModel.getDisplayPriority(),
+        createdAt,
+        changedAt,
+        viewModel.getIsDeleted(),
+        contents);
   }
 
   /**
@@ -92,9 +102,13 @@ public final class AnnouncementViewModelTranslator {
     if (content == null) {
       return null;
     }
-    return AnnouncementContentViewModel.builder().id(content.getId())
-        .announcementId(content.getAnnouncementId()).languageCode(content.getLanguageCode())
-        .title(content.getTitle()).message(content.getMessage()).linkUrl(content.getLinkUrl())
+    return AnnouncementContentViewModel.builder()
+        .id(content.getId())
+        .announcementId(content.getAnnouncementId())
+        .languageCode(content.getLanguageCode())
+        .title(content.getTitle())
+        .message(content.getMessage())
+        .linkUrl(content.getLinkUrl())
         .build();
   }
 
@@ -109,7 +123,8 @@ public final class AnnouncementViewModelTranslator {
     if (contents == null) {
       return new ArrayList<>();
     }
-    return contents.stream().map(AnnouncementViewModelTranslator::toContentViewModel)
+    return contents.stream()
+        .map(AnnouncementViewModelTranslator::toContentViewModel)
         .collect(Collectors.toList());
   }
 
@@ -123,8 +138,12 @@ public final class AnnouncementViewModelTranslator {
     if (viewModel == null) {
       return null;
     }
-    return new AnnouncementContent(viewModel.getId(), viewModel.getAnnouncementId(),
-        viewModel.getLanguageCode(), viewModel.getTitle(), viewModel.getMessage(),
+    return new AnnouncementContent(
+        viewModel.getId(),
+        viewModel.getAnnouncementId(),
+        viewModel.getLanguageCode(),
+        viewModel.getTitle(),
+        viewModel.getMessage(),
         viewModel.getLinkUrl());
   }
 
@@ -162,7 +181,8 @@ public final class AnnouncementViewModelTranslator {
       return new ArrayList<>();
     }
 
-    return dtos.stream().map(AnnouncementViewModelTranslator::toAnnouncementWithContentsViewModel)
+    return dtos.stream()
+        .map(AnnouncementViewModelTranslator::toAnnouncementWithContentsViewModel)
         .collect(Collectors.toList());
   }
 
@@ -176,9 +196,16 @@ public final class AnnouncementViewModelTranslator {
     if (dto == null) {
       return null;
     }
-    return new AnnouncementHistoryViewModel(dto.getId(), dto.getAnnouncementId(), dto.getCategory(),
-        dto.getPostDateTime(), dto.getExpireDateTime(), dto.getDisplayPriority(),
-        dto.getCreatedAt(), dto.getChangedBy(), dto.getOperationType());
+    return new AnnouncementHistoryViewModel(
+        dto.getId(),
+        dto.getAnnouncementId(),
+        dto.getCategory(),
+        dto.getPostDateTime(),
+        dto.getExpireDateTime(),
+        dto.getDisplayPriority(),
+        dto.getCreatedAt(),
+        dto.getChangedBy(),
+        dto.getOperationType());
   }
 
   /**
@@ -192,8 +219,13 @@ public final class AnnouncementViewModelTranslator {
     if (dto == null) {
       return null;
     }
-    return new AnnouncementContentHistoryViewModel(dto.getId(), dto.getAnnouncementHistoryId(),
-        dto.getLanguageCode(), dto.getTitle(), dto.getMessage(), dto.getLinkUrl());
+    return new AnnouncementContentHistoryViewModel(
+        dto.getId(),
+        dto.getAnnouncementHistoryId(),
+        dto.getLanguageCode(),
+        dto.getTitle(),
+        dto.getMessage(),
+        dto.getLinkUrl());
   }
 
   /**
@@ -202,8 +234,8 @@ public final class AnnouncementViewModelTranslator {
    * @param dto お知らせメッセージ履歴の DTO。
    * @return お知らせメッセージ履歴とコンテンツ履歴をラップするビューモデル。
    */
-  public static AnnouncementHistoryWithContentHistoriesViewModel toHistoryWithContentHistoriesViewModel(
-      AnnouncementHistory dto) {
+  public static AnnouncementHistoryWithContentHistoriesViewModel
+      toHistoryWithContentHistoriesViewModel(AnnouncementHistory dto) {
     if (dto == null) {
       return null;
     }
@@ -212,13 +244,14 @@ public final class AnnouncementViewModelTranslator {
 
     List<AnnouncementContentHistoryViewModel> contentHistoryViewModels = null;
     if (dto.getContentHistories() != null) {
-      contentHistoryViewModels = dto.getContentHistories().stream()
-          .map(AnnouncementViewModelTranslator::toContentHistoryViewModel)
-          .collect(Collectors.toList());
+      contentHistoryViewModels =
+          dto.getContentHistories().stream()
+              .map(AnnouncementViewModelTranslator::toContentHistoryViewModel)
+              .collect(Collectors.toList());
     }
 
-    return new AnnouncementHistoryWithContentHistoriesViewModel(historyViewModel,
-        contentHistoryViewModels);
+    return new AnnouncementHistoryWithContentHistoriesViewModel(
+        historyViewModel, contentHistoryViewModels);
   }
 
   /**

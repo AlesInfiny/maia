@@ -8,9 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * {@link UserDetails} を継承するクラス。 ユーザー情報を保持します。
- */
+/** {@link UserDetails} を継承するクラス。 ユーザー情報を保持します。 */
 @RequiredArgsConstructor
 @Getter
 public class UserDetailsImpl implements UserDetails {
