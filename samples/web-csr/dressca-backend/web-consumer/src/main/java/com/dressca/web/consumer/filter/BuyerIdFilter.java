@@ -19,15 +19,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 
-/**
- * 購入者 ID にフィルターをかけるクラスです。
- */
+/** 購入者 ID にフィルターをかけるクラスです。 */
 @RequiredArgsConstructor
 public class BuyerIdFilter implements Filter {
 
   private static final String DEFAULT_BUYER_COOKIE_NAME = "Dressca-Bid";
-  private static final Pattern UUID_PATTERN = Pattern
-      .compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+  private static final Pattern UUID_PATTERN =
+      Pattern.compile(
+          "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
   private final CookieSettings cookieSettings;
 
   @Override
@@ -56,10 +55,13 @@ public class BuyerIdFilter implements Filter {
 
     buyerId = (UUID) request.getAttribute(WebConstants.ATTRIBUTE_KEY_BUYER_ID);
     ResponseCookie responseCookie =
-        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString()).path("/")
-            .httpOnly(cookieSettings.isHttpOnly()).secure(cookieSettings.isSecure())
+        ResponseCookie.from(DEFAULT_BUYER_COOKIE_NAME, buyerId.toString())
+            .path("/")
+            .httpOnly(cookieSettings.isHttpOnly())
+            .secure(cookieSettings.isSecure())
             .maxAge((long) cookieSettings.getExpiredDays() * 60 * 60 * 24)
-            .sameSite(cookieSettings.getSameSite()).build();
+            .sameSite(cookieSettings.getSameSite())
+            .build();
 
     ((HttpServletResponse) response).addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
   }

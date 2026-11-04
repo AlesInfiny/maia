@@ -7,27 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * カタログアイテムを変更する際に用いる dto クラスです。
- */
+/** カタログアイテムを変更する際に用いる dto クラスです。 */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PutCatalogItemRequest {
-  @NotNull
-  private String name = "";
-  @NotNull
-  private String description = "";
-  @NotNull
-  private long price;
-  @NotNull
-  private String productCode;
-  @NotNull
-  private UUID catalogCategoryId;
-  @NotNull
-  private UUID catalogBrandId;
-  @NotNull
-  private OffsetDateTime rowVersion;
-  @NotNull
-  private Boolean isDeleted;
+  @NotNull private String name = "";
+  @NotNull private String description = "";
+  @NotNull private long price;
+  @NotNull private String productCode;
+  @NotNull private UUID catalogCategoryId;
+  @NotNull private UUID catalogBrandId;
+  @NotNull private OffsetDateTime rowVersion;
+  @NotNull private Boolean isDeleted;
 }

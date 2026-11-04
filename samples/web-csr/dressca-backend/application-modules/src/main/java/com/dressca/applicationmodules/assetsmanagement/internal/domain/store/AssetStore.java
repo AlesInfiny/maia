@@ -1,13 +1,10 @@
-
 package com.dressca.applicationmodules.assetsmanagement.internal.domain.store;
 
 import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
 import java.util.Optional;
 import org.springframework.core.io.Resource;
 
-/**
- * アセットのストアのインターフェースです。
- */
+/** アセットのストアのインターフェースです。 */
 public interface AssetStore {
 
   /**

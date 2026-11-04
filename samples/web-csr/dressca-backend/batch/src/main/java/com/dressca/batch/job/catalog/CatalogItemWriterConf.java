@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
-/**
- * {@link CatalogItem} の情報をローカルの CSV に出力する Writer の設定です。
- */
+/** {@link CatalogItem} の情報をローカルの CSV に出力する Writer の設定です。 */
 @Configuration
 public class CatalogItemWriterConf {
 
@@ -29,8 +27,13 @@ public class CatalogItemWriterConf {
     String outputPath =
         (output == null || output.isEmpty()) ? "output/outputData.csv" : "output/" + output;
 
-    return new FlatFileItemWriterBuilder<CatalogItem>().name("catalogItemWriter")
-        .resource(new FileSystemResource(outputPath)).append(true).delimited().delimiter(",")
-        .names("name", "price", "productCode").build();
+    return new FlatFileItemWriterBuilder<CatalogItem>()
+        .name("catalogItemWriter")
+        .resource(new FileSystemResource(outputPath))
+        .append(true)
+        .delimited()
+        .delimiter(",")
+        .names("name", "price", "productCode")
+        .build();
   }
 }

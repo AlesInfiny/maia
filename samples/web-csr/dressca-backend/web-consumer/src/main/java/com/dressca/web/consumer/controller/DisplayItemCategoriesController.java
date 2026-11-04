@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link DisplayItemCategory} の情報にアクセスする API コントローラーです。
- */
+/** {@link DisplayItemCategory} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "DisplayItemCategories", description = "陳列品カテゴリの情報にアクセスする API です。")
 @RequestMapping("/api/display-item-categories")
@@ -35,14 +33,25 @@ public class DisplayItemCategoriesController {
    * @return 陳列品カテゴリの一覧。
    */
   @Operation(summary = "陳列品カテゴリの一覧を取得します。", description = "陳列品カテゴリの一覧を取得します。")
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "成功。",
-      content = @Content(mediaType = "application/json",
-          array = @ArraySchema(
-              schema = @Schema(implementation = GetDisplayItemCategoriesResponse.class))))})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    array =
+                        @ArraySchema(
+                            schema =
+                                @Schema(implementation = GetDisplayItemCategoriesResponse.class))))
+      })
   @GetMapping()
   public ResponseEntity<List<GetDisplayItemCategoriesResponse>> getDisplayItemCategories() {
-    List<GetDisplayItemCategoriesResponse> categories = this.service.getCategories().stream()
-        .map(DisplayItemCategoryMapper::convert).collect(Collectors.toList());
+    List<GetDisplayItemCategoriesResponse> categories =
+        this.service.getCategories().stream()
+            .map(DisplayItemCategoryMapper::convert)
+            .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(categories);
   }

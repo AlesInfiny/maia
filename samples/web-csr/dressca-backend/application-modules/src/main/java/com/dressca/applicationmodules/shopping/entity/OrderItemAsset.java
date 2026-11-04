@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 注文アイテムアセットのエンティティです。
- */
+/** 注文アイテムアセットのエンティティです。 */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

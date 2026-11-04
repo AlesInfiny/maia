@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.assetsmanagement.entity.Asset;
 import com.dressca.applicationmodules.assetsmanagement.internal.infrastructure.repository.mybatis.generated.entity.AssetEntity;
 import org.springframework.beans.BeanUtils;
 
-/**
- * アセット管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
- */
+/** アセット管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。 */
 public class AssetEntityTranslator {
 
   /**

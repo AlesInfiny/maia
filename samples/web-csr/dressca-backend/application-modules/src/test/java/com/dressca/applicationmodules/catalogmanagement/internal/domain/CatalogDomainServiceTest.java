@@ -23,22 +23,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link CatalogDomainService}の動作をテストするクラスです。
- */
+/** {@link CatalogDomainService}の動作をテストするクラスです。 */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationModulesTestConfig.class)
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogDomainServiceTest {
-  @Mock
-  private CatalogRepository catalogRepository;
-  @Mock
-  private CatalogBrandRepository catalogBrandRepository;
-  @Mock
-  private CatalogCategoryRepository catalogCategoryRepository;
-  @InjectMocks
-  private CatalogDomainService service;
+  @Mock private CatalogRepository catalogRepository;
+  @Mock private CatalogBrandRepository catalogBrandRepository;
+  @Mock private CatalogCategoryRepository catalogCategoryRepository;
+  @InjectMocks private CatalogDomainService service;
 
   @Test
   void testExistCatalogBrand_正常系_指定したカタログブランドが存在する場合trueを返す() {
@@ -128,8 +122,16 @@ public class CatalogDomainServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    CatalogItem catalogItem =
+        new CatalogItem(
+            id,
+            defaultName,
+            defaultDescription,
+            defaultPrice,
+            defaultProductCode,
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            defaultIsDeleted);
     // catalogItem.setId(id);
     return catalogItem;
   }

@@ -46,9 +46,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-/**
- * {@link ExceptionHandlerControllerAdvice} の動作をテストするクラスです。
- */
+/** {@link ExceptionHandlerControllerAdvice} の動作をテストするクラスです。 */
 @SpringJUnitConfig
 @SpringBootTest(classes = TestWebApplication.class)
 @Import({AssetsController.class, DresscaStructuredLoggerImpl.class})
@@ -59,21 +57,15 @@ public class ExceptionHandlerControllerAdviceTest {
 
   private static final String MOCK_APPENDER_NAME = "MockAppender";
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @MockitoBean
-  AssetsController assetsController;
+  @MockitoBean AssetsController assetsController;
 
-  @Mock
-  private Appender mockAppender;
+  @Mock private Appender mockAppender;
 
-  @Captor
-  private ArgumentCaptor<LogEvent> logCaptor;
+  @Captor private ArgumentCaptor<LogEvent> logCaptor;
 
-  /**
-   * 各テスト実施前のセットアップを行うメソッド。
-   */
+  /** 各テスト実施前のセットアップを行うメソッド。 */
   @BeforeEach
   public void setup() {
     // アプリケーションログメッセージを取得する設定
@@ -115,15 +107,21 @@ public class ExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString())).thenThrow(new LogicException(
-        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
+    Mockito.when(assetsController.get(anyString()))
+        .thenThrow(
+            new LogicException(
+                new AssetNotFoundException(assetCode),
+                exceptionId,
+                frontMessageValue,
+                logMessageValue));
 
     // Act
     ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
 
     // Assert
     // エラー時のレスポンスであることの確認
-    response.andExpect(status().isInternalServerError())
+    response
+        .andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
@@ -148,15 +146,21 @@ public class ExceptionHandlerControllerAdviceTest {
     String[] frontMessageValue = null;
     String[] logMessageValue = null;
     // モックの戻り値設定
-    Mockito.when(assetsController.get(anyString())).thenThrow(new SystemException(
-        new AssetNotFoundException(assetCode), exceptionId, frontMessageValue, logMessageValue));
+    Mockito.when(assetsController.get(anyString()))
+        .thenThrow(
+            new SystemException(
+                new AssetNotFoundException(assetCode),
+                exceptionId,
+                frontMessageValue,
+                logMessageValue));
 
     // Act
     ResultActions response = this.mockMvc.perform(get("/api/assets/" + assetCode));
 
     // Assert
     // エラー時のレスポンスであることの確認
-    response.andExpect(status().isInternalServerError())
+    response
+        .andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))
@@ -188,7 +192,8 @@ public class ExceptionHandlerControllerAdviceTest {
 
     // Assert
     // エラー時のレスポンスであることの確認
-    response.andExpect(status().isInternalServerError())
+    response
+        .andExpect(status().isInternalServerError())
         .andExpect(content().json("{\"title\":\"" + title + "\"}"))
         .andExpect(jsonPath("$.exceptionId").value(exceptionId))
         .andExpect(jsonPath("$.exceptionValues").value(frontMessageValue))

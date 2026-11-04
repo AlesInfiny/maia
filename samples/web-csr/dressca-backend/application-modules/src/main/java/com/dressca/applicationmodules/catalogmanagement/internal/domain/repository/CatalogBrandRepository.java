@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.catalogmanagement.entity.CatalogBrand;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * カタログブランドのリポジトリのインターフェースです。
- */
+/** カタログブランドのリポジトリのインターフェースです。 */
 public interface CatalogBrandRepository {
 
   /**

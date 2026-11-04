@@ -1,4 +1,3 @@
-
 package com.dressca.batch.job;
 
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogItem;
@@ -18,9 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
 
-/**
- * Job の定義と各種設定を行うクラスです。
- */
+/** Job の定義と各種設定を行うクラスです。 */
 @Configuration
 public class BatchConfiguration {
 
@@ -33,10 +30,14 @@ public class BatchConfiguration {
    * @return ステップ。
    */
   @Bean
-  public Step catalogItemTaskletStep1(JobRepository jobRepository,
-      PlatformTransactionManager transactionManager, CatalogItemTasklet catalogItemTasklet) {
-    return new StepBuilder(jobRepository).tasklet(catalogItemTasklet)
-        .transactionManager(transactionManager).build();
+  public Step catalogItemTaskletStep1(
+      JobRepository jobRepository,
+      PlatformTransactionManager transactionManager,
+      CatalogItemTasklet catalogItemTasklet) {
+    return new StepBuilder(jobRepository)
+        .tasklet(catalogItemTasklet)
+        .transactionManager(transactionManager)
+        .build();
   }
 
   /**
@@ -47,8 +48,8 @@ public class BatchConfiguration {
    * @return ジョブ。
    */
   @Bean
-  public Job catalogItemTaskletJob(JobRepository jobRepository,
-      @Qualifier("catalogItemTaskletStep1") Step step1) {
+  public Job catalogItemTaskletJob(
+      JobRepository jobRepository, @Qualifier("catalogItemTaskletStep1") Step step1) {
     return new JobBuilder(jobRepository).incrementer(new RunIdIncrementer()).start(step1).build();
   }
 
@@ -63,8 +64,10 @@ public class BatchConfiguration {
    * @return ステップ。
    */
   @Bean
-  public Step catalogItemStep1(JobRepository jobRepository,
-      PlatformTransactionManager transactionManager, CatalogItemPagingItemReader catalogItemReader,
+  public Step catalogItemStep1(
+      JobRepository jobRepository,
+      PlatformTransactionManager transactionManager,
+      CatalogItemPagingItemReader catalogItemReader,
       CatalogItemProcessor catalogItemProcessor,
       FlatFileItemWriter<CatalogItem> catalogItemWriter) {
     // 複数の Processor を連結する場合は下記のように CompositeItemProcessor を利用する
@@ -74,10 +77,12 @@ public class BatchConfiguration {
     // itemProcessors.add(catalogItemProcessor);
     // itemProcessors.add(nextProcessor);
     // compositeProcessor.setDelegates(itemProcessors);
-    return new StepBuilder(jobRepository).<CatalogItem, CatalogItem>chunk(2)
+    return new StepBuilder(jobRepository)
+        .<CatalogItem, CatalogItem>chunk(2)
         .reader(catalogItemReader)
         // .processor(compositeProcessor)
-        .processor(catalogItemProcessor).writer(catalogItemWriter)
+        .processor(catalogItemProcessor)
+        .writer(catalogItemWriter)
         .transactionManager(transactionManager)
         // .faultTolerant()
         // .skipLimit(10)
@@ -98,11 +103,17 @@ public class BatchConfiguration {
    */
   @Primary
   @Bean
-  public Job catalogItemJob(JobCompletionNotificationListener listener, JobRepository jobRepository,
+  public Job catalogItemJob(
+      JobCompletionNotificationListener listener,
+      JobRepository jobRepository,
       @Qualifier("catalogItemStep1") Step step1) {
     // ジョブパラメータに run.id を自動的に付与、未指定時自動で run.id がインクリメントされる
     // ジョブパラメータの衝突を自動回避する設定
-    return new JobBuilder(jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
-        .flow(step1).end().build();
+    return new JobBuilder(jobRepository)
+        .incrementer(new RunIdIncrementer())
+        .listener(listener)
+        .flow(step1)
+        .end()
+        .build();
   }
 }

@@ -8,20 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 注文アイテムを取得する際に用いる dto クラスです。
- */
+/** 注文アイテムを取得する際に用いる dto クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItemApiModel {
-  @NotNull
-  private UUID id;
+  @NotNull private UUID id;
   private DisplayItemSummaryApiModel itemOrdered;
-  @NotNull
-  private int quantity;
-  @NotNull
-  private BigDecimal unitPrice;
-  @NotNull
-  private BigDecimal subTotal;
+  @NotNull private int quantity;
+  @NotNull private BigDecimal unitPrice;
+  @NotNull private BigDecimal subTotal;
 }

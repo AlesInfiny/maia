@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 買い物かごアイテムのエンティティです。
- */
+/** 買い物かごアイテムのエンティティです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

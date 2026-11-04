@@ -16,19 +16,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-/**
- * 開発環境以外（test プロファイル）での {@link DummyUserInjectionFilter} の動作を検証するテストクラスです。
- */
+/** 開発環境以外（test プロファイル）での {@link DummyUserInjectionFilter} の動作を検証するテストクラスです。 */
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class TestProfileDummyUserInjectionFilterTest {
 
-  @Autowired
-  private FilterChainProxy springSecurityFilterChain;
+  @Autowired private FilterChainProxy springSecurityFilterChain;
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   void testSecurityFilterChain_異常系_テストプロファイルではダミーフィルターが含まれない() {
@@ -60,7 +56,9 @@ public class TestProfileDummyUserInjectionFilterTest {
   private boolean hasDummyUserInjectionFilter() {
     return springSecurityFilterChain.getFilterChains().stream()
         .filter(DefaultSecurityFilterChain.class::isInstance)
-        .map(DefaultSecurityFilterChain.class::cast).anyMatch(chain -> chain.getFilters().stream()
-            .anyMatch(DummyUserInjectionFilter.class::isInstance));
+        .map(DefaultSecurityFilterChain.class::cast)
+        .anyMatch(
+            chain ->
+                chain.getFilters().stream().anyMatch(DummyUserInjectionFilter.class::isInstance));
   }
 }

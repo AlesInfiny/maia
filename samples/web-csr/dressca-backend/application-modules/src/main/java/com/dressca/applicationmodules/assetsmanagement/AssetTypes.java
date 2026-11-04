@@ -3,9 +3,7 @@ package com.dressca.applicationmodules.assetsmanagement;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * アセットタイプを管理するクラスです。
- */
+/** アセットタイプを管理するクラスです。 */
 public class AssetTypes {
   public static final String PNG = "png";
   private static final Set<String> supportedAssetTypes = Set.of(PNG);

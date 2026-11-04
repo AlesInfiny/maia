@@ -10,36 +10,40 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CatalogCategoryMapper {
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    long countByExample(CatalogCategoryEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  long countByExample(CatalogCategoryEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByExample(CatalogCategoryEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int deleteByExample(CatalogCategoryEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(UUID id);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int deleteByPrimaryKey(UUID id);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int insert(CatalogCategoryEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int insert(CatalogCategoryEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int insertSelective(CatalogCategoryEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int insertSelective(CatalogCategoryEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    List<CatalogCategoryEntity> selectByExample(CatalogCategoryEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  List<CatalogCategoryEntity> selectByExample(CatalogCategoryEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    CatalogCategoryEntity selectByPrimaryKey(UUID id);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  CatalogCategoryEntity selectByPrimaryKey(UUID id);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByExampleSelective(@Param("row") CatalogCategoryEntity row, @Param("example") CatalogCategoryEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByExampleSelective(
+      @Param("row") CatalogCategoryEntity row,
+      @Param("example") CatalogCategoryEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByExample(@Param("row") CatalogCategoryEntity row, @Param("example") CatalogCategoryEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByExample(
+      @Param("row") CatalogCategoryEntity row,
+      @Param("example") CatalogCategoryEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByPrimaryKeySelective(CatalogCategoryEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByPrimaryKeySelective(CatalogCategoryEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByPrimaryKey(CatalogCategoryEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByPrimaryKey(CatalogCategoryEntity row);
 }

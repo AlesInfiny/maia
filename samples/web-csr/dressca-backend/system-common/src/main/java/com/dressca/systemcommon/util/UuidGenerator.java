@@ -4,9 +4,7 @@ import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
 import java.util.UUID;
 
-/**
- * UUID v7 を生成するユーティリティクラスです。
- */
+/** UUID v7 を生成するユーティリティクラスです。 */
 public class UuidGenerator {
 
   private static final TimeBasedEpochGenerator UUID_GENERATOR =

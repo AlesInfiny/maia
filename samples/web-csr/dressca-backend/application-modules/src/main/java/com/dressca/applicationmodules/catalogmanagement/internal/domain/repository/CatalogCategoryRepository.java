@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.catalogmanagement.entity.CatalogCategory;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * カタログカテゴリのリポジトリのインターフェースです。
- */
+/** カタログカテゴリのリポジトリのインターフェースです。 */
 public interface CatalogCategoryRepository {
 
   /**

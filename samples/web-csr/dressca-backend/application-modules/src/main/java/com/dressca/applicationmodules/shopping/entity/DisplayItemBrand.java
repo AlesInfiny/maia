@@ -5,15 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * 陳列品ブランドのエンティティです。
- */
+/** 陳列品ブランドのエンティティです。 */
 @Data
 @NoArgsConstructor
 public class DisplayItemBrand {
   private UUID id;
-  @NonNull
-  private String name;
+  @NonNull private String name;
 
   /**
    * 陳列品ブランド名を指定して、 {@link DisplayItemBrand} クラスのインスタンスを初期化します。

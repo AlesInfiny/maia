@@ -6,9 +6,7 @@ import java.util.Locale;
 import lombok.Getter;
 import org.springframework.context.MessageSource;
 
-/**
- * 業務例外を表す例外クラスです。
- */
+/** 業務例外を表す例外クラスです。 */
 @Getter
 public class LogicException extends Exception {
 
@@ -17,20 +15,22 @@ public class LogicException extends Exception {
   private final String[] logMessageValue;
 
   /**
-   * 原因例外、例外 ID 、メッセージ用プレースホルダー（フロント用）、メッセージ用プレースホルダー（ログ用）を指定して、
-   * {@link LogicException} クラスのインスタンスを初期化します。
+   * 原因例外、例外 ID 、メッセージ用プレースホルダー（フロント用）、メッセージ用プレースホルダー（ログ用）を指定して、 {@link LogicException}
+   * クラスのインスタンスを初期化します。
    *
    * @param cause 原因例外。
    * @param exceptionId 例外 ID 。
    * @param frontMessageValue メッセージ用プレースホルダー（フロント用）。
    * @param logMessageValue メッセージ用プレースホルダー（ログ用）。
    */
-  public LogicException(Throwable cause, String exceptionId, String[] frontMessageValue,
-      String[] logMessageValue) {
+  public LogicException(
+      Throwable cause, String exceptionId, String[] frontMessageValue, String[] logMessageValue) {
     super(resolveMessage(exceptionId, logMessageValue), cause);
     this.exceptionId = exceptionId;
-    this.frontMessageValue = frontMessageValue == null ? null
-        : Arrays.copyOf(frontMessageValue, frontMessageValue.length);
+    this.frontMessageValue =
+        frontMessageValue == null
+            ? null
+            : Arrays.copyOf(frontMessageValue, frontMessageValue.length);
     this.logMessageValue =
         logMessageValue == null ? null : Arrays.copyOf(logMessageValue, logMessageValue.length);
   }
@@ -41,7 +41,8 @@ public class LogicException extends Exception {
    * @return メッセージ用プレースホルダー（フロント用）。
    */
   public String[] getFrontMessageValue() {
-    return this.frontMessageValue == null ? null
+    return this.frontMessageValue == null
+        ? null
         : Arrays.copyOf(this.frontMessageValue, this.frontMessageValue.length);
   }
 
@@ -51,7 +52,8 @@ public class LogicException extends Exception {
    * @return メッセージ用プレースホルダー（ログ用）。
    */
   public String[] getLogMessageValue() {
-    return this.logMessageValue == null ? null
+    return this.logMessageValue == null
+        ? null
         : Arrays.copyOf(this.logMessageValue, this.logMessageValue.length);
   }
 

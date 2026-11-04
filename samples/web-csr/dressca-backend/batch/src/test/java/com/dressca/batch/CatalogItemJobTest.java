@@ -23,9 +23,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 
-/**
- * CatalogItem の Job の動作テストクラスです。
- */
+/** CatalogItem の Job の動作テストクラスです。 */
 @SpringBootTest
 @SpringBatchTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -33,14 +31,13 @@ import org.springframework.test.annotation.DirtiesContext;
 public class CatalogItemJobTest {
   private static final String TEST_CATALOG_BRAND_ID = "019b76da-a800-7002-8001-000000000001";
   private static final String TEST_CATALOG_CATEGORY_ID = "019b76da-a800-7003-8001-000000000001";
-  @Autowired
-  private JobOperatorTestUtils jobOperatorTestUtils;
+  @Autowired private JobOperatorTestUtils jobOperatorTestUtils;
 
   @Autowired
   @Qualifier("catalogItemJob")
   Job catalogItemJob;
-  @Autowired
-  JobRepository jobRepository;
+
+  @Autowired JobRepository jobRepository;
   private JdbcTemplate jdbcTemplate;
   private static final String OUTPUT_FILE = "output/outputData.csv";
   private static final String EXPECTED_FOLDER = "src/test/resources/expected/";
@@ -50,9 +47,7 @@ public class CatalogItemJobTest {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
 
-  /**
-   * ジョブオペレーターの初期化メソッドです。
-   */
+  /** ジョブオペレーターの初期化メソッドです。 */
   @BeforeAll
   public void initJobOperatorTestUtils() {
     jobOperatorTestUtils.setJob(catalogItemJob);
@@ -153,13 +148,21 @@ public class CatalogItemJobTest {
     for (int i = 0; i < 10; i++) {
       String catalogItemId = String.format("019b76da-a800-7004-8001-0000000000%02x", i + 0xc1);
       String catalogItemAssetId = String.format("019b76da-a800-7005-8001-0000000000%02x", i + 0xc1);
-      String insertItem = "insert into catalog_items" + " (id,name,description,price,product_code,"
-          + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
-          + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";
-      String insertItemAsset = "insert into catalog_item_assets (id,asset_code,catalog_item_id)"
-          + " values (?,'dummy',?)";
-      jdbcTemplate.update(insertItem, catalogItemId, "sample" + i, "商品説明" + i,
-          TEST_CATALOG_CATEGORY_ID, TEST_CATALOG_BRAND_ID);
+      String insertItem =
+          "insert into catalog_items"
+              + " (id,name,description,price,product_code,"
+              + "catalog_category_id,catalog_brand_id,is_deleted,row_version)"
+              + " values (?,?,?,1000,'C000000001',?,?,false,'2024-01-01 00:00:00+09:00')";
+      String insertItemAsset =
+          "insert into catalog_item_assets (id,asset_code,catalog_item_id)"
+              + " values (?,'dummy',?)";
+      jdbcTemplate.update(
+          insertItem,
+          catalogItemId,
+          "sample" + i,
+          "商品説明" + i,
+          TEST_CATALOG_CATEGORY_ID,
+          TEST_CATALOG_BRAND_ID);
       jdbcTemplate.update(insertItemAsset, catalogItemAssetId, catalogItemId);
     }
   }

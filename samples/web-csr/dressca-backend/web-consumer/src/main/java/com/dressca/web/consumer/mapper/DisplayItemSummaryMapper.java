@@ -6,9 +6,7 @@ import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApi
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * {@link DisplayItem} と {@link DisplayItemSummaryApiModel} のマッパーです。
- */
+/** {@link DisplayItem} と {@link DisplayItemSummaryApiModel} のマッパーです。 */
 public class DisplayItemSummaryMapper {
   /**
    * {@link DisplayItem} オブジェクトを {@link DisplayItemSummaryApiModel} に変換します。
@@ -24,7 +22,7 @@ public class DisplayItemSummaryMapper {
     List<String> assetCodes =
         item.getAssets().stream().map(DisplayItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new DisplayItemSummaryApiModel(item.getId(), item.getName(), item.getProductCode(),
-        assetCodes);
+    return new DisplayItemSummaryApiModel(
+        item.getId(), item.getName(), item.getProductCode(), assetCodes);
   }
 }

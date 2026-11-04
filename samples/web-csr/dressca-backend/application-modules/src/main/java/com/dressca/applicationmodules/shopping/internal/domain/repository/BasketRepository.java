@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.entity.Basket;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * 買い物かごのリポジトリのインターフェースです。
- */
+/** 買い物かごのリポジトリのインターフェースです。 */
 public interface BasketRepository {
 
   /**

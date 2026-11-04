@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * カタログアイテムのデータ一覧を取得する Reader の設定です。
- */
+/** カタログアイテムのデータ一覧を取得する Reader の設定です。 */
 @Configuration
 @RequiredArgsConstructor
 public class CatalogItemReaderConf {

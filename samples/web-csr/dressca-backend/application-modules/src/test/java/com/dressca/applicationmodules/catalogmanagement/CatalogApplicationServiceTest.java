@@ -44,36 +44,34 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link CatalogApplicationService}の動作をテストするクラスです。
- */
+/** {@link CatalogApplicationService}の動作をテストするクラスです。 */
 @Import(ApplicationModulesTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class CatalogApplicationServiceTest {
-  @Mock
-  private CatalogRepository catalogRepository;
-  @Mock
-  private CatalogBrandRepository brandRepository;
-  @Mock
-  private CatalogCategoryRepository categoryRepository;
-  @Mock
-  private CatalogDomainService catalogDomainService;
-  @Mock
-  private UserStore userStore;
-  @Mock
-  private AbstractStructuredLogger apLog;
+  @Mock private CatalogRepository catalogRepository;
+  @Mock private CatalogBrandRepository brandRepository;
+  @Mock private CatalogCategoryRepository categoryRepository;
+  @Mock private CatalogDomainService catalogDomainService;
+  @Mock private UserStore userStore;
+  @Mock private AbstractStructuredLogger apLog;
 
-  @Autowired
-  private MessageSource messages;
+  @Autowired private MessageSource messages;
 
   private CatalogApplicationService service;
 
   @BeforeEach
   void setUp() {
-    service = new CatalogApplicationService(messages, catalogRepository, brandRepository,
-        categoryRepository, catalogDomainService, apLog, userStore);
+    service =
+        new CatalogApplicationService(
+            messages,
+            catalogRepository,
+            brandRepository,
+            categoryRepository,
+            catalogDomainService,
+            apLog,
+            userStore);
   }
 
   @Test
@@ -162,8 +160,8 @@ public class CatalogApplicationServiceTest {
     service.getCatalogItems(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.catalogRepository, times(1)).findByBrandIdAndCategoryIdIncludingDeleted(brandId,
-        categoryId, page, pageSize);
+    verify(this.catalogRepository, times(1))
+        .findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId, page, pageSize);
   }
 
   @Test
@@ -177,8 +175,9 @@ public class CatalogApplicationServiceTest {
     UUID targetId = UUID.randomUUID();
     CatalogItem catalogItem = createCatalogItem(targetId);
     List<CatalogItem> expectedCatalogItemList = new ArrayList<>(Arrays.asList(catalogItem));
-    when(this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(brandId, categoryId,
-        page, pageSize)).thenReturn(expectedCatalogItemList);
+    when(this.catalogRepository.findByBrandIdAndCategoryIdIncludingDeleted(
+            brandId, categoryId, page, pageSize))
+        .thenReturn(expectedCatalogItemList);
 
     // Act
     List<CatalogItem> actualCatalogItemList =
@@ -252,8 +251,10 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す() throws PermissionDeniedException,
-      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_リポジトリのaddCatalogItemを1回呼出す()
+      throws PermissionDeniedException,
+          CatalogCategoryNotFoundException,
+          CatalogBrandNotFoundException {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
@@ -273,8 +274,10 @@ public class CatalogApplicationServiceTest {
   }
 
   @Test
-  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される() throws PermissionDeniedException,
-      CatalogCategoryNotFoundException, CatalogBrandNotFoundException {
+  void testAddItemToCatalog_正常系_追加したカタログアイテムが返却される()
+      throws PermissionDeniedException,
+          CatalogCategoryNotFoundException,
+          CatalogBrandNotFoundException {
     // Arrange
     UUID brandId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
@@ -369,16 +372,20 @@ public class CatalogApplicationServiceTest {
     CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
 
     // Act
-    Executable action = () -> serviceWithoutUserStore.addItemToCatalog(name, description, price,
-        productCode, categoryId, brandId);
+    Executable action =
+        () ->
+            serviceWithoutUserStore.addItemToCatalog(
+                name, description, price, productCode, categoryId, brandId);
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
   }
 
   @Test
-  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す() throws CatalogNotFoundException,
-      PermissionDeniedException, OptimisticLockingFailureException {
+  void testDeleteItemFromCatalog_正常系_リポジトリのremoveを1回呼出す()
+      throws CatalogNotFoundException,
+          PermissionDeniedException,
+          OptimisticLockingFailureException {
     // Arrange
     UUID targetId = UUID.randomUUID();
     when(this.userStore.isInRole(anyString())).thenReturn(true);
@@ -454,8 +461,11 @@ public class CatalogApplicationServiceTest {
 
   @Test
   void testUpdateCatalogItem_正常系_リポジトリのupdateを1回呼出す()
-      throws CatalogNotFoundException, PermissionDeniedException, CatalogBrandNotFoundException,
-      CatalogCategoryNotFoundException, OptimisticLockingFailureException {
+      throws CatalogNotFoundException,
+          PermissionDeniedException,
+          CatalogBrandNotFoundException,
+          CatalogCategoryNotFoundException,
+          OptimisticLockingFailureException {
     // Arrange
     UUID targetId = UUID.randomUUID();
     UUID categoryId = UUID.randomUUID();
@@ -473,8 +483,16 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    this.service.updateCatalogItem(targetId, name, description, price, productCode, categoryId,
-        brandId, rowVersion, isDeleted);
+    this.service.updateCatalogItem(
+        targetId,
+        name,
+        description,
+        price,
+        productCode,
+        categoryId,
+        brandId,
+        rowVersion,
+        isDeleted);
 
     // Assert
     verify(this.catalogRepository, times(1)).update(any());
@@ -496,8 +514,18 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    Executable action = () -> this.service.updateCatalogItem(targetId, name, description, price,
-        productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            this.service.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(CatalogNotFoundException.class, action);
@@ -520,8 +548,18 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    Executable action = () -> this.service.updateCatalogItem(targetId, name, description, price,
-        productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            this.service.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(CatalogCategoryNotFoundException.class, action);
@@ -545,8 +583,18 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    Executable action = () -> this.service.updateCatalogItem(targetId, name, description, price,
-        productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            this.service.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(CatalogBrandNotFoundException.class, action);
@@ -567,8 +615,18 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    Executable action = () -> this.service.updateCatalogItem(targetId, name, description, price,
-        productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            this.service.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
@@ -593,8 +651,18 @@ public class CatalogApplicationServiceTest {
     boolean isDeleted = false;
 
     // Act
-    Executable action = () -> this.service.updateCatalogItem(targetId, name, description, price,
-        productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            this.service.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(OptimisticLockingFailureException.class, action);
@@ -615,17 +683,24 @@ public class CatalogApplicationServiceTest {
     CatalogApplicationService serviceWithoutUserStore = createServiceWithoutUserStore();
 
     // Act
-    Executable action = () -> serviceWithoutUserStore.updateCatalogItem(targetId, name, description,
-        price, productCode, categoryId, brandId, rowVersion, isDeleted);
+    Executable action =
+        () ->
+            serviceWithoutUserStore.updateCatalogItem(
+                targetId,
+                name,
+                description,
+                price,
+                productCode,
+                categoryId,
+                brandId,
+                rowVersion,
+                isDeleted);
 
     // Assert
     assertThrows(PermissionDeniedException.class, action);
   }
 
-  /**
-   * ユーザーストアが注入されていない（コンシューマーアプリなど）状態のサービスを生成します。
-   */
-
+  /** ユーザーストアが注入されていない（コンシューマーアプリなど）状態のサービスを生成します。 */
   @Test
   void countCatalogItems_正常系_リポジトリのcountByBrandIdAndCategoryIdIncludingDeletedを1回呼出す() {
     // Arrange
@@ -638,8 +713,8 @@ public class CatalogApplicationServiceTest {
     service.countCatalogItems(brandId, categoryId);
 
     // Assert
-    verify(this.catalogRepository, times(1)).countByBrandIdAndCategoryIdIncludingDeleted(any(),
-        any());
+    verify(this.catalogRepository, times(1))
+        .countByBrandIdAndCategoryIdIncludingDeleted(any(), any());
   }
 
   @Test
@@ -669,8 +744,14 @@ public class CatalogApplicationServiceTest {
   }
 
   private CatalogApplicationService createServiceWithoutUserStore() {
-    return new CatalogApplicationService(messages, catalogRepository, brandRepository,
-        categoryRepository, catalogDomainService, apLog, null);
+    return new CatalogApplicationService(
+        messages,
+        catalogRepository,
+        brandRepository,
+        categoryRepository,
+        catalogDomainService,
+        apLog,
+        null);
   }
 
   private CatalogItem createCatalogItem(UUID id) {
@@ -682,8 +763,16 @@ public class CatalogApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    CatalogItem catalogItem = new CatalogItem(id, defaultName, defaultDescription, defaultPrice,
-        defaultProductCode, defaultCatalogBrandId, defaultCatalogCategoryId, defaultIsDeleted);
+    CatalogItem catalogItem =
+        new CatalogItem(
+            id,
+            defaultName,
+            defaultDescription,
+            defaultPrice,
+            defaultProductCode,
+            defaultCatalogBrandId,
+            defaultCatalogCategoryId,
+            defaultIsDeleted);
     // catalogItem.setId(id);
     return catalogItem;
   }

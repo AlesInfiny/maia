@@ -7,9 +7,7 @@ import org.springframework.batch.core.job.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListener;
 import org.springframework.stereotype.Component;
 
-/**
- * ジョブの完了を通知するためのクラスです。
- */
+/** ジョブの完了を通知するためのクラスです。 */
 @Component
 @RequiredArgsConstructor
 public class JobCompletionNotificationListener implements JobExecutionListener {

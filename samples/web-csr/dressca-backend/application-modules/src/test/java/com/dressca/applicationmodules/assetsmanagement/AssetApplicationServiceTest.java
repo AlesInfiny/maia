@@ -30,23 +30,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link AssetApplicationService}の動作をテストするクラスです。
- */
+/** {@link AssetApplicationService}の動作をテストするクラスです。 */
 @Import(ApplicationModulesTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AssetApplicationServiceTest {
 
-  @Mock
-  private AssetRepository repository;
-  @Mock
-  private AssetStore store;
-  @Autowired
-  private MessageSource messages;
-  @Mock
-  private AbstractStructuredLogger apLog;
+  @Mock private AssetRepository repository;
+  @Mock private AssetStore store;
+  @Autowired private MessageSource messages;
+  @Mock private AbstractStructuredLogger apLog;
 
   private AssetApplicationService service;
 

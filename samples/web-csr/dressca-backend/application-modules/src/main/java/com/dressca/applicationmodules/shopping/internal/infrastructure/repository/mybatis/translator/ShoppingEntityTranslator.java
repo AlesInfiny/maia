@@ -10,9 +10,7 @@ import com.dressca.applicationmodules.shopping.internal.infrastructure.repositor
 import com.dressca.applicationmodules.shopping.internal.infrastructure.repository.mybatis.generated.entity.OrderItemEntity;
 import org.springframework.beans.BeanUtils;
 
-/**
- * 買い物コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
- */
+/** 買い物コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。 */
 public class ShoppingEntityTranslator {
 
   /**

@@ -22,18 +22,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link DisplayItemDomainService}の動作をテストするクラスです。
- */
+/** {@link DisplayItemDomainService}の動作をテストするクラスです。 */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @Import(ApplicationModulesTestConfig.class)
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class DisplayItemDomainServiceTest {
-  @Mock
-  private DisplayItemRepository displayItemRepository;
-  @InjectMocks
-  private DisplayItemDomainService displayItemDomainService;
+  @Mock private DisplayItemRepository displayItemRepository;
+  @InjectMocks private DisplayItemDomainService displayItemDomainService;
 
   @Test
   void testGetExistDisplayItems_正常系_リポジトリのfindByDisplayItemIdInを1度だけ呼出す() {
@@ -170,7 +166,14 @@ public class DisplayItemDomainServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
-        UUID.randomUUID(), UUID.randomUUID(), defaultIsDeleted);
+    return new DisplayItem(
+        id,
+        defaultName,
+        defaultDescription,
+        defaultPrice,
+        defaultProductCode,
+        UUID.randomUUID(),
+        UUID.randomUUID(),
+        defaultIsDeleted);
   }
 }

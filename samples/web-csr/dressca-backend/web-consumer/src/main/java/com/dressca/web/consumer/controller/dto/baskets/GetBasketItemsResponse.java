@@ -8,15 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 買い物かごアイテムの一覧を格納するための dto クラスです。
- */
+/** 買い物かごアイテムの一覧を格納するための dto クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetBasketItemsResponse {
-  @NotNull
-  private UUID buyerId;
+  @NotNull private UUID buyerId;
   private AccountApiModel account;
   private List<BasketItemApiModel> basketItems;
   private List<UUID> deletedItemIds;
