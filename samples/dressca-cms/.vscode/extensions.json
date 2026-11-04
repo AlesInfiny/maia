@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
+    "josevseb.google-java-format-for-vs-code",
     "shengchen.vscode-checkstyle",
     "vmware.vscode-boot-dev-pack",
     "vscjava.vscode-java-pack",
