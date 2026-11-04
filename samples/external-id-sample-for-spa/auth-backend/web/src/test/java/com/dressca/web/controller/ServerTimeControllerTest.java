@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.dressca.web.WebApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +13,14 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import com.dressca.web.WebApplication;
 
-/**
- * {@link ServerTimeController} の動作をテストするクラスです。
- */
+/** {@link ServerTimeController} の動作をテストするクラスです。 */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 public class ServerTimeControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("testTime_01_正常系_現在時刻を取得")
@@ -34,5 +31,4 @@ public class ServerTimeControllerTest {
     // Assert
     response.andExpect(status().isOk()).andExpect(jsonPath("$.serverTime").exists());
   }
-
 }

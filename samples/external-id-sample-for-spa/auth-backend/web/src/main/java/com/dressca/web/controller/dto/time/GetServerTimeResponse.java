@@ -5,13 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * サーバーの現在時刻を格納するクラスです。
- */
+/** サーバーの現在時刻を格納するクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetServerTimeResponse {
-  @NotNull
-  private String serverTime;
+  @NotNull private String serverTime;
 }
