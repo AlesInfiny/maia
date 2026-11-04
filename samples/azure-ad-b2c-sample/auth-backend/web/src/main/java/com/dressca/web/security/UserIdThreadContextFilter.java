@@ -1,22 +1,20 @@
 package com.dressca.web.security;
 
-import java.io.IOException;
-import java.util.Map;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-/**
- * ユーザー ID を threadLocal に格納するためのフィルタークラスです。
- */
+/** ユーザー ID を threadLocal に格納するためのフィルタークラスです。 */
 @Component
 @RequiredArgsConstructor
 public class UserIdThreadContextFilter extends OncePerRequestFilter {
@@ -25,12 +23,11 @@ public class UserIdThreadContextFilter extends OncePerRequestFilter {
   private final AbstractStructuredLogger apLog;
   public static final ThreadLocal<String> threadLocalUserId = new ThreadLocal<>();
 
-  /**
-   * フィルターの実行クラスです。
-   */
+  /** フィルターの実行クラスです。 */
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null && authentication instanceof JwtAuthenticationToken) {
@@ -44,5 +41,4 @@ public class UserIdThreadContextFilter extends OncePerRequestFilter {
 
     filterChain.doFilter(request, response);
   }
-
 }

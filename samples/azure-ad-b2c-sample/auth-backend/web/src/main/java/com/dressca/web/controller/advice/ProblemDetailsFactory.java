@@ -1,22 +1,20 @@
 package com.dressca.web.controller.advice;
 
+import com.dressca.web.constant.WebConstants;
+import com.dressca.web.log.ErrorMessageBuilder;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Component;
-import com.dressca.web.constant.WebConstants;
-import com.dressca.web.log.ErrorMessageBuilder;
-import lombok.RequiredArgsConstructor;
 
-/**
- * エラーレスポンスに含める ProblemDetails を作成するクラスです。
- */
+/** エラーレスポンスに含める ProblemDetails を作成するクラスです。 */
 @Component
 @RequiredArgsConstructor
 public class ProblemDetailsFactory {
@@ -32,8 +30,8 @@ public class ProblemDetailsFactory {
    * @param status ステータスコード。
    * @return エラーレスポンスに格納する ProblemDetails 。
    */
-  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId,
-      HttpStatus status) {
+  public ProblemDetail createProblemDetail(
+      ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
 
     ProblemDetail problemDetail = ProblemDetail.forStatus(status);
 
@@ -46,18 +44,21 @@ public class ProblemDetailsFactory {
       activeProfiles = env.getDefaultProfiles();
     }
 
-    if (Arrays.stream(activeProfiles).filter(profile -> Objects.equals(profile, "local"))
-        .findFirst().isPresent()) {
+    if (Arrays.stream(activeProfiles)
+        .filter(profile -> Objects.equals(profile, "local"))
+        .findFirst()
+        .isPresent()) {
       problemDetail.setDetail(errorBuilder.createLogMessageStackTrace());
     }
 
     // 拡張メンバーとして exceptionId と exceptionValues を含める
-    Map<String, Object> errorProperty = new LinkedHashMap<String, Object>() {
-      {
-        put(WebConstants.EXCEPTION_ID, errorBuilder.getExceptionId());
-        put(WebConstants.EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
-      }
-    };
+    Map<String, Object> errorProperty =
+        new LinkedHashMap<String, Object>() {
+          {
+            put(WebConstants.EXCEPTION_ID, errorBuilder.getExceptionId());
+            put(WebConstants.EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
+          }
+        };
 
     problemDetail.setProperties(errorProperty);
 

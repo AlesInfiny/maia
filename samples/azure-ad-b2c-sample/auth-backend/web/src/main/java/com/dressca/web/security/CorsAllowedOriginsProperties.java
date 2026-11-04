@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/**
- * CORS の許可 Origin 設定を保持します。
- */
+/** CORS の許可 Origin 設定を保持します。 */
 @ConfigurationProperties(prefix = "cors.allowed")
 public class CorsAllowedOriginsProperties {
 
