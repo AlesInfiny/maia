@@ -2,9 +2,7 @@ package com.dressca.cms.authentication.applicationcore.repository;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * ユーザー情報を取得するリポジトリインターフェース。
- */
+/** ユーザー情報を取得するリポジトリインターフェース。 */
 public interface UserRepository {
 
   /**

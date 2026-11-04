@@ -19,6 +19,7 @@ import com.dressca.cms.announcement.applicationcore.repository.AnnouncementConte
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementContentRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementHistoryRepository;
 import com.dressca.cms.announcement.applicationcore.repository.AnnouncementRepository;
+import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 import com.dressca.cms.systemcommon.util.UuidGenerator;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -38,28 +39,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import com.dressca.cms.systemcommon.util.ApplicationContextWrapper;
 
-/**
- * {@link AnnouncementApplicationService} の単体テストクラスです。
- */
+/** {@link AnnouncementApplicationService} の単体テストクラスです。 */
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=i18n/announcement/messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class AnnouncementApplicationServiceTest {
 
-  @Mock
-  private AnnouncementRepository announcementRepository;
-  @Mock
-  private AnnouncementContentRepository announcementContentRepository;
-  @Mock
-  private AnnouncementHistoryRepository announcementHistoryRepository;
-  @Mock
-  private AnnouncementContentHistoryRepository announcementContentHistoryRepository;
-  @Autowired
-  private MessageSource messages;
-  @Autowired
-  private ApplicationContext applicationContext;
+  @Mock private AnnouncementRepository announcementRepository;
+  @Mock private AnnouncementContentRepository announcementContentRepository;
+  @Mock private AnnouncementHistoryRepository announcementHistoryRepository;
+  @Mock private AnnouncementContentHistoryRepository announcementContentHistoryRepository;
+  @Autowired private MessageSource messages;
+  @Autowired private ApplicationContext applicationContext;
   private AnnouncementApplicationService service;
 
   @BeforeEach
@@ -69,8 +61,12 @@ public class AnnouncementApplicationServiceTest {
     wrapper.setApplicationContext(applicationContext);
 
     service =
-        new AnnouncementApplicationService(announcementRepository, announcementContentRepository,
-            announcementHistoryRepository, announcementContentHistoryRepository, messages);
+        new AnnouncementApplicationService(
+            announcementRepository,
+            announcementContentRepository,
+            announcementHistoryRepository,
+            announcementContentHistoryRepository,
+            messages);
   }
 
   @Test
@@ -367,8 +363,17 @@ public class AnnouncementApplicationServiceTest {
       throws AnnouncementValidationException {
     // Arrange
     OffsetDateTime expireDateTime = OffsetDateTime.now().plusDays(7);
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", null,
-        expireDateTime, 1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement =
+        new Announcement(
+            UuidGenerator.generate(),
+            "INFO",
+            null,
+            expireDateTime,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            null);
     AnnouncementContent content = createContent(announcement.getId(), "ja");
     announcement.setContents(List.of(content));
     String username = "dummyUser";
@@ -383,8 +388,17 @@ public class AnnouncementApplicationServiceTest {
   @Test
   void testAddAnnouncementAndHistory_異常系_コンテンツがnullの場合例外が発生する() {
     // Arrange
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO",
-        OffsetDateTime.now(), null, 1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement =
+        new Announcement(
+            UuidGenerator.generate(),
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            null);
     String username = "dummyUser";
 
     // Act
@@ -398,8 +412,16 @@ public class AnnouncementApplicationServiceTest {
   void testAddAnnouncementAndHistory_異常系_コンテンツが空の場合例外が発生する() {
     // Arrange
     Announcement announcement =
-        new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null, 1,
-            OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
+        new Announcement(
+            UuidGenerator.generate(),
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            new ArrayList<>());
     String username = "dummyUser";
 
     // Act
@@ -432,8 +454,17 @@ public class AnnouncementApplicationServiceTest {
       throws AnnouncementValidationException {
     // Arrange
     OffsetDateTime sameDateTime = OffsetDateTime.now();
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO", sameDateTime,
-        sameDateTime, 1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement =
+        new Announcement(
+            UuidGenerator.generate(),
+            "INFO",
+            sameDateTime,
+            sameDateTime,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            null);
     AnnouncementContent content = createContent(announcement.getId(), "ja");
     announcement.setContents(List.of(content));
     String username = "dummyUser";
@@ -449,8 +480,17 @@ public class AnnouncementApplicationServiceTest {
   void testAddAnnouncementAndHistory_正常系_掲載終了日時がnullの場合正常に登録される()
       throws AnnouncementValidationException {
     // Arrange
-    Announcement announcement = new Announcement(UuidGenerator.generate(), "INFO",
-        OffsetDateTime.now(), null, 1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement =
+        new Announcement(
+            UuidGenerator.generate(),
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            null);
     AnnouncementContent content = createContent(announcement.getId(), "ja");
     announcement.setContents(List.of(content));
     String username = "dummyUser";
@@ -486,14 +526,32 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
     AnnouncementContent content = createContent(announcementId, "ja");
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        3, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            3,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(content));
 
     UUID announcementHistoryId = UuidGenerator.generate();
     AnnouncementContentHistory contentHistory = createContentHistory(announcementHistoryId, "ja");
     AnnouncementHistory history =
-        new AnnouncementHistory(announcementHistoryId, announcementId, "INFO", OffsetDateTime.now(),
-            null, 3, OffsetDateTime.now(), "dummyUser", 1, List.of(contentHistory));
+        new AnnouncementHistory(
+            announcementHistoryId,
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            3,
+            OffsetDateTime.now(),
+            "dummyUser",
+            1,
+            List.of(contentHistory));
 
     when(announcementRepository.findByIdWithContents(announcementId))
         .thenReturn(Optional.ofNullable(announcement));
@@ -529,13 +587,24 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
     UUID contentId = UuidGenerator.generate();
-    AnnouncementContent content = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
-    Announcement announcement = new Announcement(announcementId, "WARN", OffsetDateTime.now(), null,
-        2, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(content));
+    AnnouncementContent content =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "WARN",
+            OffsetDateTime.now(),
+            null,
+            2,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(content));
 
-    AnnouncementContent existingContent = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent existingContent =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
@@ -554,14 +623,25 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
     UUID jaContentId = UuidGenerator.generate();
-    AnnouncementContent jaContent = new AnnouncementContent(jaContentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent jaContent =
+        new AnnouncementContent(
+            jaContentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     AnnouncementContent enContent = createContent(announcementId, "en");
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        3, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(jaContent, enContent));
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            3,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(jaContent, enContent));
 
-    AnnouncementContent existingContent = new AnnouncementContent(jaContentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent existingContent =
+        new AnnouncementContent(
+            jaContentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
@@ -582,15 +662,32 @@ public class AnnouncementApplicationServiceTest {
     UUID announcementId = UuidGenerator.generate();
     UUID jaContentId = UuidGenerator.generate();
     UUID enContentId = UuidGenerator.generate();
-    AnnouncementContent jaContent = new AnnouncementContent(jaContentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        3, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(jaContent));
+    AnnouncementContent jaContent =
+        new AnnouncementContent(
+            jaContentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            3,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(jaContent));
 
-    AnnouncementContent existingJaContent = new AnnouncementContent(jaContentId, announcementId,
-        "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
-    AnnouncementContent existingEnContent = new AnnouncementContent(enContentId, announcementId,
-        "en", "English Title", "English Message", "https://example.com");
+    AnnouncementContent existingJaContent =
+        new AnnouncementContent(
+            jaContentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent existingEnContent =
+        new AnnouncementContent(
+            enContentId,
+            announcementId,
+            "en",
+            "English Title",
+            "English Message",
+            "https://example.com");
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingJaContent, existingEnContent));
 
@@ -610,8 +707,17 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
     AnnouncementContent invalidContent = createContent(announcementId, "invalid");
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        1, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(invalidContent));
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(invalidContent));
 
     // Act
     Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
@@ -626,8 +732,17 @@ public class AnnouncementApplicationServiceTest {
   void testUpdateAnnouncement_異常系_コンテンツがnullの場合例外が発生する() {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        1, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            null);
 
     // Act
     Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
@@ -641,8 +756,17 @@ public class AnnouncementApplicationServiceTest {
   void testUpdateAnnouncement_異常系_コンテンツが空の場合例外が発生する() {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
-    Announcement announcement = new Announcement(announcementId, "INFO", OffsetDateTime.now(), null,
-        1, OffsetDateTime.now(), OffsetDateTime.now(), false, new ArrayList<>());
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            OffsetDateTime.now(),
+            null,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            new ArrayList<>());
 
     // Act
     Executable action = () -> service.updateAnnouncement(announcement, "dummyUser");
@@ -676,14 +800,24 @@ public class AnnouncementApplicationServiceTest {
     // Arrange
     UUID announcementId = UuidGenerator.generate();
     UUID contentId = UuidGenerator.generate();
-    AnnouncementContent jaContent = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent jaContent =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     Announcement announcement =
-        new Announcement(announcementId, "INFO", null, OffsetDateTime.now().plusDays(7), 1,
-            OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(jaContent));
+        new Announcement(
+            announcementId,
+            "INFO",
+            null,
+            OffsetDateTime.now().plusDays(7),
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(jaContent));
 
-    AnnouncementContent existingContent = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent existingContent =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
@@ -702,13 +836,24 @@ public class AnnouncementApplicationServiceTest {
     UUID announcementId = UuidGenerator.generate();
     OffsetDateTime sameDateTime = OffsetDateTime.now();
     UUID contentId = UuidGenerator.generate();
-    AnnouncementContent jaContent = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
-    Announcement announcement = new Announcement(announcementId, "INFO", sameDateTime, sameDateTime,
-        1, OffsetDateTime.now(), OffsetDateTime.now(), false, List.of(jaContent));
+    AnnouncementContent jaContent =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
+    Announcement announcement =
+        new Announcement(
+            announcementId,
+            "INFO",
+            sameDateTime,
+            sameDateTime,
+            1,
+            OffsetDateTime.now(),
+            OffsetDateTime.now(),
+            false,
+            List.of(jaContent));
 
-    AnnouncementContent existingContent = new AnnouncementContent(contentId, announcementId, "ja",
-        "日本語タイトル", "日本語メッセージ", "https://example.com");
+    AnnouncementContent existingContent =
+        new AnnouncementContent(
+            contentId, announcementId, "ja", "日本語タイトル", "日本語メッセージ", "https://example.com");
     when(announcementContentRepository.findByAnnouncementId(announcementId))
         .thenReturn(List.of(existingContent));
 
@@ -799,8 +944,13 @@ public class AnnouncementApplicationServiceTest {
    * @return お知らせコンテンツ。
    */
   private AnnouncementContent createContent(UUID announcementId, String languageCode) {
-    return new AnnouncementContent(UuidGenerator.generate(), announcementId, languageCode,
-        "dummy title", "dummy message", "https://example.com");
+    return new AnnouncementContent(
+        UuidGenerator.generate(),
+        announcementId,
+        languageCode,
+        "dummy title",
+        "dummy message",
+        "https://example.com");
   }
 
   /**
@@ -810,8 +960,16 @@ public class AnnouncementApplicationServiceTest {
    */
   private Announcement createAnnouncementWithoutContent() {
     int displayPriority = 3; // 表示優先度中
-    return new Announcement(UuidGenerator.generate(), "INFO", OffsetDateTime.now(), null,
-        displayPriority, OffsetDateTime.now(), OffsetDateTime.now(), false, null);
+    return new Announcement(
+        UuidGenerator.generate(),
+        "INFO",
+        OffsetDateTime.now(),
+        null,
+        displayPriority,
+        OffsetDateTime.now(),
+        OffsetDateTime.now(),
+        false,
+        null);
   }
 
   /**
@@ -838,9 +996,14 @@ public class AnnouncementApplicationServiceTest {
    * @param languageCode 言語コード。
    * @return お知らせコンテンツ履歴。
    */
-  private AnnouncementContentHistory createContentHistory(UUID announcementHistoryId,
-      String languageCode) {
-    return new AnnouncementContentHistory(UuidGenerator.generate(), announcementHistoryId,
-        languageCode, "dummy title", "dummy message", "https://example.com");
+  private AnnouncementContentHistory createContentHistory(
+      UUID announcementHistoryId, String languageCode) {
+    return new AnnouncementContentHistory(
+        UuidGenerator.generate(),
+        announcementHistoryId,
+        languageCode,
+        "dummy title",
+        "dummy message",
+        "https://example.com");
   }
 }

@@ -4,9 +4,7 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * お知らせコンテンツのリポジトリインターフェースです。
- */
+/** お知らせコンテンツのリポジトリインターフェースです。 */
 public interface AnnouncementContentRepository {
 
   /**

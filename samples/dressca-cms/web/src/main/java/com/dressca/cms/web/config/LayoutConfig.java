@@ -1,12 +1,10 @@
 package com.dressca.cms.web.config;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
-/**
- * Thymeleaf Layout Dialect の設定クラスです。
- */
+/** Thymeleaf Layout Dialect の設定クラスです。 */
 @Configuration
 public class LayoutConfig {
 

@@ -5,57 +5,37 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * お知らせメッセージ管理画面のビューモデルクラスです。
- */
+/** お知らせメッセージ管理画面のビューモデルクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementListViewModel {
 
-  /**
-   * ページ番号。
-   */
+  /** ページ番号。 */
   private Integer pageNumber;
 
-  /**
-   * ページサイズ。
-   */
+  /** ページサイズ。 */
   private Integer pageSize;
 
-  /**
-   * お知らせメッセージの総件数。
-   */
+  /** お知らせメッセージの総件数。 */
   private Long totalCount;
 
-  /**
-   * お知らせメッセージのビューモデルのリスト。
-   */
+  /** お知らせメッセージのビューモデルのリスト。 */
   private List<AnnouncementWithContentsViewModel> announcements;
 
-  /**
-   * 最後のページ番号。
-   */
+  /** 最後のページ番号。 */
   private Integer lastPageNumber;
 
-  /**
-   * お知らせメッセージの開始件数。
-   */
+  /** お知らせメッセージの開始件数。 */
   private Long startCount;
 
-  /**
-   * お知らせメッセージの終了件数。
-   */
+  /** お知らせメッセージの終了件数。 */
   private Long endCount;
 
-  /**
-   * 前ページを持つか。
-   */
+  /** 前ページを持つか。 */
   private Boolean hasPrevious;
 
-  /**
-   * 次ページを持つか。
-   */
+  /** 次ページを持つか。 */
   private Boolean hasNext;
 
   /**
@@ -67,8 +47,12 @@ public class AnnouncementListViewModel {
    * @param announcements お知らせメッセージのビューモデルのリスト。
    * @param lastPageNumber 最後のページ番号。
    */
-  public AnnouncementListViewModel(Integer pageNumber, Integer pageSize, Long totalCount,
-      List<AnnouncementWithContentsViewModel> announcements, Integer lastPageNumber) {
+  public AnnouncementListViewModel(
+      Integer pageNumber,
+      Integer pageSize,
+      Long totalCount,
+      List<AnnouncementWithContentsViewModel> announcements,
+      Integer lastPageNumber) {
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.totalCount = totalCount;

@@ -6,24 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * ログイン画面のビューモデル。
- */
+/** ログイン画面のビューモデル。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginViewModel {
 
-  /**
-   * メールアドレス。
-   */
+  /** メールアドレス。 */
   @NotBlank(message = "{authentication.login.emailIsRequired}")
   @Email(message = "{authentication.login.emailIsInvalid}")
   private String email;
 
-  /**
-   * パスワード。
-   */
+  /** パスワード。 */
   @NotBlank(message = "{authentication.login.passwordIsRequired}")
   private String password;
 }

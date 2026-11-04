@@ -6,9 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/**
- * MyBatis 用の設定クラスです。
- */
+/** MyBatis 用の設定クラスです。 */
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = {"com.dressca.cms.authentication.infrastructure.repository.mybatis"})

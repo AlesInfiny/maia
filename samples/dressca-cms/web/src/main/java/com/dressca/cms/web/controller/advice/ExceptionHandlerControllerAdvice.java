@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-/**
- * 例外ハンドリング機能を集約管理するコントローラーアドバイス。
- */
+/** 例外ハンドリング機能を集約管理するコントローラーアドバイス。 */
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
   private static final Logger apLog =

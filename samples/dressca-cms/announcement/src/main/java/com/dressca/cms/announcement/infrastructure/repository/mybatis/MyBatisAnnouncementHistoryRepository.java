@@ -11,9 +11,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * AnnouncementHistoryRepository を実装する MyBatis リポジトリクラスです。
- */
+/** AnnouncementHistoryRepository を実装する MyBatis リポジトリクラスです。 */
 @Repository
 @RequiredArgsConstructor
 public class MyBatisAnnouncementHistoryRepository implements AnnouncementHistoryRepository {

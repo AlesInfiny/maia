@@ -1,11 +1,12 @@
 {
-  "ignorePaths": ["checkstyle.xml", "eclipse-formatter.xml", "**/gradlew", "**/gradlew.bat"],
+  "ignorePaths": ["checkstyle.xml", "**/gradlew", "**/gradlew.bat"],
   "words": [
     "applicationcore",
     "assertj",
     "buildscript",
     "configfile",
     "Dfile",
+    "diffplug",
     "dressca",
     "Dspring",
     "dtos",
