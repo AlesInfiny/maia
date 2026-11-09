@@ -14,7 +14,7 @@ ext {
     springdocOpenapiVersion = "3.2.0"
 
     // -- GRADLE PLUGIN TOOLS
-    checkstyleToolVersion = "14.3.0"
+    checkstyleToolVersion = "14.4.0"
     jacocoToolVersion = "0.8.15"
     spotbugsToolVersion = "4.10.5"
 
