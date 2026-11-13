@@ -69,5 +69,4 @@ jobs:
         with:
           name: playwright-report-${{ matrix.app }}
           path: samples/web-csr/dressca-frontend/${{ matrix.app }}/playwright-report/
-          retention-days: 14
           if-no-files-found: ignore
