@@ -1,0 +1,73 @@
+---
+name: Dressca E2E テスト CI
+
+# フロントエンドとバックエンドの両方に依存するため、独立したワークフローとして定義する。
+# consumer と admin のバックエンドは H2 (localhost:9092) を共有するため、
+# 同一ランナー上では並列実行できない。 matrix でジョブを分け、別々のランナーで実行する。
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [main, develop, 'release/*']
+    paths:
+      - 'samples/web-csr/dressca-frontend/**'
+      - 'samples/web-csr/dressca-backend/**'
+      - '.github/workflows/samples-dressca-e2e-ci.yml'
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: E2E テスト (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [consumer, admin]
+    env:
+      NO_COLOR: "1"  # 文字化け防止のためカラーコードを出力しない
+      PLAYWRIGHT_HTML_OPEN: never  # CI ではレポートをブラウザで開かない
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Use Node.js LTS
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: samples/web-csr/dressca-frontend/package-lock.json
+
+      - name: JDK25のセットアップ
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad  # v6.1.0
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+          cache: 'gradle'
+
+      - name: gradlewに実行権限付与
+        run: chmod +x samples/web-csr/dressca-backend/gradlew
+
+      - name: node パッケージのインストール
+        run: npm ci --ignore-scripts
+        working-directory: samples/web-csr/dressca-frontend
+
+      # --ignore-scripts により prepare スクリプトが実行されないため、ブラウザを明示的に導入する。
+      - name: Playwright のブラウザのインストール
+        run: npx playwright install --with-deps chromium
+        working-directory: samples/web-csr/dressca-frontend/${{ matrix.app }}
+
+      - id: run-e2e
+        name: E2E テストの実行
+        run: npm run test:e2e:${{ matrix.app }}
+        working-directory: samples/web-csr/dressca-frontend
+
+      - name: Playwright レポートのアップロード
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: playwright-report-${{ matrix.app }}
+          path: samples/web-csr/dressca-frontend/${{ matrix.app }}/playwright-report/
+          retention-days: 14
+          if-no-files-found: ignore
