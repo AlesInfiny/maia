@@ -436,6 +436,71 @@ subprojects {
 
 JaCoCo プラグインのその他の設定項目は、[こちら :material-open-in-new:](https://docs.gradle.org/current/userguide/jacoco_plugin.html){ target=_blank } を参照してください。
 
+#### 機能テスト用のソースセット {#feature-test-source-set}
+
+1 つの機能の中で、コントローラーからアプリケーションサービス、リポジトリ、 DB までのコンポーネントを組み合わせて検証するテスト（機能テスト）は、単体テストとは別のソースセット `featureTest` に配置します。
+`@SpringBootTest` と MockMvc を使うようなテストを `src/test` に置くと単体テストと混在し、別々に実行できなくなるためです。
+
+ソースセットは、 Gradle 標準の [JVM Test Suite プラグイン :material-open-in-new:](https://docs.gradle.org/current/userguide/jvm_test_suite_plugin.html){ target=_blank } で追加します。
+
+```text
+<サブプロジェクト>/
+└── src/
+    ├── main/
+    ├── test/         ← 単体テスト
+    └── featureTest/  ← 機能テスト
+        ├── java/
+        └── resources/
+```
+
+パッケージ構成は `src/main` と同じにします。
+
+設定は、機能テストを持つサブプロジェクトの `build.gradle` に `testing` ブロックとして記述します。
+機能テストを持たないサブプロジェクトには追加しません。
+
+```groovy title="{サブプロジェクト}/build.gradle"
+testing {
+  suites {
+    featureTest(JvmTestSuite) {
+      // JUnit のバージョンは Spring Boot の BOM に合わせる
+      useJUnitJupiter(dependencyManagement.importedProperties['junit-jupiter.version'])
+      dependencies {
+        implementation project()
+        // 機能テストで必要なライブラリだけを記述する
+        implementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+      }
+      targets.configureEach {
+        testTask.configure {
+          // 単体テストと同じく test プロファイルで実行
+          jvmArgs '-Dspring.profiles.active=test'
+          shouldRunAfter(tasks.named('test'))
+        }
+      }
+    }
+  }
+}
+
+// check（build）タスクで機能テストも実行
+tasks.named('check') {
+  dependsOn testing.suites.featureTest
+}
+```
+
+- `useJUnitJupiter()` を引数なしで記述すると Gradle 既定のバージョンが使われるため、 Spring Boot の BOM が管理する `junit-jupiter.version` を指定します。
+- 依存関係の固定（ `LockMode.STRICT` ）を利用している場合、 `featureTest` 用の設定が追加されるため、 `./gradlew allDependencies --write-locks` で `gradle.lockfile` を更新します。
+
+実行方法は次のとおりです。
+
+| 目的 | コマンド |
+| --- | --- |
+| 単体テストのみ | `./gradlew test` |
+| 機能テストのみ | `./gradlew featureTest` |
+| 両方 | `./gradlew check` （ `build` でも実行される） |
+
+!!! info "テストレポートの集計"
+    単体テストと機能テストの結果は、それぞれ `build/test-results/test` と `build/test-results/featureTest` に出力されます。
+    CI でテスト結果を集計する場合は、両方のディレクトリを対象にしてください。
+
 ### フォーマッターの設定 {#formatter-settings}
 
 ソースコードのフォーマットの一貫性を保つために、統合開発環境で提供されている自動フォーマット機能を利用します。

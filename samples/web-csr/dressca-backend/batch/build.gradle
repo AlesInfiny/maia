@@ -27,6 +27,34 @@ dependencies {
 	testImplementation supportDependencies.archunit_junit6
 }
 
+// 機能テスト用のテストスイート（src/featureTest）
+// https://docs.gradle.org/current/userguide/jvm_test_suite_plugin.html
+testing {
+	suites {
+		featureTest(JvmTestSuite) {
+			// JUnit のバージョンは Spring Boot の BOM に合わせる
+			useJUnitJupiter(dependencyManagement.importedProperties['junit-jupiter.version'])
+			dependencies {
+				implementation project()
+				implementation supportDependencies.spring_boot_starter_batch_jdbc_test
+				implementation supportDependencies.h2database
+			}
+			targets.configureEach {
+				testTask.configure {
+					// 単体テストと同じく test プロファイルで実行
+					jvmArgs '-Dspring.profiles.active=test'
+					shouldRunAfter(tasks.named('test'))
+				}
+			}
+		}
+	}
+}
+
+// check（build）タスクで機能テストも実行
+tasks.named('check') {
+	dependsOn testing.suites.featureTest
+}
+
 configurations {
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
