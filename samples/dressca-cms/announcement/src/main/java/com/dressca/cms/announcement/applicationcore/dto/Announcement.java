@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * お知らせメッセージの DTO クラスです。
- */
+/** お知らせメッセージの DTO クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,48 +16,30 @@ public class Announcement implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * お知らせメッセージ ID。
-   */
+  /** お知らせメッセージ ID。 */
   private UUID id;
 
-  /**
-   * カテゴリー。
-   */
+  /** カテゴリー。 */
   private String category;
 
-  /**
-   * 掲載開始日時。
-   */
+  /** 掲載開始日時。 */
   private OffsetDateTime postDateTime;
 
-  /**
-   * 掲載終了日時。
-   */
+  /** 掲載終了日時。 */
   private OffsetDateTime expireDateTime;
 
-  /**
-   * 表示優先度。
-   */
+  /** 表示優先度。 */
   private Integer displayPriority;
 
-  /**
-   * レコード作成日時。
-   */
+  /** レコード作成日時。 */
   private OffsetDateTime createdAt;
 
-  /**
-   * レコード更新日時。
-   */
+  /** レコード更新日時。 */
   private OffsetDateTime changedAt;
 
-  /**
-   * 論理削除フラグ。
-   */
+  /** 論理削除フラグ。 */
   private Boolean isDeleted;
 
-  /**
-   * お知らせコンテンツのリスト。
-   */
+  /** お知らせコンテンツのリスト。 */
   private List<AnnouncementContent> contents;
 }

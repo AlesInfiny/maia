@@ -13,9 +13,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * AnnouncementRepository を実装する MyBatis リポジトリクラスです。
- */
+/** AnnouncementRepository を実装する MyBatis リポジトリクラスです。 */
 @Repository
 @RequiredArgsConstructor
 public class MyBatisAnnouncementRepository implements AnnouncementRepository {
@@ -65,8 +63,8 @@ public class MyBatisAnnouncementRepository implements AnnouncementRepository {
       return Optional.empty();
     }
     announcement.setIsDeleted(true);
-    announcementMapper
-        .updateByPrimaryKey(AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
+    announcementMapper.updateByPrimaryKey(
+        AnnouncementEntityTranslator.toAnnouncementEntity(announcement));
     return Optional.ofNullable(announcement);
   }
 }

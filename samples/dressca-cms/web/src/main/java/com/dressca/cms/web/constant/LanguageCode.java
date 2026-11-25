@@ -1,15 +1,13 @@
 package com.dressca.cms.web.constant;
 
+import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import com.dressca.cms.systemcommon.constant.LanguageCodeConstants;
 import lombok.Getter;
 
-/**
- * 言語コードの選択肢です。
- */
+/** 言語コードの選択肢です。 */
 @Getter
 public enum LanguageCode {
 
@@ -25,12 +23,11 @@ public enum LanguageCode {
   private final String value;
   private final String label;
 
-  /**
-   * 言語コードの値とラベルのマップです。
-   */
+  /** 言語コードの値とラベルのマップです。 */
   public static final Map<String, String> LANGUAGE_CODE_LABEL_MAP =
-      Collections.unmodifiableMap(Stream.of(LanguageCode.values())
-          .collect(Collectors.toMap(LanguageCode::getValue, LanguageCode::getLabel)));
+      Collections.unmodifiableMap(
+          Stream.of(LanguageCode.values())
+              .collect(Collectors.toMap(LanguageCode::getValue, LanguageCode::getLabel)));
 
   /**
    * 値とラベルを指定して {@link LanguageCode} を初期化します。

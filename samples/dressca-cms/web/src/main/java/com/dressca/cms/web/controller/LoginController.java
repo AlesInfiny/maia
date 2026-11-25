@@ -1,5 +1,6 @@
 package com.dressca.cms.web.controller;
 
+import com.dressca.cms.web.models.base.LoginViewModel;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,11 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.dressca.cms.web.models.base.LoginViewModel;
 
-/**
- * ログイン画面のコントローラー。
- */
+/** ログイン画面のコントローラー。 */
 @Controller
 @RequestMapping("/account")
 @RequiredArgsConstructor
@@ -61,10 +59,12 @@ public class LoginController {
    * @return リダイレクト先の URL またはログイン画面のビュー名。
    */
   @PostMapping("/login")
-  public String login(@Validated @ModelAttribute("viewModel") LoginViewModel viewModel,
+  public String login(
+      @Validated @ModelAttribute("viewModel") LoginViewModel viewModel,
       BindingResult bindingResult,
       @RequestParam(name = "returnUrl", required = false) String returnUrl,
-      HttpServletRequest request, Model model) {
+      HttpServletRequest request,
+      Model model) {
 
     if (bindingResult.hasErrors()) {
       return "authentication/login";
@@ -80,8 +80,11 @@ public class LoginController {
       SecurityContextHolder.setContext(context);
       securityContextRepository.saveContext(context, request, null);
 
-      if (returnUrl != null && !returnUrl.isEmpty() && returnUrl.startsWith("/")
-          && !returnUrl.startsWith("//") && !returnUrl.contains("\n")
+      if (returnUrl != null
+          && !returnUrl.isEmpty()
+          && returnUrl.startsWith("/")
+          && !returnUrl.startsWith("//")
+          && !returnUrl.contains("\n")
           && !returnUrl.contains("\r")) {
         return "redirect:" + returnUrl;
       }

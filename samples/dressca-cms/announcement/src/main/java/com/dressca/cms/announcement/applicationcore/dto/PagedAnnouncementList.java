@@ -5,36 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * ページングされたお知らせメッセージリストを表現するクラスです。
- */
+/** ページングされたお知らせメッセージリストを表現するクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagedAnnouncementList {
 
-  /**
-   * ページ番号。
-   */
+  /** ページ番号。 */
   private Integer pageNumber;
 
-  /**
-   * ページサイズ。
-   */
+  /** ページサイズ。 */
   private Integer pageSize;
 
-  /**
-   * お知らせメッセージの総件数。
-   */
+  /** お知らせメッセージの総件数。 */
   private Long totalCount;
 
-  /**
-   * お知らせメッセージのリスト。
-   */
+  /** お知らせメッセージのリスト。 */
   private List<Announcement> announcements;
 
-  /**
-   * 最後のページ番号。
-   */
+  /** 最後のページ番号。 */
   private Integer lastPageNumber;
 }

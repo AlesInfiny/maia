@@ -1,12 +1,10 @@
 package com.dressca.cms.systemcommon.util;
 
-import java.util.UUID;
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
+import java.util.UUID;
 
-/**
- * UUID v7 を生成するユーティリティクラスです。
- */
+/** UUID v7 を生成するユーティリティクラスです。 */
 public class UuidGenerator {
 
   private static final TimeBasedEpochGenerator uuidGenerator = Generators.timeBasedEpochGenerator();

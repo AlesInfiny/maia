@@ -11,7 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 /**
  * {@link LoginUrlAuthenticationEntryPoint} を継承するクラス。
  *
- * <p>未認証ユーザーが認証が必要な画面にアクセスした場合に、ログイン画面にリダイレクトする前にクエリ文字列に returnUrl を追加します。</p>
+ * <p>未認証ユーザーが認証が必要な画面にアクセスした場合に、ログイン画面にリダイレクトする前にクエリ文字列に returnUrl を追加します。
  */
 public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
@@ -25,8 +25,11 @@ public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEnt
   }
 
   @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response,
-      AuthenticationException authException) throws IOException, ServletException {
+  public void commence(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AuthenticationException authException)
+      throws IOException, ServletException {
 
     String requestUri = request.getRequestURI();
     String queryString = request.getQueryString();
@@ -36,8 +39,11 @@ public class ReturnUrlQueryAppendingEntryPoint extends LoginUrlAuthenticationEnt
       returnUrl = requestUri + "?" + queryString;
     }
 
-    String redirectUrl = UriComponentsBuilder.fromPath(getLoginFormUrl())
-        .queryParam("returnUrl", returnUrl).build().toUriString();
+    String redirectUrl =
+        UriComponentsBuilder.fromPath(getLoginFormUrl())
+            .queryParam("returnUrl", returnUrl)
+            .build()
+            .toUriString();
 
     response.sendRedirect(redirectUrl);
   }

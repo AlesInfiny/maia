@@ -13,9 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-/**
- * Spring Security の構成クラスです。
- */
+/** Spring Security の構成クラスです。 */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -36,7 +34,7 @@ public class SecurityConfig {
   /**
    * 認証処理を行う Bean を返します。
    *
-   * <p>認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を使用します。</p>
+   * <p>認証処理はデータベースのアカウント・パスワード情報に基づいて行うため、{@link DaoAuthenticationProvider} を使用します。
    *
    * @param authenticationConfiguration 認証設定。
    * @return 認証マネージャー。
@@ -69,20 +67,30 @@ public class SecurityConfig {
    */
   @Bean
   public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-    http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
-        .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
+    http.headers(
+            headers ->
+                headers
+                    .frameOptions(frameOptions -> frameOptions.deny())
+                    .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
         .authenticationProvider(authenticationProvider())
-        .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**")
-            .permitAll().anyRequest().authenticated())
+        .authorizeHttpRequests(
+            authorize ->
+                authorize
+                    .requestMatchers(
+                        "/account/login", "/bootstrap/**", "/css/**", "/scss/**", "/images/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
         .formLogin(form -> form.loginPage("/account/login").permitAll().disable())
         // ログアウト機能を有効にする場合は、以下のコメントアウトを外してください。
         // .logout(logout -> logout
         // .logoutUrl("/account/logout")
         // .logoutSuccessUrl("/account/login")
         // .permitAll())
-        .exceptionHandling(exception -> exception
-            .authenticationEntryPoint(new ReturnUrlQueryAppendingEntryPoint("/account/login")));
+        .exceptionHandling(
+            exception ->
+                exception.authenticationEntryPoint(
+                    new ReturnUrlQueryAppendingEntryPoint("/account/login")));
 
     return http.build();
   }

@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-/**
- * お知らせメッセージ編集画面のセッションオブジェクトです。
- */
+/** お知らせメッセージ編集画面のセッションオブジェクトです。 */
 @Component
 @SessionScope
 @Data
@@ -23,19 +21,13 @@ public class AnnouncementEditSession implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * お知らせメッセージのエンティティ。
-   */
+  /** お知らせメッセージのエンティティ。 */
   private Announcement announcement;
 
-  /**
-   * お知らせメッセージ履歴のリスト。
-   */
+  /** お知らせメッセージ履歴のリスト。 */
   private List<AnnouncementHistory> histories = new ArrayList<>();
 
-  /**
-   * セッションをクリアします。
-   */
+  /** セッションをクリアします。 */
   public void clear() {
     this.announcement = null;
     this.histories = new ArrayList<>();

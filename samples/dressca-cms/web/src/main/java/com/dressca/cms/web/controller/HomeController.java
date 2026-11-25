@@ -3,9 +3,7 @@ package com.dressca.cms.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * トップ画面のコントローラー。
- */
+/** トップ画面のコントローラー。 */
 @Controller
 public class HomeController {
 

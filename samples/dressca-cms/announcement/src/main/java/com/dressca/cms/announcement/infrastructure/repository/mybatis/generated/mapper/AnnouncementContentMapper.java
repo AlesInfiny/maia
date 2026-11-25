@@ -10,36 +10,40 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AnnouncementContentMapper {
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    long countByExample(AnnouncementContentEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  long countByExample(AnnouncementContentEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByExample(AnnouncementContentEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int deleteByExample(AnnouncementContentEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int deleteByPrimaryKey(UUID id);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int deleteByPrimaryKey(UUID id);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int insert(AnnouncementContentEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int insert(AnnouncementContentEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int insertSelective(AnnouncementContentEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int insertSelective(AnnouncementContentEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    List<AnnouncementContentEntity> selectByExample(AnnouncementContentEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  List<AnnouncementContentEntity> selectByExample(AnnouncementContentEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    AnnouncementContentEntity selectByPrimaryKey(UUID id);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  AnnouncementContentEntity selectByPrimaryKey(UUID id);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByExampleSelective(@Param("row") AnnouncementContentEntity row, @Param("example") AnnouncementContentEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByExampleSelective(
+      @Param("row") AnnouncementContentEntity row,
+      @Param("example") AnnouncementContentEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByExample(@Param("row") AnnouncementContentEntity row, @Param("example") AnnouncementContentEntityExample example);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByExample(
+      @Param("row") AnnouncementContentEntity row,
+      @Param("example") AnnouncementContentEntityExample example);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByPrimaryKeySelective(AnnouncementContentEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByPrimaryKeySelective(AnnouncementContentEntity row);
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    int updateByPrimaryKey(AnnouncementContentEntity row);
+  @Generated("org.mybatis.generator.api.MyBatisGenerator")
+  int updateByPrimaryKey(AnnouncementContentEntity row);
 }

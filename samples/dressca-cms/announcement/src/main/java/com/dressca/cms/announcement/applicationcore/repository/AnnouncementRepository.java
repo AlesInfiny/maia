@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * お知らせメッセージのリポジトリインターフェースです。
- */
+/** お知らせメッセージのリポジトリインターフェースです。 */
 public interface AnnouncementRepository {
 
   /**

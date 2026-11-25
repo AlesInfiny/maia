@@ -1,6 +1,5 @@
 package com.dressca.cms.announcement.infrastructure.translator;
 
-import org.springframework.beans.BeanUtils;
 import com.dressca.cms.announcement.applicationcore.dto.Announcement;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContent;
 import com.dressca.cms.announcement.applicationcore.dto.AnnouncementContentHistory;
@@ -9,10 +8,9 @@ import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity.AnnouncementContentHistoryEntity;
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity.AnnouncementEntity;
 import com.dressca.cms.announcement.infrastructure.repository.mybatis.generated.entity.AnnouncementHistoryEntity;
+import org.springframework.beans.BeanUtils;
 
-/**
- * お知らせメッセージのエンティティと DTO を相互変換するトランスレータークラスです。
- */
+/** お知らせメッセージのエンティティと DTO を相互変換するトランスレータークラスです。 */
 public final class AnnouncementEntityTranslator {
 
   private AnnouncementEntityTranslator() {

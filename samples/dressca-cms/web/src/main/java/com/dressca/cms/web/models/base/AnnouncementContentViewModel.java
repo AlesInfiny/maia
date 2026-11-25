@@ -12,71 +12,79 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
 
-/**
- * お知らせコンテンツのビューモデルクラスです。
- */
+/** お知らせコンテンツのビューモデルクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class AnnouncementContentViewModel {
 
-  /**
-   * お知らせコンテンツ ID。
-   */
+  /** お知らせコンテンツ ID。 */
   private UUID id;
 
-  /**
-   * お知らせメッセージ ID。
-   */
+  /** お知らせメッセージ ID。 */
   private UUID announcementId;
 
-  /**
-   * 言語コード。
-   */
-  @NotBlank(groups = AnnouncementValidationGroup.Store.class,
+  /** 言語コード。 */
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.languageCodeIsRequired}")
-  @NotBlank(groups = AnnouncementValidationGroup.Update.class,
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.languageCodeIsRequired}")
   private String languageCode;
 
-  /**
-   * タイトル。
-   */
-  @NotBlank(groups = AnnouncementValidationGroup.Store.class,
+  /** タイトル。 */
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.titleIsRequired}")
-  @NotBlank(groups = AnnouncementValidationGroup.Update.class,
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.titleIsRequired}")
-  @Size(max = 256, groups = AnnouncementValidationGroup.Store.class,
+  @Size(
+      max = 256,
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.titleTooLong}")
-  @Size(max = 256, groups = AnnouncementValidationGroup.Update.class,
+  @Size(
+      max = 256,
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.titleTooLong}")
   private String title;
 
-  /**
-   * 表示メッセージ。
-   */
-  @NotBlank(groups = AnnouncementValidationGroup.Store.class,
+  /** 表示メッセージ。 */
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.messageIsRequired}")
-  @NotBlank(groups = AnnouncementValidationGroup.Update.class,
+  @NotBlank(
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.messageIsRequired}")
-  @Size(max = 512, groups = AnnouncementValidationGroup.Store.class,
+  @Size(
+      max = 512,
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.messageTooLong}")
-  @Size(max = 512, groups = AnnouncementValidationGroup.Update.class,
+  @Size(
+      max = 512,
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.messageTooLong}")
   private String message;
 
-  /**
-   * リンク先 URL。
-   */
-  @Size(max = 1024, groups = AnnouncementValidationGroup.Store.class,
+  /** リンク先 URL。 */
+  @Size(
+      max = 1024,
+      groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.linkUrlTooLong}")
-  @Size(max = 1024, groups = AnnouncementValidationGroup.Update.class,
+  @Size(
+      max = 1024,
+      groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlTooLong}")
-  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
+  @URL(
+      regexp = "^(?:https?://.*)?$",
+      flags = Pattern.Flag.CASE_INSENSITIVE,
       groups = AnnouncementValidationGroup.Store.class,
       message = "{announcement.create.linkUrlIsInvalid}")
-  @URL(regexp = "^(?:https?://.*)?$", flags = Pattern.Flag.CASE_INSENSITIVE,
+  @URL(
+      regexp = "^(?:https?://.*)?$",
+      flags = Pattern.Flag.CASE_INSENSITIVE,
       groups = AnnouncementValidationGroup.Update.class,
       message = "{announcement.edit.linkUrlIsInvalid}")
   private String linkUrl;

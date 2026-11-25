@@ -1,22 +1,18 @@
 package com.dressca.cms.announcement.applicationcore.exception;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import com.dressca.cms.announcement.applicationcore.constant.ExceptionIdConstants;
 import com.dressca.cms.systemcommon.exception.LogicException;
 import com.dressca.cms.systemcommon.exception.ValidationError;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
-/**
- * 非宣言的なバリデーションエラーが発生したことを表す例外です。
- */
+/** 非宣言的なバリデーションエラーが発生したことを表す例外です。 */
 @Getter
 public class AnnouncementValidationException extends LogicException {
 
-  /**
-   * エラーメッセージのリスト。
-   */
+  /** エラーメッセージのリスト。 */
   private final List<ValidationError> validationErrors = new ArrayList<>();
 
   /**
@@ -25,7 +21,9 @@ public class AnnouncementValidationException extends LogicException {
    * @param validationErrors バリデーションエラーのリスト。
    */
   public AnnouncementValidationException(List<ValidationError> validationErrors) {
-    super(null, ExceptionIdConstants.E_VALIDATION_ERROR,
+    super(
+        null,
+        ExceptionIdConstants.E_VALIDATION_ERROR,
         new String[] {joinFieldNames(validationErrors)});
     this.validationErrors.addAll(validationErrors);
   }
@@ -40,8 +38,10 @@ public class AnnouncementValidationException extends LogicException {
     if (errors == null || errors.isEmpty()) {
       return "";
     }
-    return errors.stream().map(ValidationError::getFieldName)
-        .filter(name -> name != null && !name.isBlank()).distinct()
+    return errors.stream()
+        .map(ValidationError::getFieldName)
+        .filter(name -> name != null && !name.isBlank())
+        .distinct()
         .collect(Collectors.joining(", "));
   }
 }

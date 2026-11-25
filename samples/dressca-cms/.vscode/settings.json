@@ -6,14 +6,14 @@
   "java.checkstyle.properties": {
     "config_loc": "${workspaceFolder}/config/checkstyle"
   },
-  "java.format.settings.url": "./config/formatter/eclipse-formatter.xml",
+  "java.format.settings.google.version": "1.36.1",
   "java.test.config": {
     "vmArgs": ["-Dspring.profiles.active=test"]
   },
   "[java]": {
+    "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true,
     "editor.detectIndentation": false
   },
   "[html]": {

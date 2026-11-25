@@ -9,28 +9,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * お知らせメッセージ編集画面のビューモデルクラスです。
- */
+/** お知らせメッセージ編集画面のビューモデルクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementEditViewModel {
 
-  /**
-   * お知らせメッセージのビューモデル。
-   */
-  @Valid
-  private AnnouncementViewModel announcement = new AnnouncementViewModel();
+  /** お知らせメッセージのビューモデル。 */
+  @Valid private AnnouncementViewModel announcement = new AnnouncementViewModel();
 
-  /**
-   * お知らせコンテンツのビューモデル一覧。
-   */
-  @Valid
-  private List<AnnouncementContentViewModel> contents = new ArrayList<>();
+  /** お知らせコンテンツのビューモデル一覧。 */
+  @Valid private List<AnnouncementContentViewModel> contents = new ArrayList<>();
 
-  /**
-   * お知らせメッセージ履歴のリスト。
-   */
+  /** お知らせメッセージ履歴のリスト。 */
   private List<AnnouncementHistoryWithContentHistoriesViewModel> histories = new ArrayList<>();
 }

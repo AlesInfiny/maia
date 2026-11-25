@@ -4,9 +4,7 @@ import com.dressca.cms.announcement.applicationcore.dto.AnnouncementHistory;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * お知らせメッセージ履歴のリポジトリインターフェースです。
- */
+/** お知らせメッセージ履歴のリポジトリインターフェースです。 */
 public interface AnnouncementHistoryRepository {
 
   /**

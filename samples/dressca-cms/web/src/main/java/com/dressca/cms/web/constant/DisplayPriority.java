@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 
-/**
- * 表示優先度の選択肢です。
- */
+/** 表示優先度の選択肢です。 */
 @Getter
 public enum DisplayPriority {
 
@@ -24,12 +22,11 @@ public enum DisplayPriority {
   private final int value;
   private final String label;
 
-  /**
-   * 表示優先度の値とラベルのマップです。
-   */
+  /** 表示優先度の値とラベルのマップです。 */
   public static final Map<Integer, String> DISPLAY_PRIORITY_LABEL_MAP =
-      Collections.unmodifiableMap(Stream.of(DisplayPriority.values())
-          .collect(Collectors.toMap(DisplayPriority::getValue, DisplayPriority::getLabel)));
+      Collections.unmodifiableMap(
+          Stream.of(DisplayPriority.values())
+              .collect(Collectors.toMap(DisplayPriority::getValue, DisplayPriority::getLabel)));
 
   /**
    * 値とラベルを指定して {@link DisplayPriority} を初期化します。

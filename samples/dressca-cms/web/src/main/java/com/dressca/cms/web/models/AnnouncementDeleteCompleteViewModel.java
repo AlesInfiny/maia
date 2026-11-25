@@ -8,26 +8,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * お知らせメッセージ削除完了画面のビューモデルクラスです。
- */
+/** お知らせメッセージ削除完了画面のビューモデルクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementDeleteCompleteViewModel {
 
-  /**
-   * お知らせメッセージのビューモデル。
-   */
+  /** お知らせメッセージのビューモデル。 */
   private AnnouncementViewModel announcement = new AnnouncementViewModel();
 
-  /**
-   * お知らせコンテンツのビューモデル一覧。
-   */
+  /** お知らせコンテンツのビューモデル一覧。 */
   private List<AnnouncementContentViewModel> contents = new ArrayList<>();
 
-  /**
-   * お知らせメッセージ履歴のリスト。
-   */
+  /** お知らせメッセージ履歴のリスト。 */
   private List<AnnouncementHistoryWithContentHistoriesViewModel> histories = new ArrayList<>();
 }

@@ -53,9 +53,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- * お知らせメッセージ管理画面のコントローラークラスです。
- */
+/** お知らせメッセージ管理画面のコントローラークラスです。 */
 @Controller
 @RequestMapping("/announcements")
 @RequiredArgsConstructor
@@ -75,8 +73,10 @@ public class AnnouncementController {
    * @return ビュー名。
    */
   @GetMapping
-  public String index(@RequestParam(name = "pageNumber", required = false) String pageNumber,
-      @RequestParam(name = "pageSize", required = false) String pageSize, Model model) {
+  public String index(
+      @RequestParam(name = "pageNumber", required = false) String pageNumber,
+      @RequestParam(name = "pageSize", required = false) String pageSize,
+      Model model) {
 
     // クエリ文字列から値を取得し、数値以外の値は未指定にする
     Integer pageNumberInt = parseInteger(pageNumber);
@@ -86,13 +86,18 @@ public class AnnouncementController {
     PagedAnnouncementList pagedList =
         announcementApplicationService.getPagedAnnouncementList(pageNumberInt, pageSizeInt);
     // ビューモデルに変換
-    List<AnnouncementWithContentsViewModel> announcementViewModels = AnnouncementViewModelTranslator
-        .toAnnouncementWithContentsViewModels(pagedList.getAnnouncements());
+    List<AnnouncementWithContentsViewModel> announcementViewModels =
+        AnnouncementViewModelTranslator.toAnnouncementWithContentsViewModels(
+            pagedList.getAnnouncements());
 
     // お知らせメッセージ管理画面のビューモデルを生成
     AnnouncementListViewModel viewModel =
-        new AnnouncementListViewModel(pagedList.getPageNumber(), pagedList.getPageSize(),
-            pagedList.getTotalCount(), announcementViewModels, pagedList.getLastPageNumber());
+        new AnnouncementListViewModel(
+            pagedList.getPageNumber(),
+            pagedList.getPageSize(),
+            pagedList.getTotalCount(),
+            announcementViewModels,
+            pagedList.getLastPageNumber());
 
     // モデルに属性を格納
     model.addAttribute("viewModel", viewModel);
@@ -115,8 +120,14 @@ public class AnnouncementController {
       final Announcement announcement = new Announcement();
       announcement.setId(UuidGenerator.generate());
       announcement.setDisplayPriority(DisplayPriority.MEDIUM.getValue());
-      AnnouncementContent jaContent = new AnnouncementContent(UuidGenerator.generate(),
-          announcement.getId(), LanguageCodeConstants.LOCALE_JA.getLanguage(), "", "", "");
+      AnnouncementContent jaContent =
+          new AnnouncementContent(
+              UuidGenerator.generate(),
+              announcement.getId(),
+              LanguageCodeConstants.LOCALE_JA.getLanguage(),
+              "",
+              "",
+              "");
       announcement.setContents(new ArrayList<>(List.of(jaContent)));
       announcementCreateSession.setAnnouncement(announcement);
     }
@@ -149,8 +160,11 @@ public class AnnouncementController {
    */
   @PostMapping("/create")
   public String store(
-      @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel,
-      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+      @Validated(AnnouncementValidationGroup.Store.class) @ModelAttribute("viewModel")
+          AnnouncementCreateViewModel viewModel,
+      BindingResult bindingResult,
+      Model model,
+      @AuthenticationPrincipal UserDetails userDetails) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -161,13 +175,16 @@ public class AnnouncementController {
     }
     // 掲載終了日時のチェック
     if (viewModel.getAnnouncement().getExpireDate() != null) {
-      OffsetDateTime postDateTime = AnnouncementViewModelTranslator.combineDateTime(
-          viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
-      OffsetDateTime expireDateTime = AnnouncementViewModelTranslator.combineDateTime(
-          viewModel.getAnnouncement().getExpireDate(), viewModel.getAnnouncement().getExpireTime());
+      OffsetDateTime postDateTime =
+          AnnouncementViewModelTranslator.combineDateTime(
+              viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
+      OffsetDateTime expireDateTime =
+          AnnouncementViewModelTranslator.combineDateTime(
+              viewModel.getAnnouncement().getExpireDate(),
+              viewModel.getAnnouncement().getExpireTime());
       if (expireDateTime.isBefore(postDateTime)) {
-        bindingResult.rejectValue("announcement.expireDate",
-            "announcement.create.expireDateBeforePostDate");
+        bindingResult.rejectValue(
+            "announcement.expireDate", "announcement.create.expireDateBeforePostDate");
       }
     }
     // 宣言的バリデーションでエラーがある場合は画面を再表示
@@ -177,13 +194,15 @@ public class AnnouncementController {
       return "announcement/create";
     }
 
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
     try {
 
       // アプリケーションサービスを呼び出してお知らせメッセージを登録
-      UUID announcementId = announcementApplicationService.addAnnouncementAndHistory(announcement,
-          userDetails.getUsername());
+      UUID announcementId =
+          announcementApplicationService.addAnnouncementAndHistory(
+              announcement, userDetails.getUsername());
 
       // セッションをクリア
       announcementCreateSession.clear();
@@ -219,8 +238,9 @@ public class AnnouncementController {
       @ModelAttribute("viewModel") AnnouncementCreateViewModel viewModel) {
 
     // ビューモデルからDTOに変換
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
 
     // 登録済みの言語コードを取得
     List<String> existingLanguageCodes = new ArrayList<>();
@@ -235,8 +255,9 @@ public class AnnouncementController {
 
     // 未登録の最も優先度の高い言語コードを追加
     String newLanguageCode = getNextPriorityLanguageCode(existingLanguageCodes);
-    AnnouncementContent newContent = new AnnouncementContent(UuidGenerator.generate(),
-        announcement.getId(), newLanguageCode, "", "", "");
+    AnnouncementContent newContent =
+        new AnnouncementContent(
+            UuidGenerator.generate(), announcement.getId(), newLanguageCode, "", "", "");
     contents.add(newContent);
 
     // セッションに保存
@@ -258,8 +279,9 @@ public class AnnouncementController {
       @RequestParam(name = "deleteLanguageFromCreate") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
 
     // 指定されたお知らせコンテンツ ID のコンテンツを削除
     List<AnnouncementContent> contents = announcement.getContents();
@@ -303,12 +325,14 @@ public class AnnouncementController {
       List<AnnouncementContentViewModel> contentViewModels =
           AnnouncementViewModelTranslator.toContentViewModels(contents);
 
-      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(Collectors.toList());
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels =
+          histories.stream()
+              .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+              .collect(Collectors.toList());
 
-      AnnouncementEditViewModel viewModel = new AnnouncementEditViewModel(announcementViewModel,
-          contentViewModels, historyViewModels);
+      AnnouncementEditViewModel viewModel =
+          new AnnouncementEditViewModel(
+              announcementViewModel, contentViewModels, historyViewModels);
 
       model.addAttribute("viewModel", viewModel);
       model.addAttribute("displayPriority", DisplayPriority.values());
@@ -335,9 +359,13 @@ public class AnnouncementController {
    * @return ビュー名またはリダイレクト先。
    */
   @PostMapping("{announcementId}/edit")
-  public String update(@PathVariable("announcementId") UUID announcementId,
-      @Validated(AnnouncementValidationGroup.Update.class) @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
-      BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+  public String update(
+      @PathVariable("announcementId") UUID announcementId,
+      @Validated(AnnouncementValidationGroup.Update.class) @ModelAttribute("viewModel")
+          AnnouncementEditViewModel viewModel,
+      BindingResult bindingResult,
+      Model model,
+      @AuthenticationPrincipal UserDetails userDetails) {
 
     if (viewModel.getAnnouncement().getPostTime() == null) {
       viewModel.getAnnouncement().setPostTime(LocalTime.of(0, 0, 0));
@@ -348,13 +376,16 @@ public class AnnouncementController {
     }
     // 掲載終了日時のチェック
     if (viewModel.getAnnouncement().getExpireDate() != null) {
-      OffsetDateTime postDateTime = AnnouncementViewModelTranslator.combineDateTime(
-          viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
-      OffsetDateTime expireDateTime = AnnouncementViewModelTranslator.combineDateTime(
-          viewModel.getAnnouncement().getExpireDate(), viewModel.getAnnouncement().getExpireTime());
+      OffsetDateTime postDateTime =
+          AnnouncementViewModelTranslator.combineDateTime(
+              viewModel.getAnnouncement().getPostDate(), viewModel.getAnnouncement().getPostTime());
+      OffsetDateTime expireDateTime =
+          AnnouncementViewModelTranslator.combineDateTime(
+              viewModel.getAnnouncement().getExpireDate(),
+              viewModel.getAnnouncement().getExpireTime());
       if (expireDateTime.isBefore(postDateTime)) {
-        bindingResult.rejectValue("announcement.expireDate",
-            "announcement.edit.expireDateBeforePostDate");
+        bindingResult.rejectValue(
+            "announcement.expireDate", "announcement.edit.expireDateBeforePostDate");
       }
     }
 
@@ -362,9 +393,10 @@ public class AnnouncementController {
     if (bindingResult.hasErrors()) {
       // セッションから履歴を取得してviewModelに設定
       List<AnnouncementHistory> histories = announcementEditSession.getHistories();
-      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(Collectors.toList());
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels =
+          histories.stream()
+              .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+              .collect(Collectors.toList());
       viewModel.setHistories(historyViewModels);
       model.addAttribute("viewModel", viewModel);
       model.addAttribute("displayPriority", DisplayPriority.values());
@@ -375,8 +407,9 @@ public class AnnouncementController {
       return "announcement/edit";
     }
 
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを更新
       announcementApplicationService.updateAnnouncement(announcement, userDetails.getUsername());
@@ -400,9 +433,10 @@ public class AnnouncementController {
       }
       // セッションから履歴を取得してviewModelに設定
       List<AnnouncementHistory> histories = announcementEditSession.getHistories();
-      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(Collectors.toList());
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels =
+          histories.stream()
+              .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+              .collect(Collectors.toList());
       viewModel.setHistories(historyViewModels);
       model.addAttribute("viewModel", viewModel);
       model.addAttribute("displayPriority", DisplayPriority.values());
@@ -422,12 +456,14 @@ public class AnnouncementController {
    * @return リダイレクト先。
    */
   @PostMapping(value = "{announcementId}/edit", params = "addLanguageToEdit")
-  public String addLanguageToEdit(@PathVariable("announcementId") UUID announcementId,
+  public String addLanguageToEdit(
+      @PathVariable("announcementId") UUID announcementId,
       @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel) {
 
     // ビューモデルからDTOに変換
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
 
     // 登録済みの言語コードを取得
     List<String> existingLanguageCodes = new ArrayList<>();
@@ -439,8 +475,9 @@ public class AnnouncementController {
 
     // 未登録の最も優先度の高い言語コードを追加
     String newLanguageCode = getNextPriorityLanguageCode(existingLanguageCodes);
-    AnnouncementContent newContent = new AnnouncementContent(UuidGenerator.generate(),
-        announcement.getId(), newLanguageCode, "", "", "");
+    AnnouncementContent newContent =
+        new AnnouncementContent(
+            UuidGenerator.generate(), announcement.getId(), newLanguageCode, "", "", "");
     announcement.getContents().add(newContent);
 
     // セッションに保存
@@ -458,13 +495,15 @@ public class AnnouncementController {
    * @return リダイレクト先。
    */
   @PostMapping(value = "{announcementId}/edit", params = "deleteLanguageFromEdit")
-  public String deleteLanguageFromEdit(@PathVariable("announcementId") UUID announcementId,
+  public String deleteLanguageFromEdit(
+      @PathVariable("announcementId") UUID announcementId,
       @ModelAttribute("viewModel") AnnouncementEditViewModel viewModel,
       @RequestParam(name = "deleteLanguageFromEdit") UUID announcementContentId) {
 
     // ビューモデルからDTOに変換
-    Announcement announcement = AnnouncementViewModelTranslator
-        .toAnnouncementDto(viewModel.getAnnouncement(), viewModel.getContents());
+    Announcement announcement =
+        AnnouncementViewModelTranslator.toAnnouncementDto(
+            viewModel.getAnnouncement(), viewModel.getContents());
 
     // 指定された言語コードのコンテンツを削除
     if (announcement.getContents() != null) {
@@ -501,12 +540,14 @@ public class AnnouncementController {
       List<AnnouncementContentViewModel> contentViewModels =
           AnnouncementViewModelTranslator.toContentViewModels(contents);
 
-      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(Collectors.toList());
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels =
+          histories.stream()
+              .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+              .collect(Collectors.toList());
 
-      AnnouncementDeleteConfirmViewModel viewModel = new AnnouncementDeleteConfirmViewModel(
-          announcementViewModel, contentViewModels, historyViewModels);
+      AnnouncementDeleteConfirmViewModel viewModel =
+          new AnnouncementDeleteConfirmViewModel(
+              announcementViewModel, contentViewModels, historyViewModels);
 
       model.addAttribute("viewModel", viewModel);
       model.addAttribute("displayPriorityLabelMap", DisplayPriority.DISPLAY_PRIORITY_LABEL_MAP);
@@ -529,12 +570,15 @@ public class AnnouncementController {
    * @return リダイレクト先。
    */
   @PostMapping("{announcementId}/delete/confirm")
-  public String delete(@PathVariable("announcementId") UUID announcementId,
-      @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
+  public String delete(
+      @PathVariable("announcementId") UUID announcementId,
+      @AuthenticationPrincipal UserDetails userDetails,
+      RedirectAttributes redirectAttributes) {
     try {
       // アプリケーションサービスを呼び出してお知らせメッセージを削除
-      AnnouncementWithHistory deletedAnnouncementWithHistory = announcementApplicationService
-          .deleteAnnouncementAndRecordHistory(announcementId, userDetails.getUsername());
+      AnnouncementWithHistory deletedAnnouncementWithHistory =
+          announcementApplicationService.deleteAnnouncementAndRecordHistory(
+              announcementId, userDetails.getUsername());
 
       Announcement announcement = deletedAnnouncementWithHistory.getAnnouncement();
       List<AnnouncementHistory> histories = deletedAnnouncementWithHistory.getHistories();
@@ -544,12 +588,14 @@ public class AnnouncementController {
           AnnouncementViewModelTranslator.toAnnouncementViewModel(announcement);
       List<AnnouncementContentViewModel> contentViewModels =
           AnnouncementViewModelTranslator.toContentViewModels(contents);
-      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels = histories.stream()
-          .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
-          .collect(Collectors.toList());
+      List<AnnouncementHistoryWithContentHistoriesViewModel> historyViewModels =
+          histories.stream()
+              .map(AnnouncementViewModelTranslator::toHistoryWithContentHistoriesViewModel)
+              .collect(Collectors.toList());
 
-      AnnouncementDeleteCompleteViewModel viewModel = new AnnouncementDeleteCompleteViewModel(
-          announcementViewModel, contentViewModels, historyViewModels);
+      AnnouncementDeleteCompleteViewModel viewModel =
+          new AnnouncementDeleteCompleteViewModel(
+              announcementViewModel, contentViewModels, historyViewModels);
 
       redirectAttributes.addFlashAttribute("viewModel", viewModel);
 
@@ -610,8 +656,11 @@ public class AnnouncementController {
    * @return 未登録の最も優先度の高い言語コード。すべて登録済みの場合は日本語。
    */
   private String getNextPriorityLanguageCode(List<String> existingLanguageCodes) {
-    String[] languageCodes = LanguageCodeConstants.LANGUAGE_CODE_PRIORITY.entrySet().stream()
-        .sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey).toArray(String[]::new);
+    String[] languageCodes =
+        LanguageCodeConstants.LANGUAGE_CODE_PRIORITY.entrySet().stream()
+            .sorted(Map.Entry.comparingByValue())
+            .map(Map.Entry::getKey)
+            .toArray(String[]::new);
     for (String languageCode : languageCodes) {
       if (!existingLanguageCodes.contains(languageCode)) {
         return languageCode;
