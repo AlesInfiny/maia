@@ -1,5 +1,5 @@
 ---
-# cspell:ignore cooldown
+# cspell:ignore cooldown sudachi vitejs vitest
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -10,11 +10,19 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 10
     commit-message:
       prefix: "github-actions"
     labels:
       - "CI/CD"
       - "dependencies"
+    groups:
+      github-actions-packages:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -41,6 +49,27 @@ updates:
     labels:
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      textlint-packages:
+        patterns:
+          - "textlint"
+          - "textlint-*"
+          - "@textlint-*/*"
+          - "@textlint/*"
+          - "sudachi-synonyms-dictionary"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/samples/web-csr/dressca-frontend"
@@ -55,6 +84,76 @@ updates:
       - "target: Dressca"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+          - "stylelint"
+          - "stylelint-*"
+        update-types:
+          - "minor"
+          - "patch"
+      tailwind-packages:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "prettier-plugin-tailwindcss"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "@vueuse/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      validation-packages:
+        patterns:
+          - "vee-validate"
+          - "@vee-validate/*"
+          - "zod"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/web-csr/dressca-backend"
@@ -69,6 +168,33 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # Azure AD B2C
   - package-ecosystem: "npm"
@@ -84,6 +210,63 @@ updates:
       - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      msal-packages:
+        patterns:
+          - "@azure/msal-*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/azure-ad-b2c-sample/auth-backend"
@@ -98,6 +281,33 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "com.azure.spring:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # External ID for SPA
   - package-ecosystem: "npm"
@@ -113,6 +323,63 @@ updates:
       - "target: EntraID External ID"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      msal-packages:
+        patterns:
+          - "@azure/msal-*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/external-id-sample-for-spa/auth-backend"
@@ -127,6 +394,32 @@ updates:
       - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # Dressca CMS
   - package-ecosystem: "gradle"
@@ -142,6 +435,33 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
