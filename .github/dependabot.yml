@@ -1,5 +1,5 @@
 ---
-# cspell:ignore cooldown
+# cspell:ignore cooldown sudachi vitejs vitest
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -15,6 +15,13 @@ updates:
     labels:
       - "CI/CD"
       - "dependencies"
+    groups:
+      github-actions-packages:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -41,6 +48,22 @@ updates:
     labels:
       - "npm"
       - "dependencies"
+    groups:
+      textlint-packages:
+        patterns:
+          - "textlint"
+          - "textlint-*"
+          - "@textlint-*/*"
+          - "@textlint/*"
+          - "sudachi-synonyms-dictionary"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/samples/web-csr/dressca-frontend"
@@ -55,6 +78,69 @@ updates:
       - "target: Dressca"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+          - "stylelint"
+          - "stylelint-*"
+        update-types:
+          - "minor"
+          - "patch"
+      tailwind-packages:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "prettier-plugin-tailwindcss"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "@vueuse/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      validation-packages:
+        patterns:
+          - "vee-validate"
+          - "@vee-validate/*"
+          - "zod"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/web-csr/dressca-backend"
@@ -69,6 +155,14 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # Azure AD B2C
   - package-ecosystem: "npm"
@@ -84,6 +178,56 @@ updates:
       - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      msal-packages:
+        patterns:
+          - "@azure/msal-*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/azure-ad-b2c-sample/auth-backend"
@@ -98,6 +242,14 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # External ID for SPA
   - package-ecosystem: "npm"
@@ -113,6 +265,56 @@ updates:
       - "target: EntraID External ID"
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    groups:
+      lint-packages:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "@vue/eslint-config-*"
+          - "@vitest/eslint-plugin"
+          - "prettier"
+        update-types:
+          - "minor"
+          - "patch"
+      vite-packages:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vite-plugin-*"
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+      vue-packages:
+        patterns:
+          - "vue"
+          - "vue-*"
+          - "@vue/*"
+          - "pinia"
+          - "@pinia/*"
+        update-types:
+          - "minor"
+          - "patch"
+      msal-packages:
+        patterns:
+          - "@azure/msal-*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      prod-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "gradle"
     directory: "/samples/external-id-sample-for-spa/auth-backend"
@@ -127,6 +329,14 @@ updates:
       - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # Dressca CMS
   - package-ecosystem: "gradle"
@@ -142,6 +352,14 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
+    groups:
+      spring-packages:
+        patterns:
+          - "org.springframework*"
+          - "io.spring.dependency-management*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/samples/dressca-cms/web/src/main/resources/static/bootstrap"
