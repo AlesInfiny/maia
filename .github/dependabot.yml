@@ -10,6 +10,7 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 10
     commit-message:
       prefix: "github-actions"
     labels:
@@ -48,8 +49,9 @@ updates:
     labels:
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       textlint-packages:
         patterns:
@@ -82,8 +84,9 @@ updates:
       - "target: Dressca"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -165,8 +168,9 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       spring-packages:
         patterns:
@@ -174,6 +178,14 @@ updates:
           - "io.spring.dependency-management*"
           - "org.springdoc:*"
           - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
         update-types:
           - "minor"
           - "patch"
@@ -198,8 +210,9 @@ updates:
       - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -268,8 +281,9 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       spring-packages:
         patterns:
@@ -277,6 +291,14 @@ updates:
           - "io.spring.dependency-management*"
           - "org.springdoc:*"
           - "com.azure.spring:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
         update-types:
           - "minor"
           - "patch"
@@ -301,8 +323,9 @@ updates:
       - "target: EntraID External ID"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -371,14 +394,23 @@ updates:
       - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       spring-packages:
         patterns:
           - "org.springframework*"
           - "io.spring.dependency-management*"
           - "org.springdoc:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
         update-types:
           - "minor"
           - "patch"
@@ -403,8 +435,9 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
-    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
+    # 1 つの依存が複数のグループに該当する場合、ドキュメントでは先に書いたグループ、実装ではパターンがより具体的なグループに入る（dependabot/dependabot-core#14576）
+    # どちらでも同じ結果になるよう、具体的なグループを先に、patterns: ["*"] のグループを最後に置く
+    # patterns を省略したグループはワイルドカードより優先されるため、残りを拾うグループにも "*" を指定する
     groups:
       spring-packages:
         patterns:
@@ -412,6 +445,14 @@ updates:
           - "io.spring.dependency-management*"
           - "org.springdoc:*"
           - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependabot の更新 PR が gradle.lockfile を更新しないため、ほかの依存の更新を巻き込まないよう分ける
+      quality-tools:
+        patterns:
+          - "com.puppycrawl.tools:*"
+          - "org.jacoco:*"
         update-types:
           - "minor"
           - "patch"
