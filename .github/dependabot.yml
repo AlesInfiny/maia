@@ -90,6 +90,7 @@ updates:
           - "eslint"
           - "eslint-*"
           - "@eslint/*"
+          - "typescript"
           - "typescript-eslint"
           - "@vue/eslint-config-*"
           - "@vitest/eslint-plugin"
@@ -164,11 +165,21 @@ updates:
       - "target: Dressca"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
     groups:
       spring-packages:
         patterns:
           - "org.springframework*"
           - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -195,6 +206,7 @@ updates:
           - "eslint"
           - "eslint-*"
           - "@eslint/*"
+          - "typescript"
           - "typescript-eslint"
           - "@vue/eslint-config-*"
           - "@vitest/eslint-plugin"
@@ -256,11 +268,21 @@ updates:
       - "target: Azure AD B2C Auth"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
     groups:
       spring-packages:
         patterns:
           - "org.springframework*"
           - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "com.azure.spring:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -287,6 +309,7 @@ updates:
           - "eslint"
           - "eslint-*"
           - "@eslint/*"
+          - "typescript"
           - "typescript-eslint"
           - "@vue/eslint-config-*"
           - "@vitest/eslint-plugin"
@@ -348,11 +371,20 @@ updates:
       - "target: EntraID External ID"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
     groups:
       spring-packages:
         patterns:
           - "org.springframework*"
           - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -371,11 +403,21 @@ updates:
       - "target: Dressca-CMS"
       - "gradle"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # 残りを拾うグループには "*" を指定し、spring-packages より弱くする
     groups:
       spring-packages:
         patterns:
           - "org.springframework*"
           - "io.spring.dependency-management*"
+          - "org.springdoc:*"
+          - "org.mybatis.spring.boot:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
