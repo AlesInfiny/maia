@@ -41,7 +41,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@openapitools/openapi-generator-cli": "2.40.1",
-    "@pinia/testing": "2.0.1",
+    "@pinia/testing": "2.0.2",
     "@playwright/test": "1.63.0",
     "@tailwindcss/vite": "4.3.3",
     "@tsconfig/node24": "24.0.4",
