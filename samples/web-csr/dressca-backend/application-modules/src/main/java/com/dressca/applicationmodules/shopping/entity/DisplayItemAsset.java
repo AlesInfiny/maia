@@ -6,17 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * 陳列品アセットのエンティティです。
- */
+/** 陳列品アセットのエンティティです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DisplayItemAsset {
   private UUID id;
   private UUID displayItemId;
-  @NonNull
-  private String assetCode;
+  @NonNull private String assetCode;
 
   /**
    * {@link DisplayItemAsset} クラスのインスタンスを初期化します。

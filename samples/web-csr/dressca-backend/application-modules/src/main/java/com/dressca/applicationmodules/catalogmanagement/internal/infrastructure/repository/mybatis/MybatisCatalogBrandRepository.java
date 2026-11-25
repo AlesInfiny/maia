@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * カタログブランドのリポジトリです。
- */
+/** カタログブランドのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
@@ -25,7 +23,8 @@ public class MybatisCatalogBrandRepository implements CatalogBrandRepository {
   public List<CatalogBrand> getAll() {
     CatalogBrandEntityExample example = new CatalogBrandEntityExample();
     return catalogBrandMapper.selectByExample(example).stream()
-        .map(CatalogEntityTranslator::catalogBrandEntityTranslate).collect(Collectors.toList());
+        .map(CatalogEntityTranslator::catalogBrandEntityTranslate)
+        .collect(Collectors.toList());
   }
 
   @Override

@@ -3,9 +3,7 @@ package com.dressca.web.admin.mapper;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogBrand;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogBrandsResponse;
 
-/**
- * {@link CatalogBrand} と {@link GetCatalogBrandsResponse} のマッパーです。
- */
+/** {@link CatalogBrand} と {@link GetCatalogBrandsResponse} のマッパーです。 */
 public class CatalogBrandMapper {
 
   /**

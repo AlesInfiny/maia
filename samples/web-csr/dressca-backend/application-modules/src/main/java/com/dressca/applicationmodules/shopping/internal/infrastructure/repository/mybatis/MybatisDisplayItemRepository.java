@@ -8,9 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * 陳列品のリポジトリです。
- */
+/** 陳列品のリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisDisplayItemRepository implements DisplayItemRepository {
@@ -18,8 +16,8 @@ public class MybatisDisplayItemRepository implements DisplayItemRepository {
   private final JoinedDisplayItemMapper mapper;
 
   @Override
-  public List<DisplayItem> findByBrandIdAndCategoryId(UUID brandId, UUID categoryId, int page,
-      int pageSize) {
+  public List<DisplayItem> findByBrandIdAndCategoryId(
+      UUID brandId, UUID categoryId, int page, int pageSize) {
     int offset = pageSize * (page - 1);
     return mapper.findByBrandIdAndCategoryId(brandId, categoryId, pageSize, offset);
   }

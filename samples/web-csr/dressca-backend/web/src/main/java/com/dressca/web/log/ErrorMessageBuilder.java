@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.context.MessageSource;
 
-/**
- * ログでエラーメッセージを作成するためのクラスです。
- */
+/** ログでエラーメッセージを作成するためのクラスです。 */
 @Getter
 @AllArgsConstructor
 public class ErrorMessageBuilder {
@@ -33,7 +31,10 @@ public class ErrorMessageBuilder {
     StringBuilder builder = new StringBuilder();
     String exceptionMessage =
         messages.getMessage(exceptionId, logMessageValue, Locale.getDefault());
-    builder.append(exceptionId).append(" ").append(exceptionMessage)
+    builder
+        .append(exceptionId)
+        .append(" ")
+        .append(exceptionMessage)
         .append(SystemPropertyConstants.LINE_SEPARATOR);
     StringWriter writer = new StringWriter();
     ex.printStackTrace(new PrintWriter(writer));

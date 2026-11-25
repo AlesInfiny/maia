@@ -3,9 +3,7 @@ package com.dressca.web.consumer.mapper;
 import com.dressca.applicationmodules.shopping.entity.DisplayItemCategory;
 import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemCategoriesResponse;
 
-/**
- * {@link DisplayItemCategory} と {@link GetDisplayItemCategoriesResponse} のマッパーです。
- */
+/** {@link DisplayItemCategory} と {@link GetDisplayItemCategoriesResponse} のマッパーです。 */
 public class DisplayItemCategoryMapper {
 
   /**
@@ -18,7 +16,7 @@ public class DisplayItemCategoryMapper {
     if (displayItemCategory == null) {
       return null;
     }
-    return new GetDisplayItemCategoriesResponse(displayItemCategory.getId(),
-        displayItemCategory.getName());
+    return new GetDisplayItemCategoriesResponse(
+        displayItemCategory.getId(), displayItemCategory.getName());
   }
 }

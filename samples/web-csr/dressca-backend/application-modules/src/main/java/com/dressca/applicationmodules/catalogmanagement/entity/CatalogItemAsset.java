@@ -4,20 +4,15 @@ import java.util.UUID;
 import lombok.Data;
 import lombok.NonNull;
 
-/**
- * カタログアイテムアセットのエンティティです。
- */
+/** カタログアイテムアセットのエンティティです。 */
 @Data
 public class CatalogItemAsset {
   private UUID id;
   private UUID catalogItemId;
   private String assetCode;
 
-  /**
-   * {@link CatalogItemAsset} クラスのインスタンスを初期化します。
-   */
-  public CatalogItemAsset() {
-  }
+  /** {@link CatalogItemAsset} クラスのインスタンスを初期化します。 */
+  public CatalogItemAsset() {}
 
   /**
    * {@link CatalogItemAsset} クラスのインスタンスを初期化します。

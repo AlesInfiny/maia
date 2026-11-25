@@ -32,32 +32,30 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link DisplayItemApplicationService}の動作をテストするクラスです。
- */
+/** {@link DisplayItemApplicationService}の動作をテストするクラスです。 */
 @Import(ApplicationModulesTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class DisplayItemApplicationServiceTest {
-  @Mock
-  private DisplayItemRepository displayItemRepository;
-  @Mock
-  private DisplayItemBrandRepository displayItemBrandRepository;
-  @Mock
-  private DisplayItemCategoryRepository displayItemCategoryRepository;
-  @Mock
-  private AbstractStructuredLogger apLog;
+  @Mock private DisplayItemRepository displayItemRepository;
+  @Mock private DisplayItemBrandRepository displayItemBrandRepository;
+  @Mock private DisplayItemCategoryRepository displayItemCategoryRepository;
+  @Mock private AbstractStructuredLogger apLog;
 
-  @Autowired
-  private MessageSource messages;
+  @Autowired private MessageSource messages;
 
   private DisplayItemApplicationService service;
 
   @BeforeEach
   void setUp() {
-    service = new DisplayItemApplicationService(messages, displayItemRepository,
-        displayItemBrandRepository, displayItemCategoryRepository, apLog);
+    service =
+        new DisplayItemApplicationService(
+            messages,
+            displayItemRepository,
+            displayItemBrandRepository,
+            displayItemCategoryRepository,
+            apLog);
   }
 
   @Test
@@ -72,8 +70,8 @@ public class DisplayItemApplicationServiceTest {
     service.getDisplayItems(brandId, categoryId, page, pageSize);
 
     // Assert
-    verify(this.displayItemRepository, times(1)).findByBrandIdAndCategoryId(brandId, categoryId,
-        page, pageSize);
+    verify(this.displayItemRepository, times(1))
+        .findByBrandIdAndCategoryId(brandId, categoryId, page, pageSize);
   }
 
   @Test
@@ -146,7 +144,14 @@ public class DisplayItemApplicationServiceTest {
     String defaultProductCode = "C000000001";
     boolean defaultIsDeleted = false;
 
-    return new DisplayItem(id, defaultName, defaultDescription, defaultPrice, defaultProductCode,
-        defaultDisplayItemCategoryId, defaultDisplayItemBrandId, defaultIsDeleted);
+    return new DisplayItem(
+        id,
+        defaultName,
+        defaultDescription,
+        defaultPrice,
+        defaultProductCode,
+        defaultDisplayItemCategoryId,
+        defaultDisplayItemBrandId,
+        defaultIsDeleted);
   }
 }

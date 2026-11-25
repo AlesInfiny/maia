@@ -3,9 +3,7 @@ package com.dressca.applicationmodules.shopping.exception;
 import com.dressca.applicationmodules.shopping.internal.constant.ShoppingExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
-/**
- * 注文のチェックアウト処理開始時に買い物かごが空であることを表す例外クラスです。
- */
+/** 注文のチェックアウト処理開始時に買い物かごが空であることを表す例外クラスです。 */
 public class EmptyBasketOnCheckoutException extends LogicException {
 
   /**

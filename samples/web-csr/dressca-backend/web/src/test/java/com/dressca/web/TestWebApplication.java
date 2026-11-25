@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.TestComponent;
 
 /**
- * Dressca アプリケーションを起動するための main クラスです。例外ハンドラのテストで使用します。
- * web-admin や web-consumer の本番コードの WebApplication とクラス名（Bean 名）が重複しないように
- * TestWebApplication という名前にしています。
+ * Dressca アプリケーションを起動するための main クラスです。例外ハンドラのテストで使用します。 web-admin や web-consumer の本番コードの
+ * WebApplication とクラス名（Bean 名）が重複しないように TestWebApplication という名前にしています。
  */
 @SpringBootApplication(scanBasePackages = {"com.dressca"})
 @OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))

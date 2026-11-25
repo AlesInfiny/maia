@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * 陳列品に関するドメインサービスです。
- */
+/** 陳列品に関するドメインサービスです。 */
 @Service
 @RequiredArgsConstructor
 public class DisplayItemDomainService {
@@ -34,9 +32,10 @@ public class DisplayItemDomainService {
    */
   public boolean existAll(List<UUID> displayItemIds) {
     List<DisplayItem> items = this.displayItemRepository.findByDisplayItemIdIn(displayItemIds);
-    List<UUID> notExistDisplayItemIds = displayItemIds.stream()
-        .filter(displayItemId -> !this.existDisplayItemIdInItems(items, displayItemId))
-        .collect(Collectors.toList());
+    List<UUID> notExistDisplayItemIds =
+        displayItemIds.stream()
+            .filter(displayItemId -> !this.existDisplayItemIdInItems(items, displayItemId))
+            .collect(Collectors.toList());
 
     return notExistDisplayItemIds.isEmpty();
   }
@@ -48,7 +47,8 @@ public class DisplayItemDomainService {
    * @return 指定した陳列品がリポジトリ内に存在する場合は true 、存在しない場合は false 。
    */
   public boolean existDisplayItemIncludingDeleted(UUID displayItemId) {
-    return !this.displayItemRepository.findByDisplayItemIdInIncludingDeleted(List.of(displayItemId))
+    return !this.displayItemRepository
+        .findByDisplayItemIdInIncludingDeleted(List.of(displayItemId))
         .isEmpty();
   }
 

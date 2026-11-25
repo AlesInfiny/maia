@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.test.context.TestComponent;
 
 /**
- * アプリケーション固有のログ出力を実装した構造化ロガーです。単体テストで使用します。
- * テスト専用のコンポーネントのため、 {@link TestComponent} を付与してコンポーネントスキャンの対象外としています。
- * 利用する場合はテストクラスで明示的にインポートしてください。
+ * アプリケーション固有のログ出力を実装した構造化ロガーです。単体テストで使用します。 テスト専用のコンポーネントのため、 {@link TestComponent}
+ * を付与してコンポーネントスキャンの対象外としています。 利用する場合はテストクラスで明示的にインポートしてください。
  */
 @TestComponent
 @NoArgsConstructor

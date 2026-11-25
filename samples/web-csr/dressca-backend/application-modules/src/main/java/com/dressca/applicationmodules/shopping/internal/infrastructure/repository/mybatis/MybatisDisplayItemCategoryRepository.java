@@ -8,9 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * 陳列品カテゴリのリポジトリです。
- */
+/** 陳列品カテゴリのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisDisplayItemCategoryRepository implements DisplayItemCategoryRepository {

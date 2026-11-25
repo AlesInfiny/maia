@@ -6,9 +6,7 @@ import com.dressca.web.consumer.controller.dto.displayitem.GetDisplayItemRespons
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * {@link DisplayItem} と {@link GetDisplayItemResponse} のマッパーです。
- */
+/** {@link DisplayItem} と {@link GetDisplayItemResponse} のマッパーです。 */
 public class DisplayItemMapper {
 
   /**
@@ -25,8 +23,14 @@ public class DisplayItemMapper {
     List<String> assetCodes =
         item.getAssets().stream().map(DisplayItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new GetDisplayItemResponse(item.getId(), item.getName(), item.getProductCode(),
-        assetCodes, item.getDescription(), item.getPrice(), item.getDisplayItemCategoryId(),
+    return new GetDisplayItemResponse(
+        item.getId(),
+        item.getName(),
+        item.getProductCode(),
+        assetCodes,
+        item.getDescription(),
+        item.getPrice(),
+        item.getDisplayItemCategoryId(),
         item.getDisplayItemBrandId());
   }
 }

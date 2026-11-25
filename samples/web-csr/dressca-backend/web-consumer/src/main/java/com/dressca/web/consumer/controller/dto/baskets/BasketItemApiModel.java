@@ -8,20 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 買い物かごに格納された単一の商品情報を格納する dto クラスです。
- */
+/** 買い物かごに格納された単一の商品情報を格納する dto クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BasketItemApiModel {
-  @NotNull
-  private UUID displayItemId;
-  @NotNull
-  private BigDecimal unitPrice;
-  @NotNull
-  private int quantity;
-  @NotNull
-  private BigDecimal subTotal;
+  @NotNull private UUID displayItemId;
+  @NotNull private BigDecimal unitPrice;
+  @NotNull private int quantity;
+  @NotNull private BigDecimal subTotal;
   private DisplayItemSummaryApiModel displayItem;
 }

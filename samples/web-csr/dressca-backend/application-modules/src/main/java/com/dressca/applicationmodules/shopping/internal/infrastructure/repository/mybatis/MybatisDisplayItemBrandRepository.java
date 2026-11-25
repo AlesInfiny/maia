@@ -8,9 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * 陳列品ブランドのリポジトリです。
- */
+/** 陳列品ブランドのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisDisplayItemBrandRepository implements DisplayItemBrandRepository {

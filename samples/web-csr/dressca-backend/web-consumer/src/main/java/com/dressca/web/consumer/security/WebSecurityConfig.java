@@ -13,9 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-/**
- * セキュリティ関連の実行クラスです。
- */
+/** セキュリティ関連の実行クラスです。 */
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -32,12 +30,16 @@ public class WebSecurityConfig {
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.deny())
-        .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
+    http.headers(
+            headers ->
+                headers
+                    .frameOptions(frameOptions -> frameOptions.deny())
+                    .contentSecurityPolicy(csp -> csp.policyDirectives("frame-ancestors 'none';")))
         .securityMatcher("/api/**")
         // CSRF トークンを利用したリクエストの検証を無効化（ OAuth2.0 による認証認可を利用する前提のため）
         // OAuth2.0 によるリクエストの検証を利用しない場合は、有効化して CSRF 対策を施す
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")).cors(Customizer.withDefaults());
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+        .cors(Customizer.withDefaults());
 
     return http.build();
   }

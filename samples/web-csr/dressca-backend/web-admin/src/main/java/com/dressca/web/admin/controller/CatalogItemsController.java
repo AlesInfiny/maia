@@ -42,9 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * {@link CatalogItem} の情報にアクセスする API コントローラーです。
- */
+/** {@link CatalogItem} の情報にアクセスする API コントローラーです。 */
 @RestController
 @Tag(name = "CatalogItems", description = "カタログアイテムの情報にアクセスする API です。")
 @RequestMapping("/api/catalog-items")
@@ -63,15 +61,23 @@ public class CatalogItemsController {
    * @throws PermissionDeniedException 認可エラー。
    */
   @Operation(summary = "指定した ID のカタログアイテムを返します。", description = "指定した ID のカタログアイテムを返します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = GetCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
-      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。",
-          content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = GetCatalogItemResponse.class))),
+        @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(
+            responseCode = "404",
+            description = "指定した ID のアイテムがカタログに存在しません。",
+            content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @GetMapping("{id}")
   public ResponseEntity<GetCatalogItemResponse> getCatalogItem(@PathVariable("id") UUID id)
       throws PermissionDeniedException {
@@ -98,14 +104,20 @@ public class CatalogItemsController {
    * @throws PermissionDeniedException 認可エラー。
    */
   @Operation(summary = "カタログアイテムを検索して返します。", description = "カタログアイテムを検索して返します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
-      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
-      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-      @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功。",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PagedListOfGetCatalogItemResponse.class))),
+        @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @GetMapping
   public ResponseEntity<PagedListOfGetCatalogItemResponse> getByQuery(
       @RequestParam(name = "brandId", required = false) UUID brandId,
@@ -116,7 +128,8 @@ public class CatalogItemsController {
 
     List<GetCatalogItemResponse> items =
         this.service.getCatalogItems(brandId, categoryId, page, pageSize).stream()
-            .map(CatalogItemMapper::convert).collect(Collectors.toList());
+            .map(CatalogItemMapper::convert)
+            .collect(Collectors.toList());
     int totalCount = this.service.countCatalogItems(brandId, categoryId);
 
     PagedListOfGetCatalogItemResponse returnValue =
@@ -133,21 +146,26 @@ public class CatalogItemsController {
    */
   @Operation(summary = "カタログにアイテムを追加します。", description = "カタログにアイテムを追加します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "201", description = "成功。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
-          @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-          @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+      value = {
+        @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+        @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(responseCode = "404", description = "失敗。", content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @PostMapping
   public ResponseEntity<CatalogItem> postCatalogItem(
       @RequestBody PostCatalogItemRequest postCatalogItemRequest) throws PermissionDeniedException {
 
     try {
-      CatalogItem addedCatalogItem = this.service.addItemToCatalog(postCatalogItemRequest.getName(),
-          postCatalogItemRequest.getDescription(),
-          new BigDecimal(postCatalogItemRequest.getPrice()),
-          postCatalogItemRequest.getProductCode(), postCatalogItemRequest.getCatalogCategoryId(),
-          postCatalogItemRequest.getCatalogBrandId());
+      CatalogItem addedCatalogItem =
+          this.service.addItemToCatalog(
+              postCatalogItemRequest.getName(),
+              postCatalogItemRequest.getDescription(),
+              new BigDecimal(postCatalogItemRequest.getPrice()),
+              postCatalogItemRequest.getProductCode(),
+              postCatalogItemRequest.getCatalogCategoryId(),
+              postCatalogItemRequest.getCatalogBrandId());
       return ResponseEntity.created(URI.create("/api/catalog-items/" + addedCatalogItem.getId()))
           .build();
     } catch (CatalogBrandNotFoundException | CatalogCategoryNotFoundException e) {
@@ -166,18 +184,24 @@ public class CatalogItemsController {
    * @throws PermissionDeniedException 認可エラー。
    * @throws OptimisticLockingFailureException 楽観ロックエラー。
    */
-  @Operation(summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。",
+  @Operation(
+      summary = "カタログから指定したカタログアイテム ID のアイテムを削除します。",
       description = "カタログから指定したカタログアイテム ID のアイテムを削除します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
-          @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-          @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。",
-              content = @Content),
-          @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+      value = {
+        @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+        @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(
+            responseCode = "404",
+            description = "指定した ID のアイテムがカタログに存在しません。",
+            content = @Content),
+        @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @DeleteMapping("{catalogItemId}")
-  public ResponseEntity<?> deleteCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
+  public ResponseEntity<?> deleteCatalogItem(
+      @PathVariable("catalogItemId") UUID catalogItemId,
       @RequestParam(name = "rowVersion") OffsetDateTime rowVersion)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
@@ -201,22 +225,32 @@ public class CatalogItemsController {
    */
   @Operation(summary = "指定した ID のカタログアイテムの情報を更新します。", description = "指定した ID のカタログアイテムの情報を更新します。")
   @ApiResponses(
-      value = {@ApiResponse(responseCode = "204", description = "成功。", content = @Content),
-          @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
-          @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
-          @ApiResponse(responseCode = "404", description = "指定した ID のアイテムがカタログに存在しません。",
-              content = @Content),
-          @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
-          @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)})
+      value = {
+        @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+        @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+        @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+        @ApiResponse(
+            responseCode = "404",
+            description = "指定した ID のアイテムがカタログに存在しません。",
+            content = @Content),
+        @ApiResponse(responseCode = "409", description = "競合が発生。", content = @Content),
+        @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+      })
   @PutMapping("{catalogItemId}")
-  public ResponseEntity<?> putCatalogItem(@PathVariable("catalogItemId") UUID catalogItemId,
+  public ResponseEntity<?> putCatalogItem(
+      @PathVariable("catalogItemId") UUID catalogItemId,
       @RequestBody PutCatalogItemRequest putCatalogItemRequest)
       throws PermissionDeniedException, OptimisticLockingFailureException {
     try {
-      this.service.updateCatalogItem(catalogItemId, putCatalogItemRequest.getName(),
-          putCatalogItemRequest.getDescription(), new BigDecimal(putCatalogItemRequest.getPrice()),
-          putCatalogItemRequest.getProductCode(), putCatalogItemRequest.getCatalogCategoryId(),
-          putCatalogItemRequest.getCatalogBrandId(), putCatalogItemRequest.getRowVersion(),
+      this.service.updateCatalogItem(
+          catalogItemId,
+          putCatalogItemRequest.getName(),
+          putCatalogItemRequest.getDescription(),
+          new BigDecimal(putCatalogItemRequest.getPrice()),
+          putCatalogItemRequest.getProductCode(),
+          putCatalogItemRequest.getCatalogCategoryId(),
+          putCatalogItemRequest.getCatalogBrandId(),
+          putCatalogItemRequest.getRowVersion(),
           putCatalogItemRequest.getIsDeleted());
     } catch (CatalogNotFoundException e) {
       apLog.info(e.getMessage());

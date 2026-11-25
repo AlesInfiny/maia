@@ -3,9 +3,7 @@ package com.dressca.web.admin.mapper;
 import com.dressca.applicationmodules.catalogmanagement.entity.CatalogCategory;
 import com.dressca.web.admin.controller.dto.catalog.GetCatalogCategoriesResponse;
 
-/**
- * {@link CatalogCategory} と {@link GetCatalogCategoriesResponse} のマッパーです。
- */
+/** {@link CatalogCategory} と {@link GetCatalogCategoriesResponse} のマッパーです。 */
 public class CatalogCategoryMapper {
 
   /**

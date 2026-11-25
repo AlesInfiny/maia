@@ -6,9 +6,7 @@ import com.dressca.web.consumer.controller.dto.displayitem.DisplayItemSummaryApi
 import com.dressca.web.consumer.controller.dto.order.OrderItemApiModel;
 import java.util.stream.Collectors;
 
-/**
- * {@link OrderItem} と {@link OrderItemApiModel} のマッパーです。
- */
+/** {@link OrderItem} と {@link OrderItemApiModel} のマッパーです。 */
 public class OrderItemMapper {
 
   /**
@@ -18,11 +16,17 @@ public class OrderItemMapper {
    * @return {@link OrderItemApiModel} オブジェクト。
    */
   public static OrderItemApiModel convert(OrderItem item) {
-    return new OrderItemApiModel(item.getId(),
-        new DisplayItemSummaryApiModel(item.getItemOrdered().getDisplayItemId(),
-            item.getItemOrdered().getProductName(), item.getItemOrdered().getProductCode(),
-            item.getAssets().stream().map(OrderItemAsset::getAssetCode)
+    return new OrderItemApiModel(
+        item.getId(),
+        new DisplayItemSummaryApiModel(
+            item.getItemOrdered().getDisplayItemId(),
+            item.getItemOrdered().getProductName(),
+            item.getItemOrdered().getProductCode(),
+            item.getAssets().stream()
+                .map(OrderItemAsset::getAssetCode)
                 .collect(Collectors.toList())),
-        item.getQuantity(), item.getUnitPrice(), item.getSubTotal());
+        item.getQuantity(),
+        item.getUnitPrice(),
+        item.getSubTotal());
   }
 }

@@ -4,9 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * バッチアプリケーションを起動するためのメインクラスです。
- */
+/** バッチアプリケーションを起動するためのメインクラスです。 */
 @SpringBootApplication(scanBasePackages = {"com.dressca"})
 public class BatchApplication {
 

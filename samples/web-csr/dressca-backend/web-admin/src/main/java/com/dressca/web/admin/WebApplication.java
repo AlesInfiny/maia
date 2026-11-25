@@ -6,9 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-/**
- * Dressca アプリケーションを起動するための main クラスです。
- */
+/** Dressca アプリケーションを起動するための main クラスです。 */
 @SpringBootApplication(scanBasePackages = {"com.dressca"})
 @OpenAPIDefinition(info = @Info(title = "Dressca", description = "ECサイトDressca", version = "v1"))
 @ConfigurationPropertiesScan(basePackages = {"com.dressca"})

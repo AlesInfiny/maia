@@ -10,9 +10,7 @@ import com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.
 import com.dressca.applicationmodules.catalogmanagement.internal.infrastructure.repository.mybatis.generated.entity.CatalogItemEntity;
 import org.springframework.beans.BeanUtils;
 
-/**
- * カタログ管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。
- */
+/** カタログ管理コンテキストにおいて、テーブルエンティティとエンティティを相互に変換するクラスです。 */
 public class CatalogEntityTranslator {
 
   /**

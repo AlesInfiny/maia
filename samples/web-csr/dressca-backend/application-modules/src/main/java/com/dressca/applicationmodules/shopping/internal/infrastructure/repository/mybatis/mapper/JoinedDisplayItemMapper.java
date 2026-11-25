@@ -7,8 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 陳列品のテーブルにアクセスするためのマッパーのインターフェースです。
- * 陳列品テーブル（display_items）とカタログアイテムテーブル（catalog_items）を結合し、
+ * 陳列品のテーブルにアクセスするためのマッパーのインターフェースです。 陳列品テーブル（display_items）とカタログアイテムテーブル（catalog_items）を結合し、
  * 表示に必要な情報をカタログアイテムから解決します。
  */
 @Mapper
@@ -23,8 +22,11 @@ public interface JoinedDisplayItemMapper {
    * @param offset 取得開始位置。
    * @return 陳列品一覧。
    */
-  List<DisplayItem> findByBrandIdAndCategoryId(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId, @Param("limit") int limit, @Param("offset") int offset);
+  List<DisplayItem> findByBrandIdAndCategoryId(
+      @Param("brandId") UUID brandId,
+      @Param("categoryId") UUID categoryId,
+      @Param("limit") int limit,
+      @Param("offset") int offset);
 
   /**
    * ブランド ID とカテゴリ ID を条件に件数を取得します。
@@ -33,8 +35,8 @@ public interface JoinedDisplayItemMapper {
    * @param categoryId カテゴリ ID 。
    * @return 件数。
    */
-  int countByBrandIdAndCategoryId(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId);
+  int countByBrandIdAndCategoryId(
+      @Param("brandId") UUID brandId, @Param("categoryId") UUID categoryId);
 
   /**
    * 陳列品 ID 一覧に一致する陳列品を取得します。

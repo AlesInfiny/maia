@@ -11,18 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.context.MessageSource;
 
-/**
- * アセットのエンティティです。
- */
+/** アセットのエンティティです。 */
 @Data
 @NoArgsConstructor
 public class Asset {
 
   private UUID id;
-  @NonNull
-  private String assetCode;
-  @NonNull
-  private String assetType;
+  @NonNull private String assetCode;
+  @NonNull private String assetType;
 
   /**
    * {@link Asset} クラスのインスタンスを初期化します。
@@ -37,8 +33,10 @@ public class Asset {
       MessageSource messages =
           (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
       String message =
-          messages.getMessage(AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-              new String[] {assetType}, Locale.getDefault());
+          messages.getMessage(
+              AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+              new String[] {assetType},
+              Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }
@@ -55,8 +53,10 @@ public class Asset {
       MessageSource messages =
           (MessageSource) ApplicationContextWrapper.getBean(MessageSource.class);
       String message =
-          messages.getMessage(AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
-              new String[] {assetType}, Locale.getDefault());
+          messages.getMessage(
+              AssetManagementExceptionIdConstants.E_ASSET_TYPE_NOT_SUPPORTED,
+              new String[] {assetType},
+              Locale.getDefault());
 
       throw new IllegalArgumentException(message);
     }

@@ -31,20 +31,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * {@link OrderApplicationService}の動作をテストするクラスです。
- */
+/** {@link OrderApplicationService}の動作をテストするクラスです。 */
 @Import(ApplicationModulesTestConfig.class)
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestPropertySource(properties = "spring.messages.basename=applicationmodules.messages")
 @ImportAutoConfiguration(MessageSourceAutoConfiguration.class)
 public class OrderApplicationServiceTest {
-  @Mock
-  private OrderRepository orderRepository;
-  @Autowired
-  private MessageSource messages;
-  @Mock
-  private AbstractStructuredLogger apLog;
+  @Mock private OrderRepository orderRepository;
+  @Autowired private MessageSource messages;
+  @Mock private AbstractStructuredLogger apLog;
 
   private OrderApplicationService service;
 
@@ -115,16 +110,18 @@ public class OrderApplicationServiceTest {
     String defaultTodofuken = "東京都";
     String defaultShikuchoson = "千代田区";
     String defaultAzanaAndOthers = "永田町1-10-1";
-    return new Address(defaultPostalCode, defaultTodofuken, defaultShikuchoson,
-        defaultAzanaAndOthers);
+    return new Address(
+        defaultPostalCode, defaultTodofuken, defaultShikuchoson, defaultAzanaAndOthers);
   }
 
   private List<OrderItem> createDefaultOrderItems() {
     String productName = "ダミー商品1";
     String productCode = "C000000001";
 
-    return List
-        .of(new OrderItem(new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
-            BigDecimal.valueOf(100_000_000L), 1));
+    return List.of(
+        new OrderItem(
+            new DisplayItemOrdered(UUID.randomUUID(), productName, productCode),
+            BigDecimal.valueOf(100_000_000L),
+            1));
   }
 }

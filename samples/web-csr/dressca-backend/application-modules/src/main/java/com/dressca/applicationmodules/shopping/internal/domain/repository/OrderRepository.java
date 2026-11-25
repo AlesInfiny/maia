@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.entity.Order;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * 注文のリポジトリのインターフェースです。
- */
+/** 注文のリポジトリのインターフェースです。 */
 public interface OrderRepository {
   /**
    * 注文を追加します。

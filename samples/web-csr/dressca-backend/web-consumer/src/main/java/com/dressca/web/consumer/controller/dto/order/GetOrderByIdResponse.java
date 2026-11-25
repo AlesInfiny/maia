@@ -9,29 +9,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 注文情報を取得する際に用いる dto クラスです。
- */
+/** 注文情報を取得する際に用いる dto クラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetOrderByIdResponse {
-  @NotNull
-  private UUID id;
-  @NotNull
-  private UUID buyerId;
-  @NotNull
-  private LocalDateTime orderDate;
-  @NotNull
-  private String fullName;
-  @NotNull
-  private String postalCode;
-  @NotNull
-  private String todofuken;
-  @NotNull
-  private String shikuchoson;
-  @NotNull
-  private String azanaAndOthers;
+  @NotNull private UUID id;
+  @NotNull private UUID buyerId;
+  @NotNull private LocalDateTime orderDate;
+  @NotNull private String fullName;
+  @NotNull private String postalCode;
+  @NotNull private String todofuken;
+  @NotNull private String shikuchoson;
+  @NotNull private String azanaAndOthers;
   private AccountApiModel account;
   private List<OrderItemApiModel> orderItems;
 }

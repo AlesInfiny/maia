@@ -1,5 +1,6 @@
 package com.dressca.web.admin.filter;
 
+import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,27 +13,28 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.dressca.applicationmodules.authorization.constant.UserRoleConstants;
 
 /**
  * ダミーユーザーを {@link SecurityContextHolder} に詰めるためのフィルタークラスです。
  *
- * <p>開発環境（local プロファイル）においてユーザー名が admin@example.com
- * 、権限が管理者（{@link UserRoleConstants#ADMIN}）のユーザーでアクセスしたことにして認証プロセスをスキップするために使用します。
- * {@link com.dressca.web.admin.security.WebSecurityConfig} にて、セキュリティフィルターチェーンの
- * {@link org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter}
- * の前に挿入します。</p>
+ * <p>開発環境（local プロファイル）においてユーザー名が admin@example.com 、権限が管理者（{@link
+ * UserRoleConstants#ADMIN}）のユーザーでアクセスしたことにして認証プロセスをスキップするために使用します。 {@link
+ * com.dressca.web.admin.security.WebSecurityConfig} にて、セキュリティフィルターチェーンの {@link
+ * org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter} の前に挿入します。
  */
 public class DummyUserInjectionFilter extends OncePerRequestFilter {
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain) throws IOException, ServletException {
-    UserDetails dummyUser = new User("admin@example.com", "",
-        List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws IOException, ServletException {
+    UserDetails dummyUser =
+        new User(
+            "admin@example.com", "", List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
 
-    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-        dummyUser, dummyUser.getPassword(), dummyUser.getAuthorities());
+    UsernamePasswordAuthenticationToken authentication =
+        new UsernamePasswordAuthenticationToken(
+            dummyUser, dummyUser.getPassword(), dummyUser.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
     filterChain.doFilter(request, response);
   }

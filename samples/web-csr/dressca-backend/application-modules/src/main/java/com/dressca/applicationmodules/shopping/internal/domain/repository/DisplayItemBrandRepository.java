@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.entity.DisplayItemBrand;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * 陳列品ブランドのリポジトリのインターフェースです。
- */
+/** 陳列品ブランドのリポジトリのインターフェースです。 */
 public interface DisplayItemBrandRepository {
 
   /**

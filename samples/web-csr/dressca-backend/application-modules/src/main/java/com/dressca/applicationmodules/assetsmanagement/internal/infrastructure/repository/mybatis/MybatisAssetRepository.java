@@ -9,9 +9,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-/**
- * アセットのリポジトリです。
- */
+/** アセットのリポジトリです。 */
 @Repository
 @RequiredArgsConstructor
 public class MybatisAssetRepository implements AssetRepository {
@@ -24,6 +22,7 @@ public class MybatisAssetRepository implements AssetRepository {
     example.createCriteria().andAssetCodeEqualTo(assetCode);
 
     return assetMapper.selectByExample(example).stream()
-        .map(AssetEntityTranslator::assetEntityTranslate).findFirst();
+        .map(AssetEntityTranslator::assetEntityTranslate)
+        .findFirst();
   }
 }

@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
-/**
- * アプリケーション固有のログ出力を実装した構造化ロガーです。
- */
+/** アプリケーション固有のログ出力を実装した構造化ロガーです。 */
 @Component
 @RequiredArgsConstructor
 public class DresscaStructuredLoggerImpl extends AbstractStructuredLogger {

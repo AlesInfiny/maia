@@ -1,8 +1,6 @@
 package com.dressca.applicationmodules.catalogmanagement.internal.constant;
 
-/**
- * カタログ管理コンテキストの業務例外 ID 用の定数クラスです。
- */
+/** カタログ管理コンテキストの業務例外 ID 用の定数クラスです。 */
 public class CatalogManagementExceptionIdConstants {
   /** ブランドID: {0} のブランドが見つかりませんでした。 */
   public static final String E_CATALOG_BRAND_NOT_FOUND = "catalogBrandNotFound";

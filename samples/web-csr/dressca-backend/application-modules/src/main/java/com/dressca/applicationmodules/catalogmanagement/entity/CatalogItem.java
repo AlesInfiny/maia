@@ -10,9 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-/**
- * カタログアイテムのエンティティです。
- */
+/** カタログアイテムのエンティティです。 */
 @Data
 @NoArgsConstructor
 public class CatalogItem {
@@ -20,14 +18,10 @@ public class CatalogItem {
   private List<CatalogItemAsset> assets = new ArrayList<>();
   private CatalogCategory catalogCategory;
   private CatalogBrand catalogBrand;
-  @NonNull
-  private String name;
-  @NonNull
-  private String description;
-  @NonNull
-  private BigDecimal price;
-  @NonNull
-  private String productCode;
+  @NonNull private String name;
+  @NonNull private String description;
+  @NonNull private BigDecimal price;
+  @NonNull private String productCode;
   private UUID catalogCategoryId;
   private UUID catalogBrandId;
   private boolean isDeleted;
@@ -45,9 +39,15 @@ public class CatalogItem {
    * @param catalogBrandId カタログブランド ID 。
    * @param isDeleted 削除済みかどうか。 true なら削除済み、 false なら未削除。
    */
-  public CatalogItem(UUID id, @NonNull String name, @NonNull String description,
-      @NonNull BigDecimal price, @NonNull String productCode, UUID catalogCategoryId,
-      UUID catalogBrandId, boolean isDeleted) {
+  public CatalogItem(
+      UUID id,
+      @NonNull String name,
+      @NonNull String description,
+      @NonNull BigDecimal price,
+      @NonNull String productCode,
+      UUID catalogCategoryId,
+      UUID catalogBrandId,
+      boolean isDeleted) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -69,11 +69,24 @@ public class CatalogItem {
    * @param catalogBrandId カタログブランド ID 。
    * @return 登録用のカタログアイテム。
    */
-  public static CatalogItem createCatalogItemForRegistration(@NonNull String name,
-      @NonNull String description, @NonNull BigDecimal price, @NonNull String productCode,
-      UUID catalogCategoryId, UUID catalogBrandId, boolean isDeleted) {
-    CatalogItem item = new CatalogItem(UuidGenerator.generate(), name, description, price,
-        productCode, catalogCategoryId, catalogBrandId, isDeleted);
+  public static CatalogItem createCatalogItemForRegistration(
+      @NonNull String name,
+      @NonNull String description,
+      @NonNull BigDecimal price,
+      @NonNull String productCode,
+      UUID catalogCategoryId,
+      UUID catalogBrandId,
+      boolean isDeleted) {
+    CatalogItem item =
+        new CatalogItem(
+            UuidGenerator.generate(),
+            name,
+            description,
+            price,
+            productCode,
+            catalogCategoryId,
+            catalogBrandId,
+            isDeleted);
     return item;
   }
 }

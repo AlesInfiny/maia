@@ -3,9 +3,7 @@ package com.dressca.web.consumer.controller.dto.displayitem;
 import java.util.List;
 import lombok.Data;
 
-/**
- * 検索した陳列品の情報を取得する際に用いる dto クラスです。
- */
+/** 検索した陳列品の情報を取得する際に用いる dto クラスです。 */
 @Data
 public class PagedListOfGetDisplayItemResponse {
   private List<GetDisplayItemResponse> items;
@@ -24,8 +22,8 @@ public class PagedListOfGetDisplayItemResponse {
    * @param page 現在のページ番号。
    * @param pageSize ページ数の合計。
    */
-  public PagedListOfGetDisplayItemResponse(List<GetDisplayItemResponse> items, int totalCount,
-      int page, int pageSize) {
+  public PagedListOfGetDisplayItemResponse(
+      List<GetDisplayItemResponse> items, int totalCount, int page, int pageSize) {
     this.items = List.copyOf(items);
     this.totalCount = totalCount;
     this.page = page;

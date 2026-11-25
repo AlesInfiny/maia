@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.entity.DisplayItemCategory;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * 陳列品カテゴリのリポジトリのインターフェースです。
- */
+/** 陳列品カテゴリのリポジトリのインターフェースです。 */
 public interface DisplayItemCategoryRepository {
 
   /**

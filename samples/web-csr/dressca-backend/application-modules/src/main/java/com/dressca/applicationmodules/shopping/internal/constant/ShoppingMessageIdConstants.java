@@ -1,8 +1,6 @@
 package com.dressca.applicationmodules.shopping.internal.constant;
 
-/**
- * 買い物コンテキストの業務メッセージ ID 用の定数クラスです。
- */
+/** 買い物コンテキストの業務メッセージ ID 用の定数クラスです。 */
 public class ShoppingMessageIdConstants {
 
   /** 条件（ブランドID: {0}, カテゴリID: {1}）に一致する陳列品の件数を取得します。 */

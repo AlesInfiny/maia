@@ -14,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Component;
 
-/**
- * エラーレスポンスに含める ProblemDetails を作成するクラスです。
- */
+/** エラーレスポンスに含める ProblemDetails を作成するクラスです。 */
 @Component
 @RequiredArgsConstructor
 public class ProblemDetailsFactory {
@@ -32,8 +30,8 @@ public class ProblemDetailsFactory {
    * @param status ステータスコード。
    * @return エラーレスポンスに格納する ProblemDetails 。
    */
-  public ProblemDetail createProblemDetail(ErrorMessageBuilder errorBuilder, String titleId,
-      HttpStatus status) {
+  public ProblemDetail createProblemDetail(
+      ErrorMessageBuilder errorBuilder, String titleId, HttpStatus status) {
 
     ProblemDetail problemDetail = ProblemDetail.forStatus(status);
 
@@ -53,8 +51,8 @@ public class ProblemDetailsFactory {
     // 拡張メンバーとして exceptionId と exceptionValues を含める
     Map<String, Object> errorProperty = new LinkedHashMap<String, Object>();
     errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_ID, errorBuilder.getExceptionId());
-    errorProperty.put(WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES,
-        errorBuilder.getFrontMessageValue());
+    errorProperty.put(
+        WebConstants.PROBLEM_DETAILS_EXCEPTION_VALUES, errorBuilder.getFrontMessageValue());
 
     problemDetail.setProperties(errorProperty);
 

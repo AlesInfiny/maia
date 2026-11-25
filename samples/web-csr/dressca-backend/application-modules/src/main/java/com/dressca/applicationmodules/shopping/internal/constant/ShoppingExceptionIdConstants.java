@@ -1,8 +1,6 @@
 package com.dressca.applicationmodules.shopping.internal.constant;
 
-/**
- * 買い物コンテキストの業務例外 ID 用の定数クラスです。
- */
+/** 買い物コンテキストの業務例外 ID 用の定数クラスです。 */
 public class ShoppingExceptionIdConstants {
 
   /** 注文のチェックアウト時に買い物かごが空でした。 */

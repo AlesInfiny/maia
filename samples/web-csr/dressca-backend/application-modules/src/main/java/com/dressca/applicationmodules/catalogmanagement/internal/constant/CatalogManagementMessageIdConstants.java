@@ -1,8 +1,6 @@
 package com.dressca.applicationmodules.catalogmanagement.internal.constant;
 
-/**
- * カタログ管理コンテキストの業務メッセージ ID 用の定数クラスです。
- */
+/** カタログ管理コンテキストの業務メッセージ ID 用の定数クラスです。 */
 public class CatalogManagementMessageIdConstants {
 
   /** カタログにアイテムを追加します。 */

@@ -4,9 +4,7 @@ import com.dressca.applicationmodules.shopping.internal.constant.ShoppingExcepti
 import com.dressca.systemcommon.exception.LogicException;
 import java.util.UUID;
 
-/**
- * 注文情報が存在しないことを表す例外クラスです。
- */
+/** 注文情報が存在しないことを表す例外クラスです。 */
 public class OrderNotFoundException extends LogicException {
 
   /**
@@ -17,7 +15,9 @@ public class OrderNotFoundException extends LogicException {
    * @param buyerId 見つからなかった購入者 ID 。
    */
   public OrderNotFoundException(Throwable cause, UUID orderId, UUID buyerId) {
-    super(cause, ShoppingExceptionIdConstants.E_ORDER_NOT_FOUND,
+    super(
+        cause,
+        ShoppingExceptionIdConstants.E_ORDER_NOT_FOUND,
         new String[] {String.valueOf(orderId), String.valueOf(buyerId)},
         new String[] {String.valueOf(orderId), String.valueOf(buyerId)});
   }

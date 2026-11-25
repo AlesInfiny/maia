@@ -18,19 +18,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-/**
- * 開発環境（local プロファイル）での {@link DummyUserInjectionFilter} の動作を検証するテストクラスです。
- */
+/** 開発環境（local プロファイル）での {@link DummyUserInjectionFilter} の動作を検証するテストクラスです。 */
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("local")
 public class LocalProfileDummyUserInjectionFilterTest {
 
-  @Autowired
-  private FilterChainProxy springSecurityFilterChain;
+  @Autowired private FilterChainProxy springSecurityFilterChain;
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   void testSecurityFilterChain_正常系_開発環境ではDummyUserInjectionFilterが含まれる() {
@@ -52,7 +48,8 @@ public class LocalProfileDummyUserInjectionFilterTest {
     ResultActions response = mockMvc.perform(get("/api/assets/" + assetCode));
 
     // Assert
-    response.andExpect(status().is(expectedStatus.value()))
+    response
+        .andExpect(status().is(expectedStatus.value()))
         .andExpect(content().contentType(expectedContentType));
   }
 
@@ -64,7 +61,9 @@ public class LocalProfileDummyUserInjectionFilterTest {
   private boolean hasDummyUserInjectionFilter() {
     return springSecurityFilterChain.getFilterChains().stream()
         .filter(DefaultSecurityFilterChain.class::isInstance)
-        .map(DefaultSecurityFilterChain.class::cast).anyMatch(chain -> chain.getFilters().stream()
-            .anyMatch(DummyUserInjectionFilter.class::isInstance));
+        .map(DefaultSecurityFilterChain.class::cast)
+        .anyMatch(
+            chain ->
+                chain.getFilters().stream().anyMatch(DummyUserInjectionFilter.class::isInstance));
   }
 }

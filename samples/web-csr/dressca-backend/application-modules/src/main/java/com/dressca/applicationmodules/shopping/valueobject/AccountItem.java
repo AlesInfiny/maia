@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-/**
- * 会計情報の値オブジェクトです。
- */
+/** 会計情報の値オブジェクトです。 */
 @Data
 @AllArgsConstructor
 public class AccountItem {

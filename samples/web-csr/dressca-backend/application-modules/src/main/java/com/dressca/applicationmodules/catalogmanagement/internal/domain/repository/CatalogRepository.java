@@ -5,9 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * カタログのリポジトリのインターフェースです。
- */
+/** カタログのリポジトリのインターフェースです。 */
 public interface CatalogRepository {
 
   /**
@@ -27,8 +25,8 @@ public interface CatalogRepository {
    * @param pageSize ページサイズ。
    * @return 条件に一致するカタログのリスト。存在しない場合、空のリスト。
    */
-  List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(UUID brandId, UUID categoryId,
-      int page, int pageSize);
+  List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(
+      UUID brandId, UUID categoryId, int page, int pageSize);
 
   /**
    * 削除済みカタログアイテムを含めて、ブランド ID とカテゴリ ID に一致するカタログの件数を取得します。

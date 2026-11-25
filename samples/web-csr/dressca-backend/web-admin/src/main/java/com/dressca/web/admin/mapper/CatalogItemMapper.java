@@ -6,9 +6,7 @@ import com.dressca.web.admin.controller.dto.catalog.GetCatalogItemResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * {@link CatalogItem} と {@link GetCatalogItemResponse} のマッパーです。
- */
+/** {@link CatalogItem} と {@link GetCatalogItemResponse} のマッパーです。 */
 public class CatalogItemMapper {
 
   /**
@@ -26,8 +24,16 @@ public class CatalogItemMapper {
     List<String> assetCodes =
         item.getAssets().stream().map(CatalogItemAsset::getAssetCode).collect(Collectors.toList());
 
-    return new GetCatalogItemResponse(item.getId(), item.getName(), item.getProductCode(),
-        assetCodes, item.getDescription(), item.getPrice(), item.getCatalogCategoryId(),
-        item.getCatalogBrandId(), item.getRowVersion(), item.isDeleted());
+    return new GetCatalogItemResponse(
+        item.getId(),
+        item.getName(),
+        item.getProductCode(),
+        assetCodes,
+        item.getDescription(),
+        item.getPrice(),
+        item.getCatalogCategoryId(),
+        item.getCatalogBrandId(),
+        item.getRowVersion(),
+        item.isDeleted());
   }
 }

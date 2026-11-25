@@ -3,9 +3,7 @@ package com.dressca.web.consumer.mapper;
 import com.dressca.applicationmodules.shopping.entity.BasketItem;
 import com.dressca.web.consumer.controller.dto.baskets.BasketItemApiModel;
 
-/**
- * {@link BasketItem} と {@link BasketItemApiModel} のマッパーです。
- */
+/** {@link BasketItem} と {@link BasketItemApiModel} のマッパーです。 */
 public class BasketItemMapper {
 
   /**
@@ -19,7 +17,11 @@ public class BasketItemMapper {
       return null;
     }
 
-    return new BasketItemApiModel(basketItem.getDisplayItemId(), basketItem.getUnitPrice(),
-        basketItem.getQuantity(), basketItem.getSubtotal(), null);
+    return new BasketItemApiModel(
+        basketItem.getDisplayItemId(),
+        basketItem.getUnitPrice(),
+        basketItem.getQuantity(),
+        basketItem.getSubtotal(),
+        null);
   }
 }

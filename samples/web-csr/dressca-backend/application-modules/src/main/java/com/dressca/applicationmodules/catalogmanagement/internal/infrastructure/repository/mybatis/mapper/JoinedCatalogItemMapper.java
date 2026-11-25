@@ -6,9 +6,7 @@ import java.util.UUID;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。
- */
+/** カタログアイテムのテーブルにアクセスするためのマッパーのインターフェースです。 */
 @Mapper
 public interface JoinedCatalogItemMapper {
   /**
@@ -28,8 +26,11 @@ public interface JoinedCatalogItemMapper {
    * @param offset 取得開始位置。
    * @return カタログアイテム一覧。
    */
-  List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId, @Param("limit") int limit, @Param("offset") int offset);
+  List<CatalogItem> findByBrandIdAndCategoryIdIncludingDeleted(
+      @Param("brandId") UUID brandId,
+      @Param("categoryId") UUID categoryId,
+      @Param("limit") int limit,
+      @Param("offset") int offset);
 
   /**
    * 削除済みを含めて、ブランド ID とカテゴリ ID を条件に件数を取得します。
@@ -38,8 +39,8 @@ public interface JoinedCatalogItemMapper {
    * @param categoryId カテゴリ ID 。
    * @return 件数。
    */
-  int countByBrandIdAndCategoryIdIncludingDeleted(@Param("brandId") UUID brandId,
-      @Param("categoryId") UUID categoryId);
+  int countByBrandIdAndCategoryIdIncludingDeleted(
+      @Param("brandId") UUID brandId, @Param("categoryId") UUID categoryId);
 
   /**
    * ページング条件を指定してカタログアイテムを取得します。
@@ -48,8 +49,8 @@ public interface JoinedCatalogItemMapper {
    * @param pageSize 取得件数。
    * @return カタログアイテム一覧。
    */
-  List<CatalogItem> findWithPaging(@Param("skipRows") int skipRows,
-      @Param("pageSize") int pageSize);
+  List<CatalogItem> findWithPaging(
+      @Param("skipRows") int skipRows, @Param("pageSize") int pageSize);
 
   /**
    * ID を条件にカタログアイテムを取得します。

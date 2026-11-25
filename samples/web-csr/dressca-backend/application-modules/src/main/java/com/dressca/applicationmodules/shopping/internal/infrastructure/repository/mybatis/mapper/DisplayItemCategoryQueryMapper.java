@@ -9,8 +9,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * 陳列品カテゴリを取得するための読み取り専用マッパーのインターフェースです。
  *
- * <p>陳列品カテゴリ専用のテーブルは持たず、カタログ管理コンテキストが所有する
- * カタログカテゴリ（catalog_categories）を元に陳列品カテゴリを解決します。</p>
+ * <p>陳列品カテゴリ専用のテーブルは持たず、カタログ管理コンテキストが所有する カタログカテゴリ（catalog_categories）を元に陳列品カテゴリを解決します。
  */
 @Mapper
 public interface DisplayItemCategoryQueryMapper {

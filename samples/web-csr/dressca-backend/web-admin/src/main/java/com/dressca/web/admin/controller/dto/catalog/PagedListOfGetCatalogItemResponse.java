@@ -3,9 +3,7 @@ package com.dressca.web.admin.controller.dto.catalog;
 import java.util.List;
 import lombok.Data;
 
-/**
- * 検索したカタログアイテムの情報を取得する際に用いる dto クラスです。
- */
+/** 検索したカタログアイテムの情報を取得する際に用いる dto クラスです。 */
 @Data
 public class PagedListOfGetCatalogItemResponse {
   private List<GetCatalogItemResponse> items;
@@ -24,8 +22,8 @@ public class PagedListOfGetCatalogItemResponse {
    * @param page 現在のページ番号。
    * @param pageSize ページ数の合計。
    */
-  public PagedListOfGetCatalogItemResponse(List<GetCatalogItemResponse> items, int totalCount,
-      int page, int pageSize) {
+  public PagedListOfGetCatalogItemResponse(
+      List<GetCatalogItemResponse> items, int totalCount, int page, int pageSize) {
     this.items = items == null ? null : List.copyOf(items);
     this.totalCount = totalCount;
     this.page = page;

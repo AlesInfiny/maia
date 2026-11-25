@@ -14,16 +14,13 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-/**
- * ヘルスチェック API の動作をテストするクラスです。
- */
+/** ヘルスチェック API の動作をテストするクラスです。 */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 public class HealthCheckTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("testGet_03_ヘルスチェック_サーバ正常動作確認")

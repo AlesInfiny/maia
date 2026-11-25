@@ -16,17 +16,14 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-/**
- * {@link AssetsController} の動作をテストするクラスです。
- */
+/** {@link AssetsController} の動作をテストするクラスです。 */
 @SpringJUnitConfig
 @SpringBootTest(classes = WebApplication.class)
 @AutoConfigureMockMvc
 @WithMockUser(roles = {"ADMIN"})
 public class AssetsControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("testGet_01_正常系_存在するアセットコード")

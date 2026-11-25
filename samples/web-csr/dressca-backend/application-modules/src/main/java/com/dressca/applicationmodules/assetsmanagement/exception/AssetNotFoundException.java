@@ -3,9 +3,7 @@ package com.dressca.applicationmodules.assetsmanagement.exception;
 import com.dressca.applicationmodules.assetsmanagement.internal.constant.AssetManagementExceptionIdConstants;
 import com.dressca.systemcommon.exception.LogicException;
 
-/**
- * アセットが存在しないことを表す例外クラスです。
- */
+/** アセットが存在しないことを表す例外クラスです。 */
 public class AssetNotFoundException extends LogicException {
 
   /**
@@ -14,7 +12,10 @@ public class AssetNotFoundException extends LogicException {
    * @param assetCode 見つからなかったアセットコード。
    */
   public AssetNotFoundException(String assetCode) {
-    super(null, AssetManagementExceptionIdConstants.E_ASSET_NOT_FOUND, new String[] {assetCode},
+    super(
+        null,
+        AssetManagementExceptionIdConstants.E_ASSET_NOT_FOUND,
+        new String[] {assetCode},
         new String[] {assetCode});
   }
 }
