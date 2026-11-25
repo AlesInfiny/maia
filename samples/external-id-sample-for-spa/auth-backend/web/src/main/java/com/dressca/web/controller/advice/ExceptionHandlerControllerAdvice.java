@@ -1,9 +1,9 @@
 package com.dressca.web.controller.advice;
 
-import lombok.RequiredArgsConstructor;
 import com.dressca.systemcommon.constant.CommonExceptionIdConstants;
 import com.dressca.systemcommon.log.AbstractStructuredLogger;
 import com.dressca.web.log.ErrorMessageBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-/**
- * サーバーエラーのハンドリングを行うクラスです。
- */
+/** サーバーエラーのハンドリングを行うクラスです。 */
 @ControllerAdvice
 @RequiredArgsConstructor
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
@@ -33,10 +31,12 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_UNAUTHORIZED, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_BUSINESS, HttpStatus.UNAUTHORIZED);
+    ProblemDetail problemDetail =
+        problemDetailsFactory.createProblemDetail(
+            errorBuilder, CommonExceptionIdConstants.E_BUSINESS, HttpStatus.UNAUTHORIZED);
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 
   /**
@@ -50,9 +50,11 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     ErrorMessageBuilder errorBuilder =
         new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_SYSTEM, null, null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
-    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-        CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
+    ProblemDetail problemDetail =
+        problemDetailsFactory.createProblemDetail(
+            errorBuilder, CommonExceptionIdConstants.E_SYSTEM, HttpStatus.INTERNAL_SERVER_ERROR);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON).body(problemDetail);
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
   }
 }

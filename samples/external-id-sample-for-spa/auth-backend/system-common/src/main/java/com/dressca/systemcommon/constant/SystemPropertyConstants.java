@@ -1,8 +1,6 @@
 package com.dressca.systemcommon.constant;
 
-/**
- * システムプロパティ用の定数クラスです。
- */
+/** システムプロパティ用の定数クラスです。 */
 public class SystemPropertyConstants {
   /** アプリケーションログのロガー名。 */
   public static final String APPLICATION_LOG_LOGGER = "application.log";

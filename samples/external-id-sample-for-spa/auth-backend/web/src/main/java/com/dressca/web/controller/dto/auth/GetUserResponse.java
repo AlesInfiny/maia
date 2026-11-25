@@ -5,13 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * ログインに成功した際のユーザ ID を格納するクラスです。
- */
+/** ログインに成功した際のユーザ ID を格納するクラスです。 */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetUserResponse {
-  @NotNull
-  private String userId;
+  @NotNull private String userId;
 }
