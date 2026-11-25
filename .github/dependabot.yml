@@ -48,6 +48,8 @@ updates:
     labels:
       - "npm"
       - "dependencies"
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
     groups:
       textlint-packages:
         patterns:
@@ -61,6 +63,8 @@ updates:
           - "patch"
       dev-dependencies:
         dependency-type: "development"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -78,7 +82,8 @@ updates:
       - "target: Dressca"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -133,11 +138,15 @@ updates:
           - "patch"
       dev-dependencies:
         dependency-type: "development"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
       prod-dependencies:
         dependency-type: "production"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -178,7 +187,8 @@ updates:
       - "target: Azure AD B2C Auth"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -220,11 +230,15 @@ updates:
           - "patch"
       dev-dependencies:
         dependency-type: "development"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
       prod-dependencies:
         dependency-type: "production"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
@@ -265,7 +279,8 @@ updates:
       - "target: EntraID External ID"
       - "npm"
       - "dependencies"
-    # 1 つの依存が複数のグループに該当する場合は、先に書いたグループに入る
+    # 1 つの依存が複数のグループに該当する場合は、パターンがより具体的なグループに入る
+    # patterns を省略したグループはワイルドカードのパターンより優先されるため、残りを拾うグループには "*" を指定する
     groups:
       lint-packages:
         patterns:
@@ -307,11 +322,15 @@ updates:
           - "patch"
       dev-dependencies:
         dependency-type: "development"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
       prod-dependencies:
         dependency-type: "production"
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
