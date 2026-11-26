@@ -56,7 +56,7 @@
     "@vue/tsconfig": "0.9.1",
     "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-jsdoc": "64.5.4",
+    "eslint-plugin-jsdoc": "65.5.0",
     "eslint-plugin-playwright": "2.12.0",
     "eslint-plugin-vue": "10.11.0",
     "jiti": "2.7.0",
