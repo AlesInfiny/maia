@@ -7,8 +7,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8081",
-      "description": "Generated server url"
+      "description": "Generated server url",
+      "url": "http://localhost:8081"
     }
   ],
   "tags": [
